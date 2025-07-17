@@ -25,6 +25,7 @@ const sortByDisplay: Record<string, string> = {
   price: 'Price',
   discount: 'Discount',
   discountPercent: 'Discount %',
+  giveawayDate: 'Giveaway Date',
 };
 
 export interface SearchHeaderProps {
