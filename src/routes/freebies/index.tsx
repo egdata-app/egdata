@@ -41,9 +41,13 @@ import {
 } from '@tanstack/react-query';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { useDebounce } from '@uidotdev/usehooks';
+import {
+  freebiesSearchStore,
+  freebiesFormSchema,
+} from '@/stores/freebiesSearchStore';
+import { useStore } from '@tanstack/react-store';
 import { ArrowDown, GridIcon } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
-import { z } from 'zod';
 import { getBuyLink } from '@/lib/get-build-link';
 import { useLocale } from '@/hooks/use-locale';
 import consola from 'consola';
@@ -60,13 +64,13 @@ const sortByList: Record<string, string> = {
 };
 
 interface SearchGiveawaysParams {
-  query: string;
+  query?: string;
   sortBy: keyof typeof sortByList;
   sortDir: 'asc' | 'desc';
-  offerType: keyof typeof offersDictionary | undefined;
+  offerType?: keyof typeof offersDictionary;
   country: string;
   page: number;
-  year: string | undefined;
+  year?: number;
 }
 
 const searchGiveaways = async ({
@@ -90,7 +94,7 @@ const searchGiveaways = async ({
     total: number;
   }>('/free-games/search', {
     params: {
-      title: query === '' ? undefined : query,
+      title: query ?? undefined,
       sortBy,
       sortDir,
       offerType,
@@ -120,15 +124,6 @@ const getGiveawaysStats = async ({ country }: { country: string }) => {
   return res;
 };
 
-const giveawaysSearchSchema = z.object({
-  page: z.number().optional(),
-  query: z.string().optional(),
-  sortBy: z.string().optional(),
-  offerType: z.string().optional(),
-  sortDir: z.string().optional(),
-  year: z.number().optional(),
-});
-
 export const Route = createFileRoute('/freebies/')({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
@@ -139,9 +134,16 @@ export const Route = createFileRoute('/freebies/')({
     );
   },
 
-  validateSearch: (search) => giveawaysSearchSchema.parse(search),
+  validateSearch: (search) => freebiesFormSchema.parse(search),
 
-  loader: async () => {
+  beforeLoad: (ctx) => {
+    const { search } = ctx;
+    return {
+      search,
+    };
+  },
+
+  loader: async ({ context }) => {
     const client = getQueryClient();
 
     let url: URL;
@@ -167,29 +169,24 @@ export const Route = createFileRoute('/freebies/')({
     );
     const country = getCountryCode(url, cookies);
 
-    const page = Number.parseInt(url.searchParams.get('page') ?? '1');
-    const query = url.searchParams.get('query') ?? '';
-    const sortBy = url.searchParams.get('sortBy') ?? 'giveawayDate';
-    const offerType = (url.searchParams.get('offerType') ?? undefined) as
-      | keyof typeof offersDictionary
-      | undefined;
-    const sortDir = (url.searchParams.get('sortDir') ?? 'desc') as
-      | 'asc'
-      | 'desc';
-    const year = url.searchParams.get('year') ?? undefined;
+    const {
+      page = 1,
+      query = undefined,
+      sortBy = 'giveawayDate',
+      offerType = undefined,
+      sortDir = 'desc',
+      year = undefined,
+    } = context.search;
 
     await Promise.all([
       client.prefetchQuery({
-        queryKey: [
-          'search-giveaways',
-          { page, limit: 25, country, query, sortBy, offerType, sortDir, year },
-        ],
+        queryKey: ['search-giveaways', context.search],
         queryFn: () =>
           searchGiveaways({
             query,
             sortBy,
             sortDir,
-            offerType,
+            offerType: offerType as keyof typeof offersDictionary | undefined,
             country,
             page,
             year,
@@ -231,7 +228,7 @@ export const Route = createFileRoute('/freebies/')({
     const ogImage =
       'https://cdn.egdata.app/cdn-cgi/imagedelivery/<ACCOUNT_HASH>/<IMAGE_ID>/<VARIANT_NAME>'
         .replace('<ACCOUNT_HASH>', 'RlN2EBAhhGSZh5aeUaPz3Q')
-        .replace('<IMAGE_ID>', loaderData?.og)
+        .replace('<IMAGE_ID>', String(loaderData?.og ?? ''))
         .replace('<VARIANT_NAME>', 'og');
 
     return {
@@ -285,85 +282,62 @@ export const Route = createFileRoute('/freebies/')({
 });
 
 function FreeGames() {
-  const {
-    page: serverPage,
-    query: serverQuery,
-    sortBy: serverSortBy,
-    offerType: serverOfferType,
-    sortDir: serverSortDir,
-    year: serverYear,
-  } = Route.useLoaderData();
   const { view, setView } = usePreferences();
   const { country } = useCountry();
   const years = useMemo(() => getYearsFrom2018ToCurrent(), []);
   const navigate = Route.useNavigate();
-  const [page, setPage] = useState(serverPage);
-  const [query, setQuery] = useState<string>(serverQuery ?? '');
-  const [sortBy, setSortBy] = useState<keyof typeof sortByList>(
-    serverSortBy ?? 'giveawayDate',
-  );
-  const [offerType, setOfferType] = useState<
-    keyof typeof offersDictionary | undefined
-  >(serverOfferType ?? undefined);
-  const [sortDir, setSortDir] = useState<'asc' | 'desc'>(
-    serverSortDir ?? 'desc',
-  );
-  const [year, setYear] = useState<string | undefined>(serverYear ?? undefined);
+  const freebiesQuery = useStore(freebiesSearchStore);
+  const setField = (
+    field: keyof typeof freebiesQuery,
+    value: (typeof freebiesQuery)[keyof typeof freebiesQuery],
+  ) => {
+    freebiesSearchStore.setState((prev) => ({ ...prev, [field]: value }));
+  };
+  const debouncedSearch = useDebounce(freebiesQuery, 300);
 
-  // Debounce the query, sortBy, offerType, sortDir, and year values
-  const debouncedQuery = useDebounce(query, 300);
-  const debouncedSortBy = useDebounce(sortBy, 300);
-  const debouncedOfferType = useDebounce(offerType, 300);
-  const debouncedSortDir = useDebounce(sortDir, 300);
-  const debouncedYear = useDebounce(year, 300);
+  // Stable query key object
+  const stableQueryKey = useMemo(
+    () => ({
+      page: debouncedSearch.page ?? 1,
+      query: debouncedSearch.query ?? undefined,
+      sortBy: debouncedSearch.sortBy ?? 'giveawayDate',
+      offerType: debouncedSearch.offerType ?? undefined,
+      sortDir: debouncedSearch.sortDir ?? 'desc',
+      year: debouncedSearch.year ?? undefined,
+    }),
+    [
+      debouncedSearch.page,
+      debouncedSearch.query,
+      debouncedSearch.sortBy,
+      debouncedSearch.offerType,
+      debouncedSearch.sortDir,
+      debouncedSearch.year,
+    ],
+  );
 
   const { data, isLoading } = useQuery({
-    queryKey: [
-      'search-giveaways',
-      {
-        page,
-        limit: 25,
-        country,
-        query: debouncedQuery,
-        sortBy: debouncedSortBy,
-        offerType: debouncedOfferType,
-        sortDir: debouncedSortDir,
-        year: debouncedYear,
-      },
-    ],
+    queryKey: ['search-giveaways', stableQueryKey],
     queryFn: () =>
       searchGiveaways({
-        query: debouncedQuery,
-        sortBy: debouncedSortBy,
-        sortDir: debouncedSortDir,
-        offerType: debouncedOfferType,
+        query: stableQueryKey.query,
+        sortBy: stableQueryKey.sortBy as keyof typeof sortByList,
+        sortDir: stableQueryKey.sortDir as 'asc' | 'desc',
+        offerType: stableQueryKey.offerType as
+          | keyof typeof offersDictionary
+          | undefined,
         country,
-        page,
-        year: debouncedYear,
+        page: stableQueryKey.page,
+        year: stableQueryKey.year,
       }),
     placeholderData: keepPreviousData,
   });
 
   useEffect(() => {
     navigate({
-      search: {
-        query: debouncedQuery,
-        sortBy: debouncedSortBy,
-        offerType: debouncedOfferType,
-        sortDir: debouncedSortDir,
-        year: debouncedYear ? Number.parseInt(debouncedYear) : undefined,
-        page: 1,
-      },
+      search: stableQueryKey,
       resetScroll: false,
     });
-  }, [
-    debouncedQuery,
-    debouncedSortBy,
-    debouncedOfferType,
-    debouncedSortDir,
-    debouncedYear,
-    navigate,
-  ]);
+  }, [stableQueryKey, navigate]);
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -380,11 +354,8 @@ function FreeGames() {
 
   const handlePageChange = (newPage: number) => {
     if (newPage < 1 || newPage > totalPages) return;
-    setPage(newPage);
+    setField('page', newPage);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    const url = new URL(window.location.href);
-    url.searchParams.set('page', newPage.toString());
-    window.history.pushState(null, '', url.href);
   };
 
   return (
@@ -441,18 +412,22 @@ function FreeGames() {
           <Input
             type="search"
             placeholder="Search for games"
-            onChange={(e) => setQuery(e.target.value)}
-            value={query}
+            onChange={(e) => setField('query', e.target.value)}
+            value={freebiesQuery.query ?? ''}
           />
           <Select
-            value={offerType}
-            onValueChange={(value) =>
-              setOfferType(value as keyof typeof offersDictionary)
+            value={
+              freebiesQuery.offerType ? String(freebiesQuery.offerType) : ''
             }
+            onValueChange={(value) => setField('offerType', value || undefined)}
           >
             <SelectTrigger className="w-[180px]">
               <SelectValue className="text-sm" placeholder="All">
-                {offerType ? (offersDictionary[offerType] ?? offerType) : 'All'}
+                {freebiesQuery.offerType
+                  ? (offersDictionary[
+                      freebiesQuery.offerType as keyof typeof offersDictionary
+                    ] ?? freebiesQuery.offerType)
+                  : 'All'}
               </SelectValue>
             </SelectTrigger>
             <SelectContent>
@@ -470,14 +445,19 @@ function FreeGames() {
             </SelectContent>
           </Select>
           <Select
-            value={sortBy}
-            onValueChange={(value) =>
-              setSortBy(value as keyof typeof sortByList)
+            value={
+              freebiesQuery.sortBy
+                ? String(freebiesQuery.sortBy)
+                : 'giveawayDate'
             }
+            onValueChange={(value) => setField('sortBy', value)}
           >
             <SelectTrigger className="w-[180px]">
               <SelectValue className="text-sm">
-                {sortByList[sortBy] ?? sortBy}
+                {sortByList[
+                  (freebiesQuery.sortBy ??
+                    'giveawayDate') as keyof typeof sortByList
+                ] ?? freebiesQuery.sortBy}
               </SelectValue>
             </SelectTrigger>
             <SelectContent>
@@ -488,7 +468,10 @@ function FreeGames() {
               ))}
             </SelectContent>
           </Select>
-          <Select value={year} onValueChange={(value) => setYear(value)}>
+          <Select
+            value={freebiesQuery.year ? String(freebiesQuery.year) : ''}
+            onValueChange={(value) => setField('year', value || undefined)}
+          >
             <SelectTrigger className="w-[180px]">
               <SelectValue className="text-sm" />
             </SelectTrigger>
@@ -509,13 +492,18 @@ function FreeGames() {
           <Button
             variant="outline"
             className="h-9 w-9 p-0"
-            onClick={() => setSortDir(sortDir === 'asc' ? 'desc' : 'asc')}
+            onClick={() =>
+              setField(
+                'sortDir',
+                (freebiesQuery.sortDir ?? 'desc') === 'asc' ? 'desc' : 'asc',
+              )
+            }
           >
             <ArrowDown
               className={cn(
                 'h-5 w-5 m-2 transition-transform ease-in-out duration-300',
                 {
-                  '-rotate-180': sortDir === 'asc',
+                  '-rotate-180': (freebiesQuery.sortDir ?? 'desc') === 'asc',
                 },
               )}
             />
@@ -543,12 +531,11 @@ function FreeGames() {
           if (view === 'grid') {
             return <OfferCard key={game._id} offer={game} size="md" />;
           }
-
           return <OfferListItem key={game._id} game={game} />;
         })}
       </section>
       <DynamicPagination
-        currentPage={page}
+        currentPage={freebiesQuery.page ?? 1}
         setPage={handlePageChange}
         totalPages={totalPages}
       />
