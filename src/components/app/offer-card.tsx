@@ -252,6 +252,10 @@ export function OfferCard({
   );
 
   useEffect(() => {
+    if (import.meta.env.DEV) {
+      setGradient(null);
+      return;
+    }
     extractGradient(gradientImage).then(setGradient);
   }, [gradientImage]);
 

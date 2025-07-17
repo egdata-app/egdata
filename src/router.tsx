@@ -4,6 +4,8 @@ import { routeTree } from './routeTree.gen';
 import { DefaultCatchBoundary } from '@/components/app/default-catch-boundary';
 import { NotFound } from '@/components/app/not-found';
 import { getQueryClient } from '@/lib/client';
+import { parseSearchWith, stringifySearchWith } from '@tanstack/react-router';
+import { stringify, parse } from './lib/jsurl2';
 
 export function createRouter() {
   const queryClient = getQueryClient();
@@ -28,11 +30,11 @@ export function createRouter() {
             direction = fromIndex > toIndex ? 'right' : 'left';
           }
 
-          console.log(direction);
-
           return [`slide-${direction}`];
         },
       },
+      parseSearch: parseSearchWith(parse),
+      stringifySearch: stringifySearchWith(stringify),
     }),
     queryClient,
   );
