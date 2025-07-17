@@ -11,7 +11,6 @@
 import { createServerRootRoute } from '@tanstack/react-start/server'
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SearchV2RouteImport } from './routes/search-v2'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PostsRouteImport } from './routes/posts'
@@ -81,11 +80,6 @@ import { ServerRoute as ApiAuthSplatServerRouteImport } from './routes/api/auth/
 
 const rootServerRouteImport = createServerRootRoute()
 
-const SearchV2Route = SearchV2RouteImport.update({
-  id: '/search-v2',
-  path: '/search-v2',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
   path: '/search',
@@ -429,7 +423,6 @@ export interface FileRoutesByFullPath {
   '/posts': typeof PostsRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
-  '/search-v2': typeof SearchV2Route
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/logout': typeof AuthLogoutRoute
@@ -492,7 +485,6 @@ export interface FileRoutesByTo {
   '/posts': typeof PostsRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
-  '/search-v2': typeof SearchV2Route
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/logout': typeof AuthLogoutRoute
@@ -551,7 +543,6 @@ export interface FileRoutesById {
   '/posts': typeof PostsRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
-  '/search-v2': typeof SearchV2Route
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/logout': typeof AuthLogoutRoute
@@ -616,7 +607,6 @@ export interface FileRouteTypes {
     | '/posts'
     | '/privacy'
     | '/search'
-    | '/search-v2'
     | '/auth/callback'
     | '/auth/login'
     | '/auth/logout'
@@ -679,7 +669,6 @@ export interface FileRouteTypes {
     | '/posts'
     | '/privacy'
     | '/search'
-    | '/search-v2'
     | '/auth/callback'
     | '/auth/login'
     | '/auth/logout'
@@ -737,7 +726,6 @@ export interface FileRouteTypes {
     | '/posts'
     | '/privacy'
     | '/search'
-    | '/search-v2'
     | '/auth/callback'
     | '/auth/login'
     | '/auth/logout'
@@ -801,7 +789,6 @@ export interface RootRouteChildren {
   PostsRoute: typeof PostsRoute
   PrivacyRoute: typeof PrivacyRoute
   SearchRoute: typeof SearchRoute
-  SearchV2Route: typeof SearchV2Route
   AuthCallbackRoute: typeof AuthCallbackRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthLogoutRoute: typeof AuthLogoutRoute
@@ -888,13 +875,6 @@ export interface RootServerRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/search-v2': {
-      id: '/search-v2'
-      path: '/search-v2'
-      fullPath: '/search-v2'
-      preLoaderRoute: typeof SearchV2RouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/search': {
       id: '/search'
       path: '/search'
@@ -1489,7 +1469,6 @@ const rootRouteChildren: RootRouteChildren = {
   PostsRoute: PostsRoute,
   PrivacyRoute: PrivacyRoute,
   SearchRoute: SearchRoute,
-  SearchV2Route: SearchV2Route,
   AuthCallbackRoute: AuthCallbackRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthLogoutRoute: AuthLogoutRoute,

@@ -27,7 +27,7 @@ export function LatestReleased() {
         className="text-xl font-bold text-left inline-flex group items-center gap-2"
         to="/search"
         search={{
-          sort_by: 'releaseDate',
+          sortBy: 'releaseDate',
         }}
       >
         Latest Released{' '}

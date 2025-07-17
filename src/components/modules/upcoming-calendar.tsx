@@ -53,7 +53,7 @@ export function UpcomingCalendar() {
       acc[key].push(offer);
       return acc;
     },
-    {} as Record<string, SingleOffer[]>
+    {} as Record<string, SingleOffer[]>,
   );
 
   const now = new Date();
@@ -66,7 +66,7 @@ export function UpcomingCalendar() {
         className="text-xl font-bold text-left inline-flex group items-center gap-2"
         to="/search"
         search={{
-          sort_by: 'upcoming',
+          sortBy: 'upcoming',
         }}
       >
         Upcoming Offers{' '}
@@ -121,7 +121,7 @@ function relativeDate(date: Date) {
   const dateOnly = new Date(
     date.getFullYear(),
     date.getMonth(),
-    date.getDate()
+    date.getDate(),
   );
   const nowOnly = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
@@ -163,7 +163,7 @@ function FloatingCountdown({ date }: { date: Date }) {
  */
 function formatTimeLeft(timeLeft: number) {
   const hours = Math.floor(
-    (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
   );
   const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);

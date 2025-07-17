@@ -262,7 +262,7 @@ const routes: Route[] = [
           <ListItem href="/freebies" title="Free Games">
             Explore the latest free game offerings on the Epic Games Store.
           </ListItem>
-          <ListItem href="/search?on_sale=true" title="With Discounts">
+          <ListItem href="/search?onSale=true" title="With Discounts">
             Check out games currently on sale with great discounts.
           </ListItem>
           <li className="col-start-2 row-start-1 row-end-4">
@@ -491,7 +491,7 @@ export default function Navbar() {
                               Games Store.
                             </MobileMenuItem>
                             <MobileMenuItem
-                              href="/search?on_sale=true"
+                              href="/search?onSale=true"
                               title="With Discounts"
                             >
                               Check out games currently on sale with great

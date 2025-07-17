@@ -1,38 +1,40 @@
 import { Store } from '@tanstack/react-store';
-import { type TypeOf, z } from 'zod';
-
-export const DEFAULT_LIMIT = 28;
-
-export const defaultSearchState = {
-  limit: DEFAULT_LIMIT,
-  page: 1,
-};
+import { z } from 'zod';
 
 export const formSchema = z.object({
   title: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  developerDisplayName: z.string().optional(),
+  publisherDisplayName: z.string().optional(),
   offerType: z
     .enum([
-      'IN_GAME_PURCHASE',
       'BASE_GAME',
-      'EXPERIENCE',
-      'UNLOCKABLE',
-      'ADD_ON',
-      'Bundle',
-      'CONSUMABLE',
-      'WALLET',
-      'OTHERS',
-      'DEMO',
       'DLC',
-      'VIRTUAL_CURRENCY',
-      'BUNDLE',
-      'DIGITAL_EXTRA',
-      'EDITION',
+      'ADD_ON',
       'SUBSCRIPTION',
+      'BUNDLE',
+      'DEMO',
+      'EDITION',
+      'SEASON',
+      'PASS',
+      'INGAMEITEM',
+      'INGAME_CURRENCY',
+      'LOOTBOX',
+      'SUBSCRIPTION_BUNDLE',
+      'UNKNOWN',
     ])
     .optional(),
-  tags: z.string().array().optional(),
-  customAttributes: z.string().array().optional(),
+  onSale: z.boolean().optional(),
+  isCodeRedemptionOnly: z.boolean().optional(),
+  excludeBlockchain: z.boolean().optional(),
+  pastGiveaways: z.boolean().optional(),
   seller: z.string().optional(),
+  price: z
+    .object({
+      min: z.number(),
+      max: z.number(),
+    })
+    .optional(),
   sortBy: z
     .enum([
       'releaseDate',
@@ -42,32 +44,78 @@ export const formSchema = z.object({
       'viewableDate',
       'pcReleaseDate',
       'upcoming',
-      'priceAsc',
-      'priceDesc',
       'price',
       'discount',
       'discountPercent',
     ])
     .optional(),
   sortDir: z.enum(['asc', 'desc']).optional(),
+  page: z.number().optional(),
   limit: z.number().optional(),
-  page: z.number().default(1).optional(),
-  refundType: z.string().optional(),
-  isCodeRedemptionOnly: z.boolean().optional(),
-  excludeBlockchain: z.boolean().optional(),
-  price: z
-    .object({
-      min: z.number().optional(),
-      max: z.number().optional(),
-    })
-    .optional(),
-  onSale: z.boolean().optional(),
-  categories: z.string().array().optional(),
-  developerDisplayName: z.string().optional(),
-  publisherDisplayName: z.string().optional(),
-  pastGiveaways: z.boolean().optional(),
 });
 
-export const searchStore = new Store<TypeOf<typeof formSchema>>(
-  defaultSearchState,
-);
+export type SearchState = z.infer<typeof formSchema>;
+
+export const DEFAULT_LIMIT = 28;
+
+// Default search state
+const defaultState: SearchState = {
+  page: 1,
+  limit: DEFAULT_LIMIT,
+};
+
+// Create the default store instance
+export const searchStore = new Store<SearchState>(defaultState);
+
+// SearchStoreManager class to manage multiple store instances
+export class SearchStoreManager {
+  private stores = new Map<string, Store<SearchState>>();
+
+  // Create or get a store instance for a specific page/context
+  getStore(
+    contextId: string,
+    initialState?: Partial<SearchState>,
+  ): Store<SearchState> {
+    if (!this.stores.has(contextId)) {
+      const initialStoreState = {
+        ...defaultState,
+        ...initialState,
+      };
+      this.stores.set(contextId, new Store<SearchState>(initialStoreState));
+    }
+    const store = this.stores.get(contextId);
+    if (!store) {
+      throw new Error(`Failed to create store for context: ${contextId}`);
+    }
+    return store;
+  }
+
+  // Remove a store instance (cleanup)
+  removeStore(contextId: string): void {
+    this.stores.delete(contextId);
+  }
+
+  // Get all active store IDs
+  getActiveStoreIds(): string[] {
+    return Array.from(this.stores.keys());
+  }
+
+  // Clear all stores
+  clearAll(): void {
+    this.stores.clear();
+  }
+}
+
+// Global instance of the manager
+export const searchStoreManager = new SearchStoreManager();
+
+// Helper function to get a store for a specific context
+export function getSearchStore(
+  contextId?: string,
+  initialState?: Partial<SearchState>,
+) {
+  if (!contextId) {
+    return searchStore; // Return default store for backward compatibility
+  }
+  return searchStoreManager.getStore(contextId, initialState);
+}

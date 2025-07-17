@@ -27,7 +27,7 @@ export function LatestOffers() {
         className="text-xl font-bold text-left inline-flex group items-center gap-2"
         to="/search"
         search={{
-          sort_by: 'creationDate',
+          sortBy: 'creationDate',
         }}
       >
         Latest Added{' '}

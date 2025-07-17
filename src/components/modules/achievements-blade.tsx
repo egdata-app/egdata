@@ -68,9 +68,9 @@ export function GamesWithAchievements() {
       <Link
         to={'/search'}
         search={{
-          tags: '19847',
-          sort_by: 'creationDate',
-          offer_type: 'BASE_GAME',
+          tags: ['19847'],
+          sortBy: 'creationDate',
+          offerType: 'BASE_GAME',
         }}
         className="text-xl font-bold text-left inline-flex gap-2 group items-center justify-start"
       >
