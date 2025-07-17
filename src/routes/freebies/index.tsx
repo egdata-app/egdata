@@ -172,10 +172,10 @@ function FreeGames() {
       <SearchContainer
         contextId="freebies"
         initialSearch={search}
-        fixedParams={{ pastGiveaways: true }}
-        onSearchChange={(search) => {
+        fixedParams={{ pastGiveaways: true, sortBy: 'giveawayDate' }}
+        onSearchChange={(s) => {
           navigate({
-            search,
+            search: s,
             resetScroll: false,
           });
         }}
