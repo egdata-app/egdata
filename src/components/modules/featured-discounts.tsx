@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Image } from '@/components/app/image';
 import { getImage } from '@/lib/getImage';
 import type { Media } from '@/types/media';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, memo } from 'react';
 import Autoplay from 'embla-carousel-autoplay';
 import {
   TooltipProvider,
@@ -37,6 +37,7 @@ export function FeaturedDiscounts() {
   const { data: featuredDiscounts } = useQuery({
     queryKey: ['featuredDiscounts', { country }],
     queryFn: () => getFeaturedDiscounts({ country }),
+    staleTime: 5 * 60 * 1000, // 5 minutes stale time to reduce refetches
   });
 
   const [api, setApi] = useState<CarouselApi>();
@@ -45,6 +46,15 @@ export function FeaturedDiscounts() {
   const [progress, setProgress] = useState<number[]>([]);
   const [isPaused, setIsPaused] = useState(false);
 
+  // Memoize the progress array initialization to avoid recreating on each render
+  const initializeProgress = useCallback(() => {
+    return Array.from(
+      { length: (featuredDiscounts as SingleOffer[])?.length || 0 },
+      () => 0,
+    );
+  }, [featuredDiscounts]);
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (!api) {
       return;
@@ -52,22 +62,14 @@ export function FeaturedDiscounts() {
 
     setCount(api.scrollSnapList().length);
     setCurrent(api.selectedScrollSnap() + 1);
-    setProgress(
-      Array.from(
-        { length: (featuredDiscounts as SingleOffer[])?.length || 0 },
-        () => 0,
-      ),
-    );
+    setProgress(initializeProgress());
 
-    api.on('select', () => {
+    const handleSelect = () => {
       setCurrent(api.selectedScrollSnap() + 1);
-      setProgress(
-        Array.from(
-          { length: (featuredDiscounts as SingleOffer[])?.length || 0 },
-          () => 0,
-        ),
-      );
-    });
+      setProgress(initializeProgress());
+    };
+
+    api.on('select', handleSelect);
 
     const handleInteraction = () => {
       setIsPaused(true);
@@ -85,11 +87,17 @@ export function FeaturedDiscounts() {
     api.containerNode().addEventListener('mouseenter', handleMouseEnter);
     api.containerNode().addEventListener('mouseleave', handleMouseLeave);
 
+    // Use a more efficient interval for progress updates
+    const progressIncrement = 100 / (SLIDE_DELAY / 100);
     const interval = setInterval(() => {
       if (!isPaused) {
         setProgress((prevProgress) => {
+          // Only update the current slide's progress
+          if (current <= 0 || current > prevProgress.length)
+            return prevProgress;
+
           const newProgress = [...prevProgress];
-          newProgress[current - 1] += 100 / (SLIDE_DELAY / 100);
+          newProgress[current - 1] += progressIncrement;
           if (newProgress[current - 1] >= 100) {
             api.scrollNext();
             newProgress[current - 1] = 0;
@@ -107,13 +115,14 @@ export function FeaturedDiscounts() {
     };
   }, [api, current, isPaused, featuredDiscounts]);
 
-  const handleNextSlide = () => {
+  // Memoize event handlers to prevent recreating functions on each render
+  const handleNextSlide = useCallback(() => {
     api?.scrollNext();
-  };
+  }, [api]);
 
-  const handlePreviousSlide = () => {
+  const handlePreviousSlide = useCallback(() => {
     api?.scrollPrev();
-  };
+  }, [api]);
 
   if (!featuredDiscounts) {
     return null;
@@ -176,7 +185,8 @@ export function FeaturedDiscounts() {
   );
 }
 
-function ProgressIndicator({
+// Memoize ProgressIndicator to prevent unnecessary re-renders
+const ProgressIndicator = memo(function ProgressIndicator({
   current,
   total,
   api,
@@ -189,66 +199,77 @@ function ProgressIndicator({
   offers: SingleOffer[];
   progress: number[];
 }) {
+  // Memoize the indicators array to prevent recreation on each render
+  const indicators = useMemo(() => {
+    return Array.from({ length: total }).map((_, i) => (
+      <Tooltip key={`tooltip-${offers[i]?.id}`} delayDuration={0}>
+        <TooltipTrigger
+          className={cn(
+            'block w-5 h-[5px] rounded-full cursor-pointer relative',
+            'bg-gray-500',
+            current === i + 1 ? 'w-10' : 'hover:bg-gray-700 hover:w-8',
+            'transition-width duration-300 ease-in-out',
+          )}
+          onClick={() => api?.scrollTo(i)}
+          onKeyDown={() => api?.scrollTo(i)}
+        >
+          <div
+            className="absolute top-0 left-0 h-full bg-white rounded-full transition-width duration-300 ease-in-out"
+            style={{
+              width: `${progress[i]}%`,
+            }}
+          />
+        </TooltipTrigger>
+        <TooltipContent className="p-0 bg-card" sideOffset={10}>
+          {current !== i + 1 && (
+            <img
+              src={buildImageUrl(
+                getImage(offers[i]?.keyImages ?? [], [
+                  'DieselStoreFrontWide',
+                  'Featured',
+                  'OfferImageWide',
+                ])?.url ?? '/300x150-egdata-placeholder.png',
+                400,
+                'medium',
+              )}
+              alt={offers[i]?.title}
+              className="w-auto h-28 object-cover rounded-md"
+            />
+          )}
+        </TooltipContent>
+      </Tooltip>
+    ));
+  }, [total, current, offers, progress, api]);
+
   return (
     <div className="flex space-x-2 mt-4 mx-auto w-full justify-center min-h-1">
-      <TooltipProvider>
-        {Array.from({ length: total }).map((_, i) => (
-          <Tooltip key={`tooltip-${offers[i]?.id}`} delayDuration={0}>
-            <TooltipTrigger
-              className={cn(
-                'block w-5 h-[5px] rounded-full cursor-pointer relative',
-                'bg-gray-500',
-                current === i + 1 ? 'w-10' : 'hover:bg-gray-700 hover:w-8',
-                'transition-width duration-300 ease-in-out',
-              )}
-              onClick={() => api?.scrollTo(i)}
-              onKeyDown={() => api?.scrollTo(i)}
-            >
-              <div
-                className="absolute top-0 left-0 h-full bg-white rounded-full transition-width duration-300 ease-in-out"
-                style={{
-                  width: `${progress[i]}%`,
-                }}
-              />
-            </TooltipTrigger>
-            <TooltipContent className="p-0 bg-card" sideOffset={10}>
-              {current !== i + 1 && (
-                <img
-                  src={buildImageUrl(
-                    getImage(offers[i]?.keyImages ?? [], [
-                      'DieselStoreFrontWide',
-                      'Featured',
-                      'OfferImageWide',
-                    ])?.url ?? '/300x150-egdata-placeholder.png',
-                    400,
-                    'medium',
-                  )}
-                  alt={offers[i]?.title}
-                  className="w-auto h-28 object-cover rounded-md"
-                />
-              )}
-            </TooltipContent>
-          </Tooltip>
-        ))}
-      </TooltipProvider>
+      <TooltipProvider>{indicators}</TooltipProvider>
     </div>
   );
-}
+});
 
-function FeaturedOffer({ offer }: { offer: SingleOffer }) {
+// Memoize FeaturedOffer component to prevent unnecessary re-renders
+const FeaturedOffer = memo(function FeaturedOffer({
+  offer,
+}: { offer: SingleOffer }) {
   const [image] = useState<string | null>(null);
   const { data: offerMedia } = useQuery({
     queryKey: ['media', { id: offer.id }],
     queryFn: () => httpClient.get<Media>(`/offers/${offer.id}/media`),
     retry: false,
+    staleTime: 5 * 60 * 1000, // 5 minutes stale time
   });
   const [isHovered, setIsHovered] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  const videoUrl = offerMedia?.videos[0]?.outputs
-    .filter((output) => output.width !== undefined)
-    .sort((a, b) => (b?.width ?? 0) - (a?.width ?? 0))[0]?.url;
+  // Memoize video URL calculation to avoid recalculating on every render
+  const videoUrl = useMemo(() => {
+    return offerMedia?.videos[0]?.outputs
+      .filter((output) => output.width !== undefined)
+      .sort((a, b) => (b?.width ?? 0) - (a?.width ?? 0))[0]?.url;
+  }, [offerMedia]);
 
+  // Optimize video loading effect
   useEffect(() => {
     if (videoUrl && videoRef.current) {
       videoRef.current.src = videoUrl;
@@ -256,23 +277,38 @@ function FeaturedOffer({ offer }: { offer: SingleOffer }) {
     }
   }, [videoUrl]);
 
+  // Optimize video play/pause effect
   useEffect(() => {
-    if (videoRef.current) {
-      if (!isHovered) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
+    const videoElement = videoRef.current;
+    if (!videoElement) return;
+
+    if (isHovered) {
+      // Only attempt to play if the video is not already playing
+      if (videoElement.paused) {
+        const playPromise = videoElement.play();
+        // Handle potential play() promise rejection (e.g., if user hasn't interacted with page yet)
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            /* Silently handle error */
+          });
+        }
       }
+    } else {
+      videoElement.pause();
     }
   }, [isHovered]);
+
+  // Memoize mouse event handlers
+  const handleMouseEnter = useCallback(() => setIsHovered(true), []);
+  const handleMouseLeave = useCallback(() => setIsHovered(false), []);
 
   return (
     <div className="w-full mx-auto bg-background rounded-lg shadow-md">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div
           className="relative"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
           {videoUrl && (
             <video
@@ -335,7 +371,13 @@ function FeaturedOffer({ offer }: { offer: SingleOffer }) {
           <div className="mt-6">
             <Price offer={offer} />
             <Button asChild size="lg" className="w-full mt-4">
-              <Link to={`/offers/${offer.id}`} preload="intent">
+              <Link
+                to="/offers/$id"
+                params={{
+                  id: offer.id,
+                }}
+                preload="intent"
+              >
                 Check Offer
               </Link>
             </Button>
@@ -344,9 +386,10 @@ function FeaturedOffer({ offer }: { offer: SingleOffer }) {
       </div>
     </div>
   );
-}
+});
 
-function Price({ offer }: { offer: SingleOffer }) {
+// Memoize Price component to prevent unnecessary re-renders
+const Price = memo(function Price({ offer }: { offer: SingleOffer }) {
   const { locale } = useLocale();
   const priceFmtd = new Intl.NumberFormat(locale, {
     style: 'currency',
@@ -393,9 +436,10 @@ function Price({ offer }: { offer: SingleOffer }) {
       </div>
     </div>
   );
-}
+});
 
-function SaleModule({ price }: { price: OfferPrice }) {
+// Memoize SaleModule component to prevent unnecessary re-renders
+const SaleModule = memo(function SaleModule({ price }: { price: OfferPrice }) {
   const selectedRule = price.appliedRules.sort(
     (a, b) => new Date(a.endDate).getTime() - new Date(b.endDate).getTime(),
   )[0];
@@ -415,4 +459,4 @@ function SaleModule({ price }: { price: OfferPrice }) {
       </span>
     </div>
   );
-}
+});
