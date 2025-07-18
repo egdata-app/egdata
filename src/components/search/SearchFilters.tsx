@@ -353,7 +353,7 @@ export function SearchFilters({
             id="pastGiveaways"
             checked={Boolean(query.pastGiveaways)}
             onCheckedChange={(value) =>
-              handleFieldChange('pastGiveaways', Boolean(value))
+              handleFieldChange('pastGiveaways', value ? true : undefined)
             }
           />
           <label
@@ -371,7 +371,7 @@ export function SearchFilters({
             id="onSale"
             checked={!!query.onSale}
             onCheckedChange={(value) =>
-              handleFieldChange('onSale', Boolean(value))
+              handleFieldChange('onSale', value ? true : undefined)
             }
           />
           <label
@@ -389,7 +389,10 @@ export function SearchFilters({
             id="isCodeRedemptionOnly"
             checked={!!query.isCodeRedemptionOnly}
             onCheckedChange={(value) =>
-              handleFieldChange('isCodeRedemptionOnly', Boolean(value))
+              handleFieldChange(
+                'isCodeRedemptionOnly',
+                value ? true : undefined,
+              )
             }
           />
           <label
@@ -407,7 +410,7 @@ export function SearchFilters({
             id="excludeBlockchain"
             checked={!!query.excludeBlockchain}
             onCheckedChange={(value) =>
-              handleFieldChange('excludeBlockchain', Boolean(value))
+              handleFieldChange('excludeBlockchain', value ? true : undefined)
             }
           />
           <label
