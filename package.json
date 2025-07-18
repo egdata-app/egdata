@@ -10,7 +10,12 @@
     "start": "NODE_ENV=--enable-source-maps TZ=UTC node --env-file-if-exists=.env .output/server/index.mjs",
     "format": "biome format --write app components lib queries types contexts hooks",
     "lint": "biome lint --fix app components lib queries types contexts hooks",
-    "wrangler": "wrangler"
+    "wrangler": "wrangler",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:debug": "playwright test --debug",
+    "test:e2e:report": "playwright show-report"
   },
   "keywords": [],
   "author": "",
@@ -101,6 +106,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "@playwright/test": "^1.54.1",
     "@tailwindcss/postcss": "^4.1.11",
     "@tailwindcss/vite": "4.0.7",
     "@types/js-cookie": "^3.0.6",
