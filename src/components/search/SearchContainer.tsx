@@ -53,6 +53,27 @@ const defaultControls = {
   showPrice: true,
 };
 
+const mergeSearchStates = (
+  ...states: Partial<SearchState>[]
+): Partial<SearchState> => {
+  const result: Partial<SearchState> = {};
+  for (const state of states) {
+    for (const key in state) {
+      const k = key as keyof SearchState;
+      const resultValue = result[k];
+      const stateValue = state[k];
+      if (Array.isArray(resultValue) && Array.isArray(stateValue)) {
+        (result as Record<keyof SearchState, unknown>)[k] = [
+          ...new Set([...resultValue, ...stateValue]),
+        ];
+      } else if (stateValue !== undefined) {
+        (result as Record<keyof SearchState, unknown>)[k] = stateValue;
+      }
+    }
+  }
+  return result;
+};
+
 export function SearchContainer({
   contextId,
   initialSearch = {},
@@ -62,10 +83,10 @@ export function SearchContainer({
   title = 'Search',
 }: SearchContainerProps) {
   // Get the appropriate store for this context with initial state
-  const store = getSearchStore(contextId, {
-    ...initialSearch,
-    ...fixedParams,
-  });
+  const store = getSearchStore(
+    contextId,
+    mergeSearchStates(initialSearch, fixedParams),
+  );
 
   // Set up state
   const query = useStore(store) as TypeOf<typeof formSchema>;
@@ -103,7 +124,11 @@ export function SearchContainer({
   }, []); // Empty dependency array - only run once on mount
 
   // Debounce query for search
-  const debouncedQuery = useDebounce({ ...query, ...fixedParams }, 300);
+  const mergedQuery = useMemo(
+    () => mergeSearchStates(query, fixedParams),
+    [query, fixedParams],
+  );
+  const debouncedQuery = useDebounce(mergedQuery, 300);
   const { country } = useCountry();
 
   // Fetch search results
