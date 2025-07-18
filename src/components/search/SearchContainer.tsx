@@ -249,7 +249,7 @@ export function SearchContainer({
   }, [contextId]);
 
   return (
-    <div className="flex flex-col gap-4 min-h-screen">
+    <div className="flex flex-col gap-4 min-h-screen w-full">
       <main className="flex flex-row flex-nowrap items-start justify-between gap-4">
         <SearchFilters
           query={query as TypeOf<typeof formSchema>}
