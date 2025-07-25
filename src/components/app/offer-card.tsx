@@ -236,7 +236,8 @@ export function OfferCard({
     if (!genres) return [];
     const genreIds = genres.map((genre) => genre.id);
     return offer.tags
-      .filter((tag) => genreIds.includes(tag.id))
+      .filter((tag) => tag)
+      .filter((tag) => genreIds.includes(tag?.id))
       .map((tag) => tag.name);
   }, [genres, offer.tags]);
 
@@ -299,9 +300,10 @@ export function OfferCard({
                   >
                     {offer.title}{' '}
                     {offer.tags
-                      .filter((tag) => mobilePlatforms.includes(tag.id))
+                      .filter((tag) => tag)
+                      .filter((tag) => mobilePlatforms.includes(tag?.id))
                       .map((tag) => (
-                        <span key={tag.id}>{platformIcons[tag.id]}</span>
+                        <span key={tag?.id}>{platformIcons[tag?.id]}</span>
                       ))}
                   </h3>
                 </div>
@@ -340,7 +342,7 @@ function OfferBadges({
   const badges = useMemo(() => {
     const badges: string[] = [];
 
-    if (offer.tags.find((tag) => tag.id === '1310')) {
+    if (offer.tags.filter((tag) => tag).find((tag) => tag?.id === '1310')) {
       badges.push('Early Access');
     }
 
