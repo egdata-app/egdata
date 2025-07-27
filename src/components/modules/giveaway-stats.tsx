@@ -77,7 +77,7 @@ export function GiveawaysStats({
                   style: 'currency',
                   currency: data.totalValue.currencyCode,
                 })}
-                className="text-4xl font-semibold"
+                className="text-4xl font-medium"
               />
               <TooltipTrigger>
                 <span className="text-lg font-medium text-gray-400 decoration-dotted decoration-gray-400/50 underline underline-offset-4">
@@ -107,7 +107,7 @@ export function GiveawaysStats({
             <div className="flex flex-col items-center justify-center gap-2">
               <BigText
                 value={data.totalGiveaways.toLocaleString(locale)}
-                className="text-4xl font-semibold"
+                className="text-4xl font-medium"
               />
               <TooltipTrigger>
                 <span className="text-lg font-medium text-gray-400 decoration-dotted decoration-gray-400/50 underline underline-offset-4">
@@ -126,7 +126,7 @@ export function GiveawaysStats({
             <div className="flex flex-col items-center justify-center gap-2">
               <BigText
                 value={data.totalOffers.toLocaleString(locale)}
-                className="text-4xl font-semibold"
+                className="text-4xl font-medium"
               />
               <TooltipTrigger>
                 <span className="text-lg font-medium text-gray-400 decoration-dotted decoration-gray-400/50 underline underline-offset-4">
@@ -145,7 +145,7 @@ export function GiveawaysStats({
             <div className="flex flex-col items-center justify-center gap-2">
               <BigText
                 value={data.repeated.toLocaleString(locale)}
-                className="text-4xl font-semibold"
+                className="text-4xl font-medium"
               />
               <TooltipTrigger>
                 <span className="text-lg font-medium text-gray-400 decoration-dotted decoration-gray-400/50 underline underline-offset-4">
@@ -168,7 +168,7 @@ export function GiveawaysStats({
             >
               <BigText
                 value={data.sellers.toLocaleString(locale)}
-                className="text-4xl font-semibold"
+                className="text-4xl font-medium"
               />
               <TooltipTrigger>
                 <span className="text-lg font-medium text-gray-400 decoration-dotted decoration-gray-400/50 underline underline-offset-4">
@@ -195,5 +195,5 @@ function BigText({
   value: string | number;
   className?: string;
 }) {
-  return <span className={className}>{value}</span>;
+  return <span className={cn('font-mono', className)}>{value}</span>;
 }
