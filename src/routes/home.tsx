@@ -20,6 +20,12 @@ import {
 } from '@tanstack/react-router';
 import type { ReactNode } from 'react';
 import { DateTime } from 'luxon';
+import { GiveawaysCarousel } from '@/components/modules/giveaways';
+import {
+  getGiveawaysStats,
+  GiveawaysStats,
+} from '@/components/modules/giveaway-stats';
+import { cn } from '@/lib/utils';
 
 export const Route = createFileRoute('/home')({
   component: RouteComponent,
@@ -55,24 +61,12 @@ export const Route = createFileRoute('/home')({
         queryFn: () => getLatestOffers(country),
       }),
       queryClient.prefetchQuery({
-        queryKey: ['latest-released', { country }],
-        queryFn: () => getLatestReleased({ country }),
-      }),
-      queryClient.prefetchQuery({
-        queryKey: ['offers-with-achievements', { country }],
-        queryFn: () => getOffersWithAchievements(country),
-      }),
-      queryClient.prefetchQuery({
-        queryKey: ['top-sellers', { country }],
-        queryFn: () => getTopSellers(country),
-      }),
-      queryClient.prefetchQuery({
-        queryKey: ['last-modified', { country }],
-        queryFn: () => getLastModified(country),
-      }),
-      queryClient.prefetchQuery({
         queryKey: ['stats', { country }],
         queryFn: () => getStats({ country }),
+      }),
+      queryClient.prefetchQuery({
+        queryKey: ['giveaways-stats', { country }],
+        queryFn: () => getGiveawaysStats({ country }),
       }),
     ]);
 
@@ -167,9 +161,7 @@ function RouteComponent() {
   } = statsQuery;
 
   function formatDate(iso: string) {
-    return DateTime.fromISO(iso)
-      .setZone(timezone)
-      .toFormat('MMM d, HH:mm');
+    return DateTime.fromISO(iso).setZone(timezone).toFormat('MMM d, HH:mm');
   }
 
   const SimpleTable = ({
@@ -213,6 +205,7 @@ function RouteComponent() {
     href,
     search,
     params,
+    className,
   }: {
     title: string;
     children: ReactNode;
@@ -220,9 +213,14 @@ function RouteComponent() {
     href?: LinkComponentProps['to'];
     search?: LinkComponentProps['search'];
     params?: LinkComponentProps['params'];
+    className?: string;
   }) => (
     <Card
-      className={`flex flex-col rounded-lg border ${spanFull ? 'md:col-span-2' : ''} h-[500px]`}
+      className={cn(
+        'flex flex-col rounded-lg border h-[500px]',
+        spanFull ? 'md:col-span-2' : '',
+        className,
+      )}
     >
       <CardHeader className="border-b border-neutral-800 p-3">
         <CardTitle className="text-sm font-mono text-neutral-400">
@@ -270,6 +268,26 @@ function RouteComponent() {
 
       {/* Offer cards grid */}
       <div className="grid auto-rows-[1fr] gap-6 sm:grid-cols-1 md:grid-cols-2">
+        {/* Giveaways Stats Section */}
+        <Section title="Giveaway Stats" href="/freebies">
+          <div className="flex flex-col items-center justify-center h-full">
+            <div className="w-full flex items-center justify-center h-[350px]">
+              <GiveawaysStats showTitle={false} wrap />
+            </div>
+          </div>
+        </Section>
+        <Section title="Giveaway Offers" href="/freebies">
+          <SimpleTable
+            headers={['Title', 'Starts', 'Ends']}
+            rows={giveawayOffers
+              .slice(0, 10)
+              .map((g) => [
+                g.title ?? 'N/A',
+                g.giveaway.startDate ? formatDate(g.giveaway.startDate) : 'N/A',
+                g.giveaway.endDate ? formatDate(g.giveaway.endDate) : 'N/A',
+              ])}
+          />
+        </Section>
         <Section title="Featured Offers (Discounts)">
           <SimpleTable
             headers={['Offer', 'Developer', 'Release', 'Discount', 'Price']}
@@ -281,18 +299,6 @@ function RouteComponent() {
                 o.releaseDate ? formatDate(o.releaseDate) : 'N/A',
                 o.price?.price.discount ? `-${o.price.price.discount}%` : 'N/A',
                 o.price?.price.discountPrice ?? 'N/A',
-              ])}
-          />
-        </Section>
-        <Section title="Giveaway Offers" href="/freebies">
-          <SimpleTable
-            headers={['Title', 'Starts', 'Ends']}
-            rows={giveawayOffers
-              .slice(0, 10)
-              .map((g) => [
-                g.title ?? 'N/A',
-                g.giveaway.startDate ? formatDate(g.giveaway.startDate) : 'N/A',
-                g.giveaway.endDate ? formatDate(g.giveaway.endDate) : 'N/A',
               ])}
           />
         </Section>
