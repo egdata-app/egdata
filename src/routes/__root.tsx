@@ -184,6 +184,7 @@ export const Route = createRootRouteWithContext<{
           crossOrigin: 'anonymous',
         },
       ],
+
       meta: [
         {
           charSet: 'utf-8',
@@ -281,6 +282,7 @@ export const Route = createRootRouteWithContext<{
             'A free and open-source Epic Games Store database with comprehensive game information, sales tracking, and more. Community-driven and constantly updated.', // Improved description
         },
       ],
+
       scripts: [
         ...(import.meta.env.DEV
           ? []
@@ -291,9 +293,6 @@ export const Route = createRootRouteWithContext<{
                 'data-website-id': '931f85f9-f8b6-422c-882d-04864194435b',
               },
             ]),
-        {
-          src: '/register-sw.js',
-        },
       ],
     };
   },

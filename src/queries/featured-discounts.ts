@@ -3,12 +3,14 @@ import type { SingleOffer } from '@/types/single-offer';
 
 export const getFeaturedDiscounts = async ({
   country,
+  limit = 25,
 }: {
   country: string;
+  limit?: number;
 }) => {
   return httpClient
     .get<SingleOffer[]>('/offers/featured-discounts', {
-      params: { country },
+      params: { country, limit },
     })
     .then((res) => {
       return res.sort((a, b) => {

@@ -1,7 +1,4 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
-import getCountryCode from '@/lib/country-code';
-import { getQueryClient } from '@/lib/client';
 import { getLatestOffers } from '@/queries/latest-offers';
 import { getFeaturedDiscounts } from '@/queries/featured-discounts';
 import { httpClient } from '@/lib/http-client';
@@ -21,42 +18,14 @@ import { StatsModule } from '@/components/modules/stats';
 import { TopSection } from '@/components/modules/top-section';
 import { UpcomingOffers } from '@/components/modules/upcoming';
 import { UpcomingCalendar } from '@/components/modules/upcoming-calendar';
-import { parseCookieString } from '@/lib/parse-cookies';
 import { Button } from '@/components/ui/button';
 
 export const Route = createFileRoute('/')({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
-    return (
-      <HydrationBoundary state={dehydratedState}>
-        <Home />
-      </HydrationBoundary>
-    );
+    return <Home />;
   },
-  loader: async () => {
-    const queryClient = getQueryClient();
-    let url: URL;
-    let cookieHeader: string;
-
-    if (import.meta.env.SSR) {
-      const { getEvent } = await import('@tanstack/react-start/server');
-      const event = getEvent();
-      url = new URL(`https://egdata.app${event.node.req.url}`);
-      cookieHeader = event.headers.get('Cookie') ?? '';
-    } else {
-      url = new URL(window.location.href);
-      cookieHeader = document.cookie;
-    }
-
-    if (typeof cookieHeader !== 'string') {
-      cookieHeader = '';
-    }
-
-    const parsedCookies = parseCookieString(cookieHeader);
-    const cookies = Object.fromEntries(
-      Object.entries(parsedCookies).map(([key, value]) => [key, value || '']),
-    );
-    const country = getCountryCode(url, cookies);
+  loader: async ({ context }) => {
+    const { queryClient, country } = context;
 
     const [eventsData] = await Promise.allSettled([
       queryClient.fetchQuery({
@@ -88,11 +57,9 @@ export const Route = createFileRoute('/')({
     ]);
 
     const events = eventsData.status === 'fulfilled' ? eventsData.value : [];
-    const dehydratedState = dehydrate(queryClient);
 
     return {
       events: events,
-      dehydratedState: dehydratedState,
     };
   },
   errorComponent: ({ error, reset }) => {

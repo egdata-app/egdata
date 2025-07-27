@@ -111,6 +111,7 @@
     "@tailwindcss/vite": "4.0.7",
     "@types/js-cookie": "^3.0.6",
     "@types/lodash.debounce": "^4.0.9",
+    "@types/luxon": "^3.6.2",
     "@types/react": "^19.1.6",
     "@types/react-dom": "^19.1.5",
     "@vitejs/plugin-react-oxc": "^0.2.3",

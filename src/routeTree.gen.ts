@@ -14,6 +14,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PostsRouteImport } from './routes/posts'
+import { Route as HomeRouteImport } from './routes/home'
 import { Route as GenresRouteImport } from './routes/genres'
 import { Route as FairUseRouteImport } from './routes/fair-use'
 import { Route as DonateKeyRouteImport } from './routes/donate-key'
@@ -93,6 +94,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const PostsRoute = PostsRouteImport.update({
   id: '/posts',
   path: '/posts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeRoute = HomeRouteImport.update({
+  id: '/home',
+  path: '/home',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GenresRoute = GenresRouteImport.update({
@@ -420,6 +426,7 @@ export interface FileRoutesByFullPath {
   '/donate-key': typeof DonateKeyRoute
   '/fair-use': typeof FairUseRoute
   '/genres': typeof GenresRoute
+  '/home': typeof HomeRoute
   '/posts': typeof PostsRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
@@ -482,6 +489,7 @@ export interface FileRoutesByTo {
   '/donate-key': typeof DonateKeyRoute
   '/fair-use': typeof FairUseRoute
   '/genres': typeof GenresRoute
+  '/home': typeof HomeRoute
   '/posts': typeof PostsRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
@@ -540,6 +548,7 @@ export interface FileRoutesById {
   '/donate-key': typeof DonateKeyRoute
   '/fair-use': typeof FairUseRoute
   '/genres': typeof GenresRoute
+  '/home': typeof HomeRoute
   '/posts': typeof PostsRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
@@ -604,6 +613,7 @@ export interface FileRouteTypes {
     | '/donate-key'
     | '/fair-use'
     | '/genres'
+    | '/home'
     | '/posts'
     | '/privacy'
     | '/search'
@@ -666,6 +676,7 @@ export interface FileRouteTypes {
     | '/donate-key'
     | '/fair-use'
     | '/genres'
+    | '/home'
     | '/posts'
     | '/privacy'
     | '/search'
@@ -723,6 +734,7 @@ export interface FileRouteTypes {
     | '/donate-key'
     | '/fair-use'
     | '/genres'
+    | '/home'
     | '/posts'
     | '/privacy'
     | '/search'
@@ -786,6 +798,7 @@ export interface RootRouteChildren {
   DonateKeyRoute: typeof DonateKeyRoute
   FairUseRoute: typeof FairUseRoute
   GenresRoute: typeof GenresRoute
+  HomeRoute: typeof HomeRoute
   PostsRoute: typeof PostsRoute
   PrivacyRoute: typeof PrivacyRoute
   SearchRoute: typeof SearchRoute
@@ -894,6 +907,13 @@ declare module '@tanstack/react-router' {
       path: '/posts'
       fullPath: '/posts'
       preLoaderRoute: typeof PostsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/home': {
+      id: '/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof HomeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/genres': {
@@ -1466,6 +1486,7 @@ const rootRouteChildren: RootRouteChildren = {
   DonateKeyRoute: DonateKeyRoute,
   FairUseRoute: FairUseRoute,
   GenresRoute: GenresRoute,
+  HomeRoute: HomeRoute,
   PostsRoute: PostsRoute,
   PrivacyRoute: PrivacyRoute,
   SearchRoute: SearchRoute,
