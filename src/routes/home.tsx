@@ -12,7 +12,7 @@ import { getStats } from '@/queries/stats';
 import { getTopSellers } from '@/queries/top-sellers';
 import type { GiveawayOffer } from '@/types/giveaways';
 import type { FullTag } from '@/types/tags';
-import { useQueries } from '@tanstack/react-query';
+import { useQueries, useQuery } from '@tanstack/react-query';
 import {
   createFileRoute,
   Link,
@@ -20,12 +20,23 @@ import {
 } from '@tanstack/react-router';
 import type { ReactNode } from 'react';
 import { DateTime } from 'luxon';
-import { GiveawaysCarousel } from '@/components/modules/giveaways';
 import {
   getGiveawaysStats,
   GiveawaysStats,
 } from '@/components/modules/giveaway-stats';
 import { cn } from '@/lib/utils';
+import { calculatePrice } from '@/lib/calculate-price';
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from '@/components/ui/hover-card';
+import { Sparkles } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Image } from '@/components/app/image';
+import { getImage } from '@/lib/get-image';
+import { getOfferOverview } from '@/queries/offer-overview';
+import { formatTimeToHumanReadable } from '@/lib/time-to-human-readable';
 
 export const Route = createFileRoute('/home')({
   component: RouteComponent,
@@ -78,8 +89,226 @@ export const Route = createFileRoute('/home')({
   },
 });
 
+function OfferHoverCard({ id }: { id: string }) {
+  const { country } = useCountry();
+  const { locale } = useLocale();
+  const { data, isLoading } = useQuery(getOfferOverview({ id, country }));
+
+  if (!data || isLoading) return null;
+
+  const formatPrice = (price: number, currencyCode: string) => {
+    const fmt = new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: currencyCode,
+    });
+    return fmt.format(calculatePrice(price, currencyCode));
+  };
+
+  const formatDate = (dateString: string) => {
+    return DateTime.fromISO(dateString).toLocaleString(DateTime.DATE_MED);
+  };
+
+  const getAgeRatingDisplay = () => {
+    if (!data.ageRating) return null;
+
+    if ('rating' in data.ageRating) {
+      return `${data.ageRating.ratingSystem}: ${data.ageRating.rating}`;
+    }
+    return data.ageRating.ratingSystem;
+  };
+
+  return (
+    <div className="bg-slate-800 border-slate-700 text-slate-200 p-4 space-y-3 w-full h-fit border rounded-md">
+      <div>
+        <Image
+          src={
+            getImage(data.offer.keyImages, [
+              'DieselGameBoxWide',
+              'OfferImageWide',
+            ])?.url ?? '/placeholder-1080.webp'
+          }
+          alt={data.offer.title}
+          width={300}
+          height={168}
+          className="rounded-md object-cover"
+        />
+      </div>
+
+      <div className="flex items-center justify-between gap-2">
+        <h3 className="text-xl font-bold text-white">{data.offer.title}</h3>
+        {data.price && (
+          <div className="text-right">
+            {data.price.price.discountPrice === 0 ? (
+              <span className="text-green-400 font-bold">Free</span>
+            ) : (
+              <div className="flex flex-col items-end">
+                <span className="text-white font-bold">
+                  {formatPrice(
+                    data.price.price.discountPrice,
+                    data.price.price.currencyCode,
+                  )}
+                </span>
+                {data.price.price.originalPrice >
+                  data.price.price.discountPrice && (
+                  <div className="flex items-center gap-1">
+                    <span className="text-xs text-slate-400 line-through">
+                      {formatPrice(
+                        data.price.price.originalPrice,
+                        data.price.price.currencyCode,
+                      )}
+                    </span>
+                    <Badge variant="destructive" className="text-xs px-1 py-0">
+                      -
+                      {Math.round(
+                        ((data.price.price.originalPrice -
+                          data.price.price.discountPrice) /
+                          data.price.price.originalPrice) *
+                          100,
+                      )}
+                      %
+                    </Badge>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      <div className="text-sm space-y-1 text-slate-300">
+        <p>
+          <span className="text-slate-400">Seller:</span>{' '}
+          <Link
+            to="/sellers/$id"
+            params={{
+              id: data.offer.seller.id,
+            }}
+            className="text-blue-400 hover:underline"
+          >
+            {data.offer.seller.name}
+          </Link>
+        </p>
+        {data.offer.developerDisplayName && (
+          <p>
+            <span className="text-slate-400">Developer:</span>{' '}
+            <Link
+              to="/search"
+              search={{
+                developerDisplayName: data.offer.developerDisplayName,
+              }}
+              className="text-blue-400 hover:underline"
+            >
+              {data.offer.developerDisplayName}
+            </Link>
+          </p>
+        )}
+        {data.offer.publisherDisplayName && (
+          <p>
+            <span className="text-slate-400">Publisher:</span>{' '}
+            <Link
+              to="/search"
+              search={{
+                publisherDisplayName: data.offer.publisherDisplayName,
+              }}
+              className="text-blue-400 hover:underline"
+            >
+              {data.offer.publisherDisplayName}
+            </Link>
+          </p>
+        )}
+        {data.offer.releaseDate && (
+          <p>
+            <span className="text-slate-400">Release Date:</span>{' '}
+            {formatDate(data.offer.releaseDate)}
+          </p>
+        )}
+        {getAgeRatingDisplay() && (
+          <p>
+            <span className="text-slate-400">Age Rating:</span>{' '}
+            {getAgeRatingDisplay()}
+          </p>
+        )}
+      </div>
+
+      {data.genres.length > 0 && (
+        <div className="flex flex-wrap gap-1.5 pt-1">
+          {data.genres.slice(0, 4).map((genre) => (
+            <Badge
+              key={genre.id}
+              variant="outline"
+              className="border-purple-400/50 bg-purple-900/20 text-purple-300"
+            >
+              <Sparkles className="w-3 h-3 mr-1.5 text-purple-400" />
+              {genre.name}
+            </Badge>
+          ))}
+          {data.genres.length > 4 && (
+            <Badge
+              variant="outline"
+              className="border-slate-400/50 bg-slate-900/20 text-slate-400"
+            >
+              +{data.genres.length - 4} more
+            </Badge>
+          )}
+        </div>
+      )}
+
+      <div className="bg-slate-900/80 p-3 rounded-md space-y-2 text-sm">
+        {data.polls?.averageRating && (
+          <div className="flex items-center gap-2">
+            <span>🤯</span>
+            <span className="text-slate-400">Community Rating:</span>
+            <span className="font-bold text-yellow-400">
+              {(data.polls.averageRating * 2 * 10).toFixed(1)}%
+            </span>
+          </div>
+        )}
+        {data.igdb && (
+          <>
+            {data.igdb.total_rating && (
+              <div className="flex items-center gap-2">
+                <div className="w-5 h-5 bg-green-500 rounded-sm flex items-center justify-center text-sm font-bold text-white">
+                  {Math.round(data.igdb.total_rating)}
+                </div>
+                <span className="text-slate-400">IGDB Score</span>
+                {data.igdb.total_rating_count && (
+                  <span className="text-slate-500 text-xs">
+                    • {data.igdb.total_rating_count} reviews
+                  </span>
+                )}
+              </div>
+            )}
+            {data.igdb.timeToBeat && (
+              <div className="flex items-center gap-2">
+                <span>⏱️</span>
+                <span className="text-slate-400">Time to Beat:</span>
+                <span className="text-slate-300">
+                  {data.igdb.timeToBeat.normally
+                    ? formatTimeToHumanReadable(data.igdb.timeToBeat.normally)
+                    : 'N/A'}
+                </span>
+              </div>
+            )}
+          </>
+        )}
+        {data.features.features.length > 0 && (
+          <div className="flex items-center gap-2">
+            <span>🎮</span>
+            <span className="text-slate-400">Features:</span>
+            <span className="text-slate-300">
+              {data.features.features.slice(0, 2).join(', ')}
+              {data.features.features.length > 2 &&
+                ` +${data.features.features.length - 2} more`}
+            </span>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function RouteComponent() {
-  const { timezone } = useLocale();
+  const { timezone, locale } = useLocale();
   const { country } = useCountry();
   const [
     freebiesQuery,
@@ -180,19 +409,33 @@ function RouteComponent() {
           </tr>
         </thead>
         <tbody>
-          {rows.map((cells) => (
-            <tr
-              key={cells.join('-')}
-              className="border-b border-neutral-800 hover:bg-neutral-800/60"
-            >
-              {cells.map((cell, j) => (
-                // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-                <td key={j} className="px-3 py-2 whitespace-nowrap">
-                  {cell}
-                </td>
-              ))}
-            </tr>
-          ))}
+          {rows.map((c) => {
+            const [id, ...cells] = c;
+            return (
+              <HoverCard key={id} openDelay={300} closeDelay={200}>
+                <HoverCardTrigger asChild>
+                  <tr className="border-b border-neutral-800 hover:bg-neutral-800/60">
+                    {cells.map((cell, j) => (
+                      <td
+                        key={`${id}-${headers[j - 1]}`}
+                        className="px-3 py-2 whitespace-nowrap"
+                      >
+                        {cell}
+                      </td>
+                    ))}
+                  </tr>
+                </HoverCardTrigger>
+                <HoverCardContent
+                  side="left"
+                  align="start"
+                  sideOffset={5}
+                  className="w-80 bg-transparent p-0 border-0"
+                >
+                  <OfferHoverCard id={id as string} />
+                </HoverCardContent>
+              </HoverCard>
+            );
+          })}
         </tbody>
       </table>
     </div>
@@ -282,6 +525,7 @@ function RouteComponent() {
             rows={giveawayOffers
               .slice(0, 10)
               .map((g) => [
+                g.id,
                 g.title ?? 'N/A',
                 g.giveaway.startDate ? formatDate(g.giveaway.startDate) : 'N/A',
                 g.giveaway.endDate ? formatDate(g.giveaway.endDate) : 'N/A',
@@ -290,16 +534,23 @@ function RouteComponent() {
         </Section>
         <Section title="Featured Offers (Discounts)">
           <SimpleTable
-            headers={['Offer', 'Developer', 'Release', 'Discount', 'Price']}
-            rows={featuredOffers
-              .slice(0, 10)
-              .map((o) => [
-                o.title ?? 'N/A',
-                o.developerDisplayName ?? 'N/A',
-                o.releaseDate ? formatDate(o.releaseDate) : 'N/A',
-                o.price?.price.discount ? `-${o.price.price.discount}%` : 'N/A',
-                o.price?.price.discountPrice ?? 'N/A',
-              ])}
+            headers={['Offer', 'Discount', 'Price']}
+            rows={featuredOffers.slice(0, 10).map((o) => [
+              o.id,
+              o.title ?? 'N/A',
+              o.price?.price.originalPrice && o.price.price.discountPrice
+                ? `${Math.round(((o.price.price.originalPrice - o.price.price.discountPrice) / o.price.price.originalPrice) * 100)}%`
+                : 'N/A',
+              Intl.NumberFormat(locale, {
+                style: 'currency',
+                currency: o.price?.price.currencyCode ?? 'US',
+              }).format(
+                calculatePrice(
+                  o.price?.price.discountPrice ?? 0,
+                  o.price?.price.currencyCode ?? 'US',
+                ),
+              ),
+            ])}
           />
         </Section>
         <Section
@@ -310,15 +561,21 @@ function RouteComponent() {
           }}
         >
           <SimpleTable
-            headers={['Offer', 'Developer', 'Release', 'Price']}
-            rows={latestOffers
-              .slice(0, 10)
-              .map((o) => [
-                o.title ?? 'N/A',
-                o.developerDisplayName ?? 'N/A',
-                o.releaseDate ? formatDate(o.releaseDate) : 'N/A',
-                o.price?.price.discountPrice ?? 'N/A',
-              ])}
+            headers={['Offer', 'Release', 'Price']}
+            rows={latestOffers.slice(0, 10).map((o) => [
+              o.id,
+              o.title ?? 'N/A',
+              o.releaseDate ? formatDate(o.releaseDate) : 'N/A',
+              Intl.NumberFormat(locale, {
+                style: 'currency',
+                currency: o.price?.price.currencyCode ?? 'US',
+              }).format(
+                calculatePrice(
+                  o.price?.price.discountPrice ?? 0,
+                  o.price?.price.currencyCode ?? 'US',
+                ),
+              ),
+            ])}
           />
         </Section>
         <Section
@@ -329,14 +586,21 @@ function RouteComponent() {
           }}
         >
           <SimpleTable
-            headers={['Date', 'Offer', 'Developer']}
-            rows={upcomingOffers.elements
-              .slice(0, 10)
-              .map((u) => [
-                u.releaseDate ? formatDate(u.releaseDate) : 'N/A',
-                u.title ?? 'N/A',
-                u.developerDisplayName ?? 'N/A',
-              ])}
+            headers={['Date', 'Offer', 'Price']}
+            rows={upcomingOffers.elements.slice(0, 10).map((u) => [
+              u.id,
+              u.releaseDate ? formatDate(u.releaseDate) : 'N/A',
+              u.title ?? 'N/A',
+              Intl.NumberFormat(locale, {
+                style: 'currency',
+                currency: u.price?.price.currencyCode ?? 'US',
+              }).format(
+                calculatePrice(
+                  u.price?.price.discountPrice ?? 0,
+                  u.price?.price.currencyCode ?? 'US',
+                ),
+              ),
+            ])}
           />
         </Section>
         <Section
@@ -350,7 +614,11 @@ function RouteComponent() {
             headers={['Offer', 'Developer']}
             rows={achievementOffers
               .slice(0, 10)
-              .map((a) => [a.title ?? 'N/A', a.developerDisplayName ?? 'N/A'])}
+              .map((a) => [
+                a.id,
+                a.title ?? 'N/A',
+                a.developerDisplayName ?? 'N/A',
+              ])}
           />
         </Section>
         <Section
@@ -361,13 +629,14 @@ function RouteComponent() {
           }}
         >
           <SimpleTable
-            headers={['Offer', 'Developer', 'Price']}
+            headers={['Position', 'Title', 'Developer']}
             rows={topSellerOffers
               .slice(0, 10)
-              .map((t) => [
-                t.title ?? 'N/A',
-                t.developerDisplayName ?? 'N/A',
-                t.price?.price.discountPrice ?? 'N/A',
+              .map((t, i) => [
+                t.id,
+                i + 1,
+                t.title,
+                t.developerDisplayName ?? t.seller.name,
               ])}
           />
         </Section>
@@ -377,6 +646,7 @@ function RouteComponent() {
           <SimpleTable
             headers={['Time', 'Offer']}
             rows={latestChanges.map((c) => [
+              c.id,
               c.lastModifiedDate ? formatDate(c.lastModifiedDate) : 'N/A',
               c.title ?? 'N/A',
             ])}
