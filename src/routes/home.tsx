@@ -18,7 +18,7 @@ import {
   Link,
   type LinkComponentProps,
 } from '@tanstack/react-router';
-import type { ReactNode } from 'react';
+import type { JSX, ReactNode } from 'react';
 import { DateTime } from 'luxon';
 import {
   getGiveawaysStats,
@@ -396,7 +396,7 @@ function RouteComponent() {
   const SimpleTable = ({
     headers,
     rows,
-  }: { headers: string[]; rows: (string | number)[][] }) => (
+  }: { headers: string[]; rows: (string | number | JSX.Element)[][] }) => (
     <div className="overflow-x-auto">
       <table className="w-full border-collapse text-sm">
         <thead className="bg-neutral-800/60 text-neutral-400">
@@ -411,16 +411,35 @@ function RouteComponent() {
         <tbody>
           {rows.map((c) => {
             const [id, ...cells] = c;
+            const isElement = (cell: string | number | JSX.Element) =>
+              typeof cell === 'object' && 'props' in cell;
+            const isImage = (cell: string | number | JSX.Element) =>
+              isElement(cell) &&
+              typeof cell === 'object' &&
+              'type' in cell &&
+              cell.type === Image;
             return (
-              <HoverCard key={id} openDelay={300} closeDelay={200}>
+              <HoverCard key={id as string} openDelay={300} closeDelay={200}>
                 <HoverCardTrigger asChild>
                   <tr className="border-b border-neutral-800 hover:bg-neutral-800/60">
                     {cells.map((cell, j) => (
                       <td
                         key={`${id}-${headers[j - 1]}`}
-                        className="px-3 py-2 whitespace-nowrap"
+                        className={cn(
+                          'px-3 py-2 whitespace-nowrap',
+                          isImage(cell) && 'px-2 py-2 w-32',
+                          isElement(cell) && !isImage(cell) && 'px-0 py-0',
+                        )}
                       >
-                        {cell}
+                        {isImage(cell) ? (
+                          <div className="flex items-center justify-start">
+                            <div className="w-24 h-12 rounded overflow-hidden bg-neutral-800/40 flex items-center justify-center">
+                              {cell}
+                            </div>
+                          </div>
+                        ) : (
+                          cell
+                        )}
                       </td>
                     ))}
                   </tr>
@@ -488,7 +507,7 @@ function RouteComponent() {
   );
 
   return (
-    <main className="mx-auto w-full max-w-7xl flex-1 space-y-10 px-6 py-8">
+    <main className="mx-auto w-full max-w-7xl flex-1 space-y-10 py-8">
       {/* Metrics Row */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
         <MetricBox
@@ -521,22 +540,38 @@ function RouteComponent() {
         </Section>
         <Section title="Giveaway Offers" href="/freebies">
           <SimpleTable
-            headers={['Title', 'Starts', 'Ends']}
-            rows={giveawayOffers
-              .slice(0, 10)
-              .map((g) => [
-                g.id,
-                g.title ?? 'N/A',
-                g.giveaway.startDate ? formatDate(g.giveaway.startDate) : 'N/A',
-                g.giveaway.endDate ? formatDate(g.giveaway.endDate) : 'N/A',
-              ])}
+            headers={['#', 'Title', 'Starts', 'Ends']}
+            rows={giveawayOffers.map((g) => [
+              g.id,
+              <img
+                key={g.id}
+                src={
+                  getImage(g.keyImages, ['DieselGameBoxTall', 'OfferImageTall'])
+                    ?.url
+                }
+                alt={g.title}
+                className="w-[40px] h-[52px]"
+              />,
+              g.title ?? 'N/A',
+              g.giveaway.startDate ? formatDate(g.giveaway.startDate) : 'N/A',
+              g.giveaway.endDate ? formatDate(g.giveaway.endDate) : 'N/A',
+            ])}
           />
         </Section>
         <Section title="Featured Offers (Discounts)">
           <SimpleTable
-            headers={['Offer', 'Discount', 'Price']}
+            headers={['#', 'Title', 'Discount', 'Price']}
             rows={featuredOffers.slice(0, 10).map((o) => [
               o.id,
+              <img
+                key={o.id}
+                src={
+                  getImage(o.keyImages, ['DieselGameBoxTall', 'OfferImageTall'])
+                    ?.url
+                }
+                alt={o.title}
+                className="w-[40px] h-[52px]"
+              />,
               o.title ?? 'N/A',
               o.price?.price.originalPrice && o.price.price.discountPrice
                 ? `${Math.round(((o.price.price.originalPrice - o.price.price.discountPrice) / o.price.price.originalPrice) * 100)}%`
@@ -561,9 +596,18 @@ function RouteComponent() {
           }}
         >
           <SimpleTable
-            headers={['Offer', 'Release', 'Price']}
+            headers={['#', 'Title', 'Release', 'Price']}
             rows={latestOffers.slice(0, 10).map((o) => [
               o.id,
+              <img
+                key={o.id}
+                src={
+                  getImage(o.keyImages, ['DieselGameBoxTall', 'OfferImageTall'])
+                    ?.url
+                }
+                alt={o.title}
+                className="w-[40px] h-[52px]"
+              />,
               o.title ?? 'N/A',
               o.releaseDate ? formatDate(o.releaseDate) : 'N/A',
               Intl.NumberFormat(locale, {
@@ -586,9 +630,18 @@ function RouteComponent() {
           }}
         >
           <SimpleTable
-            headers={['Date', 'Offer', 'Price']}
+            headers={['#', 'Date', 'Title', 'Price']}
             rows={upcomingOffers.elements.slice(0, 10).map((u) => [
               u.id,
+              <img
+                key={u.id}
+                src={
+                  getImage(u.keyImages, ['DieselGameBoxTall', 'OfferImageTall'])
+                    ?.url
+                }
+                alt={u.title}
+                className="w-[40px] h-[52px]"
+              />,
               u.releaseDate ? formatDate(u.releaseDate) : 'N/A',
               u.title ?? 'N/A',
               Intl.NumberFormat(locale, {
@@ -611,11 +664,22 @@ function RouteComponent() {
           }}
         >
           <SimpleTable
-            headers={['Offer', 'Developer']}
+            headers={['#', 'Title', 'Developer']}
             rows={achievementOffers
               .slice(0, 10)
               .map((a) => [
                 a.id,
+                <img
+                  key={a.id}
+                  src={
+                    getImage(a.keyImages, [
+                      'DieselGameBoxTall',
+                      'OfferImageTall',
+                    ])?.url
+                  }
+                  alt={a.title}
+                  className="w-[40px] h-[52px]"
+                />,
                 a.title ?? 'N/A',
                 a.developerDisplayName ?? 'N/A',
               ])}
@@ -629,12 +693,23 @@ function RouteComponent() {
           }}
         >
           <SimpleTable
-            headers={['Position', 'Title', 'Developer']}
+            headers={['#', 'Position', 'Title', 'Developer']}
             rows={topSellerOffers
               .slice(0, 10)
               .map((t, i) => [
                 t.id,
                 i + 1,
+                <img
+                  key={t.id}
+                  src={
+                    getImage(t.keyImages, [
+                      'DieselGameBoxTall',
+                      'OfferImageTall',
+                    ])?.url
+                  }
+                  alt={t.title}
+                  className="w-[40px] h-[52px]"
+                />,
                 t.title,
                 t.developerDisplayName ?? t.seller.name,
               ])}
