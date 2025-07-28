@@ -479,7 +479,7 @@ function RouteComponent() {
   }) => (
     <Card
       className={cn(
-        'flex flex-col rounded-lg border h-[500px]',
+        'flex flex-col rounded-lg border h-[650px]',
         spanFull ? 'md:col-span-2' : '',
         className,
       )}
@@ -501,7 +501,7 @@ function RouteComponent() {
         </CardTitle>
       </CardHeader>
       <CardContent className="p-0">
-        <ScrollArea className="h-[450px] p-4">{children}</ScrollArea>
+        <ScrollArea className="h-[650px] p-4">{children}</ScrollArea>
       </CardContent>
     </Card>
   );
@@ -533,7 +533,7 @@ function RouteComponent() {
         {/* Giveaways Stats Section */}
         <Section title="Giveaway Stats" href="/freebies">
           <div className="flex flex-col items-center justify-center h-full">
-            <div className="w-full flex items-center justify-center h-[350px]">
+            <div className="w-full flex items-center justify-center h-[500px]">
               <GiveawaysStats showTitle={false} wrap />
             </div>
           </div>
