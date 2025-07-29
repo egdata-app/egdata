@@ -125,7 +125,9 @@ function OfferHoverCard({ id }: { id: string }) {
             getImage(data.offer.keyImages, [
               'DieselGameBoxWide',
               'OfferImageWide',
-            ])?.url ?? '/placeholder-1080.webp'
+            ])?.url ??
+            '/placeholder.webp' ??
+            '/placeholder-1080.webp'
           }
           alt={data.offer.title}
           width={300}
@@ -543,16 +545,34 @@ function RouteComponent() {
             headers={['#', 'Title', 'Starts', 'Ends']}
             rows={giveawayOffers.map((g) => [
               g.id,
-              <img
-                key={g.id}
-                src={
-                  getImage(g.keyImages, ['DieselGameBoxTall', 'OfferImageTall'])
-                    ?.url
-                }
-                alt={g.title}
+              <Link
+                key={`feebies-image-${g.id}`}
+                to="/offers/$id"
+                params={{
+                  id: g.id,
+                }}
                 className="w-[40px] h-[52px]"
-              />,
-              g.title ?? 'N/A',
+              >
+                <img
+                  src={
+                    getImage(g.keyImages, [
+                      'DieselGameBoxTall',
+                      'OfferImageTall',
+                    ])?.url ?? '/placeholder.webp'
+                  }
+                  alt={g.title}
+                  className="w-[40px] h-[52px]"
+                />
+              </Link>,
+              <Link
+                key={`feebies-title-${g.id}`}
+                to="/offers/$id"
+                params={{
+                  id: g.id,
+                }}
+              >
+                {g.title}
+              </Link>,
               g.giveaway.startDate ? formatDate(g.giveaway.startDate) : 'N/A',
               g.giveaway.endDate ? formatDate(g.giveaway.endDate) : 'N/A',
             ])}
@@ -563,16 +583,34 @@ function RouteComponent() {
             headers={['#', 'Title', 'Discount', 'Price']}
             rows={featuredOffers.slice(0, 10).map((o) => [
               o.id,
-              <img
+              <Link
                 key={o.id}
-                src={
-                  getImage(o.keyImages, ['DieselGameBoxTall', 'OfferImageTall'])
-                    ?.url
-                }
-                alt={o.title}
+                to="/offers/$id"
+                params={{
+                  id: o.id,
+                }}
                 className="w-[40px] h-[52px]"
-              />,
-              o.title ?? 'N/A',
+              >
+                <img
+                  src={
+                    getImage(o.keyImages, [
+                      'DieselGameBoxTall',
+                      'OfferImageTall',
+                    ])?.url ?? '/placeholder.webp'
+                  }
+                  alt={o.title}
+                  className="w-[40px] h-[52px]"
+                />
+              </Link>,
+              <Link
+                key={`feebies-title-${o.id}`}
+                to="/offers/$id"
+                params={{
+                  id: o.id,
+                }}
+              >
+                {o.title ?? 'N/A'}
+              </Link>,
               o.price?.price.originalPrice && o.price.price.discountPrice
                 ? `${Math.round(((o.price.price.originalPrice - o.price.price.discountPrice) / o.price.price.originalPrice) * 100)}%`
                 : 'N/A',
@@ -599,16 +637,34 @@ function RouteComponent() {
             headers={['#', 'Title', 'Release', 'Price']}
             rows={latestOffers.slice(0, 10).map((o) => [
               o.id,
-              <img
+              <Link
                 key={o.id}
-                src={
-                  getImage(o.keyImages, ['DieselGameBoxTall', 'OfferImageTall'])
-                    ?.url
-                }
-                alt={o.title}
+                to="/offers/$id"
+                params={{
+                  id: o.id,
+                }}
                 className="w-[40px] h-[52px]"
-              />,
-              o.title ?? 'N/A',
+              >
+                <img
+                  src={
+                    getImage(o.keyImages, [
+                      'DieselGameBoxTall',
+                      'OfferImageTall',
+                    ])?.url ?? '/placeholder.webp'
+                  }
+                  alt={o.title}
+                  className="w-[40px] h-[52px]"
+                />
+              </Link>,
+              <Link
+                key={`latest-title-${o.id}`}
+                to="/offers/$id"
+                params={{
+                  id: o.id,
+                }}
+              >
+                {o.title ?? 'N/A'}
+              </Link>,
               o.releaseDate ? formatDate(o.releaseDate) : 'N/A',
               Intl.NumberFormat(locale, {
                 style: 'currency',
@@ -633,17 +689,35 @@ function RouteComponent() {
             headers={['#', 'Date', 'Title', 'Price']}
             rows={upcomingOffers.elements.slice(0, 10).map((u) => [
               u.id,
-              <img
+              <Link
                 key={u.id}
-                src={
-                  getImage(u.keyImages, ['DieselGameBoxTall', 'OfferImageTall'])
-                    ?.url
-                }
-                alt={u.title}
+                to="/offers/$id"
+                params={{
+                  id: u.id,
+                }}
                 className="w-[40px] h-[52px]"
-              />,
+              >
+                <img
+                  src={
+                    getImage(u.keyImages, [
+                      'DieselGameBoxTall',
+                      'OfferImageTall',
+                    ])?.url ?? '/placeholder.webp'
+                  }
+                  alt={u.title}
+                  className="w-[40px] h-[52px]"
+                />
+              </Link>,
               u.releaseDate ? formatDate(u.releaseDate) : 'N/A',
-              u.title ?? 'N/A',
+              <Link
+                key={`upcoming-title-${u.id}`}
+                to="/offers/$id"
+                params={{
+                  id: u.id,
+                }}
+              >
+                {u.title ?? 'N/A'}
+              </Link>,
               Intl.NumberFormat(locale, {
                 style: 'currency',
                 currency: u.price?.price.currencyCode ?? 'US',
@@ -665,24 +739,38 @@ function RouteComponent() {
         >
           <SimpleTable
             headers={['#', 'Title', 'Developer']}
-            rows={achievementOffers
-              .slice(0, 10)
-              .map((a) => [
-                a.id,
+            rows={achievementOffers.slice(0, 10).map((a) => [
+              a.id,
+              <Link
+                key={a.id}
+                to="/offers/$id"
+                params={{
+                  id: a.id,
+                }}
+                className="w-[40px] h-[52px]"
+              >
                 <img
-                  key={a.id}
                   src={
                     getImage(a.keyImages, [
                       'DieselGameBoxTall',
                       'OfferImageTall',
-                    ])?.url
+                    ])?.url ?? '/placeholder.webp'
                   }
                   alt={a.title}
                   className="w-[40px] h-[52px]"
-                />,
-                a.title ?? 'N/A',
-                a.developerDisplayName ?? 'N/A',
-              ])}
+                />
+              </Link>,
+              <Link
+                key={`achievement-title-${a.id}`}
+                to="/offers/$id"
+                params={{
+                  id: a.id,
+                }}
+              >
+                {a.title ?? 'N/A'}
+              </Link>,
+              a.developerDisplayName ?? 'N/A',
+            ])}
           />
         </Section>
         <Section
@@ -694,25 +782,39 @@ function RouteComponent() {
         >
           <SimpleTable
             headers={['#', 'Position', 'Title', 'Developer']}
-            rows={topSellerOffers
-              .slice(0, 10)
-              .map((t, i) => [
-                t.id,
-                i + 1,
+            rows={topSellerOffers.slice(0, 10).map((t, i) => [
+              t.id,
+              i + 1,
+              <Link
+                key={t.id}
+                to="/offers/$id"
+                params={{
+                  id: t.id,
+                }}
+                className="w-[40px] h-[52px]"
+              >
                 <img
-                  key={t.id}
                   src={
                     getImage(t.keyImages, [
                       'DieselGameBoxTall',
                       'OfferImageTall',
-                    ])?.url
+                    ])?.url ?? '/placeholder.webp'
                   }
                   alt={t.title}
                   className="w-[40px] h-[52px]"
-                />,
-                t.title,
-                t.developerDisplayName ?? t.seller.name,
-              ])}
+                />
+              </Link>,
+              <Link
+                key={`topseller-title-${t.id}`}
+                to="/offers/$id"
+                params={{
+                  id: t.id,
+                }}
+              >
+                {t.title}
+              </Link>,
+              t.developerDisplayName ?? t.seller.name,
+            ])}
           />
         </Section>
 
