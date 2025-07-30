@@ -50,6 +50,8 @@ import { Search } from 'lucide-react';
 import { useSearch } from '@/hooks/use-search';
 import { getBuilds } from '@/queries/get-builds';
 import { calculateSize } from '@/lib/calculate-size';
+import { BuildTitle } from '@/components/app/build-title';
+import { ClientBanner } from '@/components/modules/client-banner';
 
 export const Route = createFileRoute('/home')({
   component: RouteComponent,
@@ -893,39 +895,52 @@ function RouteComponent() {
           }}
         >
           <SimpleTable
-            headers={['#', 'Title', 'Developer']}
-            rows={achievementOffers.slice(0, 10).map((a) => [
-              a.id,
-              <Link
-                key={a.id}
-                to="/offers/$id"
-                params={{
-                  id: a.id,
-                }}
-                className="w-[40px] h-[52px]"
-              >
-                <img
-                  src={
-                    getImage(a.keyImages, [
-                      'DieselGameBoxTall',
-                      'OfferImageTall',
-                    ])?.url ?? '/placeholder.webp'
-                  }
-                  alt={a.title}
+            headers={['#', 'Title', 'Achievements', 'XP']}
+            rows={achievementOffers.slice(0, 10).map((a) => {
+              const totalXP = a.achievements.achievements.reduce(
+                (sum, achievement) => sum + achievement.xp,
+                0,
+              );
+              const numAchievements = a.achievements.achievements.length;
+
+              return [
+                a.id,
+                <Link
+                  key={a.id}
+                  to="/offers/$id"
+                  params={{
+                    id: a.id,
+                  }}
                   className="w-[40px] h-[52px]"
-                />
-              </Link>,
-              <Link
-                key={`achievement-title-${a.id}`}
-                to="/offers/$id"
-                params={{
-                  id: a.id,
-                }}
-              >
-                {a.title ?? 'N/A'}
-              </Link>,
-              a.developerDisplayName ?? 'N/A',
-            ])}
+                >
+                  <img
+                    src={
+                      getImage(a.keyImages, [
+                        'DieselGameBoxTall',
+                        'OfferImageTall',
+                      ])?.url ?? '/placeholder.webp'
+                    }
+                    alt={a.title}
+                    className="w-[40px] h-[52px]"
+                  />
+                </Link>,
+                <Link
+                  key={`achievement-title-${a.id}`}
+                  to="/offers/$id"
+                  params={{
+                    id: a.id,
+                  }}
+                >
+                  {a.title ?? 'N/A'}
+                </Link>,
+                <p key={`achievement-num-${a.id}`} className="text-center">
+                  {numAchievements}
+                </p>,
+                <p key={`achievement-xp-${a.id}`}>
+                  {totalXP.toLocaleString()} XP
+                </p>,
+              ];
+            })}
           />
         </Section>
         <Section
@@ -996,16 +1011,12 @@ function RouteComponent() {
                   className="w-[40px] h-[52px]"
                 />
               </Link>,
-              <Link
+              <BuildTitle
                 key={b._id}
-                to="/builds/$id"
-                params={{
-                  id: b._id,
-                }}
-                className="pl-2"
-              >
-                {b.item.title}
-              </Link>,
+                id={b._id}
+                title={b.item.title}
+                buildVersion={b.buildVersion}
+              />,
               calculateSize(b.downloadSizeBytes),
               formatDate(b.createdAt),
             ])}
@@ -1015,7 +1026,7 @@ function RouteComponent() {
         </Section>
 
         {/* Latest Changes full width */}
-        <Section title="Latest Changes" spanFull>
+        {/* <Section title="Latest Changes" spanFull>
           <SimpleTable
             headers={['Time', 'Offer']}
             rows={latestChanges.map((c) => [
@@ -1024,8 +1035,9 @@ function RouteComponent() {
               c.title ?? 'N/A',
             ])}
           />
-        </Section>
+        </Section> */}
       </div>
+      <ClientBanner />
     </main>
   );
 }
