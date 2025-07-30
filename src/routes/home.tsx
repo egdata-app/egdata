@@ -48,6 +48,8 @@ import { formatTimeToHumanReadable } from '@/lib/time-to-human-readable';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 import { useSearch } from '@/hooks/use-search';
+import { getBuilds } from '@/queries/get-builds';
+import { calculateSize } from '@/lib/calculate-size';
 
 export const Route = createFileRoute('/home')({
   component: RouteComponent,
@@ -320,6 +322,81 @@ function OfferHoverCard({ id }: { id: string }) {
   );
 }
 
+function BuildHoverCard({
+  id,
+  builds,
+}: {
+  id: string;
+  builds: Array<{
+    _id: string;
+    item: { title: string; developer?: string };
+    downloadSizeBytes: number;
+    createdAt: string;
+    buildVersion?: string;
+  }>;
+}) {
+  const build = builds.find((b) => b._id === id);
+
+  if (!build) return null;
+
+  return (
+    <div className="bg-slate-800 border-slate-700 text-slate-200 p-4 space-y-3 w-full h-fit border rounded-md">
+      <h3 className="text-xl font-bold text-white">{build.item.title}</h3>
+
+      <div className="text-sm space-y-1 text-slate-300">
+        <p>
+          <span className="text-slate-400">Build ID:</span> {build._id}
+        </p>
+        <p>
+          <span className="text-slate-400">Size:</span>{' '}
+          {calculateSize(build.downloadSizeBytes)}
+        </p>
+        <p>
+          <span className="text-slate-400">Created:</span>{' '}
+          {DateTime.fromISO(build.createdAt).toLocaleString(
+            DateTime.DATETIME_MED,
+          )}
+        </p>
+        {build.item.developer && (
+          <p>
+            <span className="text-slate-400">Developer:</span>{' '}
+            {build.item.developer}
+          </p>
+        )}
+        {build.buildVersion && (
+          <p>
+            <span className="text-slate-400">Version:</span>{' '}
+            {build.buildVersion}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+type HoverCardType = 'offer' | 'build' | 'none';
+
+function renderHoverCard(
+  type: HoverCardType,
+  id: string,
+  builds?: Array<{
+    _id: string;
+    item: { title: string; developer?: string };
+    downloadSizeBytes: number;
+    createdAt: string;
+    buildVersion?: string;
+  }>,
+) {
+  switch (type) {
+    case 'offer':
+      return <OfferHoverCard id={id} />;
+    case 'build':
+      return builds ? <BuildHoverCard id={id} builds={builds} /> : null;
+    default:
+      return null;
+  }
+}
+
 function RouteComponent() {
   const { timezone, locale } = useLocale();
   const { country } = useCountry();
@@ -333,6 +410,7 @@ function RouteComponent() {
     topSellersQuery,
     latestChangesQuery,
     statsQuery,
+    latestBuildsQuery,
   ] = useQueries({
     queries: [
       {
@@ -385,6 +463,10 @@ function RouteComponent() {
           giveaways: 0,
         },
       },
+      getBuilds({
+        sortDir: 'desc',
+        sortBy: 'createdAt',
+      }),
     ],
   });
   const { data: giveawayOffers = [] } = freebiesQuery;
@@ -402,6 +484,7 @@ function RouteComponent() {
       giveaways: 0,
     },
   } = statsQuery;
+  const { data: latestBuilds = [] } = latestBuildsQuery;
 
   function formatDate(iso: string) {
     return DateTime.fromISO(iso).setZone(timezone).toFormat('MMM d, HH:mm');
@@ -410,67 +493,91 @@ function RouteComponent() {
   const SimpleTable = ({
     headers,
     rows,
-  }: { headers: string[]; rows: (string | number | JSX.Element)[][] }) => (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          {headers.map((h) => (
-            <TableHead key={h} className="text-neutral-400 font-normal">
-              {h}
-            </TableHead>
-          ))}
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {rows.map((c) => {
-          const [id, ...cells] = c;
-          const isElement = (cell: string | number | JSX.Element) =>
-            typeof cell === 'object' && 'props' in cell;
-          const isImage = (cell: string | number | JSX.Element) =>
-            isElement(cell) &&
-            typeof cell === 'object' &&
-            'type' in cell &&
-            cell.type === Image;
-          return (
-            <HoverCard key={id as string} openDelay={300} closeDelay={200}>
-              <HoverCardTrigger asChild>
-                <TableRow className="border-neutral-800 hover:bg-neutral-800/60">
-                  {cells.map((cell, j) => (
-                    <TableCell
-                      key={`${id}-${headers[j - 1]}`}
-                      className={cn(
-                        'whitespace-nowrap',
-                        isImage(cell) && 'w-32',
-                        isElement(cell) && !isImage(cell) && 'p-0',
-                      )}
-                    >
-                      {isImage(cell) ? (
-                        <div className="flex items-center justify-start">
-                          <div className="w-24 h-12 rounded overflow-hidden bg-neutral-800/40 flex items-center justify-center">
-                            {cell}
-                          </div>
+    hoverCardType = 'offer',
+    builds,
+  }: {
+    headers: string[];
+    rows: (string | number | JSX.Element)[][];
+    hoverCardType?: HoverCardType;
+    builds?: Array<{
+      _id: string;
+      item: { title: string; developer?: string };
+      downloadSizeBytes: number;
+      createdAt: string;
+      buildVersion?: string;
+    }>;
+  }) => {
+    const TableContent = (
+      <Table>
+        <TableHeader>
+          <TableRow>
+            {headers.map((h) => (
+              <TableHead key={h} className="text-neutral-400 font-normal">
+                {h}
+              </TableHead>
+            ))}
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {rows.map((c) => {
+            const [id, ...cells] = c;
+            const isElement = (cell: string | number | JSX.Element) =>
+              typeof cell === 'object' && 'props' in cell;
+            const isImage = (cell: string | number | JSX.Element) =>
+              isElement(cell) &&
+              typeof cell === 'object' &&
+              'type' in cell &&
+              cell.type === Image;
+
+            const TableRowContent = (
+              <TableRow className="border-neutral-800 hover:bg-neutral-800/60">
+                {cells.map((cell, j) => (
+                  <TableCell
+                    key={`${id}-${headers[j - 1]}`}
+                    className={cn(
+                      'whitespace-nowrap',
+                      isImage(cell) && 'w-32',
+                      isElement(cell) && !isImage(cell) && 'p-0',
+                    )}
+                  >
+                    {isImage(cell) ? (
+                      <div className="flex items-center justify-start">
+                        <div className="w-24 h-12 rounded overflow-hidden bg-neutral-800/40 flex items-center justify-center">
+                          {cell}
                         </div>
-                      ) : (
-                        cell
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              </HoverCardTrigger>
-              <HoverCardContent
-                side="left"
-                align="start"
-                sideOffset={5}
-                className="w-80 bg-transparent p-0 border-0"
-              >
-                <OfferHoverCard id={id as string} />
-              </HoverCardContent>
-            </HoverCard>
-          );
-        })}
-      </TableBody>
-    </Table>
-  );
+                      </div>
+                    ) : (
+                      cell
+                    )}
+                  </TableCell>
+                ))}
+              </TableRow>
+            );
+
+            if (hoverCardType === 'none') {
+              return <div key={id as string}>{TableRowContent}</div>;
+            }
+
+            return (
+              <HoverCard key={id as string} openDelay={300} closeDelay={200}>
+                <HoverCardTrigger asChild>{TableRowContent}</HoverCardTrigger>
+                <HoverCardContent
+                  side="left"
+                  align="start"
+                  sideOffset={5}
+                  className="w-80 bg-transparent p-0 border-0"
+                >
+                  {renderHoverCard(hoverCardType, id as string, builds)}
+                </HoverCardContent>
+              </HoverCard>
+            );
+          })}
+        </TableBody>
+      </Table>
+    );
+
+    return TableContent;
+  };
 
   const Section = ({
     title,
@@ -523,7 +630,7 @@ function RouteComponent() {
       {/* Hero Section */}
       <section className="text-center space-y-6 py-12">
         <div className="space-y-4">
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
+          <h1 className="text-4xl font-semiboold tracking-tight sm:text-5xl md:text-6xl font-montserrat">
             egdata.app
           </h1>
           <p className="mx-auto max-w-3xl text-lg text-muted-foreground sm:text-xl">
@@ -829,7 +936,7 @@ function RouteComponent() {
           }}
         >
           <SimpleTable
-            headers={['#', 'Position', 'Title', 'Developer']}
+            headers={['#', '', 'Title', 'Developer']}
             rows={topSellerOffers.slice(0, 10).map((t, i) => [
               t.id,
               i + 1,
@@ -863,6 +970,47 @@ function RouteComponent() {
               </Link>,
               t.developerDisplayName ?? t.seller.name,
             ])}
+          />
+        </Section>
+        <Section title="Latest Builds">
+          <SimpleTable
+            headers={['#', 'Title', 'Size', 'Creation Date']}
+            rows={latestBuilds.slice(0, 10).map((b) => [
+              b._id,
+              <Link
+                key={b._id}
+                to="/builds/$id"
+                params={{
+                  id: b._id,
+                }}
+                className="w-[40px] h-[52px]"
+              >
+                <img
+                  src={
+                    getImage(b.item.keyImages, [
+                      'DieselGameBoxTall',
+                      'OfferImageTall',
+                    ])?.url ?? '/placeholder.webp'
+                  }
+                  alt={b.item.title}
+                  className="w-[40px] h-[52px]"
+                />
+              </Link>,
+              <Link
+                key={b._id}
+                to="/builds/$id"
+                params={{
+                  id: b._id,
+                }}
+                className="pl-2"
+              >
+                {b.item.title}
+              </Link>,
+              calculateSize(b.downloadSizeBytes),
+              formatDate(b.createdAt),
+            ])}
+            hoverCardType="build"
+            builds={latestBuilds}
           />
         </Section>
 
