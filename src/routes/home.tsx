@@ -622,20 +622,27 @@ function RouteComponent() {
         </CardTitle>
       </CardHeader>
       <CardContent className="p-0">
-        <ScrollArea className="h-[650px] p-4">{children}</ScrollArea>
+        <ScrollArea
+          className={cn(
+            'h-[650px] p-4',
+            className?.includes('h-[400px]') && 'h-[400px]',
+          )}
+        >
+          {children}
+        </ScrollArea>
       </CardContent>
     </Card>
   );
 
   return (
-    <main className="mx-auto w-full max-w-7xl flex-1 space-y-10 py-8">
+    <main className="mx-auto w-full max-w-7xl flex-1 space-y-6 py-6">
       {/* Hero Section */}
-      <section className="text-center space-y-6 py-12">
-        <div className="space-y-4">
-          <h1 className="text-4xl font-semiboold tracking-tight sm:text-5xl md:text-6xl font-montserrat">
+      <section className="text-center space-y-4 py-6">
+        <div className="space-y-3">
+          <h1 className="text-3xl font-semiboold tracking-tight sm:text-4xl md:text-5xl font-montserrat">
             egdata.app
           </h1>
-          <p className="mx-auto max-w-3xl text-lg text-muted-foreground sm:text-xl">
+          <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
             Track prices, discover deals, and never miss a free game. Your
             ultimate companion for Epic Games Store offers, discounts, and
             giveaways.
@@ -660,7 +667,7 @@ function RouteComponent() {
             <Input
               type="search"
               placeholder="Search games, offers, or publishers..."
-              className="pl-10 h-12 text-base cursor-text"
+              className="pl-10 h-10 text-sm cursor-text"
               readOnly
             />
           </div>
@@ -687,17 +694,17 @@ function RouteComponent() {
         />
       </div>
 
-      {/* Offer cards grid */}
-      <div className="grid auto-rows-[1fr] gap-6 sm:grid-cols-1 md:grid-cols-2">
+      {/* First row - shorter sections */}
+      <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2">
         {/* Giveaways Stats Section */}
-        <Section title="Giveaway Stats" href="/freebies">
+        <Section title="Giveaway Stats" href="/freebies" className="h-[400px]">
           <div className="flex flex-col items-center justify-center h-full">
-            <div className="w-full flex items-center justify-center h-[500px]">
+            <div className="w-full flex items-center justify-center h-[300px]">
               <GiveawaysStats showTitle={false} wrap />
             </div>
           </div>
         </Section>
-        <Section title="Giveaway Offers" href="/freebies">
+        <Section title="Giveaway Offers" href="/freebies" className="h-[400px]">
           <SimpleTable
             headers={['#', 'Title', 'Starts', 'Ends']}
             rows={giveawayOffers.map((g) => [
@@ -735,6 +742,10 @@ function RouteComponent() {
             ])}
           />
         </Section>
+      </div>
+
+      {/* Remaining sections - normal height */}
+      <div className="grid auto-rows-[1fr] gap-6 sm:grid-cols-1 md:grid-cols-2">
         <Section title="Featured Offers (Discounts)">
           <SimpleTable
             headers={['#', 'Title', 'Discount', 'Price']}
