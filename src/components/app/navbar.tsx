@@ -53,7 +53,6 @@ import {
   GiftIcon,
   StarIcon,
   CalendarCheck2Icon,
-  ListIcon,
 } from 'lucide-react';
 import { httpClient } from '@/lib/http-client';
 import type { GenreResponse } from '@/routes/genres';

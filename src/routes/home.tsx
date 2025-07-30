@@ -1,5 +1,13 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 import { useCountry } from '@/hooks/use-country';
 import { useLocale } from '@/hooks/use-locale';
 import { httpClient } from '@/lib/http-client';
@@ -37,6 +45,9 @@ import { Image } from '@/components/app/image';
 import { getImage } from '@/lib/get-image';
 import { getOfferOverview } from '@/queries/offer-overview';
 import { formatTimeToHumanReadable } from '@/lib/time-to-human-readable';
+import { Input } from '@/components/ui/input';
+import { Search } from 'lucide-react';
+import { useSearch } from '@/hooks/use-search';
 
 export const Route = createFileRoute('/home')({
   component: RouteComponent,
@@ -312,6 +323,7 @@ function OfferHoverCard({ id }: { id: string }) {
 function RouteComponent() {
   const { timezone, locale } = useLocale();
   const { country } = useCountry();
+  const { setFocus } = useSearch();
   const [
     freebiesQuery,
     featuredDiscountsQuery,
@@ -399,67 +411,65 @@ function RouteComponent() {
     headers,
     rows,
   }: { headers: string[]; rows: (string | number | JSX.Element)[][] }) => (
-    <div className="overflow-x-auto">
-      <table className="w-full border-collapse text-sm">
-        <thead className="bg-neutral-800/60 text-neutral-400">
-          <tr>
-            {headers.map((h) => (
-              <th key={h} className="px-3 py-2 text-left font-normal">
-                {h}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((c) => {
-            const [id, ...cells] = c;
-            const isElement = (cell: string | number | JSX.Element) =>
-              typeof cell === 'object' && 'props' in cell;
-            const isImage = (cell: string | number | JSX.Element) =>
-              isElement(cell) &&
-              typeof cell === 'object' &&
-              'type' in cell &&
-              cell.type === Image;
-            return (
-              <HoverCard key={id as string} openDelay={300} closeDelay={200}>
-                <HoverCardTrigger asChild>
-                  <tr className="border-b border-neutral-800 hover:bg-neutral-800/60">
-                    {cells.map((cell, j) => (
-                      <td
-                        key={`${id}-${headers[j - 1]}`}
-                        className={cn(
-                          'px-3 py-2 whitespace-nowrap',
-                          isImage(cell) && 'px-2 py-2 w-32',
-                          isElement(cell) && !isImage(cell) && 'px-0 py-0',
-                        )}
-                      >
-                        {isImage(cell) ? (
-                          <div className="flex items-center justify-start">
-                            <div className="w-24 h-12 rounded overflow-hidden bg-neutral-800/40 flex items-center justify-center">
-                              {cell}
-                            </div>
+    <Table>
+      <TableHeader>
+        <TableRow>
+          {headers.map((h) => (
+            <TableHead key={h} className="text-neutral-400 font-normal">
+              {h}
+            </TableHead>
+          ))}
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {rows.map((c) => {
+          const [id, ...cells] = c;
+          const isElement = (cell: string | number | JSX.Element) =>
+            typeof cell === 'object' && 'props' in cell;
+          const isImage = (cell: string | number | JSX.Element) =>
+            isElement(cell) &&
+            typeof cell === 'object' &&
+            'type' in cell &&
+            cell.type === Image;
+          return (
+            <HoverCard key={id as string} openDelay={300} closeDelay={200}>
+              <HoverCardTrigger asChild>
+                <TableRow className="border-neutral-800 hover:bg-neutral-800/60">
+                  {cells.map((cell, j) => (
+                    <TableCell
+                      key={`${id}-${headers[j - 1]}`}
+                      className={cn(
+                        'whitespace-nowrap',
+                        isImage(cell) && 'w-32',
+                        isElement(cell) && !isImage(cell) && 'p-0',
+                      )}
+                    >
+                      {isImage(cell) ? (
+                        <div className="flex items-center justify-start">
+                          <div className="w-24 h-12 rounded overflow-hidden bg-neutral-800/40 flex items-center justify-center">
+                            {cell}
                           </div>
-                        ) : (
-                          cell
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                </HoverCardTrigger>
-                <HoverCardContent
-                  side="left"
-                  align="start"
-                  sideOffset={5}
-                  className="w-80 bg-transparent p-0 border-0"
-                >
-                  <OfferHoverCard id={id as string} />
-                </HoverCardContent>
-              </HoverCard>
-            );
-          })}
-        </tbody>
-      </table>
-    </div>
+                        </div>
+                      ) : (
+                        cell
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              </HoverCardTrigger>
+              <HoverCardContent
+                side="left"
+                align="start"
+                sideOffset={5}
+                className="w-80 bg-transparent p-0 border-0"
+              >
+                <OfferHoverCard id={id as string} />
+              </HoverCardContent>
+            </HoverCard>
+          );
+        })}
+      </TableBody>
+    </Table>
   );
 
   const Section = ({
@@ -510,6 +520,44 @@ function RouteComponent() {
 
   return (
     <main className="mx-auto w-full max-w-7xl flex-1 space-y-10 py-8">
+      {/* Hero Section */}
+      <section className="text-center space-y-6 py-12">
+        <div className="space-y-4">
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
+            egdata.app
+          </h1>
+          <p className="mx-auto max-w-3xl text-lg text-muted-foreground sm:text-xl">
+            Track prices, discover deals, and never miss a free game. Your
+            ultimate companion for Epic Games Store offers, discounts, and
+            giveaways.
+          </p>
+        </div>
+
+        <div className="mx-auto max-w-md">
+          <div
+            className="relative cursor-text"
+            onClick={(e) => {
+              e.preventDefault();
+              setFocus(true);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                setFocus(true);
+              }
+            }}
+          >
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              type="search"
+              placeholder="Search games, offers, or publishers..."
+              className="pl-10 h-12 text-base cursor-text"
+              readOnly
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Metrics Row */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
         <MetricBox
