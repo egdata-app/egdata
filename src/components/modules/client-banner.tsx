@@ -5,10 +5,10 @@ export function ClientBanner() {
   return (
     <div className="relative w-full max-w-7xl mx-auto overflow-hidden rounded-2xl shadow-2xl">
       {/* Animated Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-900 via-blue-900 to-slate-800 animate-gradient-rotate" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#102744] via-[#1f3553] to-[#406179] animate-gradient-rotate" />
 
       {/* Overlay for better text readability */}
-      <div className="absolute inset-0 bg-black/20" />
+      <div className="absolute inset-0 bg-black/25" />
 
       {/* Main Content */}
       <div className="relative z-10 px-6 py-6 md:px-8 md:py-8">
@@ -18,7 +18,7 @@ export function ClientBanner() {
             {/* Main Heading */}
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
               Power the{' '}
-              <span className="bg-gradient-to-r from-indigo-300 to-purple-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#4fa3ff] to-[#7ad3ff] bg-clip-text text-transparent">
                 egdata.app
               </span>{' '}
               builds database
@@ -41,7 +41,7 @@ export function ClientBanner() {
             {/* CTA Button */}
             <Button
               size="lg"
-              className="bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 text-white font-semibold px-8 py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 group"
+              className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold px-8 py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 group"
               asChild
             >
               <a
@@ -60,8 +60,12 @@ export function ClientBanner() {
             <div className="relative">
               {/* Main Circle */}
               <div className="w-40 h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 flex items-center justify-center">
-                <div className="w-28 h-28 md:w-36 md:h-36 rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center shadow-2xl">
-                  <Database className="w-14 h-14 md:w-20 md:h-20 text-white" />
+                <div className="w-28 h-28 md:w-36 md:h-36 rounded-full bg-gradient-to-br from-[#102744] to-[#406179] flex items-center justify-center shadow-2xl">
+                  <img
+                    src="https://cdn.egdata.app/logo_simple_white_clean.png"
+                    alt="egdata logo"
+                    className="size-24"
+                  />
                 </div>
               </div>
             </div>
