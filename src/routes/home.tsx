@@ -11,7 +11,7 @@ import {
 import { useCountry } from '@/hooks/use-country';
 import { useLocale } from '@/hooks/use-locale';
 import { httpClient } from '@/lib/http-client';
-import { getFeaturedDiscounts } from '@/queries/featured-discounts';
+import { getUpcoming } from '@/queries/upcoming';
 import { getLastModified } from '@/queries/last-modified';
 import { getLatestOffers } from '@/queries/latest-offers';
 import { getLatestReleased } from '@/queries/latest-released';
@@ -45,6 +45,7 @@ import { Image } from '@/components/app/image';
 import { getImage } from '@/lib/get-image';
 import { getOfferOverview } from '@/queries/offer-overview';
 import { formatTimeToHumanReadable } from '@/lib/time-to-human-readable';
+import { Countdown } from '@/components/ui/countdown';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 import { useSearch } from '@/hooks/use-search';
@@ -78,8 +79,8 @@ export const Route = createFileRoute('/home')({
           }),
       }),
       queryClient.prefetchQuery({
-        queryKey: ['featuredDiscounts', { country, limit: 5 }],
-        queryFn: () => getFeaturedDiscounts({ country, limit: 5 }),
+        queryKey: ['upcoming', { country }],
+        queryFn: () => getUpcoming({ country }),
         staleTime: 6000,
       }),
       queryClient.prefetchQuery({
@@ -405,9 +406,9 @@ function RouteComponent() {
   const { setFocus } = useSearch();
   const [
     freebiesQuery,
-    featuredDiscountsQuery,
-    latestGamesQuery,
     upcomingQuery,
+    latestGamesQuery,
+    latestReleasedQuery,
     achievementsQuery,
     topSellersQuery,
     latestChangesQuery,
@@ -426,9 +427,9 @@ function RouteComponent() {
         placeholderData: [],
       },
       {
-        queryKey: ['featuredDiscounts', { country, limit: 5 }],
-        queryFn: () => getFeaturedDiscounts({ country, limit: 5 }),
-        placeholderData: [],
+        queryKey: ['upcoming', { country }],
+        queryFn: () => getUpcoming({ country }),
+        placeholderData: { elements: [] },
       },
       {
         queryKey: ['latest-games'],
@@ -472,9 +473,9 @@ function RouteComponent() {
     ],
   });
   const { data: giveawayOffers = [] } = freebiesQuery;
-  const { data: featuredOffers = [] } = featuredDiscountsQuery;
-  const { data: latestOffers = [] } = latestGamesQuery;
   const { data: upcomingOffers = { elements: [] } } = upcomingQuery;
+  const { data: latestOffers = [] } = latestGamesQuery;
+  const { data: latestReleasedOffers = { elements: [] } } = latestReleasedQuery;
   const { data: achievementOffers = [] } = achievementsQuery;
   const { data: topSellerOffers = [] } = topSellersQuery;
   const { data: latestChanges = [] } = latestChangesQuery;
@@ -707,7 +708,7 @@ function RouteComponent() {
         <Section title="Giveaway Offers" href="/freebies" className="h-[400px]">
           <SimpleTable
             headers={['#', 'Title', 'Starts', 'Ends']}
-            rows={giveawayOffers.map((g) => [
+            rows={giveawayOffers.slice(0, 5).map((g) => [
               g.id,
               <Link
                 key={`feebies-image-${g.id}`}
@@ -744,12 +745,17 @@ function RouteComponent() {
         </Section>
       </div>
 
-      {/* Remaining sections - normal height */}
       <div className="grid auto-rows-[1fr] gap-6 sm:grid-cols-1 md:grid-cols-2">
-        <Section title="Featured Offers (Discounts)">
+        <Section
+          title="Upcoming Offers"
+          href="/search"
+          search={{
+            sortBy: 'upcoming',
+          }}
+        >
           <SimpleTable
-            headers={['#', 'Title', 'Discount', 'Price']}
-            rows={featuredOffers.slice(0, 10).map((o) => [
+            headers={['#', 'Title', 'Release Date']}
+            rows={upcomingOffers.elements.slice(0, 10).map((o) => [
               o.id,
               <Link
                 key={o.id}
@@ -771,7 +777,7 @@ function RouteComponent() {
                 />
               </Link>,
               <Link
-                key={`feebies-title-${o.id}`}
+                key={`upcoming-title-${o.id}`}
                 to="/offers/$id"
                 params={{
                   id: o.id,
@@ -779,18 +785,19 @@ function RouteComponent() {
               >
                 {o.title ?? 'N/A'}
               </Link>,
-              o.price?.price.originalPrice && o.price.price.discountPrice
-                ? `${Math.round(((o.price.price.originalPrice - o.price.price.discountPrice) / o.price.price.originalPrice) * 100)}%`
+              o.releaseDate
+                ? (() => {
+                    const release = DateTime.fromISO(o.releaseDate);
+                    const now = DateTime.now();
+                    if (
+                      release > now &&
+                      release.diff(now, 'hours').hours <= 24
+                    ) {
+                      return <Countdown targetDate={o.releaseDate} />;
+                    }
+                    return formatDate(o.releaseDate);
+                  })()
                 : 'N/A',
-              Intl.NumberFormat(locale, {
-                style: 'currency',
-                currency: o.price?.price.currencyCode ?? 'US',
-              }).format(
-                calculatePrice(
-                  o.price?.price.discountPrice ?? 0,
-                  o.price?.price.currencyCode ?? 'US',
-                ),
-              ),
             ])}
           />
         </Section>
@@ -802,7 +809,7 @@ function RouteComponent() {
           }}
         >
           <SimpleTable
-            headers={['#', 'Title', 'Release', 'Price']}
+            headers={['#', 'Title', 'Created At', 'Price']}
             rows={latestOffers.slice(0, 10).map((o) => [
               o.id,
               <Link
@@ -833,29 +840,30 @@ function RouteComponent() {
               >
                 {o.title ?? 'N/A'}
               </Link>,
-              o.releaseDate ? formatDate(o.releaseDate) : 'N/A',
+              o.creationDate ? formatDate(o.creationDate) : 'N/A',
               Intl.NumberFormat(locale, {
                 style: 'currency',
-                currency: o.price?.price.currencyCode ?? 'US',
+                currency: o.price?.price.currencyCode ?? 'USD',
               }).format(
                 calculatePrice(
                   o.price?.price.discountPrice ?? 0,
-                  o.price?.price.currencyCode ?? 'US',
+                  o.price?.price.currencyCode ?? 'USD',
                 ),
               ),
             ])}
           />
         </Section>
         <Section
-          title="Upcoming Offers"
+          title="Latest Released"
           href="/search"
           search={{
-            sortBy: 'upcoming',
+            sortBy: 'releaseDate',
+            sortDir: 'desc',
           }}
         >
           <SimpleTable
             headers={['#', 'Date', 'Title', 'Price']}
-            rows={upcomingOffers.elements.slice(0, 10).map((u) => [
+            rows={latestReleasedOffers.elements.slice(0, 10).map((u) => [
               u.id,
               <Link
                 key={u.id}
@@ -876,7 +884,19 @@ function RouteComponent() {
                   className="w-[40px] h-[52px]"
                 />
               </Link>,
-              u.releaseDate ? formatDate(u.releaseDate) : 'N/A',
+              u.releaseDate
+                ? (() => {
+                    const release = DateTime.fromISO(u.releaseDate);
+                    const now = DateTime.now();
+                    if (
+                      release > now &&
+                      release.diff(now, 'hours').hours <= 24
+                    ) {
+                      return <Countdown targetDate={u.releaseDate} />;
+                    }
+                    return formatDate(u.releaseDate);
+                  })()
+                : 'N/A',
               <Link
                 key={`upcoming-title-${u.id}`}
                 to="/offers/$id"
