@@ -54,7 +54,6 @@ import { getBuilds } from '@/queries/get-builds';
 import { calculateSize } from '@/lib/calculate-size';
 import { BuildTitle } from '@/components/app/build-title';
 import { ClientBanner } from '@/components/modules/client-banner';
-import { useEffect, useState } from 'react';
 import { getRarity } from '@/lib/get-rarity';
 import { EpicTrophyIcon } from '@/components/icons/epic-trophy';
 import { raritiesTextColors } from '@/components/app/achievement-card';
