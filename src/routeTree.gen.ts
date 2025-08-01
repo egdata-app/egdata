@@ -16,6 +16,7 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PostsRouteImport } from './routes/posts'
 import { Route as GenresRouteImport } from './routes/genres'
 import { Route as FairUseRouteImport } from './routes/fair-use'
+import { Route as DownloadsRouteImport } from './routes/downloads'
 import { Route as DonateKeyRouteImport } from './routes/donate-key'
 import { Route as DiscordLinkedRouteImport } from './routes/discord-linked'
 import { Route as DashboardRouteImport } from './routes/dashboard'
@@ -103,6 +104,11 @@ const GenresRoute = GenresRouteImport.update({
 const FairUseRoute = FairUseRouteImport.update({
   id: '/fair-use',
   path: '/fair-use',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DownloadsRoute = DownloadsRouteImport.update({
+  id: '/downloads',
+  path: '/downloads',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DonateKeyRoute = DonateKeyRouteImport.update({
@@ -418,6 +424,7 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof DashboardRoute
   '/discord-linked': typeof DiscordLinkedRoute
   '/donate-key': typeof DonateKeyRoute
+  '/downloads': typeof DownloadsRoute
   '/fair-use': typeof FairUseRoute
   '/genres': typeof GenresRoute
   '/posts': typeof PostsRoute
@@ -480,6 +487,7 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/discord-linked': typeof DiscordLinkedRoute
   '/donate-key': typeof DonateKeyRoute
+  '/downloads': typeof DownloadsRoute
   '/fair-use': typeof FairUseRoute
   '/genres': typeof GenresRoute
   '/posts': typeof PostsRoute
@@ -538,6 +546,7 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/discord-linked': typeof DiscordLinkedRoute
   '/donate-key': typeof DonateKeyRoute
+  '/downloads': typeof DownloadsRoute
   '/fair-use': typeof FairUseRoute
   '/genres': typeof GenresRoute
   '/posts': typeof PostsRoute
@@ -602,6 +611,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/discord-linked'
     | '/donate-key'
+    | '/downloads'
     | '/fair-use'
     | '/genres'
     | '/posts'
@@ -664,6 +674,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/discord-linked'
     | '/donate-key'
+    | '/downloads'
     | '/fair-use'
     | '/genres'
     | '/posts'
@@ -721,6 +732,7 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/discord-linked'
     | '/donate-key'
+    | '/downloads'
     | '/fair-use'
     | '/genres'
     | '/posts'
@@ -784,6 +796,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   DiscordLinkedRoute: typeof DiscordLinkedRoute
   DonateKeyRoute: typeof DonateKeyRoute
+  DownloadsRoute: typeof DownloadsRoute
   FairUseRoute: typeof FairUseRoute
   GenresRoute: typeof GenresRoute
   PostsRoute: typeof PostsRoute
@@ -908,6 +921,13 @@ declare module '@tanstack/react-router' {
       path: '/fair-use'
       fullPath: '/fair-use'
       preLoaderRoute: typeof FairUseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/downloads': {
+      id: '/downloads'
+      path: '/downloads'
+      fullPath: '/downloads'
+      preLoaderRoute: typeof DownloadsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/donate-key': {
@@ -1464,6 +1484,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   DiscordLinkedRoute: DiscordLinkedRoute,
   DonateKeyRoute: DonateKeyRoute,
+  DownloadsRoute: DownloadsRoute,
   FairUseRoute: FairUseRoute,
   GenresRoute: GenresRoute,
   PostsRoute: PostsRoute,

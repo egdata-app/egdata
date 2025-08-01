@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import { Link } from '@tanstack/react-router';
 import { Download, Database } from 'lucide-react';
 
 export function ClientBanner() {
@@ -44,14 +45,10 @@ export function ClientBanner() {
               className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold px-8 py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 group"
               asChild
             >
-              <a
-                href="https://github.com/egdata-app/egdata-client/releases"
-                target="_blank"
-                rel="noreferrer"
-              >
+              <Link to="/downloads">
                 <Download strokeWidth={3} className="w-5 h-5 mr-2" />
                 Download for Windows & macOS
-              </a>
+              </Link>
             </Button>
           </div>
 
