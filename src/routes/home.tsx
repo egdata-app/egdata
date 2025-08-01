@@ -55,6 +55,9 @@ import { calculateSize } from '@/lib/calculate-size';
 import { BuildTitle } from '@/components/app/build-title';
 import { ClientBanner } from '@/components/modules/client-banner';
 import { useEffect, useState } from 'react';
+import { getRarity } from '@/lib/get-rarity';
+import { EpicTrophyIcon } from '@/components/icons/epic-trophy';
+import { raritiesTextColors } from '@/components/app/achievement-card';
 
 export const Route = createFileRoute('/home')({
   component: RouteComponent,
@@ -532,7 +535,7 @@ function RouteComponent() {
     hoverCardType = 'offer',
     renderHoverCard: customRenderHoverCard,
   }: {
-    headers: string[];
+    headers: (string | JSX.Element)[];
     rows: (string | number | JSX.Element)[][];
     hoverCardType?: HoverCardType;
     renderHoverCard?: (id: string) => JSX.Element | null;
@@ -542,8 +545,11 @@ function RouteComponent() {
         <Table>
           <TableHeader>
             <TableRow>
-              {headers.map((h) => (
-                <TableHead key={h} className="text-neutral-400 font-normal">
+              {headers.map((h, index) => (
+                <TableHead
+                  key={typeof h === 'string' ? h : `header-${index}`}
+                  className="text-neutral-400 font-normal"
+                >
                   {h}
                 </TableHead>
               ))}
@@ -957,13 +963,44 @@ function RouteComponent() {
           }}
         >
           <SimpleTable
-            headers={['#', 'Title', 'Achievements', 'XP']}
+            headers={[
+              '#',
+              'Title',
+              <span
+                className="flex flex-col items-center justify-center"
+                key="bronze-header"
+              >
+                <EpicTrophyIcon
+                  className={cn('size-4', raritiesTextColors.bronze)}
+                />
+              </span>,
+              <span
+                className="flex flex-col items-center justify-center"
+                key="silver-header"
+              >
+                <EpicTrophyIcon
+                  className={cn('size-4', raritiesTextColors.silver)}
+                />
+              </span>,
+              <span
+                className="flex flex-col items-center justify-center"
+                key="gold-header"
+              >
+                <EpicTrophyIcon
+                  className={cn('size-4', raritiesTextColors.gold)}
+                />
+              </span>,
+            ]}
             rows={achievementOffers.slice(0, 10).map((a) => {
-              const totalXP = a.achievements.achievements.reduce(
-                (sum, achievement) => sum + achievement.xp,
-                0,
-              );
-              const numAchievements = a.achievements.achievements.length;
+              const noOfAchievementsPerRarity =
+                a.achievements.achievements.reduce(
+                  (acc, achievement) => {
+                    const rarity = getRarity(achievement.xp);
+                    acc[rarity] = (acc[rarity] || 0) + 1;
+                    return acc;
+                  },
+                  {} as { [key: string]: number },
+                );
 
               return [
                 a.id,
@@ -995,11 +1032,14 @@ function RouteComponent() {
                 >
                   {a.title ?? 'N/A'}
                 </Link>,
-                <p key={`achievement-num-${a.id}`} className="text-center">
-                  {numAchievements}
+                <p key={`achievement-bronze-${a.id}`} className="text-center">
+                  {noOfAchievementsPerRarity.bronze || 0}
                 </p>,
-                <p key={`achievement-xp-${a.id}`}>
-                  {totalXP.toLocaleString()} XP
+                <p key={`achievement-silver-${a.id}`} className="text-center">
+                  {noOfAchievementsPerRarity.silver || 0}
+                </p>,
+                <p key={`achievement-gold-${a.id}`} className="text-center">
+                  {noOfAchievementsPerRarity.gold || 0}
                 </p>,
               ];
             })}
@@ -1013,7 +1053,7 @@ function RouteComponent() {
           }}
         >
           <SimpleTable
-            headers={['#', '', 'Title', 'Developer']}
+            headers={['Pos', '-', 'Title']}
             rows={topSellerOffers.slice(0, 10).map((t, i) => [
               t.id,
               i + 1,
@@ -1045,7 +1085,6 @@ function RouteComponent() {
               >
                 {t.title}
               </Link>,
-              t.developerDisplayName ?? t.seller.name,
             ])}
           />
         </Section>
