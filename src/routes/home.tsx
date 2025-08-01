@@ -20,6 +20,7 @@ import { getStats } from '@/queries/stats';
 import { getTopSellers } from '@/queries/top-sellers';
 import type { GiveawayOffer } from '@/types/giveaways';
 import type { FullTag } from '@/types/tags';
+import type { SingleItem } from '@/types/single-item';
 import { useQueries, useQuery } from '@tanstack/react-query';
 import {
   createFileRoute,
@@ -53,6 +54,7 @@ import { getBuilds } from '@/queries/get-builds';
 import { calculateSize } from '@/lib/calculate-size';
 import { BuildTitle } from '@/components/app/build-title';
 import { ClientBanner } from '@/components/modules/client-banner';
+import { useEffect, useState } from 'react';
 
 export const Route = createFileRoute('/home')({
   component: RouteComponent,
@@ -332,7 +334,7 @@ function BuildHoverCard({
   id: string;
   builds: Array<{
     _id: string;
-    item: { title: string; developer?: string };
+    item: SingleItem;
     downloadSizeBytes: number;
     createdAt: string;
     buildVersion?: string;
@@ -340,38 +342,78 @@ function BuildHoverCard({
 }) {
   const build = builds.find((b) => b._id === id);
 
+  const gameImage =
+    build &&
+    getImage(build.item.keyImages, [
+      'OfferImageWide',
+      'DieselStoreFrontWide',
+      'horizontal',
+      'DieselGameBoxWide',
+      'DieselGameBox',
+      'Thumbnail',
+    ]);
+
   if (!build) return null;
 
-  return (
-    <div className="bg-slate-800 border-slate-700 text-slate-200 p-4 space-y-3 w-full h-fit border rounded-md">
-      <h3 className="text-xl font-bold text-white">{build.item.title}</h3>
+  const displayUrl = gameImage?.url;
 
-      <div className="text-sm space-y-1 text-slate-300">
-        <p>
-          <span className="text-slate-400">Build ID:</span> {build._id}
-        </p>
-        <p>
-          <span className="text-slate-400">Size:</span>{' '}
-          {calculateSize(build.downloadSizeBytes)}
-        </p>
-        <p>
-          <span className="text-slate-400">Created:</span>{' '}
-          {DateTime.fromISO(build.createdAt).toLocaleString(
-            DateTime.DATETIME_MED,
+  return (
+    <div className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700 text-slate-200 border rounded-lg shadow-xl overflow-hidden w-80">
+      {displayUrl && (
+        <div className="w-full h-44 flex-shrink-0 relative">
+          <img
+            src={displayUrl}
+            alt={build.item.title}
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      )}
+
+      <div className="p-4 space-y-3">
+        <div>
+          <h3 className="text-lg font-bold text-white leading-tight line-clamp-2">
+            {build.item.title}
+          </h3>
+          {build.item.developer && (
+            <p className="text-sm text-slate-400 mt-1">
+              {build.item.developer}
+            </p>
           )}
-        </p>
-        {build.item.developer && (
-          <p>
-            <span className="text-slate-400">Developer:</span>{' '}
-            {build.item.developer}
+        </div>
+
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-slate-400">Size</span>
+            <span className="text-sm font-medium text-slate-200">
+              {calculateSize(build.downloadSizeBytes)}
+            </span>
+          </div>
+
+          {build.buildVersion && (
+            <div className="flex items-center justify-between">
+              <span className="text-xs text-slate-400">Version</span>
+              <span className="text-sm font-medium text-slate-200">
+                {build.buildVersion}
+              </span>
+            </div>
+          )}
+
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-slate-400">Created</span>
+            <span className="text-xs text-slate-300">
+              {DateTime.fromISO(build.createdAt).toLocaleString(
+                DateTime.DATE_SHORT,
+              )}
+            </span>
+          </div>
+        </div>
+
+        <div className="pt-2 border-t border-slate-700">
+          <p className="text-xs text-slate-500 font-mono truncate">
+            ID: {build._id}
           </p>
-        )}
-        {build.buildVersion && (
-          <p>
-            <span className="text-slate-400">Version:</span>{' '}
-            {build.buildVersion}
-          </p>
-        )}
+        </div>
       </div>
     </div>
   );
@@ -379,22 +421,13 @@ function BuildHoverCard({
 
 type HoverCardType = 'offer' | 'build' | 'none';
 
-function renderHoverCard(
-  type: HoverCardType,
-  id: string,
-  builds?: Array<{
-    _id: string;
-    item: { title: string; developer?: string };
-    downloadSizeBytes: number;
-    createdAt: string;
-    buildVersion?: string;
-  }>,
-) {
+function renderHoverCard(type: HoverCardType, id: string) {
   switch (type) {
     case 'offer':
       return <OfferHoverCard id={id} />;
     case 'build':
-      return builds ? <BuildHoverCard id={id} builds={builds} /> : null;
+      // Build hover cards should now be handled via the renderHoverCard prop
+      return null;
     default:
       return null;
   }
@@ -497,18 +530,12 @@ function RouteComponent() {
     headers,
     rows,
     hoverCardType = 'offer',
-    builds,
+    renderHoverCard: customRenderHoverCard,
   }: {
     headers: string[];
     rows: (string | number | JSX.Element)[][];
     hoverCardType?: HoverCardType;
-    builds?: Array<{
-      _id: string;
-      item: { title: string; developer?: string };
-      downloadSizeBytes: number;
-      createdAt: string;
-      buildVersion?: string;
-    }>;
+    renderHoverCard?: (id: string) => JSX.Element | null;
   }) => {
     const TableContent = (
       <div className="overflow-x-auto">
@@ -539,10 +566,10 @@ function RouteComponent() {
                     <TableCell
                       key={`${id}-${headers[j - 1]}`}
                       className={cn(
-                      'whitespace-nowrap text-sm',
-                      isImage(cell) && 'w-16 sm:w-32',
-                      isElement(cell) && !isImage(cell) && 'p-0',
-                    )}
+                        'whitespace-nowrap text-sm',
+                        isImage(cell) && 'w-16 sm:w-32',
+                        isElement(cell) && !isImage(cell) && 'p-0',
+                      )}
                     >
                       {isImage(cell) ? (
                         <div className="flex items-center justify-start">
@@ -571,7 +598,9 @@ function RouteComponent() {
                     sideOffset={5}
                     className="w-80 bg-transparent p-0 border-0"
                   >
-                    {renderHoverCard(hoverCardType, id as string, builds)}
+                    {customRenderHoverCard
+                      ? customRenderHoverCard(id as string)
+                      : renderHoverCard(hoverCardType, id as string)}
                   </HoverCardContent>
                 </HoverCard>
               );
@@ -1049,26 +1078,17 @@ function RouteComponent() {
                 id={b._id}
                 title={b.item.title}
                 buildVersion={b.buildVersion}
+                maxTitleLength={20}
               />,
               calculateSize(b.downloadSizeBytes),
               formatDate(b.createdAt),
             ])}
             hoverCardType="build"
-            builds={latestBuilds}
+            renderHoverCard={(id) => (
+              <BuildHoverCard id={id} builds={latestBuilds} />
+            )}
           />
         </Section>
-
-        {/* Latest Changes full width */}
-        {/* <Section title="Latest Changes" spanFull>
-          <SimpleTable
-            headers={['Time', 'Offer']}
-            rows={latestChanges.map((c) => [
-              c.id,
-              c.lastModifiedDate ? formatDate(c.lastModifiedDate) : 'N/A',
-              c.title ?? 'N/A',
-            ])}
-          />
-        </Section> */}
       </div>
       <ClientBanner />
     </main>

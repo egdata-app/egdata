@@ -1,9 +1,4 @@
 import { Link } from '@tanstack/react-router';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 
 interface BuildTitleProps {
@@ -33,12 +28,6 @@ export function BuildTitle({
     ? truncateText(buildVersion, maxVersionLength)
     : '';
 
-  const shouldShowTitleTooltip = title.length > maxTitleLength;
-  const shouldShowVersionTooltip =
-    buildVersion && buildVersion.length > maxVersionLength;
-  const shouldShowTooltip = shouldShowTitleTooltip || shouldShowVersionTooltip;
-
-  const fullText = buildVersion ? `${title} (${buildVersion})` : title;
   const displayText = (
     <>
       <span>{truncatedTitle}</span>
@@ -54,26 +43,7 @@ export function BuildTitle({
       params={{ id }}
       className={cn('pl-2 font-mono', className)}
     >
-      {shouldShowTooltip ? (
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <span
-              className={cn(
-                'cursor-help',
-                shouldShowTooltip &&
-                  'underline decoration-dotted decoration-gray-500/50 underline-offset-4',
-              )}
-            >
-              {displayText}
-            </span>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>{fullText}</p>
-          </TooltipContent>
-        </Tooltip>
-      ) : (
-        displayText
-      )}
+      {displayText}
     </Link>
   );
 }
