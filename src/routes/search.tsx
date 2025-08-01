@@ -38,7 +38,7 @@ export const Route = createFileRoute('/search')({
         queryFn: () => httpClient.get('/search/tags?raw=true'),
       }),
       queryClient.ensureQueryData({
-        queryKey: ['search-v2', search],
+        queryKey: ['search', 'search', search],
         queryFn: () =>
           httpClient.post(`/search/v2/search?country=${country}`, search),
       }),
