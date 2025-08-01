@@ -39,7 +39,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, TrendingUp } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Image } from '@/components/app/image';
 import { getImage } from '@/lib/get-image';
@@ -552,15 +552,19 @@ function RouteComponent() {
 
               const TableRowContent = (
                 <TableRow className="border-neutral-800 hover:bg-neutral-800/60">
-                  {cells.map((cell, j) => (
-                    <TableCell
-                      key={`${id}-${headers[j - 1]}`}
-                      className={cn(
-                        'whitespace-nowrap text-sm',
-                        isImage(cell) && 'w-16 sm:w-32',
-                        isElement(cell) && !isImage(cell) && 'p-0',
-                      )}
-                    >
+                  {cells.map((cell, j) => {
+                    const headerKey = typeof headers[j + 1] === 'string' 
+                      ? headers[j + 1] 
+                      : `header-${j}`;
+                    return (
+                      <TableCell
+                        key={`${id}-${headerKey}`}
+                        className={cn(
+                          'whitespace-nowrap text-sm',
+                          isImage(cell) && 'w-16 sm:w-32',
+                          isElement(cell) && !isImage(cell) && 'p-0',
+                        )}
+                      >
                       {isImage(cell) ? (
                         <div className="flex items-center justify-start">
                           <div className="w-16 h-8 sm:w-24 sm:h-12 rounded overflow-hidden bg-neutral-800/40 flex items-center justify-center">
@@ -570,8 +574,9 @@ function RouteComponent() {
                       ) : (
                         cell
                       )}
-                    </TableCell>
-                  ))}
+                      </TableCell>
+                    );
+                  })}
                 </TableRow>
               );
 
@@ -1037,7 +1042,17 @@ function RouteComponent() {
           }}
         >
           <SimpleTable
-            headers={['Pos', '-', 'Title']}
+            headers={[
+              'Pos',
+              '-',
+              'Title',
+              <span
+                key="trend-up-top-sellers"
+                className="w-full flex flex-col items-center justify-center"
+              >
+                <TrendingUp className="size-4" />
+              </span>,
+            ]}
             rows={topSellerOffers.slice(0, 10).map((t, i) => [
               t.id,
               i + 1,
@@ -1069,6 +1084,11 @@ function RouteComponent() {
               >
                 {t.title}
               </Link>,
+              <p key={`topseller-price-${t.id}`} className="text-center">
+                {t.previousPosition - t.position === 0
+                  ? '-'
+                  : t.previousPosition - t.position}
+              </p>,
             ])}
           />
         </Section>
