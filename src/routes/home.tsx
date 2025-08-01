@@ -511,72 +511,74 @@ function RouteComponent() {
     }>;
   }) => {
     const TableContent = (
-      <Table>
-        <TableHeader>
-          <TableRow>
-            {headers.map((h) => (
-              <TableHead key={h} className="text-neutral-400 font-normal">
-                {h}
-              </TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {rows.map((c) => {
-            const [id, ...cells] = c;
-            const isElement = (cell: string | number | JSX.Element) =>
-              typeof cell === 'object' && 'props' in cell;
-            const isImage = (cell: string | number | JSX.Element) =>
-              isElement(cell) &&
-              typeof cell === 'object' &&
-              'type' in cell &&
-              cell.type === Image;
+      <div className="overflow-x-auto">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              {headers.map((h) => (
+                <TableHead key={h} className="text-neutral-400 font-normal">
+                  {h}
+                </TableHead>
+              ))}
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {rows.map((c) => {
+              const [id, ...cells] = c;
+              const isElement = (cell: string | number | JSX.Element) =>
+                typeof cell === 'object' && 'props' in cell;
+              const isImage = (cell: string | number | JSX.Element) =>
+                isElement(cell) &&
+                typeof cell === 'object' &&
+                'type' in cell &&
+                cell.type === Image;
 
-            const TableRowContent = (
-              <TableRow className="border-neutral-800 hover:bg-neutral-800/60">
-                {cells.map((cell, j) => (
-                  <TableCell
-                    key={`${id}-${headers[j - 1]}`}
-                    className={cn(
-                      'whitespace-nowrap',
-                      isImage(cell) && 'w-32',
+              const TableRowContent = (
+                <TableRow className="border-neutral-800 hover:bg-neutral-800/60">
+                  {cells.map((cell, j) => (
+                    <TableCell
+                      key={`${id}-${headers[j - 1]}`}
+                      className={cn(
+                      'whitespace-nowrap text-sm',
+                      isImage(cell) && 'w-16 sm:w-32',
                       isElement(cell) && !isImage(cell) && 'p-0',
                     )}
-                  >
-                    {isImage(cell) ? (
-                      <div className="flex items-center justify-start">
-                        <div className="w-24 h-12 rounded overflow-hidden bg-neutral-800/40 flex items-center justify-center">
-                          {cell}
+                    >
+                      {isImage(cell) ? (
+                        <div className="flex items-center justify-start">
+                          <div className="w-16 h-8 sm:w-24 sm:h-12 rounded overflow-hidden bg-neutral-800/40 flex items-center justify-center">
+                            {cell}
+                          </div>
                         </div>
-                      </div>
-                    ) : (
-                      cell
-                    )}
-                  </TableCell>
-                ))}
-              </TableRow>
-            );
+                      ) : (
+                        cell
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              );
 
-            if (hoverCardType === 'none') {
-              return <div key={id as string}>{TableRowContent}</div>;
-            }
+              if (hoverCardType === 'none') {
+                return <div key={id as string}>{TableRowContent}</div>;
+              }
 
-            return (
-              <HoverCard key={id as string} openDelay={300} closeDelay={200}>
-                <HoverCardTrigger asChild>{TableRowContent}</HoverCardTrigger>
-                <HoverCardContent
-                  side="left"
-                  align="start"
-                  sideOffset={5}
-                  className="w-80 bg-transparent p-0 border-0"
-                >
-                  {renderHoverCard(hoverCardType, id as string, builds)}
-                </HoverCardContent>
-              </HoverCard>
-            );
-          })}
-        </TableBody>
-      </Table>
+              return (
+                <HoverCard key={id as string} openDelay={300} closeDelay={200}>
+                  <HoverCardTrigger asChild>{TableRowContent}</HoverCardTrigger>
+                  <HoverCardContent
+                    side="left"
+                    align="start"
+                    sideOffset={5}
+                    className="w-80 bg-transparent p-0 border-0"
+                  >
+                    {renderHoverCard(hoverCardType, id as string, builds)}
+                  </HoverCardContent>
+                </HoverCard>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </div>
     );
 
     return TableContent;
@@ -636,7 +638,7 @@ function RouteComponent() {
   );
 
   return (
-    <main className="mx-auto w-full max-w-7xl flex-1 space-y-6 py-6">
+    <main className="mx-auto w-full max-w-7xl flex-1 space-y-6 py-6 px-4 sm:px-6 lg:px-8">
       {/* Hero Section */}
       <section className="text-center space-y-4 py-6">
         <div className="space-y-3">
@@ -696,7 +698,7 @@ function RouteComponent() {
       </div>
 
       {/* First row - shorter sections */}
-      <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2">
+      <div className="grid gap-6 grid-cols-1 lg:grid-cols-2">
         {/* Giveaways Stats Section */}
         <Section title="Giveaway Stats" href="/freebies" className="h-[400px]">
           <div className="flex flex-col items-center justify-center h-full">
@@ -716,7 +718,7 @@ function RouteComponent() {
                 params={{
                   id: g.id,
                 }}
-                className="w-[40px] h-[52px]"
+                className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
               >
                 <img
                   src={
@@ -726,7 +728,7 @@ function RouteComponent() {
                     ])?.url ?? '/placeholder.webp'
                   }
                   alt={g.title}
-                  className="w-[40px] h-[52px]"
+                  className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
                 />
               </Link>,
               <Link
@@ -745,7 +747,7 @@ function RouteComponent() {
         </Section>
       </div>
 
-      <div className="grid auto-rows-[1fr] gap-6 sm:grid-cols-1 md:grid-cols-2">
+      <div className="grid auto-rows-[1fr] gap-6 grid-cols-1 lg:grid-cols-2">
         <Section
           title="Upcoming Offers"
           href="/search"
@@ -763,7 +765,7 @@ function RouteComponent() {
                 params={{
                   id: o.id,
                 }}
-                className="w-[40px] h-[52px]"
+                className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
               >
                 <img
                   src={
@@ -773,7 +775,7 @@ function RouteComponent() {
                     ])?.url ?? '/placeholder.webp'
                   }
                   alt={o.title}
-                  className="w-[40px] h-[52px]"
+                  className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
                 />
               </Link>,
               <Link
@@ -818,7 +820,7 @@ function RouteComponent() {
                 params={{
                   id: o.id,
                 }}
-                className="w-[40px] h-[52px]"
+                className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
               >
                 <img
                   src={
@@ -828,7 +830,7 @@ function RouteComponent() {
                     ])?.url ?? '/placeholder.webp'
                   }
                   alt={o.title}
-                  className="w-[40px] h-[52px]"
+                  className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
                 />
               </Link>,
               <Link
@@ -871,7 +873,7 @@ function RouteComponent() {
                 params={{
                   id: u.id,
                 }}
-                className="w-[40px] h-[52px]"
+                className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
               >
                 <img
                   src={
@@ -881,7 +883,7 @@ function RouteComponent() {
                     ])?.url ?? '/placeholder.webp'
                   }
                   alt={u.title}
-                  className="w-[40px] h-[52px]"
+                  className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
                 />
               </Link>,
               u.releaseDate
@@ -942,7 +944,7 @@ function RouteComponent() {
                   params={{
                     id: a.id,
                   }}
-                  className="w-[40px] h-[52px]"
+                  className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
                 >
                   <img
                     src={
@@ -952,7 +954,7 @@ function RouteComponent() {
                       ])?.url ?? '/placeholder.webp'
                     }
                     alt={a.title}
-                    className="w-[40px] h-[52px]"
+                    className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
                   />
                 </Link>,
                 <Link
@@ -992,7 +994,7 @@ function RouteComponent() {
                 params={{
                   id: t.id,
                 }}
-                className="w-[40px] h-[52px]"
+                className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
               >
                 <img
                   src={
@@ -1002,7 +1004,7 @@ function RouteComponent() {
                     ])?.url ?? '/placeholder.webp'
                   }
                   alt={t.title}
-                  className="w-[40px] h-[52px]"
+                  className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
                 />
               </Link>,
               <Link
@@ -1029,7 +1031,7 @@ function RouteComponent() {
                 params={{
                   id: b._id,
                 }}
-                className="w-[40px] h-[52px]"
+                className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
               >
                 <img
                   src={
@@ -1039,7 +1041,7 @@ function RouteComponent() {
                     ])?.url ?? '/placeholder.webp'
                   }
                   alt={b.item.title}
-                  className="w-[40px] h-[52px]"
+                  className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
                 />
               </Link>,
               <BuildTitle
