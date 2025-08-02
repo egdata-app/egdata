@@ -39,6 +39,15 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogOverlay,
+  DialogPortal,
+} from '@/components/ui/dialog';
 import { Sparkles, TrendingUp } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Image } from '@/components/app/image';
@@ -745,7 +754,7 @@ function RouteComponent() {
           <SimpleTable
             headers={['#', 'Title', 'Starts', 'Ends']}
             rows={giveawayOffers.slice(0, 5).map((g) => [
-              g.id,
+              g.offers.map((o) => o.id).join(':'),
               <Link
                 key={`feebies-image-${g.id}`}
                 to="/offers/$id"
@@ -765,25 +774,91 @@ function RouteComponent() {
                   className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
                 />
               </Link>,
-              <Link
-                key={`feebies-title-${g.id}`}
-                to="/offers/$id"
-                params={{
-                  id: g.id,
-                }}
-                className="flex flex-col items-start justify-center"
-              >
-                <span>{g.title}</span>
-                <p className="inline-flex gap-1">
-                  {g.platforms.map((p) =>
-                    RenderTextPlatformIcon({
-                      platform: p,
-                      className: 'size-5 rounded-full p-1 bg-gray-600',
-                      key: `${p}-${g.id}`,
-                    }),
-                  )}
-                </p>
-              </Link>,
+              g.offers.length > 1 ? (
+                <Dialog key={`feebies-dialog-${g.id}`}>
+                  <DialogTrigger asChild>
+                    <button
+                      type="button"
+                      className="flex flex-col items-start justify-center text-left hover:text-blue-400 transition-colors"
+                    >
+                      <span>{g.title}</span>
+                      <p className="inline-flex gap-1">
+                        {g.platforms.map((p) =>
+                          RenderTextPlatformIcon({
+                            platform: p,
+                            className: 'size-5 rounded-full p-1 bg-gray-600',
+                            key: `${p}-${g.id}`,
+                          }),
+                        )}
+                      </p>
+                    </button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-md z-[60]">
+                    <DialogHeader>
+                      <DialogTitle>{g.title} - Multiple Offers</DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-3">
+                      {g.offers.map((offer) => {
+                        const offerPlatforms = offer.items.flatMap((item) =>
+                          item.releaseInfo.flatMap((info) => info.platform),
+                        );
+                        return (
+                          <Link
+                            key={offer.id}
+                            to="/offers/$id"
+                            params={{ id: offer.id }}
+                            className="flex items-center gap-3 p-3 border rounded-lg bg-card transition-colors"
+                          >
+                            <img
+                              src={
+                                getImage(offer.keyImages, [
+                                  'DieselGameBoxTall',
+                                  'OfferImageTall',
+                                ])?.url ?? '/placeholder.webp'
+                              }
+                              alt={offer.title}
+                              className="w-12 h-16 object-cover rounded"
+                            />
+                            <div className="flex-1">
+                              <h4 className="font-medium">{offer.title}</h4>
+                              <div className="flex gap-1 mt-1">
+                                {offerPlatforms.map((platform, idx) =>
+                                  RenderTextPlatformIcon({
+                                    platform,
+                                    className:
+                                      'size-6 rounded-full p-1 bg-gray-600',
+                                    key: `${platform}-${offer.id}-${idx}`,
+                                  }),
+                                )}
+                              </div>
+                            </div>
+                          </Link>
+                        );
+                      })}
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              ) : (
+                <Link
+                  key={`feebies-title-${g.id}`}
+                  to="/offers/$id"
+                  params={{
+                    id: g.id,
+                  }}
+                  className="flex flex-col items-start justify-center"
+                >
+                  <span>{g.title}</span>
+                  <p className="inline-flex gap-1">
+                    {g.platforms.map((p) =>
+                      RenderTextPlatformIcon({
+                        platform: p,
+                        className: 'size-5 rounded-full p-1 bg-gray-600',
+                        key: `${p}-${g.id}`,
+                      }),
+                    )}
+                  </p>
+                </Link>
+              ),
               g.giveaway.startDate ? formatDate(g.giveaway.startDate) : 'N/A',
               g.giveaway.endDate ? formatDate(g.giveaway.endDate) : 'N/A',
             ])}
