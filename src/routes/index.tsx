@@ -45,8 +45,6 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  DialogOverlay,
-  DialogPortal,
 } from '@/components/ui/dialog';
 import { Sparkles, TrendingUp } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
