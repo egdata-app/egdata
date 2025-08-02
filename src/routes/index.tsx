@@ -66,10 +66,7 @@ import { getRarity } from '@/lib/get-rarity';
 import { EpicTrophyIcon } from '@/components/icons/epic-trophy';
 import { raritiesTextColors } from '@/components/app/achievement-card';
 import { mergeFreebies } from '@/utils/merge-freebies';
-import {
-  RenderTextPlatformIcon,
-  textPlatformIcons,
-} from '@/components/app/platform-icons';
+import { RenderTextPlatformIcon } from '@/components/app/platform-icons';
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
