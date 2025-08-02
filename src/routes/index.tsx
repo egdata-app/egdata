@@ -802,7 +802,7 @@ function RouteComponent() {
                             key={offer.id}
                             to="/offers/$id"
                             params={{ id: offer.id }}
-                            className="flex items-center gap-3 p-3 border rounded-lg bg-card transition-colors"
+                            className="flex items-center gap-3 p-3 border rounded-lg bg-card transition-colors hover:border-gray-400"
                           >
                             <img
                               src={
