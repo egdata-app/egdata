@@ -56,6 +56,11 @@ import { ClientBanner } from '@/components/modules/client-banner';
 import { getRarity } from '@/lib/get-rarity';
 import { EpicTrophyIcon } from '@/components/icons/epic-trophy';
 import { raritiesTextColors } from '@/components/app/achievement-card';
+import { mergeFreebies } from '@/utils/merge-freebies';
+import {
+  RenderTextPlatformIcon,
+  textPlatformIcons,
+} from '@/components/app/platform-icons';
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
@@ -67,11 +72,13 @@ export const Route = createFileRoute('/')({
       queryClient.prefetchQuery({
         queryKey: ['giveaways'],
         queryFn: () =>
-          httpClient.get<GiveawayOffer[]>('/free-games', {
-            params: {
-              country,
-            },
-          }),
+          httpClient
+            .get<GiveawayOffer[]>('/free-games', {
+              params: {
+                country,
+              },
+            })
+            .then(mergeFreebies),
       }),
       queryClient.prefetchQuery({
         queryKey: ['upcoming', { country }],
@@ -439,11 +446,13 @@ function RouteComponent() {
       {
         queryKey: ['giveaways'],
         queryFn: () =>
-          httpClient.get<GiveawayOffer[]>('/free-games', {
-            params: {
-              country,
-            },
-          }),
+          httpClient
+            .get<GiveawayOffer[]>('/free-games', {
+              params: {
+                country,
+              },
+            })
+            .then(mergeFreebies),
         placeholderData: [],
       },
       {
@@ -553,9 +562,10 @@ function RouteComponent() {
               const TableRowContent = (
                 <TableRow className="border-neutral-800 hover:bg-neutral-800/60">
                   {cells.map((cell, j) => {
-                    const headerKey = typeof headers[j + 1] === 'string' 
-                      ? headers[j + 1] 
-                      : `header-${j}`;
+                    const headerKey =
+                      typeof headers[j + 1] === 'string'
+                        ? headers[j + 1]
+                        : `header-${j}`;
                     return (
                       <TableCell
                         key={`${id}-${headerKey}`}
@@ -565,15 +575,15 @@ function RouteComponent() {
                           isElement(cell) && !isImage(cell) && 'p-0',
                         )}
                       >
-                      {isImage(cell) ? (
-                        <div className="flex items-center justify-start">
-                          <div className="w-16 h-8 sm:w-24 sm:h-12 rounded overflow-hidden bg-neutral-800/40 flex items-center justify-center">
-                            {cell}
+                        {isImage(cell) ? (
+                          <div className="flex items-center justify-start">
+                            <div className="w-16 h-8 sm:w-24 sm:h-12 rounded overflow-hidden bg-neutral-800/40 flex items-center justify-center">
+                              {cell}
+                            </div>
                           </div>
-                        </div>
-                      ) : (
-                        cell
-                      )}
+                        ) : (
+                          cell
+                        )}
                       </TableCell>
                     );
                   })}
@@ -761,8 +771,18 @@ function RouteComponent() {
                 params={{
                   id: g.id,
                 }}
+                className="flex flex-col items-start justify-center"
               >
-                {g.title}
+                <span>{g.title}</span>
+                <p className="inline-flex gap-1">
+                  {g.platforms.map((p) =>
+                    RenderTextPlatformIcon({
+                      platform: p,
+                      className: 'size-5 rounded-full p-1 bg-gray-600',
+                      key: `${p}-${g.id}`,
+                    }),
+                  )}
+                </p>
               </Link>,
               g.giveaway.startDate ? formatDate(g.giveaway.startDate) : 'N/A',
               g.giveaway.endDate ? formatDate(g.giveaway.endDate) : 'N/A',
@@ -934,11 +954,11 @@ function RouteComponent() {
               </Link>,
               Intl.NumberFormat(locale, {
                 style: 'currency',
-                currency: u.price?.price.currencyCode ?? 'US',
+                currency: u.price?.price.currencyCode ?? 'USD',
               }).format(
                 calculatePrice(
                   u.price?.price.discountPrice ?? 0,
-                  u.price?.price.currencyCode ?? 'US',
+                  u.price?.price.currencyCode ?? 'USD',
                 ),
               ),
             ])}

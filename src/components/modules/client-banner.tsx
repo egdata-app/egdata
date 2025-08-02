@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Link } from '@tanstack/react-router';
-import { Download, Database } from 'lucide-react';
+import { Download } from 'lucide-react';
 
 export function ClientBanner() {
   return (

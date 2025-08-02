@@ -1,3 +1,4 @@
+import type { SingleItem } from './single-item';
 import type { SingleOffer } from './single-offer';
 
 export interface GiveawayOffer extends SingleOffer {
@@ -15,4 +16,5 @@ export interface GiveawayOffer extends SingleOffer {
       endDate: string;
     }[];
   };
+  items: SingleItem[];
 }

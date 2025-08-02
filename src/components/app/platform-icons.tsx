@@ -12,10 +12,11 @@ import {
   FaWindows,
   FaXbox,
 } from 'react-icons/fa6';
-import { SiGogdotcom, SiOculus, SiSamsung } from 'react-icons/si';
+import { SiGogdotcom, SiMacos, SiOculus, SiSamsung } from 'react-icons/si';
 import { BsNintendoSwitch } from 'react-icons/bs';
 import type { LinkedAccount } from '@/types/profiles';
 import type { SingleItem } from '@/types/single-item';
+import { createElement } from 'react';
 
 const linkedAccounts = [
   'amazon',
@@ -51,6 +52,34 @@ export const textPlatformIcons: Record<string, React.ReactNode> = {
   Linux: <FaLinux className="w-5 h-5 text-muted-foreground" />,
   iOS: <FaApple className="w-5 h-5 text-muted-foreground" />,
 };
+
+const rawTextPlatformIcons = {
+  Windows: FaWindows,
+  Mac: SiMacos,
+  Android: FaAndroid,
+  'SteamVR / HTC Vive': FaSteam,
+  Win32: FaWindows,
+  PS4: FaPlaystation,
+  'Gear VR': FaSteam,
+  HTML5: FaHtml5,
+  Linux: FaLinux,
+  iOS: FaApple,
+};
+
+export function RenderTextPlatformIcon({
+  platform,
+  className,
+  key,
+}: {
+  platform: string;
+  className?: string;
+  key?: string;
+}) {
+  return createElement(rawTextPlatformIcons[platform], {
+    className,
+    key,
+  });
+}
 
 export const accountPlatformIcons: Record<string, React.ReactNode> = {
   amazon: <FaAmazon className="w-5 h-5 text-muted-foreground" />,

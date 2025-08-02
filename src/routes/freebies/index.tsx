@@ -14,6 +14,7 @@ import {
   getGiveawaysStats,
   GiveawaysStats,
 } from '@/components/modules/giveaway-stats';
+import { mergeFreebies } from '@/utils/merge-freebies';
 
 export const Route = createFileRoute('/freebies/')({
   component: () => {
@@ -45,11 +46,13 @@ export const Route = createFileRoute('/freebies/')({
       queryClient.prefetchQuery({
         queryKey: ['giveaways'],
         queryFn: () =>
-          httpClient.get<GiveawayOffer[]>('/free-games', {
-            params: {
-              country,
-            },
-          }),
+          httpClient
+            .get<GiveawayOffer[]>('/free-games', {
+              params: {
+                country,
+              },
+            })
+            .then(mergeFreebies),
       }),
       queryClient.prefetchQuery(mobileFreebiesQuery),
     ]);

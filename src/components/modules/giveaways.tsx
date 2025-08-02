@@ -19,17 +19,20 @@ import { cn } from '@/lib/utils';
 import { httpClient } from '@/lib/http-client';
 import { Link } from '@tanstack/react-router';
 import { useLocale } from '@/hooks/use-locale';
+import { mergeFreebies } from '@/utils/merge-freebies';
 
 export function GiveawaysCarousel({ hideTitle }: { hideTitle?: boolean }) {
   const { country } = useCountry();
   const { data, isLoading, isError } = useQuery({
     queryKey: ['giveaways'],
     queryFn: () =>
-      httpClient.get<GiveawayOffer[]>('/free-games', {
-        params: {
-          country,
-        },
-      }),
+      httpClient
+        .get<GiveawayOffer[]>('/free-games', {
+          params: {
+            country,
+          },
+        })
+        .then(mergeFreebies),
     refetchInterval: 60 * 1000,
     refetchIntervalInBackground: true,
   });
@@ -92,7 +95,10 @@ function GiveawayCard({ offer }: { offer: GiveawayOffer }) {
 
   return (
     <Link
-      to={`/offers/${offer.id}`}
+      to="/offers/$id"
+      params={{
+        id: offer.id,
+      }}
       className="flex flex-col rounded-lg shadow-md overflow-hidden w-[300px]"
     >
       <div className="relative flex-shrink-0">
