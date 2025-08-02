@@ -792,42 +792,54 @@ function RouteComponent() {
                     <DialogHeader>
                       <DialogTitle>{g.title} - Multiple Offers</DialogTitle>
                     </DialogHeader>
+
                     <div className="space-y-3">
                       {g.offers.map((offer) => {
                         const offerPlatforms = offer.items.flatMap((item) =>
                           item.releaseInfo.flatMap((info) => info.platform),
                         );
                         return (
-                          <Link
-                            key={offer.id}
-                            to="/offers/$id"
-                            params={{ id: offer.id }}
-                            className="flex items-center gap-3 p-3 border rounded-lg bg-card transition-colors hover:border-gray-400"
-                          >
-                            <img
-                              src={
-                                getImage(offer.keyImages, [
-                                  'DieselGameBoxTall',
-                                  'OfferImageTall',
-                                ])?.url ?? '/placeholder.webp'
-                              }
-                              alt={offer.title}
-                              className="w-12 h-16 object-cover rounded"
-                            />
-                            <div className="flex-1">
-                              <h4 className="font-medium">{offer.title}</h4>
-                              <div className="flex gap-1 mt-1">
-                                {offerPlatforms.map((platform, idx) =>
-                                  RenderTextPlatformIcon({
-                                    platform,
-                                    className:
-                                      'size-6 rounded-full p-1 bg-gray-600',
-                                    key: `${platform}-${offer.id}-${idx}`,
-                                  }),
-                                )}
-                              </div>
-                            </div>
-                          </Link>
+                          <HoverCard key={offer.id}>
+                            <HoverCardTrigger asChild>
+                              <Link
+                                to="/offers/$id"
+                                params={{ id: offer.id }}
+                                className="flex items-center gap-3 p-3 border rounded-lg bg-card transition-colors hover:border-gray-400"
+                              >
+                                <img
+                                  src={
+                                    getImage(offer.keyImages, [
+                                      'DieselGameBoxTall',
+                                      'OfferImageTall',
+                                    ])?.url ?? '/placeholder.webp'
+                                  }
+                                  alt={offer.title}
+                                  className="w-12 h-16 object-cover rounded"
+                                />
+                                <div className="flex-1">
+                                  <h4 className="font-medium">{offer.title}</h4>
+                                  <div className="flex gap-1 mt-1">
+                                    {offerPlatforms.map((platform, idx) =>
+                                      RenderTextPlatformIcon({
+                                        platform,
+                                        className:
+                                          'size-6 rounded-full p-1 bg-gray-600',
+                                        key: `${platform}-${offer.id}-${idx}`,
+                                      }),
+                                    )}
+                                  </div>
+                                </div>
+                              </Link>
+                            </HoverCardTrigger>
+                            <HoverCardContent
+                              className="w-80 bg-transparent p-0 border-0"
+                              align="center"
+                              side="right"
+                              sideOffset={30}
+                            >
+                              <OfferHoverCard id={offer.id} />
+                            </HoverCardContent>
+                          </HoverCard>
                         );
                       })}
                     </div>
