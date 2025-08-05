@@ -65,6 +65,7 @@ import { EpicTrophyIcon } from '@/components/icons/epic-trophy';
 import { raritiesTextColors } from '@/components/app/achievement-card';
 import { mergeFreebies } from '@/utils/merge-freebies';
 import { RenderTextPlatformIcon } from '@/components/app/platform-icons';
+import { TruncatedText } from '@/lib/truncate-text';
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
@@ -776,7 +777,7 @@ function RouteComponent() {
                       type="button"
                       className="flex flex-col items-start justify-center text-left hover:text-blue-400 transition-colors"
                     >
-                      <span>{g.title}</span>
+                      <TruncatedText text={g.title} maxLength={35} />
                       <p className="inline-flex gap-1">
                         {g.platforms.map((p) =>
                           RenderTextPlatformIcon({
@@ -854,7 +855,7 @@ function RouteComponent() {
                   }}
                   className="flex flex-col items-start justify-center"
                 >
-                  <span>{g.title}</span>
+                  <TruncatedText text={g.title} maxLength={35} />
                   <p className="inline-flex gap-1">
                     {g.platforms.map((p) =>
                       RenderTextPlatformIcon({
@@ -911,7 +912,7 @@ function RouteComponent() {
                   id: o.id,
                 }}
               >
-                {o.title ?? 'N/A'}
+                <TruncatedText text={o.title ?? 'N/A'} maxLength={40} />
               </Link>,
               o.releaseDate
                 ? (() => {
@@ -966,7 +967,7 @@ function RouteComponent() {
                   id: o.id,
                 }}
               >
-                {o.title ?? 'N/A'}
+                <TruncatedText text={o.title ?? 'N/A'} maxLength={40} />
               </Link>,
               o.creationDate ? formatDate(o.creationDate) : 'N/A',
               Intl.NumberFormat(locale, {
@@ -1032,7 +1033,7 @@ function RouteComponent() {
                   id: u.id,
                 }}
               >
-                {u.title ?? 'N/A'}
+                <TruncatedText text={u.title ?? 'N/A'} maxLength={40} />
               </Link>,
               Intl.NumberFormat(locale, {
                 style: 'currency',
@@ -1121,7 +1122,7 @@ function RouteComponent() {
                     id: a.id,
                   }}
                 >
-                  {a.title ?? 'N/A'}
+                  <TruncatedText text={a.title ?? 'N/A'} maxLength={40} />
                 </Link>,
                 <p key={`achievement-bronze-${a.id}`} className="text-center">
                   {noOfAchievementsPerRarity.bronze || 0}
@@ -1184,7 +1185,7 @@ function RouteComponent() {
                   id: t.id,
                 }}
               >
-                {t.title}
+                <TruncatedText text={t.title} maxLength={40} />
               </Link>,
               <p key={`topseller-price-${t.id}`} className="text-center">
                 {t.previousPosition - t.position === 0
