@@ -1215,7 +1215,7 @@ function RouteComponent() {
                       'OfferImageTall',
                     ])?.url ?? '/placeholder.webp'
                   }
-                  alt={b.item.title}
+                  alt={b.item?.title ?? 'Unknown Build'}
                   className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
                 />
               </Link>,
