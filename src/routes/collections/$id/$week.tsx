@@ -40,38 +40,16 @@ export const Route = createFileRoute('/collections/$id/$week')({
       },
     });
 
-    const ogData = await httpClient.get<{
-      id: string;
-      url: string;
-    }>(`/collections/${id}/${week}/og`, {
-      timeout: 1000 * 60 * 60 * 24, // 24 hours
-    });
-
     return {
       id,
       dehydratedState: dehydrate(queryClient),
       country,
-      og: ogData.url,
     };
   },
 
   head: (ctx) => {
     const { params, match } = ctx;
     const queryClient = getQueryClient();
-
-    if (!match.context.og) {
-      console.log('No loader data', Object.keys(ctx));
-      return {
-        meta: [
-          {
-            title: 'Collection not found',
-            description: 'Collection not found',
-          },
-        ],
-      };
-    }
-
-    const { og } = match.context;
 
     const collectionPages = getFetchedQuery<{
       pages: Collections[];
@@ -125,11 +103,27 @@ export const Route = createFileRoute('/collections/$id/$week')({
         },
         {
           name: 'og:image',
-          content: og,
+          content: `https://api.egdata.app/collections/${params.id}/${params.week}/og?direct=true&country=${match.context.country}`,
         },
         {
           name: 'og:type',
           content: 'website',
+        },
+        {
+          property: 'twitter:card',
+          content: 'summary_large_image',
+        },
+        {
+          property: 'twitter:image',
+          content: `https://api.egdata.app/collections/${params.id}/${params.week}/og?direct=true&country=${match.context.country}`,
+        },
+        {
+          property: 'twitter:site',
+          content: '@EpicGamesData',
+        },
+        {
+          property: 'twitter:creator',
+          content: '@EpicGamesData',
         },
       ],
     };
