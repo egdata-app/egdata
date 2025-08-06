@@ -1210,7 +1210,7 @@ function RouteComponent() {
               >
                 <img
                   src={
-                    getImage(b.item.keyImages, [
+                    getImage(b.item?.keyImages ?? [], [
                       'DieselGameBoxTall',
                       'OfferImageTall',
                     ])?.url ?? '/placeholder.webp'
@@ -1222,7 +1222,7 @@ function RouteComponent() {
               <BuildTitle
                 key={b._id}
                 id={b._id}
-                title={b.item.title}
+                title={b.item?.title ?? 'Unknown Build'}
                 buildVersion={b.buildVersion}
                 maxTitleLength={20}
               />,
