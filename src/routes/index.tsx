@@ -343,7 +343,7 @@ function BuildHoverCard({
 
   const gameImage =
     build &&
-    getImage(build.item.keyImages, [
+    getImage(build.item?.keyImages ?? [], [
       'OfferImageWide',
       'DieselStoreFrontWide',
       'horizontal',
@@ -354,7 +354,7 @@ function BuildHoverCard({
 
   if (!build) return null;
 
-  const displayUrl = gameImage?.url;
+  const displayUrl = gameImage?.url ?? '/placeholder.webp';
 
   return (
     <div className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700 text-slate-200 border rounded-lg shadow-xl overflow-hidden w-80">
@@ -362,7 +362,7 @@ function BuildHoverCard({
         <div className="w-full h-44 flex-shrink-0 relative">
           <img
             src={displayUrl}
-            alt={build.item.title}
+            alt={build.item?.title ?? 'Unknown Build'}
             className="w-full h-full object-cover"
             loading="lazy"
           />
@@ -372,11 +372,11 @@ function BuildHoverCard({
       <div className="p-4 space-y-3">
         <div>
           <h3 className="text-lg font-bold text-white leading-tight line-clamp-2">
-            {build.item.title}
+            {build.item?.title ?? 'Unknown Build'}
           </h3>
-          {build.item.developer && (
+          {build.item?.developer && (
             <p className="text-sm text-slate-400 mt-1">
-              {build.item.developer}
+              {build.item?.developer ?? 'Unknown Developer'}
             </p>
           )}
         </div>
