@@ -370,6 +370,8 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
                       </span>
                       <span>|</span>
                       <Link to="/privacy">Privacy Policy</Link>
+                      <span>|</span>
+                      <Link to="/notifications">Notifications</Link>
                     </div>
                   </footer>
                 </SearchProvider>

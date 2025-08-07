@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "TZ=UTC vite dev --port 3000",
-    "build": "vite build",
-    "start": "NODE_ENV=--enable-source-maps TZ=UTC node --env-file-if-exists=.env .output/server/index.mjs",
+    "build": "vite build --config vite.sw.config.ts && vite build",
+    "start": "NODE_ENV=--enable-source-maps TZ=UTC bun run .output/server/index.mjs",
     "format": "biome format --write app components lib queries types contexts hooks",
     "lint": "biome lint --fix app components lib queries types contexts hooks",
     "wrangler": "wrangler",
@@ -103,7 +103,8 @@
     "tailwindcss-animate": "^1.0.7",
     "tw-animate-css": "^1.3.4",
     "vaul": "^1.1.2",
-    "vite-plugin-pwa": "^0.21.2",
+    "vite-plugin-pwa": "^1.0.2",
+    "workbox-window": "^7.3.0",
     "zod": "^3.25.71"
   },
   "devDependencies": {
@@ -125,13 +126,14 @@
     "unenv": "^1.10.0",
     "vite": "npm:rolldown-vite@^6.3.19",
     "vite-tsconfig-paths": "^5.1.4",
+    "workbox-precaching": "^7.3.0",
+    "workbox-routing": "^7.3.0",
+    "workbox-strategies": "^7.3.0",
     "wrangler": "3.99.0"
   },
   "packageManager": "pnpm@10.12.1",
   "pnpm": {
-    "ignoredBuiltDependencies": [
-      "es5-ext"
-    ],
+    "ignoredBuiltDependencies": ["es5-ext"],
     "onlyBuiltDependencies": [
       "@biomejs/biome",
       "@parcel/watcher",

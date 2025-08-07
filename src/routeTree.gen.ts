@@ -14,6 +14,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PostsRouteImport } from './routes/posts'
+import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as GenresRouteImport } from './routes/genres'
 import { Route as FairUseRouteImport } from './routes/fair-use'
 import { Route as DownloadsRouteImport } from './routes/downloads'
@@ -94,6 +95,11 @@ const PrivacyRoute = PrivacyRouteImport.update({
 const PostsRoute = PostsRouteImport.update({
   id: '/posts',
   path: '/posts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NotificationsRoute = NotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GenresRoute = GenresRouteImport.update({
@@ -427,6 +433,7 @@ export interface FileRoutesByFullPath {
   '/downloads': typeof DownloadsRoute
   '/fair-use': typeof FairUseRoute
   '/genres': typeof GenresRoute
+  '/notifications': typeof NotificationsRoute
   '/posts': typeof PostsRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
@@ -490,6 +497,7 @@ export interface FileRoutesByTo {
   '/downloads': typeof DownloadsRoute
   '/fair-use': typeof FairUseRoute
   '/genres': typeof GenresRoute
+  '/notifications': typeof NotificationsRoute
   '/posts': typeof PostsRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
@@ -549,6 +557,7 @@ export interface FileRoutesById {
   '/downloads': typeof DownloadsRoute
   '/fair-use': typeof FairUseRoute
   '/genres': typeof GenresRoute
+  '/notifications': typeof NotificationsRoute
   '/posts': typeof PostsRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
@@ -614,6 +623,7 @@ export interface FileRouteTypes {
     | '/downloads'
     | '/fair-use'
     | '/genres'
+    | '/notifications'
     | '/posts'
     | '/privacy'
     | '/search'
@@ -677,6 +687,7 @@ export interface FileRouteTypes {
     | '/downloads'
     | '/fair-use'
     | '/genres'
+    | '/notifications'
     | '/posts'
     | '/privacy'
     | '/search'
@@ -735,6 +746,7 @@ export interface FileRouteTypes {
     | '/downloads'
     | '/fair-use'
     | '/genres'
+    | '/notifications'
     | '/posts'
     | '/privacy'
     | '/search'
@@ -799,6 +811,7 @@ export interface RootRouteChildren {
   DownloadsRoute: typeof DownloadsRoute
   FairUseRoute: typeof FairUseRoute
   GenresRoute: typeof GenresRoute
+  NotificationsRoute: typeof NotificationsRoute
   PostsRoute: typeof PostsRoute
   PrivacyRoute: typeof PrivacyRoute
   SearchRoute: typeof SearchRoute
@@ -907,6 +920,13 @@ declare module '@tanstack/react-router' {
       path: '/posts'
       fullPath: '/posts'
       preLoaderRoute: typeof PostsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/notifications': {
+      id: '/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof NotificationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/genres': {
@@ -1487,6 +1507,7 @@ const rootRouteChildren: RootRouteChildren = {
   DownloadsRoute: DownloadsRoute,
   FairUseRoute: FairUseRoute,
   GenresRoute: GenresRoute,
+  NotificationsRoute: NotificationsRoute,
   PostsRoute: PostsRoute,
   PrivacyRoute: PrivacyRoute,
   SearchRoute: SearchRoute,

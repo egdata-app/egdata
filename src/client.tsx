@@ -3,6 +3,7 @@ import { hydrateRoot } from 'react-dom/client';
 import { StartClient } from '@tanstack/react-start';
 import * as Sentry from '@sentry/react';
 import { createRouter } from './router';
+import './registerSW';
 
 function clearBrowserExtensionInjectionsBeforeHydration() {
   const selectors = [
@@ -78,3 +79,6 @@ if (window.requestIdleCallback) {
   // https://caniuse.com/requestidlecallback
   window.setTimeout(waitForHydration, 1);
 }
+
+// Initialize PWA service worker registration
+// The registration is handled by the imported registerSW module

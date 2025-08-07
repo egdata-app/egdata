@@ -303,6 +303,7 @@ const routes: Route[] = [
     name: 'About',
     href: '/about',
   },
+
 ];
 
 const routeApi = getRouteApi('__root__');

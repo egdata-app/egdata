@@ -1,14 +1,34 @@
 {
-  "name": "",
-  "short_name": "",
+  "name": "EGData",
+  "short_name": "EGData",
+  "description": "Epic Games Store data and analytics",
   "icons": [
     {
-      "src": "/android-chrome-96x96.png",
-      "sizes": "96x96",
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/mstile-150x150.png",
+      "sizes": "150x150",
       "type": "image/png"
     }
   ],
-  "theme_color": "#ffffff",
-  "background_color": "#ffffff",
-  "display": "standalone"
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/",
+  "orientation": "portrait-primary",
+  "categories": ["games", "entertainment"]
 }

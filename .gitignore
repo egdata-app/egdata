@@ -143,3 +143,5 @@ build
 
 playwright-report
 test-results
+
+public/sw.js
