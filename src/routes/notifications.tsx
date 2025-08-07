@@ -1,7 +1,5 @@
-import { useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-import { ApiKeyManager } from '@/components/api-key-manager';
-import { PushNotifications } from '@/components/push-notifications';
+import { SimpleNotifications } from '@/components/simple-notifications';
 import {
   Card,
   CardContent,
@@ -59,7 +57,6 @@ export const Route = createFileRoute('/notifications')({
 });
 
 function NotificationsPage() {
-  const [userApiKey, setUserApiKey] = useState('');
   const { apiKey } = Route.useLoaderData();
 
   // Use TanStack Query to get subscription status
@@ -77,11 +74,9 @@ function NotificationsPage() {
   const isSubscribed = !!subscriptionStatus && !subscriptionError;
   const subscriptions = subscriptionsData?.subscriptions || [];
   const totalTopics = subscriptions.reduce((acc, sub) => acc + sub.topics.length, 0);
-  const error = !apiKey
-    ? 'No API key found. Please set your API key first.'
-    : subscriptionError || subscriptionsError
-      ? 'Failed to fetch subscriptions. Please check your API key.'
-      : null;
+  const error = subscriptionError || subscriptionsError
+    ? 'Failed to fetch subscriptions. Please try again.'
+    : null;
 
   return (
     <div className="container mx-auto py-8 px-4 max-w-4xl">
@@ -100,7 +95,7 @@ function NotificationsPage() {
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="setup" className="flex items-center gap-2">
             <Settings className="h-4 w-4" />
-            Setup & Subscribe
+            Notifications
           </TabsTrigger>
           <TabsTrigger value="manage" className="flex items-center gap-2">
             <Users className="h-4 w-4" />
@@ -109,8 +104,7 @@ function NotificationsPage() {
         </TabsList>
 
         <TabsContent value="setup" className="space-y-6">
-          <ApiKeyManager onApiKeyChange={setUserApiKey} />
-          <PushNotifications userApiKey={userApiKey} />
+          <SimpleNotifications />
 
           <Card>
             <CardHeader>
