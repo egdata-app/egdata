@@ -8,8 +8,14 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Bell, BellOff, Loader2, Gift, GamepadIcon, TrendingDown } from 'lucide-react';
+import {
+  Bell,
+  BellOff,
+  Loader2,
+  Gift,
+  GamepadIcon,
+  TrendingDown,
+} from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { usePushNotifications } from '@/hooks/use-push-notifications';
 import { useQuery } from '@tanstack/react-query';
@@ -39,12 +45,20 @@ export function SimpleNotifications() {
     }
   }, [cookies]);
 
-  const { isSupported, isSubscribed, loading, subscribe, unsubscribe, subscribeToTopic, unsubscribeFromTopic } = usePushNotifications(apiKey);
-  
+  const {
+    isSupported,
+    isSubscribed,
+    loading,
+    subscribe,
+    unsubscribe,
+    subscribeToTopic,
+    unsubscribeFromTopic,
+  } = usePushNotifications(apiKey);
+
   // Get subscription data to show current topics
   const { data: subscriptionsData } = useQuery({
     ...subscriptionsQuery(apiKey),
-    enabled: !!apiKey && isSubscribed,
+    enabled: !!apiKey,
   });
 
   const showNotification = (type: 'success' | 'error', message: string) => {
@@ -72,7 +86,7 @@ export function SimpleNotifications() {
   const handleSubscribe = async () => {
     try {
       let currentApiKey = apiKey;
-      
+
       // Generate API key if it doesn't exist
       if (!currentApiKey) {
         const newApiKey = generateApiKey();
@@ -97,7 +111,10 @@ export function SimpleNotifications() {
         domain: import.meta.env.PROD ? '.egdata.app' : 'localhost',
       });
       setApiKey('');
-      showNotification('success', 'Successfully unsubscribed from notifications');
+      showNotification(
+        'success',
+        'Successfully unsubscribed from notifications',
+      );
     } catch (error) {
       showNotification('error', 'Failed to unsubscribe from notifications');
     }
@@ -119,28 +136,53 @@ export function SimpleNotifications() {
     );
   }
 
-  const subscribedTopics = subscriptionsData?.subscriptions?.flatMap(sub => sub.topics) || [];
+  const subscribedTopics =
+    subscriptionsData?.subscriptions?.flatMap((sub) => sub.topics) || [];
   const totalTopics = subscribedTopics.length;
 
   // Predefined topics that users commonly want
   const availableTopics = [
-    { id: 'free-games', name: 'Free Games', description: 'Get notified when new free games are available', icon: Gift },
-    { id: 'game-releases', name: 'New Releases', description: 'Notifications for new game releases', icon: GamepadIcon },
-    { id: 'price-drops', name: 'Price Drops', description: 'Get alerts when games go on sale', icon: TrendingDown },
+    {
+      id: 'free-games',
+      name: 'Free Games',
+      description: 'Get notified when new free games are available',
+      icon: Gift,
+    },
+    {
+      id: 'game-releases',
+      name: 'New Releases',
+      description: 'Notifications for new game releases',
+      icon: GamepadIcon,
+    },
+    {
+      id: 'price-drops',
+      name: 'Price Drops',
+      description: 'Get alerts when games go on sale',
+      icon: TrendingDown,
+    },
   ];
 
-  const handleTopicToggle = async (topicId: string, isCurrentlySubscribed: boolean) => {
+  const handleTopicToggle = async (
+    topicId: string,
+    isCurrentlySubscribed: boolean,
+  ) => {
     if (isCurrentlySubscribed) {
       const success = await unsubscribeFromTopic(topicId);
       if (success) {
-        showNotification('success', `Unsubscribed from ${availableTopics.find(t => t.id === topicId)?.name}`);
+        showNotification(
+          'success',
+          `Unsubscribed from ${availableTopics.find((t) => t.id === topicId)?.name}`,
+        );
       } else {
         showNotification('error', 'Failed to unsubscribe from topic');
       }
     } else {
       const success = await subscribeToTopic(topicId);
       if (success) {
-        showNotification('success', `Subscribed to ${availableTopics.find(t => t.id === topicId)?.name}`);
+        showNotification(
+          'success',
+          `Subscribed to ${availableTopics.find((t) => t.id === topicId)?.name}`,
+        );
       } else {
         showNotification('error', 'Failed to subscribe to topic');
       }
@@ -155,10 +197,9 @@ export function SimpleNotifications() {
           Push Notifications
         </CardTitle>
         <CardDescription>
-          {isSubscribed 
+          {isSubscribed
             ? `You're subscribed to ${totalTopics} notification topics`
-            : 'Get notified about Epic Games Store updates, free games, and more'
-          }
+            : 'Get notified about Epic Games Store updates, free games, and more'}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -204,7 +245,9 @@ export function SimpleNotifications() {
         {isSubscribed && (
           <>
             <div className="space-y-3">
-              <h4 className="font-semibold text-sm">Choose what you want to be notified about:</h4>
+              <h4 className="font-semibold text-sm">
+                Choose what you want to be notified about:
+              </h4>
               <div className="space-y-3">
                 {availableTopics.map((topic) => {
                   const Icon = topic.icon;
@@ -214,7 +257,9 @@ export function SimpleNotifications() {
                       <Checkbox
                         id={topic.id}
                         checked={isTopicSubscribed}
-                        onCheckedChange={() => handleTopicToggle(topic.id, isTopicSubscribed)}
+                        onCheckedChange={() =>
+                          handleTopicToggle(topic.id, isTopicSubscribed)
+                        }
                         disabled={loading}
                       />
                       <div className="grid gap-1.5 leading-none">
@@ -234,13 +279,18 @@ export function SimpleNotifications() {
                 })}
               </div>
             </div>
-            
+
             {subscribedTopics.length > 0 && (
               <div className="pt-2 border-t">
                 <div className="text-sm text-muted-foreground">
-                  You'll receive notifications for: {subscribedTopics.map(topic => 
-                    availableTopics.find(t => t.id === topic)?.name || topic
-                  ).join(', ')}
+                  You'll receive notifications for:{' '}
+                  {subscribedTopics
+                    .map(
+                      (topic) =>
+                        availableTopics.find((t) => t.id === topic)?.name ||
+                        topic,
+                    )
+                    .join(', ')}
                 </div>
               </div>
             )}

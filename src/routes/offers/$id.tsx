@@ -33,8 +33,15 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { Checkbox } from '@/components/ui/checkbox';
 import { useCompare } from '@/hooks/use-compare';
 import { useLocale } from '@/hooks/use-locale';
+import { usePushNotifications } from '@/hooks/use-push-notifications';
 import { ClientOnly } from '@/lib/cllient-only';
 import { generateOfferMeta } from '@/lib/generate-offer-meta';
 import { getImage } from '@/lib/get-image';
@@ -52,6 +59,7 @@ import type { SingleOffer } from '@/types/single-offer';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import {
   createFileRoute,
+  getRouteApi,
   Link,
   Outlet,
   useLocation,
@@ -61,6 +69,9 @@ import { OffersHomeSkeleton } from '@/components/skeletons/offers-home';
 import { FabIcon } from '@/components/icons/fab';
 import consola from 'consola';
 import { DateTime } from 'luxon';
+import { Bell } from 'lucide-react';
+import { useState } from 'react';
+import { useCookies } from 'react-cookie';
 
 export const Route = createFileRoute('/offers/$id')({
   component: () => {
@@ -186,10 +197,72 @@ export const Route = createFileRoute('/offers/$id')({
 
 function OfferPage() {
   const { id } = Route.useLoaderData();
-  const { timezone, locale } = useLocale();
+  const { timezone } = useLocale();
   const { addToCompare, removeFromCompare, compare } = useCompare();
   const navigate = useNavigate();
   const location = useLocation();
+  // Auth and push notifications
+  const [cookies] = useCookies(['push-notifications-api-key']);
+  const { 
+    canPerformTopicOperations, 
+    subscribeToTopic, 
+    unsubscribeFromTopic,
+    canSubscribeToTopic,
+    isSubscribedToTopic 
+  } = usePushNotifications(
+    cookies['push-notifications-api-key'],
+  );
+
+  // Topic names for this offer
+  const allChangesToopic = `offer-${id}-all`;
+  const dataChangesToopic = `offer-${id}-data`;
+  const priceChangesToopic = `offer-${id}-price`;
+
+  // Check current subscription status
+  const allChanges = isSubscribedToTopic(allChangesToopic);
+  const dataChanges = isSubscribedToTopic(dataChangesToopic);
+  const priceChanges = isSubscribedToTopic(priceChangesToopic);
+
+  // Handle notification setting changes
+  const handleNotificationChange = async (setting: string, checked: boolean) => {
+    if (!canPerformTopicOperations) return;
+
+    if (setting === 'allChanges') {
+      if (checked) {
+        // Subscribe to all changes and unsubscribe from specific ones
+        await subscribeToTopic(allChangesToopic);
+        if (isSubscribedToTopic(dataChangesToopic)) {
+          await unsubscribeFromTopic(dataChangesToopic);
+        }
+        if (isSubscribedToTopic(priceChangesToopic)) {
+          await unsubscribeFromTopic(priceChangesToopic);
+        }
+      } else {
+        // Unsubscribe from all changes
+        await unsubscribeFromTopic(allChangesToopic);
+      }
+    } else if (setting === 'dataChanges') {
+      if (checked) {
+        // Unsubscribe from all changes first, then subscribe to data changes
+        if (isSubscribedToTopic(allChangesToopic)) {
+          await unsubscribeFromTopic(allChangesToopic);
+        }
+        await subscribeToTopic(dataChangesToopic);
+      } else {
+        await unsubscribeFromTopic(dataChangesToopic);
+      }
+    } else if (setting === 'priceChanges') {
+      if (checked) {
+        // Unsubscribe from all changes first, then subscribe to price changes
+        if (isSubscribedToTopic(allChangesToopic)) {
+          await unsubscribeFromTopic(allChangesToopic);
+        }
+        await subscribeToTopic(priceChangesToopic);
+      } else {
+        await unsubscribeFromTopic(priceChangesToopic);
+      }
+    }
+  };
 
   const { data: offer, isLoading: offerLoading } = useSuspenseQuery({
     queryKey: ['offer', { id }],
@@ -524,6 +597,86 @@ function OfferPage() {
                 {compare.includes(offer.id) ? <RemoveIcon /> : <AddIcon />}
                 <span>Compare</span>
               </Button>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    className="inline-flex items-center gap-1 bg-card text-white hover:bg-card-hover border"
+                    size="sm"
+                  >
+                    <Bell className="h-4 w-4" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-80">
+                  <div className="space-y-4">
+                    <h4 className="font-medium leading-none">
+                      Notification Settings
+                    </h4>
+                    <p className="text-sm text-muted-foreground">
+                      Choose what notifications you want to receive for this
+                      offer.
+                    </p>
+                    <div className="space-y-3">
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="all-changes"
+                          checked={allChanges}
+                          onCheckedChange={(checked) =>
+                            handleNotificationChange(
+                              'allChanges',
+                              checked as boolean,
+                            )
+                          }
+                          disabled={dataChanges || priceChanges}
+                        />
+                        <label
+                          htmlFor="all-changes"
+                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                          All changes
+                        </label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="data-changes"
+                          checked={dataChanges}
+                          onCheckedChange={(checked) =>
+                            handleNotificationChange(
+                              'dataChanges',
+                              checked as boolean,
+                            )
+                          }
+                          disabled={allChanges}
+                        />
+                        <label
+                          htmlFor="data-changes"
+                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                          Data changes
+                        </label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="price-changes"
+                          checked={priceChanges}
+                          onCheckedChange={(checked) =>
+                            handleNotificationChange(
+                              'priceChanges',
+                              checked as boolean,
+                            )
+                          }
+                          disabled={allChanges}
+                        />
+                        <label
+                          htmlFor="price-changes"
+                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                        >
+                          Price changes
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </PopoverContent>
+              </Popover>
             </div>
             <OfferHero offer={offer} />
             <p className="px-1">{offer.description}</p>

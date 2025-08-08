@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQueries } from '@tanstack/react-query';
 import {
   checkSubscriptionStatusQuery,
   subscriptionsQuery,
@@ -9,41 +9,86 @@ import {
   useSubscribeToTopicMutation,
   useUnsubscribeFromTopicMutation,
 } from '@/queries/push-notifications';
-import { updateSW } from '@/registerSW';
+import consola from 'consola';
 
 const VAPID_PUBLIC_KEY = import.meta.env.VITE_VAPID_PUBLIC_KEY;
 
 export function usePushNotifications(userApiKey: string) {
   const [isSupported, setIsSupported] = useState(false);
-  const [subscription, setSubscription] = useState<(PushSubscription & { id?: string }) | null>(null);
+  const [subscription, setSubscription] = useState<
+    (PushSubscription & { id?: string }) | null
+  >(null);
 
-  // TanStack Query hooks
-  const { data: subscriptionStatus, error: subscriptionError } = useQuery({
-    ...checkSubscriptionStatusQuery(userApiKey),
-    enabled: !!userApiKey && isSupported,
+  // Use useQueries to batch all queries together
+  const queries = useQueries({
+    queries: [
+      {
+        ...checkSubscriptionStatusQuery(userApiKey),
+        enabled: !!userApiKey && isSupported,
+      },
+      {
+        ...subscriptionsQuery(userApiKey),
+        enabled: !!userApiKey && isSupported,
+      },
+      vapidPublicKeyQuery,
+    ],
   });
 
-  const { data: subscriptionsData } = useQuery({
-    ...subscriptionsQuery(userApiKey),
-    enabled: !!userApiKey && isSupported,
-  });
-
-  const { data: vapidData } = useQuery(vapidPublicKeyQuery);
+  const [subscriptionStatusQuery, subscriptionsDataQuery, vapidDataQuery] =
+    queries;
+  const subscriptionStatus = subscriptionStatusQuery.data;
+  const subscriptionError = subscriptionStatusQuery.error;
+  const subscriptionsData = subscriptionsDataQuery.data;
+  const vapidData = vapidDataQuery.data;
 
   // Mutations
   const subscribeMutation = useSubscribeMutation(userApiKey);
   const unsubscribeMutation = useUnsubscribeMutation(userApiKey);
   const subscribeToTopicMutation = useSubscribeToTopicMutation(userApiKey);
-  const unsubscribeFromTopicMutation = useUnsubscribeFromTopicMutation(userApiKey);
+  const unsubscribeFromTopicMutation =
+    useUnsubscribeFromTopicMutation(userApiKey);
 
-  const isSubscribed = !!subscriptionsData?.subscriptions && subscriptionsData.subscriptions.length > 0;
-  const loading = subscribeMutation.isPending || unsubscribeMutation.isPending || subscribeToTopicMutation.isPending || unsubscribeFromTopicMutation.isPending;
+  // Derived state - more reliable subscription status
+  const hasSubscriptionData = !!subscriptionsData?.subscriptions?.length;
+  const hasSubscriptionStatus = !!subscriptionStatus && !subscriptionError;
+
+  // Get subscription ID when available
+  const subscriptionId = subscriptionsData?.subscriptions?.[0]?.id || null;
+
+  // Get subscribed topics from subscription data
+  const subscribedTopics = subscriptionsData?.subscriptions?.flatMap(sub => sub.topics) || [];
+
+  // Only consider subscribed if we have actual subscription data with ID
+  // The status check alone is not sufficient for topic operations
+  const isSubscribed = hasSubscriptionData;
+
+  // Check if queries are still loading
+  const queriesLoading = queries.some((query) => query.isLoading);
+
+  // Check if we have enough data for topic operations
+  const canPerformTopicOperations =
+    !!subscriptionId && !!userApiKey && !queriesLoading;
+
+  // Function to check if user can subscribe to a specific topic
+  const canSubscribeToTopic = (topic: string): boolean => {
+    if (!canPerformTopicOperations) return false;
+    return !subscribedTopics.includes(topic);
+  };
+
+  // Function to check if user is subscribed to a specific topic
+  const isSubscribedToTopic = (topic: string): boolean => {
+    return subscribedTopics.includes(topic);
+  };
+
+  const loading =
+    subscribeMutation.isPending ||
+    unsubscribeMutation.isPending ||
+    subscribeToTopicMutation.isPending ||
+    unsubscribeFromTopicMutation.isPending ||
+    queriesLoading;
 
   useEffect(() => {
     setIsSupported('serviceWorker' in navigator && 'PushManager' in window);
-    
-    // Service worker is automatically registered by vite-plugin-pwa
-    // No manual registration needed
   }, []);
 
   const getServiceWorkerRegistration = async () => {
@@ -59,28 +104,21 @@ export function usePushNotifications(userApiKey: string) {
     }
   };
 
-  const checkForServiceWorkerUpdate = async () => {
-    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
-      const registration = await navigator.serviceWorker.getRegistration();
-      if (registration) {
-        await registration.update();
-      }
-    }
-  };
-
   // Update subscription state when subscriptions data changes
   useEffect(() => {
-    if (subscriptionsData?.subscriptions && subscriptionsData.subscriptions.length > 0) {
+    if (hasSubscriptionData) {
       const firstSubscription = subscriptionsData.subscriptions[0];
       // We can't recreate the full PushSubscription object, but we can store the ID
-      setSubscription({ id: firstSubscription.id } as PushSubscription & { id: string });
+      setSubscription({ id: firstSubscription.id } as PushSubscription & {
+        id: string;
+      });
     } else {
       setSubscription(null);
     }
-  }, [subscriptionsData]);
+  }, [hasSubscriptionData, subscriptionsData]);
 
   const urlBase64ToUint8Array = (base64String: string) => {
-    const padding = '='.repeat((4 - base64String.length % 4) % 4);
+    const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
     const base64 = (base64String + padding)
       .replace(/-/g, '+')
       .replace(/_/g, '/');
@@ -99,34 +137,36 @@ export function usePushNotifications(userApiKey: string) {
 
     try {
       // Get service worker registration
-    const registration = await getServiceWorkerRegistration();
-    if (!registration) {
-      throw new Error('Service worker not available');
-    }
-      
+      const registration = await getServiceWorkerRegistration();
+      if (!registration) {
+        throw new Error('Service worker not available');
+      }
+
       // Get VAPID public key
       const publicKey = vapidData?.publicKey || VAPID_PUBLIC_KEY;
-      
+
       // Subscribe to push notifications
       const pushSubscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array(publicKey)
+        applicationServerKey: urlBase64ToUint8Array(publicKey),
       });
 
       // Send subscription to server
       const p256dhKey = pushSubscription.getKey('p256dh');
       const authKey = pushSubscription.getKey('auth');
-      
+
       if (!p256dhKey || !authKey) {
         throw new Error('Failed to get subscription keys');
       }
-      
+
       const subscriptionData = {
         endpoint: pushSubscription.endpoint,
         keys: {
-          p256dh: btoa(String.fromCharCode.apply(null, new Uint8Array(p256dhKey))),
-          auth: btoa(String.fromCharCode.apply(null, new Uint8Array(authKey)))
-        }
+          p256dh: btoa(
+            String.fromCharCode.apply(null, new Uint8Array(p256dhKey)),
+          ),
+          auth: btoa(String.fromCharCode.apply(null, new Uint8Array(authKey))),
+        },
       };
 
       const response = await subscribeMutation.mutateAsync(subscriptionData);
@@ -137,17 +177,23 @@ export function usePushNotifications(userApiKey: string) {
   };
 
   const unsubscribe = async () => {
-    if (!subscription?.id || !userApiKey) return;
+    if (!subscriptionId || !userApiKey) {
+      consola.error('Cannot unsubscribe: missing subscription ID or API key', {
+        subscriptionId,
+        hasApiKey: !!userApiKey,
+      });
+      return;
+    }
 
     try {
       // Unsubscribe from server
-      await unsubscribeMutation.mutateAsync(subscription.id);
+      await unsubscribeMutation.mutateAsync(subscriptionId);
 
       // Unsubscribe from browser if we have the full subscription object
-      if ('unsubscribe' in subscription) {
+      if (subscription && 'unsubscribe' in subscription) {
         await subscription.unsubscribe();
       }
-      
+
       setSubscription(null);
     } catch (error) {
       console.error('Error unsubscribing from push notifications:', error);
@@ -155,12 +201,29 @@ export function usePushNotifications(userApiKey: string) {
   };
 
   const subscribeToTopic = async (topics: string | string[]) => {
-    if (!subscription?.id || !userApiKey) return false;
+    if (!canPerformTopicOperations) {
+      consola.error(
+        'Cannot subscribe to topic: not ready for topic operations',
+        {
+          subscriptionId,
+          hasApiKey: !!userApiKey,
+          hasSubscriptionData,
+          hasSubscriptionStatus,
+          isSubscribed,
+          queriesLoading,
+          canPerformTopicOperations,
+          subscriptionStatus,
+          subscriptionsData: subscriptionsData ? 'present' : 'missing',
+          subscriptionsCount: subscriptionsData?.subscriptions?.length || 0,
+        },
+      );
+      return false;
+    }
 
     try {
       await subscribeToTopicMutation.mutateAsync({
-        subscriptionId: subscription.id,
-        topics: Array.isArray(topics) ? topics : [topics]
+        subscriptionId,
+        topics: Array.isArray(topics) ? topics : [topics],
       });
       return true;
     } catch (error) {
@@ -170,12 +233,26 @@ export function usePushNotifications(userApiKey: string) {
   };
 
   const unsubscribeFromTopic = async (topics: string | string[]) => {
-    if (!subscription?.id || !userApiKey) return false;
+    if (!canPerformTopicOperations) {
+      consola.error(
+        'Cannot unsubscribe from topic: not ready for topic operations',
+        {
+          subscriptionId,
+          hasApiKey: !!userApiKey,
+          hasSubscriptionData,
+          hasSubscriptionStatus,
+          isSubscribed,
+          queriesLoading,
+          canPerformTopicOperations,
+        },
+      );
+      return false;
+    }
 
     try {
       await unsubscribeFromTopicMutation.mutateAsync({
-        subscriptionId: subscription.id,
-        topics: Array.isArray(topics) ? topics : [topics]
+        subscriptionId,
+        topics: Array.isArray(topics) ? topics : [topics],
       });
       return true;
     } catch (error) {
@@ -192,6 +269,17 @@ export function usePushNotifications(userApiKey: string) {
     unsubscribe,
     subscribeToTopic,
     unsubscribeFromTopic,
-    checkForServiceWorkerUpdate
+    subscription,
+    userApiKey,
+    // Topic-related functions and data
+    subscribedTopics,
+    canSubscribeToTopic,
+    isSubscribedToTopic,
+    // Debug information
+    subscriptionId,
+    hasSubscriptionData,
+    hasSubscriptionStatus,
+    queriesLoading,
+    canPerformTopicOperations,
   };
 }

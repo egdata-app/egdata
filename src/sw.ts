@@ -8,6 +8,7 @@ declare const self: ServiceWorkerGlobalScope;
 const notificationSchema = z.object({
   title: z.string(),
   body: z.string(),
+  image: z.string().optional(),
   icon: z.string().optional(),
   badge: z.string().optional(),
   actions: z
@@ -34,6 +35,7 @@ interface CustomNotificationAction {
 }
 
 interface ExtendedNotificationOptions extends NotificationOptions {
+  image?: string;
   vibrate?: number[];
   actions?: { action: string; title: string; icon?: string }[];
   data?: {
@@ -46,7 +48,7 @@ interface ExtendedNotificationOptions extends NotificationOptions {
 
 // Push notification handler
 self.addEventListener('push', (event: PushEvent) => {
-  const defaultTitle = 'EGData Notification';
+  const defaultTitle = 'egdata.app Notification';
   let notificationTitle = defaultTitle;
   const options: ExtendedNotificationOptions = {
     body: 'New notification',
@@ -77,6 +79,10 @@ self.addEventListener('push', (event: PushEvent) => {
 
         if (notification.badge) {
           options.badge = notification.badge;
+        }
+
+        if (notification.image) {
+          options.image = notification.image;
         }
 
         // Handle actions according to the validated schema

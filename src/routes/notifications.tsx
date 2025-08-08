@@ -17,14 +17,7 @@ import {
 } from '@/queries/push-notifications';
 
 export const Route = createFileRoute('/notifications')({
-  component: () => {
-    const { dehydratedState } = Route.useLoaderData();
-    return (
-      <HydrationBoundary state={dehydratedState}>
-        <NotificationsPage />
-      </HydrationBoundary>
-    );
-  },
+  component: () => <NotificationsPage />,
   head: () => ({
     meta: [
       {
@@ -50,7 +43,6 @@ export const Route = createFileRoute('/notifications')({
     }
 
     return {
-      dehydratedState: dehydrate(queryClient),
       apiKey,
     };
   },
@@ -73,10 +65,14 @@ function NotificationsPage() {
 
   const isSubscribed = !!subscriptionStatus && !subscriptionError;
   const subscriptions = subscriptionsData?.subscriptions || [];
-  const totalTopics = subscriptions.reduce((acc, sub) => acc + sub.topics.length, 0);
-  const error = subscriptionError || subscriptionsError
-    ? 'Failed to fetch subscriptions. Please try again.'
-    : null;
+  const totalTopics = subscriptions.reduce(
+    (acc, sub) => acc + sub.topics.length,
+    0,
+  );
+  const error =
+    subscriptionError || subscriptionsError
+      ? 'Failed to fetch subscriptions. Please try again.'
+      : null;
 
   return (
     <div className="container mx-auto py-8 px-4 max-w-4xl">
