@@ -203,63 +203,86 @@ function OfferPage() {
   const location = useLocation();
   // Auth and push notifications
   const [cookies] = useCookies(['push-notifications-api-key']);
-  const { 
-    canPerformTopicOperations, 
-    subscribeToTopic, 
+  const {
+    canPerformTopicOperations,
+    subscribeToTopic,
     unsubscribeFromTopic,
-    canSubscribeToTopic,
-    isSubscribedToTopic 
-  } = usePushNotifications(
-    cookies['push-notifications-api-key'],
-  );
+    isSubscribedToTopic,
+  } = usePushNotifications(cookies['push-notifications-api-key']);
 
   // Topic names for this offer
-  const allChangesToopic = `offer-${id}-all`;
-  const dataChangesToopic = `offer-${id}-data`;
-  const priceChangesToopic = `offer-${id}-price`;
+  const allTopic = `offer:${id}:*`;
+  const priceTopic = `offer:${id}:price`;
+  const achievementsTopic = `offer:${id}:achievements`;
+  const buildsTopic = `offer:${id}:builds`;
+  const itemsTopic = `offer:${id}:items`;
+  const requirementsTopic = `offer:${id}:requirements`;
+  const metadataTopic = `offer:${id}:metadata`;
+  const mediaTopic = `offer:${id}:media`;
 
   // Check current subscription status
-  const allChanges = isSubscribedToTopic(allChangesToopic);
-  const dataChanges = isSubscribedToTopic(dataChangesToopic);
-  const priceChanges = isSubscribedToTopic(priceChangesToopic);
+  const all = isSubscribedToTopic(allTopic);
+  const price = isSubscribedToTopic(priceTopic);
+  const achievements = isSubscribedToTopic(achievementsTopic);
+  const builds = isSubscribedToTopic(buildsTopic);
+  const items = isSubscribedToTopic(itemsTopic);
+  const requirements = isSubscribedToTopic(requirementsTopic);
+  const metadata = isSubscribedToTopic(metadataTopic);
+  const media = isSubscribedToTopic(mediaTopic);
 
   // Handle notification setting changes
-  const handleNotificationChange = async (setting: string, checked: boolean) => {
+  const handleNotificationChange = async (
+    setting: string,
+    checked: boolean,
+  ) => {
     if (!canPerformTopicOperations) return;
 
-    if (setting === 'allChanges') {
+    const topicMap = {
+      all: allTopic,
+      price: priceTopic,
+      achievements: achievementsTopic,
+      builds: buildsTopic,
+      items: itemsTopic,
+      requirements: requirementsTopic,
+      metadata: metadataTopic,
+      media: mediaTopic,
+    };
+
+    const specificTopics = [
+      priceTopic,
+      achievementsTopic,
+      buildsTopic,
+      itemsTopic,
+      requirementsTopic,
+      metadataTopic,
+      mediaTopic,
+    ];
+
+    if (setting === 'all') {
       if (checked) {
         // Subscribe to all changes and unsubscribe from specific ones
-        await subscribeToTopic(allChangesToopic);
-        if (isSubscribedToTopic(dataChangesToopic)) {
-          await unsubscribeFromTopic(dataChangesToopic);
-        }
-        if (isSubscribedToTopic(priceChangesToopic)) {
-          await unsubscribeFromTopic(priceChangesToopic);
+        await subscribeToTopic(allTopic);
+        for (const topic of specificTopics) {
+          if (isSubscribedToTopic(topic)) {
+            await unsubscribeFromTopic(topic);
+          }
         }
       } else {
         // Unsubscribe from all changes
-        await unsubscribeFromTopic(allChangesToopic);
+        await unsubscribeFromTopic(allTopic);
       }
-    } else if (setting === 'dataChanges') {
-      if (checked) {
-        // Unsubscribe from all changes first, then subscribe to data changes
-        if (isSubscribedToTopic(allChangesToopic)) {
-          await unsubscribeFromTopic(allChangesToopic);
+    } else {
+      const topic = topicMap[setting as keyof typeof topicMap];
+      if (topic) {
+        if (checked) {
+          // Unsubscribe from all changes first, then subscribe to specific topic
+          if (isSubscribedToTopic(allTopic)) {
+            await unsubscribeFromTopic(allTopic);
+          }
+          await subscribeToTopic(topic);
+        } else {
+          await unsubscribeFromTopic(topic);
         }
-        await subscribeToTopic(dataChangesToopic);
-      } else {
-        await unsubscribeFromTopic(dataChangesToopic);
-      }
-    } else if (setting === 'priceChanges') {
-      if (checked) {
-        // Unsubscribe from all changes first, then subscribe to price changes
-        if (isSubscribedToTopic(allChangesToopic)) {
-          await unsubscribeFromTopic(allChangesToopic);
-        }
-        await subscribeToTopic(priceChangesToopic);
-      } else {
-        await unsubscribeFromTopic(priceChangesToopic);
       }
     }
   };
@@ -611,69 +634,188 @@ function OfferPage() {
                     <h4 className="font-medium leading-none">
                       Notification Settings
                     </h4>
-                    <p className="text-sm text-muted-foreground">
-                      Choose what notifications you want to receive for this
-                      offer.
-                    </p>
-                    <div className="space-y-3">
-                      <div className="flex items-center space-x-2">
-                        <Checkbox
-                          id="all-changes"
-                          checked={allChanges}
-                          onCheckedChange={(checked) =>
-                            handleNotificationChange(
-                              'allChanges',
-                              checked as boolean,
-                            )
-                          }
-                          disabled={dataChanges || priceChanges}
-                        />
-                        <label
-                          htmlFor="all-changes"
-                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        >
-                          All changes
-                        </label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <Checkbox
-                          id="data-changes"
-                          checked={dataChanges}
-                          onCheckedChange={(checked) =>
-                            handleNotificationChange(
-                              'dataChanges',
-                              checked as boolean,
-                            )
-                          }
-                          disabled={allChanges}
-                        />
-                        <label
-                          htmlFor="data-changes"
-                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        >
-                          Data changes
-                        </label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <Checkbox
-                          id="price-changes"
-                          checked={priceChanges}
-                          onCheckedChange={(checked) =>
-                            handleNotificationChange(
-                              'priceChanges',
-                              checked as boolean,
-                            )
-                          }
-                          disabled={allChanges}
-                        />
-                        <label
-                          htmlFor="price-changes"
-                          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                        >
-                          Price changes
-                        </label>
-                      </div>
-                    </div>
+                    {canPerformTopicOperations ? (
+                      <>
+                        <p className="text-sm text-muted-foreground">
+                          Choose what notifications you want to receive for this
+                          offer.
+                        </p>
+                        <div className="space-y-3">
+                          <div className="flex items-center space-x-2">
+                            <Checkbox
+                              id="all"
+                              checked={all}
+                              onCheckedChange={(checked) =>
+                                handleNotificationChange(
+                                  'all',
+                                  checked as boolean,
+                                )
+                              }
+                              disabled={
+                                price ||
+                                achievements ||
+                                builds ||
+                                items ||
+                                requirements ||
+                                metadata ||
+                                media
+                              }
+                            />
+                            <label
+                              htmlFor="all"
+                              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                              All
+                            </label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Checkbox
+                              id="price"
+                              checked={price}
+                              onCheckedChange={(checked) =>
+                                handleNotificationChange(
+                                  'price',
+                                  checked as boolean,
+                                )
+                              }
+                              disabled={all}
+                            />
+                            <label
+                              htmlFor="price"
+                              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                              Price
+                            </label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Checkbox
+                              id="achievements"
+                              checked={achievements}
+                              onCheckedChange={(checked) =>
+                                handleNotificationChange(
+                                  'achievements',
+                                  checked as boolean,
+                                )
+                              }
+                              disabled={all}
+                            />
+                            <label
+                              htmlFor="achievements"
+                              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                              Achievements
+                            </label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Checkbox
+                              id="builds"
+                              checked={builds}
+                              onCheckedChange={(checked) =>
+                                handleNotificationChange(
+                                  'builds',
+                                  checked as boolean,
+                                )
+                              }
+                              disabled={all}
+                            />
+                            <label
+                              htmlFor="builds"
+                              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                              Builds
+                            </label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Checkbox
+                              id="items"
+                              checked={items}
+                              onCheckedChange={(checked) =>
+                                handleNotificationChange(
+                                  'items',
+                                  checked as boolean,
+                                )
+                              }
+                              disabled={all}
+                            />
+                            <label
+                              htmlFor="items"
+                              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                              Items
+                            </label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Checkbox
+                              id="requirements"
+                              checked={requirements}
+                              onCheckedChange={(checked) =>
+                                handleNotificationChange(
+                                  'requirements',
+                                  checked as boolean,
+                                )
+                              }
+                              disabled={all}
+                            />
+                            <label
+                              htmlFor="requirements"
+                              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                              Requirements
+                            </label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Checkbox
+                              id="metadata"
+                              checked={metadata}
+                              onCheckedChange={(checked) =>
+                                handleNotificationChange(
+                                  'metadata',
+                                  checked as boolean,
+                                )
+                              }
+                              disabled={all}
+                            />
+                            <label
+                              htmlFor="metadata"
+                              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                              Metadata
+                            </label>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Checkbox
+                              id="media"
+                              checked={media}
+                              onCheckedChange={(checked) =>
+                                handleNotificationChange(
+                                  'media',
+                                  checked as boolean,
+                                )
+                              }
+                              disabled={all}
+                            />
+                            <label
+                              htmlFor="media"
+                              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >
+                              Media
+                            </label>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <p className="text-sm text-muted-foreground">
+                          You need to enable push notifications to receive
+                          notifications for this offer.
+                        </p>
+                        <Button asChild className="w-full">
+                          <Link to="/notifications">
+                            Enable Push Notifications
+                          </Link>
+                        </Button>
+                      </>
+                    )}
                   </div>
                 </PopoverContent>
               </Popover>
