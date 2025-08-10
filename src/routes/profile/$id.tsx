@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { createFileRoute, Link, Outlet } from '@tanstack/react-router';
+import { DateTime } from 'luxon';
+import { useLocale } from '@/hooks/use-locale';
 import {
   dehydrate,
   HydrationBoundary,
@@ -798,12 +800,17 @@ function Countdown({
     >
   >;
 }) {
-  const [countdown, setCountdown] = useState(date.getTime() - Date.now());
+  const { timezone } = useLocale();
+  const target = DateTime.fromJSDate(date).setZone(timezone || 'UTC');
+  const [countdown, setCountdown] = useState(
+    target.diff(DateTime.now().setZone(timezone || 'UTC'), 'milliseconds').milliseconds
+  );
   const [hasRefetched, setHasRefetched] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const newCountdown = date.getTime() - Date.now();
+      const now = DateTime.now().setZone(timezone || 'UTC');
+      const newCountdown = target.diff(now, 'milliseconds').milliseconds;
       setCountdown(newCountdown);
 
       // Only refetch if we haven't already and the countdown is <= 0
@@ -814,7 +821,7 @@ function Countdown({
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [date, refetch, hasRefetched]);
+  }, [target, refetch, hasRefetched, timezone]);
 
   // Reset hasRefetched when date changes
   useEffect(() => {

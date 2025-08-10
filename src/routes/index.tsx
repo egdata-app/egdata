@@ -122,7 +122,7 @@ function OfferHoverCard({ id }: { id: string }) {
   };
 
   const formatDate = (dateString: string) => {
-    return DateTime.fromISO(dateString).toLocaleString(DateTime.DATE_MED);
+    return DateTime.fromISO(dateString).setLocale('en-GB').toLocaleString(DateTime.DATE_MED);
   };
 
   const getAgeRatingDisplay = () => {
@@ -524,7 +524,7 @@ function RouteComponent() {
   const { data: latestBuilds = [] } = latestBuildsQuery;
 
   function formatDate(iso: string) {
-    return DateTime.fromISO(iso).setZone(timezone).toFormat('MMM d, HH:mm');
+    return DateTime.fromISO(iso).setZone(timezone || 'UTC').toFormat('MMM d, HH:mm');
   }
 
   const SimpleTable = ({

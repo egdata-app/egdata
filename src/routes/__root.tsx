@@ -1,11 +1,13 @@
+/// <reference types="vite/client" />
 import { createRootRouteWithContext, Link } from '@tanstack/react-router';
 import { Outlet, HeadContent, Scripts } from '@tanstack/react-router';
 import type * as React from 'react';
 import Navbar from '@/components/app/navbar';
 import { queryOptions, type QueryClient } from '@tanstack/react-query';
 import { CountryProvider } from '@/providers/country';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
+import { TanstackDevtools } from '@tanstack/react-devtools';
+import { ReactQueryDevtoolsPanel } from '@tanstack/react-query-devtools';
+import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import getCountryCode from '@/lib/get-country-code';
 import { parseCookieString } from '@/lib/parse-cookies';
 import { SearchProvider } from '@/providers/global-search';
@@ -22,6 +24,7 @@ import { authClient } from '@/lib/auth-client';
 import { Toaster } from '@/components/ui/sonner';
 import styles from '@/styles.css?url';
 import { ExtensionProvider } from '@/providers/extension';
+import '../registerSW';
 
 const getClientSession = queryOptions({
   queryKey: ['session'],
@@ -124,7 +127,6 @@ export const Route = createRootRouteWithContext<{
     return {
       country,
       cookies,
-      url,
       session,
     };
   },
@@ -381,9 +383,19 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
         </div>
 
         {import.meta.env.DEV && (
-          <TanStackRouterDevtools position="bottom-left" />
+          <TanstackDevtools
+            plugins={[
+              {
+                name: 'Tanstack Query',
+                render: <ReactQueryDevtoolsPanel />,
+              },
+              {
+                name: 'Tanstack Router',
+                render: <TanStackRouterDevtoolsPanel />,
+              },
+            ]}
+          />
         )}
-        <ReactQueryDevtools buttonPosition="bottom-right" />
         <Scripts />
       </body>
     </html>

@@ -145,3 +145,4 @@ playwright-report
 test-results
 
 public/sw.js
+dev-dist

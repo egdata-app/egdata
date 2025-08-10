@@ -8,6 +8,8 @@ import { ScrollArea, ScrollBar } from '../ui/scroll-area';
 import { DateRangePicker } from './date-range-picker';
 import { PerformancePositionsChart } from '../charts/performance/positions';
 import { CardStackIcon } from '@radix-ui/react-icons';
+import { DateTime } from 'luxon';
+import { useLocale } from '@/hooks/use-locale';
 
 interface PerformanceCardProps {
   position: number;
@@ -16,6 +18,8 @@ interface PerformanceCardProps {
 }
 
 function PerformanceCard({ position, change, date }: PerformanceCardProps) {
+  const { timezone } = useLocale();
+  
   const getChangeIcon = () => {
     if (change < 0) return <ChevronUp className="w-4 h-4" />;
     if (change > 0) return <ChevronDown className="w-4 h-4" />;
@@ -55,11 +59,14 @@ function PerformanceCard({ position, change, date }: PerformanceCardProps) {
       </div>
 
       <div className="text-sm mt-4">
-        {new Date(date).toLocaleDateString('en-GB', {
-          day: 'numeric',
-          month: 'short',
-          year: 'numeric',
-        })}
+        {DateTime.fromISO(date)
+          .setZone(timezone || 'UTC')
+          .setLocale('en-GB')
+          .toLocaleString({
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+          })}
       </div>
     </Card>
   );
@@ -117,9 +124,10 @@ export function PerformanceTable({
   tops: Record<string, number>;
   defaultCollection: string;
 }) {
+  const { timezone } = useLocale();
   const [timeframe, setTimeframe] = useState<{ from: Date; to: Date }>({
-    from: new Date(new Date().setDate(new Date().getDate() - 7)),
-    to: new Date(),
+    from: DateTime.now().setZone(timezone || 'UTC').minus({ days: 7 }).toJSDate(),
+    to: DateTime.now().setZone(timezone || 'UTC').toJSDate(),
   });
   const [view, setView] = useState<'cards' | 'chart'>('cards');
 
@@ -128,26 +136,29 @@ export function PerformanceTable({
     if (!data?.positions.length) return;
 
     const positions = data.positions;
-    const dates = positions.map((pos) => new Date(pos.date));
-    const minDate = new Date(Math.min(...dates.map((d) => d.getTime())));
-    const maxDate = new Date(Math.max(...dates.map((d) => d.getTime())));
+    const dates = positions.map((pos) => DateTime.fromISO(pos.date).setZone(timezone || 'UTC'));
+    const minDate = DateTime.min(...dates);
+    const maxDate = DateTime.max(...dates);
+    
+    if (!minDate || !maxDate) return;
 
     // If we have data, set the timeframe to cover all available data
     setTimeframe({
-      from: minDate,
-      to: maxDate,
-    });
-  }, [data]);
+      from: minDate.toJSDate(),
+      to: maxDate.toJSDate(),
+    });  }, [data, timezone]);
 
   // Extract filtered and sorted positions for reuse
   const filteredPositions =
     data?.positions
       .filter((pos) => {
-        const date = new Date(pos.date);
-        return date >= timeframe.from && date <= timeframe.to;
+        const date = DateTime.fromISO(pos.date).setZone(timezone || 'UTC');
+        const fromDateTime = DateTime.fromJSDate(timeframe.from).setZone(timezone || 'UTC');
+        const toDateTime = DateTime.fromJSDate(timeframe.to).setZone(timezone || 'UTC');
+        return date >= fromDateTime && date <= toDateTime;
       })
       .sort(
-        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+        (a, b) => DateTime.fromISO(b.date).toMillis() - DateTime.fromISO(a.date).toMillis(),
       ) ?? [];
 
   return (
@@ -156,7 +167,7 @@ export function PerformanceTable({
         <h2 className="text-2xl font-bold text-white">Performance Table</h2>
         <DateRangePicker
           handleChange={({ from, to }) =>
-            setTimeframe({ from, to: to || new Date() })
+            setTimeframe({ from, to: to || DateTime.now().setZone(timezone || 'UTC').toJSDate() })
           }
         />
       </div>

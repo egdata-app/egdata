@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import "tailwindcss" source("../src");
 @import "@vidstack/react/player/styles/base.css";
 @import "tw-animate-css";
 

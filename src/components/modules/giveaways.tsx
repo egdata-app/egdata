@@ -20,6 +20,7 @@ import { httpClient } from '@/lib/http-client';
 import { Link } from '@tanstack/react-router';
 import { useLocale } from '@/hooks/use-locale';
 import { mergeFreebies } from '@/utils/merge-freebies';
+import { DateTime } from 'luxon';
 
 export function GiveawaysCarousel({ hideTitle }: { hideTitle?: boolean }) {
   const { country } = useCountry();
@@ -199,6 +200,7 @@ function GiveawayCard({ offer }: { offer: GiveawayOffer }) {
 }
 
 function Countdown({ targetDate }: { targetDate: Date }) {
+  const { timezone } = useLocale();
   const [timeLeft, setTimeLeft] = useState<{
     days: number;
     hours: number;
@@ -215,8 +217,9 @@ function Countdown({ targetDate }: { targetDate: Date }) {
     let interval: NodeJS.Timeout;
 
     const updateCountdown = () => {
-      const now = new Date();
-      const diff = targetDate.getTime() - now.getTime();
+      const now = DateTime.now().setZone(timezone || 'UTC');
+      const target = DateTime.fromJSDate(targetDate).setZone(timezone || 'UTC');
+      const diff = target.diff(now, 'milliseconds').milliseconds;
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
       const hours = Math.floor(
         (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
@@ -230,12 +233,14 @@ function Countdown({ targetDate }: { targetDate: Date }) {
     updateCountdown();
 
     // Set interval only if the target date is in the future
-    if (targetDate > new Date()) {
+    const now = DateTime.now().setZone(timezone || 'UTC');
+    const target = DateTime.fromJSDate(targetDate).setZone(timezone || 'UTC');
+    if (target > now) {
       interval = setInterval(updateCountdown, 1000);
     }
 
     return () => clearInterval(interval);
-  }, [targetDate]);
+  }, [targetDate, timezone]);
 
   const isFinised =
     timeLeft.days < 0 &&

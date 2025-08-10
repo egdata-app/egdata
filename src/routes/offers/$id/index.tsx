@@ -24,7 +24,6 @@ import { Separator } from '@/components/ui/separator';
 import { useLocale } from '@/hooks/use-locale';
 import type { OfferPosition } from '@/types/collections';
 import { PerformanceTable } from '@/components/app/performance-table';
-import { OffersIndexSkeleton } from '@/components/skeletons/offers-index-skeleton';
 import consola from 'consola';
 import { getOfferIgdb } from '@/queries/igdb';
 import { DateTime } from 'luxon';
@@ -35,14 +34,7 @@ export const Route = createFileRoute('/offers/$id/')({
     return <RouteComponent />;
   },
 
-  pendingComponent: () => {
-    return <OffersIndexSkeleton />;
-  },
-
-  pendingMs: 0,
-
   loader: async ({ params, context, cause }) => {
-    const startTime = performance.now();
     const { id } = params;
     const { country, queryClient } = context;
 
@@ -51,67 +43,57 @@ export const Route = createFileRoute('/offers/$id/')({
     let defaultCollection = 'top-sellers';
 
     if (!isPreload) {
-      await Promise.all([
-        queryClient.prefetchQuery({
-          queryKey: ['offer', 'genres', { id }],
-          queryFn: () => httpClient.get<Tag[]>(`/offers/${id}/genres`),
-        }),
-        queryClient.prefetchQuery({
-          queryKey: ['price-stats', { id, country }],
-          queryFn: () =>
-            httpClient.get<{
-              current: Price | null;
-              lowest: Price | null;
-              lastDiscount: Price | null;
-            }>(`/offers/${id}/price-stats`, {
-              params: { country },
-            }),
-        }),
-        queryClient.prefetchQuery({
-          queryKey: ['offer', 'tops', { id }],
-          queryFn: () =>
-            httpClient.get<{
-              [key: string]: number;
-            }>(`/offers/${id}/tops`),
-        }),
-        queryClient.prefetchQuery(getOfferIgdb(id)),
-      ]);
+      queryClient.fetchQuery({
+        queryKey: ['offer', 'genres', { id }],
+        queryFn: () => httpClient.get<Tag[]>(`/offers/${id}/genres`),
+      });
+      queryClient.fetchQuery({
+        queryKey: ['price-stats', { id, country }],
+        queryFn: () =>
+          httpClient.get<{
+            current: Price | null;
+            lowest: Price | null;
+            lastDiscount: Price | null;
+          }>(`/offers/${id}/price-stats`, {
+            params: { country },
+          }),
+      });
+      queryClient.fetchQuery(getOfferIgdb(id)).catch(() => {});
+    }
 
-      // Fetch the tops data
-      const tops = queryClient.getQueryData<{
-        [key: string]: number;
-      }>(['offer', 'tops', { id }]);
+    // Fetch the tops data
+    const tops = await queryClient.ensureQueryData({
+      queryKey: ['offer', 'tops', { id }],
+      queryFn: () =>
+        httpClient.get<{
+          [key: string]: number;
+        }>(`/offers/${id}/tops`),
+    });
 
-      // Calculate the default collection
-      defaultCollection = tops
-        ? Object.keys(tops).reduce((acc, key) => {
-            return tops[key] < tops[acc] ? key : acc;
-          }, Object.keys(tops)[0]) // Use the first key in tops as the initial value
-        : 'top-sellers';
+    // Calculate the default collection
+    defaultCollection = tops
+      ? Object.keys(tops).reduce((acc, key) => {
+          return tops[key] < tops[acc] ? key : acc;
+        }, Object.keys(tops)[0]) // Use the first key in tops as the initial value
+      : 'top-sellers';
 
-      if (defaultCollection) {
-        await queryClient.prefetchQuery({
-          queryKey: [
-            'collection',
-            'positions',
-            { id, collection: defaultCollection },
-          ],
-          queryFn: () =>
-            httpClient.get<OfferPosition>(
-              `/offers/${id}/collections/${defaultCollection}`,
-              {
-                params: {
-                  country,
-                },
+    if (defaultCollection) {
+      await queryClient.prefetchQuery({
+        queryKey: [
+          'collection',
+          'positions',
+          { id, collection: defaultCollection },
+        ],
+        queryFn: () =>
+          httpClient.get<OfferPosition>(
+            `/offers/${id}/collections/${defaultCollection}`,
+            {
+              params: {
+                country,
               },
-            ),
-        });
-      }
-
-      const endTime = performance.now();
-      consola.info(
-        `[offers-index] Time taken: ${(endTime - startTime).toFixed(2)} milliseconds`,
-      );
+            },
+          ),
+      });
     }
 
     return {
@@ -129,7 +111,6 @@ function RouteComponent() {
   const { country } = useCountry();
   const [collection, setCollection] = useState(defaultCollection);
   const [
-    offerQuery,
     genresQuery,
     priceQuery,
     ageRatingQuery,
@@ -142,10 +123,6 @@ function RouteComponent() {
     igdbQuery,
   ] = useQueries({
     queries: [
-      {
-        queryKey: ['offer', { id }],
-        queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`),
-      },
       {
         queryKey: ['offer', 'genres', { id }],
         queryFn: () => httpClient.get<Tag[]>(`/offers/${id}/genres`),
@@ -220,7 +197,6 @@ function RouteComponent() {
     ],
   });
 
-  const { data: offer } = offerQuery;
   const { data: genres } = genresQuery;
   const { data: price } = priceQuery;
   const { data: ageRating } = ageRatingQuery;
@@ -232,10 +208,6 @@ function RouteComponent() {
   const { data: tops } = topsQuery;
   const { data: igdb } = igdbQuery;
   const timeToBeat = igdb?.timeToBeat;
-
-  if (!offer) {
-    return null;
-  }
 
   useEffect(() => {
     if (tops) {
@@ -358,27 +330,25 @@ function RouteComponent() {
                   {giveaways?.map((giveaway) => (
                     <div key={giveaway._id} className="flex flex-row gap-2">
                       <span>
-                        {new Date(giveaway.startDate).toLocaleDateString(
-                          'en-UK',
-                          {
+                        {DateTime.fromISO(giveaway.startDate)
+                          .setZone('UTC')
+                          .setLocale('en-GB')
+                          .toLocaleString({
                             year: 'numeric',
                             month: 'short',
                             day: 'numeric',
-                            timeZone: timezone,
-                          },
-                        )}
+                          })}
                       </span>
                       <span>-</span>
                       <span>
-                        {new Date(giveaway.endDate).toLocaleDateString(
-                          'en-UK',
-                          {
+                        {DateTime.fromISO(giveaway.endDate)
+                          .setZone('UTC')
+                          .setLocale('en-GB')
+                          .toLocaleString({
                             year: 'numeric',
                             month: 'short',
                             day: 'numeric',
-                            timeZone: timezone,
-                          },
-                        )}
+                          })}
                       </span>
                     </div>
                   ))}
@@ -678,7 +648,8 @@ function PriceText({
       {showDate && (
         <span className="text-sm text-muted-foreground font-light">
           (
-          {DateTime.fromISO(price.updatedAt, { zone: timezone })
+          {DateTime.fromISO(price.updatedAt)
+            .setZone('UTC')
             .setLocale('en-GB')
             .toLocaleString({
               year: 'numeric',

@@ -7,6 +7,8 @@ import { Link } from '@tanstack/react-router';
 import { ArrowRightIcon } from '@radix-ui/react-icons';
 import { useEffect, useState } from 'react';
 import { httpClient } from '@/lib/http-client';
+import { DateTime } from 'luxon';
+import { useLocale } from '@/hooks/use-locale';
 
 interface UpcomingRes {
   elements: SingleOffer[];
@@ -137,17 +139,22 @@ function relativeDate(date: Date) {
  * @returns
  */
 function FloatingCountdown({ date }: { date: Date }) {
-  const [timeLeft, setTimeLeft] = useState(() => date.getTime() - Date.now());
+  const { timezone } = useLocale();
+  const target = DateTime.fromJSDate(date).setZone(timezone || 'UTC');
+  const [timeLeft, setTimeLeft] = useState(() => 
+    target.diff(DateTime.now().setZone(timezone || 'UTC'), 'milliseconds').milliseconds
+  );
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTimeLeft(date.getTime() - Date.now());
+      const now = DateTime.now().setZone(timezone || 'UTC');
+      setTimeLeft(target.diff(now, 'milliseconds').milliseconds);
     }, 1000);
 
     return () => {
       clearInterval(interval);
     };
-  }, [date]);
+  }, [target, timezone]);
 
   return (
     <div className="absolute top-0 left-0 dark:bg-gray-800/50 p-2 rounded-tl-lg rounded-br-lg shadow-lg z-50 backdrop-blur-sm">

@@ -6,6 +6,8 @@ import {
 } from '@/components/ui/chart';
 import { useMemo } from 'react';
 import { Line, LineChart, CartesianGrid, XAxis, YAxis } from 'recharts';
+import { DateTime } from 'luxon';
+import { useLocale } from '@/hooks/use-locale';
 
 interface Position {
   date: string;
@@ -26,25 +28,34 @@ export function PerformancePositionsChart({
   positions,
   timeframe,
 }: PerformancePositionsChartProps) {
+  const { timezone } = useLocale();
+  
   // Prepare chart data: filter by timeframe, sort by date ascending
   const chartData = useMemo(() => {
     if (!positions?.length) return [];
+    
+    const fromDateTime = DateTime.fromJSDate(timeframe.from).setZone(timezone || 'UTC');
+    const toDateTime = DateTime.fromJSDate(timeframe.to).setZone(timezone || 'UTC');
+    
     return positions
       .filter((pos) => {
-        const date = new Date(pos.date);
-        return date >= timeframe.from && date <= timeframe.to;
+        const date = DateTime.fromISO(pos.date).setZone(timezone || 'UTC');
+        return date >= fromDateTime && date <= toDateTime;
       })
-      .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+      .sort((a, b) => DateTime.fromISO(a.date).toMillis() - DateTime.fromISO(b.date).toMillis())
       .map((pos) => ({
         ...pos,
         // Normalize 0 => 100 for 'out of top'
         position: pos.position === 0 ? 100 : pos.position,
-        dateLabel: new Date(pos.date).toLocaleDateString('en-GB', {
-          day: 'numeric',
-          month: 'short',
-        }),
+        dateLabel: DateTime.fromISO(pos.date)
+          .setZone(timezone || 'UTC')
+          .setLocale('en-GB')
+          .toLocaleString({
+            day: 'numeric',
+            month: 'short',
+          }),
       }));
-  }, [positions, timeframe]);
+  }, [positions, timeframe, timezone]);
 
   if (!chartData.length) return <div>No data for selected range</div>;
 

@@ -59,66 +59,60 @@ import type { SingleOffer } from '@/types/single-offer';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import {
   createFileRoute,
-  getRouteApi,
   Link,
   Outlet,
   useLocation,
   useNavigate,
 } from '@tanstack/react-router';
-import { OffersHomeSkeleton } from '@/components/skeletons/offers-home';
 import { FabIcon } from '@/components/icons/fab';
-import consola from 'consola';
 import { DateTime } from 'luxon';
 import { Bell } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
+import { OffersHomeSkeleton } from '@/components/skeletons/offers-home';
 
 export const Route = createFileRoute('/offers/$id')({
   component: () => {
     return <OfferPage />;
   },
 
-  loader: async ({ params, context, cause }) => {
-    const startTime = performance.now();
-    const { country, queryClient } = context;
+  beforeLoad: async ({ params, context }) => {
+    const { queryClient } = context;
     const { id } = params;
 
-    const isPreload = cause === 'preload';
-
-    // Always fetch the offer first
     const offer = await queryClient.ensureQueryData({
       queryKey: ['offer', { id: params.id }],
       queryFn: () => httpClient.get<SingleOffer>(`/offers/${params.id}`),
     });
 
-    // Prepare additional queries for SSR/SEO only
-    const extraQueries: Promise<unknown>[] = [];
-    if (!isPreload) {
-      extraQueries.push(
-        queryClient.prefetchQuery({
-          queryKey: ['price', { id: params.id, country }],
-          queryFn: () =>
-            httpClient.get<Price>(
-              `/offers/${params.id}/price?country=${country || 'US'}`,
-            ),
-        }),
-        queryClient.ensureQueryData({
-          queryKey: ['offer-technologies', { id: params.id }],
-          queryFn: () =>
-            httpClient.get<Technology[]>(`/offers/${params.id}/technologies`),
-        }),
-        queryClient.prefetchQuery({
-          queryKey: ['offer-assets', { id }],
-          queryFn: () => httpClient.get<Asset[]>(`/offers/${id}/assets`),
-        }),
-      );
-    }
-    await Promise.all(extraQueries);
+    return {
+      id,
+      offer,
+    };
+  },
 
-    const endTime = performance.now();
-    consola.info(
-      `[offers-root] Time taken: ${(endTime - startTime).toFixed(2)} milliseconds`,
-    );
+  loader: async ({ params, context }) => {
+    const { country, queryClient, offer } = context;
+    const { id } = params;
+
+    queryClient.fetchQuery({
+      queryKey: ['price', { id: params.id, country }],
+      queryFn: () =>
+        httpClient.get<Price>(
+          `/offers/${params.id}/price?country=${country || 'US'}`,
+        ),
+    });
+
+    queryClient.fetchQuery({
+      queryKey: ['offer-technologies', { id: params.id }],
+      queryFn: () =>
+        httpClient.get<Technology[]>(`/offers/${params.id}/technologies`),
+    });
+
+    queryClient.fetchQuery({
+      queryKey: ['offer-assets', { id }],
+      queryFn: () => httpClient.get<Asset[]>(`/offers/${id}/assets`),
+    });
 
     return {
       id,
@@ -187,12 +181,6 @@ export const Route = createFileRoute('/offers/$id')({
       ],
     };
   },
-
-  pendingComponent: () => {
-    return <OffersHomeSkeleton />;
-  },
-
-  pendingMs: 1000,
 });
 
 function OfferPage() {
@@ -291,6 +279,7 @@ function OfferPage() {
     queryKey: ['offer', { id }],
     queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`),
   });
+
   const { data: technologies } = useSuspenseQuery({
     queryKey: ['offer-technologies', { id }],
     queryFn: () => httpClient.get<Technology[]>(`/offers/${id}/technologies`),
@@ -299,7 +288,7 @@ function OfferPage() {
   const subPath = location.pathname.split(`/${id}/`)[1];
 
   if (offerLoading) {
-    return <div>Loading...</div>;
+    return <OffersHomeSkeleton />;
   }
 
   if (!offer) {
@@ -443,10 +432,7 @@ function OfferPage() {
                   </TableRow>
                   <TableRow>
                     <TableCell className="font-medium">Release Date</TableCell>
-                    <TableCell
-                      className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l"
-                      suppressHydrationWarning
-                    >
+                    <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
                       <ReleaseDate
                         releaseDate={offer.releaseDate}
                         pcReleaseDate={offer.pcReleaseDate}
@@ -456,10 +442,7 @@ function OfferPage() {
                   </TableRow>
                   <TableRow>
                     <TableCell className="font-medium">Last Update</TableCell>
-                    <TableCell
-                      className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l"
-                      suppressHydrationWarning
-                    >
+                    <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
                       {offer.lastModifiedDate
                         ? DateTime.fromISO(offer.lastModifiedDate, {
                             zone: timezone,
@@ -479,10 +462,7 @@ function OfferPage() {
                   </TableRow>
                   <TableRow>
                     <TableCell className="font-medium">Creation Date</TableCell>
-                    <TableCell
-                      className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l"
-                      suppressHydrationWarning
-                    >
+                    <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
                       {offer.creationDate
                         ? DateTime.fromISO(offer.creationDate, {
                             zone: timezone,
@@ -956,7 +936,8 @@ const ReleaseDate: React.FC<{
                   'underline decoration-dotted underline-offset-4',
               )}
             >
-              {DateTime.fromISO(releaseDate, { zone: timezone })
+              {DateTime.fromISO(releaseDate)
+                .setZone(timezone || 'UTC')
                 .setLocale('en-GB')
                 .toLocaleString({
                   year: 'numeric',

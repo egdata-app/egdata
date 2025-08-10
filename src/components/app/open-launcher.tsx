@@ -51,12 +51,10 @@ export function OpenLauncher({ id }: { id: string }) {
 
 /**
  * Get the platform based on the current user agent
+ * Always returns 'Windows' to ensure consistent server/client rendering
  */
 const getPlaform = () => {
-  if (typeof window === 'undefined') return 'Windows';
-
-  const ua = navigator.userAgent;
-  if (ua.includes('Windows')) return 'Windows';
-  if (ua.includes('Mac')) return 'Mac';
-  return 'unknown';
+  // Always return 'Windows' to prevent hydration mismatch
+  // Platform detection can be done client-side after hydration if needed
+  return 'Windows';
 };

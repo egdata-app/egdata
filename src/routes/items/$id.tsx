@@ -187,7 +187,8 @@ function ItemPage() {
                 <TableRow>
                   <TableCell className="font-medium">Creation Date</TableCell>
                   <TableCell className="border-l-gray-300/10 border-l">
-                    {DateTime.fromISO(item.creationDate, { zone: timezone })
+                    {DateTime.fromISO(item.creationDate)
+                      .setZone(timezone || 'UTC')
                       .setLocale('en-GB')
                       .toLocaleString({
                         year: 'numeric',

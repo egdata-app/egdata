@@ -262,7 +262,8 @@ function BuildPage() {
               <TableRow>
                 <TableCell className="font-medium">Created At</TableCell>
                 <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
-                  {DateTime.fromISO(build.createdAt, { zone: timezone })
+                  {DateTime.fromISO(build.createdAt)
+                    .setZone(timezone || 'UTC')
                     .setLocale('en-GB')
                     .toLocaleString({
                       year: 'numeric',
@@ -277,7 +278,8 @@ function BuildPage() {
               <TableRow>
                 <TableCell className="font-medium">Updated At</TableCell>
                 <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
-                  {DateTime.fromISO(build.updatedAt, { zone: timezone })
+                  {DateTime.fromISO(build.updatedAt)
+                    .setZone(timezone || 'UTC')
                     .setLocale('en-GB')
                     .toLocaleString({
                       year: 'numeric',
