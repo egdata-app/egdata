@@ -357,7 +357,7 @@ const FeaturedOffer = memo(function FeaturedOffer({
                   key={tag.id}
                   to="/search"
                   search={{
-                    tags: tag.id,
+                    tags: [tag.id],
                   }}
                 >
                   <Badge>{tag.name}</Badge>

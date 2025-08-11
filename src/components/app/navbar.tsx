@@ -215,7 +215,7 @@ const ExploreMenu = () => {
               <Link
                 to="/search"
                 search={{
-                  tags: genre.genre.id,
+                  tags: [genre.genre.id],
                 }}
                 className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-sm font-medium outline-none"
               >
@@ -303,7 +303,6 @@ const routes: Route[] = [
     name: 'About',
     href: '/about',
   },
-
 ];
 
 const routeApi = getRouteApi('__root__');

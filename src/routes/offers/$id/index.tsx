@@ -267,7 +267,7 @@ function RouteComponent() {
                       className="inline-flex items-center gap-1 text-sm font-medium text-white bg-white/15 px-3 py-1 rounded-md hover:bg-white/5 transition-colors duration-200 ease-in-out"
                       to="/search"
                       search={{
-                        tags: genre.id,
+                        tags: [genre.id],
                       }}
                     >
                       {genre.name}
