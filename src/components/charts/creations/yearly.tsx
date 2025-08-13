@@ -13,36 +13,36 @@ import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts';
 
 interface YearlyChartPoint {
   year: number;
-  releases?: number;
+  creations?: number;
   ongoing?: number;
   prediction?: number;
 }
 
-interface YearlyRelease {
-  releases: number;
+interface YearlyCreation {
+  creations: number;
   year: number;
 }
 
-export const getReleasesByYear = async () =>
-  httpClient.get<YearlyRelease[]>('/stats/releases/yearly');
+export const getCreationsByYear = async () =>
+  httpClient.get<YearlyCreation[]>('/stats/creations/yearly');
 
 const yearlyChartConfig: ChartConfig = {
-  releases: { label: 'Releases', color: 'hsl(var(--chart-1))' },
+  creations: { label: 'Creations', color: 'hsl(var(--chart-1))' },
   ongoing: { label: 'YTD', color: 'oklch(0.6 0.118 184.704)' },
   prediction: { label: 'Prediction', color: 'oklch(0.398 0.07 227.392)' },
 } as const;
 
-export function ReleasesByYear() {
+export function CreationsByYear() {
   const { data, isLoading } = useQuery({
-    queryKey: ['releases-by-year'],
-    queryFn: getReleasesByYear,
+    queryKey: ['creations-by-year'],
+    queryFn: getCreationsByYear,
     placeholderData: keepPreviousData,
   });
 
   const chartData = useMemo<YearlyChartPoint[]>(() => {
     if (!data?.length) return [];
 
-    const base = data.map(({ year, releases }) => ({ year, releases }));
+    const base = data.map(({ year, creations }) => ({ year, creations }));
     const lastIdx = base.length - 1;
     const lastYear = base[lastIdx].year;
     const currentYear = new Date().getFullYear();
@@ -50,7 +50,7 @@ export function ReleasesByYear() {
 
     const regressionRows = isCurrentYearOngoing ? base.slice(0, -1) : base;
     const x = regressionRows.map((_, i) => i);
-    const y = regressionRows.map((d) => d.releases);
+    const y = regressionRows.map((d) => d.creations);
     const { slope, intercept } = linearRegression(x, y);
 
     const forecastCurrentTotal = isCurrentYearOngoing
@@ -63,14 +63,14 @@ export function ReleasesByYear() {
 
     const points: YearlyChartPoint[] = base.map((row, i) => {
       if (isCurrentYearOngoing && i === lastIdx) {
-        const ongoing = row.releases;
+        const ongoing = row.creations;
         const remainderPrediction = Math.max(
           0,
           (forecastCurrentTotal ?? 0) - ongoing,
         );
         return {
           year: row.year,
-          releases: 0,
+          creations: 0,
           ongoing,
           prediction: remainderPrediction,
         };
@@ -78,7 +78,7 @@ export function ReleasesByYear() {
 
       return {
         year: row.year,
-        releases: row.releases,
+        creations: row.creations,
         ongoing: 0,
         prediction: 0,
       };
@@ -86,7 +86,7 @@ export function ReleasesByYear() {
 
     points.push({
       year: lastYear + 1,
-      releases: 0,
+      creations: 0,
       ongoing: 0,
       prediction: forecastNextYearTotal,
     });
@@ -126,21 +126,24 @@ export function ReleasesByYear() {
         />
 
         <Bar
-          dataKey="releases"
-          fill="var(--color-releases)"
-          stackId="releases"
+          dataKey="creations"
+          fill="var(--color-creations)"
+          isAnimationActive={false}
+          stackId="creations"
           radius={[8, 8, 0, 0]}
         />
         <Bar
           dataKey="ongoing"
           fill="var(--color-ongoing)"
-          stackId="releases"
+          isAnimationActive={false}
+          stackId="creations"
         />
         <Bar
           dataKey="prediction"
           fill="var(--color-prediction)"
           fillOpacity={0.6}
-          stackId="releases"
+          isAnimationActive={false}
+          stackId="creations"
           radius={[8, 8, 0, 0]}
         />
       </BarChart>

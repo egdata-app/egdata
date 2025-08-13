@@ -29,6 +29,7 @@ import { Route as CollectionsIndexRouteImport } from './routes/collections/index
 import { Route as ChangelogIndexRouteImport } from './routes/changelog/index'
 import { Route as TagsIdRouteImport } from './routes/tags/$id'
 import { Route as StatsReleasesRouteImport } from './routes/stats/releases'
+import { Route as StatsCreationsRouteImport } from './routes/stats/creations'
 import { Route as SellersIdRouteImport } from './routes/sellers/$id'
 import { Route as SandboxesIdRouteImport } from './routes/sandboxes/$id'
 import { Route as SalesIdRouteImport } from './routes/sales/$id'
@@ -170,6 +171,11 @@ const TagsIdRoute = TagsIdRouteImport.update({
 const StatsReleasesRoute = StatsReleasesRouteImport.update({
   id: '/stats/releases',
   path: '/stats/releases',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StatsCreationsRoute = StatsCreationsRouteImport.update({
+  id: '/stats/creations',
+  path: '/stats/creations',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SellersIdRoute = SellersIdRouteImport.update({
@@ -450,6 +456,7 @@ export interface FileRoutesByFullPath {
   '/sales/$id': typeof SalesIdRoute
   '/sandboxes/$id': typeof SandboxesIdRouteWithChildren
   '/sellers/$id': typeof SellersIdRoute
+  '/stats/creations': typeof StatsCreationsRoute
   '/stats/releases': typeof StatsReleasesRoute
   '/tags/$id': typeof TagsIdRoute
   '/changelog': typeof ChangelogIndexRoute
@@ -510,6 +517,7 @@ export interface FileRoutesByTo {
   '/promotions/$id': typeof PromotionsIdRoute
   '/sales/$id': typeof SalesIdRoute
   '/sellers/$id': typeof SellersIdRoute
+  '/stats/creations': typeof StatsCreationsRoute
   '/stats/releases': typeof StatsReleasesRoute
   '/tags/$id': typeof TagsIdRoute
   '/changelog': typeof ChangelogIndexRoute
@@ -574,6 +582,7 @@ export interface FileRoutesById {
   '/sales/$id': typeof SalesIdRoute
   '/sandboxes/$id': typeof SandboxesIdRouteWithChildren
   '/sellers/$id': typeof SellersIdRoute
+  '/stats/creations': typeof StatsCreationsRoute
   '/stats/releases': typeof StatsReleasesRoute
   '/tags/$id': typeof TagsIdRoute
   '/changelog/': typeof ChangelogIndexRoute
@@ -640,6 +649,7 @@ export interface FileRouteTypes {
     | '/sales/$id'
     | '/sandboxes/$id'
     | '/sellers/$id'
+    | '/stats/creations'
     | '/stats/releases'
     | '/tags/$id'
     | '/changelog'
@@ -700,6 +710,7 @@ export interface FileRouteTypes {
     | '/promotions/$id'
     | '/sales/$id'
     | '/sellers/$id'
+    | '/stats/creations'
     | '/stats/releases'
     | '/tags/$id'
     | '/changelog'
@@ -763,6 +774,7 @@ export interface FileRouteTypes {
     | '/sales/$id'
     | '/sandboxes/$id'
     | '/sellers/$id'
+    | '/stats/creations'
     | '/stats/releases'
     | '/tags/$id'
     | '/changelog/'
@@ -828,6 +840,7 @@ export interface RootRouteChildren {
   SalesIdRoute: typeof SalesIdRoute
   SandboxesIdRoute: typeof SandboxesIdRouteWithChildren
   SellersIdRoute: typeof SellersIdRoute
+  StatsCreationsRoute: typeof StatsCreationsRoute
   StatsReleasesRoute: typeof StatsReleasesRoute
   TagsIdRoute: typeof TagsIdRoute
   ChangelogIndexRoute: typeof ChangelogIndexRoute
@@ -1025,6 +1038,13 @@ declare module '@tanstack/react-router' {
       path: '/stats/releases'
       fullPath: '/stats/releases'
       preLoaderRoute: typeof StatsReleasesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stats/creations': {
+      id: '/stats/creations'
+      path: '/stats/creations'
+      fullPath: '/stats/creations'
+      preLoaderRoute: typeof StatsCreationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sellers/$id': {
@@ -1524,6 +1544,7 @@ const rootRouteChildren: RootRouteChildren = {
   SalesIdRoute: SalesIdRoute,
   SandboxesIdRoute: SandboxesIdRouteWithChildren,
   SellersIdRoute: SellersIdRoute,
+  StatsCreationsRoute: StatsCreationsRoute,
   StatsReleasesRoute: StatsReleasesRoute,
   TagsIdRoute: TagsIdRoute,
   ChangelogIndexRoute: ChangelogIndexRoute,

@@ -2,17 +2,17 @@ import { createFileRoute } from '@tanstack/react-router';
 import { Link } from '@tanstack/react-router';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import {
-  getReleasesByMonth,
-  ReleasesByMonth,
-} from '@/components/charts/releases/monthly';
+  getCreationsByMonth,
+  CreationsByMonth,
+} from '@/components/charts/creations/monthly';
 import {
-  getReleasesByYear,
-  ReleasesByYear,
-} from '@/components/charts/releases/yearly';
+  getCreationsByYear,
+  CreationsByYear,
+} from '@/components/charts/creations/yearly';
 
-export const Route = createFileRoute('/stats/releases')({
+export const Route = createFileRoute('/stats/creations')({
   component: RouteComponent,
 
   loader: async ({ context }) => {
@@ -20,12 +20,12 @@ export const Route = createFileRoute('/stats/releases')({
 
     await Promise.all([
       queryClient.prefetchQuery({
-        queryKey: ['releases-by-month'],
-        queryFn: getReleasesByMonth,
+        queryKey: ['creations-by-month'],
+        queryFn: getCreationsByMonth,
       }),
       queryClient.prefetchQuery({
-        queryKey: ['releases-by-year'],
-        queryFn: getReleasesByYear,
+        queryKey: ['creations-by-year'],
+        queryFn: getCreationsByYear,
       }),
     ]);
   },
@@ -34,12 +34,12 @@ export const Route = createFileRoute('/stats/releases')({
     return {
       meta: [
         {
-          title: 'Releases stats - egdata.app',
+          title: 'Creations stats - egdata.app',
         },
         {
           name: 'description',
           content:
-            'Monthly and yearly cadence of new titles landing on the Epic Games Store.',
+            'Monthly and yearly cadence of new creations landing on the Epic Games Store.',
         },
       ],
     };
@@ -49,35 +49,35 @@ export const Route = createFileRoute('/stats/releases')({
 function RouteComponent() {
   return (
     <div className="flex flex-col gap-8 min-h-[80vh] relative">
-      <Link to="/stats/creations" className="absolute top-0 right-0 z-10">
+      <Link to="/stats/releases" className="absolute top-0 right-0 z-10">
         <Button variant="outline" size="sm">
-          View Creations
-          <ArrowRight className="ml-2 h-4 w-4" />
+          <ArrowLeft className="mr-2 h-4 w-4" />
+          View Releases
         </Button>
       </Link>
 
       <header className="flex flex-col gap-2">
-        <h2 className="text-2xl font-bold">Epic Games Store release stats</h2>
+        <h2 className="text-2xl font-bold">Epic Games Store creation stats</h2>
         <p className="text-sm text-gray-500">
-          Monthly and yearly cadence of new titles landing on the store.
+          Monthly and yearly cadence of new creations landing on the store.
         </p>
       </header>
 
       <Card>
         <CardHeader>
-          <CardTitle>Monthly releases</CardTitle>
+          <CardTitle>Monthly creations</CardTitle>
         </CardHeader>
         <CardContent>
-          <ReleasesByMonth />
+          <CreationsByMonth />
         </CardContent>
       </Card>
 
       <Card>
         <CardHeader>
-          <CardTitle>Yearly releases</CardTitle>
+          <CardTitle>Yearly creations</CardTitle>
         </CardHeader>
         <CardContent>
-          <ReleasesByYear />
+          <CreationsByYear />
         </CardContent>
       </Card>
     </div>

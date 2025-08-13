@@ -14,11 +14,11 @@ import { linearRegression } from '@/lib/linear-regression';
 import { CartesianGrid, LineChart, ReferenceLine, XAxis } from 'recharts';
 import { Separator } from '@/components/ui/separator';
 
-export const getReleasesByMonth = async () =>
-  httpClient.get<MonthlyRelease[]>('/stats/releases/monthly');
+export const getCreationsByMonth = async () =>
+  httpClient.get<MonthlyCreation[]>('/stats/creations/monthly');
 
-export interface MonthlyRelease {
-  releases: number;
+export interface MonthlyCreation {
+  creations: number;
   year: number;
   month: number;
 }
@@ -28,7 +28,7 @@ interface MonthlyChartPoint {
   date: string;
   /** Unix‑ms timestamp used for the X axis */
   ts: number;
-  releases?: number;
+  creations?: number;
   ongoing?: number;
   prediction?: number;
 }
@@ -61,25 +61,25 @@ const importantDates = [
 ];
 
 const monthlyChartConfig: ChartConfig = {
-  releases: { label: 'Releases', color: 'hsl(var(--chart-1))' },
+  creations: { label: 'Creations', color: 'hsl(var(--chart-1))' },
   ongoing: { label: 'Ongoing', color: 'oklch(0.6 0.118 184.704)' },
   prediction: { label: 'Prediction', color: 'var(--chart-3)' },
 } as const;
 
-const toMonthlyBase = (data: MonthlyRelease[]) =>
-  data.map(({ year, month, releases }) => {
+const toMonthlyBase = (data: MonthlyCreation[]) =>
+  data.map(({ year, month, creations }) => {
     const date = new Date(year, month - 1, 1);
     return {
       date: date.toISOString(),
       ts: date.getTime(),
-      releases,
+      creations,
     };
   });
 
-export function ReleasesByMonth() {
+export function CreationsByMonth() {
   const { data, isLoading } = useQuery({
-    queryKey: ['releases-by-month'],
-    queryFn: getReleasesByMonth,
+    queryKey: ['creations-by-month'],
+    queryFn: getCreationsByMonth,
     placeholderData: keepPreviousData,
   });
 
@@ -97,7 +97,7 @@ export function ReleasesByMonth() {
 
     const regressionRows = isOngoingMonth ? base.slice(0, -1) : base;
     const x = regressionRows.map((_, i) => i);
-    const y = regressionRows.map((d) => d.releases);
+    const y = regressionRows.map((d) => d.creations);
     const { slope, intercept } = linearRegression(x, y);
 
     const predictedOngoing = Math.max(
@@ -116,10 +116,10 @@ export function ReleasesByMonth() {
         isOngoingMonth && (prevIdxs.includes(i) || i === lastIdx);
       return {
         ...row,
-        releases:
-          !isOngoingMonth || i < base.length - 1 ? row.releases : undefined,
-        ongoing: isOngoing ? row.releases : undefined,
-        prediction: i === regressionRows.length - 1 ? row.releases : undefined,
+        creations:
+          !isOngoingMonth || i < base.length - 1 ? row.creations : undefined,
+        ongoing: isOngoing ? row.creations : undefined,
+        prediction: i === regressionRows.length - 1 ? row.creations : undefined,
       };
     });
 
@@ -199,12 +199,12 @@ export function ReleasesByMonth() {
                           <div key={label} className="text-xs font-mono">
                             {label}
                           </div>
-                          <Separator />
+                          <Separator className="my-1" />
                         </Fragment>
                       ))}
                       <div>
                         {date.toLocaleDateString('en-US', {
-                          month: 'short',
+                          month: 'long',
                           year: 'numeric',
                         })}
                       </div>
@@ -217,30 +217,29 @@ export function ReleasesByMonth() {
         />
 
         <Line
-          dataKey="releases"
           type="monotone"
-          stroke="var(--color-releases)"
+          dataKey="creations"
+          stroke="var(--color-creations)"
           strokeWidth={2}
           dot={false}
-          isAnimationActive={false}
+          activeDot={{ r: 4 }}
         />
         <Line
+          type="monotone"
           dataKey="ongoing"
-          type="monotone"
-          stroke="var(--color-releases)"
+          stroke="var(--color-ongoing)"
           strokeWidth={2}
-          strokeDasharray="3 3"
           dot={false}
-          isAnimationActive={false}
+          activeDot={{ r: 4 }}
         />
         <Line
-          dataKey="prediction"
           type="monotone"
+          dataKey="prediction"
           stroke="var(--color-prediction)"
-          strokeWidth={1.5}
-          strokeDasharray="6 6"
+          strokeWidth={2}
+          strokeDasharray="4 4"
           dot={false}
-          isAnimationActive={false}
+          activeDot={{ r: 4 }}
         />
       </LineChart>
     </ChartContainer>
@@ -249,10 +248,14 @@ export function ReleasesByMonth() {
 
 function getImportantEventLabels(dateStr: string): string[] {
   const date = new Date(dateStr);
-  const events = importantDates.filter(
-    (d) =>
-      d.date.getFullYear() === date.getFullYear() &&
-      d.date.getMonth() === date.getMonth(),
+  return importantDates
+    .filter((event) => isSameMonth(date, event.date))
+    .map((event) => event.label);
+}
+
+function isSameMonth(date1: Date, date2: Date): boolean {
+  return (
+    date1.getFullYear() === date2.getFullYear() &&
+    date1.getMonth() === date2.getMonth()
   );
-  return events.map((e) => e.label);
 }
