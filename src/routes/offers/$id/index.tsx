@@ -4,7 +4,7 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { Card, CardContent } from '@/components/ui/card';
 import { keepPreviousData, useQueries } from '@tanstack/react-query';
 import { httpClient } from '@/lib/http-client';
-import type { SingleOffer, Tag } from '@/types/single-offer';
+import type { Tag } from '@/types/single-offer';
 import type { SingleSandbox } from '@/types/single-sandbox';
 import type { AchievementSet } from '@/queries/offer-achievements';
 import { useCountry } from '@/hooks/use-country';
@@ -24,7 +24,6 @@ import { Separator } from '@/components/ui/separator';
 import { useLocale } from '@/hooks/use-locale';
 import type { OfferPosition } from '@/types/collections';
 import { PerformanceTable } from '@/components/app/performance-table';
-import consola from 'consola';
 import { getOfferIgdb } from '@/queries/igdb';
 import { DateTime } from 'luxon';
 import { formatTimeToHumanReadable } from '@/lib/time-to-human-readable';
@@ -71,30 +70,29 @@ export const Route = createFileRoute('/offers/$id/')({
     });
 
     // Calculate the default collection
-    defaultCollection = tops
-      ? Object.keys(tops).reduce((acc, key) => {
-          return tops[key] < tops[acc] ? key : acc;
-        }, Object.keys(tops)[0]) // Use the first key in tops as the initial value
-      : 'top-sellers';
+    defaultCollection =
+      tops && Object.keys(tops).length > 0
+        ? Object.keys(tops).reduce((acc, key) => {
+            return tops[key] < tops[acc] ? key : acc;
+          }, Object.keys(tops)[0]) // Use the first key in tops as the initial value
+        : 'top-sellers';
 
-    if (defaultCollection) {
-      await queryClient.prefetchQuery({
-        queryKey: [
-          'collection',
-          'positions',
-          { id, collection: defaultCollection },
-        ],
-        queryFn: () =>
-          httpClient.get<OfferPosition>(
-            `/offers/${id}/collections/${defaultCollection}`,
-            {
-              params: {
-                country,
-              },
+    await queryClient.prefetchQuery({
+      queryKey: [
+        'collection',
+        'positions',
+        { id, collection: defaultCollection },
+      ],
+      queryFn: () =>
+        httpClient.get<OfferPosition>(
+          `/offers/${id}/collections/${defaultCollection}`,
+          {
+            params: {
+              country,
             },
-          ),
-      });
-    }
+          },
+        ),
+    });
 
     return {
       id,
@@ -210,12 +208,14 @@ function RouteComponent() {
   const timeToBeat = igdb?.timeToBeat;
 
   useEffect(() => {
-    if (tops) {
+    if (tops && Object.keys(tops).length > 0) {
       setCollection(
         Object.keys(tops).reduce((acc, key) => {
           return tops[key] < tops[acc] ? key : acc;
         }, defaultCollection),
       );
+    } else {
+      setCollection(defaultCollection);
     }
   }, [tops, defaultCollection]);
 
@@ -331,7 +331,7 @@ function RouteComponent() {
                     <div key={giveaway._id} className="flex flex-row gap-2">
                       <span>
                         {DateTime.fromISO(giveaway.startDate)
-                          .setZone('UTC')
+                          .setZone(timezone || 'UTC')
                           .setLocale('en-GB')
                           .toLocaleString({
                             year: 'numeric',
@@ -342,7 +342,7 @@ function RouteComponent() {
                       <span>-</span>
                       <span>
                         {DateTime.fromISO(giveaway.endDate)
-                          .setZone('UTC')
+                          .setZone(timezone || 'UTC')
                           .setLocale('en-GB')
                           .toLocaleString({
                             year: 'numeric',

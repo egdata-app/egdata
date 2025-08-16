@@ -4,6 +4,7 @@ import { Card } from '@/components/ui/card';
 import type { OfferPosition } from '@/types/collections';
 import { cn } from '@/lib/utils';
 import { useState, useEffect } from 'react';
+import * as React from 'react';
 import { ScrollArea, ScrollBar } from '../ui/scroll-area';
 import { DateRangePicker } from './date-range-picker';
 import { PerformancePositionsChart } from '../charts/performance/positions';
@@ -19,7 +20,7 @@ interface PerformanceCardProps {
 
 function PerformanceCard({ position, change, date }: PerformanceCardProps) {
   const { timezone } = useLocale();
-  
+
   const getChangeIcon = () => {
     if (change < 0) return <ChevronUp className="w-4 h-4" />;
     if (change > 0) return <ChevronDown className="w-4 h-4" />;
@@ -125,50 +126,73 @@ export function PerformanceTable({
   defaultCollection: string;
 }) {
   const { timezone } = useLocale();
-  const [timeframe, setTimeframe] = useState<{ from: Date; to: Date }>({
-    from: DateTime.now().setZone(timezone || 'UTC').minus({ days: 7 }).toJSDate(),
-    to: DateTime.now().setZone(timezone || 'UTC').toJSDate(),
+  const [timeframe, setTimeframe] = useState<{ from: Date; to: Date | undefined }>({
+    from: DateTime.now()
+      .setZone(timezone || 'UTC')
+      .minus({ days: 7 })
+      .toJSDate(),
+    to: DateTime.now()
+      .setZone(timezone || 'UTC')
+      .toJSDate(),
   });
   const [view, setView] = useState<'cards' | 'chart'>('cards');
 
-  // Add effect to automatically set timeframe to shortest range with data
+  // Track if user has manually changed the timeframe
+  const [hasUserSetTimeframe, setHasUserSetTimeframe] = useState(false);
+
+  // Initialize timeframe when data first loads
   useEffect(() => {
-    if (!data?.positions.length) return;
+    if (!data?.positions?.length || hasUserSetTimeframe) {
+      return; // Don't override if user has set a custom timeframe
+    }
 
     const positions = data.positions;
-    const dates = positions.map((pos) => DateTime.fromISO(pos.date).setZone(timezone || 'UTC'));
+    const dates = positions.map((pos) =>
+      DateTime.fromISO(pos.date).setZone(timezone || 'UTC'),
+    );
     const minDate = DateTime.min(...dates);
     const maxDate = DateTime.max(...dates);
-    
+
     if (!minDate || !maxDate) return;
 
-    // If we have data, set the timeframe to cover all available data
     setTimeframe({
       from: minDate.toJSDate(),
       to: maxDate.toJSDate(),
-    });  }, [data, timezone]);
+    });
+  }, [data?.positions, timezone, hasUserSetTimeframe]);
 
   // Extract filtered and sorted positions for reuse
-  const filteredPositions =
-    data?.positions
+  const filteredPositions = React.useMemo(() => {
+    if (!data?.positions) return [];
+    
+    return data.positions
       .filter((pos) => {
         const date = DateTime.fromISO(pos.date).setZone(timezone || 'UTC');
-        const fromDateTime = DateTime.fromJSDate(timeframe.from).setZone(timezone || 'UTC');
-        const toDateTime = DateTime.fromJSDate(timeframe.to).setZone(timezone || 'UTC');
-        return date >= fromDateTime && date <= toDateTime;
+        const fromDateTime = DateTime.fromJSDate(timeframe.from).setZone(
+          timezone || 'UTC',
+        );
+        const toDateTime = timeframe.to 
+          ? DateTime.fromJSDate(timeframe.to).setZone(timezone || 'UTC')
+          : DateTime.now().setZone(timezone || 'UTC');
+        
+        return date >= fromDateTime.startOf('day') && date <= toDateTime.endOf('day');
       })
       .sort(
-        (a, b) => DateTime.fromISO(b.date).toMillis() - DateTime.fromISO(a.date).toMillis(),
-      ) ?? [];
+        (a, b) =>
+          DateTime.fromISO(b.date).toMillis() -
+          DateTime.fromISO(a.date).toMillis(),
+      );
+  }, [data?.positions, timeframe, timezone]);
 
   return (
     <div className="w-full p-6 bg-card rounded-lg">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-white">Performance Table</h2>
         <DateRangePicker
-          handleChange={({ from, to }) =>
-            setTimeframe({ from, to: to || DateTime.now().setZone(timezone || 'UTC').toJSDate() })
-          }
+          handleChange={({ from, to }) => {
+            setTimeframe({ from, to });
+            setHasUserSetTimeframe(true);
+          }}
         />
       </div>
 
@@ -259,17 +283,23 @@ export function PerformanceTable({
         )}
 
         {/* Chart View */}
-        {view === 'chart' && data && filteredPositions.length > 0 && (
+        {view === 'chart' && data && filteredPositions.length > 0 && timeframe.to && (
           <PerformancePositionsChart
-            positions={data.positions}
-            timeframe={timeframe}
+            positions={filteredPositions}
+            timeframe={{ from: timeframe.from, to: timeframe.to }}
           />
         )}
 
-        {/* Show that there are no data if the data is not available */}
+        {/* Show appropriate messages for different states */}
         {!data && (
           <div className="flex justify-center items-center h-60">
             <p className="text-gray-500">No data found</p>
+          </div>
+        )}
+        
+        {data && filteredPositions.length === 0 && (
+          <div className="flex justify-center items-center h-60">
+            <p className="text-gray-500">No data available for the selected date range</p>
           </div>
         )}
 
