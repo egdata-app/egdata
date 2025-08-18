@@ -21,7 +21,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@egdata/core.schemas.ratings": "^1.1.3",
+    "@egdata/core.schemas.ratings": "^5.0.0",
     "@libsql/kysely-libsql": "^0.4.1",
     "@mdxeditor/editor": "^3.40.1",
     "@number-flow/react": "^0.4.4",
@@ -138,9 +138,7 @@
     "node": ">=24.6.0"
   },
   "pnpm": {
-    "ignoredBuiltDependencies": [
-      "es5-ext"
-    ],
+    "ignoredBuiltDependencies": ["es5-ext"],
     "onlyBuiltDependencies": [
       "@biomejs/biome",
       "@parcel/watcher",

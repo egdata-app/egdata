@@ -12,8 +12,8 @@ importers:
   .:
     dependencies:
       '@egdata/core.schemas.ratings':
-        specifier: ^1.1.3
-        version: 1.1.3(mongoose@8.15.2)
+        specifier: ^5.0.0
+        version: 5.0.0(mongoose@8.15.2)
       '@libsql/kysely-libsql':
         specifier: ^0.4.1
         version: 0.4.1(kysely@0.28.5)
@@ -1170,10 +1170,10 @@ packages:
     resolution: {integrity: sha512-Y6+WUMsTFWE5jb20IFP4YGa5IrGY/+a/FbOSjDF/wz9gepU2hwCYSXRHP/vPwBvwcY3SVMASt4yXxbXNXigmZQ==}
     engines: {node: '>=18'}
 
-  '@egdata/core.schemas.ratings@1.1.3':
-    resolution: {integrity: sha512-tlGUaNOGmnbmbOqXpS1fTV1keMY/165LicPz6UyrbgOp1sea69OivCu8USscn3hA/V68pM6QTHt0RrpOaRwc2Q==}
+  '@egdata/core.schemas.ratings@5.0.0':
+    resolution: {integrity: sha512-uoGBfBULKlY+5PCh2kYfEqco6WtQWh/v/9UkAfOpdIS1YTTHd/8AwjjLK/f/f8qZQf0IJw4T6BdgnL1nEVfVEw==}
     peerDependencies:
-      mongoose: ^8.5.2
+      mongoose: ^8.9.2
 
   '@emnapi/core@1.4.3':
     resolution: {integrity: sha512-4m62DuCE07lw01soJwPiBGC0nAww0Q+RY70VZ+n49yDIO13yyinhbWCeNnaob0lakDtWQzSdtNWzJeOJt2ma+g==}
@@ -10044,7 +10044,7 @@ snapshots:
       gonzales-pe: 4.3.0
       node-source-walk: 7.0.1
 
-  '@egdata/core.schemas.ratings@1.1.3(mongoose@8.15.2)':
+  '@egdata/core.schemas.ratings@5.0.0(mongoose@8.15.2)':
     dependencies:
       mongoose: 8.15.2
 
