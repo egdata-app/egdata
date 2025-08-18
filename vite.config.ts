@@ -15,7 +15,7 @@ export default defineConfig({
       project: 'egdata',
     }),
     tanstackStart({
-      target: 'bun',
+      target: 'node-server',
     }),
     VitePWA({
       strategies: 'injectManifest',

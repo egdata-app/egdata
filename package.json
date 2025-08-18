@@ -133,7 +133,10 @@
     "workbox-strategies": "^7.3.0",
     "wrangler": "3.99.0"
   },
-  "packageManager": "pnpm@10.12.1",
+  "packageManager": "pnpm@10.14.0",
+  "engines": {
+    "node": ">=24.6.0"
+  },
   "pnpm": {
     "ignoredBuiltDependencies": [
       "es5-ext"
