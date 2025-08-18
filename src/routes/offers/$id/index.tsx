@@ -49,13 +49,19 @@ export const Route = createFileRoute('/offers/$id/')({
       queryClient.fetchQuery({
         queryKey: ['price-stats', { id, country }],
         queryFn: () =>
-          httpClient.get<{
-            current: Price | null;
-            lowest: Price | null;
-            lastDiscount: Price | null;
-          }>(`/offers/${id}/price-stats`, {
-            params: { country },
-          }),
+          httpClient
+            .get<{
+              current: Price | null;
+              lowest: Price | null;
+              lastDiscount: Price | null;
+            }>(`/offers/${id}/price-stats`, {
+              params: { country },
+            })
+            .catch(() => ({
+              current: null,
+              lowest: null,
+              lastDiscount: null,
+            })),
       });
       queryClient.fetchQuery(getOfferIgdb(id)).catch(() => {});
     }
@@ -128,13 +134,19 @@ function RouteComponent() {
       {
         queryKey: ['price-stats', { id, country }],
         queryFn: () =>
-          httpClient.get<{
-            current: Price | null;
-            lowest: Price | null;
-            lastDiscount: Price | null;
-          }>(`/offers/${id}/price-stats`, {
-            params: { country },
-          }),
+          httpClient
+            .get<{
+              current: Price | null;
+              lowest: Price | null;
+              lastDiscount: Price | null;
+            }>(`/offers/${id}/price-stats`, {
+              params: { country },
+            })
+            .catch(() => ({
+              current: null,
+              lowest: null,
+              lastDiscount: null,
+            })),
       },
       {
         queryKey: ['offer', 'age-rating', { id, country }],
