@@ -4,6 +4,7 @@ import { tanstackStart } from '@tanstack/react-start/plugin/vite';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
 import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
+import react from '@vitejs/plugin-react-oxc';
 
 export default defineConfig({
   plugins: [
@@ -14,8 +15,10 @@ export default defineConfig({
       org: 'royale-radar',
       project: 'egdata',
     }),
+    react(),
     tanstackStart({
       target: 'node-server',
+      customViteReactPlugin: true,
     }),
     VitePWA({
       strategies: 'injectManifest',

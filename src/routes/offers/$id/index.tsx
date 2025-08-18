@@ -613,21 +613,13 @@ function PriceText({
   showDate,
 }: { price: Price | null | undefined; showDate?: boolean }) {
   const { locale, timezone } = useLocale();
-  if (!price) {
-    return <span>-</span>;
-  }
-
-  const fmtr = Intl.NumberFormat(locale, {
-    style: 'currency',
-    currency: price.price.currencyCode || 'USD',
-  });
-
+  
   const isDiscounted = useMemo(() => {
-    return price.price.discount > 0;
-  }, [price.price.discount]);
+    return price ? price.price.discount > 0 : false;
+  }, [price]);
 
   const discountPercent = useMemo(() => {
-    if (price.price.originalPrice === 0) {
+    if (!price || price.price.originalPrice === 0) {
       return 0;
     }
 
@@ -637,7 +629,16 @@ function PriceText({
       100;
 
     return Math.round(discount);
-  }, [price.price.discountPrice, price.price.originalPrice]);
+  }, [price]);
+  
+  if (!price) {
+    return <span>-</span>;
+  }
+
+  const fmtr = Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: price.price.currencyCode || 'USD',
+  });
 
   return (
     <span
