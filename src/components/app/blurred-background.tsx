@@ -36,20 +36,20 @@ export function BlurredBackground({ src }: { src: string }) {
     <Portal>
       <div
         className={cn(
-          'w-full h-[700px] absolute inset-0 -z-10 pointer-events-none bg-no-repeat bg-fit bg-center',
+          'fade-in w-full h-[700px] absolute inset-0 -z-10 pointer-events-none bg-no-repeat bg-fit bg-center',
           'blur-3xl bg-opacity-15 bg-black/40 filter brightness-[0.15]',
-          'animate-in fade-in duration-1000',
+          'transition-all duration-1000 ease-in-out',
           isHovered ? 'opacity-0' : 'opacity-100',
         )}
         style={{
-          backgroundImage: isHovered ? 'none' : `url(${src})`,
+          backgroundImage: `url(${src})`,
         }}
       />
       <canvas
         ref={localCanvasRef}
         className={cn(
           'absolute inset-0 -z-10 pointer-events-none w-full h-[700px] filter brightness-[0.30] blur-3xl',
-          'animate-in fade-in duration-1000',
+          'transition-all duration-1000 ease-in-out',
           isHovered ? 'opacity-50' : 'opacity-0',
         )}
         width={720}

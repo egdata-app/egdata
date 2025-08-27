@@ -158,12 +158,14 @@ function MetadataPage() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {Object.entries(offer.customAttributes).sort(([a],[b]) => a.localeCompare(b)).map(([key, item]) => (
-            <TableRow key={key}>
-              <TableCell>{key}</TableCell>
-              <TableCell>{item.value}</TableCell>
-            </TableRow>
-          ))}
+          {Object.entries(offer.customAttributes)
+            .sort(([a], [b]) => a.localeCompare(b))
+            .map(([key, item]) => (
+              <TableRow key={key}>
+                <TableCell>{key}</TableCell>
+                <TableCell>{item.value}</TableCell>
+              </TableRow>
+            ))}
           <TableRow>
             <TableCell>Countries Blacklist</TableCell>
             <TableCell>
@@ -220,6 +222,7 @@ function Countries({ countries }: { countries: string[] | null }) {
   if (!countries) {
     return null;
   }
+
   // If active, show the countries flags, otherwise show the list of countries
   return (
     <span
@@ -228,14 +231,16 @@ function Countries({ countries }: { countries: string[] | null }) {
       className="cursor-pointer inline-flex items-center justify-start gap-2 flex-wrap"
     >
       {active
-        ? countries.map((country) => (
-            <img
-              key={country}
-              src={`https://flagcdn.com/16x12/${country.toLowerCase()}.webp`}
-              alt={country}
-              style={{ width: '16px', height: '12px' }}
-            />
-          ))
+        ? countries
+            .sort()
+            .map((country) => (
+              <img
+                key={country}
+                src={`https://flagcdn.com/16x12/${country.toLowerCase()}.webp`}
+                alt={country}
+                style={{ width: '16px', height: '12px' }}
+              />
+            ))
         : countriesList(countries)}
     </span>
   );
@@ -254,6 +259,7 @@ function countriesList(countries: string[] | null) {
   const regionNameFmt = new Intl.DisplayNames(['en'], { type: 'region' });
 
   return countries
+    .sort()
     .map((country) => {
       return regionNameFmt.of(country);
     })
