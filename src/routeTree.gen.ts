@@ -16,6 +16,8 @@ import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PostsRouteImport } from './routes/posts'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as GenresRouteImport } from './routes/genres'
+import { Route as FreegamesRouteImport } from './routes/freegames'
+import { Route as FreeGamesRouteImport } from './routes/free-games'
 import { Route as FairUseRouteImport } from './routes/fair-use'
 import { Route as DownloadsRouteImport } from './routes/downloads'
 import { Route as DonateKeyRouteImport } from './routes/donate-key'
@@ -106,6 +108,16 @@ const NotificationsRoute = NotificationsRouteImport.update({
 const GenresRoute = GenresRouteImport.update({
   id: '/genres',
   path: '/genres',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FreegamesRoute = FreegamesRouteImport.update({
+  id: '/freegames',
+  path: '/freegames',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FreeGamesRoute = FreeGamesRouteImport.update({
+  id: '/free-games',
+  path: '/free-games',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FairUseRoute = FairUseRouteImport.update({
@@ -438,6 +450,8 @@ export interface FileRoutesByFullPath {
   '/donate-key': typeof DonateKeyRoute
   '/downloads': typeof DownloadsRoute
   '/fair-use': typeof FairUseRoute
+  '/free-games': typeof FreeGamesRoute
+  '/freegames': typeof FreegamesRoute
   '/genres': typeof GenresRoute
   '/notifications': typeof NotificationsRoute
   '/posts': typeof PostsRoute
@@ -503,6 +517,8 @@ export interface FileRoutesByTo {
   '/donate-key': typeof DonateKeyRoute
   '/downloads': typeof DownloadsRoute
   '/fair-use': typeof FairUseRoute
+  '/free-games': typeof FreeGamesRoute
+  '/freegames': typeof FreegamesRoute
   '/genres': typeof GenresRoute
   '/notifications': typeof NotificationsRoute
   '/posts': typeof PostsRoute
@@ -564,6 +580,8 @@ export interface FileRoutesById {
   '/donate-key': typeof DonateKeyRoute
   '/downloads': typeof DownloadsRoute
   '/fair-use': typeof FairUseRoute
+  '/free-games': typeof FreeGamesRoute
+  '/freegames': typeof FreegamesRoute
   '/genres': typeof GenresRoute
   '/notifications': typeof NotificationsRoute
   '/posts': typeof PostsRoute
@@ -631,6 +649,8 @@ export interface FileRouteTypes {
     | '/donate-key'
     | '/downloads'
     | '/fair-use'
+    | '/free-games'
+    | '/freegames'
     | '/genres'
     | '/notifications'
     | '/posts'
@@ -696,6 +716,8 @@ export interface FileRouteTypes {
     | '/donate-key'
     | '/downloads'
     | '/fair-use'
+    | '/free-games'
+    | '/freegames'
     | '/genres'
     | '/notifications'
     | '/posts'
@@ -756,6 +778,8 @@ export interface FileRouteTypes {
     | '/donate-key'
     | '/downloads'
     | '/fair-use'
+    | '/free-games'
+    | '/freegames'
     | '/genres'
     | '/notifications'
     | '/posts'
@@ -822,6 +846,8 @@ export interface RootRouteChildren {
   DonateKeyRoute: typeof DonateKeyRoute
   DownloadsRoute: typeof DownloadsRoute
   FairUseRoute: typeof FairUseRoute
+  FreeGamesRoute: typeof FreeGamesRoute
+  FreegamesRoute: typeof FreegamesRoute
   GenresRoute: typeof GenresRoute
   NotificationsRoute: typeof NotificationsRoute
   PostsRoute: typeof PostsRoute
@@ -947,6 +973,20 @@ declare module '@tanstack/react-router' {
       path: '/genres'
       fullPath: '/genres'
       preLoaderRoute: typeof GenresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/freegames': {
+      id: '/freegames'
+      path: '/freegames'
+      fullPath: '/freegames'
+      preLoaderRoute: typeof FreegamesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/free-games': {
+      id: '/free-games'
+      path: '/free-games'
+      fullPath: '/free-games'
+      preLoaderRoute: typeof FreeGamesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/fair-use': {
@@ -1526,6 +1566,8 @@ const rootRouteChildren: RootRouteChildren = {
   DonateKeyRoute: DonateKeyRoute,
   DownloadsRoute: DownloadsRoute,
   FairUseRoute: FairUseRoute,
+  FreeGamesRoute: FreeGamesRoute,
+  FreegamesRoute: FreegamesRoute,
   GenresRoute: GenresRoute,
   NotificationsRoute: NotificationsRoute,
   PostsRoute: PostsRoute,
