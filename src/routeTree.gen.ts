@@ -43,6 +43,7 @@ import { Route as BuildsIdRouteImport } from './routes/builds/$id'
 import { Route as AuthLogoutRouteImport } from './routes/auth/logout'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as AuthCallbackRouteImport } from './routes/auth/callback'
+import { Route as ApiTokenRouteImport } from './routes/api/token'
 import { Route as SandboxesIdIndexRouteImport } from './routes/sandboxes/$id/index'
 import { Route as ProfileIdIndexRouteImport } from './routes/profile/$id/index'
 import { Route as OffersIdIndexRouteImport } from './routes/offers/$id/index'
@@ -72,6 +73,8 @@ import { Route as CollectionsIdWeekRouteImport } from './routes/collections/$id/
 import { Route as BuildsIdItemsRouteImport } from './routes/builds/$id/items'
 import { Route as BuildsIdInstallOptionsRouteImport } from './routes/builds/$id/install-options'
 import { Route as BuildsIdFilesRouteImport } from './routes/builds/$id/files'
+import { Route as ApiAuthCallbackRouteImport } from './routes/api/auth/callback'
+import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as CollectionsIdWeekIndexRouteImport } from './routes/collections/$id/$week/index'
 import { Route as ProfileIdAchievementsSandboxRouteImport } from './routes/profile/$id/achievements/$sandbox'
 
@@ -245,6 +248,11 @@ const AuthCallbackRoute = AuthCallbackRouteImport.update({
   path: '/auth/callback',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiTokenRoute = ApiTokenRouteImport.update({
+  id: '/api/token',
+  path: '/api/token',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SandboxesIdIndexRoute = SandboxesIdIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -390,6 +398,16 @@ const BuildsIdFilesRoute = BuildsIdFilesRouteImport.update({
   path: '/files',
   getParentRoute: () => BuildsIdRoute,
 } as any)
+const ApiAuthCallbackRoute = ApiAuthCallbackRouteImport.update({
+  id: '/api/auth/callback',
+  path: '/api/auth/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
+  id: '/api/auth/$',
+  path: '/api/auth/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CollectionsIdWeekIndexRoute = CollectionsIdWeekIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -417,6 +435,7 @@ export interface FileRoutesByFullPath {
   '/posts': typeof PostsRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
+  '/api/token': typeof ApiTokenRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/logout': typeof AuthLogoutRoute
@@ -437,6 +456,8 @@ export interface FileRoutesByFullPath {
   '/collections': typeof CollectionsIndexRoute
   '/freebies': typeof FreebiesIndexRoute
   '/sales': typeof SalesIndexRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/auth/callback': typeof ApiAuthCallbackRoute
   '/builds/$id/files': typeof BuildsIdFilesRoute
   '/builds/$id/install-options': typeof BuildsIdInstallOptionsRoute
   '/builds/$id/items': typeof BuildsIdItemsRoute
@@ -484,6 +505,7 @@ export interface FileRoutesByTo {
   '/posts': typeof PostsRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
+  '/api/token': typeof ApiTokenRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/logout': typeof AuthLogoutRoute
@@ -500,6 +522,8 @@ export interface FileRoutesByTo {
   '/collections': typeof CollectionsIndexRoute
   '/freebies': typeof FreebiesIndexRoute
   '/sales': typeof SalesIndexRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/auth/callback': typeof ApiAuthCallbackRoute
   '/builds/$id/files': typeof BuildsIdFilesRoute
   '/builds/$id/install-options': typeof BuildsIdInstallOptionsRoute
   '/builds/$id/items': typeof BuildsIdItemsRoute
@@ -547,6 +571,7 @@ export interface FileRoutesById {
   '/posts': typeof PostsRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
+  '/api/token': typeof ApiTokenRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/logout': typeof AuthLogoutRoute
@@ -567,6 +592,8 @@ export interface FileRoutesById {
   '/collections/': typeof CollectionsIndexRoute
   '/freebies/': typeof FreebiesIndexRoute
   '/sales/': typeof SalesIndexRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/auth/callback': typeof ApiAuthCallbackRoute
   '/builds/$id/files': typeof BuildsIdFilesRoute
   '/builds/$id/install-options': typeof BuildsIdInstallOptionsRoute
   '/builds/$id/items': typeof BuildsIdItemsRoute
@@ -616,6 +643,7 @@ export interface FileRouteTypes {
     | '/posts'
     | '/privacy'
     | '/search'
+    | '/api/token'
     | '/auth/callback'
     | '/auth/login'
     | '/auth/logout'
@@ -636,6 +664,8 @@ export interface FileRouteTypes {
     | '/collections'
     | '/freebies'
     | '/sales'
+    | '/api/auth/$'
+    | '/api/auth/callback'
     | '/builds/$id/files'
     | '/builds/$id/install-options'
     | '/builds/$id/items'
@@ -683,6 +713,7 @@ export interface FileRouteTypes {
     | '/posts'
     | '/privacy'
     | '/search'
+    | '/api/token'
     | '/auth/callback'
     | '/auth/login'
     | '/auth/logout'
@@ -699,6 +730,8 @@ export interface FileRouteTypes {
     | '/collections'
     | '/freebies'
     | '/sales'
+    | '/api/auth/$'
+    | '/api/auth/callback'
     | '/builds/$id/files'
     | '/builds/$id/install-options'
     | '/builds/$id/items'
@@ -745,6 +778,7 @@ export interface FileRouteTypes {
     | '/posts'
     | '/privacy'
     | '/search'
+    | '/api/token'
     | '/auth/callback'
     | '/auth/login'
     | '/auth/logout'
@@ -765,6 +799,8 @@ export interface FileRouteTypes {
     | '/collections/'
     | '/freebies/'
     | '/sales/'
+    | '/api/auth/$'
+    | '/api/auth/callback'
     | '/builds/$id/files'
     | '/builds/$id/install-options'
     | '/builds/$id/items'
@@ -813,6 +849,7 @@ export interface RootRouteChildren {
   PostsRoute: typeof PostsRoute
   PrivacyRoute: typeof PrivacyRoute
   SearchRoute: typeof SearchRoute
+  ApiTokenRoute: typeof ApiTokenRoute
   AuthCallbackRoute: typeof AuthCallbackRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthLogoutRoute: typeof AuthLogoutRoute
@@ -833,6 +870,8 @@ export interface RootRouteChildren {
   CollectionsIndexRoute: typeof CollectionsIndexRoute
   FreebiesIndexRoute: typeof FreebiesIndexRoute
   SalesIndexRoute: typeof SalesIndexRoute
+  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  ApiAuthCallbackRoute: typeof ApiAuthCallbackRoute
   CollectionsIdWeekRoute: typeof CollectionsIdWeekRouteWithChildren
   StoreNamespaceSlugRoute: typeof StoreNamespaceSlugRoute
   CollectionsIdIndexRoute: typeof CollectionsIdIndexRoute
@@ -1078,6 +1117,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthCallbackRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/token': {
+      id: '/api/token'
+      path: '/api/token'
+      fullPath: '/api/token'
+      preLoaderRoute: typeof ApiTokenRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sandboxes/$id/': {
       id: '/sandboxes/$id/'
       path: '/'
@@ -1281,6 +1327,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BuildsIdFilesRouteImport
       parentRoute: typeof BuildsIdRoute
     }
+    '/api/auth/callback': {
+      id: '/api/auth/callback'
+      path: '/api/auth/callback'
+      fullPath: '/api/auth/callback'
+      preLoaderRoute: typeof ApiAuthCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/collections/$id/$week/': {
       id: '/collections/$id/$week/'
       path: '/'
@@ -1427,6 +1487,7 @@ const rootRouteChildren: RootRouteChildren = {
   PostsRoute: PostsRoute,
   PrivacyRoute: PrivacyRoute,
   SearchRoute: SearchRoute,
+  ApiTokenRoute: ApiTokenRoute,
   AuthCallbackRoute: AuthCallbackRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthLogoutRoute: AuthLogoutRoute,
@@ -1447,6 +1508,8 @@ const rootRouteChildren: RootRouteChildren = {
   CollectionsIndexRoute: CollectionsIndexRoute,
   FreebiesIndexRoute: FreebiesIndexRoute,
   SalesIndexRoute: SalesIndexRoute,
+  ApiAuthSplatRoute: ApiAuthSplatRoute,
+  ApiAuthCallbackRoute: ApiAuthCallbackRoute,
   CollectionsIdWeekRoute: CollectionsIdWeekRouteWithChildren,
   StoreNamespaceSlugRoute: StoreNamespaceSlugRoute,
   CollectionsIdIndexRoute: CollectionsIdIndexRoute,

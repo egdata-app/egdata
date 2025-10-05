@@ -51,7 +51,6 @@ export const Route = createRootRouteWithContext<Context>()({
   component: RootComponent,
 
   loader: ({ context }) => {
-    console.log(context);
     return {
       country: context.country,
       locale: context.locale,
