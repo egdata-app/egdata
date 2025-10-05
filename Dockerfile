@@ -6,7 +6,7 @@ WORKDIR /app
 
 FROM base AS deps
 RUN apk add --no-cache --virtual .build-deps gcc g++ make python3
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 COPY . .
 
