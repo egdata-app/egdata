@@ -37,7 +37,13 @@ export const getUserInformation = async (id: string | null) => {
   return res;
 };
 
-export const getUserGames = async (id: string, page: number, limit: number) => {
+export const getUserGames = async (
+  id: string,
+  page: number,
+  limit: number,
+  platinum?: boolean,
+  sort?: string,
+) => {
   const res = await httpClient.get<{
     achievements: Array<{
       playerAwards: Array<{
@@ -76,6 +82,8 @@ export const getUserGames = async (id: string, page: number, limit: number) => {
     params: {
       page,
       limit,
+      platinum,
+      sort,
     },
   });
   return res;

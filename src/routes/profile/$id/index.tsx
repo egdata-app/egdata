@@ -33,6 +33,15 @@ import { Separator } from '@/components/ui/separator';
 import { DynamicPagination } from '@/components/app/dynamic-pagination';
 import { z } from 'zod';
 import { Skeleton } from '@/components/ui/skeleton';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
 
 type RareAchievement = Achievement & {
   unlocked: boolean;
@@ -43,18 +52,12 @@ type RareAchievement = Achievement & {
 
 const profileParamsSchema = z.object({
   page: z.number().catch(1),
+  platinum: z.boolean().optional(),
+  sort: z.enum(['completion', 'alphabetical', 'xp', 'achievements']).optional(),
 });
 
 export const Route = createFileRoute('/profile/$id/')({
-  component: () => {
-    const { dehydratedState } = Route.useLoaderData();
-
-    return (
-      <HydrationBoundary state={dehydratedState}>
-        <ProfileInformation />
-      </HydrationBoundary>
-    );
-  },
+  component: ProfileInformation,
 
   loader: async ({ params, context }) => {
     const { queryClient } = context;
@@ -69,7 +72,6 @@ export const Route = createFileRoute('/profile/$id/')({
 
     return {
       id: params.id,
-      dehydratedState: dehydrate(queryClient),
     };
   },
 
@@ -77,6 +79,8 @@ export const Route = createFileRoute('/profile/$id/')({
 });
 
 function ProfileInformation() {
+  const search = Route.useSearch();
+  const navigate = Route.useNavigate();
   const [activeTab, setActiveTab] = React.useState('overview');
   const [underlineStyle, setUnderlineStyle] = React.useState({});
   const tabRefs = React.useRef({});
@@ -95,6 +99,17 @@ function ProfileInformation() {
       });
     }
   }, [activeTab]);
+
+  const handleSortChange = (
+    sort: 'completion' | 'alphabetical' | 'xp' | 'achievements',
+  ) => {
+    navigate({
+      search: {
+        ...search,
+        sort,
+      },
+    });
+  };
 
   return (
     <div className=" p-4 rounded-lg">
@@ -121,6 +136,38 @@ function ProfileInformation() {
           className="absolute bottom-0 h-0.5 bg-white transition-all duration-300 ease-in-out"
           style={underlineStyle}
         />
+        <div className="absolute right-0 -top-1 inline-flex gap-2">
+          <div className="flex items-center justify-center gap-3">
+            <Checkbox
+              id="only-platinum"
+              defaultChecked={search.platinum}
+              onCheckedChange={(checked) => {
+                navigate({
+                  search: {
+                    ...search,
+                    platinum: checked === 'indeterminate' ? undefined : checked,
+                  },
+                });
+              }}
+            />
+            <div className="grid gap-2">
+              <Label htmlFor="only-platinum">
+                Only show platinum achievements
+              </Label>
+            </div>
+          </div>
+          <Select value={search.sort} onValueChange={handleSortChange}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Sort by" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="completion">Completion</SelectItem>
+              <SelectItem value="alphabetical">Alphabetical</SelectItem>
+              <SelectItem value="xp">XP</SelectItem>
+              <SelectItem value="achievements">Achievements</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
       <div className="mt-4">
         {activeTab === 'overview' && <AchievementsOverview />}
@@ -502,14 +549,19 @@ function SingleAchievement({
 function AchievementsOverview() {
   const { id } = Route.useLoaderData();
   const navigate = Route.useNavigate();
-  const { page } = Route.useSearch();
+  const search = Route.useSearch();
+  const { page } = search;
   const {
     data: games,
     isError,
     isLoading,
   } = useQuery({
-    queryKey: ['profile-games', { id, limit: 20, page }],
-    queryFn: () => getUserGames(id as string, page, 20),
+    queryKey: [
+      'profile-games',
+      { id, limit: 20, page, platinum: search.platinum, sort: search.sort },
+    ],
+    queryFn: () =>
+      getUserGames(id as string, page, 20, search.platinum, search.sort),
   });
 
   if (isError && !games) {
