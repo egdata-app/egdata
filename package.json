@@ -137,7 +137,7 @@
     "workbox-strategies": "^7.3.0",
     "wrangler": "3.99.0"
   },
-  "packageManager": "pnpm@10.14.0",
+  "packageManager": "pnpm@10.18.0",
   "engines": {
     "node": "^22.16.0"
   }

@@ -321,7 +321,7 @@ importers:
         version: 11.0.3
       nitro:
         specifier: npm:nitro-nightly
-        version: nitro-nightly@3.0.0-20251005-115000-1dd1f0ac(@libsql/client@0.8.1)(better-sqlite3@12.4.1)(rolldown-vite@7.1.9(@types/node@22.18.8)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.20.6))
+        version: nitro-nightly@3.0.0-20251005-143425-32b4c06e(@libsql/client@0.8.1)(better-sqlite3@12.4.1)(rolldown-vite@7.1.9(@types/node@22.18.8)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.20.6))
       postcss:
         specifier: ^8.5.6
         version: 8.5.6
@@ -6545,8 +6545,8 @@ packages:
   next-tick@1.1.0:
     resolution: {integrity: sha512-CXdUiJembsNjuToQvxayPZF9Vqht7hewsvy2sOWafLvi2awflj9mOC6bHIg50orX8IJvWKY9wYQ/zB2kogPslQ==}
 
-  nitro-nightly@3.0.0-20251005-115000-1dd1f0ac:
-    resolution: {integrity: sha512-/RQzjHyBOK5YjYlXvyAyeZ5ra+7meVAXKd8mo2q6B167snycqQe7Bv7aehbgZliUL2Y2HfFWtTmsogFxm6JsOw==}
+  nitro-nightly@3.0.0-20251005-143425-32b4c06e:
+    resolution: {integrity: sha512-OjHfCqXbdA3UJXAiT2Q0YANtkNs/7H1w7gR+nb+bRFRZKu/XNlgbs45AoExRPmp2eoNvlUrbRr3OpPA/s0p5DQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -15536,7 +15536,7 @@ snapshots:
 
   next-tick@1.1.0: {}
 
-  nitro-nightly@3.0.0-20251005-115000-1dd1f0ac(@libsql/client@0.8.1)(better-sqlite3@12.4.1)(rolldown-vite@7.1.9(@types/node@22.18.8)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.20.6)):
+  nitro-nightly@3.0.0-20251005-143425-32b4c06e(@libsql/client@0.8.1)(better-sqlite3@12.4.1)(rolldown-vite@7.1.9(@types/node@22.18.8)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.20.6)):
     dependencies:
       '@rollup/plugin-alias': 5.1.1(rollup@4.52.4)
       '@rollup/plugin-commonjs': 28.0.6(rollup@4.52.4)
