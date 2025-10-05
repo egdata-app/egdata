@@ -45,25 +45,47 @@ export const Route = createRootRouteWithContext<{
   component: RootComponent,
 
   loader: async ({ context }) => {
+    const { queryClient } = context;
+
     let url: URL;
-    let cookieHeader: string;
+    let cookies: Record<string, string>;
+    let session:
+      | {
+          session: typeof auth.$Infer.Session.session;
+          user: typeof auth.$Infer.Session.user;
+        }
+      | null;
 
     if (import.meta.env.SSR) {
-      const { getEvent } = await import('@tanstack/react-start/server');
-      const event = getEvent();
-      url = new URL(`https://egdata.app${event.node.req.url}`);
-      cookieHeader = event.headers.get('Cookie') ?? '';
+      const {
+        getCookies,
+        getRequestHeaders,
+        getRequestUrl,
+      } = await import('@tanstack/react-start/server');
+      const { auth } = await import('@/lib/auth');
+
+      url = new URL(getRequestUrl());
+      cookies = getCookies();
+
+      // server session (headers carry auth)
+      const headers = getRequestHeaders();
+      session = await auth.api.getSession({ headers });
     } else {
       url = new URL(window.location.href);
-      cookieHeader = document.cookie;
+
+      // client cookies
+      const cookieHeader = typeof document?.cookie === 'string' ? document.cookie : '';
+      const parsedCookies = parseCookieString(cookieHeader);
+      cookies = Object.fromEntries(
+        Object.entries(parsedCookies).map(([k, v]) => [k, v || '']),
+      );
+
+      // client session via React Query
+      const { data } = await queryClient.fetchQuery(getClientSession);
+      session = data;
     }
 
-    if (typeof cookieHeader !== 'string') {
-      cookieHeader = '';
-    }
-
-    const { cookies } = context;
-
+    // derived values from cookies/url
     const country = getCountryCode(url, cookies);
     const locale = cookies.user_locale;
     const timezone = cookies.user_timezone;
@@ -71,52 +93,8 @@ export const Route = createRootRouteWithContext<{
       ? JSON.parse(Base64Utils.decode(cookies.EGDATA_COOKIES_2))
       : null;
 
-    return {
-      country,
-      locale,
-      timezone,
-      analyticsCookies,
-    };
-  },
-
-  beforeLoad: async ({ context }) => {
-    const { queryClient } = context;
-    let url: URL;
-    let cookieHeader: string;
-    let headers: Headers;
-    let session: {
-      session: typeof auth.$Infer.Session.session;
-      user: typeof auth.$Infer.Session.user;
-    } | null;
-
-    if (import.meta.env.SSR) {
-      const { getEvent } = await import('@tanstack/react-start/server');
-      const event = getEvent();
-      const { auth } = await import('@/lib/auth');
-      url = new URL(`https://egdata.app${event.node.req.url}`);
-      cookieHeader = event.headers.get('Cookie') ?? '';
-      headers = event.headers;
-      session = await auth.api.getSession({
-        headers,
-      });
-    } else {
-      url = new URL(window.location.href);
-      cookieHeader = document.cookie;
-      const { data } = await queryClient.fetchQuery(getClientSession);
-      session = data;
-    }
-
-    if (typeof cookieHeader !== 'string') {
-      cookieHeader = '';
-    }
-
-    const parsedCookies = parseCookieString(cookieHeader);
-    const cookies = Object.fromEntries(
-      Object.entries(parsedCookies).map(([key, value]) => [key, value || '']),
-    );
-    const country = getCountryCode(url, cookies);
-
-    if (session) {
+    // warm user cache if we know the email
+    if (session?.user?.email) {
       const id = session.user.email.split('@')[0];
       await queryClient.prefetchQuery({
         queryKey: ['user', { id }],
@@ -124,181 +102,128 @@ export const Route = createRootRouteWithContext<{
       });
     }
 
+    // loader may return data; components can read with Route.useLoaderData()
     return {
       country,
+      locale,
+      timezone,
+      analyticsCookies,
       cookies,
       session,
     };
   },
 
+  // Keep beforeLoad ONLY if you need a guard/redirect. Do not return anything.
+  // beforeLoad: ({ context }) => {
+  //   if (!context.session) {
+  //     throw redirect({ to: '/login' });
+  //   }
+  // },
+
   notFoundComponent() {
     return <NotFoundPage />;
   },
 
-  head: () => {
-    return {
-      links: [
-        {
-          rel: 'stylesheet',
-          href: styles,
-        },
-        { rel: 'preconnect', href: 'https://cdn1.epicgames.com/' },
-        { rel: 'preconnect', href: 'https://api.egdata.app/' },
-        { rel: 'preconnect', href: 'https://cdn.egdata.app/' },
-        {
-          rel: 'icon',
-          type: 'image/png',
-          sizes: '32x32',
-          href: '/favicon-32x32.png',
-        },
-        {
-          rel: 'icon',
-          type: 'image/png',
-          sizes: '16x16',
-          href: '/favicon-16x16.png',
-        },
-        {
-          rel: 'apple-touch-icon',
-          sizes: '180x180',
-          href: '/apple-touch-icon.png',
-        },
-        {
-          rel: 'manifest',
-          href: '/site.webmanifest',
-        },
-        {
-          rel: 'mask-icon',
-          href: '/safari-pinned-tab.svg',
-          color: '#5bbad5',
-        },
-        {
-          rel: 'preload',
-          href: 'https://cdn.egdata.app/Nunito/Nunito-VariableFont_wght.ttf',
-          as: 'font',
-          type: 'font/ttf',
-          crossOrigin: 'anonymous',
-        },
-        {
-          rel: 'preload',
-          href: 'https://cdn.egdata.app/Montserrat/Montserrat-VariableFont_wght.ttf',
-          as: 'font',
-          type: 'font/ttf',
-          crossOrigin: 'anonymous',
-        },
-      ],
-
-      meta: [
-        {
-          charSet: 'utf-8',
-        },
-        {
-          name: 'viewport',
-          content: 'width=device-width, initial-scale=1',
-        },
-        {
-          title: 'Epic Games Database - egdata.app',
-        },
-        {
-          name: 'description',
-          content:
-            'Comprehensive Epic Games Store database: game info, prices, sales history, file lists, and more. Explore free games, upcoming releases, and community insights.',
-        },
-        {
-          name: 'keywords',
-          content: [
-            'Epic Games Store',
-            'EGS',
-            'Epic Games Database',
-            'EGS Database',
-            'game prices',
-            'game sales',
-            'discounts',
-            'player count',
-            'game size',
-            'system requirements',
-            'release date',
-            'free games',
-            'upcoming releases',
-            'game files',
-            'file list',
-            'game assets',
-            'historical data',
-            'price tracker',
-            'EGS tracker',
-            'PC games',
-            'data mining',
-            'Epic Games API',
-            'egdata',
-            'egstore',
-            'eos',
-          ].join(', '),
-        },
-        {
-          name: 'twitter:card',
-          content: 'summary_large_image',
-        },
-        {
-          name: 'twitter:site',
-          content: '@egdataapp',
-        },
-        {
-          name: 'twitter:title',
-          content: 'Epic Games Database',
-        },
-        {
-          name: 'twitter:description',
-          content:
-            'A free and open-source Epic Games Store database with comprehensive game information, sales tracking, and more. Community-driven and constantly updated.', // Improved description
-        },
-        {
-          name: 'twitter:image',
-          content: 'https://cdn.egdata.app/placeholder-1080.webp',
-        },
-        {
-          name: 'twitter:image:alt',
-          content: 'Epic Games Database',
-        },
-        {
-          name: 'og:title',
-          content: 'Epic Games Database',
-        },
-        {
-          name: 'og:type',
-          content: 'website',
-        },
-        {
-          name: 'og:url',
-          content: 'https://egdata.app',
-        },
-        {
-          name: 'og:image',
-          content: 'https://cdn.egdata.app/placeholder-1080.webp',
-        },
-        {
-          name: 'og:image:alt',
-          content: 'Epic Games Database',
-        },
-        {
-          name: 'og:description',
-          content:
-            'A free and open-source Epic Games Store database with comprehensive game information, sales tracking, and more. Community-driven and constantly updated.', // Improved description
-        },
-      ],
-
-      scripts: [
-        ...(import.meta.env.DEV
-          ? []
-          : [
-              {
-                src: 'https://analytics.egdata.app/script.js',
-                async: true,
-                'data-website-id': '931f85f9-f8b6-422c-882d-04864194435b',
-              },
-            ]),
-      ],
-    };
-  },
+  head: () => ({
+    links: [
+      { rel: 'stylesheet', href: styles },
+      { rel: 'preconnect', href: 'https://cdn1.epicgames.com/' },
+      { rel: 'preconnect', href: 'https://api.egdata.app/' },
+      { rel: 'preconnect', href: 'https://cdn.egdata.app/' },
+      { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
+      { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
+      { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+      { rel: 'manifest', href: '/site.webmanifest' },
+      { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#5bbad5' },
+      {
+        rel: 'preload',
+        href: 'https://cdn.egdata.app/Nunito/Nunito-VariableFont_wght.ttf',
+        as: 'font',
+        type: 'font/ttf',
+        crossOrigin: 'anonymous',
+      },
+      {
+        rel: 'preload',
+        href: 'https://cdn.egdata.app/Montserrat/Montserrat-VariableFont_wght.ttf',
+        as: 'font',
+        type: 'font/ttf',
+        crossOrigin: 'anonymous',
+      },
+    ],
+    meta: [
+      { charSet: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { title: 'Epic Games Database - egdata.app' },
+      {
+        name: 'description',
+        content:
+          'Comprehensive Epic Games Store database: game info, prices, sales history, file lists, and more. Explore free games, upcoming releases, and community insights.',
+      },
+      {
+        name: 'keywords',
+        content: [
+          'Epic Games Store',
+          'EGS',
+          'Epic Games Database',
+          'EGS Database',
+          'game prices',
+          'game sales',
+          'discounts',
+          'player count',
+          'game size',
+          'system requirements',
+          'release date',
+          'free games',
+          'upcoming releases',
+          'game files',
+          'file list',
+          'game assets',
+          'historical data',
+          'price tracker',
+          'EGS tracker',
+          'PC games',
+          'data mining',
+          'Epic Games API',
+          'egdata',
+          'egstore',
+          'eos',
+        ].join(', '),
+      },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:site', content: '@egdataapp' },
+      { name: 'twitter:title', content: 'Epic Games Database' },
+      {
+        name: 'twitter:description',
+        content:
+          'A free and open-source Epic Games Store database with comprehensive game information, sales tracking, and more. Community-driven and constantly updated.',
+      },
+      { name: 'twitter:image', content: 'https://cdn.egdata.app/placeholder-1080.webp' },
+      { name: 'twitter:image:alt', content: 'Epic Games Database' },
+      { name: 'og:title', content: 'Epic Games Database' },
+      { name: 'og:type', content: 'website' },
+      { name: 'og:url', content: 'https://egdata.app' },
+      { name: 'og:image', content: 'https://cdn.egdata.app/placeholder-1080.webp' },
+      { name: 'og:image:alt', content: 'Epic Games Database' },
+      {
+        name: 'og:description',
+        content:
+          'A free and open-source Epic Games Store database with comprehensive game information, sales tracking, and more. Community-driven and constantly updated.',
+      },
+    ],
+    scripts: [
+      ...(import.meta.env.DEV
+        ? []
+        : [
+            {
+              src: 'https://analytics.egdata.app/script.js',
+              async: true,
+              'data-website-id': '931f85f9-f8b6-422c-882d-04864194435b',
+            } as any,
+          ]),
+    ],
+  }),
 });
+
 
 function NotFoundPage() {
   return (

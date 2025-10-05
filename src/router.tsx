@@ -7,11 +7,11 @@ import { getQueryClient } from '@/lib/client';
 import { parseSearchWith, stringifySearchWith } from '@tanstack/react-router';
 import { stringify, parse } from './lib/jsurl2';
 
-export function createRouter() {
+export function getRouter() {
   const queryClient = getQueryClient();
 
   const router = createTanStackRouter({
-    routeTree,
+    routeTree,  
     // @ts-expect-error
     context: { queryClient },
     defaultPreload: 'intent',
@@ -47,6 +47,6 @@ export function createRouter() {
 
 declare module '@tanstack/react-router' {
   interface Register {
-    router: ReturnType<typeof createRouter>;
+    router: ReturnType<typeof getRouter>;
   }
 }

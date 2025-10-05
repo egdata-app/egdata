@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 import { SignJWT, importPKCS8 } from 'jose';
 
 export const getCookie = createServerFn({ method: 'GET' })
-  .validator((name: string) => name)
+  .inputValidator((name: string) => name)
   .handler(async (ctx) => {
     const { getCookie: _getCookie } = await import(
       '@tanstack/react-start/server'
@@ -19,18 +19,22 @@ export const getCookie = createServerFn({ method: 'GET' })
   });
 
 export const saveAuthCookie = createServerFn({ method: 'GET' })
-  .validator((stringifiedValue: string) => stringifiedValue)
+  .inputValidator((stringifiedValue: string) => stringifiedValue)
   .handler(async (ctx) => {
-    const { setCookie: _setCookie, getWebRequest } = await import(
+    const { setCookie: _setCookie } = await import(
       '@tanstack/react-start/server'
     );
+    const { getRequest } = await import(
+      '@tanstack/react-start/server'
+    );
+
 
     const { name, value } = JSON.parse(ctx.data) as {
       name: string;
       value: EpicToken;
     };
 
-    const req = getWebRequest();
+    const req = getRequest();
 
     let privateKeyPem: string;
 

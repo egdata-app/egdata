@@ -8,8 +8,6 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createServerRootRoute } from '@tanstack/react-start/server'
-
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as PrivacyRouteImport } from './routes/privacy'
@@ -76,14 +74,6 @@ import { Route as BuildsIdInstallOptionsRouteImport } from './routes/builds/$id/
 import { Route as BuildsIdFilesRouteImport } from './routes/builds/$id/files'
 import { Route as CollectionsIdWeekIndexRouteImport } from './routes/collections/$id/$week/index'
 import { Route as ProfileIdAchievementsSandboxRouteImport } from './routes/profile/$id/achievements/$sandbox'
-import { ServerRoute as ApiTokenServerRouteImport } from './routes/api/token'
-import { ServerRoute as ApiLogoutServerRouteImport } from './routes/api/logout'
-import { ServerRoute as ApiHelloServerRouteImport } from './routes/api/hello'
-import { ServerRoute as ApiAuthLoginServerRouteImport } from './routes/api/auth/login'
-import { ServerRoute as ApiAuthCallbackServerRouteImport } from './routes/api/auth/callback'
-import { ServerRoute as ApiAuthSplatServerRouteImport } from './routes/api/auth/$'
-
-const rootServerRouteImport = createServerRootRoute()
 
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
@@ -411,36 +401,6 @@ const ProfileIdAchievementsSandboxRoute =
     path: '/achievements/$sandbox',
     getParentRoute: () => ProfileIdRoute,
   } as any)
-const ApiTokenServerRoute = ApiTokenServerRouteImport.update({
-  id: '/api/token',
-  path: '/api/token',
-  getParentRoute: () => rootServerRouteImport,
-} as any)
-const ApiLogoutServerRoute = ApiLogoutServerRouteImport.update({
-  id: '/api/logout',
-  path: '/api/logout',
-  getParentRoute: () => rootServerRouteImport,
-} as any)
-const ApiHelloServerRoute = ApiHelloServerRouteImport.update({
-  id: '/api/hello',
-  path: '/api/hello',
-  getParentRoute: () => rootServerRouteImport,
-} as any)
-const ApiAuthLoginServerRoute = ApiAuthLoginServerRouteImport.update({
-  id: '/api/auth/login',
-  path: '/api/auth/login',
-  getParentRoute: () => rootServerRouteImport,
-} as any)
-const ApiAuthCallbackServerRoute = ApiAuthCallbackServerRouteImport.update({
-  id: '/api/auth/callback',
-  path: '/api/auth/callback',
-  getParentRoute: () => rootServerRouteImport,
-} as any)
-const ApiAuthSplatServerRoute = ApiAuthSplatServerRouteImport.update({
-  id: '/api/auth/$',
-  path: '/api/auth/$',
-  getParentRoute: () => rootServerRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -876,66 +836,6 @@ export interface RootRouteChildren {
   CollectionsIdWeekRoute: typeof CollectionsIdWeekRouteWithChildren
   StoreNamespaceSlugRoute: typeof StoreNamespaceSlugRoute
   CollectionsIdIndexRoute: typeof CollectionsIdIndexRoute
-}
-export interface FileServerRoutesByFullPath {
-  '/api/hello': typeof ApiHelloServerRoute
-  '/api/logout': typeof ApiLogoutServerRoute
-  '/api/token': typeof ApiTokenServerRoute
-  '/api/auth/$': typeof ApiAuthSplatServerRoute
-  '/api/auth/callback': typeof ApiAuthCallbackServerRoute
-  '/api/auth/login': typeof ApiAuthLoginServerRoute
-}
-export interface FileServerRoutesByTo {
-  '/api/hello': typeof ApiHelloServerRoute
-  '/api/logout': typeof ApiLogoutServerRoute
-  '/api/token': typeof ApiTokenServerRoute
-  '/api/auth/$': typeof ApiAuthSplatServerRoute
-  '/api/auth/callback': typeof ApiAuthCallbackServerRoute
-  '/api/auth/login': typeof ApiAuthLoginServerRoute
-}
-export interface FileServerRoutesById {
-  __root__: typeof rootServerRouteImport
-  '/api/hello': typeof ApiHelloServerRoute
-  '/api/logout': typeof ApiLogoutServerRoute
-  '/api/token': typeof ApiTokenServerRoute
-  '/api/auth/$': typeof ApiAuthSplatServerRoute
-  '/api/auth/callback': typeof ApiAuthCallbackServerRoute
-  '/api/auth/login': typeof ApiAuthLoginServerRoute
-}
-export interface FileServerRouteTypes {
-  fileServerRoutesByFullPath: FileServerRoutesByFullPath
-  fullPaths:
-    | '/api/hello'
-    | '/api/logout'
-    | '/api/token'
-    | '/api/auth/$'
-    | '/api/auth/callback'
-    | '/api/auth/login'
-  fileServerRoutesByTo: FileServerRoutesByTo
-  to:
-    | '/api/hello'
-    | '/api/logout'
-    | '/api/token'
-    | '/api/auth/$'
-    | '/api/auth/callback'
-    | '/api/auth/login'
-  id:
-    | '__root__'
-    | '/api/hello'
-    | '/api/logout'
-    | '/api/token'
-    | '/api/auth/$'
-    | '/api/auth/callback'
-    | '/api/auth/login'
-  fileServerRoutesById: FileServerRoutesById
-}
-export interface RootServerRouteChildren {
-  ApiHelloServerRoute: typeof ApiHelloServerRoute
-  ApiLogoutServerRoute: typeof ApiLogoutServerRoute
-  ApiTokenServerRoute: typeof ApiTokenServerRoute
-  ApiAuthSplatServerRoute: typeof ApiAuthSplatServerRoute
-  ApiAuthCallbackServerRoute: typeof ApiAuthCallbackServerRoute
-  ApiAuthLoginServerRoute: typeof ApiAuthLoginServerRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1397,52 +1297,6 @@ declare module '@tanstack/react-router' {
     }
   }
 }
-declare module '@tanstack/react-start/server' {
-  interface ServerFileRoutesByPath {
-    '/api/token': {
-      id: '/api/token'
-      path: '/api/token'
-      fullPath: '/api/token'
-      preLoaderRoute: typeof ApiTokenServerRouteImport
-      parentRoute: typeof rootServerRouteImport
-    }
-    '/api/logout': {
-      id: '/api/logout'
-      path: '/api/logout'
-      fullPath: '/api/logout'
-      preLoaderRoute: typeof ApiLogoutServerRouteImport
-      parentRoute: typeof rootServerRouteImport
-    }
-    '/api/hello': {
-      id: '/api/hello'
-      path: '/api/hello'
-      fullPath: '/api/hello'
-      preLoaderRoute: typeof ApiHelloServerRouteImport
-      parentRoute: typeof rootServerRouteImport
-    }
-    '/api/auth/login': {
-      id: '/api/auth/login'
-      path: '/api/auth/login'
-      fullPath: '/api/auth/login'
-      preLoaderRoute: typeof ApiAuthLoginServerRouteImport
-      parentRoute: typeof rootServerRouteImport
-    }
-    '/api/auth/callback': {
-      id: '/api/auth/callback'
-      path: '/api/auth/callback'
-      fullPath: '/api/auth/callback'
-      preLoaderRoute: typeof ApiAuthCallbackServerRouteImport
-      parentRoute: typeof rootServerRouteImport
-    }
-    '/api/auth/$': {
-      id: '/api/auth/$'
-      path: '/api/auth/$'
-      fullPath: '/api/auth/$'
-      preLoaderRoute: typeof ApiAuthSplatServerRouteImport
-      parentRoute: typeof rootServerRouteImport
-    }
-  }
-}
 
 interface BuildsIdRouteChildren {
   BuildsIdFilesRoute: typeof BuildsIdFilesRoute
@@ -1600,14 +1454,12 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-const rootServerRouteChildren: RootServerRouteChildren = {
-  ApiHelloServerRoute: ApiHelloServerRoute,
-  ApiLogoutServerRoute: ApiLogoutServerRoute,
-  ApiTokenServerRoute: ApiTokenServerRoute,
-  ApiAuthSplatServerRoute: ApiAuthSplatServerRoute,
-  ApiAuthCallbackServerRoute: ApiAuthCallbackServerRoute,
-  ApiAuthLoginServerRoute: ApiAuthLoginServerRoute,
+
+import type { getRouter } from './router.tsx'
+import type { createStart } from '@tanstack/react-start'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+  }
 }
-export const serverRouteTree = rootServerRouteImport
-  ._addFileChildren(rootServerRouteChildren)
-  ._addFileTypes<FileServerRouteTypes>()

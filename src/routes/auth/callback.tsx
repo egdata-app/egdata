@@ -4,7 +4,7 @@ import { createFileRoute, redirect } from '@tanstack/react-router';
 import { createServerFn } from '@tanstack/react-start';
 
 export const validateState = createServerFn({ method: 'GET' })
-  .validator((state: string) => state)
+  .inputValidator((state: string) => state)
   .handler(async (ctx) => {
     const response = await fetch(
       'https://api.egdata.app/auth/v2/validate-state',
@@ -30,7 +30,7 @@ export const validateState = createServerFn({ method: 'GET' })
   });
 
 export const getTokens = createServerFn({ method: 'GET' })
-  .validator((code: string) => code)
+  .inputValidator((code: string) => code)
   .handler(async (ctx) => {
     const { getEvent } = await import('@tanstack/react-start/server');
     const event = getEvent();
