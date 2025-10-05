@@ -1,9 +1,12 @@
 /// <reference lib="webworker" />
 
 import consola from 'consola';
-import z, { type TypeOf } from 'zod';
+import z from 'zod';
 
 declare const self: ServiceWorkerGlobalScope;
+
+// @ts-expect-error
+self.__WB_MANIFEST
 
 const notificationSchema = z.object({
   title: z.string(),

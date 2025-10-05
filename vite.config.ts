@@ -5,9 +5,12 @@ import { sentryVitePlugin } from '@sentry/vite-plugin';
 import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
 import react from '@vitejs/plugin-react-oxc';
+import { nitroV2Plugin as nitro } from '@tanstack/nitro-v2-vite-plugin'
+import { devtools } from '@tanstack/devtools-vite'
 
 export default defineConfig({
   plugins: [
+    devtools(),
     tsconfigPaths(),
     tailwindcss(),
     sentryVitePlugin({
@@ -15,10 +18,8 @@ export default defineConfig({
       org: 'royale-radar',
       project: 'egdata',
     }),
-    react(),
-    tanstackStart({
-      target: 'node-server',
-      customViteReactPlugin: true,
+    nitro({
+      preset: 'node-server'
     }),
     VitePWA({
       strategies: 'injectManifest',
@@ -27,7 +28,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       injectManifest: {
         swSrc: 'src/sw.ts',
-        swDest: 'sw.js',
+        swDest: 'dist/sw.js',
         globDirectory: 'dist',
         globPatterns: ['**/*.{js,css,html,ico,png,svg,webp}'],
       },
@@ -68,6 +69,8 @@ export default defineConfig({
         ],
       },
     }),
+    react(),
+    tanstackStart(),
   ],
   build: {
     minify: 'oxc',
@@ -78,6 +81,7 @@ export default defineConfig({
       '@react-spectrum/image',
       '@react-spectrum/provider',
       '@vidstack/react',
+      '@tanstack/devtools',
     ],
   },
 });

@@ -1,0 +1,17 @@
+overrides:
+  'solid-js': 1.9.9
+  'vite': 'npm:rolldown-vite@7.1.9'
+
+ignoredBuiltDependencies:
+  - 'es5-ext'
+
+onlyBuiltDependencies:
+  - '@biomejs/biome'
+  - '@parcel/watcher'
+  - '@sentry-internal/node-cpu-profiler'
+  - '@sentry/cli'
+  - '@sentry/profiling-node'
+  - '@tailwindcss/oxide'
+  - 'better-sqlite3'
+  - 'esbuild'
+  - 'workerd'

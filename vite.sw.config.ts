@@ -17,6 +17,13 @@ export default defineConfig({
       formats: ['es'],
     },
     rollupOptions: {
+      external: (id) => {
+        // Exclude all @tanstack packages and solid-js from the service worker bundle
+        return id.includes('@tanstack') || 
+               id.includes('solid-js') || 
+               id.includes('react') ||
+               id.includes('react-dom');
+      },
       output: {
         entryFileNames: 'sw.js',
         format: 'es',

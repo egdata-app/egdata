@@ -38,6 +38,7 @@
     "@sentry/tracing": "^7.120.4",
     "@sentry/vite-plugin": "^3.6.1",
     "@tailwindcss/typography": "^0.5.19",
+    "@tanstack/devtools": "^0.6.16",
     "@tanstack/react-form": "^0.43.2",
     "@tanstack/react-query": "^5.90.2",
     "@tanstack/react-query-devtools": "^5.90.2",
@@ -112,6 +113,8 @@
     "@playwright/test": "^1.55.0",
     "@tailwindcss/postcss": "^4.1.13",
     "@tailwindcss/vite": "4.0.7",
+    "@tanstack/devtools-vite": "^0.3.3",
+    "@tanstack/nitro-v2-vite-plugin": "^1.132.39",
     "@tanstack/react-devtools": "^0.2.2",
     "@tanstack/react-router-ssr-query": "^1.131.41",
     "@types/js-cookie": "^3.0.6",
@@ -122,6 +125,7 @@
     "@vitejs/plugin-react-oxc": "^0.2.3",
     "autoprefixer": "^10.4.21",
     "glob": "^11.0.2",
+    "nitro": "npm:nitro-nightly",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.13",
     "typescript": "^5.9.2",
@@ -135,25 +139,6 @@
   },
   "packageManager": "pnpm@10.14.0",
   "engines": {
-    "node": ">=24.6.0"
-  },
-  "pnpm": {
-    "ignoredBuiltDependencies": [
-      "es5-ext"
-    ],
-    "onlyBuiltDependencies": [
-      "@biomejs/biome",
-      "@parcel/watcher",
-      "@sentry-internal/node-cpu-profiler",
-      "@sentry/cli",
-      "@sentry/profiling-node",
-      "@tailwindcss/oxide",
-      "better-sqlite3",
-      "esbuild",
-      "workerd"
-    ],
-    "overrides": {
-      "vite": "npm:rolldown-vite@7.1.9"
-    }
+    "node": "^22.16.0"
   }
 }
