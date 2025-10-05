@@ -25,6 +25,7 @@ import { Toaster } from '@/components/ui/sonner';
 import styles from '@/styles.css?url';
 import { ExtensionProvider } from '@/providers/extension';
 import '../registerSW';
+import { CookiesSelection } from '@/contexts/cookies';
 
 const getClientSession = queryOptions({
   queryKey: ['session'],
@@ -32,19 +33,36 @@ const getClientSession = queryOptions({
   staleTime: 5_000,
 });
 
-export const Route = createRootRouteWithContext<{
+type Context = {
   queryClient: QueryClient;
-  cookies: Record<string, string>;
-  epicToken: EpicToken | null;
-  country: string;
-  session: {
-    session: typeof auth.$Infer.Session.session;
-    user: typeof auth.$Infer.Session.user;
-  } | null;
-}>()({
+   cookies?: Record<string, string>;
+   epicToken?: EpicToken | null;
+   country?: string;
+   session?: {
+     session: typeof auth.$Infer.Session.session;
+     user: typeof auth.$Infer.Session.user;
+   } | null | undefined;
+   locale?: string,
+   timezone?: string,
+   analyticsCookies?: Record<string, string> | null,
+}
+
+export const Route = createRootRouteWithContext<Context>()({
   component: RootComponent,
 
-  loader: async ({ context }) => {
+  loader: ({ context }) => {
+    console.log(context);
+    return {
+      country: context.country,
+      locale: context.locale,
+      timezone: context.timezone,
+      analyticsCookies: context.analyticsCookies,
+      cookies: context.cookies,
+      session: context.session,
+    }
+  },
+
+  beforeLoad: async ({ context }) => {
     const { queryClient } = context;
 
     let url: URL;
@@ -103,7 +121,6 @@ export const Route = createRootRouteWithContext<{
       });
     }
 
-    // loader may return data; components can read with Route.useLoaderData()
     return {
       country,
       locale,
@@ -113,13 +130,6 @@ export const Route = createRootRouteWithContext<{
       session,
     };
   },
-
-  // Keep beforeLoad ONLY if you need a guard/redirect. Do not return anything.
-  // beforeLoad: ({ context }) => {
-  //   if (!context.session) {
-  //     throw redirect({ to: '/login' });
-  //   }
-  // },
 
   notFoundComponent() {
     return <NotFoundPage />;
@@ -243,25 +253,24 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
-  const { country, locale, timezone, analyticsCookies } = Route.useLoaderData();
+  const { country, locale, timezone, analyticsCookies } = Route.useLoaderData() as Context;
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <head>
         <HeadContent />
       </head>
       <body className="antialiased">
         <div
           className="md:container mx-auto overflow-x-hidden"
-          suppressHydrationWarning={true}
         >
           <LocaleProvider initialLocale={locale} initialTimezone={timezone}>
-            <CountryProvider defaultCountry={country}>
+            <CountryProvider defaultCountry={country || 'US'}>
               <CompareProvider>
                 <SearchProvider>
                   <Navbar />
                   <PreferencesProvider>
-                    <CookiesProvider initialSelection={analyticsCookies}>
+                    <CookiesProvider initialSelection={analyticsCookies as unknown as CookiesSelection}>
                       <ExtensionProvider>{children}</ExtensionProvider>
                     </CookiesProvider>
                   </PreferencesProvider>
