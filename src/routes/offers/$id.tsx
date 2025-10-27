@@ -96,24 +96,24 @@ export const Route = createFileRoute('/offers/$id')({
     const { country, queryClient, offer } = context;
     const { id } = params;
 
-    queryClient.fetchQuery({
-      queryKey: ['price', { id: params.id, country }],
-      queryFn: () =>
-        httpClient.get<Price>(
-          `/offers/${params.id}/price?country=${country || 'US'}`,
-        ),
-    });
-
-    queryClient.fetchQuery({
-      queryKey: ['offer-technologies', { id: params.id }],
-      queryFn: () =>
-        httpClient.get<Technology[]>(`/offers/${params.id}/technologies`),
-    });
-
-    queryClient.fetchQuery({
-      queryKey: ['offer-assets', { id }],
-      queryFn: () => httpClient.get<Asset[]>(`/offers/${id}/assets`),
-    });
+    await Promise.allSettled([
+      queryClient.prefetchQuery({
+        queryKey: ['price', { id: params.id, country }],
+        queryFn: () =>
+          httpClient.get<Price>(
+            `/offers/${params.id}/price?country=${country || 'US'}`,
+          ),
+      }),
+      queryClient.prefetchQuery({
+        queryKey: ['offer-technologies', { id: params.id }],
+        queryFn: () =>
+          httpClient.get<Technology[]>(`/offers/${params.id}/technologies`),
+      }),
+      queryClient.prefetchQuery({
+        queryKey: ['offer-assets', { id }],
+        queryFn: () => httpClient.get<Asset[]>(`/offers/${id}/assets`),
+      }),
+    ]);
 
     return {
       id,
@@ -185,7 +185,7 @@ export const Route = createFileRoute('/offers/$id')({
 });
 
 function OfferPage() {
-  const { id } = Route.useLoaderData();
+  const { id } = Route.useParams();
   const { timezone } = useLocale();
   const { addToCompare, removeFromCompare, compare } = useCompare();
   const navigate = useNavigate();
