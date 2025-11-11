@@ -53,6 +53,7 @@ export const formSchema = z.object({
   sortDir: z.enum(['asc', 'desc']).optional(),
   page: z.number().optional(),
   limit: z.number().optional(),
+  isLowestPrice: z.boolean().optional(),
 });
 
 export type SearchState = z.infer<typeof formSchema>;

@@ -51,6 +51,7 @@ const defaultControls = {
   showPastGiveaways: true,
   showSeller: true,
   showPrice: true,
+  showLowestPrice: true,
 };
 
 const mergeSearchStates = (

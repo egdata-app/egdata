@@ -45,6 +45,7 @@ export interface SearchFiltersProps {
     showPastGiveaways: boolean;
     showSeller: boolean;
     showPrice: boolean;
+    showLowestPrice: boolean;
   };
 }
 
@@ -72,6 +73,7 @@ export function SearchFilters({
     showPastGiveaways,
     showSeller,
     showPrice,
+    showLowestPrice,
   } = controls;
 
   // Handlers for updating query
@@ -418,6 +420,24 @@ export function SearchFilters({
             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
             Exclude Blockchain/NFT
+          </label>
+        </div>
+      )}
+
+      {showLowestPrice && (
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="isLowestPrice"
+            checked={!!query.isLowestPrice}
+            onCheckedChange={(value) =>
+              handleFieldChange('isLowestPrice', value ? true : undefined)
+            }
+          />
+          <label
+            htmlFor="isLowestPrice"
+            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          >
+            Only historical lows
           </label>
         </div>
       )}
