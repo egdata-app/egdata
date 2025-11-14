@@ -27,12 +27,7 @@ export const generateOfferMeta = (
     },
     {
       name: 'og:image',
-      content:
-        getImage(offer?.keyImages ?? [], [
-          'OfferImageWide',
-          'DieselGameBoxWide',
-          'DieselStoreFrontWide',
-        ])?.url ?? '/placeholder.webp',
+      content: `https://api.egdata.app/offers/${offer.id}/og?v=${new Date(offer.lastModifiedDate).getTime()}`,
     },
     {
       name: 'og:type',
@@ -54,12 +49,7 @@ export const generateOfferMeta = (
     },
     {
       name: 'twitter:image',
-      content:
-        getImage(offer?.keyImages ?? [], [
-          'OfferImageWide',
-          'DieselGameBoxWide',
-          'DieselStoreFrontWide',
-        ])?.url ?? '/placeholder.webp',
+      content: `https://api.egdata.app/offers/${offer.id}/og?v=${new Date(offer.lastModifiedDate).getTime()}`,
     },
   ];
 };

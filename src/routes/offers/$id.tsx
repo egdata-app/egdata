@@ -67,7 +67,6 @@ import {
 import { FabIcon } from '@/components/icons/fab';
 import { DateTime } from 'luxon';
 import { Bell } from 'lucide-react';
-import { useState, useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { OffersHomeSkeleton } from '@/components/skeletons/offers-home';
 
