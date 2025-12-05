@@ -114,15 +114,15 @@ export const Route = createFileRoute('/tags/$id')({
     );
   },
 
-  loader: async ({ context, params }) => {
-    const { queryClient, country, search } = context;
+  loader: async ({ context, params, search }) => {
+    const { queryClient, country } = context;
     const { id } = params;
 
     // const { page, sortBy, sortDir, q } = search;
-    const page = search.page ?? 1;
-    const sortBy = search.sortBy ?? 'lastModifiedDate';
-    const sortDir = search.sortDir ?? 'desc';
-    const q = search.q ?? '';
+    const page = search?.page ?? 1;
+    const sortBy = search?.sortBy ?? 'lastModifiedDate';
+    const sortDir = search?.sortDir ?? 'desc';
+    const q = search?.q ?? '';
 
     const [coverData, initialData] = await Promise.allSettled([
       queryClient.fetchQuery({
@@ -186,12 +186,6 @@ export const Route = createFileRoute('/tags/$id')({
       id,
       promotion: initialData.status === 'fulfilled' ? initialData.value : null,
       dehydratedState: dehydrate(queryClient),
-    };
-  },
-
-  beforeLoad: async ({ search }) => {
-    return {
-      search,
     };
   },
 

@@ -82,11 +82,11 @@ export const Route = createFileRoute('/changelog/')({
     );
   },
 
-  loader: async ({ context }) => {
-    const { queryClient, search } = context;
+  loader: async ({ context, search }) => {
+    const { queryClient } = context;
 
-    const query = search.query ?? '';
-    const page = search.page ?? 1;
+    const query = search?.query ?? '';
+    const page = search?.page ?? 1;
 
     await queryClient.prefetchQuery({
       queryKey: [
@@ -112,11 +112,7 @@ export const Route = createFileRoute('/changelog/')({
     };
   },
 
-  beforeLoad: async ({ search }) => {
-    return {
-      search,
-    };
-  },
+  beforeLoad: async () => {},
 
   validateSearch: zodSearchValidator(searchParamsSchema),
 

@@ -23,14 +23,8 @@ export const Route = createFileRoute('/search')({
     );
   },
 
-  beforeLoad: ({ search }) => {
-    return {
-      search,
-    };
-  },
-
-  loader: async ({ context }) => {
-    const { country, queryClient, search } = context;
+  loader: async ({ context, search }) => {
+    const { country, queryClient } = context;
     const { page = 1, limit = DEFAULT_LIMIT } = search;
     const [tagsData] = await Promise.all([
       queryClient.ensureQueryData({

@@ -5,8 +5,8 @@ import { sentryVitePlugin } from '@sentry/vite-plugin';
 import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
 import react from '@vitejs/plugin-react-oxc';
-import { nitroV2Plugin as nitro } from '@tanstack/nitro-v2-vite-plugin'
-import { devtools } from '@tanstack/devtools-vite'
+import { nitroV2Plugin as nitro } from '@tanstack/nitro-v2-vite-plugin';
+import { devtools } from '@tanstack/devtools-vite';
 
 export default defineConfig({
   plugins: [
@@ -19,7 +19,8 @@ export default defineConfig({
       project: 'egdata',
     }),
     nitro({
-      preset: 'node-server'
+      preset: 'node-server',
+      compatibilityDate: '2025-12-05',
     }),
     VitePWA({
       strategies: 'injectManifest',

@@ -28,12 +28,7 @@ export const Route = createFileRoute('/freebies/')({
 
   validateSearch: (search) => formSchema.parse(search),
 
-  beforeLoad: (ctx) => {
-    const { search } = ctx;
-    return {
-      search,
-    };
-  },
+  beforeLoad: async () => {},
 
   loader: async ({ context }) => {
     const { country, queryClient } = context;

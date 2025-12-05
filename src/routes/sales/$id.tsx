@@ -19,12 +19,7 @@ export const Route = createFileRoute('/sales/$id')({
     );
   },
 
-  beforeLoad(ctx) {
-    const { search } = ctx;
-    return {
-      search,
-    };
-  },
+  beforeLoad: async () => {},
 
   loader: async ({ params, context }) => {
     const { queryClient, country } = context;
