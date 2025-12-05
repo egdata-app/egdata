@@ -33,6 +33,8 @@ import { httpClient } from '@/lib/http-client';
 import { calculatePrice } from '@/lib/calculate-price';
 import { useLocale } from '@/hooks/use-locale';
 import consola from 'consola';
+import { Gamepad2, SearchIcon, Store, Tag } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface Search {
   elements: Element[];
@@ -49,14 +51,6 @@ export function SearchProvider({ children }: SearchProviderProps) {
 
   const debouncedSearch = useCallback(
     debounce((query: string) => {
-      if (!query || query === '') {
-        setSearchState((prevState) => ({
-          ...prevState,
-          results: [],
-        }));
-        return;
-      }
-
       httpClient
         .get<Search>('/autocomplete', {
           params: { query },
@@ -72,9 +66,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
   );
 
   useEffect(() => {
-    if (searchState.query) {
-      debouncedSearch(searchState.query);
-    }
+    debouncedSearch(searchState.query);
   }, [searchState.query, debouncedSearch]);
 
   return (
@@ -123,6 +115,8 @@ interface SearchPortalProps {
   inputRef: React.RefObject<HTMLInputElement>;
 }
 
+type SectionType = 'offers' | 'items' | 'sellers';
+
 function SearchPortal({
   searchState,
   setSearchState,
@@ -130,6 +124,7 @@ function SearchPortal({
 }: SearchPortalProps) {
   const { country } = useCountry();
   const [searchQuery, setSearchQuery] = useState<string>(searchState.query);
+  const [activeSection, setActiveSection] = useState<SectionType>('offers');
 
   const [
     { data: offersData, isLoading: offersLoading, error: offersError },
@@ -148,11 +143,12 @@ function SearchPortal({
           const data = await httpClient.get<Multisearch<SingleOffer>>(
             '/multisearch/offers',
             {
-              params: { query: searchQuery },
+              params: { query: searchQuery, limit: 20 },
             },
           );
           return data;
         },
+        enabled: activeSection === 'offers',
         placeholderData: keepPreviousData,
       },
       {
@@ -166,11 +162,12 @@ function SearchPortal({
           const data = await httpClient.get<Multisearch<SingleItem>>(
             '/multisearch/items',
             {
-              params: { query: searchQuery },
+              params: { query: searchQuery, limit: 20 },
             },
           );
           return data;
         },
+        enabled: activeSection === 'items',
         placeholderData: keepPreviousData,
       },
       {
@@ -184,11 +181,12 @@ function SearchPortal({
           const data = await httpClient.get<Multisearch<SingleSeller>>(
             '/multisearch/sellers',
             {
-              params: { query: searchQuery },
+              params: { query: searchQuery, limit: 20 },
             },
           );
           return data;
         },
+        enabled: activeSection === 'sellers',
         placeholderData: keepPreviousData,
       },
     ],
@@ -247,49 +245,26 @@ function SearchPortal({
     };
   }, [searchState.query]);
 
-  const getDisplayCount = (totalItems: number, availableSlots: number) => {
-    return Math.min(totalItems, availableSlots);
-  };
-
-  const calculateDisplayCounts = (
-    offers: number,
-    items: number,
-    sellers: number,
-  ) => {
-    const totalSlots = 9;
-    let remainingSlots = totalSlots;
-
-    let sellersCount = 0;
-    let itemsCount = 0;
-    let offersCount = 0;
-
-    if (remainingSlots > 0 && sellers > 0) {
-      sellersCount = getDisplayCount(sellers, Math.min(remainingSlots, 3));
-      remainingSlots -= sellersCount;
-    }
-
-    if (remainingSlots > 0 && items > 0) {
-      itemsCount = getDisplayCount(items, Math.min(remainingSlots, 3));
-      remainingSlots -= itemsCount;
-    }
-
-    if (remainingSlots > 0 && offers > 0) {
-      offersCount = getDisplayCount(offers, Math.min(remainingSlots, 5));
-      remainingSlots -= offersCount;
-    }
-
-    return { offersCount, itemsCount, sellersCount };
-  };
-
-  const offersCount = offersData ? offersData.hits.length : 0;
-  const itemsCount = itemsData ? itemsData.hits.length : 0;
-  const sellersCount = sellersData ? sellersData.hits.length : 0;
-
-  const {
-    offersCount: displayOffers,
-    itemsCount: displayItems,
-    sellersCount: displaySellers,
-  } = calculateDisplayCounts(offersCount, itemsCount, sellersCount);
+  const sections = [
+    {
+      id: 'offers',
+      label: 'Offers',
+      icon: <Tag className="w-5 h-5" />,
+      count: offersData?.estimatedTotalHits,
+    },
+    {
+      id: 'items',
+      label: 'Items',
+      icon: <Gamepad2 className="w-5 h-5" />,
+      count: itemsData?.estimatedTotalHits,
+    },
+    {
+      id: 'sellers',
+      label: 'Sellers',
+      icon: <Store className="w-5 h-5" />,
+      count: sellersData?.estimatedTotalHits,
+    },
+  ];
 
   return (
     <div className="fixed top-0 right-0 z-20 w-full h-full bg-card/50 backdrop-blur-[3px] items-center flex-col gap-2 justify-center flex">
@@ -312,47 +287,77 @@ function SearchPortal({
       />
 
       <div className="w-full inline-flex justify-center items-center z-10">
-        <Input
-          type="text"
-          value={searchState.query}
-          className="md:w-1/3 h-12 p-4 bg-card text-white w-full"
-          placeholder="Search..."
-          onChange={(e) =>
-            setSearchState((prevState) => ({
-              ...prevState,
-              query: e.target.value,
-            }))
-          }
-          ref={inputRef}
-        />
+        <div className="relative md:w-1/3 w-full">
+          <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+          <Input
+            type="text"
+            value={searchState.query}
+            className="w-full h-14 pl-12 pr-4 bg-card text-white text-lg rounded-xl shadow-2xl border-slate-700"
+            placeholder="Search for games, items, sellers..."
+            onChange={(e) =>
+              setSearchState((prevState) => ({
+                ...prevState,
+                query: e.target.value,
+              }))
+            }
+            ref={inputRef}
+          />
+        </div>
       </div>
-      <div className="flex flex-col gap-4 p-4 w-full h-[80vh] xl:w-2/3 mx-auto bg-card rounded-xl z-10">
-        <div className="flex text-white h-full max-h-[79vh]">
-          <ScrollArea className="md:w-2/3 p-4 w-full max-h-[79vh] overflow-y-hidden">
-            <div>
-              <h2 className="text-xl font-bold mb-4">Offers</h2>
-              <div className="space-y-4">
-                {offersLoading && (
-                  <>
-                    <ResultItemSkeleton />
-                    <ResultItemSkeleton />
-                    <ResultItemSkeleton />
-                  </>
-                )}
-                {offersError && <p>Error: {offersError.message}</p>}
-                {offersData &&
-                  offersData.hits.length === 0 &&
-                  searchState.query !== '' && <p>No offers available</p>}
-                {offersData &&
-                  offersData.hits.length === 0 &&
-                  searchState.query === '' && <p>Type something to search</p>}
-                {offersData &&
-                  offersData.hits.length > 0 &&
-                  offersData.hits.slice(0, displayOffers).map((offer) => (
+      <div className="flex gap-0 w-full h-[80vh] xl:w-2/3 mx-auto bg-card rounded-xl z-10 overflow-hidden border border-slate-700 shadow-2xl">
+        {/* Sidebar */}
+        <div className="w-64 bg-slate-900/50 border-r border-slate-700 flex flex-col p-2 gap-1">
+          {sections.map((section) => (
+            <button
+              type="button"
+              key={section.id}
+              className={cn(
+                'flex items-center gap-3 p-3 rounded-lg text-left transition-all duration-200',
+                activeSection === section.id
+                  ? 'bg-primary text-primary-foreground'
+                  : 'text-muted-foreground hover:bg-slate-800 hover:text-white',
+              )}
+              onMouseEnter={() => setActiveSection(section.id as SectionType)}
+              onClick={() => setActiveSection(section.id as SectionType)}
+            >
+              {section.icon}
+              <div className="flex-1 font-medium">{section.label}</div>
+            </button>
+          ))}
+        </div>
+
+        {/* Results Area */}
+        <div className="flex-1 flex flex-col min-w-0">
+          <ScrollArea className="h-full">
+            <div className="p-4 space-y-4">
+              <h2 className="text-xl font-bold sticky top-0 bg-card z-10 pb-2 border-b border-slate-700 mb-4">
+                {activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}
+              </h2>
+
+              {/* Offers Results */}
+              {activeSection === 'offers' && (
+                <div className="space-y-2">
+                  {offersLoading && (
+                    <>
+                      <ResultItemSkeleton />
+                      <ResultItemSkeleton />
+                      <ResultItemSkeleton />
+                    </>
+                  )}
+                  {offersError && <p>Error: {offersError.message}</p>}
+                  {offersData && offersData.hits.length === 0 && (
+                    <div className="text-center text-muted-foreground py-8">
+                      No offers found
+                    </div>
+                  )}
+                  {offersData?.hits.map((offer) => (
                     <Link
-                      className="flex items-center justify-between p-2 bg-slate-700/25 rounded"
+                      className="flex items-center justify-between p-2 hover:bg-slate-700/50 rounded-lg transition-colors group"
                       key={offer._id}
-                      to={`/offers/${offer.id}`}
+                      to={'/offers/$id'}
+                      params={{
+                        id: offer.id,
+                      }}
                       onClick={() => {
                         setSearchState((prevState) => ({
                           ...prevState,
@@ -364,8 +369,8 @@ function SearchPortal({
                         setSelected({ type: 'offer', id: offer.id })
                       }
                     >
-                      <div className="flex items-center space-x-2">
-                        <div className="w-12 h-12 rounded">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-12 h-12 rounded overflow-hidden bg-slate-800">
                           <Image
                             src={
                               getImage(offer.keyImages, [
@@ -378,41 +383,50 @@ function SearchPortal({
                             alt={offer.title}
                             height={300}
                             width={300}
-                            className="w-12 h-12 rounded object-cover"
+                            className="w-full h-full object-cover"
                           />
                         </div>
-                        <span>{offer.title}</span>
-                        {offer.prePurchase && (
-                          <Badge variant="default">Pre-Purchase</Badge>
-                        )}
+                        <div>
+                          <div className="font-medium group-hover:text-primary transition-colors">
+                            {offer.title}
+                          </div>
+                          {offer.prePurchase && (
+                            <Badge variant="secondary" className="text-xs">
+                              Pre-Purchase
+                            </Badge>
+                          )}
+                        </div>
                       </div>
                       <OfferPrice id={offer.id} country={country} />
                     </Link>
                   ))}
-              </div>
-              <h2 className="text-xl font-bold mt-8 mb-4">Items</h2>
-              <div className="space-y-4">
-                {itemsLoading && (
-                  <>
-                    <ResultItemSkeleton />
-                    <ResultItemSkeleton />
-                    <ResultItemSkeleton />
-                  </>
-                )}
-                {itemsError && <p>Error: {itemsError.message}</p>}
-                {itemsData &&
-                  itemsData.hits.length === 0 &&
-                  searchState.query !== '' && <p>No items available</p>}
-                {itemsData &&
-                  itemsData.hits.length === 0 &&
-                  searchState.query === '' && <p>Type something to search</p>}
-                {itemsData &&
-                  itemsData.hits.length > 0 &&
-                  itemsData.hits.slice(0, displayItems).map((item) => (
+                </div>
+              )}
+
+              {/* Items Results */}
+              {activeSection === 'items' && (
+                <div className="space-y-2">
+                  {itemsLoading && (
+                    <>
+                      <ResultItemSkeleton />
+                      <ResultItemSkeleton />
+                      <ResultItemSkeleton />
+                    </>
+                  )}
+                  {itemsError && <p>Error: {itemsError.message}</p>}
+                  {itemsData && itemsData.hits.length === 0 && (
+                    <div className="text-center text-muted-foreground py-8">
+                      No items found
+                    </div>
+                  )}
+                  {itemsData?.hits.map((item) => (
                     <Link
-                      className="flex items-center justify-between p-2 bg-slate-700/25 rounded"
+                      className="flex items-center justify-between p-2 hover:bg-slate-700/50 rounded-lg transition-colors group"
                       key={item._id}
-                      to={`/items/${item.id}`}
+                      to={'/items/$id'}
+                      params={{
+                        id: item.id,
+                      }}
                       onClick={() => {
                         setSearchState((prevState) => ({
                           ...prevState,
@@ -424,8 +438,8 @@ function SearchPortal({
                         setSelected({ type: 'item', id: item._id })
                       }
                     >
-                      <div className="flex items-center space-x-2">
-                        <div className="w-12 h-12 rounded">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-12 h-12 rounded overflow-hidden bg-slate-800">
                           <Image
                             src={
                               getImage(item.keyImages, [
@@ -437,46 +451,55 @@ function SearchPortal({
                             height={300}
                             width={300}
                             quality="low"
-                            className="w-12 h-12 rounded object-cover"
+                            className="w-full h-full object-cover"
                           />
                         </div>
-                        <span>{item.title}</span>
+                        <span className="font-medium group-hover:text-primary transition-colors">
+                          {item.title}
+                        </span>
                       </div>
                       <div className="inline-flex items-center gap-2">
                         {getPlatformsArray(item.releaseInfo)
                           .filter((platform) => textPlatformIcons[platform])
                           .map((platform) => (
-                            <span key={platform} title={platform}>
+                            <span
+                              key={platform}
+                              title={platform}
+                              className="text-muted-foreground"
+                            >
                               {textPlatformIcons[platform]}
                             </span>
                           ))}
                       </div>
                     </Link>
                   ))}
-              </div>
-              <h2 className="text-xl font-bold mt-8 mb-4">Sellers</h2>
-              <div className="space-y-4">
-                {sellersLoading && (
-                  <>
-                    <ResultItemSkeleton />
-                    <ResultItemSkeleton />
-                    <ResultItemSkeleton />
-                  </>
-                )}
-                {sellersError && <p>Error: {sellersError.message}</p>}
-                {sellersData &&
-                  sellersData.hits.length === 0 &&
-                  searchState.query !== '' && <p>No sellers available</p>}
-                {sellersData &&
-                  sellersData.hits.length === 0 &&
-                  searchState.query === '' && <p>Type something to search</p>}
-                {sellersData &&
-                  sellersData.hits.length > 0 &&
-                  sellersData.hits.slice(0, displaySellers).map((seller) => (
+                </div>
+              )}
+
+              {/* Sellers Results */}
+              {activeSection === 'sellers' && (
+                <div className="space-y-2">
+                  {sellersLoading && (
+                    <>
+                      <ResultItemSkeleton />
+                      <ResultItemSkeleton />
+                      <ResultItemSkeleton />
+                    </>
+                  )}
+                  {sellersError && <p>Error: {sellersError.message}</p>}
+                  {sellersData && sellersData.hits.length === 0 && (
+                    <div className="text-center text-muted-foreground py-8">
+                      No sellers found
+                    </div>
+                  )}
+                  {sellersData?.hits.map((seller) => (
                     <Link
-                      className="flex items-center justify-between p-2 bg-slate-700/25 rounded"
+                      className="flex items-center justify-between p-2 hover:bg-slate-700/50 rounded-lg transition-colors group"
                       key={seller._id}
-                      to={`/sellers/${seller._id}`}
+                      to={'/sellers/$id'}
+                      params={{
+                        id: seller._id,
+                      }}
                       onClick={() => {
                         setSearchState((prevState) => ({
                           ...prevState,
@@ -488,25 +511,32 @@ function SearchPortal({
                         setSelected({ type: 'seller', id: seller._id })
                       }
                     >
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-3">
                         <img
                           src={seller.logo?.url ?? '/placeholder.webp'}
                           alt={seller.name}
-                          className="w-12 h-12 rounded"
+                          className="w-12 h-12 rounded object-cover bg-slate-800"
                           width="50"
                           height="50"
-                          style={{ aspectRatio: '50/50', objectFit: 'cover' }}
                         />
-                        <span>{seller.name}</span>
+                        <span className="font-medium group-hover:text-primary transition-colors">
+                          {seller.name}
+                        </span>
                       </div>
-                      <span>{seller.igdb_id ? seller.igdb_id : 'N/A'}</span>
+                      <span className="text-muted-foreground text-sm">
+                        {seller.igdb_id ? `ID: ${seller.igdb_id}` : ''}
+                      </span>
                     </Link>
                   ))}
-              </div>
+                </div>
+              )}
             </div>
           </ScrollArea>
+        </div>
 
-          <ScrollArea className="w-0 md:w-1/3 p-4 bg-slate-700/25 rounded-xl h-auto md:flex flex-col justify-start items-start hidden sticky">
+        {/* Preview Area */}
+        <div className="w-1/3 bg-slate-900/30 border-l border-slate-700 hidden lg:block">
+          <ScrollArea className="h-full p-6">
             <div className="w-full flex justify-between items-center">
               {selected && (
                 <FeaturedResult
@@ -528,9 +558,12 @@ function SearchPortal({
                 />
               )}
               {!selected && (
-                <p className="text-lg font-bold">
-                  Hover a result to see more details
-                </p>
+                <div className="w-full h-full flex flex-col items-center justify-center text-muted-foreground gap-4 pt-20">
+                  <SearchIcon className="w-16 h-16 opacity-20" />
+                  <p className="text-lg font-medium">
+                    Hover a result to see details
+                  </p>
+                </div>
               )}
             </div>
           </ScrollArea>
@@ -558,6 +591,7 @@ function FeaturedResult({
   }
 
   const imageToShow =
+    // @ts-expect-error
     getImage(data?.keyImages ?? [], [
       'Featured',
       'DieselStoreFrontWide',
@@ -565,20 +599,31 @@ function FeaturedResult({
     ])?.url ?? '/placeholder.webp';
 
   return (
-    <div className="flex flex-col gap-4 w-full" key={`multi-search-${id}`}>
-      <Image
-        src={imageToShow}
-        alt={type === 'item' || type === 'offer' ? data.title : data.name}
-        className="w-full rounded mb-4 aspect-video"
-        width={600}
-        height={325}
-        quality="high"
-        key={`${id}-preview-image`}
-      />
-      <h6 className="text-lg font-bold inline-flex items-center gap-2">
-        {type === 'offer' || type === 'item' ? data.title : data.name}{' '}
-        <Badge variant="default">{type}</Badge>
-      </h6>
+    <div
+      className="flex flex-col gap-4 w-full animate-in fade-in duration-300"
+      key={`multi-search-${id}`}
+    >
+      <div className="rounded-xl overflow-hidden border border-slate-700 shadow-lg">
+        <Image
+          src={imageToShow}
+          // @ts-expect-error
+          alt={type === 'item' || type === 'offer' ? data.title : data.name}
+          className="w-full aspect-video object-cover"
+          width={600}
+          height={325}
+          quality="high"
+          key={`${id}-preview-image`}
+        />
+      </div>
+      <div className="space-y-2">
+        <h6 className="text-2xl font-bold inline-flex items-center gap-2">
+          {/** @ts-expect-error */}
+          {type === 'offer' || type === 'item' ? data.title : data.name}{' '}
+        </h6>
+        <Badge variant="outline" className="capitalize">
+          {type}
+        </Badge>
+      </div>
     </div>
   );
 }
@@ -596,53 +641,72 @@ function FeaturedOffer({ id, data }: { id: string; data: SingleOffer }) {
     ])?.url ?? '/placeholder.webp';
 
   return (
-    <div className="flex flex-col gap-4 w-full">
-      <Image
-        src={imageToShow}
-        alt="Game Screenshot"
-        className="w-full rounded mb-4 aspect-video"
-        width={600}
-        height={325}
-        quality="high"
-        key={`${id}-preview-image`}
-      />
-      <h6 className="text-lg font-bold">{data.title}</h6>
-      <div className="flex flex-wrap gap-2 mb-4">
-        {data.tags
-          .filter((tag) => tag !== null)
-          .slice(0, 4)
-          .map((tag) => (
-            <Badge variant="default" key={`${data.id}-${tag?.id}`}>
-              {tag.name}
-            </Badge>
-          ))}
+    <div className="flex flex-col gap-4 w-full animate-in fade-in duration-300">
+      <div className="rounded-xl overflow-hidden border border-slate-700 shadow-lg">
+        <Image
+          src={imageToShow}
+          alt="Game Screenshot"
+          className="w-full aspect-video object-cover"
+          width={600}
+          height={325}
+          quality="high"
+          key={`${id}-preview-image`}
+        />
       </div>
-      <div className="space-y-2">
-        <p>
-          <span className="font-bold">Seller:</span> {data.seller.name}
-        </p>
-        <p>
-          <span className="font-bold">Developer:</span>{' '}
-          {data.developerDisplayName ?? data.seller.name}
-        </p>
-        <p className="inline-flex items-center gap-2">
-          <span className="font-bold">Supported Platforms:</span>{' '}
-          {data.tags
-            .filter((tag) => platformIcons[tag.id])
-            .map((tag) => (
-              <span key={`${data.id}-${tag.id}`} title={tag.name}>
-                {platformIcons[tag.id]}
-              </span>
-            ))}
-        </p>
-        <p>
-          <span className="font-bold">Release Date:</span>{' '}
-          {new Date(data.releaseDate).toLocaleDateString('en-UK', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })}
-        </p>
+
+      <div className="space-y-4">
+        <div>
+          <h6 className="text-2xl font-bold">{data.title}</h6>
+          <div className="flex flex-wrap gap-2 mt-2">
+            {data.tags
+              .filter((tag) => tag !== null)
+              .slice(0, 4)
+              .map((tag) => (
+                <Badge variant="secondary" key={`${data.id}-${tag?.id}`}>
+                  {tag.name}
+                </Badge>
+              ))}
+          </div>
+        </div>
+
+        <div className="space-y-3 text-sm text-muted-foreground bg-slate-800/50 p-4 rounded-lg">
+          <div className="flex justify-between border-b border-slate-700/50 pb-2">
+            <span className="font-medium text-foreground">Seller</span>
+            <span>{data.seller.name}</span>
+          </div>
+          <div className="flex justify-between border-b border-slate-700/50 pb-2">
+            <span className="font-medium text-foreground">Developer</span>
+            <span>{data.developerDisplayName ?? data.seller.name}</span>
+          </div>
+          <div className="flex justify-between border-b border-slate-700/50 pb-2">
+            <span className="font-medium text-foreground">Release Date</span>
+            <span>
+              {new Date(data.releaseDate).toLocaleDateString('en-UK', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </span>
+          </div>
+          <div className="pt-1">
+            <span className="font-medium text-foreground block mb-2">
+              Platforms
+            </span>
+            <div className="flex gap-3">
+              {data.tags
+                .filter((tag) => platformIcons[tag.id])
+                .map((tag) => (
+                  <span
+                    key={`${data.id}-${tag.id}`}
+                    title={tag.name}
+                    className="text-foreground"
+                  >
+                    {platformIcons[tag.id]}
+                  </span>
+                ))}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -650,10 +714,13 @@ function FeaturedOffer({ id, data }: { id: string; data: SingleOffer }) {
 
 function ResultItemSkeleton() {
   return (
-    <div className="flex items-center justify-between p-2 bg-gray-800 rounded">
-      <div className="flex items-center space-x-2">
+    <div className="flex items-center justify-between p-2 bg-slate-800/50 rounded-lg">
+      <div className="flex items-center space-x-3">
         <Skeleton className="w-12 h-12 rounded" />
-        <Skeleton className="w-32 h-4" />
+        <div className="space-y-2">
+          <Skeleton className="w-32 h-4" />
+          <Skeleton className="w-20 h-3" />
+        </div>
       </div>
       <Skeleton className="w-24 h-8" />
     </div>
@@ -676,7 +743,7 @@ function OfferPrice({ id, country }: { id: string; country: string }) {
   });
 
   if (isLoading) {
-    return <Skeleton className="w-24 h-8" />;
+    return <Skeleton className="w-20 h-6" />;
   }
 
   if (error) {
@@ -695,14 +762,14 @@ function OfferPrice({ id, country }: { id: string; country: string }) {
   });
 
   if (data.price.discountPrice === 0) {
-    return <p>Free</p>;
+    return <span className="font-bold text-green-400">Free</span>;
   }
 
   return (
-    <p>
+    <span className="font-bold">
       {priceFmtr.format(
         calculatePrice(data.price.discountPrice, data.price.currencyCode),
       )}
-    </p>
+    </span>
   );
 }

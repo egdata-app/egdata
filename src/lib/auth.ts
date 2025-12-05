@@ -1,5 +1,5 @@
 import { betterAuth } from 'better-auth';
-import { reactStartCookies } from 'better-auth/react-start';
+import { tanstackStartCookies } from 'better-auth/tanstack-start';
 import pg from 'pg';
 import { genericOAuth } from 'better-auth/plugins';
 import consola from 'consola';
@@ -73,7 +73,7 @@ export const auth = betterAuth({
         },
       ],
     }),
-    reactStartCookies(),
+    tanstackStartCookies(),
   ],
   session: {
     cookieCache: {
