@@ -5,7 +5,7 @@ import type * as React from 'react';
 import Navbar from '@/components/app/navbar';
 import { queryOptions, type QueryClient } from '@tanstack/react-query';
 import { CountryProvider } from '@/providers/country';
-import { TanstackDevtools } from '@tanstack/react-devtools';
+import { TanStackDevtools } from '@tanstack/react-devtools';
 import { ReactQueryDevtoolsPanel } from '@tanstack/react-query-devtools';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import getCountryCode from '@/lib/get-country-code';
@@ -25,7 +25,7 @@ import { Toaster } from '@/components/ui/sonner';
 import styles from '@/styles.css?url';
 import { ExtensionProvider } from '@/providers/extension';
 import '../registerSW';
-import { CookiesSelection } from '@/contexts/cookies';
+import type { CookiesSelection } from '@/contexts/cookies';
 
 const getClientSession = queryOptions({
   queryKey: ['session'],
@@ -35,17 +35,20 @@ const getClientSession = queryOptions({
 
 type Context = {
   queryClient: QueryClient;
-   cookies?: Record<string, string>;
-   epicToken?: EpicToken | null;
-   country?: string;
-   session?: {
-     session: typeof auth.$Infer.Session.session;
-     user: typeof auth.$Infer.Session.user;
-   } | null | undefined;
-   locale?: string,
-   timezone?: string,
-   analyticsCookies?: Record<string, string> | null,
-}
+  cookies?: Record<string, string>;
+  epicToken?: EpicToken | null;
+  country?: string;
+  session?:
+    | {
+        session: typeof auth.$Infer.Session.session;
+        user: typeof auth.$Infer.Session.user;
+      }
+    | null
+    | undefined;
+  locale?: string;
+  timezone?: string;
+  analyticsCookies?: Record<string, string> | null;
+};
 
 export const Route = createRootRouteWithContext<Context>()({
   component: RootComponent,
@@ -58,7 +61,7 @@ export const Route = createRootRouteWithContext<Context>()({
       analyticsCookies: context.analyticsCookies,
       cookies: context.cookies,
       session: context.session,
-    }
+    };
   },
 
   beforeLoad: async ({ context }) => {
@@ -66,21 +69,17 @@ export const Route = createRootRouteWithContext<Context>()({
 
     let url: URL;
     let cookies: Record<string, string>;
-    let session:
-      | {
-          session: typeof auth.$Infer.Session.session;
-          user: typeof auth.$Infer.Session.user;
-        }
-      | null;
+    let session: {
+      session: typeof auth.$Infer.Session.session;
+      user: typeof auth.$Infer.Session.user;
+    } | null;
 
     if (import.meta.env.SSR) {
-      const {
-        getCookies,
-        getRequestHeaders,
-        getRequestUrl,
-      } = await import('@tanstack/react-start/server');
+      const { getCookies, getRequestHeaders, getRequestUrl } = await import(
+        '@tanstack/react-start/server'
+      );
       const { auth } = await import('@/lib/auth');
-      const reqUrl = getRequestUrl()
+      const reqUrl = getRequestUrl();
 
       url = new URL(reqUrl);
       cookies = getCookies();
@@ -92,7 +91,8 @@ export const Route = createRootRouteWithContext<Context>()({
       url = new URL(window.location.href);
 
       // client cookies
-      const cookieHeader = typeof document?.cookie === 'string' ? document.cookie : '';
+      const cookieHeader =
+        typeof document?.cookie === 'string' ? document.cookie : '';
       const parsedCookies = parseCookieString(cookieHeader);
       cookies = Object.fromEntries(
         Object.entries(parsedCookies).map(([k, v]) => [k, v || '']),
@@ -140,9 +140,23 @@ export const Route = createRootRouteWithContext<Context>()({
       { rel: 'preconnect', href: 'https://cdn1.epicgames.com/' },
       { rel: 'preconnect', href: 'https://api.egdata.app/' },
       { rel: 'preconnect', href: 'https://cdn.egdata.app/' },
-      { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
-      { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' },
-      { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '32x32',
+        href: '/favicon-32x32.png',
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '16x16',
+        href: '/favicon-16x16.png',
+      },
+      {
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        href: '/apple-touch-icon.png',
+      },
       { rel: 'manifest', href: '/site.webmanifest' },
       { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#5bbad5' },
       {
@@ -207,12 +221,18 @@ export const Route = createRootRouteWithContext<Context>()({
         content:
           'A free and open-source Epic Games Store database with comprehensive game information, sales tracking, and more. Community-driven and constantly updated.',
       },
-      { name: 'twitter:image', content: 'https://cdn.egdata.app/placeholder-1080.webp' },
+      {
+        name: 'twitter:image',
+        content: 'https://cdn.egdata.app/placeholder-1080.webp',
+      },
       { name: 'twitter:image:alt', content: 'Epic Games Database' },
       { name: 'og:title', content: 'Epic Games Database' },
       { name: 'og:type', content: 'website' },
       { name: 'og:url', content: 'https://egdata.app' },
-      { name: 'og:image', content: 'https://cdn.egdata.app/placeholder-1080.webp' },
+      {
+        name: 'og:image',
+        content: 'https://cdn.egdata.app/placeholder-1080.webp',
+      },
       { name: 'og:image:alt', content: 'Epic Games Database' },
       {
         name: 'og:description',
@@ -234,7 +254,6 @@ export const Route = createRootRouteWithContext<Context>()({
   }),
 });
 
-
 function NotFoundPage() {
   return (
     <div className="w-full h-full flex flex-col items-start justify-center">
@@ -252,7 +271,8 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
-  const { country, locale, timezone, analyticsCookies } = Route.useLoaderData() as Context;
+  const { country, locale, timezone, analyticsCookies } =
+    Route.useLoaderData() as Context;
 
   return (
     <html lang="en">
@@ -260,16 +280,18 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
         <HeadContent />
       </head>
       <body className="antialiased">
-        <div
-          className="md:container mx-auto overflow-x-hidden"
-        >
+        <div className="md:container mx-auto overflow-x-hidden">
           <LocaleProvider initialLocale={locale} initialTimezone={timezone}>
             <CountryProvider defaultCountry={country || 'US'}>
               <CompareProvider>
                 <SearchProvider>
                   <Navbar />
                   <PreferencesProvider>
-                    <CookiesProvider initialSelection={analyticsCookies as unknown as CookiesSelection}>
+                    <CookiesProvider
+                      initialSelection={
+                        analyticsCookies as unknown as CookiesSelection
+                      }
+                    >
                       <ExtensionProvider>{children}</ExtensionProvider>
                     </CookiesProvider>
                   </PreferencesProvider>
@@ -317,7 +339,7 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
         </div>
 
         {import.meta.env.DEV && (
-          <TanstackDevtools
+          <TanStackDevtools
             plugins={[
               {
                 name: 'Tanstack Query',

@@ -1,6 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { zodSearchValidator } from '@tanstack/router-zod-adapter';
-import { dehydrate } from '@tanstack/react-query';
 import { httpClient } from '@/lib/http-client';
 import { DEFAULT_LIMIT, formSchema } from '@/stores/searchStore';
 import { SearchContainer } from '@/components/search/SearchContainer';
@@ -23,9 +22,12 @@ export const Route = createFileRoute('/search')({
     );
   },
 
-  loader: async ({ context, search }) => {
+  loader: async (ctx) => {
+    const { context, deps } = ctx;
+    const search = deps.searchParams;
+
     const { country, queryClient } = context;
-    const { page = 1, limit = DEFAULT_LIMIT } = search;
+    const { page = 1, limit = DEFAULT_LIMIT } = search ?? {};
     const [tagsData] = await Promise.all([
       queryClient.ensureQueryData({
         queryKey: ['all-tags'],
@@ -43,7 +45,6 @@ export const Route = createFileRoute('/search')({
       country,
       page,
       limit,
-      dehydratedState: dehydrate(queryClient),
     };
   },
 
