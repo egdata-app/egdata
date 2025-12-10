@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TheGameAwardsRouteImport } from './routes/the-game-awards'
 import { Route as SearchRouteImport } from './routes/search'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PostsRouteImport } from './routes/posts'
@@ -78,6 +79,11 @@ import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as CollectionsIdWeekIndexRouteImport } from './routes/collections/$id/$week/index'
 import { Route as ProfileIdAchievementsSandboxRouteImport } from './routes/profile/$id/achievements/$sandbox'
 
+const TheGameAwardsRoute = TheGameAwardsRouteImport.update({
+  id: '/the-game-awards',
+  path: '/the-game-awards',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SearchRoute = SearchRouteImport.update({
   id: '/search',
   path: '/search',
@@ -435,6 +441,7 @@ export interface FileRoutesByFullPath {
   '/posts': typeof PostsRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
+  '/the-game-awards': typeof TheGameAwardsRoute
   '/api/token': typeof ApiTokenRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/login': typeof AuthLoginRoute
@@ -505,6 +512,7 @@ export interface FileRoutesByTo {
   '/posts': typeof PostsRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
+  '/the-game-awards': typeof TheGameAwardsRoute
   '/api/token': typeof ApiTokenRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/login': typeof AuthLoginRoute
@@ -571,6 +579,7 @@ export interface FileRoutesById {
   '/posts': typeof PostsRoute
   '/privacy': typeof PrivacyRoute
   '/search': typeof SearchRoute
+  '/the-game-awards': typeof TheGameAwardsRoute
   '/api/token': typeof ApiTokenRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/login': typeof AuthLoginRoute
@@ -643,6 +652,7 @@ export interface FileRouteTypes {
     | '/posts'
     | '/privacy'
     | '/search'
+    | '/the-game-awards'
     | '/api/token'
     | '/auth/callback'
     | '/auth/login'
@@ -713,6 +723,7 @@ export interface FileRouteTypes {
     | '/posts'
     | '/privacy'
     | '/search'
+    | '/the-game-awards'
     | '/api/token'
     | '/auth/callback'
     | '/auth/login'
@@ -778,6 +789,7 @@ export interface FileRouteTypes {
     | '/posts'
     | '/privacy'
     | '/search'
+    | '/the-game-awards'
     | '/api/token'
     | '/auth/callback'
     | '/auth/login'
@@ -849,6 +861,7 @@ export interface RootRouteChildren {
   PostsRoute: typeof PostsRoute
   PrivacyRoute: typeof PrivacyRoute
   SearchRoute: typeof SearchRoute
+  TheGameAwardsRoute: typeof TheGameAwardsRoute
   ApiTokenRoute: typeof ApiTokenRoute
   AuthCallbackRoute: typeof AuthCallbackRoute
   AuthLoginRoute: typeof AuthLoginRoute
@@ -879,6 +892,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/the-game-awards': {
+      id: '/the-game-awards'
+      path: '/the-game-awards'
+      fullPath: '/the-game-awards'
+      preLoaderRoute: typeof TheGameAwardsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/search': {
       id: '/search'
       path: '/search'
@@ -1487,6 +1507,7 @@ const rootRouteChildren: RootRouteChildren = {
   PostsRoute: PostsRoute,
   PrivacyRoute: PrivacyRoute,
   SearchRoute: SearchRoute,
+  TheGameAwardsRoute: TheGameAwardsRoute,
   ApiTokenRoute: ApiTokenRoute,
   AuthCallbackRoute: AuthCallbackRoute,
   AuthLoginRoute: AuthLoginRoute,

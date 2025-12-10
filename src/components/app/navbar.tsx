@@ -117,6 +117,7 @@ function MobileMenuItem({
 type Route = {
   name: string;
   href?: string;
+  icon?: string;
   component?: () => React.ReactNode;
 };
 
@@ -294,6 +295,11 @@ const routes: Route[] = [
   {
     name: 'Sales',
     href: '/sales',
+  },
+  {
+    name: 'The Game Awards',
+    href: '/the-game-awards',
+    icon: 'https://cdn.egdata.app/images/tga_icon_2024.svg',
   },
   {
     name: 'Changelog',
@@ -564,7 +570,14 @@ export default function Navbar() {
             return (
               <NavigationMenuLink key={route.name} asChild>
                 <Button variant="ghost" className="hover:text-white" asChild>
-                  <Link key={route.name} to={route.href}>
+                  <Link
+                    key={route.name}
+                    to={route.href}
+                    className="inline-flex items-center gap-2"
+                  >
+                    {route.icon && (
+                      <img src={route.icon} alt="" className="w-4 h-4" />
+                    )}
                     {route.name}
                   </Link>
                 </Button>
