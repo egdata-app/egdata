@@ -257,14 +257,6 @@ function GameAwardsPage() {
       {/* Sections */}
       {!isLoading && sections.length > 0 && (
         <div className="space-y-6">
-          {/* Total count badge */}
-          <div className="flex justify-center">
-            <Badge variant="secondary" className="text-sm px-4 py-2">
-              {announcementCount}{' '}
-              {announcementCount === 1 ? 'announcement' : 'announcements'}
-            </Badge>
-          </div>
-
           {sortedSections.map((section) => (
             <GameAwardsSection
               key={section.title}
