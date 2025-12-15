@@ -297,11 +297,6 @@ const routes: Route[] = [
     href: '/sales',
   },
   {
-    name: 'The Game Awards',
-    href: '/the-game-awards',
-    icon: 'https://cdn.egdata.app/images/tga_icon_2024.svg',
-  },
-  {
     name: 'Changelog',
     href: '/changelog',
   },
