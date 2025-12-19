@@ -194,14 +194,14 @@ function AchievementsPage() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="inline-flex w-full justify-between items-center">
+      <div className="flex flex-col w-full justify-between items-start gap-4 md:flex-row md:items-center">
         <h1 className="text-2xl font-bold">Achievements</h1>
-        <div className="flex gap-2">
+        <div className="flex flex-col gap-2 w-full md:w-auto md:flex-row md:items-center">
           <Select
             value={sortBy}
             onValueChange={(value) => setSortBy(value as 'default' | 'rarity')}
           >
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-full md:w-[180px]">
               <SelectValue placeholder="Sort by" />
             </SelectTrigger>
             <SelectContent>

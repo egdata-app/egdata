@@ -61,8 +61,8 @@ export function GameFeatures({
   }
 
   return (
-    <div className="w-full justify-center items-center flex absolute bottom-3 right-0 left-0">
-      <div className="h-auto flex gap-3 w-fit max-w-[95%] bg-gray-500/30 py-2 px-6 rounded-xl justify-center items-center text-white backdrop-blur-sm">
+    <div className="w-full justify-center items-center flex absolute bottom-3 right-0 left-0 px-2">
+      <div className="h-auto flex flex-wrap gap-3 w-fit max-w-full bg-gray-500/30 py-2 px-6 rounded-xl justify-center items-center text-white backdrop-blur-sm">
         {launcher && (
           <TooltipProvider>
             <Tooltip delayDuration={50}>
