@@ -1,11 +1,7 @@
-import { httpClient } from '@/lib/http-client';
-import { Seller, type SingleOffer } from '@/types/single-offer';
+import { httpClient } from "@/lib/http-client";
+import { Seller, type SingleOffer } from "@/types/single-offer";
 
-export const getSeller = async (
-  id: string,
-  country: string,
-  limit?: number,
-) => {
+export const getSeller = async (id: string, country: string, limit?: number) => {
   const response = await httpClient.get<SingleOffer[]>(`/sellers/${id}`, {
     params: {
       country,

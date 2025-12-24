@@ -1,17 +1,17 @@
-import { columns } from '@/components/tables/builds/columns';
-import { DataTable } from '@/components/tables/builds/table';
-import { getQueryClient } from '@/lib/client';
-import { generateItemMeta } from '@/lib/generate-item-meta';
-import { getFetchedQuery } from '@/lib/get-fetched-query';
-import { httpClient } from '@/lib/http-client';
-import type { Build } from '@/types/builds';
-import type { SingleItem } from '@/types/single-item';
-import { dehydrate, HydrationBoundary, useQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
-import { useState } from 'react';
-import type { ColumnFiltersState } from '@tanstack/react-table';
+import { columns } from "@/components/tables/builds/columns";
+import { DataTable } from "@/components/tables/builds/table";
+import { getQueryClient } from "@/lib/client";
+import { generateItemMeta } from "@/lib/generate-item-meta";
+import { getFetchedQuery } from "@/lib/get-fetched-query";
+import { httpClient } from "@/lib/http-client";
+import type { Build } from "@/types/builds";
+import type { SingleItem } from "@/types/single-item";
+import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import type { ColumnFiltersState } from "@tanstack/react-table";
 
-export const Route = createFileRoute('/items/$id/builds')({
+export const Route = createFileRoute("/items/$id/builds")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
     return (
@@ -26,7 +26,7 @@ export const Route = createFileRoute('/items/$id/builds')({
     const { queryClient } = context;
 
     await queryClient.prefetchQuery({
-      queryKey: ['item', 'builds', { id }],
+      queryKey: ["item", "builds", { id }],
       queryFn: () => httpClient.get<Build[]>(`/items/${id}/builds`),
     });
 
@@ -44,32 +44,31 @@ export const Route = createFileRoute('/items/$id/builds')({
       return {
         meta: [
           {
-            title: 'Item not found',
-            description: 'Item not found',
+            title: "Item not found",
+            description: "Item not found",
           },
         ],
       };
     }
 
-    const item = getFetchedQuery<SingleItem>(
-      queryClient,
-      ctx.loaderData?.dehydratedState,
-      ['item', { id: params.id }],
-    );
+    const item = getFetchedQuery<SingleItem>(queryClient, ctx.loaderData?.dehydratedState, [
+      "item",
+      { id: params.id },
+    ]);
 
     if (!item) {
       return {
         meta: [
           {
-            title: 'item not found',
-            description: 'item not found',
+            title: "item not found",
+            description: "item not found",
           },
         ],
       };
     }
 
     return {
-      meta: generateItemMeta(item, 'Builds'),
+      meta: generateItemMeta(item, "Builds"),
     };
   },
 });
@@ -79,7 +78,7 @@ function ItemBuildsPage() {
   const [page, setPage] = useState({ pageIndex: 0, pageSize: 20 });
   const [filters, setFilters] = useState<ColumnFiltersState>([]);
   const { data: builds } = useQuery({
-    queryKey: ['item', 'builds', { id }],
+    queryKey: ["item", "builds", { id }],
     queryFn: () => httpClient.get<Build[]>(`/items/${id}/builds`),
   });
 

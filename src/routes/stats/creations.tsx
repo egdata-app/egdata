@@ -1,18 +1,12 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { Link } from '@tanstack/react-router';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
-import {
-  getCreationsByMonth,
-  CreationsByMonth,
-} from '@/components/charts/creations/monthly';
-import {
-  getCreationsByYear,
-  CreationsByYear,
-} from '@/components/charts/creations/yearly';
+import { createFileRoute } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
+import { getCreationsByMonth, CreationsByMonth } from "@/components/charts/creations/monthly";
+import { getCreationsByYear, CreationsByYear } from "@/components/charts/creations/yearly";
 
-export const Route = createFileRoute('/stats/creations')({
+export const Route = createFileRoute("/stats/creations")({
   component: RouteComponent,
 
   loader: async ({ context }) => {
@@ -20,11 +14,11 @@ export const Route = createFileRoute('/stats/creations')({
 
     await Promise.all([
       queryClient.prefetchQuery({
-        queryKey: ['creations-by-month'],
+        queryKey: ["creations-by-month"],
         queryFn: getCreationsByMonth,
       }),
       queryClient.prefetchQuery({
-        queryKey: ['creations-by-year'],
+        queryKey: ["creations-by-year"],
         queryFn: getCreationsByYear,
       }),
     ]);
@@ -34,12 +28,11 @@ export const Route = createFileRoute('/stats/creations')({
     return {
       meta: [
         {
-          title: 'Creations stats - egdata.app',
+          title: "Creations stats - egdata.app",
         },
         {
-          name: 'description',
-          content:
-            'Monthly and yearly cadence of new creations landing on the Epic Games Store.',
+          name: "description",
+          content: "Monthly and yearly cadence of new creations landing on the Epic Games Store.",
         },
       ],
     };

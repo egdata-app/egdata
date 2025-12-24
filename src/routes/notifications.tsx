@@ -1,38 +1,29 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { SimpleNotifications } from '@/components/simple-notifications';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Bell, BellOff, Calendar, Users, Settings } from 'lucide-react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { dehydrate, HydrationBoundary, useQuery } from '@tanstack/react-query';
-import {
-  checkSubscriptionStatusQuery,
-  subscriptionsQuery,
-} from '@/queries/push-notifications';
+import { createFileRoute } from "@tanstack/react-router";
+import { SimpleNotifications } from "@/components/simple-notifications";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Bell, BellOff, Calendar, Users, Settings } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { checkSubscriptionStatusQuery, subscriptionsQuery } from "@/queries/push-notifications";
 
-export const Route = createFileRoute('/notifications')({
+export const Route = createFileRoute("/notifications")({
   component: () => <NotificationsPage />,
   head: () => ({
     meta: [
       {
-        title: 'Notifications - egdata.app',
+        title: "Notifications - egdata.app",
       },
       {
-        name: 'description',
+        name: "description",
         content:
-          'Configure and manage push notifications for Epic Games Store updates, game releases, and more.',
+          "Configure and manage push notifications for Epic Games Store updates, game releases, and more.",
       },
     ],
   }),
   loader: async ({ context }) => {
     const { queryClient } = context;
-    const apiKey = context.cookies['push-notifications-api-key'];
+    const apiKey = context.cookies["push-notifications-api-key"];
 
     if (apiKey) {
       // Prefetch subscription status check
@@ -53,25 +44,22 @@ function NotificationsPage() {
 
   // Use TanStack Query to get subscription status
   const { data: subscriptionStatus, error: subscriptionError } = useQuery({
-    ...checkSubscriptionStatusQuery(apiKey || ''),
+    ...checkSubscriptionStatusQuery(apiKey || ""),
     enabled: !!apiKey,
   });
 
   // Use TanStack Query to get subscriptions data
   const { data: subscriptionsData, error: subscriptionsError } = useQuery({
-    ...subscriptionsQuery(apiKey || ''),
+    ...subscriptionsQuery(apiKey || ""),
     enabled: !!apiKey && !!subscriptionStatus, // Only fetch if subscribed
   });
 
   const isSubscribed = !!subscriptionStatus && !subscriptionError;
   const subscriptions = subscriptionsData?.subscriptions || [];
-  const totalTopics = subscriptions.reduce(
-    (acc, sub) => acc + sub.topics.length,
-    0,
-  );
+  const totalTopics = subscriptions.reduce((acc, sub) => acc + sub.topics.length, 0);
   const error =
     subscriptionError || subscriptionsError
-      ? 'Failed to fetch subscriptions. Please try again.'
+      ? "Failed to fetch subscriptions. Please try again."
       : null;
 
   return (
@@ -82,8 +70,8 @@ function NotificationsPage() {
           <h1 className="text-3xl font-bold">Notifications</h1>
         </div>
         <p className="text-muted-foreground text-lg">
-          Configure and manage push notifications for Epic Games Store updates,
-          game releases, and personalized alerts.
+          Configure and manage push notifications for Epic Games Store updates, game releases, and
+          personalized alerts.
         </p>
       </div>
 
@@ -134,9 +122,8 @@ function NotificationsPage() {
               <div>
                 <h4 className="font-semibold mb-2">Browser Support:</h4>
                 <p className="text-sm text-muted-foreground">
-                  Push notifications are supported in modern browsers including
-                  Chrome, Firefox, Safari, and Edge. Make sure to allow
-                  notifications when prompted by your browser.
+                  Push notifications are supported in modern browsers including Chrome, Firefox,
+                  Safari, and Edge. Make sure to allow notifications when prompted by your browser.
                 </p>
               </div>
             </CardContent>
@@ -161,7 +148,7 @@ function NotificationsPage() {
               <CardDescription>
                 {isSubscribed
                   ? `Total subscribed topics: ${totalTopics}`
-                  : 'API key is not subscribed to push notifications'}
+                  : "API key is not subscribed to push notifications"}
               </CardDescription>
             </CardHeader>
           </Card>
@@ -173,8 +160,8 @@ function NotificationsPage() {
                   <BellOff className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
                   <h3 className="text-lg font-semibold mb-2">Not Subscribed</h3>
                   <p className="text-muted-foreground">
-                    Your API key is not subscribed to push notifications. Use
-                    the "Setup & Subscribe" tab to subscribe first.
+                    Your API key is not subscribed to push notifications. Use the "Setup &
+                    Subscribe" tab to subscribe first.
                   </p>
                 </CardContent>
               </Card>
@@ -183,13 +170,10 @@ function NotificationsPage() {
             subscriptions.map((subscription) => (
               <Card key={subscription.id}>
                 <CardHeader>
-                  <CardTitle className="text-lg">
-                    Subscription {subscription.id}
-                  </CardTitle>
+                  <CardTitle className="text-lg">Subscription {subscription.id}</CardTitle>
                   <CardDescription className="flex items-center gap-2">
                     <Calendar className="h-4 w-4" />
-                    Created:{' '}
-                    {new Date(subscription.createdAt).toLocaleDateString()}
+                    Created: {new Date(subscription.createdAt).toLocaleDateString()}
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -203,16 +187,13 @@ function NotificationsPage() {
                           </Badge>
                         ))
                       ) : (
-                        <span className="text-muted-foreground text-sm">
-                          No topics subscribed
-                        </span>
+                        <span className="text-muted-foreground text-sm">No topics subscribed</span>
                       )}
                     </div>
                   </div>
 
                   <div className="text-xs text-muted-foreground">
-                    Last updated:{' '}
-                    {new Date(subscription.updatedAt).toLocaleString()}
+                    Last updated: {new Date(subscription.updatedAt).toLocaleString()}
                   </div>
                 </CardContent>
               </Card>
@@ -221,13 +202,10 @@ function NotificationsPage() {
             <Card>
               <CardContent className="pt-6 text-center">
                 <Bell className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                <h3 className="text-lg font-semibold mb-2">
-                  No Subscriptions Found
-                </h3>
+                <h3 className="text-lg font-semibold mb-2">No Subscriptions Found</h3>
                 <p className="text-muted-foreground">
-                  You are subscribed but haven't created any device
-                  subscriptions yet. Use the "Setup & Subscribe" tab to create
-                  your first subscription.
+                  You are subscribed but haven't created any device subscriptions yet. Use the
+                  "Setup & Subscribe" tab to create your first subscription.
                 </p>
               </CardContent>
             </Card>

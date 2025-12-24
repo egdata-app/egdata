@@ -2,7 +2,7 @@
 /// <reference types="vite-plugin-pwa/client" />
 
 // Virtual module types for PWA
-declare module 'virtual:pwa-register' {
+declare module "virtual:pwa-register" {
   export function registerSW(options?: {
     onNeedRefresh?: () => void;
     onOfflineReady?: () => void;

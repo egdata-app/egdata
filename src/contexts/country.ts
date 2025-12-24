@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext } from "react";
 
 type CountryState = {
   country: string;
@@ -6,10 +6,8 @@ type CountryState = {
 };
 
 export const defaultState: CountryState = {
-  country: 'US',
+  country: "US",
   setCountry: () => {},
 };
 
-export const CountryContext = createContext<CountryState | undefined>(
-  undefined,
-);
+export const CountryContext = createContext<CountryState | undefined>(undefined);

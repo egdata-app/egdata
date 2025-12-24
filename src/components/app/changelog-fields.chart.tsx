@@ -1,44 +1,29 @@
-import {
-  Bar,
-  BarChart,
-  CartesianGrid,
-  LabelList,
-  XAxis,
-  YAxis,
-} from 'recharts';
+import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from "recharts";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from '@/components/ui/chart';
-import type { ChangelogStats } from '@/types/changelog';
+} from "@/components/ui/chart";
+import type { ChangelogStats } from "@/types/changelog";
 
 const chartConfig = {
   changes: {
-    label: 'changes',
-    color: 'hsl(var(--chart-1))',
+    label: "changes",
+    color: "hsl(var(--chart-1))",
   },
   mobile: {
-    label: 'Mobile',
-    color: 'hsl(var(--chart-2))',
+    label: "Mobile",
+    color: "hsl(var(--chart-2))",
   },
   label: {
-    color: 'hsl(var(--background))',
+    color: "hsl(var(--background))",
   },
 } satisfies ChartConfig;
 
-export function ChangelogFieldsChart({
-  chartData,
-}: { chartData: ChangelogStats['changeFields'] }) {
+export function ChangelogFieldsChart({ chartData }: { chartData: ChangelogStats["changeFields"] }) {
   return (
     <Card>
       <CardHeader>
@@ -69,16 +54,8 @@ export function ChangelogFieldsChart({
               hide
             />
             <XAxis dataKey="changes" type="number" hide />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent indicator="line" />}
-            />
-            <Bar
-              dataKey="changes"
-              layout="vertical"
-              fill="var(--color-changes)"
-              radius={4}
-            >
+            <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="line" />} />
+            <Bar dataKey="changes" layout="vertical" fill="var(--color-changes)" radius={4}>
               <LabelList
                 dataKey="month"
                 position="insideLeft"

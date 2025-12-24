@@ -1,11 +1,11 @@
-import { getQueryClient } from '@/lib/client';
-import { getFetchedQuery } from '@/lib/get-fetched-query';
-import { httpClient } from '@/lib/http-client';
-import { type Collections, getCollection } from '@/queries/collection';
-import { dehydrate } from '@tanstack/react-query';
-import { createFileRoute, Outlet } from '@tanstack/react-router';
+import { getQueryClient } from "@/lib/client";
+import { getFetchedQuery } from "@/lib/get-fetched-query";
+import { httpClient } from "@/lib/http-client";
+import { type Collections, getCollection } from "@/queries/collection";
+import { dehydrate } from "@tanstack/react-query";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/collections/$id/$week')({
+export const Route = createFileRoute("/collections/$id/$week")({
   component: RouteComponent,
 
   beforeLoad: async ({ params, context }) => {
@@ -14,7 +14,7 @@ export const Route = createFileRoute('/collections/$id/$week')({
 
     await queryClient.prefetchInfiniteQuery({
       queryKey: [
-        'collection',
+        "collection",
         {
           id,
           country,
@@ -54,7 +54,7 @@ export const Route = createFileRoute('/collections/$id/$week')({
     const collectionPages = getFetchedQuery<{
       pages: Collections[];
     }>(queryClient, match.context.dehydratedState, [
-      'collection',
+      "collection",
       {
         id: params.id,
         country: match.context.country,
@@ -69,8 +69,8 @@ export const Route = createFileRoute('/collections/$id/$week')({
       return {
         meta: [
           {
-            title: 'Collection not found',
-            description: 'Collection not found',
+            title: "Collection not found",
+            description: "Collection not found",
           },
         ],
       };
@@ -82,48 +82,48 @@ export const Route = createFileRoute('/collections/$id/$week')({
           title: `${collection.title} | egdata.app`,
         },
         {
-          name: 'description',
+          name: "description",
           content: `Check out the ${collection.title} from the Epic Games Store.`,
         },
         {
-          name: 'og:title',
+          name: "og:title",
           content: `${collection.title} | egdata.app`,
         },
         {
-          name: 'og:description',
+          name: "og:description",
           content: `Check out the ${collection.title} from the Epic Games Store.`,
         },
         {
-          property: 'twitter:title',
+          property: "twitter:title",
           content: `${collection.title} | egdata.app`,
         },
         {
-          property: 'twitter:description',
+          property: "twitter:description",
           content: `Check out the ${collection.title} from the Epic Games Store.`,
         },
         {
-          name: 'og:image',
+          name: "og:image",
           content: `https://api.egdata.app/collections/${params.id}/${params.week}/og?direct=true&country=${match.context.country}`,
         },
         {
-          name: 'og:type',
-          content: 'website',
+          name: "og:type",
+          content: "website",
         },
         {
-          property: 'twitter:card',
-          content: 'summary_large_image',
+          property: "twitter:card",
+          content: "summary_large_image",
         },
         {
-          property: 'twitter:image',
+          property: "twitter:image",
           content: `https://api.egdata.app/collections/${params.id}/${params.week}/og?direct=true&country=${match.context.country}`,
         },
         {
-          property: 'twitter:site',
-          content: '@EpicGamesData',
+          property: "twitter:site",
+          content: "@EpicGamesData",
         },
         {
-          property: 'twitter:creator',
-          content: '@EpicGamesData',
+          property: "twitter:creator",
+          content: "@EpicGamesData",
         },
       ],
     };

@@ -1,15 +1,15 @@
-import { OfferCard } from '@/components/app/offer-card';
-import { useCountry } from '@/hooks/use-country';
-import { getQueryClient } from '@/lib/client';
-import { generateOfferMeta } from '@/lib/generate-offer-meta';
-import { getFetchedQuery } from '@/lib/get-fetched-query';
-import { httpClient } from '@/lib/http-client';
-import { offersDictionary } from '@/lib/offers-dictionary';
-import type { SingleOffer } from '@/types/single-offer';
-import { dehydrate, HydrationBoundary, useQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
+import { OfferCard } from "@/components/app/offer-card";
+import { useCountry } from "@/hooks/use-country";
+import { getQueryClient } from "@/lib/client";
+import { generateOfferMeta } from "@/lib/generate-offer-meta";
+import { getFetchedQuery } from "@/lib/get-fetched-query";
+import { httpClient } from "@/lib/http-client";
+import { offersDictionary } from "@/lib/offers-dictionary";
+import type { SingleOffer } from "@/types/single-offer";
+import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/offers/$id/related')({
+export const Route = createFileRoute("/offers/$id/related")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
     return (
@@ -24,12 +24,12 @@ export const Route = createFileRoute('/offers/$id/related')({
     const { id } = params;
 
     const offer = await queryClient.ensureQueryData({
-      queryKey: ['offer', { id }],
+      queryKey: ["offer", { id }],
       queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`),
     });
 
     await queryClient.prefetchQuery({
-      queryKey: ['related-offers', { id, country }],
+      queryKey: ["related-offers", { id, country }],
       queryFn: () =>
         httpClient.get<SingleOffer[]>(`/offers/${id}/related`, {
           params: {
@@ -54,32 +54,31 @@ export const Route = createFileRoute('/offers/$id/related')({
       return {
         meta: [
           {
-            title: 'Offer not found',
-            description: 'Offer not found',
+            title: "Offer not found",
+            description: "Offer not found",
           },
         ],
       };
     }
 
-    const offer = getFetchedQuery<SingleOffer>(
-      queryClient,
-      ctx.loaderData?.dehydratedState,
-      ['offer', { id: params.id }],
-    );
+    const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
+      "offer",
+      { id: params.id },
+    ]);
 
     if (!offer) {
       return {
         meta: [
           {
-            title: 'Offer not found',
-            description: 'Offer not found',
+            title: "Offer not found",
+            description: "Offer not found",
           },
         ],
       };
     }
 
     return {
-      meta: generateOfferMeta(offer, 'Related'),
+      meta: generateOfferMeta(offer, "Related"),
     };
   },
 });
@@ -92,7 +91,7 @@ function RelatedOffersPage() {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ['related-offers', { id, country }],
+    queryKey: ["related-offers", { id, country }],
     queryFn: () =>
       httpClient.get<SingleOffer[]>(`/offers/${id}/related`, {
         params: {
@@ -114,9 +113,7 @@ function RelatedOffersPage() {
     );
   }
 
-  const offersGroupedByOfferType = offers?.reduce<
-    Record<string, SingleOffer[]>
-  >((acc, offer) => {
+  const offersGroupedByOfferType = offers?.reduce<Record<string, SingleOffer[]>>((acc, offer) => {
     if (!acc[offer.offerType]) {
       acc[offer.offerType] = [];
     }
@@ -128,7 +125,7 @@ function RelatedOffersPage() {
     return null;
   }
 
-  const offerTypeOrder = ['BASE_GAME', 'DLC', 'EDITION', 'ADD_ON', 'OTHERS'];
+  const offerTypeOrder = ["BASE_GAME", "DLC", "EDITION", "ADD_ON", "OTHERS"];
 
   return (
     <section
@@ -150,7 +147,7 @@ function RelatedOffersPage() {
           .map(([offerType, offers]) => (
             <div key={offerType} className="flex flex-col gap-4">
               <h3 className="text-lg md:text-xl font-semibold inline-flex items-center gap-2">
-                {offersDictionary[offerType] ?? offerType}{' '}
+                {offersDictionary[offerType] ?? offerType}{" "}
                 <span className="text-xs text-gray-400">({offers.length})</span>
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">

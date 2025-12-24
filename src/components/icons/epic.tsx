@@ -1,6 +1,4 @@
-export const EpicGamesIcon: React.FC<React.SVGProps<SVGSVGElement>> = (
-  props,
-) => (
+export const EpicGamesIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   <svg
     width="20"
     height="20"
@@ -13,10 +11,7 @@ export const EpicGamesIcon: React.FC<React.SVGProps<SVGSVGElement>> = (
       d="M36.3808 23.6616V15.9481C36.3808 14.7202 35.8046 14.1513 34.6098 14.1513H32.6621V25.4584H34.6098C35.8064 25.4584 36.3808 24.8896 36.3808 23.6616Z"
       fill="white"
     />
-    <path
-      d="M30.0553 51.0309L28.9949 53.6745H31.1046L30.0553 51.0309Z"
-      fill="white"
-    />
+    <path d="M30.0553 51.0309L28.9949 53.6745H31.1046L30.0553 51.0309Z" fill="white" />
     <path
       fillRule="evenodd"
       clipRule="evenodd"

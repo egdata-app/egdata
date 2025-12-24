@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 import {
   Table,
   TableBody,
@@ -6,27 +6,27 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import type { SingleOffer } from '@/types/single-offer';
-import type { Achievement, AchievementSet } from '@/queries/offer-achievements';
-import { useCountry } from '@/hooks/use-country';
-import { getRarity } from '@/lib/get-rarity';
-import { Image } from '@/components/app/image';
-import { getImage } from '@/lib/getImage';
-import { ArrowRightIcon } from '@radix-ui/react-icons';
-import { FaTrophy } from 'react-icons/fa6';
-import { cn } from '@/lib/utils';
-import { httpClient } from '@/lib/http-client';
-import { Link, useNavigate } from '@tanstack/react-router';
+} from "@/components/ui/table";
+import type { SingleOffer } from "@/types/single-offer";
+import type { Achievement, AchievementSet } from "@/queries/offer-achievements";
+import { useCountry } from "@/hooks/use-country";
+import { getRarity } from "@/lib/get-rarity";
+import { Image } from "@/components/app/image";
+import { getImage } from "@/lib/getImage";
+import { ArrowRightIcon } from "@radix-ui/react-icons";
+import { FaTrophy } from "react-icons/fa6";
+import { cn } from "@/lib/utils";
+import { httpClient } from "@/lib/http-client";
+import { Link, useNavigate } from "@tanstack/react-router";
 
 type OfferWithAchievements = SingleOffer & {
   achievements: AchievementSet;
 };
 
 const rarityColors = {
-  bronze: 'text-[#cd7f32]',
-  silver: 'text-[#c0c0c0]',
-  gold: 'text-[#ffd700]',
+  bronze: "text-[#cd7f32]",
+  silver: "text-[#c0c0c0]",
+  gold: "text-[#ffd700]",
 };
 
 export function GamesWithAchievements() {
@@ -34,13 +34,13 @@ export function GamesWithAchievements() {
   const navigate = useNavigate();
   const { data, isLoading } = useQuery({
     queryKey: [
-      'games-with-achievements',
+      "games-with-achievements",
       {
         country,
       },
     ],
     queryFn: () =>
-      httpClient.get<OfferWithAchievements[]>('/offers/latest-achievements', {
+      httpClient.get<OfferWithAchievements[]>("/offers/latest-achievements", {
         params: {
           country,
         },
@@ -66,11 +66,11 @@ export function GamesWithAchievements() {
   return (
     <section className="w-full flex flex-col gap-4 my-4">
       <Link
-        to={'/search'}
+        to={"/search"}
         search={{
-          tags: ['19847'],
-          sortBy: 'creationDate',
-          offerType: 'BASE_GAME',
+          tags: ["19847"],
+          sortBy: "creationDate",
+          offerType: "BASE_GAME",
         }}
         className="text-xl font-bold text-left inline-flex gap-2 group items-center justify-start"
       >
@@ -109,7 +109,7 @@ export function GamesWithAchievements() {
               key={game.id}
               onClick={(event) => {
                 if (event.ctrlKey || event.button === 1) {
-                  window.open(`/offers/${game.id}`, '_blank');
+                  window.open(`/offers/${game.id}`, "_blank");
                 } else {
                   navigate({ to: `/offers/${game.id}` });
                 }
@@ -121,10 +121,10 @@ export function GamesWithAchievements() {
                   <Image
                     src={
                       getImage(game.keyImages, [
-                        'DieselStoreFrontWide',
-                        'Featured',
-                        'OfferImageWide',
-                      ])?.url ?? '/300x150-egdata-placeholder.png'
+                        "DieselStoreFrontWide",
+                        "Featured",
+                        "OfferImageWide",
+                      ])?.url ?? "/300x150-egdata-placeholder.png"
                     }
                     alt={game.title}
                     width={100}
@@ -134,27 +134,13 @@ export function GamesWithAchievements() {
                 </span>
                 <span>{game.title}</span>
               </TableCell>
+              <TableCell className="text-center">{game.achievements.achievements.length}</TableCell>
               <TableCell className="text-center">
-                {game.achievements.achievements.length}
+                {game.achievements.achievements.reduce((acc, ach) => acc + ach.xp, 0)}
               </TableCell>
-              <TableCell className="text-center">
-                {game.achievements.achievements.reduce(
-                  (acc, ach) => acc + ach.xp,
-                  0,
-                )}
-              </TableCell>
-              <NoOfAchievements
-                achievements={game.achievements.achievements}
-                rarity="bronze"
-              />
-              <NoOfAchievements
-                achievements={game.achievements.achievements}
-                rarity="silver"
-              />
-              <NoOfAchievements
-                achievements={game.achievements.achievements}
-                rarity="gold"
-              />
+              <NoOfAchievements achievements={game.achievements.achievements} rarity="bronze" />
+              <NoOfAchievements achievements={game.achievements.achievements} rarity="silver" />
+              <NoOfAchievements achievements={game.achievements.achievements} rarity="gold" />
             </TableRow>
           ))}
         </TableBody>
@@ -171,7 +157,7 @@ function NoOfAchievements({
   rarity: keyof typeof rarityColors;
 }) {
   return (
-    <TableCell className={cn('text-center', rarityColors[rarity])}>
+    <TableCell className={cn("text-center", rarityColors[rarity])}>
       {achievements.filter((ach) => getRarity(ach.xp) === rarity).length}
     </TableCell>
   );

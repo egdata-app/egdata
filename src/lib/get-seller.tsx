@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router';
+import { Link } from "@tanstack/react-router";
 
 export function getSeller({
   developerDisplayName,
@@ -18,7 +18,7 @@ export function getSeller({
 }) {
   // Get developer name from customAttributes or fallback to developerDisplayName
   const developer =
-    (customAttributes?.developerName?.value === '{}'
+    (customAttributes?.developerName?.value === "{}"
       ? undefined
       : customAttributes?.developerName?.value) ?? developerDisplayName;
 
@@ -38,7 +38,7 @@ export function getSeller({
   }
 
   // Return a combination of developer and publisher display names
-  return `${developer !== null && developer !== undefined ? `${developer} - ` : ''}${publisherDisplayName}`;
+  return `${developer !== null && developer !== undefined ? `${developer} - ` : ""}${publisherDisplayName}`;
 }
 
 export function Seller({
@@ -59,7 +59,7 @@ export function Seller({
 }) {
   // Get developer name from customAttributes or fallback to developerDisplayName
   const developer =
-    (customAttributes?.developerName?.value === '{}'
+    (customAttributes?.developerName?.value === "{}"
       ? undefined
       : customAttributes?.developerName?.value) ?? developerDisplayName;
 
@@ -72,7 +72,7 @@ export function Seller({
   if (developer === publisherDisplayName) {
     return (
       <Link
-        to={'/search'}
+        to={"/search"}
         search={{
           developerDisplayName: developer,
         }}
@@ -87,7 +87,7 @@ export function Seller({
   if (publisherDisplayName === null || publisherDisplayName === undefined) {
     return (
       <Link
-        to={'/search'}
+        to={"/search"}
         search={{
           developerDisplayName: developer,
         }}
@@ -103,7 +103,7 @@ export function Seller({
   return (
     <div className="flex flex-row items-center gap-1">
       <Link
-        to={'/search'}
+        to={"/search"}
         search={{
           developerDisplayName: developer,
         }}
@@ -113,7 +113,7 @@ export function Seller({
       </Link>
       <span className="text-gray-400">-</span>
       <Link
-        to={'/search'}
+        to={"/search"}
         search={{
           publisherDisplayName: publisherDisplayName,
         }}

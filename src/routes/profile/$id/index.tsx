@@ -1,47 +1,39 @@
-import * as React from 'react';
-import { createFileRoute, Link } from '@tanstack/react-router';
-import { httpClient } from '@/lib/http-client';
-import type { Achievement } from '@/queries/offer-achievements';
-import {
-  dehydrate,
-  HydrationBoundary,
-  useInfiniteQuery,
-  useQuery,
-} from '@tanstack/react-query';
-import type { SingleOffer } from '@/types/single-offer';
-import { cn } from '@/lib/utils';
-import type { Profile } from '@/types/profiles';
-import { Image } from '@/components/app/image';
-import { getImage } from '@/lib/get-image';
-import { EpicPlatinumIcon } from '../$id';
+import * as React from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { httpClient } from "@/lib/http-client";
+import type { Achievement } from "@/queries/offer-achievements";
+import { dehydrate, HydrationBoundary, useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import type { SingleOffer } from "@/types/single-offer";
+import { cn } from "@/lib/utils";
+import type { Profile } from "@/types/profiles";
+import { Image } from "@/components/app/image";
+import { getImage } from "@/lib/get-image";
+import { EpicPlatinumIcon } from "../$id";
 import {
   Carousel,
   type CarouselApi,
   CarouselContent,
   CarouselItem,
-} from '@/components/ui/carousel';
-import { ArrowUpIcon } from 'lucide-react';
-import {
-  FlippableCard,
-  raritiesTextColors,
-} from '@/components/app/achievement-card';
-import { EpicTrophyIcon } from '@/components/icons/epic-trophy';
-import { getRarity } from '@/lib/get-rarity';
-import { getUserGames } from '@/queries/profiles';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { DynamicPagination } from '@/components/app/dynamic-pagination';
-import { z } from 'zod';
-import { Skeleton } from '@/components/ui/skeleton';
+} from "@/components/ui/carousel";
+import { ArrowUpIcon } from "lucide-react";
+import { FlippableCard, raritiesTextColors } from "@/components/app/achievement-card";
+import { EpicTrophyIcon } from "@/components/icons/epic-trophy";
+import { getRarity } from "@/lib/get-rarity";
+import { getUserGames } from "@/queries/profiles";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { DynamicPagination } from "@/components/app/dynamic-pagination";
+import { z } from "zod";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
+} from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 
 type RareAchievement = Achievement & {
   unlocked: boolean;
@@ -53,21 +45,18 @@ type RareAchievement = Achievement & {
 const profileParamsSchema = z.object({
   page: z.number().catch(1),
   platinum: z.boolean().optional(),
-  sort: z.enum(['completion', 'alphabetical', 'xp', 'achievements']).optional(),
+  sort: z.enum(["completion", "alphabetical", "xp", "achievements"]).optional(),
 });
 
-export const Route = createFileRoute('/profile/$id/')({
+export const Route = createFileRoute("/profile/$id/")({
   component: ProfileInformation,
 
   loader: async ({ params, context }) => {
     const { queryClient } = context;
 
     await queryClient.prefetchQuery({
-      queryKey: ['player-rarest-achievements', { id: params.id }],
-      queryFn: () =>
-        httpClient.get<Achievement[]>(
-          `/profiles/${params.id}/rare-achievements`,
-        ),
+      queryKey: ["player-rarest-achievements", { id: params.id }],
+      queryFn: () => httpClient.get<Achievement[]>(`/profiles/${params.id}/rare-achievements`),
     });
 
     return {
@@ -81,13 +70,13 @@ export const Route = createFileRoute('/profile/$id/')({
 function ProfileInformation() {
   const search = Route.useSearch();
   const navigate = Route.useNavigate();
-  const [activeTab, setActiveTab] = React.useState('overview');
+  const [activeTab, setActiveTab] = React.useState("overview");
   const [underlineStyle, setUnderlineStyle] = React.useState({});
   const tabRefs = React.useRef({});
 
   const tabs = [
-    { id: 'overview', label: 'Overview' },
-    { id: 'achievements', label: 'Achievements' },
+    { id: "overview", label: "Overview" },
+    { id: "achievements", label: "Achievements" },
   ];
 
   React.useEffect(() => {
@@ -100,9 +89,7 @@ function ProfileInformation() {
     }
   }, [activeTab]);
 
-  const handleSortChange = (
-    sort: 'completion' | 'alphabetical' | 'xp' | 'achievements',
-  ) => {
+  const handleSortChange = (sort: "completion" | "alphabetical" | "xp" | "achievements") => {
     navigate({
       search: {
         ...search,
@@ -122,10 +109,8 @@ function ProfileInformation() {
               tabRefs.current[tab.id] = el;
             }}
             className={cn(
-              'px-4 py-2 font-medium text-sm focus:outline-none',
-              activeTab === tab.id
-                ? 'text-white'
-                : 'text-gray-400 hover:text-gray-200',
+              "px-4 py-2 font-medium text-sm focus:outline-none",
+              activeTab === tab.id ? "text-white" : "text-gray-400 hover:text-gray-200",
             )}
             onClick={() => setActiveTab(tab.id)}
           >
@@ -145,15 +130,13 @@ function ProfileInformation() {
                 navigate({
                   search: {
                     ...search,
-                    platinum: checked === 'indeterminate' ? undefined : checked,
+                    platinum: checked === "indeterminate" ? undefined : checked,
                   },
                 });
               }}
             />
             <div className="grid gap-2">
-              <Label htmlFor="only-platinum">
-                Only show platinum achievements
-              </Label>
+              <Label htmlFor="only-platinum">Only show platinum achievements</Label>
             </div>
           </div>
           <Select value={search.sort} onValueChange={handleSortChange}>
@@ -170,19 +153,15 @@ function ProfileInformation() {
         </div>
       </div>
       <div className="mt-4">
-        {activeTab === 'overview' && <AchievementsOverview />}
+        {activeTab === "overview" && <AchievementsOverview />}
 
-        {activeTab === 'achievements' && <AchievementsTimeline />}
+        {activeTab === "achievements" && <AchievementsTimeline />}
       </div>
     </div>
   );
 }
 
-function GameAchievementsSummary({
-  game,
-}: {
-  game: Profile['achievements']['data'][0];
-}) {
+function GameAchievementsSummary({ game }: { game: Profile["achievements"]["data"][0] }) {
   const { id } = Route.useLoaderData();
   return (
     <Link
@@ -197,11 +176,11 @@ function GameAchievementsSummary({
         <Image
           src={
             getImage(game.baseOfferForSandbox?.keyImages ?? [], [
-              'DieselStoreFrontWide',
-              'OfferImageWide',
-              'DieselGameBoxWide',
-              'TakeoverWide',
-            ])?.url ?? '/placeholder.webp'
+              "DieselStoreFrontWide",
+              "OfferImageWide",
+              "DieselGameBoxWide",
+              "TakeoverWide",
+            ])?.url ?? "/placeholder.webp"
           }
           alt={game.product.name ?? game.sandboxId}
           width={650}
@@ -222,18 +201,15 @@ function GameAchievementsSummary({
                   )}
                   {(
                     (game.totalUnlocked /
-                      (game.productAchievements?.totalAchievements ??
-                        game.totalUnlocked)) *
+                      (game.productAchievements?.totalAchievements ?? game.totalUnlocked)) *
                     100
                   ).toFixed(0)}
                   %
                 </span>
                 <span className="text-gray-500">|</span>
                 <span className="text-white">
-                  {game.totalUnlocked} /{' '}
-                  {game.productAchievements?.totalAchievements ??
-                    game.totalUnlocked}{' '}
-                  achievements
+                  {game.totalUnlocked} /{" "}
+                  {game.productAchievements?.totalAchievements ?? game.totalUnlocked} achievements
                 </span>
               </span>
               <div className="w-full h-[6px] bg-gray-300/10 rounded-full">
@@ -277,19 +253,11 @@ function GameAchievementsSummarySkeleton() {
   );
 }
 
-function SandboxRareAchievements({
-  id,
-  sandbox,
-}: {
-  id: string;
-  sandbox: string;
-}) {
+function SandboxRareAchievements({ id, sandbox }: { id: string; sandbox: string }) {
   const { data, isLoading } = useQuery({
-    queryKey: ['sandbox:rarest-achievements', { id, sandbox }],
+    queryKey: ["sandbox:rarest-achievements", { id, sandbox }],
     queryFn: () =>
-      httpClient.get<RareAchievement[]>(
-        `/profiles/${id}/rare-achievements/${sandbox}`,
-      ),
+      httpClient.get<RareAchievement[]>(`/profiles/${id}/rare-achievements/${sandbox}`),
   });
 
   if (isLoading) return null;
@@ -316,9 +284,7 @@ function SandboxRareAchievements({
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <p className="text-base font-light truncate">
-                  {achievement.unlockedDisplayName}
-                </p>
+                <p className="text-base font-light truncate">{achievement.unlockedDisplayName}</p>
                 <p className="text-sm font-thin text-gray-300">
                   {achievement.completedPercent}% of players unlocked
                 </p>
@@ -335,9 +301,8 @@ function RarestAchievements() {
   const { id } = Route.useLoaderData();
   const [api, setApi] = React.useState<CarouselApi>();
   const { data } = useQuery({
-    queryKey: ['player-rarest-achievements', { id }],
-    queryFn: () =>
-      httpClient.get<RareAchievement[]>(`/profiles/${id}/rare-achievements`),
+    queryKey: ["player-rarest-achievements", { id }],
+    queryFn: () => httpClient.get<RareAchievement[]>(`/profiles/${id}/rare-achievements`),
   });
 
   if (!data) {
@@ -376,10 +341,7 @@ function RarestAchievements() {
       <Carousel setApi={setApi} className="w-full">
         <CarouselContent>
           {data.map((achievement) => (
-            <CarouselItem
-              key={achievement.name}
-              className="md:basis-1/2 lg:basis-1/3"
-            >
+            <CarouselItem key={achievement.name} className="md:basis-1/2 lg:basis-1/3">
               <RareAchievement achievement={achievement} />
             </CarouselItem>
           ))}
@@ -399,23 +361,16 @@ function RareAchievement({ achievement }: { achievement: RareAchievement }) {
       />
       <div className="flex flex-col gap-2">
         <h6 className="text-sm font-normal text-gray-400">
-          {achievement.offer?.title ?? 'Unknown'}
+          {achievement.offer?.title ?? "Unknown"}
         </h6>
-        <h3 className="text-lg font-semibold">
-          {achievement.unlockedDisplayName}
-        </h3>
+        <h3 className="text-lg font-semibold">{achievement.unlockedDisplayName}</h3>
         <div className="flex flex-row gap-2 h-5">
-          <p className="text-sm font-thin">
-            {achievement.completedPercent}% of players unlocked
-          </p>
+          <p className="text-sm font-thin">{achievement.completedPercent}% of players unlocked</p>
           <Separator orientation="vertical" className="bg-white/25" />
           <p className="text-sm text-gray-400 inline-flex items-center gap-2">
             {achievement.xp} XP
             <EpicTrophyIcon
-              className={cn(
-                'w-4 h-4 inline-block',
-                raritiesTextColors[getRarity(achievement.xp)],
-              )}
+              className={cn("w-4 h-4 inline-block", raritiesTextColors[getRarity(achievement.xp)])}
             />
           </p>
         </div>
@@ -436,25 +391,21 @@ type PlayerLatestAchievements = {
 function AchievementsTimeline() {
   const { id } = Route.useLoaderData();
 
-  const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
-    useInfiniteQuery({
-      queryKey: ['profile:latest-achievements', { id }],
-      queryFn: ({ pageParam = 1 }) =>
-        httpClient.get<PlayerLatestAchievements>(
-          `/profiles/${id}/achievements`,
-          {
-            params: {
-              limit: 25,
-              page: pageParam,
-            },
-          },
-        ),
-      getNextPageParam: (lastPage: PlayerLatestAchievements) => {
-        const totalPages = lastPage.count / lastPage.limit;
-        return lastPage.page < totalPages ? lastPage.page + 1 : undefined;
-      },
-      initialPageParam: 1,
-    });
+  const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfiniteQuery({
+    queryKey: ["profile:latest-achievements", { id }],
+    queryFn: ({ pageParam = 1 }) =>
+      httpClient.get<PlayerLatestAchievements>(`/profiles/${id}/achievements`, {
+        params: {
+          limit: 25,
+          page: pageParam,
+        },
+      }),
+    getNextPageParam: (lastPage: PlayerLatestAchievements) => {
+      const totalPages = lastPage.count / lastPage.limit;
+      return lastPage.page < totalPages ? lastPage.page + 1 : undefined;
+    },
+    initialPageParam: 1,
+  });
 
   if (isLoading) {
     return (
@@ -487,7 +438,7 @@ function AchievementsTimeline() {
             className="mt-4 w-fit mx-auto"
             variant="outline"
           >
-            {isFetchingNextPage ? 'Loading more...' : 'Load More'}
+            {isFetchingNextPage ? "Loading more..." : "Load More"}
           </Button>
         )}
       </section>
@@ -495,11 +446,7 @@ function AchievementsTimeline() {
   );
 }
 
-function SingleAchievement({
-  achievement,
-}: {
-  achievement: Achievement & { offer: SingleOffer };
-}) {
+function SingleAchievement({ achievement }: { achievement: Achievement & { offer: SingleOffer } }) {
   const { id } = Route.useLoaderData();
   return (
     <div className="flex flex-row gap-4 w-full h-full">
@@ -523,21 +470,21 @@ function SingleAchievement({
       <div
         className="flex flex-col gap-4 w-full h-72 bg-opacity-20 rounded-md p-4 relative"
         style={{
-          backgroundImage: `url(${getImage(achievement.offer.keyImages, ['DieselGameBoxWide', 'DieselStoreFrontWide', 'OfferImageWide'])?.url ?? '/placeholder.webp'})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundImage: `url(${getImage(achievement.offer.keyImages, ["DieselGameBoxWide", "DieselStoreFrontWide", "OfferImageWide"])?.url ?? "/placeholder.webp"})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-l from-card/95 to-card z-0 rounded-md" />
         <div className="flex flex-col gap-2 h-full z-10">
           <h6 className="text-4xl">{achievement.offer.title}</h6>
           <p className="text-lg text-gray-200 font-thin">
-            {new Date(achievement.unlockDate).toLocaleDateString('en-UK', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-              hour: 'numeric',
-              minute: 'numeric',
+            {new Date(achievement.unlockDate).toLocaleDateString("en-UK", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              hour: "numeric",
+              minute: "numeric",
             })}
           </p>
         </div>
@@ -557,11 +504,10 @@ function AchievementsOverview() {
     isLoading,
   } = useQuery({
     queryKey: [
-      'profile-games',
+      "profile-games",
       { id, limit: 20, page, platinum: search.platinum, sort: search.sort },
     ],
-    queryFn: () =>
-      getUserGames(id as string, page, 20, search.platinum, search.sort),
+    queryFn: () => getUserGames(id as string, page, 20, search.platinum, search.sort),
   });
 
   if (isError && !games) {
@@ -569,7 +515,7 @@ function AchievementsOverview() {
   }
 
   const handlePageChange = (newPage: number) => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
     navigate({
       search: (prevState) => {
         return {

@@ -1,5 +1,5 @@
-@import url('@radix-ui/colors/tomato-dark.css');
-@import url('@radix-ui/colors/mauve-dark.css');
+@import url("@radix-ui/colors/tomato-dark.css");
+@import url("@radix-ui/colors/mauve-dark.css");
 
 .dark-editor {
   --accentBase: var(--tomato-1);
@@ -45,7 +45,7 @@
 
   --textBaseContrast: white;
 
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: "Nunito Sans", sans-serif;
 
   --basePageBg: black;
   background: transparent;

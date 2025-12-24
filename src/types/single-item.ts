@@ -1,4 +1,4 @@
-import type { KeyImage } from './single-offer';
+import type { KeyImage } from "./single-offer";
 
 export interface SingleItem {
   _id: string;

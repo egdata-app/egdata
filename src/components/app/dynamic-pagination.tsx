@@ -6,7 +6,7 @@ import {
   PaginationPreviousButton,
   PaginationButton,
   PaginationNextButton,
-} from '@/components/ui/pagination';
+} from "@/components/ui/pagination";
 
 interface PaginationProps {
   currentPage: number;
@@ -35,10 +35,7 @@ export const DynamicPagination: React.FC<PaginationProps> = ({
   if (totalPages >= 1) {
     items.push(
       <PaginationItem key={1}>
-        <PaginationButton
-          onClick={() => setPage(1)}
-          isActive={currentPage === 1}
-        >
+        <PaginationButton onClick={() => setPage(1)} isActive={currentPage === 1}>
           1
         </PaginationButton>
       </PaginationItem>,
@@ -48,10 +45,7 @@ export const DynamicPagination: React.FC<PaginationProps> = ({
   if (totalPages >= 2) {
     items.push(
       <PaginationItem key={2}>
-        <PaginationButton
-          onClick={() => setPage(2)}
-          isActive={currentPage === 2}
-        >
+        <PaginationButton onClick={() => setPage(2)} isActive={currentPage === 2}>
           2
         </PaginationButton>
       </PaginationItem>,
@@ -104,10 +98,7 @@ export const DynamicPagination: React.FC<PaginationProps> = ({
   if (totalPages >= 3) {
     items.push(
       <PaginationItem key={totalPages}>
-        <PaginationButton
-          onClick={() => setPage(totalPages)}
-          isActive={currentPage === totalPages}
-        >
+        <PaginationButton onClick={() => setPage(totalPages)} isActive={currentPage === totalPages}>
           {totalPages}
         </PaginationButton>
       </PaginationItem>,

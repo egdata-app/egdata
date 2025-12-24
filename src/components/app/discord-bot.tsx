@@ -1,11 +1,7 @@
-import { Button } from '@/components/ui/button';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { Badge } from '@/components/ui/badge';
-import { Check, Globe } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Badge } from "@/components/ui/badge";
+import { Check, Globe } from "lucide-react";
 
 export function DiscordBotPopover() {
   return (
@@ -20,11 +16,7 @@ export function DiscordBotPopover() {
             fill="#000000"
           >
             <g id="SVGRepo_bgCarrier" strokeWidth="0" />
-            <g
-              id="SVGRepo_tracerCarrier"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+            <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round" />
             <g id="SVGRepo_iconCarrier">
               <g>
                 <path
@@ -49,9 +41,7 @@ export function DiscordBotPopover() {
             </div>
             <div>
               <h3 className="font-semibold text-lg">egdata.app</h3>
-              <p className="text-xs text-muted-foreground">
-                Official Discord bot for egdata.app
-              </p>
+              <p className="text-xs text-muted-foreground">Official Discord bot for egdata.app</p>
             </div>
           </div>
           <div className="flex space-x-2">
@@ -79,9 +69,9 @@ export function DiscordBotPopover() {
             onClick={() => {
               // Open a browser popup to invite the bot to your server
               window.open(
-                'https://discord.com/oauth2/authorize?client_id=1270522540992888832',
-                '_blank',
-                'width=1000,height=700',
+                "https://discord.com/oauth2/authorize?client_id=1270522540992888832",
+                "_blank",
+                "width=1000,height=700",
               );
             }}
           >

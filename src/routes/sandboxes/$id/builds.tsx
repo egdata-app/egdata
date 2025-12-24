@@ -1,22 +1,17 @@
-import { httpClient } from '@/lib/http-client';
-import type { SingleBuild } from '@/types/builds';
-import {
-  dehydrate,
-  HydrationBoundary,
-  keepPreviousData,
-  useQueries,
-} from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
-import { DataTable } from '@/components/tables/builds/table';
-import { columns } from '@/components/tables/builds/columns';
-import type { SingleOffer } from '@/types/single-offer';
-import { SandboxHeader } from '@/components/app/sandbox-header';
-import type { SingleSandbox } from '@/types/single-sandbox';
-import { getFetchedQuery } from '@/lib/get-fetched-query';
-import { getQueryClient } from '@/lib/client';
-import { generateSandboxMeta } from '@/lib/generate-sandbox-meta';
-import { useState } from 'react';
-import type { ColumnFiltersState } from '@tanstack/react-table';
+import { httpClient } from "@/lib/http-client";
+import type { SingleBuild } from "@/types/builds";
+import { dehydrate, HydrationBoundary, keepPreviousData, useQueries } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
+import { DataTable } from "@/components/tables/builds/table";
+import { columns } from "@/components/tables/builds/columns";
+import type { SingleOffer } from "@/types/single-offer";
+import { SandboxHeader } from "@/components/app/sandbox-header";
+import type { SingleSandbox } from "@/types/single-sandbox";
+import { getFetchedQuery } from "@/lib/get-fetched-query";
+import { getQueryClient } from "@/lib/client";
+import { generateSandboxMeta } from "@/lib/generate-sandbox-meta";
+import { useState } from "react";
+import type { ColumnFiltersState } from "@tanstack/react-table";
 
 interface PaginatedResponse<T> {
   elements: T[];
@@ -25,7 +20,7 @@ interface PaginatedResponse<T> {
   count: number;
 }
 
-export const Route = createFileRoute('/sandboxes/$id/builds')({
+export const Route = createFileRoute("/sandboxes/$id/builds")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
 
@@ -41,14 +36,11 @@ export const Route = createFileRoute('/sandboxes/$id/builds')({
     const { queryClient } = context;
 
     await queryClient.prefetchQuery({
-      queryKey: ['sandbox', 'builds', { id, page: 1, limit: 20, filters: [] }],
+      queryKey: ["sandbox", "builds", { id, page: 1, limit: 20, filters: [] }],
       queryFn: () =>
-        httpClient.get<PaginatedResponse<SingleBuild>>(
-          `/sandboxes/${id}/builds`,
-          {
-            params: { page: 1, limit: 20 },
-          },
-        ),
+        httpClient.get<PaginatedResponse<SingleBuild>>(`/sandboxes/${id}/builds`, {
+          params: { page: 1, limit: 20 },
+        }),
     });
 
     return {
@@ -65,8 +57,8 @@ export const Route = createFileRoute('/sandboxes/$id/builds')({
       return {
         meta: [
           {
-            title: 'Sandbox not found',
-            description: 'Sandbox not found',
+            title: "Sandbox not found",
+            description: "Sandbox not found",
           },
         ],
       };
@@ -74,29 +66,28 @@ export const Route = createFileRoute('/sandboxes/$id/builds')({
 
     const { id } = params;
 
-    const sandbox = getFetchedQuery<SingleSandbox>(
-      queryClient,
-      ctx.loaderData?.dehydratedState,
-      ['sandbox', { id }],
-    );
-    const offer = getFetchedQuery<SingleOffer>(
-      queryClient,
-      ctx.loaderData?.dehydratedState,
-      ['sandbox', 'base-game', { id }],
-    );
+    const sandbox = getFetchedQuery<SingleSandbox>(queryClient, ctx.loaderData?.dehydratedState, [
+      "sandbox",
+      { id },
+    ]);
+    const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
+      "sandbox",
+      "base-game",
+      { id },
+    ]);
 
     if (!sandbox)
       return {
         meta: [
           {
-            title: 'Sandbox not found',
-            description: 'Sandbox not found',
+            title: "Sandbox not found",
+            description: "Sandbox not found",
           },
         ],
       };
 
     return {
-      meta: generateSandboxMeta(sandbox, offer, 'Builds'),
+      meta: generateSandboxMeta(sandbox, offer, "Builds"),
     };
   },
 });
@@ -109,34 +100,32 @@ function SandboxBuildsPage() {
     queries: [
       {
         queryKey: [
-          'sandbox',
-          'builds',
+          "sandbox",
+          "builds",
           { id, page: page.pageIndex + 1, limit: page.pageSize, filters },
         ],
         queryFn: () => {
           const queryParams = new URLSearchParams();
-          queryParams.set('page', (page.pageIndex + 1).toString());
-          queryParams.set('limit', page.pageSize.toString());
+          queryParams.set("page", (page.pageIndex + 1).toString());
+          queryParams.set("limit", page.pageSize.toString());
           for (const filter of filters) {
             queryParams.set(filter.id, filter.value as string);
           }
 
-          return httpClient.get<PaginatedResponse<SingleBuild>>(
-            `/sandboxes/${id}/builds`,
-            { params: Object.fromEntries(queryParams) },
-          );
+          return httpClient.get<PaginatedResponse<SingleBuild>>(`/sandboxes/${id}/builds`, {
+            params: Object.fromEntries(queryParams),
+          });
         },
 
         placeholderData: keepPreviousData,
       },
       {
-        queryKey: ['sandbox', 'base-game', { id }],
-        queryFn: () =>
-          httpClient.get<SingleOffer>(`/sandboxes/${id}/base-game`),
+        queryKey: ["sandbox", "base-game", { id }],
+        queryFn: () => httpClient.get<SingleOffer>(`/sandboxes/${id}/base-game`),
         retry: false,
       },
       {
-        queryKey: ['sandbox', { id }],
+        queryKey: ["sandbox", { id }],
         queryFn: () => httpClient.get<SingleSandbox>(`/sandboxes/${id}`),
       },
     ],
@@ -149,9 +138,7 @@ function SandboxBuildsPage() {
   return (
     <main className="flex flex-col builds-start justify-start h-full gap-4 px-4 w-full">
       <SandboxHeader
-        title={
-          baseGame?.title ?? sandbox?.displayName ?? (sandbox?.name as string)
-        }
+        title={baseGame?.title ?? sandbox?.displayName ?? (sandbox?.name as string)}
         section="builds"
         id={id}
         sandbox={id}

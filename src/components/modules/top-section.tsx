@@ -1,20 +1,20 @@
-import { useQuery } from '@tanstack/react-query';
-import { httpClient } from '@/lib/http-client';
-import type { SingleOffer } from '@/types/single-offer';
-import { Button } from '../ui/button';
-import { Image } from '@/components/app/image';
-import { getImage } from '@/lib/getImage';
-import { cn } from '@/lib/utils';
-import { useGenres } from '@/hooks/use-genres';
-import { useCountry } from '@/hooks/use-country';
-import { getTopSection } from '@/queries/top-section';
-import { calculatePrice } from '@/lib/calculate-price';
-import { Link } from '@tanstack/react-router';
-import { useLocale } from '@/hooks/use-locale';
+import { useQuery } from "@tanstack/react-query";
+import { httpClient } from "@/lib/http-client";
+import type { SingleOffer } from "@/types/single-offer";
+import { Button } from "../ui/button";
+import { Image } from "@/components/app/image";
+import { getImage } from "@/lib/getImage";
+import { cn } from "@/lib/utils";
+import { useGenres } from "@/hooks/use-genres";
+import { useCountry } from "@/hooks/use-country";
+import { getTopSection } from "@/queries/top-section";
+import { calculatePrice } from "@/lib/calculate-price";
+import { Link } from "@tanstack/react-router";
+import { useLocale } from "@/hooks/use-locale";
 
 const platforms: Record<string, string> = {
-  '9547': 'Windows',
-  '10719': 'Mac OS',
+  "9547": "Windows",
+  "10719": "Mac OS",
 };
 
 export function TopSection({
@@ -24,25 +24,25 @@ export function TopSection({
 }: {
   slug: string;
   title: string;
-  side: 'left' | 'right';
+  side: "left" | "right";
 }) {
   const { genres } = useGenres();
   const { country } = useCountry();
   const { locale } = useLocale();
   const { data, isLoading } = useQuery({
-    queryKey: ['top-section', { slug, limit: 1 }],
+    queryKey: ["top-section", { slug, limit: 1 }],
     queryFn: () => getTopSection(slug),
   });
   const { data: price } = useQuery({
     queryKey: [
-      'price',
+      "price",
       {
         id: data?.elements[0].id ?? null,
       },
     ],
     queryFn: () =>
       httpClient
-        .get<SingleOffer['price']>(`/offers/${data?.elements[0].id}/price`, {
+        .get<SingleOffer["price"]>(`/offers/${data?.elements[0].id}/price`, {
           params: { country },
         })
         .then((res) => res),
@@ -64,17 +64,14 @@ export function TopSection({
         <div className="grid gap-12 md:grid-cols-2 md:gap-16 items-center">
           <div
             className={cn(
-              'relative overflow-hidden rounded-lg',
-              side === 'left' ? 'md:order-1' : '',
+              "relative overflow-hidden rounded-lg",
+              side === "left" ? "md:order-1" : "",
             )}
           >
             <Image
               src={
-                getImage(offer.keyImages, [
-                  'OfferImageWide',
-                  'DieselStoreFrontWide',
-                  'Featured',
-                ])?.url
+                getImage(offer.keyImages, ["OfferImageWide", "DieselStoreFrontWide", "Featured"])
+                  ?.url
               }
               alt={offer.title}
               width={1920}
@@ -88,25 +85,21 @@ export function TopSection({
                 <GamepadIcon className="h-4 w-4" />
                 <span>{title}</span>
               </div>
-              <h2 className="text-2xl font-bold tracking-tight">
-                {offer.title}
-              </h2>
+              <h2 className="text-2xl font-bold tracking-tight">{offer.title}</h2>
             </div>
-            <p className="text-muted-foreground md:text-sm">
-              {offer.description}
-            </p>
+            <p className="text-muted-foreground md:text-sm">{offer.description}</p>
             <div className="grid gap-4">
               <div className="flex items-center gap-2">
                 <CalendarIcon className="h-5 w-5 text-muted-foreground" />
                 <span className="font-medium">Release Date:</span>
                 <span>
-                  {offer.releaseDate.includes('2099') ? (
+                  {offer.releaseDate.includes("2099") ? (
                     <span>TBA</span>
                   ) : (
-                    new Date(offer.releaseDate).toLocaleDateString('en-UK', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
+                    new Date(offer.releaseDate).toLocaleDateString("en-UK", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
                     })
                   )}
                 </span>
@@ -118,7 +111,7 @@ export function TopSection({
                   {offer.tags
                     .map((tag) => platforms[tag.id])
                     .filter(Boolean)
-                    .join(', ')}
+                    .join(", ")}
                 </span>
               </div>
               <div className="flex items-center gap-2">
@@ -127,19 +120,17 @@ export function TopSection({
                 <span>
                   {offer.tags
                     .filter((tag) => !platforms[tag.id])
-                    .filter((tag) =>
-                      genres?.find((genre) => genre.id === tag.id),
-                    )
+                    .filter((tag) => genres?.find((genre) => genre.id === tag.id))
                     .map((tag) => tag.name)
                     .slice(0, 4)
-                    .join(', ')}
+                    .join(", ")}
                 </span>
               </div>
             </div>
             <div
               className={cn(
-                'flex flex-row gap-4 items-center w-full justify-end',
-                side === 'left' ? 'flex-row-reverse' : '',
+                "flex flex-row gap-4 items-center w-full justify-end",
+                side === "left" ? "flex-row-reverse" : "",
               )}
             >
               <div>
@@ -150,13 +141,10 @@ export function TopSection({
                         <span>Free</span>
                       ) : (
                         new Intl.NumberFormat(locale, {
-                          style: 'currency',
+                          style: "currency",
                           currency: price.price.currencyCode,
                         }).format(
-                          calculatePrice(
-                            price.price.discountPrice,
-                            price.price.currencyCode,
-                          ),
+                          calculatePrice(price.price.discountPrice, price.price.currencyCode),
                         )
                       )}
                     </span>
@@ -166,13 +154,10 @@ export function TopSection({
                           <span>Free</span>
                         ) : (
                           new Intl.NumberFormat(locale, {
-                            style: 'currency',
+                            style: "currency",
                             currency: price.price.currencyCode,
                           }).format(
-                            calculatePrice(
-                              price.price.originalPrice,
-                              price.price.currencyCode,
-                            ),
+                            calculatePrice(price.price.originalPrice, price.price.currencyCode),
                           )
                         )}
                       </span>
@@ -196,7 +181,7 @@ export function TopSection({
   );
 }
 
-function CalendarIcon(props: React.ComponentProps<'svg'>) {
+function CalendarIcon(props: React.ComponentProps<"svg">) {
   return (
     <svg
       {...props}
@@ -218,7 +203,7 @@ function CalendarIcon(props: React.ComponentProps<'svg'>) {
   );
 }
 
-function GamepadIcon(props: React.ComponentProps<'svg'>) {
+function GamepadIcon(props: React.ComponentProps<"svg">) {
   return (
     <svg
       {...props}
@@ -241,7 +226,7 @@ function GamepadIcon(props: React.ComponentProps<'svg'>) {
   );
 }
 
-function UsersIcon(props: React.ComponentProps<'svg'>) {
+function UsersIcon(props: React.ComponentProps<"svg">) {
   return (
     <svg
       {...props}

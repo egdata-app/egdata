@@ -1,15 +1,15 @@
-import { createFileRoute, redirect } from '@tanstack/react-router'
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/free-games')({
+export const Route = createFileRoute("/free-games")({
   component: RouteComponent,
 
   beforeLoad: async () => {
     throw redirect({
-        to: '/freebies',
-    })
-  }
-})
+      to: "/freebies",
+    });
+  },
+});
 
 function RouteComponent() {
-  return <div>Hello "/free-games"!</div>
+  return <div>Hello "/free-games"!</div>;
 }

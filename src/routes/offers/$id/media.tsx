@@ -1,33 +1,33 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { httpClient } from '@/lib/http-client';
-import type { Media } from '@/types/media';
-import type { SingleOffer } from '@/types/single-offer';
-import { dehydrate, HydrationBoundary, useQuery } from '@tanstack/react-query';
-import { getFetchedQuery } from '@/lib/get-fetched-query';
-import { Suspense, useRef, useState, useEffect } from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
-import { Image } from '@/components/app/image';
+import { createFileRoute } from "@tanstack/react-router";
+import { httpClient } from "@/lib/http-client";
+import type { Media } from "@/types/media";
+import type { SingleOffer } from "@/types/single-offer";
+import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { getFetchedQuery } from "@/lib/get-fetched-query";
+import { Suspense, useRef, useState, useEffect } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Image } from "@/components/app/image";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
-import { Player } from '@/components/app/video-player.client';
-import { DownloadIcon, XIcon } from 'lucide-react';
-import * as Portal from '@radix-ui/react-portal';
+} from "@/components/ui/accordion";
+import { Player } from "@/components/app/video-player.client";
+import { DownloadIcon, XIcon } from "lucide-react";
+import * as Portal from "@radix-ui/react-portal";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from '@/components/ui/carousel';
-import { getQueryClient } from '@/lib/client';
-import { generateOfferMeta } from '@/lib/generate-offer-meta';
-import { Button } from '@/components/ui/button';
+} from "@/components/ui/carousel";
+import { getQueryClient } from "@/lib/client";
+import { generateOfferMeta } from "@/lib/generate-offer-meta";
+import { Button } from "@/components/ui/button";
 
-export const Route = createFileRoute('/offers/$id/media')({
+export const Route = createFileRoute("/offers/$id/media")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
 
@@ -43,15 +43,14 @@ export const Route = createFileRoute('/offers/$id/media')({
     const { id } = params;
 
     await queryClient.prefetchQuery({
-      queryKey: ['media', { id: params.id }],
+      queryKey: ["media", { id: params.id }],
       queryFn: () => httpClient.get<Media>(`/offers/${params.id}/media`),
     });
 
-    const offer = getFetchedQuery<SingleOffer>(
-      queryClient,
-      dehydrate(queryClient),
-      ['offer', { id: params.id }],
-    );
+    const offer = getFetchedQuery<SingleOffer>(queryClient, dehydrate(queryClient), [
+      "offer",
+      { id: params.id },
+    ]);
 
     return {
       dehydratedState: dehydrate(queryClient),
@@ -68,32 +67,31 @@ export const Route = createFileRoute('/offers/$id/media')({
       return {
         meta: [
           {
-            title: 'Offer not found',
-            description: 'Offer not found',
+            title: "Offer not found",
+            description: "Offer not found",
           },
         ],
       };
     }
 
-    const offer = getFetchedQuery<SingleOffer>(
-      queryClient,
-      ctx.loaderData?.dehydratedState,
-      ['offer', { id: params.id }],
-    );
+    const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
+      "offer",
+      { id: params.id },
+    ]);
 
     if (!offer) {
       return {
         meta: [
           {
-            title: 'Offer not found',
-            description: 'Offer not found',
+            title: "Offer not found",
+            description: "Offer not found",
           },
         ],
       };
     }
 
     return {
-      meta: generateOfferMeta(offer, 'Media'),
+      meta: generateOfferMeta(offer, "Media"),
     };
   },
 });
@@ -101,12 +99,12 @@ export const Route = createFileRoute('/offers/$id/media')({
 function MediaPage() {
   const params = Route.useParams();
   const { data: media, isLoading } = useQuery({
-    queryKey: ['media', { id: params.id }],
+    queryKey: ["media", { id: params.id }],
     queryFn: () => httpClient.get<Media>(`/offers/${params.id}/media`),
     retry: false,
   });
   const { data: offer, isLoading: isOfferLoading } = useQuery({
-    queryKey: ['offer', { id: params.id }],
+    queryKey: ["offer", { id: params.id }],
     queryFn: () => httpClient.get<SingleOffer>(`/offers/${params.id}`),
     retry: false,
   });
@@ -115,17 +113,17 @@ function MediaPage() {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         setActive(false);
       }
     };
 
     if (active) {
-      document.addEventListener('keydown', handleKeyDown);
+      document.addEventListener("keydown", handleKeyDown);
     }
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [active]);
 
@@ -149,7 +147,7 @@ function MediaPage() {
         type="single"
         collapsible
         className="w-full"
-        defaultValue={media ? 'images' : 'covers'}
+        defaultValue={media ? "images" : "covers"}
       >
         <AccordionItem value="images">
           <AccordionTrigger className="text-xl">Images</AccordionTrigger>
@@ -169,7 +167,7 @@ function MediaPage() {
                     onClick={() => setActive(image._id)}
                     className="cursor-pointer rounded-xl w-full h-auto object-cover"
                     onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
+                      if (e.key === "Enter") {
                         setActive(image._id);
                       }
                     }}
@@ -205,10 +203,7 @@ function MediaPage() {
           <AccordionContent>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {offer?.keyImages.map((cover) => (
-                <div
-                  key={cover.md5}
-                  className="flex flex-col items-center gap-2 relative"
-                >
+                <div key={cover.md5} className="flex flex-col items-center gap-2 relative">
                   <span className="absolute top-2 right-2 text-xs font-mono">
                     <a
                       className="text-xs bg-card/15 p-2 rounded-md cursor-pointer inline-block"
@@ -258,8 +253,7 @@ function MediaPage() {
               className="w-full max-w-5xl"
               opts={{
                 loop: true,
-                startIndex:
-                  media.images.findIndex((image) => image._id === active) || 0,
+                startIndex: media.images.findIndex((image) => image._id === active) || 0,
               }}
               onClick={(e) => e.stopPropagation()}
             >
@@ -274,7 +268,7 @@ function MediaPage() {
                           e.stopPropagation();
                           downloadImage(
                             image.src,
-                            `${offer?.title}-${image.src.split('/').pop()?.split('?')[0]}`,
+                            `${offer?.title}-${image.src.split("/").pop()?.split("?")[0]}`,
                           );
                         }}
                       >
@@ -302,10 +296,10 @@ function MediaPage() {
 }
 
 function downloadImage(src: string, title: string) {
-  const a = document.createElement('a');
+  const a = document.createElement("a");
   a.href = src;
   a.download = title;
-  a.target = '_blank';
-  a.rel = 'noreferrer';
+  a.target = "_blank";
+  a.rel = "noreferrer";
   a.click();
 }

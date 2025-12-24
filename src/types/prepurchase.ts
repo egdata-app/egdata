@@ -1,4 +1,4 @@
-import type { SingleOffer } from './single-offer';
+import type { SingleOffer } from "./single-offer";
 
 interface HasPrepurchaseBase {
   hasPrepurchase: true | false;

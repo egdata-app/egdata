@@ -1,6 +1,6 @@
-import { useState, useEffect, type JSX } from 'react';
-import { DateTime } from 'luxon';
-import { useLocale } from '@/hooks/use-locale';
+import { useState, useEffect, type JSX } from "react";
+import { DateTime } from "luxon";
+import { useLocale } from "@/hooks/use-locale";
 
 interface CountdownProps {
   targetDate: string;
@@ -9,11 +9,11 @@ interface CountdownProps {
 
 export function Countdown({ targetDate, onComplete }: CountdownProps) {
   const { timezone } = useLocale();
-  
+
   const calculateTimeLeft = () => {
-    const target = DateTime.fromISO(targetDate).setZone(timezone || 'UTC');
-    const now = DateTime.now().setZone(timezone || 'UTC');
-    const difference = target.diff(now, 'milliseconds').milliseconds;
+    const target = DateTime.fromISO(targetDate).setZone(timezone || "UTC");
+    const now = DateTime.now().setZone(timezone || "UTC");
+    const difference = target.diff(now, "milliseconds").milliseconds;
     const timeLeft: { hours?: number; minutes?: number; seconds?: number } = {};
 
     if (difference > 0) {
@@ -61,8 +61,8 @@ export function Countdown({ targetDate, onComplete }: CountdownProps) {
 
     timerComponents.push(
       <span key={interval}>
-        {String(value).padStart(2, '0')}
-        {interval.charAt(0)}{' '}
+        {String(value).padStart(2, "0")}
+        {interval.charAt(0)}{" "}
       </span>,
     );
   }

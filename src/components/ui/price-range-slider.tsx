@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { Slider as SliderPrimitive } from 'radix-ui';
-import { useLocale } from '@/hooks/use-locale';
+import * as React from "react";
+import { Slider as SliderPrimitive } from "radix-ui";
+import { useLocale } from "@/hooks/use-locale";
 // import { calculatePrice } from '@/lib/calculate-price';
-import { Input } from './input';
-import { Button } from './button';
-import { Label } from './label';
+import { Input } from "./input";
+import { Button } from "./button";
+import { Label } from "./label";
 
 interface PriceRangeSliderProps {
   min: number;
@@ -24,14 +24,9 @@ export function PriceRangeSlider({
   currency,
 }: PriceRangeSliderProps) {
   const { locale } = useLocale();
-  const [priceRange, setPriceRange] =
-    React.useState<[number, number]>(defaultValue);
-  const [minInput, setMinInput] = React.useState<string>(
-    defaultValue[0]?.toString() ?? '',
-  );
-  const [maxInput, setMaxInput] = React.useState<string>(
-    defaultValue[1]?.toString() ?? '',
-  );
+  const [priceRange, setPriceRange] = React.useState<[number, number]>(defaultValue);
+  const [minInput, setMinInput] = React.useState<string>(defaultValue[0]?.toString() ?? "");
+  const [maxInput, setMaxInput] = React.useState<string>(defaultValue[1]?.toString() ?? "");
 
   const handleSliderChange = (values: number[]) => {
     if (!values || values.length < 2) return;
@@ -53,12 +48,8 @@ export function PriceRangeSlider({
   };
 
   const handleInputBlur = () => {
-    let minVal = Number.isNaN(Number.parseInt(minInput))
-      ? min
-      : Number.parseInt(minInput);
-    let maxVal = Number.isNaN(Number.parseInt(maxInput))
-      ? max
-      : Number.parseInt(maxInput);
+    let minVal = Number.isNaN(Number.parseInt(minInput)) ? min : Number.parseInt(minInput);
+    let maxVal = Number.isNaN(Number.parseInt(maxInput)) ? max : Number.parseInt(maxInput);
 
     // Ensure min doesn't exceed max
     if (minVal > maxVal) {
@@ -82,8 +73,8 @@ export function PriceRangeSlider({
   };
 
   const formatter = new Intl.NumberFormat(locale, {
-    style: 'currency',
-    currency: currency ?? 'USD',
+    style: "currency",
+    currency: currency ?? "USD",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   });
@@ -125,7 +116,7 @@ export function PriceRangeSlider({
           </Label>
           <div className="relative">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-              {formatter.format(0).replace(/\d/g, '').trim()}
+              {formatter.format(0).replace(/\d/g, "").trim()}
             </span>
             <Input
               id="min-price"
@@ -149,7 +140,7 @@ export function PriceRangeSlider({
           </Label>
           <div className="relative">
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-              {formatter.format(0).replace(/\d/g, '').trim()}
+              {formatter.format(0).replace(/\d/g, "").trim()}
             </span>
             <Input
               id="max-price"

@@ -1,33 +1,25 @@
-import { useQuery } from '@tanstack/react-query';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi,
-} from '../ui/carousel';
-import { httpClient } from '@/lib/http-client';
-import { Skeleton } from '../ui/skeleton';
-import { OfferCard } from '@/components/app/offer-card';
-import type { SingleOffer } from '@/types/single-offer';
-import { useCountry } from '@/hooks/use-country';
-import { ArrowUpIcon } from '@radix-ui/react-icons';
-import { useState } from 'react';
-import type { Price } from '@/types/price';
-import { Card, CardContent } from '../ui/card';
-import { Badge } from '../ui/badge';
-import { Button } from '../ui/button';
-import { calculatePrice } from '@/lib/calculate-price';
-import { cn } from '@/lib/utils';
-import { EqualIcon } from 'lucide-react';
-import { EGSIcon } from '../icons/egs';
-import { Link } from '@tanstack/react-router';
-import { useLocale } from '@/hooks/use-locale';
-import { getBuyLink } from '@/lib/get-build-link';
+import { useQuery } from "@tanstack/react-query";
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "../ui/carousel";
+import { httpClient } from "@/lib/http-client";
+import { Skeleton } from "../ui/skeleton";
+import { OfferCard } from "@/components/app/offer-card";
+import type { SingleOffer } from "@/types/single-offer";
+import { useCountry } from "@/hooks/use-country";
+import { ArrowUpIcon } from "@radix-ui/react-icons";
+import { useState } from "react";
+import type { Price } from "@/types/price";
+import { Card, CardContent } from "../ui/card";
+import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
+import { calculatePrice } from "@/lib/calculate-price";
+import { cn } from "@/lib/utils";
+import { EqualIcon } from "lucide-react";
+import { EGSIcon } from "../icons/egs";
+import { Link } from "@tanstack/react-router";
+import { useLocale } from "@/hooks/use-locale";
+import { getBuyLink } from "@/lib/get-build-link";
 
-const trackEvent = (
-  offers: { id: string; namespace: string }[],
-  type: 'bundle' | 'single',
-) => {
+const trackEvent = (offers: { id: string; namespace: string }[], type: "bundle" | "single") => {
   window.umami.track(`bundle-${type}`, {
     offers: offers.map((offer) => {
       return {
@@ -47,7 +39,7 @@ export function Bundle({ id, offer }: { id: string; offer: SingleOffer }) {
     isError,
     isLoading,
   } = useQuery({
-    queryKey: ['bundle-offers', { id, country }],
+    queryKey: ["bundle-offers", { id, country }],
     queryFn: () =>
       httpClient.get<{
         offers: SingleOffer[];
@@ -93,7 +85,7 @@ export function Bundle({ id, offer }: { id: string; offer: SingleOffer }) {
         </div>
         <Carousel
           opts={{
-            align: 'start',
+            align: "start",
           }}
           className="w-full"
         >
@@ -120,8 +112,8 @@ export function Bundle({ id, offer }: { id: string; offer: SingleOffer }) {
   if (isError) return null;
 
   const priceFmtr = new Intl.NumberFormat(locale, {
-    style: 'currency',
-    currency: collection?.bundlePrice.price.currencyCode ?? 'USD',
+    style: "currency",
+    currency: collection?.bundlePrice.price.currencyCode ?? "USD",
   });
 
   const bundlePrice = calculatePrice(
@@ -141,9 +133,7 @@ export function Bundle({ id, offer }: { id: string; offer: SingleOffer }) {
         <div className="flex justify-between items-center">
           <h4 className="text-xl font-bold text-left inline-flex group items-center gap-2">
             Bundle Offers
-            <span className="text-xs opacity-50">
-              - {collection?.offers.length} Offers
-            </span>
+            <span className="text-xs opacity-50">- {collection?.offers.length} Offers</span>
           </h4>
           <div className="flex gap-2">
             <button
@@ -164,17 +154,14 @@ export function Bundle({ id, offer }: { id: string; offer: SingleOffer }) {
         </div>
         <Carousel
           opts={{
-            align: 'start',
+            align: "start",
           }}
           className="w-full"
           setApi={setApi}
         >
           <CarouselContent>
             {collection?.offers.map((offer) => (
-              <CarouselItem
-                key={offer.id}
-                className="md:basis-1/2 lg:basis-1/3"
-              >
+              <CarouselItem key={offer.id} className="md:basis-1/2 lg:basis-1/3">
                 <div className="p-1">
                   <OfferCard offer={offer} size="sm" />
                 </div>
@@ -191,39 +178,30 @@ export function Bundle({ id, offer }: { id: string; offer: SingleOffer }) {
             <div className="space-y-4">
               <div className="flex justify-between items-center">
                 <span>Total Value:</span>
-                <span className="font-semibold">
-                  {priceFmtr.format(totalPrice)}
-                </span>
+                <span className="font-semibold">{priceFmtr.format(totalPrice)}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span>Bundle Price:</span>
-                <span className="font-semibold">
-                  {priceFmtr.format(bundlePrice)}
-                </span>
+                <span className="font-semibold">{priceFmtr.format(bundlePrice)}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span>You {bundleIsBetter ? 'save' : 'pay more'}:</span>
+                <span>You {bundleIsBetter ? "save" : "pay more"}:</span>
                 <Badge
                   className={cn(
-                    'text-lg py-1 ease-in-out duration-300 transition-colors',
+                    "text-lg py-1 ease-in-out duration-300 transition-colors",
                     bundleIsBetter
-                      ? 'bg-badge font-bold hover:bg-badge'
-                      : 'bg-red-400 font-bold hover:bg-red-500',
+                      ? "bg-badge font-bold hover:bg-badge"
+                      : "bg-red-400 font-bold hover:bg-red-500",
                   )}
                 >
                   {priceFmtr.format(Math.abs(totalPrice - bundlePrice))}
                 </Badge>
               </div>
               <div className="pt-4">
-                <Button
-                  className="w-full bg-black text-white hover:bg-card border"
-                  asChild
-                >
+                <Button className="w-full bg-black text-white hover:bg-card border" asChild>
                   <Link
                     to={getBuyLink({
-                      offers: bundleIsBetter
-                        ? [offer]
-                        : (collection?.offers ?? []),
+                      offers: bundleIsBetter ? [offer] : (collection?.offers ?? []),
                     })}
                     className="inline-flex items-center gap-2 w-full"
                     target="_blank"
@@ -232,14 +210,12 @@ export function Bundle({ id, offer }: { id: string; offer: SingleOffer }) {
                     onClick={() => {
                       trackEvent(
                         bundleIsBetter ? [offer] : (collection?.offers ?? []),
-                        bundleIsBetter ? 'bundle' : 'single',
+                        bundleIsBetter ? "bundle" : "single",
                       );
                     }}
                   >
                     <EGSIcon className="w-5 h-5" />
-                    <span>
-                      {bundleIsBetter ? 'Buy Bundle' : 'Buy Items Individually'}
-                    </span>
+                    <span>{bundleIsBetter ? "Buy Bundle" : "Buy Items Individually"}</span>
                   </Link>
                 </Button>
               </div>

@@ -1,21 +1,21 @@
-import { Line } from 'recharts';
+import { Line } from "recharts";
 
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
-} from '@/components/ui/chart';
-import { Fragment, useMemo } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { keepPreviousData } from '@tanstack/react-query';
-import { httpClient } from '@/lib/http-client';
-import { linearRegression } from '@/lib/linear-regression';
-import { CartesianGrid, LineChart, ReferenceLine, XAxis } from 'recharts';
-import { Separator } from '@/components/ui/separator';
+} from "@/components/ui/chart";
+import { Fragment, useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData } from "@tanstack/react-query";
+import { httpClient } from "@/lib/http-client";
+import { linearRegression } from "@/lib/linear-regression";
+import { CartesianGrid, LineChart, ReferenceLine, XAxis } from "recharts";
+import { Separator } from "@/components/ui/separator";
 
 export const getReleasesByMonth = async () =>
-  httpClient.get<MonthlyRelease[]>('/stats/releases/monthly');
+  httpClient.get<MonthlyRelease[]>("/stats/releases/monthly");
 
 export interface MonthlyRelease {
   releases: number;
@@ -35,35 +35,35 @@ interface MonthlyChartPoint {
 
 const importantDates = [
   {
-    date: new Date('2023-11-01'),
-    label: 'Now on Epic',
+    date: new Date("2023-11-01"),
+    label: "Now on Epic",
   },
   {
-    date: new Date('2023-10-01'),
-    label: 'Epic First Run',
+    date: new Date("2023-10-01"),
+    label: "Epic First Run",
   },
   {
-    date: new Date('2025-05-01'),
-    label: '100% Revenue Share Program',
+    date: new Date("2025-05-01"),
+    label: "100% Revenue Share Program",
   },
   {
-    date: new Date('2025-01-01'),
-    label: 'Launch Everywhere',
+    date: new Date("2025-01-01"),
+    label: "Launch Everywhere",
   },
   {
-    date: new Date('2025-01-01'),
-    label: 'EGS Mobile 3rd Party',
+    date: new Date("2025-01-01"),
+    label: "EGS Mobile 3rd Party",
   },
   {
-    date: new Date('2023-03-01'),
-    label: 'Self Publish Tool (PC)',
+    date: new Date("2023-03-01"),
+    label: "Self Publish Tool (PC)",
   },
 ];
 
 const monthlyChartConfig: ChartConfig = {
-  releases: { label: 'Releases', color: 'hsl(var(--chart-1))' },
-  ongoing: { label: 'Ongoing', color: 'oklch(0.6 0.118 184.704)' },
-  prediction: { label: 'Prediction', color: 'var(--chart-3)' },
+  releases: { label: "Releases", color: "hsl(var(--chart-1))" },
+  ongoing: { label: "Ongoing", color: "oklch(0.6 0.118 184.704)" },
+  prediction: { label: "Prediction", color: "var(--chart-3)" },
 } as const;
 
 const toMonthlyBase = (data: MonthlyRelease[]) =>
@@ -78,7 +78,7 @@ const toMonthlyBase = (data: MonthlyRelease[]) =>
 
 export function ReleasesByMonth() {
   const { data, isLoading } = useQuery({
-    queryKey: ['releases-by-month'],
+    queryKey: ["releases-by-month"],
     queryFn: getReleasesByMonth,
     placeholderData: keepPreviousData,
   });
@@ -92,32 +92,23 @@ export function ReleasesByMonth() {
     const now = new Date();
 
     const isOngoingMonth =
-      lastDate.getFullYear() === now.getFullYear() &&
-      lastDate.getMonth() === now.getMonth();
+      lastDate.getFullYear() === now.getFullYear() && lastDate.getMonth() === now.getMonth();
 
     const regressionRows = isOngoingMonth ? base.slice(0, -1) : base;
     const x = regressionRows.map((_, i) => i);
     const y = regressionRows.map((d) => d.releases);
     const { slope, intercept } = linearRegression(x, y);
 
-    const predictedOngoing = Math.max(
-      0,
-      Math.round(slope * regressionRows.length + intercept),
-    );
-    const predictedNext = Math.max(
-      0,
-      Math.round(slope * (regressionRows.length + 1) + intercept),
-    );
+    const predictedOngoing = Math.max(0, Math.round(slope * regressionRows.length + intercept));
+    const predictedNext = Math.max(0, Math.round(slope * (regressionRows.length + 1) + intercept));
 
     const prevIdxs = [lastIdx - 2, lastIdx - 1].filter((idx) => idx >= 0);
 
     const points: MonthlyChartPoint[] = base.map((row, i) => {
-      const isOngoing =
-        isOngoingMonth && (prevIdxs.includes(i) || i === lastIdx);
+      const isOngoing = isOngoingMonth && (prevIdxs.includes(i) || i === lastIdx);
       return {
         ...row,
-        releases:
-          !isOngoingMonth || i < base.length - 1 ? row.releases : undefined,
+        releases: !isOngoingMonth || i < base.length - 1 ? row.releases : undefined,
         ongoing: isOngoing ? row.releases : undefined,
         prediction: i === regressionRows.length - 1 ? row.releases : undefined,
       };
@@ -142,29 +133,22 @@ export function ReleasesByMonth() {
   if (!chartData.length) return null;
 
   return (
-    <ChartContainer
-      config={monthlyChartConfig}
-      className="aspect-auto h-[250px] w-full"
-    >
-      <LineChart
-        accessibilityLayer
-        data={chartData}
-        margin={{ left: 12, right: 12 }}
-      >
+    <ChartContainer config={monthlyChartConfig} className="aspect-auto h-[250px] w-full">
+      <LineChart accessibilityLayer data={chartData} margin={{ left: 12, right: 12 }}>
         <CartesianGrid vertical={false} />
         <XAxis
           dataKey="ts"
           type="number"
-          domain={['dataMin', 'dataMax']}
+          domain={["dataMin", "dataMax"]}
           scale="time"
           tickMargin={8}
           minTickGap={32}
           tickLine={false}
           axisLine={false}
           tickFormatter={(ms: number) =>
-            new Date(ms).toLocaleDateString('en-US', {
-              month: 'short',
-              year: 'numeric',
+            new Date(ms).toLocaleDateString("en-US", {
+              month: "short",
+              year: "numeric",
             })
           }
         />
@@ -203,9 +187,9 @@ export function ReleasesByMonth() {
                         </Fragment>
                       ))}
                       <div>
-                        {date.toLocaleDateString('en-US', {
-                          month: 'short',
-                          year: 'numeric',
+                        {date.toLocaleDateString("en-US", {
+                          month: "short",
+                          year: "numeric",
                         })}
                       </div>
                     </div>
@@ -247,9 +231,7 @@ export function ReleasesByMonth() {
 function getImportantEventLabels(dateStr: string): string[] {
   const date = new Date(dateStr);
   const events = importantDates.filter(
-    (d) =>
-      d.date.getFullYear() === date.getFullYear() &&
-      d.date.getMonth() === date.getMonth(),
+    (d) => d.date.getFullYear() === date.getFullYear() && d.date.getMonth() === date.getMonth(),
   );
   return events.map((e) => e.label);
 }

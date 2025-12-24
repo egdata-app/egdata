@@ -1,18 +1,16 @@
-import { Input } from '@/components/ui/input';
-import type { Table } from '@tanstack/react-table';
-import { platforms, statuses, types } from './columns';
-import { Button } from '@/components/ui/button';
-import { Cross2Icon } from '@radix-ui/react-icons';
-import { DataTableFacetedFilter } from './faceted-filter';
-import { DataTableViewOptions } from './view-options';
+import { Input } from "@/components/ui/input";
+import type { Table } from "@tanstack/react-table";
+import { platforms, statuses, types } from "./columns";
+import { Button } from "@/components/ui/button";
+import { Cross2Icon } from "@radix-ui/react-icons";
+import { DataTableFacetedFilter } from "./faceted-filter";
+import { DataTableViewOptions } from "./view-options";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
 }
 
-export function DataTableToolbar<TData>({
-  table,
-}: DataTableToolbarProps<TData>) {
+export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
 
   return (
@@ -20,29 +18,27 @@ export function DataTableToolbar<TData>({
       <div className="flex flex-1 items-center gap-2 flex-wrap w-full">
         <Input
           placeholder="Filter items..."
-          value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
-          onChange={(event) =>
-            table.getColumn('title')?.setFilterValue(event.target.value)
-          }
+          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+          onChange={(event) => table.getColumn("title")?.setFilterValue(event.target.value)}
           className="h-8 w-[150px] lg:w-[250px]"
         />
-        {table.getColumn('status') && (
+        {table.getColumn("status") && (
           <DataTableFacetedFilter
-            column={table.getColumn('status')}
+            column={table.getColumn("status")}
             title="Status"
             options={statuses}
           />
         )}
-        {table.getColumn('entitlementType') && (
+        {table.getColumn("entitlementType") && (
           <DataTableFacetedFilter
-            column={table.getColumn('entitlementType')}
+            column={table.getColumn("entitlementType")}
             title="Type"
             options={types}
           />
         )}
-        {table.getColumn('platforms') && (
+        {table.getColumn("platforms") && (
           <DataTableFacetedFilter
-            column={table.getColumn('platforms')}
+            column={table.getColumn("platforms")}
             title="Platforms"
             options={platforms}
           />

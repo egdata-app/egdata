@@ -1,4 +1,4 @@
-import type { Price } from './price';
+import type { Price } from "./price";
 
 export interface RegionData {
   region: Region;

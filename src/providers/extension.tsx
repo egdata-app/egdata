@@ -1,19 +1,11 @@
-import {
-  type ReactNode,
-  useRef,
-  useState,
-  useEffect,
-  useCallback,
-  useMemo,
-} from 'react';
-import { useMutation } from '@tanstack/react-query';
-import { ExtensionContext } from '@/contexts/extension';
-import consola from 'consola';
-import { getOwnedStatus, writeOwnedStatusToDb } from '@/utils/ownedOffersDb';
+import { type ReactNode, useRef, useState, useEffect, useCallback, useMemo } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { ExtensionContext } from "@/contexts/extension";
+import consola from "consola";
+import { getOwnedStatus, writeOwnedStatusToDb } from "@/utils/ownedOffersDb";
 
-const EXTENSION_ID = 'komddphicdeokllfmcndcaeiegglbgok';
-const isClient =
-  typeof window !== 'undefined' && typeof window.chrome !== 'undefined';
+const EXTENSION_ID = "komddphicdeokllfmcndcaeiegglbgok";
+const isClient = typeof window !== "undefined" && typeof window.chrome !== "undefined";
 
 type IdNamespace = { id: string; namespace: string };
 type OwnedStatusMap = Record<string, boolean | undefined>;
@@ -60,19 +52,16 @@ export function ExtensionProvider({ children }: { children: ReactNode }) {
 
   // Add/remove/clear ID helpers
   const addId = useCallback((id: string, namespace: string) => {
-    consola.verbose('addId', id, namespace);
+    consola.verbose("addId", id, namespace);
     setIds((prev) => {
-      if (prev.some((item) => item.id === id && item.namespace === namespace))
-        return prev;
+      if (prev.some((item) => item.id === id && item.namespace === namespace)) return prev;
       return [...prev, { id, namespace }];
     });
   }, []);
 
   const removeId = useCallback((id: string, namespace: string) => {
-    consola.verbose('removeId', id, namespace);
-    setIds((prev) =>
-      prev.filter((item) => !(item.id === id && item.namespace === namespace)),
-    );
+    consola.verbose("removeId", id, namespace);
+    setIds((prev) => prev.filter((item) => !(item.id === id && item.namespace === namespace)));
   }, []);
 
   const clearIds = useCallback(() => {
@@ -92,24 +81,20 @@ export function ExtensionProvider({ children }: { children: ReactNode }) {
         await new Promise<void>((resolve, reject) => {
           const chrome = window.chrome as typeof chrome;
           if (chrome) {
-            consola.verbose('sending message to extension', missing);
+            consola.verbose("sending message to extension", missing);
             chrome.runtime.sendMessage(
               EXTENSION_ID,
-              { action: 'getOwnedOffers', payload: { offers: missing } },
-              (response: {
-                ownedOffers: { id: string; namespace: string }[];
-              }) => {
+              { action: "getOwnedOffers", payload: { offers: missing } },
+              (response: { ownedOffers: { id: string; namespace: string }[] }) => {
                 if (chrome.runtime.lastError) {
-                  consola.error('getOwnedOffers', chrome.runtime.lastError);
+                  consola.error("getOwnedOffers", chrome.runtime.lastError);
                   reject(chrome.runtime.lastError);
                 } else {
-                  consola.info('received response from extension', response);
+                  consola.info("received response from extension", response);
                   const ownedOffers = response.ownedOffers.map((offer) =>
                     getKey(offer.id, offer.namespace),
                   );
-                  const allKeys = missing.map(({ id, namespace }) =>
-                    getKey(id, namespace),
-                  );
+                  const allKeys = missing.map(({ id, namespace }) => getKey(id, namespace));
                   for (const key of allKeys) {
                     fetched[key] = ownedOffers.includes(key);
                   }
@@ -135,9 +120,7 @@ export function ExtensionProvider({ children }: { children: ReactNode }) {
       setOwnedStatus({ ...ownedStatusRef.current });
       // Persist merged owned status to DB
       const filtered = Object.fromEntries(
-        Object.entries(ownedStatusRef.current).filter(
-          ([, v]) => v !== undefined,
-        ),
+        Object.entries(ownedStatusRef.current).filter(([, v]) => v !== undefined),
       ) as Record<string, boolean>;
       writeOwnedStatusToDb(filtered);
     },

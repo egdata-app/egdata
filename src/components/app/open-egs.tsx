@@ -1,14 +1,14 @@
-import type { SingleOffer } from '@/types/single-offer';
-import { Button } from '../ui/button';
-import { EGSIcon } from '../icons/egs';
-import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
-import { useState, useEffect } from 'react';
+import type { SingleOffer } from "@/types/single-offer";
+import { Button } from "../ui/button";
+import { EGSIcon } from "../icons/egs";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { useState, useEffect } from "react";
 
-const CREATOR_CODE = 'EGDATA';
-const CREATOR_CODE_STORAGE_KEY = 'egdata_creator_code_shown';
+const CREATOR_CODE = "EGDATA";
+const CREATOR_CODE_STORAGE_KEY = "egdata_creator_code_shown";
 
 function trackEvent(offer: SingleOffer) {
-  window.umami.track('open-egs', {
+  window.umami.track("open-egs", {
     id: offer.id,
     namespace: offer.namespace,
   });
@@ -24,15 +24,14 @@ export function OpenEgs({ offer }: { offer: SingleOffer }) {
     setHasSeenPopover(!!hasSeen);
   }, []);
 
-  const urlType: 'product' | 'url' =
-    offer.offerType === 'BASE_GAME' ? 'product' : 'url';
-  const isBundle = offer.offerType === 'BUNDLE';
-  const namespace = isBundle ? 'bundles' : 'product';
+  const urlType: "product" | "url" = offer.offerType === "BASE_GAME" ? "product" : "url";
+  const isBundle = offer.offerType === "BUNDLE";
+  const namespace = isBundle ? "bundles" : "product";
   const url =
-    offer.customAttributes?.['com.epicgames.app.productSlug']?.value ??
+    offer.customAttributes?.["com.epicgames.app.productSlug"]?.value ??
     offer.offerMappings?.[0]?.pageSlug ??
     offer.urlSlug ??
-    (urlType === 'product' ? offer.productSlug : offer.urlSlug);
+    (urlType === "product" ? offer.productSlug : offer.urlSlug);
 
   if (!url) {
     return null;
@@ -42,15 +41,13 @@ export function OpenEgs({ offer }: { offer: SingleOffer }) {
     trackEvent(offer);
     if (!hasSeenPopover) {
       setShowPopover(true);
-      localStorage.setItem(CREATOR_CODE_STORAGE_KEY, 'true');
+      localStorage.setItem(CREATOR_CODE_STORAGE_KEY, "true");
       setHasSeenPopover(true);
     }
   };
 
-  const baseUrl = `https://store.epicgames.com/${namespace}/${url.replaceAll('-pp', '')}?utm_source=egdata.app`;
-  const finalUrl = useCreatorCode
-    ? `${baseUrl}&creatorCode=${CREATOR_CODE}`
-    : baseUrl;
+  const baseUrl = `https://store.epicgames.com/${namespace}/${url.replaceAll("-pp", "")}?utm_source=egdata.app`;
+  const finalUrl = useCreatorCode ? `${baseUrl}&creatorCode=${CREATOR_CODE}` : baseUrl;
 
   return (
     <Popover open={showPopover} onOpenChange={setShowPopover}>
@@ -77,8 +74,7 @@ export function OpenEgs({ offer }: { offer: SingleOffer }) {
         <div className="space-y-4">
           <h4 className="font-medium leading-none">Support EGData</h4>
           <p className="text-sm text-muted-foreground">
-            Would you like to support EGData by using our creator code when
-            purchasing games?
+            Would you like to support EGData by using our creator code when purchasing games?
           </p>
           <div className="flex justify-end gap-2">
             <Button
@@ -87,7 +83,7 @@ export function OpenEgs({ offer }: { offer: SingleOffer }) {
               onClick={() => {
                 setUseCreatorCode(false);
                 setShowPopover(false);
-                window.open(finalUrl, '_blank');
+                window.open(finalUrl, "_blank");
               }}
             >
               No thanks
@@ -97,7 +93,7 @@ export function OpenEgs({ offer }: { offer: SingleOffer }) {
               onClick={() => {
                 setUseCreatorCode(true);
                 setShowPopover(false);
-                window.open(finalUrl, '_blank');
+                window.open(finalUrl, "_blank");
               }}
             >
               Yes, use code

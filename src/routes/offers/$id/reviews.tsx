@@ -1,50 +1,41 @@
-import { createFileRoute, getRouteApi, Link } from '@tanstack/react-router';
-import '@mdxeditor/editor/style.css';
-import {
-  dehydrate,
-  HydrationBoundary,
-  useQueries,
-} from '@tanstack/react-query';
-import { httpClient } from '@/lib/http-client';
-import type { SingleReview } from '@/types/reviews';
-import type { RatingsType } from '@egdata/core.schemas.ratings';
-import { getFetchedQuery } from '@/lib/get-fetched-query';
-import type { SingleOffer } from '@/types/single-offer';
-import { lazy, useState } from 'react';
-import type { SinglePoll } from '@/types/polls';
-import { Card, CardContent } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
+import { createFileRoute, getRouteApi, Link } from "@tanstack/react-router";
+import "@mdxeditor/editor/style.css";
+import { dehydrate, HydrationBoundary, useQueries } from "@tanstack/react-query";
+import { httpClient } from "@/lib/http-client";
+import type { SingleReview } from "@/types/reviews";
+import type { RatingsType } from "@egdata/core.schemas.ratings";
+import { getFetchedQuery } from "@/lib/get-fetched-query";
+import type { SingleOffer } from "@/types/single-offer";
+import { lazy, useState } from "react";
+import type { SinglePoll } from "@/types/polls";
+import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Button } from '@/components/ui/button';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { ChevronDown, ThumbsDown, ThumbsUp, ThumbsUpIcon } from 'lucide-react';
-import * as Portal from '@radix-ui/react-portal';
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import { InfoCircledIcon } from '@radix-ui/react-icons';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
-import StarsRating from '@/components/app/stars-rating';
-import { CircularRating } from '@/components/app/circular-rating';
-import Markdown from 'react-markdown';
-import { generateOfferMeta } from '@/lib/generate-offer-meta';
-import { getQueryClient } from '@/lib/client';
-import { useLocale } from '@/hooks/use-locale';
-import { Viewer } from '@/components/app/viewer';
-import { DateTime } from 'luxon';
+} from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { ChevronDown, ThumbsDown, ThumbsUp, ThumbsUpIcon } from "lucide-react";
+import * as Portal from "@radix-ui/react-portal";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { InfoCircledIcon } from "@radix-ui/react-icons";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import StarsRating from "@/components/app/stars-rating";
+import { CircularRating } from "@/components/app/circular-rating";
+import Markdown from "react-markdown";
+import { generateOfferMeta } from "@/lib/generate-offer-meta";
+import { getQueryClient } from "@/lib/client";
+import { useLocale } from "@/hooks/use-locale";
+import { Viewer } from "@/components/app/viewer";
+import { DateTime } from "luxon";
 
 const ReviewForm = lazy(() =>
-  import('@/components/forms/add-review').then((mod) => {
+  import("@/components/forms/add-review").then((mod) => {
     return {
       default: mod.ReviewForm,
     };
@@ -52,14 +43,14 @@ const ReviewForm = lazy(() =>
 );
 
 const EditReviewForm = lazy(() =>
-  import('@/components/forms/edit-review').then((mod) => {
+  import("@/components/forms/edit-review").then((mod) => {
     return {
       default: mod.EditReviewForm,
     };
   }),
 );
 
-const routeApi = getRouteApi('__root__');
+const routeApi = getRouteApi("__root__");
 
 type ReviewSummary = {
   overallScore: number;
@@ -68,17 +59,15 @@ type ReviewSummary = {
   totalReviews: number;
 };
 
-type ReviewsFilter = 'all' | 'verified' | 'not-verified';
+type ReviewsFilter = "all" | "verified" | "not-verified";
 
-const getVerificationParam = (
-  verified: ReviewsFilter,
-): 'true' | 'false' | undefined => {
-  if (verified === 'verified') return 'true';
-  if (verified === 'not-verified') return 'false';
+const getVerificationParam = (verified: ReviewsFilter): "true" | "false" | undefined => {
+  if (verified === "verified") return "true";
+  if (verified === "not-verified") return "false";
   return undefined;
 };
 
-export const Route = createFileRoute('/offers/$id/reviews')({
+export const Route = createFileRoute("/offers/$id/reviews")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
 
@@ -98,11 +87,11 @@ export const Route = createFileRoute('/offers/$id/reviews')({
     await Promise.all([
       queryClient.prefetchQuery({
         queryKey: [
-          'reviews',
+          "reviews",
           {
             id: params.id,
             page: 1,
-            verified: getVerificationParam('all'),
+            verified: getVerificationParam("all"),
           },
         ],
         queryFn: () =>
@@ -114,45 +103,40 @@ export const Route = createFileRoute('/offers/$id/reviews')({
           }>(`/offers/${params.id}/reviews`, {
             params: {
               page: 1,
-              verified: getVerificationParam('all'),
+              verified: getVerificationParam("all"),
             },
           }),
       }),
       queryClient.prefetchQuery({
         queryKey: [
-          'reviews-summary',
+          "reviews-summary",
           {
             id: params.id,
-            verified: getVerificationParam('all'),
+            verified: getVerificationParam("all"),
           },
         ],
         queryFn: () =>
-          httpClient.get<ReviewSummary>(
-            `/offers/${params.id}/reviews-summary`,
-            {
-              params: {
-                verified: getVerificationParam('all'),
-              },
+          httpClient.get<ReviewSummary>(`/offers/${params.id}/reviews-summary`, {
+            params: {
+              verified: getVerificationParam("all"),
             },
-          ),
+          }),
       }),
       queryClient.prefetchQuery({
-        queryKey: ['ratings', { id: params.id }],
-        queryFn: () =>
-          httpClient.get<RatingsType>(`/offers/${params.id}/ratings`),
+        queryKey: ["ratings", { id: params.id }],
+        queryFn: () => httpClient.get<RatingsType>(`/offers/${params.id}/ratings`),
       }),
     ]);
 
-    const offer = getFetchedQuery<SingleOffer>(
-      queryClient,
-      dehydrate(queryClient),
-      ['offer', { id: params.id }],
-    );
+    const offer = getFetchedQuery<SingleOffer>(queryClient, dehydrate(queryClient), [
+      "offer",
+      { id: params.id },
+    ]);
 
     return {
       id,
       dehydratedState: dehydrate(queryClient),
-      userId: session?.user?.email.split('@')[0] ?? user?.account_id,
+      userId: session?.user?.email.split("@")[0] ?? user?.account_id,
       offer,
     };
   },
@@ -165,31 +149,30 @@ export const Route = createFileRoute('/offers/$id/reviews')({
       return {
         meta: [
           {
-            title: 'Offer not found',
-            description: 'Offer not found',
+            title: "Offer not found",
+            description: "Offer not found",
           },
         ],
       };
     }
 
-    const offer = getFetchedQuery<SingleOffer>(
-      queryClient,
-      ctx.loaderData.dehydratedState,
-      ['offer', { id: params.id }],
-    );
+    const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData.dehydratedState, [
+      "offer",
+      { id: params.id },
+    ]);
 
     if (!offer)
       return {
         meta: [
           {
-            title: 'Offer not found',
-            description: 'Offer not found',
+            title: "Offer not found",
+            description: "Offer not found",
           },
         ],
       };
 
     return {
-      meta: generateOfferMeta(offer, 'Reviews'),
+      meta: generateOfferMeta(offer, "Reviews"),
     };
   },
 });
@@ -199,19 +182,13 @@ function Reviews() {
   const { locale } = useLocale();
   const { offer, id } = Route.useLoaderData();
   const [page] = useState(1);
-  const [filter, setFilter] = useState<ReviewsFilter>('all');
+  const [filter, setFilter] = useState<ReviewsFilter>("all");
   const [showReviewForm, setShowReviewForm] = useState(false);
-  const [
-    reviewsQuery,
-    summaryQuery,
-    pollsQuery,
-    ratingsQuery,
-    permissionsQuery,
-  ] = useQueries({
+  const [reviewsQuery, summaryQuery, pollsQuery, ratingsQuery, permissionsQuery] = useQueries({
     queries: [
       {
         queryKey: [
-          'reviews',
+          "reviews",
           {
             id,
             page,
@@ -225,15 +202,13 @@ function Reviews() {
             total: number;
           }>(`/offers/${id}/reviews`, {
             params: { page, verified: getVerificationParam(filter) },
-            headers: epicToken
-              ? { Authorization: `Bearer ${epicToken.access_token}` }
-              : undefined,
+            headers: epicToken ? { Authorization: `Bearer ${epicToken.access_token}` } : undefined,
           }),
-        refetchOnMount: 'always',
+        refetchOnMount: "always",
       },
       {
         queryKey: [
-          'reviews-summary',
+          "reviews-summary",
           {
             id,
             verified: getVerificationParam(filter),
@@ -248,7 +223,7 @@ function Reviews() {
       },
       {
         queryKey: [
-          'polls',
+          "polls",
           {
             offer: id,
           },
@@ -257,7 +232,7 @@ function Reviews() {
       },
       {
         queryKey: [
-          'ratings',
+          "ratings",
           {
             id,
           },
@@ -265,14 +240,11 @@ function Reviews() {
         queryFn: () => httpClient.get<RatingsType>(`/offers/${id}/ratings`),
       },
       {
-        queryKey: ['permissions', { id }],
+        queryKey: ["permissions", { id }],
         queryFn: () =>
-          httpClient.get<{ canReview: boolean }>(
-            `/offers/${id}/reviews/permissions`,
-            {
-              withCredentials: true,
-            },
-          ),
+          httpClient.get<{ canReview: boolean }>(`/offers/${id}/reviews/permissions`, {
+            withCredentials: true,
+          }),
       },
     ],
   });
@@ -286,11 +258,11 @@ function Reviews() {
   const userCanReview = permissions
     ? {
         status: permissions.canReview,
-        label: 'Already reviewed',
+        label: "Already reviewed",
       }
     : {
         status: false,
-        label: 'Login to review',
+        label: "Login to review",
       };
 
   const isReleased = offer
@@ -304,9 +276,7 @@ function Reviews() {
           {poll?.averageRating && (
             <section className="flex flex-col items-start justify-center text-left w-full">
               <div className="flex flex-col items-start justify-center text-center mb-4">
-                <h3 className="text-2xl font-semibold mb-1 text-left">
-                  Epic Players Rating
-                </h3>
+                <h3 className="text-2xl font-semibold mb-1 text-left">Epic Players Rating</h3>
                 <p className="text-sm text-muted-foreground">
                   Captured from players in the Epic Games ecosystem
                 </p>
@@ -317,15 +287,15 @@ function Reviews() {
                     <h2 className="text-6xl font-bold mb-1">
                       {poll?.averageRating.toLocaleString(locale, {
                         maximumFractionDigits: 1,
-                      }) ?? '-'}
+                      }) ?? "-"}
                     </h2>
                     <StarsRating rating={poll.averageRating} />
                   </div>
                   <div
                     className={cn(
-                      'grid grid-rows-3 grid-flow-col gap-4',
-                      poll.pollResult.length === 2 ? 'grid-rows-2' : undefined,
-                      poll.pollResult.length === 1 ? 'grid-rows-1' : undefined,
+                      "grid grid-rows-3 grid-flow-col gap-4",
+                      poll.pollResult.length === 2 ? "grid-rows-2" : undefined,
+                      poll.pollResult.length === 1 ? "grid-rows-1" : undefined,
                     )}
                   >
                     {poll.pollResult
@@ -359,37 +329,29 @@ function Reviews() {
           )}
           <hr className="border-t border-gray-200/15 my-2 w-full" />
           <div className="flex flex-col items-start justify-center text-center w-full">
-            <h3 className="text-2xl font-semibold mb-1 text-left">
-              EGDATA Rating
-            </h3>
+            <h3 className="text-2xl font-semibold mb-1 text-left">EGDATA Rating</h3>
           </div>
           <div className="flex items-center justify-between flex-row w-full h-32 gap-4">
             <Card className="w-full bg-card text-white h-32">
               <CardContent className="p-6">
                 <div className="flex flex-col sm:flex-row items-center justify-evenly gap-4">
                   <div className="flex flex-col items-center justify-center text-center">
-                    <h2 className="text-lg font-semibold mb-1">
-                      Overall Score
-                    </h2>
+                    <h2 className="text-lg font-semibold mb-1">Overall Score</h2>
                     <p className="text-4xl font-bold text-center">
-                      {summary?.overallScore ?? '-'} / 10
+                      {summary?.overallScore ?? "-"} / 10
                     </p>
                   </div>
                   <div className="flex flex-col items-center justify-between gap-4">
                     <span className="text-sm">
-                      Based on{' '}
+                      Based on{" "}
                       {summary?.totalReviews.toLocaleString(locale, {
                         maximumFractionDigits: 0,
-                      })}{' '}
+                      })}{" "}
                       reviews
                     </span>
                     <RecommendationBar
-                      recommendedPercentage={
-                        summary?.recommendedPercentage ?? 0
-                      }
-                      notRecommendedPercentage={
-                        summary?.notRecommendedPercentage ?? 0
-                      }
+                      recommendedPercentage={summary?.recommendedPercentage ?? 0}
+                      notRecommendedPercentage={summary?.notRecommendedPercentage ?? 0}
                       totalReviews={summary?.totalReviews ?? 0}
                     />
                   </div>
@@ -397,10 +359,7 @@ function Reviews() {
               </CardContent>
             </Card>
             <Card className="w-fit flex flex-col items-start justify-center p-4 h-full gap-2 text-left">
-              <Select
-                value={filter}
-                onValueChange={(value) => setFilter(value as ReviewsFilter)}
-              >
+              <Select value={filter} onValueChange={(value) => setFilter(value as ReviewsFilter)}>
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="All Reviews" />
                 </SelectTrigger>
@@ -416,7 +375,7 @@ function Reviews() {
                 onClick={() => setShowReviewForm((prev) => !prev)}
                 disabled={!isReleased || !userCanReview.status}
               >
-                {userCanReview.status ? 'Leave a review' : userCanReview.label}
+                {userCanReview.status ? "Leave a review" : userCanReview.label}
               </Button>
             </Card>
           </div>
@@ -428,19 +387,17 @@ function Reviews() {
                 <InfoCircledIcon className="size-4" fill="white" />
               </TooltipTrigger>
               <p className="text-muted-foreground inline-flex items-center gap-1">
-                <strong>Ownership verification</strong> is based on the
-                completion of at least one achievement by the player.
+                <strong>Ownership verification</strong> is based on the completion of at least one
+                achievement by the player.
               </p>
               <TooltipContent>
                 <p className="text-xs max-w-sm">
-                  We use the Epic Games achievements to verify the ownership of
-                  the product.
+                  We use the Epic Games achievements to verify the ownership of the product.
                   <br />
-                  To mark a player as verified owner, they must have completed
-                  at least one achievement for the selected product in the Epic
-                  Games Store.
+                  To mark a player as verified owner, they must have completed at least one
+                  achievement for the selected product in the Epic Games Store.
                   <br />
-                  To link your account to your egdata profile, you need to go to{' '}
+                  To link your account to your egdata profile, you need to go to{" "}
                   <Link to="/dashboard" className="text-blue-600">
                     your dashboard
                   </Link>
@@ -459,14 +416,12 @@ function Reviews() {
       ) : (
         <div className="w-full text-center min-h-[400px] max-w-4xl mx-auto px-4">
           <h6 className="text-lg font-semibold">
-            {isReleased
-              ? 'No reviews yet'
-              : 'This product has not been released yet'}
+            {isReleased ? "No reviews yet" : "This product has not been released yet"}
           </h6>
           <p className="text-muted-foreground">
             {isReleased
-              ? 'Be the first to leave a review for this product!'
-              : 'Check back after the release date to leave a review!'}
+              ? "Be the first to leave a review for this product!"
+              : "Check back after the release date to leave a review!"}
           </p>
           <Button
             variant="outline"
@@ -479,18 +434,14 @@ function Reviews() {
         </div>
       )}
       <Portal.Root>
-        {showReviewForm && (
-          <ReviewForm setIsOpen={setShowReviewForm} offer={offer} />
-        )}
+        {showReviewForm && <ReviewForm setIsOpen={setShowReviewForm} offer={offer} />}
       </Portal.Root>
       <hr className="border-t border-gray-200/15 my-2" />
       {ratings && (
         <div className="flex items-center flex-col gap-4 w-full">
           <section className="flex flex-col items-start justify-center text-left w-full">
             <div className="flex flex-col items-start justify-center text-center mb-4">
-              <h3 className="text-2xl font-semibold mb-1 text-left">
-                Critic Reviews
-              </h3>
+              <h3 className="text-2xl font-semibold mb-1 text-left">Critic Reviews</h3>
               <p className="text-sm text-muted-foreground">
                 Based on {ratings?.reviews.length ?? 0} critic reviews
               </p>
@@ -557,13 +508,8 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
     <div className="p-4 bg-card text-white rounded-lg max-w-2xl min-w-1/2 mx-auto w-full h-full flex flex-col">
       <div className="flex items-center mb-4">
         <Avatar>
-          <AvatarImage
-            src={userAvatar as string}
-            alt={review.user.displayName}
-          />
-          <AvatarFallback>
-            {review.user.displayName.slice(0, 2).toUpperCase()}
-          </AvatarFallback>
+          <AvatarImage src={userAvatar as string} alt={review.user.displayName} />
+          <AvatarFallback>{review.user.displayName.slice(0, 2).toUpperCase()}</AvatarFallback>
         </Avatar>
         <Link
           className="ml-4 inline-flex items-center space-x-2"
@@ -573,19 +519,13 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
           {review.verified && <Badge variant="secondary">Verified Owner</Badge>}
         </Link>
         <div className="ml-auto flex items-end space-x-2 bg-gray-900 px-2 py-1 rounded-lg">
-          <div className=" text-white px-2 py-1 rounded-lg font-bold">
-            {review.rating} / 10
-          </div>
+          <div className=" text-white px-2 py-1 rounded-lg font-bold">{review.rating} / 10</div>
           <div className="flex items-center space-x-1 font-bold">
-            <span>
-              {review.recommended ? 'Recommended' : 'Not Recommended'}
-            </span>
+            <span>{review.recommended ? "Recommended" : "Not Recommended"}</span>
             <ThumbsUpIcon
               className={cn(
-                'p-[4px] size-8',
-                review.recommended
-                  ? 'fill-blue-600'
-                  : 'fill-red-600 transform rotate-180',
+                "p-[4px] size-8",
+                review.recommended ? "fill-blue-600" : "fill-red-600 transform rotate-180",
               )}
               stroke="none"
             />
@@ -596,16 +536,14 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
         <h3 className="font-bold mb-2 text-lg md:text-xl">{review.title}</h3>
         <div className="relative">
           <p className="mb-4 prose prose-sm md:prose-base prose-invert max-w-none min-w-1/2">
-            {typeof review.content === 'string' ? (
+            {typeof review.content === "string" ? (
               <Markdown>
                 {review.content.length <= 750
                   ? review.content
                   : `${review.content.slice(0, 750)}...`}
               </Markdown>
             ) : null}
-            {typeof review.content === 'object' ? (
-              <Viewer content={review.content} />
-            ) : null}
+            {typeof review.content === "object" ? <Viewer content={review.content} /> : null}
           </p>
           {review.content.length > 750 && (
             <div className="absolute bottom-0 left-0 w-full">
@@ -628,14 +566,12 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
           <TooltipProvider>
             <div className="flex items-center">
               <span className="text-gray-400">
-                Reviewed on{' '}
-                {DateTime.fromISO(review.createdAt)
-                  .setLocale('en-GB')
-                  .toLocaleString({
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
-                  })}
+                Reviewed on{" "}
+                {DateTime.fromISO(review.createdAt).setLocale("en-GB").toLocaleString({
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
               </span>
               {review.editions?.length && review.editions.length > 0 ? (
                 <Tooltip disableHoverableContent={!review.editions}>
@@ -645,20 +581,16 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
                   <TooltipContent>
                     <span className="text-xs flex flex-col gap-1">
                       <span>
-                        Last updated on{' '}
-                        {DateTime.fromISO(review.updatedAt)
-                          .setLocale('en-GB')
-                          .toLocaleString({
-                            year: 'numeric',
-                            month: 'short',
-                            day: 'numeric',
-                            hour: 'numeric',
-                            minute: 'numeric',
-                          })}
+                        Last updated on{" "}
+                        {DateTime.fromISO(review.updatedAt).setLocale("en-GB").toLocaleString({
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                          hour: "numeric",
+                          minute: "numeric",
+                        })}
                       </span>
-                      {review.editions && (
-                        <span>Edited {review.editions?.length ?? 0} times</span>
-                      )}
+                      {review.editions && <span>Edited {review.editions?.length ?? 0} times</span>}
                     </span>
                   </TooltipContent>
                 </Tooltip>
@@ -711,7 +643,7 @@ function FullReview({
         className="fixed inset-0 cursor-pointer"
         onClick={() => setIsOpen(false)}
         onKeyDown={(e) => {
-          if (e.key === 'Escape') {
+          if (e.key === "Escape") {
             setIsOpen(false);
           }
         }}
@@ -720,34 +652,21 @@ function FullReview({
         <div className="w-full  p-4 rounded-lg">
           <div className="flex items-center mb-4">
             <Avatar>
-              <AvatarImage
-                src={userAvatar as string}
-                alt={review.user.displayName}
-              />
-              <AvatarFallback>
-                {review.user.displayName.slice(0, 2).toUpperCase()}
-              </AvatarFallback>
+              <AvatarImage src={userAvatar as string} alt={review.user.displayName} />
+              <AvatarFallback>{review.user.displayName.slice(0, 2).toUpperCase()}</AvatarFallback>
             </Avatar>
             <div className="ml-4 inline-flex items-center space-x-2">
               <div className="font-bold">{review.user.displayName}</div>
-              {review.verified && (
-                <Badge variant="secondary">Verified Owner</Badge>
-              )}
+              {review.verified && <Badge variant="secondary">Verified Owner</Badge>}
             </div>
             <div className="ml-auto flex items-end space-x-2 bg-gray-900 px-2 py-1 rounded-lg">
-              <div className=" text-white px-2 py-1 rounded-lg font-bold">
-                {review.rating} / 10
-              </div>
+              <div className=" text-white px-2 py-1 rounded-lg font-bold">{review.rating} / 10</div>
               <div className="flex items-center space-x-1 font-bold">
-                <span>
-                  {review.recommended ? 'Recommended' : 'Not Recommended'}
-                </span>
+                <span>{review.recommended ? "Recommended" : "Not Recommended"}</span>
                 <ThumbsUpIcon
                   className={cn(
-                    'p-[4px] size-8',
-                    review.recommended
-                      ? 'fill-blue-600'
-                      : 'fill-red-600 transform rotate-180',
+                    "p-[4px] size-8",
+                    review.recommended ? "fill-blue-600" : "fill-red-600 transform rotate-180",
                   )}
                   stroke="none"
                 />
@@ -759,7 +678,7 @@ function FullReview({
             <div className="relative">
               <ScrollArea className="h-[50vh]">
                 <p className="mb-4 prose prose-sm prose-invert max-w-none mr-2">
-                  {typeof review.content === 'string' ? (
+                  {typeof review.content === "string" ? (
                     <Markdown>{review.content}</Markdown>
                   ) : (
                     <Viewer content={review.content} />
@@ -771,20 +690,14 @@ function FullReview({
           </div>
           <div className="mt-4 inline-flex justify-between items-center w-full">
             <span className="text-gray-400">
-              Reviewed on{' '}
-              {DateTime.fromISO(review.createdAt)
-                .setLocale('en-GB')
-                .toLocaleString({
-                  year: 'numeric',
-                  month: 'short',
-                  day: 'numeric',
-                })}
+              Reviewed on{" "}
+              {DateTime.fromISO(review.createdAt).setLocale("en-GB").toLocaleString({
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })}
             </span>
-            <Button
-              variant="outline"
-              className="text-sm"
-              onClick={() => setIsOpen(false)}
-            >
+            <Button variant="outline" className="text-sm" onClick={() => setIsOpen(false)}>
               Close
             </Button>
           </div>
@@ -803,9 +716,7 @@ function RecommendationBar({
   notRecommendedPercentage: number;
   totalReviews: number;
 }) {
-  const [hovered, setHovered] = useState<
-    'recommended' | 'notRecommended' | null
-  >(null);
+  const [hovered, setHovered] = useState<"recommended" | "notRecommended" | null>(null);
 
   return (
     <div className="flex flex-col gap-2 relative">
@@ -813,54 +724,44 @@ function RecommendationBar({
         <span
           className="relative z-10 cursor-pointer h-full"
           style={{ width: `${(recommendedPercentage ?? 0) * 100}%` }}
-          onMouseEnter={() => setHovered('recommended')}
+          onMouseEnter={() => setHovered("recommended")}
           onMouseLeave={() => setHovered(null)}
         />
         <span
           className="relative z-10 cursor-pointer h-full"
           style={{ width: `${(notRecommendedPercentage ?? 0) * 100}%` }}
-          onMouseEnter={() => setHovered('notRecommended')}
+          onMouseEnter={() => setHovered("notRecommended")}
           onMouseLeave={() => setHovered(null)}
         />
       </div>
       <div className="flex flex-row items-center justify-between gap-2 px-2">
         <div className="flex items-center gap-1 font-bold">
           <ThumbsUp className="w-5 h-5 fill-blue-600" stroke="none" />
-          {(hovered === 'notRecommended' || hovered === null) && (
-            <span className="text-sm font-bold">
-              {(recommendedPercentage ?? 0) * 100}%
-            </span>
+          {(hovered === "notRecommended" || hovered === null) && (
+            <span className="text-sm font-bold">{(recommendedPercentage ?? 0) * 100}%</span>
           )}
-          {hovered === 'recommended' && (
+          {hovered === "recommended" && (
             <span className="text-sm">
-              {(recommendedPercentage * totalReviews).toLocaleString(
-                undefined,
-                {
-                  maximumFractionDigits: 0,
-                },
-              )}{' '}
+              {(recommendedPercentage * totalReviews).toLocaleString(undefined, {
+                maximumFractionDigits: 0,
+              })}{" "}
               review
-              {totalReviews === 1 ? '' : 's'}
+              {totalReviews === 1 ? "" : "s"}
             </span>
           )}
         </div>
         <div className="flex items-center gap-1 font-bold">
-          {hovered === 'notRecommended' && (
+          {hovered === "notRecommended" && (
             <span className="text-sm">
-              {(notRecommendedPercentage * totalReviews).toLocaleString(
-                undefined,
-                {
-                  maximumFractionDigits: 0,
-                },
-              )}{' '}
+              {(notRecommendedPercentage * totalReviews).toLocaleString(undefined, {
+                maximumFractionDigits: 0,
+              })}{" "}
               review
-              {totalReviews === 1 ? '' : 's'}
+              {totalReviews === 1 ? "" : "s"}
             </span>
           )}
-          {(hovered === 'recommended' || hovered === null) && (
-            <span className="text-sm font-bold">
-              {(notRecommendedPercentage ?? 0) * 100}%
-            </span>
+          {(hovered === "recommended" || hovered === null) && (
+            <span className="text-sm font-bold">{(notRecommendedPercentage ?? 0) * 100}%</span>
           )}
           <ThumbsDown className="w-5 h-5 fill-red-600" stroke="none" />
         </div>
@@ -869,29 +770,29 @@ function RecommendationBar({
         {/* biome-ignore lint/a11y/useFocusableInteractive: <explanation> */}
         <div
           className={cn(
-            'bg-blue-600 rounded-full transition-all duration-300 ease-in-out cursor-pointer',
-            hovered === 'notRecommended' ? 'bg-opacity-50' : 'bg-opacity-100',
+            "bg-blue-600 rounded-full transition-all duration-300 ease-in-out cursor-pointer",
+            hovered === "notRecommended" ? "bg-opacity-50" : "bg-opacity-100",
           )}
           style={{ width: `${(recommendedPercentage ?? 0) * 100}%` }}
           role="progressbar"
           aria-valuenow={(recommendedPercentage ?? 0) * 100}
           aria-valuemin={0}
           aria-valuemax={100}
-          onMouseEnter={() => setHovered('recommended')}
+          onMouseEnter={() => setHovered("recommended")}
           onMouseLeave={() => setHovered(null)}
         />
         {/* biome-ignore lint/a11y/useFocusableInteractive: <explanation> */}
         <div
           className={cn(
-            'bg-red-600 rounded-full transition-all duration-300 ease-in-out cursor-pointer',
-            hovered === 'recommended' ? 'bg-opacity-50' : 'bg-opacity-100',
+            "bg-red-600 rounded-full transition-all duration-300 ease-in-out cursor-pointer",
+            hovered === "recommended" ? "bg-opacity-50" : "bg-opacity-100",
           )}
           style={{ width: `${(notRecommendedPercentage ?? 0) * 100}%` }}
           role="progressbar"
           aria-valuenow={(notRecommendedPercentage ?? 0) * 100}
           aria-valuemin={0}
           aria-valuemax={100}
-          onMouseEnter={() => setHovered('notRecommended')}
+          onMouseEnter={() => setHovered("notRecommended")}
           onMouseLeave={() => setHovered(null)}
         />
       </div>

@@ -2,35 +2,30 @@ import {
   FlippableCard,
   type rarities,
   raritiesTextColors,
-} from '@/components/app/achievement-card';
-import { SandboxHeader } from '@/components/app/sandbox-header';
-import { EpicTrophyIcon } from '@/components/icons/epic-trophy';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { useLocale } from '@/hooks/use-locale';
-import { getQueryClient } from '@/lib/client';
-import { generateSandboxMeta } from '@/lib/generate-sandbox-meta';
-import { getFetchedQuery } from '@/lib/get-fetched-query';
-import { getRarity } from '@/lib/get-rarity';
-import { httpClient } from '@/lib/http-client';
-import { cn } from '@/lib/utils';
-import type { AchievementSet } from '@/queries/offer-achievements';
-import type { SingleOffer } from '@/types/single-offer';
-import type { SingleSandbox } from '@/types/single-sandbox';
-import { CardStackIcon, EyeOpenIcon } from '@radix-ui/react-icons';
-import { dehydrate, HydrationBoundary, useQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
-import { EyeClosedIcon, FileWarningIcon } from 'lucide-react';
-import { useMemo, useState } from 'react';
+} from "@/components/app/achievement-card";
+import { SandboxHeader } from "@/components/app/sandbox-header";
+import { EpicTrophyIcon } from "@/components/icons/epic-trophy";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useLocale } from "@/hooks/use-locale";
+import { getQueryClient } from "@/lib/client";
+import { generateSandboxMeta } from "@/lib/generate-sandbox-meta";
+import { getFetchedQuery } from "@/lib/get-fetched-query";
+import { getRarity } from "@/lib/get-rarity";
+import { httpClient } from "@/lib/http-client";
+import { cn } from "@/lib/utils";
+import type { AchievementSet } from "@/queries/offer-achievements";
+import type { SingleOffer } from "@/types/single-offer";
+import type { SingleSandbox } from "@/types/single-sandbox";
+import { CardStackIcon, EyeOpenIcon } from "@radix-ui/react-icons";
+import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
+import { EyeClosedIcon, FileWarningIcon } from "lucide-react";
+import { useMemo, useState } from "react";
 
-export const Route = createFileRoute('/sandboxes/$id/achievements')({
+export const Route = createFileRoute("/sandboxes/$id/achievements")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
     return (
@@ -45,9 +40,8 @@ export const Route = createFileRoute('/sandboxes/$id/achievements')({
     const { queryClient } = context;
 
     await queryClient.prefetchQuery({
-      queryKey: ['sandbox', 'achievements', { id }],
-      queryFn: () =>
-        httpClient.get<AchievementSet[]>(`/sandboxes/${id}/achievements`),
+      queryKey: ["sandbox", "achievements", { id }],
+      queryFn: () => httpClient.get<AchievementSet[]>(`/sandboxes/${id}/achievements`),
     });
 
     return {
@@ -64,8 +58,8 @@ export const Route = createFileRoute('/sandboxes/$id/achievements')({
       return {
         meta: [
           {
-            title: 'Sandbox not found',
-            description: 'Sandbox not found',
+            title: "Sandbox not found",
+            description: "Sandbox not found",
           },
         ],
       };
@@ -73,29 +67,28 @@ export const Route = createFileRoute('/sandboxes/$id/achievements')({
 
     const { id } = params;
 
-    const sandbox = getFetchedQuery<SingleSandbox>(
-      queryClient,
-      ctx.loaderData?.dehydratedState,
-      ['sandbox', { id }],
-    );
-    const offer = getFetchedQuery<SingleOffer>(
-      queryClient,
-      ctx.loaderData?.dehydratedState,
-      ['sandbox', 'base-game', { id }],
-    );
+    const sandbox = getFetchedQuery<SingleSandbox>(queryClient, ctx.loaderData?.dehydratedState, [
+      "sandbox",
+      { id },
+    ]);
+    const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
+      "sandbox",
+      "base-game",
+      { id },
+    ]);
 
     if (!sandbox)
       return {
         meta: [
           {
-            title: 'Sandbox not found',
-            description: 'Sandbox not found',
+            title: "Sandbox not found",
+            description: "Sandbox not found",
           },
         ],
       };
 
     return {
-      meta: generateSandboxMeta(sandbox, offer, 'Achievements'),
+      meta: generateSandboxMeta(sandbox, offer, "Achievements"),
     };
   },
 });
@@ -103,7 +96,7 @@ export const Route = createFileRoute('/sandboxes/$id/achievements')({
 function SandboxAchievementsPage() {
   const { id } = Route.useParams();
   const { timezone } = useLocale();
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [blur, setBlur] = useState(true);
   const [flipAll, setFlipAll] = useState(false);
   const [flippedStates, setFlippedStates] = useState<{
@@ -121,17 +114,16 @@ function SandboxAchievementsPage() {
     }));
   };
   const { data: achievements } = useQuery({
-    queryKey: ['sandbox', 'achievements', { id }],
-    queryFn: () =>
-      httpClient.get<AchievementSet[]>(`/sandboxes/${id}/achievements`),
+    queryKey: ["sandbox", "achievements", { id }],
+    queryFn: () => httpClient.get<AchievementSet[]>(`/sandboxes/${id}/achievements`),
   });
   const { data: offer } = useQuery({
-    queryKey: ['sandbox', 'base-game', { id }],
+    queryKey: ["sandbox", "base-game", { id }],
     queryFn: () => httpClient.get<SingleOffer>(`/sandboxes/${id}/base-game`),
     retry: false,
   });
   const { data: sandbox } = useQuery({
-    queryKey: ['sandbox', { id }],
+    queryKey: ["sandbox", { id }],
     queryFn: () => httpClient.get<SingleSandbox>(`/sandboxes/${id}`),
   });
 
@@ -155,9 +147,7 @@ function SandboxAchievementsPage() {
   return (
     <main className="flex flex-col items-start justify-start h-full gap-4 px-4 w-full">
       <SandboxHeader
-        title={
-          offer?.title ?? sandbox?.displayName ?? (sandbox?.name as string)
-        }
+        title={offer?.title ?? sandbox?.displayName ?? (sandbox?.name as string)}
         section="achievements"
         id={id}
         sandbox={id}
@@ -185,46 +175,32 @@ function SandboxAchievementsPage() {
               onClick={() => setBlur(!blur)}
               disabled={achievements.length === 0}
             >
-              {blur ? (
-                <EyeOpenIcon className="w-6 h-6" />
-              ) : (
-                <EyeClosedIcon className="w-6 h-6" />
-              )}
+              {blur ? <EyeOpenIcon className="w-6 h-6" /> : <EyeClosedIcon className="w-6 h-6" />}
             </Button>
           </div>
         </div>
         <Card className="w-full bg-card text-white p-4">
           <div className="flex flex-row items-center justify-center gap-10">
-            {Object.entries(noOfAchievemenentsPerRarity).map(
-              ([rarity, count]) => (
-                <div
-                  key={rarity}
-                  className={cn(
-                    'flex flex-col items-center justify-center gap-2 rounded-md p-4 text-center',
-                  )}
-                >
-                  <EpicTrophyIcon
-                    className={cn('size-6', raritiesTextColors[rarity])}
-                  />
-                  <span className="text-xl font-bold">{count}</span>
-                </div>
-              ),
-            )}
-            <span className="text-2xl font-bold">{'='}</span>
+            {Object.entries(noOfAchievemenentsPerRarity).map(([rarity, count]) => (
+              <div
+                key={rarity}
+                className={cn(
+                  "flex flex-col items-center justify-center gap-2 rounded-md p-4 text-center",
+                )}
+              >
+                <EpicTrophyIcon className={cn("size-6", raritiesTextColors[rarity])} />
+                <span className="text-xl font-bold">{count}</span>
+              </div>
+            ))}
+            <span className="text-2xl font-bold">{"="}</span>
             <div
               className={cn(
-                'flex flex-col items-center justify-center gap-2 rounded-md p-4 text-center',
+                "flex flex-col items-center justify-center gap-2 rounded-md p-4 text-center",
               )}
             >
-              <EpicTrophyIcon
-                className={cn('size-8', raritiesTextColors.platinum)}
-              />
+              <EpicTrophyIcon className={cn("size-8", raritiesTextColors.platinum)} />
               <span className="text-2xl font-bold">
-                {
-                  achievements
-                    .filter((set) => set.isBase)
-                    .flatMap((set) => set.achievements).length
-                }
+                {achievements.filter((set) => set.isBase).flatMap((set) => set.achievements).length}
               </span>
             </div>
           </div>
@@ -238,16 +214,15 @@ function SandboxAchievementsPage() {
                   <Tooltip>
                     <TooltipTrigger>
                       <h4 className="text-xl font-thin underline decoration-dotted decoration-gray-300/50 underline-offset-4">
-                        {achievementSet.isBase ? 'Base Game' : 'DLC'}{' '}
-                        Achievements
+                        {achievementSet.isBase ? "Base Game" : "DLC"} Achievements
                       </h4>
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>
                         {achievementSet.isBase &&
-                          'This list of achievements are for the base game.'}
+                          "This list of achievements are for the base game."}
                         {!achievementSet.isBase &&
-                          'This list of achievements are for one of the DLCs.'}
+                          "This list of achievements are for one of the DLCs."}
                       </p>
                     </TooltipContent>
                   </Tooltip>
@@ -256,31 +231,26 @@ function SandboxAchievementsPage() {
                       <Tooltip>
                         <TooltipTrigger>
                           <span className="text-sm underline decoration-dotted decoration-gray-300/50 underline-offset-4">
-                            Last Updated:{' '}
-                            {new Date(
-                              achievementSet.lastUpdated,
-                            ).toLocaleString('en-GB', {
+                            Last Updated:{" "}
+                            {new Date(achievementSet.lastUpdated).toLocaleString("en-GB", {
                               timeZone: timezone,
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric',
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
                             })}
                           </span>
                         </TooltipTrigger>
                         <TooltipContent>
                           <p>
-                            This achievement set was last updated on{' '}
-                            {new Date(
-                              achievementSet.lastUpdated,
-                            ).toLocaleString('en-GB', {
+                            This achievement set was last updated on{" "}
+                            {new Date(achievementSet.lastUpdated).toLocaleString("en-GB", {
                               timeZone: timezone,
-                              timeStyle: 'short',
-                              dateStyle: 'short',
+                              timeStyle: "short",
+                              dateStyle: "short",
                             })}
                             .
                             <br />
-                            This is either it's date of creation or the date of
-                            the last update.
+                            This is either it's date of creation or the date of the last update.
                           </p>
                         </TooltipContent>
                       </Tooltip>
@@ -297,9 +267,7 @@ function SandboxAchievementsPage() {
                         achievement.unlockedDisplayName
                           .toLowerCase()
                           .includes(search.toLowerCase()) ||
-                        achievement.lockedDisplayName
-                          .toLowerCase()
-                          .includes(search.toLowerCase())
+                        achievement.lockedDisplayName.toLowerCase().includes(search.toLowerCase())
                       );
                     }
 
@@ -325,8 +293,8 @@ function SandboxAchievementsPage() {
                   <p className="text-center font-thin">
                     No achievements found for this set.
                     <br />
-                    This could mean that the achievements are not currently
-                    available but will be added in the future.
+                    This could mean that the achievements are not currently available but will be
+                    added in the future.
                   </p>
                 </div>
               )}

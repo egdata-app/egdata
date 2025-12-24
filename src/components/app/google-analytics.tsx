@@ -1,5 +1,5 @@
-import consola from 'consola';
-import { useEffect } from 'react';
+import consola from "consola";
+import { useEffect } from "react";
 
 export interface ConsentSettings {
   ad_storage: string;
@@ -24,13 +24,10 @@ interface GoogleAnalyticsProps {
   };
 }
 
-export const GoogleAnalytics: React.FC<GoogleAnalyticsProps> = ({
-  tagId,
-  consentSettings,
-}) => {
+export const GoogleAnalytics: React.FC<GoogleAnalyticsProps> = ({ tagId, consentSettings }) => {
   useEffect(() => {
     if (!tagId) {
-      console.warn('GoogleAnalytics: No tag ID provided');
+      console.warn("GoogleAnalytics: No tag ID provided");
       return;
     }
 
@@ -39,7 +36,7 @@ export const GoogleAnalytics: React.FC<GoogleAnalyticsProps> = ({
       `script[src="https://www.googletagmanager.com/gtag/js?id=${tagId}"]`,
     );
     if (!existingScript) {
-      const script = document.createElement('script');
+      const script = document.createElement("script");
       script.src = `https://www.googletagmanager.com/gtag/js?id=${tagId}`;
       script.async = true;
       document.head?.appendChild(script);
@@ -47,7 +44,7 @@ export const GoogleAnalytics: React.FC<GoogleAnalyticsProps> = ({
 
     const inlineScriptId = `google-analytics-script-${tagId}`;
     if (!document.getElementById(inlineScriptId)) {
-      const script = document.createElement('script');
+      const script = document.createElement("script");
       script.id = inlineScriptId;
       script.innerHTML = `
         window.dataLayer = window.dataLayer || [];
@@ -65,7 +62,7 @@ export const GoogleAnalytics: React.FC<GoogleAnalyticsProps> = ({
         gtag('config', '${tagId}');
       `;
       document.head?.appendChild(script);
-      consola.info('GoogleAnalytics: Loaded inline script', tagId);
+      consola.info("GoogleAnalytics: Loaded inline script", tagId);
     }
   }, [tagId, consentSettings]);
 

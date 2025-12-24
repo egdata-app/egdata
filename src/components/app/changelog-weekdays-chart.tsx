@@ -1,5 +1,5 @@
-import { TrendingUp } from 'lucide-react';
-import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from 'recharts';
+import { TrendingUp } from "lucide-react";
+import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts";
 
 import {
   Card,
@@ -8,39 +8,33 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+} from "@/components/ui/card";
 import {
   type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from '@/components/ui/chart';
-import type { ChangelogStats } from '@/types/changelog';
+} from "@/components/ui/chart";
+import type { ChangelogStats } from "@/types/changelog";
 
 const chartConfig = {
   desktop: {
-    label: 'Total Changes',
-    color: 'hsl(var(--chart-1))',
+    label: "Total Changes",
+    color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig;
 
 const numberToWeekday = (number: number) => {
-  const weekdays = [
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-    'Sunday',
-  ];
+  const weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
   return weekdays[number];
 };
 
 export function ChangelogWeekdaysChart({
   chartData,
-}: { chartData: ChangelogStats['weekdayChanges'] }) {
+}: {
+  chartData: ChangelogStats["weekdayChanges"];
+}) {
   return (
     <Card>
       <CardHeader>
@@ -67,17 +61,9 @@ export function ChangelogWeekdaysChart({
               axisLine={false}
               tickFormatter={(value) => value.slice(0, 3)}
             />
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
             <Bar dataKey="desktop" fill="var(--color-desktop)" radius={8}>
-              <LabelList
-                position="top"
-                offset={12}
-                className="fill-foreground"
-                fontSize={12}
-              />
+              <LabelList position="top" offset={12} className="fill-foreground" fontSize={12} />
             </Bar>
           </BarChart>
         </ChartContainer>
@@ -96,24 +82,18 @@ export function ChangelogWeekdaysChart({
                 .filter((day) => day !== maxDay) // Exclude the max day
                 .reduce(
                   (secondMax, day) =>
-                    chartData[day] >
-                    (chartData[secondMax as unknown as string] || 0)
+                    chartData[day] > (chartData[secondMax as unknown as string] || 0)
                       ? day
                       : secondMax,
                   null,
                 );
 
               const maxChanges = chartData[maxDay];
-              const secondMaxChanges = secondMaxDay
-                ? chartData[secondMaxDay]
-                : 0;
+              const secondMaxChanges = secondMaxDay ? chartData[secondMaxDay] : 0;
 
               // Calculate percentage change
               const percentageChange = secondMaxChanges
-                ? (
-                    ((maxChanges - secondMaxChanges) / secondMaxChanges) *
-                    100
-                  ).toFixed(2)
+                ? (((maxChanges - secondMaxChanges) / secondMaxChanges) * 100).toFixed(2)
                 : 100;
 
               const weekday = numberToWeekday(Number(maxDay)); // Convert day key to weekday name
@@ -121,14 +101,12 @@ export function ChangelogWeekdaysChart({
               return (
                 <>
                   <div className="flex gap-2 font-medium leading-none">
-                    {weekday} is the day with the most changes{' '}
-                    <TrendingUp className="h-4 w-4" />
+                    {weekday} is the day with the most changes <TrendingUp className="h-4 w-4" />
                   </div>
                   {secondMaxChanges > 0 && (
                     <span className="leading-none text-muted-foreground">
-                      {(percentageChange as number) > 0 ? '+' : ''}
-                      {percentageChange}% compared to the next day with the most
-                      changes
+                      {(percentageChange as number) > 0 ? "+" : ""}
+                      {percentageChange}% compared to the next day with the most changes
                     </span>
                   )}
                 </>

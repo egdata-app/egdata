@@ -1,14 +1,14 @@
-import { useQuery } from '@tanstack/react-query';
-import type { SingleOffer } from '@/types/single-offer';
-import { OfferCard } from '@/components/app/offer-card';
-import { Carousel, CarouselContent } from '../ui/carousel';
-import { useCountry } from '@/hooks/use-country';
-import { Link } from '@tanstack/react-router';
-import { ArrowRightIcon } from '@radix-ui/react-icons';
-import { useEffect, useState } from 'react';
-import { httpClient } from '@/lib/http-client';
-import { DateTime } from 'luxon';
-import { useLocale } from '@/hooks/use-locale';
+import { useQuery } from "@tanstack/react-query";
+import type { SingleOffer } from "@/types/single-offer";
+import { OfferCard } from "@/components/app/offer-card";
+import { Carousel, CarouselContent } from "../ui/carousel";
+import { useCountry } from "@/hooks/use-country";
+import { Link } from "@tanstack/react-router";
+import { ArrowRightIcon } from "@radix-ui/react-icons";
+import { useEffect, useState } from "react";
+import { httpClient } from "@/lib/http-client";
+import { DateTime } from "luxon";
+import { useLocale } from "@/hooks/use-locale";
 
 interface UpcomingRes {
   elements: SingleOffer[];
@@ -22,14 +22,14 @@ export function UpcomingCalendar() {
   const { country } = useCountry();
   const { data, isLoading } = useQuery({
     queryKey: [
-      'upcoming',
+      "upcoming",
       {
         country,
         page: 1,
       },
     ],
     queryFn: () =>
-      httpClient.get<UpcomingRes>('/offers/upcoming', {
+      httpClient.get<UpcomingRes>("/offers/upcoming", {
         params: {
           country,
           page: 1,
@@ -68,10 +68,10 @@ export function UpcomingCalendar() {
         className="text-xl font-bold text-left inline-flex group items-center gap-2"
         to="/search"
         search={{
-          sortBy: 'upcoming',
+          sortBy: "upcoming",
         }}
       >
-        Upcoming Offers{' '}
+        Upcoming Offers{" "}
         <ArrowRightIcon className="w-6 h-6 inline-block group-hover:translate-x-1 transition-transform duration-300 ease-in-out" />
       </Link>
       <Carousel
@@ -97,9 +97,7 @@ export function UpcomingCalendar() {
                           /* If the difference between right now and the game release is 1 day or less, show the timer */
                           new Date(offer.releaseDate).getTime() - Date.now() <
                             1000 * 60 * 60 * 24 && (
-                            <FloatingCountdown
-                              date={new Date(offer.releaseDate)}
-                            />
+                            <FloatingCountdown date={new Date(offer.releaseDate)} />
                           )
                         }
 
@@ -116,21 +114,17 @@ export function UpcomingCalendar() {
 }
 
 function relativeDate(date: Date) {
-  const formatter = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+  const formatter = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
   const now = new Date();
 
   // Clear the time part for accurate comparison of just the date
-  const dateOnly = new Date(
-    date.getFullYear(),
-    date.getMonth(),
-    date.getDate(),
-  );
+  const dateOnly = new Date(date.getFullYear(), date.getMonth(), date.getDate());
   const nowOnly = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
   const diff = dateOnly.getTime() - nowOnly.getTime();
   const days = Math.round(diff / (1000 * 60 * 60 * 24));
 
-  return formatter.format(days, 'day');
+  return formatter.format(days, "day");
 }
 
 /**
@@ -140,15 +134,15 @@ function relativeDate(date: Date) {
  */
 function FloatingCountdown({ date }: { date: Date }) {
   const { timezone } = useLocale();
-  const target = DateTime.fromJSDate(date).setZone(timezone || 'UTC');
-  const [timeLeft, setTimeLeft] = useState(() => 
-    target.diff(DateTime.now().setZone(timezone || 'UTC'), 'milliseconds').milliseconds
+  const target = DateTime.fromJSDate(date).setZone(timezone || "UTC");
+  const [timeLeft, setTimeLeft] = useState(
+    () => target.diff(DateTime.now().setZone(timezone || "UTC"), "milliseconds").milliseconds,
   );
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const now = DateTime.now().setZone(timezone || 'UTC');
-      setTimeLeft(target.diff(now, 'milliseconds').milliseconds);
+      const now = DateTime.now().setZone(timezone || "UTC");
+      setTimeLeft(target.diff(now, "milliseconds").milliseconds);
     }, 1000);
 
     return () => {
@@ -169,13 +163,11 @@ function FloatingCountdown({ date }: { date: Date }) {
  * @returns
  */
 function formatTimeLeft(timeLeft: number) {
-  const hours = Math.floor(
-    (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-  );
+  const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
-  let formatted = '';
+  let formatted = "";
   if (hours > 0) {
     if (hours < 10) {
       formatted += `0${hours}:`;
@@ -198,7 +190,7 @@ function formatTimeLeft(timeLeft: number) {
 
   // If the time has passed, show ""
   if (timeLeft < 0) {
-    formatted = '';
+    formatted = "";
   }
 
   return formatted;

@@ -1,4 +1,4 @@
-import type { JSONContent } from '@tiptap/react';
+import type { JSONContent } from "@tiptap/react";
 
 export interface SingleReview {
   id: string;
@@ -23,7 +23,7 @@ export interface SingleReview {
 
 export type ReviewInput = Omit<
   SingleReview,
-  'id' | 'createdAt' | 'updatedAt' | 'verified' | 'userId' | 'editions' | 'user'
+  "id" | "createdAt" | "updatedAt" | "verified" | "userId" | "editions" | "user"
 >;
 
 interface User {

@@ -1,14 +1,11 @@
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
-export function EpicTrophyIcon({
-  className,
-  ...props
-}: React.SVGProps<SVGSVGElement>) {
+export function EpicTrophyIcon({ className, ...props }: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 15 14"
-      className={cn('svg', className)}
+      className={cn("svg", className)}
       {...props}
     >
       <path

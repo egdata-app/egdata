@@ -1,5 +1,5 @@
-import { Skeleton } from '@/components/ui/skeleton';
-import { Card, CardContent } from '@/components/ui/card';
+import { Skeleton } from "@/components/ui/skeleton";
+import { Card, CardContent } from "@/components/ui/card";
 
 export function OffersIndexSkeleton() {
   return (
@@ -76,10 +76,7 @@ export function OffersIndexSkeleton() {
               <CardContent className="p-6">
                 <div className="flex flex-col gap-4">
                   {Array.from({ length: 3 }).map((_, i) => (
-                    <div
-                      key={`price-${i}`}
-                      className="flex items-start justify-start gap-2"
-                    >
+                    <div key={`price-${i}`} className="flex items-start justify-start gap-2">
                       <Skeleton className="h-6 w-24" />
                       <Skeleton className="h-6 w-32" />
                     </div>

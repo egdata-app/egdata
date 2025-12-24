@@ -1,17 +1,17 @@
-import { useQuery } from '@tanstack/react-query';
-import { httpClient } from '@/lib/http-client';
-import type { Media } from '@/types/media';
-import type { SingleOffer } from '@/types/single-offer';
-import { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
-import { getImage } from '@/lib/getImage';
-import useEmblaCarousel from 'embla-carousel-react';
-import { Player } from '../app/video-player.client';
-import { Image } from '../app/image';
-import { Button } from '../ui/button';
-import { ChevronLeft, ChevronRight, PlayIcon } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { Skeleton } from '../ui/skeleton';
-import { DownloadIcon } from '@radix-ui/react-icons';
+import { useQuery } from "@tanstack/react-query";
+import { httpClient } from "@/lib/http-client";
+import type { Media } from "@/types/media";
+import type { SingleOffer } from "@/types/single-offer";
+import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
+import { getImage } from "@/lib/getImage";
+import useEmblaCarousel from "embla-carousel-react";
+import { Player } from "../app/video-player.client";
+import { Image } from "../app/image";
+import { Button } from "../ui/button";
+import { ChevronLeft, ChevronRight, PlayIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Skeleton } from "../ui/skeleton";
+import { DownloadIcon } from "@radix-ui/react-icons";
 
 interface SlideBase {
   id: string;
@@ -19,7 +19,7 @@ interface SlideBase {
 }
 
 interface ImageSlide extends SlideBase {
-  type: 'image';
+  type: "image";
   /**
    * Image URL
    */
@@ -27,18 +27,18 @@ interface ImageSlide extends SlideBase {
 }
 
 interface VideoSlide extends SlideBase {
-  type: 'video';
+  type: "video";
   /**
    * Dash URL
    */
-  video: Media['videos'][0];
+  video: Media["videos"][0];
 }
 
 type Slide = ImageSlide | VideoSlide;
 
 export function OfferMediaSlider({ offer }: { offer: SingleOffer }) {
   const { data } = useQuery({
-    queryKey: ['media', { id: offer.id }],
+    queryKey: ["media", { id: offer.id }],
     queryFn: () => httpClient.get<Media>(`/offers/${offer.id}/media`),
     retry: false,
   });
@@ -46,17 +46,14 @@ export function OfferMediaSlider({ offer }: { offer: SingleOffer }) {
   // Videos first, then images, if no images, get cover image from offer data
   const slides = useMemo<Slide[]>(() => {
     const imageToUse =
-      getImage(offer.keyImages, [
-        'OfferImageWide',
-        'DieselStoreFrontWide',
-        'Featured',
-      ])?.url ?? '/300x150-egdata-placeholder.png';
+      getImage(offer.keyImages, ["OfferImageWide", "DieselStoreFrontWide", "Featured"])?.url ??
+      "/300x150-egdata-placeholder.png";
 
     if (!data) {
       return [
         {
           id: offer.id,
-          type: 'image' as const,
+          type: "image" as const,
           image: imageToUse,
           thumbnail: imageToUse,
         },
@@ -65,7 +62,7 @@ export function OfferMediaSlider({ offer }: { offer: SingleOffer }) {
 
     const images = data.images.map((image) => ({
       id: image._id,
-      type: 'image' as const,
+      type: "image" as const,
       image: image.src,
       thumbnail: image.src,
     }));
@@ -74,7 +71,7 @@ export function OfferMediaSlider({ offer }: { offer: SingleOffer }) {
       .filter((video) => video.outputs?.length > 0)
       .map((video) => ({
         id: video._id,
-        type: 'video' as const,
+        type: "video" as const,
         video: video,
         thumbnail: imageToUse,
       }));
@@ -86,12 +83,12 @@ export function OfferMediaSlider({ offer }: { offer: SingleOffer }) {
     watchDrag: (api) => {
       // If the current slide is a video, don't allow dragging
       const currentIndex = api.selectedScrollSnap();
-      if (slides[currentIndex].type === 'video') return false;
+      if (slides[currentIndex].type === "video") return false;
       return true;
     },
   });
   const [thumbCarousel, thumbApi] = useEmblaCarousel({
-    containScroll: 'keepSnaps',
+    containScroll: "keepSnaps",
     dragFree: true,
   });
 
@@ -119,7 +116,7 @@ export function OfferMediaSlider({ offer }: { offer: SingleOffer }) {
   useEffect(() => {
     if (!mainApi || !thumbApi) return;
 
-    mainApi.on('select', () => {
+    mainApi.on("select", () => {
       const currentIndex = mainApi.selectedScrollSnap();
       setSelectedIndex(currentIndex);
       thumbApi.scrollTo(currentIndex);
@@ -127,10 +124,7 @@ export function OfferMediaSlider({ offer }: { offer: SingleOffer }) {
   }, [mainApi, thumbApi]);
 
   return (
-    <div
-      key={`media-slider-${offer.id}`}
-      className="flex flex-col gap-4 w-full"
-    >
+    <div key={`media-slider-${offer.id}`} className="flex flex-col gap-4 w-full">
       <div className="relative">
         <div ref={mainCarousel} className="overflow-hidden">
           <div className="flex">
@@ -138,27 +132,26 @@ export function OfferMediaSlider({ offer }: { offer: SingleOffer }) {
               <div
                 key={`slide-${slide.id}`}
                 className={cn(
-                  'flex-[0_0_100%] min-w-0',
-                  slide.type === 'video' &&
-                    'pointer-events-none cursor-pointer',
-                  slide.type === 'image' && 'pointer-events-auto cursor-grab',
+                  "flex-[0_0_100%] min-w-0",
+                  slide.type === "video" && "pointer-events-none cursor-pointer",
+                  slide.type === "image" && "pointer-events-auto cursor-grab",
                 )}
                 onPointerDown={(e) => {
-                  if (slide.type === 'image') {
+                  if (slide.type === "image") {
                     // Change pointer to grabbing
-                    e.currentTarget.style.cursor = 'grabbing';
-                    e.currentTarget.style.cursor = '-webkit-grabbing';
+                    e.currentTarget.style.cursor = "grabbing";
+                    e.currentTarget.style.cursor = "-webkit-grabbing";
                   }
                 }}
                 onPointerUp={(e) => {
-                  if (slide.type === 'image') {
+                  if (slide.type === "image") {
                     // Change pointer to grab
-                    e.currentTarget.style.cursor = 'grab';
-                    e.currentTarget.style.cursor = '-webkit-grab';
+                    e.currentTarget.style.cursor = "grab";
+                    e.currentTarget.style.cursor = "-webkit-grab";
                   }
                 }}
               >
-                {slide.type === 'image' && (
+                {slide.type === "image" && (
                   <div className="w-full h-full relative">
                     <span className="absolute top-2 right-2 z-50">
                       <DownloadImage src={slide.image} />
@@ -174,7 +167,7 @@ export function OfferMediaSlider({ offer }: { offer: SingleOffer }) {
                     />
                   </div>
                 )}
-                {slide.type === 'video' && (
+                {slide.type === "video" && (
                   <Suspense
                     fallback={
                       <div className="flex flex-col w-full h-full">
@@ -218,19 +211,16 @@ export function OfferMediaSlider({ offer }: { offer: SingleOffer }) {
         <div ref={thumbCarousel} className="overflow-hidden">
           <div className="flex -mx-2">
             {slides.map((slide, index) => (
-              <div
-                key={`thumbnail-${slide.id}`}
-                className="flex-[0_0_15%] min-w-0 px-2"
-              >
+              <div key={`thumbnail-${slide.id}`} className="flex-[0_0_15%] min-w-0 px-2">
                 <button
                   type="button"
                   className={cn(
-                    'w-full border-2 border-transparent rounded-md relative transition-all duration-300 ease-in-out hover:opacity-100',
-                    index === selectedIndex ? 'border-primary' : 'opacity-35',
+                    "w-full border-2 border-transparent rounded-md relative transition-all duration-300 ease-in-out hover:opacity-100",
+                    index === selectedIndex ? "border-primary" : "opacity-35",
                   )}
                   onClick={() => scrollTo(index)}
                 >
-                  {slide.type === 'video' && (
+                  {slide.type === "video" && (
                     // Show a play icon so the user knows it's a video
                     <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white z-50 opacity-75">
                       <PlayIcon className="size-8" fill="white" />
@@ -261,9 +251,9 @@ function DownloadImage({ src }: { src: string }) {
     const response = await fetch(src);
     const blob = await response.blob();
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
-    a.download = src.replaceAll('%2F', '/').split('/').pop();
+    a.download = src.replaceAll("%2F", "/").split("/").pop();
     a.click();
     URL.revokeObjectURL(url);
     setIsDownloading(false);
@@ -277,7 +267,7 @@ function DownloadImage({ src }: { src: string }) {
       disabled={isDownloading}
     >
       <DownloadIcon className="size-3" />
-      {isDownloading ? 'Downloading...' : 'Download'}
+      {isDownloading ? "Downloading..." : "Download"}
     </Button>
   );
 }

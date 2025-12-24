@@ -1,22 +1,17 @@
-import { Link, useNavigate } from '@tanstack/react-router';
+import { Link, useNavigate } from "@tanstack/react-router";
 import {
   NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from '@/components/ui/navigation-menu';
-import React, { useEffect } from 'react';
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTrigger,
-} from '@/components/ui/sheet';
-import { Button } from '@/components/ui/button';
-import { NavigationMenu } from '@/components/ui/navigation-menu';
-import { cn } from '@/lib/utils';
-import { Input } from '@/components/ui/input';
+} from "@/components/ui/navigation-menu";
+import React, { useEffect } from "react";
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import { NavigationMenu } from "@/components/ui/navigation-menu";
+import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,23 +19,23 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { useQuery } from '@tanstack/react-query';
-import { getImage } from '@/lib/get-image';
-import { getTopSection } from '@/queries/top-section';
-import { CountriesSelector } from './countries-selector';
-import { useSearch } from '@/hooks/use-search';
-import { getRouteApi } from '@tanstack/react-router';
-import { getUserInformation } from '@/queries/profiles';
-import { DiscordBotPopover } from './discord-bot';
-import { authClient } from '@/lib/auth-client';
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useQuery } from "@tanstack/react-query";
+import { getImage } from "@/lib/get-image";
+import { getTopSection } from "@/queries/top-section";
+import { CountriesSelector } from "./countries-selector";
+import { useSearch } from "@/hooks/use-search";
+import { getRouteApi } from "@tanstack/react-router";
+import { getUserInformation } from "@/queries/profiles";
+import { DiscordBotPopover } from "./discord-bot";
+import { authClient } from "@/lib/auth-client";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
+} from "@/components/ui/accordion";
 import {
   Gamepad2Icon,
   SwordIcon,
@@ -53,40 +48,33 @@ import {
   GiftIcon,
   StarIcon,
   CalendarCheck2Icon,
-} from 'lucide-react';
-import { httpClient } from '@/lib/http-client';
-import type { GenreResponse } from '@/routes/genres';
-import { Separator } from '../ui/separator';
+} from "lucide-react";
+import { httpClient } from "@/lib/http-client";
+import type { GenreResponse } from "@/routes/genres";
+import { Separator } from "../ui/separator";
 
-interface ListItemProps extends React.ComponentPropsWithoutRef<'a'> {
+interface ListItemProps extends React.ComponentPropsWithoutRef<"a"> {
   title: string;
   href?: string;
   backgroundImage?: string;
 }
 
-function MobileMenuItem({
-  title,
-  children,
-  href,
-  backgroundImage,
-}: ListItemProps) {
+function MobileMenuItem({ title, children, href, backgroundImage }: ListItemProps) {
   return (
     <div className="py-2">
       {href ? (
         <Link
           to={href}
           className={cn(
-            'block select-none rounded-md leading-none no-underline outline-none transition-colors',
-            'hover:text-accent-foreground focus:bg-accent hover:bg-accent focus:text-accent-foreground',
-            'group relative overflow-hidden',
+            "block select-none rounded-md leading-none no-underline outline-none transition-colors",
+            "hover:text-accent-foreground focus:bg-accent hover:bg-accent focus:text-accent-foreground",
+            "group relative overflow-hidden",
           )}
         >
           <div className="relative z-20 p-3 space-y-1">
             <div className="text-sm font-medium leading-none">{title}</div>
             {children ? (
-              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                {children}
-              </p>
+              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>
             ) : null}
           </div>
           {backgroundImage && (
@@ -104,9 +92,7 @@ function MobileMenuItem({
         <div className="p-3 space-y-1">
           <div className="text-sm font-medium leading-none">{title}</div>
           {children ? (
-            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-              {children}
-            </p>
+            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>
           ) : null}
         </div>
       )}
@@ -123,8 +109,8 @@ type Route = {
 
 const ExploreMenu = () => {
   const { data: genres, isLoading } = useQuery({
-    queryKey: ['genres-list'],
-    queryFn: () => httpClient.get<GenreResponse[]>('/offers/genres'),
+    queryKey: ["genres-list"],
+    queryFn: () => httpClient.get<GenreResponse[]>("/offers/genres"),
   });
 
   return (
@@ -139,7 +125,7 @@ const ExploreMenu = () => {
           <li>
             <Link
               to="/collections/$id"
-              params={{ id: 'top-sellers' }}
+              params={{ id: "top-sellers" }}
               className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-sm font-medium outline-none"
             >
               <TrendingUpIcon className="w-4 h-4 text-muted-foreground" />
@@ -149,7 +135,7 @@ const ExploreMenu = () => {
           <li>
             <Link
               to="/collections/$id"
-              params={{ id: 'most-played' }}
+              params={{ id: "most-played" }}
               className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-sm font-medium outline-none"
             >
               <UsersIcon className="w-4 h-4 text-muted-foreground" />
@@ -159,7 +145,7 @@ const ExploreMenu = () => {
           <li>
             <Link
               to="/collections/$id"
-              params={{ id: 'top-wishlisted' }}
+              params={{ id: "top-wishlisted" }}
               className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-sm font-medium outline-none"
             >
               <StarIcon className="w-4 h-4 text-muted-foreground" />
@@ -169,7 +155,7 @@ const ExploreMenu = () => {
           <li>
             <Link
               to="/collections/$id"
-              params={{ id: 'top-new-releases' }}
+              params={{ id: "top-new-releases" }}
               className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-sm font-medium outline-none"
             >
               <CalendarCheck2Icon className="w-4 h-4 text-muted-foreground" />
@@ -208,9 +194,7 @@ const ExploreMenu = () => {
           Genres
         </h4>
         <ul className="space-y-1 list-none">
-          {isLoading && (
-            <li className="text-muted-foreground text-sm">Loading...</li>
-          )}
+          {isLoading && <li className="text-muted-foreground text-sm">Loading...</li>}
           {genres?.slice(0, 6).map((genre) => (
             <li key={genre.genre.id}>
               <Link
@@ -240,16 +224,16 @@ const ExploreMenu = () => {
 
 const routes: Route[] = [
   {
-    name: 'Explore',
+    name: "Explore",
     component: ExploreMenu,
   },
   {
-    name: 'Browse',
-    href: '/search',
+    name: "Browse",
+    href: "/search",
     component: () => {
       const { data } = useQuery({
-        queryKey: ['top-section', { slug: 'top-sellers' }],
-        queryFn: () => getTopSection('top-sellers'),
+        queryKey: ["top-section", { slug: "top-sellers" }],
+        queryFn: () => getTopSection("top-sellers"),
       });
 
       const offer = data?.elements[0];
@@ -272,15 +256,13 @@ const routes: Route[] = [
                   className="flex h-full w-full select-none flex-col justify-end rounded-md p-4 no-underline outline-none focus:shadow-md relative group"
                   href={`/offers/${offer.id}`}
                   style={{
-                    backgroundImage: `url(${getImage(offer.keyImages, ['DieselGameBoxTall', 'DieselStoreFrontTall', 'OfferImageTall'])?.url ?? '/placeholder.webp'})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
+                    backgroundImage: `url(${getImage(offer.keyImages, ["DieselGameBoxTall", "DieselStoreFrontTall", "OfferImageTall"])?.url ?? "/placeholder.webp"})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
                   }}
                 >
                   <span className="absolute inset-0 bg-gradient-to-b from-transparent via-card/75 to-card z-0 rounded-md" />
-                  <div className="mb-2 mt-4 text-base font-bold z-10">
-                    {offer.title}
-                  </div>
+                  <div className="mb-2 mt-4 text-base font-bold z-10">{offer.title}</div>
                   <p className="text-sm leading-tight text-muted-foreground z-10">
                     Top Seller on the Epic Games Store
                   </p>
@@ -293,20 +275,20 @@ const routes: Route[] = [
     },
   },
   {
-    name: 'Sales',
-    href: '/sales',
+    name: "Sales",
+    href: "/sales",
   },
   {
-    name: 'Changelog',
-    href: '/changelog',
+    name: "Changelog",
+    href: "/changelog",
   },
   {
-    name: 'About',
-    href: '/about',
+    name: "About",
+    href: "/about",
   },
 ];
 
-const routeApi = getRouteApi('__root__');
+const routeApi = getRouteApi("__root__");
 
 export default function Navbar() {
   const { session } = routeApi.useRouteContext();
@@ -314,14 +296,13 @@ export default function Navbar() {
   const { setFocus, focus } = useSearch();
   const [sheetOpen, setSheetOpen] = React.useState(false);
   const { data: user } = useQuery({
-    queryKey: ['user', { id: session?.user.email.split('@')[0] }],
-    queryFn: () =>
-      getUserInformation(session?.user.email.split('@')[0] || null),
+    queryKey: ["user", { id: session?.user.email.split("@")[0] }],
+    queryFn: () => getUserInformation(session?.user.email.split("@")[0] || null),
   });
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
         if (focus === false) {
           setFocus(true);
@@ -331,10 +312,10 @@ export default function Navbar() {
       }
     }
 
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [setFocus, focus]);
 
@@ -361,9 +342,7 @@ export default function Navbar() {
                 width={40}
                 height={40}
               />
-              <span className="text-xl text-white font-montserrat font-bold">
-                EGDATA
-              </span>
+              <span className="text-xl text-white font-montserrat font-bold">EGDATA</span>
             </Link>
           </SheetHeader>
           <div className="p-4">
@@ -371,7 +350,7 @@ export default function Navbar() {
               className="relative mb-4 cursor-text"
               onClick={handleSearchClick}
               onKeyDown={(e) => {
-                if (e.key === 'Enter') {
+                if (e.key === "Enter") {
                   handleSearchClick();
                 }
               }}
@@ -387,22 +366,17 @@ export default function Navbar() {
             <Accordion type="single" collapsible className="w-full">
               {routes.map((route) => (
                 <AccordionItem key={route.name} value={route.name}>
-                  <AccordionTrigger className="text-lg font-medium">
-                    {route.name}
-                  </AccordionTrigger>
+                  <AccordionTrigger className="text-lg font-medium">{route.name}</AccordionTrigger>
                   <AccordionContent>
                     {route.component ? (
                       <div className="pt-2">
-                        {route.name === 'Explore' && (
+                        {route.name === "Explore" && (
                           <>
                             <div className="mb-4">
                               <div className="text-xs font-semibold text-muted-foreground mb-2 tracking-wider uppercase">
                                 Genres
                               </div>
-                              <MobileMenuItem
-                                href="/genres/action"
-                                title="Action"
-                              >
+                              <MobileMenuItem href="/genres/action" title="Action">
                                 <SwordIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
                                 Action
                               </MobileMenuItem>
@@ -410,17 +384,11 @@ export default function Navbar() {
                                 <Gamepad2Icon className="w-4 h-4 mr-2 text-muted-foreground inline" />
                                 RPG
                               </MobileMenuItem>
-                              <MobileMenuItem
-                                href="/genres/indie"
-                                title="Indie"
-                              >
+                              <MobileMenuItem href="/genres/indie" title="Indie">
                                 <JoystickIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
                                 Indie
                               </MobileMenuItem>
-                              <MobileMenuItem
-                                href="/genres/strategy"
-                                title="Strategy"
-                              >
+                              <MobileMenuItem href="/genres/strategy" title="Strategy">
                                 <BrainIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
                                 Strategy
                               </MobileMenuItem>
@@ -430,17 +398,11 @@ export default function Navbar() {
                               <div className="text-xs font-semibold text-muted-foreground mb-2 tracking-wider uppercase">
                                 Other
                               </div>
-                              <MobileMenuItem
-                                href="/collections/top-sellers"
-                                title="Top Sellers"
-                              >
+                              <MobileMenuItem href="/collections/top-sellers" title="Top Sellers">
                                 <TrendingUpIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
                                 Top Sellers
                               </MobileMenuItem>
-                              <MobileMenuItem
-                                href="/collections/most-played"
-                                title="Most Played"
-                              >
+                              <MobileMenuItem href="/collections/most-played" title="Most Played">
                                 <UsersIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
                                 Most Played
                               </MobileMenuItem>
@@ -458,10 +420,7 @@ export default function Navbar() {
                                 <CalendarCheck2Icon className="w-4 h-4 mr-2 text-muted-foreground inline" />
                                 Top New Releases
                               </MobileMenuItem>
-                              <MobileMenuItem
-                                href="/stats/releases"
-                                title="Release Stats"
-                              >
+                              <MobileMenuItem href="/stats/releases" title="Release Stats">
                                 <BarChart3Icon className="w-4 h-4 mr-2 text-muted-foreground inline" />
                                 Release Stats
                               </MobileMenuItem>
@@ -469,10 +428,7 @@ export default function Navbar() {
                                 <TagIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
                                 Sales
                               </MobileMenuItem>
-                              <MobileMenuItem
-                                href="/freebies"
-                                title="Free Games"
-                              >
+                              <MobileMenuItem href="/freebies" title="Free Games">
                                 <GiftIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
                                 Free Games
                               </MobileMenuItem>
@@ -480,22 +436,16 @@ export default function Navbar() {
                             </div>
                           </>
                         )}
-                        {route.name === 'Browse' && (
+                        {route.name === "Browse" && (
                           <>
                             <MobileMenuItem href="/search" title="Search">
-                              Find what you're looking for on the Epic Games
-                              Store.
+                              Find what you're looking for on the Epic Games Store.
                             </MobileMenuItem>
                             <MobileMenuItem href="/freebies" title="Free Games">
-                              Explore the latest free game offerings on the Epic
-                              Games Store.
+                              Explore the latest free game offerings on the Epic Games Store.
                             </MobileMenuItem>
-                            <MobileMenuItem
-                              href="/search?onSale=true"
-                              title="With Discounts"
-                            >
-                              Check out games currently on sale with great
-                              discounts.
+                            <MobileMenuItem href="/search?onSale=true" title="With Discounts">
+                              Check out games currently on sale with great discounts.
                             </MobileMenuItem>
                           </>
                         )}
@@ -518,20 +468,14 @@ export default function Navbar() {
           </div>
         </SheetContent>
       </Sheet>
-      <Link
-        to="/"
-        className="hidden lg:flex justify-center items-center"
-        preload="viewport"
-      >
+      <Link to="/" className="hidden lg:flex justify-center items-center" preload="viewport">
         <img
           src="https://cdn.egdata.app/logo_simple_white_clean.png"
           alt="EGDATA Logo"
           width={40}
           height={40}
         />
-        <span className="text-xl text-white font-montserrat ml-2 font-bold">
-          EGDATA
-        </span>
+        <span className="text-xl text-white font-montserrat ml-2 font-bold">EGDATA</span>
       </Link>
       <NavigationMenu className="hidden lg:flex">
         <NavigationMenuList>
@@ -548,16 +492,14 @@ export default function Navbar() {
                       }
                     }}
                     className={cn(
-                      'bg-transparent',
-                      'hover:text-white z-50',
-                      'active:text-white data-[active]:text-white data-[state=open]:text-white',
+                      "bg-transparent",
+                      "hover:text-white z-50",
+                      "active:text-white data-[active]:text-white data-[state=open]:text-white",
                     )}
                   >
                     {route.name}
                   </NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    {route.component()}
-                  </NavigationMenuContent>
+                  <NavigationMenuContent>{route.component()}</NavigationMenuContent>
                 </NavigationMenuItem>
               );
             }
@@ -565,14 +507,8 @@ export default function Navbar() {
             return (
               <NavigationMenuLink key={route.name} asChild>
                 <Button variant="ghost" className="hover:text-white" asChild>
-                  <Link
-                    key={route.name}
-                    to={route.href}
-                    className="inline-flex items-center gap-2"
-                  >
-                    {route.icon && (
-                      <img src={route.icon} alt="" className="w-4 h-4" />
-                    )}
+                  <Link key={route.name} to={route.href} className="inline-flex items-center gap-2">
+                    {route.icon && <img src={route.icon} alt="" className="w-4 h-4" />}
                     {route.name}
                   </Link>
                 </Button>
@@ -587,7 +523,7 @@ export default function Navbar() {
           className="relative cursor-text hidden lg:block"
           onClick={handleSearchClick}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') {
+            if (e.key === "Enter") {
               handleSearchClick();
             }
           }}
@@ -604,11 +540,7 @@ export default function Navbar() {
         {user && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button
-                variant="outline"
-                size="icon"
-                className="overflow-hidden rounded-full"
-              >
+              <Button variant="outline" size="icon" className="overflow-hidden rounded-full">
                 <Avatar>
                   <AvatarImage
                     src={
@@ -617,17 +549,13 @@ export default function Navbar() {
                         : `https://shared-static-prod.epicgames.com/epic-profile-icon/D8033C/${user.displayName[0].toUpperCase()}/icon.png?size=512`
                     }
                   />
-                  <AvatarFallback>
-                    {user.displayName.slice(0, 2).toUpperCase()}
-                  </AvatarFallback>
+                  <AvatarFallback>{user.displayName.slice(0, 2).toUpperCase()}</AvatarFallback>
                 </Avatar>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>
-                <span className="dark:text-gray-300">
-                  Hello, {user.displayName}!
-                </span>
+                <span className="dark:text-gray-300">Hello, {user.displayName}!</span>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild className="cursor-pointer">
@@ -645,7 +573,7 @@ export default function Navbar() {
             className="cursor-pointer"
             onClick={async () => {
               await authClient.signIn.oauth2({
-                providerId: 'epic',
+                providerId: "epic",
               });
             }}
           >
@@ -711,13 +639,13 @@ function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-interface ListItemProps extends React.ComponentPropsWithoutRef<'a'> {
+interface ListItemProps extends React.ComponentPropsWithoutRef<"a"> {
   title: string;
   href?: string;
   backgroundImage?: string;
 }
 
-const ListItem = React.forwardRef<React.ElementRef<'a'>, ListItemProps>(
+const ListItem = React.forwardRef<React.ElementRef<"a">, ListItemProps>(
   ({ className, title, children, href, backgroundImage, ...props }, ref) => {
     return (
       <li>
@@ -725,19 +653,19 @@ const ListItem = React.forwardRef<React.ElementRef<'a'>, ListItemProps>(
           <Link
             ref={ref}
             className={cn(
-              'block select-none rounded-md leading-none no-underline outline-none transition-colors h-full',
-              'hover:text-accent-foreground focus:bg-accent hover:bg-accent focus:text-accent-foreground',
-              'group relative overflow-hidden',
+              "block select-none rounded-md leading-none no-underline outline-none transition-colors h-full",
+              "hover:text-accent-foreground focus:bg-accent hover:bg-accent focus:text-accent-foreground",
+              "group relative overflow-hidden",
               className,
             )}
-            to={href ?? '/'}
+            to={href ?? "/"}
             {...props}
           >
             <div className="relative z-20 p-3 space-y-1">
               <div
                 className={cn(
-                  'text-sm font-medium leading-none',
-                  !children && 'text-lg font-semibold',
+                  "text-sm font-medium leading-none",
+                  !children && "text-lg font-semibold",
                 )}
               >
                 {title}
@@ -765,4 +693,4 @@ const ListItem = React.forwardRef<React.ElementRef<'a'>, ListItemProps>(
   },
 );
 
-ListItem.displayName = 'ListItem';
+ListItem.displayName = "ListItem";

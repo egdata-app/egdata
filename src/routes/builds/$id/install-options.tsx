@@ -1,11 +1,11 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { calculateSize } from '@/lib/calculate-size';
-import { httpClient } from '@/lib/http-client';
-import type { BuildInstallOptions } from '@/types/builds';
-import { dehydrate, HydrationBoundary, useQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { calculateSize } from "@/lib/calculate-size";
+import { httpClient } from "@/lib/http-client";
+import type { BuildInstallOptions } from "@/types/builds";
+import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/builds/$id/install-options')({
+export const Route = createFileRoute("/builds/$id/install-options")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
 
@@ -21,9 +21,8 @@ export const Route = createFileRoute('/builds/$id/install-options')({
     const { queryClient } = context;
 
     await queryClient.prefetchQuery({
-      queryKey: ['builds', 'install-options', { id }],
-      queryFn: async () =>
-        httpClient.get<BuildInstallOptions>(`/builds/${id}/install-options`),
+      queryKey: ["builds", "install-options", { id }],
+      queryFn: async () => httpClient.get<BuildInstallOptions>(`/builds/${id}/install-options`),
     });
 
     return {
@@ -36,9 +35,8 @@ export const Route = createFileRoute('/builds/$id/install-options')({
 function InstallOptions() {
   const { id } = Route.useLoaderData();
   const { data: installOptions } = useQuery({
-    queryKey: ['builds', 'install-options', { id }],
-    queryFn: async () =>
-      httpClient.get<BuildInstallOptions>(`/builds/${id}/install-options`),
+    queryKey: ["builds", "install-options", { id }],
+    queryFn: async () => httpClient.get<BuildInstallOptions>(`/builds/${id}/install-options`),
   });
 
   return (
@@ -54,7 +52,7 @@ function InstallOptions() {
               <CardContent>
                 <div className="text-2xl font-bold">{calculateSize(size)}</div>
                 <p className="text-xs text-muted-foreground">
-                  {files} {files === 1 ? 'file' : 'files'}
+                  {files} {files === 1 ? "file" : "files"}
                 </p>
               </CardContent>
             </Card>

@@ -1,45 +1,35 @@
-import { ChangelogDailyChart } from '@/components/app/changelog-daily-chart';
-import { ChangelogFieldsChart } from '@/components/app/changelog-fields.chart';
-import { ChangelogTypesChart } from '@/components/app/changelog-types-chart';
-import { ChangelogWeekdaysChart } from '@/components/app/changelog-weekdays-chart';
-import { ChangeTracker } from '@/components/app/changelog/item';
-import { DynamicPagination } from '@/components/app/dynamic-pagination';
-import type { Change } from '@/components/modules/changelist';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { ChangelogDailyChart } from "@/components/app/changelog-daily-chart";
+import { ChangelogFieldsChart } from "@/components/app/changelog-fields.chart";
+import { ChangelogTypesChart } from "@/components/app/changelog-types-chart";
+import { ChangelogWeekdaysChart } from "@/components/app/changelog-weekdays-chart";
+import { ChangeTracker } from "@/components/app/changelog/item";
+import { DynamicPagination } from "@/components/app/dynamic-pagination";
+import type { Change } from "@/components/modules/changelist";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Separator } from '@/components/ui/separator';
-import { Skeleton } from '@/components/ui/skeleton';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { getQueryClient } from '@/lib/client';
-import { ClientOnly } from '@/lib/cllient-only';
-import { generateOfferMeta } from '@/lib/generate-offer-meta';
-import { getFetchedQuery } from '@/lib/get-fetched-query';
-import { httpClient } from '@/lib/http-client';
-import { offerChangeFields } from '@/lib/offer-change-fields';
-import type { ChangelogStats } from '@/types/changelog';
-import type { SingleOffer } from '@/types/single-offer';
-import {
-  dehydrate,
-  HydrationBoundary,
-  keepPreviousData,
-  useQuery,
-} from '@tanstack/react-query';
-import { createFileRoute, Link } from '@tanstack/react-router';
-import { useDebounce } from '@uidotdev/usehooks';
-import { Loader2 } from 'lucide-react';
-import { useState } from 'react';
+} from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { getQueryClient } from "@/lib/client";
+import { ClientOnly } from "@/lib/cllient-only";
+import { generateOfferMeta } from "@/lib/generate-offer-meta";
+import { getFetchedQuery } from "@/lib/get-fetched-query";
+import { httpClient } from "@/lib/http-client";
+import { offerChangeFields } from "@/lib/offer-change-fields";
+import type { ChangelogStats } from "@/types/changelog";
+import type { SingleOffer } from "@/types/single-offer";
+import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useDebounce } from "@uidotdev/usehooks";
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
 
 type ChangelogWithPagination = {
   elements: Change[];
@@ -56,17 +46,11 @@ type ChangelogWithoutPagination = Change[];
 function isChangelogWithPagination(
   page: ChangelogWithPagination | ChangelogWithoutPagination,
 ): page is ChangelogWithPagination {
-  return !Array.isArray(page) && 'totalPages' in page;
+  return !Array.isArray(page) && "totalPages" in page;
 }
 
-const getChangelog = (
-  id: string,
-  page: number,
-  query?: string,
-  field?: string,
-  type?: string,
-) => ({
-  queryKey: ['changelog', { id, page, query, field, type }],
+const getChangelog = (id: string, page: number, query?: string, field?: string, type?: string) => ({
+  queryKey: ["changelog", { id, page, query, field, type }],
   queryFn: () =>
     httpClient.get<ChangelogWithPagination>(`/offers/${id}/changelog`, {
       params: {
@@ -79,7 +63,7 @@ const getChangelog = (
   placeholderData: keepPreviousData,
 });
 
-export const Route = createFileRoute('/offers/$id/changelog')({
+export const Route = createFileRoute("/offers/$id/changelog")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
 
@@ -95,7 +79,7 @@ export const Route = createFileRoute('/offers/$id/changelog')({
     const { id } = params;
 
     const offer = await queryClient.ensureQueryData({
-      queryKey: ['offer', { id: params.id }],
+      queryKey: ["offer", { id: params.id }],
       queryFn: () => httpClient.get<SingleOffer>(`/offers/${params.id}`),
     });
 
@@ -116,48 +100,47 @@ export const Route = createFileRoute('/offers/$id/changelog')({
       return {
         meta: [
           {
-            title: 'Offer not found',
-            description: 'Offer not found',
+            title: "Offer not found",
+            description: "Offer not found",
           },
         ],
       };
     }
 
-    const offer = getFetchedQuery<SingleOffer>(
-      queryClient,
-      ctx.loaderData?.dehydratedState,
-      ['offer', { id: params.id }],
-    );
+    const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
+      "offer",
+      { id: params.id },
+    ]);
 
     if (!offer) {
       return {
         meta: [
           {
-            title: 'Offer not found',
-            description: 'Offer not found',
+            title: "Offer not found",
+            description: "Offer not found",
           },
         ],
       };
     }
 
     return {
-      meta: generateOfferMeta(offer, 'Changelog'),
+      meta: generateOfferMeta(offer, "Changelog"),
     };
   },
 });
 
 const changelogTypes = {
   update: {
-    label: 'Update',
-    color: 'hsl(var(--chart-1))',
+    label: "Update",
+    color: "hsl(var(--chart-1))",
   },
   delete: {
-    label: 'Delete',
-    color: 'hsl(var(--chart-2))',
+    label: "Delete",
+    color: "hsl(var(--chart-2))",
   },
   insert: {
-    label: 'Insert',
-    color: 'var(--chart-3)',
+    label: "Insert",
+    color: "var(--chart-3)",
   },
 };
 
@@ -172,7 +155,7 @@ function ChangelogPage() {
     getChangelog(id, page, debouncedQuery, field, type),
   );
   const { data: stats } = useQuery({
-    queryKey: ['changelog-stats', { id }],
+    queryKey: ["changelog-stats", { id }],
     queryFn: () =>
       httpClient.get<ChangelogStats>(`/offers/${id}/changelog/stats`, {
         params: {
@@ -184,7 +167,7 @@ function ChangelogPage() {
   });
 
   const { data: offer } = useQuery({
-    queryKey: ['offer', { id }],
+    queryKey: ["offer", { id }],
     queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`),
   });
 
@@ -205,9 +188,7 @@ function ChangelogPage() {
   if (!data) {
     return (
       <div className="flex justify-center items-center h-96">
-        <p className="text-2xl font-bold text-gray-300">
-          No changelog available
-        </p>
+        <p className="text-2xl font-bold text-gray-300">No changelog available</p>
       </div>
     );
   }
@@ -229,14 +210,14 @@ function ChangelogPage() {
               </TooltipTrigger>
               <TooltipContent align="start" className="bg-background">
                 <p className="text-sm text-muted-foreground">
-                  This list are the changes made to this specific offer or
-                  related items, assets or builds.
+                  This list are the changes made to this specific offer or related items, assets or
+                  builds.
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  You can see the changelog for the whole product in the{' '}
+                  You can see the changelog for the whole product in the{" "}
                   <Link
                     to="/sandboxes/$id/changelog"
-                    params={{ id: offer?.namespace ?? 'epic' }}
+                    params={{ id: offer?.namespace ?? "epic" }}
                     className="underline decoration-dotted underline-offset-4 decoration-gray-300/50"
                   >
                     sandbox changelog
@@ -250,9 +231,7 @@ function ChangelogPage() {
             <div className="flex flex-row gap-2 items-center">
               <Select
                 value={type}
-                onValueChange={(value) =>
-                  value === 'all' ? setType(undefined) : setType(value)
-                }
+                onValueChange={(value) => (value === "all" ? setType(undefined) : setType(value))}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="All types" />
@@ -273,9 +252,7 @@ function ChangelogPage() {
               </Select>
               <Select
                 value={field}
-                onValueChange={(value) =>
-                  value === 'all' ? setField(undefined) : setField(value)
-                }
+                onValueChange={(value) => (value === "all" ? setField(undefined) : setField(value))}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select a field" />
@@ -325,11 +302,7 @@ function ChangelogPage() {
         </div>
         <div className="flex flex-col w-full gap-4">
           {data.elements
-            .sort(
-              (a, b) =>
-                new Date(b.timestamp).getTime() -
-                new Date(a.timestamp).getTime(),
-            )
+            .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
             .map((changelist) => (
               <ChangeTracker
                 _id={changelist._id}
@@ -342,9 +315,7 @@ function ChangelogPage() {
               />
             ))}
           {data.elements.length === 0 && (
-            <p className="text-sm text-muted-foreground">
-              No changes found for this offer
-            </p>
+            <p className="text-sm text-muted-foreground">No changes found for this offer</p>
           )}
         </div>
         <DynamicPagination
@@ -353,22 +324,18 @@ function ChangelogPage() {
           setPage={(page) => {
             setPage(page);
             window.scrollTo({
-              top: document.getElementById('changelog-title')?.offsetTop,
-              behavior: 'smooth',
+              top: document.getElementById("changelog-title")?.offsetTop,
+              behavior: "smooth",
             });
           }}
         />
         <ClientOnly>
-          <ChangelogDailyChart
-            chartData={stats?.dailyChanges as ChangelogStats['dailyChanges']}
-          />
+          <ChangelogDailyChart chartData={stats?.dailyChanges as ChangelogStats["dailyChanges"]} />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <ChangelogWeekdaysChart chartData={stats?.weekdayChanges || {}} />
             <ChangelogFieldsChart chartData={stats?.changeFields || {}} />
             <ChangelogTypesChart
-              chartData={
-                stats?.changeTypes || ({} as ChangelogStats['changeTypes'])
-              }
+              chartData={stats?.changeTypes || ({} as ChangelogStats["changeTypes"])}
             />
           </div>
         </ClientOnly>

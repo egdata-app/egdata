@@ -1,7 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
-import { useCountry } from '@/hooks/use-country';
-import { httpClient as client } from '@/lib/http-client';
-import type { SingleOffer } from '@/types/single-offer';
+import { useQuery } from "@tanstack/react-query";
+import { useCountry } from "@/hooks/use-country";
+import { httpClient as client } from "@/lib/http-client";
+import type { SingleOffer } from "@/types/single-offer";
 import {
   Table,
   TableBody,
@@ -10,26 +10,26 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { Image } from '@/components/app/image';
-import { getImage } from '@/lib/getImage';
-import { Badge } from '../ui/badge';
-import { useNavigate } from '@tanstack/react-router';
-import { useLocale } from '@/hooks/use-locale';
+} from "@/components/ui/table";
+import { Image } from "@/components/app/image";
+import { getImage } from "@/lib/getImage";
+import { Badge } from "../ui/badge";
+import { useNavigate } from "@tanstack/react-router";
+import { useLocale } from "@/hooks/use-locale";
 
 type UpcomingOffer = Pick<
   SingleOffer,
-  | 'id'
-  | 'namespace'
-  | 'title'
-  | 'offerType'
-  | 'keyImages'
-  | 'seller'
-  | 'developerDisplayName'
-  | 'publisherDisplayName'
-  | 'releaseDate'
-  | 'prePurchase'
-  | 'price'
+  | "id"
+  | "namespace"
+  | "title"
+  | "offerType"
+  | "keyImages"
+  | "seller"
+  | "developerDisplayName"
+  | "publisherDisplayName"
+  | "releaseDate"
+  | "prePurchase"
+  | "price"
 >;
 
 type Res = {
@@ -45,11 +45,9 @@ export function UpcomingOffers() {
   const { timezone } = useLocale();
   const navigate = useNavigate();
   const { data, isLoading } = useQuery({
-    queryKey: ['upcoming', { country, page: 2 }],
+    queryKey: ["upcoming", { country, page: 2 }],
     queryFn: () =>
-      client
-        .get<Res>('/offers/upcoming', { params: { country, page: 2 } })
-        .then((res) => res),
+      client.get<Res>("/offers/upcoming", { params: { country, page: 2 } }).then((res) => res),
   });
 
   if (isLoading) {
@@ -79,7 +77,7 @@ export function UpcomingOffers() {
               className="cursor-pointer hover:bg-accent/50 transition-colors duration-200"
               onClick={(event) => {
                 if (event.ctrlKey || event.button === 1) {
-                  window.open(`/offers/${offer.id}`, '_blank');
+                  window.open(`/offers/${offer.id}`, "_blank");
                 } else {
                   navigate({ to: `/offers/${offer.id}` });
                 }
@@ -89,11 +87,11 @@ export function UpcomingOffers() {
                 <Image
                   src={
                     getImage(offer.keyImages ?? [], [
-                      'OfferImageWide',
-                      'DieselGameBoxWide',
-                      'DieselStoreFrontWide',
-                      'Featured',
-                    ])?.url ?? '/300x150-egdata-placeholder.png'
+                      "OfferImageWide",
+                      "DieselGameBoxWide",
+                      "DieselStoreFrontWide",
+                      "Featured",
+                    ])?.url ?? "/300x150-egdata-placeholder.png"
                   }
                   quality="low"
                   alt={offer.title}
@@ -104,18 +102,15 @@ export function UpcomingOffers() {
               </TableCell>
               <TableCell className="w-1/2">{offer.title}</TableCell>
               <TableCell className="text-right w-[200px]">
-                <TablePrice
-                  price={offer.price}
-                  prePurchase={offer.prePurchase}
-                />
+                <TablePrice price={offer.price} prePurchase={offer.prePurchase} />
               </TableCell>
               <TableCell className="text-right">
-                {new Date(offer.releaseDate).toLocaleDateString('en-UK', {
-                  month: 'long',
-                  day: 'numeric',
-                  year: 'numeric',
-                  hour: 'numeric',
-                  minute: 'numeric',
+                {new Date(offer.releaseDate).toLocaleDateString("en-UK", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
                   timeZone: timezone,
                 })}
               </TableCell>
@@ -131,25 +126,23 @@ function TablePrice({
   price,
   prePurchase,
 }: {
-  price: UpcomingOffer['price'] | null;
+  price: UpcomingOffer["price"] | null;
   prePurchase: boolean | null;
 }) {
   const { locale } = useLocale();
   const fmt = Intl.NumberFormat(locale, {
-    style: 'currency',
-    currency: price?.price.currencyCode || 'USD',
+    style: "currency",
+    currency: price?.price.currencyCode || "USD",
   });
 
   if (!price) {
-    return 'Unknown';
+    return "Unknown";
   }
 
   return (
     <div className="inline-flex items-center gap-2">
       {prePurchase && <Badge variant="default">Pre-Purchase</Badge>}
-      <span className="text-primary font-bold">
-        {fmt.format(price.price.discountPrice / 100)}
-      </span>
+      <span className="text-primary font-bold">{fmt.format(price.price.discountPrice / 100)}</span>
     </div>
   );
 }

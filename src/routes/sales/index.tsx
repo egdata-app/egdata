@@ -1,13 +1,13 @@
-import { Separator } from '@/components/ui/separator';
-import buildImageUrl from '@/lib/build-image-url';
-import { getImage } from '@/lib/get-image';
-import { httpClient } from '@/lib/http-client';
-import { cn } from '@/lib/utils';
-import type { SingleOffer } from '@/types/single-offer';
-import { dehydrate, HydrationBoundary, useQuery } from '@tanstack/react-query';
-import { createFileRoute, Link } from '@tanstack/react-router';
+import { Separator } from "@/components/ui/separator";
+import buildImageUrl from "@/lib/build-image-url";
+import { getImage } from "@/lib/get-image";
+import { httpClient } from "@/lib/http-client";
+import { cn } from "@/lib/utils";
+import type { SingleOffer } from "@/types/single-offer";
+import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/sales/')({
+export const Route = createFileRoute("/sales/")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
 
@@ -22,7 +22,7 @@ export const Route = createFileRoute('/sales/')({
     const { queryClient } = context;
 
     await queryClient.prefetchQuery({
-      queryKey: ['active-sales'],
+      queryKey: ["active-sales"],
       queryFn: () =>
         httpClient.get<
           {
@@ -31,7 +31,7 @@ export const Route = createFileRoute('/sales/')({
             active: boolean;
             offers: SingleOffer[];
           }[]
-        >('/active-sales'),
+        >("/active-sales"),
     });
 
     return {
@@ -43,27 +43,27 @@ export const Route = createFileRoute('/sales/')({
     return {
       meta: [
         {
-          title: 'Active Sales | egdata.app',
+          title: "Active Sales | egdata.app",
         },
         {
-          name: 'description',
-          content: 'Browse active sales on egdata.app',
+          name: "description",
+          content: "Browse active sales on egdata.app",
         },
         {
-          name: 'og:title',
-          content: 'Active Sales | egdata.app',
+          name: "og:title",
+          content: "Active Sales | egdata.app",
         },
         {
-          name: 'og:description',
-          content: 'Browse active sales on egdata.app',
+          name: "og:description",
+          content: "Browse active sales on egdata.app",
         },
         {
-          property: 'twitter:title',
-          content: 'Active Sales | egdata.app',
+          property: "twitter:title",
+          content: "Active Sales | egdata.app",
         },
         {
-          property: 'twitter:description',
-          content: 'Browse active sales on egdata.app',
+          property: "twitter:description",
+          content: "Browse active sales on egdata.app",
         },
       ],
     };
@@ -72,7 +72,7 @@ export const Route = createFileRoute('/sales/')({
 
 function SalesPageIndex() {
   const { data, isLoading } = useQuery({
-    queryKey: ['active-sales'],
+    queryKey: ["active-sales"],
     queryFn: () =>
       httpClient.get<
         {
@@ -81,7 +81,7 @@ function SalesPageIndex() {
           active: boolean;
           offers: SingleOffer[];
         }[]
-      >('/active-sales'),
+      >("/active-sales"),
   });
 
   if (isLoading) {
@@ -139,22 +139,20 @@ function SaleCard({
           key={offer.id}
           src={buildImageUrl(
             getImage(offer.keyImages, [
-              'DieselGameBoxTall',
-              'DieselStoreFrontTall',
-              'OfferImageTall',
-            ])?.url ?? '/placeholder.webp',
+              "DieselGameBoxTall",
+              "DieselStoreFrontTall",
+              "OfferImageTall",
+            ])?.url ?? "/placeholder.webp",
             300,
-            'medium',
+            "medium",
           )}
           alt={offer.title}
           className={cn(
-            'absolute w-40 h-56 object-cover rounded shadow-2xl antialiased',
-            index === 1 &&
-              'left-2 z-0 opacity-35 backdrop-filter backdrop-blur-lg top-4',
+            "absolute w-40 h-56 object-cover rounded shadow-2xl antialiased",
+            index === 1 && "left-2 z-0 opacity-35 backdrop-filter backdrop-blur-lg top-4",
             index === 0 &&
-              'left-1/2 transform -translate-x-1/2 z-[9] w-44 h-60 top-2 group-hover:scale-[1.03] transition duration-200 ease-in-out',
-            index === 2 &&
-              'right-2 z-0 opacity-35 backdrop-filter backdrop-blur-lg top-4',
+              "left-1/2 transform -translate-x-1/2 z-[9] w-44 h-60 top-2 group-hover:scale-[1.03] transition duration-200 ease-in-out",
+            index === 2 && "right-2 z-0 opacity-35 backdrop-filter backdrop-blur-lg top-4",
           )}
         />
       ))}

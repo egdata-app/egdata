@@ -1,10 +1,4 @@
-export type JsonValue =
-  | string
-  | number
-  | boolean
-  | null
-  | JsonObject
-  | JsonArray;
+export type JsonValue = string | number | boolean | null | JsonObject | JsonArray;
 type JsonObject = { [key: string]: JsonValue };
 type JsonArray = JsonValue[];
 
@@ -21,12 +15,9 @@ export const JsonVisualizer: React.FC<JsonVisualizerProps> = ({
   isChildOfArray = false,
   keyName,
 }) => {
-  const renderValue = (
-    value: JsonValue,
-    key?: string | number,
-  ): JSX.Element => {
+  const renderValue = (value: JsonValue, key?: string | number): JSX.Element => {
     const isLastItem = isLast && !isChildOfArray;
-    const lineClass = isLastItem ? 'tree-last' : 'tree';
+    const lineClass = isLastItem ? "tree-last" : "tree";
 
     const renderKey = (k: string | number | undefined) => {
       if (k === undefined) return null;
@@ -40,21 +31,21 @@ export const JsonVisualizer: React.FC<JsonVisualizerProps> = ({
           <span className="text-gray-500">null</span>
         </div>
       );
-    if (typeof value === 'boolean')
+    if (typeof value === "boolean")
       return (
         <div className={lineClass}>
           {renderKey(key)}
           <span className="text-blue-600">{value.toString()}</span>
         </div>
       );
-    if (typeof value === 'number')
+    if (typeof value === "number")
       return (
         <div className={lineClass}>
           {renderKey(key)}
           <span className="text-green-600">{value}</span>
         </div>
       );
-    if (typeof value === 'string')
+    if (typeof value === "string")
       return (
         <div className={lineClass}>
           {renderKey(key)}
@@ -84,7 +75,7 @@ export const JsonVisualizer: React.FC<JsonVisualizerProps> = ({
       );
     }
 
-    if (typeof value === 'object') {
+    if (typeof value === "object") {
       return (
         <div className={lineClass}>
           {renderKey(key)}
@@ -92,11 +83,7 @@ export const JsonVisualizer: React.FC<JsonVisualizerProps> = ({
           <ul className="ml-4 border-white">
             {Object.entries(value).map(([objKey, val], index, arr) => (
               <li key={objKey} className="list-none">
-                <JsonVisualizer
-                  data={val}
-                  isLast={index === arr.length - 1}
-                  keyName={objKey}
-                />
+                <JsonVisualizer data={val} isLast={index === arr.length - 1} keyName={objKey} />
               </li>
             ))}
           </ul>

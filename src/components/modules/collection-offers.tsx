@@ -1,17 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi,
-} from '../ui/carousel';
-import { httpClient } from '@/lib/http-client';
-import { Skeleton } from '../ui/skeleton';
-import { OfferCard } from '@/components/app/offer-card';
-import type { SingleOffer } from '@/types/single-offer';
-import { useCountry } from '@/hooks/use-country';
-import { ArrowUpIcon } from '@radix-ui/react-icons';
-import { useState } from 'react';
+import { useQuery } from "@tanstack/react-query";
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "../ui/carousel";
+import { httpClient } from "@/lib/http-client";
+import { Skeleton } from "../ui/skeleton";
+import { OfferCard } from "@/components/app/offer-card";
+import type { SingleOffer } from "@/types/single-offer";
+import { useCountry } from "@/hooks/use-country";
+import { ArrowUpIcon } from "@radix-ui/react-icons";
+import { useState } from "react";
 
 export function CollectionOffers({ id }: { id: string }) {
   const { country } = useCountry();
@@ -21,7 +16,7 @@ export function CollectionOffers({ id }: { id: string }) {
     isError,
     isLoading,
   } = useQuery({
-    queryKey: ['collection-offers', { id, country }],
+    queryKey: ["collection-offers", { id, country }],
     queryFn: () =>
       httpClient.get<SingleOffer[]>(`/offers/${id}/collection`, {
         params: { country },
@@ -63,7 +58,7 @@ export function CollectionOffers({ id }: { id: string }) {
         </div>
         <Carousel
           opts={{
-            align: 'start',
+            align: "start",
           }}
           className="w-full"
         >
@@ -115,7 +110,7 @@ export function CollectionOffers({ id }: { id: string }) {
       </div>
       <Carousel
         opts={{
-          align: 'start',
+          align: "start",
         }}
         className="w-full"
         setApi={setApi}

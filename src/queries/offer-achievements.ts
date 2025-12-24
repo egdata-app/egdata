@@ -1,4 +1,4 @@
-import { httpClient } from '@/lib/http-client';
+import { httpClient } from "@/lib/http-client";
 
 export type AchievementsSets = AchievementSet[];
 

@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useQueries } from '@tanstack/react-query';
+import { useState, useEffect } from "react";
+import { useQueries } from "@tanstack/react-query";
 import {
   checkSubscriptionStatusQuery,
   subscriptionsQuery,
@@ -8,16 +8,16 @@ import {
   useUnsubscribeMutation,
   useSubscribeToTopicMutation,
   useUnsubscribeFromTopicMutation,
-} from '@/queries/push-notifications';
-import consola from 'consola';
+} from "@/queries/push-notifications";
+import consola from "consola";
 
 const VAPID_PUBLIC_KEY = import.meta.env.VITE_VAPID_PUBLIC_KEY;
 
 export function usePushNotifications(userApiKey: string) {
   const [isSupported, setIsSupported] = useState(false);
-  const [subscription, setSubscription] = useState<
-    (PushSubscription & { id?: string }) | null
-  >(null);
+  const [subscription, setSubscription] = useState<(PushSubscription & { id?: string }) | null>(
+    null,
+  );
 
   // Use useQueries to batch all queries together
   const queries = useQueries({
@@ -34,8 +34,7 @@ export function usePushNotifications(userApiKey: string) {
     ],
   });
 
-  const [subscriptionStatusQuery, subscriptionsDataQuery, vapidDataQuery] =
-    queries;
+  const [subscriptionStatusQuery, subscriptionsDataQuery, vapidDataQuery] = queries;
   const subscriptionStatus = subscriptionStatusQuery.data;
   const subscriptionError = subscriptionStatusQuery.error;
   const subscriptionsData = subscriptionsDataQuery.data;
@@ -45,8 +44,7 @@ export function usePushNotifications(userApiKey: string) {
   const subscribeMutation = useSubscribeMutation(userApiKey);
   const unsubscribeMutation = useUnsubscribeMutation(userApiKey);
   const subscribeToTopicMutation = useSubscribeToTopicMutation(userApiKey);
-  const unsubscribeFromTopicMutation =
-    useUnsubscribeFromTopicMutation(userApiKey);
+  const unsubscribeFromTopicMutation = useUnsubscribeFromTopicMutation(userApiKey);
 
   // Derived state - more reliable subscription status
   const hasSubscriptionData = !!subscriptionsData?.subscriptions?.length;
@@ -56,7 +54,7 @@ export function usePushNotifications(userApiKey: string) {
   const subscriptionId = subscriptionsData?.subscriptions?.[0]?.id || null;
 
   // Get subscribed topics from subscription data
-  const subscribedTopics = subscriptionsData?.subscriptions?.flatMap(sub => sub.topics) || [];
+  const subscribedTopics = subscriptionsData?.subscriptions?.flatMap((sub) => sub.topics) || [];
 
   // Only consider subscribed if we have actual subscription data with ID
   // The status check alone is not sufficient for topic operations
@@ -66,8 +64,7 @@ export function usePushNotifications(userApiKey: string) {
   const queriesLoading = queries.some((query) => query.isLoading);
 
   // Check if we have enough data for topic operations
-  const canPerformTopicOperations =
-    !!subscriptionId && !!userApiKey && !queriesLoading;
+  const canPerformTopicOperations = !!subscriptionId && !!userApiKey && !queriesLoading;
 
   // Function to check if user can subscribe to a specific topic
   const canSubscribeToTopic = (topic: string): boolean => {
@@ -88,18 +85,18 @@ export function usePushNotifications(userApiKey: string) {
     queriesLoading;
 
   useEffect(() => {
-    setIsSupported('serviceWorker' in navigator && 'PushManager' in window);
+    setIsSupported("serviceWorker" in navigator && "PushManager" in window);
   }, []);
 
   const getServiceWorkerRegistration = async () => {
     try {
-      if ('serviceWorker' in navigator) {
+      if ("serviceWorker" in navigator) {
         const registration = await navigator.serviceWorker.getRegistration();
         return registration;
       }
       return null;
     } catch (error) {
-      console.error('Failed to get service worker registration:', error);
+      console.error("Failed to get service worker registration:", error);
       return null;
     }
   };
@@ -118,10 +115,8 @@ export function usePushNotifications(userApiKey: string) {
   }, [hasSubscriptionData, subscriptionsData]);
 
   const urlBase64ToUint8Array = (base64String: string) => {
-    const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
-    const base64 = (base64String + padding)
-      .replace(/-/g, '+')
-      .replace(/_/g, '/');
+    const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+    const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
 
     const rawData = window.atob(base64);
     const outputArray = new Uint8Array(rawData.length);
@@ -139,7 +134,7 @@ export function usePushNotifications(userApiKey: string) {
       // Get service worker registration
       const registration = await getServiceWorkerRegistration();
       if (!registration) {
-        throw new Error('Service worker not available');
+        throw new Error("Service worker not available");
       }
 
       // Get VAPID public key
@@ -152,19 +147,17 @@ export function usePushNotifications(userApiKey: string) {
       });
 
       // Send subscription to server
-      const p256dhKey = pushSubscription.getKey('p256dh');
-      const authKey = pushSubscription.getKey('auth');
+      const p256dhKey = pushSubscription.getKey("p256dh");
+      const authKey = pushSubscription.getKey("auth");
 
       if (!p256dhKey || !authKey) {
-        throw new Error('Failed to get subscription keys');
+        throw new Error("Failed to get subscription keys");
       }
 
       const subscriptionData = {
         endpoint: pushSubscription.endpoint,
         keys: {
-          p256dh: btoa(
-            String.fromCharCode.apply(null, new Uint8Array(p256dhKey)),
-          ),
+          p256dh: btoa(String.fromCharCode.apply(null, new Uint8Array(p256dhKey))),
           auth: btoa(String.fromCharCode.apply(null, new Uint8Array(authKey))),
         },
       };
@@ -172,13 +165,13 @@ export function usePushNotifications(userApiKey: string) {
       const response = await subscribeMutation.mutateAsync(subscriptionData);
       setSubscription({ id: response.id, ...pushSubscription });
     } catch (error) {
-      console.error('Error subscribing to push notifications:', error);
+      console.error("Error subscribing to push notifications:", error);
     }
   };
 
   const unsubscribe = async () => {
     if (!subscriptionId || !userApiKey) {
-      consola.error('Cannot unsubscribe: missing subscription ID or API key', {
+      consola.error("Cannot unsubscribe: missing subscription ID or API key", {
         subscriptionId,
         hasApiKey: !!userApiKey,
       });
@@ -190,33 +183,30 @@ export function usePushNotifications(userApiKey: string) {
       await unsubscribeMutation.mutateAsync(subscriptionId);
 
       // Unsubscribe from browser if we have the full subscription object
-      if (subscription && 'unsubscribe' in subscription) {
+      if (subscription && "unsubscribe" in subscription) {
         await subscription.unsubscribe();
       }
 
       setSubscription(null);
     } catch (error) {
-      console.error('Error unsubscribing from push notifications:', error);
+      console.error("Error unsubscribing from push notifications:", error);
     }
   };
 
   const subscribeToTopic = async (topics: string | string[]) => {
     if (!canPerformTopicOperations) {
-      consola.error(
-        'Cannot subscribe to topic: not ready for topic operations',
-        {
-          subscriptionId,
-          hasApiKey: !!userApiKey,
-          hasSubscriptionData,
-          hasSubscriptionStatus,
-          isSubscribed,
-          queriesLoading,
-          canPerformTopicOperations,
-          subscriptionStatus,
-          subscriptionsData: subscriptionsData ? 'present' : 'missing',
-          subscriptionsCount: subscriptionsData?.subscriptions?.length || 0,
-        },
-      );
+      consola.error("Cannot subscribe to topic: not ready for topic operations", {
+        subscriptionId,
+        hasApiKey: !!userApiKey,
+        hasSubscriptionData,
+        hasSubscriptionStatus,
+        isSubscribed,
+        queriesLoading,
+        canPerformTopicOperations,
+        subscriptionStatus,
+        subscriptionsData: subscriptionsData ? "present" : "missing",
+        subscriptionsCount: subscriptionsData?.subscriptions?.length || 0,
+      });
       return false;
     }
 
@@ -227,25 +217,22 @@ export function usePushNotifications(userApiKey: string) {
       });
       return true;
     } catch (error) {
-      console.error('Error subscribing to topics:', error);
+      console.error("Error subscribing to topics:", error);
       return false;
     }
   };
 
   const unsubscribeFromTopic = async (topics: string | string[]) => {
     if (!canPerformTopicOperations) {
-      consola.error(
-        'Cannot unsubscribe from topic: not ready for topic operations',
-        {
-          subscriptionId,
-          hasApiKey: !!userApiKey,
-          hasSubscriptionData,
-          hasSubscriptionStatus,
-          isSubscribed,
-          queriesLoading,
-          canPerformTopicOperations,
-        },
-      );
+      consola.error("Cannot unsubscribe from topic: not ready for topic operations", {
+        subscriptionId,
+        hasApiKey: !!userApiKey,
+        hasSubscriptionData,
+        hasSubscriptionStatus,
+        isSubscribed,
+        queriesLoading,
+        canPerformTopicOperations,
+      });
       return false;
     }
 
@@ -256,7 +243,7 @@ export function usePushNotifications(userApiKey: string) {
       });
       return true;
     } catch (error) {
-      console.error('Error unsubscribing from topics:', error);
+      console.error("Error unsubscribing from topics:", error);
       return false;
     }
   };

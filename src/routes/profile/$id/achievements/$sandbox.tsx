@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { createFileRoute, Link } from '@tanstack/react-router';
-import { httpClient } from '@/lib/http-client';
-import type { SingleOffer } from '@/types/single-offer';
-import { dehydrate, HydrationBoundary, useQuery } from '@tanstack/react-query';
-import { ArrowRight } from 'lucide-react';
-import { FlippableCard } from '@/components/app/achievement-card';
+import * as React from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { httpClient } from "@/lib/http-client";
+import type { SingleOffer } from "@/types/single-offer";
+import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { ArrowRight } from "lucide-react";
+import { FlippableCard } from "@/components/app/achievement-card";
 
 interface Root {
   playerAchievements: PlayerAchievement[];
@@ -74,7 +74,7 @@ interface Achievement {
   completedPercent: number;
 }
 
-export const Route = createFileRoute('/profile/$id/achievements/$sandbox')({
+export const Route = createFileRoute("/profile/$id/achievements/$sandbox")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
 
@@ -90,26 +90,18 @@ export const Route = createFileRoute('/profile/$id/achievements/$sandbox')({
 
     await Promise.all([
       queryClient.prefetchQuery({
-        queryKey: [
-          'player-sandbox-achievements',
-          { id: params.id, sandbox: params.sandbox },
-        ],
+        queryKey: ["player-sandbox-achievements", { id: params.id, sandbox: params.sandbox }],
         queryFn: () =>
-          httpClient.get<Root>(
-            `/profiles/${params.id}/achievements/${params.sandbox}`
-          ),
+          httpClient.get<Root>(`/profiles/${params.id}/achievements/${params.sandbox}`),
       }),
       queryClient.prefetchQuery({
-        queryKey: ['sandbox:base', { id: params.sandbox, country: 'US' }],
+        queryKey: ["sandbox:base", { id: params.sandbox, country: "US" }],
         queryFn: () =>
-          httpClient.get<SingleOffer>(
-            `/sandboxes/${params.sandbox}/base-game`,
-            {
-              params: {
-                country: 'US',
-              },
-            }
-          ),
+          httpClient.get<SingleOffer>(`/sandboxes/${params.sandbox}/base-game`, {
+            params: {
+              country: "US",
+            },
+          }),
       }),
     ]);
 
@@ -129,16 +121,15 @@ interface PlayerAchievementStatus extends Achievement {
 function RouteComponent() {
   const { id, sandbox } = Route.useLoaderData();
   const { data, isLoading } = useQuery({
-    queryKey: ['player-sandbox-achievements', { id, sandbox }],
-    queryFn: () =>
-      httpClient.get<Root>(`/profiles/${id}/achievements/${sandbox}`),
+    queryKey: ["player-sandbox-achievements", { id, sandbox }],
+    queryFn: () => httpClient.get<Root>(`/profiles/${id}/achievements/${sandbox}`),
   });
   const { data: offer } = useQuery({
-    queryKey: ['sandbox:base', { id: sandbox, country: 'US' }],
+    queryKey: ["sandbox:base", { id: sandbox, country: "US" }],
     queryFn: () =>
       httpClient.get<SingleOffer>(`/sandboxes/${sandbox}/base-game`, {
         params: {
-          country: 'US',
+          country: "US",
         },
       }),
   });
@@ -160,22 +151,20 @@ function RouteComponent() {
     .flat();
 
   // Merge achievements, we know if its unlocked from the playerAchievements, while the sandboxAchievements has the data
-  const achievements: PlayerAchievementStatus[] = sandboxAchievements.map(
-    (achievement) => {
-      // Find the corresponding player achievement by matching both sandboxId and achievementName
-      const playerAchievement = playerAchievements.find(
-        ({ playerAchievement }) =>
-          playerAchievement.achievementName === achievement.name &&
-          playerAchievement.sandboxId === data.playerAchievements[0]?.sandboxId // Ensure matching sandbox
-      );
+  const achievements: PlayerAchievementStatus[] = sandboxAchievements.map((achievement) => {
+    // Find the corresponding player achievement by matching both sandboxId and achievementName
+    const playerAchievement = playerAchievements.find(
+      ({ playerAchievement }) =>
+        playerAchievement.achievementName === achievement.name &&
+        playerAchievement.sandboxId === data.playerAchievements[0]?.sandboxId, // Ensure matching sandbox
+    );
 
-      return {
-        ...achievement,
-        unlocked: !!playerAchievement?.playerAchievement.unlocked, // Convert undefined to false
-        unlockDate: playerAchievement?.playerAchievement.unlockDate || '', // Convert undefined to an empty string
-      };
-    }
-  );
+    return {
+      ...achievement,
+      unlocked: !!playerAchievement?.playerAchievement.unlocked, // Convert undefined to false
+      unlockDate: playerAchievement?.playerAchievement.unlockDate || "", // Convert undefined to an empty string
+    };
+  });
 
   return (
     <div className="flex flex-col gap-4">

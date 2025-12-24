@@ -9,29 +9,29 @@ export function timeAgo(date: Date): string {
   const months = Math.floor(days / 30);
   const years = Math.floor(months / 12);
 
-  const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+  const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
 
   if (seconds < 60) {
-    return rtf.format(isPastDate ? -seconds : seconds, 'second');
+    return rtf.format(isPastDate ? -seconds : seconds, "second");
   }
 
   if (minutes < 60) {
-    return rtf.format(isPastDate ? -minutes : minutes, 'minute');
+    return rtf.format(isPastDate ? -minutes : minutes, "minute");
   }
 
   if (hours < 24) {
-    return rtf.format(isPastDate ? -hours : hours, 'hour');
+    return rtf.format(isPastDate ? -hours : hours, "hour");
   }
 
   if (days < 30) {
-    return rtf.format(isPastDate ? -days : days, 'day');
+    return rtf.format(isPastDate ? -days : days, "day");
   }
 
   if (months < 12) {
-    return rtf.format(isPastDate ? -months : months, 'month');
+    return rtf.format(isPastDate ? -months : months, "month");
   }
 
-  return rtf.format(isPastDate ? -years : years, 'year');
+  return rtf.format(isPastDate ? -years : years, "year");
 }
 
 /**
@@ -63,22 +63,22 @@ export function compareDates(date: Date, dateB: Date): string {
   const months = Math.floor(days / 30);
   const years = Math.floor(months / 12);
 
-  const suffix = date < dateB ? 'before' : 'after';
+  const suffix = date < dateB ? "before" : "after";
 
   if (years > 0) {
-    return `${years} year${years > 1 ? 's' : ''} ${suffix}`;
+    return `${years} year${years > 1 ? "s" : ""} ${suffix}`;
   }
   if (months > 0) {
-    return `${months} month${months > 1 ? 's' : ''} ${suffix}`;
+    return `${months} month${months > 1 ? "s" : ""} ${suffix}`;
   }
   if (days > 0) {
-    return `${days} day${days > 1 ? 's' : ''} ${suffix}`;
+    return `${days} day${days > 1 ? "s" : ""} ${suffix}`;
   }
   if (hours > 0) {
-    return `${hours} hour${hours > 1 ? 's' : ''} ${suffix}`;
+    return `${hours} hour${hours > 1 ? "s" : ""} ${suffix}`;
   }
   if (minutes > 0) {
-    return `${minutes} minute${minutes > 1 ? 's' : ''} ${suffix}`;
+    return `${minutes} minute${minutes > 1 ? "s" : ""} ${suffix}`;
   }
-  return `${seconds} second${seconds > 1 ? 's' : ''} ${suffix}`;
+  return `${seconds} second${seconds > 1 ? "s" : ""} ${suffix}`;
 }

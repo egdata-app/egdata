@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { createFileRoute, redirect } from '@tanstack/react-router';
+import * as React from "react";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/promotions/$id')({
+export const Route = createFileRoute("/promotions/$id")({
   component: RouteComponent,
 
   beforeLoad: async ({ context, params }) => {
@@ -12,5 +12,5 @@ export const Route = createFileRoute('/promotions/$id')({
 });
 
 function RouteComponent() {
-  return 'Hello /promotions/$id!';
+  return "Hello /promotions/$id!";
 }

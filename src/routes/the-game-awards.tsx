@@ -1,40 +1,36 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { useQuery } from '@tanstack/react-query';
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { createFileRoute } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect, useRef, useMemo } from "react";
 import {
   getGameAwardsData,
   YOUTUBE_VIDEO_ID,
   type GameAwardsSection as GameAwardsSectionProps,
-} from '@/queries/game-awards';
-import { OfferCard } from '@/components/app/offer-card';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Skeleton } from '@/components/ui/skeleton';
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@/components/ui/collapsible';
-import { ChevronDown, X, Maximize2 } from 'lucide-react';
-import { cn } from '@/lib/utils';
+} from "@/queries/game-awards";
+import { OfferCard } from "@/components/app/offer-card";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { ChevronDown, X, Maximize2 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute('/the-game-awards')({
+export const Route = createFileRoute("/the-game-awards")({
   component: GameAwardsPage,
 
   loader: async ({ context }) => {
     const { queryClient } = context;
 
     await queryClient.prefetchQuery({
-      queryKey: ['game-awards'],
+      queryKey: ["game-awards"],
       queryFn: () => getGameAwardsData(),
     });
   },
 
   head: () => {
-    const title = 'The Game Awards Coverage | egdata.app';
+    const title = "The Game Awards Coverage | egdata.app";
     const description =
-      'Latest games announced and nominated at The Game Awards coming to Epic Games Store.';
-    const image = 'https://api.egdata.app/game-awards/og';
+      "Latest games announced and nominated at The Game Awards coming to Epic Games Store.";
+    const image = "https://api.egdata.app/game-awards/og";
 
     return {
       meta: [
@@ -42,36 +38,36 @@ export const Route = createFileRoute('/the-game-awards')({
           title,
         },
         {
-          name: 'description',
+          name: "description",
           content: description,
         },
         {
-          property: 'og:title',
+          property: "og:title",
           content: title,
         },
         {
-          property: 'og:description',
+          property: "og:description",
           content: description,
         },
         {
-          property: 'og:image',
+          property: "og:image",
           content: image,
         },
         {
-          property: 'twitter:title',
+          property: "twitter:title",
           content: title,
         },
         {
-          property: 'twitter:description',
+          property: "twitter:description",
           content: description,
         },
         {
-          property: 'twitter:image',
+          property: "twitter:image",
           content: image,
         },
         {
-          name: 'twitter:card',
-          content: 'summary_large_image',
+          name: "twitter:card",
+          content: "summary_large_image",
         },
       ],
     };
@@ -80,7 +76,7 @@ export const Route = createFileRoute('/the-game-awards')({
 
 function GameAwardsPage() {
   const { data: sections = [], isLoading } = useQuery({
-    queryKey: ['game-awards'],
+    queryKey: ["game-awards"],
     queryFn: () => getGameAwardsData(),
     placeholderData: [],
   });
@@ -92,8 +88,8 @@ function GameAwardsPage() {
   // Sort sections with announcements first
   const sortedSections = useMemo(() => {
     return [...sections].sort((a, b) => {
-      const aIsAnnouncement = a.title.toLowerCase().includes('announcement');
-      const bIsAnnouncement = b.title.toLowerCase().includes('announcement');
+      const aIsAnnouncement = a.title.toLowerCase().includes("announcement");
+      const bIsAnnouncement = b.title.toLowerCase().includes("announcement");
       if (aIsAnnouncement && !bIsAnnouncement) return -1;
       if (!aIsAnnouncement && bIsAnnouncement) return 1;
       return 0;
@@ -101,9 +97,7 @@ function GameAwardsPage() {
   }, [sections]);
 
   // Initialize expanded sections - first section expanded by default
-  const [expandedSections, setExpandedSections] = useState<Set<string>>(
-    new Set(),
-  );
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     if (sortedSections.length > 0 && expandedSections.size === 0) {
@@ -144,7 +138,7 @@ function GameAwardsPage() {
   }, [miniPlayerDismissed]);
 
   const announcementCount = sections
-    .filter((section) => section.title.toLowerCase().includes('announcement'))
+    .filter((section) => section.title.toLowerCase().includes("announcement"))
     .reduce((acc, section) => acc + section.offers.length, 0);
 
   const handleDismissMiniPlayer = () => {
@@ -155,8 +149,8 @@ function GameAwardsPage() {
   const handleExpandMiniPlayer = () => {
     // Scroll back to the video
     videoContainerRef.current?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
+      behavior: "smooth",
+      block: "center",
     });
   };
 
@@ -170,8 +164,7 @@ function GameAwardsPage() {
           className="h-16 sm:h-20 md:h-24 mx-auto"
         />
         <p className="text-muted-foreground max-w-2xl mx-auto">
-          Games announced or nominated at The Game Awards coming to Epic Games
-          Store
+          Games announced or nominated at The Game Awards coming to Epic Games Store
         </p>
       </header>
 
@@ -183,8 +176,8 @@ function GameAwardsPage() {
             <div
               className={cn(
                 isMiniPlayer && !miniPlayerDismissed
-                  ? 'fixed bottom-4 right-4 z-50 w-[500px] aspect-video rounded-lg overflow-hidden shadow-2xl border border-white/20 bg-black'
-                  : 'relative w-full aspect-video rounded-xl overflow-hidden bg-black/50 border border-white/10 shadow-2xl',
+                  ? "fixed bottom-4 right-4 z-50 w-[500px] aspect-video rounded-lg overflow-hidden shadow-2xl border border-white/20 bg-black"
+                  : "relative w-full aspect-video rounded-xl overflow-hidden bg-black/50 border border-white/10 shadow-2xl",
               )}
             >
               <iframe
@@ -248,9 +241,7 @@ function GameAwardsPage() {
         <Card className="p-12 text-center">
           <div className="text-5xl mb-4">🎯</div>
           <h3 className="text-xl font-semibold mb-2">No games announced yet</h3>
-          <p className="text-muted-foreground">
-            Check back after The Game Awards!
-          </p>
+          <p className="text-muted-foreground">Check back after The Game Awards!</p>
         </Card>
       )}
 
@@ -294,8 +285,8 @@ function GameAwardsSection({
           </div>
           <ChevronDown
             className={cn(
-              'w-6 h-6 text-muted-foreground transition-transform duration-200',
-              isExpanded && 'rotate-180',
+              "w-6 h-6 text-muted-foreground transition-transform duration-200",
+              isExpanded && "rotate-180",
             )}
           />
         </div>

@@ -1,31 +1,18 @@
-import { Image } from '@/components/app/image';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { useCountry } from '@/hooks/use-country';
-import { useLocale } from '@/hooks/use-locale';
-import { calculatePrice } from '@/lib/calculate-price';
-import { getImage } from '@/lib/get-image';
-import { cn } from '@/lib/utils';
-import {
-  type Collections,
-  getCollection,
-  type OfferWithTops,
-} from '@/queries/collection';
-import {
-  dehydrate,
-  HydrationBoundary,
-  useInfiniteQuery,
-} from '@tanstack/react-query';
-import { createFileRoute, Link } from '@tanstack/react-router';
-import { ChevronDown } from 'lucide-react';
+import { Image } from "@/components/app/image";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useCountry } from "@/hooks/use-country";
+import { useLocale } from "@/hooks/use-locale";
+import { calculatePrice } from "@/lib/calculate-price";
+import { getImage } from "@/lib/get-image";
+import { cn } from "@/lib/utils";
+import { type Collections, getCollection, type OfferWithTops } from "@/queries/collection";
+import { dehydrate, HydrationBoundary, useInfiniteQuery } from "@tanstack/react-query";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ChevronDown } from "lucide-react";
 
-export const Route = createFileRoute('/collections/$id/$week/')({
+export const Route = createFileRoute("/collections/$id/$week/")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
 
@@ -51,26 +38,25 @@ export const Route = createFileRoute('/collections/$id/$week/')({
 function CollectionPage() {
   const { id, week } = Route.useParams();
   const { country } = useCountry();
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
-    useInfiniteQuery({
-      queryKey: ['collection', { id, country, limit: 20, week }],
-      queryFn: ({ pageParam }) =>
-        getCollection({
-          slug: id,
-          limit: 20,
-          page: pageParam as number,
-          country,
-          week,
-        }),
-      initialPageParam: 1,
-      getNextPageParam: (lastPage: Collections, allPages: Collections[]) => {
-        if (lastPage.page * lastPage.limit + 20 > lastPage.total) {
-          return undefined;
-        }
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery({
+    queryKey: ["collection", { id, country, limit: 20, week }],
+    queryFn: ({ pageParam }) =>
+      getCollection({
+        slug: id,
+        limit: 20,
+        page: pageParam as number,
+        country,
+        week,
+      }),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage: Collections, allPages: Collections[]) => {
+      if (lastPage.page * lastPage.limit + 20 > lastPage.total) {
+        return undefined;
+      }
 
-        return allPages?.length + 1;
-      },
-    });
+      return allPages?.length + 1;
+    },
+  });
 
   if (isLoading) {
     return (
@@ -92,16 +78,16 @@ function CollectionPage() {
           <span className="text-4xl text-muted-foreground">-</span>
           {data?.pages[0].start && data?.pages[0].end && (
             <div className="text-4xl text-muted-foreground">
-              {new Date(data?.pages[0].start).toLocaleDateString('en-UK', {
+              {new Date(data?.pages[0].start).toLocaleDateString("en-UK", {
                 year: undefined,
-                month: 'long',
-                day: 'numeric',
-              })}{' '}
-              -{' '}
-              {new Date(data?.pages[0].end).toLocaleDateString('en-UK', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
+                month: "long",
+                day: "numeric",
+              })}{" "}
+              -{" "}
+              {new Date(data?.pages[0].end).toLocaleDateString("en-UK", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
               })}
             </div>
           )}
@@ -119,8 +105,8 @@ function CollectionPage() {
               </TooltipTrigger>
               <TooltipContent className="max-w-xs">
                 <p>
-                  The difference between the current position and the previous
-                  position. Usually changes every day.
+                  The difference between the current position and the previous position. Usually
+                  changes every day.
                 </p>
               </TooltipContent>
             </Tooltip>
@@ -132,7 +118,7 @@ function CollectionPage() {
               </TooltipTrigger>
               <TooltipContent className="max-w-xs">
                 <p>
-                  The number of weeks the game has been in the top 100 for{' '}
+                  The number of weeks the game has been in the top 100 for{" "}
                   {data?.pages[0].title.toLowerCase()}.
                 </p>
               </TooltipContent>
@@ -181,7 +167,7 @@ function CollectionPage() {
                   Loading...
                 </>
               ) : (
-                'Load more'
+                "Load more"
               )}
             </Button>
           </div>
@@ -194,8 +180,8 @@ function CollectionPage() {
 function OfferInTop({ offer }: { offer: OfferWithTops }) {
   const { locale } = useLocale();
   const fmt = Intl.NumberFormat(locale, {
-    style: 'currency',
-    currency: offer.price?.price.currencyCode || 'USD',
+    style: "currency",
+    currency: offer.price?.price.currencyCode || "USD",
   });
 
   const weeksInTop100 = Math.floor(offer.metadata.timesInTop100 / 7);
@@ -203,19 +189,17 @@ function OfferInTop({ offer }: { offer: OfferWithTops }) {
   return (
     <Link to={`/offers/${offer.id}`} preload="viewport">
       <Card className="w-full h-16 flex flex-row items-center rounded-xl overflow-hidden px-5">
-        <span className="text-xl font-bold w-10 flex-shrink-0">
-          {offer.metadata.position}
-        </span>
+        <span className="text-xl font-bold w-10 flex-shrink-0">{offer.metadata.position}</span>
 
         <div className="h-full w-24 flex-shrink-0 flex flex-col justify-center items-center">
           <Image
             src={
               getImage(offer.keyImages, [
-                'DieselGameBoxWide',
-                'DieselStoreFrontWide',
-                'Featured',
-                'OfferImageWide',
-              ])?.url ?? '/placeholder.webp'
+                "DieselGameBoxWide",
+                "DieselStoreFrontWide",
+                "Featured",
+                "OfferImageWide",
+              ])?.url ?? "/placeholder.webp"
             }
             alt={offer.title}
             className="w-full h-full object-cover rounded-md"
@@ -232,9 +216,8 @@ function OfferInTop({ offer }: { offer: OfferWithTops }) {
         <div className="flex-shrink-0 w-40 text-right inline-flex items-center justify-end gap-2 pr-5">
           <span
             className={cn(
-              'text-lg font-semibold',
-              offer.price?.price.discountPrice !==
-                offer.price?.price.originalPrice && 'text-badge',
+              "text-lg font-semibold",
+              offer.price?.price.discountPrice !== offer.price?.price.originalPrice && "text-badge",
             )}
           >
             {fmt.format(
@@ -244,8 +227,7 @@ function OfferInTop({ offer }: { offer: OfferWithTops }) {
               ),
             )}
           </span>
-          {offer.price?.price.discountPrice !==
-            offer.price?.price.originalPrice && (
+          {offer.price?.price.discountPrice !== offer.price?.price.originalPrice && (
             <span className="text-lg font-medium text-muted-foreground line-through">
               {fmt.format(
                 calculatePrice(
@@ -259,24 +241,19 @@ function OfferInTop({ offer }: { offer: OfferWithTops }) {
 
         <div
           className={cn(
-            'flex flex-row gap-1 items-center text-badge w-16 justify-center',
-            offer.previousPosition && offer.position > offer.previousPosition
-              ? 'text-red-500'
-              : '',
+            "flex flex-row gap-1 items-center text-badge w-16 justify-center",
+            offer.previousPosition && offer.position > offer.previousPosition ? "text-red-500" : "",
           )}
         >
-          {offer.previousPosition &&
-          offer.position !== offer.previousPosition ? (
+          {offer.previousPosition && offer.position !== offer.previousPosition ? (
             <>
               <ChevronDown
                 className={cn(
-                  'h-4 w-4',
-                  offer.position < offer.previousPosition ? 'rotate-180' : '',
+                  "h-4 w-4",
+                  offer.position < offer.previousPosition ? "rotate-180" : "",
                 )}
               />
-              <span className="text-md">
-                {Math.abs(offer.position - offer.previousPosition)}
-              </span>
+              <span className="text-md">{Math.abs(offer.position - offer.previousPosition)}</span>
             </>
           ) : (
             <span className="text-md">-</span>

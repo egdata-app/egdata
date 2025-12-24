@@ -1,22 +1,19 @@
-import { EGSIcon } from '@/components/icons/egs';
-import { GiveawaysCarousel } from '@/components/modules/giveaways';
-import { MobileFreebiesCarousel } from '@/components/modules/mobile-freebies';
-import { SearchContainer } from '@/components/search/SearchContainer';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { httpClient } from '@/lib/http-client';
-import type { GiveawayOffer } from '@/types/giveaways';
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
-import { mobileFreebiesQuery } from '@/queries/mobile-freebies';
-import { formSchema } from '@/stores/searchStore';
-import {
-  getGiveawaysStats,
-  GiveawaysStats,
-} from '@/components/modules/giveaway-stats';
-import { mergeFreebies } from '@/utils/merge-freebies';
+import { EGSIcon } from "@/components/icons/egs";
+import { GiveawaysCarousel } from "@/components/modules/giveaways";
+import { MobileFreebiesCarousel } from "@/components/modules/mobile-freebies";
+import { SearchContainer } from "@/components/search/SearchContainer";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { httpClient } from "@/lib/http-client";
+import type { GiveawayOffer } from "@/types/giveaways";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
+import { mobileFreebiesQuery } from "@/queries/mobile-freebies";
+import { formSchema } from "@/stores/searchStore";
+import { getGiveawaysStats, GiveawaysStats } from "@/components/modules/giveaway-stats";
+import { mergeFreebies } from "@/utils/merge-freebies";
 
-export const Route = createFileRoute('/freebies/')({
+export const Route = createFileRoute("/freebies/")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
     return (
@@ -35,14 +32,14 @@ export const Route = createFileRoute('/freebies/')({
 
     await Promise.all([
       queryClient.prefetchQuery({
-        queryKey: ['giveaways-stats', { country }],
+        queryKey: ["giveaways-stats", { country }],
         queryFn: () => getGiveawaysStats({ country }),
       }),
       queryClient.prefetchQuery({
-        queryKey: ['giveaways'],
+        queryKey: ["giveaways"],
         queryFn: () =>
           httpClient
-            .get<GiveawayOffer[]>('/free-games', {
+            .get<GiveawayOffer[]>("/free-games", {
               params: {
                 country,
               },
@@ -52,7 +49,7 @@ export const Route = createFileRoute('/freebies/')({
       queryClient.prefetchQuery(mobileFreebiesQuery),
     ]);
 
-    const ogId = await httpClient.get<{ id: string }>('/free-games/og');
+    const ogId = await httpClient.get<{ id: string }>("/free-games/og");
 
     return {
       dehydratedState: dehydrate(queryClient),
@@ -64,54 +61,54 @@ export const Route = createFileRoute('/freebies/')({
     const { loaderData } = ctx;
 
     const ogImage =
-      'https://cdn.egdata.app/cdn-cgi/imagedelivery/<ACCOUNT_HASH>/<IMAGE_ID>/<VARIANT_NAME>'
-        .replace('<ACCOUNT_HASH>', 'RlN2EBAhhGSZh5aeUaPz3Q')
-        .replace('<IMAGE_ID>', String(loaderData?.og ?? ''))
-        .replace('<VARIANT_NAME>', 'og');
+      "https://cdn.egdata.app/cdn-cgi/imagedelivery/<ACCOUNT_HASH>/<IMAGE_ID>/<VARIANT_NAME>"
+        .replace("<ACCOUNT_HASH>", "RlN2EBAhhGSZh5aeUaPz3Q")
+        .replace("<IMAGE_ID>", String(loaderData?.og ?? ""))
+        .replace("<VARIANT_NAME>", "og");
 
     return {
       meta: [
         {
-          title: 'Free Games | egdata.app',
+          title: "Free Games | egdata.app",
         },
         {
-          name: 'description',
-          content: 'Browse free games from the Epic Games Store.',
+          name: "description",
+          content: "Browse free games from the Epic Games Store.",
         },
         {
-          name: 'og:title',
-          content: 'Free Games | egdata.app',
+          name: "og:title",
+          content: "Free Games | egdata.app",
         },
         {
-          name: 'og:description',
-          content: 'Browse free games from the Epic Games Store.',
+          name: "og:description",
+          content: "Browse free games from the Epic Games Store.",
         },
         {
-          property: 'twitter:title',
-          content: 'Free Games | egdata.app',
+          property: "twitter:title",
+          content: "Free Games | egdata.app",
         },
         {
-          property: 'twitter:description',
-          content: 'Browse free games from the Epic Games Store.',
+          property: "twitter:description",
+          content: "Browse free games from the Epic Games Store.",
         },
         {
-          property: 'og:image',
+          property: "og:image",
           content: ogImage,
         },
         {
-          property: 'og:image:alt',
-          content: 'Free Games | egdata.app',
+          property: "og:image:alt",
+          content: "Free Games | egdata.app",
         },
         {
-          property: 'og:type',
-          content: 'website',
+          property: "og:type",
+          content: "website",
         },
         {
-          property: 'twitter:card',
-          content: 'summary_large_image',
+          property: "twitter:card",
+          content: "summary_large_image",
         },
         {
-          property: 'twitter:image',
+          property: "twitter:image",
           content: ogImage,
         },
       ],
@@ -132,7 +129,7 @@ function FreeGames() {
           className="bg-black text-white hover:bg-card border inline-flex items-center gap-2 w-fit"
           onClick={() => {
             // TODO: Implement redeem functionality for current free games
-            console.log('Redeem current free games');
+            console.log("Redeem current free games");
           }}
         >
           <EGSIcon className="w-5 h-5" />
@@ -146,7 +143,7 @@ function FreeGames() {
       <SearchContainer
         contextId="freebies"
         initialSearch={search}
-        fixedParams={{ pastGiveaways: true, sortBy: 'giveawayDate' }}
+        fixedParams={{ pastGiveaways: true, sortBy: "giveawayDate" }}
         onSearchChange={(s) => {
           navigate({
             search: s,

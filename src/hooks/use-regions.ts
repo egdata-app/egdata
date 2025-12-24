@@ -1,9 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
-import { httpClient } from '@/lib/http-client';
+import { useQuery } from "@tanstack/react-query";
+import { httpClient } from "@/lib/http-client";
 
 export const useRegions = () => {
   const { data } = useQuery({
-    queryKey: ['regions'],
+    queryKey: ["regions"],
     queryFn: () =>
       httpClient.get<
         Record<
@@ -14,7 +14,7 @@ export const useRegions = () => {
             countries: string[];
           }
         >
-      >('/regions'),
+      >("/regions"),
     staleTime: 1000 * 60 * 60 * 24, // 24 hours
   });
 

@@ -1,24 +1,12 @@
-import { GithubIcon } from '@/components/icons/github';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { type DetectedOS, useOSDetection } from '@/hooks/use-os-detection';
-import { cn } from '@/lib/utils';
-import { getGithubReleases } from '@/queries/github-releases';
-import { useQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
-import {
-  AlertCircle,
-  AppleIcon,
-  CheckCircleIcon,
-  DownloadIcon,
-  File,
-} from 'lucide-react';
-import { FaLinux, FaWindows } from 'react-icons/fa6';
+import { GithubIcon } from "@/components/icons/github";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { type DetectedOS, useOSDetection } from "@/hooks/use-os-detection";
+import { cn } from "@/lib/utils";
+import { getGithubReleases } from "@/queries/github-releases";
+import { useQuery } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
+import { AlertCircle, AppleIcon, CheckCircleIcon, DownloadIcon, File } from "lucide-react";
+import { FaLinux, FaWindows } from "react-icons/fa6";
 
 type ReleaseAsset = {
   id: number;
@@ -36,7 +24,7 @@ type Release = {
 };
 
 type AssetInfo = {
-  platform: 'Windows' | 'macOS' | 'Linux' | 'Other';
+  platform: "Windows" | "macOS" | "Linux" | "Other";
   variant: string;
   icon: React.ReactNode;
   description: string;
@@ -49,7 +37,7 @@ type VariantGroup = {
 };
 
 type PlatformGroup = {
-  platform: 'Windows' | 'macOS' | 'Linux' | 'Other';
+  platform: "Windows" | "macOS" | "Linux" | "Other";
   icon: React.ReactNode;
   variants: Record<string, VariantGroup>;
 };
@@ -59,78 +47,76 @@ const getAssetInfo = (assetName: string): AssetInfo => {
 
   // macOS
   if (
-    lowerCaseName.includes('mac') ||
-    lowerCaseName.includes('darwin') ||
-    lowerCaseName.includes('.dmg')
+    lowerCaseName.includes("mac") ||
+    lowerCaseName.includes("darwin") ||
+    lowerCaseName.includes(".dmg")
   ) {
-    if (lowerCaseName.includes('arm64') || lowerCaseName.includes('aarch64')) {
+    if (lowerCaseName.includes("arm64") || lowerCaseName.includes("aarch64")) {
       return {
-        platform: 'macOS',
-        variant: 'Apple Silicon',
+        platform: "macOS",
+        variant: "Apple Silicon",
         icon: <AppleIcon className="h-6 w-6 text-slate-400" />,
-        description:
-          'For newer Mac computers with Apple chips (M1, M2, M3, etc.).',
+        description: "For newer Mac computers with Apple chips (M1, M2, M3, etc.).",
       };
     }
     if (
-      lowerCaseName.includes('intel') ||
-      lowerCaseName.includes('x64') ||
-      lowerCaseName.includes('x86_64')
+      lowerCaseName.includes("intel") ||
+      lowerCaseName.includes("x64") ||
+      lowerCaseName.includes("x86_64")
     ) {
       return {
-        platform: 'macOS',
-        variant: 'Intel',
+        platform: "macOS",
+        variant: "Intel",
         icon: <AppleIcon className="h-6 w-6 text-slate-400" />,
-        description: 'For older Mac computers with Intel processors.',
+        description: "For older Mac computers with Intel processors.",
       };
     }
     return {
-      platform: 'macOS',
-      variant: 'Universal',
+      platform: "macOS",
+      variant: "Universal",
       icon: <AppleIcon className="h-6 w-6 text-slate-400" />,
-      description: 'Compatible with both Apple Silicon and Intel Macs.',
+      description: "Compatible with both Apple Silicon and Intel Macs.",
     };
   }
 
   // Windows
-  if (lowerCaseName.endsWith('.msi')) {
+  if (lowerCaseName.endsWith(".msi")) {
     return {
-      platform: 'Windows',
-      variant: '.msi Installer',
+      platform: "Windows",
+      variant: ".msi Installer",
       icon: <FaWindows className="h-6 w-6 text-slate-400" />,
-      description: 'A standard installer wizard. Recommended for most users.',
+      description: "A standard installer wizard. Recommended for most users.",
     };
   }
-  if (lowerCaseName.endsWith('.exe')) {
+  if (lowerCaseName.endsWith(".exe")) {
     return {
-      platform: 'Windows',
-      variant: '.exe Installer',
+      platform: "Windows",
+      variant: ".exe Installer",
       icon: <FaWindows className="h-6 w-6 text-slate-400" />,
-      description:
-        'A standalone application file. May not require installation.',
+      description: "A standalone application file. May not require installation.",
     };
   }
 
   // Linux
   if (
-    lowerCaseName.includes('linux') ||
-    lowerCaseName.includes('.deb') ||
-    lowerCaseName.includes('.rpm') ||
-    lowerCaseName.includes('.appimage')
+    lowerCaseName.includes("linux") ||
+    lowerCaseName.includes(".deb") ||
+    lowerCaseName.includes(".rpm") ||
+    lowerCaseName.includes(".appimage")
   ) {
     return {
-      platform: 'Linux',
-      variant: 'Generic',
+      platform: "Linux",
+      variant: "Generic",
       icon: <FaLinux className="h-6 w-6 text-slate-400" />,
-      description: 'For Linux-based operating systems.',
+      description: "For Linux-based operating systems.",
     };
   }
 
   return {
-    platform: 'Other',
-    variant: 'File',
+    platform: "Other",
+    variant: "File",
     icon: <File className="h-6 w-6 text-slate-400" />,
-    description: 'A generic file or source code.',
+    description: "A generic file or source code.",
   };
 };
 
@@ -182,7 +168,7 @@ function SkeletonLoader() {
   );
 }
 
-export const Route = createFileRoute('/downloads')({
+export const Route = createFileRoute("/downloads")({
   component: RouteComponent,
 });
 
@@ -193,7 +179,7 @@ function RouteComponent() {
     error,
     isLoading: loading,
   } = useQuery({
-    queryKey: ['githubReleases'],
+    queryKey: ["githubReleases"],
     queryFn: getGithubReleases,
   });
 
@@ -201,34 +187,29 @@ function RouteComponent() {
     return <div>Error: {error.message}</div>;
   }
 
-  if (data && 'error' in data) {
+  if (data && "error" in data) {
     return <div>Error: {data.error}</div>;
   }
 
   const formatBytes = (bytes: number, decimals = 2) => {
-    if (bytes === 0) return '0 Bytes';
+    if (bytes === 0) return "0 Bytes";
     const k = 1024;
     const dm = decimals < 0 ? 0 : decimals;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return `${Number.parseFloat((bytes / k ** i).toFixed(dm))} ${sizes[i]}`;
   };
 
-  const isVariantRecommended = (
-    platform: string,
-    variant: string,
-    detected: DetectedOS,
-  ) => {
+  const isVariantRecommended = (platform: string, variant: string, detected: DetectedOS) => {
     if (platform !== detected.os) return false;
-    if (platform === 'macOS') {
-      if (variant === 'Universal') return true;
-      const hasConfidentArchDetection = !!(window.navigator as any)
-        .userAgentData?.architecture;
+    if (platform === "macOS") {
+      if (variant === "Universal") return true;
+      const hasConfidentArchDetection = !!(window.navigator as any).userAgentData?.architecture;
       if (!hasConfidentArchDetection) return false;
       return variant.includes(detected.arch);
     }
-    if (platform === 'Windows') {
-      return variant.includes('.msi');
+    if (platform === "Windows") {
+      return variant.includes(".msi");
     }
     return true;
   };
@@ -239,13 +220,11 @@ function RouteComponent() {
         <CardHeader>
           <div className="flex items-center gap-3 mb-2">
             <GithubIcon className="w-8 h-8 text-slate-300" />
-            <CardTitle className="text-2xl text-slate-50">
-              egdata.app Client Releases
-            </CardTitle>
+            <CardTitle className="text-2xl text-slate-50">egdata.app Client Releases</CardTitle>
           </div>
           <CardDescription className="text-slate-400">
-            Download the latest version. We've highlighted the recommended
-            section for your operating system.
+            Download the latest version. We've highlighted the recommended section for your
+            operating system.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -276,68 +255,60 @@ function RouteComponent() {
                         assets: [],
                       };
                     }
-                    acc[info.platform].variants[info.variant].assets.push(
-                      asset,
-                    );
+                    acc[info.platform].variants[info.variant].assets.push(asset);
                     return acc;
                   },
                   {} as Record<string, PlatformGroup>,
                 );
 
-                const sortedPlatforms = Object.values(groupedByPlatform).sort(
-                  (a, b) => {
-                    const aIsRecommended = a.platform === detectedOS.os;
-                    const bIsRecommended = b.platform === detectedOS.os;
-                    if (aIsRecommended && !bIsRecommended) return -1;
-                    if (!aIsRecommended && bIsRecommended) return 1;
-                    return 0;
-                  },
-                );
+                const sortedPlatforms = Object.values(groupedByPlatform).sort((a, b) => {
+                  const aIsRecommended = a.platform === detectedOS.os;
+                  const bIsRecommended = b.platform === detectedOS.os;
+                  if (aIsRecommended && !bIsRecommended) return -1;
+                  if (!aIsRecommended && bIsRecommended) return 1;
+                  return 0;
+                });
 
                 return (
-                  <Card
-                    key={release.id}
-                    className="bg-slate-800/50 border-slate-800"
-                  >
+                  <Card key={release.id} className="bg-slate-800/50 border-slate-800">
                     <CardHeader>
                       <CardTitle className="text-lg text-slate-200">
                         {release.name || release.tag_name}
                       </CardTitle>
                       <CardDescription className="text-slate-400">
-                        Version {release.tag_name} - Published on{' '}
+                        Version {release.tag_name} - Published on{" "}
                         {new Date(release.published_at).toLocaleDateString()}
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
                       {sortedPlatforms.map((platformGroup) => {
-                        const isPlatformRecommended =
-                          platformGroup.platform === detectedOS.os;
-                        const sortedVariants = Object.values(
-                          platformGroup.variants,
-                        ).sort((a, b) => {
-                          const aIsRecommended = isVariantRecommended(
-                            platformGroup.platform,
-                            a.variant,
-                            detectedOS,
-                          );
-                          const bIsRecommended = isVariantRecommended(
-                            platformGroup.platform,
-                            b.variant,
-                            detectedOS,
-                          );
-                          if (aIsRecommended && !bIsRecommended) return -1;
-                          if (!aIsRecommended && bIsRecommended) return 1;
-                          return 0;
-                        });
+                        const isPlatformRecommended = platformGroup.platform === detectedOS.os;
+                        const sortedVariants = Object.values(platformGroup.variants).sort(
+                          (a, b) => {
+                            const aIsRecommended = isVariantRecommended(
+                              platformGroup.platform,
+                              a.variant,
+                              detectedOS,
+                            );
+                            const bIsRecommended = isVariantRecommended(
+                              platformGroup.platform,
+                              b.variant,
+                              detectedOS,
+                            );
+                            if (aIsRecommended && !bIsRecommended) return -1;
+                            if (!aIsRecommended && bIsRecommended) return 1;
+                            return 0;
+                          },
+                        );
 
                         return (
                           <div
                             key={platformGroup.platform}
                             className={cn(
-                              'rounded-lg border p-4 transition-all',
+                              "rounded-lg border p-4 transition-all",
                               isPlatformRecommended
-                                ? 'border-sky-700/50 bg-sky-950/20'
-                                : 'border-transparent',
+                                ? "border-sky-700/50 bg-sky-950/20"
+                                : "border-transparent",
                             )}
                           >
                             <h3 className="font-semibold text-lg mb-3 flex items-center gap-2.5 text-slate-300">
@@ -355,10 +326,10 @@ function RouteComponent() {
                                   <div
                                     key={variantGroup.variant}
                                     className={cn(
-                                      'p-4 rounded-lg transition-all',
+                                      "p-4 rounded-lg transition-all",
                                       recommended
-                                        ? 'bg-sky-950/30 border border-sky-700/50'
-                                        : 'bg-slate-800/30',
+                                        ? "bg-sky-950/30 border border-sky-700/50"
+                                        : "bg-slate-800/30",
                                     )}
                                   >
                                     <h4 className="font-semibold mb-1 flex items-center gap-2 text-md text-slate-300">

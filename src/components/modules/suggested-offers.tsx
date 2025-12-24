@@ -1,17 +1,17 @@
-import { useQuery } from '@tanstack/react-query';
-import { httpClient as client } from '@/lib/http-client';
-import { OfferCard } from '@/components/app/offer-card';
-import type { SingleOffer } from '@/types/single-offer';
+import { useQuery } from "@tanstack/react-query";
+import { httpClient as client } from "@/lib/http-client";
+import { OfferCard } from "@/components/app/offer-card";
+import type { SingleOffer } from "@/types/single-offer";
 import {
   Carousel,
   type CarouselApi,
   CarouselContent,
   CarouselItem,
-} from '@/components/ui/carousel';
-import { shuffle } from '@/lib/shuffle';
-import { useCountry } from '@/hooks/use-country';
-import { ArrowUpIcon } from '@radix-ui/react-icons';
-import { useState } from 'react';
+} from "@/components/ui/carousel";
+import { shuffle } from "@/lib/shuffle";
+import { useCountry } from "@/hooks/use-country";
+import { ArrowUpIcon } from "@radix-ui/react-icons";
+import { useState } from "react";
 
 export function SuggestedOffers({ id }: { id: string }) {
   const { country } = useCountry();
@@ -19,7 +19,7 @@ export function SuggestedOffers({ id }: { id: string }) {
 
   const { data } = useQuery({
     queryKey: [
-      'suggested-offers',
+      "suggested-offers",
       {
         id,
         country,

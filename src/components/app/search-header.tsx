@@ -1,30 +1,30 @@
-import type { FormApi } from '@tanstack/react-form';
-import type { TypeOf } from 'zod';
-import { usePreferences } from '@/hooks/use-preferences';
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { ArrowDown, GridIcon } from 'lucide-react';
-import { ListBulletIcon } from '@radix-ui/react-icons';
+import type { FormApi } from "@tanstack/react-form";
+import type { TypeOf } from "zod";
+import { usePreferences } from "@/hooks/use-preferences";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { ArrowDown, GridIcon } from "lucide-react";
+import { ListBulletIcon } from "@radix-ui/react-icons";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import type { formSchema } from './search-form';
+} from "@/components/ui/select";
+import type { formSchema } from "./search-form";
 
 const sortByDisplay: Record<string, string> = {
-  releaseDate: 'Release Date',
-  lastModifiedDate: 'Modified Date',
-  effectiveDate: 'Effective Date',
-  creationDate: 'Creation Date',
-  viewableDate: 'Viewable Date',
-  pcReleaseDate: 'PC Release Date',
-  upcoming: 'Upcoming',
-  price: 'Price',
-  discount: 'Discount',
-  discountPercent: 'Discount %',
+  releaseDate: "Release Date",
+  lastModifiedDate: "Modified Date",
+  effectiveDate: "Effective Date",
+  creationDate: "Creation Date",
+  viewableDate: "Viewable Date",
+  pcReleaseDate: "PC Release Date",
+  upcoming: "Upcoming",
+  price: "Price",
+  discount: "Discount",
+  discountPercent: "Discount %",
 };
 
 export type SearchHeaderProps = {
@@ -39,7 +39,7 @@ export type SearchHeaderProps = {
 
 export function SearchHeader({
   form,
-  title = 'Search',
+  title = "Search",
   showSort = true,
   showViewToggle = true,
   className,
@@ -48,12 +48,7 @@ export function SearchHeader({
   const { view, setView } = usePreferences();
 
   return (
-    <header
-      className={cn(
-        'inline-flex items-center justify-between w-full gap-2',
-        className,
-      )}
-    >
+    <header className={cn("inline-flex items-center justify-between w-full gap-2", className)}>
       <div className="flex flex-row items-center justify-start gap-2">
         <h1 className="text-2xl font-bold">{title}</h1>
         {isFetching && (
@@ -86,9 +81,7 @@ export function SearchHeader({
               {({ handleChange, state }) => (
                 <Select
                   value={state.value}
-                  onValueChange={(value) =>
-                    handleChange(value as keyof typeof sortByDisplay)
-                  }
+                  onValueChange={(value) => handleChange(value as keyof typeof sortByDisplay)}
                 >
                   <SelectTrigger className="w-[180px]">
                     <SelectValue placeholder="Sort by" />
@@ -108,10 +101,10 @@ export function SearchHeader({
               {({ handleChange, state }) => (
                 <Button
                   onClick={() => {
-                    if (state.value === 'asc') {
-                      handleChange('desc');
+                    if (state.value === "asc") {
+                      handleChange("desc");
                     } else {
-                      handleChange('asc');
+                      handleChange("asc");
                     }
                   }}
                   variant="outline"
@@ -119,8 +112,8 @@ export function SearchHeader({
                 >
                   <ArrowDown
                     className={cn(
-                      'transition-transform duration-300 ease-in-out',
-                      state.value === 'asc' ? 'rotate-180' : 'rotate-0',
+                      "transition-transform duration-300 ease-in-out",
+                      state.value === "asc" ? "rotate-180" : "rotate-0",
                     )}
                   />
                 </Button>
@@ -132,9 +125,9 @@ export function SearchHeader({
           <Button
             variant="outline"
             className="h-9 w-9 p-0 hidden md:flex"
-            onClick={() => setView(view === 'grid' ? 'list' : 'grid')}
+            onClick={() => setView(view === "grid" ? "list" : "grid")}
           >
-            {view === 'grid' ? (
+            {view === "grid" ? (
               <ListBulletIcon className="h-5 w-5" aria-hidden="true" />
             ) : (
               <GridIcon className="h-5 w-5" aria-hidden="true" />

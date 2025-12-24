@@ -1,4 +1,4 @@
-import { Star } from 'lucide-react';
+import { Star } from "lucide-react";
 
 interface StarRatingProps {
   rating: number;
@@ -15,17 +15,11 @@ export default function StarsRating({ rating }: StarRatingProps) {
     <div className="flex">
       {stars.map((_, index) => {
         const starValue = index + 1;
-        const fillPercentage = Math.min(
-          100,
-          Math.max(0, (clampedRating - index) * 100),
-        );
+        const fillPercentage = Math.min(100, Math.max(0, (clampedRating - index) * 100));
 
         return (
           <div key={index} className="relative">
-            <Star
-              className="w-6 h-6 text-muted-foreground/25"
-              fill="currentColor"
-            />
+            <Star className="w-6 h-6 text-muted-foreground/25" fill="currentColor" />
             <div
               className="absolute top-0 left-0 overflow-hidden"
               style={{ width: `${fillPercentage}%` }}

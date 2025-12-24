@@ -1,13 +1,7 @@
-import { XIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { XIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-export function QuickPill({
-  label,
-  onRemove,
-}: {
-  label: string;
-  onRemove: () => void;
-}) {
+export function QuickPill({ label, onRemove }: { label: string; onRemove: () => void }) {
   return (
     <Button
       variant="outline"

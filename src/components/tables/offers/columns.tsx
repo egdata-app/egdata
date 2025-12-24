@@ -1,9 +1,9 @@
-import { Badge } from '@/components/ui/badge';
-import { offersDictionary } from '@/lib/offers-dictionary';
-import type { SingleOffer } from '@/types/single-offer';
-import { Link } from '@tanstack/react-router';
-import type { ColumnDef } from '@tanstack/react-table';
-import { DateTime } from 'luxon';
+import { Badge } from "@/components/ui/badge";
+import { offersDictionary } from "@/lib/offers-dictionary";
+import type { SingleOffer } from "@/types/single-offer";
+import { Link } from "@tanstack/react-router";
+import type { ColumnDef } from "@tanstack/react-table";
+import { DateTime } from "luxon";
 
 export const types: {
   value: keyof typeof offersDictionary;
@@ -15,16 +15,13 @@ export const types: {
 
 export const columns: ColumnDef<SingleOffer>[] = [
   {
-    accessorKey: 'id',
-    header: 'ID',
+    accessorKey: "id",
+    header: "ID",
     enableSorting: true,
     enableColumnFilter: true,
     cell: (info) => {
       return (
-        <Link
-          className="text-badge font-mono"
-          to={`/offers/${info.getValue()}`}
-        >
+        <Link className="text-badge font-mono" to={`/offers/${info.getValue()}`}>
           {(info.getValue() as string).slice(0, 4)}...
           {(info.getValue() as string).slice(-4)}
         </Link>
@@ -32,24 +29,23 @@ export const columns: ColumnDef<SingleOffer>[] = [
     },
   },
   {
-    accessorKey: 'title',
-    header: 'Title',
+    accessorKey: "title",
+    header: "Title",
     enableSorting: true,
     enableColumnFilter: true,
     cell: (info) => info.getValue(),
   },
   {
-    accessorKey: 'offerType',
-    header: 'Type',
+    accessorKey: "offerType",
+    header: "Type",
     enableSorting: true,
     enableColumnFilter: true,
     cell: (info) =>
-      offersDictionary[info.getValue() as keyof typeof offersDictionary] ??
-      info.getValue(),
+      offersDictionary[info.getValue() as keyof typeof offersDictionary] ?? info.getValue(),
   },
   {
-    accessorKey: 'prePurchase',
-    header: 'Pre-Purchase',
+    accessorKey: "prePurchase",
+    header: "Pre-Purchase",
     enableSorting: true,
     enableColumnFilter: true,
     cell: (info) => {
@@ -70,12 +66,12 @@ export const columns: ColumnDef<SingleOffer>[] = [
     },
   },
   {
-    accessorKey: 'seller',
-    header: 'Seller',
+    accessorKey: "seller",
+    header: "Seller",
     enableSorting: true,
     enableColumnFilter: true,
     cell: (info) => {
-      const seller = info.getValue() as SingleOffer['seller'];
+      const seller = info.getValue() as SingleOffer["seller"];
       return (
         <Link to={`/sellers/${seller.id}`} className="text-badge">
           {seller.name as string}
@@ -84,17 +80,17 @@ export const columns: ColumnDef<SingleOffer>[] = [
     },
   },
   {
-    accessorKey: 'lastModifiedDate',
-    header: 'Last Modified',
+    accessorKey: "lastModifiedDate",
+    header: "Last Modified",
     enableSorting: true,
     enableColumnFilter: true,
     cell: (info) =>
       DateTime.fromISO(info.getValue() as string)
-        .setLocale('en-GB')
+        .setLocale("en-GB")
         .toLocaleString({
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
+          year: "numeric",
+          month: "long",
+          day: "numeric",
         }),
   },
 ];

@@ -1,5 +1,5 @@
-import { httpClient } from '@/lib/http-client';
-import type { SingleOffer } from '@/types/single-offer';
+import { httpClient } from "@/lib/http-client";
+import type { SingleOffer } from "@/types/single-offer";
 
 type TopSection = {
   elements: SingleOffer[];

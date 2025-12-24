@@ -1,28 +1,23 @@
-import { columns } from '@/components/tables/builds/columns';
-import { DataTable } from '@/components/tables/builds/table';
-import { getQueryClient } from '@/lib/client';
-import { generateOfferMeta } from '@/lib/generate-offer-meta';
-import { getFetchedQuery } from '@/lib/get-fetched-query';
-import { httpClient } from '@/lib/http-client';
-import type { SingleOffer } from '@/types/single-offer';
-import {
-  dehydrate,
-  HydrationBoundary,
-  queryOptions,
-  useQuery,
-} from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
-import { useState } from 'react';
-import type { ColumnFiltersState } from '@tanstack/react-table';
-import type { Build } from '@/types/builds';
+import { columns } from "@/components/tables/builds/columns";
+import { DataTable } from "@/components/tables/builds/table";
+import { getQueryClient } from "@/lib/client";
+import { generateOfferMeta } from "@/lib/generate-offer-meta";
+import { getFetchedQuery } from "@/lib/get-fetched-query";
+import { httpClient } from "@/lib/http-client";
+import type { SingleOffer } from "@/types/single-offer";
+import { dehydrate, HydrationBoundary, queryOptions, useQuery } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import type { ColumnFiltersState } from "@tanstack/react-table";
+import type { Build } from "@/types/builds";
 
 const getOfferBuilds = (id: string) =>
   queryOptions({
-    queryKey: ['offer-builds', { id }],
+    queryKey: ["offer-builds", { id }],
     queryFn: () => httpClient.get<Build[]>(`/offers/${id}/builds`),
   });
 
-export const Route = createFileRoute('/offers/$id/builds')({
+export const Route = createFileRoute("/offers/$id/builds")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
     return (
@@ -34,11 +29,10 @@ export const Route = createFileRoute('/offers/$id/builds')({
   loader: async ({ params, context }) => {
     const { queryClient } = context;
 
-    const offer = getFetchedQuery<SingleOffer>(
-      queryClient,
-      dehydrate(queryClient),
-      ['offer', { id: params.id }],
-    );
+    const offer = getFetchedQuery<SingleOffer>(queryClient, dehydrate(queryClient), [
+      "offer",
+      { id: params.id },
+    ]);
 
     await queryClient.prefetchQuery(getOfferBuilds(params.id));
 
@@ -57,32 +51,31 @@ export const Route = createFileRoute('/offers/$id/builds')({
       return {
         meta: [
           {
-            title: 'Offer not found',
-            description: 'Offer not found',
+            title: "Offer not found",
+            description: "Offer not found",
           },
         ],
       };
     }
 
-    const offer = getFetchedQuery<SingleOffer>(
-      queryClient,
-      ctx.loaderData?.dehydratedState,
-      ['offer', { id: params.id }],
-    );
+    const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
+      "offer",
+      { id: params.id },
+    ]);
 
     if (!offer) {
       return {
         meta: [
           {
-            title: 'Offer not found',
-            description: 'Offer not found',
+            title: "Offer not found",
+            description: "Offer not found",
           },
         ],
       };
     }
 
     return {
-      meta: generateOfferMeta(offer, 'Builds'),
+      meta: generateOfferMeta(offer, "Builds"),
     };
   },
 });
@@ -96,7 +89,7 @@ function BuildsPage() {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ['offer-builds', { id }],
+    queryKey: ["offer-builds", { id }],
     queryFn: () => httpClient.get<Build[]>(`/offers/${id}/builds`),
   });
 
@@ -106,10 +99,7 @@ function BuildsPage() {
 
   if (isError) {
     return (
-      <section
-        id="offer-builds"
-        className="w-full h-full max-w-7xl mx-auto px-4"
-      >
+      <section id="offer-builds" className="w-full h-full max-w-7xl mx-auto px-4">
         <h2 className="text-xl md:text-2xl font-bold mb-4">Builds</h2>
         <div>Something went wrong</div>
       </section>
@@ -120,17 +110,15 @@ function BuildsPage() {
   const filteredBuilds =
     builds?.filter((build) => {
       return filters.every((filter) => {
-        if (filter.id === 'labelName' && Array.isArray(filter.value)) {
-          const platform = build.labelName.split('-')[1];
+        if (filter.id === "labelName" && Array.isArray(filter.value)) {
+          const platform = build.labelName.split("-")[1];
           return filter.value.includes(platform);
         }
         const value = build[filter.id as keyof Build];
         if (Array.isArray(filter.value)) {
           return filter.value.includes(value);
         }
-        return String(value)
-          .toLowerCase()
-          .includes(String(filter.value).toLowerCase());
+        return String(value).toLowerCase().includes(String(filter.value).toLowerCase());
       });
     }) ?? [];
 

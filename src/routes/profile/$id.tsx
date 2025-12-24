@@ -1,7 +1,7 @@
-import * as React from 'react';
-import { createFileRoute, Link, Outlet } from '@tanstack/react-router';
-import { DateTime } from 'luxon';
-import { useLocale } from '@/hooks/use-locale';
+import * as React from "react";
+import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
+import { DateTime } from "luxon";
+import { useLocale } from "@/hooks/use-locale";
 import {
   dehydrate,
   HydrationBoundary,
@@ -9,15 +9,15 @@ import {
   type QueryObserverResult,
   type RefetchOptions,
   useQuery,
-} from '@tanstack/react-query';
+} from "@tanstack/react-query";
 import {
   getRefreshStatus,
   getUserGames,
   getUserInformation,
   type Profile,
-} from '@/queries/profiles';
-import { getFetchedQuery } from '@/lib/get-fetched-query';
-import { getQueryClient } from '@/lib/client';
+} from "@/queries/profiles";
+import { getFetchedQuery } from "@/lib/get-fetched-query";
+import { getQueryClient } from "@/lib/client";
 import {
   Dialog,
   DialogContent,
@@ -25,7 +25,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
+} from "@/components/ui/dialog";
 import {
   ExternalLinkIcon,
   LayoutGridIcon,
@@ -33,33 +33,28 @@ import {
   UploadIcon,
   Loader2,
   CrownIcon,
-} from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { ExclamationTriangleIcon, ReloadIcon } from '@radix-ui/react-icons';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { getAccountIcon } from '@/components/app/platform-icons';
-import { Separator } from '@/components/ui/separator';
-import { EGSIcon } from '@/components/icons/egs';
-import { EpicTrophyIcon } from '@/components/icons/epic-trophy';
-import { cn } from '@/lib/utils';
-import { getImage } from '@/lib/get-image';
-import { httpClient } from '@/lib/http-client';
-import type { SingleOffer } from '@/types/single-offer';
-import axios, { type AxiosResponse } from 'axios';
-import { useEffect, useState } from 'react';
-import { toast } from 'sonner';
-import { DiscordIcon } from '@/components/icons/discord';
+} from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { ExclamationTriangleIcon, ReloadIcon } from "@radix-ui/react-icons";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { getAccountIcon } from "@/components/app/platform-icons";
+import { Separator } from "@/components/ui/separator";
+import { EGSIcon } from "@/components/icons/egs";
+import { EpicTrophyIcon } from "@/components/icons/epic-trophy";
+import { cn } from "@/lib/utils";
+import { getImage } from "@/lib/get-image";
+import { httpClient } from "@/lib/http-client";
+import type { SingleOffer } from "@/types/single-offer";
+import axios, { type AxiosResponse } from "axios";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { DiscordIcon } from "@/components/icons/discord";
 
-export const Route = createFileRoute('/profile/$id')({
+export const Route = createFileRoute("/profile/$id")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
 
@@ -76,19 +71,15 @@ export const Route = createFileRoute('/profile/$id')({
 
     await Promise.all([
       queryClient.prefetchQuery({
-        queryKey: ['profile-information', { id: params.id }],
+        queryKey: ["profile-information", { id: params.id }],
         queryFn: () => getUserInformation(params.id as string),
       }),
       queryClient.prefetchInfiniteQuery({
-        queryKey: ['profile-games', { id: params.id, limit: 20 }],
-        queryFn: ({ pageParam }) =>
-          getUserGames(params.id as string, pageParam, 20),
+        queryKey: ["profile-games", { id: params.id, limit: 20 }],
+        queryFn: ({ pageParam }) => getUserGames(params.id as string, pageParam, 20),
         initialPageParam: 1,
-        getNextPageParam: (lastPage: {
-          pagination: { totalPages: number; page: number };
-        }) => {
-          if (lastPage.pagination.totalPages === lastPage.pagination.page)
-            return undefined;
+        getNextPageParam: (lastPage: { pagination: { totalPages: number; page: number } }) => {
+          if (lastPage.pagination.totalPages === lastPage.pagination.page) return undefined;
           return lastPage.pagination.page + 1;
         },
       }),
@@ -97,7 +88,7 @@ export const Route = createFileRoute('/profile/$id')({
     return {
       id,
       dehydratedState: dehydrate(queryClient),
-      userId: session?.user.email.split('@')[0],
+      userId: session?.user.email.split("@")[0],
     };
   },
 
@@ -109,25 +100,24 @@ export const Route = createFileRoute('/profile/$id')({
       return {
         meta: [
           {
-            title: 'Profile not found',
-            description: 'Profile not found',
+            title: "Profile not found",
+            description: "Profile not found",
           },
         ],
       };
     }
 
-    const user = getFetchedQuery<Profile>(
-      queryClient,
-      ctx.loaderData?.dehydratedState,
-      ['profile-information', { id: params.id }],
-    );
+    const user = getFetchedQuery<Profile>(queryClient, ctx.loaderData?.dehydratedState, [
+      "profile-information",
+      { id: params.id },
+    ]);
 
     if (!user) {
       return {
         meta: [
           {
-            title: 'Profile not found',
-            description: 'Profile not found',
+            title: "Profile not found",
+            description: "Profile not found",
           },
         ],
       };
@@ -139,7 +129,7 @@ export const Route = createFileRoute('/profile/$id')({
           title: `${user.displayName} | egdata.app`,
         },
         {
-          name: 'description',
+          name: "description",
           content: `Check out ${user.displayName}'s achievements and games on egdata.app`,
         },
       ],
@@ -154,7 +144,7 @@ function RouteComponent() {
   const [isUploading, setIsUploading] = React.useState(false);
   const [uploadProgress, setUploadProgress] = React.useState(0);
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['profile-information', { id: id }],
+    queryKey: ["profile-information", { id: id }],
     queryFn: () => getUserInformation(id),
   });
 
@@ -171,7 +161,7 @@ function RouteComponent() {
       };
 
       image.onerror = () => {
-        setAvatarErrors(['Invalid image format']);
+        setAvatarErrors(["Invalid image format"]);
       };
 
       // Cleanup URL object to avoid memory leaks
@@ -192,13 +182,11 @@ function RouteComponent() {
         formData,
         {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            "Content-Type": "multipart/form-data",
           },
           onUploadProgress: (progressEvent) => {
             if (progressEvent.total) {
-              const progress = Math.round(
-                (progressEvent.loaded * 100) / progressEvent.total,
-              );
+              const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
               setUploadProgress(progress);
             }
           },
@@ -207,16 +195,14 @@ function RouteComponent() {
       );
 
       if (response.status !== 200) {
-        throw new Error('Failed to upload');
+        throw new Error("Failed to upload");
       }
 
       window.location.reload();
       return response.data;
     } catch (error) {
-      console.error('Upload failed:', error);
-      setAvatarErrors([
-        error instanceof Error ? error.message : 'Upload failed',
-      ]);
+      console.error("Upload failed:", error);
+      setAvatarErrors([error instanceof Error ? error.message : "Upload failed"]);
     } finally {
       setIsUploading(false);
     }
@@ -242,10 +228,7 @@ function RouteComponent() {
     <TooltipProvider>
       <main className="flex flex-col items-start justify-start w-full min-h-screen gap-4 mt-10">
         <BackgroundImage id={data.epicAccountId} />
-        <section
-          id="profile-header"
-          className="flex flex-row gap-10 w-full relative"
-        >
+        <section id="profile-header" className="flex flex-row gap-10 w-full relative">
           {userId === data.epicAccountId ? (
             <Dialog>
               <div className="flex flex-col gap-2 relative">
@@ -281,9 +264,7 @@ function RouteComponent() {
                         <Avatar className="h-24 w-24">
                           <AvatarImage
                             src={
-                              selectedImage
-                                ? URL.createObjectURL(selectedImage)
-                                : data.avatar.large
+                              selectedImage ? URL.createObjectURL(selectedImage) : data.avatar.large
                             }
                             alt="Avatar preview"
                           />
@@ -302,17 +283,13 @@ function RouteComponent() {
                             type="file"
                             accept="image/*"
                             onChange={(e) => {
-                              if (e.target.files?.[0])
-                                setSelectedImage(e.target.files?.[0]);
+                              if (e.target.files?.[0]) setSelectedImage(e.target.files?.[0]);
                             }}
                             className="w-full max-w-xs"
                             aria-describedby="avatar-upload-description"
                             disabled={isUploading}
                           />
-                          <p
-                            id="avatar-upload-description"
-                            className="text-sm text-gray-500"
-                          >
+                          <p id="avatar-upload-description" className="text-sm text-gray-500">
                             Upload a new avatar image (max 5MB)
                           </p>
                         </div>
@@ -332,11 +309,7 @@ function RouteComponent() {
                       )}
                       <Button
                         type="submit"
-                        disabled={
-                          !selectedImage ||
-                          avatarErrors.length > 0 ||
-                          isUploading
-                        }
+                        disabled={!selectedImage || avatarErrors.length > 0 || isUploading}
                         className="w-full"
                       >
                         {isUploading ? (
@@ -345,7 +318,7 @@ function RouteComponent() {
                             Uploading...
                           </>
                         ) : (
-                          'Update Avatar'
+                          "Update Avatar"
                         )}
                       </Button>
                       {avatarErrors.length > 0 && (
@@ -385,30 +358,24 @@ function RouteComponent() {
                       ?.filter((account) => getAccountIcon(account))
                       .map((account) => (
                         <Tooltip key={account.identityProviderId}>
-                          <TooltipTrigger>
-                            {getAccountIcon(account)}
-                          </TooltipTrigger>
+                          <TooltipTrigger>{getAccountIcon(account)}</TooltipTrigger>
                           <TooltipContent>
-                            <p className="text-sm font-medium">
-                              {account.displayName}
-                            </p>
+                            <p className="text-sm font-medium">{account.displayName}</p>
                           </TooltipContent>
                         </Tooltip>
                       ))}
                   </TooltipProvider>
                 </div>
               )}
-              {data.creationDate &&
-                data?.linkedAccounts &&
-                data.linkedAccounts.length > 0 && (
-                  <Separator orientation="vertical" />
-                )}
+              {data.creationDate && data?.linkedAccounts && data.linkedAccounts.length > 0 && (
+                <Separator orientation="vertical" />
+              )}
               {data.creationDate && (
                 <p className="text-sm text-gray-300">
                   <span>Joined </span>
-                  {new Date(data.creationDate).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'long',
+                  {new Date(data.creationDate).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
                   })}
                 </p>
               )}
@@ -428,10 +395,7 @@ function RouteComponent() {
               id="profile-header-achievements"
               className="flex flex-row w-full items-start justify-start"
             >
-              <div
-                id="player-level"
-                className="flex flex-col gap-2 w-fit min:w-[250px] mr-10"
-              >
+              <div id="player-level" className="flex flex-col gap-2 w-fit min:w-[250px] mr-10">
                 <SectionTitle title="Level" />
                 <div className="flex flex-row gap-4 items-center mb-3 h-10">
                   <p className="text-4xl font-light inline-flex items-center gap-1">
@@ -448,40 +412,29 @@ function RouteComponent() {
                       style={{ width: `${percentToNextLevel}%` }}
                     />
                   </div>
-                  <p className="text-sm font-light opacity-50">
-                    {xpToNextLevel} XP to next level
-                  </p>
+                  <p className="text-sm font-light opacity-50">{xpToNextLevel} XP to next level</p>
                 </div>
               </div>
-              <div
-                id="player-achievements-count"
-                className="flex flex-col gap-2 w-[175px]"
-              >
+              <div id="player-achievements-count" className="flex flex-col gap-2 w-[175px]">
                 <SectionTitle title="Achievements" />
                 <p className="text-3xl font-light inline-flex items-center gap-2">
                   <EpicTrophyIcon className="size-7 inline-block" />
                   {data.stats.totalAchievements}
                 </p>
               </div>
-              <div
-                id="player-platinum-count"
-                className="flex flex-col gap-2 w-[175px]"
-              >
+              <div id="player-platinum-count" className="flex flex-col gap-2 w-[175px]">
                 <SectionTitle title="Platinum" />
                 <p className="text-3xl font-light inline-flex items-center gap-2">
                   <EpicPlatinumIcon
                     className={cn(
-                      'size-7 inline-block',
-                      data.stats.totalPlayerAwards > 0 ? 'text-[#6e59e6]' : '',
+                      "size-7 inline-block",
+                      data.stats.totalPlayerAwards > 0 ? "text-[#6e59e6]" : "",
                     )}
                   />
                   {data.stats.totalPlayerAwards}
                 </p>
               </div>
-              <div
-                id="player-library"
-                className="flex flex-col gap-2 w-[175px]"
-              >
+              <div id="player-library" className="flex flex-col gap-2 w-[175px]">
                 <Tooltip delayDuration={250}>
                   <TooltipTrigger className="w-fit">
                     <SectionTitle
@@ -491,24 +444,18 @@ function RouteComponent() {
                   </TooltipTrigger>
                   <TooltipContent>
                     <p className="text-sm font-light max-w-[250px]">
-                      The library count only includes games that have
-                      achievements and that you've launched at least once.
+                      The library count only includes games that have achievements and that you've
+                      launched at least once.
                     </p>
                   </TooltipContent>
                 </Tooltip>
 
                 <p className="text-3xl font-light inline-flex items-center gap-2">
-                  <LayoutGridIcon
-                    className="size-7 inline-block"
-                    fill="currentColor"
-                  />
+                  <LayoutGridIcon className="size-7 inline-block" fill="currentColor" />
                   {data.stats.totalGames}
                 </p>
               </div>
-              <div
-                id="player-reviews"
-                className="flex flex-col gap-2 w-[175px]"
-              >
+              <div id="player-reviews" className="flex flex-col gap-2 w-[175px]">
                 <SectionTitle title="Reviews" />
                 <p className="text-3xl font-light inline-flex items-center gap-2">
                   <MessageSquareQuoteIcon
@@ -523,13 +470,8 @@ function RouteComponent() {
           </div>
           <div className="absolute top-0 right-0 inline-flex items-center justify-center gap-2 z-10">
             {!data.discord && userId === data.epicAccountId && (
-              <a
-                href={`${httpClient.axiosInstance.defaults.baseURL}/auth/discord/link`}
-              >
-                <Button
-                  variant="outline"
-                  className="bg-[#5865f2] hover:bg-[#4752c4]"
-                >
+              <a href={`${httpClient.axiosInstance.defaults.baseURL}/auth/discord/link`}>
+                <Button variant="outline" className="bg-[#5865f2] hover:bg-[#4752c4]">
                   <DiscordIcon className="size-4" fill="white" />
                   <span>Link Discord</span>
                 </Button>
@@ -546,16 +488,10 @@ function RouteComponent() {
   );
 }
 
-function SectionTitle({
-  title,
-  classname,
-}: {
-  title: string;
-  classname?: string;
-}) {
+function SectionTitle({ title, classname }: { title: string; classname?: string }) {
   return (
     <h2 className="text-xs uppercase font-light">
-      <span className={cn('text-gray-300', classname)}>{title}</span>
+      <span className={cn("text-gray-300", classname)}>{title}</span>
     </h2>
   );
 }
@@ -564,7 +500,7 @@ function BackgroundImage({ id }: { id: string }) {
   // @ts-ignore - sandbox exists in a lower level
   const { sandbox } = Route.useParams();
   const { data: offer, isLoading } = useQuery({
-    queryKey: ['profile-background', { id, sandbox }],
+    queryKey: ["profile-background", { id, sandbox }],
     queryFn: () =>
       httpClient.get<SingleOffer>(`/profiles/${id}/random-game`, {
         params: { sandbox },
@@ -588,19 +524,14 @@ function BackgroundImage({ id }: { id: string }) {
         }}
       />
       <img
-        src={
-          getImage(offer.keyImages ?? [], [
-            'DieselStoreFrontWide',
-            'OfferImageWide',
-          ])?.url
-        }
-        alt={offer.id ?? ''}
+        src={getImage(offer.keyImages ?? [], ["DieselStoreFrontWide", "OfferImageWide"])?.url}
+        alt={offer.id ?? ""}
         className="absolute inset-0 opacity-[0.25] z-0 w-full h-[50vh] transition-opacity duration-500 ease-in-out"
         loading="lazy"
         style={{
           zIndex: -2,
-          objectFit: 'cover',
-          objectPosition: 'top',
+          objectFit: "cover",
+          objectPosition: "top",
         }}
       />
     </div>
@@ -612,7 +543,7 @@ function LevelIcon({ className, ...props }: React.SVGProps<SVGSVGElement>) {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 25 25"
-      className={cn('svg', className)}
+      className={cn("svg", className)}
       {...props}
     >
       <path
@@ -625,15 +556,12 @@ function LevelIcon({ className, ...props }: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export function EpicPlatinumIcon({
-  className,
-  ...props
-}: React.SVGProps<SVGSVGElement>) {
+export function EpicPlatinumIcon({ className, ...props }: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 10 15"
-      className={cn('svg', className)}
+      className={cn("svg", className)}
       {...props}
     >
       <path
@@ -656,22 +584,19 @@ export function PlayerName({ profile }: { profile: Profile }) {
   return <h1 className="text-6xl font-thin">{profile.displayName}</h1>;
 }
 
-function DonatorName({
-  children,
-  className,
-}: { children: React.ReactNode; className?: string }) {
+function DonatorName({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
     <div className="relative">
       <div
         className={cn(
-          'absolute text-6xl font-thin',
-          'text-transparent bg-gradient-to-r from-blue-500 via-purple-600 to-pink-600 bg-clip-text',
-          'blur-md opacity-80 animate-[shadow-pulse_3s_ease-in-out_infinite]',
-          'select-none pointer-events-none',
+          "absolute text-6xl font-thin",
+          "text-transparent bg-gradient-to-r from-blue-500 via-purple-600 to-pink-600 bg-clip-text",
+          "blur-md opacity-80 animate-[shadow-pulse_3s_ease-in-out_infinite]",
+          "select-none pointer-events-none",
           className,
         )}
         style={{
-          transform: 'translate(-4px, -4px)',
+          transform: "translate(-4px, -4px)",
         }}
         aria-hidden="true"
       >
@@ -680,28 +605,21 @@ function DonatorName({
 
       <div
         className={cn(
-          'absolute text-6xl font-thin',
-          'text-transparent bg-gradient-to-r from-cyan-500 via-violet-600 to-fuchsia-600 bg-clip-text',
-          'blur-lg opacity-90 animate-[shadow-pulse-2_4s_ease-in-out_infinite]',
-          'select-none pointer-events-none',
+          "absolute text-6xl font-thin",
+          "text-transparent bg-gradient-to-r from-cyan-500 via-violet-600 to-fuchsia-600 bg-clip-text",
+          "blur-lg opacity-90 animate-[shadow-pulse-2_4s_ease-in-out_infinite]",
+          "select-none pointer-events-none",
           className,
         )}
         style={{
-          transform: 'translate(10px, 10px)',
+          transform: "translate(10px, 10px)",
         }}
         aria-hidden="true"
       >
         {children}
       </div>
 
-      <h1
-        className={cn(
-          'relative z-[1] text-6xl font-thin text-white',
-          className,
-        )}
-      >
-        {children}
-      </h1>
+      <h1 className={cn("relative z-[1] text-6xl font-thin text-white", className)}>{children}</h1>
     </div>
   );
 }
@@ -722,11 +640,11 @@ function DonnorBadge({ profile }: { profile: Profile }) {
         sideOffset={10}
       >
         <p>
-          {profile.displayName} has donated {profile.donations.length}{' '}
-          {profile.donations.length === 1 ? 'key' : 'keys'} to egdata.app
+          {profile.displayName} has donated {profile.donations.length}{" "}
+          {profile.donations.length === 1 ? "key" : "keys"} to egdata.app
         </p>
         <p className="gap-1 inline-flex items-center">
-          Go to{' '}
+          Go to{" "}
           <Link to="/donate-key" className="text-blue-500 hover:text-blue-600">
             this link
           </Link>
@@ -744,20 +662,15 @@ function RefreshProfile({ id }: { id: string }) {
   const handleRefresh = async () => {
     setIsRefreshing(true);
     await httpClient.put(`/profiles/${id}/refresh`).catch(() => {
-      toast.error('Failed to refresh profile');
+      toast.error("Failed to refresh profile");
     });
     setIsRefreshing(false);
-    toast.success(
-      'Profile added to queue for refresh, it will be updated soon.',
-    );
+    toast.success("Profile added to queue for refresh, it will be updated soon.");
     await refetch();
   };
 
   return (
-    <Tooltip
-      delayDuration={0}
-      open={refreshStatus?.canRefresh ? false : undefined}
-    >
+    <Tooltip delayDuration={0} open={refreshStatus?.canRefresh ? false : undefined}>
       <TooltipTrigger>
         <Button
           variant="outline"
@@ -765,19 +678,14 @@ function RefreshProfile({ id }: { id: string }) {
           disabled={isRefreshing || !refreshStatus?.canRefresh}
           className="inline-flex items-center justify-center gap-2"
         >
-          <ReloadIcon
-            className={cn('size-4', isRefreshing && 'animate-spin')}
-          />
+          <ReloadIcon className={cn("size-4", isRefreshing && "animate-spin")} />
           <span className="text-sm font-medium">Refresh profile</span>
         </Button>
       </TooltipTrigger>
       <TooltipContent sideOffset={5}>
         <p>
-          Refresh available in{' '}
-          <Countdown
-            date={refreshStatus?.refreshAvailableAt ?? new Date()}
-            refetch={refetch}
-          />
+          Refresh available in{" "}
+          <Countdown date={refreshStatus?.refreshAvailableAt ?? new Date()} refetch={refetch} />
         </p>
       </TooltipContent>
     </Tooltip>
@@ -801,16 +709,16 @@ function Countdown({
   >;
 }) {
   const { timezone } = useLocale();
-  const target = DateTime.fromJSDate(date).setZone(timezone || 'UTC');
+  const target = DateTime.fromJSDate(date).setZone(timezone || "UTC");
   const [countdown, setCountdown] = useState(
-    target.diff(DateTime.now().setZone(timezone || 'UTC'), 'milliseconds').milliseconds
+    target.diff(DateTime.now().setZone(timezone || "UTC"), "milliseconds").milliseconds,
   );
   const [hasRefetched, setHasRefetched] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      const now = DateTime.now().setZone(timezone || 'UTC');
-      const newCountdown = target.diff(now, 'milliseconds').milliseconds;
+      const now = DateTime.now().setZone(timezone || "UTC");
+      const newCountdown = target.diff(now, "milliseconds").milliseconds;
       setCountdown(newCountdown);
 
       // Only refetch if we haven't already and the countdown is <= 0
@@ -834,14 +742,14 @@ function Countdown({
   if (minutes > 0) {
     return (
       <span>
-        {minutes} minute{minutes !== 1 ? 's' : ''} {seconds} second
-        {seconds !== 1 ? 's' : ''}
+        {minutes} minute{minutes !== 1 ? "s" : ""} {seconds} second
+        {seconds !== 1 ? "s" : ""}
       </span>
     );
   }
   return (
     <span>
-      {seconds} second{seconds !== 1 ? 's' : ''}
+      {seconds} second{seconds !== 1 ? "s" : ""}
     </span>
   );
 }

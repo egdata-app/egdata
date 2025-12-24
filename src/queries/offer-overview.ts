@@ -1,12 +1,12 @@
-import { httpClient } from '@/lib/http-client';
-import type { Technology } from '@/types/builds';
-import type { IgdbOffer } from '@/types/igdb';
-import type { Media } from '@/types/media';
-import type { SinglePoll } from '@/types/polls';
-import type { Price } from '@/types/price';
-import type { SingleOffer } from '@/types/single-offer';
-import type { Acb, Cero, Pegi, Grac, Esrb } from '@/types/single-sandbox';
-import { queryOptions } from '@tanstack/react-query';
+import { httpClient } from "@/lib/http-client";
+import type { Technology } from "@/types/builds";
+import type { IgdbOffer } from "@/types/igdb";
+import type { Media } from "@/types/media";
+import type { SinglePoll } from "@/types/polls";
+import type { Price } from "@/types/price";
+import type { SingleOffer } from "@/types/single-offer";
+import type { Acb, Cero, Pegi, Grac, Esrb } from "@/types/single-sandbox";
+import { queryOptions } from "@tanstack/react-query";
 
 interface OfferOverview {
   offer: SingleOffer;
@@ -24,12 +24,9 @@ interface OfferOverview {
   technologies: Technology[];
 }
 
-export const getOfferOverview = ({
-  id,
-  country,
-}: { id: string; country: string }) =>
+export const getOfferOverview = ({ id, country }: { id: string; country: string }) =>
   queryOptions({
-    queryKey: ['offer-overview', { id, country }],
+    queryKey: ["offer-overview", { id, country }],
     queryFn: () =>
       httpClient.get<OfferOverview>(`/offers/${id}/overview`, {
         params: { country },

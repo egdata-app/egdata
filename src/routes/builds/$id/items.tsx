@@ -1,23 +1,18 @@
-import { columns } from '@/components/tables/items/columns';
-import { DataTable } from '@/components/tables/items/table';
-import { httpClient } from '@/lib/http-client';
-import type { SingleItem } from '@/types/single-item';
-import {
-  dehydrate,
-  HydrationBoundary,
-  keepPreviousData,
-  useQuery,
-} from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
-import { useState } from 'react';
-import type { ColumnFiltersState } from '@tanstack/react-table';
+import { columns } from "@/components/tables/items/columns";
+import { DataTable } from "@/components/tables/items/table";
+import { httpClient } from "@/lib/http-client";
+import type { SingleItem } from "@/types/single-item";
+import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import type { ColumnFiltersState } from "@tanstack/react-table";
 
 interface PaginatedResponse<T> {
   data: T[];
   total: number;
 }
 
-export const Route = createFileRoute('/builds/$id/items')({
+export const Route = createFileRoute("/builds/$id/items")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
     return (
@@ -32,7 +27,7 @@ export const Route = createFileRoute('/builds/$id/items')({
     const { queryClient } = context;
 
     await queryClient.prefetchQuery({
-      queryKey: ['build-items', { id }],
+      queryKey: ["build-items", { id }],
       queryFn: () => httpClient.get<SingleItem[]>(`/builds/${id}/items`),
     });
 
@@ -49,7 +44,7 @@ function ItemsPage() {
   const [filters, setFilters] = useState<ColumnFiltersState>([]);
 
   const { data: items } = useQuery({
-    queryKey: ['build-items', { id, page, filters }],
+    queryKey: ["build-items", { id, page, filters }],
     queryFn: () => {
       const params = new URLSearchParams({
         page: (page.pageIndex + 1).toString(),

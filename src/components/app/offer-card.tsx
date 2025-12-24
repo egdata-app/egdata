@@ -1,29 +1,27 @@
-import { Link } from '@tanstack/react-router';
-import { Image } from './image';
-import { Card, CardContent, CardHeader } from '../ui/card';
-import { getImage } from '@/lib/getImage';
-import { Skeleton } from '../ui/skeleton';
-import type { SingleOffer } from '@/types/single-offer';
-import { offersDictionary } from '@/lib/offers-dictionary';
-import { useEffect, useMemo, useState } from 'react';
-import { useGenres } from '@/hooks/use-genres';
-import { cn } from '@/lib/utils';
-import { Badge } from '../ui/badge';
-import { calculatePrice } from '@/lib/calculate-price';
-import { useLocale } from '@/hooks/use-locale';
-import { platformIcons } from './platform-icons';
-import useExtension from '@/hooks/use-extension';
+import { Link } from "@tanstack/react-router";
+import { Image } from "./image";
+import { Card, CardContent, CardHeader } from "../ui/card";
+import { getImage } from "@/lib/getImage";
+import { Skeleton } from "../ui/skeleton";
+import type { SingleOffer } from "@/types/single-offer";
+import { offersDictionary } from "@/lib/offers-dictionary";
+import { useEffect, useMemo, useState } from "react";
+import { useGenres } from "@/hooks/use-genres";
+import { cn } from "@/lib/utils";
+import { Badge } from "../ui/badge";
+import { calculatePrice } from "@/lib/calculate-price";
+import { useLocale } from "@/hooks/use-locale";
+import { platformIcons } from "./platform-icons";
+import useExtension from "@/hooks/use-extension";
 
 export function GameCard({ offer }: { offer: SingleOffer }) {
   const { locale } = useLocale();
   const fmt = Intl.NumberFormat(locale, {
-    style: 'currency',
-    currency: offer.price?.price.currencyCode || 'USD',
+    style: "currency",
+    currency: offer.price?.price.currencyCode || "USD",
   });
 
-  const isReleased = offer.releaseDate
-    ? new Date(offer.releaseDate) < new Date()
-    : false;
+  const isReleased = offer.releaseDate ? new Date(offer.releaseDate) < new Date() : false;
   const isPreOrder = offer.prePurchase;
   const isFree = offer.price?.price.discountPrice === 0;
 
@@ -34,10 +32,10 @@ export function GameCard({ offer }: { offer: SingleOffer }) {
           <Image
             src={
               getImage(offer.keyImages, [
-                'OfferImageTall',
-                'Thumbnail',
-                'DieselGameBoxTall',
-                'DieselStoreFrontTall',
+                "OfferImageTall",
+                "Thumbnail",
+                "DieselGameBoxTall",
+                "DieselStoreFrontTall",
               ])?.url
             }
             quality="medium"
@@ -55,9 +53,7 @@ export function GameCard({ offer }: { offer: SingleOffer }) {
         </CardHeader>
         <CardContent className="p-4 flex-grow flex flex-col gap-1 justify-between">
           <div className="flex items-center justify-between">
-            <h3 className="text-xl font-semibold max-w-xs truncate">
-              {offer.title}
-            </h3>
+            <h3 className="text-xl font-semibold max-w-xs truncate">{offer.title}</h3>
           </div>
           <div className="flex flex-row justify-between items-end gap-1 h-full">
             <span className="text-sm text-gray-600 dark:text-gray-400 text-left truncate items-end flex-1">
@@ -72,9 +68,7 @@ export function GameCard({ offer }: { offer: SingleOffer }) {
                     </span>
                   )}
                   <span className="text-primary font-semibold">
-                    {isFree
-                      ? 'Free'
-                      : fmt.format(offer.price?.price.discountPrice / 100)}
+                    {isFree ? "Free" : fmt.format(offer.price?.price.discountPrice / 100)}
                   </span>
                 </div>
               )}
@@ -86,9 +80,7 @@ export function GameCard({ offer }: { offer: SingleOffer }) {
                 </div>
               )}
               {!isReleased && !isPreOrder && !offer.price && (
-                <span className="text-primary font-semibold text-right">
-                  Coming Soon
-                </span>
+                <span className="text-primary font-semibold text-right">Coming Soon</span>
               )}
               {!isReleased &&
                 !isPreOrder &&
@@ -104,9 +96,7 @@ export function GameCard({ offer }: { offer: SingleOffer }) {
                 !isPreOrder &&
                 offer.price &&
                 offer.price?.price.discountPrice === 0 && (
-                  <span className="text-primary font-semibold text-xs text-right">
-                    Coming Soon
-                  </span>
+                  <span className="text-primary font-semibold text-xs text-right">Coming Soon</span>
                 )}
             </div>
           </div>
@@ -152,19 +142,19 @@ const extractGradient = async (imageSrc: string): Promise<string> => {
   }
 
   return new Promise((resolve) => {
-    if (imageSrc[0] === '/') {
+    if (imageSrc[0] === "/") {
       imageSrc = `https://egdata.app${imageSrc}`;
     }
     const imgUrl = new URL(imageSrc);
-    imgUrl.searchParams.set('w', '1');
-    imgUrl.searchParams.set('h', '1');
-    imgUrl.searchParams.set('resize', '1');
+    imgUrl.searchParams.set("w", "1");
+    imgUrl.searchParams.set("h", "1");
+    imgUrl.searchParams.set("resize", "1");
     const img = new window.Image();
-    img.crossOrigin = 'Anonymous';
+    img.crossOrigin = "Anonymous";
     img.src = imgUrl.toString();
     img.onload = () => {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
       canvas.width = img.width;
       canvas.height = img.height;
       ctx?.drawImage(img, 0, 0, img.width, img.height);
@@ -187,7 +177,7 @@ const extractGradient = async (imageSrc: string): Promise<string> => {
 
       const color = { r, g, b };
       const startColor = `rgba(${color.r}, ${color.g}, ${color.b}, 1)`;
-      const endColor = 'rgba(0, 0, 0, 0)';
+      const endColor = "rgba(0, 0, 0, 0)";
 
       let gradientSteps = `${startColor} 0%, `;
       for (let i = 1; i <= NUM_STEPS; i++) {
@@ -196,8 +186,7 @@ const extractGradient = async (imageSrc: string): Promise<string> => {
         const opacity = 1 - easedT;
         gradientSteps += `rgba(${color.r}, ${color.g}, ${color.b}, ${opacity}) ${
           GRADIENT_TRANSITION_POINT * 100 +
-          (i * ((GRADIENT_END_POINT - GRADIENT_TRANSITION_POINT) * 100)) /
-            NUM_STEPS
+          (i * ((GRADIENT_END_POINT - GRADIENT_TRANSITION_POINT) * 100)) / NUM_STEPS
         }%, `;
       }
       gradientSteps += `${endColor} ${GRADIENT_END_POINT * 100}%, ${endColor} 100%`;
@@ -210,22 +199,22 @@ const extractGradient = async (imageSrc: string): Promise<string> => {
 };
 
 const textSizes = {
-  xs: 'text-xs',
-  sm: 'text-sm',
-  md: 'text-base',
-  lg: 'text-lg',
-  xl: 'text-xl',
+  xs: "text-xs",
+  sm: "text-sm",
+  md: "text-base",
+  lg: "text-lg",
+  xl: "text-xl",
 };
 
-const mobilePlatforms = ['39070', '39071'];
+const mobilePlatforms = ["39070", "39071"];
 
 export function OfferCard({
   offer,
-  size = 'xl',
+  size = "xl",
   content,
 }: {
   offer: SingleOffer;
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
   content?: React.ReactNode;
 }) {
   const { addId, removeId, ownedStatus } = useExtension();
@@ -244,11 +233,11 @@ export function OfferCard({
   const gradientImage = useMemo(
     () =>
       getImage(offer.keyImages, [
-        'OfferImageTall',
-        'Thumbnail',
-        'DieselGameBoxTall',
-        'DieselStoreFrontTall',
-      ])?.url ?? '/placeholder.webp',
+        "OfferImageTall",
+        "Thumbnail",
+        "DieselGameBoxTall",
+        "DieselStoreFrontTall",
+      ])?.url ?? "/placeholder.webp",
     [offer.keyImages],
   );
 
@@ -294,11 +283,11 @@ export function OfferCard({
                 <div className="flex items-start justify-between mb-2 z-10">
                   <h3
                     className={cn(
-                      'text-xl font-bold inline-flex items-center gap-3',
+                      "text-xl font-bold inline-flex items-center gap-3",
                       textSizes[size] ?? textSizes.xl,
                     )}
                   >
-                    {offer.title}{' '}
+                    {offer.title}{" "}
                     {offer.tags
                       .filter((tag) => tag)
                       .filter((tag) => mobilePlatforms.includes(tag?.id))
@@ -309,7 +298,7 @@ export function OfferCard({
                 </div>
                 <div className="text-sm text-muted-foreground mb-4 z-10">
                   {offerGenres.length > 0
-                    ? offerGenres.join(', ')
+                    ? offerGenres.join(", ")
                     : offersDictionary[offer.offerType]}
                 </div>
                 <OfferPrice offer={offer} size={size} />
@@ -320,11 +309,11 @@ export function OfferCard({
           <div
             className="absolute top-0 left-0 opacity-[0.075] transition-opacity duration-1000 ease-in-out group-hover:opacity-[0.2]"
             style={{
-              width: '100%',
-              height: '100%',
-              backgroundImage: gradient ?? 'linear-gradient(0deg, #000, #000)',
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
+              width: "100%",
+              height: "100%",
+              backgroundImage: gradient ?? "linear-gradient(0deg, #000, #000)",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
               zIndex: 1,
             }}
           />
@@ -335,87 +324,75 @@ export function OfferCard({
   );
 }
 
-function OfferBadges({
-  offer,
-  owned,
-}: { offer: SingleOffer; owned: boolean | undefined }) {
+function OfferBadges({ offer, owned }: { offer: SingleOffer; owned: boolean | undefined }) {
   const badges = useMemo(() => {
     const badges: string[] = [];
 
-    if (offer.tags.filter((tag) => tag).find((tag) => tag?.id === '1310')) {
-      badges.push('Early Access');
+    if (offer.tags.filter((tag) => tag).find((tag) => tag?.id === "1310")) {
+      badges.push("Early Access");
     }
 
     if (offer.prePurchase) {
-      badges.push('Pre-Purchase');
+      badges.push("Pre-Purchase");
     }
 
     if (owned === true) {
-      badges.push('Owned');
+      badges.push("Owned");
     }
 
     return badges;
   }, [offer.tags, offer.prePurchase, owned]);
 
   return badges.length > 0 ? (
-    <Badge variant={'default'} className="absolute top-2 right-2">
-      {badges.join(' - ')}
+    <Badge variant={"default"} className="absolute top-2 right-2">
+      {badges.join(" - ")}
     </Badge>
   ) : null;
 }
 
 function OfferPrice({
   offer,
-  size = 'xl',
+  size = "xl",
 }: {
   offer: SingleOffer;
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
 }) {
   const { locale } = useLocale();
   const fmt = Intl.NumberFormat(locale, {
-    style: 'currency',
-    currency: offer.price?.price.currencyCode || 'USD',
+    style: "currency",
+    currency: offer.price?.price.currencyCode || "USD",
   });
 
-  const isReleased = offer.releaseDate
-    ? new Date(offer.releaseDate) < new Date()
-    : false;
+  const isReleased = offer.releaseDate ? new Date(offer.releaseDate) < new Date() : false;
   const isPreOrder = offer.prePurchase;
   const isFree = offer.price?.price.discountPrice === 0;
 
   if (!offer.price) return null;
 
   const discountTextSizes = {
-    xs: 'text-[0.6rem]',
-    sm: 'text-[0.6rem]',
-    md: 'text-[0.8rem]',
-    lg: 'text-[1rem]',
-    xl: 'text-[1.125rem]',
+    xs: "text-[0.6rem]",
+    sm: "text-[0.6rem]",
+    md: "text-[0.8rem]",
+    lg: "text-[1rem]",
+    xl: "text-[1.125rem]",
   };
 
   const textSizes = {
-    xs: 'text-xs',
-    sm: 'text-sm',
-    md: 'text-md',
-    lg: 'text-lg',
-    xl: 'text-xl',
+    xs: "text-xs",
+    sm: "text-sm",
+    md: "text-md",
+    lg: "text-lg",
+    xl: "text-xl",
   };
 
   const formatPrice = (price: number) =>
-    fmt.format(calculatePrice(price, offer.price?.price.currencyCode ?? 'USD'));
+    fmt.format(calculatePrice(price, offer.price?.price.currencyCode ?? "USD"));
 
   const renderPrice = () => (
     <>
-      <span>
-        {isFree ? 'Free' : formatPrice(offer.price?.price.discountPrice ?? 0)}
-      </span>
+      <span>{isFree ? "Free" : formatPrice(offer.price?.price.discountPrice ?? 0)}</span>
       {(offer.price?.price.discount ?? 0) > 0 && (
-        <span
-          className={cn(
-            'line-through',
-            discountTextSizes[size] ?? discountTextSizes.xl,
-          )}
-        >
+        <span className={cn("line-through", discountTextSizes[size] ?? discountTextSizes.xl)}>
           {formatPrice(offer.price?.price.originalPrice ?? 0)}
         </span>
       )}
@@ -425,8 +402,7 @@ function OfferPrice({
   const renderDiscountBadge = () => (
     <div className="text-xs inline-flex items-center rounded-full bg-badge text-black px-2 py-1 font-semibold">
       {`-${Math.round(
-        (((offer.price?.price.originalPrice ?? 0) -
-          (offer.price?.price.discountPrice ?? 0)) /
+        (((offer.price?.price.originalPrice ?? 0) - (offer.price?.price.discountPrice ?? 0)) /
           (offer.price?.price.originalPrice ?? 0)) *
           100,
       )}%`}
@@ -436,7 +412,7 @@ function OfferPrice({
   return (
     <div
       className={cn(
-        'text-lg font-bold text-primary inline-flex items-end gap-2 z-10 h-full justify-between',
+        "text-lg font-bold text-primary inline-flex items-end gap-2 z-10 h-full justify-between",
         textSizes[size] ?? textSizes.xl,
       )}
     >

@@ -1,19 +1,19 @@
-import { useQuery } from '@tanstack/react-query';
-import { httpClient } from '@/lib/http-client';
-import { OfferCard } from '@/components/app/offer-card';
-import type { SingleOffer } from '@/types/single-offer';
+import { useQuery } from "@tanstack/react-query";
+import { httpClient } from "@/lib/http-client";
+import { OfferCard } from "@/components/app/offer-card";
+import type { SingleOffer } from "@/types/single-offer";
 import {
   Carousel,
   type CarouselApi,
   CarouselContent,
   CarouselItem,
-} from '@/components/ui/carousel';
-import { useCountry } from '@/hooks/use-country';
-import { Skeleton } from '../ui/skeleton';
-import { ArrowUpIcon } from '@radix-ui/react-icons';
-import { useState } from 'react';
-import { Link } from '@tanstack/react-router';
-import { internalNamespaces } from '@/lib/internal-namespaces';
+} from "@/components/ui/carousel";
+import { useCountry } from "@/hooks/use-country";
+import { Skeleton } from "../ui/skeleton";
+import { ArrowUpIcon } from "@radix-ui/react-icons";
+import { useState } from "react";
+import { Link } from "@tanstack/react-router";
+import { internalNamespaces } from "@/lib/internal-namespaces";
 
 export function SellerOffers({
   id,
@@ -26,10 +26,12 @@ export function SellerOffers({
 }) {
   const [api, setApi] = useState<CarouselApi>();
   const { country } = useCountry();
-  const ignoredSandboxes= internalNamespaces.filter((ns) => ns !== currentOffer.namespace).join(',');
+  const ignoredSandboxes = internalNamespaces
+    .filter((ns) => ns !== currentOffer.namespace)
+    .join(",");
   const { data, isLoading, isError } = useQuery({
     queryKey: [
-      'seller-offers',
+      "seller-offers",
       {
         id,
         country,
@@ -40,7 +42,7 @@ export function SellerOffers({
       httpClient.get<SingleOffer[]>(`/sellers/${id}`, {
         params: {
           country,
-          offerType: 'BASE_GAME',
+          offerType: "BASE_GAME",
           limit: 15,
           ignoredSandboxes,
         },
@@ -100,10 +102,7 @@ export function SellerOffers({
               {data
                 .filter((offer) => offer.id !== currentOffer.id)
                 .map((game) => (
-                  <CarouselItem
-                    key={game.id}
-                    className="basis-1/1 lg:basis-1/5"
-                  >
+                  <CarouselItem key={game.id} className="basis-1/1 lg:basis-1/5">
                     <OfferCard offer={game} size="md" />
                   </CarouselItem>
                 ))}

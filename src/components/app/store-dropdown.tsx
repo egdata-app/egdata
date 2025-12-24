@@ -1,19 +1,19 @@
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
   DropdownMenuItem,
-} from '@/components/ui/dropdown-menu';
-import type { SingleOffer } from '@/types/single-offer';
-import { EpicGamesIcon } from '../icons/epic';
-import { EGSIcon } from '../icons/egs';
-import consola from 'consola';
-import { FabIcon } from '../icons/fab';
+} from "@/components/ui/dropdown-menu";
+import type { SingleOffer } from "@/types/single-offer";
+import { EpicGamesIcon } from "../icons/epic";
+import { EGSIcon } from "../icons/egs";
+import consola from "consola";
+import { FabIcon } from "../icons/fab";
 
 function trackEvent(offer: SingleOffer) {
   try {
-    window.umami.track('open-egs', {
+    window.umami.track("open-egs", {
       id: offer.id,
       namespace: offer.namespace,
     });
@@ -31,13 +31,13 @@ export function StoreDropdown({ offer }: { offer: SingleOffer }) {
           <ChevronDown className="h-4 w-4" />
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-[200px] bg-zinc-900 text-white">
-          {offer.namespace !== 'ue' && (
+          {offer.namespace !== "ue" && (
             <>
               <OpenEgs offer={offer} />
               <OpenEgl offer={offer} />
             </>
           )}
-          {offer.namespace === 'ue' && <OpenFabWeb offer={offer} />}
+          {offer.namespace === "ue" && <OpenFabWeb offer={offer} />}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
@@ -45,15 +45,14 @@ export function StoreDropdown({ offer }: { offer: SingleOffer }) {
 }
 
 function OpenEgl({ offer }: { offer: SingleOffer }) {
-  const urlType: 'product' | 'url' =
-    offer.offerType === 'BASE_GAME' ? 'product' : 'url';
-  const isBundle = offer.offerType === 'BUNDLE';
-  const namespace = isBundle ? 'bundles' : 'product';
+  const urlType: "product" | "url" = offer.offerType === "BASE_GAME" ? "product" : "url";
+  const isBundle = offer.offerType === "BUNDLE";
+  const namespace = isBundle ? "bundles" : "product";
   const url =
-    offer.customAttributes?.['com.epicgames.app.productSlug']?.value ??
+    offer.customAttributes?.["com.epicgames.app.productSlug"]?.value ??
     offer.offerMappings?.[0]?.pageSlug ??
     offer.urlSlug ??
-    (urlType === 'product' ? offer.productSlug : offer.urlSlug);
+    (urlType === "product" ? offer.productSlug : offer.urlSlug);
 
   if (!url) {
     return null;
@@ -66,7 +65,7 @@ function OpenEgl({ offer }: { offer: SingleOffer }) {
         trackEvent(offer);
         open(
           `com.epicgames.launcher://store/${namespace}/${
-            offer.prePurchase && url.endsWith('-pp') ? url.slice(0, -3) : url
+            offer.prePurchase && url.endsWith("-pp") ? url.slice(0, -3) : url
           }?utm_source=egdata.app`,
         );
       }}
@@ -80,21 +79,20 @@ function OpenEgl({ offer }: { offer: SingleOffer }) {
 }
 
 function OpenEgs({ offer }: { offer: SingleOffer }) {
-  const urlType: 'product' | 'url' =
-    offer.offerType === 'BASE_GAME' ? 'product' : 'url';
-  const isBundle = offer.offerType === 'BUNDLE';
-  const namespace = isBundle ? 'bundles' : 'product';
+  const urlType: "product" | "url" = offer.offerType === "BASE_GAME" ? "product" : "url";
+  const isBundle = offer.offerType === "BUNDLE";
+  const namespace = isBundle ? "bundles" : "product";
   const url =
-    offer.customAttributes?.['com.epicgames.app.productSlug']?.value ??
+    offer.customAttributes?.["com.epicgames.app.productSlug"]?.value ??
     offer.offerMappings?.[0]?.pageSlug ??
     offer.urlSlug ??
-    (urlType === 'product' ? offer.productSlug : offer.urlSlug);
+    (urlType === "product" ? offer.productSlug : offer.urlSlug);
 
   if (!url) {
     return null;
   }
 
-  const storeUrl = `/store/${namespace}/${url.replaceAll('-pp', '')}?id=${offer.id}&ns=${offer.namespace}`;
+  const storeUrl = `/store/${namespace}/${url.replaceAll("-pp", "")}?id=${offer.id}&ns=${offer.namespace}`;
 
   return (
     <DropdownMenuItem
@@ -125,11 +123,7 @@ function OpenFabWeb({ offer }: { offer: SingleOffer }) {
 
   return (
     <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 hover:bg-zinc-800 cursor-pointer">
-      <a
-        href={`https://www.fab.com/listings/${id}`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <a href={`https://www.fab.com/listings/${id}`} target="_blank" rel="noopener noreferrer">
         <div className="flex items-center justify-center gap-2">
           <FabIcon className="size-6 w-[20px]" />
           <span className="font-semibold">Web Browser</span>

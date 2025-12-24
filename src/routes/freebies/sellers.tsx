@@ -1,17 +1,13 @@
-import { Input } from '@/components/ui/input';
-import { httpClient } from '@/lib/http-client';
-import { queryOptions, useQuery } from '@tanstack/react-query';
-import { createFileRoute, Link } from '@tanstack/react-router';
-import { ArrowDown, ArrowUp, Download, Search } from 'lucide-react';
-import { useState, useRef, useEffect } from 'react';
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-} from '@/components/ui/popover';
+import { Input } from "@/components/ui/input";
+import { httpClient } from "@/lib/http-client";
+import { queryOptions, useQuery } from "@tanstack/react-query";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowDown, ArrowUp, Download, Search } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 
 const freebiesSellersQuery = queryOptions({
-  queryKey: ['freebies-sellers'],
+  queryKey: ["freebies-sellers"],
   queryFn: () => {
     return httpClient.get<
       {
@@ -19,11 +15,11 @@ const freebiesSellersQuery = queryOptions({
         sellerId: string;
         sellerName: string;
       }[]
-    >('/free-games/sellers');
+    >("/free-games/sellers");
   },
 });
 
-export const Route = createFileRoute('/freebies/sellers')({
+export const Route = createFileRoute("/freebies/sellers")({
   component: RouteComponent,
 
   loader: async ({ context }) => {
@@ -33,12 +29,12 @@ export const Route = createFileRoute('/freebies/sellers')({
   },
 });
 
-type SortDirection = 'asc' | 'desc';
+type SortDirection = "asc" | "desc";
 
 function downloadFile(filename: string, content: string, type: string) {
   const blob = new Blob([content], { type });
   const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
+  const a = document.createElement("a");
   a.href = url;
   a.download = filename;
   document.body.appendChild(a);
@@ -47,28 +43,20 @@ function downloadFile(filename: string, content: string, type: string) {
   URL.revokeObjectURL(url);
 }
 
-function sellersToCSV(
-  sellers: { sellerName: string; totalSingleGames: number }[],
-) {
-  const header = 'Seller Name,Total Single Games';
-  const rows = sellers.map(
-    (s) => `"${s.sellerName.replace(/"/g, '""')}",${s.totalSingleGames}`,
-  );
-  return [header, ...rows].join('\n');
+function sellersToCSV(sellers: { sellerName: string; totalSingleGames: number }[]) {
+  const header = "Seller Name,Total Single Games";
+  const rows = sellers.map((s) => `"${s.sellerName.replace(/"/g, '""')}",${s.totalSingleGames}`);
+  return [header, ...rows].join("\n");
 }
 
-function sellersToText(
-  sellers: { sellerName: string; totalSingleGames: number }[],
-) {
-  return sellers
-    .map((s) => `${s.sellerName}: ${s.totalSingleGames}`)
-    .join('\n');
+function sellersToText(sellers: { sellerName: string; totalSingleGames: number }[]) {
+  return sellers.map((s) => `${s.sellerName}: ${s.totalSingleGames}`).join("\n");
 }
 
 function RouteComponent() {
   const { data, isLoading, error } = useQuery(freebiesSellersQuery);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
   const [showDownloadMenu, setShowDownloadMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -77,14 +65,14 @@ function RouteComponent() {
   );
 
   const sortedData = filteredData?.sort((a, b) => {
-    if (sortDirection === 'desc') {
+    if (sortDirection === "desc") {
       return b.totalSingleGames - a.totalSingleGames;
     }
     return a.totalSingleGames - b.totalSingleGames;
   });
 
   const toggleSort = () => {
-    setSortDirection((prev) => (prev === 'desc' ? 'asc' : 'desc'));
+    setSortDirection((prev) => (prev === "desc" ? "asc" : "desc"));
   };
 
   // Prepare data for download (filtered and sorted)
@@ -97,16 +85,12 @@ function RouteComponent() {
   // Handle click outside to close menu
   useEffect(() => {
     function handleClick(e: MouseEvent) {
-      if (
-        showDownloadMenu &&
-        menuRef.current &&
-        !menuRef.current.contains(e.target as Node)
-      ) {
+      if (showDownloadMenu && menuRef.current && !menuRef.current.contains(e.target as Node)) {
         setShowDownloadMenu(false);
       }
     }
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
   }, [showDownloadMenu]);
 
   if (isLoading) {
@@ -128,9 +112,7 @@ function RouteComponent() {
   return (
     <div className="container mx-auto px-2 py-6 relative">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4 w-full max-w-2xl mx-auto">
-        <h1 className="text-xl font-bold text-foreground">
-          Free Games Sellers
-        </h1>
+        <h1 className="text-xl font-bold text-foreground">Free Games Sellers</h1>
         <div className="inline-flex items-center gap-2">
           <div className="relative w-full sm:w-56">
             <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
@@ -159,9 +141,9 @@ function RouteComponent() {
                   className="px-4 py-2 text-left hover:bg-muted transition-colors"
                   onClick={() => {
                     downloadFile(
-                      'sellers.json',
+                      "sellers.json",
                       JSON.stringify(downloadData, null, 2),
-                      'application/json',
+                      "application/json",
                     );
                   }}
                 >
@@ -171,11 +153,7 @@ function RouteComponent() {
                   type="button"
                   className="px-4 py-2 text-left hover:bg-muted transition-colors"
                   onClick={() => {
-                    downloadFile(
-                      'sellers.csv',
-                      sellersToCSV(downloadData),
-                      'text/csv',
-                    );
+                    downloadFile("sellers.csv", sellersToCSV(downloadData), "text/csv");
                   }}
                 >
                   Download as CSV
@@ -184,11 +162,7 @@ function RouteComponent() {
                   type="button"
                   className="px-4 py-2 text-left hover:bg-muted transition-colors"
                   onClick={() => {
-                    downloadFile(
-                      'sellers.txt',
-                      sellersToText(downloadData),
-                      'text/plain',
-                    );
+                    downloadFile("sellers.txt", sellersToText(downloadData), "text/plain");
                   }}
                 >
                   Download as Text
@@ -212,7 +186,7 @@ function RouteComponent() {
                   onClick={toggleSort}
                 >
                   Total Single Games
-                  {sortDirection === 'desc' ? (
+                  {sortDirection === "desc" ? (
                     <ArrowDown className="h-3 w-3" />
                   ) : (
                     <ArrowUp className="h-3 w-3" />
@@ -223,10 +197,7 @@ function RouteComponent() {
           </thead>
           <tbody className="divide-y divide-border">
             {sortedData?.map((seller) => (
-              <tr
-                key={seller.sellerId}
-                className="hover:bg-accent/50 transition-colors"
-              >
+              <tr key={seller.sellerId} className="hover:bg-accent/50 transition-colors">
                 <td className="px-3 py-2 whitespace-nowrap font-medium">
                   <Link
                     to="/sellers/$id"
@@ -236,9 +207,7 @@ function RouteComponent() {
                     {seller.sellerName}
                   </Link>
                 </td>
-                <td className="px-3 py-2 text-muted-foreground">
-                  {seller.totalSingleGames}
-                </td>
+                <td className="px-3 py-2 text-muted-foreground">{seller.totalSingleGames}</td>
               </tr>
             ))}
           </tbody>

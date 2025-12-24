@@ -1,4 +1,4 @@
-import { createServerFn } from '@tanstack/react-start';
+import { createServerFn } from "@tanstack/react-start";
 
 export interface Release {
   url: string;
@@ -98,7 +98,7 @@ interface SimplifiedReleases {
 }
 [];
 
-const repo = 'egdata-app/egdata-client';
+const repo = "egdata-app/egdata-client";
 
 /**
  * 1 hour
@@ -123,13 +123,13 @@ export const getGithubReleases = createServerFn().handler(async () => {
   try {
     const response = await fetch(apiUrl, {
       headers: {
-        Accept: 'application/vnd.github+json',
+        Accept: "application/vnd.github+json",
       },
     });
 
     if (!response.ok) {
       if (response.status === 404) {
-        return { error: 'Repository not found. Please check the URL.' };
+        return { error: "Repository not found. Please check the URL." };
       }
       const errorData = await response.json();
       return { error: `GitHub API error: ${errorData.message}` };
@@ -157,7 +157,7 @@ export const getGithubReleases = createServerFn().handler(async () => {
 
     return simplifiedReleases;
   } catch (error) {
-    console.error('Failed to fetch from GitHub API:', error);
-    return { error: 'An internal server error occurred.' };
+    console.error("Failed to fetch from GitHub API:", error);
+    return { error: "An internal server error occurred." };
   }
 });

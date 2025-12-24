@@ -1,8 +1,8 @@
 export function getTempUserId() {
-  let tempUserId = sessionStorage.getItem('EGDATA_APP_TEMP_USER_ID');
+  let tempUserId = sessionStorage.getItem("EGDATA_APP_TEMP_USER_ID");
   if (!tempUserId) {
     tempUserId = Math.random().toString(36).slice(2);
-    sessionStorage.setItem('EGDATA_APP_TEMP_USER_ID', tempUserId);
+    sessionStorage.setItem("EGDATA_APP_TEMP_USER_ID", tempUserId);
   }
 
   return tempUserId;
@@ -13,12 +13,12 @@ export function getSession(): {
   startedAt: number;
   lastActiveAt: number;
 } {
-  const session = sessionStorage.getItem('EGDATA_APP_SESSION');
+  const session = sessionStorage.getItem("EGDATA_APP_SESSION");
   if (session) {
     // Update last active time
     const parsedSession = JSON.parse(session);
     parsedSession.lastActiveAt = Date.now();
-    sessionStorage.setItem('EGDATA_APP_SESSION', JSON.stringify(parsedSession));
+    sessionStorage.setItem("EGDATA_APP_SESSION", JSON.stringify(parsedSession));
     return parsedSession;
   }
 
@@ -28,6 +28,6 @@ export function getSession(): {
     lastActiveAt: Date.now(),
   };
 
-  sessionStorage.setItem('EGDATA_APP_SESSION', JSON.stringify(newSession));
+  sessionStorage.setItem("EGDATA_APP_SESSION", JSON.stringify(newSession));
   return newSession;
 }

@@ -1,40 +1,40 @@
-import type { useForm } from '@tanstack/react-form';
-import type { TypeOf } from 'zod';
-import { useSearchState } from '@/hooks/use-search-state';
-import { useQuery } from '@tanstack/react-query';
-import { httpClient } from '@/lib/http-client';
-import type { FullTag } from '@/types/tags';
-import { cn } from '@/lib/utils';
-import { Input } from '@/components/ui/input';
-import { Separator } from '@/components/ui/separator';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { offersDictionary } from '@/lib/offers-dictionary';
-import { CheckboxWithCount } from '@/components/app/checkbox-with-count';
-import { ExtendedSearch } from '@/components/app/extended-search';
-import { QuerySearch } from '@/components/app/query-search';
-import { Checkbox } from '@/components/ui/checkbox';
-import { PriceRangeSlider } from '@/components/ui/price-range-slider';
-import { QuickPill } from '@/components/app/quick-pill';
-import type { formSchema } from './search-form';
+import type { useForm } from "@tanstack/react-form";
+import type { TypeOf } from "zod";
+import { useSearchState } from "@/hooks/use-search-state";
+import { useQuery } from "@tanstack/react-query";
+import { httpClient } from "@/lib/http-client";
+import type { FullTag } from "@/types/tags";
+import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { offersDictionary } from "@/lib/offers-dictionary";
+import { CheckboxWithCount } from "@/components/app/checkbox-with-count";
+import { ExtendedSearch } from "@/components/app/extended-search";
+import { QuerySearch } from "@/components/app/query-search";
+import { Checkbox } from "@/components/ui/checkbox";
+import { PriceRangeSlider } from "@/components/ui/price-range-slider";
+import { QuickPill } from "@/components/app/quick-pill";
+import type { formSchema } from "./search-form";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
+} from "@/components/ui/accordion";
 
 const tagTypes: {
   name: string | null;
-  type: 'single' | 'multiple';
+  type: "single" | "multiple";
   label: string;
 }[] = [
-  { name: 'event', type: 'single', label: 'Events' },
-  { name: 'genre', type: 'multiple', label: 'Genres' },
-  { name: 'usersay', type: 'multiple', label: 'User Say' },
-  { name: 'feature', type: 'multiple', label: 'Features' },
-  { name: 'epicfeature', type: 'multiple', label: 'Epic Features' },
-  { name: 'accessibility', type: 'multiple', label: 'Accessibility' },
-  { name: null, type: 'multiple', label: 'All Tags' },
+  { name: "event", type: "single", label: "Events" },
+  { name: "genre", type: "multiple", label: "Genres" },
+  { name: "usersay", type: "multiple", label: "User Say" },
+  { name: "feature", type: "multiple", label: "Features" },
+  { name: "epicfeature", type: "multiple", label: "Epic Features" },
+  { name: "accessibility", type: "multiple", label: "Accessibility" },
+  { name: null, type: "multiple", label: "All Tags" },
 ];
 
 export type SearchFiltersProps = {
@@ -69,22 +69,17 @@ export function SearchFilters({
   showBlockchain = true,
   showPastGiveaways = false,
 }: SearchFiltersProps) {
-  const {
-    tagCounts,
-    offerTypeCounts,
-    developerCounts,
-    publisherCounts,
-    priceRange,
-  } = useSearchState();
+  const { tagCounts, offerTypeCounts, developerCounts, publisherCounts, priceRange } =
+    useSearchState();
 
   const { data: tags } = useQuery({
-    queryKey: ['tags'],
-    queryFn: () => httpClient.get<FullTag[]>('/search/tags'),
+    queryKey: ["tags"],
+    queryFn: () => httpClient.get<FullTag[]>("/search/tags"),
     refetchInterval: 1000 * 60,
   });
 
   return (
-    <aside className={cn('flex flex-col gap-4 w-80', className)}>
+    <aside className={cn("flex flex-col gap-4 w-80", className)}>
       {showTitle && (
         <form.Field name="title">
           {({ name, handleChange, handleBlur, state }) => (
@@ -114,7 +109,7 @@ export function SearchFilters({
                     onRemove={() => {
                       const currentTags = form.state.values.tags || [];
                       form.setFieldValue(
-                        'tags',
+                        "tags",
                         currentTags.filter((t) => String(t) !== String(tag)),
                       );
                     }}
@@ -124,61 +119,50 @@ export function SearchFilters({
             {showDeveloper && values.developerDisplayName && (
               <QuickPill
                 label={values.developerDisplayName}
-                onRemove={() =>
-                  form.setFieldValue('developerDisplayName', undefined)
-                }
+                onRemove={() => form.setFieldValue("developerDisplayName", undefined)}
               />
             )}
             {showPublisher && values.publisherDisplayName && (
               <QuickPill
                 label={values.publisherDisplayName}
-                onRemove={() =>
-                  form.setFieldValue('publisherDisplayName', undefined)
-                }
+                onRemove={() => form.setFieldValue("publisherDisplayName", undefined)}
               />
             )}
             {showOfferType && values.offerType && (
               <QuickPill
                 label={offersDictionary[values.offerType] ?? values.offerType}
-                onRemove={() => form.setFieldValue('offerType', undefined)}
+                onRemove={() => form.setFieldValue("offerType", undefined)}
               />
             )}
             {showOnSale && values.onSale && (
-              <QuickPill
-                label="On Sale"
-                onRemove={() => form.setFieldValue('onSale', undefined)}
-              />
+              <QuickPill label="On Sale" onRemove={() => form.setFieldValue("onSale", undefined)} />
             )}
             {showCodeRedemption && values.isCodeRedemptionOnly && (
               <QuickPill
                 label="Code Redemption Only"
-                onRemove={() =>
-                  form.setFieldValue('isCodeRedemptionOnly', undefined)
-                }
+                onRemove={() => form.setFieldValue("isCodeRedemptionOnly", undefined)}
               />
             )}
             {showBlockchain && values.excludeBlockchain && (
               <QuickPill
                 label="Exclude Blockchain/NFT"
-                onRemove={() =>
-                  form.setFieldValue('excludeBlockchain', undefined)
-                }
+                onRemove={() => form.setFieldValue("excludeBlockchain", undefined)}
               />
             )}
             {showSeller && values.seller && (
               <QuickPill
                 label={values.seller}
                 onRemove={() => {
-                  form.setFieldValue('seller', undefined);
+                  form.setFieldValue("seller", undefined);
                   // Force a re-render of the QuerySearch component
-                  form.setFieldValue('seller', undefined);
+                  form.setFieldValue("seller", undefined);
                 }}
               />
             )}
             {showPastGiveaways && values.pastGiveaways && (
               <QuickPill
                 label="Past Giveaways"
-                onRemove={() => form.setFieldValue('pastGiveaways', undefined)}
+                onRemove={() => form.setFieldValue("pastGiveaways", undefined)}
               />
             )}
           </div>
@@ -204,9 +188,7 @@ export function SearchFilters({
                   max: value[1],
                 });
               }}
-              currency={
-                priceRange.currency === '' ? 'USD' : priceRange.currency
-              }
+              currency={priceRange.currency === "" ? "USD" : priceRange.currency}
             />
           )}
         </form.Field>
@@ -220,16 +202,14 @@ export function SearchFilters({
               <form.Field name="offerType">
                 {({ handleChange, state }) =>
                   Object.entries(offersDictionary)
-                    .filter(([, value]) => value !== 'Unknown')
+                    .filter(([, value]) => value !== "Unknown")
                     .filter(([key]) => offerTypeCounts[key] > 0)
                     .sort((a, b) => a[1].localeCompare(b[1]))
                     .map(([key, value]) => (
                       <CheckboxWithCount
                         key={key}
                         checked={state.value === key}
-                        onChange={(checked: boolean) =>
-                          handleChange(checked ? key : undefined)
-                        }
+                        onChange={(checked: boolean) => handleChange(checked ? key : undefined)}
                         count={offerTypeCounts[key] || undefined}
                         label={value}
                       />
@@ -242,15 +222,10 @@ export function SearchFilters({
 
         {showTags &&
           tagTypes.map((tagType) => {
-            const tagTypeTags = tags?.filter(
-              (tag) => tag.groupName === tagType.name,
-            );
+            const tagTypeTags = tags?.filter((tag) => tag.groupName === tagType.name);
 
             return (
-              <AccordionItem
-                key={tagType.name}
-                value={tagType.name ?? 'alltags'}
-              >
+              <AccordionItem key={tagType.name} value={tagType.name ?? "alltags"}>
                 <AccordionTrigger>{tagType.label}</AccordionTrigger>
                 <AccordionContent className="flex flex-col gap-2 mt-2">
                   <ScrollArea>
@@ -267,9 +242,7 @@ export function SearchFilters({
                                   handleChange(
                                     checked
                                       ? [...(state.value ?? []), tag.id]
-                                      : state.value?.filter(
-                                          (t) => t !== tag.id,
-                                        ),
+                                      : state.value?.filter((t) => t !== tag.id),
                                   )
                                 }
                                 count={tagCounts[tag.id] || undefined}
@@ -278,11 +251,8 @@ export function SearchFilters({
                             ))
                         }
                       </form.Field>
-                      {tagTypeTags?.filter((tag) => tagCounts[tag.id] > 0)
-                        .length === 0 && (
-                        <span className="text-gray-400 px-4">
-                          No tags found
-                        </span>
+                      {tagTypeTags?.filter((tag) => tagCounts[tag.id] > 0).length === 0 && (
+                        <span className="text-gray-400 px-4">No tags found</span>
                       )}
                     </div>
                   </ScrollArea>
@@ -301,13 +271,11 @@ export function SearchFilters({
                     name="developers"
                     items={
                       developerCounts
-                        ? Object.entries(developerCounts).map(
-                            ([key, value]) => ({
-                              id: key,
-                              name: key,
-                              count: value,
-                            }),
-                          )
+                        ? Object.entries(developerCounts).map(([key, value]) => ({
+                            id: key,
+                            name: key,
+                            count: value,
+                          }))
                         : []
                     }
                     value={state.value}
@@ -329,13 +297,11 @@ export function SearchFilters({
                     name="publishers"
                     items={
                       publisherCounts
-                        ? Object.entries(publisherCounts).map(
-                            ([key, value]) => ({
-                              id: key,
-                              name: key,
-                              count: value,
-                            }),
-                          )
+                        ? Object.entries(publisherCounts).map(([key, value]) => ({
+                            id: key,
+                            name: key,
+                            count: value,
+                          }))
                         : []
                     }
                     value={state.value}
@@ -354,7 +320,7 @@ export function SearchFilters({
               <form.Field name="seller">
                 {({ handleChange, state }) => (
                   <QuerySearch
-                    queryKey={['search', 'items']}
+                    queryKey={["search", "items"]}
                     fetchItems={async (query) => {
                       return httpClient
                         .get<{
@@ -370,7 +336,7 @@ export function SearchFilters({
                           limit: number;
                           offset: number;
                           estimatedTotalHits: number;
-                        }>('/multisearch/sellers', {
+                        }>("/multisearch/sellers", {
                           params: {
                             query,
                           },

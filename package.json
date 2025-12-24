@@ -8,14 +8,15 @@
     "dev": "TZ=UTC vite dev --port 3000",
     "build": "vite build --config vite.sw.config.ts && vite build",
     "start": "TZ=UTC node --enable-source-maps .output/server/index.mjs",
-    "format": "biome format --write app components lib queries types contexts hooks",
-    "lint": "biome lint --fix app components lib queries types contexts hooks",
+    "format": "oxfmt --write src",
+    "lint": "oxlint --fix src",
     "wrangler": "wrangler",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
     "test:e2e:debug": "playwright test --debug",
-    "test:e2e:report": "playwright show-report"
+    "test:e2e:report": "playwright show-report",
+    "typecheck": "tsgo"
   },
   "keywords": [],
   "author": "",
@@ -110,7 +111,6 @@
     "zod": "^4.2.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
     "@playwright/test": "^1.57.0",
     "@tailwindcss/postcss": "^4.1.18",
     "@tailwindcss/vite": "4.0.7",
@@ -127,8 +127,11 @@
     "autoprefixer": "^10.4.23",
     "glob": "^11.1.0",
     "nitro": "npm:nitro-nightly",
+    "oxfmt": "^0.20.0",
+    "oxlint": "^1.35.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18",
+    "@typescript/native-preview": "^7.0.0-dev.20250615.1",
     "typescript": "^5.9.2",
     "unenv": "^1.10.0",
     "vite": "npm:rolldown-vite@7.1.9",

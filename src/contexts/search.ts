@@ -1,5 +1,5 @@
-import type React from 'react';
-import { createContext } from 'react';
+import type React from "react";
+import { createContext } from "react";
 
 interface SearchState {
   isFetching: boolean;
@@ -24,9 +24,5 @@ interface SearchActions {
   setHash: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const SearchStateContext = createContext<SearchState | undefined>(
-  undefined,
-);
-export const SearchDispatchContext = createContext<SearchActions | undefined>(
-  undefined,
-);
+export const SearchStateContext = createContext<SearchState | undefined>(undefined);
+export const SearchDispatchContext = createContext<SearchActions | undefined>(undefined);

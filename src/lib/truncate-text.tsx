@@ -1,4 +1,4 @@
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 /**
  * Truncates text to a specified maximum length and appends an ellipsis if truncated.
@@ -22,7 +22,7 @@ export function truncateText(text: string, maxLength: number): string {
 export function TruncatedText({
   text,
   maxLength = 30,
-  className = '',
+  className = "",
 }: {
   text: string;
   maxLength?: number;

@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
 export const AddIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -8,7 +8,7 @@ export const AddIcon = (props: React.SVGProps<SVGSVGElement>) => (
     strokeWidth={1.5}
     stroke="currentColor"
     {...props}
-    className={cn('size-6', props.className)}
+    className={cn("size-6", props.className)}
   >
     <path
       strokeLinecap="round"

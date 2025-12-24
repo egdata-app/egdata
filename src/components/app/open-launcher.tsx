@@ -1,8 +1,8 @@
-import { httpClient } from '@/lib/http-client';
-import { Button } from '../ui/button';
-import { buildGameLauncherURI } from '@/lib/build-game-launcher';
-import { PlayIcon } from 'lucide-react';
-import { useQuery } from '@tanstack/react-query';
+import { httpClient } from "@/lib/http-client";
+import { Button } from "../ui/button";
+import { buildGameLauncherURI } from "@/lib/build-game-launcher";
+import { PlayIcon } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 
 type Asset = {
   artifactId: string;
@@ -15,7 +15,7 @@ type Asset = {
 
 export function OpenLauncher({ id }: { id: string }) {
   const { data: assets } = useQuery({
-    queryKey: ['offer-assets', { id }],
+    queryKey: ["offer-assets", { id }],
     queryFn: () => httpClient.get<Asset[]>(`/offers/${id}/assets`),
   });
 
@@ -56,5 +56,5 @@ export function OpenLauncher({ id }: { id: string }) {
 const getPlaform = () => {
   // Always return 'Windows' to prevent hydration mismatch
   // Platform detection can be done client-side after hydration if needed
-  return 'Windows';
+  return "Windows";
 };

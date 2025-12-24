@@ -1,18 +1,12 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { Link } from '@tanstack/react-router';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
-import {
-  getReleasesByMonth,
-  ReleasesByMonth,
-} from '@/components/charts/releases/monthly';
-import {
-  getReleasesByYear,
-  ReleasesByYear,
-} from '@/components/charts/releases/yearly';
+import { createFileRoute } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import { getReleasesByMonth, ReleasesByMonth } from "@/components/charts/releases/monthly";
+import { getReleasesByYear, ReleasesByYear } from "@/components/charts/releases/yearly";
 
-export const Route = createFileRoute('/stats/releases')({
+export const Route = createFileRoute("/stats/releases")({
   component: RouteComponent,
 
   loader: async ({ context }) => {
@@ -20,11 +14,11 @@ export const Route = createFileRoute('/stats/releases')({
 
     await Promise.all([
       queryClient.prefetchQuery({
-        queryKey: ['releases-by-month'],
+        queryKey: ["releases-by-month"],
         queryFn: getReleasesByMonth,
       }),
       queryClient.prefetchQuery({
-        queryKey: ['releases-by-year'],
+        queryKey: ["releases-by-year"],
         queryFn: getReleasesByYear,
       }),
     ]);
@@ -34,12 +28,11 @@ export const Route = createFileRoute('/stats/releases')({
     return {
       meta: [
         {
-          title: 'Releases stats - egdata.app',
+          title: "Releases stats - egdata.app",
         },
         {
-          name: 'description',
-          content:
-            'Monthly and yearly cadence of new titles landing on the Epic Games Store.',
+          name: "description",
+          content: "Monthly and yearly cadence of new titles landing on the Epic Games Store.",
         },
       ],
     };

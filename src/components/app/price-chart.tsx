@@ -1,12 +1,6 @@
-import * as React from 'react';
-import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import * as React from "react";
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   type ChartConfig,
   ChartContainer,
@@ -14,37 +8,37 @@ import {
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-} from '@/components/ui/chart';
+} from "@/components/ui/chart";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import type { Price } from '@/types/price';
-import { Checkbox } from '@/components/ui/checkbox';
-import { keepPreviousData, useQueries } from '@tanstack/react-query';
-import { Skeleton } from '../ui/skeleton';
-import { httpClient } from '@/lib/http-client';
-import { useRegions } from '@/hooks/use-regions';
-import { Separator } from '../ui/separator';
-import { useLocale } from '@/hooks/use-locale';
-import type { SingleRegionalPrice } from '@/types/regional-pricing';
-import { DateTime } from 'luxon';
+} from "@/components/ui/select";
+import type { Price } from "@/types/price";
+import { Checkbox } from "@/components/ui/checkbox";
+import { keepPreviousData, useQueries } from "@tanstack/react-query";
+import { Skeleton } from "../ui/skeleton";
+import { httpClient } from "@/lib/http-client";
+import { useRegions } from "@/hooks/use-regions";
+import { Separator } from "../ui/separator";
+import { useLocale } from "@/hooks/use-locale";
+import type { SingleRegionalPrice } from "@/types/regional-pricing";
+import { DateTime } from "luxon";
 
 const chartConfig = {
   price: {
-    label: 'Region',
-    color: 'hsl(var(--chart-1))',
+    label: "Region",
+    color: "hsl(var(--chart-1))",
   },
   usd: {
-    label: 'US Price',
-    color: 'hsl(var(--chart-2))',
+    label: "US Price",
+    color: "hsl(var(--chart-2))",
   },
   min: {
-    label: 'Lowest Price',
-    color: 'var(--chart-4)',
+    label: "Lowest Price",
+    color: "var(--chart-4)",
   },
 } satisfies ChartConfig;
 
@@ -61,25 +55,16 @@ interface PriceChartProps {
  * if the price in the region is not discounted, it will find the closest USD price
  * To check if the price is discount <price>.price.discount > 0
  */
-function findApproximateUSDPrice(
-  regionPrice: Price,
-  usdPrices: Price[],
-): Price | null {
-  if (
-    !regionPrice ||
-    !regionPrice.price ||
-    !usdPrices ||
-    usdPrices.length === 0
-  ) {
-    console.log('Invalid input data');
+function findApproximateUSDPrice(regionPrice: Price, usdPrices: Price[]): Price | null {
+  if (!regionPrice || !regionPrice.price || !usdPrices || usdPrices.length === 0) {
+    console.log("Invalid input data");
     return null;
   }
 
   // 1st try to find the price from the exact *day*
   const exactPrice = usdPrices.find(
     (price) =>
-      new Date(price.updatedAt).toDateString() ===
-      new Date(regionPrice.updatedAt).toDateString(),
+      new Date(price.updatedAt).toDateString() === new Date(regionPrice.updatedAt).toDateString(),
   );
 
   if (exactPrice) {
@@ -103,12 +88,10 @@ function findApproximateUSDPrice(
       const regionValue = isDiscounted
         ? regionPrice.price.discountPrice
         : regionPrice.price.originalPrice;
-      const usdValue = isDiscounted
-        ? usdPrice.price.discountPrice
-        : usdPrice.price.originalPrice;
+      const usdValue = isDiscounted ? usdPrice.price.discountPrice : usdPrice.price.originalPrice;
 
       if (Number.isNaN(regionValue) || Number.isNaN(usdValue)) {
-        console.log('NaN detected', { regionValue, usdValue, usdPrice });
+        console.log("NaN detected", { regionValue, usdValue, usdPrice });
         continue;
       }
 
@@ -123,72 +106,63 @@ function findApproximateUSDPrice(
   }
 
   if (!closestPrice) {
-    console.log('No closest price found', { regionPrice, usdPrices });
+    console.log("No closest price found", { regionPrice, usdPrices });
     // Just return the 1st future price relative to the region price
     return usdPrices.sort(
-      (a, b) =>
-        new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime(),
+      (a, b) => new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime(),
     )[0];
   }
 
   return closestPrice;
 }
 
-const calculateSinceDate = (timeRange: 'all' | '3y' | '1y') => {
+const calculateSinceDate = (timeRange: "all" | "3y" | "1y") => {
   const now = new Date();
   let daysToSubtract = 365;
-  if (timeRange === 'all') return now;
-  if (timeRange === '3y') {
+  if (timeRange === "all") return now;
+  if (timeRange === "3y") {
     daysToSubtract = 1095; // 3 years
-  } else if (timeRange === '1y') {
+  } else if (timeRange === "1y") {
     daysToSubtract = 365; // 1 year
   }
   now.setDate(now.getDate() - daysToSubtract);
   return now;
 };
 
-export function PriceChart({
-  selectedRegion,
-  id,
-  regionStats,
-}: PriceChartProps) {
+export function PriceChart({ selectedRegion, id, regionStats }: PriceChartProps) {
   const { regions } = useRegions();
   const { locale } = useLocale();
-  const [timeRange, setTimeRange] = React.useState('1y');
+  const [timeRange, setTimeRange] = React.useState("1y");
   const [compareUSD, setCompareUSD] = React.useState(false);
 
   const [regionQuery, usdQuery] = useQueries({
     queries: [
       {
-        queryKey: ['price-history', { region: selectedRegion, id, timeRange }],
+        queryKey: ["price-history", { region: selectedRegion, id, timeRange }],
         queryFn: () =>
           httpClient
             .get<Price[]>(`/offers/${id}/price-history`, {
               params: {
                 region: selectedRegion,
                 since:
-                  timeRange === 'all'
+                  timeRange === "all"
                     ? undefined
-                    : calculateSinceDate(
-                        timeRange as 'all' | '3y' | '1y',
-                      ).toISOString(),
+                    : calculateSinceDate(timeRange as "all" | "3y" | "1y").toISOString(),
               },
             })
             .then((res) => res),
         placeholderData: keepPreviousData,
       },
       {
-        queryKey: ['price-history', { region: 'US', id, timeRange }],
+        queryKey: ["price-history", { region: "US", id, timeRange }],
         queryFn: () =>
           httpClient.get<Price[]>(`/offers/${id}/price-history`, {
             params: {
-              region: 'US',
+              region: "US",
               since:
-                timeRange === 'all'
+                timeRange === "all"
                   ? undefined
-                  : calculateSinceDate(
-                      timeRange as 'all' | '3y' | '1y',
-                    ).toISOString(),
+                  : calculateSinceDate(timeRange as "all" | "3y" | "1y").toISOString(),
             },
           }),
         placeholderData: keepPreviousData,
@@ -196,19 +170,10 @@ export function PriceChart({
     ],
   });
 
-  const {
-    data: regionPricing,
-    isLoading: regionPricingLoading,
-    isFetching,
-  } = regionQuery;
+  const { data: regionPricing, isLoading: regionPricingLoading, isFetching } = regionQuery;
   const { data: usdPricing, isLoading: usdPricingLoading } = usdQuery;
 
-  if (
-    regionPricingLoading ||
-    usdPricingLoading ||
-    !regionPricing ||
-    !usdPricing
-  ) {
+  if (regionPricingLoading || usdPricingLoading || !regionPricing || !usdPricing) {
     return <Skeleton className="w-3/4 mx-auto h-[400px]" />;
   }
 
@@ -218,9 +183,7 @@ export function PriceChart({
       return (
         index ===
         self.findIndex(
-          (t) =>
-            new Date(t.updatedAt).toDateString() ===
-            new Date(item.updatedAt).toDateString(),
+          (t) => new Date(t.updatedAt).toDateString() === new Date(item.updatedAt).toDateString(),
         )
       );
     })
@@ -232,9 +195,7 @@ export function PriceChart({
         return {
           date: date.toDateString(),
           price: item.price.basePayoutPrice / 100,
-          usd:
-            (findApproximateUSDPrice(item, usdPricing)?.price.discountPrice ||
-              0) / 100,
+          usd: (findApproximateUSDPrice(item, usdPricing)?.price.discountPrice || 0) / 100,
         };
       }
 
@@ -250,10 +211,10 @@ export function PriceChart({
 
       const now = new Date();
       let daysToSubtract = 365;
-      if (timeRange === 'all') return true;
-      if (timeRange === '3y') {
+      if (timeRange === "all") return true;
+      if (timeRange === "3y") {
         daysToSubtract = 1095; // 3 years
-      } else if (timeRange === '1y') {
+      } else if (timeRange === "1y") {
         daysToSubtract = 365; // 1 year
       }
       now.setDate(now.getDate() - daysToSubtract);
@@ -266,8 +227,7 @@ export function PriceChart({
         <div className="grid flex-1 gap-1 text-center sm:text-left">
           <CardTitle>Region Price chart</CardTitle>
           <CardDescription>
-            Price chart for{' '}
-            {regions?.[selectedRegion]?.description || selectedRegion} region
+            Price chart for {regions?.[selectedRegion]?.description || selectedRegion} region
           </CardDescription>
         </div>
         <div className="items-center flex space-x-2">
@@ -275,7 +235,7 @@ export function PriceChart({
             id="compare"
             checked={compareUSD}
             onCheckedChange={(value) => setCompareUSD(Boolean(value))}
-            disabled={selectedRegion === 'US'}
+            disabled={selectedRegion === "US"}
           />
           <label
             htmlFor="compare"
@@ -285,10 +245,7 @@ export function PriceChart({
           </label>
         </div>
         <Select value={timeRange} onValueChange={setTimeRange}>
-          <SelectTrigger
-            className="w-[160px] rounded-lg sm:ml-auto"
-            aria-label="Select a value"
-          >
+          <SelectTrigger className="w-[160px] rounded-lg sm:ml-auto" aria-label="Select a value">
             <SelectValue placeholder="Last 3 months" />
           </SelectTrigger>
           <SelectContent className="rounded-xl">
@@ -310,9 +267,7 @@ export function PriceChart({
             <span className="flex flex-col items-center justify-center gap-2">
               <div className="flex flex-col items-center justify-center gap-1">
                 <span className="text-sm font-medium">Loading...</span>
-                <span className="text-xs text-gray-400">
-                  Fetching latest data
-                </span>
+                <span className="text-xs text-gray-400">Fetching latest data</span>
               </div>
               <svg
                 className="animate-spin -ml-1 mr-3 h-5 w-5"
@@ -337,35 +292,16 @@ export function PriceChart({
             </span>
           </div>
         )}
-        <ChartContainer
-          config={chartConfig}
-          className="aspect-auto h-[250px] w-full"
-        >
+        <ChartContainer config={chartConfig} className="aspect-auto h-[250px] w-full">
           <AreaChart data={filteredData}>
             <defs>
               <linearGradient id="fillPrice" x1="0" y1="0" x2="0" y2="1">
-                <stop
-                  offset="5%"
-                  stopColor="var(--color-price)"
-                  stopOpacity={0.8}
-                />
-                <stop
-                  offset="95%"
-                  stopColor="var(--color-price)"
-                  stopOpacity={0.1}
-                />
+                <stop offset="5%" stopColor="var(--color-price)" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="var(--color-price)" stopOpacity={0.1} />
               </linearGradient>
               <linearGradient id="fillUSD" x1="0" y1="0" x2="0" y2="1">
-                <stop
-                  offset="5%"
-                  stopColor="var(--color-usd)"
-                  stopOpacity={0.8}
-                />
-                <stop
-                  offset="95%"
-                  stopColor="var(--color-usd)"
-                  stopOpacity={0.1}
-                />
+                <stop offset="5%" stopColor="var(--color-usd)" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="var(--color-usd)" stopOpacity={0.1} />
               </linearGradient>
             </defs>
             <CartesianGrid vertical={false} />
@@ -376,9 +312,9 @@ export function PriceChart({
               tickMargin={8}
               minTickGap={32}
               tickFormatter={(ms: string) =>
-                DateTime.fromISO(ms).setLocale('en-GB').toLocaleString({
-                  month: 'short',
-                  year: 'numeric',
+                DateTime.fromISO(ms).setLocale("en-GB").toLocaleString({
+                  month: "short",
+                  year: "numeric",
                 })
               }
             />
@@ -389,13 +325,11 @@ export function PriceChart({
               width={80}
               tickFormatter={(value) => {
                 const formatter = new Intl.NumberFormat(locale, {
-                  style: 'currency',
-                  currency: compareUSD
-                    ? 'USD'
-                    : regionPricing[0]?.price.currencyCode || 'USD',
-                  compactDisplay: 'short',
+                  style: "currency",
+                  currency: compareUSD ? "USD" : regionPricing[0]?.price.currencyCode || "USD",
+                  compactDisplay: "short",
                   maximumFractionDigits: 0,
-                  currencyDisplay: 'symbol',
+                  currencyDisplay: "symbol",
                 });
 
                 return formatter.format(value);
@@ -406,32 +340,24 @@ export function PriceChart({
               content={
                 <ChartTooltipContent
                   labelFormatter={(value) => {
-                    return DateTime.fromISO(value)
-                      .setLocale('en-GB')
-                      .toLocaleString({
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric',
-                      });
+                    return DateTime.fromISO(value).setLocale("en-GB").toLocaleString({
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
+                    });
                   }}
                   formatter={(value, key, entry) => {
-                    const regionName =
-                      regions?.[selectedRegion]?.description || selectedRegion;
+                    const regionName = regions?.[selectedRegion]?.description || selectedRegion;
                     const formatter = new Intl.NumberFormat(locale, {
-                      style: 'currency',
-                      currency: compareUSD
-                        ? 'USD'
-                        : regionPricing[0].price.currencyCode,
+                      style: "currency",
+                      currency: compareUSD ? "USD" : regionPricing[0].price.currencyCode,
                     });
 
                     const saleName = regionPricing.find(
-                      (item) =>
-                        new Date(item.updatedAt).toISOString() ===
-                        entry.payload.date,
+                      (item) => new Date(item.updatedAt).toISOString() === entry.payload.date,
                     )?.appliedRules[0]?.name;
 
-                    const label =
-                      chartConfig[key as 'price' | 'usd' | 'min'].label;
+                    const label = chartConfig[key as "price" | "usd" | "min"].label;
 
                     return (
                       <span className="inline-flex flex-col gap-1">
@@ -439,28 +365,22 @@ export function PriceChart({
                           <span
                             className="h-2 w-2 shrink-0 rounded-[2px]"
                             style={{
-                              backgroundColor:
-                                chartConfig[key as 'price' | 'usd' | 'min']
-                                  .color,
+                              backgroundColor: chartConfig[key as "price" | "usd" | "min"].color,
                             }}
                           />
                           <span>
-                            {label === 'Region'
+                            {label === "Region"
                               ? regionName
-                              : label === 'US Price'
-                                ? 'United States'
-                                : 'Lowest Price'}
+                              : label === "US Price"
+                                ? "United States"
+                                : "Lowest Price"}
                             :
                           </span>
                           {formatter.format(value as number)}
                         </span>
-                        {saleName && label === 'Region' && (
-                          <Separator orientation="horizontal" />
-                        )}
-                        {saleName && label === 'Region' && (
-                          <span className="text-xs text-gray-300">
-                            {saleName}
-                          </span>
+                        {saleName && label === "Region" && <Separator orientation="horizontal" />}
+                        {saleName && label === "Region" && (
+                          <span className="text-xs text-gray-300">{saleName}</span>
                         )}
                       </span>
                     );

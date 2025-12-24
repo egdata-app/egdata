@@ -1,8 +1,8 @@
-import { httpClient } from '@/lib/http-client';
-import type { SingleSandbox } from '@/types/single-sandbox';
-import { dehydrate, HydrationBoundary, useQuery } from '@tanstack/react-query';
-import { createFileRoute, Outlet, useLocation } from '@tanstack/react-router';
-import { SectionsNav } from '@/components/app/offer-sections';
+import { httpClient } from "@/lib/http-client";
+import type { SingleSandbox } from "@/types/single-sandbox";
+import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { createFileRoute, Outlet, useLocation } from "@tanstack/react-router";
+import { SectionsNav } from "@/components/app/offer-sections";
 import {
   Archive,
   BoxIcon,
@@ -10,15 +10,15 @@ import {
   LibrarySquareIcon,
   PackageIcon,
   StoreIcon,
-} from 'lucide-react';
-import type { SingleOffer } from '@/types/single-offer';
-import { getFetchedQuery } from '@/lib/get-fetched-query';
-import { getQueryClient } from '@/lib/client';
-import { EpicTrophyIcon } from '@/components/icons/epic-trophy';
-import { generateSandboxMeta } from '@/lib/generate-sandbox-meta';
-import type { SingleItem } from '@/types/single-item';
+} from "lucide-react";
+import type { SingleOffer } from "@/types/single-offer";
+import { getFetchedQuery } from "@/lib/get-fetched-query";
+import { getQueryClient } from "@/lib/client";
+import { EpicTrophyIcon } from "@/components/icons/epic-trophy";
+import { generateSandboxMeta } from "@/lib/generate-sandbox-meta";
+import type { SingleItem } from "@/types/single-item";
 
-export const Route = createFileRoute('/sandboxes/$id')({
+export const Route = createFileRoute("/sandboxes/$id")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
 
@@ -45,11 +45,11 @@ export const Route = createFileRoute('/sandboxes/$id')({
 
     await Promise.all([
       queryClient.prefetchQuery({
-        queryKey: ['sandbox', { id }],
+        queryKey: ["sandbox", { id }],
         queryFn: () => httpClient.get<SingleSandbox>(`/sandboxes/${id}`),
       }),
       queryClient.prefetchQuery({
-        queryKey: ['sandbox', 'base-game', { id }],
+        queryKey: ["sandbox", "base-game", { id }],
         queryFn: () =>
           httpClient.get<SingleOffer | (SingleItem & { isItem: true })>(
             `/sandboxes/${id}/base-game`,
@@ -71,8 +71,8 @@ export const Route = createFileRoute('/sandboxes/$id')({
       return {
         meta: [
           {
-            title: 'Sandbox not found',
-            description: 'Sandbox not found',
+            title: "Sandbox not found",
+            description: "Sandbox not found",
           },
         ],
       };
@@ -80,23 +80,22 @@ export const Route = createFileRoute('/sandboxes/$id')({
 
     const { id } = params;
 
-    const sandbox = getFetchedQuery<SingleSandbox>(
-      queryClient,
-      ctx.loaderData?.dehydratedState,
-      ['sandbox', { id }],
-    );
+    const sandbox = getFetchedQuery<SingleSandbox>(queryClient, ctx.loaderData?.dehydratedState, [
+      "sandbox",
+      { id },
+    ]);
 
     let offer = getFetchedQuery<SingleOffer | (SingleItem & { isItem: true })>(
       queryClient,
       ctx.loaderData?.dehydratedState,
-      ['sandbox', 'base-game', { id }],
+      ["sandbox", "base-game", { id }],
     );
 
-    if (id === 'ue') {
+    if (id === "ue") {
       if (offer) {
         offer = {
           ...offer,
-          title: 'Unreal Engine',
+          title: "Unreal Engine",
         };
       }
     }
@@ -105,8 +104,8 @@ export const Route = createFileRoute('/sandboxes/$id')({
       return {
         meta: [
           {
-            title: 'Sandbox not found',
-            description: 'Sandbox not found',
+            title: "Sandbox not found",
+            description: "Sandbox not found",
           },
         ],
       };
@@ -122,7 +121,7 @@ function SandboxPage() {
   const navigate = Route.useNavigate();
   const subPath = useLocation().pathname.split(`/${id}/`)[1];
   const { data: sandbox } = useQuery({
-    queryKey: ['sandbox', { id }],
+    queryKey: ["sandbox", { id }],
     queryFn: () => httpClient.get<SingleSandbox>(`/sandboxes/${id}`),
     retry: false,
   });
@@ -137,7 +136,7 @@ function SandboxPage() {
         <SectionsNav
           links={[
             {
-              id: '',
+              id: "",
               label: (
                 <span className="inline-flex items-center gap-2">
                   <BoxIcon className="size-4" />
@@ -147,7 +146,7 @@ function SandboxPage() {
               href: `/sandboxes/${id}`,
             },
             {
-              id: 'items',
+              id: "items",
               label: (
                 <span className="inline-flex items-center gap-2">
                   <LibrarySquareIcon className="size-4" />
@@ -157,7 +156,7 @@ function SandboxPage() {
               href: `/sandboxes/${id}/items`,
             },
             {
-              id: 'offers',
+              id: "offers",
               label: (
                 <span className="inline-flex items-center gap-2">
                   <StoreIcon className="size-4" />
@@ -167,7 +166,7 @@ function SandboxPage() {
               href: `/sandboxes/${id}/offers`,
             },
             {
-              id: 'assets',
+              id: "assets",
               label: (
                 <span className="inline-flex items-center gap-2">
                   <Archive className="size-4" />
@@ -177,7 +176,7 @@ function SandboxPage() {
               href: `/sandboxes/${id}/assets`,
             },
             {
-              id: 'builds',
+              id: "builds",
               label: (
                 <span className="inline-flex items-center gap-2">
                   <PackageIcon className="size-4" />
@@ -187,7 +186,7 @@ function SandboxPage() {
               href: `/sandboxes/${id}/builds`,
             },
             {
-              id: 'achievements',
+              id: "achievements",
               label: (
                 <span className="inline-flex items-center gap-2">
                   <EpicTrophyIcon className="size-4" />
@@ -197,7 +196,7 @@ function SandboxPage() {
               href: `/sandboxes/${id}/achievements`,
             },
             {
-              id: 'changelog',
+              id: "changelog",
               label: (
                 <span className="inline-flex items-center gap-2">
                   <CalculatorIcon className="size-4" />
@@ -207,7 +206,7 @@ function SandboxPage() {
               href: `/sandboxes/${id}/changelog`,
             },
           ]}
-          activeSection={subPath ?? ''}
+          activeSection={subPath ?? ""}
           onSectionChange={(location) => {
             navigate({
               to: `/sandboxes/${id}/${location}`,

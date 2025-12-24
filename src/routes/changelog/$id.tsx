@@ -1,16 +1,11 @@
-import * as React from 'react';
-import { createFileRoute } from '@tanstack/react-router';
-import {
-  dehydrate,
-  HydrationBoundary,
-  queryOptions,
-  useQuery,
-} from '@tanstack/react-query';
-import { httpClient } from '@/lib/http-client';
-import { ChangeTracker } from '@/components/app/changelog/item';
-import type { SingleOffer } from '@/types/single-offer';
-import type { SingleItem } from '@/types/single-item';
-import { OfferCard } from '@/components/app/offer-card';
+import * as React from "react";
+import { createFileRoute } from "@tanstack/react-router";
+import { dehydrate, HydrationBoundary, queryOptions, useQuery } from "@tanstack/react-query";
+import { httpClient } from "@/lib/http-client";
+import { ChangeTracker } from "@/components/app/changelog/item";
+import type { SingleOffer } from "@/types/single-offer";
+import type { SingleItem } from "@/types/single-item";
+import { OfferCard } from "@/components/app/offer-card";
 
 type ChangeResponse = OfferHit | ItemHit | AssetHit | Hit;
 
@@ -28,22 +23,22 @@ interface Metadata {
 }
 
 interface Change {
-  changeType: 'insert' | 'update' | 'delete';
+  changeType: "insert" | "update" | "delete";
   field: string;
   newValue: unknown;
   oldValue: unknown;
 }
 
 interface OfferHit extends DefaultHit {
-  metadata: Metadata & { contextType: 'offer'; context: SingleOffer };
+  metadata: Metadata & { contextType: "offer"; context: SingleOffer };
 }
 
 interface ItemHit extends DefaultHit {
-  metadata: Metadata & { contextType: 'item'; context: SingleItem };
+  metadata: Metadata & { contextType: "item"; context: SingleItem };
 }
 
 interface AssetHit extends DefaultHit {
-  metadata: Metadata & { contextType: 'asset'; context: SingleItem };
+  metadata: Metadata & { contextType: "asset"; context: SingleItem };
 }
 
 interface Hit {
@@ -54,15 +49,13 @@ interface Hit {
 
 const sandboxBaseGameQuery = (id: string | undefined) =>
   queryOptions({
-    queryKey: ['sandbox', 'base-game', { id }],
+    queryKey: ["sandbox", "base-game", { id }],
     queryFn: () =>
-      httpClient.get<SingleOffer | (SingleItem & { isItem: true })>(
-        `/sandboxes/${id}/base-game`,
-      ),
+      httpClient.get<SingleOffer | (SingleItem & { isItem: true })>(`/sandboxes/${id}/base-game`),
     enabled: !!id,
   });
 
-export const Route = createFileRoute('/changelog/$id')({
+export const Route = createFileRoute("/changelog/$id")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
 
@@ -78,14 +71,12 @@ export const Route = createFileRoute('/changelog/$id')({
     const { id } = params;
 
     const data = await queryClient.ensureQueryData({
-      queryKey: ['changelog', id],
+      queryKey: ["changelog", id],
       queryFn: () => httpClient.get<ChangeResponse>(`/changelist/${id}`),
     });
 
     if (data?.metadata.context?.namespace) {
-      await queryClient.prefetchQuery(
-        sandboxBaseGameQuery(data.metadata.context.namespace),
-      );
+      await queryClient.prefetchQuery(sandboxBaseGameQuery(data.metadata.context.namespace));
     }
 
     return {
@@ -98,7 +89,7 @@ export const Route = createFileRoute('/changelog/$id')({
     return {
       meta: [
         {
-          title: 'Change Detail | egdata.app',
+          title: "Change Detail | egdata.app",
         },
       ],
     };
@@ -108,7 +99,7 @@ export const Route = createFileRoute('/changelog/$id')({
 function ChangeDetailPage() {
   const { id } = Route.useLoaderData();
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['changelog', id],
+    queryKey: ["changelog", id],
     queryFn: () => httpClient.get<ChangeResponse>(`/changelist/${id}`),
   });
   const { data: baseGame } = useQuery({

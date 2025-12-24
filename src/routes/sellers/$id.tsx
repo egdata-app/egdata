@@ -1,21 +1,17 @@
-import * as React from 'react';
-import { createFileRoute } from '@tanstack/react-router';
-import {
-  dehydrate,
-  HydrationBoundary,
-  useQueries,
-} from '@tanstack/react-query';
-import { httpClient } from '@/lib/http-client';
-import type { SingleOffer } from '@/types/single-offer';
-import { getSeller } from '@/queries/seller';
-import { useCountry } from '@/hooks/use-country';
-import { getImage } from '@/lib/get-image';
-import { Skeleton } from '@/components/ui/skeleton';
-import { getQueryClient } from '@/lib/client';
-import { getFetchedQuery } from '@/lib/get-fetched-query';
-import { SearchContainer } from '@/components/search/SearchContainer';
+import * as React from "react";
+import { createFileRoute } from "@tanstack/react-router";
+import { dehydrate, HydrationBoundary, useQueries } from "@tanstack/react-query";
+import { httpClient } from "@/lib/http-client";
+import type { SingleOffer } from "@/types/single-offer";
+import { getSeller } from "@/queries/seller";
+import { useCountry } from "@/hooks/use-country";
+import { getImage } from "@/lib/get-image";
+import { Skeleton } from "@/components/ui/skeleton";
+import { getQueryClient } from "@/lib/client";
+import { getFetchedQuery } from "@/lib/get-fetched-query";
+import { SearchContainer } from "@/components/search/SearchContainer";
 
-export const Route = createFileRoute('/sellers/$id')({
+export const Route = createFileRoute("/sellers/$id")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
     return (
@@ -31,11 +27,11 @@ export const Route = createFileRoute('/sellers/$id')({
 
     await Promise.allSettled([
       queryClient.prefetchQuery({
-        queryKey: ['seller', { id, country }],
+        queryKey: ["seller", { id, country }],
         queryFn: async () => getSeller(id, country),
       }),
       queryClient.prefetchQuery({
-        queryKey: ['seller:cover', { id, country }],
+        queryKey: ["seller:cover", { id, country }],
         queryFn: async () =>
           httpClient.get<SingleOffer[]>(`/sellers/${id}/cover`, {
             params: { country },
@@ -58,25 +54,24 @@ export const Route = createFileRoute('/sellers/$id')({
       return {
         meta: [
           {
-            title: 'Seller not found',
-            description: 'Seller not found',
+            title: "Seller not found",
+            description: "Seller not found",
           },
         ],
       };
     }
 
-    const seller = getFetchedQuery<SingleOffer[]>(
-      queryClient,
-      loaderData?.dehydratedState,
-      ['seller', { id: params.id, country: loaderData.country }],
-    );
+    const seller = getFetchedQuery<SingleOffer[]>(queryClient, loaderData?.dehydratedState, [
+      "seller",
+      { id: params.id, country: loaderData.country },
+    ]);
 
     if (!seller)
       return {
         meta: [
           {
-            title: 'Seller not found',
-            description: 'Seller not found',
+            title: "Seller not found",
+            description: "Seller not found",
           },
         ],
       };
@@ -100,11 +95,11 @@ function RouteComponent() {
   const [sellerData, coverData] = useQueries({
     queries: [
       {
-        queryKey: ['seller', { id, country }],
+        queryKey: ["seller", { id, country }],
         queryFn: () => getSeller(id, country),
       },
       {
-        queryKey: ['seller:cover', { id, country }],
+        queryKey: ["seller:cover", { id, country }],
         queryFn: () =>
           httpClient.get<SingleOffer[]>(`/sellers/${id}/cover`, {
             params: { country },
@@ -113,10 +108,7 @@ function RouteComponent() {
     ],
   });
 
-  const randomCoverIndex = React.useMemo(
-    () => Math.floor(Math.random() * 5 || 0),
-    [],
-  );
+  const randomCoverIndex = React.useMemo(() => Math.floor(Math.random() * 5 || 0), []);
 
   const { data, isLoading } = sellerData;
   const { data: cover } = coverData;
@@ -141,9 +133,7 @@ function RouteComponent() {
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
                 {featuredCover.title}
               </h2>
-              <p className="text-gray-300 md:text-xl">
-                {featuredCover.description}
-              </p>
+              <p className="text-gray-300 md:text-xl">{featuredCover.description}</p>
             </div>
           </div>
           <div
@@ -151,10 +141,10 @@ function RouteComponent() {
             className="absolute top-0 left-0 w-full h-full bg-cover bg-center rounded-xl z-0"
             style={{
               backgroundImage: `url(${getImage(featuredCover.keyImages, [
-                'DieselGameBoxWide',
-                'DieselStoreFrontWide',
-                'OfferImageWide',
-              ])?.url.replaceAll(' ', '%20')})`,
+                "DieselGameBoxWide",
+                "DieselStoreFrontWide",
+                "OfferImageWide",
+              ])?.url.replaceAll(" ", "%20")})`,
             }}
           />
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-card/65 to-card z-0 rounded-xl" />

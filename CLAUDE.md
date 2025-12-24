@@ -12,8 +12,8 @@ egdata.app is an Epic Games Store database and analytics platform built with Rea
 pnpm dev                 # Start dev server on localhost:3000 (TZ=UTC)
 pnpm build              # Build app (service worker + main app)
 pnpm start              # Run production server
-pnpm format             # Format code with Biome
-pnpm lint               # Lint and fix with Biome
+pnpm format             # Format code with oxfmt
+pnpm lint               # Lint and fix with oxlint
 pnpm test:e2e           # Run Playwright E2E tests
 pnpm test:e2e:ui        # Run E2E tests with UI
 pnpm test:e2e:headed    # Run E2E tests in headed mode
@@ -70,7 +70,8 @@ The HTTP client (`src/lib/http-client.ts`) is an Axios wrapper with retry logic.
 
 ## Code Style
 
-- **Formatter/Linter:** Biome with single quotes, space indentation
+- **Linter:** oxlint (oxc project)
+- **Formatter:** oxfmt (oxc project)
 - **Ignored files:** `node_modules`, `routeTree.gen.ts`
 
 ## Testing

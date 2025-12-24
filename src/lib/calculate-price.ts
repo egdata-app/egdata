@@ -1,9 +1,8 @@
-const currenciesWithFullPrice = ['JPY', 'KRW'];
+const currenciesWithFullPrice = ["JPY", "KRW"];
 
-const shouldCalculatePrice = (currency: string) =>
-  !currenciesWithFullPrice.includes(currency);
+const shouldCalculatePrice = (currency: string) => !currenciesWithFullPrice.includes(currency);
 
-export function calculatePrice(price: number, currency = 'USD') {
+export function calculatePrice(price: number, currency = "USD") {
   if (shouldCalculatePrice(currency)) {
     return price / 100;
   }

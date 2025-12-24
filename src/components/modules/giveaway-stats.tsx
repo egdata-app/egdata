@@ -1,26 +1,21 @@
-import { useCountry } from '@/hooks/use-country';
-import { useLocale } from '@/hooks/use-locale';
-import { httpClient } from '@/lib/http-client';
-import type { Price } from '@/types/price';
-import { useQuery } from '@tanstack/react-query';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '../ui/tooltip';
-import { calculatePrice } from '@/lib/calculate-price';
-import { Link } from '@tanstack/react-router';
-import { cn } from '@/lib/utils';
+import { useCountry } from "@/hooks/use-country";
+import { useLocale } from "@/hooks/use-locale";
+import { httpClient } from "@/lib/http-client";
+import type { Price } from "@/types/price";
+import { useQuery } from "@tanstack/react-query";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import { calculatePrice } from "@/lib/calculate-price";
+import { Link } from "@tanstack/react-router";
+import { cn } from "@/lib/utils";
 
 export const getGiveawaysStats = async ({ country }: { country: string }) => {
   const res = await httpClient.get<{
-    totalValue: Price['price'];
+    totalValue: Price["price"];
     totalGiveaways: number;
     totalOffers: number;
     repeated: number;
     sellers: number;
-  }>('/free-games/stats', {
+  }>("/free-games/stats", {
     params: {
       country,
     },
@@ -34,14 +29,11 @@ interface GiveawayStatsProps {
   wrap?: boolean;
 }
 
-export function GiveawaysStats({
-  showTitle = true,
-  wrap = false,
-}: GiveawayStatsProps) {
+export function GiveawaysStats({ showTitle = true, wrap = false }: GiveawayStatsProps) {
   const { country } = useCountry();
   const { locale } = useLocale();
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['giveaways-stats', { country }],
+    queryKey: ["giveaways-stats", { country }],
     queryFn: () => getGiveawaysStats({ country }),
     refetchInterval: 60 * 1000,
     refetchIntervalInBackground: true,
@@ -57,16 +49,14 @@ export function GiveawaysStats({
 
   return (
     <div className="flex flex-col items-start justify-start gap-4 w-full">
-      {showTitle && (
-        <h2 className="text-xl font-semibold">Giveaways in numbers</h2>
-      )}
+      {showTitle && <h2 className="text-xl font-semibold">Giveaways in numbers</h2>}
       <div className="flex flex-row flex-wrap items-center justify-center gap-10 bg-card rounded-lg p-4 w-full">
         <TooltipProvider>
           <Tooltip>
             <div
               className={cn(
-                'flex flex-col items-center justify-center gap-2',
-                wrap ? 'w-full' : 'w-fit',
+                "flex flex-col items-center justify-center gap-2",
+                wrap ? "w-full" : "w-fit",
               )}
             >
               <BigText
@@ -74,7 +64,7 @@ export function GiveawaysStats({
                   data.totalValue.originalPrice,
                   data.totalValue.currencyCode,
                 ).toLocaleString(locale, {
-                  style: 'currency',
+                  style: "currency",
                   currency: data.totalValue.currencyCode,
                 })}
                 className="text-4xl font-medium"
@@ -91,7 +81,7 @@ export function GiveawaysStats({
                       data.totalValue.discountPrice,
                       data.totalValue.currencyCode,
                     ).toLocaleString(locale, {
-                      style: 'currency',
+                      style: "currency",
                       currency: data.totalValue.currencyCode,
                     })}
                   </span>
@@ -154,8 +144,7 @@ export function GiveawaysStats({
               </TooltipTrigger>
               <TooltipContent>
                 <span className="text-xs font-medium">
-                  Number of unique offers that appear multiple times in
-                  giveaways
+                  Number of unique offers that appear multiple times in giveaways
                 </span>
               </TooltipContent>
             </div>
@@ -188,12 +177,6 @@ export function GiveawaysStats({
   );
 }
 
-function BigText({
-  value,
-  className,
-}: {
-  value: string | number;
-  className?: string;
-}) {
-  return <span className={cn('font-mono', className)}>{value}</span>;
+function BigText({ value, className }: { value: string | number; className?: string }) {
+  return <span className={cn("font-mono", className)}>{value}</span>;
 }

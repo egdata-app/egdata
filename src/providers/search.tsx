@@ -1,8 +1,8 @@
-import { SearchDispatchContext, SearchStateContext } from '@/contexts/search';
-import { useCountry } from '@/hooks/use-country';
-import { httpClient } from '@/lib/http-client';
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { type PropsWithChildren, useMemo, useState } from 'react';
+import { SearchDispatchContext, SearchStateContext } from "@/contexts/search";
+import { useCountry } from "@/hooks/use-country";
+import { httpClient } from "@/lib/http-client";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { type PropsWithChildren, useMemo, useState } from "react";
 
 export type CountData = {
   tagCounts: Array<{ _id: string; count: number }>;
@@ -20,7 +20,7 @@ export type CountData = {
 // biome-ignore lint/complexity/noBannedTypes: the props are empty
 export function SearchProvider({ children }: PropsWithChildren<{}>) {
   const { country } = useCountry();
-  const [hash, setHash] = useState<string>('');
+  const [hash, setHash] = useState<string>("");
   const [currentPageNumber, setCurrentPageNumber] = useState<number>(1);
   const [isFetching, setIsFetching] = useState(false);
 
@@ -37,7 +37,7 @@ export function SearchProvider({ children }: PropsWithChildren<{}>) {
     isLoading: isFetchingCounts,
     error,
   } = useQuery({
-    queryKey: ['count', { hash, country }],
+    queryKey: ["count", { hash, country }],
     queryFn: fetchCountData,
     staleTime: 5 * 60 * 1000, // 5 minutes
     placeholderData: keepPreviousData,
@@ -70,7 +70,7 @@ export function SearchProvider({ children }: PropsWithChildren<{}>) {
             min: countData.priceRange.minPrice,
             max: countData.priceRange.maxPrice,
           }
-        : { min: 0, max: 0, currency: '' },
+        : { min: 0, max: 0, currency: "" },
       currentPageNumber,
       hash,
       isFetching,
@@ -90,7 +90,7 @@ export function SearchProvider({ children }: PropsWithChildren<{}>) {
 
   // Optional: Log any errors
   if (error) {
-    console.error('Error fetching count data:', error);
+    console.error("Error fetching count data:", error);
   }
 
   return (

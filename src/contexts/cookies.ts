@@ -1,5 +1,5 @@
-import type { ConsentSettings } from '@/components/app/google-analytics';
-import { createContext } from 'react';
+import type { ConsentSettings } from "@/components/app/google-analytics";
+import { createContext } from "react";
 
 export interface CookiesSelection {
   googleAnalytics: boolean;
@@ -16,6 +16,4 @@ export interface CookiesContextProps {
   setSelection: (selection: CookiesSelection) => void;
 }
 
-export const cookiesContext = createContext<CookiesContextProps | undefined>(
-  undefined,
-);
+export const cookiesContext = createContext<CookiesContextProps | undefined>(undefined);

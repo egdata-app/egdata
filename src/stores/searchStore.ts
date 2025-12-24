@@ -1,5 +1,5 @@
-import { Store } from '@tanstack/react-store';
-import { z } from 'zod';
+import { Store } from "@tanstack/react-store";
+import { z } from "zod";
 
 export const formSchema = z.object({
   title: z.string().optional(),
@@ -8,20 +8,20 @@ export const formSchema = z.object({
   publisherDisplayName: z.string().optional(),
   offerType: z
     .enum([
-      'BASE_GAME',
-      'DLC',
-      'ADD_ON',
-      'SUBSCRIPTION',
-      'BUNDLE',
-      'DEMO',
-      'EDITION',
-      'SEASON',
-      'PASS',
-      'INGAMEITEM',
-      'INGAME_CURRENCY',
-      'LOOTBOX',
-      'SUBSCRIPTION_BUNDLE',
-      'UNKNOWN',
+      "BASE_GAME",
+      "DLC",
+      "ADD_ON",
+      "SUBSCRIPTION",
+      "BUNDLE",
+      "DEMO",
+      "EDITION",
+      "SEASON",
+      "PASS",
+      "INGAMEITEM",
+      "INGAME_CURRENCY",
+      "LOOTBOX",
+      "SUBSCRIPTION_BUNDLE",
+      "UNKNOWN",
     ])
     .optional(),
   onSale: z.boolean().optional(),
@@ -37,20 +37,20 @@ export const formSchema = z.object({
     .optional(),
   sortBy: z
     .enum([
-      'releaseDate',
-      'lastModifiedDate',
-      'effectiveDate',
-      'creationDate',
-      'viewableDate',
-      'pcReleaseDate',
-      'upcoming',
-      'price',
-      'discount',
-      'discountPercent',
-      'giveawayDate',
+      "releaseDate",
+      "lastModifiedDate",
+      "effectiveDate",
+      "creationDate",
+      "viewableDate",
+      "pcReleaseDate",
+      "upcoming",
+      "price",
+      "discount",
+      "discountPercent",
+      "giveawayDate",
     ])
     .optional(),
-  sortDir: z.enum(['asc', 'desc']).optional(),
+  sortDir: z.enum(["asc", "desc"]).optional(),
   page: z.number().optional(),
   limit: z.number().optional(),
   isLowestPrice: z.boolean().optional(),
@@ -74,10 +74,7 @@ export class SearchStoreManager {
   private stores = new Map<string, Store<SearchState>>();
 
   // Create or get a store instance for a specific page/context
-  getStore(
-    contextId: string,
-    initialState?: Partial<SearchState>,
-  ): Store<SearchState> {
+  getStore(contextId: string, initialState?: Partial<SearchState>): Store<SearchState> {
     if (!this.stores.has(contextId)) {
       const initialStoreState = {
         ...defaultState,
@@ -112,10 +109,7 @@ export class SearchStoreManager {
 export const searchStoreManager = new SearchStoreManager();
 
 // Helper function to get a store for a specific context
-export function getSearchStore(
-  contextId?: string,
-  initialState?: Partial<SearchState>,
-) {
+export function getSearchStore(contextId?: string, initialState?: Partial<SearchState>) {
   if (!contextId) {
     return searchStore; // Return default store for backward compatibility
   }

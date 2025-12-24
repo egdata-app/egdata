@@ -1,13 +1,8 @@
-import { useQuery } from '@tanstack/react-query';
-import { httpClient as client } from '@/lib/http-client';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '../ui/tooltip';
-import { cn } from '@/lib/utils';
+import { useQuery } from "@tanstack/react-query";
+import { httpClient as client } from "@/lib/http-client";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import { cn } from "@/lib/utils";
 
 export interface Stats {
   offers: number;
@@ -24,9 +19,9 @@ export interface Stats {
 
 export function StatsModule() {
   const { data } = useQuery({
-    queryKey: ['stats'],
+    queryKey: ["stats"],
     queryFn: async () => {
-      const data = await client.get<Stats>('/stats');
+      const data = await client.get<Stats>("/stats");
       return data;
     },
   });
@@ -51,11 +46,7 @@ export function StatsModule() {
         <Count value={data?.tags ?? 0} label="Tags" />
         <Count value={data?.offersYear ?? 0} label="Offers (Year)" />
         <Count value={data?.itemsYear ?? 0} label="Items (Year)" />
-        <Count
-          value={data?.assets ?? 0}
-          label="Assets"
-          tooltip="An asset is the game files"
-        />
+        <Count value={data?.assets ?? 0} label="Assets" tooltip="An asset is the game files" />
         <Count value={data?.priceEngine ?? 0} label="Reg. Prices" />
         <Count value={data?.changelog ?? 0} label="Changes" />
         <Count
@@ -68,25 +59,15 @@ export function StatsModule() {
   );
 }
 
-function Count({
-  value,
-  label,
-  tooltip,
-}: {
-  value: number;
-  label: string;
-  tooltip?: string;
-}) {
+function Count({ value, label, tooltip }: { value: number; label: string; tooltip?: string }) {
   return (
     <div>
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger
             className={cn(
-              'text-xs text-gray-500',
-              tooltip
-                ? 'underline decoration-dotted underline-offset-4'
-                : 'cursor-default',
+              "text-xs text-gray-500",
+              tooltip ? "underline decoration-dotted underline-offset-4" : "cursor-default",
             )}
           >
             {label}

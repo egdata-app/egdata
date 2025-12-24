@@ -1,18 +1,13 @@
-import { columns } from '@/components/tables/files/columns';
-import { DataTable } from '@/components/tables/files/table';
-import { httpClient } from '@/lib/http-client';
-import type { BuildFiles } from '@/types/builds';
-import {
-  dehydrate,
-  HydrationBoundary,
-  keepPreviousData,
-  useQuery,
-} from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
-import type { ColumnFiltersState } from '@tanstack/react-table';
-import { useState } from 'react';
+import { columns } from "@/components/tables/files/columns";
+import { DataTable } from "@/components/tables/files/table";
+import { httpClient } from "@/lib/http-client";
+import type { BuildFiles } from "@/types/builds";
+import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
+import type { ColumnFiltersState } from "@tanstack/react-table";
+import { useState } from "react";
 
-export const Route = createFileRoute('/builds/$id/files')({
+export const Route = createFileRoute("/builds/$id/files")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
     return (
@@ -27,10 +22,7 @@ export const Route = createFileRoute('/builds/$id/files')({
     const { queryClient } = context;
 
     await queryClient.prefetchQuery({
-      queryKey: [
-        'build-files',
-        { id, page: { pageIndex: 0, pageSize: 25 }, options: [] },
-      ],
+      queryKey: ["build-files", { id, page: { pageIndex: 0, pageSize: 25 }, options: [] }],
       queryFn: () =>
         httpClient.get<BuildFiles>(`/builds/${id}/files`, {
           params: {
@@ -55,19 +47,15 @@ function FilesPage() {
   const [filters, setFilters] = useState<ColumnFiltersState>([]);
 
   const { data: files } = useQuery({
-    queryKey: ['build-files', { id, page, options: filters }],
+    queryKey: ["build-files", { id, page, options: filters }],
     queryFn: () =>
       httpClient.get<BuildFiles>(`/builds/${id}/files`, {
         params: {
           page: page.pageIndex + 1,
-          q:
-            (filters.find((f) => f.id === 'fileName')?.value as string) ??
-            undefined,
+          q: (filters.find((f) => f.id === "fileName")?.value as string) ?? undefined,
           extension: (() => {
-            const mimeTypeFilter = filters.find((f) => f.id === 'mimeType');
-            return mimeTypeFilter?.value
-              ? (mimeTypeFilter.value as string[]).join(',')
-              : undefined;
+            const mimeTypeFilter = filters.find((f) => f.id === "mimeType");
+            return mimeTypeFilter?.value ? (mimeTypeFilter.value as string[]).join(",") : undefined;
           })(),
         },
       }),

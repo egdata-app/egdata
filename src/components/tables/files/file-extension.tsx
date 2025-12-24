@@ -1,22 +1,12 @@
-import type React from 'react';
-import {
-  useState,
-  useCallback,
-  type KeyboardEvent,
-  useRef,
-  useEffect,
-} from 'react';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { Separator } from '@/components/ui/separator';
-import { PlusCircledIcon, Cross2Icon } from '@radix-ui/react-icons';
-import type { Column } from '@tanstack/react-table';
+import type React from "react";
+import { useState, useCallback, type KeyboardEvent, useRef, useEffect } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Separator } from "@/components/ui/separator";
+import { PlusCircledIcon, Cross2Icon } from "@radix-ui/react-icons";
+import type { Column } from "@tanstack/react-table";
 
 interface FileExtensionFilterProps<TData, TValue> {
   column?: Column<TData, TValue>;
@@ -25,29 +15,26 @@ interface FileExtensionFilterProps<TData, TValue> {
 
 export function FileExtensionFilter<TData, TValue>({
   column,
-  title = 'File Extensions',
+  title = "File Extensions",
 }: FileExtensionFilterProps<TData, TValue>) {
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
   const extensions = (column?.getFilterValue() as string[]) ?? [];
 
-  const handleInputChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setInputValue(e.target.value);
-    },
-    [],
-  );
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  }, []);
 
   const handleInputKeyDown = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === 'Enter' && inputValue) {
+      if (e.key === "Enter" && inputValue) {
         e.preventDefault();
-        const newExtension = inputValue.replace(/^\./, '');
+        const newExtension = inputValue.replace(/^\./, "");
         if (!extensions.includes(newExtension)) {
           const newExtensions = [...extensions, newExtension];
           column?.setFilterValue(newExtensions);
         }
-        setInputValue('');
+        setInputValue("");
       }
     },
     [inputValue, extensions, column],
@@ -80,27 +67,17 @@ export function FileExtensionFilter<TData, TValue>({
           {extensions.length > 0 && (
             <>
               <Separator orientation="vertical" className="mx-2 h-4" />
-              <Badge
-                variant="secondary"
-                className="rounded-sm px-1 font-normal lg:hidden"
-              >
+              <Badge variant="secondary" className="rounded-sm px-1 font-normal lg:hidden">
                 {extensions.length}
               </Badge>
               <div className="hidden space-x-1 lg:flex">
                 {extensions.length > 2 ? (
-                  <Badge
-                    variant="secondary"
-                    className="rounded-sm px-1 font-normal"
-                  >
+                  <Badge variant="secondary" className="rounded-sm px-1 font-normal">
                     {extensions.length} selected
                   </Badge>
                 ) : (
                   extensions.map((ext) => (
-                    <Badge
-                      variant="secondary"
-                      key={ext}
-                      className="rounded-sm px-1 font-normal"
-                    >
+                    <Badge variant="secondary" key={ext} className="rounded-sm px-1 font-normal">
                       {ext}
                     </Badge>
                   ))

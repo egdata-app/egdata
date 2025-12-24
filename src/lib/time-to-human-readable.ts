@@ -6,7 +6,7 @@
  */
 export const formatTimeToHumanReadable = (time: number) => {
   if (time === 0) {
-    return 'N/A';
+    return "N/A";
   }
 
   if (time > 3600) {

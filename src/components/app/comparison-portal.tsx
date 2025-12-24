@@ -1,32 +1,28 @@
-import * as Portal from '@radix-ui/react-portal';
-import {
-  useQueries,
-  useQuery,
-  type UseQueryResult,
-} from '@tanstack/react-query';
-import { useEffect, useRef, useState } from 'react';
-import { useCompare } from '@/hooks/use-compare';
-import { httpClient } from '@/lib/http-client';
-import { cn } from '@/lib/utils';
-import type { SingleOffer } from '@/types/single-offer';
-import { ScrollArea, ScrollBar } from '../ui/scroll-area';
-import { Skeleton } from '../ui/skeleton';
-import { Image } from './image';
-import { getImage } from '@/lib/getImage';
-import { offersDictionary } from '@/lib/offers-dictionary';
-import { useGenres } from '@/hooks/use-genres';
-import type { AchievementsSets } from '@/queries/offer-achievements';
-import { getRarity } from '@/lib/get-rarity';
-import { Link } from '@tanstack/react-router';
-import type { SingleSandbox } from '@/types/single-sandbox';
-import { useCountry } from '@/hooks/use-country';
-import { Button } from '../ui/button';
-import { platformIcons } from './platform-icons';
-import { GameFeatures } from './features';
-import { calculatePrice } from '@/lib/calculate-price';
-import { useLocale } from '@/hooks/use-locale';
+import * as Portal from "@radix-ui/react-portal";
+import { useQueries, useQuery, type UseQueryResult } from "@tanstack/react-query";
+import { useEffect, useRef, useState } from "react";
+import { useCompare } from "@/hooks/use-compare";
+import { httpClient } from "@/lib/http-client";
+import { cn } from "@/lib/utils";
+import type { SingleOffer } from "@/types/single-offer";
+import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { Skeleton } from "../ui/skeleton";
+import { Image } from "./image";
+import { getImage } from "@/lib/getImage";
+import { offersDictionary } from "@/lib/offers-dictionary";
+import { useGenres } from "@/hooks/use-genres";
+import type { AchievementsSets } from "@/queries/offer-achievements";
+import { getRarity } from "@/lib/get-rarity";
+import { Link } from "@tanstack/react-router";
+import type { SingleSandbox } from "@/types/single-sandbox";
+import { useCountry } from "@/hooks/use-country";
+import { Button } from "../ui/button";
+import { platformIcons } from "./platform-icons";
+import { GameFeatures } from "./features";
+import { calculatePrice } from "@/lib/calculate-price";
+import { useLocale } from "@/hooks/use-locale";
 
-const CompareIcon = (props: JSX.IntrinsicElements['svg']) => (
+const CompareIcon = (props: JSX.IntrinsicElements["svg"]) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -34,7 +30,7 @@ const CompareIcon = (props: JSX.IntrinsicElements['svg']) => (
     strokeWidth={1.5}
     stroke="currentColor"
     {...props}
-    className={cn('size-6', props.className)}
+    className={cn("size-6", props.className)}
   >
     <path
       strokeLinecap="round"
@@ -75,7 +71,7 @@ export function ComparisonPortal() {
           <div
             className="absolute inset-0 bg-black/50 cursor-pointer backdrop-blur-[2px] transition-all duration-300 ease-in-out"
             onClick={() => setOpen(false)}
-            onKeyDown={(e) => e.key === 'Escape' && setOpen(false)}
+            onKeyDown={(e) => e.key === "Escape" && setOpen(false)}
             tabIndex={-1} // To make it focusable for keyboard events
           />
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -95,24 +91,17 @@ function CompareTable() {
 
   const queries = useQueries({
     queries: compare.map((id) => ({
-      queryKey: ['offer', { id }],
+      queryKey: ["offer", { id }],
       queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`),
     })),
   });
 
   return (
     <ScrollArea>
-      <div
-        className="flex flex-row gap-2 overflow-x-auto mb-4"
-        ref={scrollContainerRef}
-      >
+      <div className="flex flex-row gap-2 overflow-x-auto mb-4" ref={scrollContainerRef}>
         {queries.map((query, index) => (
           <div key={compare[index]} className="flex flex-row gap-2">
-            <SingleGame
-              key={compare[index]}
-              query={query}
-              id={compare[index]}
-            />
+            <SingleGame key={compare[index]} query={query} id={compare[index]} />
             {index < queries.length - 1 && (
               <div className="h-full border-l border-gray-300/25 w-1" />
             )}
@@ -124,13 +113,7 @@ function CompareTable() {
   );
 }
 
-function SingleGame({
-  query,
-  id,
-}: {
-  query: UseQueryResult<SingleOffer, Error>;
-  id: string;
-}) {
+function SingleGame({ query, id }: { query: UseQueryResult<SingleOffer, Error>; id: string }) {
   const { country } = useCountry();
   const { removeFromCompare } = useCompare();
   const { genres } = useGenres();
@@ -149,11 +132,8 @@ function SingleGame({
       <div className="relative">
         <Image
           src={
-            getImage(data.keyImages, [
-              'OfferImageWide',
-              'Featured',
-              'DieselStoreFrontWide',
-            ])?.url ?? '/placeholder.webp'
+            getImage(data.keyImages, ["OfferImageWide", "Featured", "DieselStoreFrontWide"])?.url ??
+            "/placeholder.webp"
           }
           alt={data.title}
           className="w-full h-48 object-cover rounded-lg"
@@ -171,7 +151,7 @@ function SingleGame({
           className="font-bold underline underline-offset-4 decoration-slate-100/20 overflow-ellipsis mb-2"
         >
           {data.title.slice(0, 50)}
-          {data.title.length > 50 && '...'}{' '}
+          {data.title.length > 50 && "..."}{" "}
         </Link>
         <div className="flex flex-col gap-2">
           <OfferMetadataRow
@@ -197,24 +177,24 @@ function SingleGame({
             label="Release Date"
             value={
               data.releaseDate
-                ? new Date(data.releaseDate).toLocaleDateString('en-UK', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
+                ? new Date(data.releaseDate).toLocaleDateString("en-UK", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
                   })
-                : 'Unknown'
+                : "Unknown"
             }
           />
           <OfferMetadataRow
             label="PC Release Date"
             value={
               data.pcReleaseDate
-                ? new Date(data.pcReleaseDate).toLocaleDateString('en-UK', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
+                ? new Date(data.pcReleaseDate).toLocaleDateString("en-UK", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
                   })
-                : 'Unknown'
+                : "Unknown"
             }
           />
           {genres && (
@@ -227,7 +207,7 @@ function SingleGame({
                 })
                 .map((tag) => tag.name)
                 .slice(0, 3)
-                .join(', ')}
+                .join(", ")}
             />
           )}
           <OfferMetadataRow
@@ -262,13 +242,7 @@ function SingleGame({
   );
 }
 
-function OfferMetadataRow({
-  label,
-  value,
-}: {
-  label: string;
-  value: string | JSX.Element;
-}) {
+function OfferMetadataRow({ label, value }: { label: string; value: string | JSX.Element }) {
   return (
     <div className="flex flex-row justify-start items-center gap-2">
       <span className="text-sm text-gray-500">{label}:</span>
@@ -313,13 +287,13 @@ const xpCount = (data: AchievementsSets) => {
   }, 0);
 };
 
-const TrophyIcon = (props: JSX.IntrinsicElements['svg']) => (
+const TrophyIcon = (props: JSX.IntrinsicElements["svg"]) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill="currentColor"
     {...props}
-    className={cn('size-6', props.className)}
+    className={cn("size-6", props.className)}
   >
     <path
       fillRule="evenodd"
@@ -330,18 +304,17 @@ const TrophyIcon = (props: JSX.IntrinsicElements['svg']) => (
 );
 
 const trophyColors: { [key: string]: string } = {
-  bronze: 'text-bronze-start',
-  silver: 'text-silver-start',
-  gold: 'text-gold-start',
-  platinum: 'text-platinum-start',
-  unknown: 'text-gray-300',
+  bronze: "text-bronze-start",
+  silver: "text-silver-start",
+  gold: "text-gold-start",
+  platinum: "text-platinum-start",
+  unknown: "text-gray-300",
 };
 
 function Achievements({ id }: { id: string }) {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['achievements', { id }],
-    queryFn: () =>
-      httpClient.get<AchievementsSets>(`/offers/${id}/achievements`),
+    queryKey: ["achievements", { id }],
+    queryFn: () => httpClient.get<AchievementsSets>(`/offers/${id}/achievements`),
   });
 
   if (isLoading) {
@@ -376,37 +349,27 @@ function Achievements({ id }: { id: string }) {
           .map(([rarity, count]) => (
             <div key={rarity} className="flex flex-col items-center">
               <span className="text-xs text-white font-semibold">{count}</span>
-              <TrophyIcon
-                className={cn('text-white size-5', trophyColors[rarity])}
-              />
+              <TrophyIcon className={cn("text-white size-5", trophyColors[rarity])} />
             </div>
           ))}
 
-        {Object.values(rarityCount).reduce((acc, count) => acc + count, 0) >
-          0 && <span className="text-xs text-white font-bold">=</span>}
+        {Object.values(rarityCount).reduce((acc, count) => acc + count, 0) > 0 && (
+          <span className="text-xs text-white font-bold">=</span>
+        )}
 
-        {Object.values(rarityCount).reduce((acc, count) => acc + count, 0) >
-          0 && (
+        {Object.values(rarityCount).reduce((acc, count) => acc + count, 0) > 0 && (
           <div className="flex flex-col items-center">
             <span className="text-xs text-white font-semibold">
-              {Object.values(rarityCount).reduce(
-                (acc, count) => acc + count,
-                0,
-              )}
+              {Object.values(rarityCount).reduce((acc, count) => acc + count, 0)}
             </span>
-            <TrophyIcon
-              className={cn('text-white size-6', trophyColors.platinum)}
-            />
+            <TrophyIcon className={cn("text-white size-6", trophyColors.platinum)} />
           </div>
         )}
 
         <div
           className={cn(
-            'flex flex-col items-center ml-3',
-            Object.values(rarityCount).reduce((acc, count) => acc + count, 0) >
-              0
-              ? 'ml-3'
-              : 'ml-0',
+            "flex flex-col items-center ml-3",
+            Object.values(rarityCount).reduce((acc, count) => acc + count, 0) > 0 ? "ml-3" : "ml-0",
           )}
         >
           <span className="text-sm text-white font-bold">{xp} XP</span>
@@ -420,8 +383,8 @@ function AgeRatings({ id }: { id: string }) {
   const { country } = useCountry();
   const { data, isLoading, isError } = useQuery({
     queryKey: [
-      'offer',
-      'age-rating',
+      "offer",
+      "age-rating",
       {
         id: id,
         country,
@@ -429,7 +392,7 @@ function AgeRatings({ id }: { id: string }) {
       },
     ],
     queryFn: () =>
-      httpClient.get<SingleSandbox['ageGatings']>(`/offers/${id}/age-rating`, {
+      httpClient.get<SingleSandbox["ageGatings"]>(`/offers/${id}/age-rating`, {
         params: {
           country,
           single: true,
@@ -467,7 +430,7 @@ function AgeRatings({ id }: { id: string }) {
       <div className="flex flex-row gap-2 flex-wrap justify-center items-center">
         {Object.entries(data || {}).map(([key, rating]) => (
           <div className="flex flex-row gap-2" key={key}>
-            {rating.ratingImage && rating.ratingImage !== '' ? (
+            {rating.ratingImage && rating.ratingImage !== "" ? (
               <img
                 key={key}
                 src={rating.ratingImage}
@@ -540,7 +503,7 @@ function Price({ id }: { id: string }) {
   const { country } = useCountry();
   const { locale } = useLocale();
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['regional-price', { id, country }],
+    queryKey: ["regional-price", { id, country }],
     queryFn: () =>
       httpClient.get<RegionalPrice>(`/offers/${id}/regional-price`, {
         params: { country },
@@ -570,8 +533,8 @@ function Price({ id }: { id: string }) {
   }
 
   const priceFmtr = new Intl.NumberFormat(locale, {
-    style: 'currency',
-    currency: data?.currentPrice?.price?.currencyCode ?? 'USD',
+    style: "currency",
+    currency: data?.currentPrice?.price?.currencyCode ?? "USD",
   });
 
   return (
@@ -584,10 +547,10 @@ function Price({ id }: { id: string }) {
             <div className="inline-flex items-center justify-center">
               <span
                 className={cn(
-                  'text-sm mt-3 font-bold',
+                  "text-sm mt-3 font-bold",
                   data.currentPrice?.price.discount > 0
-                    ? 'bg-blue-600 text-white px-2 rounded-md'
-                    : '',
+                    ? "bg-blue-600 text-white px-2 rounded-md"
+                    : "",
                 )}
               >
                 {priceFmtr.format(
@@ -613,18 +576,12 @@ function Price({ id }: { id: string }) {
             <div>Lowest</div>
             <div className="text-sm mt-3 font-bold">
               {priceFmtr.format(
-                calculatePrice(
-                  data.minPrice,
-                  data.currentPrice?.price.currencyCode,
-                ),
+                calculatePrice(data.minPrice, data.currentPrice?.price.currencyCode),
               )}
               {data.minPrice !== data.currentPrice?.price.originalPrice && (
                 <span className="text-red-500 text-xs">
                   (
-                  {Math.round(
-                    (data.minPrice / data.currentPrice?.price.originalPrice) *
-                      100,
-                  ) - 100}
+                  {Math.round((data.minPrice / data.currentPrice?.price.originalPrice) * 100) - 100}
                   %)
                 </span>
               )}

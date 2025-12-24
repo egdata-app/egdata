@@ -1,16 +1,9 @@
-import { useQuery } from '@tanstack/react-query';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '../ui/table';
-import { UpdateIcon } from '@radix-ui/react-icons';
-import { timeAgo } from '@/lib/time-ago';
-import { ScrollArea } from '../ui/scroll-area';
-import { httpClient } from '@/lib/http-client';
+import { useQuery } from "@tanstack/react-query";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
+import { UpdateIcon } from "@radix-ui/react-icons";
+import { timeAgo } from "@/lib/time-ago";
+import { ScrollArea } from "../ui/scroll-area";
+import { httpClient } from "@/lib/http-client";
 
 export interface Change {
   timestamp: string;
@@ -49,10 +42,10 @@ export interface KeyImage {
 
 const getType = (changes: Change[]) => {
   if (changes.length === 1) {
-    return changes[0].changeType === 'insert' ? 'new' : 'update';
+    return changes[0].changeType === "insert" ? "new" : "update";
   }
 
-  return 'update';
+  return "update";
 };
 
 const icons = {
@@ -70,9 +63,9 @@ export function ChangelistModule() {
     error,
     data: changes,
   } = useQuery({
-    queryKey: ['changelist', 'home'],
+    queryKey: ["changelist", "home"],
     queryFn: async () => {
-      return await httpClient.get<Change[]>('/changelist?limit=20');
+      return await httpClient.get<Change[]>("/changelist?limit=20");
     },
   });
 
@@ -105,21 +98,14 @@ export function ChangelistModule() {
                 className="hover:bg-accent/50 transition-colors duration-200"
               >
                 <TableCell>
-                  <span
-                    role="img"
-                    aria-label={getType(change.metadata.changes)}
-                  >
+                  <span role="img" aria-label={getType(change.metadata.changes)}>
                     {icons[getType(change.metadata.changes)]}
                   </span>
                 </TableCell>
                 <TableCell>{change.metadata.contextId.slice(0, 10)}</TableCell>
                 <TableCell>{change.metadata.contextType}</TableCell>
-                <TableCell>
-                  {change.metadata.context?.title || change.metadata.contextId}
-                </TableCell>
-                <TableCell className="text-right">
-                  {timeAgo(new Date(change.timestamp))}
-                </TableCell>
+                <TableCell>{change.metadata.context?.title || change.metadata.contextId}</TableCell>
+                <TableCell className="text-right">{timeAgo(new Date(change.timestamp))}</TableCell>
               </TableRow>
             ))}
           </TableBody>

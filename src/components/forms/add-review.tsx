@@ -1,29 +1,22 @@
-import { useForm } from '@tanstack/react-form';
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from '../ui/card';
-import { Label } from '../ui/label';
-import { Slider } from '../ui/slider';
-import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
-import { Input } from '../ui/input';
-import { Button } from '../ui/button';
-import { Alert } from '../ui/alert';
-import type { SingleOffer } from '@/types/single-offer';
-import { useState } from 'react';
-import MotionNumber from '@number-flow/react';
-import { Editor } from '../app/editor';
-import type { JSONContent } from '@tiptap/react';
-import { useMutation } from '@tanstack/react-query';
-import { getRouteApi, redirect } from '@tanstack/react-router';
-import { httpClient } from '@/lib/http-client';
-import consola from 'consola';
-import { Viewer } from '../app/viewer';
-import { Loader } from 'lucide-react';
+import { useForm } from "@tanstack/react-form";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../ui/card";
+import { Label } from "../ui/label";
+import { Slider } from "../ui/slider";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import { Alert } from "../ui/alert";
+import type { SingleOffer } from "@/types/single-offer";
+import { useState } from "react";
+import MotionNumber from "@number-flow/react";
+import { Editor } from "../app/editor";
+import type { JSONContent } from "@tiptap/react";
+import { useMutation } from "@tanstack/react-query";
+import { getRouteApi, redirect } from "@tanstack/react-router";
+import { httpClient } from "@/lib/http-client";
+import consola from "consola";
+import { Viewer } from "../app/viewer";
+import { Loader } from "lucide-react";
 
 interface ReviewFormProps {
   setIsOpen: (isOpen: boolean) => void;
@@ -31,28 +24,28 @@ interface ReviewFormProps {
 }
 
 const defaultContent: JSONContent = {
-  type: 'doc',
+  type: "doc",
   content: [
     {
-      type: 'paragraph',
+      type: "paragraph",
       content: [
         {
-          type: 'text',
-          text: 'Please enter your review here',
+          type: "text",
+          text: "Please enter your review here",
         },
       ],
     },
   ],
 };
 
-const routeApi = getRouteApi('__root__');
+const routeApi = getRouteApi("__root__");
 
 export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
   const { session } = routeApi.useRouteContext();
   const [step, setStep] = useState(1);
 
   const postReviewMutation = useMutation({
-    mutationKey: ['post-review'],
+    mutationKey: ["post-review"],
     mutationFn: async (review: {
       rating: number;
       recommended: boolean;
@@ -60,16 +53,12 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
       title: string;
       tags: string;
     }) => {
-      const res = await httpClient.post(
-        `/offers/${offer?.id}/reviews`,
-        review,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
+      const res = await httpClient.post(`/offers/${offer?.id}/reviews`, review, {
+        headers: {
+          "Content-Type": "application/json",
         },
-      );
-      if (!res) throw new Error('Error submitting review');
+      });
+      if (!res) throw new Error("Error submitting review");
       return { success: true };
     },
   });
@@ -77,28 +66,28 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
   const form = useForm({
     defaultValues: {
       rating: 5,
-      recommended: undefined as undefined | 'yes' | 'no',
-      title: '',
+      recommended: undefined as undefined | "yes" | "no",
+      title: "",
       content: defaultContent,
-      tags: '',
-      website: '',
+      tags: "",
+      website: "",
     },
     onSubmit: async ({ value }) => {
-      consola.log('Submitting review', value);
+      consola.log("Submitting review", value);
 
       if (value.website) {
-        consola.error('Spam detected', value.website);
-        return { success: false, errors: { general: 'Spam detected' } };
+        consola.error("Spam detected", value.website);
+        return { success: false, errors: { general: "Spam detected" } };
       }
 
       if (!session) {
-        throw redirect({ to: '/auth/login' });
+        throw redirect({ to: "/auth/login" });
       }
 
       try {
         await postReviewMutation.mutateAsync({
           rating: value.rating,
-          recommended: value.recommended === 'yes',
+          recommended: value.recommended === "yes",
           content: value.content,
           title: value.title,
           tags: value.tags,
@@ -107,7 +96,7 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
         window.location.reload();
       } catch (error) {
         console.error(error);
-        throw new Error('Error submitting review');
+        throw new Error("Error submitting review");
       }
     },
     validators: {
@@ -115,7 +104,7 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
         if (!value.title) {
           return {
             fields: {
-              title: 'Title is required',
+              title: "Title is required",
             },
           };
         }
@@ -123,7 +112,7 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
         if (value.title.length < 3) {
           return {
             fields: {
-              title: 'Title must be at least 3 characters',
+              title: "Title must be at least 3 characters",
             },
           };
         }
@@ -131,7 +120,7 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
         if (value.title.length > 75) {
           return {
             fields: {
-              title: 'Title must be less than 75 characters',
+              title: "Title must be less than 75 characters",
             },
           };
         }
@@ -159,7 +148,7 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
         },
     canSubmit: boolean,
   ) => {
-    if (typeof values === 'boolean') {
+    if (typeof values === "boolean") {
       return !values;
     }
 
@@ -180,7 +169,7 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
         className="fixed inset-0 cursor-pointer"
         onClick={() => setIsOpen(false)}
         onKeyDown={(e) => {
-          if (e.key === 'Escape') {
+          if (e.key === "Escape") {
             setIsOpen(false);
           }
         }}
@@ -207,7 +196,7 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
           <CardHeader>
             <CardTitle>Submit a Review</CardTitle>
             <CardDescription>
-              Share your thoughts about {offer?.title ?? 'the product'}
+              Share your thoughts about {offer?.title ?? "the product"}
             </CardDescription>
           </CardHeader>
 
@@ -226,9 +215,7 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
                   name="rating"
                   validators={{
                     onChange: ({ value }) =>
-                      value < 1 || value > 10
-                        ? 'Rating must be between 1 and 10'
-                        : undefined,
+                      value < 1 || value > 10 ? "Rating must be between 1 and 10" : undefined,
                   }}
                 >
                   {({ state, setValue, name }) => (
@@ -254,20 +241,16 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
                   name="recommended"
                   validators={{
                     onChange: ({ value }) =>
-                      value !== 'yes' && value !== 'no'
-                        ? 'Please select yes or no'
-                        : undefined,
+                      value !== "yes" && value !== "no" ? "Please select yes or no" : undefined,
                   }}
                 >
                   {({ state, name, handleChange }) => (
                     <div className="space-y-2">
-                      <Label htmlFor="recommended">
-                        Would you recommend this product?
-                      </Label>
+                      <Label htmlFor="recommended">Would you recommend this product?</Label>
                       <RadioGroup
                         name={name}
                         value={state.value}
-                        onValueChange={(v: 'yes' | 'no') => handleChange(v)}
+                        onValueChange={(v: "yes" | "no") => handleChange(v)}
                       >
                         <div className="flex items-center space-x-2">
                           <RadioGroupItem value="yes">Yes</RadioGroupItem>
@@ -297,9 +280,9 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
                   validators={{
                     onChange: ({ value }) =>
                       value.length < 3
-                        ? 'Title must be at least 3 characters long'
+                        ? "Title must be at least 3 characters long"
                         : value.length > 75
-                          ? 'Title must be less than 75 characters'
+                          ? "Title must be less than 75 characters"
                           : undefined,
                   }}
                 >
@@ -328,9 +311,7 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
                   name="content"
                   validators={{
                     onChange: ({ value }) =>
-                      value.length < 3
-                        ? 'Content must be at least 3 characters long'
-                        : undefined,
+                      value.length < 3 ? "Content must be at least 3 characters long" : undefined,
                   }}
                 >
                   {({ state, setValue }) => (
@@ -386,13 +367,13 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
             >
               {([isSubmitting, canSubmit, values]) => (
                 <Button
-                  type={step === 3 ? 'submit' : 'button'}
+                  type={step === 3 ? "submit" : "button"}
                   disabled={checkSubmitDisabled(values, canSubmit as boolean)}
                   onClick={step === 3 ? undefined : handleNextStep}
                   key={`submit-review-${step}`}
                 >
                   {isSubmitting ? <Loader className="animate-spin" /> : null}
-                  {step >= 1 && step < 3 ? 'Next' : 'Submit Review'}
+                  {step >= 1 && step < 3 ? "Next" : "Submit Review"}
                 </Button>
               )}
             </form.Subscribe>

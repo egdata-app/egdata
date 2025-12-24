@@ -1,4 +1,4 @@
-import { textPlatformIcons } from '@/components/app/platform-icons';
+import { textPlatformIcons } from "@/components/app/platform-icons";
 import {
   Table,
   TableBody,
@@ -6,23 +6,19 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { getQueryClient } from '@/lib/client';
-import { generateOfferMeta } from '@/lib/generate-offer-meta';
-import { getFetchedQuery } from '@/lib/get-fetched-query';
-import { httpClient } from '@/lib/http-client';
-import type { Asset } from '@/types/asset';
-import type { SingleOffer } from '@/types/single-offer';
-import type { SingleSandbox } from '@/types/single-sandbox';
-import {
-  dehydrate,
-  HydrationBoundary,
-  useQueries,
-} from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
-import { useState } from 'react';
+} from "@/components/ui/table";
+import { getQueryClient } from "@/lib/client";
+import { generateOfferMeta } from "@/lib/generate-offer-meta";
+import { getFetchedQuery } from "@/lib/get-fetched-query";
+import { httpClient } from "@/lib/http-client";
+import type { Asset } from "@/types/asset";
+import type { SingleOffer } from "@/types/single-offer";
+import type { SingleSandbox } from "@/types/single-sandbox";
+import { dehydrate, HydrationBoundary, useQueries } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 
-export const Route = createFileRoute('/offers/$id/metadata')({
+export const Route = createFileRoute("/offers/$id/metadata")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
 
@@ -38,24 +34,23 @@ export const Route = createFileRoute('/offers/$id/metadata')({
     const { id } = params;
 
     const offer = await queryClient.ensureQueryData({
-      queryKey: ['offer', { id }],
+      queryKey: ["offer", { id }],
       queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`),
     });
 
     await Promise.all([
       queryClient.prefetchQuery({
         queryKey: [
-          'sandbox',
+          "sandbox",
           {
             id: offer?.namespace,
           },
         ],
-        queryFn: () =>
-          httpClient.get<SingleSandbox>(`/sandboxes/${offer?.namespace}`),
+        queryFn: () => httpClient.get<SingleSandbox>(`/sandboxes/${offer?.namespace}`),
       }),
       queryClient.prefetchQuery({
         queryKey: [
-          'assets',
+          "assets",
           {
             id: offer?.id,
           },
@@ -84,32 +79,31 @@ export const Route = createFileRoute('/offers/$id/metadata')({
       return {
         meta: [
           {
-            title: 'Offer not found',
-            description: 'Offer not found',
+            title: "Offer not found",
+            description: "Offer not found",
           },
         ],
       };
     }
 
-    const offer = getFetchedQuery<SingleOffer>(
-      queryClient,
-      ctx.loaderData?.dehydratedState,
-      ['offer', { id: params.id }],
-    );
+    const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
+      "offer",
+      { id: params.id },
+    ]);
 
     if (!offer) {
       return {
         meta: [
           {
-            title: 'Offer not found',
-            description: 'Offer not found',
+            title: "Offer not found",
+            description: "Offer not found",
           },
         ],
       };
     }
 
     return {
-      meta: generateOfferMeta(offer, 'Metadata'),
+      meta: generateOfferMeta(offer, "Metadata"),
     };
   },
 });
@@ -119,16 +113,15 @@ function MetadataPage() {
   const [offerQuery, sandboxQuery, assetsQuery] = useQueries({
     queries: [
       {
-        queryKey: ['offer', { id }],
+        queryKey: ["offer", { id }],
         queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`),
       },
       {
-        queryKey: ['sandbox', { id: serverOffer?.namespace }],
-        queryFn: () =>
-          httpClient.get<SingleSandbox>(`/sandboxes/${serverOffer?.namespace}`),
+        queryKey: ["sandbox", { id: serverOffer?.namespace }],
+        queryFn: () => httpClient.get<SingleSandbox>(`/sandboxes/${serverOffer?.namespace}`),
       },
       {
-        queryKey: ['assets', { id }],
+        queryKey: ["assets", { id }],
         queryFn: () =>
           httpClient.get<
             {
@@ -180,7 +173,7 @@ function MetadataPage() {
           </TableRow>
           <TableRow>
             <TableCell>Categories</TableCell>
-            <TableCell>{offer.categories.join(', ')}</TableCell>
+            <TableCell>{offer.categories.join(", ")}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>Refund Type</TableCell>
@@ -192,7 +185,7 @@ function MetadataPage() {
               {offer.tags
                 .filter((tag) => tag !== null)
                 .map((tag) => tag.name)
-                .join(', ')}
+                .join(", ")}
             </TableCell>
           </TableRow>
 
@@ -238,7 +231,7 @@ function Countries({ countries }: { countries: string[] | null }) {
                 key={country}
                 src={`https://flagcdn.com/16x12/${country.toLowerCase()}.webp`}
                 alt={country}
-                style={{ width: '16px', height: '12px' }}
+                style={{ width: "16px", height: "12px" }}
               />
             ))
         : countriesList(countries)}
@@ -256,26 +249,22 @@ function countriesList(countries: string[] | null) {
     return null;
   }
 
-  const regionNameFmt = new Intl.DisplayNames(['en'], { type: 'region' });
+  const regionNameFmt = new Intl.DisplayNames(["en"], { type: "region" });
 
   return countries
     .sort()
     .map((country) => {
       return regionNameFmt.of(country);
     })
-    .join(', ');
+    .join(", ");
 }
 
-function AgeRatings({
-  ageRatings,
-}: {
-  ageRatings: SingleSandbox['ageGatings'];
-}) {
+function AgeRatings({ ageRatings }: { ageRatings: SingleSandbox["ageGatings"] }) {
   return (
     <div className="flex flex-col gap-2 items-start justify-start">
       {Object.entries(ageRatings).map(([key, rating]) => (
         <div className="flex flex-row gap-2" key={key}>
-          {rating.ratingImage && rating.ratingImage !== '' ? (
+          {rating.ratingImage && rating.ratingImage !== "" ? (
             <img
               key={key}
               src={rating.ratingImage}
@@ -289,9 +278,7 @@ function AgeRatings({
             </div>
           )}
           <div className="flex flex-col gap-1 py-2">
-            <span className="text-xs text-left font-bold">
-              {rating.ratingSystem}
-            </span>
+            <span className="text-xs text-left font-bold">{rating.ratingSystem}</span>
             <span className="text-xs text-left">{rating.element}</span>
           </div>
         </div>
@@ -305,7 +292,7 @@ function Assets({ assets }: { assets: { assets: Asset }[] }) {
     return (
       <div className="flex flex-col gap-2 items-start justify-start">
         {assets
-          .filter((a) => typeof a.assets !== 'undefined')
+          .filter((a) => typeof a.assets !== "undefined")
           .filter(({ assets: asset }) => asset.platform)
           .map(({ assets: asset }) => (
             <div className="flex flex-row gap-2 items-center" key={asset._id}>
@@ -328,11 +315,9 @@ function Assets({ assets }: { assets: { assets: Asset }[] }) {
 }
 
 const bytesToSize = (bytes: number) => {
-  const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-  if (bytes === 0) return '0 Byte';
-  const i = Number.parseInt(
-    String(Math.floor(Math.log(bytes) / Math.log(1024))),
-  );
+  const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
+  if (bytes === 0) return "0 Byte";
+  const i = Number.parseInt(String(Math.floor(Math.log(bytes) / Math.log(1024))));
   if (i === 0) return `${bytes} ${sizes[i]}`;
   return `${(bytes / 1024 ** i).toFixed(1)} ${sizes[i]}`;
 };

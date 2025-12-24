@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { CaretSortIcon, CheckIcon } from '@radix-ui/react-icons';
-import { Button } from '@/components/ui/button';
+import * as React from "react";
+import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
+import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -8,22 +8,18 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@/components/ui/command';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { httpClient } from '@/lib/http-client';
-import { useCountry } from '@/hooks/use-country';
+} from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { httpClient } from "@/lib/http-client";
+import { useCountry } from "@/hooks/use-country";
 
 /**
  * Retrieves a list of countries from the API
  * Uses localstorage if exists (TTL 1 week)
  */
 async function getCountries(): Promise<string[]> {
-  const isBrowser = typeof window !== 'undefined';
-  const cacheKey = 'egdata:countries';
+  const isBrowser = typeof window !== "undefined";
+  const cacheKey = "egdata:countries";
   const cache = isBrowser ? localStorage.getItem(cacheKey) : null;
 
   const currentDateTime = new Date().getTime();
@@ -34,7 +30,7 @@ async function getCountries(): Promise<string[]> {
     return cacheData.data;
   }
 
-  const response = await httpClient.get<string[]>('/countries');
+  const response = await httpClient.get<string[]>("/countries");
   const data = response;
 
   if (isBrowser) {
@@ -60,14 +56,12 @@ export function CountriesSelector() {
   >([]);
   const { country, setCountry } = useCountry();
 
-  const regionNameFmt = new Intl.DisplayNames(['en'], { type: 'region' });
+  const regionNameFmt = new Intl.DisplayNames(["en"], { type: "region" });
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: This effect should only run once
   React.useEffect(() => {
     getCountries().then((data) =>
-      setCountries(
-        data.map((c) => ({ name: regionNameFmt.of(c) as string, code: c })),
-      ),
+      setCountries(data.map((c) => ({ name: regionNameFmt.of(c) as string, code: c }))),
     );
   }, []);
 
@@ -100,9 +94,7 @@ export function CountriesSelector() {
                   key={c.code}
                   value={c.name}
                   onSelect={(currentCountry: string) => {
-                    const country = countries.find(
-                      (c) => c.name === currentCountry,
-                    );
+                    const country = countries.find((c) => c.name === currentCountry);
                     if (country) {
                       setCountry(country.code);
                       setOpen(false);

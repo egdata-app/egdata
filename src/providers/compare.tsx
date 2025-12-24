@@ -1,9 +1,9 @@
-import { type ReactNode, useState, useEffect } from 'react';
-import { CompareContext } from '@/contexts/compare';
+import { type ReactNode, useState, useEffect } from "react";
+import { CompareContext } from "@/contexts/compare";
 
 const safeParse = (value: string | null): string[] => {
   try {
-    return JSON.parse(value || '[]');
+    return JSON.parse(value || "[]");
   } catch (error) {
     return [];
   }
@@ -15,7 +15,7 @@ export function CompareProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const loadFromSessionStorage = async () => {
-      const storedCompare = sessionStorage.getItem('compare');
+      const storedCompare = sessionStorage.getItem("compare");
       if (storedCompare) {
         setCompare(safeParse(storedCompare));
       }
@@ -28,7 +28,7 @@ export function CompareProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!isLoading) {
       // Only save if not loading initial data
-      sessionStorage.setItem('compare', JSON.stringify(compare));
+      sessionStorage.setItem("compare", JSON.stringify(compare));
     }
   }, [compare, isLoading]);
 
@@ -41,9 +41,7 @@ export function CompareProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <CompareContext.Provider
-      value={{ compare, addToCompare, removeFromCompare }}
-    >
+    <CompareContext.Provider value={{ compare, addToCompare, removeFromCompare }}>
       {children}
     </CompareContext.Provider>
   );

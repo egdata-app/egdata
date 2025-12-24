@@ -1,17 +1,14 @@
-import { Link } from '@tanstack/react-router';
-import { useState, useEffect } from 'react';
-import buildImageUrl from '@/lib/build-image-url';
-import { httpClient } from '@/lib/http-client';
-import { getImage } from '@/lib/getImage';
-import { internalNamespaces } from '@/lib/internal-namespaces';
-import { cn } from '@/lib/utils';
-import type { SingleOffer } from '@/types/single-offer';
+import { Link } from "@tanstack/react-router";
+import { useState, useEffect } from "react";
+import buildImageUrl from "@/lib/build-image-url";
+import { httpClient } from "@/lib/http-client";
+import { getImage } from "@/lib/getImage";
+import { internalNamespaces } from "@/lib/internal-namespaces";
+import { cn } from "@/lib/utils";
+import type { SingleOffer } from "@/types/single-offer";
 
 export const BaseGame: React.FC<{ offer: SingleOffer }> = ({ offer }) => {
-  if (
-    offer.offerType === 'BASE_GAME' ||
-    internalNamespaces.includes(offer.namespace)
-  ) {
+  if (offer.offerType === "BASE_GAME" || internalNamespaces.includes(offer.namespace)) {
     return null;
   }
 
@@ -28,11 +25,8 @@ export const BaseGame: React.FC<{ offer: SingleOffer }> = ({ offer }) => {
   }
 
   const imageUrl =
-    getImage(game.keyImages, [
-      'DieselGameBox',
-      'DieselGameBoxWide',
-      'OfferImageWide',
-    ])?.url || 'https://cdn.egdata.app/placeholder-1080.webp';
+    getImage(game.keyImages, ["DieselGameBox", "DieselGameBoxWide", "OfferImageWide"])?.url ||
+    "https://cdn.egdata.app/placeholder-1080.webp";
 
   return (
     <Link
@@ -46,16 +40,16 @@ export const BaseGame: React.FC<{ offer: SingleOffer }> = ({ offer }) => {
       </span>
       <span
         className={cn(
-          'absolute inset-0 z-[11]',
-          'from-gray-700/20 to-gray-700/20 backdrop-blur-sm',
-          'group-hover:backdrop-blur-none transition-all duration-700',
-          'bg-gradient-to-r group-hover:from-gray-700/30 group-hover:from-40% group-hover:to-transparent',
+          "absolute inset-0 z-[11]",
+          "from-gray-700/20 to-gray-700/20 backdrop-blur-sm",
+          "group-hover:backdrop-blur-none transition-all duration-700",
+          "bg-gradient-to-r group-hover:from-gray-700/30 group-hover:from-40% group-hover:to-transparent",
         )}
       />
       <div className="absolute inset-0">
         <img
           style={{
-            objectFit: 'cover',
+            objectFit: "cover",
           }}
           src={buildImageUrl(imageUrl, 500)}
           alt={game.title}

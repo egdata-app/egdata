@@ -1,16 +1,16 @@
-import { getQueryClient } from '@/lib/client';
-import { generateItemMeta } from '@/lib/generate-item-meta';
-import { getFetchedQuery } from '@/lib/get-fetched-query';
-import { httpClient } from '@/lib/http-client';
-import type { SingleItem } from '@/types/single-item';
-import { dehydrate, useQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
+import { getQueryClient } from "@/lib/client";
+import { generateItemMeta } from "@/lib/generate-item-meta";
+import { getFetchedQuery } from "@/lib/get-fetched-query";
+import { httpClient } from "@/lib/http-client";
+import type { SingleItem } from "@/types/single-item";
+import { dehydrate, useQuery } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/items/$id/images')({
+export const Route = createFileRoute("/items/$id/images")({
   component: () => {
     const { id } = Route.useParams();
     const { data: item } = useQuery({
-      queryKey: ['item', { id }],
+      queryKey: ["item", { id }],
       queryFn: () => httpClient.get<SingleItem>(`/items/${id}`),
     });
 
@@ -24,15 +24,8 @@ export const Route = createFileRoute('/items/$id/images')({
         <div className=" mt-2">
           <div className="flex flex-row items-start justify-start flex-wrap gap-2">
             {item.keyImages.map((image) => (
-              <div
-                key={image.md5}
-                className="flex flex-col gap-2 items-start justify-start w-1/3"
-              >
-                <img
-                  src={image.url}
-                  alt={item.title}
-                  className="rounded-lg h-auto  object-cover"
-                />
+              <div key={image.md5} className="flex flex-col gap-2 items-start justify-start w-1/3">
+                <img src={image.url} alt={item.title} className="rounded-lg h-auto  object-cover" />
                 <span className="text-sm text-muted-foreground w-full text-center">
                   {image.type}
                 </span>
@@ -61,32 +54,31 @@ export const Route = createFileRoute('/items/$id/images')({
       return {
         meta: [
           {
-            title: 'Item not found',
-            description: 'Item not found',
+            title: "Item not found",
+            description: "Item not found",
           },
         ],
       };
     }
 
-    const item = getFetchedQuery<SingleItem>(
-      queryClient,
-      ctx.loaderData?.dehydratedState,
-      ['item', { id: params.id }],
-    );
+    const item = getFetchedQuery<SingleItem>(queryClient, ctx.loaderData?.dehydratedState, [
+      "item",
+      { id: params.id },
+    ]);
 
     if (!item) {
       return {
         meta: [
           {
-            title: 'item not found',
-            description: 'item not found',
+            title: "item not found",
+            description: "item not found",
           },
         ],
       };
     }
 
     return {
-      meta: generateItemMeta(item, 'Images'),
+      meta: generateItemMeta(item, "Images"),
     };
   },
 });

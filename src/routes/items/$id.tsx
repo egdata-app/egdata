@@ -1,8 +1,8 @@
-import { httpClient } from '@/lib/http-client';
-import type { SingleItem } from '@/types/single-item';
-import { dehydrate, HydrationBoundary, useQuery } from '@tanstack/react-query';
-import { createFileRoute, Outlet, useLocation } from '@tanstack/react-router';
-import { Badge } from '@/components/ui/badge';
+import { httpClient } from "@/lib/http-client";
+import type { SingleItem } from "@/types/single-item";
+import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { createFileRoute, Outlet, useLocation } from "@tanstack/react-router";
+import { Badge } from "@/components/ui/badge";
 import {
   Table,
   TableHeader,
@@ -10,29 +10,21 @@ import {
   TableRow,
   TableCell,
   TableHead,
-} from '@/components/ui/table';
-import { Image } from '@/components/app/image';
-import { getImage } from '@/lib/getImage';
-import {
-  getPlatformsArray,
-  textPlatformIcons,
-} from '@/components/app/platform-icons';
-import { Link } from '@tanstack/react-router';
-import { internalNamespaces } from '@/lib/internal-namespaces';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { SectionsNav } from '@/components/app/offer-sections';
-import { generateItemMeta } from '@/lib/generate-item-meta';
-import { getFetchedQuery } from '@/lib/get-fetched-query';
-import { getQueryClient } from '@/lib/client';
-import { useLocale } from '@/hooks/use-locale';
-import { DateTime } from 'luxon';
+} from "@/components/ui/table";
+import { Image } from "@/components/app/image";
+import { getImage } from "@/lib/getImage";
+import { getPlatformsArray, textPlatformIcons } from "@/components/app/platform-icons";
+import { Link } from "@tanstack/react-router";
+import { internalNamespaces } from "@/lib/internal-namespaces";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { SectionsNav } from "@/components/app/offer-sections";
+import { generateItemMeta } from "@/lib/generate-item-meta";
+import { getFetchedQuery } from "@/lib/get-fetched-query";
+import { getQueryClient } from "@/lib/client";
+import { useLocale } from "@/hooks/use-locale";
+import { DateTime } from "luxon";
 
-export const Route = createFileRoute('/items/$id')({
+export const Route = createFileRoute("/items/$id")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
 
@@ -48,7 +40,7 @@ export const Route = createFileRoute('/items/$id')({
     const { queryClient } = context;
 
     await queryClient.prefetchQuery({
-      queryKey: ['item', { id }],
+      queryKey: ["item", { id }],
       queryFn: () => httpClient.get<SingleItem>(`/items/${id}`),
     });
 
@@ -66,25 +58,24 @@ export const Route = createFileRoute('/items/$id')({
       return {
         meta: [
           {
-            title: 'Item not found',
-            description: 'Item not found',
+            title: "Item not found",
+            description: "Item not found",
           },
         ],
       };
     }
 
-    const item = getFetchedQuery<SingleItem>(
-      queryClient,
-      ctx.loaderData?.dehydratedState,
-      ['item', { id: params.id }],
-    );
+    const item = getFetchedQuery<SingleItem>(queryClient, ctx.loaderData?.dehydratedState, [
+      "item",
+      { id: params.id },
+    ]);
 
     if (!item) {
       return {
         meta: [
           {
-            title: 'item not found',
-            description: 'item not found',
+            title: "item not found",
+            description: "item not found",
           },
         ],
       };
@@ -102,7 +93,7 @@ function ItemPage() {
   const { timezone } = useLocale();
   const subPath = useLocation().pathname.split(`/${id}/`)[1];
   const { data: item } = useQuery({
-    queryKey: ['item', { id }],
+    queryKey: ["item", { id }],
     queryFn: () => httpClient.get<SingleItem>(`/items/${id}`),
   });
 
@@ -123,9 +114,7 @@ function ItemPage() {
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-[300px]">Item ID</TableHead>
-                  <TableHead className="border-l-gray-300/10 border-l">
-                    {item.id}
-                  </TableHead>
+                  <TableHead className="border-l-gray-300/10 border-l">{item.id}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -133,7 +122,7 @@ function ItemPage() {
                   <TableCell className="font-medium">Namespace</TableCell>
                   <TableCell
                     className={
-                      'text-left font-mono border-l-gray-300/10 border-l underline decoration-dotted decoration-slate-600 underline-offset-4'
+                      "text-left font-mono border-l-gray-300/10 border-l underline decoration-dotted decoration-slate-600 underline-offset-4"
                     }
                   >
                     <Link to={`/sandboxes/${item.namespace}/items`}>
@@ -154,14 +143,10 @@ function ItemPage() {
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Developer</TableCell>
-                  <TableCell className="border-l-gray-300/10 border-l">
-                    {item.developer}
-                  </TableCell>
+                  <TableCell className="border-l-gray-300/10 border-l">{item.developer}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell className="font-medium">
-                    Entitlement Type
-                  </TableCell>
+                  <TableCell className="font-medium">Entitlement Type</TableCell>
                   <TableCell className="border-l-gray-300/10 border-l">
                     {item.entitlementType}
                   </TableCell>
@@ -170,9 +155,7 @@ function ItemPage() {
                   item.entitlementName !== item.id &&
                   item.entitlementName !== item.title && (
                     <TableRow>
-                      <TableCell className="font-medium">
-                        Entitlement Name
-                      </TableCell>
+                      <TableCell className="font-medium">Entitlement Name</TableCell>
                       <TableCell className="border-l-gray-300/10 border-l">
                         {item.entitlementName}
                       </TableCell>
@@ -180,37 +163,35 @@ function ItemPage() {
                   )}
                 <TableRow>
                   <TableCell className="font-medium">Status</TableCell>
-                  <TableCell className="border-l-gray-300/10 border-l">
-                    {item.status}
-                  </TableCell>
+                  <TableCell className="border-l-gray-300/10 border-l">{item.status}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Creation Date</TableCell>
                   <TableCell className="border-l-gray-300/10 border-l">
                     {DateTime.fromISO(item.creationDate)
-                      .setZone(timezone || 'UTC')
-                      .setLocale('en-GB')
+                      .setZone(timezone || "UTC")
+                      .setLocale("en-GB")
                       .toLocaleString({
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                        hour: 'numeric',
-                        minute: 'numeric',
-                        timeZoneName: 'short',
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        hour: "numeric",
+                        minute: "numeric",
+                        timeZoneName: "short",
                       })}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Last Modified</TableCell>
                   <TableCell className="border-l-gray-300/10 border-l">
-                    {new Date(item.lastModifiedDate).toLocaleString('en-UK', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                      hour: 'numeric',
-                      minute: 'numeric',
+                    {new Date(item.lastModifiedDate).toLocaleString("en-UK", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      hour: "numeric",
+                      minute: "numeric",
                       timeZone: timezone,
-                      timeZoneName: 'short',
+                      timeZoneName: "short",
                     })}
                   </TableCell>
                 </TableRow>
@@ -220,9 +201,7 @@ function ItemPage() {
                     {getPlatformsArray(item.releaseInfo)
                       .filter((platform) => textPlatformIcons[platform])
                       .map((platform) => (
-                        <span key={platform}>
-                          {textPlatformIcons[platform]}
-                        </span>
+                        <span key={platform}>{textPlatformIcons[platform]}</span>
                       ))}
                   </TableCell>
                 </TableRow>
@@ -233,8 +212,8 @@ function ItemPage() {
         <div className="flex flex-col items-start justify-center gap-4">
           <Image
             src={
-              getImage(item.keyImages, ['DieselGameBoxWide', 'DieselGameBox'])
-                ?.url ?? '/placeholder.webp'
+              getImage(item.keyImages, ["DieselGameBoxWide", "DieselGameBox"])?.url ??
+              "/placeholder.webp"
             }
             alt={item.title}
             width={1920}
@@ -251,7 +230,7 @@ function ItemPage() {
           <SectionsNav
             links={[
               {
-                id: '',
+                id: "",
                 label: (
                   <span className="inline-flex items-center gap-2">
                     <span>Item</span>
@@ -260,7 +239,7 @@ function ItemPage() {
                 href: `/items/${id}`,
               },
               {
-                id: 'assets',
+                id: "assets",
                 label: (
                   <span className="inline-flex items-center gap-2">
                     <span>Assets</span>
@@ -269,7 +248,7 @@ function ItemPage() {
                 href: `/items/${id}/assets`,
               },
               {
-                id: 'images',
+                id: "images",
                 label: (
                   <span className="inline-flex items-center gap-2">
                     <span>Images</span>
@@ -278,7 +257,7 @@ function ItemPage() {
                 href: `/items/${id}/images`,
               },
               {
-                id: 'builds',
+                id: "builds",
                 label: (
                   <span className="inline-flex items-center gap-2">
                     <span>Builds</span>
@@ -287,7 +266,7 @@ function ItemPage() {
                 href: `/items/${id}/builds`,
               },
               {
-                id: 'changelog',
+                id: "changelog",
                 label: (
                   <span className="inline-flex items-center gap-2">
                     <span>Changelog</span>
@@ -296,7 +275,7 @@ function ItemPage() {
                 href: `/items/${id}/changelog`,
               },
             ]}
-            activeSection={subPath ?? ''}
+            activeSection={subPath ?? ""}
             onSectionChange={(location) => {
               navigate({
                 to: `/items/${id}/${location}`,

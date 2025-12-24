@@ -36,7 +36,7 @@ export const Route = createFileRoute("/api/token")({
             { message: "Invalid request" },
             {
               status: 400,
-            }
+            },
           );
         }
 
@@ -45,26 +45,17 @@ export const Route = createFileRoute("/api/token")({
         searchParams.append("code", code.toString());
         searchParams.append("grant_type", grantType.toString());
 
-        const response = await fetch(
-          "https://api.epicgames.dev/epic/oauth/v2/token",
-          {
-            headers: {
-              Authorization: `Basic ${Buffer.from(
-                `${ClientID}:${ClientSecret}`
-              ).toString("base64")}`,
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-            method: "POST",
-            body: searchParams,
-          }
-        );
+        const response = await fetch("https://api.epicgames.dev/epic/oauth/v2/token", {
+          headers: {
+            Authorization: `Basic ${Buffer.from(`${ClientID}:${ClientSecret}`).toString("base64")}`,
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          method: "POST",
+          body: searchParams,
+        });
 
         if (!response.ok) {
-          console.error(
-            "Failed to save state",
-            response.status,
-            await response.json()
-          );
+          console.error("Failed to save state", response.status, await response.json());
           throw new Error("Failed to save state");
         }
 

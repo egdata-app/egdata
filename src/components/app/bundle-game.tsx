@@ -1,18 +1,18 @@
-import { Link } from '@tanstack/react-router';
-import { useQuery } from '@tanstack/react-query';
-import { useCountry } from '@/hooks/use-country';
-import buildImageUrl from '@/lib/build-image-url';
-import { getImage } from '@/lib/getImage';
-import { httpClient } from '@/lib/http-client';
-import { internalNamespaces } from '@/lib/internal-namespaces';
-import { cn } from '@/lib/utils';
-import type { SingleOffer } from '@/types/single-offer';
+import { Link } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
+import { useCountry } from "@/hooks/use-country";
+import buildImageUrl from "@/lib/build-image-url";
+import { getImage } from "@/lib/getImage";
+import { httpClient } from "@/lib/http-client";
+import { internalNamespaces } from "@/lib/internal-namespaces";
+import { cn } from "@/lib/utils";
+import type { SingleOffer } from "@/types/single-offer";
 
 export const OfferInBundle: React.FC<{ offer: SingleOffer }> = ({ offer }) => {
   const { country } = useCountry();
   const { data: bundles } = useQuery({
     queryKey: [
-      'in-bundles',
+      "in-bundles",
       {
         id: offer.id,
         country,
@@ -27,7 +27,7 @@ export const OfferInBundle: React.FC<{ offer: SingleOffer }> = ({ offer }) => {
   });
 
   if (
-    offer.offerType === 'BUNDLE' ||
+    offer.offerType === "BUNDLE" ||
     internalNamespaces.includes(offer.namespace) ||
     !bundles ||
     bundles?.length === 0
@@ -38,11 +38,8 @@ export const OfferInBundle: React.FC<{ offer: SingleOffer }> = ({ offer }) => {
   const bundle = bundles[0];
 
   const imageUrl =
-    getImage(bundle.keyImages, [
-      'DieselGameBox',
-      'DieselGameBoxWide',
-      'OfferImageWide',
-    ])?.url || 'https://cdn.egdata.app/placeholder-1080.webp';
+    getImage(bundle.keyImages, ["DieselGameBox", "DieselGameBoxWide", "OfferImageWide"])?.url ||
+    "https://cdn.egdata.app/placeholder-1080.webp";
 
   return (
     <Link
@@ -56,16 +53,16 @@ export const OfferInBundle: React.FC<{ offer: SingleOffer }> = ({ offer }) => {
       </span>
       <span
         className={cn(
-          'absolute inset-0 z-[11]',
-          'from-gray-700/20 to-gray-700/20 backdrop-blur-sm',
-          'group-hover:backdrop-blur-none transition-all duration-700',
-          'bg-gradient-to-r group-hover:from-gray-700/30 group-hover:from-40% group-hover:to-transparent',
+          "absolute inset-0 z-[11]",
+          "from-gray-700/20 to-gray-700/20 backdrop-blur-sm",
+          "group-hover:backdrop-blur-none transition-all duration-700",
+          "bg-gradient-to-r group-hover:from-gray-700/30 group-hover:from-40% group-hover:to-transparent",
         )}
       />
       <div className="absolute inset-0">
         <img
           style={{
-            objectFit: 'cover',
+            objectFit: "cover",
           }}
           src={buildImageUrl(imageUrl, 500)}
           alt={bundle.title}

@@ -1,4 +1,4 @@
-import type { SingleOfferWithPrice } from './single-offer-price';
+import type { SingleOfferWithPrice } from "./single-offer-price";
 
 export interface SearchV2Response {
   total: number;

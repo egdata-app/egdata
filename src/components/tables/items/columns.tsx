@@ -1,12 +1,8 @@
-import { textPlatformIcons } from '@/components/app/platform-icons';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
-import type { SingleItem } from '@/types/single-item';
-import { Link } from '@tanstack/react-router';
-import type { ColumnDef } from '@tanstack/react-table';
+import { textPlatformIcons } from "@/components/app/platform-icons";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import type { SingleItem } from "@/types/single-item";
+import { Link } from "@tanstack/react-router";
+import type { ColumnDef } from "@tanstack/react-table";
 import {
   AtomIcon,
   BadgeCheckIcon,
@@ -16,7 +12,7 @@ import {
   MoonIcon,
   UserIcon,
   WandIcon,
-} from 'lucide-react';
+} from "lucide-react";
 
 export const types: {
   value: string;
@@ -24,33 +20,33 @@ export const types: {
   icon: React.ComponentType<{ className?: string }>;
 }[] = [
   {
-    value: 'EXECUTABLE',
-    label: 'Executable',
+    value: "EXECUTABLE",
+    label: "Executable",
     icon: MonitorCogIcon,
   },
   {
-    value: 'AUDIENCE',
-    label: 'Audience',
+    value: "AUDIENCE",
+    label: "Audience",
     icon: UserIcon,
   },
   {
-    value: 'ENTITLEMENT',
-    label: 'Entitlement',
+    value: "ENTITLEMENT",
+    label: "Entitlement",
     icon: AtomIcon,
   },
   {
-    value: 'INGAMEITEM',
-    label: 'In-game item',
+    value: "INGAMEITEM",
+    label: "In-game item",
     icon: BookMarkedIcon,
   },
   {
-    value: 'SUBSCRIPTION',
-    label: 'Subscription',
+    value: "SUBSCRIPTION",
+    label: "Subscription",
     icon: CalendarCheckIcon,
   },
   {
-    value: 'TEST',
-    label: 'Test',
+    value: "TEST",
+    label: "Test",
     icon: WandIcon,
   },
 ];
@@ -61,13 +57,13 @@ export const statuses: {
   icon: React.ComponentType<{ className?: string }>;
 }[] = [
   {
-    value: 'ACTIVE',
-    label: 'Active',
+    value: "ACTIVE",
+    label: "Active",
     icon: BadgeCheckIcon,
   },
   {
-    value: 'SUNSET',
-    label: 'Sunset',
+    value: "SUNSET",
+    label: "Sunset",
     icon: MoonIcon,
   },
 ];
@@ -78,76 +74,58 @@ export const platforms: {
   icon: React.ComponentType<{ className?: string }>;
 }[] = [
   {
-    value: 'Windows',
-    label: 'Windows',
+    value: "Windows",
+    label: "Windows",
+    icon: ({ className }) => <span className={className}>{textPlatformIcons.Windows}</span>,
+  },
+  {
+    value: "Mac",
+    label: "Mac",
+    icon: ({ className }) => <span className={className}>{textPlatformIcons.Mac}</span>,
+  },
+  {
+    value: "Android",
+    label: "Android",
+    icon: ({ className }) => <span className={className}>{textPlatformIcons.Android}</span>,
+  },
+  {
+    value: "SteamVR / HTC Vive",
+    label: "SteamVR",
     icon: ({ className }) => (
-      <span className={className}>{textPlatformIcons.Windows}</span>
+      <span className={className}>{textPlatformIcons["SteamVR / HTC Vive"]}</span>
     ),
   },
   {
-    value: 'Mac',
-    label: 'Mac',
-    icon: ({ className }) => (
-      <span className={className}>{textPlatformIcons.Mac}</span>
-    ),
+    value: "Win32",
+    label: "Win32",
+    icon: ({ className }) => <span className={className}>{textPlatformIcons.Win32}</span>,
   },
   {
-    value: 'Android',
-    label: 'Android',
-    icon: ({ className }) => (
-      <span className={className}>{textPlatformIcons.Android}</span>
-    ),
+    value: "PS4",
+    label: "PS4",
+    icon: ({ className }) => <span className={className}>{textPlatformIcons.PS4}</span>,
   },
   {
-    value: 'SteamVR / HTC Vive',
-    label: 'SteamVR',
-    icon: ({ className }) => (
-      <span className={className}>
-        {textPlatformIcons['SteamVR / HTC Vive']}
-      </span>
-    ),
+    value: "HTML5",
+    label: "HTML5",
+    icon: ({ className }) => <span className={className}>{textPlatformIcons.HTML5}</span>,
   },
   {
-    value: 'Win32',
-    label: 'Win32',
-    icon: ({ className }) => (
-      <span className={className}>{textPlatformIcons.Win32}</span>
-    ),
+    value: "Linux",
+    label: "Linux",
+    icon: ({ className }) => <span className={className}>{textPlatformIcons.Linux}</span>,
   },
   {
-    value: 'PS4',
-    label: 'PS4',
-    icon: ({ className }) => (
-      <span className={className}>{textPlatformIcons.PS4}</span>
-    ),
-  },
-  {
-    value: 'HTML5',
-    label: 'HTML5',
-    icon: ({ className }) => (
-      <span className={className}>{textPlatformIcons.HTML5}</span>
-    ),
-  },
-  {
-    value: 'Linux',
-    label: 'Linux',
-    icon: ({ className }) => (
-      <span className={className}>{textPlatformIcons.Linux}</span>
-    ),
-  },
-  {
-    value: 'iOS',
-    label: 'iOS',
-    icon: ({ className }) => (
-      <span className={className}>{textPlatformIcons.iOS}</span>
-    ),
+    value: "iOS",
+    label: "iOS",
+    icon: ({ className }) => <span className={className}>{textPlatformIcons.iOS}</span>,
   },
 ];
 
 export const columns: ColumnDef<SingleItem>[] = [
   {
-    accessorKey: 'id',
-    header: 'ID',
+    accessorKey: "id",
+    header: "ID",
     enableSorting: true,
     enableColumnFilter: true,
     cell: (info) => {
@@ -160,8 +138,8 @@ export const columns: ColumnDef<SingleItem>[] = [
     },
   },
   {
-    accessorKey: 'title',
-    header: 'Title',
+    accessorKey: "title",
+    header: "Title",
     enableSorting: true,
     enableColumnFilter: true,
     cell: (info) => {
@@ -171,33 +149,29 @@ export const columns: ColumnDef<SingleItem>[] = [
       }
       return (
         <Tooltip>
-          <TooltipTrigger>
-            {(info.getValue() as string).slice(0, 40)}...
-          </TooltipTrigger>
-          <TooltipContent className="max-w-xs">
-            {info.getValue() as string}
-          </TooltipContent>
+          <TooltipTrigger>{(info.getValue() as string).slice(0, 40)}...</TooltipTrigger>
+          <TooltipContent className="max-w-xs">{info.getValue() as string}</TooltipContent>
         </Tooltip>
       );
     },
   },
   {
-    accessorKey: 'status',
-    header: 'Status',
+    accessorKey: "status",
+    header: "Status",
     enableSorting: true,
     enableColumnFilter: true,
     cell: (info) => info.getValue(),
   },
   {
-    accessorKey: 'entitlementType',
-    header: 'Type',
+    accessorKey: "entitlementType",
+    header: "Type",
     enableSorting: true,
     enableColumnFilter: true,
     cell: (info) => info.getValue(),
   },
   {
-    accessorKey: 'developer',
-    header: 'Developer',
+    accessorKey: "developer",
+    header: "Developer",
     enableSorting: true,
     enableColumnFilter: true,
     cell: (info) => {
@@ -211,17 +185,15 @@ export const columns: ColumnDef<SingleItem>[] = [
     },
   },
   {
-    accessorKey: 'platforms',
-    header: 'Platforms',
+    accessorKey: "platforms",
+    header: "Platforms",
     enableSorting: true,
     enableColumnFilter: true,
     getUniqueValues: ({ releaseInfo }) => {
       return releaseInfo.flatMap((release) => release.platform);
     },
     cell: (info) => {
-      const platforms = info.row.original.releaseInfo.flatMap(
-        (release) => release.platform
-      );
+      const platforms = info.row.original.releaseInfo.flatMap((release) => release.platform);
       return (
         <div className="flex flex-row gap-2 items-center justify-center">
           {platforms.map((platform) => (
@@ -236,9 +208,7 @@ export const columns: ColumnDef<SingleItem>[] = [
       console.log(row, columnId, value);
       const data = row.original;
 
-      const rowPlatforms = data.releaseInfo.flatMap(
-        (release) => release.platform
-      );
+      const rowPlatforms = data.releaseInfo.flatMap((release) => release.platform);
 
       if (value.length === 0) {
         return true;
@@ -248,15 +218,15 @@ export const columns: ColumnDef<SingleItem>[] = [
     },
   },
   {
-    accessorKey: 'lastModifiedDate',
-    header: 'Last Modified',
+    accessorKey: "lastModifiedDate",
+    header: "Last Modified",
     enableSorting: true,
     enableColumnFilter: true,
     cell: (info) =>
-      new Date(info.getValue() as string).toLocaleDateString('en-UK', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
+      new Date(info.getValue() as string).toLocaleDateString("en-UK", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
       }),
   },
 ];

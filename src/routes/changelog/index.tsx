@@ -1,20 +1,15 @@
-import * as React from 'react';
-import { createFileRoute } from '@tanstack/react-router';
-import type { SingleOffer } from '@/types/single-offer';
-import type { SingleItem } from '@/types/single-item';
-import { z } from 'zod';
-import { zodSearchValidator } from '@tanstack/router-zod-adapter';
-import { httpClient } from '@/lib/http-client';
-import {
-  dehydrate,
-  HydrationBoundary,
-  keepPreviousData,
-  useQuery,
-} from '@tanstack/react-query';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { DynamicPagination } from '@/components/app/dynamic-pagination';
-import { ChangeTracker } from '@/components/app/changelog/item';
+import * as React from "react";
+import { createFileRoute } from "@tanstack/react-router";
+import type { SingleOffer } from "@/types/single-offer";
+import type { SingleItem } from "@/types/single-item";
+import { z } from "zod";
+import { zodSearchValidator } from "@tanstack/router-zod-adapter";
+import { httpClient } from "@/lib/http-client";
+import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { DynamicPagination } from "@/components/app/dynamic-pagination";
+import { ChangeTracker } from "@/components/app/changelog/item";
 
 export interface Root {
   hits: (OfferHit | ItemHit | AssetHit | Hit)[];
@@ -38,24 +33,24 @@ interface Metadata {
 }
 
 interface Change {
-  changeType: 'insert' | 'update' | 'delete';
+  changeType: "insert" | "update" | "delete";
   field: string;
   newValue: unknown;
   oldValue: unknown;
 }
 
 interface OfferHit extends DefaultHit {
-  metadata: Metadata & { contextType: 'offer' };
+  metadata: Metadata & { contextType: "offer" };
   document: SingleOffer;
 }
 
 interface ItemHit extends DefaultHit {
-  metadata: Metadata & { contextType: 'item' };
+  metadata: Metadata & { contextType: "item" };
   document: SingleItem;
 }
 
 interface AssetHit extends DefaultHit {
-  metadata: Metadata & { contextType: 'asset' };
+  metadata: Metadata & { contextType: "asset" };
   document: SingleItem;
 }
 
@@ -71,7 +66,7 @@ const searchParamsSchema = z.object({
   page: z.number().optional(),
 });
 
-export const Route = createFileRoute('/changelog/')({
+export const Route = createFileRoute("/changelog/")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
 
@@ -85,19 +80,19 @@ export const Route = createFileRoute('/changelog/')({
   loader: async ({ context, search }) => {
     const { queryClient } = context;
 
-    const query = search?.query ?? '';
+    const query = search?.query ?? "";
     const page = search?.page ?? 1;
 
     await queryClient.prefetchQuery({
       queryKey: [
-        'changelogs',
+        "changelogs",
         {
           query,
           page,
         },
       ],
       queryFn: () =>
-        httpClient.get<Root>('/search/changelog', {
+        httpClient.get<Root>("/search/changelog", {
           params: {
             query,
             page,
@@ -120,7 +115,7 @@ export const Route = createFileRoute('/changelog/')({
     return {
       meta: [
         {
-          title: 'Changelog | egdata.app',
+          title: "Changelog | egdata.app",
         },
       ],
     };
@@ -132,17 +127,17 @@ function ChangelogPage() {
   const navigate = Route.useNavigate();
   const search = Route.useSearch();
   const [page, setPage] = React.useState(initialPage || 1);
-  const [query, setQuery] = React.useState(initialQuery || '');
+  const [query, setQuery] = React.useState(initialQuery || "");
   const { data, isLoading, isError } = useQuery({
     queryKey: [
-      'changelogs',
+      "changelogs",
       {
         query,
         page,
       },
     ],
     queryFn: () =>
-      httpClient.get<Root>('/search/changelog', {
+      httpClient.get<Root>("/search/changelog", {
         params: {
           query,
           page,
@@ -158,18 +153,16 @@ function ChangelogPage() {
 
     // Add query params to URL
     const url = new URL(window.location.href);
-    url.searchParams.set('page', '1');
-    url.searchParams.set('query', newQuery);
-    window.history.pushState({}, '', url.toString());
+    url.searchParams.set("page", "1");
+    url.searchParams.set("query", newQuery);
+    window.history.pushState({}, "", url.toString());
   };
 
-  const totalPages = Math.ceil(
-    (data?.estimatedTotalHits || 0) / (data?.limit || 1),
-  );
+  const totalPages = Math.ceil((data?.estimatedTotalHits || 0) / (data?.limit || 1));
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
     navigate({
       search: {
         ...search,
@@ -206,11 +199,7 @@ function ChangelogPage() {
             />
           ))}
       </div>
-      <DynamicPagination
-        totalPages={totalPages}
-        currentPage={page}
-        setPage={handlePageChange}
-      />
+      <DynamicPagination totalPages={totalPages} currentPage={page} setPage={handlePageChange} />
     </div>
   );
 }

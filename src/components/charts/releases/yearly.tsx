@@ -3,13 +3,13 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from '@/components/ui/chart';
-import { httpClient } from '@/lib/http-client';
-import { linearRegression } from '@/lib/linear-regression';
-import { keepPreviousData } from '@tanstack/react-query';
-import { useQuery } from '@tanstack/react-query';
-import { useMemo } from 'react';
-import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts';
+} from "@/components/ui/chart";
+import { httpClient } from "@/lib/http-client";
+import { linearRegression } from "@/lib/linear-regression";
+import { keepPreviousData } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
+import { useMemo } from "react";
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 
 interface YearlyChartPoint {
   year: number;
@@ -24,17 +24,17 @@ interface YearlyRelease {
 }
 
 export const getReleasesByYear = async () =>
-  httpClient.get<YearlyRelease[]>('/stats/releases/yearly');
+  httpClient.get<YearlyRelease[]>("/stats/releases/yearly");
 
 const yearlyChartConfig: ChartConfig = {
-  releases: { label: 'Releases', color: 'hsl(var(--chart-1))' },
-  ongoing: { label: 'YTD', color: 'oklch(0.6 0.118 184.704)' },
-  prediction: { label: 'Prediction', color: 'oklch(0.398 0.07 227.392)' },
+  releases: { label: "Releases", color: "hsl(var(--chart-1))" },
+  ongoing: { label: "YTD", color: "oklch(0.6 0.118 184.704)" },
+  prediction: { label: "Prediction", color: "oklch(0.398 0.07 227.392)" },
 } as const;
 
 export function ReleasesByYear() {
   const { data, isLoading } = useQuery({
-    queryKey: ['releases-by-year'],
+    queryKey: ["releases-by-year"],
     queryFn: getReleasesByYear,
     placeholderData: keepPreviousData,
   });
@@ -64,10 +64,7 @@ export function ReleasesByYear() {
     const points: YearlyChartPoint[] = base.map((row, i) => {
       if (isCurrentYearOngoing && i === lastIdx) {
         const ongoing = row.releases;
-        const remainderPrediction = Math.max(
-          0,
-          (forecastCurrentTotal ?? 0) - ongoing,
-        );
+        const remainderPrediction = Math.max(0, (forecastCurrentTotal ?? 0) - ongoing);
         return {
           year: row.year,
           releases: 0,
@@ -98,22 +95,10 @@ export function ReleasesByYear() {
   if (!chartData.length) return null;
 
   return (
-    <ChartContainer
-      config={yearlyChartConfig}
-      className="aspect-auto h-[300px] w-full"
-    >
-      <BarChart
-        accessibilityLayer
-        data={chartData}
-        margin={{ left: 12, right: 12 }}
-      >
+    <ChartContainer config={yearlyChartConfig} className="aspect-auto h-[300px] w-full">
+      <BarChart accessibilityLayer data={chartData} margin={{ left: 12, right: 12 }}>
         <CartesianGrid vertical={false} />
-        <XAxis
-          dataKey="year"
-          tickMargin={6}
-          tickLine={false}
-          axisLine={false}
-        />
+        <XAxis dataKey="year" tickMargin={6} tickLine={false} axisLine={false} />
 
         <ChartTooltip
           content={
@@ -131,11 +116,7 @@ export function ReleasesByYear() {
           stackId="releases"
           radius={[8, 8, 0, 0]}
         />
-        <Bar
-          dataKey="ongoing"
-          fill="var(--color-ongoing)"
-          stackId="releases"
-        />
+        <Bar dataKey="ongoing" fill="var(--color-ongoing)" stackId="releases" />
         <Bar
           dataKey="prediction"
           fill="var(--color-prediction)"

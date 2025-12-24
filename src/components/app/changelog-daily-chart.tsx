@@ -1,42 +1,32 @@
-import * as React from 'react';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import * as React from "react";
+import { LineChart, Line, CartesianGrid, XAxis, YAxis } from "recharts";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from '@/components/ui/chart';
-import type { ChangelogStats } from '@/types/changelog';
+} from "@/components/ui/chart";
+import type { ChangelogStats } from "@/types/changelog";
 
 const chartConfig = {
   views: {
-    label: 'Daily Changes',
+    label: "Daily Changes",
   },
   changes: {
-    label: 'Daily Changes',
-    color: 'hsl(var(--chart-1))',
+    label: "Daily Changes",
+    color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig;
 
-export function ChangelogDailyChart({
-  chartData,
-}: { chartData: ChangelogStats['dailyChanges'] }) {
+export function ChangelogDailyChart({ chartData }: { chartData: ChangelogStats["dailyChanges"] }) {
   // Fill the missing days from the beginning to the end
   const filledData = React.useMemo(() => {
     if (!chartData) return {};
 
     const filledData = {};
     const keys = Object.keys(chartData);
-    const sortedKeys = keys.sort(
-      (a, b) => new Date(a).getTime() - new Date(b).getTime(),
-    );
+    const sortedKeys = keys.sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
 
     if (sortedKeys.length === 0) return {};
 
@@ -49,8 +39,8 @@ export function ChangelogDailyChart({
       currentDate.setDate(currentDate.getDate() + 1)
     ) {
       const year = currentDate.getFullYear();
-      const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-      const day = String(currentDate.getDate()).padStart(2, '0');
+      const month = String(currentDate.getMonth() + 1).padStart(2, "0");
+      const day = String(currentDate.getDate()).padStart(2, "0");
       const formattedDate = `${year}-${month}-${day}`;
 
       filledData[formattedDate] = chartData[formattedDate] || 0;
@@ -64,16 +54,11 @@ export function ChangelogDailyChart({
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
           <CardTitle>Offer Changes</CardTitle>
-          <CardDescription>
-            Showing daily changes for the last year
-          </CardDescription>
+          <CardDescription>Showing daily changes for the last year</CardDescription>
         </div>
       </CardHeader>
       <CardContent className="px-2 sm:p-6">
-        <ChartContainer
-          config={chartConfig}
-          className="aspect-auto h-[250px] w-full"
-        >
+        <ChartContainer config={chartConfig} className="aspect-auto h-[250px] w-full">
           <LineChart
             accessibilityLayer
             data={Object.entries(filledData || {}).map(([key, value]) => ({
@@ -94,9 +79,9 @@ export function ChangelogDailyChart({
               minTickGap={32}
               tickFormatter={(value) => {
                 const date = new Date(value);
-                return date.toLocaleDateString('en-US', {
-                  month: 'short',
-                  day: 'numeric',
+                return date.toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
                 });
               }}
             />
@@ -112,10 +97,10 @@ export function ChangelogDailyChart({
                   className="w-[150px]"
                   nameKey="views"
                   labelFormatter={(value) => {
-                    return new Date(value).toLocaleDateString('en-US', {
-                      month: 'short',
-                      day: 'numeric',
-                      year: 'numeric',
+                    return new Date(value).toLocaleDateString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                      year: "numeric",
                     });
                   }}
                 />
@@ -123,8 +108,8 @@ export function ChangelogDailyChart({
             />
             <Line
               type="monotone"
-              dataKey={'changes'}
-              stroke={'var(--color-changes)'}
+              dataKey={"changes"}
+              stroke={"var(--color-changes)"}
               strokeWidth={2}
               dot={false}
             />

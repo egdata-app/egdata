@@ -1,4 +1,4 @@
-import { httpClient } from '@/lib/http-client';
+import { httpClient } from "@/lib/http-client";
 
 export const getStats = async ({ country }: { country: string }) => {
   return httpClient.get<{
@@ -6,7 +6,7 @@ export const getStats = async ({ country }: { country: string }) => {
     trackedPriceChanges: number;
     activeDiscounts: number;
     giveaways: number;
-  }>('/stats/homepage', {
+  }>("/stats/homepage", {
     params: {
       country,
     },

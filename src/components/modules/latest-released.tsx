@@ -1,21 +1,21 @@
-import { getLatestReleased } from '@/queries/latest-released';
-import { OfferCard } from '@/components/app/offer-card';
+import { getLatestReleased } from "@/queries/latest-released";
+import { OfferCard } from "@/components/app/offer-card";
 import {
   Carousel,
   CarouselPrevious,
   CarouselContent,
   CarouselItem,
   CarouselNext,
-} from '../ui/carousel';
-import { useQuery } from '@tanstack/react-query';
-import { useCountry } from '@/hooks/use-country';
-import { ArrowRightIcon } from 'lucide-react';
-import { Link } from '@tanstack/react-router';
+} from "../ui/carousel";
+import { useQuery } from "@tanstack/react-query";
+import { useCountry } from "@/hooks/use-country";
+import { ArrowRightIcon } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 
 export function LatestReleased() {
   const { country } = useCountry();
   const { data: offers, isLoading: loading } = useQuery({
-    queryKey: ['latest-released', { country }],
+    queryKey: ["latest-released", { country }],
     queryFn: () => getLatestReleased({ country }),
   });
 
@@ -27,10 +27,10 @@ export function LatestReleased() {
         className="text-xl font-bold text-left inline-flex group items-center gap-2"
         to="/search"
         search={{
-          sortBy: 'releaseDate',
+          sortBy: "releaseDate",
         }}
       >
-        Latest Released{' '}
+        Latest Released{" "}
         <ArrowRightIcon className="w-6 h-6 inline-block group-hover:translate-x-1 transition-transform duration-300 ease-in-out" />
       </Link>
       <Carousel className="mt-2 h-full p-4">

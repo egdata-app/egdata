@@ -1,7 +1,7 @@
-import type { SearchV2Response, Offer } from '@/types/search-v2';
-import { GameCardSkeleton } from '@/components/app/offer-card';
-import { DynamicPagination } from '@/components/app/dynamic-pagination';
-import React from 'react';
+import type { SearchV2Response, Offer } from "@/types/search-v2";
+import { GameCardSkeleton } from "@/components/app/offer-card";
+import { DynamicPagination } from "@/components/app/dynamic-pagination";
+import React from "react";
 
 export interface SearchFormV2Props {
   query: Record<string, unknown>;
@@ -13,21 +13,15 @@ export interface SearchFormV2Props {
 function formatPrice(offer: Offer) {
   if (!offer.price || !offer.price.price) return null;
   const { discountPrice, currencyCode } = offer.price.price;
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: currencyCode || 'USD',
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: currencyCode || "USD",
   }).format(discountPrice / 100);
 }
 
-export function SearchFormV2({
-  query,
-  onQueryChange,
-  loading,
-  results,
-}: SearchFormV2Props) {
+export function SearchFormV2({ query, onQueryChange, loading, results }: SearchFormV2Props) {
   // Extract pagination info
-  const page =
-    typeof query.page === 'number' ? query.page : Number(query.page) || 1;
+  const page = typeof query.page === "number" ? query.page : Number(query.page) || 1;
   const limit = results?.limit || 28;
   const total = results?.total || 0;
   const totalPages = Math.ceil(total / limit);
@@ -35,7 +29,7 @@ export function SearchFormV2({
   // Handler for page change
   const handlePageChange = (newPage: number) => {
     onQueryChange({ page: newPage });
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   // Create a static array for skeleton keys
@@ -56,25 +50,16 @@ export function SearchFormV2({
       {!loading && results && results.offers.length > 0 && (
         <div className="grid grid-cols-1 gap-4 mt-8 md:grid-cols-2 lg:grid-cols-5">
           {results.offers.map((offer: Offer) => (
-            <div
-              key={offer.id}
-              className="bg-card rounded-xl p-4 flex flex-col items-start"
-            >
+            <div key={offer.id} className="bg-card rounded-xl p-4 flex flex-col items-start">
               <img
                 src={offer.keyImages?.[0]?.url}
                 alt={offer.title}
                 className="w-full h-48 object-cover rounded-lg mb-2"
                 loading="lazy"
               />
-              <h3 className="text-lg font-bold truncate w-full">
-                {offer.title}
-              </h3>
-              <div className="text-sm text-gray-400 truncate w-full">
-                {offer.seller?.name}
-              </div>
-              <div className="text-primary font-semibold mt-2">
-                {formatPrice(offer)}
-              </div>
+              <h3 className="text-lg font-bold truncate w-full">{offer.title}</h3>
+              <div className="text-sm text-gray-400 truncate w-full">{offer.seller?.name}</div>
+              <div className="text-primary font-semibold mt-2">{formatPrice(offer)}</div>
             </div>
           ))}
         </div>

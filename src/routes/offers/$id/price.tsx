@@ -1,11 +1,11 @@
-import { RegionalPricing } from '@/components/app/regional-pricing';
-import { generateOfferMeta } from '@/lib/generate-offer-meta';
-import { httpClient } from '@/lib/http-client';
-import type { SingleOffer } from '@/types/single-offer';
-import { dehydrate } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
+import { RegionalPricing } from "@/components/app/regional-pricing";
+import { generateOfferMeta } from "@/lib/generate-offer-meta";
+import { httpClient } from "@/lib/http-client";
+import type { SingleOffer } from "@/types/single-offer";
+import { dehydrate } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute('/offers/$id/price')({
+export const Route = createFileRoute("/offers/$id/price")({
   component: () => {
     const { id } = Route.useParams();
 
@@ -22,7 +22,7 @@ export const Route = createFileRoute('/offers/$id/price')({
     const { queryClient } = context;
 
     const offer = await queryClient.ensureQueryData({
-      queryKey: ['offer', { id }],
+      queryKey: ["offer", { id }],
       queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`),
     });
 
@@ -38,8 +38,8 @@ export const Route = createFileRoute('/offers/$id/price')({
       return {
         meta: [
           {
-            title: 'Offer not found',
-            description: 'Offer not found',
+            title: "Offer not found",
+            description: "Offer not found",
           },
         ],
       };
@@ -51,15 +51,15 @@ export const Route = createFileRoute('/offers/$id/price')({
       return {
         meta: [
           {
-            title: 'Offer not found',
-            description: 'Offer not found',
+            title: "Offer not found",
+            description: "Offer not found",
           },
         ],
       };
     }
 
     return {
-      meta: generateOfferMeta(offer, 'Price'),
+      meta: generateOfferMeta(offer, "Price"),
     };
   },
 });

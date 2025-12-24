@@ -1,22 +1,22 @@
-import { useQuery } from '@tanstack/react-query';
-import { Skeleton } from '../ui/skeleton';
-import { ScrollArea, ScrollBar } from '../ui/scroll-area';
-import { mobileFreebiesQuery } from '@/queries/mobile-freebies';
-import { Button } from '@/components/ui/button';
-import { ArrowDown } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { useState, useEffect } from 'react';
-import { Image } from '@/components/app/image';
-import { getImage } from '@/lib/getImage';
-import { Link } from '@tanstack/react-router';
-import { useLocale } from '@/hooks/use-locale';
-import { calculatePrice } from '@/lib/calculate-price';
-import type { GiveawayOffer } from '@/types/giveaways';
-import { createFileRoute } from '@tanstack/react-router';
-import { platformIcons } from '@/components/app/platform-icons';
-import { DateTime } from 'luxon';
+import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "../ui/skeleton";
+import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { mobileFreebiesQuery } from "@/queries/mobile-freebies";
+import { Button } from "@/components/ui/button";
+import { ArrowDown } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { useState, useEffect } from "react";
+import { Image } from "@/components/app/image";
+import { getImage } from "@/lib/getImage";
+import { Link } from "@tanstack/react-router";
+import { useLocale } from "@/hooks/use-locale";
+import { calculatePrice } from "@/lib/calculate-price";
+import type { GiveawayOffer } from "@/types/giveaways";
+import { createFileRoute } from "@tanstack/react-router";
+import { platformIcons } from "@/components/app/platform-icons";
+import { DateTime } from "luxon";
 
-export const Route = createFileRoute('/offers/$id')({});
+export const Route = createFileRoute("/offers/$id")({});
 
 export function MobileFreebiesCarousel() {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -49,12 +49,9 @@ export function MobileFreebiesCarousel() {
           onClick={() => setIsExpanded(!isExpanded)}
         >
           <ArrowDown
-            className={cn(
-              'h-5 w-5 m-2 transition-transform ease-in-out duration-300',
-              {
-                '-rotate-180': isExpanded,
-              },
-            )}
+            className={cn("h-5 w-5 m-2 transition-transform ease-in-out duration-300", {
+              "-rotate-180": isExpanded,
+            })}
           />
         </Button>
       </div>
@@ -82,8 +79,8 @@ function MobileGiveawayCard({ offer }: { offer: GiveawayOffer }) {
   const isUpcoming = startDate > now;
 
   const priceFmtr = new Intl.NumberFormat(locale, {
-    style: 'currency',
-    currency: offer.price?.price.currencyCode || 'USD',
+    style: "currency",
+    currency: offer.price?.price.currencyCode || "USD",
   });
 
   return (
@@ -96,11 +93,11 @@ function MobileGiveawayCard({ offer }: { offer: GiveawayOffer }) {
         <Image
           src={
             getImage(offer?.keyImages || [], [
-              'DieselGameBoxWide',
-              'OfferImageWide',
-              'Featured',
-              'DieselStoreFrontWide',
-              'VaultClosed',
+              "DieselGameBoxWide",
+              "OfferImageWide",
+              "Featured",
+              "DieselStoreFrontWide",
+              "VaultClosed",
             ])?.url
           }
           alt={offer.title}
@@ -127,7 +124,7 @@ function MobileGiveawayCard({ offer }: { offer: GiveawayOffer }) {
               <>
                 <span className="text-xl font-bold">
                   {isOnGoing
-                    ? 'Free'
+                    ? "Free"
                     : priceFmtr.format(
                         calculatePrice(
                           offer.price?.price.originalPrice,
@@ -172,13 +169,11 @@ function Countdown({ targetDate }: { targetDate: Date }) {
     let interval: NodeJS.Timeout;
 
     const updateCountdown = () => {
-      const now = DateTime.now().setZone(timezone || 'UTC');
-      const target = DateTime.fromJSDate(targetDate).setZone(timezone || 'UTC');
-      const diff = target.diff(now, 'milliseconds').milliseconds;
+      const now = DateTime.now().setZone(timezone || "UTC");
+      const target = DateTime.fromJSDate(targetDate).setZone(timezone || "UTC");
+      const diff = target.diff(now, "milliseconds").milliseconds;
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(
-        (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-      );
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
       setTimeLeft({ days, hours, minutes, seconds });
@@ -188,8 +183,8 @@ function Countdown({ targetDate }: { targetDate: Date }) {
     updateCountdown();
 
     // Set interval only if the target date is in the future
-    const now = DateTime.now().setZone(timezone || 'UTC');
-    const target = DateTime.fromJSDate(targetDate).setZone(timezone || 'UTC');
+    const now = DateTime.now().setZone(timezone || "UTC");
+    const target = DateTime.fromJSDate(targetDate).setZone(timezone || "UTC");
     if (target > now) {
       interval = setInterval(updateCountdown, 1000);
     }
@@ -198,25 +193,22 @@ function Countdown({ targetDate }: { targetDate: Date }) {
   }, [targetDate, timezone]);
 
   const isFinised =
-    timeLeft.days < 0 &&
-    timeLeft.hours < 0 &&
-    timeLeft.minutes < 0 &&
-    timeLeft.seconds < 0;
+    timeLeft.days < 0 && timeLeft.hours < 0 && timeLeft.minutes < 0 && timeLeft.seconds < 0;
 
   return (
     <div
       className={cn(
-        'flex flex-row items-center justify-center gap-2 text-sm font-semibold text-white py-1',
-        isFinised && 'bg-badge text-black',
-        !isFinised && 'bg-gray-900',
+        "flex flex-row items-center justify-center gap-2 text-sm font-semibold text-white py-1",
+        isFinised && "bg-badge text-black",
+        !isFinised && "bg-gray-900",
       )}
     >
       {!isFinised ? (
         <span className="font-semibold">
           Starts in {timeLeft.days > 0 && `${timeLeft.days}d `}
-          {timeLeft.hours.toString().padStart(2, '0')}:
-          {timeLeft.minutes.toString().padStart(2, '0')}:
-          {timeLeft.seconds.toString().padStart(2, '0')}
+          {timeLeft.hours.toString().padStart(2, "0")}:
+          {timeLeft.minutes.toString().padStart(2, "0")}:
+          {timeLeft.seconds.toString().padStart(2, "0")}
         </span>
       ) : (
         <span className="font-semibold">Free Now</span>

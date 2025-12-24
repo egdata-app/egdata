@@ -1,5 +1,5 @@
-import { Link } from '@tanstack/react-router';
-import { cn } from '@/lib/utils';
+import { Link } from "@tanstack/react-router";
+import { cn } from "@/lib/utils";
 
 interface BuildTitleProps {
   id: string;
@@ -24,25 +24,17 @@ export function BuildTitle({
   maxVersionLength = 10,
 }: BuildTitleProps) {
   const truncatedTitle = truncateText(title, maxTitleLength);
-  const truncatedVersion = buildVersion
-    ? truncateText(buildVersion, maxVersionLength)
-    : '';
+  const truncatedVersion = buildVersion ? truncateText(buildVersion, maxVersionLength) : "";
 
   const displayText = (
     <>
       <span>{truncatedTitle}</span>
-      {buildVersion && (
-        <span className="text-gray-500"> ({truncatedVersion})</span>
-      )}
+      {buildVersion && <span className="text-gray-500"> ({truncatedVersion})</span>}
     </>
   );
 
   return (
-    <Link
-      to="/builds/$id"
-      params={{ id }}
-      className={cn('pl-2 font-mono', className)}
-    >
+    <Link to="/builds/$id" params={{ id }} className={cn("pl-2 font-mono", className)}>
       {displayText}
     </Link>
   );

@@ -1,22 +1,17 @@
-'use client';
+"use client";
 
-import { httpClient } from '@/lib/http-client';
-import type { SingleOffer } from '@/types/single-offer';
-import { useQueries } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { AlertTriangle } from 'lucide-react';
-import { Image } from './image';
-import { useNavigate } from '@tanstack/react-router';
-import type { IsPrepurchase } from '@/types/prepurchase';
-import { getImage } from '@/lib/get-image';
-import { useLocalStorage } from '@uidotdev/usehooks';
+import { httpClient } from "@/lib/http-client";
+import type { SingleOffer } from "@/types/single-offer";
+import { useQueries } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { AlertTriangle } from "lucide-react";
+import { Image } from "./image";
+import { useNavigate } from "@tanstack/react-router";
+import type { IsPrepurchase } from "@/types/prepurchase";
+import { getImage } from "@/lib/get-image";
+import { useLocalStorage } from "@uidotdev/usehooks";
 
 const normalizeDate = (dateString: string) => new Date(dateString).getTime();
 
@@ -30,13 +25,12 @@ export function PrepurchasePopup({ id }: { id: string }) {
   const [offerQuery, prepurchaseOfferQuery] = useQueries({
     queries: [
       {
-        queryKey: ['offer', { id }],
+        queryKey: ["offer", { id }],
         queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`),
       },
       {
-        queryKey: ['offer', 'prepurchase-offers', { id }],
-        queryFn: () =>
-          httpClient.get<IsPrepurchase>(`/offers/${id}/has-regular`),
+        queryKey: ["offer", "prepurchase-offers", { id }],
+        queryFn: () => httpClient.get<IsPrepurchase>(`/offers/${id}/has-regular`),
       },
     ],
   });
@@ -81,13 +75,13 @@ export function PrepurchasePopup({ id }: { id: string }) {
             <Image
               src={
                 getImage(offer?.keyImages ?? [], [
-                  'DieselStoreFrontWide',
-                  'OfferImageWide',
-                  'DieselGameBoxWide',
-                  'TakeoverWide',
-                ])?.url ?? 'https://cdn.egdata.app/placeholder-1080.webp'
+                  "DieselStoreFrontWide",
+                  "OfferImageWide",
+                  "DieselGameBoxWide",
+                  "TakeoverWide",
+                ])?.url ?? "https://cdn.egdata.app/placeholder-1080.webp"
               }
-              alt={offer?.title ?? ''}
+              alt={offer?.title ?? ""}
               width={600}
               height={350}
               className="rounded-lg mx-auto"

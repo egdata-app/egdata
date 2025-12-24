@@ -1,22 +1,22 @@
-import type { TypeOf } from 'zod';
-import type { formSchema } from '@/stores/searchStore';
-import type { FullTag } from '@/types/tags';
-import type { SearchV2Response } from '@/types/search-v2';
-import { Input } from '@/components/ui/input';
-import { QuickPill } from '@/components/app/quick-pill';
-import { Separator } from '@/components/ui/separator';
-import { PriceRangeSlider } from '@/components/ui/price-range-slider';
+import type { TypeOf } from "zod";
+import type { formSchema } from "@/stores/searchStore";
+import type { FullTag } from "@/types/tags";
+import type { SearchV2Response } from "@/types/search-v2";
+import { Input } from "@/components/ui/input";
+import { QuickPill } from "@/components/app/quick-pill";
+import { Separator } from "@/components/ui/separator";
+import { PriceRangeSlider } from "@/components/ui/price-range-slider";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from '@/components/ui/accordion';
-import { CheckboxWithCount } from '@/components/app/checkbox-with-count';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { ExtendedSearch } from '@/components/app/extended-search';
-import { Checkbox } from '@/components/ui/checkbox';
-import { offersDictionary } from '@/lib/offers-dictionary';
+} from "@/components/ui/accordion";
+import { CheckboxWithCount } from "@/components/app/checkbox-with-count";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { ExtendedSearch } from "@/components/app/extended-search";
+import { Checkbox } from "@/components/ui/checkbox";
+import { offersDictionary } from "@/lib/offers-dictionary";
 
 export interface SearchFiltersProps {
   query: TypeOf<typeof formSchema>;
@@ -85,16 +85,13 @@ export function SearchFilters({
   };
 
   // For array fields like tags
-  const handleArrayFieldChange = (
-    field: keyof TypeOf<typeof formSchema>,
-    value: string[],
-  ) => {
+  const handleArrayFieldChange = (field: keyof TypeOf<typeof formSchema>, value: string[]) => {
     setField(field, value as TypeOf<typeof formSchema>[typeof field]);
   };
 
   // Helper type guard for string array
   function isStringArray(val: unknown): val is string[] {
-    return Array.isArray(val) && val.every((v) => typeof v === 'string');
+    return Array.isArray(val) && val.every((v) => typeof v === "string");
   }
 
   return (
@@ -104,12 +101,9 @@ export function SearchFilters({
           type="search"
           placeholder="Search for games"
           name="title"
-          value={query.title || ''}
+          value={query.title || ""}
           onChange={(e) =>
-            handleFieldChange(
-              'title',
-              e.target.value === '' ? undefined : e.target.value,
-            )
+            handleFieldChange("title", e.target.value === "" ? undefined : e.target.value)
           }
         />
       )}
@@ -125,10 +119,8 @@ export function SearchFilters({
                 label={tagData?.name ?? tag}
                 onRemove={() => {
                   handleArrayFieldChange(
-                    'tags',
-                    (isStringArray(query.tags) ? query.tags : []).filter(
-                      (t) => t !== tag,
-                    ),
+                    "tags",
+                    (isStringArray(query.tags) ? query.tags : []).filter((t) => t !== tag),
                   );
                 }}
               />
@@ -137,55 +129,43 @@ export function SearchFilters({
         {showDeveloper && query.developerDisplayName && (
           <QuickPill
             label={query.developerDisplayName}
-            onRemove={() =>
-              handleFieldChange('developerDisplayName', undefined)
-            }
+            onRemove={() => handleFieldChange("developerDisplayName", undefined)}
           />
         )}
         {showPublisher && query.publisherDisplayName && (
           <QuickPill
             label={query.publisherDisplayName}
-            onRemove={() =>
-              handleFieldChange('publisherDisplayName', undefined)
-            }
+            onRemove={() => handleFieldChange("publisherDisplayName", undefined)}
           />
         )}
         {showOfferType && query.offerType && (
           <QuickPill
             label={offersDictionary[query.offerType] ?? query.offerType}
-            onRemove={() => handleFieldChange('offerType', undefined)}
+            onRemove={() => handleFieldChange("offerType", undefined)}
           />
         )}
         {showOnSale && query.onSale && (
-          <QuickPill
-            label="On Sale"
-            onRemove={() => handleFieldChange('onSale', undefined)}
-          />
+          <QuickPill label="On Sale" onRemove={() => handleFieldChange("onSale", undefined)} />
         )}
         {showCodeRedemption && query.isCodeRedemptionOnly && (
           <QuickPill
             label="Code Redemption Only"
-            onRemove={() =>
-              handleFieldChange('isCodeRedemptionOnly', undefined)
-            }
+            onRemove={() => handleFieldChange("isCodeRedemptionOnly", undefined)}
           />
         )}
         {showBlockchain && query.excludeBlockchain && (
           <QuickPill
             label="Exclude Blockchain/NFT"
-            onRemove={() => handleFieldChange('excludeBlockchain', undefined)}
+            onRemove={() => handleFieldChange("excludeBlockchain", undefined)}
           />
         )}
         {showSeller && query.seller && (
-          <QuickPill
-            label={query.seller}
-            onRemove={() => handleFieldChange('seller', undefined)}
-          />
+          <QuickPill label={query.seller} onRemove={() => handleFieldChange("seller", undefined)} />
         )}
         {showPastGiveaways && query.pastGiveaways && (
           <QuickPill
             label="Past Giveaways"
-            onRemove={() => handleFieldChange('pastGiveaways', undefined)}
+            onRemove={() => handleFieldChange("pastGiveaways", undefined)}
           />
         )}
       </div>
@@ -197,14 +177,11 @@ export function SearchFilters({
           min={priceRange.min}
           max={Math.min(priceRange.max, 1000)}
           step={1}
-          defaultValue={[
-            query.price?.min || priceRange.min,
-            query.price?.max || priceRange.max,
-          ]}
+          defaultValue={[query.price?.min || priceRange.min, query.price?.max || priceRange.max]}
           onValueChange={(value) => {
-            handleFieldChange('price', { min: value[0], max: value[1] });
+            handleFieldChange("price", { min: value[0], max: value[1] });
           }}
-          currency={priceRange.currency === '' ? 'USD' : priceRange.currency}
+          currency={priceRange.currency === "" ? "USD" : priceRange.currency}
         />
       )}
 
@@ -214,7 +191,7 @@ export function SearchFilters({
             <AccordionTrigger>Offer Type</AccordionTrigger>
             <AccordionContent className="flex flex-col gap-2 w-full mt-2">
               {Object.entries(offersDictionary)
-                .filter(([, value]) => value !== 'Unknown')
+                .filter(([, value]) => value !== "Unknown")
                 .filter(([key]) => offerTypeCounts[key] > 0)
                 .sort((a, b) => a[1].localeCompare(b[1]))
                 .map(([key, value]) => (
@@ -223,7 +200,7 @@ export function SearchFilters({
                     checked={query.offerType === key}
                     onChange={(checked: boolean) =>
                       handleFieldChange(
-                        'offerType',
+                        "offerType",
                         checked
                           ? // @ts-expect-error - TODO: fix this
                             (key as (typeof formSchema.shape.offerType._def.values)[number])
@@ -240,14 +217,9 @@ export function SearchFilters({
 
         {showTags &&
           tagTypes.map((tagType) => {
-            const tagTypeTags = tags?.filter(
-              (tag) => tag.groupName === tagType.name,
-            );
+            const tagTypeTags = tags?.filter((tag) => tag.groupName === tagType.name);
             return (
-              <AccordionItem
-                key={tagType.name}
-                value={tagType.name ?? 'alltags'}
-              >
+              <AccordionItem key={tagType.name} value={tagType.name ?? "alltags"}>
                 <AccordionTrigger>{tagType.label}</AccordionTrigger>
                 <AccordionContent className="flex flex-col gap-2 mt-2">
                   <ScrollArea>
@@ -257,25 +229,19 @@ export function SearchFilters({
                         .map((tag) => (
                           <CheckboxWithCount
                             key={tag.id}
-                            checked={
-                              isStringArray(query.tags) &&
-                              query.tags.includes(tag.id)
-                            }
+                            checked={isStringArray(query.tags) && query.tags.includes(tag.id)}
                             onChange={(checked: boolean) => {
                               if (checked) {
-                                handleArrayFieldChange('tags', [
-                                  ...(isStringArray(query.tags)
-                                    ? query.tags
-                                    : []),
+                                handleArrayFieldChange("tags", [
+                                  ...(isStringArray(query.tags) ? query.tags : []),
                                   tag.id,
                                 ]);
                               } else {
                                 handleArrayFieldChange(
-                                  'tags',
-                                  (isStringArray(query.tags)
-                                    ? query.tags
-                                    : []
-                                  ).filter((t) => t !== tag.id),
+                                  "tags",
+                                  (isStringArray(query.tags) ? query.tags : []).filter(
+                                    (t) => t !== tag.id,
+                                  ),
                                 );
                               }
                             }}
@@ -283,11 +249,8 @@ export function SearchFilters({
                             label={tag.name}
                           />
                         ))}
-                      {tagTypeTags?.filter((tag) => tagCounts[tag.id] > 0)
-                        .length === 0 && (
-                        <span className="text-gray-400 px-4">
-                          No tags found
-                        </span>
+                      {tagTypeTags?.filter((tag) => tagCounts[tag.id] > 0).length === 0 && (
+                        <span className="text-gray-400 px-4">No tags found</span>
                       )}
                     </div>
                   </ScrollArea>
@@ -300,21 +263,16 @@ export function SearchFilters({
           <AccordionItem value="developer">
             <AccordionTrigger>Developer</AccordionTrigger>
             <AccordionContent>
-              {(Object.keys(developerCounts).length > 0 ||
-                query.developerDisplayName) && (
+              {(Object.keys(developerCounts).length > 0 || query.developerDisplayName) && (
                 <ExtendedSearch
                   name="developers"
-                  items={Object.entries(developerCounts).map(
-                    ([key, value]) => ({
-                      id: key,
-                      name: key,
-                      count: value as number,
-                    }),
-                  )}
+                  items={Object.entries(developerCounts).map(([key, value]) => ({
+                    id: key,
+                    name: key,
+                    count: value as number,
+                  }))}
                   value={query.developerDisplayName}
-                  setValue={(val) =>
-                    handleFieldChange('developerDisplayName', val)
-                  }
+                  setValue={(val) => handleFieldChange("developerDisplayName", val)}
                 />
               )}
             </AccordionContent>
@@ -325,21 +283,16 @@ export function SearchFilters({
           <AccordionItem value="publisher">
             <AccordionTrigger>Publisher</AccordionTrigger>
             <AccordionContent>
-              {(Object.keys(publisherCounts).length > 0 ||
-                query.publisherDisplayName) && (
+              {(Object.keys(publisherCounts).length > 0 || query.publisherDisplayName) && (
                 <ExtendedSearch
                   name="publishers"
-                  items={Object.entries(publisherCounts).map(
-                    ([key, value]) => ({
-                      id: key,
-                      name: key,
-                      count: value as number,
-                    }),
-                  )}
+                  items={Object.entries(publisherCounts).map(([key, value]) => ({
+                    id: key,
+                    name: key,
+                    count: value as number,
+                  }))}
                   value={query.publisherDisplayName}
-                  setValue={(val) =>
-                    handleFieldChange('publisherDisplayName', val)
-                  }
+                  setValue={(val) => handleFieldChange("publisherDisplayName", val)}
                 />
               )}
             </AccordionContent>
@@ -355,7 +308,7 @@ export function SearchFilters({
             id="pastGiveaways"
             checked={Boolean(query.pastGiveaways)}
             onCheckedChange={(value) =>
-              handleFieldChange('pastGiveaways', value ? true : undefined)
+              handleFieldChange("pastGiveaways", value ? true : undefined)
             }
           />
           <label
@@ -372,9 +325,7 @@ export function SearchFilters({
           <Checkbox
             id="onSale"
             checked={!!query.onSale}
-            onCheckedChange={(value) =>
-              handleFieldChange('onSale', value ? true : undefined)
-            }
+            onCheckedChange={(value) => handleFieldChange("onSale", value ? true : undefined)}
           />
           <label
             htmlFor="onSale"
@@ -391,10 +342,7 @@ export function SearchFilters({
             id="isCodeRedemptionOnly"
             checked={!!query.isCodeRedemptionOnly}
             onCheckedChange={(value) =>
-              handleFieldChange(
-                'isCodeRedemptionOnly',
-                value ? true : undefined,
-              )
+              handleFieldChange("isCodeRedemptionOnly", value ? true : undefined)
             }
           />
           <label
@@ -412,7 +360,7 @@ export function SearchFilters({
             id="excludeBlockchain"
             checked={!!query.excludeBlockchain}
             onCheckedChange={(value) =>
-              handleFieldChange('excludeBlockchain', value ? true : undefined)
+              handleFieldChange("excludeBlockchain", value ? true : undefined)
             }
           />
           <label
@@ -430,7 +378,7 @@ export function SearchFilters({
             id="isLowestPrice"
             checked={!!query.isLowestPrice}
             onCheckedChange={(value) =>
-              handleFieldChange('isLowestPrice', value ? true : undefined)
+              handleFieldChange("isLowestPrice", value ? true : undefined)
             }
           />
           <label

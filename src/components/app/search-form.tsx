@@ -1,39 +1,39 @@
-import { useForm } from '@tanstack/react-form';
-import { type TypeOf, z } from 'zod';
-import { useSearchDispatch, useSearchState } from '@/hooks/use-search-state';
-import { useCountry } from '@/hooks/use-country';
-import { usePreferences } from '@/hooks/use-preferences';
-import { useNavigate } from '@tanstack/react-router';
-import { useDebounce } from '@uidotdev/usehooks';
-import { keepPreviousData, useQuery } from '@tanstack/react-query';
-import { httpClient } from '@/lib/http-client';
-import type { SingleOffer } from '@/types/single-offer';
-import { cn } from '@/lib/utils';
-import { OfferCard, GameCardSkeleton } from '@/components/app/offer-card';
-import { OfferListItem } from '@/components/app/game-card';
-import { DynamicPagination } from '@/components/app/dynamic-pagination';
-import { useEffect, useState } from 'react';
+import { useForm } from "@tanstack/react-form";
+import { type TypeOf, z } from "zod";
+import { useSearchDispatch, useSearchState } from "@/hooks/use-search-state";
+import { useCountry } from "@/hooks/use-country";
+import { usePreferences } from "@/hooks/use-preferences";
+import { useNavigate } from "@tanstack/react-router";
+import { useDebounce } from "@uidotdev/usehooks";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { httpClient } from "@/lib/http-client";
+import type { SingleOffer } from "@/types/single-offer";
+import { cn } from "@/lib/utils";
+import { OfferCard, GameCardSkeleton } from "@/components/app/offer-card";
+import { OfferListItem } from "@/components/app/game-card";
+import { DynamicPagination } from "@/components/app/dynamic-pagination";
+import { useEffect, useState } from "react";
 
 export const formSchema = z.object({
   title: z.string().optional(),
   offerType: z
     .enum([
-      'IN_GAME_PURCHASE',
-      'BASE_GAME',
-      'EXPERIENCE',
-      'UNLOCKABLE',
-      'ADD_ON',
-      'Bundle',
-      'CONSUMABLE',
-      'WALLET',
-      'OTHERS',
-      'DEMO',
-      'DLC',
-      'VIRTUAL_CURRENCY',
-      'BUNDLE',
-      'DIGITAL_EXTRA',
-      'EDITION',
-      'SUBSCRIPTION',
+      "IN_GAME_PURCHASE",
+      "BASE_GAME",
+      "EXPERIENCE",
+      "UNLOCKABLE",
+      "ADD_ON",
+      "Bundle",
+      "CONSUMABLE",
+      "WALLET",
+      "OTHERS",
+      "DEMO",
+      "DLC",
+      "VIRTUAL_CURRENCY",
+      "BUNDLE",
+      "DIGITAL_EXTRA",
+      "EDITION",
+      "SUBSCRIPTION",
     ])
     .optional(),
   tags: z.string().array().optional(),
@@ -41,21 +41,21 @@ export const formSchema = z.object({
   seller: z.string().optional(),
   sortBy: z
     .enum([
-      'releaseDate',
-      'lastModifiedDate',
-      'effectiveDate',
-      'creationDate',
-      'viewableDate',
-      'pcReleaseDate',
-      'upcoming',
-      'priceAsc',
-      'priceDesc',
-      'price',
-      'discount',
-      'discountPercent',
+      "releaseDate",
+      "lastModifiedDate",
+      "effectiveDate",
+      "creationDate",
+      "viewableDate",
+      "pcReleaseDate",
+      "upcoming",
+      "priceAsc",
+      "priceDesc",
+      "price",
+      "discount",
+      "discountPercent",
     ])
     .optional(),
-  sortDir: z.enum(['asc', 'desc']).optional(),
+  sortDir: z.enum(["asc", "desc"]).optional(),
   limit: z.number().optional(),
   page: z.number().optional(),
   refundType: z.string().optional(),
@@ -107,13 +107,13 @@ export function SearchForm({
 
   const internalForm = useForm({
     defaultValues: {
-      title: '',
+      title: "",
       offerType: undefined,
       tags: undefined,
       customAttributes: undefined,
       seller: undefined,
-      sortBy: 'lastModifiedDate',
-      sortDir: 'desc',
+      sortBy: "lastModifiedDate",
+      sortDir: "desc",
       limit: 28,
       page: initialPage,
       refundType: undefined,
@@ -151,7 +151,7 @@ export function SearchForm({
   }, [isFetching]);
 
   useEffect(() => {
-    form.setFieldValue('page', currentPageNumber);
+    form.setFieldValue("page", currentPageNumber);
   }, [currentPageNumber, form]);
 
   return (
@@ -168,7 +168,7 @@ export function SearchForm({
           isFetching: isSearchFetching,
         } = useQuery({
           queryKey: [
-            'search',
+            "search",
             {
               ...cleanBody({ search: debouncedSearch }),
               country,
@@ -181,7 +181,7 @@ export function SearchForm({
               limit: number;
               query: string;
               total: number;
-            }>('/search', cleanBody({ search: debouncedSearch }), {
+            }>("/search", cleanBody({ search: debouncedSearch }), {
               params: { country },
             }),
           placeholderData: keepPreviousData,
@@ -197,24 +197,24 @@ export function SearchForm({
               },
             });
           }
-        }, [data?.query, data?.page, navigate, setHash]);
+        }, [data?.query, data?.page, navigate]);
 
         useEffect(() => {
           setIsFetching(isSearchFetching);
-        }, [isSearchFetching, setIsFetching]);
+        }, [isSearchFetching]);
 
         useEffect(() => {
           onSearch?.(debouncedSearch);
-        }, [debouncedSearch, onSearch]);
+        }, [debouncedSearch]);
 
         if (isPending && !data) {
           return (
             <div
               className={cn(
-                'w-full flex flex-col gap-4',
-                view === 'grid'
-                  ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'
-                  : 'flex flex-col gap-4',
+                "w-full flex flex-col gap-4",
+                view === "grid"
+                  ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
+                  : "flex flex-col gap-4",
                 resultsClassName,
               )}
             >
@@ -238,22 +238,17 @@ export function SearchForm({
         }
 
         return (
-          <section
-            className={cn(
-              'flex flex-col gap-4 w-full overflow-hidden',
-              className,
-            )}
-          >
+          <section className={cn("flex flex-col gap-4 w-full overflow-hidden", className)}>
             <div
               className={cn(
-                view === 'grid'
-                  ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'
-                  : 'flex flex-col gap-4',
+                view === "grid"
+                  ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
+                  : "flex flex-col gap-4",
                 resultsClassName,
               )}
             >
               {data.elements.map((offer) => {
-                if (view === 'grid') {
+                if (view === "grid") {
                   return <OfferCard key={offer.id} offer={offer} size="md" />;
                 }
 
@@ -305,16 +300,14 @@ export function SearchForm({
   );
 }
 
-function cleanBody(search: { search: TypeOf<typeof formSchema> }): TypeOf<
-  typeof formSchema
-> {
+function cleanBody(search: { search: TypeOf<typeof formSchema> }): TypeOf<typeof formSchema> {
   const result = { ...search.search };
 
   for (const key of Object.keys(result)) {
-    if (result[key] === '') {
+    if (result[key] === "") {
       delete result[key];
     }
-    if (JSON.stringify(result[key]) === '[]') {
+    if (JSON.stringify(result[key]) === "[]") {
       delete result[key];
     }
   }
@@ -343,7 +336,7 @@ function SearchPagination({
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
     navigate({
       search: (prevState) => {
         return {
@@ -355,10 +348,6 @@ function SearchPagination({
   };
 
   return (
-    <DynamicPagination
-      currentPage={page}
-      setPage={handlePageChange}
-      totalPages={totalPages}
-    />
+    <DynamicPagination currentPage={page} setPage={handlePageChange} totalPages={totalPages} />
   );
 }

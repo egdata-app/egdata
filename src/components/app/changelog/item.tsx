@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -8,28 +8,28 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { ChevronDown, ChevronRight } from 'lucide-react';
-import type { SingleOffer } from '@/types/single-offer';
-import type { SingleItem } from '@/types/single-item';
-import type { SingleBuild } from '@/types/builds';
-import type { Asset } from '@/types/asset';
-import { Link } from '@tanstack/react-router';
-import { type JsonValue, JsonVisualizer } from '../json-tree';
-import { calculateSize } from '@/lib/calculate-size';
-import { cn } from '@/lib/utils';
-import { useLocale } from '@/hooks/use-locale';
-import { Separator } from '@/components/ui/separator';
-import { DateTime } from 'luxon';
+} from "@/components/ui/table";
+import { ChevronDown, ChevronRight } from "lucide-react";
+import type { SingleOffer } from "@/types/single-offer";
+import type { SingleItem } from "@/types/single-item";
+import type { SingleBuild } from "@/types/builds";
+import type { Asset } from "@/types/asset";
+import { Link } from "@tanstack/react-router";
+import { type JsonValue, JsonVisualizer } from "../json-tree";
+import { calculateSize } from "@/lib/calculate-size";
+import { cn } from "@/lib/utils";
+import { useLocale } from "@/hooks/use-locale";
+import { Separator } from "@/components/ui/separator";
+import { DateTime } from "luxon";
 
 interface Metadata {
-  contextType: 'offer' | 'item' | 'asset' | 'build' | 'sandbox';
+  contextType: "offer" | "item" | "asset" | "build" | "sandbox";
   contextId: string;
   changes: Change[];
 }
 
 interface Change {
-  changeType: 'insert' | 'update' | 'delete';
+  changeType: "insert" | "update" | "delete";
   field: string;
   oldValue: unknown;
   newValue: unknown;
@@ -43,26 +43,26 @@ interface ChangeTrackerProps {
 }
 
 interface OfferChange extends ChangeTrackerProps {
-  metadata: Metadata & { contextType: 'offer' };
+  metadata: Metadata & { contextType: "offer" };
   document: SingleOffer;
 }
 
 interface ItemChange extends ChangeTrackerProps {
-  metadata: Metadata & { contextType: 'item' };
+  metadata: Metadata & { contextType: "item" };
   document: SingleItem;
 }
 
 interface BuildChange extends ChangeTrackerProps {
-  metadata: Metadata & { contextType: 'build' };
+  metadata: Metadata & { contextType: "build" };
   document: SingleBuild;
 }
 
 interface AssetChange extends ChangeTrackerProps {
-  metadata: Metadata & { contextType: 'asset' };
+  metadata: Metadata & { contextType: "asset" };
   document: Asset;
 }
 
-const epicVideoProtocol = 'com.epicgames.video://';
+const epicVideoProtocol = "com.epicgames.video://";
 
 /**
  * Some images changes are detected as insert and delete, instead of update
@@ -75,10 +75,10 @@ function correctChanges(changes: Change[]): Change[] {
 
   // Separate changes into inserts, deletes, and others
   for (const change of changes) {
-    if (change.field === 'keyImages') {
-      if (change.changeType === 'insert') {
+    if (change.field === "keyImages") {
+      if (change.changeType === "insert") {
         inserts.push(change);
-      } else if (change.changeType === 'delete') {
+      } else if (change.changeType === "delete") {
         deletes.push(change);
       } else {
         others.push(change);
@@ -104,8 +104,8 @@ function correctChanges(changes: Change[]): Change[] {
     if (matchingDelete) {
       // Form an update change
       updatedChanges.push({
-        changeType: 'update',
-        field: 'keyImages',
+        changeType: "update",
+        field: "keyImages",
         oldValue: matchingDelete.oldValue,
         newValue: insert.newValue,
       });
@@ -156,35 +156,33 @@ export function ChangeTracker({
     setExpandedRows(newExpandedRows);
   };
 
-  const getActionStyle = (action: 'update' | 'delete' | 'insert') => {
+  const getActionStyle = (action: "update" | "delete" | "insert") => {
     switch (action) {
-      case 'update':
-        return 'bg-blue-500/20 text-blue-400';
-      case 'delete':
-        return 'bg-red-500/20 text-red-400';
-      case 'insert':
-        return 'bg-green-500/20 text-green-400';
+      case "update":
+        return "bg-blue-500/20 text-blue-400";
+      case "delete":
+        return "bg-red-500/20 text-red-400";
+      case "insert":
+        return "bg-green-500/20 text-green-400";
       default:
-        return 'bg-gray-500/20 text-gray-400';
+        return "bg-gray-500/20 text-gray-400";
     }
   };
 
-  const getContextTypeStyle = (
-    contextType: 'offer' | 'item' | 'asset' | 'build' | 'sandbox',
-  ) => {
+  const getContextTypeStyle = (contextType: "offer" | "item" | "asset" | "build" | "sandbox") => {
     switch (contextType) {
-      case 'offer':
-        return 'bg-blue-500/20 text-blue-400';
-      case 'item':
-        return 'bg-green-500/20 text-green-400';
-      case 'asset':
-        return 'bg-red-500/20 text-red-400';
-      case 'build':
-        return 'bg-yellow-500/20 text-yellow-400';
-      case 'sandbox':
-        return 'bg-purple-500/20 text-purple-400';
+      case "offer":
+        return "bg-blue-500/20 text-blue-400";
+      case "item":
+        return "bg-green-500/20 text-green-400";
+      case "asset":
+        return "bg-red-500/20 text-red-400";
+      case "build":
+        return "bg-yellow-500/20 text-yellow-400";
+      case "sandbox":
+        return "bg-purple-500/20 text-purple-400";
       default:
-        return 'bg-gray-500/20 text-gray-400';
+        return "bg-gray-500/20 text-gray-400";
     }
   };
 
@@ -194,7 +192,7 @@ export function ChangeTracker({
         <div className="flex items-center gap-4">
           <div
             className={cn(
-              'rounded px-3 py-1.5 text-sm font-medium',
+              "rounded px-3 py-1.5 text-sm font-medium",
               getContextTypeStyle(metadata.contextType),
             )}
           >
@@ -204,9 +202,7 @@ export function ChangeTracker({
             className="text-lg font-medium truncate max-w-[300px] underline decoration-dotted decoration-muted-foreground/40 underline-offset-4"
             to={`/${metadata.contextType}s/${metadata.contextId}`}
           >
-            {document && 'title' in document
-              ? document?.title
-              : metadata.contextId}
+            {document && "title" in document ? document?.title : metadata.contextId}
           </Link>
           <Link
             to={`/changelog/${_id}`}
@@ -217,19 +213,16 @@ export function ChangeTracker({
         </div>
         <div className="flex items-center gap-4 text-sm text-muted-foreground font-mono">
           <span>{metadata.changes.length} changes</span>
-          <Separator
-            orientation="vertical"
-            className="h-4 w-px bg-muted-foreground"
-          />
+          <Separator orientation="vertical" className="h-4 w-px bg-muted-foreground" />
           <span>
-            {new Date(timestamp).toLocaleDateString('en-UK', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-              hour: 'numeric',
-              minute: 'numeric',
+            {new Date(timestamp).toLocaleDateString("en-UK", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+              hour: "numeric",
+              minute: "numeric",
               timeZone: timezone,
-              timeZoneName: 'short',
+              timeZoneName: "short",
             })}
           </span>
         </div>
@@ -253,21 +246,19 @@ export function ChangeTracker({
                   <TableCell>
                     <span
                       className={cn(
-                        'rounded px-2 py-1 text-xs font-medium',
+                        "rounded px-2 py-1 text-xs font-medium",
                         getActionStyle(change.changeType),
                       )}
                     >
                       {change.changeType}
                     </span>
                   </TableCell>
-                  <TableCell className="font-mono text-sm w-[400px]">
-                    {change.field}
-                  </TableCell>
+                  <TableCell className="font-mono text-sm w-[400px]">{change.field}</TableCell>
                   <TableCell className="text-red-400 line-through w-1/3">
-                    {ValueToString(change.oldValue, '', change.field, true)}
+                    {ValueToString(change.oldValue, "", change.field, true)}
                   </TableCell>
                   <TableCell className="text-green-400 w-1/3">
-                    {ValueToString(change.newValue, '', change.field, true)}
+                    {ValueToString(change.newValue, "", change.field, true)}
                   </TableCell>
                   <TableCell>
                     <Button
@@ -289,19 +280,15 @@ export function ChangeTracker({
                     <TableCell colSpan={5} className="bg-muted/50 px-8">
                       <div className="grid gap-4 py-4">
                         <div className="grid gap-2">
-                          <div className="text-sm font-medium text-red-400">
-                            Previous value:
-                          </div>
+                          <div className="text-sm font-medium text-red-400">Previous value:</div>
                           <div className="text-sm text-muted-foreground">
-                            {ValueToString(change.oldValue, '', change.field)}
+                            {ValueToString(change.oldValue, "", change.field)}
                           </div>
                         </div>
                         <div className="grid gap-2">
-                          <div className="text-sm font-medium text-green-400">
-                            New value:
-                          </div>
+                          <div className="text-sm font-medium text-green-400">New value:</div>
                           <div className="text-sm text-muted-foreground">
-                            {ValueToString(change.newValue, '', change.field)}
+                            {ValueToString(change.newValue, "", change.field)}
                           </div>
                         </div>
                       </div>
@@ -317,17 +304,12 @@ export function ChangeTracker({
   );
 }
 
-function ValueToString(
-  value: unknown,
-  query: string,
-  field?: string,
-  short?: boolean,
-) {
+function ValueToString(value: unknown, query: string, field?: string, short?: boolean) {
   const { timezone } = useLocale();
 
   const highlightText = (text: string, query: string) => {
     if (!query) return text;
-    const parts = text.split(new RegExp(`(${query})`, 'gi'));
+    const parts = text.split(new RegExp(`(${query})`, "gi"));
     return parts.map((part, i) =>
       part.toLowerCase() === query.toLowerCase() ? (
         // biome-ignore lint/suspicious/noArrayIndexKey: index is the only key
@@ -338,21 +320,18 @@ function ValueToString(
     );
   };
 
-  if (value === null) return 'N/A';
+  if (value === null) return "N/A";
 
-  if (field === 'asset' && short) {
+  if (field === "asset" && short) {
     return <span className="font-mono">{value?.artifactId}</span>;
   }
 
-  if (field === 'keyImages' && value !== null) {
+  if (field === "keyImages" && value !== null) {
     const typedValue = value as { url: string; md5: string; type: string };
 
-    if (
-      typedValue.url.startsWith(epicVideoProtocol) &&
-      URL.canParse(typedValue.url)
-    ) {
+    if (typedValue.url.startsWith(epicVideoProtocol) && URL.canParse(typedValue.url)) {
       const parsedUrl = new URL(typedValue.url);
-      const coverUrl = parsedUrl.searchParams.get('cover');
+      const coverUrl = parsedUrl.searchParams.get("cover");
       const videoId = parsedUrl.host;
 
       return (
@@ -383,42 +362,40 @@ function ValueToString(
     );
   }
 
-  if (field?.includes('Date') && typeof value === 'string') {
-    return DateTime.fromISO(value, { zone: timezone })
-      .setLocale('en-GB')
-      .toLocaleString({
-        weekday: undefined,
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric',
-        timeZoneName: 'short',
-      });
+  if (field?.includes("Date") && typeof value === "string") {
+    return DateTime.fromISO(value, { zone: timezone }).setLocale("en-GB").toLocaleString({
+      weekday: undefined,
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      second: "numeric",
+      timeZoneName: "short",
+    });
   }
 
-  if (field === 'tags' && value !== null) {
+  if (field === "tags" && value !== null) {
     const typedValue = value as { id: string; name: string };
     return <span className="font-medium">{typedValue.name}</span>;
   }
 
-  if (field?.includes('Bytes')) {
+  if (field?.includes("Bytes")) {
     return <span className="font-mono">{calculateSize(value as number)}</span>;
   }
 
-  if (typeof value === 'number') {
+  if (typeof value === "number") {
     return value.toLocaleString();
   }
 
-  if (typeof value === 'string') {
+  if (typeof value === "string") {
     if (short) return value.length > 50 ? `${value.slice(0, 50)}...` : value;
     return <>{highlightText(value, query)}</>;
   }
 
-  if (typeof value === 'object') {
+  if (typeof value === "object") {
     return <JsonVisualizer data={value as JsonValue} />;
   }
 
-  return value?.toString() || 'N/A';
+  return value?.toString() || "N/A";
 }

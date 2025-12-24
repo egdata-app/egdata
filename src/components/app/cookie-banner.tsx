@@ -1,7 +1,7 @@
-import { Link } from '@tanstack/react-router';
-import { Button } from '../ui/button';
-import { Card, CardContent, CardTitle, CardDescription } from '../ui/card';
-import { useCookiesContext } from '@/hooks/use-app-cookies';
+import { Link } from "@tanstack/react-router";
+import { Button } from "../ui/button";
+import { Card, CardContent, CardTitle, CardDescription } from "../ui/card";
+import { useCookiesContext } from "@/hooks/use-app-cookies";
 
 export function CookieBanner() {
   const { acceptCookies, declineCookies } = useCookiesContext();
@@ -12,12 +12,10 @@ export function CookieBanner() {
         <CardContent className="flex flex-col items-center gap-4 md:flex-row pt-4">
           <CookieIcon className="h-12 w-12 text-muted-foreground md:mr-4" />
           <div className="flex-1 space-y-2">
-            <CardTitle className="text-lg font-semibold">
-              Cookie Notice
-            </CardTitle>
+            <CardTitle className="text-lg font-semibold">Cookie Notice</CardTitle>
             <CardDescription className="text-muted-foreground">
-              This website uses cookies to enhance your browsing experience. By
-              accepting cookies, you accept our{' '}
+              This website uses cookies to enhance your browsing experience. By accepting cookies,
+              you accept our{" "}
               <Link to="/privacy" className="underline">
                 Privacy Policy
               </Link>

@@ -1,29 +1,29 @@
-import { ExclamationTriangleIcon } from '@radix-ui/react-icons';
-import { Link } from '@tanstack/react-router';
-import { httpClient } from '@/lib/http-client';
-import { internalNamespaces } from '@/lib/internal-namespaces';
-import { Alert, AlertTitle, AlertDescription } from '../ui/alert';
-import type { SingleOffer } from '@/types/single-offer';
-import { useQuery } from '@tanstack/react-query';
+import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
+import { Link } from "@tanstack/react-router";
+import { httpClient } from "@/lib/http-client";
+import { internalNamespaces } from "@/lib/internal-namespaces";
+import { Alert, AlertTitle, AlertDescription } from "../ui/alert";
+import type { SingleOffer } from "@/types/single-offer";
+import { useQuery } from "@tanstack/react-query";
 
 export const InternalBanner: React.FC<{
   offer: SingleOffer;
 }> = ({ offer }) => {
   const { namespace, title } = offer;
 
-  const manualOfferId =
-    offer.customAttributes?.['com.epicgames.app.offerId']?.value;
+  const manualOfferId = offer.customAttributes?.["com.epicgames.app.offerId"]?.value;
 
-  const productSlug = offer.customAttributes?.[
-    'com.epicgames.app.productSlug'
-  ]?.value?.replace('/home', '');
+  const productSlug = offer.customAttributes?.["com.epicgames.app.productSlug"]?.value?.replace(
+    "/home",
+    "",
+  );
 
   if (!internalNamespaces.includes(namespace)) {
     return null;
   }
 
   const { data: results = [] } = useQuery({
-    queryKey: ['autocomplete', title, manualOfferId, productSlug],
+    queryKey: ["autocomplete", title, manualOfferId, productSlug],
     queryFn: async () => {
       if (manualOfferId) {
         return [{ id: manualOfferId, title }];
@@ -38,21 +38,21 @@ export const InternalBanner: React.FC<{
         .filter(({ namespace }) => !internalNamespaces.includes(namespace))
         .filter(({ title: t, customAttributes }) => {
           const titleSimilarity = compareTitleSimilarity(title, t);
-          const targetSlug = customAttributes?.[
-            'com.epicgames.app.productSlug'
-          ]?.value?.replace('/home', '');
-          const slugMatch =
-            productSlug && targetSlug && productSlug === targetSlug;
+          const targetSlug = customAttributes?.["com.epicgames.app.productSlug"]?.value?.replace(
+            "/home",
+            "",
+          );
+          const slugMatch = productSlug && targetSlug && productSlug === targetSlug;
 
           return titleSimilarity > 0.5 || slugMatch;
         })
         .map((e) => {
           const titleSimilarity = compareTitleSimilarity(title, e.title);
-          const targetSlug = e.customAttributes?.[
-            'com.epicgames.app.productSlug'
-          ]?.value?.replace('/home', '');
-          const slugMatch =
-            productSlug && targetSlug && productSlug === targetSlug;
+          const targetSlug = e.customAttributes?.["com.epicgames.app.productSlug"]?.value?.replace(
+            "/home",
+            "",
+          );
+          const slugMatch = productSlug && targetSlug && productSlug === targetSlug;
 
           return {
             id: e.id,
@@ -77,15 +77,11 @@ export const InternalBanner: React.FC<{
       <ExclamationTriangleIcon className="h-4 w-4" />
       <AlertTitle className="font-bold">Epic Internal Offer</AlertTitle>
       <AlertDescription>
-        This offer is an internal entry from Epic Games and may not be available
-        to the general public.
+        This offer is an internal entry from Epic Games and may not be available to the general
+        public.
       </AlertDescription>
       {results.length > 0 && (
-        <Link
-          to="/offers/$id"
-          params={{ id: results[0].id }}
-          className="underline"
-        >
+        <Link to="/offers/$id" params={{ id: results[0].id }} className="underline">
           Go to public offer
         </Link>
       )}
@@ -97,8 +93,8 @@ const compareTitleSimilarity = (a: string, b: string): number => {
   const aTitle = a.toLowerCase();
   const bTitle = b.toLowerCase();
 
-  const aTitleWords = aTitle.split(' ');
-  const bTitleWords = bTitle.split(' ');
+  const aTitleWords = aTitle.split(" ");
+  const bTitleWords = bTitle.split(" ");
 
   const intersection = aTitleWords.filter((word) => bTitleWords.includes(word));
 

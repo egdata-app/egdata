@@ -1,34 +1,29 @@
-import { useQuery } from '@tanstack/react-query';
-import { Skeleton } from '../ui/skeleton';
-import { Image } from '@/components/app/image';
-import { getImage } from '@/lib/getImage';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { useCountry } from '@/hooks/use-country';
-import { useEffect, useState } from 'react';
-import { InfoCircledIcon } from '@radix-ui/react-icons';
-import type { GiveawayOffer } from '@/types/giveaways';
-import { ScrollArea, ScrollBar } from '../ui/scroll-area';
-import { calculatePrice } from '@/lib/calculate-price';
-import { ArrowRightIcon } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { httpClient } from '@/lib/http-client';
-import { Link } from '@tanstack/react-router';
-import { useLocale } from '@/hooks/use-locale';
-import { mergeFreebies } from '@/utils/merge-freebies';
-import { DateTime } from 'luxon';
+import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "../ui/skeleton";
+import { Image } from "@/components/app/image";
+import { getImage } from "@/lib/getImage";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useCountry } from "@/hooks/use-country";
+import { useEffect, useState } from "react";
+import { InfoCircledIcon } from "@radix-ui/react-icons";
+import type { GiveawayOffer } from "@/types/giveaways";
+import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { calculatePrice } from "@/lib/calculate-price";
+import { ArrowRightIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { httpClient } from "@/lib/http-client";
+import { Link } from "@tanstack/react-router";
+import { useLocale } from "@/hooks/use-locale";
+import { mergeFreebies } from "@/utils/merge-freebies";
+import { DateTime } from "luxon";
 
 export function GiveawaysCarousel({ hideTitle }: { hideTitle?: boolean }) {
   const { country } = useCountry();
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['giveaways'],
+    queryKey: ["giveaways"],
     queryFn: () =>
       httpClient
-        .get<GiveawayOffer[]>('/free-games', {
+        .get<GiveawayOffer[]>("/free-games", {
           params: {
             country,
           },
@@ -90,8 +85,8 @@ function GiveawayCard({ offer }: { offer: GiveawayOffer }) {
   const isUpcoming = startDate > now;
 
   const priceFmtr = new Intl.NumberFormat(locale, {
-    style: 'currency',
-    currency: offer.price?.price.currencyCode || 'USD',
+    style: "currency",
+    currency: offer.price?.price.currencyCode || "USD",
   });
 
   return (
@@ -106,11 +101,11 @@ function GiveawayCard({ offer }: { offer: GiveawayOffer }) {
         <Image
           src={
             getImage(offer?.keyImages || [], [
-              'DieselGameBoxWide',
-              'OfferImageWide',
-              'Featured',
-              'DieselStoreFrontWide',
-              'VaultClosed',
+              "DieselGameBoxWide",
+              "OfferImageWide",
+              "Featured",
+              "DieselStoreFrontWide",
+              "VaultClosed",
             ])?.url
           }
           alt={offer.title}
@@ -128,7 +123,7 @@ function GiveawayCard({ offer }: { offer: GiveawayOffer }) {
               <>
                 <span className="text-xl font-bold">
                   {isOnGoing
-                    ? 'Free'
+                    ? "Free"
                     : priceFmtr.format(
                         calculatePrice(
                           offer.price?.price.originalPrice,
@@ -151,7 +146,7 @@ function GiveawayCard({ offer }: { offer: GiveawayOffer }) {
           </div>
           <span className="text-sm font-semibold flex items-center gap-1">
             <TooltipProvider>
-              Repeated:{' '}
+              Repeated:{" "}
               {offer.giveaway?.historical?.length > 1 ? (
                 <Tooltip>
                   <TooltipTrigger className="flex items-center gap-1">
@@ -160,36 +155,29 @@ function GiveawayCard({ offer }: { offer: GiveawayOffer }) {
                   </TooltipTrigger>
                   <TooltipContent className="flex flex-col gap-1">
                     <i className="text-xs font-normal">
-                      This offer has been gifted{' '}
-                      {offer.giveaway?.historical?.length} times.
+                      This offer has been gifted {offer.giveaway?.historical?.length} times.
                     </i>
                     <div className="flex flex-col gap-1">
                       {offer.giveaway?.historical?.map((historical) => (
                         <span key={historical.id}>
-                          {new Date(historical.startDate).toLocaleDateString(
-                            'en-UK',
-                            {
-                              year: 'numeric',
-                              month: 'short',
-                              day: 'numeric',
-                            },
-                          )}{' '}
-                          -{' '}
-                          {new Date(historical.endDate).toLocaleDateString(
-                            'en-UK',
-                            {
-                              year: 'numeric',
-                              month: 'short',
-                              day: 'numeric',
-                            },
-                          )}
+                          {new Date(historical.startDate).toLocaleDateString("en-UK", {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                          })}{" "}
+                          -{" "}
+                          {new Date(historical.endDate).toLocaleDateString("en-UK", {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                          })}
                         </span>
                       ))}
                     </div>
                   </TooltipContent>
                 </Tooltip>
               ) : (
-                'No'
+                "No"
               )}
             </TooltipProvider>
           </span>
@@ -217,13 +205,11 @@ function Countdown({ targetDate }: { targetDate: Date }) {
     let interval: NodeJS.Timeout;
 
     const updateCountdown = () => {
-      const now = DateTime.now().setZone(timezone || 'UTC');
-      const target = DateTime.fromJSDate(targetDate).setZone(timezone || 'UTC');
-      const diff = target.diff(now, 'milliseconds').milliseconds;
+      const now = DateTime.now().setZone(timezone || "UTC");
+      const target = DateTime.fromJSDate(targetDate).setZone(timezone || "UTC");
+      const diff = target.diff(now, "milliseconds").milliseconds;
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(
-        (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-      );
+      const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((diff % (1000 * 60)) / 1000);
       setTimeLeft({ days, hours, minutes, seconds });
@@ -233,8 +219,8 @@ function Countdown({ targetDate }: { targetDate: Date }) {
     updateCountdown();
 
     // Set interval only if the target date is in the future
-    const now = DateTime.now().setZone(timezone || 'UTC');
-    const target = DateTime.fromJSDate(targetDate).setZone(timezone || 'UTC');
+    const now = DateTime.now().setZone(timezone || "UTC");
+    const target = DateTime.fromJSDate(targetDate).setZone(timezone || "UTC");
     if (target > now) {
       interval = setInterval(updateCountdown, 1000);
     }
@@ -243,25 +229,22 @@ function Countdown({ targetDate }: { targetDate: Date }) {
   }, [targetDate, timezone]);
 
   const isFinised =
-    timeLeft.days < 0 &&
-    timeLeft.hours < 0 &&
-    timeLeft.minutes < 0 &&
-    timeLeft.seconds < 0;
+    timeLeft.days < 0 && timeLeft.hours < 0 && timeLeft.minutes < 0 && timeLeft.seconds < 0;
 
   return (
     <div
       className={cn(
-        'flex flex-row items-center justify-center gap-2 text-sm font-semibold text-white py-1',
-        isFinised && 'bg-badge text-black',
-        !isFinised && 'bg-gray-900',
+        "flex flex-row items-center justify-center gap-2 text-sm font-semibold text-white py-1",
+        isFinised && "bg-badge text-black",
+        !isFinised && "bg-gray-900",
       )}
     >
       {!isFinised ? (
         <span className="font-semibold">
           Starts in {timeLeft.days > 0 && `${timeLeft.days}d `}
-          {timeLeft.hours.toString().padStart(2, '0')}:
-          {timeLeft.minutes.toString().padStart(2, '0')}:
-          {timeLeft.seconds.toString().padStart(2, '0')}
+          {timeLeft.hours.toString().padStart(2, "0")}:
+          {timeLeft.minutes.toString().padStart(2, "0")}:
+          {timeLeft.seconds.toString().padStart(2, "0")}
         </span>
       ) : (
         <span className="font-semibold">Free Now</span>

@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Table,
   TableBody,
@@ -7,67 +7,56 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { useCountry } from '@/hooks/use-country';
-import { useLocale } from '@/hooks/use-locale';
-import { httpClient } from '@/lib/http-client';
-import { getUpcoming } from '@/queries/upcoming';
-import { getLastModified } from '@/queries/last-modified';
-import { getLatestOffers } from '@/queries/latest-offers';
-import { getLatestReleased } from '@/queries/latest-released';
-import { getOffersWithAchievements } from '@/queries/offers-with-achievements';
-import { getStats } from '@/queries/stats';
-import { getTopSellers } from '@/queries/top-sellers';
-import type { GiveawayOffer } from '@/types/giveaways';
-import type { SingleItem } from '@/types/single-item';
-import { useQueries, useQuery } from '@tanstack/react-query';
-import {
-  createFileRoute,
-  Link,
-  type LinkComponentProps,
-} from '@tanstack/react-router';
-import type { JSX, ReactNode } from 'react';
-import { DateTime } from 'luxon';
-import {
-  getGiveawaysStats,
-  GiveawaysStats,
-} from '@/components/modules/giveaway-stats';
-import { cn } from '@/lib/utils';
-import { calculatePrice } from '@/lib/calculate-price';
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from '@/components/ui/hover-card';
+} from "@/components/ui/table";
+import { useCountry } from "@/hooks/use-country";
+import { useLocale } from "@/hooks/use-locale";
+import { httpClient } from "@/lib/http-client";
+import { getUpcoming } from "@/queries/upcoming";
+import { getLastModified } from "@/queries/last-modified";
+import { getLatestOffers } from "@/queries/latest-offers";
+import { getLatestReleased } from "@/queries/latest-released";
+import { getOffersWithAchievements } from "@/queries/offers-with-achievements";
+import { getStats } from "@/queries/stats";
+import { getTopSellers } from "@/queries/top-sellers";
+import type { GiveawayOffer } from "@/types/giveaways";
+import type { SingleItem } from "@/types/single-item";
+import { useQueries, useQuery } from "@tanstack/react-query";
+import { createFileRoute, Link, type LinkComponentProps } from "@tanstack/react-router";
+import type { JSX, ReactNode } from "react";
+import { DateTime } from "luxon";
+import { getGiveawaysStats, GiveawaysStats } from "@/components/modules/giveaway-stats";
+import { cn } from "@/lib/utils";
+import { calculatePrice } from "@/lib/calculate-price";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Sparkles, TrendingUp } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
-import { Image } from '@/components/app/image';
-import { getImage } from '@/lib/get-image';
-import { getOfferOverview } from '@/queries/offer-overview';
-import { formatTimeToHumanReadable } from '@/lib/time-to-human-readable';
-import { Countdown } from '@/components/ui/countdown';
-import { Input } from '@/components/ui/input';
-import { Search } from 'lucide-react';
-import { useSearch } from '@/hooks/use-search';
-import { getBuilds } from '@/queries/get-builds';
-import { calculateSize } from '@/lib/calculate-size';
-import { BuildTitle } from '@/components/app/build-title';
-import { ClientBanner } from '@/components/modules/client-banner';
-import { getRarity } from '@/lib/get-rarity';
-import { EpicTrophyIcon } from '@/components/icons/epic-trophy';
-import { raritiesTextColors } from '@/components/app/achievement-card';
-import { mergeFreebies } from '@/utils/merge-freebies';
-import { RenderTextPlatformIcon } from '@/components/app/platform-icons';
-import { TruncatedText } from '@/lib/truncate-text';
+} from "@/components/ui/dialog";
+import { Sparkles, TrendingUp } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Image } from "@/components/app/image";
+import { getImage } from "@/lib/get-image";
+import { getOfferOverview } from "@/queries/offer-overview";
+import { formatTimeToHumanReadable } from "@/lib/time-to-human-readable";
+import { Countdown } from "@/components/ui/countdown";
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
+import { useSearch } from "@/hooks/use-search";
+import { getBuilds } from "@/queries/get-builds";
+import { calculateSize } from "@/lib/calculate-size";
+import { BuildTitle } from "@/components/app/build-title";
+import { ClientBanner } from "@/components/modules/client-banner";
+import { getRarity } from "@/lib/get-rarity";
+import { EpicTrophyIcon } from "@/components/icons/epic-trophy";
+import { raritiesTextColors } from "@/components/app/achievement-card";
+import { mergeFreebies } from "@/utils/merge-freebies";
+import { RenderTextPlatformIcon } from "@/components/app/platform-icons";
+import { TruncatedText } from "@/lib/truncate-text";
 
-export const Route = createFileRoute('/')({
+export const Route = createFileRoute("/")({
   component: RouteComponent,
 
   loader: async ({ context }) => {
@@ -75,10 +64,10 @@ export const Route = createFileRoute('/')({
 
     await Promise.allSettled([
       queryClient.prefetchQuery({
-        queryKey: ['giveaways'],
+        queryKey: ["giveaways"],
         queryFn: () =>
           httpClient
-            .get<GiveawayOffer[]>('/free-games', {
+            .get<GiveawayOffer[]>("/free-games", {
               params: {
                 country,
               },
@@ -86,20 +75,20 @@ export const Route = createFileRoute('/')({
             .then(mergeFreebies),
       }),
       queryClient.prefetchQuery({
-        queryKey: ['upcoming', { country }],
+        queryKey: ["upcoming", { country }],
         queryFn: () => getUpcoming({ country }),
         staleTime: 6000,
       }),
       queryClient.prefetchQuery({
-        queryKey: ['latest-games'],
+        queryKey: ["latest-games"],
         queryFn: () => getLatestOffers(country),
       }),
       queryClient.prefetchQuery({
-        queryKey: ['stats', { country }],
+        queryKey: ["stats", { country }],
         queryFn: () => getStats({ country }),
       }),
       queryClient.prefetchQuery({
-        queryKey: ['giveaways-stats', { country }],
+        queryKey: ["giveaways-stats", { country }],
         queryFn: () => getGiveawaysStats({ country }),
       }),
     ]);
@@ -115,20 +104,20 @@ function OfferHoverCard({ id }: { id: string }) {
 
   const formatPrice = (price: number, currencyCode: string) => {
     const fmt = new Intl.NumberFormat(locale, {
-      style: 'currency',
+      style: "currency",
       currency: currencyCode,
     });
     return fmt.format(calculatePrice(price, currencyCode));
   };
 
   const formatDate = (dateString: string) => {
-    return DateTime.fromISO(dateString).setLocale('en-GB').toLocaleString(DateTime.DATE_MED);
+    return DateTime.fromISO(dateString).setLocale("en-GB").toLocaleString(DateTime.DATE_MED);
   };
 
   const getAgeRatingDisplay = () => {
     if (!data.ageRating) return null;
 
-    if ('rating' in data.ageRating) {
+    if ("rating" in data.ageRating) {
       return `${data.ageRating.ratingSystem}: ${data.ageRating.rating}`;
     }
     return data.ageRating.ratingSystem;
@@ -139,12 +128,9 @@ function OfferHoverCard({ id }: { id: string }) {
       <div>
         <Image
           src={
-            getImage(data.offer.keyImages, [
-              'DieselGameBoxWide',
-              'OfferImageWide',
-            ])?.url ??
-            '/placeholder.webp' ??
-            '/placeholder-1080.webp'
+            getImage(data.offer.keyImages, ["DieselGameBoxWide", "OfferImageWide"])?.url ??
+            "/placeholder.webp" ??
+            "/placeholder-1080.webp"
           }
           alt={data.offer.title}
           width={300}
@@ -162,25 +148,17 @@ function OfferHoverCard({ id }: { id: string }) {
             ) : (
               <div className="flex flex-col items-end">
                 <span className="text-white font-bold">
-                  {formatPrice(
-                    data.price.price.discountPrice,
-                    data.price.price.currencyCode,
-                  )}
+                  {formatPrice(data.price.price.discountPrice, data.price.price.currencyCode)}
                 </span>
-                {data.price.price.originalPrice >
-                  data.price.price.discountPrice && (
+                {data.price.price.originalPrice > data.price.price.discountPrice && (
                   <div className="flex items-center gap-1">
                     <span className="text-xs text-slate-400 line-through">
-                      {formatPrice(
-                        data.price.price.originalPrice,
-                        data.price.price.currencyCode,
-                      )}
+                      {formatPrice(data.price.price.originalPrice, data.price.price.currencyCode)}
                     </span>
                     <Badge variant="destructive" className="text-xs px-1 py-0">
                       -
                       {Math.round(
-                        ((data.price.price.originalPrice -
-                          data.price.price.discountPrice) /
+                        ((data.price.price.originalPrice - data.price.price.discountPrice) /
                           data.price.price.originalPrice) *
                           100,
                       )}
@@ -196,7 +174,7 @@ function OfferHoverCard({ id }: { id: string }) {
 
       <div className="text-sm space-y-1 text-slate-300">
         <p>
-          <span className="text-slate-400">Seller:</span>{' '}
+          <span className="text-slate-400">Seller:</span>{" "}
           <Link
             to="/sellers/$id"
             params={{
@@ -209,7 +187,7 @@ function OfferHoverCard({ id }: { id: string }) {
         </p>
         {data.offer.developerDisplayName && (
           <p>
-            <span className="text-slate-400">Developer:</span>{' '}
+            <span className="text-slate-400">Developer:</span>{" "}
             <Link
               to="/search"
               search={{
@@ -223,7 +201,7 @@ function OfferHoverCard({ id }: { id: string }) {
         )}
         {data.offer.publisherDisplayName && (
           <p>
-            <span className="text-slate-400">Publisher:</span>{' '}
+            <span className="text-slate-400">Publisher:</span>{" "}
             <Link
               to="/search"
               search={{
@@ -237,14 +215,13 @@ function OfferHoverCard({ id }: { id: string }) {
         )}
         {data.offer.releaseDate && (
           <p>
-            <span className="text-slate-400">Release Date:</span>{' '}
+            <span className="text-slate-400">Release Date:</span>{" "}
             {formatDate(data.offer.releaseDate)}
           </p>
         )}
         {getAgeRatingDisplay() && (
           <p>
-            <span className="text-slate-400">Age Rating:</span>{' '}
-            {getAgeRatingDisplay()}
+            <span className="text-slate-400">Age Rating:</span> {getAgeRatingDisplay()}
           </p>
         )}
       </div>
@@ -262,10 +239,7 @@ function OfferHoverCard({ id }: { id: string }) {
             </Badge>
           ))}
           {data.genres.length > 4 && (
-            <Badge
-              variant="outline"
-              className="border-slate-400/50 bg-slate-900/20 text-slate-400"
-            >
+            <Badge variant="outline" className="border-slate-400/50 bg-slate-900/20 text-slate-400">
               +{data.genres.length - 4} more
             </Badge>
           )}
@@ -304,7 +278,7 @@ function OfferHoverCard({ id }: { id: string }) {
                 <span className="text-slate-300">
                   {data.igdb.timeToBeat.normally
                     ? formatTimeToHumanReadable(data.igdb.timeToBeat.normally)
-                    : 'N/A'}
+                    : "N/A"}
                 </span>
               </div>
             )}
@@ -315,9 +289,8 @@ function OfferHoverCard({ id }: { id: string }) {
             <span>🎮</span>
             <span className="text-slate-400">Features:</span>
             <span className="text-slate-300">
-              {data.features.features.slice(0, 2).join(', ')}
-              {data.features.features.length > 2 &&
-                ` +${data.features.features.length - 2} more`}
+              {data.features.features.slice(0, 2).join(", ")}
+              {data.features.features.length > 2 && ` +${data.features.features.length - 2} more`}
             </span>
           </div>
         )}
@@ -344,17 +317,17 @@ function BuildHoverCard({
   const gameImage =
     build &&
     getImage(build.item?.keyImages ?? [], [
-      'OfferImageWide',
-      'DieselStoreFrontWide',
-      'horizontal',
-      'DieselGameBoxWide',
-      'DieselGameBox',
-      'Thumbnail',
+      "OfferImageWide",
+      "DieselStoreFrontWide",
+      "horizontal",
+      "DieselGameBoxWide",
+      "DieselGameBox",
+      "Thumbnail",
     ]);
 
   if (!build) return null;
 
-  const displayUrl = gameImage?.url ?? '/placeholder.webp';
+  const displayUrl = gameImage?.url ?? "/placeholder.webp";
 
   return (
     <div className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700 text-slate-200 border rounded-lg shadow-xl overflow-hidden w-80">
@@ -362,7 +335,7 @@ function BuildHoverCard({
         <div className="w-full h-44 flex-shrink-0 relative">
           <img
             src={displayUrl}
-            alt={build.item?.title ?? 'Unknown Build'}
+            alt={build.item?.title ?? "Unknown Build"}
             className="w-full h-full object-cover"
             loading="lazy"
           />
@@ -372,11 +345,11 @@ function BuildHoverCard({
       <div className="p-4 space-y-3">
         <div>
           <h3 className="text-lg font-bold text-white leading-tight line-clamp-2">
-            {build.item?.title ?? 'Unknown Build'}
+            {build.item?.title ?? "Unknown Build"}
           </h3>
           {build.item?.developer && (
             <p className="text-sm text-slate-400 mt-1">
-              {build.item?.developer ?? 'Unknown Developer'}
+              {build.item?.developer ?? "Unknown Developer"}
             </p>
           )}
         </div>
@@ -392,39 +365,33 @@ function BuildHoverCard({
           {build.buildVersion && (
             <div className="flex items-center justify-between">
               <span className="text-xs text-slate-400">Version</span>
-              <span className="text-sm font-medium text-slate-200">
-                {build.buildVersion}
-              </span>
+              <span className="text-sm font-medium text-slate-200">{build.buildVersion}</span>
             </div>
           )}
 
           <div className="flex items-center justify-between">
             <span className="text-xs text-slate-400">Created</span>
             <span className="text-xs text-slate-300">
-              {DateTime.fromISO(build.createdAt).toLocaleString(
-                DateTime.DATE_SHORT,
-              )}
+              {DateTime.fromISO(build.createdAt).toLocaleString(DateTime.DATE_SHORT)}
             </span>
           </div>
         </div>
 
         <div className="pt-2 border-t border-slate-700">
-          <p className="text-xs text-slate-500 font-mono truncate">
-            ID: {build._id}
-          </p>
+          <p className="text-xs text-slate-500 font-mono truncate">ID: {build._id}</p>
         </div>
       </div>
     </div>
   );
 }
 
-type HoverCardType = 'offer' | 'build' | 'none';
+type HoverCardType = "offer" | "build" | "none";
 
 function renderHoverCard(type: HoverCardType, id: string) {
   switch (type) {
-    case 'offer':
+    case "offer":
       return <OfferHoverCard id={id} />;
-    case 'build':
+    case "build":
       // Build hover cards should now be handled via the renderHoverCard prop
       return null;
     default:
@@ -449,10 +416,10 @@ function RouteComponent() {
   ] = useQueries({
     queries: [
       {
-        queryKey: ['giveaways'],
+        queryKey: ["giveaways"],
         queryFn: () =>
           httpClient
-            .get<GiveawayOffer[]>('/free-games', {
+            .get<GiveawayOffer[]>("/free-games", {
               params: {
                 country,
               },
@@ -461,37 +428,37 @@ function RouteComponent() {
         placeholderData: [],
       },
       {
-        queryKey: ['upcoming', { country }],
+        queryKey: ["upcoming", { country }],
         queryFn: () => getUpcoming({ country }),
         placeholderData: { elements: [] },
       },
       {
-        queryKey: ['latest-games'],
+        queryKey: ["latest-games"],
         queryFn: () => getLatestOffers(country),
         placeholderData: [],
       },
       {
-        queryKey: ['latest-released', { country }],
+        queryKey: ["latest-released", { country }],
         queryFn: () => getLatestReleased({ country }),
         placeholderData: { elements: [] },
       },
       {
-        queryKey: ['offers-with-achievements', { country }],
+        queryKey: ["offers-with-achievements", { country }],
         queryFn: () => getOffersWithAchievements(country),
         placeholderData: [],
       },
       {
-        queryKey: ['top-sellers', { country }],
+        queryKey: ["top-sellers", { country }],
         queryFn: () => getTopSellers(country),
         placeholderData: [],
       },
       {
-        queryKey: ['last-modified', { country }],
+        queryKey: ["last-modified", { country }],
         queryFn: () => getLastModified(country),
         placeholderData: [],
       },
       {
-        queryKey: ['stats', { country }],
+        queryKey: ["stats", { country }],
         queryFn: () => getStats({ country }),
         placeholderData: {
           offers: 0,
@@ -501,8 +468,8 @@ function RouteComponent() {
         },
       },
       getBuilds({
-        sortDir: 'desc',
-        sortBy: 'createdAt',
+        sortDir: "desc",
+        sortBy: "createdAt",
       }),
     ],
   });
@@ -524,13 +491,15 @@ function RouteComponent() {
   const { data: latestBuilds = [] } = latestBuildsQuery;
 
   function formatDate(iso: string) {
-    return DateTime.fromISO(iso).setZone(timezone || 'UTC').toFormat('MMM d, HH:mm');
+    return DateTime.fromISO(iso)
+      .setZone(timezone || "UTC")
+      .toFormat("MMM d, HH:mm");
   }
 
   const SimpleTable = ({
     headers,
     rows,
-    hoverCardType = 'offer',
+    hoverCardType = "offer",
     renderHoverCard: customRenderHoverCard,
   }: {
     headers: (string | JSX.Element)[];
@@ -545,7 +514,7 @@ function RouteComponent() {
             <TableRow>
               {headers.map((h, index) => (
                 <TableHead
-                  key={typeof h === 'string' ? h : `header-${index}`}
+                  key={typeof h === "string" ? h : `header-${index}`}
                   className="text-neutral-400 font-normal"
                 >
                   {h}
@@ -557,27 +526,25 @@ function RouteComponent() {
             {rows.map((c) => {
               const [id, ...cells] = c;
               const isElement = (cell: string | number | JSX.Element) =>
-                typeof cell === 'object' && 'props' in cell;
+                typeof cell === "object" && "props" in cell;
               const isImage = (cell: string | number | JSX.Element) =>
                 isElement(cell) &&
-                typeof cell === 'object' &&
-                'type' in cell &&
+                typeof cell === "object" &&
+                "type" in cell &&
                 cell.type === Image;
 
               const TableRowContent = (
                 <TableRow className="border-neutral-800 hover:bg-neutral-800/60">
                   {cells.map((cell, j) => {
                     const headerKey =
-                      typeof headers[j + 1] === 'string'
-                        ? headers[j + 1]
-                        : `header-${j}`;
+                      typeof headers[j + 1] === "string" ? headers[j + 1] : `header-${j}`;
                     return (
                       <TableCell
                         key={`${id}-${headerKey}`}
                         className={cn(
-                          'whitespace-nowrap text-sm',
-                          isImage(cell) && 'w-16 sm:w-32',
-                          isElement(cell) && !isImage(cell) && 'p-0',
+                          "whitespace-nowrap text-sm",
+                          isImage(cell) && "w-16 sm:w-32",
+                          isElement(cell) && !isImage(cell) && "p-0",
                         )}
                       >
                         {isImage(cell) ? (
@@ -595,7 +562,7 @@ function RouteComponent() {
                 </TableRow>
               );
 
-              if (hoverCardType === 'none') {
+              if (hoverCardType === "none") {
                 return <div key={id as string}>{TableRowContent}</div>;
               }
 
@@ -635,15 +602,15 @@ function RouteComponent() {
     title: string;
     children: ReactNode;
     spanFull?: boolean;
-    href?: LinkComponentProps['to'];
-    search?: LinkComponentProps['search'];
-    params?: LinkComponentProps['params'];
+    href?: LinkComponentProps["to"];
+    search?: LinkComponentProps["search"];
+    params?: LinkComponentProps["params"];
     className?: string;
   }) => (
     <Card
       className={cn(
-        'flex flex-col rounded-lg border h-[650px]',
-        spanFull ? 'md:col-span-2' : '',
+        "flex flex-col rounded-lg border h-[650px]",
+        spanFull ? "md:col-span-2" : "",
         className,
       )}
     >
@@ -665,10 +632,7 @@ function RouteComponent() {
       </CardHeader>
       <CardContent className="p-0">
         <ScrollArea
-          className={cn(
-            'h-[650px] p-4',
-            className?.includes('h-[400px]') && 'h-[400px]',
-          )}
+          className={cn("h-[650px] p-4", className?.includes("h-[400px]") && "h-[400px]")}
         >
           {children}
         </ScrollArea>
@@ -685,9 +649,8 @@ function RouteComponent() {
             egdata.app
           </h1>
           <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
-            Track prices, discover deals, and never miss a free game. Your
-            ultimate companion for Epic Games Store offers, discounts, and
-            giveaways.
+            Track prices, discover deals, and never miss a free game. Your ultimate companion for
+            Epic Games Store offers, discounts, and giveaways.
           </p>
         </div>
 
@@ -699,7 +662,7 @@ function RouteComponent() {
               setFocus(true);
             }}
             onKeyDown={(e) => {
-              if (e.key === 'Enter') {
+              if (e.key === "Enter") {
                 e.preventDefault();
                 setFocus(true);
               }
@@ -718,22 +681,13 @@ function RouteComponent() {
 
       {/* Metrics Row */}
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-        <MetricBox
-          label="Offers Tracked"
-          value={stats.offers.toLocaleString('en-UK')}
-        />
+        <MetricBox label="Offers Tracked" value={stats.offers.toLocaleString("en-UK")} />
         <MetricBox
           label="Price Changes / 72h"
-          value={stats.trackedPriceChanges.toLocaleString('en-UK')}
+          value={stats.trackedPriceChanges.toLocaleString("en-UK")}
         />
-        <MetricBox
-          label="Active Discounts"
-          value={stats.activeDiscounts.toLocaleString('en-UK')}
-        />
-        <MetricBox
-          label="Giveaways to Date"
-          value={stats.giveaways.toLocaleString('en-UK')}
-        />
+        <MetricBox label="Active Discounts" value={stats.activeDiscounts.toLocaleString("en-UK")} />
+        <MetricBox label="Giveaways to Date" value={stats.giveaways.toLocaleString("en-UK")} />
       </div>
 
       {/* First row - shorter sections */}
@@ -748,9 +702,9 @@ function RouteComponent() {
         </Section>
         <Section title="Giveaway Offers" href="/freebies" className="h-[400px]">
           <SimpleTable
-            headers={['#', 'Title', 'Starts', 'Ends']}
+            headers={["#", "Title", "Starts", "Ends"]}
             rows={giveawayOffers.slice(0, 5).map((g) => [
-              g.offers.map((o) => o.id).join(':'),
+              g.offers.map((o) => o.id).join(":"),
               <Link
                 key={`feebies-image-${g.id}`}
                 to="/offers/$id"
@@ -761,10 +715,8 @@ function RouteComponent() {
               >
                 <img
                   src={
-                    getImage(g.keyImages, [
-                      'DieselGameBoxTall',
-                      'OfferImageTall',
-                    ])?.url ?? '/placeholder.webp'
+                    getImage(g.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url ??
+                    "/placeholder.webp"
                   }
                   alt={g.title}
                   className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
@@ -782,7 +734,7 @@ function RouteComponent() {
                         {g.platforms.map((p) =>
                           RenderTextPlatformIcon({
                             platform: p,
-                            className: 'size-5 rounded-full p-1 bg-gray-600',
+                            className: "size-5 rounded-full p-1 bg-gray-600",
                             key: `${p}-${g.id}`,
                           }),
                         )}
@@ -810,9 +762,9 @@ function RouteComponent() {
                                 <img
                                   src={
                                     getImage(offer.keyImages, [
-                                      'DieselGameBoxTall',
-                                      'OfferImageTall',
-                                    ])?.url ?? '/placeholder.webp'
+                                      "DieselGameBoxTall",
+                                      "OfferImageTall",
+                                    ])?.url ?? "/placeholder.webp"
                                   }
                                   alt={offer.title}
                                   className="w-12 h-16 object-cover rounded"
@@ -823,8 +775,7 @@ function RouteComponent() {
                                     {offerPlatforms.map((platform, idx) =>
                                       RenderTextPlatformIcon({
                                         platform,
-                                        className:
-                                          'size-6 rounded-full p-1 bg-gray-600',
+                                        className: "size-6 rounded-full p-1 bg-gray-600",
                                         key: `${platform}-${offer.id}-${idx}`,
                                       }),
                                     )}
@@ -860,15 +811,15 @@ function RouteComponent() {
                     {g.platforms.map((p) =>
                       RenderTextPlatformIcon({
                         platform: p,
-                        className: 'size-5 rounded-full p-1 bg-gray-600',
+                        className: "size-5 rounded-full p-1 bg-gray-600",
                         key: `${p}-${g.id}`,
                       }),
                     )}
                   </p>
                 </Link>
               ),
-              g.giveaway.startDate ? formatDate(g.giveaway.startDate) : 'N/A',
-              g.giveaway.endDate ? formatDate(g.giveaway.endDate) : 'N/A',
+              g.giveaway.startDate ? formatDate(g.giveaway.startDate) : "N/A",
+              g.giveaway.endDate ? formatDate(g.giveaway.endDate) : "N/A",
             ])}
           />
         </Section>
@@ -879,11 +830,11 @@ function RouteComponent() {
           title="Upcoming Offers"
           href="/search"
           search={{
-            sortBy: 'upcoming',
+            sortBy: "upcoming",
           }}
         >
           <SimpleTable
-            headers={['#', 'Title', 'Release Date']}
+            headers={["#", "Title", "Release Date"]}
             rows={upcomingOffers.elements.slice(0, 10).map((o) => [
               o.id,
               <Link
@@ -896,10 +847,8 @@ function RouteComponent() {
               >
                 <img
                   src={
-                    getImage(o.keyImages, [
-                      'DieselGameBoxTall',
-                      'OfferImageTall',
-                    ])?.url ?? '/placeholder.webp'
+                    getImage(o.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url ??
+                    "/placeholder.webp"
                   }
                   alt={o.title}
                   className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
@@ -912,21 +861,18 @@ function RouteComponent() {
                   id: o.id,
                 }}
               >
-                <TruncatedText text={o.title ?? 'N/A'} maxLength={40} />
+                <TruncatedText text={o.title ?? "N/A"} maxLength={40} />
               </Link>,
               o.releaseDate
                 ? (() => {
                     const release = DateTime.fromISO(o.releaseDate);
                     const now = DateTime.now();
-                    if (
-                      release > now &&
-                      release.diff(now, 'hours').hours <= 24
-                    ) {
+                    if (release > now && release.diff(now, "hours").hours <= 24) {
                       return <Countdown targetDate={o.releaseDate} />;
                     }
                     return formatDate(o.releaseDate);
                   })()
-                : 'N/A',
+                : "N/A",
             ])}
           />
         </Section>
@@ -934,11 +880,11 @@ function RouteComponent() {
           title="Latest Offers"
           href="/search"
           search={{
-            sortBy: 'creationDate',
+            sortBy: "creationDate",
           }}
         >
           <SimpleTable
-            headers={['#', 'Title', 'Created At', 'Price']}
+            headers={["#", "Title", "Created At", "Price"]}
             rows={latestOffers.slice(0, 10).map((o) => [
               o.id,
               <Link
@@ -951,10 +897,8 @@ function RouteComponent() {
               >
                 <img
                   src={
-                    getImage(o.keyImages, [
-                      'DieselGameBoxTall',
-                      'OfferImageTall',
-                    ])?.url ?? '/placeholder.webp'
+                    getImage(o.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url ??
+                    "/placeholder.webp"
                   }
                   alt={o.title}
                   className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
@@ -967,16 +911,16 @@ function RouteComponent() {
                   id: o.id,
                 }}
               >
-                <TruncatedText text={o.title ?? 'N/A'} maxLength={40} />
+                <TruncatedText text={o.title ?? "N/A"} maxLength={40} />
               </Link>,
-              o.creationDate ? formatDate(o.creationDate) : 'N/A',
+              o.creationDate ? formatDate(o.creationDate) : "N/A",
               Intl.NumberFormat(locale, {
-                style: 'currency',
-                currency: o.price?.price.currencyCode ?? 'USD',
+                style: "currency",
+                currency: o.price?.price.currencyCode ?? "USD",
               }).format(
                 calculatePrice(
                   o.price?.price.discountPrice ?? 0,
-                  o.price?.price.currencyCode ?? 'USD',
+                  o.price?.price.currencyCode ?? "USD",
                 ),
               ),
             ])}
@@ -986,12 +930,12 @@ function RouteComponent() {
           title="Latest Released"
           href="/search"
           search={{
-            sortBy: 'releaseDate',
-            sortDir: 'desc',
+            sortBy: "releaseDate",
+            sortDir: "desc",
           }}
         >
           <SimpleTable
-            headers={['#', 'Date', 'Title', 'Price']}
+            headers={["#", "Date", "Title", "Price"]}
             rows={latestReleasedOffers.elements.slice(0, 10).map((u) => [
               u.id,
               <Link
@@ -1004,10 +948,8 @@ function RouteComponent() {
               >
                 <img
                   src={
-                    getImage(u.keyImages, [
-                      'DieselGameBoxTall',
-                      'OfferImageTall',
-                    ])?.url ?? '/placeholder.webp'
+                    getImage(u.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url ??
+                    "/placeholder.webp"
                   }
                   alt={u.title}
                   className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
@@ -1017,15 +959,12 @@ function RouteComponent() {
                 ? (() => {
                     const release = DateTime.fromISO(u.releaseDate);
                     const now = DateTime.now();
-                    if (
-                      release > now &&
-                      release.diff(now, 'hours').hours <= 24
-                    ) {
+                    if (release > now && release.diff(now, "hours").hours <= 24) {
                       return <Countdown targetDate={u.releaseDate} />;
                     }
                     return formatDate(u.releaseDate);
                   })()
-                : 'N/A',
+                : "N/A",
               <Link
                 key={`upcoming-title-${u.id}`}
                 to="/offers/$id"
@@ -1033,15 +972,15 @@ function RouteComponent() {
                   id: u.id,
                 }}
               >
-                <TruncatedText text={u.title ?? 'N/A'} maxLength={40} />
+                <TruncatedText text={u.title ?? "N/A"} maxLength={40} />
               </Link>,
               Intl.NumberFormat(locale, {
-                style: 'currency',
-                currency: u.price?.price.currencyCode ?? 'USD',
+                style: "currency",
+                currency: u.price?.price.currencyCode ?? "USD",
               }).format(
                 calculatePrice(
                   u.price?.price.discountPrice ?? 0,
-                  u.price?.price.currencyCode ?? 'USD',
+                  u.price?.price.currencyCode ?? "USD",
                 ),
               ),
             ])}
@@ -1051,48 +990,32 @@ function RouteComponent() {
           title="Latest Offers w/ Achievements"
           href="/search"
           search={{
-            tags: ['19847'],
+            tags: ["19847"],
           }}
         >
           <SimpleTable
             headers={[
-              '#',
-              'Title',
-              <span
-                className="flex flex-col items-center justify-center"
-                key="bronze-header"
-              >
-                <EpicTrophyIcon
-                  className={cn('size-4', raritiesTextColors.bronze)}
-                />
+              "#",
+              "Title",
+              <span className="flex flex-col items-center justify-center" key="bronze-header">
+                <EpicTrophyIcon className={cn("size-4", raritiesTextColors.bronze)} />
               </span>,
-              <span
-                className="flex flex-col items-center justify-center"
-                key="silver-header"
-              >
-                <EpicTrophyIcon
-                  className={cn('size-4', raritiesTextColors.silver)}
-                />
+              <span className="flex flex-col items-center justify-center" key="silver-header">
+                <EpicTrophyIcon className={cn("size-4", raritiesTextColors.silver)} />
               </span>,
-              <span
-                className="flex flex-col items-center justify-center"
-                key="gold-header"
-              >
-                <EpicTrophyIcon
-                  className={cn('size-4', raritiesTextColors.gold)}
-                />
+              <span className="flex flex-col items-center justify-center" key="gold-header">
+                <EpicTrophyIcon className={cn("size-4", raritiesTextColors.gold)} />
               </span>,
             ]}
             rows={achievementOffers.slice(0, 10).map((a) => {
-              const noOfAchievementsPerRarity =
-                a.achievements.achievements.reduce(
-                  (acc, achievement) => {
-                    const rarity = getRarity(achievement.xp);
-                    acc[rarity] = (acc[rarity] || 0) + 1;
-                    return acc;
-                  },
-                  {} as { [key: string]: number },
-                );
+              const noOfAchievementsPerRarity = a.achievements.achievements.reduce(
+                (acc, achievement) => {
+                  const rarity = getRarity(achievement.xp);
+                  acc[rarity] = (acc[rarity] || 0) + 1;
+                  return acc;
+                },
+                {} as { [key: string]: number },
+              );
 
               return [
                 a.id,
@@ -1106,10 +1029,8 @@ function RouteComponent() {
                 >
                   <img
                     src={
-                      getImage(a.keyImages, [
-                        'DieselGameBoxTall',
-                        'OfferImageTall',
-                      ])?.url ?? '/placeholder.webp'
+                      getImage(a.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url ??
+                      "/placeholder.webp"
                     }
                     alt={a.title}
                     className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
@@ -1122,7 +1043,7 @@ function RouteComponent() {
                     id: a.id,
                   }}
                 >
-                  <TruncatedText text={a.title ?? 'N/A'} maxLength={40} />
+                  <TruncatedText text={a.title ?? "N/A"} maxLength={40} />
                 </Link>,
                 <p key={`achievement-bronze-${a.id}`} className="text-center">
                   {noOfAchievementsPerRarity.bronze || 0}
@@ -1141,14 +1062,14 @@ function RouteComponent() {
           title="Top‑Selling Offers"
           href="/collections/$id"
           params={{
-            id: 'top-sellers',
+            id: "top-sellers",
           }}
         >
           <SimpleTable
             headers={[
-              'Pos',
-              '-',
-              'Title',
+              "Pos",
+              "-",
+              "Title",
               <span
                 key="trend-up-top-sellers"
                 className="w-full flex flex-col items-center justify-center"
@@ -1169,10 +1090,8 @@ function RouteComponent() {
               >
                 <img
                   src={
-                    getImage(t.keyImages, [
-                      'DieselGameBoxTall',
-                      'OfferImageTall',
-                    ])?.url ?? '/placeholder.webp'
+                    getImage(t.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url ??
+                    "/placeholder.webp"
                   }
                   alt={t.title}
                   className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
@@ -1188,16 +1107,14 @@ function RouteComponent() {
                 <TruncatedText text={t.title} maxLength={40} />
               </Link>,
               <p key={`topseller-price-${t.id}`} className="text-center">
-                {t.previousPosition - t.position === 0
-                  ? '-'
-                  : t.previousPosition - t.position}
+                {t.previousPosition - t.position === 0 ? "-" : t.previousPosition - t.position}
               </p>,
             ])}
           />
         </Section>
         <Section title="Latest Builds">
           <SimpleTable
-            headers={['#', 'Title', 'Size', 'Creation Date']}
+            headers={["#", "Title", "Size", "Creation Date"]}
             rows={latestBuilds.slice(0, 10).map((b) => [
               b._id,
               <Link
@@ -1210,19 +1127,17 @@ function RouteComponent() {
               >
                 <img
                   src={
-                    getImage(b.item?.keyImages ?? [], [
-                      'DieselGameBoxTall',
-                      'OfferImageTall',
-                    ])?.url ?? '/placeholder.webp'
+                    getImage(b.item?.keyImages ?? [], ["DieselGameBoxTall", "OfferImageTall"])
+                      ?.url ?? "/placeholder.webp"
                   }
-                  alt={b.item?.title ?? 'Unknown Build'}
+                  alt={b.item?.title ?? "Unknown Build"}
                   className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
                 />
               </Link>,
               <BuildTitle
                 key={b._id}
                 id={b._id}
-                title={b.item?.title ?? 'Unknown Build'}
+                title={b.item?.title ?? "Unknown Build"}
                 buildVersion={b.buildVersion}
                 maxTitleLength={20}
               />,
@@ -1230,9 +1145,7 @@ function RouteComponent() {
               formatDate(b.createdAt),
             ])}
             hoverCardType="build"
-            renderHoverCard={(id) => (
-              <BuildHoverCard id={id} builds={latestBuilds} />
-            )}
+            renderHoverCard={(id) => <BuildHoverCard id={id} builds={latestBuilds} />}
           />
         </Section>
       </div>

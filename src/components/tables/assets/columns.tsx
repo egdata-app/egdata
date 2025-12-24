@@ -1,8 +1,8 @@
-import { textPlatformIcons } from '@/components/app/platform-icons';
-import { calculateSize } from '@/lib/calculate-size';
-import type { Asset } from '@/types/asset';
-import { Link } from '@tanstack/react-router';
-import type { ColumnDef } from '@tanstack/react-table';
+import { textPlatformIcons } from "@/components/app/platform-icons";
+import { calculateSize } from "@/lib/calculate-size";
+import type { Asset } from "@/types/asset";
+import { Link } from "@tanstack/react-router";
+import type { ColumnDef } from "@tanstack/react-table";
 
 export const platforms: {
   value: keyof typeof textPlatformIcons;
@@ -10,76 +10,58 @@ export const platforms: {
   icon: React.ComponentType<{ className?: string }>;
 }[] = [
   {
-    value: 'Windows',
-    label: 'Windows',
+    value: "Windows",
+    label: "Windows",
+    icon: ({ className }) => <span className={className}>{textPlatformIcons.Windows}</span>,
+  },
+  {
+    value: "Mac",
+    label: "Mac",
+    icon: ({ className }) => <span className={className}>{textPlatformIcons.Mac}</span>,
+  },
+  {
+    value: "Android",
+    label: "Android",
+    icon: ({ className }) => <span className={className}>{textPlatformIcons.Android}</span>,
+  },
+  {
+    value: "SteamVR / HTC Vive",
+    label: "SteamVR",
     icon: ({ className }) => (
-      <span className={className}>{textPlatformIcons.Windows}</span>
+      <span className={className}>{textPlatformIcons["SteamVR / HTC Vive"]}</span>
     ),
   },
   {
-    value: 'Mac',
-    label: 'Mac',
-    icon: ({ className }) => (
-      <span className={className}>{textPlatformIcons.Mac}</span>
-    ),
+    value: "Win32",
+    label: "Win32",
+    icon: ({ className }) => <span className={className}>{textPlatformIcons.Win32}</span>,
   },
   {
-    value: 'Android',
-    label: 'Android',
-    icon: ({ className }) => (
-      <span className={className}>{textPlatformIcons.Android}</span>
-    ),
+    value: "PS4",
+    label: "PS4",
+    icon: ({ className }) => <span className={className}>{textPlatformIcons.PS4}</span>,
   },
   {
-    value: 'SteamVR / HTC Vive',
-    label: 'SteamVR',
-    icon: ({ className }) => (
-      <span className={className}>
-        {textPlatformIcons['SteamVR / HTC Vive']}
-      </span>
-    ),
+    value: "HTML5",
+    label: "HTML5",
+    icon: ({ className }) => <span className={className}>{textPlatformIcons.HTML5}</span>,
   },
   {
-    value: 'Win32',
-    label: 'Win32',
-    icon: ({ className }) => (
-      <span className={className}>{textPlatformIcons.Win32}</span>
-    ),
+    value: "Linux",
+    label: "Linux",
+    icon: ({ className }) => <span className={className}>{textPlatformIcons.Linux}</span>,
   },
   {
-    value: 'PS4',
-    label: 'PS4',
-    icon: ({ className }) => (
-      <span className={className}>{textPlatformIcons.PS4}</span>
-    ),
-  },
-  {
-    value: 'HTML5',
-    label: 'HTML5',
-    icon: ({ className }) => (
-      <span className={className}>{textPlatformIcons.HTML5}</span>
-    ),
-  },
-  {
-    value: 'Linux',
-    label: 'Linux',
-    icon: ({ className }) => (
-      <span className={className}>{textPlatformIcons.Linux}</span>
-    ),
-  },
-  {
-    value: 'iOS',
-    label: 'iOS',
-    icon: ({ className }) => (
-      <span className={className}>{textPlatformIcons.iOS}</span>
-    ),
+    value: "iOS",
+    label: "iOS",
+    icon: ({ className }) => <span className={className}>{textPlatformIcons.iOS}</span>,
   },
 ];
 
 export const columns: ColumnDef<Asset, unknown>[] = [
   {
-    accessorKey: 'title',
-    header: 'Title',
+    accessorKey: "title",
+    header: "Title",
     enableSorting: true,
     enableColumnFilter: true,
     cell: (info) => {
@@ -88,8 +70,8 @@ export const columns: ColumnDef<Asset, unknown>[] = [
     },
   },
   {
-    accessorKey: 'artifactId',
-    header: 'ID',
+    accessorKey: "artifactId",
+    header: "ID",
     enableSorting: true,
     enableColumnFilter: true,
     cell: (info) => {
@@ -102,8 +84,8 @@ export const columns: ColumnDef<Asset, unknown>[] = [
     },
   },
   {
-    accessorKey: 'itemId',
-    header: 'Item',
+    accessorKey: "itemId",
+    header: "Item",
     enableSorting: true,
     enableColumnFilter: true,
     cell: (info) => {
@@ -115,8 +97,8 @@ export const columns: ColumnDef<Asset, unknown>[] = [
     },
   },
   {
-    accessorKey: 'downloadSizeBytes',
-    header: 'Download Size',
+    accessorKey: "downloadSizeBytes",
+    header: "Download Size",
     enableSorting: true,
     enableColumnFilter: true,
     cell: (info) => {
@@ -124,8 +106,8 @@ export const columns: ColumnDef<Asset, unknown>[] = [
     },
   },
   {
-    accessorKey: 'installedSizeBytes',
-    header: 'Installed Size',
+    accessorKey: "installedSizeBytes",
+    header: "Installed Size",
     enableSorting: true,
     enableColumnFilter: true,
     cell: (info) => {
@@ -133,8 +115,8 @@ export const columns: ColumnDef<Asset, unknown>[] = [
     },
   },
   {
-    accessorKey: 'platform',
-    header: 'Platform',
+    accessorKey: "platform",
+    header: "Platform",
     enableSorting: true,
     enableColumnFilter: true,
     cell: (info) => {

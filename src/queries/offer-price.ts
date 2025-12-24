@@ -1,5 +1,5 @@
-import { httpClient } from '@/lib/http-client';
-import type { Price } from '@/types/price';
+import { httpClient } from "@/lib/http-client";
+import type { Price } from "@/types/price";
 
 interface PriceHistory {
   [key: string]: Price[];

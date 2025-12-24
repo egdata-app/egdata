@@ -1,41 +1,36 @@
-import { useQuery } from '@tanstack/react-query';
-import type { SingleOffer } from '@/types/single-offer';
+import { useQuery } from "@tanstack/react-query";
+import type { SingleOffer } from "@/types/single-offer";
 import {
   Carousel,
   type CarouselApi,
   CarouselContent,
   CarouselItem,
-} from '@/components/ui/carousel';
-import { Button } from '@/components/ui/button';
-import { Image } from '@/components/app/image';
-import { getImage } from '@/lib/getImage';
-import type { Media } from '@/types/media';
-import { useCallback, useEffect, useMemo, useRef, useState, memo } from 'react';
-import Autoplay from 'embla-carousel-autoplay';
-import {
-  TooltipProvider,
-  TooltipTrigger,
-  TooltipContent,
-  Tooltip,
-} from '@/components/ui/tooltip';
-import { cn } from '@/lib/utils';
-import { Badge } from '../ui/badge';
-import buildImageUrl from '@/lib/build-image-url';
-import { useCountry } from '@/hooks/use-country';
-import { getFeaturedDiscounts } from '@/queries/featured-discounts';
-import { ArrowUpIcon } from '@radix-ui/react-icons';
-import type { Price as OfferPrice } from '@/types/price';
-import { httpClient } from '@/lib/http-client';
-import { calculatePrice } from '@/lib/calculate-price';
-import { Link } from '@tanstack/react-router';
-import { useLocale } from '@/hooks/use-locale';
+} from "@/components/ui/carousel";
+import { Button } from "@/components/ui/button";
+import { Image } from "@/components/app/image";
+import { getImage } from "@/lib/getImage";
+import type { Media } from "@/types/media";
+import { useCallback, useEffect, useMemo, useRef, useState, memo } from "react";
+import Autoplay from "embla-carousel-autoplay";
+import { TooltipProvider, TooltipTrigger, TooltipContent, Tooltip } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
+import { Badge } from "../ui/badge";
+import buildImageUrl from "@/lib/build-image-url";
+import { useCountry } from "@/hooks/use-country";
+import { getFeaturedDiscounts } from "@/queries/featured-discounts";
+import { ArrowUpIcon } from "@radix-ui/react-icons";
+import type { Price as OfferPrice } from "@/types/price";
+import { httpClient } from "@/lib/http-client";
+import { calculatePrice } from "@/lib/calculate-price";
+import { Link } from "@tanstack/react-router";
+import { useLocale } from "@/hooks/use-locale";
 
 const SLIDE_DELAY = 15_000;
 
 export function FeaturedDiscounts() {
   const { country } = useCountry();
   const { data: featuredDiscounts } = useQuery({
-    queryKey: ['featuredDiscounts', { country }],
+    queryKey: ["featuredDiscounts", { country }],
     queryFn: () => getFeaturedDiscounts({ country }),
     staleTime: 5 * 60 * 1000, // 5 minutes stale time to reduce refetches
   });
@@ -48,10 +43,7 @@ export function FeaturedDiscounts() {
 
   // Memoize the progress array initialization to avoid recreating on each render
   const initializeProgress = useCallback(() => {
-    return Array.from(
-      { length: (featuredDiscounts as SingleOffer[])?.length || 0 },
-      () => 0,
-    );
+    return Array.from({ length: (featuredDiscounts as SingleOffer[])?.length || 0 }, () => 0);
   }, [featuredDiscounts]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
@@ -69,7 +61,7 @@ export function FeaturedDiscounts() {
       setProgress(initializeProgress());
     };
 
-    api.on('select', handleSelect);
+    api.on("select", handleSelect);
 
     const handleInteraction = () => {
       setIsPaused(true);
@@ -83,9 +75,9 @@ export function FeaturedDiscounts() {
       setIsPaused(false);
     };
 
-    api.on('pointerDown', handleInteraction);
-    api.containerNode().addEventListener('mouseenter', handleMouseEnter);
-    api.containerNode().addEventListener('mouseleave', handleMouseLeave);
+    api.on("pointerDown", handleInteraction);
+    api.containerNode().addEventListener("mouseenter", handleMouseEnter);
+    api.containerNode().addEventListener("mouseleave", handleMouseLeave);
 
     // Use a more efficient interval for progress updates
     const progressIncrement = 100 / (SLIDE_DELAY / 100);
@@ -93,8 +85,7 @@ export function FeaturedDiscounts() {
       if (!isPaused) {
         setProgress((prevProgress) => {
           // Only update the current slide's progress
-          if (current <= 0 || current > prevProgress.length)
-            return prevProgress;
+          if (current <= 0 || current > prevProgress.length) return prevProgress;
 
           const newProgress = [...prevProgress];
           newProgress[current - 1] += progressIncrement;
@@ -109,9 +100,9 @@ export function FeaturedDiscounts() {
 
     return () => {
       clearInterval(interval);
-      api.off('pointerDown', handleInteraction);
-      api.containerNode().removeEventListener('mouseenter', handleMouseEnter);
-      api.containerNode().removeEventListener('mouseleave', handleMouseLeave);
+      api.off("pointerDown", handleInteraction);
+      api.containerNode().removeEventListener("mouseenter", handleMouseEnter);
+      api.containerNode().removeEventListener("mouseleave", handleMouseLeave);
     };
   }, [api, current, isPaused, featuredDiscounts]);
 
@@ -205,10 +196,10 @@ const ProgressIndicator = memo(function ProgressIndicator({
       <Tooltip key={`tooltip-${offers[i]?.id}`} delayDuration={0}>
         <TooltipTrigger
           className={cn(
-            'block w-5 h-[5px] rounded-full cursor-pointer relative',
-            'bg-gray-500',
-            current === i + 1 ? 'w-10' : 'hover:bg-gray-700 hover:w-8',
-            'transition-width duration-300 ease-in-out',
+            "block w-5 h-[5px] rounded-full cursor-pointer relative",
+            "bg-gray-500",
+            current === i + 1 ? "w-10" : "hover:bg-gray-700 hover:w-8",
+            "transition-width duration-300 ease-in-out",
           )}
           onClick={() => api?.scrollTo(i)}
           onKeyDown={() => api?.scrollTo(i)}
@@ -225,12 +216,12 @@ const ProgressIndicator = memo(function ProgressIndicator({
             <img
               src={buildImageUrl(
                 getImage(offers[i]?.keyImages ?? [], [
-                  'DieselStoreFrontWide',
-                  'Featured',
-                  'OfferImageWide',
-                ])?.url ?? '/300x150-egdata-placeholder.png',
+                  "DieselStoreFrontWide",
+                  "Featured",
+                  "OfferImageWide",
+                ])?.url ?? "/300x150-egdata-placeholder.png",
                 400,
-                'medium',
+                "medium",
               )}
               alt={offers[i]?.title}
               className="w-auto h-28 object-cover rounded-md"
@@ -249,12 +240,10 @@ const ProgressIndicator = memo(function ProgressIndicator({
 });
 
 // Memoize FeaturedOffer component to prevent unnecessary re-renders
-const FeaturedOffer = memo(function FeaturedOffer({
-  offer,
-}: { offer: SingleOffer }) {
+const FeaturedOffer = memo(function FeaturedOffer({ offer }: { offer: SingleOffer }) {
   const [image] = useState<string | null>(null);
   const { data: offerMedia } = useQuery({
-    queryKey: ['media', { id: offer.id }],
+    queryKey: ["media", { id: offer.id }],
     queryFn: () => httpClient.get<Media>(`/offers/${offer.id}/media`),
     retry: false,
     staleTime: 5 * 60 * 1000, // 5 minutes stale time
@@ -305,16 +294,12 @@ const FeaturedOffer = memo(function FeaturedOffer({
   return (
     <div className="w-full mx-auto bg-background rounded-lg shadow-md">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div
-          className="relative"
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
+        <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           {videoUrl && (
             <video
               className={cn(
-                'rounded-xl shadow-lg transition-opacity duration-700 absolute inset-0 ease-in-out w-full h-full object-cover',
-                isHovered ? 'opacity-100' : 'opacity-0',
+                "rounded-xl shadow-lg transition-opacity duration-700 absolute inset-0 ease-in-out w-full h-full object-cover",
+                isHovered ? "opacity-100" : "opacity-0",
               )}
               autoPlay
               loop
@@ -327,18 +312,14 @@ const FeaturedOffer = memo(function FeaturedOffer({
           <Image
             src={
               image ||
-              getImage(offer.keyImages, [
-                'OfferImageWide',
-                'DieselStoreFrontWide',
-                'Featured',
-              ])?.url
+              getImage(offer.keyImages, ["OfferImageWide", "DieselStoreFrontWide", "Featured"])?.url
             }
             alt={offer.title}
             width={500}
             height={300}
             className={cn(
-              'w-full h-auto object-cover rounded-lg transition-opacity duration-700 ease-in-out',
-              videoUrl && isHovered ? 'opacity-0' : 'opacity-100',
+              "w-full h-auto object-cover rounded-lg transition-opacity duration-700 ease-in-out",
+              videoUrl && isHovered ? "opacity-0" : "opacity-100",
             )}
             unoptimized
           />
@@ -349,7 +330,7 @@ const FeaturedOffer = memo(function FeaturedOffer({
           <div>
             <h3 className="text-xl font-bold">{offer.title}</h3>
             <p className="text-muted-foreground text-sm mt-2">
-              {offer.description?.replaceAll('\n', '')}
+              {offer.description?.replaceAll("\n", "")}
             </p>
             <div className="mt-4 flex flex-wrap gap-2">
               {offer.tags.slice(0, 4).map((tag) => (
@@ -363,9 +344,7 @@ const FeaturedOffer = memo(function FeaturedOffer({
                   <Badge>{tag.name}</Badge>
                 </Link>
               ))}
-              {offer.tags.length > 4 && (
-                <Badge>+{offer.tags.length - 4} more</Badge>
-              )}
+              {offer.tags.length > 4 && <Badge>+{offer.tags.length - 4} more</Badge>}
             </div>
           </div>
           <div className="mt-6">
@@ -392,32 +371,24 @@ const FeaturedOffer = memo(function FeaturedOffer({
 const Price = memo(function Price({ offer }: { offer: SingleOffer }) {
   const { locale } = useLocale();
   const priceFmtd = new Intl.NumberFormat(locale, {
-    style: 'currency',
-    currency: offer.price?.price.currencyCode || 'USD',
+    style: "currency",
+    currency: offer.price?.price.currencyCode || "USD",
   });
 
   const isFree = offer.price?.price.discountPrice === 0;
 
   if (!offer.price) {
-    return (
-      <span className="text-xl font-bold text-green-400">Coming Soon</span>
-    );
+    return <span className="text-xl font-bold text-green-400">Coming Soon</span>;
   }
 
   return (
     <div className="flex items-end justify-end space-x-4">
-      {offer.price?.appliedRules.length > 0 && (
-        <SaleModule price={offer.price} />
-      )}
+      {offer.price?.appliedRules.length > 0 && <SaleModule price={offer.price} />}
       <div className="flex flex-col gap-0">
-        {offer.price?.price.originalPrice !==
-          offer.price?.price.discountPrice && (
+        {offer.price?.price.originalPrice !== offer.price?.price.discountPrice && (
           <span className="line-through text-muted-foreground text-sm">
             {priceFmtd.format(
-              calculatePrice(
-                offer.price?.price.originalPrice,
-                offer.price?.price.currencyCode,
-              ),
+              calculatePrice(offer.price?.price.originalPrice, offer.price?.price.currencyCode),
             )}
           </span>
         )}
@@ -426,10 +397,7 @@ const Price = memo(function Price({ offer }: { offer: SingleOffer }) {
         ) : (
           <span className="text-xl font-bold text-green-400">
             {priceFmtd.format(
-              calculatePrice(
-                offer.price?.price.discountPrice,
-                offer.price?.price.currencyCode,
-              ),
+              calculatePrice(offer.price?.price.discountPrice, offer.price?.price.currencyCode),
             )}
           </span>
         )}
@@ -447,11 +415,11 @@ const SaleModule = memo(function SaleModule({ price }: { price: OfferPrice }) {
   return (
     <div className="flex items-center gap-2">
       <span className="text-sm text-muted-foreground inline-flex items-center">
-        until{' '}
-        {new Date(selectedRule.endDate).toLocaleDateString('en-UK', {
+        until{" "}
+        {new Date(selectedRule.endDate).toLocaleDateString("en-UK", {
           year: undefined,
-          month: 'long',
-          day: 'numeric',
+          month: "long",
+          day: "numeric",
         })}
       </span>
       <span className="text-lg inline-flex items-center bg-badge px-4 py-1 rounded-lg text-black font-bold">

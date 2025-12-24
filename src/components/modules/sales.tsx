@@ -1,26 +1,20 @@
-import { useEffect, useState } from 'react';
-import { httpClient } from '@/lib/http-client';
+import { useEffect, useState } from "react";
+import { httpClient } from "@/lib/http-client";
 import {
   Carousel,
   CarouselPrevious,
   CarouselContent,
   CarouselItem,
   CarouselNext,
-} from '@/components/ui/carousel';
-import { Skeleton } from '@/components/ui/skeleton';
-import { useCountry } from '@/hooks/use-country';
-import { ArrowRightIcon } from '@radix-ui/react-icons';
-import { OfferCard } from '@/components/app/offer-card';
-import type { SingleOffer } from '@/types/single-offer';
-import { Link } from '@tanstack/react-router';
+} from "@/components/ui/carousel";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useCountry } from "@/hooks/use-country";
+import { ArrowRightIcon } from "@radix-ui/react-icons";
+import { OfferCard } from "@/components/app/offer-card";
+import type { SingleOffer } from "@/types/single-offer";
+import { Link } from "@tanstack/react-router";
 
-export function SalesModule({
-  eventId,
-  event,
-}: {
-  eventId: string;
-  event: string;
-}) {
+export function SalesModule({ eventId, event }: { eventId: string; event: string }) {
   const { country } = useCountry();
   const [loading, setLoading] = useState(true);
   const [games, setGames] = useState<SingleOffer[]>([]);
@@ -29,7 +23,7 @@ export function SalesModule({
     httpClient
       .get<{
         elements: SingleOffer[];
-      }>(`/promotions/${eventId}?country=${country || 'US'}`)
+      }>(`/promotions/${eventId}?country=${country || "US"}`)
       .then((res) => {
         setGames(res.elements);
         setLoading(false);
@@ -43,7 +37,7 @@ export function SalesModule({
         to={`/promotions/${eventId}`}
         preload="viewport"
       >
-        {event}{' '}
+        {event}{" "}
         <ArrowRightIcon className="w-6 h-6 inline-block group-hover:translate-x-1 transition-transform duration-300 ease-in-out" />
       </Link>
       <Carousel className="mt-2 h-full p-4">

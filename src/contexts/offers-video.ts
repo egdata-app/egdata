@@ -1,4 +1,4 @@
-import { createContext, type RefObject } from 'react';
+import { createContext, type RefObject } from "react";
 
 interface VideoContextType {
   isHovered: boolean;
@@ -7,6 +7,4 @@ interface VideoContextType {
   setCanvasRef: (ref: RefObject<HTMLCanvasElement> | null) => void;
 }
 
-export const VideoContext = createContext<VideoContextType | undefined>(
-  undefined,
-);
+export const VideoContext = createContext<VideoContextType | undefined>(undefined);

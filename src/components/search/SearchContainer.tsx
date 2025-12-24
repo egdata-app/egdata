@@ -1,22 +1,18 @@
-import { useEffect, useMemo, useRef } from 'react';
-import { useDebounce } from '@uidotdev/usehooks';
-import { useQuery } from '@tanstack/react-query';
-import { useStore } from '@tanstack/react-store';
-import { httpClient } from '@/lib/http-client';
-import {
-  DEFAULT_LIMIT,
-  getSearchStore,
-  searchStoreManager,
-} from '@/stores/searchStore';
-import type { formSchema, SearchState } from '@/stores/searchStore';
-import { useCountry } from '@/hooks/use-country';
-import type { TypeOf } from 'zod';
-import type { FullTag } from '@/types/tags';
-import type { AggregationBuckets, SearchV2Response } from '@/types/search-v2';
-import { keepPreviousData } from '@tanstack/react-query';
-import { SearchFilters } from './SearchFilters';
-import { SearchHeader } from './SearchHeader';
-import { SearchResults } from './SearchResults';
+import { useEffect, useMemo, useRef } from "react";
+import { useDebounce } from "@uidotdev/usehooks";
+import { useQuery } from "@tanstack/react-query";
+import { useStore } from "@tanstack/react-store";
+import { httpClient } from "@/lib/http-client";
+import { DEFAULT_LIMIT, getSearchStore, searchStoreManager } from "@/stores/searchStore";
+import type { formSchema, SearchState } from "@/stores/searchStore";
+import { useCountry } from "@/hooks/use-country";
+import type { TypeOf } from "zod";
+import type { FullTag } from "@/types/tags";
+import type { AggregationBuckets, SearchV2Response } from "@/types/search-v2";
+import { keepPreviousData } from "@tanstack/react-query";
+import { SearchFilters } from "./SearchFilters";
+import { SearchHeader } from "./SearchHeader";
+import { SearchResults } from "./SearchResults";
 
 export interface SearchContainerProps {
   contextId?: string; // Unique identifier for this search context
@@ -54,9 +50,7 @@ const defaultControls = {
   showLowestPrice: true,
 };
 
-const mergeSearchStates = (
-  ...states: Partial<SearchState>[]
-): Partial<SearchState> => {
+const mergeSearchStates = (...states: Partial<SearchState>[]): Partial<SearchState> => {
   const result: Partial<SearchState> = {};
   for (const state of states) {
     for (const key in state) {
@@ -81,13 +75,10 @@ export function SearchContainer({
   controls = {},
   fixedParams = {},
   onSearchChange,
-  title = 'Search',
+  title = "Search",
 }: SearchContainerProps) {
   // Get the appropriate store for this context with initial state
-  const store = getSearchStore(
-    contextId,
-    mergeSearchStates(initialSearch, fixedParams),
-  );
+  const store = getSearchStore(contextId, mergeSearchStates(initialSearch, fixedParams));
 
   // Set up state
   const query = useStore(store) as TypeOf<typeof formSchema>;
@@ -97,7 +88,7 @@ export function SearchContainer({
   ) => void = (field, value) => {
     store.setState((prev) => {
       // If a filter changes (not the page itself), reset pagination to 1
-      if (field !== 'page' && field !== 'limit') {
+      if (field !== "page" && field !== "limit") {
         return {
           ...prev,
           [field]: value,
@@ -112,9 +103,7 @@ export function SearchContainer({
   };
 
   // Track previous search state to avoid infinite loops
-  const prevSearchRef = useRef<TypeOf<typeof formSchema> | undefined>(
-    undefined,
-  );
+  const prevSearchRef = useRef<TypeOf<typeof formSchema> | undefined>(undefined);
 
   // Track if component has been initialized to avoid overriding user changes
   const isInitializedRef = useRef(false);
@@ -135,10 +124,7 @@ export function SearchContainer({
   }, []); // Empty dependency array - only run once on mount
 
   // Debounce query for search
-  const mergedQuery = useMemo(
-    () => mergeSearchStates(query, fixedParams),
-    [query, fixedParams],
-  );
+  const mergedQuery = useMemo(() => mergeSearchStates(query, fixedParams), [query, fixedParams]);
   const debouncedQuery = useDebounce(mergedQuery, 300);
   const { country } = useCountry();
 
@@ -148,32 +134,29 @@ export function SearchContainer({
     isFetching,
     isLoading,
   } = useQuery({
-    queryKey: ['search', contextId, debouncedQuery],
+    queryKey: ["search", contextId, debouncedQuery],
     queryFn: () =>
-      httpClient.post<SearchV2Response>(
-        `/search/v2/search?country=${country}`,
-        debouncedQuery,
-      ),
+      httpClient.post<SearchV2Response>(`/search/v2/search?country=${country}`, debouncedQuery),
     placeholderData: keepPreviousData,
   });
   // Fetch tags
   const { data: tags } = useQuery({
-    queryKey: ['all-tags'],
-    queryFn: () => httpClient.get<FullTag[]>('/search/tags?raw=true'),
+    queryKey: ["all-tags"],
+    queryFn: () => httpClient.get<FullTag[]>("/search/tags?raw=true"),
     refetchInterval: 1000 * 60 * 5, // 5 minutes
     placeholderData: keepPreviousData,
   });
 
   // Compute tagTypes from tags
   const tagTypesDictionary = {
-    event: 'Event',
-    genre: 'Genre',
-    epicfeature: 'Epic Feature',
-    accessibility: 'Accessibility',
-    feature: 'Feature',
-    usersay: 'Usersay',
-    subscription: 'Subscription',
-    platform: 'Platform',
+    event: "Event",
+    genre: "Genre",
+    epicfeature: "Epic Feature",
+    accessibility: "Accessibility",
+    feature: "Feature",
+    usersay: "Usersay",
+    subscription: "Subscription",
+    platform: "Platform",
   };
   const tagTypes = Array.from(
     new Map(
@@ -191,12 +174,12 @@ export function SearchContainer({
 
   // Helper type guard for priceAgg
   function isPriceStats(obj: unknown): obj is { min: number; max: number } {
-    if (typeof obj !== 'object' || obj === null) return false;
+    if (typeof obj !== "object" || obj === null) return false;
     return (
-      Object.prototype.hasOwnProperty.call(obj, 'min') &&
-      typeof (obj as { min?: unknown }).min === 'number' &&
-      Object.prototype.hasOwnProperty.call(obj, 'max') &&
-      typeof (obj as { max?: unknown }).max === 'number'
+      Object.prototype.hasOwnProperty.call(obj, "min") &&
+      typeof (obj as { min?: unknown }).min === "number" &&
+      Object.prototype.hasOwnProperty.call(obj, "max") &&
+      typeof (obj as { max?: unknown }).max === "number"
     );
   }
 
@@ -207,13 +190,13 @@ export function SearchContainer({
       return {
         ...priceAgg,
         // @ts-expect-error - TODO: fix this
-        currency: results?.offers?.[0]?.price?.price?.currencyCode ?? 'USD',
+        currency: results?.offers?.[0]?.price?.price?.currencyCode ?? "USD",
       };
     }
     return {
       min: 0,
       max: 1000,
-      currency: 'USD',
+      currency: "USD",
     };
   }, [results]);
 
@@ -255,21 +238,13 @@ export function SearchContainer({
 
   // Notify parent of search changes - only when search actually changes and after initialization
   useEffect(() => {
-    if (
-      !onSearchChange ||
-      !isInitializedRef.current ||
-      blockOnSearchChangeRef.current
-    )
-      return;
+    if (!onSearchChange || !isInitializedRef.current || blockOnSearchChangeRef.current) return;
 
     const currentSearch = { ...query, ...fixedParams };
     const prevSearch = prevSearchRef.current;
 
     // Only call onSearchChange if the search has actually changed
-    if (
-      !prevSearch ||
-      JSON.stringify(currentSearch) !== JSON.stringify(prevSearch)
-    ) {
+    if (!prevSearch || JSON.stringify(currentSearch) !== JSON.stringify(prevSearch)) {
       prevSearchRef.current = currentSearch;
       onSearchChange(currentSearch);
     }

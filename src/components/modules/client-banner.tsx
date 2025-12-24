@@ -1,6 +1,6 @@
-import { Button } from '@/components/ui/button';
-import { Link } from '@tanstack/react-router';
-import { Download } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Link } from "@tanstack/react-router";
+import { Download } from "lucide-react";
 
 export function ClientBanner() {
   return (
@@ -18,10 +18,10 @@ export function ClientBanner() {
           <div className="flex-1 text-center lg:text-left">
             {/* Main Heading */}
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
-              Power the{' '}
+              Power the{" "}
               <span className="bg-gradient-to-r from-[#4fa3ff] to-[#7ad3ff] bg-clip-text text-transparent">
                 egdata.app
-              </span>{' '}
+              </span>{" "}
               builds database
             </h1>
 
@@ -32,11 +32,10 @@ export function ClientBanner() {
 
             {/* Description */}
             <p className="text-base text-white/80 mb-6 max-w-lg mx-auto lg:mx-0">
-              Our lightweight Windows & macOS client scans your Epic Games
-              Launcher installs and securely uploads <strong>only</strong> the
-              manifest files—chunk lists and metadata—to our open database.
-              Every upload enriches the community and helps us track changes
-              over time.
+              Our lightweight Windows & macOS client scans your Epic Games Launcher installs and
+              securely uploads <strong>only</strong> the manifest files—chunk lists and metadata—to
+              our open database. Every upload enriches the community and helps us track changes over
+              time.
             </p>
 
             {/* CTA Button */}

@@ -1,4 +1,4 @@
-import type { GiveawayOffer } from '@/types/giveaways';
+import type { GiveawayOffer } from "@/types/giveaways";
 
 interface MergedFreebie extends GiveawayOffer {
   platforms: string[];
@@ -20,9 +20,7 @@ export function mergeFreebies(data: GiveawayOffer[]): MergedFreebie[] {
     const mergedFreebie: MergedFreebie = {
       ...offers[0],
       platforms: offers.flatMap((offer) =>
-        offer.items.flatMap((item) =>
-          item.releaseInfo.flatMap((info) => info.platform),
-        ),
+        offer.items.flatMap((item) => item.releaseInfo.flatMap((info) => info.platform)),
       ),
       offers,
     };

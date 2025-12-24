@@ -1,24 +1,24 @@
-import defaultPlayerTheme from '@vidstack/react/player/styles/default/theme.css?url';
-import defaultAudioPlayer from '@vidstack/react/player/styles/default/layouts/audio.css?url';
-import defaultVideoPlayer from '@vidstack/react/player/styles/default/layouts/video.css?url';
-import { BaseGame } from '@/components/app/base-game';
-import { BlurredBackground } from '@/components/app/blurred-background';
-import { OfferInBundle } from '@/components/app/bundle-game';
-import { InternalBanner } from '@/components/app/internal-banner';
-import { OfferHero } from '@/components/app/offer-hero';
-import { SectionsNav } from '@/components/app/offer-sections';
-import { OpenLauncher } from '@/components/app/open-launcher';
-import { platformIcons } from '@/components/app/platform-icons';
-import { PrepurchasePopup } from '@/components/app/prepurchase-popup';
-import { StoreDropdown } from '@/components/app/store-dropdown';
-import { AddIcon } from '@/components/icons/add';
-import { RemoveIcon } from '@/components/icons/remove';
-import { Bundle } from '@/components/modules/bundle';
-import { CollectionOffers } from '@/components/modules/collection-offers';
-import { SellerOffers } from '@/components/modules/seller-offers';
-import { SuggestedOffers } from '@/components/modules/suggested-offers';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import defaultPlayerTheme from "@vidstack/react/player/styles/default/theme.css?url";
+import defaultAudioPlayer from "@vidstack/react/player/styles/default/layouts/audio.css?url";
+import defaultVideoPlayer from "@vidstack/react/player/styles/default/layouts/video.css?url";
+import { BaseGame } from "@/components/app/base-game";
+import { BlurredBackground } from "@/components/app/blurred-background";
+import { OfferInBundle } from "@/components/app/bundle-game";
+import { InternalBanner } from "@/components/app/internal-banner";
+import { OfferHero } from "@/components/app/offer-hero";
+import { SectionsNav } from "@/components/app/offer-sections";
+import { OpenLauncher } from "@/components/app/open-launcher";
+import { platformIcons } from "@/components/app/platform-icons";
+import { PrepurchasePopup } from "@/components/app/prepurchase-popup";
+import { StoreDropdown } from "@/components/app/store-dropdown";
+import { AddIcon } from "@/components/icons/add";
+import { RemoveIcon } from "@/components/icons/remove";
+import { Bundle } from "@/components/modules/bundle";
+import { CollectionOffers } from "@/components/modules/collection-offers";
+import { SellerOffers } from "@/components/modules/seller-offers";
+import { SuggestedOffers } from "@/components/modules/suggested-offers";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -26,51 +26,36 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { Checkbox } from '@/components/ui/checkbox';
-import { useCompare } from '@/hooks/use-compare';
-import { useLocale } from '@/hooks/use-locale';
-import { usePushNotifications } from '@/hooks/use-push-notifications';
-import { ClientOnly } from '@/lib/cllient-only';
-import { generateOfferMeta } from '@/lib/generate-offer-meta';
-import { getImage } from '@/lib/get-image';
-import { Seller } from '@/lib/get-seller';
-import { httpClient } from '@/lib/http-client';
-import { internalNamespaces } from '@/lib/internal-namespaces';
-import { offersDictionary } from '@/lib/offers-dictionary';
-import { compareDates, timeAgo } from '@/lib/time-ago';
-import { cn } from '@/lib/utils';
-import { VideoProvider } from '@/providers/offers-video';
-import type { Asset } from '@/types/asset';
-import type { Technology } from '@/types/builds';
-import type { Price } from '@/types/price';
-import type { SingleOffer } from '@/types/single-offer';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import {
-  createFileRoute,
-  Link,
-  Outlet,
-  useLocation,
-  useNavigate,
-} from '@tanstack/react-router';
-import { FabIcon } from '@/components/icons/fab';
-import { DateTime } from 'luxon';
-import { Bell } from 'lucide-react';
-import { useCookies } from 'react-cookie';
-import { OffersHomeSkeleton } from '@/components/skeletons/offers-home';
+} from "@/components/ui/table";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Checkbox } from "@/components/ui/checkbox";
+import { useCompare } from "@/hooks/use-compare";
+import { useLocale } from "@/hooks/use-locale";
+import { usePushNotifications } from "@/hooks/use-push-notifications";
+import { ClientOnly } from "@/lib/cllient-only";
+import { generateOfferMeta } from "@/lib/generate-offer-meta";
+import { getImage } from "@/lib/get-image";
+import { Seller } from "@/lib/get-seller";
+import { httpClient } from "@/lib/http-client";
+import { internalNamespaces } from "@/lib/internal-namespaces";
+import { offersDictionary } from "@/lib/offers-dictionary";
+import { compareDates, timeAgo } from "@/lib/time-ago";
+import { cn } from "@/lib/utils";
+import { VideoProvider } from "@/providers/offers-video";
+import type { Asset } from "@/types/asset";
+import type { Technology } from "@/types/builds";
+import type { Price } from "@/types/price";
+import type { SingleOffer } from "@/types/single-offer";
+import { useSuspenseQuery } from "@tanstack/react-query";
+import { createFileRoute, Link, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
+import { FabIcon } from "@/components/icons/fab";
+import { DateTime } from "luxon";
+import { Bell } from "lucide-react";
+import { useCookies } from "react-cookie";
+import { OffersHomeSkeleton } from "@/components/skeletons/offers-home";
 
-export const Route = createFileRoute('/offers/$id')({
+export const Route = createFileRoute("/offers/$id")({
   component: () => {
     return <OfferPage />;
   },
@@ -80,9 +65,8 @@ export const Route = createFileRoute('/offers/$id')({
     const { id } = params;
 
     const offer = await queryClient.ensureQueryData({
-      queryKey: ['offer', { id: params.id }],
-      queryFn: () =>
-        httpClient.get<SingleOffer>(`/offers/${params.id}`).catch(() => null),
+      queryKey: ["offer", { id: params.id }],
+      queryFn: () => httpClient.get<SingleOffer>(`/offers/${params.id}`).catch(() => null),
     });
 
     return {
@@ -97,19 +81,16 @@ export const Route = createFileRoute('/offers/$id')({
 
     await Promise.allSettled([
       queryClient.prefetchQuery({
-        queryKey: ['price', { id: params.id, country }],
+        queryKey: ["price", { id: params.id, country }],
         queryFn: () =>
-          httpClient.get<Price>(
-            `/offers/${params.id}/price?country=${country || 'US'}`,
-          ),
+          httpClient.get<Price>(`/offers/${params.id}/price?country=${country || "US"}`),
       }),
       queryClient.prefetchQuery({
-        queryKey: ['offer-technologies', { id: params.id }],
-        queryFn: () =>
-          httpClient.get<Technology[]>(`/offers/${params.id}/technologies`),
+        queryKey: ["offer-technologies", { id: params.id }],
+        queryFn: () => httpClient.get<Technology[]>(`/offers/${params.id}/technologies`),
       }),
       queryClient.prefetchQuery({
-        queryKey: ['offer-assets', { id }],
+        queryKey: ["offer-assets", { id }],
         queryFn: () => httpClient.get<Asset[]>(`/offers/${id}/assets`),
       }),
     ]);
@@ -128,8 +109,8 @@ export const Route = createFileRoute('/offers/$id')({
       return {
         meta: [
           {
-            title: 'Offer not found',
-            description: 'Offer not found',
+            title: "Offer not found",
+            description: "Offer not found",
           },
         ],
       };
@@ -140,8 +121,8 @@ export const Route = createFileRoute('/offers/$id')({
       return {
         meta: [
           {
-            title: 'Offer not found',
-            description: 'Offer not found',
+            title: "Offer not found",
+            description: "Offer not found",
           },
         ],
       };
@@ -151,32 +132,32 @@ export const Route = createFileRoute('/offers/$id')({
       meta: generateOfferMeta(offer),
       links: [
         {
-          rel: 'stylesheet',
+          rel: "stylesheet",
           href: defaultPlayerTheme,
         },
         {
-          rel: 'stylesheet',
+          rel: "stylesheet",
           href: defaultAudioPlayer,
         },
         {
-          rel: 'stylesheet',
+          rel: "stylesheet",
           href: defaultVideoPlayer,
         },
         // Preload all the styles for the video player
         {
-          rel: 'preload',
+          rel: "preload",
           href: defaultPlayerTheme,
-          as: 'style',
+          as: "style",
         },
         {
-          rel: 'preload',
+          rel: "preload",
           href: defaultAudioPlayer,
-          as: 'style',
+          as: "style",
         },
         {
-          rel: 'preload',
+          rel: "preload",
           href: defaultVideoPlayer,
-          as: 'style',
+          as: "style",
         },
       ],
     };
@@ -190,13 +171,9 @@ function OfferPage() {
   const navigate = useNavigate();
   const location = useLocation();
   // Auth and push notifications
-  const [cookies] = useCookies(['push-notifications-api-key']);
-  const {
-    canPerformTopicOperations,
-    subscribeToTopic,
-    unsubscribeFromTopic,
-    isSubscribedToTopic,
-  } = usePushNotifications(cookies['push-notifications-api-key']);
+  const [cookies] = useCookies(["push-notifications-api-key"]);
+  const { canPerformTopicOperations, subscribeToTopic, unsubscribeFromTopic, isSubscribedToTopic } =
+    usePushNotifications(cookies["push-notifications-api-key"]);
 
   // Topic names for this offer
   const allTopic = `offer:${id}:*`;
@@ -219,10 +196,7 @@ function OfferPage() {
   const media = isSubscribedToTopic(mediaTopic);
 
   // Handle notification setting changes
-  const handleNotificationChange = async (
-    setting: string,
-    checked: boolean,
-  ) => {
+  const handleNotificationChange = async (setting: string, checked: boolean) => {
     if (!canPerformTopicOperations) return;
 
     const topicMap = {
@@ -246,7 +220,7 @@ function OfferPage() {
       mediaTopic,
     ];
 
-    if (setting === 'all') {
+    if (setting === "all") {
       if (checked) {
         // Subscribe to all changes and unsubscribe from specific ones
         await subscribeToTopic(allTopic);
@@ -276,12 +250,12 @@ function OfferPage() {
   };
 
   const { data: offer, isLoading: offerLoading } = useSuspenseQuery({
-    queryKey: ['offer', { id }],
+    queryKey: ["offer", { id }],
     queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`),
   });
 
   const { data: technologies } = useSuspenseQuery({
-    queryKey: ['offer-technologies', { id }],
+    queryKey: ["offer-technologies", { id }],
     queryFn: () => httpClient.get<Technology[]>(`/offers/${id}/technologies`),
   });
 
@@ -295,7 +269,7 @@ function OfferPage() {
     return <div>Offer not found</div>;
   }
 
-  if (offer.title === 'Error') {
+  if (offer.title === "Error") {
     return <div>{offer.description}</div>;
   }
 
@@ -313,11 +287,11 @@ function OfferPage() {
         <BlurredBackground
           src={
             getImage(offer.keyImages, [
-              'DieselStoreFrontWide',
-              'OfferImageWide',
-              'DieselGameBoxWide',
-              'TakeoverWide',
-            ])?.url ?? '/placeholder.webp'
+              "DieselStoreFrontWide",
+              "OfferImageWide",
+              "DieselGameBoxWide",
+              "TakeoverWide",
+            ])?.url ?? "/placeholder.webp"
           }
         />
         <header className="grid col-span-1 gap-4 md:grid-cols-2 w-full">
@@ -336,10 +310,8 @@ function OfferPage() {
                 seller={offer.seller.name}
                 customAttributes={offer.customAttributes}
               />
-              {offer.prePurchase && (
-                <Badge variant="outline">Pre-Purchase</Badge>
-              )}
-              {offer.tags.find((tag) => tag.id === '1310') && (
+              {offer.prePurchase && <Badge variant="outline">Pre-Purchase</Badge>}
+              {offer.tags.find((tag) => tag.id === "1310") && (
                 <Badge variant="outline">Early Access</Badge>
               )}
             </h4>
@@ -359,11 +331,11 @@ function OfferPage() {
                     <TableCell className="font-medium">Namespace</TableCell>
                     <TableCell
                       className={
-                        'text-left font-mono border-l-gray-300/10 border-l underline decoration-dotted decoration-slate-600 underline-offset-4'
+                        "text-left font-mono border-l-gray-300/10 border-l underline decoration-dotted decoration-slate-600 underline-offset-4"
                       }
                     >
                       <Link
-                        to={'/sandboxes/$id/offers'}
+                        to={"/sandboxes/$id/offers"}
                         params={{
                           id: offer.namespace,
                         }}
@@ -405,21 +377,15 @@ function OfferPage() {
                     <TableCell className="font-medium">Developer</TableCell>
                     <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
                       <Seller
-                        developerDisplayName={
-                          offer.developerDisplayName as string
-                        }
-                        publisherDisplayName={
-                          offer.publisherDisplayName as string
-                        }
+                        developerDisplayName={offer.developerDisplayName as string}
+                        publisherDisplayName={offer.publisherDisplayName as string}
                         seller={offer.seller.name}
                         customAttributes={offer.customAttributes}
                       />
                     </TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell className="font-medium">
-                      Supported Platforms
-                    </TableCell>
+                    <TableCell className="font-medium">Supported Platforms</TableCell>
                     <TableCell className="text-left border-l-gray-300/10 border-l inline-flex items-center justify-start gap-1">
                       {platformTags.map((tag) => (
                         <span key={tag.id} className="text-xs">
@@ -447,16 +413,16 @@ function OfferPage() {
                         ? DateTime.fromISO(offer.lastModifiedDate, {
                             zone: timezone,
                           })
-                            .setLocale('en-GB')
+                            .setLocale("en-GB")
                             .toLocaleString({
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric',
-                              hour: 'numeric',
-                              minute: 'numeric',
-                              timeZoneName: 'short',
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                              hour: "numeric",
+                              minute: "numeric",
+                              timeZoneName: "short",
                             })
-                        : 'Not available'}
+                        : "Not available"}
                       <TimeAgo targetDate={offer.lastModifiedDate} />
                     </TableCell>
                   </TableRow>
@@ -467,16 +433,16 @@ function OfferPage() {
                         ? DateTime.fromISO(offer.creationDate, {
                             zone: timezone,
                           })
-                            .setLocale('en-GB')
+                            .setLocale("en-GB")
                             .toLocaleString({
-                              year: 'numeric',
-                              month: 'long',
-                              day: 'numeric',
-                              hour: 'numeric',
-                              minute: 'numeric',
-                              timeZoneName: 'short',
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                              hour: "numeric",
+                              minute: "numeric",
+                              timeZoneName: "short",
                             })
-                        : 'Not available'}
+                        : "Not available"}
                       <TimeAgo targetDate={offer.creationDate} />
                     </TableCell>
                   </TableRow>
@@ -492,7 +458,7 @@ function OfferPage() {
                             </TooltipTrigger>
                             <TooltipContent>
                               <p className="text-sm max-w-md">
-                                We use the{' '}
+                                We use the{" "}
                                 <a
                                   href="https://steamdb.info/tech/"
                                   className="text-blue-700 font-semibold"
@@ -500,9 +466,9 @@ function OfferPage() {
                                   rel="noopener noreferrer"
                                 >
                                   SteamDB
-                                </a>{' '}
-                                technologies list to track the used engines and
-                                different technologies from the game files.
+                                </a>{" "}
+                                technologies list to track the used engines and different
+                                technologies from the game files.
                                 <br />
                                 <a
                                   href="https://github.com/SteamDatabase/FileDetectionRuleSets"
@@ -521,41 +487,41 @@ function OfferPage() {
                         {technologies
                           .filter(
                             (technology) =>
-                              technology.section === 'Engine' ||
-                              technology.section === 'AntiCheat' ||
-                              technology.section === 'Container' ||
-                              technology.section === 'Emulator' ||
-                              technology.section === 'Launcher' ||
-                              technology.technology === 'SteamworksNET' ||
-                              technology.technology === 'EpicOnlineServices' ||
-                              technology.technology === 'Steam_Networking',
+                              technology.section === "Engine" ||
+                              technology.section === "AntiCheat" ||
+                              technology.section === "Container" ||
+                              technology.section === "Emulator" ||
+                              technology.section === "Launcher" ||
+                              technology.technology === "SteamworksNET" ||
+                              technology.technology === "EpicOnlineServices" ||
+                              technology.technology === "Steam_Networking",
                           )
                           // Sort by
                           // Engine
                           // Launcher
                           // Anti-cheat
                           .sort((a, b) => {
-                            if (a.section === 'Engine') {
+                            if (a.section === "Engine") {
                               return -1;
                             }
 
-                            if (b.section === 'Engine') {
+                            if (b.section === "Engine") {
                               return 1;
                             }
 
-                            if (a.section === 'Launcher') {
+                            if (a.section === "Launcher") {
                               return -1;
                             }
 
-                            if (b.section === 'Launcher') {
+                            if (b.section === "Launcher") {
                               return 1;
                             }
 
-                            if (a.section === 'AntiCheat') {
+                            if (a.section === "AntiCheat") {
                               return -1;
                             }
 
-                            if (b.section === 'AntiCheat') {
+                            if (b.section === "AntiCheat") {
                               return 1;
                             }
 
@@ -567,10 +533,8 @@ function OfferPage() {
                               className="font-mono"
                             >
                               {technology.technology}
-                              <sup className="text-[9px] ml-[2px]">
-                                {technology.section}
-                              </sup>
-                              {index < array.length - 1 && ','}
+                              <sup className="text-[9px] ml-[2px]">{technology.section}</sup>
+                              {index < array.length - 1 && ","}
                             </span>
                           ))}
                       </TableCell>
@@ -611,14 +575,11 @@ function OfferPage() {
                 </PopoverTrigger>
                 <PopoverContent className="w-80">
                   <div className="space-y-4">
-                    <h4 className="font-medium leading-none">
-                      Notification Settings
-                    </h4>
+                    <h4 className="font-medium leading-none">Notification Settings</h4>
                     {canPerformTopicOperations ? (
                       <>
                         <p className="text-sm text-muted-foreground">
-                          Choose what notifications you want to receive for this
-                          offer.
+                          Choose what notifications you want to receive for this offer.
                         </p>
                         <div className="space-y-3">
                           <div className="flex items-center space-x-2">
@@ -626,10 +587,7 @@ function OfferPage() {
                               id="all"
                               checked={all}
                               onCheckedChange={(checked) =>
-                                handleNotificationChange(
-                                  'all',
-                                  checked as boolean,
-                                )
+                                handleNotificationChange("all", checked as boolean)
                               }
                               disabled={
                                 price ||
@@ -653,10 +611,7 @@ function OfferPage() {
                               id="price"
                               checked={price}
                               onCheckedChange={(checked) =>
-                                handleNotificationChange(
-                                  'price',
-                                  checked as boolean,
-                                )
+                                handleNotificationChange("price", checked as boolean)
                               }
                               disabled={all}
                             />
@@ -672,10 +627,7 @@ function OfferPage() {
                               id="achievements"
                               checked={achievements}
                               onCheckedChange={(checked) =>
-                                handleNotificationChange(
-                                  'achievements',
-                                  checked as boolean,
-                                )
+                                handleNotificationChange("achievements", checked as boolean)
                               }
                               disabled={all}
                             />
@@ -691,10 +643,7 @@ function OfferPage() {
                               id="builds"
                               checked={builds}
                               onCheckedChange={(checked) =>
-                                handleNotificationChange(
-                                  'builds',
-                                  checked as boolean,
-                                )
+                                handleNotificationChange("builds", checked as boolean)
                               }
                               disabled={all}
                             />
@@ -710,10 +659,7 @@ function OfferPage() {
                               id="items"
                               checked={items}
                               onCheckedChange={(checked) =>
-                                handleNotificationChange(
-                                  'items',
-                                  checked as boolean,
-                                )
+                                handleNotificationChange("items", checked as boolean)
                               }
                               disabled={all}
                             />
@@ -729,10 +675,7 @@ function OfferPage() {
                               id="requirements"
                               checked={requirements}
                               onCheckedChange={(checked) =>
-                                handleNotificationChange(
-                                  'requirements',
-                                  checked as boolean,
-                                )
+                                handleNotificationChange("requirements", checked as boolean)
                               }
                               disabled={all}
                             />
@@ -748,10 +691,7 @@ function OfferPage() {
                               id="metadata"
                               checked={metadata}
                               onCheckedChange={(checked) =>
-                                handleNotificationChange(
-                                  'metadata',
-                                  checked as boolean,
-                                )
+                                handleNotificationChange("metadata", checked as boolean)
                               }
                               disabled={all}
                             />
@@ -767,10 +707,7 @@ function OfferPage() {
                               id="media"
                               checked={media}
                               onCheckedChange={(checked) =>
-                                handleNotificationChange(
-                                  'media',
-                                  checked as boolean,
-                                )
+                                handleNotificationChange("media", checked as boolean)
                               }
                               disabled={all}
                             />
@@ -786,13 +723,11 @@ function OfferPage() {
                     ) : (
                       <>
                         <p className="text-sm text-muted-foreground">
-                          You need to enable push notifications to receive
-                          notifications for this offer.
+                          You need to enable push notifications to receive notifications for this
+                          offer.
                         </p>
                         <Button asChild className="w-full">
-                          <Link to="/notifications">
-                            Enable Push Notifications
-                          </Link>
+                          <Link to="/notifications">Enable Push Notifications</Link>
                         </Button>
                       </>
                     )}
@@ -805,15 +740,13 @@ function OfferPage() {
           </div>
         </header>
 
-        {offer.categories.findIndex(
-          (category) => category === 'collections',
-        ) !== -1 && (
+        {offer.categories.findIndex((category) => category === "collections") !== -1 && (
           <section className="w-full min-h-[50vh] flex flex-col gap-4">
             <CollectionOffers id={offer.id} />
           </section>
         )}
 
-        {offer.offerType === 'BUNDLE' || offer.offerType === 'Bundle' ? (
+        {offer.offerType === "BUNDLE" || offer.offerType === "Bundle" ? (
           <section className="w-full min-h-[50vh] flex flex-col gap-4">
             <hr className="my-4" />
             <Bundle id={offer.id} offer={offer} />
@@ -821,64 +754,61 @@ function OfferPage() {
           </section>
         ) : null}
 
-        <section
-          id="offer-information"
-          className="w-full min-h-[50vh] flex flex-col gap-4"
-        >
+        <section id="offer-information" className="w-full min-h-[50vh] flex flex-col gap-4">
           <SectionsNav
             links={[
               {
-                id: '',
-                label: 'Overview',
+                id: "",
+                label: "Overview",
                 href: `/offers/${offer.id}`,
               },
               {
-                id: 'price',
-                label: 'Price',
+                id: "price",
+                label: "Price",
                 href: `/offers/${offer.id}/price`,
               },
               {
-                id: 'items',
-                label: 'Items',
+                id: "items",
+                label: "Items",
                 href: `/offers/${offer.id}/items`,
               },
               {
-                id: 'builds',
-                label: 'Builds',
+                id: "builds",
+                label: "Builds",
                 href: `/offers/${offer.id}/builds`,
               },
               {
-                id: 'achievements',
-                label: 'Achievements',
+                id: "achievements",
+                label: "Achievements",
                 href: `/offers/${offer.id}/achievements`,
               },
               {
-                id: 'related',
-                label: 'Related',
+                id: "related",
+                label: "Related",
                 href: `/offers/${offer.id}/related`,
               },
               {
-                id: 'metadata',
-                label: 'Metadata',
+                id: "metadata",
+                label: "Metadata",
                 href: `/offers/${offer.id}/metadata`,
               },
               {
-                id: 'changelog',
-                label: 'Changelog',
+                id: "changelog",
+                label: "Changelog",
                 href: `/offers/${offer.id}/changelog`,
               },
               {
-                id: 'media',
-                label: 'Media',
+                id: "media",
+                label: "Media",
                 href: `/offers/${offer.id}/media`,
               },
               {
-                id: 'reviews',
-                label: 'Reviews',
+                id: "reviews",
+                label: "Reviews",
                 href: `/offers/${offer.id}/reviews`,
               },
             ]}
-            activeSection={subPath ?? ''}
+            activeSection={subPath ?? ""}
             onSectionChange={(id) => {
               navigate({
                 to: `/offers/${offer.id}/${id}`,
@@ -893,11 +823,7 @@ function OfferPage() {
 
         <hr className="my-4 border-gray-300/40" />
 
-        <SellerOffers
-          id={offer.seller.id}
-          name={offer.seller.name}
-          currentOffer={offer}
-        />
+        <SellerOffers id={offer.seller.id} name={offer.seller.name} currentOffer={offer} />
 
         <SuggestedOffers id={offer.id} />
       </main>
@@ -910,7 +836,7 @@ const TimeAgo: React.FC<{
 }> = ({ targetDate }) => {
   return (
     <span className="opacity-50">
-      ({targetDate ? timeAgo(new Date(targetDate)) : 'Not available'})
+      ({targetDate ? timeAgo(new Date(targetDate)) : "Not available"})
     </span>
   );
 };
@@ -920,7 +846,7 @@ const ReleaseDate: React.FC<{
   pcReleaseDate: string | null;
   timezone: string | undefined;
 }> = ({ releaseDate, pcReleaseDate, timezone }) => {
-  if (!releaseDate || releaseDate.includes('2099')) {
+  if (!releaseDate || releaseDate.includes("2099")) {
     return <span>Not available</span>;
   }
 
@@ -933,31 +859,29 @@ const ReleaseDate: React.FC<{
               className={cn(
                 pcReleaseDate &&
                   releaseDate !== pcReleaseDate &&
-                  'underline decoration-dotted underline-offset-4',
+                  "underline decoration-dotted underline-offset-4",
               )}
             >
               {DateTime.fromISO(releaseDate)
-                .setZone(timezone || 'UTC')
-                .setLocale('en-GB')
+                .setZone(timezone || "UTC")
+                .setLocale("en-GB")
                 .toLocaleString({
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                  hour: 'numeric',
-                  minute: 'numeric',
-                  timeZoneName: 'short',
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  timeZoneName: "short",
                 })}
             </span>
           </TooltipTrigger>
           <TooltipContent>
             {!pcReleaseDate || releaseDate === pcReleaseDate ? (
-              'Released on Epic the same day as PC'
+              "Released on Epic the same day as PC"
             ) : (
               <span>
                 <span>Released on PC </span>
-                <span>
-                  {compareDates(new Date(pcReleaseDate), new Date(releaseDate))}
-                </span>
+                <span>{compareDates(new Date(pcReleaseDate), new Date(releaseDate))}</span>
                 <span> the EGS</span>
               </span>
             )}

@@ -1,33 +1,20 @@
-import { Image } from '@/components/app/image';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { useCountry } from '@/hooks/use-country';
-import { useLocale } from '@/hooks/use-locale';
-import { calculatePrice } from '@/lib/calculate-price';
-import { getQueryClient } from '@/lib/client';
-import { getFetchedQuery } from '@/lib/get-fetched-query';
-import { getImage } from '@/lib/get-image';
-import { cn } from '@/lib/utils';
-import {
-  type Collections,
-  getCollection,
-  type OfferWithTops,
-} from '@/queries/collection';
-import {
-  dehydrate,
-  HydrationBoundary,
-  useInfiniteQuery,
-} from '@tanstack/react-query';
-import { createFileRoute, Link } from '@tanstack/react-router';
-import { ChevronDown } from 'lucide-react';
+import { Image } from "@/components/app/image";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useCountry } from "@/hooks/use-country";
+import { useLocale } from "@/hooks/use-locale";
+import { calculatePrice } from "@/lib/calculate-price";
+import { getQueryClient } from "@/lib/client";
+import { getFetchedQuery } from "@/lib/get-fetched-query";
+import { getImage } from "@/lib/get-image";
+import { cn } from "@/lib/utils";
+import { type Collections, getCollection, type OfferWithTops } from "@/queries/collection";
+import { dehydrate, HydrationBoundary, useInfiniteQuery } from "@tanstack/react-query";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ChevronDown } from "lucide-react";
 
-export const Route = createFileRoute('/collections/$id/')({
+export const Route = createFileRoute("/collections/$id/")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
 
@@ -44,7 +31,7 @@ export const Route = createFileRoute('/collections/$id/')({
 
     await queryClient.prefetchInfiniteQuery({
       queryKey: [
-        'collection',
+        "collection",
         {
           id,
           country,
@@ -83,8 +70,8 @@ export const Route = createFileRoute('/collections/$id/')({
       return {
         meta: [
           {
-            title: 'Collection not found',
-            description: 'Collection not found',
+            title: "Collection not found",
+            description: "Collection not found",
           },
         ],
       };
@@ -93,7 +80,7 @@ export const Route = createFileRoute('/collections/$id/')({
     const collectionPages = getFetchedQuery<{
       pages: Collections[];
     }>(queryClient, ctx.loaderData.dehydratedState, [
-      'collection',
+      "collection",
       { id: params.id, country: ctx.loaderData.country, limit: 20 },
     ]);
 
@@ -103,8 +90,8 @@ export const Route = createFileRoute('/collections/$id/')({
       return {
         meta: [
           {
-            title: 'Collection not found',
-            description: 'Collection not found',
+            title: "Collection not found",
+            description: "Collection not found",
           },
         ],
       };
@@ -116,23 +103,23 @@ export const Route = createFileRoute('/collections/$id/')({
           title: `${collection.title} | egdata.app`,
         },
         {
-          name: 'description',
+          name: "description",
           content: `Check out the ${collection.title} from the Epic Games Store.`,
         },
         {
-          name: 'og:title',
+          name: "og:title",
           content: `${collection.title} | egdata.app`,
         },
         {
-          name: 'og:description',
+          name: "og:description",
           content: `Check out the ${collection.title} from the Epic Games Store.`,
         },
         {
-          property: 'twitter:title',
+          property: "twitter:title",
           content: `${collection.title} | egdata.app`,
         },
         {
-          property: 'twitter:description',
+          property: "twitter:description",
           content: `Check out the ${collection.title} from the Epic Games Store.`,
         },
       ],
@@ -143,25 +130,24 @@ export const Route = createFileRoute('/collections/$id/')({
 function CollectionPage() {
   const { id } = Route.useParams();
   const { country } = useCountry();
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
-    useInfiniteQuery({
-      queryKey: ['collection', { id, country, limit: 20 }],
-      queryFn: ({ pageParam }) =>
-        getCollection({
-          slug: id,
-          limit: 20,
-          page: pageParam as number,
-          country,
-        }),
-      initialPageParam: 1,
-      getNextPageParam: (lastPage: Collections, allPages: Collections[]) => {
-        if (lastPage.page * lastPage.limit + 20 > lastPage.total) {
-          return undefined;
-        }
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery({
+    queryKey: ["collection", { id, country, limit: 20 }],
+    queryFn: ({ pageParam }) =>
+      getCollection({
+        slug: id,
+        limit: 20,
+        page: pageParam as number,
+        country,
+      }),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage: Collections, allPages: Collections[]) => {
+      if (lastPage.page * lastPage.limit + 20 > lastPage.total) {
+        return undefined;
+      }
 
-        return allPages?.length + 1;
-      },
-    });
+      return allPages?.length + 1;
+    },
+  });
 
   if (isLoading) {
     return (
@@ -192,8 +178,8 @@ function CollectionPage() {
               </TooltipTrigger>
               <TooltipContent className="max-w-xs">
                 <p>
-                  The difference between the current position and the previous
-                  position. Usually changes every day.
+                  The difference between the current position and the previous position. Usually
+                  changes every day.
                 </p>
               </TooltipContent>
             </Tooltip>
@@ -205,7 +191,7 @@ function CollectionPage() {
               </TooltipTrigger>
               <TooltipContent className="max-w-xs">
                 <p>
-                  The number of weeks the game has been in the top 100 for{' '}
+                  The number of weeks the game has been in the top 100 for{" "}
                   {data?.pages[0].title.toLowerCase()}.
                 </p>
               </TooltipContent>
@@ -254,7 +240,7 @@ function CollectionPage() {
                   Loading...
                 </>
               ) : (
-                'Load more'
+                "Load more"
               )}
             </Button>
           </div>
@@ -267,8 +253,8 @@ function CollectionPage() {
 function OfferInTop({ offer }: { offer: OfferWithTops }) {
   const { locale } = useLocale();
   const fmt = Intl.NumberFormat(locale, {
-    style: 'currency',
-    currency: offer.price?.price.currencyCode || 'USD',
+    style: "currency",
+    currency: offer.price?.price.currencyCode || "USD",
   });
 
   const weeksInTop100 = Math.floor(offer.metadata.timesInTop100 / 7);
@@ -276,19 +262,17 @@ function OfferInTop({ offer }: { offer: OfferWithTops }) {
   return (
     <Link to={`/offers/${offer.id}`} preload="viewport">
       <Card className="w-full h-16 flex flex-row items-center rounded-xl overflow-hidden px-5">
-        <span className="text-xl font-bold w-10 flex-shrink-0">
-          {offer.position}
-        </span>
+        <span className="text-xl font-bold w-10 flex-shrink-0">{offer.position}</span>
 
         <div className="h-full w-24 flex-shrink-0 flex flex-col justify-center items-center">
           <Image
             src={
               getImage(offer.keyImages, [
-                'DieselGameBoxWide',
-                'DieselStoreFrontWide',
-                'Featured',
-                'OfferImageWide',
-              ])?.url ?? '/placeholder.webp'
+                "DieselGameBoxWide",
+                "DieselStoreFrontWide",
+                "Featured",
+                "OfferImageWide",
+              ])?.url ?? "/placeholder.webp"
             }
             alt={offer.title}
             className="w-full h-full object-cover rounded-md"
@@ -305,9 +289,8 @@ function OfferInTop({ offer }: { offer: OfferWithTops }) {
         <div className="flex-shrink-0 w-40 text-right inline-flex items-center justify-end gap-2 pr-5">
           <span
             className={cn(
-              'text-lg font-semibold',
-              offer.price?.price.discountPrice !==
-                offer.price?.price.originalPrice && 'text-badge',
+              "text-lg font-semibold",
+              offer.price?.price.discountPrice !== offer.price?.price.originalPrice && "text-badge",
             )}
           >
             {fmt.format(
@@ -317,8 +300,7 @@ function OfferInTop({ offer }: { offer: OfferWithTops }) {
               ),
             )}
           </span>
-          {offer.price?.price.discountPrice !==
-            offer.price?.price.originalPrice && (
+          {offer.price?.price.discountPrice !== offer.price?.price.originalPrice && (
             <span className="text-lg font-medium text-muted-foreground line-through">
               {fmt.format(
                 calculatePrice(
@@ -332,24 +314,19 @@ function OfferInTop({ offer }: { offer: OfferWithTops }) {
 
         <div
           className={cn(
-            'flex flex-row gap-1 items-center text-badge w-16 justify-center',
-            offer.previousPosition && offer.position > offer.previousPosition
-              ? 'text-red-500'
-              : '',
+            "flex flex-row gap-1 items-center text-badge w-16 justify-center",
+            offer.previousPosition && offer.position > offer.previousPosition ? "text-red-500" : "",
           )}
         >
-          {offer.previousPosition &&
-          offer.position !== offer.previousPosition ? (
+          {offer.previousPosition && offer.position !== offer.previousPosition ? (
             <>
               <ChevronDown
                 className={cn(
-                  'h-4 w-4',
-                  offer.position < offer.previousPosition ? 'rotate-180' : '',
+                  "h-4 w-4",
+                  offer.position < offer.previousPosition ? "rotate-180" : "",
                 )}
               />
-              <span className="text-md">
-                {Math.abs(offer.position - offer.previousPosition)}
-              </span>
+              <span className="text-md">{Math.abs(offer.position - offer.previousPosition)}</span>
             </>
           ) : (
             <span className="text-md">-</span>

@@ -1,4 +1,4 @@
-import { createContext, type RefObject } from 'react';
+import { createContext, type RefObject } from "react";
 
 export interface SearchState {
   focus: boolean;
@@ -11,7 +11,7 @@ export interface SearchState {
 
 export const defaultState: SearchState = {
   focus: false,
-  query: '',
+  query: "",
   results: [],
   inputRef: { current: null } as RefObject<HTMLInputElement>,
   setQuery: () => {},

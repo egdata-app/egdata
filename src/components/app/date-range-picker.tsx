@@ -1,24 +1,24 @@
-import * as React from 'react';
-import { Calendar } from '@/components/ui/calendar';
-import { Button } from '@/components/ui/button';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { cn } from '@/lib/utils';
-import { CalendarIcon } from 'lucide-react';
-import { DateTime } from 'luxon';
-import { useLocale } from '@/hooks/use-locale';
+import * as React from "react";
+import { Calendar } from "@/components/ui/calendar";
+import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
+import { CalendarIcon } from "lucide-react";
+import { DateTime } from "luxon";
+import { useLocale } from "@/hooks/use-locale";
 
 export function DateRangePicker({
   handleChange,
-}: { handleChange: (dates: { from: Date; to: Date | undefined }) => void }) {
+}: {
+  handleChange: (dates: { from: Date; to: Date | undefined }) => void;
+}) {
   const { timezone } = useLocale();
   const [isOpen, setIsOpen] = React.useState(false);
-  
+
   // Initialize with last 7 days (6 days ago to today = 7 days total)
-  const today = DateTime.now().setZone(timezone || 'UTC').startOf('day');
+  const today = DateTime.now()
+    .setZone(timezone || "UTC")
+    .startOf("day");
   const [dateRange, setDateRange] = React.useState<{
     from: Date;
     to: Date | undefined;
@@ -28,8 +28,8 @@ export function DateRangePicker({
   });
 
   const quickSelections = [
-    { label: 'Last 7 days', days: 7 },
-    { label: 'Last 30 days', days: 30 },
+    { label: "Last 7 days", days: 7 },
+    { label: "Last 30 days", days: 30 },
   ];
 
   const handleQuickSelection = (days: number) => {
@@ -43,9 +43,9 @@ export function DateRangePicker({
 
   const getDaysDifference = (from: Date, to: Date | undefined): number => {
     if (!from || !to) return 0;
-    const fromDate = DateTime.fromJSDate(from).startOf('day');
-    const toDate = DateTime.fromJSDate(to).startOf('day');
-    return Math.floor(toDate.diff(fromDate, 'days').days) + 1; // +1 to include both start and end dates
+    const fromDate = DateTime.fromJSDate(from).startOf("day");
+    const toDate = DateTime.fromJSDate(to).startOf("day");
+    return Math.floor(toDate.diff(fromDate, "days").days) + 1; // +1 to include both start and end dates
   };
 
   const isValidRange = (from: Date, to: Date | undefined): boolean => {
@@ -61,7 +61,7 @@ export function DateRangePicker({
     }
 
     const { from, to } = newRange;
-    
+
     // If only 'from' is selected, set 'to' as undefined
     if (from && !to) {
       setDateRange({ from, to: undefined });
@@ -71,10 +71,10 @@ export function DateRangePicker({
     // If both dates are selected, validate the range
     if (from && to) {
       const days = getDaysDifference(from, to);
-      
+
       if (days > 30) {
         // Limit to 30 days from the 'from' date
-        const limitedTo = DateTime.fromJSDate(from).startOf('day').plus({ days: 29 }).toJSDate();
+        const limitedTo = DateTime.fromJSDate(from).startOf("day").plus({ days: 29 }).toJSDate();
         setDateRange({ from, to: limitedTo });
       } else if (days > 0) {
         setDateRange({ from, to });
@@ -85,15 +85,15 @@ export function DateRangePicker({
   const formatDateRange = () => {
     if (dateRange.from && dateRange.to) {
       const fromFormatted = DateTime.fromJSDate(dateRange.from)
-        .setZone(timezone || 'UTC')
-        .toFormat('MMM dd, yyyy');
+        .setZone(timezone || "UTC")
+        .toFormat("MMM dd, yyyy");
       const toFormatted = DateTime.fromJSDate(dateRange.to)
-        .setZone(timezone || 'UTC')
-        .toFormat('MMM dd, yyyy');
+        .setZone(timezone || "UTC")
+        .toFormat("MMM dd, yyyy");
       const days = getDaysDifference(dateRange.from, dateRange.to);
       return `${fromFormatted} - ${toFormatted} (${days} days)`;
     }
-    return 'Select Date Range';
+    return "Select Date Range";
   };
 
   const handleApply = () => {
@@ -112,8 +112,8 @@ export function DateRangePicker({
         <Button
           variant="outline"
           className={cn(
-            'w-[300px] justify-start text-left font-normal',
-            !dateRange.from && 'text-muted-foreground',
+            "w-[300px] justify-start text-left font-normal",
+            !dateRange.from && "text-muted-foreground",
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
@@ -129,9 +129,9 @@ export function DateRangePicker({
                 <div className="rounded-md border px-3 py-2 w-full">
                   {dateRange.from
                     ? DateTime.fromJSDate(dateRange.from)
-                        .setZone(timezone || 'UTC')
-                        .toFormat('dd/MM/yyyy')
-                    : 'Select Date'}
+                        .setZone(timezone || "UTC")
+                        .toFormat("dd/MM/yyyy")
+                    : "Select Date"}
                 </div>
               </div>
               <div className="w-[calc(50%-0.5rem)]">
@@ -139,9 +139,9 @@ export function DateRangePicker({
                 <div className="rounded-md border px-3 py-2 w-full">
                   {dateRange.to
                     ? DateTime.fromJSDate(dateRange.to)
-                        .setZone(timezone || 'UTC')
-                        .toFormat('dd/MM/yyyy')
-                    : 'Select Date'}
+                        .setZone(timezone || "UTC")
+                        .toFormat("dd/MM/yyyy")
+                    : "Select Date"}
                 </div>
               </div>
             </div>
@@ -170,33 +170,25 @@ export function DateRangePicker({
                     {selection.label}
                   </Button>
                 ))}
-                
+
                 {/* Show current selection info */}
                 {dateRange.from && dateRange.to && (
                   <div className="text-xs text-muted-foreground p-2 border rounded">
                     Selected: {dayCount} days
                   </div>
                 )}
-                
-                <Button
-                  className="mt-auto"
-                  onClick={handleApply}
-                  disabled={!canApply}
-                >
+
+                <Button className="mt-auto" onClick={handleApply} disabled={!canApply}>
                   Apply
                 </Button>
-                
+
                 {/* Error message */}
                 {dateRange.from && dateRange.to && dayCount > 30 && (
-                  <p className="text-xs text-red-500 mt-1">
-                    Maximum range is 30 days
-                  </p>
+                  <p className="text-xs text-red-500 mt-1">Maximum range is 30 days</p>
                 )}
-                
+
                 {dateRange.from && dateRange.to && dayCount <= 0 && (
-                  <p className="text-xs text-red-500 mt-1">
-                    Invalid date range
-                  </p>
+                  <p className="text-xs text-red-500 mt-1">Invalid date range</p>
                 )}
               </div>
             </div>

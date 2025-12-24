@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext } from "react";
 
 export interface LocaleContextProps {
   locale: string | undefined;
@@ -7,6 +7,4 @@ export interface LocaleContextProps {
   setTimezone: (timezone: string) => void;
 }
 
-export const LocaleContext = createContext<LocaleContextProps | undefined>(
-  undefined,
-);
+export const LocaleContext = createContext<LocaleContextProps | undefined>(undefined);

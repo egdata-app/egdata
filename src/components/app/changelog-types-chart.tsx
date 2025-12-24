@@ -1,13 +1,7 @@
-import { Pie, PieChart, Sector } from 'recharts';
-import type { PieSectorDataItem } from 'recharts/types/polar/Pie';
+import { Pie, PieChart, Sector } from "recharts";
+import type { PieSectorDataItem } from "recharts/types/polar/Pie";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   type ChartConfig,
   ChartContainer,
@@ -15,30 +9,28 @@ import {
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-} from '@/components/ui/chart';
-import type { ChangelogStats } from '@/types/changelog';
+} from "@/components/ui/chart";
+import type { ChangelogStats } from "@/types/changelog";
 
 const chartConfig = {
   types: {
-    label: 'Types',
+    label: "Types",
   },
   update: {
-    label: 'Update',
-    color: 'hsl(var(--chart-1))',
+    label: "Update",
+    color: "hsl(var(--chart-1))",
   },
   delete: {
-    label: 'Delete',
-    color: 'hsl(var(--chart-2))',
+    label: "Delete",
+    color: "hsl(var(--chart-2))",
   },
   insert: {
-    label: 'Insert',
-    color: 'var(--chart-3)',
+    label: "Insert",
+    color: "var(--chart-3)",
   },
 } satisfies ChartConfig;
 
-export function ChangelogTypesChart({
-  chartData,
-}: { chartData: ChangelogStats['changeTypes'] }) {
+export function ChangelogTypesChart({ chartData }: { chartData: ChangelogStats["changeTypes"] }) {
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
@@ -46,15 +38,9 @@ export function ChangelogTypesChart({
         <CardDescription>Quantity of changes by type</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
-        <ChartContainer
-          config={chartConfig}
-          className="mx-auto aspect-square max-h-[325px]"
-        >
+        <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[325px]">
           <PieChart>
-            <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent hideLabel />}
-            />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
             <Pie
               data={Object.entries(chartData || {}).map(([key, value]) => ({
                 browser: key,
@@ -66,10 +52,7 @@ export function ChangelogTypesChart({
               innerRadius={60}
               strokeWidth={5}
               activeIndex={0}
-              activeShape={({
-                outerRadius = 0,
-                ...props
-              }: PieSectorDataItem) => (
+              activeShape={({ outerRadius = 0, ...props }: PieSectorDataItem) => (
                 <Sector {...props} outerRadius={outerRadius + 10} />
               )}
             />

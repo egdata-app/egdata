@@ -1,53 +1,53 @@
-import * as React from 'react';
-import { createFileRoute } from '@tanstack/react-router';
+import * as React from "react";
+import { createFileRoute } from "@tanstack/react-router";
 import {
   dehydrate,
   HydrationBoundary,
   keepPreviousData,
   useInfiniteQuery,
-} from '@tanstack/react-query';
-import type { SingleOffer } from '@/types/single-offer';
-import { z } from 'zod';
-import { zodSearchValidator } from '@tanstack/router-zod-adapter';
-import { httpClient } from '@/lib/http-client';
-import { useCountry } from '@/hooks/use-country';
-import { usePreferences } from '@/hooks/use-preferences';
-import debounce from 'lodash.debounce';
-import { getImage } from '@/lib/get-image';
-import { Input } from '@/components/ui/input';
+} from "@tanstack/react-query";
+import type { SingleOffer } from "@/types/single-offer";
+import { z } from "zod";
+import { zodSearchValidator } from "@tanstack/router-zod-adapter";
+import { httpClient } from "@/lib/http-client";
+import { useCountry } from "@/hooks/use-country";
+import { usePreferences } from "@/hooks/use-preferences";
+import debounce from "lodash.debounce";
+import { getImage } from "@/lib/get-image";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Button } from '@/components/ui/button';
-import { ArrowDownIcon } from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { GridIcon, ListBulletIcon } from '@radix-ui/react-icons';
-import { OfferCard } from '@/components/app/offer-card';
-import { OfferListItem } from '@/components/app/game-card';
+} from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import { ArrowDownIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { GridIcon, ListBulletIcon } from "@radix-ui/react-icons";
+import { OfferCard } from "@/components/app/offer-card";
+import { OfferListItem } from "@/components/app/game-card";
 
 type SortBy =
-  | 'releaseDate'
-  | 'lastModifiedDate'
-  | 'effectiveDate'
-  | 'creationDate'
-  | 'viewableDate'
-  | 'pcReleaseDate'
-  | 'upcoming'
-  | 'price';
+  | "releaseDate"
+  | "lastModifiedDate"
+  | "effectiveDate"
+  | "creationDate"
+  | "viewableDate"
+  | "pcReleaseDate"
+  | "upcoming"
+  | "price";
 
 const sortByDisplay: Record<SortBy, string> = {
-  releaseDate: 'Release Date',
-  lastModifiedDate: 'Modified Date',
-  effectiveDate: 'Effective Date',
-  creationDate: 'Creation Date',
-  viewableDate: 'Viewable Date',
-  pcReleaseDate: 'PC Release Date',
-  upcoming: 'Upcoming',
-  price: 'Price',
+  releaseDate: "Release Date",
+  lastModifiedDate: "Modified Date",
+  effectiveDate: "Effective Date",
+  creationDate: "Creation Date",
+  viewableDate: "Viewable Date",
+  pcReleaseDate: "PC Release Date",
+  upcoming: "Upcoming",
+  price: "Price",
 };
 
 const fetchPromotionData = async ({
@@ -62,8 +62,8 @@ const fetchPromotionData = async ({
   country: string;
   page: number;
   sortBy: SortBy | null;
-  sortDir: 'asc' | 'desc' | null;
-  query: '' | string;
+  sortDir: "asc" | "desc" | null;
+  query: "" | string;
 }) => {
   const data = await httpClient.get<{
     elements: SingleOffer[];
@@ -78,7 +78,7 @@ const fetchPromotionData = async ({
       limit: 20,
       sortBy: sortBy || undefined,
       sortDir: sortDir || undefined,
-      q: query !== '' ? query : undefined,
+      q: query !== "" ? query : undefined,
     },
   });
   return data;
@@ -88,22 +88,22 @@ const searchParamsSchema = z.object({
   page: z.number().optional(),
   sortBy: z
     .enum([
-      'releaseDate',
-      'lastModifiedDate',
-      'effectiveDate',
-      'creationDate',
-      'viewableDate',
-      'pcReleaseDate',
-      'upcoming',
-      'price',
+      "releaseDate",
+      "lastModifiedDate",
+      "effectiveDate",
+      "creationDate",
+      "viewableDate",
+      "pcReleaseDate",
+      "upcoming",
+      "price",
     ])
     .optional(),
-  sortDir: z.enum(['asc', 'desc']).optional(),
+  sortDir: z.enum(["asc", "desc"]).optional(),
   q: z.string().optional(),
   country: z.string().optional(),
 });
 
-export const Route = createFileRoute('/tags/$id')({
+export const Route = createFileRoute("/tags/$id")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
 
@@ -120,24 +120,21 @@ export const Route = createFileRoute('/tags/$id')({
 
     // const { page, sortBy, sortDir, q } = search;
     const page = search?.page ?? 1;
-    const sortBy = search?.sortBy ?? 'lastModifiedDate';
-    const sortDir = search?.sortDir ?? 'desc';
-    const q = search?.q ?? '';
+    const sortBy = search?.sortBy ?? "lastModifiedDate";
+    const sortDir = search?.sortDir ?? "desc";
+    const q = search?.q ?? "";
 
     const [coverData, initialData] = await Promise.allSettled([
       queryClient.fetchQuery({
-        queryKey: ['promotion-cover', { id }],
+        queryKey: ["promotion-cover", { id }],
         queryFn: () =>
-          httpClient.get<
-            Pick<
-              SingleOffer,
-              '_id' | 'id' | 'namespace' | 'title' | 'keyImages'
-            >
-          >(`/promotions/${id}/cover`),
+          httpClient.get<Pick<SingleOffer, "_id" | "id" | "namespace" | "title" | "keyImages">>(
+            `/promotions/${id}/cover`,
+          ),
       }),
       queryClient.fetchQuery({
         queryKey: [
-          'promotion-meta',
+          "promotion-meta",
           { id, country, limit: 20, sortBy, sortDir, query: q, page: 1 },
         ],
         queryFn: () =>
@@ -151,10 +148,7 @@ export const Route = createFileRoute('/tags/$id')({
           }),
       }),
       queryClient.prefetchInfiniteQuery({
-        queryKey: [
-          'promotion',
-          { id, country, sortBy, sortDir, query: q, limit: 20 },
-        ],
+        queryKey: ["promotion", { id, country, sortBy, sortDir, query: q, limit: 20 }],
         queryFn: ({ pageParam }) =>
           fetchPromotionData({
             id,
@@ -179,12 +173,12 @@ export const Route = createFileRoute('/tags/$id')({
       }),
     ]);
 
-    const cover = coverData.status === 'fulfilled' ? coverData.value : null;
+    const cover = coverData.status === "fulfilled" ? coverData.value : null;
 
     return {
       cover,
       id,
-      promotion: initialData.status === 'fulfilled' ? initialData.value : null,
+      promotion: initialData.status === "fulfilled" ? initialData.value : null,
       dehydratedState: dehydrate(queryClient),
     };
   },
@@ -198,8 +192,8 @@ export const Route = createFileRoute('/tags/$id')({
       return {
         meta: [
           {
-            title: 'Promotion not found',
-            description: 'Promotion not found',
+            title: "Promotion not found",
+            description: "Promotion not found",
           },
         ],
       };
@@ -211,8 +205,8 @@ export const Route = createFileRoute('/tags/$id')({
       return {
         meta: [
           {
-            title: 'Promotion not found',
-            description: 'Promotion not found',
+            title: "Promotion not found",
+            description: "Promotion not found",
           },
         ],
       };
@@ -222,11 +216,11 @@ export const Route = createFileRoute('/tags/$id')({
 
     const coverImage =
       getImage(cover?.keyImages || [], [
-        'OfferImageWide',
-        'featuredMedia',
-        'DieselGameBoxWide',
-        'DieselStoreFrontWide',
-      ])?.url ?? 'https://egdata.app/placeholder.webp';
+        "OfferImageWide",
+        "featuredMedia",
+        "DieselGameBoxWide",
+        "DieselStoreFrontWide",
+      ])?.url ?? "https://egdata.app/placeholder.webp";
 
     return {
       meta: [
@@ -234,47 +228,47 @@ export const Route = createFileRoute('/tags/$id')({
           title: `${title} | egdata.app`,
         },
         {
-          name: 'description',
+          name: "description",
           content: `Checkout ${count} available offers for ${title} on egdata.app.`,
         },
         {
-          name: 'og:title',
+          name: "og:title",
           content: `${title} - egdata.app`,
         },
         {
-          name: 'og:description',
+          name: "og:description",
           content: `Checkout ${count} available offers for ${title} on egdata.app.`,
         },
         {
-          name: 'twitter:title',
+          name: "twitter:title",
           content: `${title} - egdata.app`,
         },
         {
-          name: 'twitter:description',
+          name: "twitter:description",
           content: `Checkout ${count} available offers for ${title} on egdata.app.`,
         },
         {
-          name: 'og:image',
+          name: "og:image",
           content: coverImage,
         },
         {
-          name: 'twitter:image',
+          name: "twitter:image",
           content: coverImage,
         },
         {
-          name: 'twitter:card',
-          content: 'summary_large_image',
+          name: "twitter:card",
+          content: "summary_large_image",
         },
         {
-          name: 'og:type',
-          content: 'website',
+          name: "og:type",
+          content: "website",
         },
         {
-          name: 'og:site_name',
-          content: 'egdata.app',
+          name: "og:site_name",
+          content: "egdata.app",
         },
         {
-          name: 'og:url',
+          name: "og:url",
           content: `https://egdata.app/promotions/${params.id}`,
         },
         //   {
@@ -335,10 +329,10 @@ export const Route = createFileRoute('/tags/$id')({
 function RouteComponent() {
   const { country } = useCountry();
   const { view, setView } = usePreferences();
-  const [sortBy, setSortBy] = React.useState<SortBy>('lastModifiedDate');
-  const [sortDir, setSortDir] = React.useState<'asc' | 'desc'>('desc');
-  const [inputValue, setInputValue] = React.useState('');
-  const [query, setQuery] = React.useState('');
+  const [sortBy, setSortBy] = React.useState<SortBy>("lastModifiedDate");
+  const [sortDir, setSortDir] = React.useState<"asc" | "desc">("desc");
+  const [inputValue, setInputValue] = React.useState("");
+  const [query, setQuery] = React.useState("");
   const debouncedSetQuery = debounce(setQuery, 500);
   const { cover, id } = Route.useLoaderData();
   const {
@@ -349,7 +343,7 @@ function RouteComponent() {
     isFetchingNextPage,
     isFetching,
   } = useInfiniteQuery({
-    queryKey: ['promotion', { id, country, sortBy, sortDir, query, limit: 20 }],
+    queryKey: ["promotion", { id, country, sortBy, sortDir, query, limit: 20 }],
     queryFn: ({ pageParam }) =>
       fetchPromotionData({
         id,
@@ -390,19 +384,17 @@ function RouteComponent() {
         style={{
           backgroundImage: `url(${
             getImage(cover?.keyImages ?? [], [
-              'OfferImageWide',
-              'featuredMedia',
-              'DieselGameBoxWide',
-              'DieselStoreFrontWide',
-            ])?.url ?? '/placeholder.webp'
+              "OfferImageWide",
+              "featuredMedia",
+              "DieselGameBoxWide",
+              "DieselStoreFrontWide",
+            ])?.url ?? "/placeholder.webp"
           })`,
         }}
       >
         <div className="h-full w-full flex flex-col justify-center items-start text-white p-8 bg-gradient-to-r from-black/80 to-black/30">
           <h1 className="text-5xl font-bold">{promotion.pages[0].title}</h1>
-          <p className="mt-4 text-lg">
-            {promotion.pages[0]?.count} offers available in this event
-          </p>
+          <p className="mt-4 text-lg">{promotion.pages[0]?.count} offers available in this event</p>
         </div>
       </div>
 
@@ -410,12 +402,7 @@ function RouteComponent() {
         <div className="inline-flex items-center gap-2">
           <h2 className="text-2xl">Results</h2>
           <span className="text-sm text-gray-500">
-            (
-            {promotion.pages.reduce(
-              (acc, page) => acc + page.elements.length,
-              0,
-            )}{' '}
-            results)
+            ({promotion.pages.reduce((acc, page) => acc + page.elements.length, 0)} results)
           </span>
           {isFetching && (
             <svg
@@ -448,14 +435,9 @@ function RouteComponent() {
             onChange={handleInputChange}
             value={inputValue}
           />
-          <Select
-            value={sortBy}
-            onValueChange={(value) => setSortBy(value as SortBy)}
-          >
+          <Select value={sortBy} onValueChange={(value) => setSortBy(value as SortBy)}>
             <SelectTrigger className="w-[180px]">
-              <SelectValue className="text-sm">
-                {sortByDisplay[sortBy]}
-              </SelectValue>
+              <SelectValue className="text-sm">{sortByDisplay[sortBy]}</SelectValue>
             </SelectTrigger>
             <SelectContent>
               {Object.entries(sortByDisplay).map(([key, value]) => (
@@ -468,12 +450,12 @@ function RouteComponent() {
           <Button
             variant="outline"
             className="h-9 w-9 p-0"
-            onClick={() => setSortDir(sortDir === 'asc' ? 'desc' : 'asc')}
+            onClick={() => setSortDir(sortDir === "asc" ? "desc" : "asc")}
           >
             <ArrowDownIcon
               className={cn(
-                'h-5 w-5 transform transition-transform',
-                sortDir === 'asc' ? '-rotate-180' : 'rotate-0',
+                "h-5 w-5 transform transition-transform",
+                sortDir === "asc" ? "-rotate-180" : "rotate-0",
               )}
               aria-hidden="true"
             />
@@ -481,9 +463,9 @@ function RouteComponent() {
           <Button
             variant="outline"
             className="h-9 w-9 p-0"
-            onClick={() => setView(view === 'grid' ? 'list' : 'grid')}
+            onClick={() => setView(view === "grid" ? "list" : "grid")}
           >
-            {view === 'grid' ? (
+            {view === "grid" ? (
               <ListBulletIcon className="h-5 w-5" aria-hidden="true" />
             ) : (
               <GridIcon className="h-5 w-5" aria-hidden="true" />
@@ -493,16 +475,14 @@ function RouteComponent() {
       </header>
       <div
         className={cn(
-          'mt-8 grid gap-4',
-          view === 'grid'
-            ? 'grid-cols-1 lg:grid-cols-3 xl:grid-cols-5'
-            : 'grid-cols-1',
+          "mt-8 grid gap-4",
+          view === "grid" ? "grid-cols-1 lg:grid-cols-3 xl:grid-cols-5" : "grid-cols-1",
         )}
       >
         {promotion.pages
           .flatMap((page) => page.elements)
           .map((game) =>
-            view === 'grid' ? (
+            view === "grid" ? (
               <OfferCard offer={game} key={game.id} size="md" />
             ) : (
               <OfferListItem game={game} key={game.id} />

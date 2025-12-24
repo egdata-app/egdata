@@ -1,5 +1,5 @@
-import { httpClient } from '@/lib/http-client';
-import { queryOptions } from '@tanstack/react-query';
+import { httpClient } from "@/lib/http-client";
+import { queryOptions } from "@tanstack/react-query";
 
 export type Profile = {
   epicAccountId: string;
@@ -91,7 +91,7 @@ export const getUserGames = async (
 
 export const getRefreshStatus = (id: string) =>
   queryOptions({
-    queryKey: ['profiles', id, 'refresh-status'],
+    queryKey: ["profiles", id, "refresh-status"],
     queryFn: () =>
       httpClient
         .get<{

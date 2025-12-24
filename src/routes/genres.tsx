@@ -1,7 +1,7 @@
-import { httpClient } from '@/lib/http-client';
-import { cn } from '@/lib/utils';
-import { dehydrate, HydrationBoundary, useQuery } from '@tanstack/react-query';
-import { createFileRoute, Link } from '@tanstack/react-router';
+import { httpClient } from "@/lib/http-client";
+import { cn } from "@/lib/utils";
+import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
 export interface GenreResponse {
   genre: Genre;
@@ -26,7 +26,7 @@ export interface Image {
   md5: string;
 }
 
-export const Route = createFileRoute('/genres')({
+export const Route = createFileRoute("/genres")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
 
@@ -41,8 +41,8 @@ export const Route = createFileRoute('/genres')({
     return {
       meta: [
         {
-          title: 'Genres - egdata.app',
-          description: 'Genres on egdata.app',
+          title: "Genres - egdata.app",
+          description: "Genres on egdata.app",
         },
       ],
     };
@@ -52,8 +52,8 @@ export const Route = createFileRoute('/genres')({
     const { queryClient } = context;
 
     await queryClient.prefetchQuery({
-      queryKey: ['genres-list'],
-      queryFn: () => httpClient.get<GenreResponse[]>('/offers/genres'),
+      queryKey: ["genres-list"],
+      queryFn: () => httpClient.get<GenreResponse[]>("/offers/genres"),
     });
 
     return {
@@ -64,8 +64,8 @@ export const Route = createFileRoute('/genres')({
 
 function GenresPage() {
   const { data: genres } = useQuery({
-    queryKey: ['genres-list'],
-    queryFn: () => httpClient.get<GenreResponse[]>('/offers/genres'),
+    queryKey: ["genres-list"],
+    queryFn: () => httpClient.get<GenreResponse[]>("/offers/genres"),
   });
 
   if (!genres) {
@@ -90,8 +90,8 @@ function GenresPage() {
 function GenreCard({ genre }: { genre: GenreResponse }) {
   return (
     <Link
-      to={'/search'}
-      search={{ tags: [genre.genre.id], sortBy: 'releaseDate' }}
+      to={"/search"}
+      search={{ tags: [genre.genre.id], sortBy: "releaseDate" }}
       className="genre-card relative w-72 h-[300px] mx-auto text-white overflow-hidden rounded-lg shadow-lg m-4 bg-gray-900/40 hover:bg-gray-900/60 transition group"
     >
       <div className="title absolute bottom-2 w-full text-center font-light text-xl z-10 truncate max-w-full mx-2">
@@ -104,13 +104,11 @@ function GenreCard({ genre }: { genre: GenreResponse }) {
           src={offer.image.url}
           alt={offer.title}
           className={cn(
-            'absolute w-40 h-56 object-cover rounded shadow-2xl antialiased',
-            index === 1 &&
-              'left-2 z-0 opacity-35 backdrop-filter backdrop-blur-lg top-4',
+            "absolute w-40 h-56 object-cover rounded shadow-2xl antialiased",
+            index === 1 && "left-2 z-0 opacity-35 backdrop-filter backdrop-blur-lg top-4",
             index === 0 &&
-              'left-1/2 transform -translate-x-1/2 z-[9] w-44 h-60 top-2 group-hover:scale-[1.03] transition duration-200 ease-in-out',
-            index === 2 &&
-              'right-2 z-0 opacity-35 backdrop-filter backdrop-blur-lg top-4',
+              "left-1/2 transform -translate-x-1/2 z-[9] w-44 h-60 top-2 group-hover:scale-[1.03] transition duration-200 ease-in-out",
+            index === 2 && "right-2 z-0 opacity-35 backdrop-filter backdrop-blur-lg top-4",
           )}
         />
       ))}

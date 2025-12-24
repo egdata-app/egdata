@@ -1,4 +1,4 @@
-import type { SinglePrice } from './price';
+import type { SinglePrice } from "./price";
 
 export interface SingleOfferWithPrice {
   _id: string;

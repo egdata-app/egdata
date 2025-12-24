@@ -1,16 +1,16 @@
-import { ChartBarIcon, ChevronDown, ChevronUp, Minus } from 'lucide-react';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Card } from '@/components/ui/card';
-import type { OfferPosition } from '@/types/collections';
-import { cn } from '@/lib/utils';
-import { useState, useEffect } from 'react';
-import * as React from 'react';
-import { ScrollArea, ScrollBar } from '../ui/scroll-area';
-import { DateRangePicker } from './date-range-picker';
-import { PerformancePositionsChart } from '../charts/performance/positions';
-import { CardStackIcon } from '@radix-ui/react-icons';
-import { DateTime } from 'luxon';
-import { useLocale } from '@/hooks/use-locale';
+import { ChartBarIcon, ChevronDown, ChevronUp, Minus } from "lucide-react";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card } from "@/components/ui/card";
+import type { OfferPosition } from "@/types/collections";
+import { cn } from "@/lib/utils";
+import { useState, useEffect } from "react";
+import * as React from "react";
+import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { DateRangePicker } from "./date-range-picker";
+import { PerformancePositionsChart } from "../charts/performance/positions";
+import { CardStackIcon } from "@radix-ui/react-icons";
+import { DateTime } from "luxon";
+import { useLocale } from "@/hooks/use-locale";
 
 interface PerformanceCardProps {
   position: number;
@@ -28,30 +28,25 @@ function PerformanceCard({ position, change, date }: PerformanceCardProps) {
   };
 
   const getChangeText = () => {
-    if (change === 0) return '';
+    if (change === 0) return "";
     return Math.abs(change);
   };
 
   const getBackgroundClass = () => {
-    if (change < 0) return 'bg-gradient-to-b from-green-700/50 to-card';
-    if (change > 0) return 'bg-gradient-to-b from-red-800/50 to-card';
-    return 'bg-card';
+    if (change < 0) return "bg-gradient-to-b from-green-700/50 to-card";
+    if (change > 0) return "bg-gradient-to-b from-red-800/50 to-card";
+    return "bg-card";
   };
 
   return (
     <Card
       className={cn(
-        'flex flex-col items-center justify-center p-6 text-white min-w-[150px]',
+        "flex flex-col items-center justify-center p-6 text-white min-w-[150px]",
         getBackgroundClass(),
       )}
     >
-      <div
-        className={cn(
-          'text-2xl font-bold mb-2',
-          position === 0 && 'opacity-70 text-xl',
-        )}
-      >
-        {position === 0 ? 'Out of top' : `Top ${position}`}
+      <div className={cn("text-2xl font-bold mb-2", position === 0 && "opacity-70 text-xl")}>
+        {position === 0 ? "Out of top" : `Top ${position}`}
       </div>
 
       <div className="flex items-center gap-1">
@@ -61,12 +56,12 @@ function PerformanceCard({ position, change, date }: PerformanceCardProps) {
 
       <div className="text-sm mt-4">
         {DateTime.fromISO(date)
-          .setZone(timezone || 'UTC')
-          .setLocale('en-GB')
+          .setZone(timezone || "UTC")
+          .setLocale("en-GB")
           .toLocaleString({
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric',
+            day: "numeric",
+            month: "short",
+            year: "numeric",
           })}
       </div>
     </Card>
@@ -103,15 +98,15 @@ function StatsBar({ data }: StatsBarProps) {
 }
 
 const topsDictionary: Record<string, string> = {
-  'top-sellers': 'Top Sellers',
-  'most-played': 'Most Played',
-  'top-wishlisted': 'Top Wishlisted',
-  'top-new-releases': 'Top New Releases',
-  'most-popular': 'Most Popular',
-  'top-player-reviewed': 'Top Player Rated',
-  'top-demos': 'Top Demos',
-  'top-free-to-play': 'Top Free-to-Play',
-  'top-add-ons': 'Top Add-ons',
+  "top-sellers": "Top Sellers",
+  "most-played": "Most Played",
+  "top-wishlisted": "Top Wishlisted",
+  "top-new-releases": "Top New Releases",
+  "most-popular": "Most Popular",
+  "top-player-reviewed": "Top Player Rated",
+  "top-demos": "Top Demos",
+  "top-free-to-play": "Top Free-to-Play",
+  "top-add-ons": "Top Add-ons",
 };
 
 export function PerformanceTable({
@@ -128,14 +123,14 @@ export function PerformanceTable({
   const { timezone } = useLocale();
   const [timeframe, setTimeframe] = useState<{ from: Date; to: Date | undefined }>({
     from: DateTime.now()
-      .setZone(timezone || 'UTC')
+      .setZone(timezone || "UTC")
       .minus({ days: 7 })
       .toJSDate(),
     to: DateTime.now()
-      .setZone(timezone || 'UTC')
+      .setZone(timezone || "UTC")
       .toJSDate(),
   });
-  const [view, setView] = useState<'cards' | 'chart'>('cards');
+  const [view, setView] = useState<"cards" | "chart">("cards");
 
   // Track if user has manually changed the timeframe
   const [hasUserSetTimeframe, setHasUserSetTimeframe] = useState(false);
@@ -147,9 +142,7 @@ export function PerformanceTable({
     }
 
     const positions = data.positions;
-    const dates = positions.map((pos) =>
-      DateTime.fromISO(pos.date).setZone(timezone || 'UTC'),
-    );
+    const dates = positions.map((pos) => DateTime.fromISO(pos.date).setZone(timezone || "UTC"));
     const minDate = DateTime.min(...dates);
     const maxDate = DateTime.max(...dates);
 
@@ -164,24 +157,18 @@ export function PerformanceTable({
   // Extract filtered and sorted positions for reuse
   const filteredPositions = React.useMemo(() => {
     if (!data?.positions) return [];
-    
+
     return data.positions
       .filter((pos) => {
-        const date = DateTime.fromISO(pos.date).setZone(timezone || 'UTC');
-        const fromDateTime = DateTime.fromJSDate(timeframe.from).setZone(
-          timezone || 'UTC',
-        );
-        const toDateTime = timeframe.to 
-          ? DateTime.fromJSDate(timeframe.to).setZone(timezone || 'UTC')
-          : DateTime.now().setZone(timezone || 'UTC');
-        
-        return date >= fromDateTime.startOf('day') && date <= toDateTime.endOf('day');
+        const date = DateTime.fromISO(pos.date).setZone(timezone || "UTC");
+        const fromDateTime = DateTime.fromJSDate(timeframe.from).setZone(timezone || "UTC");
+        const toDateTime = timeframe.to
+          ? DateTime.fromJSDate(timeframe.to).setZone(timezone || "UTC")
+          : DateTime.now().setZone(timezone || "UTC");
+
+        return date >= fromDateTime.startOf("day") && date <= toDateTime.endOf("day");
       })
-      .sort(
-        (a, b) =>
-          DateTime.fromISO(b.date).toMillis() -
-          DateTime.fromISO(a.date).toMillis(),
-      );
+      .sort((a, b) => DateTime.fromISO(b.date).toMillis() - DateTime.fromISO(a.date).toMillis());
   }, [data?.positions, timeframe, timezone]);
 
   return (
@@ -196,11 +183,7 @@ export function PerformanceTable({
         />
       </div>
 
-      <Tabs
-        defaultValue={defaultCollection}
-        className="w-full"
-        onValueChange={onChange}
-      >
+      <Tabs defaultValue={defaultCollection} className="w-full" onValueChange={onChange}>
         {/* Flex row for tops selection (left) and view toggle (right) */}
         <div className="flex justify-between items-center mb-6">
           <TabsList className="bg-gray-800 text-gray-400">
@@ -214,12 +197,10 @@ export function PerformanceTable({
           <div className="ml-4 flex gap-2 bg-gray-800 rounded-md p-1">
             <button
               type="button"
-              onClick={() => setView('cards')}
+              onClick={() => setView("cards")}
               className={cn(
-                'px-2 py-1 rounded flex items-center',
-                view === 'cards'
-                  ? 'bg-gray-700 text-white'
-                  : 'text-gray-400 hover:text-white',
+                "px-2 py-1 rounded flex items-center",
+                view === "cards" ? "bg-gray-700 text-white" : "text-gray-400 hover:text-white",
               )}
               aria-label="Cards view"
             >
@@ -227,12 +208,10 @@ export function PerformanceTable({
             </button>
             <button
               type="button"
-              onClick={() => setView('chart')}
+              onClick={() => setView("chart")}
               className={cn(
-                'px-2 py-1 rounded flex items-center',
-                view === 'chart'
-                  ? 'bg-gray-700 text-white'
-                  : 'text-gray-400 hover:text-white',
+                "px-2 py-1 rounded flex items-center",
+                view === "chart" ? "bg-gray-700 text-white" : "text-gray-400 hover:text-white",
               )}
               aria-label="Chart view"
             >
@@ -242,7 +221,7 @@ export function PerformanceTable({
         </div>
 
         {/* Cards View */}
-        {view === 'cards' && data && filteredPositions.length > 0 && (
+        {view === "cards" && data && filteredPositions.length > 0 && (
           <ScrollArea hidden={false}>
             <div className="flex gap-4 pb-4 justify-center w-full">
               {filteredPositions.map((pos, idx, array) => {
@@ -265,8 +244,7 @@ export function PerformanceTable({
                 const toPositionValue = (p: number) => (p === 0 ? 100 : p);
 
                 // Calculate change
-                const change =
-                  toPositionValue(pos.position) - toPositionValue(prev);
+                const change = toPositionValue(pos.position) - toPositionValue(prev);
 
                 return (
                   <PerformanceCard
@@ -283,7 +261,7 @@ export function PerformanceTable({
         )}
 
         {/* Chart View */}
-        {view === 'chart' && data && filteredPositions.length > 0 && timeframe.to && (
+        {view === "chart" && data && filteredPositions.length > 0 && timeframe.to && (
           <PerformancePositionsChart
             positions={filteredPositions}
             timeframe={{ from: timeframe.from, to: timeframe.to }}
@@ -296,7 +274,7 @@ export function PerformanceTable({
             <p className="text-gray-500">No data found</p>
           </div>
         )}
-        
+
         {data && filteredPositions.length === 0 && (
           <div className="flex justify-center items-center h-60">
             <p className="text-gray-500">No data available for the selected date range</p>

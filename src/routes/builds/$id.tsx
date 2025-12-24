@@ -1,5 +1,5 @@
-import { SectionsNav } from '@/components/app/offer-sections';
-import { textPlatformIcons } from '@/components/app/platform-icons';
+import { SectionsNav } from "@/components/app/offer-sections";
+import { textPlatformIcons } from "@/components/app/platform-icons";
 import {
   Table,
   TableBody,
@@ -7,34 +7,24 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { useLocale } from '@/hooks/use-locale';
-import { calculateSize } from '@/lib/calculate-size';
-import { getQueryClient } from '@/lib/client';
-import { getFetchedQuery } from '@/lib/get-fetched-query';
-import { getHashType } from '@/lib/get-hash-type';
-import { getImage } from '@/lib/get-image';
-import { httpClient } from '@/lib/http-client';
-import { cn } from '@/lib/utils';
-import type { SingleBuild } from '@/types/builds';
-import type { SingleItem } from '@/types/single-item';
-import { dehydrate, HydrationBoundary, useQuery } from '@tanstack/react-query';
-import {
-  createFileRoute,
-  Outlet,
-  redirect,
-  useLocation,
-} from '@tanstack/react-router';
-import { BoxIcon, FilesIcon, OptionIcon } from 'lucide-react';
-import { DateTime } from 'luxon';
+} from "@/components/ui/table";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useLocale } from "@/hooks/use-locale";
+import { calculateSize } from "@/lib/calculate-size";
+import { getQueryClient } from "@/lib/client";
+import { getFetchedQuery } from "@/lib/get-fetched-query";
+import { getHashType } from "@/lib/get-hash-type";
+import { getImage } from "@/lib/get-image";
+import { httpClient } from "@/lib/http-client";
+import { cn } from "@/lib/utils";
+import type { SingleBuild } from "@/types/builds";
+import type { SingleItem } from "@/types/single-item";
+import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { createFileRoute, Outlet, redirect, useLocation } from "@tanstack/react-router";
+import { BoxIcon, FilesIcon, OptionIcon } from "lucide-react";
+import { DateTime } from "luxon";
 
-export const Route = createFileRoute('/builds/$id')({
+export const Route = createFileRoute("/builds/$id")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData();
     return (
@@ -49,11 +39,11 @@ export const Route = createFileRoute('/builds/$id')({
 
     await Promise.all([
       queryClient.prefetchQuery({
-        queryKey: ['build', { id }],
+        queryKey: ["build", { id }],
         queryFn: () => httpClient.get<SingleBuild>(`/builds/${id}`),
       }),
       queryClient.prefetchQuery({
-        queryKey: ['build-items', { id }],
+        queryKey: ["build-items", { id }],
         queryFn: () => httpClient.get<SingleItem[]>(`/builds/${id}/items`),
       }),
     ]);
@@ -65,9 +55,9 @@ export const Route = createFileRoute('/builds/$id')({
   },
   beforeLoad: async (ctx) => {
     const { params } = ctx;
-    const subPath = ctx.location.pathname
-      .toString()
-      .split(`/${params.id}/`)[1] as string | undefined;
+    const subPath = ctx.location.pathname.toString().split(`/${params.id}/`)[1] as
+      | string
+      | undefined;
 
     if (!subPath) {
       throw redirect({
@@ -86,39 +76,35 @@ export const Route = createFileRoute('/builds/$id')({
       return {
         meta: [
           {
-            title: 'Build not found',
-            description: 'Build not found',
+            title: "Build not found",
+            description: "Build not found",
           },
         ],
       };
     }
 
-    const build = getFetchedQuery<SingleBuild>(
-      queryClient,
-      ctx.loaderData?.dehydratedState,
-      ['build', { id: params.id }],
-    );
+    const build = getFetchedQuery<SingleBuild>(queryClient, ctx.loaderData?.dehydratedState, [
+      "build",
+      { id: params.id },
+    ]);
     const items = getFetchedQuery<PaginatedResponse<SingleItem>>(
       queryClient,
       ctx.loaderData?.dehydratedState,
-      ['build-items', { id: params.id }],
+      ["build-items", { id: params.id }],
     );
 
     if (!build) {
       return {
         meta: [
           {
-            title: 'Build not found',
-            description: 'Build not found',
+            title: "Build not found",
+            description: "Build not found",
           },
         ],
       };
     }
 
-    const image = getImage(items?.data[0]?.keyImages ?? [], [
-      'DieselGameBoxWide',
-      'DieselGameBox',
-    ]);
+    const image = getImage(items?.data[0]?.keyImages ?? [], ["DieselGameBoxWide", "DieselGameBox"]);
 
     return {
       meta: [
@@ -126,36 +112,36 @@ export const Route = createFileRoute('/builds/$id')({
           title: `${items?.data[0]?.title} (${build.buildVersion}) | egdata.app`,
         },
         {
-          name: 'description',
+          name: "description",
           content: `${build.buildVersion} Build for ${items?.data[0]?.title} from the Epic Games Store.`,
         },
         {
-          name: 'og:title',
+          name: "og:title",
           content: `${items?.data[0]?.title} (${build.buildVersion}) | egdata.app`,
         },
         {
-          name: 'og:description',
+          name: "og:description",
           content: `${build.buildVersion} Build for ${items?.data[0]?.title} from the Epic Games Store.`,
         },
         {
-          property: 'twitter:title',
+          property: "twitter:title",
           content: `${items?.data[0]?.title} (${build.buildVersion}) | egdata.app`,
         },
         {
-          property: 'twitter:description',
+          property: "twitter:description",
           content: `${build.buildVersion} Build for ${items?.data[0]?.title} from the Epic Games Store.`,
         },
         {
-          name: 'og:image',
-          content: image?.url ?? 'https://cdn.egdata.app/placeholder-1080.webp',
+          name: "og:image",
+          content: image?.url ?? "https://cdn.egdata.app/placeholder-1080.webp",
         },
         {
-          name: 'og:type',
-          content: 'website',
+          name: "og:type",
+          content: "website",
         },
         {
-          name: 'twitter:image',
-          content: image?.url ?? 'https://cdn.egdata.app/placeholder-1080.webp',
+          name: "twitter:image",
+          content: image?.url ?? "https://cdn.egdata.app/placeholder-1080.webp",
         },
       ],
     };
@@ -173,12 +159,11 @@ function BuildPage() {
   const { timezone } = useLocale();
   const subPath = useLocation().pathname.split(`/${id}/`)[1];
   const { data: items } = useQuery({
-    queryKey: ['build-items', { id }],
-    queryFn: () =>
-      httpClient.get<PaginatedResponse<SingleItem>>(`/builds/${id}/items`),
+    queryKey: ["build-items", { id }],
+    queryFn: () => httpClient.get<PaginatedResponse<SingleItem>>(`/builds/${id}/items`),
   });
   const { data: build } = useQuery({
-    queryKey: ['build', { id }],
+    queryKey: ["build", { id }],
     queryFn: () => httpClient.get<SingleBuild>(`/builds/${id}`),
   });
 
@@ -190,17 +175,11 @@ function BuildPage() {
     <main className="flex flex-col items-start justify-start h-full gap-4 p-4 w-full">
       <div className="flex flex-col gap-4 mx-auto w-full">
         <div className="inline-flex items-center gap-2 justify-start w-full h-8">
-          <span className="text-lg text-muted-foreground inline-flex items-center">
-            Build
-          </span>
+          <span className="text-lg text-muted-foreground inline-flex items-center">Build</span>
           <strong className="text-lg font-medium">{id.toUpperCase()}</strong>
-          <span className="text-lg text-muted-foreground inline-flex items-center">
-            for
-          </span>
-          <strong className="text-lg font-medium">
-            {items?.data[0].title}
-          </strong>
-          <span>{textPlatformIcons[build.labelName.split('-')[1]]}</span>
+          <span className="text-lg text-muted-foreground inline-flex items-center">for</span>
+          <strong className="text-lg font-medium">{items?.data[0].title}</strong>
+          <span>{textPlatformIcons[build.labelName.split("-")[1]]}</span>
         </div>
         <div className="rounded-xl border border-gray-300/10 w-full">
           <Table className="w-full">
@@ -228,10 +207,8 @@ function BuildPage() {
               <TableRow>
                 <TableCell className="font-medium">Hash</TableCell>
                 <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
-                  {build.hash}{' '}
-                  <span className="text-xs text-gray-400">
-                    ({getHashType(build.hash)})
-                  </span>
+                  {build.hash}{" "}
+                  <span className="text-xs text-gray-400">({getHashType(build.hash)})</span>
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -243,18 +220,14 @@ function BuildPage() {
               <TableRow>
                 <TableCell className="font-medium">Download Size</TableCell>
                 <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
-                  {calculateSize(build.downloadSizeBytes)}{' '}
+                  {calculateSize(build.downloadSizeBytes)}{" "}
                   <span
                     className={cn(
-                      'text-xs text-gray-400',
-                      !build.downloadSizeBytes ? 'opacity-0' : 'opacity-100',
+                      "text-xs text-gray-400",
+                      !build.downloadSizeBytes ? "opacity-0" : "opacity-100",
                     )}
                   >
-                    (
-                    {(
-                      100 -
-                      (build.downloadSizeBytes / build.installedSizeBytes) * 100
-                    ).toFixed(2)}
+                    ({(100 - (build.downloadSizeBytes / build.installedSizeBytes) * 100).toFixed(2)}
                     % compressed)
                   </span>
                 </TableCell>
@@ -263,15 +236,15 @@ function BuildPage() {
                 <TableCell className="font-medium">Created At</TableCell>
                 <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
                   {DateTime.fromISO(build.createdAt)
-                    .setZone(timezone || 'UTC')
-                    .setLocale('en-GB')
+                    .setZone(timezone || "UTC")
+                    .setLocale("en-GB")
                     .toLocaleString({
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                      timeZoneName: 'short',
-                      hour: 'numeric',
-                      minute: 'numeric',
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      timeZoneName: "short",
+                      hour: "numeric",
+                      minute: "numeric",
                     })}
                 </TableCell>
               </TableRow>
@@ -279,15 +252,15 @@ function BuildPage() {
                 <TableCell className="font-medium">Updated At</TableCell>
                 <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
                   {DateTime.fromISO(build.updatedAt)
-                    .setZone(timezone || 'UTC')
-                    .setLocale('en-GB')
+                    .setZone(timezone || "UTC")
+                    .setLocale("en-GB")
                     .toLocaleString({
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                      timeZoneName: 'short',
-                      hour: 'numeric',
-                      minute: 'numeric',
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      timeZoneName: "short",
+                      hour: "numeric",
+                      minute: "numeric",
                     })}
                 </TableCell>
               </TableRow>
@@ -302,7 +275,7 @@ function BuildPage() {
                       </TooltipTrigger>
                       <TooltipContent>
                         <p className="text-sm max-w-md">
-                          We use the{' '}
+                          We use the{" "}
                           <a
                             href="https://steamdb.info/tech/"
                             className="text-blue-700 font-semibold"
@@ -310,9 +283,9 @@ function BuildPage() {
                             rel="noopener noreferrer"
                           >
                             SteamDB
-                          </a>{' '}
-                          technologies list to track the used engines and
-                          different technologies from the game files.
+                          </a>{" "}
+                          technologies list to track the used engines and different technologies
+                          from the game files.
                           <br />
                           <a
                             href="https://github.com/SteamDatabase/FileDetectionRuleSets"
@@ -330,7 +303,7 @@ function BuildPage() {
                 <TableCell className="border-l-gray-300/10 border-l">
                   <div className="grid grid-cols-3 gap-2">
                     {build.technologies
-                      ?.filter((tech) => tech.section !== 'Evidence')
+                      ?.filter((tech) => tech.section !== "Evidence")
                       .map((tech) => (
                         <span
                           key={`${tech.section}.${tech.technology}`}
@@ -352,7 +325,7 @@ function BuildPage() {
         <SectionsNav
           links={[
             {
-              id: 'files',
+              id: "files",
               label: (
                 <span className="inline-flex items-center gap-2">
                   <FilesIcon className="size-3" />
@@ -362,7 +335,7 @@ function BuildPage() {
               href: `/builds/${id}/files`,
             },
             {
-              id: 'items',
+              id: "items",
               label: (
                 <span className="inline-flex items-center gap-2">
                   <BoxIcon className="size-3" />
@@ -372,7 +345,7 @@ function BuildPage() {
               href: `/builds/${id}/items`,
             },
             {
-              id: 'install-options',
+              id: "install-options",
               label: (
                 <span className="inline-flex items-center gap-2">
                   <OptionIcon className="size-3" />
@@ -382,7 +355,7 @@ function BuildPage() {
               href: `/builds/${id}/install-options`,
             },
           ]}
-          activeSection={subPath ?? 'files'}
+          activeSection={subPath ?? "files"}
           onSectionChange={(location) => {
             navigate({
               to: `/builds/${id}/${location}`,

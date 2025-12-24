@@ -1,26 +1,26 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
-} from '@/components/ui/input-otp';
-import { httpClient } from '@/lib/http-client';
-import consola from 'consola';
-import { AlertCircle, CheckCircle, Loader } from 'lucide-react';
-import { Alert, AlertDescription, AlertTitle } from '../ui/alert';
+} from "@/components/ui/input-otp";
+import { httpClient } from "@/lib/http-client";
+import consola from "consola";
+import { AlertCircle, CheckCircle, Loader } from "lucide-react";
+import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
 
 export function DonateKeyForm() {
-  const [key, setKey] = useState('');
+  const [key, setKey] = useState("");
   const [sending, setSending] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [id, setId] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     setSending(true);
-    setError('');
+    setError("");
     setSuccess(false);
     e.preventDefault();
 
@@ -29,12 +29,12 @@ export function DonateKeyForm() {
         message: string;
         id: string;
       }>(`/donate/key/${key}`, {});
-      consola.info('Key donated');
+      consola.info("Key donated");
       setSuccess(true);
       setId(res.id);
     } catch (error) {
       consola.error(error);
-      setError(error.response ?? 'Something went wrong. Please try again.');
+      setError(error.response ?? "Something went wrong. Please try again.");
     } finally {
       setSending(false);
     }
@@ -49,7 +49,7 @@ export function DonateKeyForm() {
           onChange={(e) => setKey(e)}
           onPaste={(e) => {
             e.preventDefault();
-            setKey(e.clipboardData.getData('text').replaceAll('-', ''));
+            setKey(e.clipboardData.getData("text").replaceAll("-", ""));
           }}
         >
           <InputOTPGroup>
@@ -95,9 +95,7 @@ export function DonateKeyForm() {
         <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />
           <AlertTitle>Error</AlertTitle>
-          <AlertDescription>
-            {typeof error === 'string' ? error : error.error}
-          </AlertDescription>
+          <AlertDescription>{typeof error === "string" ? error : error.error}</AlertDescription>
         </Alert>
       )}
       {success && (
@@ -106,11 +104,11 @@ export function DonateKeyForm() {
           <AlertTitle>Success</AlertTitle>
           <AlertDescription className="flex flex-col gap-1">
             <p>
-              Thank you for your donation! The item has been redeemed correctly
-              and it's data will be available soon.
+              Thank you for your donation! The item has been redeemed correctly and it's data will
+              be available soon.
             </p>
             <p>
-              You can check the item details on the{' '}
+              You can check the item details on the{" "}
               <a
                 href={`/offers/${id}`}
                 className="text-blue-600 underline underline-offset-4 decoration-dotted decoration-blue-600/50 hover:underline"

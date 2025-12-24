@@ -1,25 +1,23 @@
-import type { Table } from '@tanstack/react-table';
-import { platforms } from './columns';
-import { Button } from '@/components/ui/button';
-import { Cross2Icon } from '@radix-ui/react-icons';
-import { DataTableFacetedFilter } from './faceted-filter';
-import { DataTableViewOptions } from './view-options';
+import type { Table } from "@tanstack/react-table";
+import { platforms } from "./columns";
+import { Button } from "@/components/ui/button";
+import { Cross2Icon } from "@radix-ui/react-icons";
+import { DataTableFacetedFilter } from "./faceted-filter";
+import { DataTableViewOptions } from "./view-options";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
 }
 
-export function DataTableToolbar<TData>({
-  table,
-}: DataTableToolbarProps<TData>) {
+export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
 
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
-        {table.getColumn('labelName') && (
+        {table.getColumn("labelName") && (
           <DataTableFacetedFilter
-            column={table.getColumn('labelName')}
+            column={table.getColumn("labelName")}
             title="Platform"
             options={platforms}
           />

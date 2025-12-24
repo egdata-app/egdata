@@ -1,18 +1,16 @@
-import { Input } from '@/components/ui/input';
-import type { Table } from '@tanstack/react-table';
-import { types } from './columns';
-import { Button } from '@/components/ui/button';
-import { Cross2Icon } from '@radix-ui/react-icons';
-import { DataTableFacetedFilter } from './faceted-filter';
-import { DataTableViewOptions } from './view-options';
+import { Input } from "@/components/ui/input";
+import type { Table } from "@tanstack/react-table";
+import { types } from "./columns";
+import { Button } from "@/components/ui/button";
+import { Cross2Icon } from "@radix-ui/react-icons";
+import { DataTableFacetedFilter } from "./faceted-filter";
+import { DataTableViewOptions } from "./view-options";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
 }
 
-export function DataTableToolbar<TData>({
-  table,
-}: DataTableToolbarProps<TData>) {
+export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>) {
   const isFiltered = table.getState().columnFilters.length > 0;
 
   return (
@@ -20,15 +18,13 @@ export function DataTableToolbar<TData>({
       <div className="flex flex-1 items-center space-x-2">
         <Input
           placeholder="Filter offers..."
-          value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
-          onChange={(event) =>
-            table.getColumn('title')?.setFilterValue(event.target.value)
-          }
+          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
+          onChange={(event) => table.getColumn("title")?.setFilterValue(event.target.value)}
           className="h-8 w-[150px] lg:w-[250px]"
         />
-        {table.getColumn('offerType') && (
+        {table.getColumn("offerType") && (
           <DataTableFacetedFilter
-            column={table.getColumn('offerType')}
+            column={table.getColumn("offerType")}
             title="Type"
             options={types}
           />

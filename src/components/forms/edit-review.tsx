@@ -1,30 +1,23 @@
-import { useForm } from '@tanstack/react-form';
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from '../ui/card';
-import { Label } from '../ui/label';
-import { Slider } from '../ui/slider';
-import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
-import { Input } from '../ui/input';
-import { Button } from '../ui/button';
-import { Alert } from '../ui/alert';
-import type { SingleOffer } from '@/types/single-offer';
-import { useState } from 'react';
-import MotionNumber from '@number-flow/react';
-import { Editor } from '../app/editor';
-import type { JSONContent } from '@tiptap/react';
-import { useMutation } from '@tanstack/react-query';
-import { getRouteApi, redirect } from '@tanstack/react-router';
-import { httpClient } from '@/lib/http-client';
-import consola from 'consola';
-import { Viewer } from '../app/viewer';
-import type { SingleReview } from '@/types/reviews';
-import { Loader, Trash2 } from 'lucide-react';
+import { useForm } from "@tanstack/react-form";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../ui/card";
+import { Label } from "../ui/label";
+import { Slider } from "../ui/slider";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import { Alert } from "../ui/alert";
+import type { SingleOffer } from "@/types/single-offer";
+import { useState } from "react";
+import MotionNumber from "@number-flow/react";
+import { Editor } from "../app/editor";
+import type { JSONContent } from "@tiptap/react";
+import { useMutation } from "@tanstack/react-query";
+import { getRouteApi, redirect } from "@tanstack/react-router";
+import { httpClient } from "@/lib/http-client";
+import consola from "consola";
+import { Viewer } from "../app/viewer";
+import type { SingleReview } from "@/types/reviews";
+import { Loader, Trash2 } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -32,8 +25,8 @@ import {
   DialogFooter,
   DialogTitle,
   DialogTrigger,
-} from '../ui/dialog';
-import { AlertDialogHeader } from '../ui/alert-dialog';
+} from "../ui/dialog";
+import { AlertDialogHeader } from "../ui/alert-dialog";
 
 interface ReviewFormProps {
   setIsOpen: (isOpen: boolean) => void;
@@ -41,18 +34,14 @@ interface ReviewFormProps {
   previousReview: SingleReview;
 }
 
-const routeApi = getRouteApi('__root__');
+const routeApi = getRouteApi("__root__");
 
-export function EditReviewForm({
-  setIsOpen,
-  offer,
-  previousReview,
-}: ReviewFormProps) {
+export function EditReviewForm({ setIsOpen, offer, previousReview }: ReviewFormProps) {
   const { epicToken, session } = routeApi.useRouteContext();
   const [step, setStep] = useState(1);
 
   const postReviewMutation = useMutation({
-    mutationKey: ['edit-review'],
+    mutationKey: ["edit-review"],
     mutationFn: async (review: {
       rating: number;
       recommended: boolean;
@@ -60,31 +49,24 @@ export function EditReviewForm({
       title: string;
       tags: string;
     }) => {
-      const res = await httpClient.patch(
-        `/offers/${previousReview.id}/reviews`,
-        review,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${epicToken?.access_token}`,
-          },
+      const res = await httpClient.patch(`/offers/${previousReview.id}/reviews`, review, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${epicToken?.access_token}`,
         },
-      );
-      if (!res) throw new Error('Error submitting review');
+      });
+      if (!res) throw new Error("Error submitting review");
       return { success: true };
     },
   });
 
   const deleteReviewMutation = useMutation({
-    mutationKey: ['delete-review'],
+    mutationKey: ["delete-review"],
     mutationFn: async () => {
-      const res = await httpClient.delete(
-        `/offers/${previousReview.id}/reviews`,
-        {
-          headers: { Authorization: `Bearer ${epicToken?.access_token}` },
-        },
-      );
-      if (!res) throw new Error('Error deleting review');
+      const res = await httpClient.delete(`/offers/${previousReview.id}/reviews`, {
+        headers: { Authorization: `Bearer ${epicToken?.access_token}` },
+      });
+      if (!res) throw new Error("Error deleting review");
       return { success: true };
     },
   });
@@ -92,43 +74,43 @@ export function EditReviewForm({
   const form = useForm({
     defaultValues: {
       ...previousReview,
-      website: '',
-      recommended: previousReview.recommended ? 'yes' : 'no',
+      website: "",
+      recommended: previousReview.recommended ? "yes" : "no",
       content:
-        typeof previousReview.content !== 'string'
+        typeof previousReview.content !== "string"
           ? previousReview.content
           : {
-              type: 'doc',
+              type: "doc",
               content: [
                 {
-                  type: 'paragraph',
+                  type: "paragraph",
                   content: [
                     {
-                      type: 'text',
+                      type: "text",
                       text: previousReview.content,
                     },
                   ],
                 },
               ],
             },
-      tags: previousReview.tags.join(','),
+      tags: previousReview.tags.join(","),
     },
     onSubmit: async ({ value }) => {
-      consola.log('Submitting review', value);
+      consola.log("Submitting review", value);
 
       if (value.website) {
-        consola.error('Spam detected', value.website);
-        return { success: false, errors: { general: 'Spam detected' } };
+        consola.error("Spam detected", value.website);
+        return { success: false, errors: { general: "Spam detected" } };
       }
 
       if ((!epicToken || !epicToken.access_token) && !session) {
-        throw redirect({ to: '/auth/login' });
+        throw redirect({ to: "/auth/login" });
       }
 
       try {
         await postReviewMutation.mutateAsync({
           rating: value.rating,
-          recommended: value.recommended === 'yes',
+          recommended: value.recommended === "yes",
           content: value.content,
           title: value.title,
           tags: value.tags,
@@ -137,7 +119,7 @@ export function EditReviewForm({
         window.location.reload();
       } catch (error) {
         console.error(error);
-        throw new Error('Error submitting review');
+        throw new Error("Error submitting review");
       }
     },
     validators: {
@@ -145,7 +127,7 @@ export function EditReviewForm({
         if (!value.title) {
           return {
             fields: {
-              title: 'Title is required',
+              title: "Title is required",
             },
           };
         }
@@ -153,7 +135,7 @@ export function EditReviewForm({
         if (value.title.length < 3) {
           return {
             fields: {
-              title: 'Title must be at least 3 characters',
+              title: "Title must be at least 3 characters",
             },
           };
         }
@@ -161,7 +143,7 @@ export function EditReviewForm({
         if (value.title.length > 75) {
           return {
             fields: {
-              title: 'Title must be less than 75 characters',
+              title: "Title must be less than 75 characters",
             },
           };
         }
@@ -194,7 +176,7 @@ export function EditReviewForm({
         },
     canSubmit: boolean,
   ) => {
-    if (typeof values === 'boolean') {
+    if (typeof values === "boolean") {
       return !values;
     }
 
@@ -215,17 +197,14 @@ export function EditReviewForm({
         className="fixed inset-0 cursor-pointer"
         onClick={() => setIsOpen(false)}
         onKeyDown={(e) => {
-          if (e.key === 'Escape') {
+          if (e.key === "Escape") {
             setIsOpen(false);
           }
         }}
       />
       <Card className="w-full max-w-2xl mx-auto p-6 space-y-8 z-20 relative">
         <div className="absolute top-4 right-4">
-          <DeleteReviewButton
-            reviewId={previousReview.id}
-            onDelete={handleDeleteReview}
-          />
+          <DeleteReviewButton reviewId={previousReview.id} onDelete={handleDeleteReview} />
         </div>
         <form
           onSubmit={(e) => {
@@ -248,7 +227,7 @@ export function EditReviewForm({
           <CardHeader>
             <CardTitle>Edit Review</CardTitle>
             <CardDescription>
-              Share your thoughts about {offer?.title ?? 'the product'}
+              Share your thoughts about {offer?.title ?? "the product"}
             </CardDescription>
           </CardHeader>
 
@@ -267,9 +246,7 @@ export function EditReviewForm({
                   name="rating"
                   validators={{
                     onChange: ({ value }) =>
-                      value < 1 || value > 10
-                        ? 'Rating must be between 1 and 10'
-                        : undefined,
+                      value < 1 || value > 10 ? "Rating must be between 1 and 10" : undefined,
                   }}
                 >
                   {({ state, setValue, name }) => (
@@ -295,20 +272,16 @@ export function EditReviewForm({
                   name="recommended"
                   validators={{
                     onChange: ({ value }) =>
-                      value !== 'yes' && value !== 'no'
-                        ? 'Please select yes or no'
-                        : undefined,
+                      value !== "yes" && value !== "no" ? "Please select yes or no" : undefined,
                   }}
                 >
                   {({ state, name, handleChange }) => (
                     <div className="space-y-2">
-                      <Label htmlFor="recommended">
-                        Would you recommend this product?
-                      </Label>
+                      <Label htmlFor="recommended">Would you recommend this product?</Label>
                       <RadioGroup
                         name={name}
                         value={state.value}
-                        onValueChange={(v: 'yes' | 'no') => handleChange(v)}
+                        onValueChange={(v: "yes" | "no") => handleChange(v)}
                       >
                         <div className="flex items-center space-x-2">
                           <RadioGroupItem value="yes">Yes</RadioGroupItem>
@@ -338,9 +311,9 @@ export function EditReviewForm({
                   validators={{
                     onChange: ({ value }) =>
                       value.length < 3
-                        ? 'Title must be at least 3 characters long'
+                        ? "Title must be at least 3 characters long"
                         : value.length > 75
-                          ? 'Title must be less than 75 characters'
+                          ? "Title must be less than 75 characters"
                           : undefined,
                   }}
                 >
@@ -369,9 +342,7 @@ export function EditReviewForm({
                   name="content"
                   validators={{
                     onChange: ({ value }) =>
-                      value.length < 3
-                        ? 'Content must be at least 3 characters long'
-                        : undefined,
+                      value.length < 3 ? "Content must be at least 3 characters long" : undefined,
                   }}
                 >
                   {({ state, setValue }) => (
@@ -427,13 +398,13 @@ export function EditReviewForm({
             >
               {([isSubmitting, canSubmit, values]) => (
                 <Button
-                  type={step === 3 ? 'submit' : 'button'}
+                  type={step === 3 ? "submit" : "button"}
                   disabled={checkSubmitDisabled(values, canSubmit as boolean)}
                   onClick={step === 3 ? undefined : handleNextStep}
                   key={`submit-review-${step}`}
                 >
                   {isSubmitting ? <Loader className="animate-spin" /> : null}
-                  {step >= 1 && step < 3 ? 'Next' : 'Submit Review'}
+                  {step >= 1 && step < 3 ? "Next" : "Submit Review"}
                 </Button>
               )}
             </form.Subscribe>
@@ -475,25 +446,18 @@ function DeleteReviewButton({ reviewId, onDelete }: DeleteReviewButtonProps) {
       </DialogTrigger>
       <DialogContent>
         <AlertDialogHeader>
-          <DialogTitle>
-            Are you sure you want to delete this review?
-          </DialogTitle>
+          <DialogTitle>Are you sure you want to delete this review?</DialogTitle>
           <DialogDescription>
-            This action cannot be undone. This will permanently delete the
-            review from our servers.
+            This action cannot be undone. This will permanently delete the review from our servers.
           </DialogDescription>
         </AlertDialogHeader>
         <DialogFooter>
           <Button variant="secondary" onClick={() => setOpen(false)}>
             Cancel
           </Button>
-          <Button
-            variant="destructive"
-            onClick={handleDelete}
-            disabled={isDeleting}
-          >
+          <Button variant="destructive" onClick={handleDelete} disabled={isDeleting}>
             {isDeleting ? <Loader className="animate-spin" /> : null}
-            {isDeleting ? 'Deleting...' : 'Delete'}
+            {isDeleting ? "Deleting..." : "Delete"}
           </Button>
         </DialogFooter>
       </DialogContent>
