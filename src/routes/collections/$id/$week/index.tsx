@@ -8,13 +8,22 @@ import { calculatePrice } from "@/lib/calculate-price";
 import { getImage } from "@/lib/get-image";
 import { cn } from "@/lib/utils";
 import { type Collections, getCollection, type OfferWithTops } from "@/queries/collection";
-import { dehydrate, HydrationBoundary, useInfiniteQuery } from "@tanstack/react-query";
+import {
+  dehydrate,
+  type DehydratedState,
+  HydrationBoundary,
+  useInfiniteQuery,
+} from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronDown } from "lucide-react";
 
 export const Route = createFileRoute("/collections/$id/$week/")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+      id: string;
+      country: string;
+    };
 
     return (
       <HydrationBoundary state={dehydratedState}>
@@ -23,6 +32,7 @@ export const Route = createFileRoute("/collections/$id/$week/")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { id } = params;
     const { queryClient, country } = context;
@@ -187,7 +197,7 @@ function OfferInTop({ offer }: { offer: OfferWithTops }) {
   const weeksInTop100 = Math.floor(offer.metadata.timesInTop100 / 7);
 
   return (
-    <Link to={`/offers/${offer.id}`} preload="viewport">
+    <Link to="/offers/$id" params={{ id: offer.id }} preload="viewport">
       <Card className="w-full h-16 flex flex-row items-center rounded-xl overflow-hidden px-5">
         <span className="text-xl font-bold w-10 flex-shrink-0">{offer.metadata.position}</span>
 

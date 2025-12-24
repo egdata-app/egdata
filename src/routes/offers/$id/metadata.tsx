@@ -14,13 +14,19 @@ import { httpClient } from "@/lib/http-client";
 import type { Asset } from "@/types/asset";
 import type { SingleOffer } from "@/types/single-offer";
 import type { SingleSandbox } from "@/types/single-sandbox";
-import { dehydrate, HydrationBoundary, useQueries } from "@tanstack/react-query";
+import { dehydrate, type DehydratedState, HydrationBoundary, useQueries } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 
+type LoaderData = {
+  dehydratedState: DehydratedState;
+  id: string;
+  offer: SingleOffer;
+};
+
 export const Route = createFileRoute("/offers/$id/metadata")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as LoaderData;
 
     return (
       <HydrationBoundary state={dehydratedState}>
@@ -29,6 +35,7 @@ export const Route = createFileRoute("/offers/$id/metadata")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { queryClient } = context;
     const { id } = params;
@@ -109,7 +116,7 @@ export const Route = createFileRoute("/offers/$id/metadata")({
 });
 
 function MetadataPage() {
-  const { id, offer: serverOffer } = Route.useLoaderData();
+  const { id, offer: serverOffer } = Route.useLoaderData() as LoaderData;
   const [offerQuery, sandboxQuery, assetsQuery] = useQueries({
     queries: [
       {

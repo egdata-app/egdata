@@ -2,7 +2,7 @@ import * as React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { httpClient } from "@/lib/http-client";
 import type { SingleOffer } from "@/types/single-offer";
-import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { dehydrate, type DehydratedState, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
 import { FlippableCard } from "@/components/app/achievement-card";
 
@@ -76,7 +76,11 @@ interface Achievement {
 
 export const Route = createFileRoute("/profile/$id/achievements/$sandbox")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+      id: string;
+      sandbox: string;
+    };
 
     return (
       <HydrationBoundary state={dehydratedState}>
@@ -85,6 +89,7 @@ export const Route = createFileRoute("/profile/$id/achievements/$sandbox")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ context, params }) => {
     const { queryClient } = context;
 
@@ -119,7 +124,11 @@ interface PlayerAchievementStatus extends Achievement {
 }
 
 function RouteComponent() {
-  const { id, sandbox } = Route.useLoaderData();
+  const { id, sandbox } = Route.useLoaderData() as {
+    dehydratedState: DehydratedState;
+    id: string;
+    sandbox: string;
+  };
   const { data, isLoading } = useQuery({
     queryKey: ["player-sandbox-achievements", { id, sandbox }],
     queryFn: () => httpClient.get<Root>(`/profiles/${id}/achievements/${sandbox}`),
@@ -170,7 +179,10 @@ function RouteComponent() {
     <div className="flex flex-col gap-4">
       <div className="inline-flex w-full justify-start items-center gap-4 relative">
         <Link
-          to={`/profile/${id}`}
+          to="/profile/$id"
+          params={{ id }}
+          // @ts-expect-error - empty search params
+          search={{}}
           className="text-2xl font-light flex flex-row gap-2 items-center justify-start group"
         >
           <ArrowRight className="w-4 h-4 rotate-180 transform group-hover:-translate-x-1 transition-transform duration-300" />

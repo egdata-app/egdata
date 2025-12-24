@@ -6,7 +6,7 @@ export const Route = createFileRoute("/dashboard")({
   beforeLoad: async ({ context }) => {
     if (context.session) {
       const id = context.session.user.email.split("@")[0];
-      throw redirect({ to: `/profile/${id}` });
+      throw redirect({ href: `/profile/${id}` });
     }
 
     throw redirect({ to: "/" });

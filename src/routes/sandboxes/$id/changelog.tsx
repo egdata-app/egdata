@@ -8,7 +8,8 @@ import { httpClient } from "@/lib/http-client";
 import type { SingleItem } from "@/types/single-item";
 import type { SingleOffer } from "@/types/single-offer";
 import type { SingleSandbox } from "@/types/single-sandbox";
-import { dehydrate, useQuery } from "@tanstack/react-query";
+import type { DehydratedState } from "@tanstack/react-query";
+import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 
@@ -63,8 +64,20 @@ interface Hit {
 }
 
 export const Route = createFileRoute("/sandboxes/$id/changelog")({
-  component: RouteComponent,
+  component: () => {
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+      params: { id: string };
+    };
 
+    return (
+      <HydrationBoundary state={dehydratedState}>
+        <RouteComponent />
+      </HydrationBoundary>
+    );
+  },
+
+  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { queryClient } = context;
 
@@ -164,15 +177,17 @@ function RouteComponent() {
           .map((hit) => (
             <ChangeTracker
               key={hit._id}
-              _id={hit._id}
-              document={hit.document}
-              metadata={hit.metadata}
-              timestamp={hit.timestamp}
+              {...({
+                _id: hit._id,
+                document: hit.document,
+                metadata: hit.metadata,
+                timestamp: hit.timestamp,
+              } as Parameters<typeof ChangeTracker>[0])}
             />
           ))}
       </div>
-      {data?.hits.length === 0 && <div className="text-center">No changelog found</div>}
-      {data?.hits?.length > 0 && (
+      {data?.hits?.length === 0 && <div className="text-center">No changelog found</div>}
+      {(data?.hits?.length ?? 0) > 0 && (
         <DynamicPagination
           totalPages={data ? Math.ceil(data.estimatedTotalHits / data.limit) : 0}
           currentPage={page}

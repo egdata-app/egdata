@@ -2,6 +2,7 @@ import { columns } from "@/components/tables/files/columns";
 import { DataTable } from "@/components/tables/files/table";
 import { httpClient } from "@/lib/http-client";
 import type { BuildFiles } from "@/types/builds";
+import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import type { ColumnFiltersState } from "@tanstack/react-table";
@@ -9,7 +10,10 @@ import { useState } from "react";
 
 export const Route = createFileRoute("/builds/$id/files")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+      id: string;
+    };
     return (
       <HydrationBoundary state={dehydratedState}>
         <FilesPage />
@@ -17,6 +21,7 @@ export const Route = createFileRoute("/builds/$id/files")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { id } = params;
     const { queryClient } = context;
@@ -39,7 +44,7 @@ export const Route = createFileRoute("/builds/$id/files")({
 });
 
 function FilesPage() {
-  const { id } = Route.useLoaderData();
+  const { id } = Route.useLoaderData() as { dehydratedState: DehydratedState; id: string };
   const [page, setPage] = useState<{
     pageIndex: number;
     pageSize: number;

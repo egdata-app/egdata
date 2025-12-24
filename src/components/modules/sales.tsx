@@ -34,7 +34,8 @@ export function SalesModule({ eventId, event }: { eventId: string; event: string
     <section className="w-full h-full my-4" id={`promotion-${eventId}`}>
       <Link
         className="text-xl font-bold text-left inline-flex group items-center gap-2"
-        to={`/promotions/${eventId}`}
+        to="/promotions/$id"
+        params={{ id: eventId }}
         preload="viewport"
       >
         {event}{" "}

@@ -21,7 +21,7 @@ export const columns: ColumnDef<SingleOffer>[] = [
     enableColumnFilter: true,
     cell: (info) => {
       return (
-        <Link className="text-badge font-mono" to={`/offers/${info.getValue()}`}>
+        <Link className="text-badge font-mono" to="/offers/$id" params={{ id: info.getValue() as string }}>
           {(info.getValue() as string).slice(0, 4)}...
           {(info.getValue() as string).slice(-4)}
         </Link>
@@ -73,7 +73,7 @@ export const columns: ColumnDef<SingleOffer>[] = [
     cell: (info) => {
       const seller = info.getValue() as SingleOffer["seller"];
       return (
-        <Link to={`/sellers/${seller.id}`} className="text-badge">
+        <Link to="/sellers/$id" params={{ id: seller.id }} className="text-badge">
           {seller.name as string}
         </Link>
       );

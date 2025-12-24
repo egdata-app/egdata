@@ -4,12 +4,14 @@ import { getImage } from "@/lib/get-image";
 import { httpClient } from "@/lib/http-client";
 import { cn } from "@/lib/utils";
 import type { SingleOffer } from "@/types/single-offer";
-import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { dehydrate, type DehydratedState, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/sales/")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+    };
 
     return (
       <HydrationBoundary state={dehydratedState}>
@@ -18,6 +20,7 @@ export const Route = createFileRoute("/sales/")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ context }) => {
     const { queryClient } = context;
 
@@ -127,7 +130,8 @@ function SaleCard({
 }) {
   return (
     <Link
-      to={`/sales/${sale.id}`}
+      to="/sales/$id"
+      params={{ id: sale.id }}
       className="genre-card relative w-72 h-[300px] mx-auto text-white overflow-hidden rounded-lg shadow-lg m-4 bg-gray-900/40 hover:bg-gray-900/60 transition group"
     >
       <div className="title absolute bottom-2 w-full text-center font-light text-xl z-10 truncate max-w-full mx-2">

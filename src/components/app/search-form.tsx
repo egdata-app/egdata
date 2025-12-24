@@ -191,13 +191,15 @@ export function SearchForm({
           if (data?.query) {
             setHash(data.query);
             navigate({
-              search: {
+              // @ts-ignore - generic navigate search params
+              search: (prev) => ({
+                ...prev,
                 page: data.page,
                 hash: data.query,
-              },
+              }),
             });
           }
-        }, [data?.query, data?.page, navigate]);
+        }, [data?.query, data?.page]);
 
         useEffect(() => {
           setIsFetching(isSearchFetching);
@@ -338,12 +340,11 @@ function SearchPagination({
     setPage(newPage);
     window.scrollTo({ top: 0, behavior: "smooth" });
     navigate({
-      search: (prevState) => {
-        return {
-          ...prevState,
-          page: newPage,
-        };
-      },
+      // @ts-ignore - generic navigate search params
+      search: (prevState) => ({
+        ...prevState,
+        page: newPage,
+      }),
     });
   };
 

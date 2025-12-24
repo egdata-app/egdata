@@ -26,7 +26,7 @@ export function GameCard({ offer }: { offer: SingleOffer }) {
   const isFree = offer.price?.price.discountPrice === 0;
 
   return (
-    <Link to={`/offers/${offer.id}`} preload="viewport">
+    <Link to="/offers/$id" params={{ id: offer.id }} preload="viewport">
       <Card className="w-full max-w-sm rounded-lg overflow-hidden shadow-lg relative">
         <CardHeader className="p-0 rounded-t-xl relative">
           <Image
@@ -72,10 +72,10 @@ export function GameCard({ offer }: { offer: SingleOffer }) {
                   </span>
                 </div>
               )}
-              {!isReleased && isPreOrder && (
+              {!isReleased && isPreOrder && offer.price?.price.discountPrice !== undefined && (
                 <div className="flex items-center gap-2 text-right w-full justify-end">
                   <span className="text-primary font-semibold">
-                    {fmt.format(offer.price?.price.discountPrice / 100)}
+                    {fmt.format(offer.price.price.discountPrice / 100)}
                   </span>
                 </div>
               )}

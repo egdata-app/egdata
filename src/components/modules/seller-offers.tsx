@@ -66,7 +66,8 @@ export function SellerOffers({
       <div className="flex justify-between items-center mb-4">
         <Link
           className="text-xl font-bold text-left inline-flex group items-center gap-2"
-          to={`/sellers/${id}`}
+          to="/sellers/$id"
+          params={{ id }}
         >
           More from {name}
           <ArrowUpIcon className="w-5 h-5 text-muted-foreground group-hover:text-gray-300 rotate-90 transform group-hover:translate-x-1 transition-transform duration-200 ease-in-out" />

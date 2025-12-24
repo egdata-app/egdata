@@ -130,7 +130,7 @@ export const columns: ColumnDef<SingleItem>[] = [
     enableColumnFilter: true,
     cell: (info) => {
       return (
-        <Link className="text-badge font-mono" to={`/items/${info.getValue()}`}>
+        <Link className="text-badge font-mono" to="/items/$id" params={{ id: info.getValue() as string }}>
           {(info.getValue() as string).slice(0, 4)}...
           {(info.getValue() as string).slice(-4)}
         </Link>
@@ -178,7 +178,7 @@ export const columns: ColumnDef<SingleItem>[] = [
       const developer = info.getValue();
       const id = info.row.original.developerId;
       return (
-        <Link to={`/sellers/${id}`} className="text-badge">
+        <Link to="/sellers/$id" params={{ id: id as string }} className="text-badge">
           {developer as string}
         </Link>
       );

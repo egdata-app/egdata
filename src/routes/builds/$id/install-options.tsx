@@ -2,12 +2,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { calculateSize } from "@/lib/calculate-size";
 import { httpClient } from "@/lib/http-client";
 import type { BuildInstallOptions } from "@/types/builds";
+import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/builds/$id/install-options")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+      id: string;
+    };
 
     return (
       <HydrationBoundary state={dehydratedState}>
@@ -16,6 +20,7 @@ export const Route = createFileRoute("/builds/$id/install-options")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { id } = params;
     const { queryClient } = context;
@@ -33,7 +38,7 @@ export const Route = createFileRoute("/builds/$id/install-options")({
 });
 
 function InstallOptions() {
-  const { id } = Route.useLoaderData();
+  const { id } = Route.useLoaderData() as { dehydratedState: DehydratedState; id: string };
   const { data: installOptions } = useQuery({
     queryKey: ["builds", "install-options", { id }],
     queryFn: async () => httpClient.get<BuildInstallOptions>(`/builds/${id}/install-options`),

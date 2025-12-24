@@ -19,6 +19,7 @@ import { httpClient } from "@/lib/http-client";
 import { cn } from "@/lib/utils";
 import type { SingleBuild } from "@/types/builds";
 import type { SingleItem } from "@/types/single-item";
+import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { createFileRoute, Outlet, redirect, useLocation } from "@tanstack/react-router";
 import { BoxIcon, FilesIcon, OptionIcon } from "lucide-react";
@@ -26,13 +27,17 @@ import { DateTime } from "luxon";
 
 export const Route = createFileRoute("/builds/$id")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+      id: string;
+    };
     return (
       <HydrationBoundary state={dehydratedState}>
         <BuildPage />
       </HydrationBoundary>
     );
   },
+  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { queryClient } = context;
     const { id } = params;
@@ -53,6 +58,7 @@ export const Route = createFileRoute("/builds/$id")({
       dehydratedState: dehydrate(queryClient),
     };
   },
+  // @ts-expect-error - loader return type
   beforeLoad: async (ctx) => {
     const { params } = ctx;
     const subPath = ctx.location.pathname.toString().split(`/${params.id}/`)[1] as
@@ -61,7 +67,8 @@ export const Route = createFileRoute("/builds/$id")({
 
     if (!subPath) {
       throw redirect({
-        to: `/builds/${params.id}/files`,
+        to: "/builds/$id/files",
+        params: { id: params.id },
         replace: true,
         resetScroll: true,
       });
@@ -154,7 +161,7 @@ interface PaginatedResponse<T> {
 }
 
 function BuildPage() {
-  const { id } = Route.useLoaderData();
+  const { id } = Route.useLoaderData() as { dehydratedState: DehydratedState; id: string };
   const navigate = Route.useNavigate();
   const { timezone } = useLocale();
   const subPath = useLocation().pathname.split(`/${id}/`)[1];

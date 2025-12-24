@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { httpClient } from "@/lib/http-client";
 import type { Media } from "@/types/media";
 import type { SingleOffer } from "@/types/single-offer";
-import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { dehydrate, type DehydratedState, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { Suspense, useRef, useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -27,9 +27,15 @@ import { getQueryClient } from "@/lib/client";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { Button } from "@/components/ui/button";
 
+type LoaderData = {
+  dehydratedState: DehydratedState;
+  id: string;
+  offer: SingleOffer | undefined;
+};
+
 export const Route = createFileRoute("/offers/$id/media")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as LoaderData;
 
     return (
       <HydrationBoundary state={dehydratedState}>
@@ -38,6 +44,7 @@ export const Route = createFileRoute("/offers/$id/media")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ context, params }) => {
     const { queryClient } = context;
     const { id } = params;

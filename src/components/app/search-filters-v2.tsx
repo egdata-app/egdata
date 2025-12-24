@@ -29,7 +29,8 @@ const OFFER_TYPES = [
 
 export function SearchFiltersV2({ query, onQueryChange, loading, results }: SearchFiltersV2Props) {
   // Extract tags from aggregations if available
-  const tagBuckets = results?.aggregations?.tags?.buckets || [];
+  const tagsAggregation = results?.aggregations?.tags;
+  const tagBuckets = tagsAggregation && "buckets" in tagsAggregation ? tagsAggregation.buckets : [];
   const selectedTags = Array.isArray(query.tags) ? query.tags : query.tags ? [query.tags] : [];
 
   return (

@@ -25,7 +25,13 @@ import { httpClient } from "@/lib/http-client";
 import { offerChangeFields } from "@/lib/offer-change-fields";
 import type { ChangelogStats } from "@/types/changelog";
 import type { SingleOffer } from "@/types/single-offer";
-import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
+import {
+  dehydrate,
+  type DehydratedState,
+  HydrationBoundary,
+  keepPreviousData,
+  useQuery,
+} from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useDebounce } from "@uidotdev/usehooks";
 import { Loader2 } from "lucide-react";
@@ -63,9 +69,15 @@ const getChangelog = (id: string, page: number, query?: string, field?: string, 
   placeholderData: keepPreviousData,
 });
 
+type LoaderData = {
+  dehydratedState: DehydratedState;
+  id: string;
+  offer: SingleOffer;
+};
+
 export const Route = createFileRoute("/offers/$id/changelog")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as LoaderData;
 
     return (
       <HydrationBoundary state={dehydratedState}>
@@ -74,6 +86,7 @@ export const Route = createFileRoute("/offers/$id/changelog")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { queryClient } = context;
     const { id } = params;
@@ -145,7 +158,7 @@ const changelogTypes = {
 };
 
 function ChangelogPage() {
-  const { id } = Route.useLoaderData();
+  const { id } = Route.useLoaderData() as LoaderData;
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState<string | undefined>(undefined);
   const debouncedQuery = useDebounce(query, 500);

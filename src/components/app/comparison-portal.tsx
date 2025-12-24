@@ -1,3 +1,4 @@
+import type { JSX } from "react";
 import * as Portal from "@radix-ui/react-portal";
 import { useQueries, useQuery, type UseQueryResult } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
@@ -147,7 +148,8 @@ function SingleGame({ query, id }: { query: UseQueryResult<SingleOffer, Error>; 
         className="flex flex-col h-[20rem] max-h-[20rem] min-h-[20rem] justify-between"
       >
         <Link
-          to={`/offers/${data.id}`}
+          to="/offers/$id"
+          params={{ id: data.id }}
           className="font-bold underline underline-offset-4 decoration-slate-100/20 overflow-ellipsis mb-2"
         >
           {data.title.slice(0, 50)}
@@ -162,7 +164,8 @@ function SingleGame({ query, id }: { query: UseQueryResult<SingleOffer, Error>; 
             label="Seller"
             value={
               <Link
-                to={`/sellers/${data.seller.id}`}
+                to="/sellers/$id"
+                params={{ id: data.seller.id }}
                 className="underline underline-offset-4 decoration-slate-100/20"
               >
                 {data.seller.name}

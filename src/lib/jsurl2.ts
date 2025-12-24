@@ -344,7 +344,7 @@ export const parse = <T>(encoded: string, options?: ParseOptions): T => {
   if (JSONRE.test(encoded)) return JSON.parse(encoded);
   const l = encoded.length;
   const r = decode({ _input: encoded, _idx: 0, _length: l });
-  return r === EOS ? true : r;
+  return (r === EOS ? true : r) as T;
 };
 
 /** Parse a JsUrl2 encoded string, and fall back if it fails. Also parses JSON. */

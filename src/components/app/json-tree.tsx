@@ -1,3 +1,5 @@
+import type { JSX } from "react";
+
 export type JsonValue = string | number | boolean | null | JsonObject | JsonArray;
 type JsonObject = { [key: string]: JsonValue };
 type JsonArray = JsonValue[];
@@ -15,7 +17,7 @@ export const JsonVisualizer: React.FC<JsonVisualizerProps> = ({
   isChildOfArray = false,
   keyName,
 }) => {
-  const renderValue = (value: JsonValue, key?: string | number): JSX.Element => {
+  const renderValue = (value: JsonValue, key?: string | number): JSX.Element | null => {
     const isLastItem = isLast && !isChildOfArray;
     const lineClass = isLastItem ? "tree-last" : "tree";
 

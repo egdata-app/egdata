@@ -1,6 +1,6 @@
 import { httpClient } from "@/lib/http-client";
 import type { SingleItem } from "@/types/single-item";
-import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { dehydrate, type DehydratedState, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { createFileRoute, Outlet, useLocation } from "@tanstack/react-router";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -26,7 +26,10 @@ import { DateTime } from "luxon";
 
 export const Route = createFileRoute("/items/$id")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+      id: string;
+    };
 
     return (
       <HydrationBoundary state={dehydratedState}>
@@ -35,6 +38,7 @@ export const Route = createFileRoute("/items/$id")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ context, params }) => {
     const { id } = params;
     const { queryClient } = context;
@@ -125,7 +129,7 @@ function ItemPage() {
                       "text-left font-mono border-l-gray-300/10 border-l underline decoration-dotted decoration-slate-600 underline-offset-4"
                     }
                   >
-                    <Link to={`/sandboxes/${item.namespace}/items`}>
+                    <Link to="/sandboxes/$id/items" params={{ id: item.namespace }}>
                       {internalNamespaces.includes(item.namespace) ? (
                         <TooltipProvider>
                           <Tooltip>

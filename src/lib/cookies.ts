@@ -32,7 +32,7 @@ export const saveAuthCookie = createServerFn({ method: "GET" })
     let privateKeyPem: string;
 
     if (req.cloudflare) {
-      privateKeyPem = req.cloudflare.env.JWT_SIGNING_KEY;
+      privateKeyPem = req.cloudflare.env.JWT_SIGNING_KEY as string;
     } else {
       privateKeyPem =
         process.env.JWT_SIGNING_KEY ??
@@ -45,7 +45,7 @@ export const saveAuthCookie = createServerFn({ method: "GET" })
     // Import the private key (PEM format) for signing
     const privateKey = await importPKCS8(privateKeyPem, "RS256");
 
-    const token = await new SignJWT(value)
+    const token = await new SignJWT(value as unknown as Record<string, unknown>)
       .setProtectedHeader({ alg: "RS256" })
       .setIssuedAt()
       .setExpirationTime("365d")

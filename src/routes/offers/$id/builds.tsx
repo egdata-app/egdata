@@ -5,7 +5,13 @@ import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { httpClient } from "@/lib/http-client";
 import type { SingleOffer } from "@/types/single-offer";
-import { dehydrate, HydrationBoundary, queryOptions, useQuery } from "@tanstack/react-query";
+import {
+  dehydrate,
+  type DehydratedState,
+  HydrationBoundary,
+  queryOptions,
+  useQuery,
+} from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import type { ColumnFiltersState } from "@tanstack/react-table";
@@ -17,15 +23,22 @@ const getOfferBuilds = (id: string) =>
     queryFn: () => httpClient.get<Build[]>(`/offers/${id}/builds`),
   });
 
+type LoaderData = {
+  dehydratedState: DehydratedState;
+  id: string;
+  offer: SingleOffer | undefined;
+};
+
 export const Route = createFileRoute("/offers/$id/builds")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as LoaderData;
     return (
       <HydrationBoundary state={dehydratedState}>
         <BuildsPage />
       </HydrationBoundary>
     );
   },
+  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { queryClient } = context;
 
@@ -81,7 +94,7 @@ export const Route = createFileRoute("/offers/$id/builds")({
 });
 
 function BuildsPage() {
-  const { id } = Route.useLoaderData();
+  const { id } = Route.useLoaderData() as LoaderData;
   const [page, setPage] = useState({ pageIndex: 0, pageSize: 20 });
   const [filters, setFilters] = useState<ColumnFiltersState>([]);
   const {

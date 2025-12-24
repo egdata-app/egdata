@@ -47,11 +47,47 @@ export function CookiesProvider({ children, initialSelection }: CookiesProviderP
     }
   }, [selection, setCookie]);
 
+  const acceptCookies = () => {
+    setSelection({
+      googleAnalytics: true,
+      selfHostedAnalytics: true,
+      ahrefsAnalytics: true,
+      googleConsent: {
+        ad_storage: "granted",
+        ad_user_data: "granted",
+        ad_personalization: "granted",
+        analytics_storage: "granted",
+        functionality_storage: "granted",
+        personalization_storage: "granted",
+        security_storage: "granted",
+      },
+    });
+  };
+
+  const declineCookies = () => {
+    setSelection({
+      googleAnalytics: false,
+      selfHostedAnalytics: false,
+      ahrefsAnalytics: false,
+      googleConsent: {
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        analytics_storage: "denied",
+        functionality_storage: "denied",
+        personalization_storage: "denied",
+        security_storage: "denied",
+      },
+    });
+  };
+
   return (
     <cookiesContext.Provider
       value={{
         selection,
         setSelection,
+        acceptCookies,
+        declineCookies,
       }}
     >
       {children}

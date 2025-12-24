@@ -62,14 +62,9 @@ const PaginationButton = ({
   ...props
 }: PaginationButtonProps) => (
   <Button
-    className={cn(
-      buttonVariants({
-        variant: isActive ? "outline" : "ghost",
-        size,
-      }),
-      className,
-    )}
+    className={className}
     variant={isActive ? "outline" : "ghost"}
+    size={size}
     {...props}
   />
 );

@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { httpClient } from "@/lib/http-client";
 import type { GiveawayOffer } from "@/types/giveaways";
-import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { dehydrate, type DehydratedState, HydrationBoundary } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { mobileFreebiesQuery } from "@/queries/mobile-freebies";
 import { formSchema } from "@/stores/searchStore";
@@ -15,7 +15,10 @@ import { mergeFreebies } from "@/utils/merge-freebies";
 
 export const Route = createFileRoute("/freebies/")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+      og: string;
+    };
     return (
       <HydrationBoundary state={dehydratedState}>
         <FreeGames />
@@ -27,13 +30,14 @@ export const Route = createFileRoute("/freebies/")({
 
   beforeLoad: async () => {},
 
+  // @ts-expect-error - loader return type
   loader: async ({ context }) => {
     const { country, queryClient } = context;
 
     await Promise.all([
       queryClient.prefetchQuery({
         queryKey: ["giveaways-stats", { country }],
-        queryFn: () => getGiveawaysStats({ country }),
+        queryFn: () => getGiveawaysStats({ country: country ?? "US" }),
       }),
       queryClient.prefetchQuery({
         queryKey: ["giveaways"],

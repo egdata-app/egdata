@@ -18,9 +18,8 @@ export const saveStateFile = createServerFn({ method: "GET" }).handler(async (ct
 });
 
 export const getEpicEnv = createServerFn({ method: "GET" }).handler(async () => {
-  const { getEvent } = await import("@tanstack/react-start/server");
-  const event = getEvent();
-  const req = event.node.req;
+  const { getRequest } = await import("@tanstack/react-start/server");
+  const req = getRequest();
 
   console.log("Cloudflare Request", req);
 
@@ -28,8 +27,8 @@ export const getEpicEnv = createServerFn({ method: "GET" }).handler(async () => 
   let redirectUri: string;
 
   if (req.cloudflare) {
-    clientId = req.cloudflare.env.EPIC_CLIENT_ID;
-    redirectUri = req.cloudflare.env.EPIC_REDIRECT_URI;
+    clientId = req.cloudflare.env.EPIC_CLIENT_ID as string;
+    redirectUri = req.cloudflare.env.EPIC_REDIRECT_URI as string;
   } else {
     clientId = import.meta.env.EPIC_CLIENT_ID ?? process.env.EPIC_CLIENT_ID;
     redirectUri = import.meta.env.EPIC_REDIRECT_URI ?? process.env.EPIC_REDIRECT_URI;

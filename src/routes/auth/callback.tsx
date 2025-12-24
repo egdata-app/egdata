@@ -25,16 +25,15 @@ export const validateState = createServerFn({ method: "GET" })
 export const getTokens = createServerFn({ method: "GET" })
   .inputValidator((code: string) => code)
   .handler(async (ctx) => {
-    const { getEvent } = await import("@tanstack/react-start/server");
-    const event = getEvent();
-    const req = event.node.req;
+    const { getRequest } = await import("@tanstack/react-start/server");
+    const req = getRequest();
 
     let ClientID: string | undefined;
     let ClientSecret: string | undefined;
 
     if (req.cloudflare) {
-      ClientID = req.cloudflare.env.EPIC_CLIENT_ID;
-      ClientSecret = req.cloudflare.env.EPIC_CLIENT_SECRET;
+      ClientID = req.cloudflare.env.EPIC_CLIENT_ID as string;
+      ClientSecret = req.cloudflare.env.EPIC_CLIENT_SECRET as string;
     } else {
       ClientID = process.env.EPIC_CLIENT_ID;
       ClientSecret = process.env.EPIC_CLIENT_SECRET;
@@ -65,7 +64,7 @@ export const getTokens = createServerFn({ method: "GET" })
 export const Route = createFileRoute("/auth/callback")({
   component: () => <div>Hello /auth/callback!</div>,
 
-  beforeLoad: async ({ context }) => {
+  beforeLoad: async ({ location }) => {
     let crypto: Crypto;
 
     if (import.meta.env.SSR) {
@@ -75,9 +74,9 @@ export const Route = createFileRoute("/auth/callback")({
       crypto = window.crypto;
     }
 
-    const { url } = context;
-    const code = url.searchParams.get("code");
-    const state = url.searchParams.get("state");
+    const searchParams = new URLSearchParams(location.searchStr);
+    const code = searchParams.get("code");
+    const state = searchParams.get("state");
 
     if (!code || !state) {
       throw redirect({

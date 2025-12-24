@@ -1,6 +1,6 @@
 import { httpClient } from "@/lib/http-client";
 import { cn } from "@/lib/utils";
-import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { dehydrate, type DehydratedState, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 export interface GenreResponse {
@@ -28,7 +28,9 @@ export interface Image {
 
 export const Route = createFileRoute("/genres")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+    };
 
     return (
       <HydrationBoundary state={dehydratedState}>
@@ -48,6 +50,7 @@ export const Route = createFileRoute("/genres")({
     };
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ context }) => {
     const { queryClient } = context;
 

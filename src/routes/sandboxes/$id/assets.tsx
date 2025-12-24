@@ -1,4 +1,5 @@
 import { httpClient } from "@/lib/http-client";
+import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, keepPreviousData, useQueries } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { DataTable } from "@/components/tables/assets/table";
@@ -22,7 +23,10 @@ interface PaginatedResponse<T> {
 
 export const Route = createFileRoute("/sandboxes/$id/assets")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+      id: string;
+    };
 
     return (
       <HydrationBoundary state={dehydratedState}>
@@ -31,6 +35,7 @@ export const Route = createFileRoute("/sandboxes/$id/assets")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ context, params }) => {
     const { id } = params;
     const { queryClient } = context;

@@ -24,7 +24,7 @@ export const Route = createFileRoute("/store/$namespace/$slug")({
 
   beforeLoad: ({ search, params, context }) => {
     const { namespace, slug } = params;
-    const creatorCodePref = context.cookies[CREATOR_CODE_COOKIE];
+    const creatorCodePref = context.cookies?.[CREATOR_CODE_COOKIE];
 
     // If we have a preference, redirect immediately
     if (creatorCodePref !== undefined) {

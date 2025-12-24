@@ -17,6 +17,7 @@ export const Route = createFileRoute("/offers/$id/price")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { id } = params;
     const { queryClient } = context;

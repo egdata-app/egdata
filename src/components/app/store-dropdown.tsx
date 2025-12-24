@@ -13,7 +13,7 @@ import { FabIcon } from "../icons/fab";
 
 function trackEvent(offer: SingleOffer) {
   try {
-    window.umami.track("open-egs", {
+    window.umami?.track("open-egs", {
       id: offer.id,
       namespace: offer.namespace,
     });

@@ -1,3 +1,4 @@
+import type { JSX } from "react";
 import { useEffect, useState } from "react";
 import { FaCloud, FaHandshake, FaMedal, FaTrophy, FaPeopleGroup } from "react-icons/fa6";
 import { IoGameController, IoWifiOutline } from "react-icons/io5";

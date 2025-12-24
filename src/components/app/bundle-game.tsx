@@ -44,7 +44,8 @@ export const OfferInBundle: React.FC<{ offer: SingleOffer }> = ({ offer }) => {
   return (
     <Link
       className="flex items-center bg-gray-800 rounded-lg shadow-lg w-full h-16 relative overflow-hidden group"
-      to={`/offers/${bundle.id}`}
+      to="/offers/$id"
+      params={{ id: bundle.id }}
       preload="viewport"
     >
       <span className="text-white font-bold absolute z-20 flex-col px-5 gap-1">

@@ -253,7 +253,7 @@ function DownloadImage({ src }: { src: string }) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = src.replaceAll("%2F", "/").split("/").pop();
+    a.download = src.replaceAll("%2F", "/").split("/").pop() ?? "image";
     a.click();
     URL.revokeObjectURL(url);
     setIsDownloading(false);

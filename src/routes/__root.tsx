@@ -64,6 +64,7 @@ export const Route = createRootRouteWithContext<Context>()({
     };
   },
 
+  // @ts-expect-error - loader return type
   beforeLoad: async ({ context }) => {
     const { queryClient } = context;
 

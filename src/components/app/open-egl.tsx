@@ -3,7 +3,7 @@ import { Button } from "../ui/button";
 import { EpicGamesIcon } from "../icons/epic";
 
 function trackEvent(offer: SingleOffer) {
-  window.umami.track("open-egl", {
+  window.umami?.track("open-egl", {
     id: offer.id,
     namespace: offer.namespace,
   });

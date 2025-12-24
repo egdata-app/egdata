@@ -5,6 +5,7 @@ import type { SingleItem } from "@/types/single-item";
 import { z } from "zod";
 import { zodSearchValidator } from "@tanstack/router-zod-adapter";
 import { httpClient } from "@/lib/http-client";
+import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -68,7 +69,11 @@ const searchParamsSchema = z.object({
 
 export const Route = createFileRoute("/changelog/")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+      page: number;
+      query: string;
+    };
 
     return (
       <HydrationBoundary state={dehydratedState}>
@@ -77,6 +82,7 @@ export const Route = createFileRoute("/changelog/")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ context, search }) => {
     const { queryClient } = context;
 
@@ -123,7 +129,11 @@ export const Route = createFileRoute("/changelog/")({
 });
 
 function ChangelogPage() {
-  const { page: initialPage, query: initialQuery } = Route.useLoaderData();
+  const { page: initialPage, query: initialQuery } = Route.useLoaderData() as {
+    dehydratedState: DehydratedState;
+    page: number;
+    query: string;
+  };
   const navigate = Route.useNavigate();
   const search = Route.useSearch();
   const [page, setPage] = React.useState(initialPage || 1);
@@ -192,10 +202,12 @@ function ChangelogPage() {
           .map((hit) => (
             <ChangeTracker
               key={hit._id}
-              _id={hit._id}
-              document={hit.document}
-              metadata={hit.metadata}
-              timestamp={hit.timestamp}
+              {...({
+                _id: hit._id,
+                document: hit.document,
+                metadata: hit.metadata,
+                timestamp: hit.timestamp,
+              } as Parameters<typeof ChangeTracker>[0])}
             />
           ))}
       </div>

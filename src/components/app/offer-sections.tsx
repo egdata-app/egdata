@@ -1,3 +1,4 @@
+import type { JSX } from "react";
 import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";

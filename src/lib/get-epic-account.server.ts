@@ -34,7 +34,6 @@ export const getEpicAccount = async (accessToken: string, accountId: string) => 
 
 export const getAccountFromDb = async (accessToken: string) => {
   return httpClient.get<EpicAccountResponse["0"]>("/auth", {
-    retries: 0,
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },

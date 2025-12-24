@@ -30,8 +30,8 @@ async function getCountries(): Promise<string[]> {
     return cacheData.data;
   }
 
-  const response = await client.get<string[]>("/countries");
-  const data = response.data;
+  const response = await httpClient.get<string[]>("/countries");
+  const data = response;
 
   if (isBrowser) {
     localStorage.setItem(

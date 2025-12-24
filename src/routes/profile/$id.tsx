@@ -4,6 +4,7 @@ import { DateTime } from "luxon";
 import { useLocale } from "@/hooks/use-locale";
 import {
   dehydrate,
+  type DehydratedState,
   HydrationBoundary,
   keepPreviousData,
   type QueryObserverResult,
@@ -56,7 +57,11 @@ import { DiscordIcon } from "@/components/icons/discord";
 
 export const Route = createFileRoute("/profile/$id")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+      id: string;
+      userId: string | undefined;
+    };
 
     return (
       <HydrationBoundary state={dehydratedState}>
@@ -65,6 +70,7 @@ export const Route = createFileRoute("/profile/$id")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ context, params }) => {
     const { queryClient, session } = context;
     const { id } = params;
@@ -138,7 +144,11 @@ export const Route = createFileRoute("/profile/$id")({
 });
 
 function RouteComponent() {
-  const { id, userId } = Route.useLoaderData();
+  const { id, userId } = Route.useLoaderData() as {
+    dehydratedState: DehydratedState;
+    id: string;
+    userId: string | undefined;
+  };
   const [selectedImage, setSelectedImage] = React.useState<File | null>(null);
   const [avatarErrors, setAvatarErrors] = React.useState<string[]>([]);
   const [isUploading, setIsUploading] = React.useState(false);

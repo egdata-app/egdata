@@ -200,12 +200,13 @@ export function ChangeTracker({
           </div>
           <Link
             className="text-lg font-medium truncate max-w-[300px] underline decoration-dotted decoration-muted-foreground/40 underline-offset-4"
-            to={`/${metadata.contextType}s/${metadata.contextId}`}
+            to={`/${metadata.contextType}s/${metadata.contextId}` as string}
           >
             {document && "title" in document ? document?.title : metadata.contextId}
           </Link>
           <Link
-            to={`/changelog/${_id}`}
+            to="/changelog/$id"
+            params={{ id: _id }}
             className="text-sm text-blue-400 hover:underline font-mono"
           >
             {_id.slice(0, 10)}
@@ -323,7 +324,7 @@ function ValueToString(value: unknown, query: string, field?: string, short?: bo
   if (value === null) return "N/A";
 
   if (field === "asset" && short) {
-    return <span className="font-mono">{value?.artifactId}</span>;
+    return <span className="font-mono">{(value as { artifactId?: string } | null)?.artifactId}</span>;
   }
 
   if (field === "keyImages" && value !== null) {

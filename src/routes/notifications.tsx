@@ -23,7 +23,7 @@ export const Route = createFileRoute("/notifications")({
   }),
   loader: async ({ context }) => {
     const { queryClient } = context;
-    const apiKey = context.cookies["push-notifications-api-key"];
+    const apiKey = context.cookies?.["push-notifications-api-key"];
 
     if (apiKey) {
       // Prefetch subscription status check

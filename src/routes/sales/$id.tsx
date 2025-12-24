@@ -2,7 +2,7 @@ import { checkCountryCode } from "@/lib/check-country";
 import { getImage } from "@/lib/get-image";
 import { httpClient } from "@/lib/http-client";
 import type { SingleOffer } from "@/types/single-offer";
-import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { dehydrate, type DehydratedState, HydrationBoundary } from "@tanstack/react-query";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { zodSearchValidator } from "@tanstack/router-zod-adapter";
 import { SearchContainer } from "@/components/search/SearchContainer";
@@ -10,7 +10,18 @@ import { formSchema } from "@/stores/searchStore";
 
 export const Route = createFileRoute("/sales/$id")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+      cover: Pick<SingleOffer, "_id" | "id" | "namespace" | "title" | "keyImages"> | null;
+      id: string;
+      promotion: {
+        elements: SingleOffer[];
+        title: string;
+        start: number;
+        page: number;
+        count: number;
+      } | null;
+    };
 
     return (
       <HydrationBoundary state={dehydratedState}>
@@ -21,11 +32,12 @@ export const Route = createFileRoute("/sales/$id")({
 
   beforeLoad: async () => {},
 
+  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { queryClient, country } = context;
     const { id } = params;
 
-    if (!checkCountryCode(country)) {
+    if (!checkCountryCode(country ?? "US")) {
       console.warn(`Invalid country code: ${country}`);
       throw redirect({
         to: `/sales/${id}`,
@@ -154,7 +166,18 @@ export const Route = createFileRoute("/sales/$id")({
 });
 
 function SalesPage() {
-  const { cover, id, promotion } = Route.useLoaderData();
+  const { cover, id, promotion } = Route.useLoaderData() as {
+    dehydratedState: DehydratedState;
+    cover: Pick<SingleOffer, "_id" | "id" | "namespace" | "title" | "keyImages"> | null;
+    id: string;
+    promotion: {
+      elements: SingleOffer[];
+      title: string;
+      start: number;
+      page: number;
+      count: number;
+    } | null;
+  };
   const navigate = Route.useNavigate();
   const search = Route.useSearch();
 

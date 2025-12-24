@@ -8,7 +8,7 @@ const CREATOR_CODE = "EGDATA";
 const CREATOR_CODE_STORAGE_KEY = "egdata_creator_code_shown";
 
 function trackEvent(offer: SingleOffer) {
-  window.umami.track("open-egs", {
+  window.umami?.track("open-egs", {
     id: offer.id,
     namespace: offer.namespace,
   });

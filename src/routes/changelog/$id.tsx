@@ -1,5 +1,6 @@
 import * as React from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, queryOptions, useQuery } from "@tanstack/react-query";
 import { httpClient } from "@/lib/http-client";
 import { ChangeTracker } from "@/components/app/changelog/item";
@@ -57,7 +58,10 @@ const sandboxBaseGameQuery = (id: string | undefined) =>
 
 export const Route = createFileRoute("/changelog/$id")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+      id: string;
+    };
 
     return (
       <HydrationBoundary state={dehydratedState}>
@@ -66,6 +70,7 @@ export const Route = createFileRoute("/changelog/$id")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ context, params }) => {
     const { queryClient } = context;
     const { id } = params;
@@ -97,7 +102,7 @@ export const Route = createFileRoute("/changelog/$id")({
 });
 
 function ChangeDetailPage() {
-  const { id } = Route.useLoaderData();
+  const { id } = Route.useLoaderData() as { dehydratedState: DehydratedState; id: string };
   const { data, isLoading, isError } = useQuery({
     queryKey: ["changelog", id],
     queryFn: () => httpClient.get<ChangeResponse>(`/changelist/${id}`),
@@ -136,10 +141,12 @@ function ChangeDetailPage() {
       <div className="grid gap-4">
         <ChangeTracker
           key={data._id}
-          _id={data._id}
-          document={data.metadata.context}
-          metadata={data.metadata}
-          timestamp={data.timestamp}
+          {...({
+            _id: data._id,
+            document: data.metadata.context,
+            metadata: data.metadata,
+            timestamp: data.timestamp,
+          } as Parameters<typeof ChangeTracker>[0])}
         />
       </div>
     </div>

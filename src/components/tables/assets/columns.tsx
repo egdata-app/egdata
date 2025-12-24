@@ -90,7 +90,7 @@ export const columns: ColumnDef<Asset, unknown>[] = [
     enableColumnFilter: true,
     cell: (info) => {
       return (
-        <Link to={`/items/${info.getValue()}`} className="text-badge font-mono">
+        <Link to="/items/$id" params={{ id: info.getValue() as string }} className="text-badge font-mono">
           {info.getValue() as string}
         </Link>
       );

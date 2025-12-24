@@ -20,6 +20,7 @@ import type { AchievementSet } from "@/queries/offer-achievements";
 import type { SingleOffer } from "@/types/single-offer";
 import type { SingleSandbox } from "@/types/single-sandbox";
 import { CardStackIcon, EyeOpenIcon } from "@radix-ui/react-icons";
+import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { EyeClosedIcon, FileWarningIcon } from "lucide-react";
@@ -27,7 +28,10 @@ import { useMemo, useState } from "react";
 
 export const Route = createFileRoute("/sandboxes/$id/achievements")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+      id: string;
+    };
     return (
       <HydrationBoundary state={dehydratedState}>
         <SandboxAchievementsPage />
@@ -35,6 +39,7 @@ export const Route = createFileRoute("/sandboxes/$id/achievements")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ context, params }) => {
     const { id } = params;
     const { queryClient } = context;

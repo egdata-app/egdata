@@ -11,6 +11,7 @@ import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { generateSandboxMeta } from "@/lib/generate-sandbox-meta";
 import { useState } from "react";
 import type { ColumnFiltersState } from "@tanstack/react-table";
+import type { DehydratedState } from "@tanstack/react-query";
 
 interface PaginatedResponse<T> {
   elements: T[];
@@ -21,7 +22,10 @@ interface PaginatedResponse<T> {
 
 export const Route = createFileRoute("/sandboxes/$id/offers")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+      id: string;
+    };
 
     return (
       <HydrationBoundary state={dehydratedState}>
@@ -30,6 +34,7 @@ export const Route = createFileRoute("/sandboxes/$id/offers")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ context, params }) => {
     const { id } = params;
     const { queryClient } = context;

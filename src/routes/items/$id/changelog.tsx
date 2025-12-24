@@ -2,13 +2,14 @@ import { ChangeTracker } from "@/components/app/changelog/item";
 import type { Change } from "@/components/modules/changelist";
 import { Skeleton } from "@/components/ui/skeleton";
 import { httpClient } from "@/lib/http-client";
-import { dehydrate, keepPreviousData, useQuery } from "@tanstack/react-query";
+import { dehydrate, type DehydratedState, keepPreviousData, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 
 export const Route = createFileRoute("/items/$id/changelog")({
   component: ChangelogPage,
 
+  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { id } = params;
     const { queryClient } = context;
@@ -25,8 +26,13 @@ export const Route = createFileRoute("/items/$id/changelog")({
   },
 });
 
+type LoaderData = {
+  dehydratedState: DehydratedState;
+  id: string;
+};
+
 function ChangelogPage() {
-  const { id } = Route.useLoaderData();
+  const { id } = Route.useLoaderData() as LoaderData;
   const [page] = useState(1);
   const { data, isLoading } = useQuery({
     queryKey: ["changelog", { id, page }],
@@ -71,11 +77,13 @@ function ChangelogPage() {
           .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
           .map((changelist) => (
             <ChangeTracker
-              _id={changelist._id}
               key={changelist._id}
-              timestamp={changelist.timestamp}
-              document={changelist.document}
-              metadata={changelist.metadata}
+              {...({
+                _id: changelist._id,
+                timestamp: changelist.timestamp,
+                document: (changelist as unknown as { document: unknown }).document,
+                metadata: changelist.metadata,
+              } as Parameters<typeof ChangeTracker>[0])}
             />
           ))}
       </div>

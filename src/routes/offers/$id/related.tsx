@@ -6,12 +6,19 @@ import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { httpClient } from "@/lib/http-client";
 import { offersDictionary } from "@/lib/offers-dictionary";
 import type { SingleOffer } from "@/types/single-offer";
-import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { dehydrate, type DehydratedState, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+
+type LoaderData = {
+  dehydratedState: DehydratedState;
+  id: string;
+  offer: SingleOffer;
+  country: string;
+};
 
 export const Route = createFileRoute("/offers/$id/related")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as LoaderData;
     return (
       <HydrationBoundary state={dehydratedState}>
         <RelatedOffersPage />
@@ -19,6 +26,7 @@ export const Route = createFileRoute("/offers/$id/related")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { queryClient, country } = context;
     const { id } = params;
@@ -84,7 +92,7 @@ export const Route = createFileRoute("/offers/$id/related")({
 });
 
 function RelatedOffersPage() {
-  const { id } = Route.useLoaderData();
+  const { id } = Route.useLoaderData() as LoaderData;
   const { country } = useCountry();
   const {
     data: offers,

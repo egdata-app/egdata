@@ -102,7 +102,7 @@ interface Multisearch<T> {
 interface SearchPortalProps {
   searchState: SearchState;
   setSearchState: (value: React.SetStateAction<SearchState>) => void;
-  inputRef: React.RefObject<HTMLInputElement>;
+  inputRef: React.RefObject<HTMLInputElement | null>;
 }
 
 type SectionType = "offers" | "items" | "sellers";

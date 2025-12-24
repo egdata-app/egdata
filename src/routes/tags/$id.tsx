@@ -1,5 +1,6 @@
 import * as React from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import type { DehydratedState } from "@tanstack/react-query";
 import {
   dehydrate,
   HydrationBoundary,
@@ -105,7 +106,12 @@ const searchParamsSchema = z.object({
 
 export const Route = createFileRoute("/tags/$id")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+      id: string;
+      cover: Pick<SingleOffer, "_id" | "id" | "namespace" | "title" | "keyImages"> | null;
+      promotion: { elements: SingleOffer[]; title: string; start: number; page: number; count: number } | null;
+    };
 
     return (
       <HydrationBoundary state={dehydratedState}>
@@ -114,6 +120,7 @@ export const Route = createFileRoute("/tags/$id")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ context, params, search }) => {
     const { queryClient, country } = context;
     const { id } = params;
@@ -140,7 +147,7 @@ export const Route = createFileRoute("/tags/$id")({
         queryFn: () =>
           fetchPromotionData({
             id,
-            country,
+            country: country ?? "US",
             page: 1,
             sortBy,
             sortDir,
@@ -152,7 +159,7 @@ export const Route = createFileRoute("/tags/$id")({
         queryFn: ({ pageParam }) =>
           fetchPromotionData({
             id,
-            country,
+            country: country ?? "US",
             page: pageParam as number,
             sortBy,
             sortDir,
@@ -334,7 +341,12 @@ function RouteComponent() {
   const [inputValue, setInputValue] = React.useState("");
   const [query, setQuery] = React.useState("");
   const debouncedSetQuery = debounce(setQuery, 500);
-  const { cover, id } = Route.useLoaderData();
+  const { cover, id } = Route.useLoaderData() as {
+    dehydratedState: DehydratedState;
+    id: string;
+    cover: Pick<SingleOffer, "_id" | "id" | "namespace" | "title" | "keyImages"> | null;
+    promotion: { elements: SingleOffer[]; title: string; start: number; page: number; count: number } | null;
+  };
   const {
     data: promotion,
     isLoading,

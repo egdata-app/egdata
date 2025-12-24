@@ -76,20 +76,20 @@ export const Route = createFileRoute("/")({
       }),
       queryClient.prefetchQuery({
         queryKey: ["upcoming", { country }],
-        queryFn: () => getUpcoming({ country }),
+        queryFn: () => getUpcoming({ country: country ?? "US" }),
         staleTime: 6000,
       }),
       queryClient.prefetchQuery({
         queryKey: ["latest-games"],
-        queryFn: () => getLatestOffers(country),
+        queryFn: () => getLatestOffers(country ?? "US"),
       }),
       queryClient.prefetchQuery({
         queryKey: ["stats", { country }],
-        queryFn: () => getStats({ country }),
+        queryFn: () => getStats({ country: country ?? "US" }),
       }),
       queryClient.prefetchQuery({
         queryKey: ["giveaways-stats", { country }],
-        queryFn: () => getGiveawaysStats({ country }),
+        queryFn: () => getGiveawaysStats({ country: country ?? "US" }),
       }),
     ]);
   },
@@ -129,8 +129,7 @@ function OfferHoverCard({ id }: { id: string }) {
         <Image
           src={
             getImage(data.offer.keyImages, ["DieselGameBoxWide", "OfferImageWide"])?.url ??
-            "/placeholder.webp" ??
-            "/placeholder-1080.webp"
+            "/placeholder.webp"
           }
           alt={data.offer.title}
           width={300}

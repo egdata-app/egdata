@@ -6,20 +6,27 @@ import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { httpClient } from "@/lib/http-client";
 import type { SingleItem } from "@/types/single-item";
 import type { SingleOffer } from "@/types/single-offer";
-import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { dehydrate, type DehydratedState, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import type { ColumnFiltersState } from "@tanstack/react-table";
 
+type LoaderData = {
+  dehydratedState: DehydratedState;
+  id: string;
+  offer: SingleOffer | undefined;
+};
+
 export const Route = createFileRoute("/offers/$id/items")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as LoaderData;
     return (
       <HydrationBoundary state={dehydratedState}>
         <ItemsPage />
       </HydrationBoundary>
     );
   },
+  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { queryClient } = context;
 
@@ -78,7 +85,7 @@ export const Route = createFileRoute("/offers/$id/items")({
 });
 
 function ItemsPage() {
-  const { id } = Route.useLoaderData();
+  const { id } = Route.useLoaderData() as LoaderData;
   const [page, setPage] = useState({ pageIndex: 0, pageSize: 20 });
   const [filters, setFilters] = useState<ColumnFiltersState>([]);
   const {

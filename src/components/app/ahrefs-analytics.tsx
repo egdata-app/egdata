@@ -36,7 +36,7 @@ export const AhrefsAnalytics: React.FC<AhrefsAnalyticsProps> = ({ tagId }) => {
       };
     } else {
       consola.info("AhrefsAnalytics: Script already exists", tagId); // Log if script already there
-      existingScript.dataset.key = tagId; // Update the tagId if it changed
+      (existingScript as HTMLElement).dataset.key = tagId; // Update the tagId if it changed
     }
   }, [tagId]);
 

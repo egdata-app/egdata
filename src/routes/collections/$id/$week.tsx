@@ -8,6 +8,7 @@ import { createFileRoute, Outlet } from "@tanstack/react-router";
 export const Route = createFileRoute("/collections/$id/$week")({
   component: RouteComponent,
 
+  // @ts-expect-error - loader return type
   beforeLoad: async ({ params, context }) => {
     const { id, week } = params;
     const { queryClient, country } = context;
@@ -27,7 +28,7 @@ export const Route = createFileRoute("/collections/$id/$week")({
           slug: id,
           limit: 20,
           page: pageParam as number,
-          country,
+          country: country ?? "US",
           week,
         }),
       initialPageParam: 1,

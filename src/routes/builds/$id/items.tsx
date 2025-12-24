@@ -2,6 +2,7 @@ import { columns } from "@/components/tables/items/columns";
 import { DataTable } from "@/components/tables/items/table";
 import { httpClient } from "@/lib/http-client";
 import type { SingleItem } from "@/types/single-item";
+import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
@@ -14,7 +15,10 @@ interface PaginatedResponse<T> {
 
 export const Route = createFileRoute("/builds/$id/items")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+      id: string;
+    };
     return (
       <HydrationBoundary state={dehydratedState}>
         <ItemsPage />
@@ -22,6 +26,7 @@ export const Route = createFileRoute("/builds/$id/items")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { id } = params;
     const { queryClient } = context;
@@ -39,7 +44,7 @@ export const Route = createFileRoute("/builds/$id/items")({
 });
 
 function ItemsPage() {
-  const { id } = Route.useLoaderData();
+  const { id } = Route.useLoaderData() as { dehydratedState: DehydratedState; id: string };
   const [page, setPage] = useState({ pageIndex: 0, pageSize: 25 });
   const [filters, setFilters] = useState<ColumnFiltersState>([]);
 

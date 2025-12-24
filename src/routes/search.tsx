@@ -22,9 +22,10 @@ export const Route = createFileRoute("/search")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async (ctx) => {
     const { context, deps } = ctx;
-    const search = deps.searchParams;
+    const search = (deps as { searchParams?: Record<string, unknown> })?.searchParams;
 
     const { country, queryClient } = context;
     const { page = 1, limit = DEFAULT_LIMIT } = search ?? {};

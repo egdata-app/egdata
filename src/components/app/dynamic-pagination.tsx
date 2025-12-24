@@ -19,7 +19,7 @@ export const DynamicPagination: React.FC<PaginationProps> = ({
   totalPages,
   setPage,
 }) => {
-  const items = [];
+  const items: React.ReactNode[] = [];
 
   // Previous button
   items.push(

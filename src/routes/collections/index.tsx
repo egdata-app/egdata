@@ -5,7 +5,7 @@ import { useCountry } from "@/hooks/use-country";
 import { getImage } from "@/lib/get-image";
 import { cn } from "@/lib/utils";
 import { getCollection } from "@/queries/collection";
-import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { dehydrate, type DehydratedState, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 const collections: {
@@ -62,7 +62,9 @@ const collections: {
 
 export const Route = createFileRoute("/collections/")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+    };
 
     return (
       <HydrationBoundary state={dehydratedState}>
@@ -71,6 +73,7 @@ export const Route = createFileRoute("/collections/")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ context }) => {
     const { queryClient, country } = context;
 
@@ -83,7 +86,7 @@ export const Route = createFileRoute("/collections/")({
               slug: collection.slug,
               limit: 5,
               page: 1,
-              country,
+              country: country ?? "US",
             }),
         }),
       ),
@@ -169,7 +172,7 @@ function CollectionCard({ collection }: { collection: (typeof collections)[0] })
 
   if (!collectionData) {
     return (
-      <Link to={`/collections/${collection.slug}`} className="w-full">
+      <Link to="/collections/$id" params={{ id: collection.slug }} className="w-full">
         <Card
           key={collection.slug}
           className="flex flex-col gap-4 w-full relative overflow-hidden rounded-xl"
@@ -188,7 +191,7 @@ function CollectionCard({ collection }: { collection: (typeof collections)[0] })
   }
 
   return (
-    <Link to={`/collections/${collection.slug}`}>
+    <Link to="/collections/$id" params={{ id: collection.slug }}>
       <Card
         key={collection.slug}
         className="flex flex-col gap-4 relative rounded-xl overflow-hidden"

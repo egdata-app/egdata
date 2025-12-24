@@ -1,6 +1,6 @@
 import { createFileRoute, getRouteApi, Link } from "@tanstack/react-router";
 import "@mdxeditor/editor/style.css";
-import { dehydrate, HydrationBoundary, useQueries } from "@tanstack/react-query";
+import { dehydrate, type DehydratedState, HydrationBoundary, useQueries } from "@tanstack/react-query";
 import { httpClient } from "@/lib/http-client";
 import type { SingleReview } from "@/types/reviews";
 import type { RatingsType } from "@egdata/core.schemas.ratings";
@@ -69,7 +69,12 @@ const getVerificationParam = (verified: ReviewsFilter): "true" | "false" | undef
 
 export const Route = createFileRoute("/offers/$id/reviews")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+      id: string;
+      userId: string | undefined;
+      offer: SingleOffer | undefined;
+    };
 
     return (
       <HydrationBoundary state={dehydratedState}>
@@ -78,6 +83,7 @@ export const Route = createFileRoute("/offers/$id/reviews")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { id } = params;
     const { queryClient, epicToken, session } = context;
@@ -180,7 +186,12 @@ export const Route = createFileRoute("/offers/$id/reviews")({
 function Reviews() {
   const { epicToken } = routeApi.useRouteContext();
   const { locale } = useLocale();
-  const { offer, id } = Route.useLoaderData();
+  const { offer, id } = Route.useLoaderData() as {
+    dehydratedState: DehydratedState;
+    id: string;
+    userId: string | undefined;
+    offer: SingleOffer | undefined;
+  };
   const [page] = useState(1);
   const [filter, setFilter] = useState<ReviewsFilter>("all");
   const [showReviewForm, setShowReviewForm] = useState(false);
@@ -305,7 +316,8 @@ function Reviews() {
                         <Link
                           key={result.id}
                           className="bg-[#202024] text-white flex flex-row gap-4 items-center justify-start p-4 w-[300px] shadow-sm rounded-lg transform transition-transform hover:translate-y-[-2px]"
-                          to={`/search?tags=${result.tagId}`}
+                          to="/search"
+                          search={{ tags: result.tagId }}
                         >
                           <img
                             src={result.localizations.resultEmoji}
@@ -499,7 +511,12 @@ function Reviews() {
 function Review({ review, full }: { review: SingleReview; full?: boolean }) {
   const [showEditForm, setShowEditForm] = useState(false);
   const [showFull, setShowFull] = useState(full);
-  const { userId } = Route.useLoaderData();
+  const { userId } = Route.useLoaderData() as {
+    dehydratedState: DehydratedState;
+    id: string;
+    userId: string | undefined;
+    offer: SingleOffer | undefined;
+  };
   const userAvatar =
     review.user.avatarUrl?.variants[0] ??
     `https://shared-static-prod.epicgames.com/epic-profile-icon/D8033C/${review.user.displayName[0].toUpperCase()}/icon.png?size=512`;
@@ -513,7 +530,10 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
         </Avatar>
         <Link
           className="ml-4 inline-flex items-center space-x-2"
-          to={`/profile/${review.user.accountId}`}
+          to="/profile/$id"
+          params={{ id: review.user.accountId }}
+          // @ts-expect-error - empty search params
+          search={{}}
         >
           <div className="font-bold">{review.user.displayName}</div>
           {review.verified && <Badge variant="secondary">Verified Owner</Badge>}

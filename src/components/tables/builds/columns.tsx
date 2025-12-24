@@ -68,7 +68,7 @@ export const columns: ColumnDef<Build>[] = [
     enableColumnFilter: true,
     cell: (info) => {
       return (
-        <Link to={`/builds/${info.getValue()}`} className="font-mono text-badge">
+        <Link to="/builds/$id" params={{ id: info.getValue() as string }} className="font-mono text-badge">
           {info.getValue() as string}
         </Link>
       );

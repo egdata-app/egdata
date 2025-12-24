@@ -14,6 +14,14 @@ export interface CookiesContextProps {
    */
   selection: CookiesSelection | null;
   setSelection: (selection: CookiesSelection) => void;
+  /**
+   * Accept all cookies with default settings
+   */
+  acceptCookies: () => void;
+  /**
+   * Decline all cookies
+   */
+  declineCookies: () => void;
 }
 
 export const cookiesContext = createContext<CookiesContextProps | undefined>(undefined);

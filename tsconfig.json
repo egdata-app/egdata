@@ -12,7 +12,8 @@
         "./src/*"
       ]
     },
-    "typeRoots": ["./src/types", "./node_modules/@types", "./global.d.ts"],
+    "types": ["node"],
     "lib": ["ESNext", "DOM", "WebWorker"]
-  }
+  },
+  "include": ["src", "global.d.ts", "*.config.ts"]
 }

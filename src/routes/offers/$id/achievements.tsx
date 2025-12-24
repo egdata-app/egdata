@@ -28,7 +28,7 @@ import { cn } from "@/lib/utils";
 import type { AchievementsSets } from "@/queries/offer-achievements";
 import type { SingleOffer } from "@/types/single-offer";
 import { CardStackIcon, EyeOpenIcon } from "@radix-ui/react-icons";
-import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { dehydrate, type DehydratedState, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { EyeClosedIcon, FileWarningIcon } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -41,9 +41,15 @@ function rarityPriority(rarity: keyof typeof rarities) {
   return idx === -1 ? Number.MAX_SAFE_INTEGER : idx;
 }
 
+type LoaderData = {
+  dehydratedState: DehydratedState;
+  id: string;
+  offer: SingleOffer;
+};
+
 export const Route = createFileRoute("/offers/$id/achievements")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as LoaderData;
     return (
       <HydrationBoundary state={dehydratedState}>
         <AchievementsPage />
@@ -51,6 +57,7 @@ export const Route = createFileRoute("/offers/$id/achievements")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { queryClient } = context;
     const { id } = params;
@@ -110,7 +117,7 @@ export const Route = createFileRoute("/offers/$id/achievements")({
 });
 
 function AchievementsPage() {
-  const { id } = Route.useLoaderData();
+  const { id } = Route.useLoaderData() as LoaderData;
   const { timezone } = useLocale();
   const [search, setSearch] = useState("");
   const [blur, setBlur] = useState(true);

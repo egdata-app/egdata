@@ -1,5 +1,6 @@
 import * as React from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, useQueries } from "@tanstack/react-query";
 import { httpClient } from "@/lib/http-client";
 import type { SingleOffer } from "@/types/single-offer";
@@ -13,7 +14,11 @@ import { SearchContainer } from "@/components/search/SearchContainer";
 
 export const Route = createFileRoute("/sellers/$id")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+      id: string;
+      country: string;
+    };
     return (
       <HydrationBoundary state={dehydratedState}>
         <RouteComponent />
@@ -21,6 +26,7 @@ export const Route = createFileRoute("/sellers/$id")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ context, params }) => {
     const { queryClient, country } = context;
     const { id } = params;
@@ -28,7 +34,7 @@ export const Route = createFileRoute("/sellers/$id")({
     await Promise.allSettled([
       queryClient.prefetchQuery({
         queryKey: ["seller", { id, country }],
-        queryFn: async () => getSeller(id, country),
+        queryFn: async () => getSeller(id, country ?? "US"),
       }),
       queryClient.prefetchQuery({
         queryKey: ["seller:cover", { id, country }],
@@ -87,7 +93,11 @@ export const Route = createFileRoute("/sellers/$id")({
 });
 
 function RouteComponent() {
-  const { id } = Route.useLoaderData();
+  const { id } = Route.useLoaderData() as {
+    dehydratedState: DehydratedState;
+    id: string;
+    country: string;
+  };
   const { country } = useCountry();
   const navigate = Route.useNavigate();
   const search = Route.useSearch();

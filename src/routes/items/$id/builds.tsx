@@ -6,14 +6,17 @@ import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { httpClient } from "@/lib/http-client";
 import type { Build } from "@/types/builds";
 import type { SingleItem } from "@/types/single-item";
-import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { dehydrate, type DehydratedState, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import type { ColumnFiltersState } from "@tanstack/react-table";
 
 export const Route = createFileRoute("/items/$id/builds")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+      id: string;
+    };
     return (
       <HydrationBoundary state={dehydratedState}>
         <ItemBuildsPage />
@@ -21,6 +24,7 @@ export const Route = createFileRoute("/items/$id/builds")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ context, params }) => {
     const { id } = params;
     const { queryClient } = context;

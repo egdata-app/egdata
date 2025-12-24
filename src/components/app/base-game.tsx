@@ -15,7 +15,7 @@ export const BaseGame: React.FC<{ offer: SingleOffer }> = ({ offer }) => {
   const [game, setGame] = useState<SingleOffer | null>(null);
 
   useEffect(() => {
-    httpClient.get(`/base-game/${offer.namespace}`).then((response) => {
+    httpClient.get<SingleOffer>(`/base-game/${offer.namespace}`).then((response) => {
       setGame(response);
     });
   }, [offer.namespace]);
@@ -31,7 +31,8 @@ export const BaseGame: React.FC<{ offer: SingleOffer }> = ({ offer }) => {
   return (
     <Link
       className="flex items-center bg-gray-800 rounded-lg shadow-lg w-full h-16 relative mt-2 overflow-hidden group"
-      to={`/offers/${game.id}`}
+      to="/offers/$id"
+      params={{ id: game.id }}
       preload="viewport"
     >
       <span className="text-white font-bold absolute z-20 flex-col px-5 gap-1">

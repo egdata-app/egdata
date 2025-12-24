@@ -47,8 +47,8 @@ export const Route = createFileRoute("/api/auth/callback")({
         let ClientSecret: string | undefined;
 
         if (request.cloudflare) {
-          ClientID = request.cloudflare.env.EPIC_CLIENT_ID;
-          ClientSecret = request.cloudflare.env.EPIC_CLIENT_SECRET;
+          ClientID = request.cloudflare.env.EPIC_CLIENT_ID as string;
+          ClientSecret = request.cloudflare.env.EPIC_CLIENT_SECRET as string;
         } else {
           ClientID = process.env.EPIC_CLIENT_ID;
           ClientSecret = process.env.EPIC_CLIENT_SECRET;
@@ -74,7 +74,7 @@ export const Route = createFileRoute("/api/auth/callback")({
         let privateKeyPem: string;
 
         if (request.cloudflare) {
-          privateKeyPem = request.cloudflare.env.JWT_SIGNING_KEY;
+          privateKeyPem = request.cloudflare.env.JWT_SIGNING_KEY as string;
         } else {
           privateKeyPem =
             process.env.JWT_SIGNING_KEY ??

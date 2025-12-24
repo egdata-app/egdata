@@ -1,5 +1,6 @@
 import { httpClient } from "@/lib/http-client";
 import type { SingleSandbox } from "@/types/single-sandbox";
+import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { createFileRoute, Outlet, useLocation } from "@tanstack/react-router";
 import { SectionsNav } from "@/components/app/offer-sections";
@@ -20,7 +21,10 @@ import type { SingleItem } from "@/types/single-item";
 
 export const Route = createFileRoute("/sandboxes/$id")({
   component: () => {
-    const { dehydratedState } = Route.useLoaderData();
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+      id: string;
+    };
 
     return (
       <HydrationBoundary state={dehydratedState}>
@@ -29,6 +33,7 @@ export const Route = createFileRoute("/sandboxes/$id")({
     );
   },
 
+  // @ts-expect-error - loader return type
   loader: async ({ context, params }) => {
     const { queryClient } = context;
     const { id } = params;
@@ -39,6 +44,7 @@ export const Route = createFileRoute("/sandboxes/$id")({
     };
   },
 
+  // @ts-expect-error - loader return type
   beforeLoad: async ({ context, params }) => {
     const { id } = params;
     const { queryClient } = context;

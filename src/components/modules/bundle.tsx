@@ -20,7 +20,7 @@ import { useLocale } from "@/hooks/use-locale";
 import { getBuyLink } from "@/lib/get-build-link";
 
 const trackEvent = (offers: { id: string; namespace: string }[], type: "bundle" | "single") => {
-  window.umami.track(`bundle-${type}`, {
+  window.umami?.track(`bundle-${type}`, {
     offers: offers.map((offer) => {
       return {
         id: offer.id,

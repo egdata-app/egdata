@@ -1,4 +1,5 @@
-import type { SearchV2Response, Offer } from "@/types/search-v2";
+import type { SearchV2Response } from "@/types/search-v2";
+import type { SingleOfferWithPrice } from "@/types/single-offer-price";
 import { GameCardSkeleton } from "@/components/app/offer-card";
 import { DynamicPagination } from "@/components/app/dynamic-pagination";
 import React from "react";
@@ -10,9 +11,9 @@ export interface SearchFormV2Props {
   results: SearchV2Response | null;
 }
 
-function formatPrice(offer: Offer) {
-  if (!offer.price || !offer.price.price) return null;
-  const { discountPrice, currencyCode } = offer.price.price;
+function formatPrice(offer: SingleOfferWithPrice) {
+  if (!offer.price) return null;
+  const { discountPrice, currencyCode } = offer.price;
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: currencyCode || "USD",
@@ -49,7 +50,7 @@ export function SearchFormV2({ query, onQueryChange, loading, results }: SearchF
       )}
       {!loading && results && results.offers.length > 0 && (
         <div className="grid grid-cols-1 gap-4 mt-8 md:grid-cols-2 lg:grid-cols-5">
-          {results.offers.map((offer: Offer) => (
+          {results.offers.map((offer: SingleOfferWithPrice) => (
             <div key={offer.id} className="bg-card rounded-xl p-4 flex flex-col items-start">
               <img
                 src={offer.keyImages?.[0]?.url}

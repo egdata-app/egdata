@@ -32,9 +32,10 @@ export function DonateKeyForm() {
       consola.info("Key donated");
       setSuccess(true);
       setId(res.id);
-    } catch (error) {
-      consola.error(error);
-      setError(error.response ?? "Something went wrong. Please try again.");
+    } catch (err) {
+      consola.error(err);
+      const errorObj = err as { response?: string };
+      setError(errorObj.response ?? "Something went wrong. Please try again.");
     } finally {
       setSending(false);
     }
@@ -95,7 +96,7 @@ export function DonateKeyForm() {
         <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />
           <AlertTitle>Error</AlertTitle>
-          <AlertDescription>{typeof error === "string" ? error : error.error}</AlertDescription>
+          <AlertDescription>{error}</AlertDescription>
         </Alert>
       )}
       {success && (
