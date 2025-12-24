@@ -62,7 +62,7 @@ export function SimpleNotifications() {
       });
       setApiKey(newApiKey);
       return newApiKey;
-    } catch (error) {
+    } catch {
       showNotification("error", "Failed to generate API key");
       return null;
     }
@@ -82,7 +82,7 @@ export function SimpleNotifications() {
       // Subscribe to push notifications
       await subscribe();
       showNotification("success", "Successfully subscribed to notifications!");
-    } catch (error) {
+    } catch {
       showNotification("error", "Failed to subscribe to notifications");
     }
   };
@@ -97,7 +97,7 @@ export function SimpleNotifications() {
       });
       setApiKey("");
       showNotification("success", "Successfully unsubscribed from notifications");
-    } catch (error) {
+    } catch {
       showNotification("error", "Failed to unsubscribe from notifications");
     }
   };

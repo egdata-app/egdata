@@ -6,7 +6,6 @@ import { httpClient } from "@/lib/http-client";
 import { ChangeTracker } from "@/components/app/changelog/item";
 import type { SingleOffer } from "@/types/single-offer";
 import type { SingleItem } from "@/types/single-item";
-import { OfferCard } from "@/components/app/offer-card";
 
 type ChangeResponse = OfferHit | ItemHit | AssetHit | Hit;
 
@@ -107,7 +106,7 @@ function ChangeDetailPage() {
     queryKey: ["changelog", id],
     queryFn: () => httpClient.get<ChangeResponse>(`/changelist/${id}`),
   });
-  const { data: baseGame } = useQuery({
+  useQuery({
     ...sandboxBaseGameQuery(data?.metadata.context?.namespace),
     enabled: !!data?.metadata.context?.namespace,
   });

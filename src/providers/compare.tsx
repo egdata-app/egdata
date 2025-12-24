@@ -4,7 +4,7 @@ import { CompareContext } from "@/contexts/compare";
 const safeParse = (value: string | null): string[] => {
   try {
     return JSON.parse(value || "[]");
-  } catch (error) {
+  } catch {
     return [];
   }
 };

@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Bell, BellOff, Calendar, Users, Settings } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { checkSubscriptionStatusQuery, subscriptionsQuery } from "@/queries/push-notifications";
 
 export const Route = createFileRoute("/notifications")({

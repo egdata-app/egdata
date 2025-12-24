@@ -137,10 +137,6 @@ function GameAwardsPage() {
     return () => observer.disconnect();
   }, [miniPlayerDismissed]);
 
-  const announcementCount = sections
-    .filter((section) => section.title.toLowerCase().includes("announcement"))
-    .reduce((acc, section) => acc + section.offers.length, 0);
-
   const handleDismissMiniPlayer = () => {
     setMiniPlayerDismissed(true);
     setIsMiniPlayer(false);

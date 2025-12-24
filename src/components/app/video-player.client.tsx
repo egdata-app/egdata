@@ -1,7 +1,6 @@
 import type { Media } from "@/types/media";
 import { MediaPlayer, type MediaPlayerInstance, MediaProvider, Poster } from "@vidstack/react";
 import { defaultLayoutIcons, DefaultVideoLayout } from "@vidstack/react/player/layouts/default";
-import { useLocalStorage } from "@uidotdev/usehooks";
 import type { SingleOffer } from "@/types/single-offer";
 import { useEffect, useRef } from "react";
 import { useIntersectionObserver } from "@uidotdev/usehooks";

@@ -1,4 +1,4 @@
-import { type ReactNode, useRef, useState, useEffect, useCallback, useMemo } from "react";
+import { type ReactNode, useRef, useState, useEffect, useCallback } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { ExtensionContext } from "@/contexts/extension";
 import consola from "consola";

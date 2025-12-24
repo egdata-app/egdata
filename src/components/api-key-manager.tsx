@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Key, CheckCircle, AlertCircle, RefreshCw, Copy } from "lucide-react";
@@ -51,7 +51,7 @@ export function ApiKeyManager({ onApiKeyChange }: ApiKeyManagerProps) {
       setApiKey(newApiKey);
       onApiKeyChange(newApiKey);
       showNotification("success", "New API key generated successfully!");
-    } catch (error) {
+    } catch {
       showNotification("error", "Failed to generate API key");
     }
   };
@@ -65,7 +65,7 @@ export function ApiKeyManager({ onApiKeyChange }: ApiKeyManagerProps) {
     try {
       await navigator.clipboard.writeText(apiKey);
       showNotification("success", "API key copied to clipboard!");
-    } catch (error) {
+    } catch {
       showNotification("error", "Failed to copy API key");
     }
   };
@@ -79,7 +79,7 @@ export function ApiKeyManager({ onApiKeyChange }: ApiKeyManagerProps) {
       setApiKey("");
       onApiKeyChange("");
       showNotification("success", "API key cleared successfully!");
-    } catch (error) {
+    } catch {
       showNotification("error", "Failed to clear API key");
     }
   };

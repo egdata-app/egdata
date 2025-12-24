@@ -1,6 +1,5 @@
 import { getQueryClient } from "@/lib/client";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
-import { httpClient } from "@/lib/http-client";
 import { type Collections, getCollection } from "@/queries/collection";
 import { dehydrate } from "@tanstack/react-query";
 import { createFileRoute, Outlet } from "@tanstack/react-router";

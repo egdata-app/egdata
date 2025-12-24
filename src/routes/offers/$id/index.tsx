@@ -554,7 +554,7 @@ function OverviewSection({
 }
 
 function PriceText({ price, showDate }: { price: Price | null | undefined; showDate?: boolean }) {
-  const { locale, timezone } = useLocale();
+  const { locale } = useLocale();
 
   const isDiscounted = useMemo(() => {
     return price ? price.price.discount > 0 : false;

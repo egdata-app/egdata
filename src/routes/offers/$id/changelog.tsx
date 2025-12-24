@@ -47,14 +47,6 @@ type ChangelogWithPagination = {
   hasPreviousPage: boolean;
 };
 
-type ChangelogWithoutPagination = Change[];
-
-function isChangelogWithPagination(
-  page: ChangelogWithPagination | ChangelogWithoutPagination,
-): page is ChangelogWithPagination {
-  return !Array.isArray(page) && "totalPages" in page;
-}
-
 const getChangelog = (id: string, page: number, query?: string, field?: string, type?: string) => ({
   queryKey: ["changelog", { id, page, query, field, type }],
   queryFn: () =>

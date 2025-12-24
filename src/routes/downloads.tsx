@@ -15,13 +15,6 @@ type ReleaseAsset = {
   size: number;
 };
 
-type Release = {
-  id: number;
-  tag_name: string;
-  name: string;
-  published_at: string;
-  assets: ReleaseAsset[];
-};
 
 type AssetInfo = {
   platform: "Windows" | "macOS" | "Linux" | "Other";

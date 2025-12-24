@@ -1,4 +1,4 @@
-import { createContext, type RefObject } from "react";
+import { createContext } from "react";
 
 export interface SearchState {
   focus: boolean;

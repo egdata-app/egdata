@@ -4,7 +4,7 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 export const Route = createFileRoute("/promotions/$id")({
   component: RouteComponent,
 
-  beforeLoad: async ({ context, params }) => {
+  beforeLoad: async ({ context: _context, params }) => {
     throw redirect({
       to: `/tags/${params.id}`,
     });

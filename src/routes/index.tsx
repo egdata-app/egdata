@@ -12,7 +12,6 @@ import { useCountry } from "@/hooks/use-country";
 import { useLocale } from "@/hooks/use-locale";
 import { httpClient } from "@/lib/http-client";
 import { getUpcoming } from "@/queries/upcoming";
-import { getLastModified } from "@/queries/last-modified";
 import { getLatestOffers } from "@/queries/latest-offers";
 import { getLatestReleased } from "@/queries/latest-released";
 import { getOffersWithAchievements } from "@/queries/offers-with-achievements";
@@ -409,7 +408,6 @@ function RouteComponent() {
     latestReleasedQuery,
     achievementsQuery,
     topSellersQuery,
-    latestChangesQuery,
     statsQuery,
     latestBuildsQuery,
   ] = useQueries({
@@ -452,11 +450,6 @@ function RouteComponent() {
         placeholderData: [],
       },
       {
-        queryKey: ["last-modified", { country }],
-        queryFn: () => getLastModified(country),
-        placeholderData: [],
-      },
-      {
         queryKey: ["stats", { country }],
         queryFn: () => getStats({ country }),
         placeholderData: {
@@ -478,7 +471,6 @@ function RouteComponent() {
   const { data: latestReleasedOffers = { elements: [] } } = latestReleasedQuery;
   const { data: achievementOffers = [] } = achievementsQuery;
   const { data: topSellerOffers = [] } = topSellersQuery;
-  const { data: latestChanges = [] } = latestChangesQuery;
   const {
     data: stats = {
       offers: 0,

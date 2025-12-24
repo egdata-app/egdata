@@ -5,8 +5,9 @@ import z from "zod";
 
 declare const self: ServiceWorkerGlobalScope;
 
-// @ts-expect-error
-self.__WB_MANIFEST;
+// @ts-expect-error Used by workbox to inject the manifest
+const __manifest = self.__WB_MANIFEST;
+void __manifest; // Silence unused variable warning
 
 const notificationSchema = z.object({
   title: z.string(),

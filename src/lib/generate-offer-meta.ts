@@ -1,5 +1,4 @@
 import type { SingleOffer } from "@/types/single-offer";
-import { getImage } from "./get-image";
 
 export const generateOfferMeta = (
   offer: SingleOffer,

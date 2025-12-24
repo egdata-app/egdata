@@ -96,7 +96,6 @@ interface SimplifiedReleases {
     size: number;
   }[];
 }
-[];
 
 const repo = "egdata-app/egdata-client";
 

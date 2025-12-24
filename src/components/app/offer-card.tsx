@@ -304,7 +304,7 @@ export function OfferCard({
                 <OfferPrice offer={offer} size={size} />
               </>
             )}
-            {content && content}
+            {content}
           </div>
           <div
             className="absolute top-0 left-0 opacity-[0.075] transition-opacity duration-1000 ease-in-out group-hover:opacity-[0.2]"

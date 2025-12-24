@@ -2,7 +2,7 @@ import * as React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { httpClient } from "@/lib/http-client";
 import type { Achievement } from "@/queries/offer-achievements";
-import { dehydrate, HydrationBoundary, useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import type { SingleOffer } from "@/types/single-offer";
 import { cn } from "@/lib/utils";
 import type { Profile } from "@/types/profiles";

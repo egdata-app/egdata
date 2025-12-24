@@ -1,4 +1,4 @@
-export const UbisoftIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+export const UbisoftIcon: React.FC<React.SVGProps<SVGSVGElement>> = (_props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="20"

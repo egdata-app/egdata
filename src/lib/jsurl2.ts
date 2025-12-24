@@ -101,6 +101,7 @@ const unescape = (str: string) => {
 };
 
 // First half: encoding chars; second half: URI and script chars
+// eslint-disable-next-line no-control-regex -- Null character is intentional for URL encoding
 const replaceRE = /([*_~$+'() <>%?#&=\\\n\r\0\u2028\u2029])/g;
 
 const escape = (str: string) => {

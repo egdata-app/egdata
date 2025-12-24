@@ -3,7 +3,7 @@ import { useDebounce } from "@uidotdev/usehooks";
 import { useQuery } from "@tanstack/react-query";
 import { useStore } from "@tanstack/react-store";
 import { httpClient } from "@/lib/http-client";
-import { DEFAULT_LIMIT, getSearchStore, searchStoreManager } from "@/stores/searchStore";
+import { getSearchStore, searchStoreManager } from "@/stores/searchStore";
 import type { formSchema, SearchState } from "@/stores/searchStore";
 import { useCountry } from "@/hooks/use-country";
 import type { TypeOf } from "zod";

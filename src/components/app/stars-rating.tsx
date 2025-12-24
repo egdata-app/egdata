@@ -14,7 +14,6 @@ export default function StarsRating({ rating }: StarRatingProps) {
   return (
     <div className="flex">
       {stars.map((_, index) => {
-        const starValue = index + 1;
         const fillPercentage = Math.min(100, Math.max(0, (clampedRating - index) * 100));
 
         return (

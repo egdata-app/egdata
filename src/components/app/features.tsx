@@ -17,7 +17,7 @@ interface OfferFeatures {
 
 type FeaturesSizes = "xs" | "sm" | "md" | "lg" | "xl";
 
-export function GameFeatures({ id, size = "md" }: { id: string; size?: FeaturesSizes }) {
+export function GameFeatures({ id, size: _size = "md" }: { id: string; size?: FeaturesSizes }) {
   const [offerFeatures, setOfferFeatures] = useState<OfferFeatures | null>(null);
 
   useEffect(() => {

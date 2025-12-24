@@ -4,7 +4,7 @@ import type { Media } from "@/types/media";
 import type { SingleOffer } from "@/types/single-offer";
 import { dehydrate, type DehydratedState, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
-import { Suspense, useRef, useState, useEffect } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Image } from "@/components/app/image";
 import {
