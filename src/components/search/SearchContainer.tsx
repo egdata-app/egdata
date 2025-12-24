@@ -95,10 +95,20 @@ export function SearchContainer({
     field: K,
     value: TypeOf<typeof formSchema>[K],
   ) => void = (field, value) => {
-    store.setState((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
+    store.setState((prev) => {
+      // If a filter changes (not the page itself), reset pagination to 1
+      if (field !== 'page' && field !== 'limit') {
+        return {
+          ...prev,
+          [field]: value,
+          page: 1,
+        };
+      }
+      return {
+        ...prev,
+        [field]: value,
+      };
+    });
   };
 
   // Track previous search state to avoid infinite loops
