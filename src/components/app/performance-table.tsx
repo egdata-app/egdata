@@ -82,7 +82,7 @@ function StatsBar({ data }: StatsBarProps) {
   if (!data) return null;
 
   return (
-    <div className="flex justify-between px-4 py-3 bg-card border-white/10 border rounded-lg mt-4">
+    <div className="grid grid-cols-2 md:grid-cols-5 gap-4 px-4 py-3 bg-card border-white/10 border rounded-lg mt-4 text-center md:text-left">
       <div>
         Top 1: <span className="font-bold">{data.timesInTop1} days</span>
       </div>

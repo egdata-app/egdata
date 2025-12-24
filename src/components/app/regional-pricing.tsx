@@ -110,9 +110,10 @@ export function RegionalPricing({ id }: { id: string }) {
         id={id}
         regionStats={regionalPricing[selectedRegion]}
       />
-      <Table className="w-3/4 mx-auto mt-2">
-        <TableCaption>Regional Pricing</TableCaption>
-        <TableHeader>
+      <div className="w-full md:w-3/4 mx-auto mt-2 overflow-x-auto">
+        <Table className="w-full">
+          <TableCaption>Regional Pricing</TableCaption>
+          <TableHeader>
           <TableRow>
             <TableHead>Region</TableHead>
             <TableHead>Price</TableHead>
@@ -177,9 +178,11 @@ export function RegionalPricing({ id }: { id: string }) {
               >
                 <TableCell className="inline-flex items-center gap-2">
                   <CountryFlag code={key} />
-                  {regions?.[key]?.description || key}
+                  <span className="whitespace-nowrap">
+                    {regions?.[key]?.description || key}
+                  </span>
                 </TableCell>
-                <TableCell>
+                <TableCell className="whitespace-nowrap">
                   {currencyFormatter.format(
                     calculatePrice(
                       lastPrice.price.discountPrice,
@@ -187,12 +190,12 @@ export function RegionalPricing({ id }: { id: string }) {
                     ),
                   )}
                 </TableCell>
-                <TableCell>
+                <TableCell className="whitespace-nowrap">
                   {currencyFormatter.format(
                     calculatePrice(maxPrice, lastPrice.price.currencyCode),
                   )}
                 </TableCell>
-                <TableCell className="inline-flex items-center gap-1">
+                <TableCell className="inline-flex items-center gap-1 whitespace-nowrap">
                   {currencyFormatter.format(
                     calculatePrice(minPrice, lastPrice.price.currencyCode),
                   )}
@@ -210,7 +213,7 @@ export function RegionalPricing({ id }: { id: string }) {
                     </Badge>
                   ) : null}
                 </TableCell>
-                <TableCell className="text-right">
+                <TableCell className="text-right whitespace-nowrap">
                   {usdFormatter.format(lastPrice.price.basePayoutPrice / 100)}
                 </TableCell>
               </TableRow>
@@ -218,6 +221,7 @@ export function RegionalPricing({ id }: { id: string }) {
           })}
         </TableBody>
       </Table>
+      </div>
     </div>
   );
 }
