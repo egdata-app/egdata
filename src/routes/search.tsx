@@ -1,60 +1,28 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { zodSearchValidator } from "@tanstack/router-zod-adapter";
 import { httpClient } from "@/lib/http-client";
-import { DEFAULT_LIMIT, formSchema } from "@/stores/searchStore";
+import { formSchema } from "@/stores/searchStore";
 import { SearchContainer } from "@/components/search/SearchContainer";
 
 export const Route = createFileRoute("/search")({
-  component: () => {
-    const search = Route.useSearch();
-    const navigate = Route.useNavigate();
+  component: RouteComponent,
 
-    return (
-      <SearchContainer
-        contextId="search"
-        initialSearch={search}
-        onSearchChange={(s) => {
-          navigate({
-            search: s,
-          });
-        }}
-      />
-    );
-  },
-
-  // @ts-expect-error - loader return type
   loader: async (ctx) => {
-    const { context, deps } = ctx;
-    const search = (deps as { searchParams?: Record<string, unknown> })?.searchParams;
-
+    const { context } = ctx;
     const { country, queryClient } = context;
-    const { page = 1, limit = DEFAULT_LIMIT } = search ?? {};
-    const [tagsData] = await Promise.all([
-      queryClient.ensureQueryData({
-        queryKey: ["all-tags"],
-        queryFn: () => httpClient.get("/search/tags?raw=true"),
-      }),
-      queryClient.ensureQueryData({
-        queryKey: ["search", "search", search],
-        queryFn: () => httpClient.post(`/search/v2/search?country=${country}`, search),
-      }),
-    ]);
-    const tags = tagsData;
+
+    // Only prefetch tags on initial load - SearchContainer handles search results client-side
+    await queryClient.ensureQueryData({
+      queryKey: ["all-tags"],
+      queryFn: () => httpClient.get("/search/tags?raw=true"),
+    });
+
     return {
-      tags,
       country,
-      page,
-      limit,
     };
   },
 
   validateSearch: zodSearchValidator(formSchema),
-
-  loaderDeps(opts) {
-    return {
-      searchParams: opts.search,
-    };
-  },
 
   head() {
     return {
@@ -86,3 +54,21 @@ export const Route = createFileRoute("/search")({
     };
   },
 });
+
+function RouteComponent() {
+  const search = Route.useSearch();
+  const navigate = Route.useNavigate();
+
+  return (
+    <SearchContainer
+      contextId="search"
+      initialSearch={search}
+      onSearchChange={(s) => {
+        navigate({
+          search: s,
+          resetScroll: false,
+        });
+      }}
+    />
+  );
+}
