@@ -6,17 +6,18 @@ interface MergedFreebie extends GiveawayOffer {
 }
 
 export function mergeFreebies(data: GiveawayOffer[]): MergedFreebie[] {
-  const namespacesMap = new Map<string, GiveawayOffer[]>();
+  const groupedOffers = new Map<string, GiveawayOffer[]>();
   for (const offer of data) {
-    if (namespacesMap.has(offer.namespace)) {
-      namespacesMap.get(offer.namespace)?.push(offer);
+    const key = `${offer.namespace}:${offer.title}`;
+    if (groupedOffers.has(key)) {
+      groupedOffers.get(key)?.push(offer);
     } else {
-      namespacesMap.set(offer.namespace, [offer]);
+      groupedOffers.set(key, [offer]);
     }
   }
 
   const mergedFreebies: MergedFreebie[] = [];
-  for (const [, offers] of namespacesMap) {
+  for (const [, offers] of groupedOffers) {
     const mergedFreebie: MergedFreebie = {
       ...offers[0],
       platforms: offers.flatMap((offer) =>
