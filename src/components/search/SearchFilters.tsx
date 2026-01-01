@@ -46,6 +46,7 @@ export interface SearchFiltersProps {
     showSeller: boolean;
     showPrice: boolean;
     showLowestPrice: boolean;
+    showLowestPriceEver: boolean;
   };
 }
 
@@ -74,6 +75,7 @@ export function SearchFilters({
     showSeller,
     showPrice,
     showLowestPrice,
+    showLowestPriceEver,
   } = controls;
 
   // Handlers for updating query
@@ -386,6 +388,24 @@ export function SearchFilters({
             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
             Only historical lows
+          </label>
+        </div>
+      )}
+
+      {showLowestPriceEver && (
+        <div className="flex items-center space-x-2">
+          <Checkbox
+            id="isLowestPriceEver"
+            checked={!!query.isLowestPriceEver}
+            onCheckedChange={(value) =>
+              handleFieldChange("isLowestPriceEver", value ? true : undefined)
+            }
+          />
+          <label
+            htmlFor="isLowestPriceEver"
+            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          >
+            Only lowest price ever
           </label>
         </div>
       )}

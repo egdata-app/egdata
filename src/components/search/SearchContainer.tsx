@@ -48,6 +48,7 @@ const defaultControls = {
   showSeller: true,
   showPrice: true,
   showLowestPrice: true,
+  showLowestPriceEver: true,
 };
 
 const mergeSearchStates = (...states: Partial<SearchState>[]): Partial<SearchState> => {
