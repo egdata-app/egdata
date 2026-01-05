@@ -148,3 +148,5 @@ public/sw.js
 dev-dist
 
 .trae
+
+service-account.json

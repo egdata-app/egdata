@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { OAuth2Client } from "google-auth-library";
 import { google } from "googleapis";
 import consola from "consola";
+import { readFileSync } from "node:fs";
 
 interface RegisterRequest {
   idToken: string;
@@ -26,22 +27,17 @@ function getOAuth2Client() {
 }
 
 function parseServiceAccountKey(): object {
-  const serviceAccountKey = process.env.GOOGLE_SERVICE_ACCOUNT_KEY;
-  if (!serviceAccountKey) {
-    throw new Error("GOOGLE_SERVICE_ACCOUNT_KEY is not configured");
+  const keyPath = process.env.GOOGLE_SERVICE_ACCOUNT_KEY_PATH;
+  if (!keyPath) {
+    throw new Error("GOOGLE_SERVICE_ACCOUNT_KEY_PATH is not configured");
   }
 
   try {
-    // Try parsing as plain JSON first
-    return JSON.parse(serviceAccountKey);
-  } catch {
-    // If that fails, try base64 decoding
-    try {
-      const decoded = Buffer.from(serviceAccountKey, "base64").toString("utf-8");
-      return JSON.parse(decoded);
-    } catch {
-      throw new Error("GOOGLE_SERVICE_ACCOUNT_KEY is not valid JSON or base64-encoded JSON");
-    }
+    const fileContent = readFileSync(keyPath, "utf-8");
+    return JSON.parse(fileContent);
+  } catch (error) {
+    consola.error("Failed to read service account key from file:", error);
+    throw new Error("Failed to read or parse service account key file");
   }
 }
 
