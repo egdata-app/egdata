@@ -22,6 +22,7 @@ import { Route as DownloadsRouteImport } from './routes/downloads'
 import { Route as DonateKeyRouteImport } from './routes/donate-key'
 import { Route as DiscordLinkedRouteImport } from './routes/discord-linked'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as AndroidBetaRouteImport } from './routes/android-beta'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SalesIndexRouteImport } from './routes/sales/index'
@@ -79,6 +80,8 @@ import { Route as BuildsIdFilesRouteImport } from './routes/builds/$id/files'
 import { Route as ApiAuthLoginRouteImport } from './routes/api/auth/login'
 import { Route as ApiAuthCallbackRouteImport } from './routes/api/auth/callback'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as ApiAndroidBetaStatusRouteImport } from './routes/api/android-beta/status'
+import { Route as ApiAndroidBetaRegisterRouteImport } from './routes/api/android-beta/register'
 import { Route as CollectionsIdWeekIndexRouteImport } from './routes/collections/$id/$week/index'
 import { Route as ProfileIdAchievementsSandboxRouteImport } from './routes/profile/$id/achievements/$sandbox'
 
@@ -145,6 +148,11 @@ const DiscordLinkedRoute = DiscordLinkedRouteImport.update({
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AndroidBetaRoute = AndroidBetaRouteImport.update({
+  id: '/android-beta',
+  path: '/android-beta',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -432,6 +440,16 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAndroidBetaStatusRoute = ApiAndroidBetaStatusRouteImport.update({
+  id: '/api/android-beta/status',
+  path: '/api/android-beta/status',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAndroidBetaRegisterRoute = ApiAndroidBetaRegisterRouteImport.update({
+  id: '/api/android-beta/register',
+  path: '/api/android-beta/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CollectionsIdWeekIndexRoute = CollectionsIdWeekIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -447,6 +465,7 @@ const ProfileIdAchievementsSandboxRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/android-beta': typeof AndroidBetaRoute
   '/dashboard': typeof DashboardRoute
   '/discord-linked': typeof DiscordLinkedRoute
   '/donate-key': typeof DonateKeyRoute
@@ -483,6 +502,8 @@ export interface FileRoutesByFullPath {
   '/collections': typeof CollectionsIndexRoute
   '/freebies': typeof FreebiesIndexRoute
   '/sales': typeof SalesIndexRoute
+  '/api/android-beta/register': typeof ApiAndroidBetaRegisterRoute
+  '/api/android-beta/status': typeof ApiAndroidBetaStatusRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/auth/callback': typeof ApiAuthCallbackRoute
   '/api/auth/login': typeof ApiAuthLoginRoute
@@ -521,6 +542,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/android-beta': typeof AndroidBetaRoute
   '/dashboard': typeof DashboardRoute
   '/discord-linked': typeof DiscordLinkedRoute
   '/donate-key': typeof DonateKeyRoute
@@ -553,6 +575,8 @@ export interface FileRoutesByTo {
   '/collections': typeof CollectionsIndexRoute
   '/freebies': typeof FreebiesIndexRoute
   '/sales': typeof SalesIndexRoute
+  '/api/android-beta/register': typeof ApiAndroidBetaRegisterRoute
+  '/api/android-beta/status': typeof ApiAndroidBetaStatusRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/auth/callback': typeof ApiAuthCallbackRoute
   '/api/auth/login': typeof ApiAuthLoginRoute
@@ -591,6 +615,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/android-beta': typeof AndroidBetaRoute
   '/dashboard': typeof DashboardRoute
   '/discord-linked': typeof DiscordLinkedRoute
   '/donate-key': typeof DonateKeyRoute
@@ -627,6 +652,8 @@ export interface FileRoutesById {
   '/collections/': typeof CollectionsIndexRoute
   '/freebies/': typeof FreebiesIndexRoute
   '/sales/': typeof SalesIndexRoute
+  '/api/android-beta/register': typeof ApiAndroidBetaRegisterRoute
+  '/api/android-beta/status': typeof ApiAndroidBetaStatusRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/auth/callback': typeof ApiAuthCallbackRoute
   '/api/auth/login': typeof ApiAuthLoginRoute
@@ -667,6 +694,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/android-beta'
     | '/dashboard'
     | '/discord-linked'
     | '/donate-key'
@@ -703,6 +731,8 @@ export interface FileRouteTypes {
     | '/collections'
     | '/freebies'
     | '/sales'
+    | '/api/android-beta/register'
+    | '/api/android-beta/status'
     | '/api/auth/$'
     | '/api/auth/callback'
     | '/api/auth/login'
@@ -741,6 +771,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/android-beta'
     | '/dashboard'
     | '/discord-linked'
     | '/donate-key'
@@ -773,6 +804,8 @@ export interface FileRouteTypes {
     | '/collections'
     | '/freebies'
     | '/sales'
+    | '/api/android-beta/register'
+    | '/api/android-beta/status'
     | '/api/auth/$'
     | '/api/auth/callback'
     | '/api/auth/login'
@@ -810,6 +843,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/android-beta'
     | '/dashboard'
     | '/discord-linked'
     | '/donate-key'
@@ -846,6 +880,8 @@ export interface FileRouteTypes {
     | '/collections/'
     | '/freebies/'
     | '/sales/'
+    | '/api/android-beta/register'
+    | '/api/android-beta/status'
     | '/api/auth/$'
     | '/api/auth/callback'
     | '/api/auth/login'
@@ -885,6 +921,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AndroidBetaRoute: typeof AndroidBetaRoute
   DashboardRoute: typeof DashboardRoute
   DiscordLinkedRoute: typeof DiscordLinkedRoute
   DonateKeyRoute: typeof DonateKeyRoute
@@ -921,6 +958,8 @@ export interface RootRouteChildren {
   CollectionsIndexRoute: typeof CollectionsIndexRoute
   FreebiesIndexRoute: typeof FreebiesIndexRoute
   SalesIndexRoute: typeof SalesIndexRoute
+  ApiAndroidBetaRegisterRoute: typeof ApiAndroidBetaRegisterRoute
+  ApiAndroidBetaStatusRoute: typeof ApiAndroidBetaStatusRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiAuthCallbackRoute: typeof ApiAuthCallbackRoute
   ApiAuthLoginRoute: typeof ApiAuthLoginRoute
@@ -1020,6 +1059,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/android-beta': {
+      id: '/android-beta'
+      path: '/android-beta'
+      fullPath: '/android-beta'
+      preLoaderRoute: typeof AndroidBetaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -1421,6 +1467,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/android-beta/status': {
+      id: '/api/android-beta/status'
+      path: '/api/android-beta/status'
+      fullPath: '/api/android-beta/status'
+      preLoaderRoute: typeof ApiAndroidBetaStatusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/android-beta/register': {
+      id: '/api/android-beta/register'
+      path: '/api/android-beta/register'
+      fullPath: '/api/android-beta/register'
+      preLoaderRoute: typeof ApiAndroidBetaRegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/collections/$id/$week/': {
       id: '/collections/$id/$week/'
       path: '/'
@@ -1555,6 +1615,7 @@ const CollectionsIdWeekRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AndroidBetaRoute: AndroidBetaRoute,
   DashboardRoute: DashboardRoute,
   DiscordLinkedRoute: DiscordLinkedRoute,
   DonateKeyRoute: DonateKeyRoute,
@@ -1591,6 +1652,8 @@ const rootRouteChildren: RootRouteChildren = {
   CollectionsIndexRoute: CollectionsIndexRoute,
   FreebiesIndexRoute: FreebiesIndexRoute,
   SalesIndexRoute: SalesIndexRoute,
+  ApiAndroidBetaRegisterRoute: ApiAndroidBetaRegisterRoute,
+  ApiAndroidBetaStatusRoute: ApiAndroidBetaStatusRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiAuthCallbackRoute: ApiAuthCallbackRoute,
   ApiAuthLoginRoute: ApiAuthLoginRoute,
