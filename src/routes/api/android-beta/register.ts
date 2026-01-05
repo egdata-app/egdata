@@ -25,15 +25,32 @@ function getOAuth2Client() {
   return oAuth2Client;
 }
 
+function parseServiceAccountKey(): object {
+  const serviceAccountKey = process.env.GOOGLE_SERVICE_ACCOUNT_KEY;
+  if (!serviceAccountKey) {
+    throw new Error("GOOGLE_SERVICE_ACCOUNT_KEY is not configured");
+  }
+
+  try {
+    // Try parsing as plain JSON first
+    return JSON.parse(serviceAccountKey);
+  } catch {
+    // If that fails, try base64 decoding
+    try {
+      const decoded = Buffer.from(serviceAccountKey, "base64").toString("utf-8");
+      return JSON.parse(decoded);
+    } catch {
+      throw new Error("GOOGLE_SERVICE_ACCOUNT_KEY is not valid JSON or base64-encoded JSON");
+    }
+  }
+}
+
 function getSheetsClient() {
   if (!sheetsClient) {
-    const serviceAccountKey = process.env.GOOGLE_SERVICE_ACCOUNT_KEY;
-    if (!serviceAccountKey) {
-      throw new Error("GOOGLE_SERVICE_ACCOUNT_KEY is not configured");
-    }
+    const credentials = parseServiceAccountKey();
 
     const serviceAccountAuth = new google.auth.GoogleAuth({
-      credentials: JSON.parse(serviceAccountKey),
+      credentials,
       scopes: ["https://www.googleapis.com/auth/spreadsheets"],
     });
 
