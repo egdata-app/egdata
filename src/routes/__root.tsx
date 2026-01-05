@@ -24,6 +24,7 @@ import { authClient } from "@/lib/auth-client";
 import { Toaster } from "@/components/ui/sonner";
 import styles from "@/styles.css?url";
 import { ExtensionProvider } from "@/providers/extension";
+import { AndroidBetaBanner } from "@/components/app/android-beta-banner";
 import "../registerSW";
 import type { CookiesSelection } from "@/contexts/cookies";
 
@@ -280,6 +281,7 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
         <HeadContent />
       </head>
       <body className="antialiased">
+        <AndroidBetaBanner />
         <div className="md:container mx-auto overflow-x-hidden">
           <LocaleProvider initialLocale={locale} initialTimezone={timezone}>
             <CountryProvider defaultCountry={country || "US"}>
