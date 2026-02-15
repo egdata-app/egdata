@@ -69,6 +69,13 @@ const epicVideoProtocol = "com.epicgames.video://";
  * Find
  */
 function correctChanges(changes: Change[]): Change[] {
+  const getKeyImageType = (value: unknown): string | null => {
+    if (!value || typeof value !== "object") return null;
+
+    const maybeType = (value as { type?: unknown }).type;
+    return typeof maybeType === "string" ? maybeType : null;
+  };
+
   const inserts: Change[] = [];
   const deletes: Change[] = [];
   const others: Change[] = [];
@@ -93,12 +100,15 @@ function correctChanges(changes: Change[]): Change[] {
 
   // Match inserts with deletes to form updates
   for (const insert of inserts) {
-    const newValue = insert.newValue as { type: string; md5: string };
+    const newValueType = getKeyImageType(insert.newValue);
+
+    if (!newValueType) {
+      updatedChanges.push(insert);
+      continue;
+    }
 
     const matchingDelete = deletes.find(
-      (del) =>
-        !usedDeletes.has(del) &&
-        (del.oldValue as { type: string; md5: string }).type === newValue.type,
+      (del) => !usedDeletes.has(del) && getKeyImageType(del.oldValue) === newValueType,
     );
 
     if (matchingDelete) {
@@ -328,10 +338,16 @@ function ValueToString(value: unknown, query: string, field?: string, short?: bo
   }
 
   if (field === "keyImages" && value !== null) {
-    const typedValue = value as { url: string; md5: string; type: string };
+    const typedValue = value as { url?: unknown; md5?: unknown; type?: unknown };
+    const url = typeof typedValue.url === "string" ? typedValue.url : null;
+    const md5 = typeof typedValue.md5 === "string" ? typedValue.md5 : "key-image";
 
-    if (typedValue.url.startsWith(epicVideoProtocol) && URL.canParse(typedValue.url)) {
-      const parsedUrl = new URL(typedValue.url);
+    if (!url) {
+      return <JsonVisualizer data={value as JsonValue} />;
+    }
+
+    if (url.startsWith(epicVideoProtocol) && URL.canParse(url)) {
+      const parsedUrl = new URL(url);
       const coverUrl = parsedUrl.searchParams.get("cover");
       const videoId = parsedUrl.host;
 
@@ -355,8 +371,8 @@ function ValueToString(value: unknown, query: string, field?: string, short?: bo
     return (
       <div className="flex items-start justify-start gap-2">
         <img
-          src={typedValue.url}
-          alt={typedValue.md5}
+          src={url}
+          alt={md5}
           className="w-1/2 max-w-64 h-auto object-cover rounded-lg"
         />
       </div>

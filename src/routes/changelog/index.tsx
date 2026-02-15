@@ -63,7 +63,11 @@ interface Hit {
 }
 
 const searchParamsSchema = z.object({
-  query: z.string().optional(),
+  query: z.preprocess((value) => {
+    if (typeof value === "string") return value;
+    if (typeof value === "boolean") return "";
+    return undefined;
+  }, z.string().optional()),
   page: z.number().optional(),
 });
 
@@ -164,7 +168,11 @@ function ChangelogPage() {
     // Add query params to URL
     const url = new URL(window.location.href);
     url.searchParams.set("page", "1");
-    url.searchParams.set("query", newQuery);
+    if (newQuery.trim() === "") {
+      url.searchParams.delete("query");
+    } else {
+      url.searchParams.set("query", newQuery);
+    }
     window.history.pushState({}, "", url.toString());
   };
 
