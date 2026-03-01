@@ -92,5 +92,8 @@ export const auth = betterAuth({
       enabled: true,
       domain: import.meta.env.PROD ? ".egdata.app" : "localhost",
     },
+    ipAddress: {
+      ipAddressHeaders: ["cf-connecting-ip", "x-forwarded-for"],
+    },
   },
 });
