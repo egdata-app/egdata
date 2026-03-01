@@ -22,6 +22,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@better-auth/infra": "^0.1.8",
     "@egdata/core.schemas.ratings": "^5.0.0",
     "@libsql/kysely-libsql": "^0.4.1",
     "@mdxeditor/editor": "^3.52.1",
@@ -144,7 +145,7 @@
     "workbox-strategies": "^7.4.0",
     "wrangler": "3.99.0"
   },
-  "packageManager": "pnpm@10.18.0",
+  "packageManager": "pnpm@10.30.3",
   "engines": {
     "node": "^22.16.0"
   }
