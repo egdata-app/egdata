@@ -3,9 +3,10 @@ import { Link } from "@tanstack/react-router";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-const STORAGE_KEY = "android-beta-banner-dismissed";
+const STORAGE_KEY = "android-install-banner-dismissed";
 
-export function AndroidBetaBanner() {
+export function AndroidInstallBanner() {
+    
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -28,11 +29,11 @@ export function AndroidBetaBanner() {
     <div className="bg-primary text-primary-foreground px-4 py-2 text-sm">
       <div className="flex items-center justify-between gap-4">
         <p className="flex-1 text-center">
-          Join the Android closed beta!{" "}
+          The egdata.app Android app is now available!{" "}
           <Link to="/android-beta" className="underline font-semibold">
-            Register now
+            Install now
           </Link>{" "}
-          to get early access to the egdata.app mobile app.
+          to get the egdata.app mobile app on your device.
         </p>
         <Button
           variant="ghost"

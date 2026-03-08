@@ -24,7 +24,6 @@ import { authClient } from "@/lib/auth-client";
 import { Toaster } from "@/components/ui/sonner";
 import styles from "@/styles.css?url";
 import { ExtensionProvider } from "@/providers/extension";
-import { AndroidBetaBanner } from "@/components/app/android-beta-banner";
 import "../registerSW";
 import type { CookiesSelection } from "@/contexts/cookies";
 
@@ -92,9 +91,12 @@ export const Route = createRootRouteWithContext<Context>()({
       url = new URL(window.location.href);
 
       // client cookies
-      const cookieHeader = typeof document?.cookie === "string" ? document.cookie : "";
+      const cookieHeader =
+        typeof document?.cookie === "string" ? document.cookie : "";
       const parsedCookies = parseCookieString(cookieHeader);
-      cookies = Object.fromEntries(Object.entries(parsedCookies).map(([k, v]) => [k, v || ""]));
+      cookies = Object.fromEntries(
+        Object.entries(parsedCookies).map(([k, v]) => [k, v || ""]),
+      );
 
       // client session via React Query
       const { data } = await queryClient.fetchQuery(getClientSession);
@@ -273,7 +275,8 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
-  const { country, locale, timezone, analyticsCookies } = Route.useLoaderData() as Context;
+  const { country, locale, timezone, analyticsCookies } =
+    Route.useLoaderData() as Context;
 
   return (
     <html lang="en">
@@ -281,7 +284,6 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
         <HeadContent />
       </head>
       <body className="antialiased">
-        <AndroidBetaBanner />
         <div className="md:container mx-auto overflow-x-hidden">
           <LocaleProvider initialLocale={locale} initialTimezone={timezone}>
             <CountryProvider defaultCountry={country || "US"}>
@@ -290,7 +292,9 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
                   <Navbar />
                   <PreferencesProvider>
                     <CookiesProvider
-                      initialSelection={analyticsCookies as unknown as CookiesSelection}
+                      initialSelection={
+                        analyticsCookies as unknown as CookiesSelection
+                      }
                     >
                       <ExtensionProvider>{children}</ExtensionProvider>
                     </CookiesProvider>
@@ -299,24 +303,32 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
                   <Toaster />
                   <footer className="flex flex-col items-center justify-center p-4 text-gray-500 dark:text-gray-400 text-xs gap-1">
                     <p>
-                      egdata.app is a fan-made website and is not affiliated by any means with Epic
-                      Games, Inc.
+                      egdata.app is a fan-made website and is not affiliated by
+                      any means with Epic Games, Inc.
                     </p>
                     <p>
-                      All the logos, images, trademarks and creatives are property of their
-                      respective owners.
+                      All the logos, images, trademarks and creatives are
+                      property of their respective owners.
                     </p>
                     <hr className="w-1/3 my-2 border-gray-300/40" />
                     <div className="inline-flex gap-2">
                       <span>
                         Countries flags by{" "}
-                        <a href="https://flagpedia.net" target="_blank" rel="noopener noreferrer">
+                        <a
+                          href="https://flagpedia.net"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           <strong>Flagpedia</strong>
                         </a>
                       </span>
                       <span>|</span>
                       <span className="inline-flex gap-1 items-center">
-                        Made in <img src="https://flagcdn.com/16x12/eu.webp" alt="EU Flag" />
+                        Made in{" "}
+                        <img
+                          src="https://flagcdn.com/16x12/eu.webp"
+                          alt="EU Flag"
+                        />
                       </span>
                       <span>|</span>
                       <Link to="/privacy">Privacy Policy</Link>
