@@ -34,6 +34,10 @@ export const Route = createFileRoute("/collections/$id/")({
     );
   },
 
+  headers: () => ({
+    "Cache-Control": "public, s-maxage=60, stale-while-revalidate=600",
+  }),
+
   // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { id } = params;

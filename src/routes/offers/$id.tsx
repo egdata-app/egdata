@@ -62,6 +62,10 @@ export const Route = createFileRoute("/offers/$id")({
     return <OfferPage />;
   },
 
+  headers: () => ({
+    "Cache-Control": "public, s-maxage=60, stale-while-revalidate=600",
+  }),
+
   beforeLoad: async ({ params, context }) => {
     const { queryClient } = context;
     const { id } = params;
