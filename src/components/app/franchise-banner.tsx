@@ -7,11 +7,7 @@ import { getImage } from "@/lib/getImage";
 import { useCountry } from "@/hooks/use-country";
 import { cn } from "@/lib/utils";
 
-export const FranchiseBanner = ({
-  franchise,
-}: {
-  franchise: Franchise;
-}) => {
+export const FranchiseBanner = ({ franchise }: { franchise: Franchise }) => {
   const { country } = useCountry();
 
   // Try to find an offer with an image to show as background
@@ -34,7 +30,7 @@ export const FranchiseBanner = ({
   return (
     <Link
       to="/search"
-      search={{ q: franchise.name }} // Or link to a franchise page if you have one later
+      search={{ title: franchise.name }} // Or link to a franchise page if you have one later
       className="block w-full mt-2 group overflow-hidden rounded-lg relative min-h-[60px] bg-secondary/20 border border-secondary/30"
     >
       {backgroundImage && (
@@ -43,12 +39,16 @@ export const FranchiseBanner = ({
           style={{ backgroundImage: `url(${backgroundImage})` }}
         />
       )}
-      
+
       {/* Overlay to ensure text readability */}
-      <div className={cn(
+      <div
+        className={cn(
           "absolute inset-0 z-10 transition-colors duration-300",
-          backgroundImage ? "bg-black/20 group-hover:bg-black/10" : "bg-black/20 group-hover:bg-black/10"
-      )} />
+          backgroundImage
+            ? "bg-black/20 group-hover:bg-black/10"
+            : "bg-black/20 group-hover:bg-black/10",
+        )}
+      />
 
       <div className="relative z-20 p-3 flex flex-col justify-center h-full">
         <span className="text-lg font-bold text-left text-gray-200 drop-shadow-md">
