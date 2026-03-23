@@ -52,6 +52,7 @@ import { Route as SandboxesIdIndexRouteImport } from './routes/sandboxes/$id/ind
 import { Route as ProfileIdIndexRouteImport } from './routes/profile/$id/index'
 import { Route as OffersIdIndexRouteImport } from './routes/offers/$id/index'
 import { Route as ItemsIdIndexRouteImport } from './routes/items/$id/index'
+import { Route as FranchisesIdIndexRouteImport } from './routes/franchises/$id/index'
 import { Route as CollectionsIdIndexRouteImport } from './routes/collections/$id/index'
 import { Route as StoreNamespaceSlugRouteImport } from './routes/store/$namespace/$slug'
 import { Route as SandboxesIdOffersRouteImport } from './routes/sandboxes/$id/offers'
@@ -300,6 +301,11 @@ const ItemsIdIndexRoute = ItemsIdIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ItemsIdRoute,
 } as any)
+const FranchisesIdIndexRoute = FranchisesIdIndexRouteImport.update({
+  id: '/franchises/$id/',
+  path: '/franchises/$id/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CollectionsIdIndexRoute = CollectionsIdIndexRouteImport.update({
   id: '/collections/$id/',
   path: '/collections/$id/',
@@ -532,6 +538,7 @@ export interface FileRoutesByFullPath {
   '/sandboxes/$id/offers': typeof SandboxesIdOffersRoute
   '/store/$namespace/$slug': typeof StoreNamespaceSlugRoute
   '/collections/$id': typeof CollectionsIdIndexRoute
+  '/franchises/$id': typeof FranchisesIdIndexRoute
   '/items/$id/': typeof ItemsIdIndexRoute
   '/offers/$id/': typeof OffersIdIndexRoute
   '/profile/$id/': typeof ProfileIdIndexRoute
@@ -604,6 +611,7 @@ export interface FileRoutesByTo {
   '/sandboxes/$id/offers': typeof SandboxesIdOffersRoute
   '/store/$namespace/$slug': typeof StoreNamespaceSlugRoute
   '/collections/$id': typeof CollectionsIdIndexRoute
+  '/franchises/$id': typeof FranchisesIdIndexRoute
   '/items/$id': typeof ItemsIdIndexRoute
   '/offers/$id': typeof OffersIdIndexRoute
   '/profile/$id': typeof ProfileIdIndexRoute
@@ -682,6 +690,7 @@ export interface FileRoutesById {
   '/sandboxes/$id/offers': typeof SandboxesIdOffersRoute
   '/store/$namespace/$slug': typeof StoreNamespaceSlugRoute
   '/collections/$id/': typeof CollectionsIdIndexRoute
+  '/franchises/$id/': typeof FranchisesIdIndexRoute
   '/items/$id/': typeof ItemsIdIndexRoute
   '/offers/$id/': typeof OffersIdIndexRoute
   '/profile/$id/': typeof ProfileIdIndexRoute
@@ -761,6 +770,7 @@ export interface FileRouteTypes {
     | '/sandboxes/$id/offers'
     | '/store/$namespace/$slug'
     | '/collections/$id'
+    | '/franchises/$id'
     | '/items/$id/'
     | '/offers/$id/'
     | '/profile/$id/'
@@ -833,6 +843,7 @@ export interface FileRouteTypes {
     | '/sandboxes/$id/offers'
     | '/store/$namespace/$slug'
     | '/collections/$id'
+    | '/franchises/$id'
     | '/items/$id'
     | '/offers/$id'
     | '/profile/$id'
@@ -910,6 +921,7 @@ export interface FileRouteTypes {
     | '/sandboxes/$id/offers'
     | '/store/$namespace/$slug'
     | '/collections/$id/'
+    | '/franchises/$id/'
     | '/items/$id/'
     | '/offers/$id/'
     | '/profile/$id/'
@@ -966,6 +978,7 @@ export interface RootRouteChildren {
   CollectionsIdWeekRoute: typeof CollectionsIdWeekRouteWithChildren
   StoreNamespaceSlugRoute: typeof StoreNamespaceSlugRoute
   CollectionsIdIndexRoute: typeof CollectionsIdIndexRoute
+  FranchisesIdIndexRoute: typeof FranchisesIdIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1270,6 +1283,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/items/$id/'
       preLoaderRoute: typeof ItemsIdIndexRouteImport
       parentRoute: typeof ItemsIdRoute
+    }
+    '/franchises/$id/': {
+      id: '/franchises/$id/'
+      path: '/franchises/$id'
+      fullPath: '/franchises/$id'
+      preLoaderRoute: typeof FranchisesIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/collections/$id/': {
       id: '/collections/$id/'
@@ -1660,6 +1680,7 @@ const rootRouteChildren: RootRouteChildren = {
   CollectionsIdWeekRoute: CollectionsIdWeekRouteWithChildren,
   StoreNamespaceSlugRoute: StoreNamespaceSlugRoute,
   CollectionsIdIndexRoute: CollectionsIdIndexRoute,
+  FranchisesIdIndexRoute: FranchisesIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
