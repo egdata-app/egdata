@@ -4,6 +4,7 @@ import defaultVideoPlayer from "@vidstack/react/player/styles/default/layouts/vi
 import { BaseGame } from "@/components/app/base-game";
 import { BlurredBackground } from "@/components/app/blurred-background";
 import { OfferInBundle } from "@/components/app/bundle-game";
+import { FranchiseBanner } from "@/components/app/franchise-banner";
 import { InternalBanner } from "@/components/app/internal-banner";
 import { OfferHero } from "@/components/app/offer-hero";
 import { SectionsNav } from "@/components/app/offer-sections";
@@ -45,6 +46,7 @@ import { cn } from "@/lib/utils";
 import { VideoProvider } from "@/providers/offers-video";
 import type { Asset } from "@/types/asset";
 import type { Technology } from "@/types/builds";
+import type { Franchise } from "@/types/franchise";
 import type { Price } from "@/types/price";
 import type { SingleOffer } from "@/types/single-offer";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -59,6 +61,10 @@ export const Route = createFileRoute("/offers/$id")({
   component: () => {
     return <OfferPage />;
   },
+
+  headers: () => ({
+    "Cache-Control": "public, s-maxage=60, stale-while-revalidate=600",
+  }),
 
   beforeLoad: async ({ params, context }) => {
     const { queryClient } = context;
@@ -88,6 +94,10 @@ export const Route = createFileRoute("/offers/$id")({
       queryClient.prefetchQuery({
         queryKey: ["offer-technologies", { id: params.id }],
         queryFn: () => httpClient.get<Technology[]>(`/offers/${params.id}/technologies`),
+      }),
+      queryClient.prefetchQuery({
+        queryKey: ["offer-franchises", { id: params.id }],
+        queryFn: () => httpClient.get<Franchise[]>(`/offers/${params.id}/franchises`).catch(() => []),
       }),
       queryClient.prefetchQuery({
         queryKey: ["offer-assets", { id }],
@@ -257,6 +267,11 @@ function OfferPage() {
   const { data: technologies } = useSuspenseQuery({
     queryKey: ["offer-technologies", { id }],
     queryFn: () => httpClient.get<Technology[]>(`/offers/${id}/technologies`),
+  });
+
+  const { data: franchises } = useSuspenseQuery({
+    queryKey: ["offer-franchises", { id }],
+    queryFn: () => httpClient.get<Franchise[]>(`/offers/${id}/franchises`).catch(() => []),
   });
 
   const subPath = location.pathname.split(`/${id}/`)[1];
@@ -736,6 +751,9 @@ function OfferPage() {
               </Popover>
             </div>
             <OfferHero offer={offer} />
+            {franchises && franchises.length > 0 && (
+              <FranchiseBanner franchise={franchises[0]} />
+            )}
             <p className="px-1">{offer.description}</p>
           </div>
         </header>

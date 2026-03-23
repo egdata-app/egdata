@@ -55,5 +55,5 @@ export const getImage = (keyImages: KeyImages[] | null, types: EGSImageTypes[]) 
     }
   }
 
-  return null;
+  return { type: "placeholder", url: "/placeholder.webp", md5: "" };
 };

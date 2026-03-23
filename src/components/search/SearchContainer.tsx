@@ -82,7 +82,7 @@ export function SearchContainer({
   const store = getSearchStore(contextId, mergeSearchStates(initialSearch, fixedParams));
 
   // Set up state
-  const query = useStore(store) as TypeOf<typeof formSchema>;
+  const query = useStore(store, (state) => state) as TypeOf<typeof formSchema>;
   const setField: <K extends keyof TypeOf<typeof formSchema>>(
     field: K,
     value: TypeOf<typeof formSchema>[K],

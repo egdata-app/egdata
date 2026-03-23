@@ -2,6 +2,7 @@ import { betterAuth } from "better-auth";
 import { tanstackStartCookies } from "better-auth/tanstack-start";
 import pg from "pg";
 import { genericOAuth } from "better-auth/plugins";
+import { dash } from "@better-auth/infra";
 import consola from "consola";
 import dotenv from "dotenv";
 
@@ -74,6 +75,7 @@ export const auth = betterAuth({
       ],
     }),
     tanstackStartCookies(),
+    dash(),
   ],
   session: {
     cookieCache: {
@@ -89,6 +91,9 @@ export const auth = betterAuth({
     crossSubDomainCookies: {
       enabled: true,
       domain: import.meta.env.PROD ? ".egdata.app" : "localhost",
+    },
+    ipAddress: {
+      ipAddressHeaders: ["cf-connecting-ip", "x-forwarded-for"],
     },
   },
 });

@@ -1,12 +1,12 @@
-import { defineConfig } from 'vite';
-import tsconfigPaths from 'vite-tsconfig-paths';
-import { tanstackStart } from '@tanstack/react-start/plugin/vite';
-import { sentryVitePlugin } from '@sentry/vite-plugin';
-import tailwindcss from '@tailwindcss/vite';
-import { VitePWA } from 'vite-plugin-pwa';
-import react from '@vitejs/plugin-react-oxc';
-import { nitroV2Plugin as nitro } from '@tanstack/nitro-v2-vite-plugin';
-import { devtools } from '@tanstack/devtools-vite';
+import { defineConfig } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import { sentryVitePlugin } from "@sentry/vite-plugin";
+import tailwindcss from "@tailwindcss/vite";
+import { VitePWA } from "vite-plugin-pwa";
+import react from "@vitejs/plugin-react-oxc";
+import { nitroV2Plugin as nitro } from "@tanstack/nitro-v2-vite-plugin";
+import { devtools } from "@tanstack/devtools-vite";
 
 export default defineConfig({
   plugins: [
@@ -15,74 +15,74 @@ export default defineConfig({
     tailwindcss(),
     sentryVitePlugin({
       authToken: process.env.SENTRY_AUTH_TOKEN,
-      org: 'royale-radar',
-      project: 'egdata',
+      org: "royale-radar",
+      project: "egdata",
     }),
     nitro({
-      preset: 'node-server',
-      compatibilityDate: '2025-12-05',
+      preset: "node-server",
+      compatibilityDate: "2025-12-05",
     }),
     VitePWA({
-      strategies: 'injectManifest',
-      srcDir: 'src',
-      filename: 'sw.ts',
-      registerType: 'autoUpdate',
+      strategies: "injectManifest",
+      srcDir: "src",
+      filename: "sw.ts",
+      registerType: "autoUpdate",
       injectManifest: {
-        swSrc: 'src/sw.ts',
-        swDest: 'dist/sw.js',
-        globDirectory: 'dist',
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp}'],
+        swSrc: "src/sw.ts",
+        swDest: "dist/sw.js",
+        globDirectory: "dist",
+        globPatterns: ["**/*.{js,css,html,ico,png,svg,webp}"],
       },
       devOptions: {
         enabled: true,
-        type: 'module',
+        type: "module",
       },
       manifest: {
-        name: 'EGData',
-        short_name: 'EGData',
-        description: 'Epic Games Store data and analytics',
-        theme_color: '#000000',
-        background_color: '#000000',
-        display: 'standalone',
-        start_url: '/',
-        scope: '/',
+        name: "EGData",
+        short_name: "EGData",
+        description: "Epic Games Store data and analytics",
+        theme_color: "#000000",
+        background_color: "#000000",
+        display: "standalone",
+        start_url: "/",
+        scope: "/",
         icons: [
           {
-            src: '/favicon-16x16.png',
-            sizes: '16x16',
-            type: 'image/png',
+            src: "/favicon-16x16.png",
+            sizes: "16x16",
+            type: "image/png",
           },
           {
-            src: '/favicon-32x32.png',
-            sizes: '32x32',
-            type: 'image/png',
+            src: "/favicon-32x32.png",
+            sizes: "32x32",
+            type: "image/png",
           },
           {
-            src: '/apple-touch-icon.png',
-            sizes: '180x180',
-            type: 'image/png',
+            src: "/apple-touch-icon.png",
+            sizes: "180x180",
+            type: "image/png",
           },
           {
-            src: '/mstile-150x150.png',
-            sizes: '150x150',
-            type: 'image/png',
+            src: "/mstile-150x150.png",
+            sizes: "150x150",
+            type: "image/png",
           },
         ],
       },
     }),
-    react(),
     tanstackStart(),
+    react(),
   ],
   build: {
-    minify: 'oxc',
+    minify: "oxc",
     sourcemap: true,
   },
   ssr: {
     noExternal: [
-      '@react-spectrum/image',
-      '@react-spectrum/provider',
-      '@vidstack/react',
-      '@tanstack/devtools',
+      "@react-spectrum/image",
+      "@react-spectrum/provider",
+      "@vidstack/react",
+      "@tanstack/devtools",
     ],
   },
 });

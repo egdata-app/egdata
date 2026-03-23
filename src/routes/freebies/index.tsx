@@ -26,6 +26,10 @@ export const Route = createFileRoute("/freebies/")({
     );
   },
 
+  headers: () => ({
+    "Cache-Control": "public, s-maxage=60, stale-while-revalidate=600",
+  }),
+
   validateSearch: (search) => formSchema.parse(search),
 
   beforeLoad: async () => {},
