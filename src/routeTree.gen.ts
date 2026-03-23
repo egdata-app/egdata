@@ -504,10 +504,10 @@ export interface FileRoutesByFullPath {
   '/stats/creations': typeof StatsCreationsRoute
   '/stats/releases': typeof StatsReleasesRoute
   '/tags/$id': typeof TagsIdRoute
-  '/changelog': typeof ChangelogIndexRoute
-  '/collections': typeof CollectionsIndexRoute
-  '/freebies': typeof FreebiesIndexRoute
-  '/sales': typeof SalesIndexRoute
+  '/changelog/': typeof ChangelogIndexRoute
+  '/collections/': typeof CollectionsIndexRoute
+  '/freebies/': typeof FreebiesIndexRoute
+  '/sales/': typeof SalesIndexRoute
   '/api/android-beta/register': typeof ApiAndroidBetaRegisterRoute
   '/api/android-beta/status': typeof ApiAndroidBetaStatusRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
@@ -537,8 +537,8 @@ export interface FileRoutesByFullPath {
   '/sandboxes/$id/items': typeof SandboxesIdItemsRoute
   '/sandboxes/$id/offers': typeof SandboxesIdOffersRoute
   '/store/$namespace/$slug': typeof StoreNamespaceSlugRoute
-  '/collections/$id': typeof CollectionsIdIndexRoute
-  '/franchises/$id': typeof FranchisesIdIndexRoute
+  '/collections/$id/': typeof CollectionsIdIndexRoute
+  '/franchises/$id/': typeof FranchisesIdIndexRoute
   '/items/$id/': typeof ItemsIdIndexRoute
   '/offers/$id/': typeof OffersIdIndexRoute
   '/profile/$id/': typeof ProfileIdIndexRoute
@@ -736,10 +736,10 @@ export interface FileRouteTypes {
     | '/stats/creations'
     | '/stats/releases'
     | '/tags/$id'
-    | '/changelog'
-    | '/collections'
-    | '/freebies'
-    | '/sales'
+    | '/changelog/'
+    | '/collections/'
+    | '/freebies/'
+    | '/sales/'
     | '/api/android-beta/register'
     | '/api/android-beta/status'
     | '/api/auth/$'
@@ -769,8 +769,8 @@ export interface FileRouteTypes {
     | '/sandboxes/$id/items'
     | '/sandboxes/$id/offers'
     | '/store/$namespace/$slug'
-    | '/collections/$id'
-    | '/franchises/$id'
+    | '/collections/$id/'
+    | '/franchises/$id/'
     | '/items/$id/'
     | '/offers/$id/'
     | '/profile/$id/'
@@ -1098,28 +1098,28 @@ declare module '@tanstack/react-router' {
     '/sales/': {
       id: '/sales/'
       path: '/sales'
-      fullPath: '/sales'
+      fullPath: '/sales/'
       preLoaderRoute: typeof SalesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/freebies/': {
       id: '/freebies/'
       path: '/freebies'
-      fullPath: '/freebies'
+      fullPath: '/freebies/'
       preLoaderRoute: typeof FreebiesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/collections/': {
       id: '/collections/'
       path: '/collections'
-      fullPath: '/collections'
+      fullPath: '/collections/'
       preLoaderRoute: typeof CollectionsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/changelog/': {
       id: '/changelog/'
       path: '/changelog'
-      fullPath: '/changelog'
+      fullPath: '/changelog/'
       preLoaderRoute: typeof ChangelogIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
@@ -1287,14 +1287,14 @@ declare module '@tanstack/react-router' {
     '/franchises/$id/': {
       id: '/franchises/$id/'
       path: '/franchises/$id'
-      fullPath: '/franchises/$id'
+      fullPath: '/franchises/$id/'
       preLoaderRoute: typeof FranchisesIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/collections/$id/': {
       id: '/collections/$id/'
       path: '/collections/$id'
-      fullPath: '/collections/$id'
+      fullPath: '/collections/$id/'
       preLoaderRoute: typeof CollectionsIdIndexRouteImport
       parentRoute: typeof rootRouteImport
     }

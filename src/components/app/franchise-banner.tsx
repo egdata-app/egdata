@@ -29,8 +29,8 @@ export const FranchiseBanner = ({ franchise }: { franchise: Franchise }) => {
 
   return (
     <Link
-      to="/search"
-      search={{ title: franchise.name }} // Or link to a franchise page if you have one later
+      to="/franchises/$id"
+      params={{ id: franchise._id }}
       className="block w-full mt-2 group overflow-hidden rounded-lg relative min-h-[60px] bg-secondary/20 border border-secondary/30"
     >
       {backgroundImage && (
