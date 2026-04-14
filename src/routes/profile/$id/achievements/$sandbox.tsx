@@ -2,7 +2,12 @@ import * as React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { httpClient } from "@/lib/http-client";
 import type { SingleOffer } from "@/types/single-offer";
-import { dehydrate, type DehydratedState, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import {
+  dehydrate,
+  type DehydratedState,
+  HydrationBoundary,
+  useQuery,
+} from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
 import { FlippableCard } from "@/components/app/achievement-card";
 

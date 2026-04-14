@@ -6,7 +6,12 @@ import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { httpClient } from "@/lib/http-client";
 import { offersDictionary } from "@/lib/offers-dictionary";
 import type { SingleOffer } from "@/types/single-offer";
-import { dehydrate, type DehydratedState, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import {
+  dehydrate,
+  type DehydratedState,
+  HydrationBoundary,
+  useQuery,
+} from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 
 type LoaderData = {

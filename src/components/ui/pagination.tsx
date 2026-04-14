@@ -61,12 +61,7 @@ const PaginationButton = ({
   size = "icon",
   ...props
 }: PaginationButtonProps) => (
-  <Button
-    className={className}
-    variant={isActive ? "outline" : "ghost"}
-    size={size}
-    {...props}
-  />
+  <Button className={className} variant={isActive ? "outline" : "ghost"} size={size} {...props} />
 );
 
 PaginationButton.displayName = "PaginationButton";

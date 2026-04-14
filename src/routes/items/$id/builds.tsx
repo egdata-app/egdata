@@ -6,7 +6,12 @@ import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { httpClient } from "@/lib/http-client";
 import type { Build } from "@/types/builds";
 import type { SingleItem } from "@/types/single-item";
-import { dehydrate, type DehydratedState, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import {
+  dehydrate,
+  type DehydratedState,
+  HydrationBoundary,
+  useQuery,
+} from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import type { ColumnFiltersState } from "@tanstack/react-table";

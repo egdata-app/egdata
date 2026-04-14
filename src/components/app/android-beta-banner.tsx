@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 const STORAGE_KEY = "android-install-banner-dismissed";
 
 export function AndroidInstallBanner() {
-    
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {

@@ -425,12 +425,14 @@ function AchievementsTimeline() {
     <div className="flex flex-col items-start justify-start h-full space-y-4 p-4">
       <h1 className="text-2xl font-bold mb-4">Achievements Timeline</h1>
       <section className="flex flex-col gap-4 w-full">
-        {achievements.filter((a) => a.offer).map((achievement) => (
-          <SingleAchievement
-            key={`${achievement.name}-${achievement.offer.namespace}`}
-            achievement={achievement}
-          />
-        ))}
+        {achievements
+          .filter((a) => a.offer)
+          .map((achievement) => (
+            <SingleAchievement
+              key={`${achievement.name}-${achievement.offer.namespace}`}
+              achievement={achievement}
+            />
+          ))}
         {hasNextPage && (
           <Button
             onClick={() => fetchNextPage()}

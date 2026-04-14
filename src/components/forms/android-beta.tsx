@@ -1,19 +1,9 @@
 import { useState, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle, CheckCircle, Loader, Users } from "lucide-react";
-import {
-  GoogleOAuthProvider,
-  GoogleLogin,
-  type CredentialResponse,
-} from "@react-oauth/google";
+import { GoogleOAuthProvider, GoogleLogin, type CredentialResponse } from "@react-oauth/google";
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || "";
 
@@ -111,8 +101,7 @@ export function AndroidBetaForm() {
         <CardHeader>
           <CardTitle>Join the Beta</CardTitle>
           <CardDescription>
-            Sign in with Google to register for the closed beta. We only need
-            your email address.
+            Sign in with Google to register for the closed beta. We only need your email address.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -130,8 +119,8 @@ export function AndroidBetaForm() {
               <AlertCircle className="h-4 w-4" />
               <AlertTitle>Beta is Full</AlertTitle>
               <AlertDescription>
-                All {betaStatus.maxTesters} spots have been taken. Check back later
-                or follow us for updates on when more spots become available.
+                All {betaStatus.maxTesters} spots have been taken. Check back later or follow us for
+                updates on when more spots become available.
               </AlertDescription>
             </Alert>
           ) : (
@@ -163,12 +152,11 @@ export function AndroidBetaForm() {
                   <AlertTitle>You are registered!</AlertTitle>
                   <AlertDescription>
                     <p>
-                      We have registered <strong>{state.email}</strong> for the
-                      closed beta.
+                      We have registered <strong>{state.email}</strong> for the closed beta.
                     </p>
                     <p className="mt-2">
-                      It may take a few hours until you are manually added to the
-                      testers list. Once added, you can join the beta here:
+                      It may take a few hours until you are manually added to the testers list. Once
+                      added, you can join the beta here:
                     </p>
                     <a
                       href="https://play.google.com/apps/testing/com.ignacioaldama.egdata"
@@ -188,12 +176,11 @@ export function AndroidBetaForm() {
                   <AlertTitle>Already Registered</AlertTitle>
                   <AlertDescription>
                     <p>
-                      <strong>{state.email}</strong> is already registered for the
-                      beta.
+                      <strong>{state.email}</strong> is already registered for the beta.
                     </p>
                     <p className="mt-2">
-                      If you have already been added to the testers list, you can
-                      join the beta here:
+                      If you have already been added to the testers list, you can join the beta
+                      here:
                     </p>
                     <a
                       href="https://play.google.com/apps/testing/com.ignacioaldama.egdata"

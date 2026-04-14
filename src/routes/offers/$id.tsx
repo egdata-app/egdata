@@ -97,7 +97,8 @@ export const Route = createFileRoute("/offers/$id")({
       }),
       queryClient.prefetchQuery({
         queryKey: ["offer-franchises", { id: params.id }],
-        queryFn: () => httpClient.get<Franchise[]>(`/offers/${params.id}/franchises`).catch(() => []),
+        queryFn: () =>
+          httpClient.get<Franchise[]>(`/offers/${params.id}/franchises`).catch(() => []),
       }),
       queryClient.prefetchQuery({
         queryKey: ["offer-assets", { id }],
@@ -751,9 +752,7 @@ function OfferPage() {
               </Popover>
             </div>
             <OfferHero offer={offer} />
-            {franchises && franchises.length > 0 && (
-              <FranchiseBanner franchise={franchises[0]} />
-            )}
+            {franchises && franchises.length > 0 && <FranchiseBanner franchise={franchises[0]} />}
             <p className="px-1">{offer.description}</p>
           </div>
         </header>

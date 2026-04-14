@@ -98,19 +98,14 @@ async function checkIfAlreadyRegistered(email: string): Promise<boolean> {
     });
 
     const emails = response.data.values?.flat() || [];
-    return emails.some(
-      (e) => typeof e === "string" && e.toLowerCase() === email.toLowerCase(),
-    );
+    return emails.some((e) => typeof e === "string" && e.toLowerCase() === email.toLowerCase());
   } catch (error) {
     consola.error("Error checking existing registrations:", error);
     return false;
   }
 }
 
-async function addToGoogleSheets(data: {
-  email: string;
-  timestamp: string;
-}): Promise<void> {
+async function addToGoogleSheets(data: { email: string; timestamp: string }): Promise<void> {
   const sheets = getSheetsClient();
   const spreadsheetId = process.env.GOOGLE_SHEETS_BETA_REGISTRATIONS_ID;
 
@@ -149,9 +144,7 @@ export const Route = createFileRoute("/api/android-beta/register")({
           }
 
           // 2. Check if already registered
-          const alreadyRegistered = await checkIfAlreadyRegistered(
-            tokenPayload.email,
-          );
+          const alreadyRegistered = await checkIfAlreadyRegistered(tokenPayload.email);
           if (alreadyRegistered) {
             return json(
               {
@@ -177,8 +170,7 @@ export const Route = createFileRoute("/api/android-beta/register")({
           consola.error("Registration error:", error);
           return json(
             {
-              message:
-                error instanceof Error ? error.message : "Registration failed",
+              message: error instanceof Error ? error.message : "Registration failed",
             },
             { status: 500 },
           );

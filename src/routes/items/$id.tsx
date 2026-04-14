@@ -1,6 +1,11 @@
 import { httpClient } from "@/lib/http-client";
 import type { SingleItem } from "@/types/single-item";
-import { dehydrate, type DehydratedState, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import {
+  dehydrate,
+  type DehydratedState,
+  HydrationBoundary,
+  useQuery,
+} from "@tanstack/react-query";
 import { createFileRoute, Outlet, useLocation } from "@tanstack/react-router";
 import { Badge } from "@/components/ui/badge";
 import {

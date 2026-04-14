@@ -21,7 +21,12 @@ export function GameCard({
 }) {
   return (
     <CarouselItem key={game.id} className="basis-1/1 lg:basis-1/4">
-      <Link to="/offers/$id" params={{ id: game.id }} className="w-96 relative select-none" preload="viewport">
+      <Link
+        to="/offers/$id"
+        params={{ id: game.id }}
+        className="w-96 relative select-none"
+        preload="viewport"
+      >
         <Card className="w-72 lg:max-w-sm rounded-lg overflow-hidden shadow-lg">
           <Image
             src={getImage(game.keyImages, ["Thumbnail"])?.url}

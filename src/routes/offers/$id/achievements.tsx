@@ -28,7 +28,12 @@ import { cn } from "@/lib/utils";
 import type { AchievementsSets } from "@/queries/offer-achievements";
 import type { SingleOffer } from "@/types/single-offer";
 import { CardStackIcon, EyeOpenIcon } from "@radix-ui/react-icons";
-import { dehydrate, type DehydratedState, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import {
+  dehydrate,
+  type DehydratedState,
+  HydrationBoundary,
+  useQuery,
+} from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { EyeClosedIcon, FileWarningIcon } from "lucide-react";
 import { useMemo, useState } from "react";

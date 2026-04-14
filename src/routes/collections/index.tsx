@@ -5,7 +5,12 @@ import { useCountry } from "@/hooks/use-country";
 import { getImage } from "@/lib/get-image";
 import { cn } from "@/lib/utils";
 import { getCollection } from "@/queries/collection";
-import { dehydrate, type DehydratedState, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import {
+  dehydrate,
+  type DehydratedState,
+  HydrationBoundary,
+  useQuery,
+} from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 const collections: {

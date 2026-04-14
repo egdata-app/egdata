@@ -334,7 +334,9 @@ function ValueToString(value: unknown, query: string, field?: string, short?: bo
   if (value === null) return "N/A";
 
   if (field === "asset" && short) {
-    return <span className="font-mono">{(value as { artifactId?: string } | null)?.artifactId}</span>;
+    return (
+      <span className="font-mono">{(value as { artifactId?: string } | null)?.artifactId}</span>
+    );
   }
 
   if (field === "keyImages" && value !== null) {
@@ -370,11 +372,7 @@ function ValueToString(value: unknown, query: string, field?: string, short?: bo
 
     return (
       <div className="flex items-start justify-start gap-2">
-        <img
-          src={url}
-          alt={md5}
-          className="w-1/2 max-w-64 h-auto object-cover rounded-lg"
-        />
+        <img src={url} alt={md5} className="w-1/2 max-w-64 h-auto object-cover rounded-lg" />
       </div>
     );
   }

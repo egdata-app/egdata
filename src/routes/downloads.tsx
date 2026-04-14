@@ -15,7 +15,6 @@ type ReleaseAsset = {
   size: number;
 };
 
-
 type AssetInfo = {
   platform: "Windows" | "macOS" | "Linux" | "Other";
   variant: string;

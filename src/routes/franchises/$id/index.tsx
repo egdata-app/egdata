@@ -291,9 +291,7 @@ function FranchiseOfferCard({ offer }: { offer: SingleOffer }) {
         <div className="p-4 flex flex-col gap-2">
           <h3 className="text-lg font-semibold truncate">{offer.title}</h3>
           <div className="flex items-center justify-between">
-            <span className="text-sm text-muted-foreground truncate">
-              {offer.seller?.name}
-            </span>
+            <span className="text-sm text-muted-foreground truncate">{offer.seller?.name}</span>
             {offer.price && (
               <div className="flex items-center gap-2">
                 {hasDiscount && (
@@ -306,9 +304,7 @@ function FranchiseOfferCard({ offer }: { offer: SingleOffer }) {
                     )}
                   </span>
                 )}
-                <span
-                  className={cn("text-sm font-semibold", hasDiscount && "text-badge")}
-                >
+                <span className={cn("text-sm font-semibold", hasDiscount && "text-badge")}>
                   {isFree
                     ? "Free"
                     : fmt.format(

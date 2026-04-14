@@ -32,12 +32,9 @@ export const getFranchise = async ({
   page: number;
   country: string;
 }) => {
-  const data = await httpClient.get<FranchiseResponse>(
-    `/franchises/${slug}`,
-    {
-      params: { country, page, limit },
-    },
-  );
+  const data = await httpClient.get<FranchiseResponse>(`/franchises/${slug}`, {
+    params: { country, page, limit },
+  });
 
   return data;
 };

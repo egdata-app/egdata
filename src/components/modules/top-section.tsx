@@ -171,7 +171,9 @@ export function TopSection({
                 ) : null}
               </div>
               <Button asChild size="lg" className="w-full md:w-auto">
-                <Link to="/offers/$id" params={{ id: offer.id }}>Check Offer</Link>
+                <Link to="/offers/$id" params={{ id: offer.id }}>
+                  Check Offer
+                </Link>
               </Button>
             </div>
           </div>

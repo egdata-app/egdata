@@ -110,7 +110,13 @@ export const Route = createFileRoute("/tags/$id")({
       dehydratedState: DehydratedState;
       id: string;
       cover: Pick<SingleOffer, "_id" | "id" | "namespace" | "title" | "keyImages"> | null;
-      promotion: { elements: SingleOffer[]; title: string; start: number; page: number; count: number } | null;
+      promotion: {
+        elements: SingleOffer[];
+        title: string;
+        start: number;
+        page: number;
+        count: number;
+      } | null;
     };
 
     return (
@@ -345,7 +351,13 @@ function RouteComponent() {
     dehydratedState: DehydratedState;
     id: string;
     cover: Pick<SingleOffer, "_id" | "id" | "namespace" | "title" | "keyImages"> | null;
-    promotion: { elements: SingleOffer[]; title: string; start: number; page: number; count: number } | null;
+    promotion: {
+      elements: SingleOffer[];
+      title: string;
+      start: number;
+      page: number;
+      count: number;
+    } | null;
   };
   const {
     data: promotion,

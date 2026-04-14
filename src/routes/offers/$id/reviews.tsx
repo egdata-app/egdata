@@ -1,6 +1,11 @@
 import { createFileRoute, getRouteApi, Link } from "@tanstack/react-router";
 import "@mdxeditor/editor/style.css";
-import { dehydrate, type DehydratedState, HydrationBoundary, useQueries } from "@tanstack/react-query";
+import {
+  dehydrate,
+  type DehydratedState,
+  HydrationBoundary,
+  useQueries,
+} from "@tanstack/react-query";
 import { httpClient } from "@/lib/http-client";
 import type { SingleReview } from "@/types/reviews";
 import type { RatingsType } from "@egdata/core.schemas.ratings";

@@ -1,6 +1,11 @@
 import { httpClient } from "@/lib/http-client";
 import { cn } from "@/lib/utils";
-import { dehydrate, type DehydratedState, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import {
+  dehydrate,
+  type DehydratedState,
+  HydrationBoundary,
+  useQuery,
+} from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 export interface GenreResponse {
