@@ -2,7 +2,6 @@ import defaultPlayerTheme from "@vidstack/react/player/styles/default/theme.css?
 import defaultAudioPlayer from "@vidstack/react/player/styles/default/layouts/audio.css?url";
 import defaultVideoPlayer from "@vidstack/react/player/styles/default/layouts/video.css?url";
 import { BaseGame } from "@/components/app/base-game";
-import { BlurredBackground } from "@/components/app/blurred-background";
 import { OfferInBundle } from "@/components/app/bundle-game";
 import { FranchiseBanner } from "@/components/app/franchise-banner";
 import { InternalBanner } from "@/components/app/internal-banner";
@@ -43,7 +42,6 @@ import { internalNamespaces } from "@/lib/internal-namespaces";
 import { offersDictionary } from "@/lib/offers-dictionary";
 import { compareDates, timeAgo } from "@/lib/time-ago";
 import { cn } from "@/lib/utils";
-import { VideoProvider } from "@/providers/offers-video";
 import type { Asset } from "@/types/asset";
 import type { Technology } from "@/types/builds";
 import type { Franchise } from "@/types/franchise";
@@ -295,22 +293,11 @@ function OfferPage() {
     .filter((tag) => platformIcons[tag.id]);
 
   return (
-    <VideoProvider>
-      <main className="flex flex-col items-start justify-start w-full min-h-screen gap-4 relative px-4 md:px-8 max-w-[1600px] mx-auto">
-        <ClientOnly>
-          <PrepurchasePopup id={offer.id} />
-        </ClientOnly>
-        <BlurredBackground
-          src={
-            getImage(offer.keyImages, [
-              "DieselStoreFrontWide",
-              "OfferImageWide",
-              "DieselGameBoxWide",
-              "TakeoverWide",
-            ])?.url ?? "/placeholder.webp"
-          }
-        />
-        <header className="grid col-span-1 gap-4 md:grid-cols-2 w-full">
+    <main className="flex flex-col items-start justify-start w-full min-h-screen gap-4 relative px-4 md:px-8 max-w-[1600px] mx-auto">
+      <ClientOnly>
+        <PrepurchasePopup id={offer.id} />
+      </ClientOnly>
+      <header className="grid col-span-1 gap-4 md:grid-cols-2 w-full">
           <div className="flex flex-col gap-1">
             <div className="inline-flex items-center gap-4">
               {isFabItem && <FabIcon className="size-10" />}
@@ -844,7 +831,6 @@ function OfferPage() {
 
         <SuggestedOffers id={offer.id} />
       </main>
-    </VideoProvider>
   );
 }
 

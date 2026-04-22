@@ -24,6 +24,8 @@ import { authClient } from "@/lib/auth-client";
 import { Toaster } from "@/components/ui/sonner";
 import styles from "@/styles.css?url";
 import { ExtensionProvider } from "@/providers/extension";
+import { VideoProvider } from "@/providers/offers-video";
+import { GlobalBackground } from "@/components/app/global-background";
 import "../registerSW";
 import type { CookiesSelection } from "@/contexts/cookies";
 
@@ -266,7 +268,10 @@ function NotFoundPage() {
 function RootComponent() {
   return (
     <RootDocument>
-      <Outlet />
+      <VideoProvider>
+        <GlobalBackground />
+        <Outlet />
+      </VideoProvider>
     </RootDocument>
   );
 }
