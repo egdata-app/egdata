@@ -2,7 +2,7 @@ import type * as React from "react";
 import { useMemo, useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Card, CardContent } from "@/components/ui/card";
-import { keepPreviousData, useQueries } from "@tanstack/react-query";
+import { keepPreviousData, useQueries, useQuery } from "@tanstack/react-query";
 import { httpClient } from "@/lib/http-client";
 import type { Tag } from "@/types/single-offer";
 import type { SingleSandbox } from "@/types/single-sandbox";
@@ -22,6 +22,8 @@ import { useLocale } from "@/hooks/use-locale";
 import type { OfferPosition } from "@/types/collections";
 import { PerformanceTable } from "@/components/app/performance-table";
 import { getOfferIgdb } from "@/queries/igdb";
+import { getOfferPriceFairness } from "@/queries/offer-price-fairness";
+import { RegionalPricingBadge } from "@/components/app/regional-pricing-badge";
 import { DateTime } from "luxon";
 import { formatTimeToHumanReadable } from "@/lib/time-to-human-readable";
 
@@ -61,6 +63,7 @@ export const Route = createFileRoute("/offers/$id/")({
             })),
       });
       queryClient.fetchQuery(getOfferIgdb(id)).catch(() => {});
+      queryClient.fetchQuery(getOfferPriceFairness(id, country || "US")).catch(() => {});
     }
 
     // Fetch the tops data
@@ -107,6 +110,7 @@ function RouteComponent() {
   const [
     genresQuery,
     priceQuery,
+    priceFairnessQuery,
     ageRatingQuery,
     achievementsQuery,
     giveawaysQuery,
@@ -138,6 +142,7 @@ function RouteComponent() {
               lastDiscount: null,
             })),
       },
+      getOfferPriceFairness(id, country),
       {
         queryKey: ["offer", "age-rating", { id, country }],
         queryFn: () =>
@@ -192,6 +197,7 @@ function RouteComponent() {
 
   const { data: genres } = genresQuery;
   const { data: price } = priceQuery;
+  const { data: priceFairness } = priceFairnessQuery;
   const { data: ageRating } = ageRatingQuery;
   const { data: achievements } = achievementsQuery;
   const { data: giveaways } = giveawaysQuery;
@@ -437,9 +443,15 @@ function RouteComponent() {
             <Card className="w-full bg-card text-white p-4">
               <CardContent className="p-6">
                 <div className="flex flex-col gap-4">
-                  <div className="flex items-start justify-start gap-2">
+                  {priceFairness && (
+                    <div className="flex items-start justify-start gap-2">
+                      <RegionalPricingBadge score={priceFairness} />
+                    </div>
+                  )}
+                  <div className="flex items-start justify-start gap-2 flex-wrap">
                     <span className="text-xl font-bold text-muted-foreground">Current:</span>
                     <PriceText price={price?.current} />
+                    {priceFairness && <RegionalPricingBadge score={priceFairness} />}
                   </div>
                   <div className="flex items-start justify-start gap-2">
                     <span className="text-xl font-bold flex flex-row gap-1 items-center justify-start text-muted-foreground">
