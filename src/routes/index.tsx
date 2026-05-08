@@ -37,6 +37,7 @@ import {
 import { Sparkles, TrendingUp } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Image } from "@/components/app/image";
+import buildImageUrl, { buildSrcSet } from "@/lib/build-image-url";
 import { getImage } from "@/lib/get-image";
 import { getOfferOverview } from "@/queries/offer-overview";
 import { formatTimeToHumanReadable } from "@/lib/time-to-human-readable";
@@ -336,10 +337,13 @@ function BuildHoverCard({
       {displayUrl && (
         <div className="w-full h-44 flex-shrink-0 relative">
           <img
-            src={displayUrl}
+            src={buildImageUrl(displayUrl, 320)}
+            srcSet={buildSrcSet(displayUrl, 320)}
+            sizes="320px"
             alt={build.item?.title ?? "Unknown Build"}
             className="w-full h-full object-cover"
             loading="lazy"
+            decoding="async"
           />
         </div>
       )}
@@ -709,11 +713,15 @@ function RouteComponent() {
                 className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
               >
                 <img
-                  src={
+                  src={buildImageUrl(
                     getImage(g.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url ??
-                    "/placeholder.webp"
-                  }
+                      "/placeholder.webp",
+                    80,
+                    "low",
+                  )}
                   alt={g.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
                 />
               </Link>,
@@ -755,13 +763,17 @@ function RouteComponent() {
                                 className="flex items-center gap-3 p-3 border rounded-lg bg-card transition-colors hover:border-gray-400"
                               >
                                 <img
-                                  src={
+                                  src={buildImageUrl(
                                     getImage(offer.keyImages, [
                                       "DieselGameBoxTall",
                                       "OfferImageTall",
-                                    ])?.url ?? "/placeholder.webp"
-                                  }
+                                    ])?.url ?? "/placeholder.webp",
+                                    96,
+                                    "low",
+                                  )}
                                   alt={offer.title}
+                                  loading="lazy"
+                                  decoding="async"
                                   className="w-12 h-16 object-cover rounded"
                                 />
                                 <div className="flex-1">
@@ -841,11 +853,15 @@ function RouteComponent() {
                 className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
               >
                 <img
-                  src={
+                  src={buildImageUrl(
                     getImage(o.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url ??
-                    "/placeholder.webp"
-                  }
+                      "/placeholder.webp",
+                    80,
+                    "low",
+                  )}
                   alt={o.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
                 />
               </Link>,
@@ -891,11 +907,15 @@ function RouteComponent() {
                 className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
               >
                 <img
-                  src={
+                  src={buildImageUrl(
                     getImage(o.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url ??
-                    "/placeholder.webp"
-                  }
+                      "/placeholder.webp",
+                    80,
+                    "low",
+                  )}
                   alt={o.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
                 />
               </Link>,
@@ -942,11 +962,15 @@ function RouteComponent() {
                 className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
               >
                 <img
-                  src={
+                  src={buildImageUrl(
                     getImage(u.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url ??
-                    "/placeholder.webp"
-                  }
+                      "/placeholder.webp",
+                    80,
+                    "low",
+                  )}
                   alt={u.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
                 />
               </Link>,
@@ -1023,11 +1047,15 @@ function RouteComponent() {
                   className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
                 >
                   <img
-                    src={
+                    src={buildImageUrl(
                       getImage(a.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url ??
-                      "/placeholder.webp"
-                    }
+                        "/placeholder.webp",
+                      80,
+                      "low",
+                    )}
                     alt={a.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
                   />
                 </Link>,
@@ -1084,11 +1112,15 @@ function RouteComponent() {
                 className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
               >
                 <img
-                  src={
+                  src={buildImageUrl(
                     getImage(t.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url ??
-                    "/placeholder.webp"
-                  }
+                      "/placeholder.webp",
+                    80,
+                    "low",
+                  )}
                   alt={t.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
                 />
               </Link>,
@@ -1121,11 +1153,15 @@ function RouteComponent() {
                 className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
               >
                 <img
-                  src={
+                  src={buildImageUrl(
                     getImage(b.item?.keyImages ?? [], ["DieselGameBoxTall", "OfferImageTall"])
-                      ?.url ?? "/placeholder.webp"
-                  }
+                      ?.url ?? "/placeholder.webp",
+                    80,
+                    "low",
+                  )}
                   alt={b.item?.title ?? "Unknown Build"}
+                  loading="lazy"
+                  decoding="async"
                   className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
                 />
               </Link>,
