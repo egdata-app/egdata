@@ -347,3 +347,19 @@ body {
     transform: scale(1) rotate(0deg);
   }
 }
+
+.egd-image {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.egd-image[data-loaded="true"] {
+  opacity: 1;
+}
+.egd-image-skeleton {
+  transition: opacity 0.3s ease;
+}
+.egd-image[data-loaded="true"] ~ .egd-image-skeleton {
+  opacity: 0;
+  pointer-events: none;
+}
+

@@ -1,8 +1,10 @@
-import { useState, useEffect, type FC, type ImgHTMLAttributes } from "react";
+import { useMemo, useRef, type FC, type ImgHTMLAttributes } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
-import buildImageUrl from "@/lib/build-image-url";
+import buildImageUrl, { buildSrcSet } from "@/lib/build-image-url";
 import type { ImageQuality } from "@/lib/build-image-url";
-import { useIntersectionObserver } from "@uidotdev/usehooks";
+import { cn } from "@/lib/utils";
+
+export type ImagePriority = "high" | "low" | "auto";
 
 export type ImageProps = {
   quality?: ImageQuality;
@@ -10,7 +12,10 @@ export type ImageProps = {
   width?: number;
   height?: number;
   alt?: string;
+  /** @deprecated use priority="high" */
   eager?: boolean;
+  priority?: ImagePriority;
+  sizes?: string;
 } & ImgHTMLAttributes<HTMLImageElement>;
 
 export const Image: FC<ImageProps> = ({
@@ -20,74 +25,79 @@ export const Image: FC<ImageProps> = ({
   quality = "medium",
   unoptimized = false,
   alt = "",
-  eager = false,
+  eager,
+  priority,
+  sizes,
+  className,
+  style,
+  onLoad,
+  onError,
   ...props
 }) => {
-  const [loading, setLoading] = useState(!eager);
-  const [imgRef, isIntersecting] = useIntersectionObserver<HTMLImageElement>({
-    rootMargin: "200px",
-    threshold: 0,
-  });
-
-  const aspectRatio = (height / width) * 100;
-
+  const effectivePriority: ImagePriority = priority ?? (eager ? "high" : "auto");
   const imageSrc = src || `https://via.placeholder.com/${width}x${height}`;
-  const url = unoptimized ? imageSrc : buildImageUrl(imageSrc, width, quality);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: set loading to true when url changes
-  useEffect(() => {
-    setLoading(!eager);
-  }, [url]);
+  const { url, srcSet } = useMemo(() => {
+    if (unoptimized) return { url: imageSrc, srcSet: undefined };
+    return {
+      url: buildImageUrl(imageSrc, width, quality),
+      srcSet: buildSrcSet(imageSrc, width, quality),
+    };
+  }, [imageSrc, width, quality, unoptimized]);
 
-  const shouldLoad = eager || isIntersecting;
+  const erroredRef = useRef(false);
 
   return (
     <div
-      ref={imgRef}
       style={{
         position: "relative",
         width: "100%",
-        paddingTop: `${aspectRatio}%`,
+        aspectRatio: `${width} / ${height}`,
         overflow: "hidden",
+        ...style,
       }}
     >
-      <Skeleton
+      <img
+        ref={(img) => {
+          if (img && img.complete && img.naturalWidth > 0) {
+            img.dataset.loaded = "true";
+          }
+        }}
+        src={url}
+        srcSet={srcSet}
+        sizes={sizes ?? `${width}px`}
+        width={width}
+        height={height}
+        alt={alt}
+        loading={effectivePriority === "high" ? "eager" : "lazy"}
+        decoding={effectivePriority === "high" ? "sync" : "async"}
+        fetchPriority={effectivePriority === "auto" ? undefined : effectivePriority}
+        className={cn("egd-image", className)}
         style={{
           position: "absolute",
-          top: 0,
-          left: 0,
+          inset: 0,
           width: "100%",
           height: "100%",
-          transition: "opacity 0.5s ease",
-          opacity: loading ? 1 : 0,
-          zIndex: loading ? 1 : -1,
+          objectFit: "cover",
         }}
+        onLoad={(e) => {
+          e.currentTarget.dataset.loaded = "true";
+          onLoad?.(e);
+        }}
+        onError={(e) => {
+          if (!erroredRef.current) {
+            erroredRef.current = true;
+            e.currentTarget.src = imageSrc;
+          }
+          e.currentTarget.dataset.loaded = "true";
+          onError?.(e);
+        }}
+        {...props}
       />
-      {shouldLoad && (
-        <picture style={{ opacity: loading ? 0 : 1, transition: "opacity 0.5s ease" }}>
-          <img
-            src={url}
-            width={width}
-            height={height}
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-            }}
-            onLoad={() => setLoading(false)}
-            onError={(e) => {
-              setLoading(false);
-              e.currentTarget.src = imageSrc;
-            }}
-            loading={eager ? "eager" : "lazy"}
-            {...props}
-            alt={alt}
-          />
-        </picture>
-      )}
+      <Skeleton
+        className="egd-image-skeleton"
+        style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
+      />
     </div>
   );
 };
