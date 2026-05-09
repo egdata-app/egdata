@@ -31,27 +31,32 @@ export function GlobalBackground() {
     : null;
 
   useEffect(() => {
+    if (!isHovered || !canvasRef?.current || !localCanvasRef.current) return;
+
+    const canvas = localCanvasRef.current;
+    const sourceCanvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    // Throttle to ~30fps. CSS `blur-3xl + brightness-[0.30]` already smooths
+    // the output; running at full vsync just doubles the per-frame canvas
+    // copy work that's happening upstream in OfferHero.
+    const FRAME_INTERVAL_MS = 1000 / 30;
+    let lastDrawAt = 0;
     let animationFrameId: number;
 
-    const drawFrame = () => {
-      const canvas = localCanvasRef.current;
-      const ctx = canvas?.getContext("2d");
-      if (ctx && canvas && canvasRef?.current) {
-        ctx.drawImage(canvasRef.current, 0, 0, canvas.width, canvas.height);
-        ctx.filter = "blur(1px)";
-        ctx.drawImage(canvas, 0, 0);
+    const drawFrame = (now: number) => {
+      if (now - lastDrawAt >= FRAME_INTERVAL_MS) {
+        ctx.drawImage(sourceCanvas, 0, 0, canvas.width, canvas.height);
+        lastDrawAt = now;
       }
       animationFrameId = requestAnimationFrame(drawFrame);
     };
 
-    if (isHovered && canvasRef?.current) {
-      drawFrame();
-    }
+    animationFrameId = requestAnimationFrame(drawFrame);
 
     return () => {
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
+      cancelAnimationFrame(animationFrameId);
     };
   }, [isHovered, canvasRef]);
 

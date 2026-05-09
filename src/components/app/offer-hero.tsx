@@ -48,34 +48,31 @@ export function OfferHero({ offer }: { offer: SingleOffer }) {
   }, [setCanvasRef]);
 
   useEffect(() => {
-    let animationFrameId: number;
+    if (!isHovered || !videoRef.current || !localCanvasRef.current) return;
 
-    const drawFrame = () => {
-      if (videoRef.current && localCanvasRef.current) {
-        const ctx = localCanvasRef.current.getContext("2d");
-        if (ctx) {
-          ctx.drawImage(
-            videoRef.current,
-            0,
-            0,
-            localCanvasRef.current.width,
-            localCanvasRef.current.height,
-          );
-          ctx.filter = "blur(10px)"; // Apply blur effect
-          ctx.drawImage(localCanvasRef.current, 0, 0);
-        }
+    let animationFrameId: number;
+    const canvas = localCanvasRef.current;
+    const video = videoRef.current;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    // Throttle to ~30fps — the consumer (GlobalBackground) applies blur-3xl
+    // via CSS, so higher refresh rates are imperceptible and just burn CPU.
+    const FRAME_INTERVAL_MS = 1000 / 30;
+    let lastDrawAt = 0;
+
+    const drawFrame = (now: number) => {
+      if (now - lastDrawAt >= FRAME_INTERVAL_MS) {
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        lastDrawAt = now;
       }
       animationFrameId = requestAnimationFrame(drawFrame);
     };
 
-    if (isHovered && videoRef.current && localCanvasRef.current) {
-      drawFrame();
-    }
+    animationFrameId = requestAnimationFrame(drawFrame);
 
     return () => {
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-      }
+      cancelAnimationFrame(animationFrameId);
     };
   }, [isHovered]);
 
