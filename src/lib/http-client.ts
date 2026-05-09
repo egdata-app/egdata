@@ -1,4 +1,8 @@
-import axios, { type AxiosInstance, type AxiosRequestConfig, type AxiosError } from "axios";
+import axios, {
+  type AxiosInstance,
+  type AxiosRequestConfig,
+  type AxiosError,
+} from "axios";
 
 type ParameterValue = string | number | boolean | undefined | null;
 interface FetchOptions extends AxiosRequestConfig {
@@ -31,7 +35,10 @@ class HttpFetch {
     this.initializationPromise = (async () => {
       if (typeof window === "undefined") {
         try {
-          const [http, https] = await Promise.all([import("node:http"), import("node:https")]);
+          const [http, https] = await Promise.all([
+            import("node:http"),
+            import("node:https"),
+          ]);
 
           // Create new instance with agents
           this.axiosInstance = axios.create({
@@ -93,7 +100,10 @@ class HttpFetch {
     throw lastError ?? new Error("Max retries reached");
   }
 
-  public async get<T>(endpoint: string, options: FetchOptions = {}): Promise<T> {
+  public async get<T>(
+    endpoint: string,
+    options: FetchOptions = {},
+  ): Promise<T> {
     await this.ensureInitialized();
     try {
       const response = await this.axiosInstance.get<T>(endpoint, {
@@ -107,7 +117,11 @@ class HttpFetch {
     }
   }
 
-  public async post<T>(endpoint: string, body?: unknown, options: FetchOptions = {}): Promise<T> {
+  public async post<T>(
+    endpoint: string,
+    body?: unknown,
+    options: FetchOptions = {},
+  ): Promise<T> {
     await this.ensureInitialized();
     try {
       const response = await this.axiosInstance.post<T>(endpoint, body, {
@@ -124,7 +138,11 @@ class HttpFetch {
     }
   }
 
-  public async put<T>(endpoint: string, body?: unknown, options: FetchOptions = {}): Promise<T> {
+  public async put<T>(
+    endpoint: string,
+    body?: unknown,
+    options: FetchOptions = {},
+  ): Promise<T> {
     await this.ensureInitialized();
     try {
       const response = await this.axiosInstance.put<T>(endpoint, body, {
@@ -141,7 +159,11 @@ class HttpFetch {
     }
   }
 
-  public async patch<T>(endpoint: string, body?: unknown, options: FetchOptions = {}): Promise<T> {
+  public async patch<T>(
+    endpoint: string,
+    body?: unknown,
+    options: FetchOptions = {},
+  ): Promise<T> {
     await this.ensureInitialized();
     try {
       const response = await this.axiosInstance.patch<T>(endpoint, body, {
@@ -158,7 +180,10 @@ class HttpFetch {
     }
   }
 
-  public async delete<T>(endpoint: string, options: FetchOptions = {}): Promise<T> {
+  public async delete<T>(
+    endpoint: string,
+    options: FetchOptions = {},
+  ): Promise<T> {
     await this.ensureInitialized();
     try {
       const response = await this.axiosInstance.delete<T>(endpoint, {
@@ -172,7 +197,10 @@ class HttpFetch {
     }
   }
 
-  public async options<T>(endpoint: string, options: FetchOptions = {}): Promise<T> {
+  public async options<T>(
+    endpoint: string,
+    options: FetchOptions = {},
+  ): Promise<T> {
     await this.ensureInitialized();
     try {
       const response = await this.axiosInstance.options<T>(endpoint, {
@@ -189,8 +217,8 @@ class HttpFetch {
 
 export const httpClient = new HttpFetch(
   import.meta.env.SSR
-    ? (process.env.SERVER_API_ENDPOINT ?? "https://api.egdata.app")
-    : (import.meta.env.SERVER_API_ENDPOINT ?? "https://api.egdata.app"),
+    ? (process.env.VITE_SERVER_API_ENDPOINT ?? "https://api.egdata.app")
+    : (import.meta.env.VITE_SERVER_API_ENDPOINT ?? "https://api.egdata.app"),
   {
     timeout: 5_000,
     withCredentials: true,
