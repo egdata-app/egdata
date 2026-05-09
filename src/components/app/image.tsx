@@ -49,6 +49,7 @@ export const Image: FC<ImageProps> = ({
 
   return (
     <div
+      className="egd-image-wrap"
       style={{
         position: "relative",
         width: "100%",
@@ -60,7 +61,7 @@ export const Image: FC<ImageProps> = ({
       <img
         ref={(img) => {
           if (img && img.complete && img.naturalWidth > 0) {
-            img.dataset.loaded = "true";
+            img.parentElement?.setAttribute("data-loaded", "true");
           }
         }}
         src={url}
@@ -72,7 +73,7 @@ export const Image: FC<ImageProps> = ({
         loading={effectivePriority === "high" ? "eager" : "lazy"}
         decoding={effectivePriority === "high" ? "sync" : "async"}
         fetchPriority={effectivePriority === "auto" ? undefined : effectivePriority}
-        className={cn("egd-image", className)}
+        className={className}
         style={{
           position: "absolute",
           inset: 0,
@@ -81,7 +82,7 @@ export const Image: FC<ImageProps> = ({
           objectFit: "cover",
         }}
         onLoad={(e) => {
-          e.currentTarget.dataset.loaded = "true";
+          e.currentTarget.parentElement?.setAttribute("data-loaded", "true");
           onLoad?.(e);
         }}
         onError={(e) => {
@@ -89,7 +90,7 @@ export const Image: FC<ImageProps> = ({
             erroredRef.current = true;
             e.currentTarget.src = imageSrc;
           }
-          e.currentTarget.dataset.loaded = "true";
+          e.currentTarget.parentElement?.setAttribute("data-loaded", "true");
           onError?.(e);
         }}
         {...props}
