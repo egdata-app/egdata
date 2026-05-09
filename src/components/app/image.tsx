@@ -1,4 +1,4 @@
-import { useMemo, useRef, type FC, type ImgHTMLAttributes } from "react";
+import { useEffect, useMemo, useRef, useState, type FC, type ImgHTMLAttributes } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import buildImageUrl, { buildSrcSet } from "@/lib/build-image-url";
 import type { ImageQuality } from "@/lib/build-image-url";
@@ -36,6 +36,7 @@ export const Image: FC<ImageProps> = ({
 }) => {
   const effectivePriority: ImagePriority = priority ?? (eager ? "high" : "auto");
   const imageSrc = src || `https://via.placeholder.com/${width}x${height}`;
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const { url, srcSet } = useMemo(() => {
     if (unoptimized) return { url: imageSrc, srcSet: undefined };
@@ -47,9 +48,15 @@ export const Image: FC<ImageProps> = ({
 
   const erroredRef = useRef(false);
 
+  useEffect(() => {
+    erroredRef.current = false;
+    setIsLoaded(false);
+  }, [url]);
+
   return (
     <div
       className="egd-image-wrap"
+      data-loaded={isLoaded ? "true" : undefined}
       style={{
         position: "relative",
         width: "100%",
@@ -61,7 +68,7 @@ export const Image: FC<ImageProps> = ({
       <img
         ref={(img) => {
           if (img && img.complete && img.naturalWidth > 0) {
-            img.parentElement?.setAttribute("data-loaded", "true");
+            setIsLoaded(true);
           }
         }}
         src={url}
@@ -82,7 +89,7 @@ export const Image: FC<ImageProps> = ({
           objectFit: "cover",
         }}
         onLoad={(e) => {
-          e.currentTarget.parentElement?.setAttribute("data-loaded", "true");
+          setIsLoaded(true);
           onLoad?.(e);
         }}
         onError={(e) => {
@@ -90,15 +97,17 @@ export const Image: FC<ImageProps> = ({
             erroredRef.current = true;
             e.currentTarget.src = imageSrc;
           }
-          e.currentTarget.parentElement?.setAttribute("data-loaded", "true");
+          setIsLoaded(true);
           onError?.(e);
         }}
         {...props}
       />
-      <Skeleton
-        className="egd-image-skeleton"
-        style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
-      />
+      {!isLoaded && (
+        <Skeleton
+          className="egd-image-skeleton"
+          style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
+        />
+      )}
     </div>
   );
 };

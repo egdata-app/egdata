@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
+import { extractDominantVideoColors } from "@/lib/ambient-colors";
 import { httpClient } from "@/lib/http-client";
 import { getImage } from "@/lib/getImage";
 import { cn } from "@/lib/utils";
@@ -9,88 +10,171 @@ import { GameFeatures } from "./features";
 import { Image } from "./image";
 import { useVideo } from "@/hooks/use-video";
 
+const HOVER_DELAY_MS = 150;
+const AMBIENT_SAMPLE_INTERVAL_MS = 900;
+const MAX_HOVER_VIDEO_WIDTH = 720;
+
+const canUseHoverPreview = () => {
+  if (typeof window === "undefined") return false;
+
+  return (
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+};
+
+const getHoverVideoUrl = (media?: Media) => {
+  const outputs = media?.videos?.[0]?.outputs ?? [];
+  const usableOutputs = outputs.filter(
+    (output) =>
+      output.url &&
+      typeof output.width === "number" &&
+      !output.contentType.startsWith("image/") &&
+      output.contentType !== "application/dash+xml",
+  );
+  const playableOutputs = usableOutputs.filter((output) => {
+    const url = output.url.toLowerCase().split("?")[0];
+
+    return output.contentType.startsWith("video/") || url.endsWith(".mp4");
+  });
+  const candidates = playableOutputs.length ? playableOutputs : usableOutputs;
+  const sorted = [...candidates].sort((a, b) => (a.width ?? 0) - (b.width ?? 0));
+  const atOrBelowTarget = sorted.filter((output) => (output.width ?? 0) <= MAX_HOVER_VIDEO_WIDTH);
+
+  return (atOrBelowTarget.at(-1) ?? sorted[0])?.url;
+};
+
 export function OfferHero({ offer }: { offer: SingleOffer }) {
   const { data: media } = useQuery({
     queryKey: ["media", { id: offer.id }],
     queryFn: () => httpClient.get<Media>(`/offers/${offer.id}/media`),
     retry: false,
   });
-  const { isHovered, setIsHovered, setCanvasRef } = useVideo();
+  const { isHovered, setIsHovered, setVideoRef, setAmbientColors } = useVideo();
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const localCanvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [hoverTimeout, setHoverTimeout] = useState<NodeJS.Timeout | null>(null);
+  const sampleCanvasRef = useRef<HTMLCanvasElement | null>(null);
+  const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const videoUrl = media?.videos?.[0]?.outputs
-    .filter((output) => output.width !== undefined)
-    .sort((a, b) => (b?.width ?? 0) - (a?.width ?? 0))[0]?.url;
+  const videoUrl = getHoverVideoUrl(media);
 
   useEffect(() => {
-    if (videoUrl && videoRef.current) {
-      videoRef.current.src = videoUrl;
-      videoRef.current.load();
+    setVideoRef(videoRef);
+
+    return () => {
+      setVideoRef(null);
+    };
+  }, [setVideoRef]);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !videoUrl) return;
+
+    video.crossOrigin = "anonymous";
+
+    if (video.src !== videoUrl) {
+      video.src = videoUrl;
+      video.load();
     }
   }, [videoUrl]);
 
   useEffect(() => {
-    if (videoRef.current) {
-      if (!isHovered) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
-      }
-    }
-  }, [isHovered]);
-
-  useEffect(() => {
-    if (localCanvasRef.current) {
-      setCanvasRef(localCanvasRef);
-    }
-  }, [setCanvasRef]);
-
-  useEffect(() => {
-    if (!isHovered || !videoRef.current || !localCanvasRef.current) return;
-
-    let animationFrameId: number;
-    const canvas = localCanvasRef.current;
     const video = videoRef.current;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    if (!video) return;
 
-    // Throttle to ~30fps — the consumer (GlobalBackground) applies blur-3xl
-    // via CSS, so higher refresh rates are imperceptible and just burn CPU.
-    const FRAME_INTERVAL_MS = 1000 / 30;
-    let lastDrawAt = 0;
+    if (!isHovered) {
+      video.pause();
+      return;
+    }
 
-    const drawFrame = (now: number) => {
-      if (now - lastDrawAt >= FRAME_INTERVAL_MS) {
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-        lastDrawAt = now;
+    void video.play().catch(() => {
+      setIsHovered(false);
+    });
+  }, [isHovered, setIsHovered]);
+
+  useEffect(() => {
+    if (!isHovered) {
+      setAmbientColors([]);
+      return;
+    }
+
+    const video = videoRef.current;
+    if (!video || !canUseHoverPreview()) return;
+
+    let intervalId: ReturnType<typeof setInterval> | null = null;
+    let samplingBlocked = false;
+    const canvas = sampleCanvasRef.current ?? document.createElement("canvas");
+    sampleCanvasRef.current = canvas;
+
+    const sampleColors = () => {
+      if (samplingBlocked || video.readyState < HTMLMediaElement.HAVE_CURRENT_DATA) return;
+
+      try {
+        const colors = extractDominantVideoColors(video, canvas);
+
+        if (colors.length) {
+          setAmbientColors(colors);
+        }
+      } catch {
+        samplingBlocked = true;
+        setAmbientColors([]);
+
+        if (intervalId) {
+          clearInterval(intervalId);
+        }
       }
-      animationFrameId = requestAnimationFrame(drawFrame);
     };
 
-    animationFrameId = requestAnimationFrame(drawFrame);
+    const startSampling = () => {
+      sampleColors();
+      intervalId = setInterval(sampleColors, AMBIENT_SAMPLE_INTERVAL_MS);
+    };
+
+    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      startSampling();
+    } else {
+      video.addEventListener("loadeddata", startSampling, { once: true });
+    }
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      if (intervalId) {
+        clearInterval(intervalId);
+      }
+
+      video.removeEventListener("loadeddata", startSampling);
+      setAmbientColors([]);
     };
-  }, [isHovered]);
+  }, [isHovered, setAmbientColors, videoUrl]);
+
+  useEffect(() => {
+    return () => {
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current);
+      }
+
+      setIsHovered(false);
+      setAmbientColors([]);
+    };
+  }, [setAmbientColors, setIsHovered]);
+
+  const clearHoverTimeout = () => {
+    if (!hoverTimeoutRef.current) return;
+
+    clearTimeout(hoverTimeoutRef.current);
+    hoverTimeoutRef.current = null;
+  };
 
   const handleMouseEnter = () => {
-    if (hoverTimeout) {
-      clearTimeout(hoverTimeout);
-    }
-    setHoverTimeout(
-      setTimeout(() => {
-        setIsHovered(true);
-      }, 150),
-    );
+    if (!videoUrl || !canUseHoverPreview()) return;
+
+    clearHoverTimeout();
+    hoverTimeoutRef.current = setTimeout(() => {
+      setIsHovered(true);
+      hoverTimeoutRef.current = null;
+    }, HOVER_DELAY_MS);
   };
 
   const handleMouseLeave = () => {
-    if (hoverTimeout) {
-      clearTimeout(hoverTimeout);
-    }
+    clearHoverTimeout();
     setIsHovered(false);
   };
 
@@ -105,21 +189,20 @@ export function OfferHero({ offer }: { offer: SingleOffer }) {
       {videoUrl && (
         <video
           className={cn(
-            "rounded-xl shadow-lg transition-opacity duration-700 absolute inset-0 ease-in-out",
+            "rounded-xl shadow-lg transition-opacity duration-700 absolute inset-0 ease-in-out w-full h-full object-cover",
             isHovered ? "opacity-100" : "opacity-0",
           )}
-          autoPlay
           loop
           muted
           playsInline
           controls={false}
+          preload="metadata"
+          crossOrigin="anonymous"
           width={"100%"}
           height={"auto"}
-          src={videoUrl}
           ref={videoRef}
         />
       )}
-      <canvas ref={localCanvasRef} width={720} height={480} style={{ display: "none" }} />
       <Image
         src={
           getImage(offer.keyImages, [

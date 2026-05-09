@@ -2,6 +2,30 @@
 @import "@vidstack/react/player/styles/base.css";
 @import "tw-animate-css";
 
+@property --ambient-primary {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: rgba(0, 0, 0, 0);
+}
+
+@property --ambient-secondary {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: rgba(0, 0, 0, 0);
+}
+
+@property --ambient-tertiary {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: rgba(0, 0, 0, 0);
+}
+
+@property --ambient-quaternary {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: rgba(0, 0, 0, 0);
+}
+
 @custom-variant dark (&:is(.dark *));
 
 :root {

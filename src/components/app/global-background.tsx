@@ -1,13 +1,50 @@
-import { useRef, useEffect } from "react";
+import { useMemo, type CSSProperties } from "react";
 import { cn } from "@/lib/utils";
 import { useVideo } from "@/hooks/use-video";
 import { useMatches } from "@tanstack/react-router";
 import { getImage } from "@/lib/get-image";
 import type { SingleOffer } from "@/types/single-offer";
 
+const AMBIENT_MORPH_DURATION_MS = 900;
+
+type AmbientStyle = CSSProperties & {
+  "--ambient-primary": string;
+  "--ambient-secondary": string;
+  "--ambient-tertiary": string;
+  "--ambient-quaternary": string;
+};
+
+const AMBIENT_BACKGROUND = [
+  "linear-gradient(180deg, rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.74))",
+  "radial-gradient(circle at 18% 28%, var(--ambient-primary) 0, transparent 38%)",
+  "radial-gradient(circle at 78% 20%, var(--ambient-secondary) 0, transparent 36%)",
+  "radial-gradient(circle at 48% 64%, var(--ambient-tertiary) 0, transparent 48%)",
+  "radial-gradient(circle at 88% 78%, var(--ambient-quaternary) 0, transparent 38%)",
+].join(", ");
+
+const withAlpha = (color: string, alpha: number) =>
+  color.replace(/^rgb\((.+)\)$/, `rgba($1, ${alpha})`);
+
+const buildAmbientStyle = (colors: string[]): AmbientStyle | undefined => {
+  const [primary, secondary = primary, tertiary = secondary, quaternary = tertiary] = colors;
+
+  if (!primary) return undefined;
+
+  return {
+    "--ambient-primary": withAlpha(primary, 0.9),
+    "--ambient-secondary": withAlpha(secondary, 0.78),
+    "--ambient-tertiary": withAlpha(tertiary, 0.74),
+    "--ambient-quaternary": withAlpha(quaternary, 0.66),
+    background: AMBIENT_BACKGROUND,
+    transitionProperty:
+      "--ambient-primary, --ambient-secondary, --ambient-tertiary, --ambient-quaternary",
+    transitionDuration: `${AMBIENT_MORPH_DURATION_MS}ms`,
+    transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
+  };
+};
+
 export function GlobalBackground() {
-  const { isHovered, canvasRef } = useVideo();
-  const localCanvasRef = useRef<HTMLCanvasElement>(null);
+  const { isHovered, ambientColors } = useVideo();
   const matches = useMatches();
 
   // Find the deepest offer route with loader data
@@ -30,35 +67,8 @@ export function GlobalBackground() {
       ])?.url ?? "/placeholder.webp"
     : null;
 
-  useEffect(() => {
-    if (!isHovered || !canvasRef?.current || !localCanvasRef.current) return;
-
-    const canvas = localCanvasRef.current;
-    const sourceCanvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    // Throttle to ~30fps. CSS `blur-3xl + brightness-[0.30]` already smooths
-    // the output; running at full vsync just doubles the per-frame canvas
-    // copy work that's happening upstream in OfferHero.
-    const FRAME_INTERVAL_MS = 1000 / 30;
-    let lastDrawAt = 0;
-    let animationFrameId: number;
-
-    const drawFrame = (now: number) => {
-      if (now - lastDrawAt >= FRAME_INTERVAL_MS) {
-        ctx.drawImage(sourceCanvas, 0, 0, canvas.width, canvas.height);
-        lastDrawAt = now;
-      }
-      animationFrameId = requestAnimationFrame(drawFrame);
-    };
-
-    animationFrameId = requestAnimationFrame(drawFrame);
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, [isHovered, canvasRef]);
+  const ambientStyle = useMemo(() => buildAmbientStyle(ambientColors), [ambientColors]);
+  const showAmbientBackground = isHovered && Boolean(ambientStyle);
 
   if (!src) return null;
 
@@ -68,7 +78,7 @@ export function GlobalBackground() {
         className={cn(
           "fade-in absolute inset-0 overflow-hidden -z-10 pointer-events-none",
           "transition-opacity duration-1000 ease-in-out",
-          isHovered ? "opacity-0" : "opacity-100",
+          showAmbientBackground ? "opacity-0" : "opacity-100",
         )}
         style={{
           maskImage: "radial-gradient(ellipse at center, black 50%, transparent 100%)",
@@ -87,20 +97,21 @@ export function GlobalBackground() {
         className={cn(
           "absolute inset-0 overflow-hidden -z-10 pointer-events-none",
           "transition-opacity duration-1000 ease-in-out",
-          isHovered ? "opacity-50" : "opacity-0",
+          showAmbientBackground ? "opacity-70" : "opacity-0",
         )}
         style={{
           maskImage: "radial-gradient(ellipse at center, black 50%, transparent 100%)",
           WebkitMaskImage: "radial-gradient(ellipse at center, black 50%, transparent 100%)",
         }}
       >
-        <canvas
-          ref={localCanvasRef}
-          className="w-full h-[700px] filter brightness-[0.30] blur-3xl"
-          width={720}
-          height={480}
-        />
+        <div className="w-full h-[700px] saturate-150" style={ambientStyle} />
       </div>
+      <div
+        className="absolute inset-x-0 top-[520px] h-[220px] -z-10 pointer-events-none"
+        style={{
+          background: "linear-gradient(to top, var(--background) 0%, transparent 100%)",
+        }}
+      />
     </>
   );
 }
