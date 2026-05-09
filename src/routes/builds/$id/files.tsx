@@ -29,11 +29,13 @@ export const Route = createFileRoute("/builds/$id/files")({
     await queryClient.prefetchQuery({
       queryKey: ["build-files", { id, page: { pageIndex: 0, pageSize: 25 }, options: [] }],
       queryFn: () =>
-        httpClient.get<BuildFiles>(`/builds/${id}/files`, {
-          params: {
-            page: 1,
-          },
-        }),
+        httpClient
+          .get<BuildFiles>(`/builds/${id}/files`, {
+            params: {
+              page: 1,
+            },
+          })
+          .catch(() => null),
     });
 
     return {
@@ -54,16 +56,20 @@ function FilesPage() {
   const { data: files } = useQuery({
     queryKey: ["build-files", { id, page, options: filters }],
     queryFn: () =>
-      httpClient.get<BuildFiles>(`/builds/${id}/files`, {
-        params: {
-          page: page.pageIndex + 1,
-          q: (filters.find((f) => f.id === "fileName")?.value as string) ?? undefined,
-          extension: (() => {
-            const mimeTypeFilter = filters.find((f) => f.id === "mimeType");
-            return mimeTypeFilter?.value ? (mimeTypeFilter.value as string[]).join(",") : undefined;
-          })(),
-        },
-      }),
+      httpClient
+        .get<BuildFiles>(`/builds/${id}/files`, {
+          params: {
+            page: page.pageIndex + 1,
+            q: (filters.find((f) => f.id === "fileName")?.value as string) ?? undefined,
+            extension: (() => {
+              const mimeTypeFilter = filters.find((f) => f.id === "mimeType");
+              return mimeTypeFilter?.value
+                ? (mimeTypeFilter.value as string[]).join(",")
+                : undefined;
+            })(),
+          },
+        })
+        .catch(() => null),
     placeholderData: keepPreviousData,
   });
 

@@ -213,8 +213,13 @@ function MediaPage() {
         <AccordionItem value="covers">
           <AccordionTrigger className="text-xl">Covers</AccordionTrigger>
           <AccordionContent>
+            {!offer?.keyImages?.length && (
+              <div className="text-center">
+                <h2 className="text-2xl font-bold">No covers found</h2>
+              </div>
+            )}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {offer?.keyImages.map((cover) => (
+              {offer?.keyImages?.map((cover) => (
                 <div key={cover.md5} className="flex flex-col items-center gap-2 relative">
                   <span className="absolute top-2 right-2 text-xs font-mono">
                     <a

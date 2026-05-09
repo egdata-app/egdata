@@ -76,7 +76,9 @@ export const Route = createFileRoute("/sellers/$id")({
       { id: params.id, country: loaderData.country },
     ]);
 
-    if (!seller)
+    const sellerName = seller?.[0]?.seller?.name;
+
+    if (!sellerName)
       return {
         meta: [
           {
@@ -89,7 +91,7 @@ export const Route = createFileRoute("/sellers/$id")({
     return {
       meta: [
         {
-          title: `${seller[0].seller.name} | egdata.app`,
+          title: `${sellerName} | egdata.app`,
         },
       ],
     };
@@ -127,15 +129,25 @@ function RouteComponent() {
   const { data, isLoading } = sellerData;
   const { data: cover } = coverData;
 
-  if (!data || isLoading) {
+  if (isLoading || !data) {
     return <SellerPageSkeleton />;
+  }
+
+  const sellerName = data[0]?.seller?.name;
+
+  if (!sellerName) {
+    return (
+      <div className="min-h-[85vh] flex items-center justify-center">
+        <h1 className="text-4xl font-bold">Seller not found</h1>
+      </div>
+    );
   }
 
   const featuredCover = cover?.[randomCoverIndex] ?? cover?.[0] ?? data[0];
 
   return (
     <div className="min-h-[85vh]">
-      <h1 className="text-4xl font-bold text-left">{data[0].seller.name}</h1>
+      <h1 className="text-4xl font-bold text-left">{sellerName}</h1>
       {featuredCover && (
         <section className="w-full bg-card rounded-xl mt-10 relative group min-h-[500px]">
           <div className="grid gap-8 md:grid-cols-2 lg:gap-16 py-24 px-10 z-[1] relative rounded-xl">
@@ -170,7 +182,7 @@ function RouteComponent() {
           contextId={`seller-${id}`}
           fixedParams={{ seller: id }}
           controls={{ showSeller: false }}
-          title={`${data[0].seller.name} Offers`}
+          title={`${sellerName} Offers`}
           initialSearch={search}
           onSearchChange={(search) => {
             navigate({

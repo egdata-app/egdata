@@ -84,9 +84,11 @@ export const Route = createFileRoute("/sandboxes/$id/changelog")({
     await queryClient.prefetchQuery({
       queryKey: ["changelog", { id: params.id, page: 1, limit: 20 }],
       queryFn: () =>
-        httpClient.get<ChangelogResponse>(`/sandboxes/${params.id}/changelog`, {
-          params: { page: 1, limit: 20 },
-        }),
+        httpClient
+          .get<ChangelogResponse>(`/sandboxes/${params.id}/changelog`, {
+            params: { page: 1, limit: 20 },
+          })
+          .catch(() => null),
     });
 
     return {
@@ -144,9 +146,11 @@ function RouteComponent() {
   const { data, isLoading } = useQuery({
     queryKey: ["changelog", { id, page, limit: 20 }],
     queryFn: () =>
-      httpClient.get<ChangelogResponse>(`/sandboxes/${id}/changelog`, {
-        params: { page, limit: 20 },
-      }),
+      httpClient
+        .get<ChangelogResponse>(`/sandboxes/${id}/changelog`, {
+          params: { page, limit: 20 },
+        })
+        .catch(() => null),
   });
   const { data: baseGame } = useQuery({
     queryKey: ["sandbox", "base-game", { id }],

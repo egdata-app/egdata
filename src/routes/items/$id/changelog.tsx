@@ -16,7 +16,7 @@ export const Route = createFileRoute("/items/$id/changelog")({
 
     await queryClient.prefetchQuery({
       queryKey: ["changelog", { id, page: 1 }],
-      queryFn: () => httpClient.get<Change[]>(`/items/${id}/changelog`),
+      queryFn: () => httpClient.get<Change[]>(`/items/${id}/changelog`).catch(() => null),
     });
 
     return {
@@ -37,11 +37,13 @@ function ChangelogPage() {
   const { data, isLoading } = useQuery({
     queryKey: ["changelog", { id, page }],
     queryFn: () =>
-      httpClient.get<Change[]>(`/offers/${id}/changelog`, {
-        params: {
-          page,
-        },
-      }),
+      httpClient
+        .get<Change[]>(`/offers/${id}/changelog`, {
+          params: {
+            page,
+          },
+        })
+        .catch(() => null),
     placeholderData: keepPreviousData,
   });
 

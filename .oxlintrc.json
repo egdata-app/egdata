@@ -1,11 +1,8 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["unicorn", "typescript", "oxc", "react", "jsx-a11y"],
+  "plugins": ["unicorn", "typescript", "oxc", "react"],
   "categories": {
     "correctness": "warn"
-  },
-  "rules": {
-    "jsx-a11y/svg-has-accessible-name": "off"
   },
   "ignorePatterns": ["node_modules", "**/node_modules", "app/routeTree.gen.ts"]
 }

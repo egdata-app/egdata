@@ -45,11 +45,11 @@ export const Route = createFileRoute("/builds/$id")({
     await Promise.all([
       queryClient.prefetchQuery({
         queryKey: ["build", { id }],
-        queryFn: () => httpClient.get<SingleBuild>(`/builds/${id}`),
+        queryFn: () => httpClient.get<SingleBuild>(`/builds/${id}`).catch(() => null),
       }),
       queryClient.prefetchQuery({
         queryKey: ["build-items", { id }],
-        queryFn: () => httpClient.get<SingleItem[]>(`/builds/${id}/items`),
+        queryFn: () => httpClient.get<SingleItem[]>(`/builds/${id}/items`).catch(() => null),
       }),
     ]);
 
@@ -167,11 +167,12 @@ function BuildPage() {
   const subPath = useLocation().pathname.split(`/${id}/`)[1];
   const { data: items } = useQuery({
     queryKey: ["build-items", { id }],
-    queryFn: () => httpClient.get<PaginatedResponse<SingleItem>>(`/builds/${id}/items`),
+    queryFn: () =>
+      httpClient.get<PaginatedResponse<SingleItem>>(`/builds/${id}/items`).catch(() => null),
   });
   const { data: build } = useQuery({
     queryKey: ["build", { id }],
-    queryFn: () => httpClient.get<SingleBuild>(`/builds/${id}`),
+    queryFn: () => httpClient.get<SingleBuild>(`/builds/${id}`).catch(() => null),
   });
 
   if (!build) {

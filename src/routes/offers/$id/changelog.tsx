@@ -50,14 +50,16 @@ type ChangelogWithPagination = {
 const getChangelog = (id: string, page: number, query?: string, field?: string, type?: string) => ({
   queryKey: ["changelog", { id, page, query, field, type }],
   queryFn: () =>
-    httpClient.get<ChangelogWithPagination>(`/offers/${id}/changelog`, {
-      params: {
-        page,
-        query,
-        field,
-        type,
-      },
-    }),
+    httpClient
+      .get<ChangelogWithPagination>(`/offers/${id}/changelog`, {
+        params: {
+          page,
+          query,
+          field,
+          type,
+        },
+      })
+      .catch(() => null),
   placeholderData: keepPreviousData,
 });
 

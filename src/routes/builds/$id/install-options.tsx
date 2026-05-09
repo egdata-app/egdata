@@ -27,7 +27,8 @@ export const Route = createFileRoute("/builds/$id/install-options")({
 
     await queryClient.prefetchQuery({
       queryKey: ["builds", "install-options", { id }],
-      queryFn: async () => httpClient.get<BuildInstallOptions>(`/builds/${id}/install-options`),
+      queryFn: async () =>
+        httpClient.get<BuildInstallOptions>(`/builds/${id}/install-options`).catch(() => null),
     });
 
     return {
@@ -41,7 +42,8 @@ function InstallOptions() {
   const { id } = Route.useLoaderData() as { dehydratedState: DehydratedState; id: string };
   const { data: installOptions } = useQuery({
     queryKey: ["builds", "install-options", { id }],
-    queryFn: async () => httpClient.get<BuildInstallOptions>(`/builds/${id}/install-options`),
+    queryFn: async () =>
+      httpClient.get<BuildInstallOptions>(`/builds/${id}/install-options`).catch(() => null),
   });
 
   return (

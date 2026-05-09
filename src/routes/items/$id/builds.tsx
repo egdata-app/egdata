@@ -36,7 +36,7 @@ export const Route = createFileRoute("/items/$id/builds")({
 
     await queryClient.prefetchQuery({
       queryKey: ["item", "builds", { id }],
-      queryFn: () => httpClient.get<Build[]>(`/items/${id}/builds`),
+      queryFn: () => httpClient.get<Build[]>(`/items/${id}/builds`).catch(() => []),
     });
 
     return {
@@ -88,7 +88,7 @@ function ItemBuildsPage() {
   const [filters, setFilters] = useState<ColumnFiltersState>([]);
   const { data: builds } = useQuery({
     queryKey: ["item", "builds", { id }],
-    queryFn: () => httpClient.get<Build[]>(`/items/${id}/builds`),
+    queryFn: () => httpClient.get<Build[]>(`/items/${id}/builds`).catch(() => []),
   });
 
   if (!builds) {

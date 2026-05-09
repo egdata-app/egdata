@@ -87,11 +87,14 @@ export const Route = createFileRoute("/offers/$id")({
       queryClient.prefetchQuery({
         queryKey: ["price", { id: params.id, country }],
         queryFn: () =>
-          httpClient.get<Price>(`/offers/${params.id}/price?country=${country || "US"}`),
+          httpClient
+            .get<Price>(`/offers/${params.id}/price?country=${country || "US"}`)
+            .catch(() => null),
       }),
       queryClient.prefetchQuery({
         queryKey: ["offer-technologies", { id: params.id }],
-        queryFn: () => httpClient.get<Technology[]>(`/offers/${params.id}/technologies`),
+        queryFn: () =>
+          httpClient.get<Technology[]>(`/offers/${params.id}/technologies`).catch(() => []),
       }),
       queryClient.prefetchQuery({
         queryKey: ["offer-franchises", { id: params.id }],
@@ -100,7 +103,7 @@ export const Route = createFileRoute("/offers/$id")({
       }),
       queryClient.prefetchQuery({
         queryKey: ["offer-assets", { id }],
-        queryFn: () => httpClient.get<Asset[]>(`/offers/${id}/assets`),
+        queryFn: () => httpClient.get<Asset[]>(`/offers/${id}/assets`).catch(() => []),
       }),
     ]);
 
@@ -265,7 +268,7 @@ function OfferPage() {
 
   const { data: technologies } = useSuspenseQuery({
     queryKey: ["offer-technologies", { id }],
-    queryFn: () => httpClient.get<Technology[]>(`/offers/${id}/technologies`),
+    queryFn: () => httpClient.get<Technology[]>(`/offers/${id}/technologies`).catch(() => []),
   });
 
   const { data: franchises } = useSuspenseQuery({

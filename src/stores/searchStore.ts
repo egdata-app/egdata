@@ -3,7 +3,12 @@ import { z } from "zod";
 
 export const formSchema = z.object({
   title: z.string().optional(),
-  tags: z.array(z.string()).optional(),
+  tags: z
+    .preprocess(
+      (v) => (v == null || Array.isArray(v) ? v : [String(v)]),
+      z.array(z.string()),
+    )
+    .optional(),
   developerDisplayName: z.string().optional(),
   publisherDisplayName: z.string().optional(),
   offerType: z
