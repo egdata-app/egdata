@@ -373,6 +373,9 @@ body {
 }
 
 .egd-image-skeleton {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
   transition: opacity 0.3s ease;
 }
 .egd-image-wrap[data-loaded="true"] > .egd-image-skeleton {

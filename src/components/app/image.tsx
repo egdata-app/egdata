@@ -1,8 +1,6 @@
-import { useEffect, useMemo, useRef, useState, type FC, type ImgHTMLAttributes } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
+import { useCallback, useEffect, useMemo, useRef, type FC, type ImgHTMLAttributes } from "react";
 import buildImageUrl, { buildSrcSet } from "@/lib/build-image-url";
 import type { ImageQuality } from "@/lib/build-image-url";
-import { cn } from "@/lib/utils";
 
 export type ImagePriority = "high" | "low" | "auto";
 
@@ -30,13 +28,15 @@ export const Image: FC<ImageProps> = ({
   sizes,
   className,
   style,
+  loading,
+  decoding,
+  fetchPriority,
   onLoad,
   onError,
   ...props
 }) => {
   const effectivePriority: ImagePriority = priority ?? (eager ? "high" : "auto");
   const imageSrc = src || `https://via.placeholder.com/${width}x${height}`;
-  const [isLoaded, setIsLoaded] = useState(false);
 
   const { url, srcSet } = useMemo(() => {
     if (unoptimized) return { url: imageSrc, srcSet: undefined };
@@ -46,17 +46,39 @@ export const Image: FC<ImageProps> = ({
     };
   }, [imageSrc, width, quality, unoptimized]);
 
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLImageElement | null>(null);
   const erroredRef = useRef(false);
+
+  const markLoaded = useCallback(() => {
+    wrapRef.current?.setAttribute("data-loaded", "true");
+  }, []);
+
+  const handleImageRef = useCallback(
+    (img: HTMLImageElement | null) => {
+      imageRef.current = img;
+
+      if (img && img.complete && img.naturalWidth > 0) {
+        markLoaded();
+      }
+    },
+    [markLoaded],
+  );
 
   useEffect(() => {
     erroredRef.current = false;
-    setIsLoaded(false);
-  }, [url]);
+    wrapRef.current?.removeAttribute("data-loaded");
+
+    const img = imageRef.current;
+    if (img && img.complete && img.naturalWidth > 0) {
+      markLoaded();
+    }
+  }, [markLoaded, url]);
 
   return (
     <div
+      ref={wrapRef}
       className="egd-image-wrap"
-      data-loaded={isLoaded ? "true" : undefined}
       style={{
         position: "relative",
         width: "100%",
@@ -66,20 +88,18 @@ export const Image: FC<ImageProps> = ({
       }}
     >
       <img
-        ref={(img) => {
-          if (img && img.complete && img.naturalWidth > 0) {
-            setIsLoaded(true);
-          }
-        }}
+        ref={handleImageRef}
         src={url}
         srcSet={srcSet}
         sizes={sizes ?? `${width}px`}
         width={width}
         height={height}
         alt={alt}
-        loading={effectivePriority === "high" ? "eager" : "lazy"}
-        decoding={effectivePriority === "high" ? "sync" : "async"}
-        fetchPriority={effectivePriority === "auto" ? undefined : effectivePriority}
+        loading={loading ?? (effectivePriority === "high" ? "eager" : "lazy")}
+        decoding={decoding ?? "async"}
+        fetchPriority={
+          fetchPriority ?? (effectivePriority === "auto" ? undefined : effectivePriority)
+        }
         className={className}
         style={{
           position: "absolute",
@@ -89,7 +109,7 @@ export const Image: FC<ImageProps> = ({
           objectFit: "cover",
         }}
         onLoad={(e) => {
-          setIsLoaded(true);
+          markLoaded();
           onLoad?.(e);
         }}
         onError={(e) => {
@@ -97,17 +117,12 @@ export const Image: FC<ImageProps> = ({
             erroredRef.current = true;
             e.currentTarget.src = imageSrc;
           }
-          setIsLoaded(true);
+          markLoaded();
           onError?.(e);
         }}
         {...props}
       />
-      {!isLoaded && (
-        <Skeleton
-          className="egd-image-skeleton"
-          style={{ position: "absolute", inset: 0, pointerEvents: "none" }}
-        />
-      )}
+      <div className="egd-image-skeleton rounded-md bg-primary/10" aria-hidden="true" />
     </div>
   );
 };

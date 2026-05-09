@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef, type ReactNode } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef, type ReactNode } from "react";
 import debounce from "lodash.debounce";
 import { Portal } from "@radix-ui/react-portal";
 import { defaultState, SearchContext, type SearchState } from "@/contexts/global-search";
@@ -39,25 +39,35 @@ export function SearchProvider({ children }: SearchProviderProps) {
   const [searchState, setSearchState] = useState<SearchState>(defaultState);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const debouncedSearch = useCallback(
-    debounce((query: string) => {
-      httpClient
-        .get<Search>("/autocomplete", {
-          params: { query },
-        })
-        .then((data) => {
-          setSearchState((prevState) => ({
-            ...prevState,
-            results: data.elements,
-          }));
-        });
-    }, 300), // 300ms debounce time
+  const debouncedSearch = useMemo(
+    () =>
+      debounce(
+        (query: string) => {
+          httpClient
+            .get<Search>("/autocomplete", {
+              params: { query },
+            })
+            .then((data) => {
+              setSearchState((prevState) => ({
+                ...prevState,
+                results: data.elements,
+              }));
+            });
+        },
+        300,
+      ),
     [],
   );
 
   useEffect(() => {
     debouncedSearch(searchState.query);
   }, [searchState.query, debouncedSearch]);
+
+  useEffect(() => {
+    return () => {
+      debouncedSearch.cancel();
+    };
+  }, [debouncedSearch]);
 
   return (
     <SearchContext.Provider
@@ -106,6 +116,7 @@ interface SearchPortalProps {
 }
 
 type SectionType = "offers" | "items" | "sellers";
+type SelectedResult = { type: "offer" | "item" | "seller"; id: string };
 
 function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalProps) {
   const { country } = useCountry();
@@ -168,7 +179,17 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
       },
     ],
   });
-  const [selected, setSelected] = useState<{ type: string; id: string } | null>(null);
+  const [selected, setSelected] = useState<SelectedResult | null>(null);
+
+  const selectSection = useCallback((section: SectionType) => {
+    setActiveSection((current) => (current === section ? current : section));
+  }, []);
+
+  const selectResult = useCallback((result: SelectedResult) => {
+    setSelected((current) =>
+      current?.type === result.type && current.id === result.id ? current : result,
+    );
+  }, []);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -292,8 +313,8 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
                   ? "bg-primary text-primary-foreground"
                   : "text-muted-foreground hover:bg-slate-800 hover:text-white",
               )}
-              onMouseEnter={() => setActiveSection(section.id as SectionType)}
-              onClick={() => setActiveSection(section.id as SectionType)}
+              onMouseEnter={() => selectSection(section.id as SectionType)}
+              onClick={() => selectSection(section.id as SectionType)}
             >
               {section.icon}
               <div className="flex-1 font-medium">{section.label}</div>
@@ -338,7 +359,7 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
                           query: "",
                         }));
                       }}
-                      onMouseEnter={() => setSelected({ type: "offer", id: offer.id })}
+                      onMouseEnter={() => selectResult({ type: "offer", id: offer.id })}
                     >
                       <div className="flex items-center space-x-3">
                         <div className="w-12 h-12 rounded overflow-hidden bg-slate-800">
@@ -352,8 +373,10 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
                               ])?.url ?? "/placeholder.webp"
                             }
                             alt={offer.title}
-                            height={300}
-                            width={300}
+                            height={48}
+                            width={48}
+                            quality="low"
+                            sizes="48px"
                             className="w-full h-full object-cover"
                           />
                         </div>
@@ -403,7 +426,7 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
                           query: "",
                         }));
                       }}
-                      onMouseEnter={() => setSelected({ type: "item", id: item._id })}
+                      onMouseEnter={() => selectResult({ type: "item", id: item._id })}
                     >
                       <div className="flex items-center space-x-3">
                         <div className="w-12 h-12 rounded overflow-hidden bg-slate-800">
@@ -413,9 +436,10 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
                                 ?.url ?? "/placeholder.webp"
                             }
                             alt={item.title}
-                            height={300}
-                            width={300}
+                            height={48}
+                            width={48}
                             quality="low"
+                            sizes="48px"
                             className="w-full h-full object-cover"
                           />
                         </div>
@@ -466,7 +490,7 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
                           query: "",
                         }));
                       }}
-                      onMouseEnter={() => setSelected({ type: "seller", id: seller._id })}
+                      onMouseEnter={() => selectResult({ type: "seller", id: seller._id })}
                     >
                       <div className="flex items-center space-x-3">
                         <img

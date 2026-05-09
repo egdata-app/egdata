@@ -83,8 +83,7 @@ export function OfferMediaSlider({ offer }: { offer: SingleOffer }) {
     watchDrag: (api) => {
       // If the current slide is a video, don't allow dragging
       const currentIndex = api.selectedScrollSnap();
-      if (slides[currentIndex].type === "video") return false;
-      return true;
+      return slides[currentIndex]?.type !== "video";
     },
   });
   const [thumbCarousel, thumbApi] = useEmblaCarousel({
@@ -99,7 +98,7 @@ export function OfferMediaSlider({ offer }: { offer: SingleOffer }) {
       if (mainApi && thumbApi) {
         mainApi.scrollTo(index);
         thumbApi.scrollTo(index);
-        setSelectedIndex(index);
+        setSelectedIndex((currentIndex) => (currentIndex === index ? currentIndex : index));
       }
     },
     [mainApi, thumbApi],
@@ -116,11 +115,18 @@ export function OfferMediaSlider({ offer }: { offer: SingleOffer }) {
   useEffect(() => {
     if (!mainApi || !thumbApi) return;
 
-    mainApi.on("select", () => {
+    const handleSelect = () => {
       const currentIndex = mainApi.selectedScrollSnap();
-      setSelectedIndex(currentIndex);
+      setSelectedIndex((selected) => (selected === currentIndex ? selected : currentIndex));
       thumbApi.scrollTo(currentIndex);
-    });
+    };
+
+    mainApi.on("select", handleSelect);
+    handleSelect();
+
+    return () => {
+      mainApi.off("select", handleSelect);
+    };
   }, [mainApi, thumbApi]);
 
   return (
@@ -159,11 +165,12 @@ export function OfferMediaSlider({ offer }: { offer: SingleOffer }) {
                     <Image
                       src={slide.image}
                       alt={`Image ${index + 1}`}
-                      width={1920}
-                      height={1080}
+                      width={960}
+                      height={540}
+                      quality="high"
+                      priority={index === selectedIndex ? "high" : "auto"}
+                      sizes="(min-width: 1280px) 960px, 100vw"
                       className="w-full h-auto object-cover rounded-lg"
-                      unoptimized
-                      eager
                     />
                   </div>
                 )}
@@ -229,8 +236,10 @@ export function OfferMediaSlider({ offer }: { offer: SingleOffer }) {
                   <Image
                     src={slide.thumbnail}
                     alt={`Thumbnail ${index + 1}`}
-                    width={600}
-                    height={350}
+                    width={160}
+                    height={90}
+                    quality="low"
+                    sizes="160px"
                     className="w-full h-auto object-cover rounded-sm"
                   />
                 </button>
