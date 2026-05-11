@@ -31,6 +31,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useCompare } from "@/hooks/use-compare";
+import { useCountry } from "@/hooks/use-country";
 import { useLocale } from "@/hooks/use-locale";
 import { usePushNotifications } from "@/hooks/use-push-notifications";
 import { ClientOnly } from "@/lib/cllient-only";
@@ -38,15 +39,13 @@ import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { getImage } from "@/lib/get-image";
 import { Seller } from "@/lib/get-seller";
 import { httpClient } from "@/lib/http-client";
+import { offerGqlQueryOptions, offerOnlyQueryOptions } from "@/queries/offer-gql";
 import { internalNamespaces } from "@/lib/internal-namespaces";
 import { offersDictionary } from "@/lib/offers-dictionary";
 import { compareDates, timeAgo } from "@/lib/time-ago";
 import { cn } from "@/lib/utils";
 import type { Asset } from "@/types/asset";
-import type { Technology } from "@/types/builds";
-import type { Franchise } from "@/types/franchise";
 import type { Price } from "@/types/price";
-import type { SingleOffer } from "@/types/single-offer";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
 import { FabIcon } from "@/components/icons/fab";
@@ -68,10 +67,9 @@ export const Route = createFileRoute("/offers/$id")({
     const { queryClient } = context;
     const { id } = params;
 
-    const offer = await queryClient.ensureQueryData({
-      queryKey: ["offer", { id: params.id }],
-      queryFn: () => httpClient.get<SingleOffer>(`/offers/${params.id}`).catch(() => null),
-    });
+    const offer = await queryClient.ensureQueryData(
+      offerOnlyQueryOptions(params.id),
+    ).catch(() => null);
 
     return {
       id,
@@ -91,16 +89,7 @@ export const Route = createFileRoute("/offers/$id")({
             .get<Price>(`/offers/${params.id}/price?country=${country || "US"}`)
             .catch(() => null),
       }),
-      queryClient.prefetchQuery({
-        queryKey: ["offer-technologies", { id: params.id }],
-        queryFn: () =>
-          httpClient.get<Technology[]>(`/offers/${params.id}/technologies`).catch(() => []),
-      }),
-      queryClient.prefetchQuery({
-        queryKey: ["offer-franchises", { id: params.id }],
-        queryFn: () =>
-          httpClient.get<Franchise[]>(`/offers/${params.id}/franchises`).catch(() => []),
-      }),
+      queryClient.prefetchQuery(offerGqlQueryOptions({ id: params.id, country: country || "US" })),
       queryClient.prefetchQuery({
         queryKey: ["offer-assets", { id }],
         queryFn: () => httpClient.get<Asset[]>(`/offers/${id}/assets`).catch(() => []),
@@ -179,6 +168,7 @@ export const Route = createFileRoute("/offers/$id")({
 function OfferPage() {
   const { id } = Route.useParams();
   const { timezone } = useLocale();
+  const { country } = useCountry();
   const { addToCompare, removeFromCompare, compare } = useCompare();
   const navigate = useNavigate();
   const location = useLocation();
@@ -261,20 +251,13 @@ function OfferPage() {
     }
   };
 
-  const { data: offer, isLoading: offerLoading } = useSuspenseQuery({
-    queryKey: ["offer", { id }],
-    queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`),
-  });
+  const { data, isLoading: offerLoading } = useSuspenseQuery(
+    offerGqlQueryOptions({ id, country: country || "US" }),
+  );
 
-  const { data: technologies } = useSuspenseQuery({
-    queryKey: ["offer-technologies", { id }],
-    queryFn: () => httpClient.get<Technology[]>(`/offers/${id}/technologies`).catch(() => []),
-  });
-
-  const { data: franchises } = useSuspenseQuery({
-    queryKey: ["offer-franchises", { id }],
-    queryFn: () => httpClient.get<Franchise[]>(`/offers/${id}/franchises`).catch(() => []),
-  });
+  const offer = data?.offer;
+  const technologies = data?.technologies ?? [];
+  const franchises = data?.franchises ?? [];
 
   const subPath = location.pathname.split(`/${id}/`)[1];
 
