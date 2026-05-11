@@ -16,7 +16,8 @@
     "test:e2e:headed": "playwright test --headed",
     "test:e2e:debug": "playwright test --debug",
     "test:e2e:report": "playwright show-report",
-    "typecheck": "tsgo"
+    "typecheck": "tsgo",
+    "generate": "gql-tada generate-output"
   },
   "keywords": [],
   "author": "",
@@ -85,6 +86,9 @@
     "embla-carousel-react": "^8.6.0",
     "google-auth-library": "^10.6.2",
     "googleapis": "^169.0.0",
+    "gql.tada": "^1.9.2",
+    "graphql": "^16.14.0",
+    "graphql-request": "^7.4.0",
     "h3": "^1.15.11",
     "idb": "^8.0.3",
     "idb-keyval": "^6.2.2",

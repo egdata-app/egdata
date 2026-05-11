@@ -13,7 +13,14 @@
       ]
     },
     "types": ["node"],
-    "lib": ["ESNext", "DOM", "WebWorker"]
+    "lib": ["ESNext", "DOM", "WebWorker"],
+    "plugins": [
+      {
+        "name": "gql.tada/ts-plugin",
+        "schema": "http://localhost:4000/graphql",
+        "tadaOutputLocation": "./src/graphql-env.d.ts"
+      }
+    ]
   },
   "include": ["src", "global.d.ts", "*.config.ts"]
 }

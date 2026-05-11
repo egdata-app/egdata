@@ -14,7 +14,7 @@ importers:
     dependencies:
       '@better-auth/infra':
         specifier: ^0.1.14
-        version: 0.1.14(@better-auth/core@1.5.0(@better-auth/utils@0.3.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.2(zod@4.3.6))(jose@5.10.0)(kysely@0.28.11)(nanostores@1.1.1))(@better-auth/sso@1.5.0-beta.20(@better-auth/core@1.5.0(@better-auth/utils@0.3.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.2(zod@4.3.6))(jose@5.10.0)(kysely@0.28.11)(nanostores@1.1.1))(@better-auth/utils@0.3.1)(better-auth@1.5.0(20a4bbd9046f54f7422e205e40eb48e1))(better-call@1.3.2(zod@4.3.6)))(better-auth@1.5.0(20a4bbd9046f54f7422e205e40eb48e1))(zod@4.3.6)
+        version: 0.1.14(@better-auth/core@1.5.0(@better-auth/utils@0.3.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.2(zod@4.3.6))(jose@5.10.0)(kysely@0.28.11)(nanostores@1.1.1))(@better-auth/sso@1.5.0-beta.20(@better-auth/core@1.5.0(@better-auth/utils@0.3.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.2(zod@4.3.6))(jose@5.10.0)(kysely@0.28.11)(nanostores@1.1.1))(@better-auth/utils@0.3.1)(better-auth@1.5.0(07c90fec7c36a6b00e8e48c65721b0c0))(better-call@1.3.2(zod@4.3.6)))(better-auth@1.5.0(07c90fec7c36a6b00e8e48c65721b0c0))(zod@4.3.6)
       '@egdata/core.schemas.ratings':
         specifier: ^5.0.0
         version: 5.0.0(mongoose@8.19.0)
@@ -77,7 +77,7 @@ importers:
         version: 0.10.14(csstype@3.2.3)(solid-js@1.9.9)
       '@tanstack/react-form':
         specifier: ^1.29.0
-        version: 1.29.0(@tanstack/react-start@1.164.0(crossws@0.4.1(srvx@0.8.9))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+        version: 1.29.0(@tanstack/react-start@1.164.0(crossws@0.4.1(srvx@0.8.9))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0)))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@tanstack/react-query':
         specifier: ^5.99.0
         version: 5.99.0(react@19.2.5)
@@ -98,7 +98,7 @@ importers:
         version: 1.130.17(@tanstack/react-query@5.99.0(react@19.2.5))(@tanstack/react-router@1.163.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@tanstack/router-core@1.163.3)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@tanstack/react-start':
         specifier: 1.164.0
-        version: 1.164.0(crossws@0.4.1(srvx@0.8.9))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0))
+        version: 1.164.0(crossws@0.4.1(srvx@0.8.9))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0))
       '@tanstack/react-store':
         specifier: ^0.9.3
         version: 0.9.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -158,13 +158,13 @@ importers:
         version: 1.12.13(@types/react@19.2.14)(react@19.2.5)
       '@vitejs/plugin-react':
         specifier: ^4.7.0
-        version: 4.7.0(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0))
+        version: 4.7.0(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0))
       axios:
         specifier: ^1.15.0
         version: 1.15.0
       better-auth:
         specifier: 1.5.0
-        version: 1.5.0(20a4bbd9046f54f7422e205e40eb48e1)
+        version: 1.5.0(07c90fec7c36a6b00e8e48c65721b0c0)
       better-sqlite3:
         specifier: ^12.9.0
         version: 12.9.0
@@ -201,6 +201,15 @@ importers:
       googleapis:
         specifier: ^169.0.0
         version: 169.0.0
+      gql.tada:
+        specifier: ^1.9.2
+        version: 1.9.2(graphql@16.14.0)(typescript@5.9.3)
+      graphql:
+        specifier: ^16.14.0
+        version: 16.14.0
+      graphql-request:
+        specifier: ^7.4.0
+        version: 7.4.0(graphql@16.14.0)
       h3:
         specifier: ^1.15.11
         version: 1.15.11
@@ -284,7 +293,7 @@ importers:
         version: 1.1.2(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       vite-plugin-pwa:
         specifier: ^1.2.0
-        version: 1.2.0(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.4.0)
+        version: 1.2.0(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.4.0)
       workbox-window:
         specifier: ^7.4.0
         version: 7.4.0
@@ -300,13 +309,13 @@ importers:
         version: 4.2.2
       '@tailwindcss/vite':
         specifier: 4.0.7
-        version: 4.0.7(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0))
+        version: 4.0.7(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0))
       '@tanstack/devtools-vite':
         specifier: ^0.5.5
-        version: 0.5.5(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0))
+        version: 0.5.5(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0))
       '@tanstack/nitro-v2-vite-plugin':
         specifier: ^1.154.9
-        version: 1.154.9(@electric-sql/pglite@0.3.15)(better-sqlite3@12.9.0)(drizzle-orm@0.45.1(@electric-sql/pglite@0.3.15)(@opentelemetry/api@1.9.0)(@prisma/client@7.4.2(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3))(typescript@5.9.3))(@types/pg@8.6.1)(better-sqlite3@12.9.0)(kysely@0.28.11)(mysql2@3.15.3)(pg@8.20.0)(postgres@3.4.7)(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3)))(idb-keyval@6.2.2)(mysql2@3.15.3)(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0))
+        version: 1.154.9(@electric-sql/pglite@0.3.15)(better-sqlite3@12.9.0)(drizzle-orm@0.45.1(@electric-sql/pglite@0.3.15)(@opentelemetry/api@1.9.0)(@prisma/client@7.4.2(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3))(typescript@5.9.3))(@types/pg@8.6.1)(better-sqlite3@12.9.0)(kysely@0.28.11)(mysql2@3.15.3)(pg@8.20.0)(postgres@3.4.7)(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3)))(idb-keyval@6.2.2)(mysql2@3.15.3)(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0))
       '@tanstack/react-devtools':
         specifier: ^0.9.13
         version: 0.9.13(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(csstype@3.2.3)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(solid-js@1.9.9)
@@ -333,7 +342,7 @@ importers:
         version: 7.0.0-dev.20260414.1
       '@vitejs/plugin-react-oxc':
         specifier: ^0.2.3
-        version: 0.2.3(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0))
+        version: 0.2.3(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0))
       autoprefixer:
         specifier: ^10.5.0
         version: 10.5.0(postcss@8.5.9)
@@ -342,7 +351,7 @@ importers:
         version: 11.1.0
       nitro:
         specifier: npm:nitro-nightly
-        version: nitro-nightly@3.0.0-20251005-143425-32b4c06e(@electric-sql/pglite@0.3.15)(better-sqlite3@12.9.0)(drizzle-orm@0.45.1(@electric-sql/pglite@0.3.15)(@opentelemetry/api@1.9.0)(@prisma/client@7.4.2(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3))(typescript@5.9.3))(@types/pg@8.6.1)(better-sqlite3@12.9.0)(kysely@0.28.11)(mysql2@3.15.3)(pg@8.20.0)(postgres@3.4.7)(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3)))(idb-keyval@6.2.2)(mysql2@3.15.3)(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0))
+        version: nitro-nightly@3.0.0-20251005-143425-32b4c06e(@electric-sql/pglite@0.3.15)(better-sqlite3@12.9.0)(drizzle-orm@0.45.1(@electric-sql/pglite@0.3.15)(@opentelemetry/api@1.9.0)(@prisma/client@7.4.2(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3))(typescript@5.9.3))(@types/pg@8.6.1)(better-sqlite3@12.9.0)(kysely@0.28.11)(mysql2@3.15.3)(pg@8.20.0)(postgres@3.4.7)(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3)))(idb-keyval@6.2.2)(mysql2@3.15.3)(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0))
       oxfmt:
         specifier: ^0.20.0
         version: 0.20.0
@@ -363,10 +372,10 @@ importers:
         version: 1.10.0
       vite:
         specifier: npm:rolldown-vite@7.1.9
-        version: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)
+        version: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0)
       vite-tsconfig-paths:
         specifier: ^5.1.4
-        version: 5.1.4(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0))(typescript@5.9.3)
+        version: 5.1.4(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0))(typescript@5.9.3)
       workbox-precaching:
         specifier: ^7.4.0
         version: 7.4.0
@@ -381,6 +390,20 @@ importers:
         version: 3.99.0
 
 packages:
+
+  '@0no-co/graphql.web@1.2.0':
+    resolution: {integrity: sha512-/1iHy9TTr63gE1YcR5idjx8UREz1s0kFhydf3bBLCXyqjhkIc6igAzTOx3zPifCwFR87tsh/4Pa9cNts6d2otw==}
+    peerDependencies:
+      graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
+    peerDependenciesMeta:
+      graphql:
+        optional: true
+
+  '@0no-co/graphqlsp@1.15.4':
+    resolution: {integrity: sha512-Nt1DVHcZ08lKRKwhiU0amXH77fSdrO6DzyjLE0DkCxfbM/N1SAs32d76y1xtCzM5H9eT0iDS7SdksgRXWJu05g==}
+    peerDependencies:
+      graphql: ^15.5.0 || ^16.0.0 || ^17.0.0
+      typescript: ^5.0.0 || ^6.0.0
 
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -1722,6 +1745,31 @@ packages:
 
   '@floating-ui/utils@0.2.10':
     resolution: {integrity: sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==}
+
+  '@gql.tada/cli-utils@1.7.3':
+    resolution: {integrity: sha512-3iQY5E/jvv3Lnh6D1Mh7zr+Bb9C/TGk1DHkm+lbIjQBnZAu2m+BcTcr1e3spUt6Aa6HG/xAN2XxpbWw9oZALEg==}
+    peerDependencies:
+      '@0no-co/graphqlsp': ^1.12.13
+      '@gql.tada/svelte-support': 1.0.2
+      '@gql.tada/vue-support': 1.0.2
+      graphql: ^15.5.0 || ^16.0.0 || ^17.0.0
+      typescript: ^5.0.0 || ^6.0.0
+    peerDependenciesMeta:
+      '@gql.tada/svelte-support':
+        optional: true
+      '@gql.tada/vue-support':
+        optional: true
+
+  '@gql.tada/internal@1.0.9':
+    resolution: {integrity: sha512-Bp8yi+kLrzIJ3l5Dfxhz48H4OCH2LCX+pShaPcJgh+oiBt6clrjUKDYNDD3Z78aDQ3+Tyrxe4dd0MfLgpSLPPg==}
+    peerDependencies:
+      graphql: ^15.5.0 || ^16.0.0 || ^17.0.0
+      typescript: ^5.0.0 || ^6.0.0
+
+  '@graphql-typed-document-node/core@3.2.0':
+    resolution: {integrity: sha512-mB9oAsNCm9aM3/SOv4YtBMqZbYj10R7dkq8byBqxGY/ncFwhf2oQzMV+LCRlWoDSEBJ3COiR1yeDvMtsoOsuFQ==}
+    peerDependencies:
+      graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
 
   '@hono/node-server@1.19.9':
     resolution: {integrity: sha512-vHL6w3ecZsky+8P5MD+eFfaGTyCeOHUIFYMGpQGbrBTSmNNoxv0if69rEZ5giu36weC5saFuznL411gRX7bJDw==}
@@ -5039,6 +5087,7 @@ packages:
   '@xmldom/xmldom@0.8.12':
     resolution: {integrity: sha512-9k/gHF6n/pAi/9tqr3m3aqkuiNosYTurLLUtc7xQ9sxB/wm7WPygCv8GYa6mS0fLJEHhqMC1ATYhz++U/lRHqg==}
     engines: {node: '>=10.0.0'}
+    deprecated: this version has critical issues, please update to the latest version
 
   abbrev@3.0.1:
     resolution: {integrity: sha512-AO2ac6pjRB3SJmGJo+v5/aK6Omggp6fsLrs6wN9bd35ulu4cCwaAU9+7ZhXjeqHVkaHThLuzH0nZr0YpCDhygg==}
@@ -6517,6 +6566,12 @@ packages:
     resolution: {integrity: sha512-ZUKRh6/kUFoAiTAtTYPZJ3hw9wNxx+BIBOijnlG9PnrJsCcSjs1wyyD6vJpaYtgnzDrKYRSqf3OO6Rfa93xsRg==}
     engines: {node: '>= 0.4'}
 
+  gql.tada@1.9.2:
+    resolution: {integrity: sha512-QxRHVpxtrOVdYXz6oavq0lBM+Zdp0swapLGJcD4SLpXDcsD337BHDFrzqqjfkbepv0sSAiO0LGabu1kI5D5Gyg==}
+    hasBin: true
+    peerDependencies:
+      typescript: ^5.0.0 || ^6.0.0
+
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
@@ -6525,6 +6580,15 @@ packages:
 
   graphmatch@1.1.1:
     resolution: {integrity: sha512-5ykVn/EXM1hF0XCaWh05VbYvEiOL2lY1kBxZtaYsyvjp7cmWOU1XsAdfQBwClraEofXDT197lFbXOEVMHpvQOg==}
+
+  graphql-request@7.4.0:
+    resolution: {integrity: sha512-xfr+zFb/QYbs4l4ty0dltqiXIp07U6sl+tOKAb0t50/EnQek6CVVBLjETXi+FghElytvgaAWtIOt3EV7zLzIAQ==}
+    peerDependencies:
+      graphql: 14 - 16
+
+  graphql@16.14.0:
+    resolution: {integrity: sha512-BBvQ/406p+4CZbTpCbVPSxfzrZrbnuWSP1ELYgyS6B+hNeKzgrdB4JczCa5VZUBQrDa9hUngm0KnexY6pJRN5Q==}
+    engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
 
   gzip-size@7.0.0:
     resolution: {integrity: sha512-O1Ld7Dr+nqPnmGpdhzLmMTQ4vAsD+rHwMm1NLUmoUFFymBOMKxCCrtDxqdBRYXdeEPEi3SyoR4TizJLQrnKBNA==}
@@ -9671,6 +9735,11 @@ packages:
     resolution: {integrity: sha512-YgvUTfwqyc7UXVMrB+SImsVYSmTS8X/tSrtdNZMImM+n7+QTriRXyXim0mBrTXNeqzVF0KWGgHPeiyViFFrNDw==}
     engines: {node: '>=18'}
 
+  yaml@2.9.0:
+    resolution: {integrity: sha512-2AvhNX3mb8zd6Zy7INTtSpl1F15HW6Wnqj0srWlkKLcpYl/gMIMJiyuGq2KeI2YFxUPjdlB+3Lc10seMLtL4cA==}
+    engines: {node: '>= 14.6'}
+    hasBin: true
+
   yargs-parser@21.1.1:
     resolution: {integrity: sha512-tVpsJW7DdjecAiFpbIB1e3qxIQsE6NoPc5/eTdrbbIC4h0LVsWhnoa3g+m2HclBIujHzsxZ4VJVA+GUuc2/LBw==}
     engines: {node: '>=12'}
@@ -9716,6 +9785,16 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
 
 snapshots:
+
+  '@0no-co/graphql.web@1.2.0(graphql@16.14.0)':
+    optionalDependencies:
+      graphql: 16.14.0
+
+  '@0no-co/graphqlsp@1.15.4(graphql@16.14.0)(typescript@5.9.3)':
+    dependencies:
+      '@gql.tada/internal': 1.0.9(graphql@16.14.0)(typescript@5.9.3)
+      graphql: 16.14.0
+      typescript: 5.9.3
 
   '@alloc/quick-lru@5.2.0': {}
 
@@ -10531,12 +10610,12 @@ snapshots:
       '@better-auth/utils': 0.3.1
       drizzle-orm: 0.45.1(@electric-sql/pglite@0.3.15)(@opentelemetry/api@1.9.0)(@prisma/client@7.4.2(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3))(typescript@5.9.3))(@types/pg@8.6.1)(better-sqlite3@12.9.0)(kysely@0.28.11)(mysql2@3.15.3)(pg@8.20.0)(postgres@3.4.7)(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3))
 
-  '@better-auth/infra@0.1.14(@better-auth/core@1.5.0(@better-auth/utils@0.3.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.2(zod@4.3.6))(jose@5.10.0)(kysely@0.28.11)(nanostores@1.1.1))(@better-auth/sso@1.5.0-beta.20(@better-auth/core@1.5.0(@better-auth/utils@0.3.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.2(zod@4.3.6))(jose@5.10.0)(kysely@0.28.11)(nanostores@1.1.1))(@better-auth/utils@0.3.1)(better-auth@1.5.0(20a4bbd9046f54f7422e205e40eb48e1))(better-call@1.3.2(zod@4.3.6)))(better-auth@1.5.0(20a4bbd9046f54f7422e205e40eb48e1))(zod@4.3.6)':
+  '@better-auth/infra@0.1.14(@better-auth/core@1.5.0(@better-auth/utils@0.3.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.2(zod@4.3.6))(jose@5.10.0)(kysely@0.28.11)(nanostores@1.1.1))(@better-auth/sso@1.5.0-beta.20(@better-auth/core@1.5.0(@better-auth/utils@0.3.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.2(zod@4.3.6))(jose@5.10.0)(kysely@0.28.11)(nanostores@1.1.1))(@better-auth/utils@0.3.1)(better-auth@1.5.0(07c90fec7c36a6b00e8e48c65721b0c0))(better-call@1.3.2(zod@4.3.6)))(better-auth@1.5.0(07c90fec7c36a6b00e8e48c65721b0c0))(zod@4.3.6)':
     dependencies:
       '@better-auth/core': 1.5.0(@better-auth/utils@0.3.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.2(zod@4.3.6))(jose@5.10.0)(kysely@0.28.11)(nanostores@1.1.1)
-      '@better-auth/sso': 1.5.0-beta.20(@better-auth/core@1.5.0(@better-auth/utils@0.3.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.2(zod@4.3.6))(jose@5.10.0)(kysely@0.28.11)(nanostores@1.1.1))(@better-auth/utils@0.3.1)(better-auth@1.5.0(20a4bbd9046f54f7422e205e40eb48e1))(better-call@1.3.2(zod@4.3.6))
+      '@better-auth/sso': 1.5.0-beta.20(@better-auth/core@1.5.0(@better-auth/utils@0.3.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.2(zod@4.3.6))(jose@5.10.0)(kysely@0.28.11)(nanostores@1.1.1))(@better-auth/utils@0.3.1)(better-auth@1.5.0(07c90fec7c36a6b00e8e48c65721b0c0))(better-call@1.3.2(zod@4.3.6))
       '@better-fetch/fetch': 1.1.21
-      better-auth: 1.5.0(20a4bbd9046f54f7422e205e40eb48e1)
+      better-auth: 1.5.0(07c90fec7c36a6b00e8e48c65721b0c0)
       better-call: 1.3.5(zod@4.3.6)
       jose: 6.1.0
       libphonenumber-js: 1.12.38
@@ -10566,12 +10645,12 @@ snapshots:
       '@prisma/client': 7.4.2(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3))(typescript@5.9.3)
       prisma: 7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3)
 
-  '@better-auth/sso@1.5.0-beta.20(@better-auth/core@1.5.0(@better-auth/utils@0.3.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.2(zod@4.3.6))(jose@5.10.0)(kysely@0.28.11)(nanostores@1.1.1))(@better-auth/utils@0.3.1)(better-auth@1.5.0(20a4bbd9046f54f7422e205e40eb48e1))(better-call@1.3.2(zod@4.3.6))':
+  '@better-auth/sso@1.5.0-beta.20(@better-auth/core@1.5.0(@better-auth/utils@0.3.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.2(zod@4.3.6))(jose@5.10.0)(kysely@0.28.11)(nanostores@1.1.1))(@better-auth/utils@0.3.1)(better-auth@1.5.0(07c90fec7c36a6b00e8e48c65721b0c0))(better-call@1.3.2(zod@4.3.6))':
     dependencies:
       '@better-auth/core': 1.5.0(@better-auth/utils@0.3.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.2(zod@4.3.6))(jose@5.10.0)(kysely@0.28.11)(nanostores@1.1.1)
       '@better-auth/utils': 0.3.1
       '@better-fetch/fetch': 1.1.21
-      better-auth: 1.5.0(20a4bbd9046f54f7422e205e40eb48e1)
+      better-auth: 1.5.0(07c90fec7c36a6b00e8e48c65721b0c0)
       better-call: 1.3.2(zod@4.3.6)
       fast-xml-parser: 5.5.12
       jose: 6.2.2
@@ -11207,6 +11286,23 @@ snapshots:
       tabbable: 6.2.0
 
   '@floating-ui/utils@0.2.10': {}
+
+  '@gql.tada/cli-utils@1.7.3(@0no-co/graphqlsp@1.15.4(graphql@16.14.0)(typescript@5.9.3))(graphql@16.14.0)(typescript@5.9.3)':
+    dependencies:
+      '@0no-co/graphqlsp': 1.15.4(graphql@16.14.0)(typescript@5.9.3)
+      '@gql.tada/internal': 1.0.9(graphql@16.14.0)(typescript@5.9.3)
+      graphql: 16.14.0
+      typescript: 5.9.3
+
+  '@gql.tada/internal@1.0.9(graphql@16.14.0)(typescript@5.9.3)':
+    dependencies:
+      '@0no-co/graphql.web': 1.2.0(graphql@16.14.0)
+      graphql: 16.14.0
+      typescript: 5.9.3
+
+  '@graphql-typed-document-node/core@3.2.0(graphql@16.14.0)':
+    dependencies:
+      graphql: 16.14.0
 
   '@hono/node-server@1.19.9(hono@4.11.4)':
     dependencies:
@@ -13932,13 +14028,13 @@ snapshots:
       postcss-selector-parser: 6.0.10
       tailwindcss: 4.2.2
 
-  '@tailwindcss/vite@4.0.7(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0))':
+  '@tailwindcss/vite@4.0.7(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0))':
     dependencies:
       '@tailwindcss/node': 4.0.7
       '@tailwindcss/oxide': 4.0.7
       lightningcss: 1.30.2
       tailwindcss: 4.0.7
-      vite: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)
+      vite: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0)
 
   '@tanstack/devtools-client@0.0.6':
     dependencies:
@@ -13962,7 +14058,7 @@ snapshots:
     transitivePeerDependencies:
       - csstype
 
-  '@tanstack/devtools-vite@0.5.5(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0))':
+  '@tanstack/devtools-vite@0.5.5(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0))':
     dependencies:
       '@babel/core': 7.29.0
       '@babel/generator': 7.29.1
@@ -13974,7 +14070,7 @@ snapshots:
       chalk: 5.6.2
       launch-editor: 2.13.1
       picomatch: 4.0.3
-      vite: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)
+      vite: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0)
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -14008,11 +14104,11 @@ snapshots:
 
   '@tanstack/history@1.161.4': {}
 
-  '@tanstack/nitro-v2-vite-plugin@1.154.9(@electric-sql/pglite@0.3.15)(better-sqlite3@12.9.0)(drizzle-orm@0.45.1(@electric-sql/pglite@0.3.15)(@opentelemetry/api@1.9.0)(@prisma/client@7.4.2(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3))(typescript@5.9.3))(@types/pg@8.6.1)(better-sqlite3@12.9.0)(kysely@0.28.11)(mysql2@3.15.3)(pg@8.20.0)(postgres@3.4.7)(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3)))(idb-keyval@6.2.2)(mysql2@3.15.3)(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0))':
+  '@tanstack/nitro-v2-vite-plugin@1.154.9(@electric-sql/pglite@0.3.15)(better-sqlite3@12.9.0)(drizzle-orm@0.45.1(@electric-sql/pglite@0.3.15)(@opentelemetry/api@1.9.0)(@prisma/client@7.4.2(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3))(typescript@5.9.3))(@types/pg@8.6.1)(better-sqlite3@12.9.0)(kysely@0.28.11)(mysql2@3.15.3)(pg@8.20.0)(postgres@3.4.7)(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3)))(idb-keyval@6.2.2)(mysql2@3.15.3)(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0))':
     dependencies:
       nitropack: 2.13.1(@electric-sql/pglite@0.3.15)(better-sqlite3@12.9.0)(drizzle-orm@0.45.1(@electric-sql/pglite@0.3.15)(@opentelemetry/api@1.9.0)(@prisma/client@7.4.2(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3))(typescript@5.9.3))(@types/pg@8.6.1)(better-sqlite3@12.9.0)(kysely@0.28.11)(mysql2@3.15.3)(pg@8.20.0)(postgres@3.4.7)(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3)))(idb-keyval@6.2.2)(mysql2@3.15.3)
       pathe: 2.0.3
-      vite: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)
+      vite: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -14068,13 +14164,13 @@ snapshots:
       - solid-js
       - utf-8-validate
 
-  '@tanstack/react-form@1.29.0(@tanstack/react-start@1.164.0(crossws@0.4.1(srvx@0.8.9))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
+  '@tanstack/react-form@1.29.0(@tanstack/react-start@1.164.0(crossws@0.4.1(srvx@0.8.9))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0)))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)':
     dependencies:
       '@tanstack/form-core': 1.29.0
       '@tanstack/react-store': 0.9.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       react: 19.2.5
     optionalDependencies:
-      '@tanstack/react-start': 1.164.0(crossws@0.4.1(srvx@0.8.9))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0))
+      '@tanstack/react-start': 1.164.0(crossws@0.4.1(srvx@0.8.9))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0))
     transitivePeerDependencies:
       - react-dom
 
@@ -14158,19 +14254,19 @@ snapshots:
     transitivePeerDependencies:
       - crossws
 
-  '@tanstack/react-start@1.164.0(crossws@0.4.1(srvx@0.8.9))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0))':
+  '@tanstack/react-start@1.164.0(crossws@0.4.1(srvx@0.8.9))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0))':
     dependencies:
       '@tanstack/react-router': 1.163.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@tanstack/react-start-client': 1.163.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@tanstack/react-start-server': 1.163.3(crossws@0.4.1(srvx@0.8.9))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@tanstack/router-utils': 1.161.4
       '@tanstack/start-client-core': 1.163.3
-      '@tanstack/start-plugin-core': 1.164.0(@tanstack/react-router@1.163.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(crossws@0.4.1(srvx@0.8.9))(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0))
+      '@tanstack/start-plugin-core': 1.164.0(@tanstack/react-router@1.163.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(crossws@0.4.1(srvx@0.8.9))(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0))
       '@tanstack/start-server-core': 1.163.3(crossws@0.4.1(srvx@0.8.9))
       pathe: 2.0.3
       react: 19.2.5
       react-dom: 19.2.5(react@19.2.5)
-      vite: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)
+      vite: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0)
     transitivePeerDependencies:
       - '@rsbuild/core'
       - crossws
@@ -14244,7 +14340,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@tanstack/router-plugin@1.164.0(@tanstack/react-router@1.163.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0))':
+  '@tanstack/router-plugin@1.164.0(@tanstack/react-router@1.163.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0))':
     dependencies:
       '@babel/core': 7.29.0
       '@babel/plugin-syntax-jsx': 7.28.6(@babel/core@7.29.0)
@@ -14261,7 +14357,7 @@ snapshots:
       zod: 3.25.76
     optionalDependencies:
       '@tanstack/react-router': 1.163.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
-      vite: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)
+      vite: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -14300,7 +14396,7 @@ snapshots:
 
   '@tanstack/start-fn-stubs@1.161.4': {}
 
-  '@tanstack/start-plugin-core@1.164.0(@tanstack/react-router@1.163.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(crossws@0.4.1(srvx@0.8.9))(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0))':
+  '@tanstack/start-plugin-core@1.164.0(@tanstack/react-router@1.163.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(crossws@0.4.1(srvx@0.8.9))(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0))':
     dependencies:
       '@babel/code-frame': 7.27.1
       '@babel/core': 7.29.0
@@ -14308,7 +14404,7 @@ snapshots:
       '@rolldown/pluginutils': 1.0.0-beta.40
       '@tanstack/router-core': 1.163.3
       '@tanstack/router-generator': 1.164.0
-      '@tanstack/router-plugin': 1.164.0(@tanstack/react-router@1.163.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0))
+      '@tanstack/router-plugin': 1.164.0(@tanstack/react-router@1.163.3(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0))
       '@tanstack/router-utils': 1.161.4
       '@tanstack/start-client-core': 1.163.3
       '@tanstack/start-server-core': 1.163.3(crossws@0.4.1(srvx@0.8.9))
@@ -14320,8 +14416,8 @@ snapshots:
       srvx: 0.11.8
       tinyglobby: 0.2.15
       ufo: 1.6.3
-      vite: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)
-      vitefu: 1.1.2(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0))
+      vite: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0)
+      vitefu: 1.1.2(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0))
       xmlbuilder2: 4.0.3
       zod: 3.25.76
     transitivePeerDependencies:
@@ -14771,12 +14867,12 @@ snapshots:
       media-captions: 1.0.4
       react: 19.2.5
 
-  '@vitejs/plugin-react-oxc@0.2.3(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0))':
+  '@vitejs/plugin-react-oxc@0.2.3(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0))':
     dependencies:
       '@rolldown/pluginutils': 1.0.0-beta.11
-      vite: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)
+      vite: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0)
 
-  '@vitejs/plugin-react@4.7.0(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0))':
+  '@vitejs/plugin-react@4.7.0(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0))':
     dependencies:
       '@babel/core': 7.28.4
       '@babel/plugin-transform-react-jsx-self': 7.27.1(@babel/core@7.28.4)
@@ -14784,7 +14880,7 @@ snapshots:
       '@rolldown/pluginutils': 1.0.0-beta.27
       '@types/babel__core': 7.20.5
       react-refresh: 0.17.0
-      vite: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)
+      vite: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -15033,7 +15129,7 @@ snapshots:
       is-alphanumerical: 1.0.4
       is-decimal: 1.0.4
 
-  better-auth@1.5.0(20a4bbd9046f54f7422e205e40eb48e1):
+  better-auth@1.5.0(07c90fec7c36a6b00e8e48c65721b0c0):
     dependencies:
       '@better-auth/core': 1.5.0(@better-auth/utils@0.3.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.2(zod@4.3.6))(jose@6.1.3)(kysely@0.28.11)(nanostores@1.1.1)
       '@better-auth/drizzle-adapter': 1.5.0(@better-auth/core@1.5.0(@better-auth/utils@0.3.1)(@better-fetch/fetch@1.1.21)(better-call@1.3.2(zod@4.3.6))(jose@5.10.0)(kysely@0.28.11)(nanostores@1.1.1))(@better-auth/utils@0.3.1)(drizzle-orm@0.45.1(@electric-sql/pglite@0.3.15)(@opentelemetry/api@1.9.0)(@prisma/client@7.4.2(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3))(typescript@5.9.3))(@types/pg@8.6.1)(better-sqlite3@12.9.0)(kysely@0.28.11)(mysql2@3.15.3)(pg@8.20.0)(postgres@3.4.7)(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3)))
@@ -15054,7 +15150,7 @@ snapshots:
       zod: 4.3.6
     optionalDependencies:
       '@prisma/client': 7.4.2(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3))(typescript@5.9.3)
-      '@tanstack/react-start': 1.164.0(crossws@0.4.1(srvx@0.8.9))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0))
+      '@tanstack/react-start': 1.164.0(crossws@0.4.1(srvx@0.8.9))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0))
       better-sqlite3: 12.9.0
       drizzle-orm: 0.45.1(@electric-sql/pglite@0.3.15)(@opentelemetry/api@1.9.0)(@prisma/client@7.4.2(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3))(typescript@5.9.3))(@types/pg@8.6.1)(better-sqlite3@12.9.0)(kysely@0.28.11)(mysql2@3.15.3)(pg@8.20.0)(postgres@3.4.7)(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3))
       mongodb: 6.20.0
@@ -16218,7 +16314,7 @@ snapshots:
     dependencies:
       citty: 0.1.6
       consola: 3.4.2
-      defu: 6.1.4
+      defu: 6.1.7
       node-fetch-native: 1.6.7
       nypm: 0.6.2
       pathe: 2.0.3
@@ -16323,11 +16419,30 @@ snapshots:
 
   gopd@1.2.0: {}
 
+  gql.tada@1.9.2(graphql@16.14.0)(typescript@5.9.3):
+    dependencies:
+      '@0no-co/graphql.web': 1.2.0(graphql@16.14.0)
+      '@0no-co/graphqlsp': 1.15.4(graphql@16.14.0)(typescript@5.9.3)
+      '@gql.tada/cli-utils': 1.7.3(@0no-co/graphqlsp@1.15.4(graphql@16.14.0)(typescript@5.9.3))(graphql@16.14.0)(typescript@5.9.3)
+      '@gql.tada/internal': 1.0.9(graphql@16.14.0)(typescript@5.9.3)
+      typescript: 5.9.3
+    transitivePeerDependencies:
+      - '@gql.tada/svelte-support'
+      - '@gql.tada/vue-support'
+      - graphql
+
   graceful-fs@4.2.11: {}
 
   grammex@3.1.12: {}
 
   graphmatch@1.1.1: {}
+
+  graphql-request@7.4.0(graphql@16.14.0):
+    dependencies:
+      '@graphql-typed-document-node/core': 3.2.0(graphql@16.14.0)
+      graphql: 16.14.0
+
+  graphql@16.14.0: {}
 
   gzip-size@7.0.0:
     dependencies:
@@ -17526,7 +17641,7 @@ snapshots:
   micromatch@4.0.8:
     dependencies:
       braces: 3.0.3
-      picomatch: 2.3.1
+      picomatch: 2.3.2
 
   mime-db@1.52.0: {}
 
@@ -17687,7 +17802,7 @@ snapshots:
 
   next-tick@1.1.0: {}
 
-  nitro-nightly@3.0.0-20251005-143425-32b4c06e(@electric-sql/pglite@0.3.15)(better-sqlite3@12.9.0)(drizzle-orm@0.45.1(@electric-sql/pglite@0.3.15)(@opentelemetry/api@1.9.0)(@prisma/client@7.4.2(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3))(typescript@5.9.3))(@types/pg@8.6.1)(better-sqlite3@12.9.0)(kysely@0.28.11)(mysql2@3.15.3)(pg@8.20.0)(postgres@3.4.7)(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3)))(idb-keyval@6.2.2)(mysql2@3.15.3)(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)):
+  nitro-nightly@3.0.0-20251005-143425-32b4c06e(@electric-sql/pglite@0.3.15)(better-sqlite3@12.9.0)(drizzle-orm@0.45.1(@electric-sql/pglite@0.3.15)(@opentelemetry/api@1.9.0)(@prisma/client@7.4.2(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3))(typescript@5.9.3))(@types/pg@8.6.1)(better-sqlite3@12.9.0)(kysely@0.28.11)(mysql2@3.15.3)(pg@8.20.0)(postgres@3.4.7)(prisma@7.4.2(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.3.5)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3)))(idb-keyval@6.2.2)(mysql2@3.15.3)(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0)):
     dependencies:
       '@rollup/plugin-alias': 5.1.1(rollup@4.52.4)
       '@rollup/plugin-commonjs': 28.0.6(rollup@4.52.4)
@@ -17761,7 +17876,7 @@ snapshots:
       youch: 4.1.0-beta.11
       youch-core: 0.3.3
     optionalDependencies:
-      vite: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)
+      vite: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0)
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -18481,7 +18596,7 @@ snapshots:
 
   rc9@2.1.2:
     dependencies:
-      defu: 6.1.4
+      defu: 6.1.7
       destr: 2.0.5
 
   rc@1.2.8:
@@ -18780,7 +18895,7 @@ snapshots:
 
   reusify@1.1.0: {}
 
-  rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0):
+  rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0):
     dependencies:
       fdir: 6.5.0(picomatch@4.0.3)
       lightningcss: 1.30.2
@@ -18795,6 +18910,7 @@ snapshots:
       jiti: 2.6.1
       terser: 5.44.0
       tsx: 4.21.0
+      yaml: 2.9.0
 
   rolldown@1.0.0-beta.37:
     dependencies:
@@ -19855,31 +19971,31 @@ snapshots:
       d3-time: 3.1.0
       d3-timer: 3.0.1
 
-  vite-plugin-pwa@1.2.0(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.4.0):
+  vite-plugin-pwa@1.2.0(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0))(workbox-build@7.3.0(@types/babel__core@7.20.5))(workbox-window@7.4.0):
     dependencies:
       debug: 4.4.3
       pretty-bytes: 6.1.1
       tinyglobby: 0.2.15
-      vite: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)
+      vite: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0)
       workbox-build: 7.3.0(@types/babel__core@7.20.5)
       workbox-window: 7.4.0
     transitivePeerDependencies:
       - supports-color
 
-  vite-tsconfig-paths@5.1.4(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0))(typescript@5.9.3):
+  vite-tsconfig-paths@5.1.4(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0))(typescript@5.9.3):
     dependencies:
       debug: 4.4.3
       globrex: 0.1.2
       tsconfck: 3.1.6(typescript@5.9.3)
     optionalDependencies:
-      vite: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)
+      vite: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0)
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  vitefu@1.1.2(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)):
+  vitefu@1.1.2(rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0)):
     optionalDependencies:
-      vite: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)
+      vite: rolldown-vite@7.1.9(@types/node@22.19.17)(esbuild@0.17.19)(jiti@2.6.1)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0)
 
   w3c-keyname@2.2.8: {}
 
@@ -20182,6 +20298,9 @@ snapshots:
   yallist@3.1.1: {}
 
   yallist@5.0.0: {}
+
+  yaml@2.9.0:
+    optional: true
 
   yargs-parser@21.1.1: {}
 
