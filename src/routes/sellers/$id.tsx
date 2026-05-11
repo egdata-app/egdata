@@ -38,14 +38,16 @@ export const Route = createFileRoute("/sellers/$id")({
     await Promise.allSettled([
       queryClient.prefetchQuery({
         queryKey: ["seller", { id, country }],
-        queryFn: async () => getSeller(id, country ?? "US"),
+        queryFn: async () => getSeller(id, country ?? "US").catch(() => []),
       }),
       queryClient.prefetchQuery({
         queryKey: ["seller:cover", { id, country }],
         queryFn: async () =>
-          httpClient.get<SingleOffer[]>(`/sellers/${id}/cover`, {
-            params: { country },
-          }),
+          httpClient
+            .get<SingleOffer[]>(`/sellers/${id}/cover`, {
+              params: { country },
+            })
+            .catch(() => []),
       }),
     ]);
 

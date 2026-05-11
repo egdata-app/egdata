@@ -8,15 +8,16 @@ import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover
 
 const freebiesSellersQuery = queryOptions({
   queryKey: ["freebies-sellers"],
-  queryFn: () => {
-    return httpClient.get<
-      {
-        totalSingleGames: number;
-        sellerId: string;
-        sellerName: string;
-      }[]
-    >("/free-games/sellers");
-  },
+  queryFn: () =>
+    httpClient
+      .get<
+        {
+          totalSingleGames: number;
+          sellerId: string;
+          sellerName: string;
+        }[]
+      >("/free-games/sellers")
+      .catch(() => []),
 });
 
 export const Route = createFileRoute("/freebies/sellers")({

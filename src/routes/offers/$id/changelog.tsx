@@ -87,7 +87,7 @@ export const Route = createFileRoute("/offers/$id/changelog")({
 
     const offer = await queryClient.ensureQueryData({
       queryKey: ["offer", { id: params.id }],
-      queryFn: () => httpClient.get<SingleOffer>(`/offers/${params.id}`),
+      queryFn: () => httpClient.get<SingleOffer>(`/offers/${params.id}`).catch(() => null),
     });
 
     await queryClient.prefetchQuery(getChangelog(id, 1));

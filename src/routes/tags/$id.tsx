@@ -141,9 +141,11 @@ export const Route = createFileRoute("/tags/$id")({
       queryClient.fetchQuery({
         queryKey: ["promotion-cover", { id }],
         queryFn: () =>
-          httpClient.get<Pick<SingleOffer, "_id" | "id" | "namespace" | "title" | "keyImages">>(
-            `/promotions/${id}/cover`,
-          ),
+          httpClient
+            .get<Pick<SingleOffer, "_id" | "id" | "namespace" | "title" | "keyImages">>(
+              `/promotions/${id}/cover`,
+            )
+            .catch(() => null),
       }),
       queryClient.fetchQuery({
         queryKey: [
@@ -158,7 +160,7 @@ export const Route = createFileRoute("/tags/$id")({
             sortBy,
             sortDir,
             query: q,
-          }),
+          }).catch(() => null),
       }),
       queryClient.prefetchInfiniteQuery({
         queryKey: ["promotion", { id, country, sortBy, sortDir, query: q, limit: 20 }],
@@ -170,7 +172,7 @@ export const Route = createFileRoute("/tags/$id")({
             sortBy,
             sortDir,
             query: q,
-          }),
+          }).catch(() => null),
         initialPageParam: page,
         getNextPageParam: (
           lastPage: { elements: SingleOffer[]; start: number; count: number },

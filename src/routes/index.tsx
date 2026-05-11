@@ -76,24 +76,25 @@ export const Route = createFileRoute("/")({
                 country,
               },
             })
-            .then(mergeFreebies),
+            .then(mergeFreebies)
+            .catch(() => []),
       }),
       queryClient.prefetchQuery({
         queryKey: ["upcoming", { country }],
-        queryFn: () => getUpcoming({ country: country ?? "US" }),
+        queryFn: () => getUpcoming({ country: country ?? "US" }).catch(() => null),
         staleTime: 6000,
       }),
       queryClient.prefetchQuery({
         queryKey: ["latest-games"],
-        queryFn: () => getLatestOffers(country ?? "US"),
+        queryFn: () => getLatestOffers(country ?? "US").catch(() => []),
       }),
       queryClient.prefetchQuery({
         queryKey: ["stats", { country }],
-        queryFn: () => getStats({ country: country ?? "US" }),
+        queryFn: () => getStats({ country: country ?? "US" }).catch(() => null),
       }),
       queryClient.prefetchQuery({
         queryKey: ["giveaways-stats", { country }],
-        queryFn: () => getGiveawaysStats({ country: country ?? "US" }),
+        queryFn: () => getGiveawaysStats({ country: country ?? "US" }).catch(() => null),
       }),
     ]);
   },

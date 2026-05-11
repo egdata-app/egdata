@@ -53,26 +53,30 @@ export const Route = createFileRoute("/sales/$id")({
       queryClient.fetchQuery({
         queryKey: ["promotion-cover", { id }],
         queryFn: () =>
-          httpClient.get<Pick<SingleOffer, "_id" | "id" | "namespace" | "title" | "keyImages">>(
-            `/promotions/${id}/cover`,
-          ),
+          httpClient
+            .get<Pick<SingleOffer, "_id" | "id" | "namespace" | "title" | "keyImages">>(
+              `/promotions/${id}/cover`,
+            )
+            .catch(() => null),
       }),
       queryClient.fetchQuery({
         queryKey: ["promotion-meta", { id, country }],
         queryFn: () =>
-          httpClient.get<{
-            elements: SingleOffer[];
-            title: string;
-            start: number;
-            page: number;
-            count: number;
-          }>(`/promotions/${id}`, {
-            params: {
-              country,
-              page: 1,
-              limit: 1,
-            },
-          }),
+          httpClient
+            .get<{
+              elements: SingleOffer[];
+              title: string;
+              start: number;
+              page: number;
+              count: number;
+            }>(`/promotions/${id}`, {
+              params: {
+                country,
+                page: 1,
+                limit: 1,
+              },
+            })
+            .catch(() => null),
       }),
     ]);
 

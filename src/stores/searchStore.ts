@@ -9,8 +9,16 @@ export const formSchema = z.object({
       z.array(z.string()),
     )
     .optional(),
-  developerDisplayName: z.string().optional(),
-  publisherDisplayName: z.string().optional(),
+  developerDisplayName: z
+    .string()
+    .nullish()
+    .catch(undefined)
+    .transform((v) => v ?? undefined),
+  publisherDisplayName: z
+    .string()
+    .nullish()
+    .catch(undefined)
+    .transform((v) => v ?? undefined),
   offerType: z
     .enum([
       "BASE_GAME",

@@ -38,10 +38,10 @@ export const Route = createFileRoute("/freebies/")({
   loader: async ({ context }) => {
     const { country, queryClient } = context;
 
-    await Promise.all([
+    await Promise.allSettled([
       queryClient.prefetchQuery({
         queryKey: ["giveaways-stats", { country }],
-        queryFn: () => getGiveawaysStats({ country: country ?? "US" }),
+        queryFn: () => getGiveawaysStats({ country: country ?? "US" }).catch(() => null),
       }),
       queryClient.prefetchQuery({
         queryKey: ["giveaways"],
@@ -52,12 +52,15 @@ export const Route = createFileRoute("/freebies/")({
                 country,
               },
             })
-            .then(mergeFreebies),
+            .then(mergeFreebies)
+            .catch(() => []),
       }),
       queryClient.prefetchQuery(mobileFreebiesQuery),
     ]);
 
-    const ogId = await httpClient.get<{ id: string }>("/free-games/og");
+    const ogId = await httpClient
+      .get<{ id: string }>("/free-games/og")
+      .catch(() => ({ id: "" }));
 
     return {
       dehydratedState: dehydrate(queryClient),

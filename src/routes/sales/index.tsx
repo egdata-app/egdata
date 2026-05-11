@@ -32,14 +32,16 @@ export const Route = createFileRoute("/sales/")({
     await queryClient.prefetchQuery({
       queryKey: ["active-sales"],
       queryFn: () =>
-        httpClient.get<
-          {
-            id: string;
-            name: string;
-            active: boolean;
-            offers: SingleOffer[];
-          }[]
-        >("/active-sales"),
+        httpClient
+          .get<
+            {
+              id: string;
+              name: string;
+              active: boolean;
+              offers: SingleOffer[];
+            }[]
+          >("/active-sales")
+          .catch(() => []),
     });
 
     return {

@@ -35,7 +35,7 @@ export const Route = createFileRoute("/sandboxes/$id/")({
 
     await queryClient.prefetchQuery({
       queryKey: ["sandbox", "stats", { id }],
-      queryFn: () => httpClient.get<SandboxStats>(`/sandboxes/${id}/stats`),
+      queryFn: () => httpClient.get<SandboxStats>(`/sandboxes/${id}/stats`).catch(() => null),
     });
 
     return {

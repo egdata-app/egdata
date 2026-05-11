@@ -20,7 +20,7 @@ import type { Build } from "@/types/builds";
 const getOfferBuilds = (id: string) =>
   queryOptions({
     queryKey: ["offer-builds", { id }],
-    queryFn: () => httpClient.get<Build[]>(`/offers/${id}/builds`),
+    queryFn: () => httpClient.get<Build[]>(`/offers/${id}/builds`).catch(() => []),
   });
 
 type LoaderData = {

@@ -12,14 +12,14 @@ export const Route = createFileRoute("/stats/releases")({
   loader: async ({ context }) => {
     const { queryClient } = context;
 
-    await Promise.all([
+    await Promise.allSettled([
       queryClient.prefetchQuery({
         queryKey: ["releases-by-month"],
-        queryFn: getReleasesByMonth,
+        queryFn: () => getReleasesByMonth().catch(() => null),
       }),
       queryClient.prefetchQuery({
         queryKey: ["releases-by-year"],
-        queryFn: getReleasesByYear,
+        queryFn: () => getReleasesByYear().catch(() => null),
       }),
     ]);
   },

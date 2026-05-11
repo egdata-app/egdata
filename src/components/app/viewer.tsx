@@ -7,6 +7,7 @@ const extensions = [StarterKit, UnderlineExtension];
 
 export const Viewer = ({ content, className }: { content: JSONContent; className?: string }) => {
   const editor = useEditor({
+    immediatelyRender: false,
     extensions,
     content,
     editorProps: {

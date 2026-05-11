@@ -102,12 +102,14 @@ export const Route = createFileRoute("/changelog/")({
         },
       ],
       queryFn: () =>
-        httpClient.get<Root>("/search/changelog", {
-          params: {
-            query,
-            page,
-          },
-        }),
+        httpClient
+          .get<Root>("/search/changelog", {
+            params: {
+              query,
+              page,
+            },
+          })
+          .catch(() => null),
     });
 
     return {

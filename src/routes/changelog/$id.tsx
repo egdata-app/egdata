@@ -51,7 +51,9 @@ const sandboxBaseGameQuery = (id: string | undefined) =>
   queryOptions({
     queryKey: ["sandbox", "base-game", { id }],
     queryFn: () =>
-      httpClient.get<SingleOffer | (SingleItem & { isItem: true })>(`/sandboxes/${id}/base-game`),
+      httpClient
+        .get<SingleOffer | (SingleItem & { isItem: true })>(`/sandboxes/${id}/base-game`)
+        .catch(() => null),
     enabled: !!id,
   });
 
@@ -76,7 +78,7 @@ export const Route = createFileRoute("/changelog/$id")({
 
     const data = await queryClient.ensureQueryData({
       queryKey: ["changelog", id],
-      queryFn: () => httpClient.get<ChangeResponse>(`/changelist/${id}`),
+      queryFn: () => httpClient.get<ChangeResponse>(`/changelist/${id}`).catch(() => null),
     });
 
     if (data?.metadata.context?.namespace) {

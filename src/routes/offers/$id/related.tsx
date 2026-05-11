@@ -38,17 +38,19 @@ export const Route = createFileRoute("/offers/$id/related")({
 
     const offer = await queryClient.ensureQueryData({
       queryKey: ["offer", { id }],
-      queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`),
+      queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`).catch(() => null),
     });
 
     await queryClient.prefetchQuery({
       queryKey: ["related-offers", { id, country }],
       queryFn: () =>
-        httpClient.get<SingleOffer[]>(`/offers/${id}/related`, {
-          params: {
-            country,
-          },
-        }),
+        httpClient
+          .get<SingleOffer[]>(`/offers/${id}/related`, {
+            params: {
+              country,
+            },
+          })
+          .catch(() => []),
     });
 
     return {

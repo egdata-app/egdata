@@ -95,7 +95,7 @@ export const Route = createFileRoute("/offers/$id/reviews")({
 
     const user = epicToken;
 
-    await Promise.all([
+    await Promise.allSettled([
       queryClient.prefetchQuery({
         queryKey: [
           "reviews",
@@ -106,17 +106,19 @@ export const Route = createFileRoute("/offers/$id/reviews")({
           },
         ],
         queryFn: () =>
-          httpClient.get<{
-            elements: Array<SingleReview>;
-            page: number;
-            total: number;
-            limit: number;
-          }>(`/offers/${params.id}/reviews`, {
-            params: {
-              page: 1,
-              verified: getVerificationParam("all"),
-            },
-          }),
+          httpClient
+            .get<{
+              elements: Array<SingleReview>;
+              page: number;
+              total: number;
+              limit: number;
+            }>(`/offers/${params.id}/reviews`, {
+              params: {
+                page: 1,
+                verified: getVerificationParam("all"),
+              },
+            })
+            .catch(() => null),
       }),
       queryClient.prefetchQuery({
         queryKey: [
@@ -127,15 +129,18 @@ export const Route = createFileRoute("/offers/$id/reviews")({
           },
         ],
         queryFn: () =>
-          httpClient.get<ReviewSummary>(`/offers/${params.id}/reviews-summary`, {
-            params: {
-              verified: getVerificationParam("all"),
-            },
-          }),
+          httpClient
+            .get<ReviewSummary>(`/offers/${params.id}/reviews-summary`, {
+              params: {
+                verified: getVerificationParam("all"),
+              },
+            })
+            .catch(() => null),
       }),
       queryClient.prefetchQuery({
         queryKey: ["ratings", { id: params.id }],
-        queryFn: () => httpClient.get<RatingsType>(`/offers/${params.id}/ratings`),
+        queryFn: () =>
+          httpClient.get<RatingsType>(`/offers/${params.id}/ratings`).catch(() => null),
       }),
     ]);
 

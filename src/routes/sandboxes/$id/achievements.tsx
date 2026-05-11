@@ -46,7 +46,8 @@ export const Route = createFileRoute("/sandboxes/$id/achievements")({
 
     await queryClient.prefetchQuery({
       queryKey: ["sandbox", "achievements", { id }],
-      queryFn: () => httpClient.get<AchievementSet[]>(`/sandboxes/${id}/achievements`),
+      queryFn: () =>
+        httpClient.get<AchievementSet[]>(`/sandboxes/${id}/achievements`).catch(() => []),
     });
 
     return {

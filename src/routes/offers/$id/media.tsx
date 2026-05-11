@@ -56,7 +56,7 @@ export const Route = createFileRoute("/offers/$id/media")({
 
     await queryClient.prefetchQuery({
       queryKey: ["media", { id: params.id }],
-      queryFn: () => httpClient.get<Media>(`/offers/${params.id}/media`),
+      queryFn: () => httpClient.get<Media>(`/offers/${params.id}/media`).catch(() => null),
     });
 
     const offer = getFetchedQuery<SingleOffer>(queryClient, dehydrate(queryClient), [

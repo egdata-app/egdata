@@ -98,20 +98,24 @@ export const Route = createFileRoute("/profile/$id/achievements/$sandbox")({
   loader: async ({ context, params }) => {
     const { queryClient } = context;
 
-    await Promise.all([
+    await Promise.allSettled([
       queryClient.prefetchQuery({
         queryKey: ["player-sandbox-achievements", { id: params.id, sandbox: params.sandbox }],
         queryFn: () =>
-          httpClient.get<Root>(`/profiles/${params.id}/achievements/${params.sandbox}`),
+          httpClient
+            .get<Root>(`/profiles/${params.id}/achievements/${params.sandbox}`)
+            .catch(() => null),
       }),
       queryClient.prefetchQuery({
         queryKey: ["sandbox:base", { id: params.sandbox, country: "US" }],
         queryFn: () =>
-          httpClient.get<SingleOffer>(`/sandboxes/${params.sandbox}/base-game`, {
-            params: {
-              country: "US",
-            },
-          }),
+          httpClient
+            .get<SingleOffer>(`/sandboxes/${params.sandbox}/base-game`, {
+              params: {
+                country: "US",
+              },
+            })
+            .catch(() => null),
       }),
     ]);
 

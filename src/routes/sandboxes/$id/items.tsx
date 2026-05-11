@@ -43,9 +43,11 @@ export const Route = createFileRoute("/sandboxes/$id/items")({
     await queryClient.prefetchQuery({
       queryKey: ["sandbox", "items", { id, page: 1, limit: 20, filters: [] }],
       queryFn: () =>
-        httpClient.get<PaginatedResponse<SingleItem>>(`/sandboxes/${id}/items`, {
-          params: { page: 1, limit: 20 },
-        }),
+        httpClient
+          .get<PaginatedResponse<SingleItem>>(`/sandboxes/${id}/items`, {
+            params: { page: 1, limit: 20 },
+          })
+          .catch(() => null),
     });
 
     return {

@@ -56,7 +56,8 @@ export const Route = createFileRoute("/profile/$id/")({
 
     await queryClient.prefetchQuery({
       queryKey: ["player-rarest-achievements", { id: params.id }],
-      queryFn: () => httpClient.get<Achievement[]>(`/profiles/${params.id}/rare-achievements`),
+      queryFn: () =>
+        httpClient.get<Achievement[]>(`/profiles/${params.id}/rare-achievements`).catch(() => []),
     });
 
     return {

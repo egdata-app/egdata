@@ -82,7 +82,7 @@ export const Route = createFileRoute("/collections/")({
   loader: async ({ context }) => {
     const { queryClient, country } = context;
 
-    await Promise.all(
+    await Promise.allSettled(
       collections.map((collection) =>
         queryClient.prefetchQuery({
           queryKey: ["collection", { slug: collection.slug, limit: 5, page: 1 }],
@@ -92,7 +92,7 @@ export const Route = createFileRoute("/collections/")({
               limit: 5,
               page: 1,
               country: country ?? "US",
-            }),
+            }).catch(() => null),
         }),
       ),
     );

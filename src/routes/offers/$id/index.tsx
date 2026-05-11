@@ -41,27 +41,31 @@ export const Route = createFileRoute("/offers/$id/")({
     let defaultCollection = "top-sellers";
 
     if (!isPreload) {
-      queryClient.fetchQuery({
-        queryKey: ["offer", "genres", { id }],
-        queryFn: () => httpClient.get<Tag[]>(`/offers/${id}/genres`),
-      });
-      queryClient.fetchQuery({
-        queryKey: ["price-stats", { id, country }],
-        queryFn: () =>
-          httpClient
-            .get<{
-              current: Price | null;
-              lowest: Price | null;
-              lastDiscount: Price | null;
-            }>(`/offers/${id}/price-stats`, {
-              params: { country },
-            })
-            .catch(() => ({
-              current: null,
-              lowest: null,
-              lastDiscount: null,
-            })),
-      });
+      queryClient
+        .fetchQuery({
+          queryKey: ["offer", "genres", { id }],
+          queryFn: () => httpClient.get<Tag[]>(`/offers/${id}/genres`).catch(() => []),
+        })
+        .catch(() => {});
+      queryClient
+        .fetchQuery({
+          queryKey: ["price-stats", { id, country }],
+          queryFn: () =>
+            httpClient
+              .get<{
+                current: Price | null;
+                lowest: Price | null;
+                lastDiscount: Price | null;
+              }>(`/offers/${id}/price-stats`, {
+                params: { country },
+              })
+              .catch(() => ({
+                current: null,
+                lowest: null,
+                lastDiscount: null,
+              })),
+        })
+        .catch(() => {});
       queryClient.fetchQuery(getOfferIgdb(id)).catch(() => {});
       queryClient.fetchQuery(getOfferPriceFairness(id, country || "US")).catch(() => {});
     }
@@ -70,9 +74,11 @@ export const Route = createFileRoute("/offers/$id/")({
     const tops = await queryClient.ensureQueryData({
       queryKey: ["offer", "tops", { id }],
       queryFn: () =>
-        httpClient.get<{
-          [key: string]: number;
-        }>(`/offers/${id}/tops`),
+        httpClient
+          .get<{
+            [key: string]: number;
+          }>(`/offers/${id}/tops`)
+          .catch(() => null),
     });
 
     // Calculate the default collection
@@ -86,11 +92,13 @@ export const Route = createFileRoute("/offers/$id/")({
     await queryClient.prefetchQuery({
       queryKey: ["collection", "positions", { id, collection: defaultCollection }],
       queryFn: () =>
-        httpClient.get<OfferPosition>(`/offers/${id}/collections/${defaultCollection}`, {
-          params: {
-            country,
-          },
-        }),
+        httpClient
+          .get<OfferPosition>(`/offers/${id}/collections/${defaultCollection}`, {
+            params: {
+              country,
+            },
+          })
+          .catch(() => null),
     });
 
     return {

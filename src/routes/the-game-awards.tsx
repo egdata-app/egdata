@@ -22,7 +22,7 @@ export const Route = createFileRoute("/the-game-awards")({
 
     await queryClient.prefetchQuery({
       queryKey: ["game-awards"],
-      queryFn: () => getGameAwardsData(),
+      queryFn: () => getGameAwardsData().catch(() => []),
     });
   },
 

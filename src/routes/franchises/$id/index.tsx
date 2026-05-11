@@ -47,7 +47,7 @@ export const Route = createFileRoute("/franchises/$id/")({
           limit: 20,
           page: pageParam as number,
           country: country ?? "US",
-        }),
+        }).catch(() => null),
       initialPageParam: 1,
       getNextPageParam: (lastPage: FranchiseResponse, allPages: FranchiseResponse[]) => {
         if (lastPage.page * lastPage.limit >= lastPage.total) {

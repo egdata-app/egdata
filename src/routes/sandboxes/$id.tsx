@@ -49,17 +49,17 @@ export const Route = createFileRoute("/sandboxes/$id")({
     const { id } = params;
     const { queryClient } = context;
 
-    await Promise.all([
+    await Promise.allSettled([
       queryClient.prefetchQuery({
         queryKey: ["sandbox", { id }],
-        queryFn: () => httpClient.get<SingleSandbox>(`/sandboxes/${id}`),
+        queryFn: () => httpClient.get<SingleSandbox>(`/sandboxes/${id}`).catch(() => null),
       }),
       queryClient.prefetchQuery({
         queryKey: ["sandbox", "base-game", { id }],
         queryFn: () =>
-          httpClient.get<SingleOffer | (SingleItem & { isItem: true })>(
-            `/sandboxes/${id}/base-game`,
-          ),
+          httpClient
+            .get<SingleOffer | (SingleItem & { isItem: true })>(`/sandboxes/${id}/base-game`)
+            .catch(() => null),
       }),
     ]);
 

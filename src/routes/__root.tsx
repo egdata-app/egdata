@@ -115,7 +115,7 @@ export const Route = createRootRouteWithContext<Context>()({
       const id = session.user.email.split("@")[0];
       await queryClient.prefetchQuery({
         queryKey: ["user", { id }],
-        queryFn: () => getUserInformation(id),
+        queryFn: () => getUserInformation(id).catch(() => null),
       });
     }
 

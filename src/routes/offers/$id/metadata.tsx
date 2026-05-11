@@ -47,10 +47,10 @@ export const Route = createFileRoute("/offers/$id/metadata")({
 
     const offer = await queryClient.ensureQueryData({
       queryKey: ["offer", { id }],
-      queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`),
+      queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`).catch(() => null),
     });
 
-    await Promise.all([
+    await Promise.allSettled([
       queryClient.prefetchQuery({
         queryKey: [
           "sandbox",
@@ -58,7 +58,8 @@ export const Route = createFileRoute("/offers/$id/metadata")({
             id: offer?.namespace,
           },
         ],
-        queryFn: () => httpClient.get<SingleSandbox>(`/sandboxes/${offer?.namespace}`),
+        queryFn: () =>
+          httpClient.get<SingleSandbox>(`/sandboxes/${offer?.namespace}`).catch(() => null),
       }),
       queryClient.prefetchQuery({
         queryKey: [
@@ -68,11 +69,13 @@ export const Route = createFileRoute("/offers/$id/metadata")({
           },
         ],
         queryFn: () =>
-          httpClient.get<
-            {
-              assets: Asset;
-            }[]
-          >(`/offers/${offer?.id}/assets`),
+          httpClient
+            .get<
+              {
+                assets: Asset;
+              }[]
+            >(`/offers/${offer?.id}/assets`)
+            .catch(() => []),
       }),
     ]);
 

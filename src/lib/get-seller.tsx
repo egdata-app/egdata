@@ -74,7 +74,7 @@ export function Seller({
       <Link
         to={"/search"}
         search={{
-          developerDisplayName: developer,
+          developerDisplayName: developer ?? undefined,
         }}
         className="underline underline-offset-4"
       >
@@ -89,7 +89,7 @@ export function Seller({
       <Link
         to={"/search"}
         search={{
-          developerDisplayName: developer,
+          developerDisplayName: developer ?? undefined,
         }}
         className="underline underline-offset-4"
       >
@@ -98,14 +98,12 @@ export function Seller({
     );
   }
 
-  // Return a combination of developer and publisher display names
-  // return `${developer !== null && developer !== undefined ? `${developer} - ` : ''}${publisherDisplayName}`;
   return (
     <div className="flex flex-row items-center gap-1">
       <Link
         to={"/search"}
         search={{
-          developerDisplayName: developer,
+          developerDisplayName: developer ?? undefined,
         }}
         className="underline underline-offset-4"
       >
@@ -115,7 +113,7 @@ export function Seller({
       <Link
         to={"/search"}
         search={{
-          publisherDisplayName: publisherDisplayName,
+          publisherDisplayName: publisherDisplayName ?? undefined,
         }}
         className="underline underline-offset-4"
       >

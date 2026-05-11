@@ -61,7 +61,7 @@ export const Route = createFileRoute("/genres")({
 
     await queryClient.prefetchQuery({
       queryKey: ["genres-list"],
-      queryFn: () => httpClient.get<GenreResponse[]>("/offers/genres"),
+      queryFn: () => httpClient.get<GenreResponse[]>("/offers/genres").catch(() => []),
     });
 
     return {

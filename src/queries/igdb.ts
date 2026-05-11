@@ -5,6 +5,6 @@ import { queryOptions } from "@tanstack/react-query";
 export const getOfferIgdb = (offerId: string) => {
   return queryOptions({
     queryKey: ["igdb", "offer", offerId],
-    queryFn: () => httpClient.get<IgdbOffer>(`/offers/${offerId}/igdb`),
+    queryFn: () => httpClient.get<IgdbOffer>(`/offers/${offerId}/igdb`).catch(() => null),
   });
 };

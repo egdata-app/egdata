@@ -29,7 +29,7 @@ export const Route = createFileRoute("/collections/$id/$week")({
           page: pageParam as number,
           country: country ?? "US",
           week,
-        }),
+        }).catch(() => null),
       initialPageParam: 1,
       getNextPageParam: (lastPage: Collections, allPages: Collections[]) => {
         if (lastPage.page * lastPage.limit + 20 > lastPage.total) {

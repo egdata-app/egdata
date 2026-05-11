@@ -69,12 +69,13 @@ export const Route = createFileRoute("/offers/$id/achievements")({
 
     await queryClient.prefetchQuery({
       queryKey: ["offer-achievements", { id }],
-      queryFn: () => httpClient.get<AchievementsSets>(`/offers/${id}/achievements`),
+      queryFn: () =>
+        httpClient.get<AchievementsSets>(`/offers/${id}/achievements`).catch(() => []),
     });
 
     const offer = await queryClient.ensureQueryData({
       queryKey: ["offer", { id: params.id }],
-      queryFn: () => httpClient.get<SingleOffer>(`/offers/${params.id}`),
+      queryFn: () => httpClient.get<SingleOffer>(`/offers/${params.id}`).catch(() => null),
     });
 
     return {

@@ -75,14 +75,15 @@ export const Route = createFileRoute("/profile/$id")({
     const { queryClient, session } = context;
     const { id } = params;
 
-    await Promise.all([
+    await Promise.allSettled([
       queryClient.prefetchQuery({
         queryKey: ["profile-information", { id: params.id }],
-        queryFn: () => getUserInformation(params.id as string),
+        queryFn: () => getUserInformation(params.id as string).catch(() => null),
       }),
       queryClient.prefetchInfiniteQuery({
         queryKey: ["profile-games", { id: params.id, limit: 20 }],
-        queryFn: ({ pageParam }) => getUserGames(params.id as string, pageParam, 20),
+        queryFn: ({ pageParam }) =>
+          getUserGames(params.id as string, pageParam, 20).catch(() => null),
         initialPageParam: 1,
         getNextPageParam: (lastPage: { pagination: { totalPages: number; page: number } }) => {
           if (lastPage.pagination.totalPages === lastPage.pagination.page) return undefined;

@@ -43,6 +43,7 @@ export const Editor = ({
   setContent: React.Dispatch<React.SetStateAction<JSONContent>>;
 }) => {
   const editor = useEditor({
+    immediatelyRender: false,
     extensions,
     content,
     onUpdate: (value) => setContent(value.editor.getJSON()),

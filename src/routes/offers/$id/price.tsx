@@ -24,7 +24,7 @@ export const Route = createFileRoute("/offers/$id/price")({
 
     const offer = await queryClient.ensureQueryData({
       queryKey: ["offer", { id }],
-      queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`),
+      queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`).catch(() => null),
     });
 
     return {

@@ -33,7 +33,7 @@ export const Route = createFileRoute("/builds/$id/items")({
 
     await queryClient.prefetchQuery({
       queryKey: ["build-items", { id }],
-      queryFn: () => httpClient.get<SingleItem[]>(`/builds/${id}/items`),
+      queryFn: () => httpClient.get<SingleItem[]>(`/builds/${id}/items`).catch(() => []),
     });
 
     return {

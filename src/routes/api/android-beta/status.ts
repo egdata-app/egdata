@@ -1,47 +1,13 @@
 import { json } from "@tanstack/react-start";
 import { createFileRoute } from "@tanstack/react-router";
-import { google } from "googleapis";
 import consola from "consola";
-import { readFileSync } from "node:fs";
+import { getSheetsClient } from "@/lib/google-sheets";
 
 const MAX_TESTERS = 100;
-
-let sheetsClient: ReturnType<typeof google.sheets> | null = null;
-
-function parseServiceAccountKey(): object {
-  const keyPath = process.env.GOOGLE_SERVICE_ACCOUNT_KEY_PATH;
-  if (!keyPath) {
-    throw new Error("GOOGLE_SERVICE_ACCOUNT_KEY_PATH is not configured");
-  }
-
-  try {
-    const fileContent = readFileSync(keyPath, "utf-8");
-    return JSON.parse(fileContent);
-  } catch (error) {
-    consola.error("Failed to read service account key from file:", error);
-    throw new Error("Failed to read or parse service account key file");
-  }
-}
-
-function getSheetsClient() {
-  if (!sheetsClient) {
-    const credentials = parseServiceAccountKey();
-
-    const serviceAccountAuth = new google.auth.GoogleAuth({
-      credentials,
-      scopes: ["https://www.googleapis.com/auth/spreadsheets.readonly"],
-    });
-
-    sheetsClient = google.sheets({
-      version: "v4",
-      auth: serviceAccountAuth,
-    });
-  }
-  return sheetsClient;
-}
+const SHEETS_SCOPE = "https://www.googleapis.com/auth/spreadsheets.readonly";
 
 async function getRegisteredCount(): Promise<number> {
-  const sheets = getSheetsClient();
+  const sheets = getSheetsClient(SHEETS_SCOPE);
   const spreadsheetId = process.env.GOOGLE_SHEETS_BETA_REGISTRATIONS_ID;
 
   if (!spreadsheetId) {

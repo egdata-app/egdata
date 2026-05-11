@@ -1,9 +1,10 @@
 import { json } from "@tanstack/react-start";
 import { createFileRoute } from "@tanstack/react-router";
 import { OAuth2Client } from "google-auth-library";
-import { google } from "googleapis";
 import consola from "consola";
-import { readFileSync } from "node:fs";
+import { getSheetsClient } from "@/lib/google-sheets";
+
+const SHEETS_SCOPE = "https://www.googleapis.com/auth/spreadsheets";
 
 interface RegisterRequest {
   idToken: string;
@@ -17,45 +18,12 @@ interface GoogleTokenPayload {
 }
 
 let oAuth2Client: OAuth2Client | null = null;
-let sheetsClient: ReturnType<typeof google.sheets> | null = null;
 
 function getOAuth2Client() {
   if (!oAuth2Client) {
     oAuth2Client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
   }
   return oAuth2Client;
-}
-
-function parseServiceAccountKey(): object {
-  const keyPath = process.env.GOOGLE_SERVICE_ACCOUNT_KEY_PATH;
-  if (!keyPath) {
-    throw new Error("GOOGLE_SERVICE_ACCOUNT_KEY_PATH is not configured");
-  }
-
-  try {
-    const fileContent = readFileSync(keyPath, "utf-8");
-    return JSON.parse(fileContent);
-  } catch (error) {
-    consola.error("Failed to read service account key from file:", error);
-    throw new Error("Failed to read or parse service account key file");
-  }
-}
-
-function getSheetsClient() {
-  if (!sheetsClient) {
-    const credentials = parseServiceAccountKey();
-
-    const serviceAccountAuth = new google.auth.GoogleAuth({
-      credentials,
-      scopes: ["https://www.googleapis.com/auth/spreadsheets"],
-    });
-
-    sheetsClient = google.sheets({
-      version: "v4",
-      auth: serviceAccountAuth,
-    });
-  }
-  return sheetsClient;
 }
 
 async function verifyGoogleToken(idToken: string): Promise<GoogleTokenPayload> {
@@ -84,7 +52,7 @@ async function verifyGoogleToken(idToken: string): Promise<GoogleTokenPayload> {
 }
 
 async function checkIfAlreadyRegistered(email: string): Promise<boolean> {
-  const sheets = getSheetsClient();
+  const sheets = getSheetsClient(SHEETS_SCOPE);
   const spreadsheetId = process.env.GOOGLE_SHEETS_BETA_REGISTRATIONS_ID;
 
   if (!spreadsheetId) {
@@ -106,7 +74,7 @@ async function checkIfAlreadyRegistered(email: string): Promise<boolean> {
 }
 
 async function addToGoogleSheets(data: { email: string; timestamp: string }): Promise<void> {
-  const sheets = getSheetsClient();
+  const sheets = getSheetsClient(SHEETS_SCOPE);
   const spreadsheetId = process.env.GOOGLE_SHEETS_BETA_REGISTRATIONS_ID;
 
   if (!spreadsheetId) {
