@@ -17,7 +17,18 @@
     "test:e2e:debug": "playwright test --debug",
     "test:e2e:report": "playwright show-report",
     "typecheck": "tsgo",
-    "generate": "gql-tada generate-output"
+    "generate": "gql-tada generate-output",
+    "prepare": "simple-git-hooks"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged",
+    "pre-push": "pnpm typecheck"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx,js,jsx,mjs,cjs}": [
+      "oxfmt --write",
+      "oxlint --fix"
+    ]
   },
   "keywords": [],
   "author": "",
@@ -138,8 +149,10 @@
     "autoprefixer": "^10.5.0",
     "glob": "^11.1.0",
     "nitro": "npm:nitro-nightly",
+    "lint-staged": "^15.2.10",
     "oxfmt": "^0.20.0",
     "oxlint": "^1.60.0",
+    "simple-git-hooks": "^2.11.1",
     "postcss": "^8.5.9",
     "tailwindcss": "^4.2.2",
     "typescript": "^5.9.2",
