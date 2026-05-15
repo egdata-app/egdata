@@ -91,7 +91,8 @@ export const Route = createRootRouteWithContext<Context>()({
         const { auth } = await import("@/lib/auth");
         const headers = getRequestHeaders();
         session = await auth.api.getSession({ headers });
-      } catch {
+      } catch (error) {
+        console.error("Failed to load SSR session:", error);
         session = null;
       }
     } else {
