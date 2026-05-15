@@ -42,8 +42,8 @@ export const columns: ColumnDef<File>[] = [
       const filename = row.original.fileName;
       return (
         <span className="font-mono">
-          {fileTypes[mimeType] ??
-            fileTypes[filename.split(".").pop() as string] ??
+          {fileTypes[mimeType as keyof typeof fileTypes] ??
+            fileTypes[filename.split(".").pop() as keyof typeof fileTypes] ??
             filename.split(".").pop()?.toUpperCase()}
         </span>
       );

@@ -79,7 +79,7 @@ export function ExtensionProvider({ children }: { children: ReactNode }) {
       const fetched: OwnedStatusMap = {};
       if (missing.length > 0) {
         await new Promise<void>((resolve, reject) => {
-          const chrome = window.chrome as typeof chrome;
+          const chrome = (window as unknown as { chrome: any }).chrome;
           if (chrome) {
             consola.verbose("sending message to extension", missing);
             chrome.runtime.sendMessage(

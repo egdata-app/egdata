@@ -94,7 +94,6 @@ export const Route = createFileRoute("/profile/$id/achievements/$sandbox")({
     );
   },
 
-  // @ts-expect-error - loader return type
   loader: async ({ context, params }) => {
     const { queryClient } = context;
 

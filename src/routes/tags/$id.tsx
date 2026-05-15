@@ -175,9 +175,10 @@ export const Route = createFileRoute("/tags/$id")({
           }).catch(() => null),
         initialPageParam: page,
         getNextPageParam: (
-          lastPage: { elements: SingleOffer[]; start: number; count: number },
-          allPages: { elements: SingleOffer[]; start: number; count: number }[],
+          lastPage: { elements: SingleOffer[]; start: number; count: number } | null,
+          allPages: ({ elements: SingleOffer[]; start: number; count: number } | null)[],
         ) => {
+          if (!lastPage) return undefined;
           // If the start is greater than the count, we have reached the end
           if (lastPage.start + 20 > lastPage.count) {
             return undefined;

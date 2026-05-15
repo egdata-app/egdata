@@ -78,7 +78,6 @@ export const Route = createFileRoute("/collections/")({
     );
   },
 
-  // @ts-expect-error - loader return type
   loader: async ({ context }) => {
     const { queryClient, country } = context;
 

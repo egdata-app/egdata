@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
+import type { DateRange } from "react-day-picker";
 import { DateTime } from "luxon";
 import { useLocale } from "@/hooks/use-locale";
 
@@ -54,8 +55,8 @@ export function DateRangePicker({
     return days > 0 && days <= 30;
   };
 
-  const handleCalendarSelect = (newRange: { from: Date; to: Date | undefined } | undefined) => {
-    if (!newRange) {
+  const handleCalendarSelect = (newRange: DateRange | undefined) => {
+    if (!newRange || !newRange.from) {
       setDateRange({ from: today.toJSDate(), to: undefined });
       return;
     }

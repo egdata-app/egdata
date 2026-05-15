@@ -80,7 +80,6 @@ export const Route = createFileRoute("/offers/$id/changelog")({
     );
   },
 
-  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { queryClient } = context;
     const { id } = params;
@@ -352,13 +351,11 @@ function ChangelogPage() {
 }
 
 function ChangeTypeBubble({ type }: { type: string }) {
+  const entry = changelogTypes[type as keyof typeof changelogTypes];
   return (
     <span className="inline-flex items-center gap-2">
-      <span
-        className="w-2 h-2 rounded-full"
-        style={{ backgroundColor: changelogTypes[type].color }}
-      />
-      {changelogTypes[type].label}
+      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: entry?.color }} />
+      {entry?.label}
     </span>
   );
 }

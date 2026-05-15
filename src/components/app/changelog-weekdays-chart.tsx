@@ -80,11 +80,9 @@ export function ChangelogWeekdaysChart({
               // Find the key (day) with the second highest value
               const secondMaxDay = Object.keys(chartData)
                 .filter((day) => day !== maxDay) // Exclude the max day
-                .reduce(
+                .reduce<string | null>(
                   (secondMax, day) =>
-                    chartData[day] > (chartData[secondMax as unknown as string] || 0)
-                      ? day
-                      : secondMax,
+                    chartData[day] > (secondMax ? chartData[secondMax] || 0 : 0) ? day : secondMax,
                   null,
                 );
 

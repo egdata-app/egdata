@@ -33,7 +33,6 @@ export const Route = createFileRoute("/sandboxes/$id")({
     );
   },
 
-  // @ts-expect-error - loader return type
   loader: async ({ context, params }) => {
     const { queryClient } = context;
     const { id } = params;

@@ -11,6 +11,7 @@ onlyBuiltDependencies:
   - better-sqlite3
   - esbuild
   - prisma
+  - simple-git-hooks
   - workerd
 overrides:
   solid-js: 1.9.9

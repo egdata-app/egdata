@@ -88,7 +88,6 @@ export const Route = createFileRoute("/offers/$id/reviews")({
     );
   },
 
-  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { id } = params;
     const { queryClient, epicToken, session } = context;

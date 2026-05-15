@@ -157,8 +157,8 @@ export function usePushNotifications(userApiKey: string) {
       const subscriptionData = {
         endpoint: pushSubscription.endpoint,
         keys: {
-          p256dh: btoa(String.fromCharCode.apply(null, new Uint8Array(p256dhKey))),
-          auth: btoa(String.fromCharCode.apply(null, new Uint8Array(authKey))),
+          p256dh: btoa(String.fromCharCode.apply(null, Array.from(new Uint8Array(p256dhKey)))),
+          auth: btoa(String.fromCharCode.apply(null, Array.from(new Uint8Array(authKey)))),
         },
       };
 

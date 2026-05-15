@@ -167,7 +167,8 @@ export function SearchContainer({
           tag.groupName,
           {
             name: tag.groupName,
-            label: tagTypesDictionary[tag.groupName] ?? tag.groupName,
+            label:
+              tagTypesDictionary[tag.groupName as keyof typeof tagTypesDictionary] ?? tag.groupName,
           },
         ]),
     ).values(),

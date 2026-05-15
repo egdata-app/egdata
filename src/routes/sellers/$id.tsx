@@ -30,7 +30,6 @@ export const Route = createFileRoute("/sellers/$id")({
     "Cache-Control": "public, s-maxage=60, stale-while-revalidate=600",
   }),
 
-  // @ts-expect-error - loader return type
   loader: async ({ context, params }) => {
     const { queryClient, country } = context;
     const { id } = params;

@@ -158,7 +158,9 @@ function SingleGame({ query, id }: { query: UseQueryResult<SingleOffer, Error>; 
         <div className="flex flex-col gap-2">
           <OfferMetadataRow
             label="Type"
-            value={offersDictionary[data.offerType] ?? data.offerType}
+            value={
+              offersDictionary[data.offerType as keyof typeof offersDictionary] ?? data.offerType
+            }
           />
           <OfferMetadataRow
             label="Seller"

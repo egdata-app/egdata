@@ -70,7 +70,6 @@ export const Route = createFileRoute("/profile/$id")({
     );
   },
 
-  // @ts-expect-error - loader return type
   loader: async ({ context, params }) => {
     const { queryClient, session } = context;
     const { id } = params;
@@ -85,7 +84,10 @@ export const Route = createFileRoute("/profile/$id")({
         queryFn: ({ pageParam }) =>
           getUserGames(params.id as string, pageParam, 20).catch(() => null),
         initialPageParam: 1,
-        getNextPageParam: (lastPage: { pagination: { totalPages: number; page: number } }) => {
+        getNextPageParam: (
+          lastPage: { pagination: { totalPages: number; page: number } } | null,
+        ) => {
+          if (!lastPage) return undefined;
           if (lastPage.pagination.totalPages === lastPage.pagination.page) return undefined;
           return lastPage.pagination.page + 1;
         },

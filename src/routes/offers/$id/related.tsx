@@ -31,7 +31,6 @@ export const Route = createFileRoute("/offers/$id/related")({
     );
   },
 
-  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { queryClient, country } = context;
     const { id } = params;
@@ -162,7 +161,7 @@ function RelatedOffersPage() {
           .map(([offerType, offers]) => (
             <div key={offerType} className="flex flex-col gap-4">
               <h3 className="text-lg md:text-xl font-semibold inline-flex items-center gap-2">
-                {offersDictionary[offerType] ?? offerType}{" "}
+                {offersDictionary[offerType as keyof typeof offersDictionary] ?? offerType}{" "}
                 <span className="text-xs text-gray-400">({offers.length})</span>
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">

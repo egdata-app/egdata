@@ -55,7 +55,6 @@ export const Route = createFileRoute("/genres")({
     };
   },
 
-  // @ts-expect-error - loader return type
   loader: async ({ context }) => {
     const { queryClient } = context;
 

@@ -67,9 +67,9 @@ export const Route = createFileRoute("/offers/$id")({
     const { queryClient } = context;
     const { id } = params;
 
-    const offer = await queryClient.ensureQueryData(
-      offerOnlyQueryOptions(params.id),
-    ).catch(() => null);
+    const offer = await queryClient
+      .ensureQueryData(offerOnlyQueryOptions(params.id))
+      .catch(() => null);
 
     return {
       id,
@@ -284,539 +284,540 @@ function OfferPage() {
         <PrepurchasePopup id={offer.id} />
       </ClientOnly>
       <header className="grid col-span-1 gap-4 md:grid-cols-2 w-full">
-          <div className="flex flex-col gap-1">
-            <div className="inline-flex items-center gap-4">
-              {isFabItem && <FabIcon className="size-10" />}
-              <h1 className="text-4xl font-bold">{offer.title}</h1>
-            </div>
-            <h4
-              className="text-lg font-semibold opacity-50 inline-flex items-center gap-2"
-              aria-label={`Offered by ${offer.seller.name}`}
-            >
-              <Seller
-                developerDisplayName={offer.developerDisplayName as string}
-                publisherDisplayName={offer.publisherDisplayName as string}
-                seller={offer.seller.name}
-                customAttributes={offer.customAttributes}
-              />
-              {offer.prePurchase && <Badge variant="outline">Pre-Purchase</Badge>}
-              {offer.tags.find((tag) => tag.id === "1310") && (
-                <Badge variant="outline">Early Access</Badge>
-              )}
-            </h4>
+        <div className="flex flex-col gap-1">
+          <div className="inline-flex items-center gap-4">
+            {isFabItem && <FabIcon className="size-10" />}
+            <h1 className="text-4xl font-bold">{offer.title}</h1>
+          </div>
+          <h4
+            className="text-lg font-semibold opacity-50 inline-flex items-center gap-2"
+            aria-label={`Offered by ${offer.seller.name}`}
+          >
+            <Seller
+              developerDisplayName={offer.developerDisplayName as string}
+              publisherDisplayName={offer.publisherDisplayName as string}
+              seller={offer.seller.name}
+              customAttributes={offer.customAttributes}
+            />
+            {offer.prePurchase && <Badge variant="outline">Pre-Purchase</Badge>}
+            {offer.tags.find((tag) => tag.id === "1310") && (
+              <Badge variant="outline">Early Access</Badge>
+            )}
+          </h4>
 
-            <div className="rounded-xl border border-gray-300/10 mt-2">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[300px]">Offer ID</TableHead>
-                    <TableHead className="text-left font-mono border-l-gray-300/10 border-l">
-                      {offer.id}
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell className="font-medium">Namespace</TableCell>
-                    <TableCell
-                      className={
-                        "text-left font-mono border-l-gray-300/10 border-l underline decoration-dotted decoration-slate-600 underline-offset-4"
-                      }
+          <div className="rounded-xl border border-gray-300/10 mt-2">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-[300px]">Offer ID</TableHead>
+                  <TableHead className="text-left font-mono border-l-gray-300/10 border-l">
+                    {offer.id}
+                  </TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell className="font-medium">Namespace</TableCell>
+                  <TableCell
+                    className={
+                      "text-left font-mono border-l-gray-300/10 border-l underline decoration-dotted decoration-slate-600 underline-offset-4"
+                    }
+                  >
+                    <Link
+                      to={"/sandboxes/$id/offers"}
+                      params={{
+                        id: offer.namespace,
+                      }}
                     >
-                      <Link
-                        to={"/sandboxes/$id/offers"}
-                        params={{
-                          id: offer.namespace,
-                        }}
-                      >
-                        {internalNamespaces.includes(offer.namespace) ? (
-                          <TooltipProvider>
-                            <Tooltip>
-                              <TooltipTrigger>{offer.namespace}</TooltipTrigger>
-                              <TooltipContent>
-                                <p>Epic Games internal namespace</p>
-                              </TooltipContent>
-                            </Tooltip>
-                          </TooltipProvider>
-                        ) : (
-                          offer.namespace
-                        )}
-                      </Link>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-medium">Offer Type</TableCell>
-                    <TableCell className="text-left border-l-gray-300/10 border-l">
-                      {offersDictionary[offer.offerType] || offer.offerType}
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-medium">Seller</TableCell>
-                    <TableCell className="text-left border-l-gray-300/10 border-l">
-                      <Link
-                        to="/sellers/$id"
-                        params={{ id: offer.seller.id }}
-                        className="underline underline-offset-4"
-                      >
-                        {offer.seller.name}
-                      </Link>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-medium">Developer</TableCell>
-                    <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
-                      <Seller
-                        developerDisplayName={offer.developerDisplayName as string}
-                        publisherDisplayName={offer.publisherDisplayName as string}
-                        seller={offer.seller.name}
-                        customAttributes={offer.customAttributes}
-                      />
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-medium">Supported Platforms</TableCell>
-                    <TableCell className="text-left border-l-gray-300/10 border-l inline-flex items-center justify-start gap-1">
-                      {platformTags.map((tag) => (
-                        <span key={tag.id} className="text-xs">
-                          {platformIcons[tag.id]}
-                        </span>
-                      ))}
-
-                      {!platformTags.length && <div>N/A</div>}
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-medium">Release Date</TableCell>
-                    <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
-                      <ReleaseDate
-                        releaseDate={offer.releaseDate}
-                        pcReleaseDate={offer.pcReleaseDate}
-                        timezone={timezone}
-                      />
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-medium">Last Update</TableCell>
-                    <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
-                      {offer.lastModifiedDate
-                        ? DateTime.fromISO(offer.lastModifiedDate, {
-                            zone: timezone,
-                          })
-                            .setLocale("en-GB")
-                            .toLocaleString({
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                              hour: "numeric",
-                              minute: "numeric",
-                              timeZoneName: "short",
-                            })
-                        : "Not available"}
-                      <TimeAgo targetDate={offer.lastModifiedDate} />
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell className="font-medium">Creation Date</TableCell>
-                    <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
-                      {offer.creationDate
-                        ? DateTime.fromISO(offer.creationDate, {
-                            zone: timezone,
-                          })
-                            .setLocale("en-GB")
-                            .toLocaleString({
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                              hour: "numeric",
-                              minute: "numeric",
-                              timeZoneName: "short",
-                            })
-                        : "Not available"}
-                      <TimeAgo targetDate={offer.creationDate} />
-                    </TableCell>
-                  </TableRow>
-                  {technologies && technologies.length > 0 && (
-                    <TableRow>
-                      <TableCell className="font-medium">
+                      {internalNamespaces.includes(offer.namespace) ? (
                         <TooltipProvider>
                           <Tooltip>
-                            <TooltipTrigger>
-                              <span className="underline decoration-dotted decoration-gray-300/50 underline-offset-4 cursor-help">
-                                Technologies
-                              </span>
-                            </TooltipTrigger>
+                            <TooltipTrigger>{offer.namespace}</TooltipTrigger>
                             <TooltipContent>
-                              <p className="text-sm max-w-md">
-                                We use the{" "}
-                                <a
-                                  href="https://steamdb.info/tech/"
-                                  className="text-blue-700 font-semibold"
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  SteamDB
-                                </a>{" "}
-                                technologies list to track the used engines and different
-                                technologies from the game files.
-                                <br />
-                                <a
-                                  href="https://github.com/SteamDatabase/FileDetectionRuleSets"
-                                  className="text-blue-700 font-semibold"
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  Source
-                                </a>
-                              </p>
+                              <p>Epic Games internal namespace</p>
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
-                      </TableCell>
-                      <TableCell className="text-left border-l-gray-300/10 border-l flex flex-wrap flex-row gap-1">
-                        {technologies
-                          .filter(
-                            (technology) =>
-                              technology.section === "Engine" ||
-                              technology.section === "AntiCheat" ||
-                              technology.section === "Container" ||
-                              technology.section === "Emulator" ||
-                              technology.section === "Launcher" ||
-                              technology.technology === "SteamworksNET" ||
-                              technology.technology === "EpicOnlineServices" ||
-                              technology.technology === "Steam_Networking",
-                          )
-                          // Sort by
-                          // Engine
-                          // Launcher
-                          // Anti-cheat
-                          .sort((a, b) => {
-                            if (a.section === "Engine") {
-                              return -1;
-                            }
+                      ) : (
+                        offer.namespace
+                      )}
+                    </Link>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium">Offer Type</TableCell>
+                  <TableCell className="text-left border-l-gray-300/10 border-l">
+                    {offersDictionary[offer.offerType as keyof typeof offersDictionary] ||
+                      offer.offerType}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium">Seller</TableCell>
+                  <TableCell className="text-left border-l-gray-300/10 border-l">
+                    <Link
+                      to="/sellers/$id"
+                      params={{ id: offer.seller.id }}
+                      className="underline underline-offset-4"
+                    >
+                      {offer.seller.name}
+                    </Link>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium">Developer</TableCell>
+                  <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
+                    <Seller
+                      developerDisplayName={offer.developerDisplayName as string}
+                      publisherDisplayName={offer.publisherDisplayName as string}
+                      seller={offer.seller.name}
+                      customAttributes={offer.customAttributes}
+                    />
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium">Supported Platforms</TableCell>
+                  <TableCell className="text-left border-l-gray-300/10 border-l inline-flex items-center justify-start gap-1">
+                    {platformTags.map((tag) => (
+                      <span key={tag.id} className="text-xs">
+                        {platformIcons[tag.id]}
+                      </span>
+                    ))}
 
-                            if (b.section === "Engine") {
-                              return 1;
-                            }
-
-                            if (a.section === "Launcher") {
-                              return -1;
-                            }
-
-                            if (b.section === "Launcher") {
-                              return 1;
-                            }
-
-                            if (a.section === "AntiCheat") {
-                              return -1;
-                            }
-
-                            if (b.section === "AntiCheat") {
-                              return 1;
-                            }
-
-                            return 0;
+                    {!platformTags.length && <div>N/A</div>}
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium">Release Date</TableCell>
+                  <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
+                    <ReleaseDate
+                      releaseDate={offer.releaseDate}
+                      pcReleaseDate={offer.pcReleaseDate}
+                      timezone={timezone}
+                    />
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium">Last Update</TableCell>
+                  <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
+                    {offer.lastModifiedDate
+                      ? DateTime.fromISO(offer.lastModifiedDate, {
+                          zone: timezone,
+                        })
+                          .setLocale("en-GB")
+                          .toLocaleString({
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                            hour: "numeric",
+                            minute: "numeric",
+                            timeZoneName: "short",
                           })
-                          .map((technology, index, array) => (
-                            <span
-                              key={`${technology.section}-${technology.technology}`}
-                              className="font-mono"
-                            >
-                              {technology.technology}
-                              <sup className="text-[9px] ml-[2px]">{technology.section}</sup>
-                              {index < array.length - 1 && ","}
+                      : "Not available"}
+                    <TimeAgo targetDate={offer.lastModifiedDate} />
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell className="font-medium">Creation Date</TableCell>
+                  <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
+                    {offer.creationDate
+                      ? DateTime.fromISO(offer.creationDate, {
+                          zone: timezone,
+                        })
+                          .setLocale("en-GB")
+                          .toLocaleString({
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                            hour: "numeric",
+                            minute: "numeric",
+                            timeZoneName: "short",
+                          })
+                      : "Not available"}
+                    <TimeAgo targetDate={offer.creationDate} />
+                  </TableCell>
+                </TableRow>
+                {technologies && technologies.length > 0 && (
+                  <TableRow>
+                    <TableCell className="font-medium">
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger>
+                            <span className="underline decoration-dotted decoration-gray-300/50 underline-offset-4 cursor-help">
+                              Technologies
                             </span>
-                          ))}
-                      </TableCell>
-                    </TableRow>
-                  )}
-                </TableBody>
-              </Table>
-            </div>
-            <InternalBanner offer={offer} />
-            <BaseGame offer={offer} />
-            <OfferInBundle offer={offer} />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p className="text-sm max-w-md">
+                              We use the{" "}
+                              <a
+                                href="https://steamdb.info/tech/"
+                                className="text-blue-700 font-semibold"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                SteamDB
+                              </a>{" "}
+                              technologies list to track the used engines and different technologies
+                              from the game files.
+                              <br />
+                              <a
+                                href="https://github.com/SteamDatabase/FileDetectionRuleSets"
+                                className="text-blue-700 font-semibold"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                Source
+                              </a>
+                            </p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </TableCell>
+                    <TableCell className="text-left border-l-gray-300/10 border-l flex flex-wrap flex-row gap-1">
+                      {technologies
+                        .filter(
+                          (technology) =>
+                            technology.section === "Engine" ||
+                            technology.section === "AntiCheat" ||
+                            technology.section === "Container" ||
+                            technology.section === "Emulator" ||
+                            technology.section === "Launcher" ||
+                            technology.technology === "SteamworksNET" ||
+                            technology.technology === "EpicOnlineServices" ||
+                            technology.technology === "Steam_Networking",
+                        )
+                        // Sort by
+                        // Engine
+                        // Launcher
+                        // Anti-cheat
+                        .sort((a, b) => {
+                          if (a.section === "Engine") {
+                            return -1;
+                          }
+
+                          if (b.section === "Engine") {
+                            return 1;
+                          }
+
+                          if (a.section === "Launcher") {
+                            return -1;
+                          }
+
+                          if (b.section === "Launcher") {
+                            return 1;
+                          }
+
+                          if (a.section === "AntiCheat") {
+                            return -1;
+                          }
+
+                          if (b.section === "AntiCheat") {
+                            return 1;
+                          }
+
+                          return 0;
+                        })
+                        .map((technology, index, array) => (
+                          <span
+                            key={`${technology.section}-${technology.technology}`}
+                            className="font-mono"
+                          >
+                            {technology.technology}
+                            <sup className="text-[9px] ml-[2px]">{technology.section}</sup>
+                            {index < array.length - 1 && ","}
+                          </span>
+                        ))}
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
           </div>
-          <div className="flex justify-start items-start flex-col gap-4">
-            <div className="inline-flex items-center gap-2 justify-end w-full h-8">
-              <StoreDropdown offer={offer} />
-              <OpenLauncher id={offer.id} />
-              <Button
-                onClick={() => {
-                  if (compare.includes(offer.id)) {
-                    removeFromCompare(offer.id);
-                  } else {
-                    addToCompare(offer.id);
-                  }
-                }}
-                className="inline-flex items-center gap-1 bg-card text-white hover:bg-card-hover border"
-              >
-                {compare.includes(offer.id) ? <RemoveIcon /> : <AddIcon />}
-                <span>Compare</span>
-              </Button>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <Button
-                    className="inline-flex items-center gap-1 bg-card text-white hover:bg-card-hover border"
-                    size="sm"
-                  >
-                    <Bell className="h-4 w-4" />
-                  </Button>
-                </PopoverTrigger>
-                <PopoverContent className="w-80">
-                  <div className="space-y-4">
-                    <h4 className="font-medium leading-none">Notification Settings</h4>
-                    {canPerformTopicOperations ? (
-                      <>
-                        <p className="text-sm text-muted-foreground">
-                          Choose what notifications you want to receive for this offer.
-                        </p>
-                        <div className="space-y-3">
-                          <div className="flex items-center space-x-2">
-                            <Checkbox
-                              id="all"
-                              checked={all}
-                              onCheckedChange={(checked) =>
-                                handleNotificationChange("all", checked as boolean)
-                              }
-                              disabled={
-                                price ||
-                                achievements ||
-                                builds ||
-                                items ||
-                                requirements ||
-                                metadata ||
-                                media
-                              }
-                            />
-                            <label
-                              htmlFor="all"
-                              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                            >
-                              All
-                            </label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Checkbox
-                              id="price"
-                              checked={price}
-                              onCheckedChange={(checked) =>
-                                handleNotificationChange("price", checked as boolean)
-                              }
-                              disabled={all}
-                            />
-                            <label
-                              htmlFor="price"
-                              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                            >
-                              Price
-                            </label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Checkbox
-                              id="achievements"
-                              checked={achievements}
-                              onCheckedChange={(checked) =>
-                                handleNotificationChange("achievements", checked as boolean)
-                              }
-                              disabled={all}
-                            />
-                            <label
-                              htmlFor="achievements"
-                              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                            >
-                              Achievements
-                            </label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Checkbox
-                              id="builds"
-                              checked={builds}
-                              onCheckedChange={(checked) =>
-                                handleNotificationChange("builds", checked as boolean)
-                              }
-                              disabled={all}
-                            />
-                            <label
-                              htmlFor="builds"
-                              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                            >
-                              Builds
-                            </label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Checkbox
-                              id="items"
-                              checked={items}
-                              onCheckedChange={(checked) =>
-                                handleNotificationChange("items", checked as boolean)
-                              }
-                              disabled={all}
-                            />
-                            <label
-                              htmlFor="items"
-                              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                            >
-                              Items
-                            </label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Checkbox
-                              id="requirements"
-                              checked={requirements}
-                              onCheckedChange={(checked) =>
-                                handleNotificationChange("requirements", checked as boolean)
-                              }
-                              disabled={all}
-                            />
-                            <label
-                              htmlFor="requirements"
-                              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                            >
-                              Requirements
-                            </label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Checkbox
-                              id="metadata"
-                              checked={metadata}
-                              onCheckedChange={(checked) =>
-                                handleNotificationChange("metadata", checked as boolean)
-                              }
-                              disabled={all}
-                            />
-                            <label
-                              htmlFor="metadata"
-                              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                            >
-                              Metadata
-                            </label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <Checkbox
-                              id="media"
-                              checked={media}
-                              onCheckedChange={(checked) =>
-                                handleNotificationChange("media", checked as boolean)
-                              }
-                              disabled={all}
-                            />
-                            <label
-                              htmlFor="media"
-                              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                            >
-                              Media
-                            </label>
-                          </div>
+          <InternalBanner offer={offer} />
+          <BaseGame offer={offer} />
+          <OfferInBundle offer={offer} />
+        </div>
+        <div className="flex justify-start items-start flex-col gap-4">
+          <div className="inline-flex items-center gap-2 justify-end w-full h-8">
+            <StoreDropdown offer={offer} />
+            <OpenLauncher id={offer.id} />
+            <Button
+              onClick={() => {
+                if (compare.includes(offer.id)) {
+                  removeFromCompare(offer.id);
+                } else {
+                  addToCompare(offer.id);
+                }
+              }}
+              className="inline-flex items-center gap-1 bg-card text-white hover:bg-card-hover border"
+            >
+              {compare.includes(offer.id) ? <RemoveIcon /> : <AddIcon />}
+              <span>Compare</span>
+            </Button>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  className="inline-flex items-center gap-1 bg-card text-white hover:bg-card-hover border"
+                  size="sm"
+                >
+                  <Bell className="h-4 w-4" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-80">
+                <div className="space-y-4">
+                  <h4 className="font-medium leading-none">Notification Settings</h4>
+                  {canPerformTopicOperations ? (
+                    <>
+                      <p className="text-sm text-muted-foreground">
+                        Choose what notifications you want to receive for this offer.
+                      </p>
+                      <div className="space-y-3">
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="all"
+                            checked={all}
+                            onCheckedChange={(checked) =>
+                              handleNotificationChange("all", checked as boolean)
+                            }
+                            disabled={
+                              price ||
+                              achievements ||
+                              builds ||
+                              items ||
+                              requirements ||
+                              metadata ||
+                              media
+                            }
+                          />
+                          <label
+                            htmlFor="all"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                          >
+                            All
+                          </label>
                         </div>
-                      </>
-                    ) : (
-                      <>
-                        <p className="text-sm text-muted-foreground">
-                          You need to enable push notifications to receive notifications for this
-                          offer.
-                        </p>
-                        <Button asChild className="w-full">
-                          <Link to="/notifications">Enable Push Notifications</Link>
-                        </Button>
-                      </>
-                    )}
-                  </div>
-                </PopoverContent>
-              </Popover>
-            </div>
-            <OfferHero offer={offer} />
-            {franchises && franchises.length > 0 && <FranchiseBanner franchise={franchises[0]} />}
-            <p className="px-1">{offer.description}</p>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="price"
+                            checked={price}
+                            onCheckedChange={(checked) =>
+                              handleNotificationChange("price", checked as boolean)
+                            }
+                            disabled={all}
+                          />
+                          <label
+                            htmlFor="price"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                          >
+                            Price
+                          </label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="achievements"
+                            checked={achievements}
+                            onCheckedChange={(checked) =>
+                              handleNotificationChange("achievements", checked as boolean)
+                            }
+                            disabled={all}
+                          />
+                          <label
+                            htmlFor="achievements"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                          >
+                            Achievements
+                          </label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="builds"
+                            checked={builds}
+                            onCheckedChange={(checked) =>
+                              handleNotificationChange("builds", checked as boolean)
+                            }
+                            disabled={all}
+                          />
+                          <label
+                            htmlFor="builds"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                          >
+                            Builds
+                          </label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="items"
+                            checked={items}
+                            onCheckedChange={(checked) =>
+                              handleNotificationChange("items", checked as boolean)
+                            }
+                            disabled={all}
+                          />
+                          <label
+                            htmlFor="items"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                          >
+                            Items
+                          </label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="requirements"
+                            checked={requirements}
+                            onCheckedChange={(checked) =>
+                              handleNotificationChange("requirements", checked as boolean)
+                            }
+                            disabled={all}
+                          />
+                          <label
+                            htmlFor="requirements"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                          >
+                            Requirements
+                          </label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="metadata"
+                            checked={metadata}
+                            onCheckedChange={(checked) =>
+                              handleNotificationChange("metadata", checked as boolean)
+                            }
+                            disabled={all}
+                          />
+                          <label
+                            htmlFor="metadata"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                          >
+                            Metadata
+                          </label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="media"
+                            checked={media}
+                            onCheckedChange={(checked) =>
+                              handleNotificationChange("media", checked as boolean)
+                            }
+                            disabled={all}
+                          />
+                          <label
+                            htmlFor="media"
+                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                          >
+                            Media
+                          </label>
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-sm text-muted-foreground">
+                        You need to enable push notifications to receive notifications for this
+                        offer.
+                      </p>
+                      <Button asChild className="w-full">
+                        <Link to="/notifications">Enable Push Notifications</Link>
+                      </Button>
+                    </>
+                  )}
+                </div>
+              </PopoverContent>
+            </Popover>
           </div>
-        </header>
+          <OfferHero offer={offer} />
+          {franchises && franchises.length > 0 && <FranchiseBanner franchise={franchises[0]} />}
+          <p className="px-1">{offer.description}</p>
+        </div>
+      </header>
 
-        {offer.categories.findIndex((category) => category === "collections") !== -1 && (
-          <section className="w-full min-h-[50vh] flex flex-col gap-4">
-            <CollectionOffers id={offer.id} />
-          </section>
-        )}
-
-        {offer.offerType === "BUNDLE" || offer.offerType === "Bundle" ? (
-          <section className="w-full min-h-[50vh] flex flex-col gap-4">
-            <hr className="my-4" />
-            <Bundle id={offer.id} offer={offer} />
-            <hr className="my-4" />
-          </section>
-        ) : null}
-
-        <section id="offer-information" className="w-full min-h-[50vh] flex flex-col gap-4">
-          <SectionsNav
-            links={[
-              {
-                id: "",
-                label: "Overview",
-                href: `/offers/${offer.id}`,
-              },
-              {
-                id: "price",
-                label: "Price",
-                href: `/offers/${offer.id}/price`,
-              },
-              {
-                id: "items",
-                label: "Items",
-                href: `/offers/${offer.id}/items`,
-              },
-              {
-                id: "builds",
-                label: "Builds",
-                href: `/offers/${offer.id}/builds`,
-              },
-              {
-                id: "achievements",
-                label: "Achievements",
-                href: `/offers/${offer.id}/achievements`,
-              },
-              {
-                id: "related",
-                label: "Related",
-                href: `/offers/${offer.id}/related`,
-              },
-              {
-                id: "metadata",
-                label: "Metadata",
-                href: `/offers/${offer.id}/metadata`,
-              },
-              {
-                id: "changelog",
-                label: "Changelog",
-                href: `/offers/${offer.id}/changelog`,
-              },
-              {
-                id: "media",
-                label: "Media",
-                href: `/offers/${offer.id}/media`,
-              },
-              {
-                id: "reviews",
-                label: "Reviews",
-                href: `/offers/${offer.id}/reviews`,
-              },
-            ]}
-            activeSection={subPath ?? ""}
-            onSectionChange={(id) => {
-              navigate({
-                to: `/offers/${offer.id}/${id}`,
-                replace: false,
-                resetScroll: false,
-              });
-            }}
-          />
-
-          <Outlet />
+      {offer.categories.findIndex((category) => category === "collections") !== -1 && (
+        <section className="w-full min-h-[50vh] flex flex-col gap-4">
+          <CollectionOffers id={offer.id} />
         </section>
+      )}
 
-        <hr className="my-4 border-gray-300/40" />
+      {offer.offerType === "BUNDLE" || offer.offerType === "Bundle" ? (
+        <section className="w-full min-h-[50vh] flex flex-col gap-4">
+          <hr className="my-4" />
+          <Bundle id={offer.id} offer={offer} />
+          <hr className="my-4" />
+        </section>
+      ) : null}
 
-        <SellerOffers id={offer.seller.id} name={offer.seller.name} currentOffer={offer} />
+      <section id="offer-information" className="w-full min-h-[50vh] flex flex-col gap-4">
+        <SectionsNav
+          links={[
+            {
+              id: "",
+              label: "Overview",
+              href: `/offers/${offer.id}`,
+            },
+            {
+              id: "price",
+              label: "Price",
+              href: `/offers/${offer.id}/price`,
+            },
+            {
+              id: "items",
+              label: "Items",
+              href: `/offers/${offer.id}/items`,
+            },
+            {
+              id: "builds",
+              label: "Builds",
+              href: `/offers/${offer.id}/builds`,
+            },
+            {
+              id: "achievements",
+              label: "Achievements",
+              href: `/offers/${offer.id}/achievements`,
+            },
+            {
+              id: "related",
+              label: "Related",
+              href: `/offers/${offer.id}/related`,
+            },
+            {
+              id: "metadata",
+              label: "Metadata",
+              href: `/offers/${offer.id}/metadata`,
+            },
+            {
+              id: "changelog",
+              label: "Changelog",
+              href: `/offers/${offer.id}/changelog`,
+            },
+            {
+              id: "media",
+              label: "Media",
+              href: `/offers/${offer.id}/media`,
+            },
+            {
+              id: "reviews",
+              label: "Reviews",
+              href: `/offers/${offer.id}/reviews`,
+            },
+          ]}
+          activeSection={subPath ?? ""}
+          onSectionChange={(id) => {
+            navigate({
+              to: `/offers/${offer.id}/${id}`,
+              replace: false,
+              resetScroll: false,
+            });
+          }}
+        />
 
-        <SuggestedOffers id={offer.id} />
-      </main>
+        <Outlet />
+      </section>
+
+      <hr className="my-4 border-gray-300/40" />
+
+      <SellerOffers id={offer.seller.id} name={offer.seller.name} currentOffer={offer} />
+
+      <SuggestedOffers id={offer.id} />
+    </main>
   );
 }
 

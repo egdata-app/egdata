@@ -31,7 +31,8 @@ export const Route = createFileRoute("/collections/$id/$week")({
           week,
         }).catch(() => null),
       initialPageParam: 1,
-      getNextPageParam: (lastPage: Collections, allPages: Collections[]) => {
+      getNextPageParam: (lastPage: Collections | null, allPages: (Collections | null)[]) => {
+        if (!lastPage) return undefined;
         if (lastPage.page * lastPage.limit + 20 > lastPage.total) {
           return undefined;
         }

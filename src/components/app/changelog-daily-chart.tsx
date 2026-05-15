@@ -21,10 +21,10 @@ const chartConfig = {
 
 export function ChangelogDailyChart({ chartData }: { chartData: ChangelogStats["dailyChanges"] }) {
   // Fill the missing days from the beginning to the end
-  const filledData = React.useMemo(() => {
+  const filledData = React.useMemo<Record<string, number>>(() => {
     if (!chartData) return {};
 
-    const filledData = {};
+    const filledData: Record<string, number> = {};
     const keys = Object.keys(chartData);
     const sortedKeys = keys.sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
 
@@ -43,7 +43,7 @@ export function ChangelogDailyChart({ chartData }: { chartData: ChangelogStats["
       const day = String(currentDate.getDate()).padStart(2, "0");
       const formattedDate = `${year}-${month}-${day}`;
 
-      filledData[formattedDate] = chartData[formattedDate] || 0;
+      filledData[formattedDate] = (chartData as Record<string, number>)[formattedDate] || 0;
     }
 
     return filledData;

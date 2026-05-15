@@ -38,7 +38,6 @@ export const Route = createFileRoute("/collections/$id/")({
     "Cache-Control": "public, s-maxage=60, stale-while-revalidate=600",
   }),
 
-  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { id } = params;
     const { queryClient, country } = context;
@@ -60,7 +59,8 @@ export const Route = createFileRoute("/collections/$id/")({
           country: country ?? "US",
         }).catch(() => null),
       initialPageParam: 1,
-      getNextPageParam: (lastPage: Collections, allPages: Collections[]) => {
+      getNextPageParam: (lastPage: Collections | null, allPages: (Collections | null)[]) => {
+        if (!lastPage) return undefined;
         if (lastPage.page * lastPage.limit + 20 > lastPage.total) {
           return undefined;
         }

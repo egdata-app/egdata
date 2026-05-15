@@ -17,7 +17,18 @@
     "test:e2e:debug": "playwright test --debug",
     "test:e2e:report": "playwright show-report",
     "typecheck": "tsgo",
-    "generate": "gql-tada generate-output"
+    "generate": "gql-tada generate-output",
+    "prepare": "simple-git-hooks"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged",
+    "pre-push": "pnpm typecheck"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx,js,jsx,mjs,cjs}": [
+      "oxfmt --write",
+      "oxlint --fix"
+    ]
   },
   "keywords": [],
   "author": "",
@@ -131,16 +142,19 @@
     "@types/js-cookie": "^3.0.6",
     "@types/lodash.debounce": "^4.0.9",
     "@types/luxon": "^3.7.1",
+    "@types/pg": "^8.20.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@typescript/native-preview": "7.0.0-dev.20260414.1",
     "@vitejs/plugin-react-oxc": "^0.2.3",
     "autoprefixer": "^10.5.0",
     "glob": "^11.1.0",
+    "lint-staged": "^15.2.10",
     "nitro": "npm:nitro-nightly",
     "oxfmt": "^0.20.0",
     "oxlint": "^1.60.0",
     "postcss": "^8.5.9",
+    "simple-git-hooks": "^2.11.1",
     "tailwindcss": "^4.2.2",
     "typescript": "^5.9.2",
     "unenv": "^1.10.0",

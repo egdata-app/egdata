@@ -152,7 +152,9 @@ self.addEventListener("notificationclick", (event: NotificationEvent) => {
   } else {
     // Handle default click (no specific action)
     // Try to find an 'open' action with URL, otherwise default to home
-    const openAction = originalActions?.find((item) => item.action.type === "open");
+    const openAction = originalActions?.find(
+      (item: CustomNotificationAction) => item.action.type === "open",
+    );
     const url = openAction?.action.url || "/";
     event.waitUntil(self.clients.openWindow(url));
   }

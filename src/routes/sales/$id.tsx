@@ -32,7 +32,6 @@ export const Route = createFileRoute("/sales/$id")({
 
   beforeLoad: async () => {},
 
-  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { queryClient, country } = context;
     const { id } = params;

@@ -9,7 +9,6 @@ import { useState } from "react";
 export const Route = createFileRoute("/items/$id/changelog")({
   component: ChangelogPage,
 
-  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { id } = params;
     const { queryClient } = context;

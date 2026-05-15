@@ -32,7 +32,6 @@ export const Route = createFileRoute("/collections/$id/$week/")({
     );
   },
 
-  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { id } = params;
     const { queryClient, country } = context;

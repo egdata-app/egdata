@@ -39,7 +39,6 @@ export const Route = createFileRoute("/sandboxes/$id/achievements")({
     );
   },
 
-  // @ts-expect-error - loader return type
   loader: async ({ context, params }) => {
     const { id } = params;
     const { queryClient } = context;
@@ -194,7 +193,12 @@ function SandboxAchievementsPage() {
                   "flex flex-col items-center justify-center gap-2 rounded-md p-4 text-center",
                 )}
               >
-                <EpicTrophyIcon className={cn("size-6", raritiesTextColors[rarity])} />
+                <EpicTrophyIcon
+                  className={cn(
+                    "size-6",
+                    raritiesTextColors[rarity as keyof typeof raritiesTextColors],
+                  )}
+                />
                 <span className="text-xl font-bold">{count}</span>
               </div>
             ))}

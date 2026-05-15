@@ -34,7 +34,6 @@ export const Route = createFileRoute("/franchises/$id/")({
     );
   },
 
-  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { id } = params;
     const { queryClient, country } = context;
@@ -49,7 +48,11 @@ export const Route = createFileRoute("/franchises/$id/")({
           country: country ?? "US",
         }).catch(() => null),
       initialPageParam: 1,
-      getNextPageParam: (lastPage: FranchiseResponse, allPages: FranchiseResponse[]) => {
+      getNextPageParam: (
+        lastPage: FranchiseResponse | null,
+        allPages: (FranchiseResponse | null)[],
+      ) => {
+        if (!lastPage) return undefined;
         if (lastPage.page * lastPage.limit >= lastPage.total) {
           return undefined;
         }
