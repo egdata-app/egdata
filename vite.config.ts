@@ -21,6 +21,34 @@ export default defineConfig({
     nitro({
       preset: "node-server",
       compatibilityDate: "2025-12-05",
+      routeRules: {
+        "/**": {
+          headers: {
+            "Content-Security-Policy": [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline' https://analytics.egdata.app https://insights.egdata.app https://*.sentry.io",
+              "style-src 'self' 'unsafe-inline' https://cdn.egdata.app",
+              "img-src 'self' data: blob: https:",
+              "font-src 'self' data: https://cdn.egdata.app",
+              "connect-src 'self' https://api.egdata.app https://cdn.egdata.app https://analytics.egdata.app https://insights.egdata.app https://*.sentry.io https://*.ingest.sentry.io",
+              "media-src 'self' https://cdn.egdata.app https://cdn1.epicgames.com",
+              "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com",
+              "worker-src 'self' blob:",
+              "manifest-src 'self'",
+              "object-src 'none'",
+              "base-uri 'self'",
+              "form-action 'self'",
+              "frame-ancestors 'none'",
+              "upgrade-insecure-requests",
+            ].join("; "),
+            "Strict-Transport-Security": "max-age=63072000; includeSubDomains; preload",
+            "X-Frame-Options": "DENY",
+            "X-Content-Type-Options": "nosniff",
+            "Referrer-Policy": "strict-origin-when-cross-origin",
+            "Permissions-Policy": "camera=(), microphone=(), geolocation=(), interest-cohort=()",
+          },
+        },
+      },
     }),
     VitePWA({
       strategies: "injectManifest",
