@@ -1,5 +1,12 @@
 import { defineConfig, devices } from "@playwright/test";
 
+const BETTER_AUTH_SECRET =
+  process.env.BETTER_AUTH_SECRET || "test-secret-key-for-e2e"; // fallback for tests
+const webServerCommand =
+  process.platform === "win32"
+    ? `pwsh -Command "& { $env:BETTER_AUTH_URL='http://localhost:3000'; $env:BETTER_AUTH_SECRET='${BETTER_AUTH_SECRET}'; pnpm start }"`
+    : `BETTER_AUTH_URL=http://localhost:3000 BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET} pnpm start`;
+
 /**
  * @see https://playwright.dev/docs/test-configuration
  */
@@ -49,8 +56,7 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: {
     // Test-only startup defaults (never intended for production runtime).
-    command:
-      "BETTER_AUTH_URL=http://localhost:3000 BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET:-$(openssl rand -hex 32)} pnpm start",
+    command: webServerCommand,
     url: "http://localhost:3000",
     reuseExistingServer: true,
     timeout: 120 * 1000,

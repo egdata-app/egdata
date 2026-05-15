@@ -83,6 +83,7 @@ export default defineConfig({
       "@react-spectrum/provider",
       "@vidstack/react",
       "@tanstack/devtools",
+      "graphql",
     ],
   },
 });
