@@ -48,7 +48,8 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: "pnpm start",
+    command:
+      "BETTER_AUTH_URL=http://localhost:3000 BETTER_AUTH_SECRET=playwright-test-secret-1234567890abcdef pnpm start",
     url: "http://localhost:3000",
     reuseExistingServer: true,
     timeout: 120 * 1000,

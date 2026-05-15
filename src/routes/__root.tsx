@@ -80,15 +80,20 @@ export const Route = createRootRouteWithContext<Context>()({
     if (import.meta.env.SSR) {
       const { getCookies, getRequestHeaders, getRequestUrl } =
         await import("@tanstack/react-start/server");
-      const { auth } = await import("@/lib/auth");
       const reqUrl = getRequestUrl();
 
       url = new URL(reqUrl);
       cookies = getCookies();
 
       // server session (headers carry auth)
-      const headers = getRequestHeaders();
-      session = await auth.api.getSession({ headers });
+      session = null;
+      try {
+        const { auth } = await import("@/lib/auth");
+        const headers = getRequestHeaders();
+        session = await auth.api.getSession({ headers });
+      } catch {
+        session = null;
+      }
     } else {
       url = new URL(window.location.href);
 
