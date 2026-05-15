@@ -266,11 +266,11 @@ function OfferPage() {
   }
 
   if (!offer) {
-    return <div>Offer not found</div>;
+    return <main>Offer not found</main>;
   }
 
   if (offer.title === "Error") {
-    return <div>{offer.description}</div>;
+    return <main>{offer.description}</main>;
   }
 
   const isFabItem = offer.customAttributes.FabListingId;

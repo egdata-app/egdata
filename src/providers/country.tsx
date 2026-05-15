@@ -16,7 +16,7 @@ interface CountryProviderProps {
 
 function CountryProvider({ children, defaultCountry }: CountryProviderProps) {
   const location = useLocation();
-  const url = new URL(`https://dummy${location.pathname}${location.search}`);
+  const url = new URL(`https://dummy${location.pathname}${location.searchStr}`);
 
   const [cookies, setCookie] = useCookies(["EGDATA_COUNTRY"]);
   const [countryState, setCountryState] = useState<string>(

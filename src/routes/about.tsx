@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/about")({
   component: () => (
-    <div className="flex flex-col items-start justify-start w-full min-h-screen gap-4 mt-10">
+    <main className="flex flex-col items-start justify-start w-full min-h-screen gap-4 mt-10">
       <div className="flex flex-col gap-4">
         <h1 className="text-6xl font-thin">About</h1>
         <p className="mb-4">
@@ -152,7 +152,7 @@ export const Route = createFileRoute("/about")({
           .
         </p>
       </div>
-    </div>
+    </main>
   ),
 
   head: () => {
