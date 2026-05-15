@@ -73,7 +73,7 @@ function ProfileInformation() {
   const navigate = Route.useNavigate();
   const [activeTab, setActiveTab] = React.useState("overview");
   const [underlineStyle, setUnderlineStyle] = React.useState({});
-  const tabRefs = React.useRef({});
+  const tabRefs = React.useRef<Record<string, HTMLButtonElement | null>>({});
 
   const tabs = [
     { id: "overview", label: "Overview" },

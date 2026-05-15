@@ -77,7 +77,6 @@ export const Route = createFileRoute("/sandboxes/$id/changelog")({
     );
   },
 
-  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { queryClient } = context;
 

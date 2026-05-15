@@ -78,7 +78,7 @@ export function SearchHeader({
         {showSort && (
           <>
             <form.Field name="sortBy">
-              {({ handleChange, state }) => (
+              {({ handleChange, state }: any) => (
                 <Select
                   value={state.value}
                   onValueChange={(value) => handleChange(value as keyof typeof sortByDisplay)}
@@ -98,7 +98,7 @@ export function SearchHeader({
               )}
             </form.Field>
             <form.Field name="sortDir">
-              {({ handleChange, state }) => (
+              {({ handleChange, state }: any) => (
                 <Button
                   onClick={() => {
                     if (state.value === "asc") {

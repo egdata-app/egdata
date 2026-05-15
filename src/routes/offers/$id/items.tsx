@@ -31,7 +31,6 @@ export const Route = createFileRoute("/offers/$id/items")({
       </HydrationBoundary>
     );
   },
-  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { queryClient } = context;
 

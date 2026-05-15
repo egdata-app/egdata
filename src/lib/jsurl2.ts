@@ -76,21 +76,21 @@ const origChar = (char: string) => {
   if (char === "_") {
     return "_"; // underscore
   }
-  const decoded = fromEscape[char.charAt(1)];
+  const decoded = fromEscape[char.charAt(1) as keyof typeof fromEscape];
   if (!decoded) {
     error("Illegal escape code", char);
   }
   return decoded;
 };
 
-const escCode = (char) => {
+const escCode = (char: string) => {
   if (char === "_") {
     return "_"; // underscore
   }
   if (char === " ") {
     return "*s"; // space
   }
-  return "*" + toEscape[char];
+  return "*" + toEscape[char as keyof typeof toEscape];
 };
 
 const escapeRE = /(_|\*.)/g;
@@ -174,7 +174,7 @@ const decode = (a: DecodeState) => {
     if (k.charAt(0) === "D") {
       out = new Date(k.slice(1));
     } else if (k in dict) {
-      out = dict[k];
+      out = dict[k as keyof typeof dict];
     } else {
       error(`Unknown dict reference`, k);
     }
@@ -295,7 +295,7 @@ export const stringify = (value: any, options?: StringifyOptions): string => {
   }
   if (short) {
     if (str.length < 6) {
-      t = antiJSON[str];
+      t = antiJSON[str as keyof typeof antiJSON];
       if (t) str = t;
     }
   } else {

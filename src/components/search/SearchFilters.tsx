@@ -142,7 +142,9 @@ export function SearchFilters({
         )}
         {showOfferType && query.offerType && (
           <QuickPill
-            label={offersDictionary[query.offerType] ?? query.offerType}
+            label={
+              offersDictionary[query.offerType as keyof typeof offersDictionary] ?? query.offerType
+            }
             onRemove={() => handleFieldChange("offerType", undefined)}
           />
         )}

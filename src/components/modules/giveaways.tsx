@@ -56,6 +56,7 @@ export function GiveawaysCarousel({ hideTitle }: { hideTitle?: boolean }) {
         <Link
           className="text-xl font-bold text-left inline-flex group items-center gap-2"
           to="/freebies"
+          search={{ developerDisplayName: undefined, publisherDisplayName: undefined }}
         >
           <h2 className="text-xl font-bold">Giveaways 🎁</h2>
           <ArrowRightIcon className="w-6 h-6 inline-block group-hover:translate-x-1 transition-transform duration-300 ease-in-out" />

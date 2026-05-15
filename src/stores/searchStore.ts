@@ -4,10 +4,7 @@ import { z } from "zod";
 export const formSchema = z.object({
   title: z.string().optional(),
   tags: z
-    .preprocess(
-      (v) => (v == null || Array.isArray(v) ? v : [String(v)]),
-      z.array(z.string()),
-    )
+    .preprocess((v) => (v == null || Array.isArray(v) ? v : [String(v)]), z.array(z.string()))
     .optional(),
   developerDisplayName: z
     .string()
@@ -78,6 +75,8 @@ export const DEFAULT_LIMIT = 28;
 const defaultState: SearchState = {
   page: 1,
   limit: DEFAULT_LIMIT,
+  developerDisplayName: undefined,
+  publisherDisplayName: undefined,
 };
 
 // Create the default store instance

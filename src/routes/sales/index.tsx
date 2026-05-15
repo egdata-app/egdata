@@ -25,7 +25,6 @@ export const Route = createFileRoute("/sales/")({
     );
   },
 
-  // @ts-expect-error - loader return type
   loader: async ({ context }) => {
     const { queryClient } = context;
 

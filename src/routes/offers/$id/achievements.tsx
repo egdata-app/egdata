@@ -62,15 +62,13 @@ export const Route = createFileRoute("/offers/$id/achievements")({
     );
   },
 
-  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { queryClient } = context;
     const { id } = params;
 
     await queryClient.prefetchQuery({
       queryKey: ["offer-achievements", { id }],
-      queryFn: () =>
-        httpClient.get<AchievementsSets>(`/offers/${id}/achievements`).catch(() => []),
+      queryFn: () => httpClient.get<AchievementsSets>(`/offers/${id}/achievements`).catch(() => []),
     });
 
     const offer = await queryClient.ensureQueryData({
@@ -244,7 +242,12 @@ function AchievementsPage() {
                 "flex flex-col items-center justify-center gap-2 rounded-md p-4 text-center",
               )}
             >
-              <EpicTrophyIcon className={cn("size-6", raritiesTextColors[rarity])} />
+              <EpicTrophyIcon
+                className={cn(
+                  "size-6",
+                  raritiesTextColors[rarity as keyof typeof raritiesTextColors],
+                )}
+              />
               <span className="text-xl font-bold">{count}</span>
             </div>
           ))}

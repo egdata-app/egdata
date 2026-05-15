@@ -47,7 +47,7 @@ export function GameCard({ offer }: { offer: SingleOffer }) {
           />
           {offer.offerType && (
             <span className="absolute -top-1.5 right-0 bg-gray-500/40 py-2 px-3 justify-center items-center text-white backdrop-blur-sm text-xs font-bold rounded-bl-xl z-10 bg-opacity-40">
-              {offersDictionary[offer.offerType]}
+              {offersDictionary[offer.offerType as keyof typeof offersDictionary]}
             </span>
           )}
         </CardHeader>
@@ -299,7 +299,7 @@ export function OfferCard({
                 <div className="text-sm text-muted-foreground mb-4 z-10">
                   {offerGenres.length > 0
                     ? offerGenres.join(", ")
-                    : offersDictionary[offer.offerType]}
+                    : offersDictionary[offer.offerType as keyof typeof offersDictionary]}
                 </div>
                 <OfferPrice offer={offer} size={size} />
               </>

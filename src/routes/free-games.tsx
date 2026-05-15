@@ -6,6 +6,7 @@ export const Route = createFileRoute("/free-games")({
   beforeLoad: async () => {
     throw redirect({
       to: "/freebies",
+      search: { developerDisplayName: undefined, publisherDisplayName: undefined },
     });
   },
 });

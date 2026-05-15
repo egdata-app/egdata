@@ -34,7 +34,6 @@ export const Route = createFileRoute("/freebies/")({
 
   beforeLoad: async () => {},
 
-  // @ts-expect-error - loader return type
   loader: async ({ context }) => {
     const { country, queryClient } = context;
 
@@ -58,9 +57,7 @@ export const Route = createFileRoute("/freebies/")({
       queryClient.prefetchQuery(mobileFreebiesQuery),
     ]);
 
-    const ogId = await httpClient
-      .get<{ id: string }>("/free-games/og")
-      .catch(() => ({ id: "" }));
+    const ogId = await httpClient.get<{ id: string }>("/free-games/og").catch(() => ({ id: "" }));
 
     return {
       dehydratedState: dehydrate(queryClient),

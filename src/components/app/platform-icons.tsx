@@ -75,7 +75,7 @@ export function RenderTextPlatformIcon({
   className?: string;
   key?: string;
 }) {
-  return createElement(rawTextPlatformIcons[platform], {
+  return createElement(rawTextPlatformIcons[platform as keyof typeof rawTextPlatformIcons], {
     className,
     key,
   });

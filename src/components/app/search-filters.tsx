@@ -82,7 +82,7 @@ export function SearchFilters({
     <aside className={cn("flex flex-col gap-4 w-80", className)}>
       {showTitle && (
         <form.Field name="title">
-          {({ name, handleChange, handleBlur, state }) => (
+          {({ name, handleChange, handleBlur, state }: any) => (
             <Input
               type="search"
               placeholder="Search for games"
@@ -97,10 +97,10 @@ export function SearchFilters({
       )}
 
       <form.Subscribe>
-        {({ values }) => (
+        {({ values }: any) => (
           <div id="selected_filters" className="flex flex-row flex-wrap gap-2">
             {showTags &&
-              values.tags?.map((tag) => {
+              values.tags?.map((tag: string) => {
                 const tagData = tags?.find((t) => t.id === tag);
                 return (
                   <QuickPill
@@ -110,7 +110,7 @@ export function SearchFilters({
                       const currentTags = form.state.values.tags || [];
                       form.setFieldValue(
                         "tags",
-                        currentTags.filter((t) => String(t) !== String(tag)),
+                        currentTags.filter((t: string) => String(t) !== String(tag)),
                       );
                     }}
                   />
@@ -130,7 +130,10 @@ export function SearchFilters({
             )}
             {showOfferType && values.offerType && (
               <QuickPill
-                label={offersDictionary[values.offerType] ?? values.offerType}
+                label={
+                  offersDictionary[values.offerType as keyof typeof offersDictionary] ??
+                  values.offerType
+                }
                 onRemove={() => form.setFieldValue("offerType", undefined)}
               />
             )}
@@ -173,7 +176,7 @@ export function SearchFilters({
 
       {showPrice && (
         <form.Field name="price">
-          {({ handleChange }) => (
+          {({ handleChange }: any) => (
             <PriceRangeSlider
               min={priceRange.min}
               max={Math.min(priceRange.max, 1000)}
@@ -200,7 +203,7 @@ export function SearchFilters({
             <AccordionTrigger>Offer Type</AccordionTrigger>
             <AccordionContent className="flex flex-col gap-2 w-full mt-2">
               <form.Field name="offerType">
-                {({ handleChange, state }) =>
+                {({ handleChange, state }: any) =>
                   Object.entries(offersDictionary)
                     .filter(([, value]) => value !== "Unknown")
                     .filter(([key]) => offerTypeCounts[key] > 0)
@@ -231,7 +234,7 @@ export function SearchFilters({
                   <ScrollArea>
                     <div className="max-h-[400px] flex flex-col gap-1">
                       <form.Field name="tags">
-                        {({ handleChange, state }) =>
+                        {({ handleChange, state }: any) =>
                           tagTypeTags
                             ?.filter((tag) => tagCounts[tag.id] > 0)
                             .map((tag) => (
@@ -242,7 +245,7 @@ export function SearchFilters({
                                   handleChange(
                                     checked
                                       ? [...(state.value ?? []), tag.id]
-                                      : state.value?.filter((t) => t !== tag.id),
+                                      : state.value?.filter((t: string) => t !== tag.id),
                                   )
                                 }
                                 count={tagCounts[tag.id] || undefined}
@@ -266,7 +269,7 @@ export function SearchFilters({
             <AccordionTrigger>Developer</AccordionTrigger>
             <AccordionContent>
               <form.Field name="developerDisplayName">
-                {({ handleChange, state }) => (
+                {({ handleChange, state }: any) => (
                   <ExtendedSearch
                     name="developers"
                     items={
@@ -292,7 +295,7 @@ export function SearchFilters({
             <AccordionTrigger>Publisher</AccordionTrigger>
             <AccordionContent>
               <form.Field name="publisherDisplayName">
-                {({ handleChange, state }) => (
+                {({ handleChange, state }: any) => (
                   <ExtendedSearch
                     name="publishers"
                     items={
@@ -318,7 +321,7 @@ export function SearchFilters({
             <AccordionTrigger>Seller</AccordionTrigger>
             <AccordionContent>
               <form.Field name="seller">
-                {({ handleChange, state }) => (
+                {({ handleChange, state }: any) => (
                   <QuerySearch
                     queryKey={["search", "items"]}
                     fetchItems={async (query) => {
@@ -362,7 +365,7 @@ export function SearchFilters({
 
       {showPastGiveaways && (
         <form.Field name="pastGiveaways">
-          {({ handleChange, state }) => (
+          {({ handleChange, state }: any) => (
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="pastGiveaways"
@@ -382,7 +385,7 @@ export function SearchFilters({
 
       {showOnSale && (
         <form.Field name="onSale">
-          {({ handleChange, state }) => (
+          {({ handleChange, state }: any) => (
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="onSale"
@@ -402,7 +405,7 @@ export function SearchFilters({
 
       {showCodeRedemption && (
         <form.Field name="isCodeRedemptionOnly">
-          {({ handleChange, state }) => (
+          {({ handleChange, state }: any) => (
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="isCodeRedemptionOnly"
@@ -422,7 +425,7 @@ export function SearchFilters({
 
       {showBlockchain && (
         <form.Field name="excludeBlockchain">
-          {({ handleChange, state }) => (
+          {({ handleChange, state }: any) => (
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="excludeBlockchain"

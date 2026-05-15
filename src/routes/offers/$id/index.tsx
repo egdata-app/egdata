@@ -364,7 +364,12 @@ function RouteComponent() {
                         "flex flex-col items-center justify-center gap-2 rounded-md p-4 text-center",
                       )}
                     >
-                      <EpicTrophyIcon className={cn("size-6", raritiesTextColors[rarity])} />
+                      <EpicTrophyIcon
+                        className={cn(
+                          "size-6",
+                          raritiesTextColors[rarity as keyof typeof raritiesTextColors],
+                        )}
+                      />
                       <span className="text-xl font-bold">{count}</span>
                     </div>
                   ))}

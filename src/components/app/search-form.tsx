@@ -156,9 +156,9 @@ export function SearchForm({
 
   return (
     <form.Subscribe
-      selector={(state) => state.values}
+      selector={(state: any) => state.values}
       // biome-ignore lint/correctness/noChildrenProp: <explanation>
-      children={(values) => {
+      children={(values: any) => {
         const debouncedSearch = useDebounce(values, 300);
 
         const {
@@ -303,7 +303,7 @@ export function SearchForm({
 }
 
 function cleanBody(search: { search: TypeOf<typeof formSchema> }): TypeOf<typeof formSchema> {
-  const result = { ...search.search };
+  const result = { ...search.search } as Record<string, unknown>;
 
   for (const key of Object.keys(result)) {
     if (result[key] === "") {
@@ -314,7 +314,7 @@ function cleanBody(search: { search: TypeOf<typeof formSchema> }): TypeOf<typeof
     }
   }
 
-  return result;
+  return result as TypeOf<typeof formSchema>;
 }
 
 function SearchPagination({

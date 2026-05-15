@@ -76,13 +76,16 @@ export const Editor = ({
                     <Toggle
                       size="sm"
                       pressed={editor.isActive(tool.action)}
-                      onPressedChange={() =>
-                        editor
-                          .chain()
-                          .focus()
-                          [`toggle${tool.action.charAt(0).toUpperCase() + tool.action.slice(1)}`]()
-                          .run()
-                      }
+                      onPressedChange={() => {
+                        const chain = editor.chain().focus() as unknown as Record<
+                          string,
+                          () => { run: () => boolean }
+                        >;
+                        const method = `toggle${
+                          tool.action.charAt(0).toUpperCase() + tool.action.slice(1)
+                        }`;
+                        chain[method]().run();
+                      }}
                       aria-label={tool.tooltip}
                       className="h-8 w-8 p-0 aria-[pressed=true]:bg-accent aria-[pressed=true]:text-accent-foreground"
                     >
@@ -111,13 +114,16 @@ export const Editor = ({
                     <Toggle
                       size="sm"
                       pressed={editor.isActive(tool.action)}
-                      onPressedChange={() =>
-                        editor
-                          .chain()
-                          .focus()
-                          [`toggle${tool.action.charAt(0).toUpperCase() + tool.action.slice(1)}`]()
-                          .run()
-                      }
+                      onPressedChange={() => {
+                        const chain = editor.chain().focus() as unknown as Record<
+                          string,
+                          () => { run: () => boolean }
+                        >;
+                        const method = `toggle${
+                          tool.action.charAt(0).toUpperCase() + tool.action.slice(1)
+                        }`;
+                        chain[method]().run();
+                      }}
                       aria-label={tool.tooltip}
                       className="h-6 w-6 p-0 aria-[pressed=true]:bg-accent aria-[pressed=true]:text-accent-foreground"
                     >

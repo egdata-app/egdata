@@ -20,7 +20,6 @@ export const Route = createFileRoute("/builds/$id/install-options")({
     );
   },
 
-  // @ts-expect-error - loader return type
   loader: async ({ params, context }) => {
     const { id } = params;
     const { queryClient } = context;
