@@ -92,7 +92,10 @@ export const Route = createRootRouteWithContext<Context>()({
         const headers = getRequestHeaders();
         session = await auth.api.getSession({ headers });
       } catch (error) {
-        console.error("Failed to load SSR session:", error);
+        console.error(
+          "Failed to load SSR session. Continuing unauthenticated (check Better Auth server configuration if unexpected).",
+          error
+        );
         session = null;
       }
     } else {

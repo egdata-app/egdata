@@ -48,9 +48,9 @@ export default defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    // Test-only fallback secret for local/CI e2e startup when BETTER_AUTH_SECRET is unset.
+    // Test-only startup defaults (never intended for production runtime).
     command:
-      "BETTER_AUTH_URL=http://localhost:3000 BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET:-playwright-local-secret-change-me-1234567890abcdef} pnpm start",
+      "BETTER_AUTH_URL=http://localhost:3000 BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET:-$(openssl rand -hex 32)} pnpm start",
     url: "http://localhost:3000",
     reuseExistingServer: true,
     timeout: 120 * 1000,
