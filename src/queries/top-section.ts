@@ -9,9 +9,10 @@ type TopSection = {
 };
 
 export const getTopSection = async (slug: string) => {
+  // API off-by-one: `limit=N` returns N-1 elements, so `limit=1` returns 0.
   return httpClient.get<TopSection>(`/offers/${slug}`, {
     params: {
-      limit: 1,
+      limit: 2,
     },
   });
 };
