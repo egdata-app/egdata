@@ -79,7 +79,7 @@ export const Route = createRootRouteWithContext<Context>()({
 
     if (import.meta.env.SSR) {
       const { getCookies, getRequestHeaders, getRequestUrl } =
-        await import("@tanstack/react-start/server");
+        await import("@/lib/start-server");
       const reqUrl = getRequestUrl();
 
       url = new URL(reqUrl);
@@ -342,20 +342,18 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
           </LocaleProvider>
         </div>
 
-        {import.meta.env.DEV && (
-          <TanStackDevtools
-            plugins={[
-              {
-                name: "Tanstack Query",
-                render: <ReactQueryDevtoolsPanel />,
-              },
-              {
-                name: "Tanstack Router",
-                render: <TanStackRouterDevtoolsPanel />,
-              },
-            ]}
-          />
-        )}
+        <TanStackDevtools
+          plugins={[
+            {
+              name: "Tanstack Query",
+              render: <ReactQueryDevtoolsPanel />,
+            },
+            {
+              name: "Tanstack Router",
+              render: <TanStackRouterDevtoolsPanel />,
+            },
+          ]}
+        />
         <Scripts />
       </body>
     </html>

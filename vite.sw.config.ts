@@ -1,5 +1,4 @@
 import { defineConfig } from 'vite';
-import tsConfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   define: {
@@ -16,7 +15,7 @@ export default defineConfig({
       fileName: 'sw',
       formats: ['es'],
     },
-    rollupOptions: {
+    rolldownOptions: {
       external: (id) => {
         // Exclude all @tanstack packages and solid-js from the service worker bundle
         return id.includes('@tanstack') || 
@@ -27,13 +26,11 @@ export default defineConfig({
       output: {
         entryFileNames: 'sw.js',
         format: 'es',
-        inlineDynamicImports: true,
+        codeSplitting: false,
       },
     },
   },
-  plugins: [
-    tsConfigPaths({
-      projects: ['./tsconfig.json'],
-    }),
-  ],
+  resolve: {
+    tsconfigPaths: true,
+  },
 });
