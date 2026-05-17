@@ -5,7 +5,7 @@ import type { SingleOffer } from "@/types/single-offer";
 import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { getImage } from "@/lib/getImage";
 import useEmblaCarousel from "embla-carousel-react";
-import { Player } from "../app/video-player.client";
+import { Player } from "../app/video-player";
 import { Image } from "../app/image";
 import { Button } from "../ui/button";
 import { ChevronLeft, ChevronRight, PlayIcon } from "lucide-react";

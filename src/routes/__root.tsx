@@ -342,20 +342,18 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
           </LocaleProvider>
         </div>
 
-        {import.meta.env.DEV && (
-          <TanStackDevtools
-            plugins={[
-              {
-                name: "Tanstack Query",
-                render: <ReactQueryDevtoolsPanel />,
-              },
-              {
-                name: "Tanstack Router",
-                render: <TanStackRouterDevtoolsPanel />,
-              },
-            ]}
-          />
-        )}
+        <TanStackDevtools
+          plugins={[
+            {
+              name: "Tanstack Query",
+              render: <ReactQueryDevtoolsPanel />,
+            },
+            {
+              name: "Tanstack Router",
+              render: <TanStackRouterDevtoolsPanel />,
+            },
+          ]}
+        />
         <Scripts />
       </body>
     </html>

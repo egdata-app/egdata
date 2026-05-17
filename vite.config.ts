@@ -1,17 +1,15 @@
 import { defineConfig } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import { sentryVitePlugin } from "@sentry/vite-plugin";
 import tailwindcss from "@tailwindcss/vite";
 import { VitePWA } from "vite-plugin-pwa";
-import react from "@vitejs/plugin-react-oxc";
+import react from "@vitejs/plugin-react";
 import { nitroV2Plugin as nitro } from "@tanstack/nitro-v2-vite-plugin";
 import { devtools } from "@tanstack/devtools-vite";
 
 export default defineConfig({
   plugins: [
     devtools(),
-    tsconfigPaths(),
     tailwindcss(),
     sentryVitePlugin({
       authToken: process.env.SENTRY_AUTH_TOKEN,
@@ -101,6 +99,9 @@ export default defineConfig({
     tanstackStart(),
     react(),
   ],
+  resolve: {
+    tsconfigPaths: true,
+  },
   build: {
     minify: "oxc",
     sourcemap: true,
