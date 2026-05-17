@@ -26,7 +26,6 @@ export default defineConfig({
       output: {
         entryFileNames: 'sw.js',
         format: 'es',
-        codeSplitting: false,
       },
     },
   },
