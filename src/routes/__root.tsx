@@ -334,6 +334,10 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
                       <Link to="/privacy">Privacy Policy</Link>
                       <span>|</span>
                       <Link to="/notifications">Notifications</Link>
+                      <span>|</span>
+                      <a href="https://docs.egdata.app" target="_blank" rel="noopener noreferrer">
+                        API Docs
+                      </a>
                     </div>
                   </footer>
                 </SearchProvider>
