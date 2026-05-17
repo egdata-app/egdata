@@ -78,7 +78,7 @@ export function SearchHeader(props: SearchHeaderProps) {
               value={query.sortBy ?? undefined}
               onValueChange={(value) => setField("sortBy", value as typeof query.sortBy)}
             >
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger className="w-[180px]" aria-label="Sort offers">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>
@@ -93,6 +93,7 @@ export function SearchHeader(props: SearchHeaderProps) {
               onClick={() => setField("sortDir", query.sortDir === "asc" ? "desc" : "asc")}
               variant="outline"
               className="w-9"
+              aria-label="Toggle sort direction"
             >
               <ArrowDown
                 className={cn(
@@ -108,6 +109,7 @@ export function SearchHeader(props: SearchHeaderProps) {
             variant="outline"
             className="h-9 w-9 p-0 hidden md:flex"
             onClick={() => setView(view === "grid" ? "list" : "grid")}
+            aria-label={view === "grid" ? "Show list view" : "Show grid view"}
           >
             {view === "grid" ? (
               <ListBulletIcon className="h-5 w-5" aria-hidden="true" />
