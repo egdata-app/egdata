@@ -5,7 +5,7 @@ export const Route = createFileRoute("/auth/logout")({
 
   beforeLoad: async () => {
     if (import.meta.env.SSR) {
-      const { deleteCookie } = await import("@tanstack/react-start/server");
+      const { deleteCookie } = await import("@/lib/start-server");
       deleteCookie("EGDATA_AUTH", {
         secure: true,
         path: "/",
