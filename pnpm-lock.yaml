@@ -6,7 +6,6 @@ settings:
 
 overrides:
   solid-js: 1.9.9
-  '@better-auth/sso@<=1.6.0': 1.6.0
   workbox-build@<=7.4.1: 7.4.1
   nitropack@<=2.13.2: 2.13.2
   prisma@<=7.6.0-dev.17: 7.6.0-dev.17
@@ -24,6 +23,7 @@ overrides:
   undici@<=7.24.1: 7.24.1
   better-auth@<=1.6.6: 1.6.6
   axios@<=1.15.1: 1.15.1
+  '@better-auth/sso@<=1.6.3': 1.6.3
 
 importers:
 
@@ -31,7 +31,7 @@ importers:
     dependencies:
       '@better-auth/infra':
         specifier: ^0.1.14
-        version: 0.1.14(09da7390cac2c710b8767769f7abf4a1)
+        version: 0.1.14(ea37d88bb6123f594d792d1bd0675810)
       '@egdata/core.schemas.ratings':
         specifier: ^5.0.0
         version: 5.0.0(mongoose@8.22.1)
@@ -1041,7 +1041,7 @@ packages:
     resolution: {integrity: sha512-UG+xbQ1i5sEUEGEswnoMQxKk4wEPaEC7CSjIYVuLOGQ2vn3u6yHUv95DuSQbTmlQX3rFHoF0YVP8PbuW+DwCFA==}
     peerDependencies:
       '@better-auth/core': 1.6.6
-      '@better-auth/sso': 1.6.0
+      '@better-auth/sso': 1.6.3
       better-auth: 1.6.6
       zod: '>=4.1.12'
 
@@ -1084,8 +1084,8 @@ packages:
       prisma:
         optional: true
 
-  '@better-auth/sso@1.6.0':
-    resolution: {integrity: sha512-tS6NQ6kLS65+9TCi7UDHfWFj3gvNzFt4iePnl1WqDlJkbsADls3iTPst4D4xb25Cf2Q4MGMMQarzbfhRB2PZRg==}
+  '@better-auth/sso@1.6.3':
+    resolution: {integrity: sha512-hXnB5gaAXorwxoC6RznhpBMnCoZB+lCTmwhXKdytqnTdAVVTWk/ndmD4HRJ7WZJnnseMUw2sXwCAZmS/Y1KlqA==}
     peerDependencies:
       '@better-auth/core': 1.6.6
       '@better-auth/utils': 0.4.0
@@ -10192,10 +10192,10 @@ snapshots:
       '@better-auth/core': 1.6.6(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.0)(better-call@1.3.5(zod@4.4.0))(jose@5.10.0)(kysely@0.28.17)(nanostores@1.1.1)
       '@better-auth/utils': 0.4.0
 
-  '@better-auth/infra@0.1.14(09da7390cac2c710b8767769f7abf4a1)':
+  '@better-auth/infra@0.1.14(ea37d88bb6123f594d792d1bd0675810)':
     dependencies:
       '@better-auth/core': 1.6.6(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.0)(better-call@1.3.5(zod@4.4.0))(jose@5.10.0)(kysely@0.28.17)(nanostores@1.1.1)
-      '@better-auth/sso': 1.6.0(9cd1b85ec735c3224fab156883729c45)
+      '@better-auth/sso': 1.6.3(9cd1b85ec735c3224fab156883729c45)
       '@better-fetch/fetch': 1.1.21
       better-auth: 1.6.6(@opentelemetry/api@1.9.0)(@prisma/client@7.4.2(prisma@7.6.0-dev.17(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.5.2)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3))(typescript@5.9.3))(@tanstack/react-start@1.167.64(crossws@0.4.5(srvx@0.11.15))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(vite@8.0.13(@types/node@22.19.17)(esbuild@0.27.7)(jiti@2.7.0)(terser@5.44.0)(tsx@4.21.0)(yaml@2.9.0)))(better-sqlite3@12.9.0)(mongodb@6.20.0)(mysql2@3.17.0)(pg@8.20.0)(prisma@7.6.0-dev.17(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.5.2)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3))(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(solid-js@1.9.9)
       better-call: 1.3.5(zod@4.4.0)
@@ -10230,7 +10230,7 @@ snapshots:
       '@prisma/client': 7.4.2(prisma@7.6.0-dev.17(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.5.2)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3))(typescript@5.9.3)
       prisma: 7.6.0-dev.17(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(better-sqlite3@12.9.0)(magicast@0.5.2)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3)
 
-  '@better-auth/sso@1.6.0(9cd1b85ec735c3224fab156883729c45)':
+  '@better-auth/sso@1.6.3(9cd1b85ec735c3224fab156883729c45)':
     dependencies:
       '@better-auth/core': 1.6.6(@better-auth/utils@0.4.0)(@better-fetch/fetch@1.1.21)(@opentelemetry/api@1.9.0)(better-call@1.3.5(zod@4.4.0))(jose@5.10.0)(kysely@0.28.17)(nanostores@1.1.1)
       '@better-auth/utils': 0.4.0

@@ -63,11 +63,13 @@ interface Hit {
 }
 
 const searchParamsSchema = z.object({
-  query: z.preprocess((value) => {
-    if (typeof value === "string") return value;
-    if (typeof value === "boolean") return "";
-    return undefined;
-  }, z.string().optional()),
+  query: z
+    .preprocess((value) => {
+      if (typeof value === "string") return value;
+      if (typeof value === "boolean") return "";
+      return undefined;
+    }, z.string())
+    .optional(),
   page: z.number().optional(),
 });
 
@@ -141,7 +143,6 @@ function ChangelogPage() {
     query: string;
   };
   const navigate = Route.useNavigate();
-  const search = Route.useSearch();
   const [page, setPage] = React.useState(initialPage || 1);
   const [query, setQuery] = React.useState(initialQuery || "");
   const { data, isLoading, isError } = useQuery({
@@ -167,15 +168,13 @@ function ChangelogPage() {
     setQuery(newQuery);
     setPage(1);
 
-    // Add query params to URL
-    const url = new URL(window.location.href);
-    url.searchParams.set("page", "1");
-    if (newQuery.trim() === "") {
-      url.searchParams.delete("query");
-    } else {
-      url.searchParams.set("query", newQuery);
-    }
-    window.history.pushState({}, "", url.toString());
+    navigate({
+      search: {
+        page: 1,
+        query: newQuery.trim() === "" ? undefined : newQuery,
+      },
+      resetScroll: false,
+    });
   };
 
   const totalPages = Math.ceil((data?.estimatedTotalHits || 0) / (data?.limit || 1));
@@ -185,7 +184,7 @@ function ChangelogPage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
     navigate({
       search: {
-        ...search,
+        query: query.trim() === "" ? undefined : query,
         page: newPage,
       },
     });

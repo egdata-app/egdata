@@ -47,6 +47,7 @@ export function MobileFreebiesCarousel() {
           variant="outline"
           className="h-9 w-9 p-0"
           onClick={() => setIsExpanded(!isExpanded)}
+          aria-label={isExpanded ? "Collapse mobile free games" : "Expand mobile free games"}
         >
           <ArrowDown
             className={cn("h-5 w-5 m-2 transition-transform ease-in-out duration-300", {
