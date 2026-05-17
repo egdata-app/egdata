@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { ClientOnly, createFileRoute } from "@tanstack/react-router";
 import { httpClient } from "@/lib/http-client";
 import type { Media } from "@/types/media";
 import type { SingleOffer } from "@/types/single-offer";
@@ -18,7 +18,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Player } from "@/components/app/video-player.client";
+import { Player } from "@/components/app/video-player";
 import { DownloadIcon, XIcon } from "lucide-react";
 import * as Portal from "@radix-ui/react-portal";
 import {
@@ -201,9 +201,11 @@ function MediaPage() {
             {(media?.videos.length ?? 0) > 0 && (
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 {media?.videos.map((video) => (
-                  <Suspense key={video._id} fallback={<div>Loading...</div>}>
-                    <Player video={video} offer={offer as SingleOffer} />
-                  </Suspense>
+                  <ClientOnly key={video._id} fallback={<div>Loading...</div>}>
+                    <Suspense fallback={<div>Loading...</div>}>
+                      <Player video={video} offer={offer as SingleOffer} />
+                    </Suspense>
+                  </ClientOnly>
                 ))}
               </div>
             )}

@@ -25,7 +25,7 @@ export const validateState = createServerFn({ method: "GET" })
 export const getTokens = createServerFn({ method: "GET" })
   .inputValidator((code: string) => code)
   .handler(async (ctx) => {
-    const { getRequest } = await import("@tanstack/react-start/server");
+    const { getRequest } = await import("@/lib/start-server");
     const req = getRequest();
 
     let ClientID: string | undefined;

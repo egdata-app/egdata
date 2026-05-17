@@ -18,7 +18,7 @@ export const saveStateFile = createServerFn({ method: "GET" }).handler(async (ct
 });
 
 export const getEpicEnv = createServerFn({ method: "GET" }).handler(async () => {
-  const { getRequest } = await import("@tanstack/react-start/server");
+  const { getRequest } = await import("@/lib/start-server");
   const req = getRequest();
 
   console.log("Cloudflare Request", req);

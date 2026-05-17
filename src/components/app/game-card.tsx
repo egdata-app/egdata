@@ -26,6 +26,7 @@ export function GameCard({
         params={{ id: game.id }}
         className="w-96 relative select-none"
         preload="viewport"
+        aria-label={`Open offer ${game.title}`}
       >
         <Card className="w-72 lg:max-w-sm rounded-lg overflow-hidden shadow-lg">
           <Image
@@ -85,7 +86,13 @@ export function OfferListItem({
   });
 
   return (
-    <Link to="/offers/$id" params={{ id: game.id }} className="w-full" preload="viewport">
+    <Link
+      to="/offers/$id"
+      params={{ id: game.id }}
+      className="w-full"
+      preload="viewport"
+      aria-label={`Open offer ${game.title}`}
+    >
       <Card className="flex flex-row w-full bg-card text-white p-2 rounded-lg h-fit relative">
         {/* Image Section */}
         <div className="flex-shrink-0 w-72 h-auto inline-flex items-center justify-center relative">

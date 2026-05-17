@@ -6,7 +6,7 @@ import { SignJWT, importPKCS8 } from "jose";
 export const getCookie = createServerFn({ method: "GET" })
   .inputValidator((name: string) => name)
   .handler(async (ctx) => {
-    const { getCookie: _getCookie } = await import("@tanstack/react-start/server");
+    const { getCookie: _getCookie } = await import("@/lib/start-server");
     const cookie = _getCookie(ctx.data);
 
     if (!cookie) {
@@ -19,8 +19,7 @@ export const getCookie = createServerFn({ method: "GET" })
 export const saveAuthCookie = createServerFn({ method: "GET" })
   .inputValidator((stringifiedValue: string) => stringifiedValue)
   .handler(async (ctx) => {
-    const { setCookie: _setCookie } = await import("@tanstack/react-start/server");
-    const { getRequest } = await import("@tanstack/react-start/server");
+    const { getRequest, setCookie: _setCookie } = await import("@/lib/start-server");
 
     const { name, value } = JSON.parse(ctx.data) as {
       name: string;
