@@ -684,7 +684,7 @@ function RefreshProfile({ id }: { id: string }) {
 
   return (
     <Tooltip delayDuration={0} open={refreshStatus?.canRefresh ? false : undefined}>
-      <TooltipTrigger>
+      <TooltipTrigger asChild>
         <Button
           variant="outline"
           onClick={handleRefresh}
