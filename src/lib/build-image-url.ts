@@ -2,19 +2,16 @@ export type ImageQuality = "original" | "low" | "medium" | "high";
 
 const isAbsolute = (src: string) => src.startsWith("http") || src.startsWith("//");
 const shouldOptimize = (src: string) => isAbsolute(src) && !src.includes("/epic-achievements/");
+const FALLBACK_BASE_URL = "https://egdata.app";
 
-const buildImageUrl = (src: string, width: number, quality: ImageQuality = "medium") => {
-  if (!isAbsolute(src)) return "/placeholder.webp";
-  if (!shouldOptimize(src)) return src;
-
+const withImageParams = (src: string, width: number, quality: ImageQuality): string => {
   const isProtocolRelative = src.startsWith("//");
-  const base = "https://egdata.app";
 
   let url: URL;
   try {
     url = new URL(src);
   } catch {
-    url = new URL(src, base);
+    url = new URL(src, FALLBACK_BASE_URL);
   }
 
   url.searchParams.set("w", String(width));
@@ -23,6 +20,12 @@ const buildImageUrl = (src: string, width: number, quality: ImageQuality = "medi
 
   const result = url.toString();
   return isProtocolRelative ? result.replace(/^https?:/, "") : result;
+};
+
+const buildImageUrl = (src: string, width: number, quality: ImageQuality = "medium") => {
+  if (!isAbsolute(src)) return "/placeholder.webp";
+  if (!shouldOptimize(src)) return src;
+  return withImageParams(src, width, quality);
 };
 
 export default buildImageUrl;
@@ -38,5 +41,5 @@ export const buildSrcSet = (
   const widths = DPR_MULTIPLIERS.map((m) => Math.round(width * m)).filter(
     (w, i, arr) => arr.indexOf(w) === i,
   );
-  return widths.map((w) => `${src}?w=${w}&quality=${quality}&resize=1 ${w}w`).join(", ");
+  return widths.map((w) => `${withImageParams(src, w, quality)} ${w}w`).join(", ");
 };
