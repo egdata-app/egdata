@@ -43,7 +43,7 @@ type RareAchievement = Achievement & {
 };
 
 const profileParamsSchema = z.object({
-  page: z.number().catch(1),
+  page: z.coerce.number().int().min(1).catch(1).default(1),
   platinum: z.boolean().optional(),
   sort: z.enum(["completion", "alphabetical", "xp", "achievements"]).optional(),
 });

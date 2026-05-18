@@ -1,7 +1,7 @@
 import { expect, type Page } from "@playwright/test";
 
 const appErrorText =
-  /Application error|ReferenceError|TypeError|Cannot read properties|Hydration failed|Minified React error|Unhandled Runtime Error/i;
+  /Application error|ReferenceError|TypeError|Cannot read properties|Hydration failed|Minified React error|Unhandled Runtime Error|ZodError|Invalid input: expected/i;
 
 export async function expectNoAppError(page: Page) {
   await expect(page.getByText(appErrorText)).toHaveCount(0);
