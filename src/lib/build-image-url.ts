@@ -6,12 +6,17 @@ const FALLBACK_BASE_URL = "https://egdata.app";
 
 const withImageParams = (src: string, width: number, quality: ImageQuality): string => {
   const isProtocolRelative = src.startsWith("//");
+  const srcToParse = isProtocolRelative ? `https:${src}` : src;
 
   let url: URL;
   try {
-    url = new URL(src);
+    url = new URL(srcToParse);
   } catch {
-    url = new URL(src, FALLBACK_BASE_URL);
+    try {
+      url = new URL(srcToParse, FALLBACK_BASE_URL);
+    } catch {
+      return src;
+    }
   }
 
   url.searchParams.set("w", String(width));
