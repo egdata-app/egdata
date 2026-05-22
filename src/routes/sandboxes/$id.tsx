@@ -125,11 +125,20 @@ function SandboxPage() {
   const { id } = Route.useParams();
   const navigate = Route.useNavigate();
   const subPath = useLocation().pathname.split(`/${id}/`)[1];
+  const isHubPage = !subPath;
   const { data: sandbox } = useQuery({
     queryKey: ["sandbox", { id }],
     queryFn: () => httpClient.get<SingleSandbox>(`/sandboxes/${id}`),
     retry: false,
   });
+
+  if (isHubPage) {
+    return (
+      <div className="w-full min-h-[75vh]">
+        <Outlet />
+      </div>
+    );
+  }
 
   if (!sandbox) {
     return null;
@@ -214,7 +223,7 @@ function SandboxPage() {
           activeSection={subPath ?? ""}
           onSectionChange={(location) => {
             navigate({
-              to: `/sandboxes/${id}/${location}`,
+              to: location ? `/sandboxes/${id}/${location}` : `/sandboxes/${id}`,
               replace: false,
               resetScroll: false,
             });

@@ -324,7 +324,7 @@ function OfferPage() {
                     }
                   >
                     <Link
-                      to={"/sandboxes/$id/offers"}
+                      to={"/sandboxes/$id"}
                       params={{
                         id: offer.namespace,
                       }}
