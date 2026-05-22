@@ -50,7 +50,7 @@ export const Route = createFileRoute("/sandboxes/$id/")({
     const { country, queryClient } = context;
 
     await queryClient
-      .prefetchQuery(
+      .ensureQueryData(
         sandboxHubQueryOptions({
           id,
           country: country || "US",
@@ -152,17 +152,24 @@ function SandboxHero({ hub }: { hub: SandboxHubData }) {
                 <span>{hub.publisher}</span>
               </>
             )}
-            {hub.seller && (
+            {hub.seller?.id ? (
               <>
                 <span>/</span>
                 <Link
                   to="/sellers/$id"
-                  params={{ id: hub.seller.id ?? "" }}
+                  params={{ id: hub.seller.id }}
                   className="underline decoration-dotted underline-offset-4"
                 >
                   {hub.seller.name}
                 </Link>
               </>
+            ) : (
+              hub.seller?.name && (
+                <>
+                  <span>/</span>
+                  <span>{hub.seller.name}</span>
+                </>
+              )
             )}
           </div>
         </div>
@@ -306,8 +313,10 @@ function FeaturedOffers({ offers }: { offers: SingleOffer[] }) {
 }
 
 function RecentActivity({ hub }: { hub: SandboxHubData }) {
-  const hasBuilds = Boolean(hub.recentBuilds?.length);
-  const hasChanges = Boolean(hub.recentChanges?.length);
+  const recentBuilds = (hub.recentBuilds ?? []).filter((build) => build?._id).slice(0, 5);
+  const recentChanges = (hub.recentChanges ?? []).filter((change) => change?._id).slice(0, 5);
+  const hasBuilds = recentBuilds.length > 0;
+  const hasChanges = recentChanges.length > 0;
 
   if (!hasBuilds && !hasChanges) {
     return null;
@@ -319,27 +328,33 @@ function RecentActivity({ hub }: { hub: SandboxHubData }) {
         <div className="flex flex-col gap-3">
           <SectionHeading title="Recent Builds" />
           <div className="flex flex-col gap-2">
-            {hub.recentBuilds?.slice(0, 5).map((build) => (
-              <Link
-                key={build?._id}
-                to="/builds/$id"
-                params={{ id: build?._id ?? "" }}
-                className="flex items-center justify-between gap-4 rounded-lg border bg-card p-4 transition-colors hover:bg-muted/40"
-              >
-                <div className="min-w-0">
-                  <div className="truncate font-medium">
-                    {build?.labelName || build?.appName || "Unknown build"}
+            {recentBuilds.map((build) => {
+              if (!build?._id) {
+                return null;
+              }
+
+              return (
+                <Link
+                  key={build._id}
+                  to="/builds/$id"
+                  params={{ id: build._id }}
+                  className="flex items-center justify-between gap-4 rounded-lg border bg-card p-4 transition-colors hover:bg-muted/40"
+                >
+                  <div className="min-w-0">
+                    <div className="truncate font-medium">
+                      {build?.labelName || build?.appName || "Unknown build"}
+                    </div>
+                    <div className="mt-1 truncate text-sm text-muted-foreground">
+                      {build?.buildVersion || build?.appName}
+                    </div>
                   </div>
-                  <div className="mt-1 truncate text-sm text-muted-foreground">
-                    {build?.buildVersion || build?.appName}
+                  <div className="shrink-0 text-right text-sm text-muted-foreground">
+                    <div>{calculateSize(Number(build?.downloadSizeBytes ?? 0))}</div>
+                    <div>{formatDate(build?.updatedAt)}</div>
                   </div>
-                </div>
-                <div className="shrink-0 text-right text-sm text-muted-foreground">
-                  <div>{calculateSize(Number(build?.downloadSizeBytes ?? 0))}</div>
-                  <div>{formatDate(build?.updatedAt)}</div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
         </div>
       )}
@@ -348,12 +363,16 @@ function RecentActivity({ hub }: { hub: SandboxHubData }) {
         <div className="flex flex-col gap-3">
           <SectionHeading title="Recent Changes" />
           <div className="flex flex-col gap-2">
-            {hub.recentChanges?.slice(0, 5).map((change) => {
+            {recentChanges.map((change) => {
+              if (!change?._id) {
+                return null;
+              }
+
               const firstChange = change?.metadata?.changes?.[0];
 
               return (
                 <Link
-                  key={change?._id}
+                  key={change._id}
                   to="/sandboxes/$id/changelog"
                   params={{ id: hub.id ?? "" }}
                   className="flex items-center justify-between gap-4 rounded-lg border bg-card p-4 transition-colors hover:bg-muted/40"
@@ -412,7 +431,7 @@ function AdvancedLinks({ hub }: { hub: SandboxHubData }) {
               <span>{link.label}</span>
             </div>
             <div className="mt-3 text-2xl font-semibold">
-              {typeof link.value === "number" ? link.value.toLocaleString("en-UK") : "View"}
+              {typeof link.value === "number" ? link.value.toLocaleString("en-GB") : "View"}
             </div>
           </Link>
         ))}
