@@ -541,7 +541,6 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
           className="ml-4 inline-flex items-center space-x-2"
           to="/profile/$id"
           params={{ id: review.user.accountId }}
-          // @ts-expect-error - empty search params
           search={{}}
         >
           <div className="font-bold">{review.user.displayName}</div>
