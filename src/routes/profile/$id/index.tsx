@@ -1,30 +1,21 @@
 import * as React from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { httpClient } from "@/lib/http-client";
-import type { Achievement } from "@/queries/offer-achievements";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import type { SingleOffer } from "@/types/single-offer";
-import { cn } from "@/lib/utils";
-import type { Profile } from "@/types/profiles";
-import { Image } from "@/components/app/image";
-import { getImage } from "@/lib/get-image";
-import { EpicPlatinumIcon } from "../$id";
-import {
-  Carousel,
-  type CarouselApi,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel";
-import { ArrowUpIcon } from "lucide-react";
-import { FlippableCard, raritiesTextColors } from "@/components/app/achievement-card";
-import { EpicTrophyIcon } from "@/components/icons/epic-trophy";
-import { getRarity } from "@/lib/get-rarity";
-import { getUserGames } from "@/queries/profiles";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { DynamicPagination } from "@/components/app/dynamic-pagination";
+import { useQuery } from "@tanstack/react-query";
 import { z } from "zod";
-import { Skeleton } from "@/components/ui/skeleton";
+import {
+  getDefaultProfilePageVariables,
+  PROFILE_ACTIVITY_LIMIT,
+  PROFILE_LIBRARY_LIMIT,
+  profilePageQueryOptions,
+  type ProfileAchievement,
+  type ProfileActivityItem,
+  type ProfileGame,
+  type ProfileGameFilter,
+  type ProfileGameSort,
+  type ProfilePageProfile,
+} from "@/queries/profile-gql";
+import { Image } from "@/components/app/image";
+import { DynamicPagination } from "@/components/app/dynamic-pagination";
 import {
   Select,
   SelectContent,
@@ -32,525 +23,859 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { EpicTrophyIcon } from "@/components/icons/epic-trophy";
+import { cn } from "@/lib/utils";
+import { EpicPlatinumIcon } from "@/routes/profile/$id";
+import {
+  ActivityIcon,
+  ArrowRightIcon,
+  ClockIcon,
+  FilterIcon,
+  FlameIcon,
+  Gamepad2Icon,
+  MedalIcon,
+  StarIcon,
+  TrophyIcon,
+} from "lucide-react";
 
-type RareAchievement = Achievement & {
-  unlocked: boolean;
-  unlockDate: string;
-  sandboxId: string;
-  offer: SingleOffer;
-};
+const profileTabs = ["showcase", "library", "activity"] as const;
+type ProfileTab = (typeof profileTabs)[number];
+
+const searchFilters = ["all", "completed", "near-platinum", "in-progress", "platinum"] as const;
+type SearchFilter = (typeof searchFilters)[number];
+
+const searchSorts = ["completion", "alphabetical", "xp", "achievements"] as const;
+type SearchSort = (typeof searchSorts)[number];
 
 const profileParamsSchema = z.object({
-  page: z.coerce.number().int().min(1).catch(1).default(1),
-  platinum: z.boolean().optional(),
-  sort: z.enum(["completion", "alphabetical", "xp", "achievements"]).optional(),
+  tab: z.enum(profileTabs).optional().catch(undefined),
+  page: z.coerce.number().int().min(1).optional().catch(undefined),
+  activityPage: z.coerce.number().int().min(1).optional().catch(undefined),
+  filter: z.enum(searchFilters).optional().catch(undefined),
+  sort: z.enum(searchSorts).optional().catch(undefined),
+  platinum: z
+    .preprocess((value) => {
+      if (value === "true") return true;
+      if (value === "false") return false;
+      return value;
+    }, z.boolean().optional())
+    .optional(),
 });
+
+type ProfileSearch = {
+  tab?: ProfileTab;
+  page?: number;
+  activityPage?: number;
+  filter?: SearchFilter;
+  sort?: SearchSort;
+};
+
+type EffectiveProfileSearch = {
+  tab: ProfileTab;
+  page: number;
+  activityPage: number;
+  filter: SearchFilter;
+  sort: SearchSort;
+};
+
+const filterToGraphQL: Record<SearchFilter, ProfileGameFilter> = {
+  all: "ALL",
+  completed: "COMPLETED",
+  "near-platinum": "NEAR_PLATINUM",
+  "in-progress": "IN_PROGRESS",
+  platinum: "PLATINUM",
+};
+
+const sortToGraphQL: Record<SearchSort, ProfileGameSort> = {
+  completion: "COMPLETION",
+  alphabetical: "ALPHABETICAL",
+  xp: "XP",
+  achievements: "ACHIEVEMENTS",
+};
+
+const filterLabels: Record<SearchFilter, string> = {
+  all: "All",
+  completed: "Completed",
+  "near-platinum": "Near Platinum",
+  "in-progress": "In Progress",
+  platinum: "Platinum",
+};
+
+const sortLabels: Record<SearchSort, string> = {
+  completion: "Completion",
+  alphabetical: "Alphabetical",
+  xp: "XP",
+  achievements: "Achievements",
+};
 
 export const Route = createFileRoute("/profile/$id/")({
   component: ProfileInformation,
+  validateSearch: (search): ProfileSearch => {
+    const parsed = profileParamsSchema.parse(search);
+    const normalized: ProfileSearch = {};
 
-  loader: async ({ params, context }) => {
-    const { queryClient } = context;
+    if (parsed.tab) normalized.tab = parsed.tab;
+    if (parsed.page) normalized.page = parsed.page;
+    if (parsed.activityPage) normalized.activityPage = parsed.activityPage;
+    if (parsed.platinum) {
+      normalized.filter = "platinum";
+    } else if (parsed.filter) {
+      normalized.filter = parsed.filter;
+    }
+    if (parsed.sort) normalized.sort = parsed.sort;
 
-    await queryClient.prefetchQuery({
-      queryKey: ["player-rarest-achievements", { id: params.id }],
-      queryFn: () =>
-        httpClient.get<Achievement[]>(`/profiles/${params.id}/rare-achievements`).catch(() => []),
-    });
-
-    return {
-      id: params.id,
-    };
+    return normalized;
   },
-
-  validateSearch: (search) => profileParamsSchema.parse(search),
 });
 
 function ProfileInformation() {
-  const search = Route.useSearch();
+  const { id } = Route.useParams();
+  const rawSearch = Route.useSearch();
+  const search = getEffectiveSearch(rawSearch);
   const navigate = Route.useNavigate();
-  const [activeTab, setActiveTab] = React.useState("overview");
-  const [underlineStyle, setUnderlineStyle] = React.useState({});
-  const tabRefs = React.useRef<Record<string, HTMLButtonElement | null>>({});
+  const variables = React.useMemo(
+    () => ({
+      ...getDefaultProfilePageVariables(id),
+      gamePage: search.page,
+      gameFilter: filterToGraphQL[search.filter],
+      gameSort: sortToGraphQL[search.sort],
+      achievementPage: search.activityPage,
+    }),
+    [id, search.activityPage, search.filter, search.page, search.sort],
+  );
+  const { data: profile, isLoading, isError } = useQuery(profilePageQueryOptions(variables));
 
-  const tabs = [
-    { id: "overview", label: "Overview" },
-    { id: "achievements", label: "Achievements" },
-  ];
-
-  React.useEffect(() => {
-    const activeTabElement = tabRefs.current[activeTab];
-    if (activeTabElement) {
-      setUnderlineStyle({
-        left: `${activeTabElement.offsetLeft}px`,
-        width: `${activeTabElement.offsetWidth}px`,
-      });
-    }
-  }, [activeTab]);
-
-  const handleSortChange = (sort: "completion" | "alphabetical" | "xp" | "achievements") => {
+  const updateSearch = (next: Partial<EffectiveProfileSearch>) => {
     navigate({
-      search: {
-        ...search,
-        sort,
-      },
+      search: (prev) => toSearchParams({ ...getEffectiveSearch(prev), ...next }),
     });
   };
 
-  return (
-    <div className=" p-4 rounded-lg">
-      <div className="flex border-b border-gray-700 relative">
-        {tabs.map((tab) => (
-          <button
-            type="button"
-            key={tab.id}
-            ref={(el) => {
-              tabRefs.current[tab.id] = el;
-            }}
-            className={cn(
-              "px-4 py-2 font-medium text-sm focus:outline-none",
-              activeTab === tab.id ? "text-white" : "text-gray-400 hover:text-gray-200",
-            )}
-            onClick={() => setActiveTab(tab.id)}
-          >
-            {tab.label}
-          </button>
-        ))}
-        <div
-          className="absolute bottom-0 h-0.5 bg-white transition-all duration-300 ease-in-out"
-          style={underlineStyle}
-        />
-        <div className="absolute right-0 -top-1 inline-flex gap-2">
-          <div className="flex items-center justify-center gap-3">
-            <Checkbox
-              id="only-platinum"
-              defaultChecked={search.platinum}
-              onCheckedChange={(checked) => {
-                navigate({
-                  search: {
-                    ...search,
-                    platinum: checked === "indeterminate" ? undefined : checked,
-                  },
-                });
-              }}
-            />
-            <div className="grid gap-2">
-              <Label htmlFor="only-platinum">Only show platinum achievements</Label>
-            </div>
-          </div>
-          <Select value={search.sort} onValueChange={handleSortChange}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Sort by" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="completion">Completion</SelectItem>
-              <SelectItem value="alphabetical">Alphabetical</SelectItem>
-              <SelectItem value="xp">XP</SelectItem>
-              <SelectItem value="achievements">Achievements</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
-      <div className="mt-4">
-        {activeTab === "overview" && <AchievementsOverview />}
-
-        {activeTab === "achievements" && <AchievementsTimeline />}
-      </div>
-    </div>
-  );
-}
-
-function GameAchievementsSummary({ game }: { game: Profile["achievements"]["data"][0] }) {
-  const { id } = Route.useLoaderData();
-  return (
-    <Link
-      className="flex hover:bg-card/25 bg-card text-white p-2 rounded-lg overflow-hidden transition-all duration-300 ease-in-out w-full gap-4"
-      to="/profile/$id/achievements/$sandbox"
-      params={{
-        id,
-        sandbox: game.sandboxId,
-      }}
-    >
-      <div className="w-1/4">
-        <Image
-          src={
-            getImage(game.baseOfferForSandbox?.keyImages ?? [], [
-              "DieselStoreFrontWide",
-              "OfferImageWide",
-              "DieselGameBoxWide",
-              "TakeoverWide",
-            ])?.url ?? "/placeholder.webp"
-          }
-          alt={game.product.name ?? game.sandboxId}
-          width={650}
-          height={400}
-          className="rounded-md"
-        />
-      </div>
-      <div className="w-2/4">
-        <h2 className="text-2xl font-bold mb-2">{game.product.name}</h2>
-        <div className="flex flex-row gap-4">
-          <div className="flex items-start flex-col gap-2">
-            <p className="text-sm text-gray-400">Achievements Progress</p>
-            <div className="flex flex-col gap-2">
-              <span className="inline-flex items-center gap-2 font-normal text-lg">
-                <span className="text-white flex flex-row items-center gap-1">
-                  {game.playerAwards?.length > 0 && (
-                    <EpicPlatinumIcon className="w-4 h-4 text-[#6e59e6]" />
-                  )}
-                  {(
-                    (game.totalUnlocked /
-                      (game.productAchievements?.totalAchievements ?? game.totalUnlocked)) *
-                    100
-                  ).toFixed(0)}
-                  %
-                </span>
-                <span className="text-gray-500">|</span>
-                <span className="text-white">
-                  {game.totalUnlocked} /{" "}
-                  {game.productAchievements?.totalAchievements ?? game.totalUnlocked} achievements
-                </span>
-              </span>
-              <div className="w-full h-[6px] bg-gray-300/10 rounded-full">
-                <div
-                  className="h-[6px] bg-white rounded-full"
-                  style={{
-                    width: `${(game.totalUnlocked / (game.productAchievements?.totalAchievements ?? game.totalUnlocked)) * 100}%`,
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="flex items-start flex-col gap-2">
-            <p className="text-sm text-gray-400">Total XP Earned</p>
-            <div className="flex flex-col gap-2">
-              <span className="text-sm inline-flex items-center gap-2">
-                <span className="text-white font-semibold text-lg">
-                  {game.totalXP} / {game.productAchievements?.totalProductXP} XP
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="w-1/4">
-        <SandboxRareAchievements id={id} sandbox={game.sandboxId} />
-      </div>
-    </Link>
-  );
-}
-
-function GameAchievementsSummarySkeleton() {
-  return (
-    <div className="flex flex-row gap-4 items-center bg-card px-4 py-6 rounded-lg w-full select-none h-60">
-      <Skeleton className="w-1/4" />
-      <div className="flex flex-col gap-2">
-        <Skeleton className="h-6 w-full" />
-        <Skeleton className="h-6 w-full" />
-      </div>
-    </div>
-  );
-}
-
-function SandboxRareAchievements({ id, sandbox }: { id: string; sandbox: string }) {
-  const { data, isLoading } = useQuery({
-    queryKey: ["sandbox:rarest-achievements", { id, sandbox }],
-    queryFn: () =>
-      httpClient.get<RareAchievement[]>(`/profiles/${id}/rare-achievements/${sandbox}`),
-  });
-
-  if (isLoading) return null;
-
-  if (!data) return null;
-
-  if (data.length === 0) return null;
-
-  return (
-    <section className="flex flex-col gap-4">
-      <div className="flex flex-col gap-2 h-full">
-        <h6 className="text-sm font-thin text-gray-300">Rarest Achievements</h6>
-        <div className="flex gap-2 flex-col h-full justify-between">
-          {data.slice(0, 3).map((achievement) => (
-            <div key={achievement.name} className="flex flex-row gap-2">
-              <div className="size-12 rounded-md flex-shrink-0">
-                <Image
-                  src={achievement.unlockedIconLink}
-                  alt={achievement.name}
-                  width={124}
-                  height={124}
-                  className="rounded-md size-16"
-                  quality="original"
-                />
-              </div>
-              <div className="flex flex-col gap-1">
-                <p className="text-base font-light truncate">{achievement.unlockedDisplayName}</p>
-                <p className="text-sm font-thin text-gray-300">
-                  {achievement.completedPercent}% of players unlocked
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function RarestAchievements() {
-  const { id } = Route.useLoaderData();
-  const [api, setApi] = React.useState<CarouselApi>();
-  const { data } = useQuery({
-    queryKey: ["player-rarest-achievements", { id }],
-    queryFn: () => httpClient.get<RareAchievement[]>(`/profiles/${id}/rare-achievements`),
-  });
-
-  if (!data) {
-    return null;
+  if (isLoading && !profile) {
+    return <ProfileContentSkeleton />;
   }
 
-  const handlePreviousSlide = () => {
-    api?.scrollPrev();
-  };
-
-  const handleNextSlide = () => {
-    api?.scrollNext();
-  };
-
-  return (
-    <section className="flex flex-col gap-4 mt-4 mb-10">
-      <div className="flex flex-row items-center justify-between">
-        <h2 className="text-xl font-medium">Rarest Achievements</h2>
-        <div className="flex gap-2">
-          <button
-            onClick={handlePreviousSlide}
-            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
-            type="button"
-          >
-            <ArrowUpIcon className="w-5 h-5 transform -rotate-90" />
-          </button>
-          <button
-            onClick={handleNextSlide}
-            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
-            type="button"
-          >
-            <ArrowUpIcon className="w-5 h-5 transform rotate-90" />
-          </button>
-        </div>
-      </div>
-      <Carousel setApi={setApi} className="w-full">
-        <CarouselContent>
-          {data.map((achievement) => (
-            <CarouselItem key={achievement.name} className="md:basis-1/2 lg:basis-1/3">
-              <RareAchievement achievement={achievement} />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
-    </section>
-  );
-}
-
-function RareAchievement({ achievement }: { achievement: RareAchievement }) {
-  return (
-    <div className="flex flex-row gap-4 items-center bg-card px-4 py-6 rounded-lg w-full select-none">
-      <img
-        src={achievement.unlockedIconLink}
-        alt={achievement.name}
-        className="size-24 rounded-md"
-      />
-      <div className="flex flex-col gap-2">
-        <h6 className="text-sm font-normal text-gray-400">
-          {achievement.offer?.title ?? "Unknown"}
-        </h6>
-        <h3 className="text-lg font-semibold">{achievement.unlockedDisplayName}</h3>
-        <div className="flex flex-row gap-2 h-5">
-          <p className="text-sm font-thin">{achievement.completedPercent}% of players unlocked</p>
-          <Separator orientation="vertical" className="bg-white/25" />
-          <p className="text-sm text-gray-400 inline-flex items-center gap-2">
-            {achievement.xp} XP
-            <EpicTrophyIcon
-              className={cn("w-4 h-4 inline-block", raritiesTextColors[getRarity(achievement.xp)])}
-            />
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-type PlayerLatestAchievements = {
-  achievements: (Achievement & {
-    offer: SingleOffer;
-  })[];
-  count: number;
-  limit: number;
-  page: number;
-};
-
-function AchievementsTimeline() {
-  const { id } = Route.useLoaderData();
-
-  const { data, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } = useInfiniteQuery({
-    queryKey: ["profile:latest-achievements", { id }],
-    queryFn: ({ pageParam = 1 }) =>
-      httpClient.get<PlayerLatestAchievements>(`/profiles/${id}/achievements`, {
-        params: {
-          limit: 25,
-          page: pageParam,
-        },
-      }),
-    getNextPageParam: (lastPage: PlayerLatestAchievements) => {
-      const totalPages = lastPage.count / lastPage.limit;
-      return lastPage.page < totalPages ? lastPage.page + 1 : undefined;
-    },
-    initialPageParam: 1,
-  });
-
-  if (isLoading) {
+  if (!profile || isError) {
     return (
-      <div className="flex flex-col items-center justify-center h-full">
-        <span className="text-gray-400">Loading...</span>
+      <div className="rounded-md border border-border bg-card p-6 text-center">
+        <h2 className="text-xl font-semibold">Profile unavailable</h2>
+        <p className="mt-2 text-sm text-muted-foreground">
+          This profile could not be loaded right now.
+        </p>
       </div>
     );
   }
 
-  if (!data) {
-    return null;
-  }
-
-  const achievements = data.pages.flatMap((page) => page.achievements);
-
   return (
-    <div className="flex flex-col items-start justify-start h-full space-y-4 p-4">
-      <h1 className="text-2xl font-bold mb-4">Achievements Timeline</h1>
-      <section className="flex flex-col gap-4 w-full">
-        {achievements
-          .filter((a) => a.offer)
-          .map((achievement) => (
-            <SingleAchievement
-              key={`${achievement.name}-${achievement.offer.namespace}`}
-              achievement={achievement}
-            />
-          ))}
-        {hasNextPage && (
-          <Button
-            onClick={() => fetchNextPage()}
-            disabled={isFetchingNextPage}
-            className="mt-4 w-fit mx-auto"
-            variant="outline"
-          >
-            {isFetchingNextPage ? "Loading more..." : "Load More"}
-          </Button>
-        )}
-      </section>
-    </div>
-  );
-}
-
-function SingleAchievement({ achievement }: { achievement: Achievement & { offer: SingleOffer } }) {
-  const { id } = Route.useLoaderData();
-  return (
-    <div className="flex flex-row gap-4 w-full h-full">
-      <Link
-        className="max-w-72 w-full h-full cursor-pointer"
-        to="/profile/$id/achievements/$sandbox"
-        params={{
-          id,
-          sandbox: achievement.offer.namespace,
-        }}
-      >
-        <FlippableCard
-          achievement={achievement}
-          flipAll={false}
-          flipped={false}
-          onCardFlip={() => {}}
-          index={0}
-          blur={false}
-        />
-      </Link>
-      <div
-        className="flex flex-col gap-4 w-full h-72 bg-opacity-20 rounded-md p-4 relative"
-        style={{
-          backgroundImage: `url(${getImage(achievement.offer.keyImages, ["DieselGameBoxWide", "DieselStoreFrontWide", "OfferImageWide"])?.url ?? "/placeholder.webp"})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-l from-card/95 to-card z-0 rounded-md" />
-        <div className="flex flex-col gap-2 h-full z-10">
-          <h6 className="text-4xl">{achievement.offer.title}</h6>
-          <p className="text-lg text-gray-200 font-thin">
-            {new Date(achievement.unlockDate).toLocaleDateString("en-UK", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-              hour: "numeric",
-              minute: "numeric",
-            })}
-          </p>
+    <Tabs
+      value={search.tab}
+      onValueChange={(tab) => updateSearch({ tab: tab as ProfileTab })}
+      className="w-full"
+    >
+      <div className="mb-6 flex flex-col gap-4 border-b border-border pb-4 lg:flex-row lg:items-center lg:justify-between">
+        <TabsList className="w-fit rounded-md bg-card p-1">
+          <TabsTrigger value="showcase" className="rounded">
+            Showcase
+          </TabsTrigger>
+          <TabsTrigger value="library" className="rounded">
+            Library
+          </TabsTrigger>
+          <TabsTrigger value="activity" className="rounded">
+            Activity
+          </TabsTrigger>
+        </TabsList>
+        <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+          <span className="inline-flex items-center gap-2">
+            <Gamepad2Icon className="size-4" />
+            {profile.highlights?.totalGames ?? 0} games
+          </span>
+          <span className="inline-flex items-center gap-2">
+            <EpicTrophyIcon className="size-4" />
+            {profile.highlights?.totalAchievements ?? 0} achievements
+          </span>
+          <span className="inline-flex items-center gap-2">
+            <EpicPlatinumIcon className="size-4 text-[#8a7cff]" />
+            {profile.highlights?.totalPlatinums ?? 0} platinum
+          </span>
         </div>
       </div>
+
+      <TabsContent value="showcase" className="mt-0">
+        <ShowcaseView profile={profile} profileId={id} />
+      </TabsContent>
+      <TabsContent value="library" className="mt-0">
+        <LibraryView
+          profile={profile}
+          profileId={id}
+          search={search}
+          onFilterChange={(filter) =>
+            updateSearch({ tab: "library", page: 1, filter: filter as SearchFilter })
+          }
+          onSortChange={(sort) =>
+            updateSearch({ tab: "library", page: 1, sort: sort as SearchSort })
+          }
+          onPageChange={(page) => updateSearch({ tab: "library", page })}
+        />
+      </TabsContent>
+      <TabsContent value="activity" className="mt-0">
+        <ActivityView
+          profile={profile}
+          profileId={id}
+          onPageChange={(activityPage) => updateSearch({ tab: "activity", activityPage })}
+        />
+      </TabsContent>
+    </Tabs>
+  );
+}
+
+function ShowcaseView({ profile, profileId }: { profile: ProfilePageProfile; profileId: string }) {
+  const featuredAchievements = compact(profile.featuredAchievements).slice(0, 8);
+  const featuredGames = compact(profile.featuredGames).slice(0, 6);
+  const recentActivity = compact(profile.recentActivity).slice(0, 6);
+  const rarestAchievement = featuredAchievements[0];
+  const strongestGame = featuredGames[0];
+  const recentHighlight = recentActivity[0];
+
+  return (
+    <div className="space-y-10">
+      <section className="grid gap-4 lg:grid-cols-3" aria-label="Profile showcase highlights">
+        {rarestAchievement && (
+          <AchievementSpotlight achievement={rarestAchievement} profileId={profileId} />
+        )}
+        {strongestGame && <GameSpotlight game={strongestGame} profileId={profileId} />}
+        {recentHighlight && <ActivitySpotlight item={recentHighlight} profileId={profileId} />}
+      </section>
+
+      {featuredGames.length > 0 && (
+        <section className="space-y-4">
+          <SectionHeading
+            icon={<StarIcon className="size-5" />}
+            title="Featured Games"
+            detail={`${featuredGames.length} selected by profile performance`}
+          />
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {featuredGames.map((game) => (
+              <ProfileGameCard
+                key={game.sandboxId ?? game.title}
+                game={game}
+                profileId={profileId}
+                featured
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {featuredAchievements.length > 0 && (
+        <section className="space-y-4">
+          <SectionHeading
+            icon={<MedalIcon className="size-5" />}
+            title="Rare Achievements"
+            detail="Hard-to-find unlocks across the profile"
+          />
+          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+            {featuredAchievements.map((achievement) => (
+              <AchievementTile
+                key={`${achievement.sandboxId}-${achievement.name}`}
+                achievement={achievement}
+                profileId={profileId}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {recentActivity.length > 0 && (
+        <section className="space-y-4">
+          <SectionHeading
+            icon={<ClockIcon className="size-5" />}
+            title="Recent Unlocks"
+            detail="Latest visible activity"
+          />
+          <ActivityList items={recentActivity} profileId={profileId} />
+        </section>
+      )}
+
+      {featuredAchievements.length === 0 &&
+        featuredGames.length === 0 &&
+        recentActivity.length === 0 && (
+          <EmptyState
+            title="No showcase data yet"
+            description="Only launched games with public achievement progress appear on profiles."
+          />
+        )}
     </div>
   );
 }
 
-function AchievementsOverview() {
-  const { id } = Route.useLoaderData();
-  const navigate = Route.useNavigate();
-  const search = Route.useSearch();
-  const { page } = search;
-  const {
-    data: games,
-    isError,
-    isLoading,
-  } = useQuery({
-    queryKey: [
-      "profile-games",
-      { id, limit: 20, page, platinum: search.platinum, sort: search.sort },
-    ],
-    queryFn: () => getUserGames(id as string, page, 20, search.platinum, search.sort),
-  });
-
-  if (isError && !games) {
-    return <div>Error</div>;
+function ProfileSandboxLink({
+  profileId,
+  sandboxId,
+  className,
+  children,
+}: {
+  profileId: string;
+  sandboxId?: string | null;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  if (!sandboxId) {
+    return (
+      <div aria-disabled="true" className={cn(className, "cursor-default")}>
+        {children}
+      </div>
+    );
   }
 
-  const handlePageChange = (newPage: number) => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    navigate({
-      search: (prevState) => {
-        return {
-          ...prevState,
-          page: newPage,
-        };
-      },
-    });
-  };
+  return (
+    <Link
+      to="/profile/$id/achievements/$sandbox"
+      params={{ id: profileId, sandbox: sandboxId }}
+      className={className}
+    >
+      {children}
+    </Link>
+  );
+}
+
+function AchievementSpotlight({
+  achievement,
+  profileId,
+}: {
+  achievement: ProfileAchievement;
+  profileId: string;
+}) {
+  return (
+    <ProfileSandboxLink
+      profileId={profileId}
+      sandboxId={achievement.sandboxId}
+      className="group flex min-h-56 flex-col justify-between overflow-hidden rounded-md border border-border bg-card p-5 transition-colors hover:bg-card/80"
+    >
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <p className="inline-flex items-center gap-2 text-xs uppercase text-muted-foreground">
+            <FlameIcon className="size-4" />
+            Rarest unlock
+          </p>
+          <h2 className="mt-3 text-2xl font-semibold leading-tight">
+            {achievement.displayName ?? achievement.name}
+          </h2>
+        </div>
+        <AchievementIcon achievement={achievement} className="size-20" />
+      </div>
+      <div>
+        <p className="line-clamp-2 text-sm text-muted-foreground">{achievement.description}</p>
+        <div className="mt-4 flex items-center justify-between gap-3 text-sm">
+          <span className="truncate text-muted-foreground">{achievement.gameTitle}</span>
+          <span className="shrink-0 font-medium text-white">
+            {formatRarity(achievement.rarityPercent)}
+          </span>
+        </div>
+      </div>
+    </ProfileSandboxLink>
+  );
+}
+
+function GameSpotlight({ game, profileId }: { game: ProfileGame; profileId: string }) {
+  return (
+    <ProfileSandboxLink
+      profileId={profileId}
+      sandboxId={game.sandboxId}
+      className="group relative min-h-56 overflow-hidden rounded-md border border-border bg-card p-5 transition-colors hover:bg-card/80"
+    >
+      {game.imageUrl && (
+        <img
+          src={game.imageUrl}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover opacity-35 transition-transform duration-500 group-hover:scale-105"
+          loading="lazy"
+        />
+      )}
+      <div className="absolute inset-0 bg-gradient-to-t from-card via-card/85 to-card/35" />
+      <div className="relative flex h-full min-h-48 flex-col justify-between">
+        <p className="inline-flex items-center gap-2 text-xs uppercase text-muted-foreground">
+          <Gamepad2Icon className="size-4" />
+          Defining game
+        </p>
+        <div>
+          <h2 className="text-2xl font-semibold leading-tight">{game.title}</h2>
+          <div className="mt-4 flex items-end justify-between gap-4">
+            <div>
+              <p className="text-4xl font-light">{Math.round(game.completionPercent ?? 0)}%</p>
+              <p className="text-sm text-muted-foreground">
+                {game.unlocked ?? 0} / {game.total ?? 0} achievements
+              </p>
+            </div>
+            {game.hasPlatinum && (
+              <span className="inline-flex items-center gap-2 rounded-md bg-[#6e59e6]/25 px-3 py-2 text-sm text-white">
+                <EpicPlatinumIcon className="size-4" />
+                Platinum
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+    </ProfileSandboxLink>
+  );
+}
+
+function ActivitySpotlight({ item, profileId }: { item: ProfileActivityItem; profileId: string }) {
+  return (
+    <ProfileSandboxLink
+      profileId={profileId}
+      sandboxId={item.sandboxId}
+      className="group flex min-h-56 flex-col justify-between rounded-md border border-border bg-card p-5 transition-colors hover:bg-card/80"
+    >
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <p className="inline-flex items-center gap-2 text-xs uppercase text-muted-foreground">
+            <ActivityIcon className="size-4" />
+            Latest activity
+          </p>
+          <h2 className="mt-3 text-2xl font-semibold leading-tight">
+            {item.achievementName ?? activityTypeLabel(item.type)}
+          </h2>
+        </div>
+        {item.achievementIconUrl ? (
+          <Image
+            src={item.achievementIconUrl}
+            alt={item.achievementName ?? item.gameTitle ?? "Achievement"}
+            width={96}
+            height={96}
+            quality="original"
+            className="rounded-md"
+          />
+        ) : (
+          <div className="flex size-20 items-center justify-center rounded-md bg-primary/10">
+            <TrophyIcon className="size-8" />
+          </div>
+        )}
+      </div>
+      <div className="space-y-1 text-sm text-muted-foreground">
+        <p>{item.gameTitle}</p>
+        <p>{formatDate(item.occurredAt)}</p>
+      </div>
+    </ProfileSandboxLink>
+  );
+}
+
+function LibraryView({
+  profile,
+  profileId,
+  search,
+  onFilterChange,
+  onSortChange,
+  onPageChange,
+}: {
+  profile: ProfilePageProfile;
+  profileId: string;
+  search: EffectiveProfileSearch;
+  onFilterChange: (filter: SearchFilter) => void;
+  onSortChange: (sort: SearchSort) => void;
+  onPageChange: (page: number) => void;
+}) {
+  const games = compact(profile.games?.elements);
+  const totalPages = getTotalPages(
+    profile.games?.total,
+    profile.games?.limit ?? PROFILE_LIBRARY_LIMIT,
+  );
 
   return (
-    <div className="flex flex-col gap-4">
-      <RarestAchievements />
-      <div className="flex items-center flex-col gap-4">
-        {games?.achievements.map((achievement) => (
-          <GameAchievementsSummary
-            key={achievement.sandboxId}
-            // @ts-expect-error
-            game={achievement}
-          />
-        ))}
-        {isLoading &&
-          Array.from({ length: 10 }).map((_, i) => (
-            // biome-ignore lint/suspicious/noArrayIndexKey: loader
-            <GameAchievementsSummarySkeleton key={i} />
+    <div className="space-y-6">
+      <div className="flex flex-col gap-4 rounded-md border border-border bg-card/50 p-4 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex flex-wrap gap-2" role="group" aria-label="Library filter">
+          {searchFilters.map((filter) => (
+            <button
+              type="button"
+              key={filter}
+              onClick={() => onFilterChange(filter)}
+              className={cn(
+                "rounded-md border px-3 py-2 text-sm transition-colors",
+                search.filter === filter
+                  ? "border-white bg-white text-black"
+                  : "border-border bg-background text-muted-foreground hover:text-white",
+              )}
+            >
+              {filterLabels[filter]}
+            </button>
           ))}
+        </div>
+        <div className="flex items-center gap-2">
+          <FilterIcon className="size-4 text-muted-foreground" />
+          <Select value={search.sort} onValueChange={(value) => onSortChange(value as SearchSort)}>
+            <SelectTrigger className="w-[180px] rounded-md">
+              <SelectValue placeholder="Sort by" />
+            </SelectTrigger>
+            <SelectContent>
+              {searchSorts.map((sort) => (
+                <SelectItem key={sort} value={sort}>
+                  {sortLabels[sort]}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
       </div>
-      <DynamicPagination
-        currentPage={games?.pagination.page ?? 1}
-        setPage={handlePageChange}
-        totalPages={games?.pagination.totalPages ?? 1}
+
+      {games.length > 0 ? (
+        <>
+          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {games.map((game) => (
+              <ProfileGameCard
+                key={game.sandboxId ?? game.title}
+                game={game}
+                profileId={profileId}
+              />
+            ))}
+          </div>
+          <DynamicPagination
+            currentPage={profile.games?.page ?? search.page}
+            totalPages={totalPages}
+            setPage={onPageChange}
+          />
+        </>
+      ) : (
+        <EmptyState
+          title="No games found"
+          description="Only launched games with achievements appear in this library."
+        />
+      )}
+    </div>
+  );
+}
+
+function ProfileGameCard({
+  game,
+  profileId,
+  featured = false,
+}: {
+  game: ProfileGame;
+  profileId: string;
+  featured?: boolean;
+}) {
+  const rarestAchievements = compact(game.rarestAchievements).slice(0, 3);
+  const completion = Math.round(game.completionPercent ?? 0);
+
+  return (
+    <ProfileSandboxLink
+      profileId={profileId}
+      sandboxId={game.sandboxId}
+      className="group overflow-hidden rounded-md border border-border bg-card transition-colors hover:bg-card/80"
+    >
+      <div className="relative">
+        <Image
+          src={game.imageUrl ?? "/placeholder.webp"}
+          alt={game.title ?? game.sandboxId ?? "Game"}
+          width={640}
+          height={360}
+          className="transition-transform duration-500 group-hover:scale-105"
+          sizes="(min-width: 1280px) 400px, (min-width: 768px) 50vw, 100vw"
+        />
+        {game.hasPlatinum && (
+          <span className="absolute left-3 top-3 inline-flex items-center gap-2 rounded-md bg-[#6e59e6]/90 px-2.5 py-1.5 text-xs font-medium text-white">
+            <EpicPlatinumIcon className="size-3.5" />
+            Platinum
+          </span>
+        )}
+      </div>
+      <div className="space-y-4 p-4">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <h3 className="truncate text-lg font-semibold">{game.title}</h3>
+            <p className="text-sm text-muted-foreground">
+              {game.earnedXP ?? 0} / {game.totalXP ?? 0} XP
+            </p>
+          </div>
+          <div className="shrink-0 text-right">
+            <p className="text-2xl font-light">{completion}%</p>
+            <p className="text-xs text-muted-foreground">complete</p>
+          </div>
+        </div>
+        <div className="space-y-2">
+          <div className="h-2 overflow-hidden rounded-full bg-primary/10">
+            <div className="h-full rounded-full bg-white" style={{ width: `${completion}%` }} />
+          </div>
+          <div className="flex items-center justify-between text-sm text-muted-foreground">
+            <span>
+              {game.unlocked ?? 0} / {game.total ?? 0} achievements
+            </span>
+            {featured && <span>Featured</span>}
+          </div>
+        </div>
+        {rarestAchievements.length > 0 && (
+          <div className="flex items-center gap-2">
+            {rarestAchievements.map((achievement) => (
+              <AchievementIcon
+                key={`${achievement.sandboxId}-${achievement.name}`}
+                achievement={achievement}
+                className="size-10"
+              />
+            ))}
+            <span className="text-xs text-muted-foreground">Rare unlocks</span>
+          </div>
+        )}
+      </div>
+    </ProfileSandboxLink>
+  );
+}
+
+function AchievementTile({
+  achievement,
+  profileId,
+}: {
+  achievement: ProfileAchievement;
+  profileId: string;
+}) {
+  return (
+    <ProfileSandboxLink
+      profileId={profileId}
+      sandboxId={achievement.sandboxId}
+      className="flex gap-3 rounded-md border border-border bg-card p-3 transition-colors hover:bg-card/80"
+    >
+      <AchievementIcon achievement={achievement} className="size-14" />
+      <div className="min-w-0">
+        <h3 className="truncate font-medium">{achievement.displayName ?? achievement.name}</h3>
+        <p className="truncate text-sm text-muted-foreground">{achievement.gameTitle}</p>
+        <p className="mt-1 text-xs text-muted-foreground">
+          {formatRarity(achievement.rarityPercent)} - {achievement.xp ?? 0} XP
+        </p>
+      </div>
+    </ProfileSandboxLink>
+  );
+}
+
+function ActivityView({
+  profile,
+  profileId,
+  onPageChange,
+}: {
+  profile: ProfilePageProfile;
+  profileId: string;
+  onPageChange: (page: number) => void;
+}) {
+  const achievements = compact(profile.achievements?.elements);
+  const totalPages = getTotalPages(
+    profile.achievements?.total,
+    profile.achievements?.limit ?? PROFILE_ACTIVITY_LIMIT,
+  );
+
+  return (
+    <div className="space-y-6">
+      <SectionHeading
+        icon={<ActivityIcon className="size-5" />}
+        title="Activity"
+        detail={`${profile.achievements?.total ?? achievements.length} achievement unlocks`}
+      />
+      {achievements.length > 0 ? (
+        <>
+          <div className="space-y-3">
+            {achievements.map((achievement) => (
+              <AchievementActivity
+                key={`${achievement.sandboxId}-${achievement.name}-${achievement.unlockedAt}`}
+                achievement={achievement}
+                profileId={profileId}
+              />
+            ))}
+          </div>
+          <DynamicPagination
+            currentPage={profile.achievements?.page ?? 1}
+            totalPages={totalPages}
+            setPage={onPageChange}
+          />
+        </>
+      ) : (
+        <EmptyState
+          title="No activity yet"
+          description="Achievement unlocks will appear here when this profile has public progress."
+        />
+      )}
+    </div>
+  );
+}
+
+function AchievementActivity({
+  achievement,
+  profileId,
+}: {
+  achievement: ProfileAchievement;
+  profileId: string;
+}) {
+  return (
+    <ProfileSandboxLink
+      profileId={profileId}
+      sandboxId={achievement.sandboxId}
+      className="flex items-center gap-4 rounded-md border border-border bg-card p-4 transition-colors hover:bg-card/80"
+    >
+      <AchievementIcon achievement={achievement} className="size-16" />
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+          <h3 className="truncate text-lg font-semibold">
+            {achievement.displayName ?? achievement.name}
+          </h3>
+          <span className="text-sm text-muted-foreground">
+            {formatDate(achievement.unlockedAt)}
+          </span>
+        </div>
+        <p className="truncate text-sm text-muted-foreground">{achievement.gameTitle}</p>
+        <p className="mt-1 text-xs text-muted-foreground">
+          {formatRarity(achievement.rarityPercent)} - {achievement.xp ?? 0} XP
+        </p>
+      </div>
+      <ArrowRightIcon className="hidden size-5 text-muted-foreground sm:block" />
+    </ProfileSandboxLink>
+  );
+}
+
+function ActivityList({ items, profileId }: { items: ProfileActivityItem[]; profileId: string }) {
+  return (
+    <div className="grid gap-3 lg:grid-cols-2">
+      {items.map((item) => (
+        <ProfileSandboxLink
+          key={`${item.sandboxId}-${item.occurredAt}-${item.achievementName}`}
+          profileId={profileId}
+          sandboxId={item.sandboxId}
+          className="flex items-center gap-4 rounded-md border border-border bg-card p-4 transition-colors hover:bg-card/80"
+        >
+          {item.achievementIconUrl ? (
+            <Image
+              src={item.achievementIconUrl}
+              alt={item.achievementName ?? item.gameTitle ?? "Achievement"}
+              width={72}
+              height={72}
+              quality="original"
+              className="rounded-md"
+            />
+          ) : (
+            <div className="flex size-[72px] shrink-0 items-center justify-center rounded-md bg-primary/10">
+              <TrophyIcon className="size-7" />
+            </div>
+          )}
+          <div className="min-w-0">
+            <p className="text-xs uppercase text-muted-foreground">
+              {activityTypeLabel(item.type)}
+            </p>
+            <h3 className="truncate font-medium">{item.achievementName ?? item.gameTitle}</h3>
+            <p className="truncate text-sm text-muted-foreground">{item.gameTitle}</p>
+            <p className="text-xs text-muted-foreground">{formatDate(item.occurredAt)}</p>
+          </div>
+        </ProfileSandboxLink>
+      ))}
+    </div>
+  );
+}
+
+function AchievementIcon({
+  achievement,
+  className,
+}: {
+  achievement: ProfileAchievement;
+  className?: string;
+}) {
+  return (
+    <div className={cn("shrink-0 overflow-hidden rounded-md bg-primary/10", className)}>
+      <Image
+        src={achievement.iconUrl ?? "/placeholder.webp"}
+        alt={achievement.displayName ?? achievement.name ?? "Achievement"}
+        width={128}
+        height={128}
+        quality="original"
+        className="rounded-md"
       />
     </div>
   );
+}
+
+function SectionHeading({
+  icon,
+  title,
+  detail,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  detail?: string;
+}) {
+  return (
+    <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+      <h2 className="inline-flex items-center gap-2 text-2xl font-semibold">
+        {icon}
+        {title}
+      </h2>
+      {detail && <p className="text-sm text-muted-foreground">{detail}</p>}
+    </div>
+  );
+}
+
+function EmptyState({ title, description }: { title: string; description: string }) {
+  return (
+    <div className="rounded-md border border-dashed border-border bg-card/50 p-8 text-center">
+      <TrophyIcon className="mx-auto size-8 text-muted-foreground" />
+      <h2 className="mt-3 text-xl font-semibold">{title}</h2>
+      <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">{description}</p>
+    </div>
+  );
+}
+
+function ProfileContentSkeleton() {
+  return (
+    <div className="space-y-6">
+      <div className="h-10 w-80 max-w-full animate-pulse rounded-md bg-primary/10" />
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+        {Array.from({ length: 6 }).map((_, index) => (
+          // biome-ignore lint/suspicious/noArrayIndexKey: skeleton
+          <div key={index} className="h-72 animate-pulse rounded-md bg-primary/10" />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function compact<T>(items: readonly (T | null | undefined)[] | null | undefined): T[] {
+  return (items ?? []).filter((item): item is T => item != null);
+}
+
+function getEffectiveSearch(search: ProfileSearch): EffectiveProfileSearch {
+  return {
+    tab: search.tab ?? "showcase",
+    page: search.page ?? 1,
+    activityPage: search.activityPage ?? 1,
+    filter: search.filter ?? "all",
+    sort: search.sort ?? "completion",
+  };
+}
+
+function toSearchParams(search: EffectiveProfileSearch): ProfileSearch {
+  return {
+    tab: search.tab === "showcase" ? undefined : search.tab,
+    page: search.page === 1 ? undefined : search.page,
+    activityPage: search.activityPage === 1 ? undefined : search.activityPage,
+    filter: search.filter === "all" ? undefined : search.filter,
+    sort: search.sort === "completion" ? undefined : search.sort,
+  };
+}
+
+function getTotalPages(total: number | null | undefined, limit: number | null | undefined) {
+  return Math.max(1, Math.ceil((total ?? 0) / Math.max(1, limit ?? 1)));
+}
+
+function formatRarity(value: number | null | undefined) {
+  if (value == null) return "Unknown rarity";
+  return `${value.toLocaleString(undefined, { maximumFractionDigits: 2 })}% rarity`;
+}
+
+function formatDate(value: string | null | undefined) {
+  if (!value) return "Unknown date";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "Unknown date";
+
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  }).format(date);
+}
+
+function activityTypeLabel(type: ProfileActivityItem["type"] | null | undefined) {
+  if (type === "PLATINUM_EARNED") return "Platinum earned";
+  return "Achievement unlocked";
 }

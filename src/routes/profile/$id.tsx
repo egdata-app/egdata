@@ -6,16 +6,19 @@ import {
   dehydrate,
   type DehydratedState,
   HydrationBoundary,
-  keepPreviousData,
   type QueryObserverResult,
   type RefetchOptions,
   useQuery,
 } from "@tanstack/react-query";
 import {
+  getDefaultProfilePageVariables,
+  profilePageQueryOptions,
+  type ProfilePageProfile,
+} from "@/queries/profile-gql";
+import {
   getRefreshStatus,
-  getUserGames,
   getUserInformation,
-  type Profile,
+  type Profile as RestProfile,
 } from "@/queries/profiles";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { getQueryClient } from "@/lib/client";
@@ -28,12 +31,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
-  ExternalLinkIcon,
-  LayoutGridIcon,
-  MessageSquareQuoteIcon,
-  UploadIcon,
-  Loader2,
+  CalendarIcon,
   CrownIcon,
+  ExternalLinkIcon,
+  Gamepad2Icon,
+  Loader2,
+  MessageSquareQuoteIcon,
+  SparklesIcon,
+  UploadIcon,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Label } from "@/components/ui/label";
@@ -47,13 +52,16 @@ import { Separator } from "@/components/ui/separator";
 import { EGSIcon } from "@/components/icons/egs";
 import { EpicTrophyIcon } from "@/components/icons/epic-trophy";
 import { cn } from "@/lib/utils";
-import { getImage } from "@/lib/get-image";
 import { httpClient } from "@/lib/http-client";
-import type { SingleOffer } from "@/types/single-offer";
 import axios, { type AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { DiscordIcon } from "@/components/icons/discord";
+
+type LinkedAccount = {
+  identityProviderId: string;
+  displayName: string;
+};
 
 export const Route = createFileRoute("/profile/$id")({
   component: () => {
@@ -73,24 +81,14 @@ export const Route = createFileRoute("/profile/$id")({
   loader: async ({ context, params }) => {
     const { queryClient, session } = context;
     const { id } = params;
+    const profileVariables = getDefaultProfilePageVariables(id);
 
     await Promise.allSettled([
-      queryClient.prefetchQuery({
-        queryKey: ["profile-information", { id: params.id }],
-        queryFn: () => getUserInformation(params.id as string).catch(() => null),
-      }),
-      queryClient.prefetchInfiniteQuery({
-        queryKey: ["profile-games", { id: params.id, limit: 20 }],
-        queryFn: ({ pageParam }) =>
-          getUserGames(params.id as string, pageParam, 20).catch(() => null),
-        initialPageParam: 1,
-        getNextPageParam: (
-          lastPage: { pagination: { totalPages: number; page: number } } | null,
-        ) => {
-          if (!lastPage) return undefined;
-          if (lastPage.pagination.totalPages === lastPage.pagination.page) return undefined;
-          return lastPage.pagination.page + 1;
-        },
+      queryClient.ensureQueryData(profilePageQueryOptions(profileVariables)),
+      queryClient.ensureQueryData({
+        queryKey: ["profile-information", { id }],
+        queryFn: () => getUserInformation(id).catch(() => null),
+        staleTime: 60_000,
       }),
     ]);
 
@@ -104,6 +102,8 @@ export const Route = createFileRoute("/profile/$id")({
   head: (ctx) => {
     const { params } = ctx;
     const queryClient = getQueryClient();
+    const profileVariables = getDefaultProfilePageVariables(params.id);
+    const profileQueryKey = profilePageQueryOptions(profileVariables).queryKey;
 
     if (!ctx.loaderData) {
       return {
@@ -116,12 +116,13 @@ export const Route = createFileRoute("/profile/$id")({
       };
     }
 
-    const user = getFetchedQuery<Profile>(queryClient, ctx.loaderData?.dehydratedState, [
-      "profile-information",
-      { id: params.id },
-    ]);
+    const profile = getFetchedQuery<ProfilePageProfile | null>(
+      queryClient,
+      ctx.loaderData?.dehydratedState,
+      profileQueryKey,
+    );
 
-    if (!user) {
+    if (!profile) {
       return {
         meta: [
           {
@@ -135,11 +136,11 @@ export const Route = createFileRoute("/profile/$id")({
     return {
       meta: [
         {
-          title: `${user.displayName} | egdata.app`,
+          title: `${profile.displayName ?? "Profile"} | egdata.app`,
         },
         {
           name: "description",
-          content: `Check out ${user.displayName}'s achievements and games on egdata.app`,
+          content: `Check out ${profile.displayName ?? "this player's"} achievements and games on egdata.app`,
         },
       ],
     };
@@ -156,30 +157,36 @@ function RouteComponent() {
   const [avatarErrors, setAvatarErrors] = React.useState<string[]>([]);
   const [isUploading, setIsUploading] = React.useState(false);
   const [uploadProgress, setUploadProgress] = React.useState(0);
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["profile-information", { id: id }],
-    queryFn: () => getUserInformation(id),
+  const [selectedImagePreviewUrl, setSelectedImagePreviewUrl] = React.useState<string | null>(null);
+
+  const profileVariables = getDefaultProfilePageVariables(id);
+  const { data: profile, isLoading, isError } = useQuery(profilePageQueryOptions(profileVariables));
+  const { data: legacyProfile } = useQuery({
+    queryKey: ["profile-information", { id }],
+    queryFn: () => getUserInformation(id).catch(() => null),
+    staleTime: 60_000,
   });
 
   React.useEffect(() => {
-    if (selectedImage) {
-      const image = new Image();
-      image.src = URL.createObjectURL(selectedImage);
-
-      image.onload = () => {
-        const errors: string[] = [];
-
-        // Set errors if any, or clear them if there are none
-        setAvatarErrors(errors);
-      };
-
-      image.onerror = () => {
-        setAvatarErrors(["Invalid image format"]);
-      };
-
-      // Cleanup URL object to avoid memory leaks
-      return () => URL.revokeObjectURL(image.src);
+    if (!selectedImage) {
+      setSelectedImagePreviewUrl(null);
+      return;
     }
+
+    const objectUrl = URL.createObjectURL(selectedImage);
+    const image = new Image();
+    image.src = objectUrl;
+    setSelectedImagePreviewUrl(objectUrl);
+
+    image.onload = () => {
+      setAvatarErrors([]);
+    };
+
+    image.onerror = () => {
+      setAvatarErrors(["Invalid image format"]);
+    };
+
+    return () => URL.revokeObjectURL(objectUrl);
   }, [selectedImage]);
 
   const handleAvatarUpload = async (formData: FormData) => {
@@ -222,278 +229,288 @@ function RouteComponent() {
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <ProfileHeroSkeleton />;
   }
 
-  if (!data || isError) {
-    return <div>Profile not found</div>;
+  if (!profile || isError) {
+    return (
+      <main className="flex min-h-[70vh] w-full items-center justify-center px-4">
+        <div className="max-w-md rounded-md border border-border bg-card p-6 text-center">
+          <h1 className="text-2xl font-semibold">Profile not found</h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            This profile is unavailable or has not been indexed yet.
+          </p>
+        </div>
+      </main>
+    );
   }
 
-  const userTotalXP = data.stats.totalXP;
+  const accountId = profile.accountId ?? id;
+  const displayName = profile.displayName ?? "Unknown profile";
+  const avatarUrl = profile.avatar?.large ?? profile.avatar?.medium ?? profile.avatar?.small ?? "";
+  const isOwner = userId === accountId;
+  const linkedAccounts = getProfileLinkedAccounts(profile.linkedAccounts);
+  const highlights = {
+    level: profile.highlights?.level ?? Math.floor((profile.highlights?.totalXP ?? 0) / 250),
+    totalXP: profile.highlights?.totalXP ?? 0,
+    totalGames: profile.highlights?.totalGames ?? 0,
+    totalAchievements: profile.highlights?.totalAchievements ?? 0,
+    totalPlatinums: profile.highlights?.totalPlatinums ?? 0,
+    reviewsCount: profile.highlights?.reviewsCount ?? profile.reviewsCount ?? 0,
+  };
 
-  // Each level is 250 XP
-  const userLevel = Math.floor(userTotalXP / 250);
-  const xpInCurrentLevel = userTotalXP % 250;
+  const xpInCurrentLevel = highlights.totalXP % 250;
   const xpToNextLevel = 250 - xpInCurrentLevel;
   const percentToNextLevel = (xpInCurrentLevel / 250) * 100;
 
   return (
     <TooltipProvider>
-      <main className="flex flex-col items-start justify-start w-full min-h-screen gap-4 mt-10">
-        <BackgroundImage id={data.epicAccountId} />
-        <section id="profile-header" className="flex flex-row gap-10 w-full relative">
-          {userId === data.epicAccountId ? (
-            <Dialog>
-              <div className="flex flex-col gap-2 relative">
-                <DialogTrigger asChild>
-                  <div className="relative group">
-                    <img
-                      src={data.avatar.large}
-                      alt={data.displayName}
-                      className="rounded-full h-32 w-32 object-cover"
-                    />
-                    <DonnorBadge profile={data} />
-                    <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full">
-                      <span className="text-white text-lg">
-                        <UploadIcon className="w-6 h-6" />
-                      </span>
-                    </div>
-                  </div>
-                </DialogTrigger>
-              </div>
-              <DialogContent>
-                <DialogHeader>
-                  <DialogTitle>Change Avatar</DialogTitle>
-                  <DialogDescription asChild>
-                    <form
-                      className="space-y-6"
-                      onSubmit={async (event) => {
-                        event.preventDefault();
-                        const formData = new FormData(event.currentTarget);
-                        await handleAvatarUpload(formData);
-                      }}
-                    >
-                      <div className="flex items-center space-x-4">
-                        <Avatar className="h-24 w-24">
-                          <AvatarImage
-                            src={
-                              selectedImage ? URL.createObjectURL(selectedImage) : data.avatar.large
-                            }
-                            alt="Avatar preview"
-                          />
-                          <AvatarFallback>Avatar</AvatarFallback>
-                        </Avatar>
-                        <div className="space-y-2">
-                          <Label
-                            htmlFor="avatar-upload"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            Change Avatar
-                          </Label>
-                          <Input
-                            id="avatar-upload"
-                            name="avatar"
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => {
-                              if (e.target.files?.[0]) setSelectedImage(e.target.files?.[0]);
-                            }}
-                            className="w-full max-w-xs"
-                            aria-describedby="avatar-upload-description"
-                            disabled={isUploading}
-                          />
-                          <p id="avatar-upload-description" className="text-sm text-gray-500">
-                            Upload a new avatar image (max 5MB)
-                          </p>
-                        </div>
-                      </div>
-                      {isUploading && (
-                        <div className="w-full space-y-2">
-                          <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
-                            <div
-                              className="h-full bg-primary transition-all duration-300 ease-in-out"
-                              style={{ width: `${uploadProgress}%` }}
-                            />
-                          </div>
-                          <p className="text-sm text-gray-500 text-center">
-                            Uploading... {uploadProgress}%
-                          </p>
-                        </div>
-                      )}
-                      <Button
-                        type="submit"
-                        disabled={!selectedImage || avatarErrors.length > 0 || isUploading}
-                        className="w-full"
+      <main className="flex min-h-screen w-full flex-col pb-12">
+        <section className="relative isolate -mx-4 overflow-hidden px-4 pb-10 pt-8 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+          <ProfileHeroBackground imageUrl={profile.heroGame?.imageUrl} title={displayName} />
+          <div className="mx-auto flex w-full max-w-7xl flex-col gap-8">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+              <div className="flex flex-col gap-5 sm:flex-row sm:items-end">
+                {isOwner ? (
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <button type="button" className="group relative size-32 shrink-0">
+                        <img
+                          src={avatarUrl}
+                          alt={displayName}
+                          className="size-32 rounded-full border border-white/20 object-cover shadow-2xl"
+                        />
+                        <DonnorBadge profile={legacyProfile} displayName={displayName} />
+                        <span className="absolute inset-0 flex items-center justify-center rounded-full bg-black/55 opacity-0 transition-opacity group-hover:opacity-100">
+                          <UploadIcon className="size-6 text-white" />
+                        </span>
+                      </button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>Change Avatar</DialogTitle>
+                        <DialogDescription>Upload a new profile image.</DialogDescription>
+                      </DialogHeader>
+                      <form
+                        className="space-y-6"
+                        onSubmit={async (event) => {
+                          event.preventDefault();
+                          const formData = new FormData(event.currentTarget);
+                          await handleAvatarUpload(formData);
+                        }}
                       >
-                        {isUploading ? (
-                          <>
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Uploading...
-                          </>
-                        ) : (
-                          "Update Avatar"
+                        <div className="flex items-center space-x-4">
+                          <Avatar className="h-24 w-24">
+                            <AvatarImage
+                              src={selectedImagePreviewUrl ?? avatarUrl}
+                              alt="Avatar preview"
+                            />
+                            <AvatarFallback>Avatar</AvatarFallback>
+                          </Avatar>
+                          <div className="space-y-2">
+                            <Label htmlFor="avatar-upload">Change Avatar</Label>
+                            <Input
+                              id="avatar-upload"
+                              name="avatar"
+                              type="file"
+                              accept="image/*"
+                              onChange={(e) => {
+                                if (e.target.files?.[0]) setSelectedImage(e.target.files?.[0]);
+                              }}
+                              className="w-full max-w-xs"
+                              aria-describedby="avatar-upload-description"
+                              disabled={isUploading}
+                            />
+                            <p id="avatar-upload-description" className="text-sm text-gray-500">
+                              Upload a new avatar image, max 5MB.
+                            </p>
+                          </div>
+                        </div>
+                        {isUploading && (
+                          <div className="w-full space-y-2">
+                            <div className="h-2 w-full overflow-hidden rounded-full bg-gray-200">
+                              <div
+                                className="h-full bg-primary transition-all duration-300 ease-in-out"
+                                style={{ width: `${uploadProgress}%` }}
+                              />
+                            </div>
+                            <p className="text-center text-sm text-gray-500">
+                              Uploading... {uploadProgress}%
+                            </p>
+                          </div>
                         )}
-                      </Button>
-                      {avatarErrors.length > 0 && (
-                        <Alert variant="destructive">
-                          <ExclamationTriangleIcon className="h-4 w-4" />
-                          <AlertTitle>Error</AlertTitle>
-                          <AlertDescription className="flex flex-col gap-1">
-                            {avatarErrors.map((error, index) => (
-                              // biome-ignore lint/suspicious/noArrayIndexKey: unique key
-                              <span key={index}>{error}</span>
-                            ))}
-                          </AlertDescription>
-                        </Alert>
-                      )}
-                    </form>
-                  </DialogDescription>
-                </DialogHeader>
-              </DialogContent>
-            </Dialog>
-          ) : (
-            <div className="relative">
-              <img
-                src={data.avatar.large}
-                alt={data.displayName}
-                className="rounded-full h-32 w-32 object-cover"
-              />
-              <DonnorBadge profile={data} />
-            </div>
-          )}
-          <div className="flex flex-col gap-4">
-            <PlayerName profile={data} />
-            <div className="flex flex-row gap-6 items-center justify-start">
-              {data?.linkedAccounts && data.linkedAccounts.length > 0 && (
-                <div className="inline-flex gap-6 items-center h-6">
-                  <TooltipProvider>
-                    {data.linkedAccounts
-                      ?.filter((account) => getAccountIcon(account))
-                      .map((account) => (
-                        <Tooltip key={account.identityProviderId}>
-                          <TooltipTrigger>{getAccountIcon(account)}</TooltipTrigger>
-                          <TooltipContent>
-                            <p className="text-sm font-medium">{account.displayName}</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      ))}
-                  </TooltipProvider>
-                </div>
-              )}
-              {data.creationDate && data?.linkedAccounts && data.linkedAccounts.length > 0 && (
-                <Separator orientation="vertical" />
-              )}
-              {data.creationDate && (
-                <p className="text-sm text-gray-300">
-                  <span>Joined </span>
-                  {new Date(data.creationDate).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                  })}
-                </p>
-              )}
-              <Separator orientation="vertical" />
-              <a
-                href={`https://store.epicgames.com/u/${data.epicAccountId}?utm_source=egdata.app`}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="flex items-center gap-2 text-sm text-gray-300 hover:text-gray-200"
-              >
-                <EGSIcon className="w-4 h-4" />
-                <span>Epic Games Store</span>
-                <ExternalLinkIcon className="size-3 display-inline-block" />
-              </a>
-            </div>
-            <section
-              id="profile-header-achievements"
-              className="flex flex-row w-full items-start justify-start"
-            >
-              <div id="player-level" className="flex flex-col gap-2 w-fit min:w-[250px] mr-10">
-                <SectionTitle title="Level" />
-                <div className="flex flex-row gap-4 items-center mb-3 h-10">
-                  <p className="text-4xl font-light inline-flex items-center gap-1">
-                    <LevelIcon className="size-7 inline-block" />
-                    {userLevel}
-                  </p>
-                  <Separator orientation="vertical" className="bg-white/25" />
-                  <p className="text-4xl font-thin">{userTotalXP} XP</p>
-                </div>
-                <div className="flex flex-col gap-2 items-start">
-                  <div className="w-full h-[6px] bg-gray-300/10 rounded-full">
-                    <div
-                      className="h-[6px] bg-white rounded-full"
-                      style={{ width: `${percentToNextLevel}%` }}
+                        <Button
+                          type="submit"
+                          disabled={!selectedImage || avatarErrors.length > 0 || isUploading}
+                          className="w-full"
+                        >
+                          {isUploading ? (
+                            <>
+                              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                              Uploading...
+                            </>
+                          ) : (
+                            "Update Avatar"
+                          )}
+                        </Button>
+                        {avatarErrors.length > 0 && (
+                          <Alert variant="destructive">
+                            <ExclamationTriangleIcon className="h-4 w-4" />
+                            <AlertTitle>Error</AlertTitle>
+                            <AlertDescription className="flex flex-col gap-1">
+                              {avatarErrors.map((error, index) => (
+                                // biome-ignore lint/suspicious/noArrayIndexKey: unique key
+                                <span key={index}>{error}</span>
+                              ))}
+                            </AlertDescription>
+                          </Alert>
+                        )}
+                      </form>
+                    </DialogContent>
+                  </Dialog>
+                ) : (
+                  <div className="relative size-32 shrink-0">
+                    <img
+                      src={avatarUrl}
+                      alt={displayName}
+                      className="size-32 rounded-full border border-white/20 object-cover shadow-2xl"
                     />
+                    <DonnorBadge profile={legacyProfile} displayName={displayName} />
                   </div>
-                  <p className="text-sm font-light opacity-50">{xpToNextLevel} XP to next level</p>
+                )}
+
+                <div className="min-w-0 space-y-4">
+                  <PlayerName displayName={displayName} donorProfile={legacyProfile} />
+                  <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm text-gray-200">
+                    {linkedAccounts.length > 0 && (
+                      <div className="inline-flex items-center gap-4">
+                        {linkedAccounts
+                          .filter((account) => getAccountIcon(account))
+                          .map((account) => (
+                            <Tooltip key={account.identityProviderId}>
+                              <TooltipTrigger className="inline-flex items-center">
+                                {getAccountIcon(account)}
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p className="text-sm font-medium">{account.displayName}</p>
+                              </TooltipContent>
+                            </Tooltip>
+                          ))}
+                      </div>
+                    )}
+                    {linkedAccounts.length > 0 && profile.creationDate && (
+                      <Separator orientation="vertical" className="h-5 bg-white/25" />
+                    )}
+                    {profile.creationDate && (
+                      <span className="inline-flex items-center gap-2 text-gray-200">
+                        <CalendarIcon className="size-4" />
+                        Joined{" "}
+                        {new Date(profile.creationDate).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                        })}
+                      </span>
+                    )}
+                    <Separator orientation="vertical" className="hidden h-5 bg-white/25 sm:block" />
+                    <a
+                      href={`https://store.epicgames.com/u/${accountId}?utm_source=egdata.app`}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="inline-flex items-center gap-2 text-gray-200 hover:text-white"
+                    >
+                      <EGSIcon className="size-4" />
+                      <span>Epic Games Store</span>
+                      <ExternalLinkIcon className="size-3" />
+                    </a>
+                  </div>
                 </div>
               </div>
-              <div id="player-achievements-count" className="flex flex-col gap-2 w-[175px]">
-                <SectionTitle title="Achievements" />
-                <p className="text-3xl font-light inline-flex items-center gap-2">
-                  <EpicTrophyIcon className="size-7 inline-block" />
-                  {data.stats.totalAchievements}
-                </p>
-              </div>
-              <div id="player-platinum-count" className="flex flex-col gap-2 w-[175px]">
-                <SectionTitle title="Platinum" />
-                <p className="text-3xl font-light inline-flex items-center gap-2">
-                  <EpicPlatinumIcon
-                    className={cn(
-                      "size-7 inline-block",
-                      data.stats.totalPlayerAwards > 0 ? "text-[#6e59e6]" : "",
-                    )}
-                  />
-                  {data.stats.totalPlayerAwards}
-                </p>
-              </div>
-              <div id="player-library" className="flex flex-col gap-2 w-[175px]">
-                <Tooltip delayDuration={250}>
-                  <TooltipTrigger className="w-fit">
-                    <SectionTitle
-                      title="Library"
-                      classname="underline decoration-dotted underline-offset-4 cursor-help"
-                    />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p className="text-sm font-light max-w-[250px]">
-                      The library count only includes games that have achievements and that you've
-                      launched at least once.
-                    </p>
-                  </TooltipContent>
-                </Tooltip>
 
-                <p className="text-3xl font-light inline-flex items-center gap-2">
-                  <LayoutGridIcon className="size-7 inline-block" fill="currentColor" />
-                  {data.stats.totalGames}
-                </p>
+              <div className="flex flex-wrap items-center gap-2 lg:justify-end">
+                {legacyProfile?.discord === false && isOwner && (
+                  <Button asChild variant="outline" className="bg-[#5865f2] hover:bg-[#4752c4]">
+                    <a href={`${httpClient.axiosInstance.defaults.baseURL}/auth/discord/link`}>
+                      <DiscordIcon className="size-4" fill="white" />
+                      <span>Link Discord</span>
+                    </a>
+                  </Button>
+                )}
+                <RefreshProfile id={accountId} />
               </div>
-              <div id="player-reviews" className="flex flex-col gap-2 w-[175px]">
-                <SectionTitle title="Reviews" />
-                <p className="text-3xl font-light inline-flex items-center gap-2">
-                  <MessageSquareQuoteIcon
-                    className="size-7 inline-block"
-                    stroke="transparent"
-                    fill="currentColor"
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+              <HeroStat
+                label="Level"
+                value={highlights.level}
+                detail={`${highlights.totalXP.toLocaleString()} XP`}
+                icon={<LevelIcon className="size-5" />}
+              />
+              <HeroStat
+                label="Achievements"
+                value={highlights.totalAchievements}
+                detail="Unlocked"
+                icon={<EpicTrophyIcon className="size-5" />}
+              />
+              <HeroStat
+                label="Platinum"
+                value={highlights.totalPlatinums}
+                detail="Perfect games"
+                icon={
+                  <EpicPlatinumIcon
+                    className={cn("size-5", highlights.totalPlatinums > 0 && "text-[#8a7cff]")}
                   />
-                  {data.stats.reviewsCount}
-                </p>
+                }
+              />
+              <HeroStat
+                label="Library"
+                value={highlights.totalGames}
+                detail="Achievement games"
+                icon={<Gamepad2Icon className="size-5" />}
+              />
+              <HeroStat
+                label="Reviews"
+                value={highlights.reviewsCount}
+                detail="Contributed"
+                icon={<MessageSquareQuoteIcon className="size-5" />}
+              />
+            </div>
+
+            <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-end">
+              <div className="space-y-2">
+                <div className="flex items-center justify-between text-sm text-gray-200">
+                  <span className="inline-flex items-center gap-2">
+                    <SparklesIcon className="size-4" />
+                    {xpToNextLevel} XP to level {highlights.level + 1}
+                  </span>
+                  <span>{Math.round(percentToNextLevel)}%</span>
+                </div>
+                <div className="h-2 overflow-hidden rounded-full bg-white/15">
+                  <div
+                    className="h-full rounded-full bg-white"
+                    style={{ width: `${percentToNextLevel}%` }}
+                  />
+                </div>
               </div>
-            </section>
-          </div>
-          <div className="absolute top-0 right-0 inline-flex items-center justify-center gap-2 z-10">
-            {!data.discord && userId === data.epicAccountId && (
-              <a href={`${httpClient.axiosInstance.defaults.baseURL}/auth/discord/link`}>
-                <Button variant="outline" className="bg-[#5865f2] hover:bg-[#4752c4]">
-                  <DiscordIcon className="size-4" fill="white" />
-                  <span>Link Discord</span>
-                </Button>
-              </a>
-            )}
-            <RefreshProfile id={data.epicAccountId} />
+              {profile.heroGame &&
+                (profile.heroGame.sandboxId ? (
+                  <Link
+                    to="/profile/$id/achievements/$sandbox"
+                    params={{ id: accountId, sandbox: profile.heroGame.sandboxId }}
+                    className="group flex items-center justify-between gap-4 rounded-md border border-white/15 bg-black/35 p-4 text-left transition-colors hover:bg-black/50"
+                  >
+                    <HeroGameSummary game={profile.heroGame} />
+                  </Link>
+                ) : (
+                  <div className="flex items-center justify-between gap-4 rounded-md border border-white/15 bg-black/35 p-4 text-left">
+                    <HeroGameSummary game={profile.heroGame} />
+                  </div>
+                ))}
+            </div>
           </div>
         </section>
-        <section className="mt-20 w-full">
+
+        <section className="mx-auto w-full max-w-7xl px-0 pt-6">
           <Outlet />
         </section>
       </main>
@@ -501,54 +518,95 @@ function RouteComponent() {
   );
 }
 
-function SectionTitle({ title, classname }: { title: string; classname?: string }) {
+function HeroGameSummary({ game }: { game: NonNullable<ProfilePageProfile["heroGame"]> }) {
   return (
-    <h2 className="text-xs uppercase font-light">
-      <span className={cn("text-gray-300", classname)}>{title}</span>
-    </h2>
+    <>
+      <div className="min-w-0">
+        <p className="text-xs uppercase text-gray-300">Hero game</p>
+        <p className="truncate text-lg font-semibold">{game.title}</p>
+      </div>
+      <div className="shrink-0 text-right">
+        <p className="text-2xl font-light">{Math.round(game.completionPercent ?? 0)}%</p>
+        <p className="text-xs text-gray-300">complete</p>
+      </div>
+    </>
   );
 }
 
-function BackgroundImage({ id }: { id: string }) {
-  // @ts-ignore - sandbox exists in a lower level
-  const { sandbox } = Route.useParams();
-  const { data: offer, isLoading } = useQuery({
-    queryKey: ["profile-background", { id, sandbox }],
-    queryFn: () =>
-      httpClient.get<SingleOffer>(`/profiles/${id}/random-game`, {
-        params: { sandbox },
-      }),
-    placeholderData: keepPreviousData,
-  });
-
-  if (isLoading || !offer) return null;
-
+function ProfileHeroBackground({ imageUrl, title }: { imageUrl?: string | null; title: string }) {
   return (
-    <div
-      className="absolute inset-0 w-full"
-      style={{
-        zIndex: -10,
-      }}
-    >
-      <span
-        className="absolute inset-0 bg-gradient-to-b from-background via-background/70 to-background rounded-md h-[50vh] w-full"
-        style={{
-          zIndex: -1,
-        }}
+    <div className="absolute inset-0 -z-10 bg-background">
+      {imageUrl && (
+        <img
+          src={imageUrl}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover object-center opacity-30"
+          loading="eager"
+        />
+      )}
+      <div
+        className="absolute inset-0 bg-[linear-gradient(90deg,hsl(var(--background))_0%,hsl(var(--background)/0.94)_38%,hsl(var(--background)/0.72)_70%,hsl(var(--background)/0.58)_100%)]"
+        aria-label={title}
       />
-      <img
-        src={getImage(offer.keyImages ?? [], ["DieselStoreFrontWide", "OfferImageWide"])?.url}
-        alt={offer.id ?? ""}
-        className="absolute inset-0 opacity-[0.25] z-0 w-full h-[50vh] transition-opacity duration-500 ease-in-out"
-        loading="lazy"
-        style={{
-          zIndex: -2,
-          objectFit: "cover",
-          objectPosition: "top",
-        }}
-      />
+      <div className="absolute inset-0 bg-black/20" />
+      <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-background to-transparent" />
     </div>
   );
+}
+
+function ProfileHeroSkeleton() {
+  return (
+    <main className="flex min-h-screen w-full flex-col gap-6 px-4 py-10">
+      <div className="h-32 w-32 animate-pulse rounded-full bg-primary/10" />
+      <div className="h-12 w-80 max-w-full animate-pulse rounded-md bg-primary/10" />
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+        {Array.from({ length: 5 }).map((_, index) => (
+          // biome-ignore lint/suspicious/noArrayIndexKey: skeleton
+          <div key={index} className="h-28 animate-pulse rounded-md bg-primary/10" />
+        ))}
+      </div>
+    </main>
+  );
+}
+
+function HeroStat({
+  label,
+  value,
+  detail,
+  icon,
+}: {
+  label: string;
+  value: number;
+  detail: string;
+  icon: React.ReactNode;
+}) {
+  return (
+    <div className="rounded-md border border-white/10 bg-black/35 p-4 backdrop-blur">
+      <div className="flex items-center justify-between text-gray-300">
+        <p className="text-xs uppercase tracking-normal">{label}</p>
+        {icon}
+      </div>
+      <p className="mt-3 text-3xl font-light text-white">{value.toLocaleString()}</p>
+      <p className="text-sm text-gray-300">{detail}</p>
+    </div>
+  );
+}
+
+function getProfileLinkedAccounts(value: unknown): LinkedAccount[] {
+  if (!Array.isArray(value)) return [];
+
+  return value.flatMap((account) => {
+    if (!account || typeof account !== "object") return [];
+    const maybeAccount = account as Record<string, unknown>;
+    const identityProviderId = maybeAccount.identityProviderId;
+    const displayName = maybeAccount.displayName;
+
+    if (typeof identityProviderId !== "string" || typeof displayName !== "string") {
+      return [];
+    }
+
+    return [{ identityProviderId, displayName }];
+  });
 }
 
 function LevelIcon({ className, ...props }: React.SVGProps<SVGSVGElement>) {
@@ -587,14 +645,20 @@ export function EpicPlatinumIcon({ className, ...props }: React.SVGProps<SVGSVGE
   );
 }
 
-export function PlayerName({ profile }: { profile: Profile }) {
-  const isDonator = profile.donations.length > 0;
+function PlayerName({
+  displayName,
+  donorProfile,
+}: {
+  displayName: string;
+  donorProfile?: RestProfile | null;
+}) {
+  const isDonator = (donorProfile?.donations.length ?? 0) > 0;
 
   if (isDonator) {
-    return <DonatorName>{profile.displayName}</DonatorName>;
+    return <DonatorName>{displayName}</DonatorName>;
   }
 
-  return <h1 className="text-6xl font-thin">{profile.displayName}</h1>;
+  return <h1 className="break-words text-5xl font-thin text-white md:text-6xl">{displayName}</h1>;
 }
 
 function DonatorName({ children, className }: { children: React.ReactNode; className?: string }) {
@@ -602,7 +666,7 @@ function DonatorName({ children, className }: { children: React.ReactNode; class
     <div className="relative">
       <div
         className={cn(
-          "absolute text-6xl font-thin",
+          "absolute text-5xl font-thin md:text-6xl",
           "text-transparent bg-gradient-to-r from-blue-500 via-purple-600 to-pink-600 bg-clip-text",
           "blur-md opacity-80 animate-[shadow-pulse_3s_ease-in-out_infinite]",
           "select-none pointer-events-none",
@@ -618,7 +682,7 @@ function DonatorName({ children, className }: { children: React.ReactNode; class
 
       <div
         className={cn(
-          "absolute text-6xl font-thin",
+          "absolute text-5xl font-thin md:text-6xl",
           "text-transparent bg-gradient-to-r from-cyan-500 via-violet-600 to-fuchsia-600 bg-clip-text",
           "blur-lg opacity-90 animate-[shadow-pulse-2_4s_ease-in-out_infinite]",
           "select-none pointer-events-none",
@@ -632,31 +696,48 @@ function DonatorName({ children, className }: { children: React.ReactNode; class
         {children}
       </div>
 
-      <h1 className={cn("relative z-[1] text-6xl font-thin text-white", className)}>{children}</h1>
+      <h1
+        className={cn(
+          "relative z-[1] break-words text-5xl font-thin text-white md:text-6xl",
+          className,
+        )}
+      >
+        {children}
+      </h1>
     </div>
   );
 }
 
-function DonnorBadge({ profile }: { profile: Profile }) {
-  const isDonator = profile.donations.length > 0;
+function DonnorBadge({
+  profile,
+  displayName,
+}: {
+  profile?: RestProfile | null;
+  displayName: string;
+}) {
+  const donations = profile?.donations.length ?? 0;
 
-  if (!isDonator) return null;
+  if (donations === 0) return null;
 
   return (
     <Tooltip>
-      <TooltipTrigger className="absolute -top-0 -right-0 bg-gradient-to-r from-blue-500 via-purple-600 to-pink-600 rounded-full p-1.5 shadow-lg">
-        <CrownIcon className="w-5 h-5 text-white" />
+      <TooltipTrigger asChild>
+        <span
+          className="absolute right-0 top-0 inline-flex rounded-full bg-gradient-to-r from-blue-500 via-purple-600 to-pink-600 p-1.5 shadow-lg"
+          tabIndex={0}
+        >
+          <CrownIcon className="h-5 w-5 text-white" />
+        </span>
       </TooltipTrigger>
       <TooltipContent
-        className="flex flex-col gap-2 rounded-lg p-4 text-sm font-normal"
+        className="flex flex-col gap-2 rounded-md p-4 text-sm font-normal"
         side="right"
         sideOffset={10}
       >
         <p>
-          {profile.displayName} has donated {profile.donations.length}{" "}
-          {profile.donations.length === 1 ? "key" : "keys"} to egdata.app
+          {displayName} has donated {donations} {donations === 1 ? "key" : "keys"} to egdata.app
         </p>
-        <p className="gap-1 inline-flex items-center">
+        <p className="inline-flex items-center gap-1">
           Go to{" "}
           <Link to="/donate-key" className="text-blue-500 hover:text-blue-600">
             this link
@@ -689,7 +770,7 @@ function RefreshProfile({ id }: { id: string }) {
           variant="outline"
           onClick={handleRefresh}
           disabled={isRefreshing || !refreshStatus?.canRefresh}
-          className="inline-flex items-center justify-center gap-2"
+          className="inline-flex items-center justify-center gap-2 bg-black/25"
         >
           <ReloadIcon className={cn("size-4", isRefreshing && "animate-spin")} />
           <span className="text-sm font-medium">Refresh profile</span>
@@ -734,7 +815,6 @@ function Countdown({
       const newCountdown = target.diff(now, "milliseconds").milliseconds;
       setCountdown(newCountdown);
 
-      // Only refetch if we haven't already and the countdown is <= 0
       if (!hasRefetched && newCountdown <= 0) {
         setHasRefetched(true);
         refetch();
@@ -744,7 +824,6 @@ function Countdown({
     return () => clearInterval(interval);
   }, [target, refetch, hasRefetched, timezone]);
 
-  // Reset hasRefetched when date changes
   useEffect(() => {
     setHasRefetched(false);
   }, []);

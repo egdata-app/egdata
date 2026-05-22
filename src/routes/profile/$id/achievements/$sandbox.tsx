@@ -189,7 +189,6 @@ function RouteComponent() {
         <Link
           to="/profile/$id"
           params={{ id }}
-          // @ts-expect-error - empty search params
           search={{}}
           className="text-2xl font-light flex flex-row gap-2 items-center justify-start group"
         >
