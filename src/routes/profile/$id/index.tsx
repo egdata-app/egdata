@@ -26,7 +26,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { EpicTrophyIcon } from "@/components/icons/epic-trophy";
 import { cn } from "@/lib/utils";
-import { EpicPlatinumIcon } from "../$id";
+import { EpicPlatinumIcon } from "@/routes/profile/$id";
 import {
   ActivityIcon,
   ArrowRightIcon,
@@ -309,6 +309,36 @@ function ShowcaseView({ profile, profileId }: { profile: ProfilePageProfile; pro
   );
 }
 
+function ProfileSandboxLink({
+  profileId,
+  sandboxId,
+  className,
+  children,
+}: {
+  profileId: string;
+  sandboxId?: string | null;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  if (!sandboxId) {
+    return (
+      <div aria-disabled="true" className={cn(className, "cursor-default")}>
+        {children}
+      </div>
+    );
+  }
+
+  return (
+    <Link
+      to="/profile/$id/achievements/$sandbox"
+      params={{ id: profileId, sandbox: sandboxId }}
+      className={className}
+    >
+      {children}
+    </Link>
+  );
+}
+
 function AchievementSpotlight({
   achievement,
   profileId,
@@ -317,9 +347,9 @@ function AchievementSpotlight({
   profileId: string;
 }) {
   return (
-    <Link
-      to="/profile/$id/achievements/$sandbox"
-      params={{ id: profileId, sandbox: achievement.sandboxId ?? "" }}
+    <ProfileSandboxLink
+      profileId={profileId}
+      sandboxId={achievement.sandboxId}
       className="group flex min-h-56 flex-col justify-between overflow-hidden rounded-md border border-border bg-card p-5 transition-colors hover:bg-card/80"
     >
       <div className="flex items-start justify-between gap-4">
@@ -343,15 +373,15 @@ function AchievementSpotlight({
           </span>
         </div>
       </div>
-    </Link>
+    </ProfileSandboxLink>
   );
 }
 
 function GameSpotlight({ game, profileId }: { game: ProfileGame; profileId: string }) {
   return (
-    <Link
-      to="/profile/$id/achievements/$sandbox"
-      params={{ id: profileId, sandbox: game.sandboxId ?? "" }}
+    <ProfileSandboxLink
+      profileId={profileId}
+      sandboxId={game.sandboxId}
       className="group relative min-h-56 overflow-hidden rounded-md border border-border bg-card p-5 transition-colors hover:bg-card/80"
     >
       {game.imageUrl && (
@@ -386,15 +416,15 @@ function GameSpotlight({ game, profileId }: { game: ProfileGame; profileId: stri
           </div>
         </div>
       </div>
-    </Link>
+    </ProfileSandboxLink>
   );
 }
 
 function ActivitySpotlight({ item, profileId }: { item: ProfileActivityItem; profileId: string }) {
   return (
-    <Link
-      to="/profile/$id/achievements/$sandbox"
-      params={{ id: profileId, sandbox: item.sandboxId ?? "" }}
+    <ProfileSandboxLink
+      profileId={profileId}
+      sandboxId={item.sandboxId}
       className="group flex min-h-56 flex-col justify-between rounded-md border border-border bg-card p-5 transition-colors hover:bg-card/80"
     >
       <div className="flex items-start justify-between gap-4">
@@ -426,7 +456,7 @@ function ActivitySpotlight({ item, profileId }: { item: ProfileActivityItem; pro
         <p>{item.gameTitle}</p>
         <p>{formatDate(item.occurredAt)}</p>
       </div>
-    </Link>
+    </ProfileSandboxLink>
   );
 }
 
@@ -528,9 +558,9 @@ function ProfileGameCard({
   const completion = Math.round(game.completionPercent ?? 0);
 
   return (
-    <Link
-      to="/profile/$id/achievements/$sandbox"
-      params={{ id: profileId, sandbox: game.sandboxId ?? "" }}
+    <ProfileSandboxLink
+      profileId={profileId}
+      sandboxId={game.sandboxId}
       className="group overflow-hidden rounded-md border border-border bg-card transition-colors hover:bg-card/80"
     >
       <div className="relative">
@@ -586,7 +616,7 @@ function ProfileGameCard({
           </div>
         )}
       </div>
-    </Link>
+    </ProfileSandboxLink>
   );
 }
 
@@ -598,9 +628,9 @@ function AchievementTile({
   profileId: string;
 }) {
   return (
-    <Link
-      to="/profile/$id/achievements/$sandbox"
-      params={{ id: profileId, sandbox: achievement.sandboxId ?? "" }}
+    <ProfileSandboxLink
+      profileId={profileId}
+      sandboxId={achievement.sandboxId}
       className="flex gap-3 rounded-md border border-border bg-card p-3 transition-colors hover:bg-card/80"
     >
       <AchievementIcon achievement={achievement} className="size-14" />
@@ -611,7 +641,7 @@ function AchievementTile({
           {formatRarity(achievement.rarityPercent)} - {achievement.xp ?? 0} XP
         </p>
       </div>
-    </Link>
+    </ProfileSandboxLink>
   );
 }
 
@@ -672,9 +702,9 @@ function AchievementActivity({
   profileId: string;
 }) {
   return (
-    <Link
-      to="/profile/$id/achievements/$sandbox"
-      params={{ id: profileId, sandbox: achievement.sandboxId ?? "" }}
+    <ProfileSandboxLink
+      profileId={profileId}
+      sandboxId={achievement.sandboxId}
       className="flex items-center gap-4 rounded-md border border-border bg-card p-4 transition-colors hover:bg-card/80"
     >
       <AchievementIcon achievement={achievement} className="size-16" />
@@ -693,7 +723,7 @@ function AchievementActivity({
         </p>
       </div>
       <ArrowRightIcon className="hidden size-5 text-muted-foreground sm:block" />
-    </Link>
+    </ProfileSandboxLink>
   );
 }
 
@@ -701,10 +731,10 @@ function ActivityList({ items, profileId }: { items: ProfileActivityItem[]; prof
   return (
     <div className="grid gap-3 lg:grid-cols-2">
       {items.map((item) => (
-        <Link
+        <ProfileSandboxLink
           key={`${item.sandboxId}-${item.occurredAt}-${item.achievementName}`}
-          to="/profile/$id/achievements/$sandbox"
-          params={{ id: profileId, sandbox: item.sandboxId ?? "" }}
+          profileId={profileId}
+          sandboxId={item.sandboxId}
           className="flex items-center gap-4 rounded-md border border-border bg-card p-4 transition-colors hover:bg-card/80"
         >
           {item.achievementIconUrl ? (
@@ -729,7 +759,7 @@ function ActivityList({ items, profileId }: { items: ProfileActivityItem[]; prof
             <p className="truncate text-sm text-muted-foreground">{item.gameTitle}</p>
             <p className="text-xs text-muted-foreground">{formatDate(item.occurredAt)}</p>
           </div>
-        </Link>
+        </ProfileSandboxLink>
       ))}
     </div>
   );

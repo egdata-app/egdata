@@ -84,8 +84,8 @@ export const Route = createFileRoute("/profile/$id")({
     const profileVariables = getDefaultProfilePageVariables(id);
 
     await Promise.allSettled([
-      queryClient.prefetchQuery(profilePageQueryOptions(profileVariables)),
-      queryClient.prefetchQuery({
+      queryClient.ensureQueryData(profilePageQueryOptions(profileVariables)),
+      queryClient.ensureQueryData({
         queryKey: ["profile-information", { id }],
         queryFn: () => getUserInformation(id).catch(() => null),
         staleTime: 60_000,
@@ -157,6 +157,7 @@ function RouteComponent() {
   const [avatarErrors, setAvatarErrors] = React.useState<string[]>([]);
   const [isUploading, setIsUploading] = React.useState(false);
   const [uploadProgress, setUploadProgress] = React.useState(0);
+  const [selectedImagePreviewUrl, setSelectedImagePreviewUrl] = React.useState<string | null>(null);
 
   const profileVariables = getDefaultProfilePageVariables(id);
   const { data: profile, isLoading, isError } = useQuery(profilePageQueryOptions(profileVariables));
@@ -167,20 +168,25 @@ function RouteComponent() {
   });
 
   React.useEffect(() => {
-    if (selectedImage) {
-      const image = new Image();
-      image.src = URL.createObjectURL(selectedImage);
-
-      image.onload = () => {
-        setAvatarErrors([]);
-      };
-
-      image.onerror = () => {
-        setAvatarErrors(["Invalid image format"]);
-      };
-
-      return () => URL.revokeObjectURL(image.src);
+    if (!selectedImage) {
+      setSelectedImagePreviewUrl(null);
+      return;
     }
+
+    const objectUrl = URL.createObjectURL(selectedImage);
+    const image = new Image();
+    image.src = objectUrl;
+    setSelectedImagePreviewUrl(objectUrl);
+
+    image.onload = () => {
+      setAvatarErrors([]);
+    };
+
+    image.onerror = () => {
+      setAvatarErrors(["Invalid image format"]);
+    };
+
+    return () => URL.revokeObjectURL(objectUrl);
   }, [selectedImage]);
 
   const handleAvatarUpload = async (formData: FormData) => {
@@ -296,7 +302,7 @@ function RouteComponent() {
                         <div className="flex items-center space-x-4">
                           <Avatar className="h-24 w-24">
                             <AvatarImage
-                              src={selectedImage ? URL.createObjectURL(selectedImage) : avatarUrl}
+                              src={selectedImagePreviewUrl ?? avatarUrl}
                               alt="Avatar preview"
                             />
                             <AvatarFallback>Avatar</AvatarFallback>
@@ -486,24 +492,20 @@ function RouteComponent() {
                   />
                 </div>
               </div>
-              {profile.heroGame && (
-                <Link
-                  to="/profile/$id/achievements/$sandbox"
-                  params={{ id: accountId, sandbox: profile.heroGame.sandboxId ?? "" }}
-                  className="group flex items-center justify-between gap-4 rounded-md border border-white/15 bg-black/35 p-4 text-left transition-colors hover:bg-black/50"
-                >
-                  <div className="min-w-0">
-                    <p className="text-xs uppercase text-gray-300">Hero game</p>
-                    <p className="truncate text-lg font-semibold">{profile.heroGame.title}</p>
+              {profile.heroGame &&
+                (profile.heroGame.sandboxId ? (
+                  <Link
+                    to="/profile/$id/achievements/$sandbox"
+                    params={{ id: accountId, sandbox: profile.heroGame.sandboxId }}
+                    className="group flex items-center justify-between gap-4 rounded-md border border-white/15 bg-black/35 p-4 text-left transition-colors hover:bg-black/50"
+                  >
+                    <HeroGameSummary game={profile.heroGame} />
+                  </Link>
+                ) : (
+                  <div className="flex items-center justify-between gap-4 rounded-md border border-white/15 bg-black/35 p-4 text-left">
+                    <HeroGameSummary game={profile.heroGame} />
                   </div>
-                  <div className="shrink-0 text-right">
-                    <p className="text-2xl font-light">
-                      {Math.round(profile.heroGame.completionPercent ?? 0)}%
-                    </p>
-                    <p className="text-xs text-gray-300">complete</p>
-                  </div>
-                </Link>
-              )}
+                ))}
             </div>
           </div>
         </section>
@@ -513,6 +515,21 @@ function RouteComponent() {
         </section>
       </main>
     </TooltipProvider>
+  );
+}
+
+function HeroGameSummary({ game }: { game: NonNullable<ProfilePageProfile["heroGame"]> }) {
+  return (
+    <>
+      <div className="min-w-0">
+        <p className="text-xs uppercase text-gray-300">Hero game</p>
+        <p className="truncate text-lg font-semibold">{game.title}</p>
+      </div>
+      <div className="shrink-0 text-right">
+        <p className="text-2xl font-light">{Math.round(game.completionPercent ?? 0)}%</p>
+        <p className="text-xs text-gray-300">complete</p>
+      </div>
+    </>
   );
 }
 

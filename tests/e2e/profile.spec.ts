@@ -6,9 +6,14 @@ const PROFILE_ID_WITH_ACHIEVEMENTS = "ac7b3a70e3ce4652b49c38e648001d9e";
 test.describe("Profile page", () => {
   test("renders the public showcase, library, and activity profile experience", async ({
     page,
-  }) => {
+  }, testInfo) => {
     const achievementIconRequests: string[] = [];
     const invalidHtmlMessages: string[] = [];
+    const baseURL = testInfo.project.use.baseURL;
+
+    if (!baseURL) {
+      throw new Error("Profile e2e test requires a configured baseURL.");
+    }
 
     page.on("console", (message) => {
       if (message.type() !== "error" && message.type() !== "warning") return;
@@ -46,8 +51,7 @@ test.describe("Profile page", () => {
             },
           }),
         ).toString("base64"),
-        domain: "localhost",
-        path: "/",
+        url: baseURL,
       },
     ]);
 
