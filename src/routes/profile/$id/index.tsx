@@ -438,14 +438,16 @@ function ActivitySpotlight({ item, profileId }: { item: ProfileActivityItem; pro
           </h2>
         </div>
         {item.achievementIconUrl ? (
-          <Image
-            src={item.achievementIconUrl}
-            alt={item.achievementName ?? item.gameTitle ?? "Achievement"}
-            width={96}
-            height={96}
-            quality="original"
-            className="rounded-md"
-          />
+          <div className="size-20 shrink-0 overflow-hidden rounded-md bg-primary/10">
+            <Image
+              src={item.achievementIconUrl}
+              alt={item.achievementName ?? item.gameTitle ?? "Achievement"}
+              width={80}
+              height={80}
+              quality="original"
+              className="rounded-md"
+            />
+          </div>
         ) : (
           <div className="flex size-20 items-center justify-center rounded-md bg-primary/10">
             <TrophyIcon className="size-8" />
@@ -738,14 +740,16 @@ function ActivityList({ items, profileId }: { items: ProfileActivityItem[]; prof
           className="flex items-center gap-4 rounded-md border border-border bg-card p-4 transition-colors hover:bg-card/80"
         >
           {item.achievementIconUrl ? (
-            <Image
-              src={item.achievementIconUrl}
-              alt={item.achievementName ?? item.gameTitle ?? "Achievement"}
-              width={72}
-              height={72}
-              quality="original"
-              className="rounded-md"
-            />
+            <div className="size-[72px] shrink-0 overflow-hidden rounded-md bg-primary/10">
+              <Image
+                src={item.achievementIconUrl}
+                alt={item.achievementName ?? item.gameTitle ?? "Achievement"}
+                width={72}
+                height={72}
+                quality="original"
+                className="rounded-md"
+              />
+            </div>
           ) : (
             <div className="flex size-[72px] shrink-0 items-center justify-center rounded-md bg-primary/10">
               <TrophyIcon className="size-7" />
