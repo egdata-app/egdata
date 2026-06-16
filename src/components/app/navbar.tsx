@@ -325,7 +325,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-6 gap-2">
+    <header className="sticky top-0 z-50 mx-auto mt-4 flex h-20 w-full max-w-7xl shrink-0 items-center gap-3 rounded-full border border-white/10 bg-[#121216]/85 px-4 shadow-2xl shadow-black/40 backdrop-blur-xl md:px-6">
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="lg:hidden">
@@ -342,7 +342,9 @@ export default function Navbar() {
                 width={40}
                 height={40}
               />
-              <span className="text-xl text-white font-montserrat font-bold">EGDATA</span>
+              <span className="font-montserrat text-xl font-black tracking-tight text-white">
+                EGDATA
+              </span>
             </Link>
           </SheetHeader>
           <div className="p-4">
@@ -359,7 +361,7 @@ export default function Navbar() {
               <Input
                 type="search"
                 placeholder="Search games..."
-                className="pl-8 w-full cursor-text"
+                className="pl-8 w-full cursor-text bg-white/10"
                 readOnly
               />
             </div>
@@ -475,7 +477,9 @@ export default function Navbar() {
           width={40}
           height={40}
         />
-        <span className="text-xl text-white font-montserrat ml-2 font-bold">EGDATA</span>
+        <span className="ml-2 font-montserrat text-xl font-black tracking-tight text-white">
+          EGDATA
+        </span>
       </Link>
       <NavigationMenu className="hidden lg:flex">
         <NavigationMenuList>
@@ -492,8 +496,8 @@ export default function Navbar() {
                       }
                     }}
                     className={cn(
-                      "bg-transparent",
-                      "hover:text-white z-50",
+                      "rounded-full bg-transparent px-4 text-white/70",
+                      "hover:bg-white/10 hover:text-white z-50",
                       "active:text-white data-[active]:text-white data-[state=open]:text-white",
                     )}
                   >
@@ -532,7 +536,7 @@ export default function Navbar() {
           <Input
             type="search"
             placeholder="Search games..."
-            className="pl-8 w-[200px] cursor-text"
+            className="pl-8 w-[240px] cursor-text bg-white/10"
             readOnly
           />
         </div>
