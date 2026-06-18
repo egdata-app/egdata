@@ -1,4 +1,5 @@
 import { Store } from "@tanstack/react-store";
+import { offerTypeValues } from "@/lib/offers-dictionary";
 import { z } from "zod";
 
 export const formSchema = z.object({
@@ -16,24 +17,7 @@ export const formSchema = z.object({
     .nullish()
     .catch(undefined)
     .transform((v) => v ?? undefined),
-  offerType: z
-    .enum([
-      "BASE_GAME",
-      "DLC",
-      "ADD_ON",
-      "SUBSCRIPTION",
-      "BUNDLE",
-      "DEMO",
-      "EDITION",
-      "SEASON",
-      "PASS",
-      "INGAMEITEM",
-      "INGAME_CURRENCY",
-      "LOOTBOX",
-      "SUBSCRIPTION_BUNDLE",
-      "UNKNOWN",
-    ])
-    .optional(),
+  offerType: z.enum(offerTypeValues).optional(),
   onSale: z.boolean().optional(),
   isCodeRedemptionOnly: z.boolean().optional(),
   excludeBlockchain: z.boolean().optional(),

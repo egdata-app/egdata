@@ -1,7 +1,7 @@
 allowBuilds:
-  '@parcel/watcher': true
-  '@sentry-internal/node-cpu-profiler': true
-  '@sentry/cli': true
+  "@parcel/watcher": true
+  "@sentry-internal/node-cpu-profiler": true
+  "@sentry/cli": true
   better-sqlite3: true
   es5-ext: false
   esbuild: true
@@ -9,14 +9,15 @@ allowBuilds:
   workerd: true
 ignoredBuiltDependencies:
   - es5-ext
+shellEmulator: true
 onlyBuiltDependencies:
-  - '@biomejs/biome'
-  - '@parcel/watcher'
-  - '@prisma/engines'
-  - '@sentry-internal/node-cpu-profiler'
-  - '@sentry/cli'
-  - '@sentry/profiling-node'
-  - '@tailwindcss/oxide'
+  - "@biomejs/biome"
+  - "@parcel/watcher"
+  - "@prisma/engines"
+  - "@sentry-internal/node-cpu-profiler"
+  - "@sentry/cli"
+  - "@sentry/profiling-node"
+  - "@tailwindcss/oxide"
   - better-sqlite3
   - esbuild
   - prisma
@@ -28,9 +29,9 @@ overrides:
   nitropack@<=2.13.2: 2.13.2
   prisma@<=7.6.0-dev.17: 7.6.0-dev.17
   import-in-the-middle@<=2.0.3: 2.0.3
-  '@opentelemetry/instrumentation@<=0.207.0': 0.207.0
+  "@opentelemetry/instrumentation@<=0.207.0": 0.207.0
   hono@<=4.12.14: 4.12.14
-  '@better-auth/core@<=1.6.6': 1.6.6
+  "@better-auth/core@<=1.6.6": 1.6.6
   mysql2@<=3.17.0: 3.17.0
   kysely@<=0.28.17: 0.28.17
   mongoose@<=8.22.1: 8.22.1
@@ -41,4 +42,4 @@ overrides:
   undici@<=7.24.1: 7.24.1
   better-auth@<=1.6.6: 1.6.6
   axios@<=1.15.1: 1.15.1
-  '@better-auth/sso@<=1.6.3': 1.6.3
+  "@better-auth/sso@<=1.6.3": 1.6.3

@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { offersDictionary } from "@/lib/offers-dictionary";
+import { offersDictionary, offerTypeValues } from "@/lib/offers-dictionary";
 import { CheckboxWithCount } from "@/components/app/checkbox-with-count";
 import { ExtendedSearch } from "@/components/app/extended-search";
 import { QuerySearch } from "@/components/app/query-search";
@@ -204,9 +204,9 @@ export function SearchFilters({
             <AccordionContent className="flex flex-col gap-2 w-full mt-2">
               <form.Field name="offerType">
                 {({ handleChange, state }: any) =>
-                  Object.entries(offersDictionary)
-                    .filter(([, value]) => value !== "Unknown")
-                    .filter(([key]) => offerTypeCounts[key] > 0)
+                  offerTypeValues
+                    .map((key) => [key, offersDictionary[key]] as const)
+                    .filter(([key, value]) => value !== "Unknown" && offerTypeCounts[key] > 0)
                     .sort((a, b) => a[1].localeCompare(b[1]))
                     .map(([key, value]) => (
                       <CheckboxWithCount

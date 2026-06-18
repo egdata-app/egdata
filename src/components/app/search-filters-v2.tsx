@@ -1,4 +1,5 @@
 import React from "react";
+import { offersDictionary, offerTypeValues } from "@/lib/offers-dictionary";
 import type { SearchV2Response } from "@/types/search-v2";
 
 export interface SearchFiltersV2Props {
@@ -7,25 +8,6 @@ export interface SearchFiltersV2Props {
   loading: boolean;
   results?: SearchV2Response | null;
 }
-
-const OFFER_TYPES = [
-  "IN_GAME_PURCHASE",
-  "BASE_GAME",
-  "EXPERIENCE",
-  "UNLOCKABLE",
-  "ADD_ON",
-  "Bundle",
-  "CONSUMABLE",
-  "WALLET",
-  "OTHERS",
-  "DEMO",
-  "DLC",
-  "VIRTUAL_CURRENCY",
-  "BUNDLE",
-  "DIGITAL_EXTRA",
-  "EDITION",
-  "SUBSCRIPTION",
-];
 
 export function SearchFiltersV2({ query, onQueryChange, loading, results }: SearchFiltersV2Props) {
   // Extract tags from aggregations if available
@@ -51,9 +33,9 @@ export function SearchFiltersV2({ query, onQueryChange, loading, results }: Sear
         disabled={loading}
       >
         <option value="">All Offer Types</option>
-        {OFFER_TYPES.map((type) => (
+        {offerTypeValues.map((type) => (
           <option key={type} value={type}>
-            {type.replace(/_/g, " ")}
+            {offersDictionary[type] ?? type.replace(/_/g, " ")}
           </option>
         ))}
       </select>

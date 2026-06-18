@@ -12,30 +12,12 @@ import { cn } from "@/lib/utils";
 import { OfferCard, GameCardSkeleton } from "@/components/app/offer-card";
 import { OfferListItem } from "@/components/app/game-card";
 import { DynamicPagination } from "@/components/app/dynamic-pagination";
+import { offerTypeValues } from "@/lib/offers-dictionary";
 import { useEffect, useState } from "react";
 
 export const formSchema = z.object({
   title: z.string().optional(),
-  offerType: z
-    .enum([
-      "IN_GAME_PURCHASE",
-      "BASE_GAME",
-      "EXPERIENCE",
-      "UNLOCKABLE",
-      "ADD_ON",
-      "Bundle",
-      "CONSUMABLE",
-      "WALLET",
-      "OTHERS",
-      "DEMO",
-      "DLC",
-      "VIRTUAL_CURRENCY",
-      "BUNDLE",
-      "DIGITAL_EXTRA",
-      "EDITION",
-      "SUBSCRIPTION",
-    ])
-    .optional(),
+  offerType: z.enum(offerTypeValues).optional(),
   tags: z.string().array().optional(),
   customAttributes: z.string().array().optional(),
   seller: z.string().optional(),

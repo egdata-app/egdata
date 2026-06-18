@@ -1,3 +1,31 @@
+export const offerTypeValues = [
+  "BASE_GAME",
+  "DLC",
+  "ADD_ON",
+  "EDITION",
+  "BUNDLE",
+  "Bundle",
+  "SUBSCRIPTION",
+  "SUBSCRIPTION_BUNDLE",
+  "DEMO",
+  "SEASON",
+  "PASS",
+  "INGAMEITEM",
+  "INGAME_CURRENCY",
+  "LOOTBOX",
+  "IN_GAME_PURCHASE",
+  "VIRTUAL_CURRENCY",
+  "CONSUMABLE",
+  "UNLOCKABLE",
+  "DIGITAL_EXTRA",
+  "EXPERIENCE",
+  "WALLET",
+  "OTHERS",
+  "UNKNOWN",
+] as const;
+
+export type OfferType = (typeof offerTypeValues)[number];
+
 export const offersDictionary = {
   CONSUMABLE: "Consumable",
   UNLOCKABLE: "Unlockable",
@@ -17,30 +45,20 @@ export const offersDictionary = {
   WALLET: "Wallet",
   BUNDLE: "Bundle",
   SUBSCRIPTION: "Subscription",
-} as const;
+  SUBSCRIPTION_BUNDLE: "Subscription bundle",
+  SEASON: "Season",
+  PASS: "Pass",
+  INGAMEITEM: "In-game item",
+  INGAME_CURRENCY: "In-game currency",
+  LOOTBOX: "Loot box",
+  UNKNOWN: "Unknown",
+} as const satisfies Record<OfferType | "null" | "undefined", string>;
 
-const offerTypeRanks: {
-  [key: string]: number;
-} = {
-  BASE_GAME: 0,
-  DLC: 1,
-  ADD_ON: 2,
-  EDITION: 3,
-  BUNDLE: 4,
-  Bundle: 5,
-  IN_GAME_PURCHASE: 6,
-  VIRTUAL_CURRENCY: 7,
-  CONSUMABLE: 8,
-  UNLOCKABLE: 9,
-  DIGITAL_EXTRA: 10,
-  EXPERIENCE: 11,
-  DEMO: 12,
-  WALLET: 13,
-  OTHERS: 14,
-  null: 15,
-  undefined: 16,
-  SUBSCRIPTION: 17,
-};
+const offerTypeRanks = {
+  ...Object.fromEntries(offerTypeValues.map((offerType, index) => [offerType, index])),
+  null: offerTypeValues.length,
+  undefined: offerTypeValues.length + 1,
+} as Record<string, number>;
 
 export function offersSorter<T>(
   a: T & {
@@ -50,5 +68,8 @@ export function offersSorter<T>(
     offerType: keyof typeof offersDictionary;
   },
 ) {
-  return offerTypeRanks[a.offerType] - offerTypeRanks[b.offerType];
+  return (
+    (offerTypeRanks[a.offerType] ?? Number.MAX_SAFE_INTEGER) -
+    (offerTypeRanks[b.offerType] ?? Number.MAX_SAFE_INTEGER)
+  );
 }

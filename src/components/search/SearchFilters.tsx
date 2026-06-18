@@ -16,7 +16,7 @@ import { CheckboxWithCount } from "@/components/app/checkbox-with-count";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ExtendedSearch } from "@/components/app/extended-search";
 import { Checkbox } from "@/components/ui/checkbox";
-import { offersDictionary } from "@/lib/offers-dictionary";
+import { offersDictionary, offerTypeValues } from "@/lib/offers-dictionary";
 
 export interface SearchFiltersProps {
   query: TypeOf<typeof formSchema>;
@@ -194,22 +194,16 @@ export function SearchFilters({
           <AccordionItem value="offerType">
             <AccordionTrigger>Offer Type</AccordionTrigger>
             <AccordionContent className="flex flex-col gap-2 w-full mt-2">
-              {Object.entries(offersDictionary)
-                .filter(([, value]) => value !== "Unknown")
-                .filter(([key]) => offerTypeCounts[key] > 0)
+              {offerTypeValues
+                .map((key) => [key, offersDictionary[key]] as const)
+                .filter(([key, value]) => value !== "Unknown" && offerTypeCounts[key] > 0)
                 .sort((a, b) => a[1].localeCompare(b[1]))
                 .map(([key, value]) => (
                   <CheckboxWithCount
                     key={key}
                     checked={query.offerType === key}
                     onChange={(checked: boolean) =>
-                      handleFieldChange(
-                        "offerType",
-                        checked
-                          ? // @ts-expect-error - TODO: fix this
-                            (key as (typeof formSchema.shape.offerType._def.values)[number])
-                          : undefined,
-                      )
+                      handleFieldChange("offerType", checked ? key : undefined)
                     }
                     count={offerTypeCounts[key] || undefined}
                     label={value}
