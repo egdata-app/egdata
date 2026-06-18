@@ -78,8 +78,7 @@ export const Route = createRootRouteWithContext<Context>()({
     } | null;
 
     if (import.meta.env.SSR) {
-      const { getCookies, getRequestHeaders, getRequestUrl } =
-        await import("@/lib/start-server");
+      const { getCookies, getRequestHeaders, getRequestUrl } = await import("@/lib/start-server");
       const reqUrl = getRequestUrl();
 
       url = new URL(reqUrl);
@@ -94,7 +93,7 @@ export const Route = createRootRouteWithContext<Context>()({
       } catch (error) {
         console.error(
           "Failed to load SSR session. Continuing unauthenticated (check Better Auth server configuration if unexpected).",
-          error
+          error,
         );
         session = null;
       }
@@ -293,8 +292,8 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
       <head>
         <HeadContent />
       </head>
-      <body className="antialiased">
-        <div className="md:container mx-auto overflow-x-hidden">
+      <body className="min-h-screen antialiased">
+        <div className="mx-auto min-h-screen w-full max-w-[1600px] overflow-x-hidden px-4 sm:px-6 lg:px-10">
           <LocaleProvider initialLocale={locale} initialTimezone={timezone}>
             <CountryProvider defaultCountry={country || "US"}>
               <CompareProvider>
@@ -309,7 +308,7 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
                   </PreferencesProvider>
                   <ComparisonPortal />
                   <Toaster />
-                  <footer className="flex flex-col items-center justify-center p-4 text-gray-500 dark:text-gray-400 text-xs gap-1">
+                  <footer className="mx-auto my-10 flex max-w-6xl flex-col items-center justify-center gap-2 rounded-3xl border border-white/10 bg-white/[0.03] p-6 text-center text-xs text-white/45 backdrop-blur">
                     <p>
                       egdata.app is a fan-made website and is not affiliated by any means with Epic
                       Games, Inc.
@@ -318,7 +317,7 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
                       All the logos, images, trademarks and creatives are property of their
                       respective owners.
                     </p>
-                    <hr className="w-1/3 my-2 border-gray-300/40" />
+                    <hr className="my-2 w-1/3 border-white/10" />
                     <div className="inline-flex gap-2">
                       <span>
                         Countries flags by{" "}

@@ -1,4 +1,5 @@
 @import "tailwindcss" source("../src");
+@import "@heroui/styles";
 @import "@vidstack/react/player/styles/base.css";
 @import "tw-animate-css";
 
@@ -29,32 +30,33 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: hsl(240 11.1% 7.1%);
-  --foreground: hsl(166 33% 99%);
-  --muted: hsl(240 3% 21%);
-  --muted-foreground: hsl(136 8% 73%);
-  --popover: hsl(240 7% 12%);
-  --popover-foreground: hsl(180 39% 100%);
-  --card: hsl(240 7% 12%);
-  --card-foreground: hsl(180 39% 100%);
-  --border: hsl(240 3% 19%);
-  --input: hsl(240 3% 19%);
-  --primary: hsl(166 67% 88%);
-  --primary-foreground: hsl(166 67% 8%);
-  --secondary: hsl(136 67% 88%);
-  --secondary-foreground: hsl(136 67% 8%);
-  --accent: hsl(240 3.7% 15.9%);
-  --accent-foreground: hsl(0 0% 98%);
-  --destructive: hsl(0 94% 49%);
+  color-scheme: dark;
+  --background: hsl(240 8% 5%);
+  --foreground: hsl(0 0% 96%);
+  --muted: hsl(240 4% 18%);
+  --muted-foreground: hsl(240 5% 66%);
+  --popover: hsl(240 6% 12%);
+  --popover-foreground: hsl(0 0% 98%);
+  --card: hsl(240 6% 12%);
+  --card-foreground: hsl(0 0% 98%);
+  --border: hsl(240 4% 20%);
+  --input: hsl(240 4% 23%);
+  --primary: hsl(198 100% 57%);
+  --primary-foreground: hsl(0 0% 100%);
+  --secondary: hsl(240 4% 16%);
+  --secondary-foreground: hsl(0 0% 96%);
+  --accent: hsl(240 5% 19%);
+  --accent-foreground: hsl(0 0% 100%);
+  --destructive: hsl(0 82% 56%);
   --destructive-foreground: hsl(0 0% 100%);
-  --ring: hsl(166 67% 88%);
-  --radius: 0.5rem;
+  --ring: hsl(198 100% 57%);
+  --radius: 0.9rem;
   --badge: hsl(198.8deg 100% 57.45%);
-  --chart-1: 220 70% 50%;
-  --chart-2: 340 75% 55%;
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  --chart-1: 198 100% 57%;
+  --chart-2: 267 87% 70%;
+  --chart-3: oklch(0.74 0.17 155);
+  --chart-4: oklch(0.83 0.18 84);
+  --chart-5: oklch(0.77 0.19 40);
   --bronze-start: rgb(202, 81, 43);
   --bronze-end: rgb(202, 81, 43, 0.6);
   --silver-start: rgb(175, 180, 189);
@@ -64,7 +66,6 @@
   --platinum-start: rgb(114, 91, 255);
   --platinum-end: rgba(114, 91, 255, 0.6);
 }
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -121,6 +122,9 @@
   }
   body {
     @apply bg-background text-foreground;
+    background:
+      radial-gradient(circle at 20% -10%, rgb(42 116 255 / 0.16), transparent 28rem),
+      radial-gradient(circle at 90% 5%, rgb(143 77 255 / 0.14), transparent 24rem), #101014;
   }
 }
 
@@ -383,3 +387,16 @@ body {
   pointer-events: none;
 }
 
+@layer components {
+  .egs-shell {
+    @apply rounded-3xl border border-white/10 bg-[#18181d]/80 shadow-2xl shadow-black/40 backdrop-blur-xl;
+  }
+
+  .egs-card-hover {
+    @apply transition duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.075] hover:shadow-2xl hover:shadow-black/40;
+  }
+
+  .egs-section-title {
+    @apply text-sm font-bold uppercase tracking-[0.18em] text-white/70;
+  }
+}

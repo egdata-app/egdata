@@ -36,6 +36,8 @@
   "dependencies": {
     "@better-auth/infra": "^0.1.14",
     "@egdata/core.schemas.ratings": "^5.0.0",
+    "@heroui/react": "^3.2.0",
+    "@heroui/styles": "^3.2.0",
     "@libsql/kysely-libsql": "^0.4.1",
     "@mdxeditor/editor": "^3.54.0",
     "@number-flow/react": "^0.4.4",

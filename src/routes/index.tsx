@@ -609,19 +609,19 @@ function RouteComponent() {
   }) => (
     <Card
       className={cn(
-        "flex flex-col rounded-lg border h-[650px]",
+        "egs-card-hover flex flex-col rounded-3xl border h-[650px] overflow-hidden",
         spanFull ? "md:col-span-2" : "",
         className,
       )}
     >
-      <CardHeader className="border-b border-neutral-800 p-3">
-        <CardTitle className="text-sm font-mono text-neutral-400">
+      <CardHeader className="border-b border-white/10 bg-white/[0.03] p-4">
+        <CardTitle className="egs-section-title">
           {href ? (
             <Link
               to={href}
               search={search}
               params={params}
-              className="underline decoration-dotted underline-offset-4"
+              className="underline decoration-dotted underline-offset-4 hover:text-white"
             >
               {title}
             </Link>
@@ -641,40 +641,66 @@ function RouteComponent() {
   );
 
   return (
-    <main className="mx-auto w-full max-w-7xl flex-1 space-y-6 py-6 px-4 sm:px-6 lg:px-8">
+    <main className="mx-auto w-full max-w-7xl flex-1 space-y-8 py-8">
       {/* Hero Section */}
-      <section className="text-center space-y-4 py-6">
-        <div className="space-y-3">
-          <h1 className="text-3xl font-semiboold tracking-tight sm:text-4xl md:text-5xl font-montserrat">
-            egdata.app
-          </h1>
-          <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
-            Track prices, discover deals, and never miss a free game. Your ultimate companion for
-            Epic Games Store offers, discounts, and giveaways.
-          </p>
-        </div>
+      <section className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-br from-[#24242b] via-[#15151a] to-[#09090b] px-6 py-14 shadow-2xl shadow-black/50 sm:px-10 lg:px-14">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_78%_20%,rgba(42,172,255,0.28),transparent_22rem),radial-gradient(circle_at_20%_10%,rgba(134,79,255,0.22),transparent_24rem)]" />
+        <div className="absolute -right-24 bottom-0 h-72 w-72 rounded-full bg-primary/20 blur-3xl" />
+        <div className="relative grid gap-10 lg:grid-cols-[1fr_420px] lg:items-center">
+          <div className="space-y-6">
+            <div className="inline-flex rounded-full border border-white/10 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.22em] text-white/70">
+              Epic Games Store intelligence
+            </div>
+            <div className="space-y-4">
+              <h1 className="max-w-3xl font-montserrat text-5xl font-black tracking-tight text-white sm:text-6xl md:text-7xl">
+                Discover deals, drops, and data.
+              </h1>
+              <p className="max-w-2xl text-base leading-8 text-white/65 sm:text-lg">
+                Track prices, explore store history, and never miss a giveaway with a fast,
+                cinematic Epic Games Store-inspired dashboard.
+              </p>
+            </div>
 
-        <div className="mx-auto max-w-md">
-          <div
-            className="relative cursor-text"
-            onClick={(e) => {
-              e.preventDefault();
-              setFocus(true);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                setFocus(true);
-              }
-            }}
-          >
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search offers, items, or sellers..."
-              className="pl-10 h-10 text-sm cursor-text"
-              readOnly
-            />
+            <div className="max-w-xl">
+              <div
+                className="relative cursor-text"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setFocus(true);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    setFocus(true);
+                  }
+                }}
+              >
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  type="search"
+                  placeholder="Search offers, items, or sellers..."
+                  className="pl-10 h-10 text-sm cursor-text"
+                  readOnly
+                />
+              </div>
+            </div>
+          </div>
+          <div className="hidden rounded-3xl border border-white/10 bg-white/[0.06] p-5 shadow-2xl shadow-black/30 backdrop-blur lg:block">
+            <div className="mb-4 flex items-center justify-between text-sm font-bold text-white/70">
+              <span>Live store pulse</span>
+              <span className="rounded-full bg-primary px-3 py-1 text-xs text-white">LIVE</span>
+            </div>
+            <div className="space-y-3">
+              <MetricBox label="Offers Tracked" value={stats.offers.toLocaleString("en-UK")} />
+              <MetricBox
+                label="Active Discounts"
+                value={stats.activeDiscounts.toLocaleString("en-UK")}
+              />
+              <MetricBox
+                label="Giveaways to Date"
+                value={stats.giveaways.toLocaleString("en-UK")}
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -1188,9 +1214,11 @@ function RouteComponent() {
 
 function MetricBox({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-lg bg-card p-4 text-center">
-      <div className="text-2xl font-mono">{value}</div>
-      <div className="text-xs text-neutral-400">{label}</div>
+    <div className="egs-card-hover rounded-3xl border border-white/10 bg-white/[0.05] p-5 text-center shadow-xl shadow-black/20 backdrop-blur">
+      <div className="font-montserrat text-3xl font-black text-white">{value}</div>
+      <div className="mt-1 text-xs font-bold uppercase tracking-[0.16em] text-white/45">
+        {label}
+      </div>
     </div>
   );
 }
