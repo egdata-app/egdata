@@ -1,4 +1,4 @@
-FROM node:24.6.0-alpine AS base
+FROM node:22.16.0-alpine AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
@@ -12,10 +12,10 @@ COPY . .
 
 FROM deps AS build
 RUN pnpm run build
-RUN pnpm prune --prod
+RUN pnpm prune --prod --ignore-scripts
 RUN apk del .build-deps
 
-FROM node:24.6.0-alpine
+FROM node:22.16.0-alpine
 WORKDIR /app
 ENV NODE_ENV=production
 ENV TZ=UTC
