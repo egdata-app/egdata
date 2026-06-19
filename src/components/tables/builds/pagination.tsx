@@ -1,12 +1,12 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/aria/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from "@radix-ui/react-icons";
+} from "@/components/aria/select";
+import { ChevronRight as ChevronRightIcon, ChevronsLeft as DoubleArrowLeftIcon, ChevronsRight as DoubleArrowRightIcon } from "lucide-react";
 import type { Table } from "@tanstack/react-table";
 import { ChevronLeftIcon } from "lucide-react";
 

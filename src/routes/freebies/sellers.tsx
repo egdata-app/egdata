@@ -1,10 +1,10 @@
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/aria/input";
 import { httpClient } from "@/lib/http-client";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowDown, ArrowUp, Download, Search } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
-import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/aria/popover";
 
 const freebiesSellersQuery = queryOptions({
   queryKey: ["freebies-sellers"],

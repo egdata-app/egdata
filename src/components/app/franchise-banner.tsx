@@ -45,13 +45,13 @@ export const FranchiseBanner = ({ franchise }: { franchise: Franchise }) => {
         className={cn(
           "absolute inset-0 z-10 transition-colors duration-300",
           backgroundImage
-            ? "bg-black/20 group-hover:bg-black/10"
-            : "bg-black/20 group-hover:bg-black/10",
+            ? "bg-surface-scrim group-hover:bg-surface-scrim"
+            : "bg-surface-scrim group-hover:bg-surface-scrim",
         )}
       />
 
       <div className="relative z-20 p-3 flex flex-col justify-center h-full">
-        <span className="text-lg font-bold text-left text-gray-200 drop-shadow-md">
+        <span className="text-lg font-bold text-left text-text-secondary drop-shadow-panel">
           Check the {franchise.name} Franchise
         </span>
       </div>

@@ -1,10 +1,10 @@
 import type { SingleOffer } from "@/types/single-offer";
-import { CarouselItem } from "../ui/carousel";
+import { CarouselItem } from "../aria/carousel";
 import { Link } from "@tanstack/react-router";
-import { Card, CardContent } from "../ui/card";
+import { Card, CardContent } from "../aria/card";
 import { Image } from "./image";
 import { getImage } from "@/lib/getImage";
-import { Badge } from "../ui/badge";
+import { Badge } from "../aria/badge";
 import { cn } from "@/lib/utils";
 import { offersDictionary } from "@/lib/offers-dictionary";
 import { calculatePrice } from "@/lib/calculate-price";
@@ -28,7 +28,7 @@ export function GameCard({
         preload="viewport"
         aria-label={`Open offer ${game.title}`}
       >
-        <Card className="w-72 lg:max-w-sm rounded-lg overflow-hidden shadow-lg">
+        <Card className="w-72 overflow-hidden lg:max-w-sm">
           <Image
             src={getImage(game.keyImages, ["Thumbnail"])?.url}
             alt={game.title}
@@ -42,7 +42,7 @@ export function GameCard({
             </div>
             <div className="mt-2 flex items-end justify-between gap-2 h-full max-w-xs truncate">
               {game.seller && (
-                <div className="text-sm text-gray-400">
+                <div className="text-sm text-text-muted">
                   {typeof game.seller === "string" ? game.seller : game.seller.name}
                 </div>
               )}
@@ -93,7 +93,7 @@ export function OfferListItem({
       preload="viewport"
       aria-label={`Open offer ${game.title}`}
     >
-      <Card className="flex flex-row w-full bg-card text-white p-2 rounded-lg h-fit relative">
+      <Card className="relative flex h-fit w-full flex-row p-2">
         {/* Image Section */}
         <div className="flex-shrink-0 w-72 h-auto inline-flex items-center justify-center relative">
           <Image
@@ -117,8 +117,8 @@ export function OfferListItem({
             <div className="flex flex-col">
               <div className="flex items-center space-x-2">
                 <h2 className="text-xl font-bold truncate">{game.title}</h2>
-                <span className="text-sm text-muted-foreground">-</span>
-                <span className="text-sm text-muted-foreground">
+                <span className="text-sm text-text-muted">-</span>
+                <span className="text-sm text-text-muted">
                   {offersDictionary[game.offerType as keyof typeof offersDictionary] ||
                     game.offerType}
                 </span>
@@ -138,12 +138,12 @@ export function OfferListItem({
 
           {/* Seller Info */}
           <div className="inline-flex gap-2 items-center justify-start my-2">
-            <span className="text-sm text-muted-foreground">{game.seller.name}</span>
+            <span className="text-sm text-text-muted">{game.seller.name}</span>
           </div>
 
           {/* Release Date */}
           <div className="inline-flex gap-2 items-center justify-start">
-            <span className="text-sm text-muted-foreground">
+            <span className="text-sm text-text-muted">
               Release date:{" "}
               {new Date(game.releaseDate).toLocaleString("en-UK", {
                 month: "long",
@@ -156,7 +156,7 @@ export function OfferListItem({
           {/* Giveaway Info */}
           {game.giveaway && (
             <div className="inline-flex gap-2 items-center justify-start mt-2">
-              <span className="text-sm text-muted-foreground">
+              <span className="text-sm text-text-muted">
                 Giveaway period:{" "}
                 {new Date(game.giveaway.startDate).toLocaleString("en-UK", {
                   month: "long",
@@ -178,7 +178,7 @@ export function OfferListItem({
             <div className="flex items-end justify-end space-x-4 mt-4">
               {game.price.appliedRules.length > 0 && <SaleModule game={game} />}
               {game.price.price.originalPrice !== game.price.price.discountPrice && (
-                <span className="line-through text-muted-foreground">
+                <span className="text-text-muted line-through">
                   {priceFmtd.format(
                     calculatePrice(game.price.price.originalPrice, game.price.price.currencyCode),
                   )}
@@ -188,8 +188,8 @@ export function OfferListItem({
                 className={cn(
                   "text-lg font-bold",
                   game.price.price.originalPrice !== game.price.price.discountPrice
-                    ? "text-green-400"
-                    : "text-white",
+                    ? "text-success"
+                    : "text-text-primary",
                 )}
               >
                 {priceFmtd.format(
@@ -228,11 +228,11 @@ function SaleModule({ game }: { game: Pick<SingleOffer, "price"> }) {
   return (
     <div className="flex items-center justify-between gap-2">
       <div className="flex items-center">
-        <span className="text-sm text-muted-foreground">
+        <span className="text-sm text-text-muted">
           ends in {relativeFutureDate(new Date(sale.endDate))} days
         </span>
       </div>
-      <Badge variant="default" className="bg-green-500 text-black text-sm">
+      <Badge variant="default" className="border-success/35 bg-success-muted text-success">
         -{100 - sale.discountSetting.discountPercentage}%
       </Badge>
     </div>

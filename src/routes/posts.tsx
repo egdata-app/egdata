@@ -1,6 +1,6 @@
 import { Image } from "@/components/app/image";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/aria/badge";
+import { Card, CardContent } from "@/components/aria/card";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/posts")({

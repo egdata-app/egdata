@@ -6,7 +6,7 @@ import {
   CarouselContent,
   CarouselItem,
   CarouselNext,
-} from "../ui/carousel";
+} from "../aria/carousel";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowRightIcon } from "lucide-react";
 import { useCountry } from "@/hooks/use-country";

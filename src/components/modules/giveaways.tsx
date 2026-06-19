@@ -1,13 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import { Skeleton } from "../ui/skeleton";
+import { Skeleton } from "../aria/skeleton";
 import { Image } from "@/components/app/image";
 import { getImage } from "@/lib/getImage";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/aria/tooltip";
 import { useCountry } from "@/hooks/use-country";
 import { useEffect, useState } from "react";
-import { InfoCircledIcon } from "@radix-ui/react-icons";
+import { Info as InfoCircledIcon } from "lucide-react";
 import type { GiveawayOffer } from "@/types/giveaways";
-import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { ScrollArea, ScrollBar } from "../aria/scroll-area";
 import { calculatePrice } from "@/lib/calculate-price";
 import { ArrowRightIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -96,7 +96,7 @@ function GiveawayCard({ offer }: { offer: GiveawayOffer }) {
       params={{
         id: offer.id,
       }}
-      className="flex flex-col rounded-lg shadow-md overflow-hidden w-[300px]"
+      className="flex flex-col rounded-lg shadow-panel overflow-hidden w-[300px]"
     >
       <div className="relative flex-shrink-0">
         <Image
@@ -235,9 +235,9 @@ function Countdown({ targetDate }: { targetDate: Date }) {
   return (
     <div
       className={cn(
-        "flex flex-row items-center justify-center gap-2 text-sm font-semibold text-white py-1",
+        "flex flex-row items-center justify-center gap-2 text-sm font-semibold text-text-primary py-1",
         isFinised && "bg-badge text-black",
-        !isFinised && "bg-gray-900",
+        !isFinised && "bg-surface-ground",
       )}
     >
       {!isFinised ? (

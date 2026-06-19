@@ -2,16 +2,16 @@ import type { FormApi } from "@tanstack/react-form";
 import type { TypeOf } from "zod";
 import { usePreferences } from "@/hooks/use-preferences";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/aria/button";
 import { ArrowDown, GridIcon } from "lucide-react";
-import { ListBulletIcon } from "@radix-ui/react-icons";
+import { List as ListBulletIcon } from "lucide-react";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@/components/aria/select";
 import type { formSchema } from "./search-form";
 
 const sortByDisplay: Record<string, string> = {
@@ -53,7 +53,7 @@ export function SearchHeader({
         <h1 className="text-2xl font-bold">{title}</h1>
         {isFetching && (
           <svg
-            className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+            className="animate-spin -ml-1 mr-3 h-5 w-5 text-text-primary"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -80,10 +80,11 @@ export function SearchHeader({
             <form.Field name="sortBy">
               {({ handleChange, state }: any) => (
                 <Select
+                  aria-label="Sort offers"
                   value={state.value}
                   onValueChange={(value) => handleChange(value as keyof typeof sortByDisplay)}
                 >
-                  <SelectTrigger className="w-[180px]">
+                  <SelectTrigger className="w-[180px]" aria-label="Sort offers">
                     <SelectValue placeholder="Sort by" />
                   </SelectTrigger>
                   <SelectContent>

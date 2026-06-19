@@ -87,7 +87,7 @@ export function GlobalBackground() {
       >
         <div
           className={cn(
-            "w-full h-[700px] bg-no-repeat bg-cover bg-center blur-3xl bg-black/40",
+            "w-full h-[700px] bg-no-repeat bg-cover bg-center blur-3xl bg-surface-scrim",
             "filter brightness-[0.15]",
           )}
           style={{ backgroundImage: `url(${src})` }}

@@ -8,6 +8,7 @@ import { OfferListItem } from "@/components/app/game-card";
 import { DynamicPagination } from "@/components/app/dynamic-pagination";
 import { DEFAULT_LIMIT } from "@/stores/searchStore";
 import type { SingleOffer } from "@/types/single-offer";
+import { EmptyState } from "@/components/app/design-system";
 
 export interface SearchResultsProps {
   query: TypeOf<typeof formSchema>;
@@ -47,9 +48,9 @@ export function SearchResults(props: SearchResultsProps) {
 
   if (!results || results.offers.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center h-full">
-        <span className="text-gray-400">No results found</span>
-      </div>
+      <EmptyState title="No results found">
+        Try adjusting filters, search terms, or country selection.
+      </EmptyState>
     );
   }
 

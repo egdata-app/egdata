@@ -2,8 +2,8 @@ import type { TypeOf } from "zod";
 import type { formSchema } from "@/stores/searchStore";
 import { usePreferences } from "@/hooks/use-preferences";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { ListBulletIcon } from "@radix-ui/react-icons";
+import { Button } from "@/components/aria/button";
+import { List as ListBulletIcon } from "lucide-react";
 import { GridIcon } from "lucide-react";
 import {
   Select,
@@ -11,8 +11,9 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@/components/aria/select";
 import { ArrowDown } from "lucide-react";
+import { Toolbar } from "@/components/app/design-system";
 
 const sortByDisplay: Record<string, string> = {
   releaseDate: "Release Date",
@@ -45,12 +46,12 @@ export function SearchHeader(props: SearchHeaderProps) {
   const { query, setField, loading, title, showSort, showViewToggle } = props;
 
   return (
-    <header className={cn("inline-flex items-center justify-between w-full gap-2")}>
+    <Toolbar as="header" className="gap-3">
       <div className="flex flex-row items-center justify-start gap-2">
-        <h1 className="text-2xl font-bold">{title}</h1>
+        <h1 className="font-montserrat text-2xl font-bold text-text-primary">{title}</h1>
         {loading && (
           <svg
-            className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+            className="-ml-1 mr-3 size-5 animate-spin text-interactive"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -75,6 +76,7 @@ export function SearchHeader(props: SearchHeaderProps) {
         {showSort && (
           <>
             <Select
+              aria-label="Sort offers"
               value={query.sortBy ?? undefined}
               onValueChange={(value) => setField("sortBy", value as typeof query.sortBy)}
             >
@@ -119,6 +121,6 @@ export function SearchHeader(props: SearchHeaderProps) {
           </Button>
         )}
       </div>
-    </header>
+    </Toolbar>
   );
 }

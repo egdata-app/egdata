@@ -1,9 +1,9 @@
 import type { Table } from "@tanstack/react-table";
-import { Button } from "@/components/ui/button";
-import { Cross2Icon } from "@radix-ui/react-icons";
+import { Button } from "@/components/aria/button";
+import { X as Cross2Icon } from "lucide-react";
 import { DataTableViewOptions } from "./view-options";
 import { FileExtensionFilter } from "./file-extension";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/aria/input";
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;

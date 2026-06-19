@@ -7,7 +7,7 @@ import {
 } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import UnderlineExtension from "@tiptap/extension-underline";
-import { Toggle } from "../ui/toggle";
+import { Toggle } from "../aria/toggle";
 import {
   Bold,
   Italic,
@@ -17,10 +17,10 @@ import {
   TextQuote,
   Underline as UnderlineIcon,
 } from "lucide-react";
-import { ScrollArea } from "../ui/scroll-area";
-import { Separator } from "../ui/separator";
+import { ScrollArea } from "../aria/scroll-area";
+import { Separator } from "../aria/separator";
 import React from "react";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../aria/tooltip";
 import { cn } from "@/lib/utils";
 
 const extensions = [StarterKit, UnderlineExtension];
@@ -66,7 +66,7 @@ export const Editor = ({
           <BubbleMenu
             editor={editor}
             tippyOptions={{ duration: 100 }}
-            className="inline-flex items-center rounded-md border bg-background p-1 shadow-sm bg-opacity-20 backdrop-blur-sm gap-1"
+            className="inline-flex items-center rounded-md border bg-background p-1 shadow-panel bg-opacity-20 backdrop-blur-sm gap-1"
           >
             {tools.map((tool, index) => (
               <React.Fragment key={tool.action}>
@@ -104,7 +104,7 @@ export const Editor = ({
           <FloatingMenu
             editor={editor}
             tippyOptions={{ duration: 100 }}
-            className="inline-flex items-center rounded-md border bg-background p-1 shadow-sm gap-1 opacity-40 hover:opacity-100 transition-opacity ease-in-out duration-300 bg-opacity-20 backdrop-blur-sm"
+            className="inline-flex items-center rounded-md border bg-background p-1 shadow-panel gap-1 opacity-40 hover:opacity-100 transition-opacity ease-in-out duration-300 bg-opacity-20 backdrop-blur-sm"
           >
             {tools.map((tool, index) => (
               <React.Fragment key={tool.action}>

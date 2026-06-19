@@ -1,5 +1,5 @@
 import { httpClient } from "@/lib/http-client";
-import { Button } from "../ui/button";
+import { Button } from "../aria/button";
 import { buildGameLauncherURI } from "@/lib/build-game-launcher";
 import { PlayIcon } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
@@ -28,7 +28,7 @@ export function OpenLauncher({ id }: { id: string }) {
   return (
     <Button
       variant="outline"
-      className="text-white bg-[#1d77a1] hover:bg-[#20688a] transition-all duration-300 ease-in-out"
+      className="text-text-primary bg-interactive-active hover:bg-interactive transition-all duration-300 ease-in-out"
       onClick={() =>
         open(
           buildGameLauncherURI({

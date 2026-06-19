@@ -2,11 +2,11 @@ import { useState } from "react";
 import { usePushNotifications } from "@/hooks/use-push-notifications";
 import { useQuery } from "@tanstack/react-query";
 import { subscriptionsQuery } from "@/queries/push-notifications";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/aria/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/aria/card";
+import { Input } from "@/components/aria/input";
+import { Label } from "@/components/aria/label";
+import { Badge } from "@/components/aria/badge";
 import { Bell, BellOff, Loader2 } from "lucide-react";
 
 interface PushNotificationsProps {

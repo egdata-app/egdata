@@ -1,14 +1,14 @@
 import { Link } from "@tanstack/react-router";
 import { Image } from "./image";
-import { Card, CardContent, CardHeader } from "../ui/card";
+import { Card, CardContent, CardHeader } from "../aria/card";
 import { getImage } from "@/lib/getImage";
-import { Skeleton } from "../ui/skeleton";
+import { Skeleton } from "../aria/skeleton";
 import type { SingleOffer } from "@/types/single-offer";
 import { offersDictionary } from "@/lib/offers-dictionary";
 import { useEffect, useMemo, useState } from "react";
 import { useGenres } from "@/hooks/use-genres";
 import { cn } from "@/lib/utils";
-import { Badge } from "../ui/badge";
+import { Badge } from "../aria/badge";
 import { calculatePrice } from "@/lib/calculate-price";
 import { useLocale } from "@/hooks/use-locale";
 import { platformIcons } from "./platform-icons";
@@ -32,7 +32,7 @@ export function GameCard({ offer }: { offer: SingleOffer }) {
       preload="viewport"
       aria-label={`Open offer ${offer.title}`}
     >
-      <Card className="w-full max-w-sm rounded-lg overflow-hidden shadow-lg relative">
+      <Card className="relative w-full max-w-sm overflow-hidden">
         <CardHeader className="p-0 rounded-t-xl relative">
           <Image
             src={
@@ -47,11 +47,11 @@ export function GameCard({ offer }: { offer: SingleOffer }) {
             alt={offer.title}
             width={400}
             height={500}
-            className="w-full h-96 object-cover hover:scale-105 transition-transform duration-300 relative"
+            className="relative h-96 w-full object-cover transition-transform duration-300 hover:scale-105"
             loading="lazy"
           />
           {offer.offerType && (
-            <span className="absolute -top-1.5 right-0 bg-gray-500/40 py-2 px-3 justify-center items-center text-white backdrop-blur-sm text-xs font-bold rounded-bl-xl z-10 bg-opacity-40">
+            <span className="absolute -top-1.5 right-0 z-10 items-center justify-center rounded-bl-lg bg-surface-overlay px-3 py-2 text-xs font-bold text-text-primary backdrop-blur-sm">
               {offersDictionary[offer.offerType as keyof typeof offersDictionary]}
             </span>
           )}
@@ -61,14 +61,14 @@ export function GameCard({ offer }: { offer: SingleOffer }) {
             <h3 className="text-xl font-semibold max-w-xs truncate">{offer.title}</h3>
           </div>
           <div className="flex flex-row justify-between items-end gap-1 h-full">
-            <span className="text-sm text-gray-600 dark:text-gray-400 text-left truncate items-end flex-1">
+            <span className="flex-1 items-end truncate text-left text-sm text-text-muted">
               {offer.seller.name}
             </span>
             <div className="inline-flex justify-end items-center flex-0">
               {isReleased && offer.price && (
                 <div className="flex items-center gap-2 text-right w-full justify-end">
                   {offer.price?.price.discount > 0 && (
-                    <span className="text-gray-500 line-through dark:text-gray-400">
+                    <span className="text-text-muted line-through">
                       {fmt.format(offer.price?.price.originalPrice / 100)}
                     </span>
                   )}
@@ -113,7 +113,7 @@ export function GameCard({ offer }: { offer: SingleOffer }) {
 
 export function GameCardSkeleton() {
   return (
-    <Card className="w-full max-w-sm rounded-lg overflow-hidden shadow-lg">
+      <Card className="w-full max-w-sm overflow-hidden">
       <CardHeader className="p-0 rounded-t-xl">
         <Skeleton className="w-full h-72" />
       </CardHeader>
@@ -272,7 +272,7 @@ export function OfferCard({
       viewTransition
       aria-label={`Open offer ${offer.title}`}
     >
-      <Card className="w-64 md:w-full overflow-hidden rounded-lg border-0 relative">
+      <Card className="relative w-64 overflow-hidden border-0 md:w-full">
         <Image
           src={gradientImage}
           alt="Game Cover"
@@ -282,7 +282,7 @@ export function OfferCard({
           loading="lazy"
           className="w-full h-auto object-cover"
         />
-        <div className="relative p-4 bg-card h-44 shadow-xl">
+        <div className="relative h-44 bg-surface-panel p-4 shadow-panel">
           <div className="flex flex-col z-10 h-full">
             {!content && (
               <>
@@ -317,7 +317,7 @@ export function OfferCard({
             style={{
               width: "100%",
               height: "100%",
-              backgroundImage: gradient ?? "linear-gradient(0deg, #000, #000)",
+              backgroundImage: gradient ?? "linear-gradient(0deg, var(--surface-panel), var(--surface-panel))",
               backgroundSize: "cover",
               backgroundPosition: "center",
               zIndex: 1,

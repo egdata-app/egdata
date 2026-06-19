@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { Skeleton } from "../ui/skeleton";
-import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { Skeleton } from "../aria/skeleton";
+import { ScrollArea, ScrollBar } from "../aria/scroll-area";
 import { mobileFreebiesQuery } from "@/queries/mobile-freebies";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/aria/button";
 import { ArrowDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
@@ -88,7 +88,7 @@ function MobileGiveawayCard({ offer }: { offer: GiveawayOffer }) {
     <Link
       to="/offers/$id"
       params={{ id: offer.id }}
-      className="flex flex-col rounded-lg shadow-md overflow-hidden w-[300px]"
+      className="flex flex-col rounded-lg shadow-panel overflow-hidden w-[300px]"
     >
       <div className="relative flex-shrink-0">
         <Image
@@ -199,9 +199,9 @@ function Countdown({ targetDate }: { targetDate: Date }) {
   return (
     <div
       className={cn(
-        "flex flex-row items-center justify-center gap-2 text-sm font-semibold text-white py-1",
+        "flex flex-row items-center justify-center gap-2 text-sm font-semibold text-text-primary py-1",
         isFinised && "bg-badge text-black",
-        !isFinised && "bg-gray-900",
+        !isFinised && "bg-surface-ground",
       )}
     >
       {!isFinised ? (

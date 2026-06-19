@@ -1,6 +1,6 @@
 import { Image } from "@/components/app/image";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Button } from "@/components/aria/button";
+import { Card } from "@/components/aria/card";
 import { useCountry } from "@/hooks/use-country";
 import { useLocale } from "@/hooks/use-locale";
 import { calculatePrice } from "@/lib/calculate-price";
@@ -162,8 +162,8 @@ function FranchisePage() {
   if (isLoading) {
     return (
       <main className="container mx-auto flex flex-col items-center justify-center gap-4 min-h-screen">
-        <div className="relative h-96 overflow-hidden rounded-2xl flex items-center bg-cover bg-center w-full">
-          <div className="h-full w-full flex flex-col justify-center items-start text-white p-8 bg-gradient-to-r from-black/80 to-black/30">
+        <div className="relative h-96 overflow-hidden rounded-lg flex items-center bg-cover bg-center w-full">
+          <div className="h-full w-full flex flex-col justify-center items-start text-text-primary p-8 egd-hero-scrim">
             <span className="text-5xl font-bold">Loading...</span>
           </div>
         </div>
@@ -227,7 +227,7 @@ function FranchisePage() {
             {isFetchingNextPage ? (
               <>
                 <svg
-                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-text-primary"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -279,7 +279,7 @@ function FranchiseOfferCard({ offer }: { offer: SingleOffer }) {
 
   return (
     <Link to="/offers/$id" params={{ id: offer.id }} preload="viewport">
-      <Card className="w-full rounded-xl overflow-hidden hover:ring-1 hover:ring-primary/50 transition-all">
+      <Card className="w-full rounded-lg overflow-hidden hover:ring-1 hover:ring-primary/50 transition-all">
         <div className="relative aspect-video">
           <Image
             src={imageUrl}

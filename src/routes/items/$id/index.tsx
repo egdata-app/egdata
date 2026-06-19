@@ -6,7 +6,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/components/aria/table";
 import { httpClient } from "@/lib/http-client";
 import type { SingleItem } from "@/types/single-item";
 import { useQuery } from "@tanstack/react-query";
@@ -29,7 +29,7 @@ export const Route = createFileRoute("/items/$id/")({
     return (
       <div className="flex flex-col items-start justify-start h-full gap-4 w-full">
         <h2 className="text-xl font-bold">Metadata</h2>
-        <div className="rounded-xl border border-gray-300/10 w-full">
+        <div className="rounded-lg border border-stroke-subtle w-full">
           <Table>
             <TableHeader>
               <TableRow>

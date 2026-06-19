@@ -1,16 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "../ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "../aria/carousel";
 import { httpClient } from "@/lib/http-client";
-import { Skeleton } from "../ui/skeleton";
+import { Skeleton } from "../aria/skeleton";
 import { OfferCard } from "@/components/app/offer-card";
 import type { SingleOffer } from "@/types/single-offer";
 import { useCountry } from "@/hooks/use-country";
-import { ArrowUpIcon } from "@radix-ui/react-icons";
+import { ArrowUp as ArrowUpIcon } from "lucide-react";
 import { useState } from "react";
 import type { Price } from "@/types/price";
-import { Card, CardContent } from "../ui/card";
-import { Badge } from "../ui/badge";
-import { Button } from "../ui/button";
+import { Card, CardContent } from "../aria/card";
+import { Badge } from "../aria/badge";
+import { Button } from "../aria/button";
 import { calculatePrice } from "@/lib/calculate-price";
 import { cn } from "@/lib/utils";
 import { EqualIcon } from "lucide-react";
@@ -69,14 +69,14 @@ export function Bundle({ id, offer }: { id: string; offer: SingleOffer }) {
           <div className="flex gap-2">
             <button
               onClick={handlePreviousSlide}
-              className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
+              className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-surface-ground focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
               type="button"
             >
               <ArrowUpIcon className="w-5 h-5 transform -rotate-90" />
             </button>
             <button
               onClick={handleNextSlide}
-              className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
+              className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-surface-ground focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
               type="button"
             >
               <ArrowUpIcon className="w-5 h-5 transform rotate-90" />
@@ -138,14 +138,14 @@ export function Bundle({ id, offer }: { id: string; offer: SingleOffer }) {
           <div className="flex gap-2">
             <button
               onClick={handlePreviousSlide}
-              className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
+              className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-surface-ground focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
               type="button"
             >
               <ArrowUpIcon className="w-5 h-5 transform -rotate-90" />
             </button>
             <button
               onClick={handleNextSlide}
-              className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
+              className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-surface-ground focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
               type="button"
             >
               <ArrowUpIcon className="w-5 h-5 transform rotate-90" />
@@ -191,14 +191,14 @@ export function Bundle({ id, offer }: { id: string; offer: SingleOffer }) {
                     "text-lg py-1 ease-in-out duration-300 transition-colors",
                     bundleIsBetter
                       ? "bg-badge font-bold hover:bg-badge"
-                      : "bg-red-400 font-bold hover:bg-red-500",
+                      : "bg-danger font-bold hover:bg-danger",
                   )}
                 >
                   {priceFmtr.format(Math.abs(totalPrice - bundlePrice))}
                 </Badge>
               </div>
               <div className="pt-4">
-                <Button className="w-full bg-black text-white hover:bg-card border" asChild>
+                <Button className="w-full bg-black text-text-primary hover:bg-card border" asChild>
                   <Link
                     to={getBuyLink({
                       offers: bundleIsBetter ? [offer] : (collection?.offers ?? []),

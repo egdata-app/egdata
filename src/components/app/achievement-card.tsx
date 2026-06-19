@@ -1,16 +1,16 @@
 import { getRarity } from "@/lib/get-rarity";
 import { cn } from "@/lib/utils";
 import type { Achievement } from "@/queries/offer-achievements";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../aria/card";
 import { Image } from "./image";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../aria/tooltip";
 
 export const rarities = {
   bronze: "bg-gradient-radial from-bronze-start to-transparent",
   silver: "bg-gradient-radial from-silver-start to-transparent",
   gold: "bg-gradient-radial from-gold-start to-transparent",
   platinum: "bg-gradient-radial from-platinum-start to-transparent",
-  unknown: "bg-gray-300",
+  unknown: "bg-surface-active",
 };
 
 export const raritiesTextColors = {
@@ -18,7 +18,7 @@ export const raritiesTextColors = {
   silver: "text-silver-start",
   gold: "text-gold-start",
   platinum: "text-platinum-start",
-  unknown: "text-gray-300",
+  unknown: "text-text-secondary",
 };
 
 export function FlippableCard({
@@ -88,7 +88,7 @@ export function FlippableCard({
                       alt={achievement.unlockedDisplayName}
                       height={64}
                       width={64}
-                      className="z-10 bg-gray-900 rounded-sm"
+                      className="z-10 bg-surface-ground rounded-sm"
                     />
                   </div>
                   <CardTitle>{achievement.unlockedDisplayName}</CardTitle>
@@ -105,7 +105,7 @@ export function FlippableCard({
                   </TooltipContent>
                 </CardContent>
                 <CardFooter className="relative z-10">
-                  <span className="border border-gray-300 rounded-full px-2 py-1 text-xs inline-flex items-center gap-2">
+                  <span className="border border-stroke-subtle rounded-full px-2 py-1 text-xs inline-flex items-center gap-2">
                     {achievement.completedPercent}% unlocked
                     {unlockDate && <span>|</span>}
                     {unlockDate && (
@@ -150,7 +150,7 @@ export function FlippableCard({
                   </TooltipContent>
                 </CardContent>
                 <CardFooter>
-                  <span className="border border-gray-300 rounded-full px-2 py-1 text-xs">
+                  <span className="border border-stroke-subtle rounded-full px-2 py-1 text-xs">
                     Locked
                   </span>
                 </CardFooter>

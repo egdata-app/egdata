@@ -7,8 +7,8 @@ import { zodSearchValidator } from "@tanstack/router-zod-adapter";
 import { httpClient } from "@/lib/http-client";
 import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Input } from "@/components/aria/input";
+import { Button } from "@/components/aria/button";
 import { DynamicPagination } from "@/components/app/dynamic-pagination";
 import { ChangeTracker } from "@/components/app/changelog/item";
 

@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/aria/card";
+import { Button } from "@/components/aria/button";
 import { ArrowLeft } from "lucide-react";
 import { getCreationsByMonth, CreationsByMonth } from "@/components/charts/creations/monthly";
 import { getCreationsByYear, CreationsByYear } from "@/components/charts/creations/yearly";
@@ -51,7 +51,7 @@ function RouteComponent() {
 
       <header className="flex flex-col gap-2">
         <h2 className="text-2xl font-bold">Epic Games Store creation stats</h2>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-text-subtle">
           Monthly and yearly cadence of new creations landing on the store.
         </p>
       </header>

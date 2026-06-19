@@ -7,7 +7,7 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 import { createFileRoute, Outlet, useLocation } from "@tanstack/react-router";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/aria/badge";
 import {
   Table,
   TableHeader,
@@ -15,13 +15,13 @@ import {
   TableRow,
   TableCell,
   TableHead,
-} from "@/components/ui/table";
+} from "@/components/aria/table";
 import { Image } from "@/components/app/image";
 import { getImage } from "@/lib/getImage";
 import { getPlatformsArray, textPlatformIcons } from "@/components/app/platform-icons";
 import { Link } from "@tanstack/react-router";
 import { internalNamespaces } from "@/lib/internal-namespaces";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/aria/tooltip";
 import { SectionsNav } from "@/components/app/offer-sections";
 import { generateItemMeta } from "@/lib/generate-item-meta";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
@@ -117,7 +117,7 @@ function ItemPage() {
             <h1 className="text-2xl font-bold">{item.title}</h1>
             <Badge>Item</Badge>
           </div>
-          <div className="rounded-xl border border-gray-300/10 mt-2">
+          <div className="rounded-lg border border-stroke-subtle mt-2">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -231,7 +231,7 @@ function ItemPage() {
           <p className="text-sm px-1">{item.description}</p>
         </div>
       </div>
-      <hr className="w-full border-t border-gray-300/10 my-4" />
+      <hr className="w-full border-t border-stroke-subtle my-4" />
 
       <div className="flex flex-row items-start justify-start h-full gap-4 w-full min-h-[75vh]">
         <aside>

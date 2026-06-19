@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Button } from "@/components/aria/button";
+import { Card, CardContent, CardHeader } from "@/components/aria/card";
 import {
   Table,
   TableBody,
@@ -8,7 +8,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/components/aria/table";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import type { SingleOffer } from "@/types/single-offer";
 import type { SingleItem } from "@/types/single-item";
@@ -19,7 +19,7 @@ import { type JsonValue, JsonVisualizer } from "../json-tree";
 import { calculateSize } from "@/lib/calculate-size";
 import { cn } from "@/lib/utils";
 import { useLocale } from "@/hooks/use-locale";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@/components/aria/separator";
 import { DateTime } from "luxon";
 
 interface Metadata {
@@ -169,30 +169,30 @@ export function ChangeTracker({
   const getActionStyle = (action: "update" | "delete" | "insert") => {
     switch (action) {
       case "update":
-        return "bg-blue-500/20 text-blue-400";
+        return "bg-interactive/20 text-interactive";
       case "delete":
-        return "bg-red-500/20 text-red-400";
+        return "bg-danger-muted text-danger";
       case "insert":
-        return "bg-green-500/20 text-green-400";
+        return "bg-success/20 text-success";
       default:
-        return "bg-gray-500/20 text-gray-400";
+        return "bg-surface-active text-text-muted";
     }
   };
 
   const getContextTypeStyle = (contextType: "offer" | "item" | "asset" | "build" | "sandbox") => {
     switch (contextType) {
       case "offer":
-        return "bg-blue-500/20 text-blue-400";
+        return "bg-interactive/20 text-interactive";
       case "item":
-        return "bg-green-500/20 text-green-400";
+        return "bg-success/20 text-success";
       case "asset":
-        return "bg-red-500/20 text-red-400";
+        return "bg-danger-muted text-danger";
       case "build":
-        return "bg-yellow-500/20 text-yellow-400";
+        return "bg-warning-muted text-warning";
       case "sandbox":
-        return "bg-purple-500/20 text-purple-400";
+        return "bg-platinum-start/20 text-platinum-start";
       default:
-        return "bg-gray-500/20 text-gray-400";
+        return "bg-surface-active text-text-muted";
     }
   };
 
@@ -217,7 +217,7 @@ export function ChangeTracker({
           <Link
             to="/changelog/$id"
             params={{ id: _id }}
-            className="text-sm text-blue-400 hover:underline font-mono"
+            className="text-sm text-interactive hover:underline font-mono"
           >
             {_id.slice(0, 10)}
           </Link>
@@ -265,10 +265,10 @@ export function ChangeTracker({
                     </span>
                   </TableCell>
                   <TableCell className="font-mono text-sm w-[400px]">{change.field}</TableCell>
-                  <TableCell className="text-red-400 line-through w-1/3">
+                  <TableCell className="text-danger line-through w-1/3">
                     {ValueToString(change.oldValue, "", change.field, true)}
                   </TableCell>
-                  <TableCell className="text-green-400 w-1/3">
+                  <TableCell className="text-success w-1/3">
                     {ValueToString(change.newValue, "", change.field, true)}
                   </TableCell>
                   <TableCell>
@@ -291,13 +291,13 @@ export function ChangeTracker({
                     <TableCell colSpan={5} className="bg-muted/50 px-8">
                       <div className="grid gap-4 py-4">
                         <div className="grid gap-2">
-                          <div className="text-sm font-medium text-red-400">Previous value:</div>
+                          <div className="text-sm font-medium text-danger">Previous value:</div>
                           <div className="text-sm text-muted-foreground">
                             {ValueToString(change.oldValue, "", change.field)}
                           </div>
                         </div>
                         <div className="grid gap-2">
-                          <div className="text-sm font-medium text-green-400">New value:</div>
+                          <div className="text-sm font-medium text-success">New value:</div>
                           <div className="text-sm text-muted-foreground">
                             {ValueToString(change.newValue, "", change.field)}
                           </div>

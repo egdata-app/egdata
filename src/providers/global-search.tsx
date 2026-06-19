@@ -1,16 +1,16 @@
 import { useState, useEffect, useCallback, useMemo, useRef, type ReactNode } from "react";
 import debounce from "lodash.debounce";
-import { Portal } from "@radix-ui/react-portal";
+import { Portal } from "@/components/aria/portal";
 import { defaultState, SearchContext, type SearchState } from "@/contexts/global-search";
 import { Link } from "@tanstack/react-router";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/aria/input";
+import { Badge } from "@/components/aria/badge";
 import { useCountry } from "@/hooks/use-country";
 import { keepPreviousData, useQueries, useQuery } from "@tanstack/react-query";
 import type { SingleOffer } from "@/types/single-offer";
 import type { SingleItem } from "@/types/single-item";
 import type { SingleSeller } from "@/types/sellers";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/components/aria/skeleton";
 import { Image } from "@/components/app/image";
 import { getImage } from "@/lib/getImage";
 import {
@@ -18,7 +18,7 @@ import {
   platformIcons,
   textPlatformIcons,
 } from "@/components/app/platform-icons";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@/components/aria/scroll-area";
 import { httpClient } from "@/lib/http-client";
 import { calculatePrice } from "@/lib/calculate-price";
 import { useLocale } from "@/hooks/use-locale";
@@ -288,7 +288,7 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
           <Input
             type="text"
             value={searchState.query}
-            className="w-full h-14 pl-12 pr-4 bg-card text-white text-lg rounded-xl shadow-2xl border-slate-700"
+            className="w-full h-14 pl-12 pr-4 bg-card text-text-primary text-lg rounded-lg shadow-popover border-stroke-subtle"
             placeholder="Search for games, items, sellers..."
             onChange={(e) =>
               setSearchState((prevState) => ({
@@ -300,9 +300,9 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
           />
         </div>
       </div>
-      <div className="flex gap-0 w-full h-[80vh] xl:w-2/3 mx-auto bg-card rounded-xl z-10 overflow-hidden border border-slate-700 shadow-2xl">
+      <div className="flex gap-0 w-full h-[80vh] xl:w-2/3 mx-auto bg-card rounded-lg z-10 overflow-hidden border border-stroke-subtle shadow-popover">
         {/* Sidebar */}
-        <div className="w-64 bg-slate-900/50 border-r border-slate-700 flex flex-col p-2 gap-1">
+        <div className="w-64 bg-surface-ground border-r border-stroke-subtle flex flex-col p-2 gap-1">
           {sections.map((section) => (
             <button
               type="button"
@@ -311,7 +311,7 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
                 "flex items-center gap-3 p-3 rounded-lg text-left transition-all duration-200",
                 activeSection === section.id
                   ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:bg-slate-800 hover:text-white",
+                  : "text-muted-foreground hover:bg-surface-panel hover:text-text-primary",
               )}
               onMouseEnter={() => selectSection(section.id as SectionType)}
               onClick={() => selectSection(section.id as SectionType)}
@@ -326,7 +326,7 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
         <div className="flex-1 flex flex-col min-w-0">
           <ScrollArea className="h-full">
             <div className="p-4 space-y-4">
-              <h2 className="text-xl font-bold sticky top-0 bg-card z-10 pb-2 border-b border-slate-700 mb-4">
+              <h2 className="text-xl font-bold sticky top-0 bg-card z-10 pb-2 border-b border-stroke-subtle mb-4">
                 {activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}
               </h2>
 
@@ -346,7 +346,7 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
                   )}
                   {offersData?.hits.map((offer) => (
                     <Link
-                      className="flex items-center justify-between p-2 hover:bg-slate-700/50 rounded-lg transition-colors group"
+                      className="flex items-center justify-between p-2 hover:bg-surface-hover rounded-lg transition-colors group"
                       key={offer._id}
                       to={"/offers/$id"}
                       params={{
@@ -362,7 +362,7 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
                       onMouseEnter={() => selectResult({ type: "offer", id: offer.id })}
                     >
                       <div className="flex items-center space-x-3">
-                        <div className="w-12 h-12 rounded overflow-hidden bg-slate-800">
+                        <div className="w-12 h-12 rounded overflow-hidden bg-surface-panel">
                           <Image
                             src={
                               getImage(offer.keyImages, [
@@ -413,7 +413,7 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
                   )}
                   {itemsData?.hits.map((item) => (
                     <Link
-                      className="flex items-center justify-between p-2 hover:bg-slate-700/50 rounded-lg transition-colors group"
+                      className="flex items-center justify-between p-2 hover:bg-surface-hover rounded-lg transition-colors group"
                       key={item._id}
                       to={"/items/$id"}
                       params={{
@@ -429,7 +429,7 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
                       onMouseEnter={() => selectResult({ type: "item", id: item._id })}
                     >
                       <div className="flex items-center space-x-3">
-                        <div className="w-12 h-12 rounded overflow-hidden bg-slate-800">
+                        <div className="w-12 h-12 rounded overflow-hidden bg-surface-panel">
                           <Image
                             src={
                               getImage(item.keyImages, ["DieselGameBoxWide", "DieselGameBox"])
@@ -477,7 +477,7 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
                   )}
                   {sellersData?.hits.map((seller) => (
                     <Link
-                      className="flex items-center justify-between p-2 hover:bg-slate-700/50 rounded-lg transition-colors group"
+                      className="flex items-center justify-between p-2 hover:bg-surface-hover rounded-lg transition-colors group"
                       key={seller._id}
                       to={"/sellers/$id"}
                       params={{
@@ -496,7 +496,7 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
                         <img
                           src={seller.logo?.url ?? "/placeholder.webp"}
                           alt={seller.name}
-                          className="w-12 h-12 rounded object-cover bg-slate-800"
+                          className="w-12 h-12 rounded object-cover bg-surface-panel"
                           width="50"
                           height="50"
                         />
@@ -516,7 +516,7 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
         </div>
 
         {/* Preview Area */}
-        <div className="w-1/3 bg-slate-900/30 border-l border-slate-700 hidden lg:block">
+        <div className="w-1/3 bg-surface-ground border-l border-stroke-subtle hidden lg:block">
           <ScrollArea className="h-full p-6">
             <div className="w-full flex justify-between items-center">
               {selected && (
@@ -573,7 +573,7 @@ function FeaturedResult({
       className="flex flex-col gap-4 w-full animate-in fade-in duration-300"
       key={`multi-search-${id}`}
     >
-      <div className="rounded-xl overflow-hidden border border-slate-700 shadow-lg">
+      <div className="rounded-lg overflow-hidden border border-stroke-subtle shadow-raised">
         <Image
           src={imageToShow}
           // @ts-expect-error
@@ -609,7 +609,7 @@ function FeaturedOffer({ id, data }: { id: string; data: SingleOffer }) {
 
   return (
     <div className="flex flex-col gap-4 w-full animate-in fade-in duration-300">
-      <div className="rounded-xl overflow-hidden border border-slate-700 shadow-lg">
+      <div className="rounded-lg overflow-hidden border border-stroke-subtle shadow-raised">
         <Image
           src={imageToShow}
           alt="Game Screenshot"
@@ -636,16 +636,16 @@ function FeaturedOffer({ id, data }: { id: string; data: SingleOffer }) {
           </div>
         </div>
 
-        <div className="space-y-3 text-sm text-muted-foreground bg-slate-800/50 p-4 rounded-lg">
-          <div className="flex justify-between border-b border-slate-700/50 pb-2">
+        <div className="space-y-3 text-sm text-muted-foreground bg-surface-panel p-4 rounded-lg">
+          <div className="flex justify-between border-b border-stroke-subtle pb-2">
             <span className="font-medium text-foreground">Seller</span>
             <span>{data.seller.name}</span>
           </div>
-          <div className="flex justify-between border-b border-slate-700/50 pb-2">
+          <div className="flex justify-between border-b border-stroke-subtle pb-2">
             <span className="font-medium text-foreground">Developer</span>
             <span>{data.developerDisplayName ?? data.seller.name}</span>
           </div>
-          <div className="flex justify-between border-b border-slate-700/50 pb-2">
+          <div className="flex justify-between border-b border-stroke-subtle pb-2">
             <span className="font-medium text-foreground">Release Date</span>
             <span>
               {new Date(data.releaseDate).toLocaleDateString("en-UK", {
@@ -675,7 +675,7 @@ function FeaturedOffer({ id, data }: { id: string; data: SingleOffer }) {
 
 function ResultItemSkeleton() {
   return (
-    <div className="flex items-center justify-between p-2 bg-slate-800/50 rounded-lg">
+    <div className="flex items-center justify-between p-2 bg-surface-panel rounded-lg">
       <div className="flex items-center space-x-3">
         <Skeleton className="w-12 h-12 rounded" />
         <div className="space-y-2">
@@ -720,7 +720,7 @@ function OfferPrice({ id, country }: { id: string; country: string }) {
   });
 
   if (data.price.discountPrice === 0) {
-    return <span className="font-bold text-green-400">Free</span>;
+    return <span className="font-bold text-success">Free</span>;
   }
 
   return (

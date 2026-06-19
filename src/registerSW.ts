@@ -1,24 +1,46 @@
-import { registerSW } from "virtual:pwa-register";
+import { Workbox } from "workbox-window";
 
 const updateSW =
-  typeof window !== "undefined" && typeof navigator !== "undefined"
-    ? registerSW({
-        onNeedRefresh() {
-          // Show a prompt to user to refresh the app
+  typeof window !== "undefined" &&
+  typeof navigator !== "undefined" &&
+  import.meta.env.PROD &&
+  "serviceWorker" in navigator
+    ? (() => {
+        const workbox = new Workbox("/sw.js", { type: "module" });
+
+        workbox.addEventListener("waiting", () => {
           if (window.confirm("New content available, reload?")) {
             updateSW(true);
           }
-        },
-        onOfflineReady() {
+        });
+
+        workbox.addEventListener("activated", () => {
           console.log("App ready to work offline");
-        },
-        onRegistered(r) {
-          console.log(`SW Registered: ${r}`);
-        },
-        onRegisterError(error) {
-          console.log("SW registration error", error);
-        },
-      })
+        });
+
+        workbox.addEventListener("controlling", () => {
+          window.location.reload();
+        });
+
+        const registrationPromise = workbox
+          .register()
+          .then((registration) => {
+            console.log(`SW Registered: ${registration}`);
+            return registration;
+          })
+          .catch((error) => {
+            console.log("SW registration error", error);
+            return undefined;
+          });
+
+        return async (reloadPage = false) => {
+          if (reloadPage) {
+            workbox.messageSkipWaiting();
+          }
+
+          await registrationPromise;
+        };
+      })()
     : async () => {};
 
 export { updateSW };

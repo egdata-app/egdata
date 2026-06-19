@@ -1,6 +1,6 @@
 import { ChangeTracker } from "@/components/app/changelog/item";
 import type { Change } from "@/components/modules/changelist";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/components/aria/skeleton";
 import { httpClient } from "@/lib/http-client";
 import { dehydrate, type DehydratedState, keepPreviousData, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -63,7 +63,7 @@ function ChangelogPage() {
   if (!data) {
     return (
       <div className="flex justify-center items-center h-96">
-        <p className="text-2xl font-bold text-gray-300">No changelog available</p>
+        <p className="text-2xl font-bold text-text-secondary">No changelog available</p>
       </div>
     );
   }

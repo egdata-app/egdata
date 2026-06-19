@@ -3,7 +3,7 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart";
+} from "@/components/aria/chart";
 import { useMemo } from "react";
 import { Line, LineChart, CartesianGrid, XAxis, YAxis } from "recharts";
 import { DateTime } from "luxon";

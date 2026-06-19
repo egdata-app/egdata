@@ -5,18 +5,18 @@ import { ChangelogWeekdaysChart } from "@/components/app/changelog-weekdays-char
 import { ChangeTracker } from "@/components/app/changelog/item";
 import { DynamicPagination } from "@/components/app/dynamic-pagination";
 import type { Change } from "@/components/modules/changelist";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/components/aria/button";
+import { Input } from "@/components/aria/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Separator } from "@/components/ui/separator";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+} from "@/components/aria/select";
+import { Separator } from "@/components/aria/separator";
+import { Skeleton } from "@/components/aria/skeleton";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/aria/tooltip";
 import { getQueryClient } from "@/lib/client";
 import { ClientOnly } from "@/lib/cllient-only";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
@@ -194,7 +194,7 @@ function ChangelogPage() {
   if (!data) {
     return (
       <div className="flex justify-center items-center h-96">
-        <p className="text-2xl font-bold text-gray-300">No changelog available</p>
+        <p className="text-2xl font-bold text-text-secondary">No changelog available</p>
       </div>
     );
   }

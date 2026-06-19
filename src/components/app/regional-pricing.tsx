@@ -7,17 +7,17 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../ui/table";
+} from "../aria/table";
 import { PriceChart } from "./price-chart";
 import { useEffect, useState } from "react";
 import { useCountry } from "@/hooks/use-country";
 import { httpClient } from "@/lib/http-client";
-import { Skeleton } from "../ui/skeleton";
+import { Skeleton } from "../aria/skeleton";
 import { useRegions } from "@/hooks/use-regions";
-import { ArrowUpIcon } from "@radix-ui/react-icons";
+import { ArrowUp as ArrowUpIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { calculatePrice } from "@/lib/calculate-price";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/aria/badge";
 import { useLocale } from "@/hooks/use-locale";
 import type { RegionalPrice, RegionData } from "@/types/regional-pricing";
 
@@ -169,7 +169,7 @@ export function RegionalPricing({ id }: { id: string }) {
                   }}
                   className={cn(
                     "cursor-pointer",
-                    selectedRegion === key && "bg-slate-800/25 text-white",
+                    selectedRegion === key && "bg-surface-panel text-text-primary",
                   )}
                 >
                   <TableCell className="inline-flex items-center gap-2">

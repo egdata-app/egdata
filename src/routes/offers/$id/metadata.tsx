@@ -6,7 +6,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/components/aria/table";
 import { getQueryClient } from "@/lib/client";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
@@ -287,7 +287,7 @@ function AgeRatings({ ageRatings }: { ageRatings: SingleSandbox["ageGatings"] })
               className="size-20 mx-auto"
             />
           ) : (
-            <div className="size-20 mx-auto inline-flex items-center justify-center bg-gray-900 rounded-lg">
+            <div className="size-20 mx-auto inline-flex items-center justify-center bg-surface-ground rounded-lg">
               <span className="text-6xl font-bold">{rating.ageControl}</span>
             </div>
           )}

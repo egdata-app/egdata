@@ -21,11 +21,11 @@ export const Route = createFileRoute("/items/$id/images")({
     return (
       <div className="flex flex-col items-start justify-start h-full gap-4 w-full">
         <h2 className="text-xl font-bold">Images</h2>
-        <div className=" mt-2">
+        <div className="mt-2">
           <div className="flex flex-row items-start justify-start flex-wrap gap-2">
             {item.keyImages.map((image) => (
               <div key={image.md5} className="flex flex-col gap-2 items-start justify-start w-1/3">
-                <img src={image.url} alt={item.title} className="rounded-lg h-auto  object-cover" />
+                <img src={image.url} alt={item.title} className="rounded-lg h-auto object-cover" />
                 <span className="text-sm text-muted-foreground w-full text-center">
                   {image.type}
                 </span>

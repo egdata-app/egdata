@@ -1,7 +1,7 @@
 import { Pie, PieChart, Sector } from "recharts";
 import type { PieSectorDataItem } from "recharts/types/polar/Pie";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/aria/card";
 import {
   type ChartConfig,
   ChartContainer,
@@ -9,7 +9,7 @@ import {
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart";
+} from "@/components/aria/chart";
 import type { ChangelogStats } from "@/types/changelog";
 
 const chartConfig = {

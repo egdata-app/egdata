@@ -15,18 +15,18 @@ import { useCountry } from "@/hooks/use-country";
 import { usePreferences } from "@/hooks/use-preferences";
 import debounce from "lodash.debounce";
 import { getImage } from "@/lib/get-image";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/aria/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
+} from "@/components/aria/select";
+import { Button } from "@/components/aria/button";
 import { ArrowDownIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { GridIcon, ListBulletIcon } from "@radix-ui/react-icons";
+import { Grid2X2 as GridIcon, List as ListBulletIcon } from "lucide-react";
 import { OfferCard } from "@/components/app/offer-card";
 import { OfferListItem } from "@/components/app/game-card";
 
@@ -407,7 +407,7 @@ function RouteComponent() {
   return (
     <main className="container mx-auto">
       <div
-        className="relative h-96 overflow-hidden rounded-2xl flex items-center bg-cover bg-center"
+        className="relative h-96 overflow-hidden rounded-lg flex items-center bg-cover bg-center"
         style={{
           backgroundImage: `url(${
             getImage(cover?.keyImages ?? [], [
@@ -419,7 +419,7 @@ function RouteComponent() {
           })`,
         }}
       >
-        <div className="h-full w-full flex flex-col justify-center items-start text-white p-8 bg-gradient-to-r from-black/80 to-black/30">
+        <div className="h-full w-full flex flex-col justify-center items-start text-text-primary p-8 egd-hero-scrim">
           <h1 className="text-5xl font-bold">{promotion.pages[0].title}</h1>
           <p className="mt-4 text-lg">{promotion.pages[0]?.count} offers available in this event</p>
         </div>
@@ -428,7 +428,7 @@ function RouteComponent() {
       <header className="flex flex-col md:flex-row justify-between items-center gap-4 mt-5">
         <div className="inline-flex items-center gap-2">
           <h2 className="text-2xl">Results</h2>
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-text-subtle">
             ({promotion.pages.reduce((acc, page) => acc + page.elements.length, 0)} results)
           </span>
           {isFetching && (

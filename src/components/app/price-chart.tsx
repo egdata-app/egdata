@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/aria/card";
 import {
   type ChartConfig,
   ChartContainer,
@@ -8,21 +8,21 @@ import {
   ChartLegendContent,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart";
+} from "@/components/aria/chart";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@/components/aria/select";
 import type { Price } from "@/types/price";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Checkbox } from "@/components/aria/checkbox";
 import { keepPreviousData, useQueries } from "@tanstack/react-query";
-import { Skeleton } from "../ui/skeleton";
+import { Skeleton } from "../aria/skeleton";
 import { httpClient } from "@/lib/http-client";
 import { useRegions } from "@/hooks/use-regions";
-import { Separator } from "../ui/separator";
+import { Separator } from "../aria/separator";
 import { useLocale } from "@/hooks/use-locale";
 import type { SingleRegionalPrice } from "@/types/regional-pricing";
 import { DateTime } from "luxon";
@@ -248,7 +248,7 @@ export function PriceChart({ selectedRegion, id, regionStats }: PriceChartProps)
           <SelectTrigger className="w-[160px] rounded-lg sm:ml-auto" aria-label="Select a value">
             <SelectValue placeholder="Last 3 months" />
           </SelectTrigger>
-          <SelectContent className="rounded-xl">
+          <SelectContent className="rounded-lg">
             <SelectItem value="all" className="rounded-lg">
               All
             </SelectItem>
@@ -263,11 +263,11 @@ export function PriceChart({ selectedRegion, id, regionStats }: PriceChartProps)
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6 relative">
         {isFetching && (
-          <div className="absolute inset-0 bg-opacity-50 bg-gray-900 z-10 w-full h-full flex items-center justify-center">
+          <div className="absolute inset-0 bg-opacity-50 bg-surface-ground z-10 w-full h-full flex items-center justify-center">
             <span className="flex flex-col items-center justify-center gap-2">
               <div className="flex flex-col items-center justify-center gap-1">
                 <span className="text-sm font-medium">Loading...</span>
-                <span className="text-xs text-gray-400">Fetching latest data</span>
+                <span className="text-xs text-text-muted">Fetching latest data</span>
               </div>
               <svg
                 className="animate-spin -ml-1 mr-3 h-5 w-5"
@@ -380,7 +380,7 @@ export function PriceChart({ selectedRegion, id, regionStats }: PriceChartProps)
                         </span>
                         {saleName && label === "Region" && <Separator orientation="horizontal" />}
                         {saleName && label === "Region" && (
-                          <span className="text-xs text-gray-300">{saleName}</span>
+                          <span className="text-xs text-text-secondary">{saleName}</span>
                         )}
                       </span>
                     );

@@ -191,7 +191,7 @@ function SalesPage() {
   return (
     <main className="mx-auto">
       <div
-        className="relative h-96 overflow-hidden rounded-2xl flex items-center bg-cover bg-center"
+        className="relative h-96 overflow-hidden rounded-lg flex items-center bg-cover bg-center"
         style={{
           backgroundImage: `url(${
             getImage(cover?.keyImages ?? [], [
@@ -203,7 +203,7 @@ function SalesPage() {
           })`,
         }}
       >
-        <div className="h-full w-full flex flex-col justify-center items-start text-white p-8 bg-gradient-to-r from-black/80 to-black/30">
+        <div className="h-full w-full flex flex-col justify-center items-start text-text-primary p-8 egd-hero-scrim">
           <h1 className="text-5xl font-bold">{promotion.title}</h1>
           <p className="mt-4 text-lg">{promotion.count} offers available in this event</p>
         </div>

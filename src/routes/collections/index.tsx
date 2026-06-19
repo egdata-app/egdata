@@ -1,6 +1,6 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Card, CardContent, CardHeader } from "@/components/aria/card";
+import { Separator } from "@/components/aria/separator";
+import { Skeleton } from "@/components/aria/skeleton";
 import { useCountry } from "@/hooks/use-country";
 import { getImage } from "@/lib/get-image";
 import { cn } from "@/lib/utils";
@@ -179,7 +179,7 @@ function CollectionCard({ collection }: { collection: (typeof collections)[0] })
       <Link to="/collections/$id" params={{ id: collection.slug }} className="w-full">
         <Card
           key={collection.slug}
-          className="flex flex-col gap-4 w-full relative overflow-hidden rounded-xl"
+          className="flex flex-col gap-4 w-full relative overflow-hidden rounded-lg"
         >
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <h3 className="text-xl font-semibold inline-flex items-center gap-2">
@@ -198,17 +198,17 @@ function CollectionCard({ collection }: { collection: (typeof collections)[0] })
     <Link to="/collections/$id" params={{ id: collection.slug }}>
       <Card
         key={collection.slug}
-        className="flex flex-col gap-4 relative rounded-xl overflow-hidden"
+        className="flex flex-col gap-4 relative rounded-lg overflow-hidden"
       >
         <div
-          className="absolute inset-0 bg-gradient-to-b from-card/90 via-card/95 to-card rounded-xl"
+          className="absolute inset-0 egd-image-overlay rounded-lg"
           style={{
             backgroundImage: `url(${getImage(collectionData.elements[0]?.keyImages ?? [], ["DieselGameBoxWide", "DieselStoreFrontWide", "Featured", "OfferImageWide"])?.url ?? "/placeholder.webp"})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-bl from-card/50 via-card/90 to-card rounded-xl" />
+        <div className="absolute inset-0 egd-image-overlay rounded-lg" />
 
         <div className="relative p-4">
           <CardHeader className="flex flex-col items-start justify-between space-y-0 pb-2">
@@ -227,7 +227,7 @@ function CollectionCard({ collection }: { collection: (typeof collections)[0] })
                   <h3
                     className={cn(
                       "text-sm font-semibold text-muted-foreground",
-                      game.position === 1 && "text-2xl font-bold text-white",
+                      game.position === 1 && "text-2xl font-bold text-text-primary",
                     )}
                   >
                     {game.title}

@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/aria/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/aria/card";
+import { Alert, AlertDescription, AlertTitle } from "@/components/aria/alert";
 import { AlertCircle, CheckCircle, Loader, Users } from "lucide-react";
 import { GoogleOAuthProvider, GoogleLogin, type CredentialResponse } from "@react-oauth/google";
 
@@ -162,7 +162,7 @@ export function AndroidBetaForm() {
                       href="https://play.google.com/apps/testing/com.ignacioaldama.egdata"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-2 inline-block text-blue-500 hover:underline"
+                      className="mt-2 inline-block text-interactive hover:underline"
                     >
                       Join the Beta on Google Play
                     </a>
@@ -186,7 +186,7 @@ export function AndroidBetaForm() {
                       href="https://play.google.com/apps/testing/com.ignacioaldama.egdata"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-2 inline-block text-blue-500 hover:underline"
+                      className="mt-2 inline-block text-interactive hover:underline"
                     >
                       Join the Beta on Google Play
                     </a>

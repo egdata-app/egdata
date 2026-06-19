@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../ui/table";
-import { UpdateIcon } from "@radix-ui/react-icons";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../aria/table";
+import { RefreshCw as UpdateIcon } from "lucide-react";
 import { timeAgo } from "@/lib/time-ago";
-import { ScrollArea } from "../ui/scroll-area";
+import { ScrollArea } from "../aria/scroll-area";
 import { httpClient } from "@/lib/http-client";
 
 export interface Change {
@@ -50,11 +50,11 @@ const getType = (changes: Change[]) => {
 
 const icons = {
   update: (
-    <span className="text-yellow-500">
+    <span className="text-warning">
       <UpdateIcon />
     </span>
   ),
-  new: <span className="text-green-500">🆕</span>,
+  new: <span className="text-success">🆕</span>,
 };
 
 export function ChangelistModule() {

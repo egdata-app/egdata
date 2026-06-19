@@ -1,5 +1,5 @@
 import { textPlatformIcons } from "@/components/app/platform-icons";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/aria/tooltip";
 import type { SingleItem } from "@/types/single-item";
 import { Link } from "@tanstack/react-router";
 import type { ColumnDef } from "@tanstack/react-table";

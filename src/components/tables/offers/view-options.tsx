@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/aria/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -6,8 +6,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { MixerHorizontalIcon } from "@radix-ui/react-icons";
+} from "@/components/aria/dropdown-menu";
+import { SlidersHorizontal as MixerHorizontalIcon } from "lucide-react";
 import type { Table } from "@tanstack/react-table";
 
 interface DataTableViewOptionsProps<TData> {

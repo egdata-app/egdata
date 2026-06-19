@@ -1,10 +1,10 @@
 import { Image } from "@/components/app/image";
 import { OpenLauncher } from "@/components/app/open-launcher";
 import { OfferCard } from "@/components/app/offer-card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Badge } from "@/components/aria/badge";
+import { Button } from "@/components/aria/button";
+import { Card, CardContent } from "@/components/aria/card";
+import { Skeleton } from "@/components/aria/skeleton";
 import { useCountry } from "@/hooks/use-country";
 import { useLocale } from "@/hooks/use-locale";
 import { calculatePrice } from "@/lib/calculate-price";
@@ -460,7 +460,7 @@ function PriceBlock({ price }: { price: Price | null }) {
 
   return (
     <div className="flex h-10 items-center gap-3 rounded-lg border bg-card px-4">
-      <span className={cn("text-lg font-semibold", discounted && "text-green-400")}>
+      <span className={cn("text-lg font-semibold", discounted && "text-success")}>
         {discountPrice === 0 ? "Free" : formatter.format(discountPrice)}
       </span>
       {discounted && (

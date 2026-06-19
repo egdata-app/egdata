@@ -7,7 +7,7 @@ import type { SingleOffer } from "@/types/single-offer";
 import { getSeller } from "@/queries/seller";
 import { useCountry } from "@/hooks/use-country";
 import { getImage } from "@/lib/get-image";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/components/aria/skeleton";
 import { getQueryClient } from "@/lib/client";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { SearchContainer } from "@/components/search/SearchContainer";
@@ -150,8 +150,8 @@ function RouteComponent() {
     <div className="min-h-[85vh]">
       <h1 className="text-4xl font-bold text-left">{sellerName}</h1>
       {featuredCover && (
-        <section className="w-full bg-card rounded-xl mt-10 relative group min-h-[500px]">
-          <div className="grid gap-8 md:grid-cols-2 lg:gap-16 py-24 px-10 z-[1] relative rounded-xl">
+        <section className="w-full bg-card rounded-lg mt-10 relative group min-h-[500px]">
+          <div className="grid gap-8 md:grid-cols-2 lg:gap-16 py-24 px-10 z-[1] relative rounded-lg">
             <span className="hidden md:block" />
             <div className="space-y-4">
               <div className="inline-block rounded-lg bg-primary px-3 py-1 text-sm text-primary-foreground">
@@ -160,12 +160,12 @@ function RouteComponent() {
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
                 {featuredCover.title}
               </h2>
-              <p className="text-gray-300 md:text-xl">{featuredCover.description}</p>
+              <p className="text-text-secondary md:text-xl">{featuredCover.description}</p>
             </div>
           </div>
           <div
             id="cover-bg-image"
-            className="absolute top-0 left-0 w-full h-full bg-cover bg-center rounded-xl z-0"
+            className="absolute top-0 left-0 w-full h-full bg-cover bg-center rounded-lg z-0"
             style={{
               backgroundImage: `url(${getImage(featuredCover.keyImages, [
                 "DieselGameBoxWide",
@@ -174,7 +174,7 @@ function RouteComponent() {
               ])?.url.replaceAll(" ", "%20")})`,
             }}
           />
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-card/65 to-card z-0 rounded-xl" />
+          <div className="absolute top-0 left-0 w-full h-full egd-image-overlay z-0 rounded-lg" />
         </section>
       )}
 
@@ -203,7 +203,7 @@ function SellerPageSkeleton() {
   return (
     <div className="min-h-[85vh]">
       <h1 className="text-4xl font-bold text-left">
-        <Skeleton className=" w-[200px]" />
+        <Skeleton className="w-[200px]" />
       </h1>
       <Skeleton className="w-full h-[500px] mt-10" />
 
@@ -223,7 +223,7 @@ function SellerPageSkeleton() {
 
 function OfferCardSkeleton() {
   return (
-    <div className="bg-card rounded-xl p-4">
+    <div className="bg-card rounded-lg p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <Skeleton className="w-12 h-12 rounded-lg" />

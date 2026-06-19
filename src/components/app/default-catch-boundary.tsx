@@ -6,7 +6,7 @@ import {
   useMatch,
   useRouter,
 } from "@tanstack/react-router";
-import { Button } from "../ui/button";
+import { Button } from "../aria/button";
 
 export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
   const router = useRouter();
@@ -25,7 +25,7 @@ export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
           onClick={() => {
             router.invalidate();
           }}
-          className="px-2 py-1 bg-gray-600 dark:bg-gray-700 rounded text-white uppercase font-extrabold"
+          className="px-2 py-1 bg-surface-hover dark:bg-surface-hover rounded text-text-primary uppercase font-extrabold"
         >
           Try Again
         </Button>
@@ -33,7 +33,7 @@ export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
           <Link
             to="/"
             className={
-              "px-2 py-1 bg-gray-600 dark:bg-gray-700 rounded text-white uppercase font-extrabold"
+              "px-2 py-1 bg-surface-hover dark:bg-surface-hover rounded text-text-primary uppercase font-extrabold"
             }
           >
             Home
@@ -42,7 +42,7 @@ export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
           <Link
             to="/"
             className={
-              "px-2 py-1 bg-gray-600 dark:bg-gray-700 rounded text-white uppercase font-extrabold"
+              "px-2 py-1 bg-surface-hover dark:bg-surface-hover rounded text-text-primary uppercase font-extrabold"
             }
             onClick={(e) => {
               e.preventDefault();

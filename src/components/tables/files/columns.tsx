@@ -1,7 +1,7 @@
 import { calculateSize } from "@/lib/calculate-size";
 import type { File } from "@/types/builds";
 import type { ColumnDef } from "@tanstack/react-table";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/aria/tooltip";
 import { getHashType } from "@/lib/get-hash-type";
 import { fileTypes } from "@/lib/filetypes";
 
@@ -24,7 +24,7 @@ export const columns: ColumnDef<File>[] = [
           <TooltipTrigger asChild>
             <span className="font-mono cursor-help inline-flex gap-2 items-center justify-center">
               {`${hash?.slice(0, 6)}...${hash?.slice(-6)}`}
-              <span className="text-xs text-gray-400">({getHashType(hash ?? "")})</span>
+              <span className="text-xs text-text-muted">({getHashType(hash ?? "")})</span>
             </span>
           </TooltipTrigger>
           <TooltipContent>

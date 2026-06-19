@@ -6,14 +6,14 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/components/aria/table";
 import type { SingleOffer } from "@/types/single-offer";
 import type { Achievement, AchievementSet } from "@/queries/offer-achievements";
 import { useCountry } from "@/hooks/use-country";
 import { getRarity } from "@/lib/get-rarity";
 import { Image } from "@/components/app/image";
 import { getImage } from "@/lib/getImage";
-import { ArrowRightIcon } from "@radix-ui/react-icons";
+import { ArrowRight as ArrowRightIcon } from "lucide-react";
 import { FaTrophy } from "react-icons/fa6";
 import { cn } from "@/lib/utils";
 import { httpClient } from "@/lib/http-client";
@@ -24,9 +24,9 @@ type OfferWithAchievements = SingleOffer & {
 };
 
 const rarityColors = {
-  bronze: "text-[#cd7f32]",
-  silver: "text-[#c0c0c0]",
-  gold: "text-[#ffd700]",
+  bronze: "text-bronze-start",
+  silver: "text-silver-start",
+  gold: "text-gold-start",
 };
 
 export function GamesWithAchievements() {
@@ -85,19 +85,19 @@ export function GamesWithAchievements() {
             <TableHead className="text-center">XP</TableHead>
             <TableHead className="text-center">
               <span className="inline-flex items-center gap-2 justify-center">
-                <FaTrophy className="size-3 text-[#cd7f32]" />
+                <FaTrophy className="size-3 text-bronze-start" />
                 <span>Bronze</span>
               </span>
             </TableHead>
             <TableHead className="text-center">
               <span className="inline-flex items-center gap-2 justify-center">
-                <FaTrophy className="size-3 text-[#c0c0c0]" />
+                <FaTrophy className="size-3 text-silver-start" />
                 <span>Silver</span>
               </span>
             </TableHead>
             <TableHead className="text-center">
               <span className="inline-flex items-center gap-2 justify-center">
-                <FaTrophy className="size-3 text-[#ffd700]" />
+                <FaTrophy className="size-3 text-gold-start" />
                 <span>Gold</span>
               </span>
             </TableHead>

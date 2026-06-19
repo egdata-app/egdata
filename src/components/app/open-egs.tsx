@@ -1,7 +1,7 @@
 import type { SingleOffer } from "@/types/single-offer";
-import { Button } from "../ui/button";
+import { Button } from "../aria/button";
 import { EGSIcon } from "../icons/egs";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Popover, PopoverContent, PopoverTrigger } from "../aria/popover";
 import { useState, useEffect } from "react";
 
 const CREATOR_CODE = "EGDATA";
@@ -54,7 +54,7 @@ export function OpenEgs({ offer }: { offer: SingleOffer }) {
       <PopoverTrigger asChild>
         <Button
           asChild
-          className="bg-gray-900 text-white dark:hover:text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+          className="bg-surface-ground text-text-primary dark:hover:text-text-primary hover:bg-surface-panel focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 dark:bg-surface-panel dark:hover:bg-surface-hover dark:focus:ring-gray-700"
         >
           <a
             href={finalUrl}

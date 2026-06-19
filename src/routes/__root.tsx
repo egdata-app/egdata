@@ -21,7 +21,7 @@ import { Base64Utils } from "@/lib/base-64";
 import type { EpicToken } from "@/types/epic";
 import type { auth } from "@/lib/auth";
 import { authClient } from "@/lib/auth-client";
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "@/components/aria/sonner";
 import styles from "@/styles.css?url";
 import { ExtensionProvider } from "@/providers/extension";
 import { VideoProvider } from "@/providers/offers-video";
@@ -294,7 +294,7 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
         <HeadContent />
       </head>
       <body className="antialiased">
-        <div className="md:container mx-auto overflow-x-hidden">
+        <div className="mx-auto min-h-screen overflow-x-hidden bg-canvas">
           <LocaleProvider initialLocale={locale} initialTimezone={timezone}>
             <CountryProvider defaultCountry={country || "US"}>
               <CompareProvider>
@@ -309,7 +309,7 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
                   </PreferencesProvider>
                   <ComparisonPortal />
                   <Toaster />
-                  <footer className="flex flex-col items-center justify-center p-4 text-gray-500 dark:text-gray-400 text-xs gap-1">
+                  <footer className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-1 border-t border-stroke-subtle px-4 py-6 text-center text-xs text-text-subtle">
                     <p>
                       egdata.app is a fan-made website and is not affiliated by any means with Epic
                       Games, Inc.
@@ -318,8 +318,8 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
                       All the logos, images, trademarks and creatives are property of their
                       respective owners.
                     </p>
-                    <hr className="w-1/3 my-2 border-gray-300/40" />
-                    <div className="inline-flex gap-2">
+                    <hr className="my-2 w-1/3 border-stroke-subtle" />
+                    <div className="inline-flex flex-wrap justify-center gap-2">
                       <span>
                         Countries flags by{" "}
                         <a href="https://flagpedia.net" target="_blank" rel="noopener noreferrer">

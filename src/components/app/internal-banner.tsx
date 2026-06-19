@@ -1,8 +1,8 @@
-import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
+import { TriangleAlert as ExclamationTriangleIcon } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { httpClient } from "@/lib/http-client";
 import { internalNamespaces } from "@/lib/internal-namespaces";
-import { Alert, AlertTitle, AlertDescription } from "../ui/alert";
+import { Alert, AlertTitle, AlertDescription } from "../aria/alert";
 import type { SingleOffer } from "@/types/single-offer";
 import { useQuery } from "@tanstack/react-query";
 

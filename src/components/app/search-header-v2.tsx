@@ -16,7 +16,7 @@ export function SearchHeaderV2({ query, loading, results }: SearchHeaderV2Props)
         {loading && <span className="text-primary animate-pulse">Loading...</span>}
       </div>
       {queryString && (
-        <div className="text-gray-400 text-sm">
+        <div className="text-text-muted text-sm">
           Showing results for <span className="font-semibold">{queryString}</span>
         </div>
       )}

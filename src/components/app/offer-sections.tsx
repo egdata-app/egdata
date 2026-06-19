@@ -1,7 +1,7 @@
 import type { JSX } from "react";
 import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { ScrollArea, ScrollBar } from "@/components/aria/scroll-area";
 
 type LinkItem = {
   id: string;
@@ -62,8 +62,8 @@ export function SectionsNav({
                 to={link.href}
                 className={cn(
                   activeSection === link.id
-                    ? "bg-background text-white shadow w-full"
-                    : "hover:bg-primary/10 text-gray-200 w-full",
+                    ? "bg-background text-text-primary shadow w-full"
+                    : "hover:bg-primary/10 text-text-secondary w-full",
                   "inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-background transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
                   !isHorizontal && "h-full justify-start",
                 )}

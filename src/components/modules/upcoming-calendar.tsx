@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import type { SingleOffer } from "@/types/single-offer";
 import { OfferCard } from "@/components/app/offer-card";
-import { Carousel, CarouselContent } from "../ui/carousel";
+import { Carousel, CarouselContent } from "../aria/carousel";
 import { useCountry } from "@/hooks/use-country";
 import { Link } from "@tanstack/react-router";
-import { ArrowRightIcon } from "@radix-ui/react-icons";
+import { ArrowRight as ArrowRightIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { httpClient } from "@/lib/http-client";
 import { DateTime } from "luxon";
@@ -86,7 +86,7 @@ export function UpcomingCalendar() {
               .filter(([date]) => new Date(date) >= startOfToday)
               .map(([date, offers]) => (
                 <div
-                  className="flex flex-col w-fit border p-3 rounded-xl gap-2 bg-opacity-25"
+                  className="flex flex-col w-fit border p-3 rounded-lg gap-2 bg-opacity-25"
                   key={date}
                 >
                   <h3 className="text-xl">{relativeDate(new Date(date))}</h3>
@@ -151,7 +151,7 @@ function FloatingCountdown({ date }: { date: Date }) {
   }, [target, timezone]);
 
   return (
-    <div className="absolute top-0 left-0 dark:bg-gray-800/50 p-2 rounded-tl-lg rounded-br-lg shadow-lg z-50 backdrop-blur-sm">
+    <div className="absolute top-0 left-0 dark:bg-surface-panel p-2 rounded-tl-lg rounded-br-lg shadow-raised z-50 backdrop-blur-sm">
       <p>{formatTimeLeft(timeLeft)}</p>
     </div>
   );

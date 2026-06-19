@@ -1,7 +1,7 @@
 import type * as React from "react";
 import { useMemo, useState, useEffect } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/aria/card";
 import { keepPreviousData, useQueries, useQuery } from "@tanstack/react-query";
 import { httpClient } from "@/lib/http-client";
 import type { Tag } from "@/types/single-offer";
@@ -17,7 +17,7 @@ import StarsRating from "@/components/app/stars-rating";
 import { EpicTrophyIcon } from "@/components/icons/epic-trophy";
 import { type rarities, raritiesTextColors } from "@/components/app/achievement-card";
 import { getRarity } from "@/lib/get-rarity";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@/components/aria/separator";
 import { useLocale } from "@/hooks/use-locale";
 import type { OfferPosition } from "@/types/collections";
 import { PerformanceTable } from "@/components/app/performance-table";
@@ -270,7 +270,7 @@ function RouteComponent() {
                   {genres?.map((genre) => (
                     <Link
                       key={genre.id}
-                      className="inline-flex items-center gap-1 text-sm font-medium text-white bg-white/15 px-3 py-1 rounded-md hover:bg-white/5 transition-colors duration-200 ease-in-out"
+                      className="inline-flex items-center gap-1 text-sm font-medium text-text-primary bg-surface-hover px-3 py-1 rounded-md hover:bg-surface-hover transition-colors duration-200 ease-in-out"
                       to="/search"
                       search={{
                         tags: [genre.id],
@@ -299,7 +299,7 @@ function RouteComponent() {
                             className="size-14 mx-auto"
                           />
                         ) : (
-                          <div className="size-20 mx-auto inline-flex items-center justify-center bg-gray-900 rounded-lg">
+                          <div className="size-20 mx-auto inline-flex items-center justify-center bg-surface-ground rounded-lg">
                             <span className="text-6xl font-bold">{rating.ageControl}</span>
                           </div>
                         )}
@@ -307,7 +307,7 @@ function RouteComponent() {
                           <span className="text-base text-left font-bold">
                             {rating.ratingSystem} {rating.ageControl}
                           </span>
-                          <span className="text-xs text-left text-gray-300">
+                          <span className="text-xs text-left text-text-secondary">
                             {rating.descriptor?.split(",").join(", ")}
                           </span>
                         </div>
@@ -354,7 +354,7 @@ function RouteComponent() {
             </Card>
           </OverviewSection>
           <OverviewSection title="Achievements">
-            <Card className="w-full bg-card text-white p-4">
+            <Card className="w-full bg-card text-text-primary p-4">
               <div className="flex flex-col gap-4 w-full">
                 <div className="flex flex-row items-center justify-center gap-10">
                   {Object.entries(noOfAchievemenentsPerRarity ?? {}).map(([rarity, count]) => (
@@ -453,7 +453,7 @@ function RouteComponent() {
         </OverviewColumn>
         <OverviewColumn>
           <OverviewSection title="Price">
-            <Card className="w-full bg-card text-white p-4">
+            <Card className="w-full bg-card text-text-primary p-4">
               <CardContent className="p-6">
                 <div className="flex flex-col gap-4">
                   {priceFairness && (
@@ -495,7 +495,7 @@ function RouteComponent() {
                   >
                     {hltb?.gameTimes.map((time) => (
                       <div key={time._id} className="text-center">
-                        <div className="text-2xl font-bold text-white mb-1">{time.time}</div>
+                        <div className="text-2xl font-bold text-text-primary mb-1">{time.time}</div>
                         <div className="text-sm text-zinc-400">{time.category}</div>
                       </div>
                     ))}
@@ -609,7 +609,7 @@ function PriceText({ price, showDate }: { price: Price | null | undefined; showD
     <span
       className={cn(
         "text-xl font-bold flex flex-row gap-2 items-center justify-start",
-        isDiscounted && "text-green-400",
+        isDiscounted && "text-success",
       )}
     >
       {fmtr.format(calculatePrice(price.price.discountPrice ?? 0, price.price.currencyCode))}

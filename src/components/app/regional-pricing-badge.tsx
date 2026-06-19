@@ -5,12 +5,12 @@ import {
   HoverCard,
   HoverCardTrigger,
   HoverCardContent,
-} from "@/components/ui/hover-card";
+} from "@/components/aria/hover-card";
 import {
   Collapsible,
   CollapsibleTrigger,
   CollapsibleContent,
-} from "@/components/ui/collapsible";
+} from "@/components/aria/collapsible";
 import { getCountryOrRegionName, getCountryName } from "@/lib/country-names";
 import type {
   RegionalPricingScore,
@@ -52,27 +52,27 @@ const tierConfig: Record<
 > = {
   incredible: {
     label: "Incredible price",
-    className: "bg-emerald-500 text-white",
+    className: "bg-emerald-500 text-text-primary",
   },
   great: {
     label: "Great price",
-    className: "bg-green-500 text-white",
+    className: "bg-success text-text-primary",
   },
   good: {
     label: "Good value",
-    className: "bg-teal-500 text-white",
+    className: "bg-teal-500 text-text-primary",
   },
   average: {
     label: "Fair price",
-    className: "bg-slate-400 text-white",
+    className: "bg-surface-hover text-text-primary",
   },
   elevated: {
     label: "Overpriced",
-    className: "bg-amber-500 text-white",
+    className: "bg-warning text-text-primary",
   },
   none: {
     label: "No regional pricing",
-    className: "bg-gray-400 text-white",
+    className: "bg-surface-hover text-text-primary",
     icon: <Info className="size-3.5" />,
   },
 };
@@ -145,7 +145,7 @@ export const RegionalPricingBadge = React.memo(function RegionalPricingBadge({
       >
         {/* Beta header */}
         <div className="flex items-center gap-2">
-          <span className="inline-flex items-center px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-amber-500 text-white rounded">
+          <span className="inline-flex items-center px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-warning text-text-primary rounded">
             Beta
           </span>
           <span className="text-xs text-muted-foreground">
@@ -199,7 +199,7 @@ export const RegionalPricingBadge = React.memo(function RegionalPricingBadge({
         <div
           className={cn(
             "rounded-md p-3 space-y-1",
-            config.className.replace("text-white", ""),
+            config.className.replace("text-text-primary", ""),
             "bg-opacity-20 text-foreground",
           )}
         >

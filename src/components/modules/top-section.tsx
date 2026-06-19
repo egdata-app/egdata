@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { httpClient } from "@/lib/http-client";
 import type { SingleOffer } from "@/types/single-offer";
-import { Button } from "../ui/button";
+import { Button } from "../aria/button";
 import { Image } from "@/components/app/image";
 import { getImage } from "@/lib/getImage";
 import { cn } from "@/lib/utils";
@@ -59,7 +59,7 @@ export function TopSection({
   const offer = data.elements[0];
 
   return (
-    <section className="w-full py-4 bg-card rounded-2xl" id={slug}>
+    <section className="w-full py-4 bg-card rounded-lg" id={slug}>
       <div className="container px-4 mx-auto max-w-7xl">
         <div className="grid gap-12 md:grid-cols-2 md:gap-16 items-center">
           <div

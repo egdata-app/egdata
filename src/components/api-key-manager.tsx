@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Button } from "@/components/aria/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/aria/card";
+import { Input } from "@/components/aria/input";
+import { Label } from "@/components/aria/label";
 import { Key, CheckCircle, AlertCircle, RefreshCw, Copy } from "lucide-react";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Alert, AlertDescription } from "@/components/aria/alert";
 import { cn } from "@/lib/utils";
 
 interface ApiKeyManagerProps {

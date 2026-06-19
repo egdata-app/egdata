@@ -5,13 +5,13 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
+} from "@/components/aria/navigation-menu";
 import React, { useEffect } from "react";
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-import { NavigationMenu } from "@/components/ui/navigation-menu";
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "@/components/aria/sheet";
+import { Button } from "@/components/aria/button";
+import { NavigationMenu } from "@/components/aria/navigation-menu";
 import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/aria/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,8 +19,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+} from "@/components/aria/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/aria/avatar";
 import { useQuery } from "@tanstack/react-query";
 import { getImage } from "@/lib/get-image";
 import { getTopSection } from "@/queries/top-section";
@@ -35,7 +35,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from "@/components/aria/accordion";
 import {
   Gamepad2Icon,
   SwordIcon,
@@ -51,7 +51,7 @@ import {
 } from "lucide-react";
 import { httpClient } from "@/lib/http-client";
 import type { GenreResponse } from "@/routes/genres";
-import { Separator } from "../ui/separator";
+import { Separator } from "../aria/separator";
 
 interface ListItemProps extends React.ComponentPropsWithoutRef<"a"> {
   title: string;
@@ -79,7 +79,7 @@ function MobileMenuItem({ title, children, href, backgroundImage }: ListItemProp
           </div>
           {backgroundImage && (
             <>
-              <span className="absolute inset-0 bg-gradient-to-l from-transparent via-card/75 to-card z-10 rounded-md" />
+              <span className="absolute inset-0 z-10 rounded-md egd-image-overlay" />
               <div
                 className="h-full absolute inset-0 opacity-25 group-hover:opacity-75 bg-cover bg-center transition-opacity duration-500 ease-in-out rounded-md"
                 style={{ backgroundImage: `url(${backgroundImage})` }}
@@ -114,10 +114,10 @@ const ExploreMenu = () => {
   });
 
   return (
-    <div className="grid grid-cols-2 gap-2 p-6 w-[600px]">
+    <div className="grid w-[600px] grid-cols-2 gap-2 p-6">
       {/* Rankings + Others Column */}
-      <div className="border-r pr-8">
-        <h4 className="text-xs font-semibold text-muted-foreground mb-4 tracking-wider uppercase">
+      <div className="border-r border-stroke-subtle pr-8">
+        <h4 className="mb-4 text-xs font-semibold uppercase tracking-wide text-text-muted">
           Rankings
         </h4>
         <ul className="space-y-1 list-none">
@@ -126,9 +126,9 @@ const ExploreMenu = () => {
             <Link
               to="/collections/$id"
               params={{ id: "top-sellers" }}
-              className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-sm font-medium outline-none"
+              className="flex items-center gap-2 rounded px-2 py-2 text-sm font-semibold text-text-secondary transition hover:bg-surface-hover hover:text-text-primary focus:bg-surface-hover focus:text-text-primary focus:outline-none"
             >
-              <TrendingUpIcon className="w-4 h-4 text-muted-foreground" />
+              <TrendingUpIcon className="size-4 text-text-muted" />
               Top Sellers
             </Link>
           </li>
@@ -136,9 +136,9 @@ const ExploreMenu = () => {
             <Link
               to="/collections/$id"
               params={{ id: "most-played" }}
-              className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-sm font-medium outline-none"
+              className="flex items-center gap-2 rounded px-2 py-2 text-sm font-semibold text-text-secondary transition hover:bg-surface-hover hover:text-text-primary focus:bg-surface-hover focus:text-text-primary focus:outline-none"
             >
-              <UsersIcon className="w-4 h-4 text-muted-foreground" />
+              <UsersIcon className="size-4 text-text-muted" />
               Most Played
             </Link>
           </li>
@@ -146,9 +146,9 @@ const ExploreMenu = () => {
             <Link
               to="/collections/$id"
               params={{ id: "top-wishlisted" }}
-              className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-sm font-medium outline-none"
+              className="flex items-center gap-2 rounded px-2 py-2 text-sm font-semibold text-text-secondary transition hover:bg-surface-hover hover:text-text-primary focus:bg-surface-hover focus:text-text-primary focus:outline-none"
             >
-              <StarIcon className="w-4 h-4 text-muted-foreground" />
+              <StarIcon className="size-4 text-text-muted" />
               Top Wishlisted
             </Link>
           </li>
@@ -156,9 +156,9 @@ const ExploreMenu = () => {
             <Link
               to="/collections/$id"
               params={{ id: "top-new-releases" }}
-              className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-sm font-medium outline-none"
+              className="flex items-center gap-2 rounded px-2 py-2 text-sm font-semibold text-text-secondary transition hover:bg-surface-hover hover:text-text-primary focus:bg-surface-hover focus:text-text-primary focus:outline-none"
             >
-              <CalendarCheck2Icon className="w-4 h-4 text-muted-foreground" />
+              <CalendarCheck2Icon className="size-4 text-text-muted" />
               Top New Releases
             </Link>
           </li>
@@ -166,23 +166,23 @@ const ExploreMenu = () => {
           <li>
             <Link
               to="/collections"
-              className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-xs font-medium outline-none text-primary underline"
+              className="flex items-center gap-2 rounded px-2 py-2 text-xs font-semibold text-interactive underline outline-none transition hover:bg-surface-hover hover:text-interactive-hover focus:bg-surface-hover"
             >
               See all collections
             </Link>
           </li>
         </ul>
         <Separator className="my-4" />
-        <h4 className="text-xs font-semibold text-muted-foreground mb-4 tracking-wider uppercase">
+        <h4 className="mb-4 text-xs font-semibold uppercase tracking-wide text-text-muted">
           Others
         </h4>
         <ul className="space-y-1 list-none">
           <li>
             <Link
               to="/stats/releases"
-              className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-sm font-medium outline-none"
+              className="flex items-center gap-2 rounded px-2 py-2 text-sm font-semibold text-text-secondary transition hover:bg-surface-hover hover:text-text-primary focus:bg-surface-hover focus:text-text-primary focus:outline-none"
             >
-              <BarChart3Icon className="w-4 h-4 text-muted-foreground" />
+              <BarChart3Icon className="size-4 text-text-muted" />
               Release Stats
             </Link>
           </li>
@@ -190,11 +190,11 @@ const ExploreMenu = () => {
       </div>
       {/* Genres Column */}
       <div className="pl-8">
-        <h4 className="text-xs font-semibold text-muted-foreground mb-4 tracking-wider uppercase">
+        <h4 className="mb-4 text-xs font-semibold uppercase tracking-wide text-text-muted">
           Genres
         </h4>
         <ul className="space-y-1 list-none">
-          {isLoading && <li className="text-muted-foreground text-sm">Loading...</li>}
+          {isLoading && <li className="text-sm text-text-muted">Loading...</li>}
           {genres?.slice(0, 6).map((genre) => (
             <li key={genre.genre.id}>
               <Link
@@ -202,7 +202,7 @@ const ExploreMenu = () => {
                 search={{
                   tags: [genre.genre.id],
                 }}
-                className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-sm font-medium outline-none"
+                className="flex items-center gap-2 rounded px-2 py-2 text-sm font-semibold text-text-secondary transition hover:bg-surface-hover hover:text-text-primary focus:bg-surface-hover focus:text-text-primary focus:outline-none"
               >
                 {genre.genre.name}
               </Link>
@@ -212,7 +212,7 @@ const ExploreMenu = () => {
         <div className="mt-4">
           <Link
             to="/genres"
-            className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-xs text-primary underline font-medium outline-none"
+            className="flex items-center gap-2 rounded px-2 py-2 text-xs font-semibold text-interactive underline outline-none transition hover:bg-surface-hover hover:text-interactive-hover focus:bg-surface-hover"
           >
             See all genres
           </Link>
@@ -253,7 +253,7 @@ const routes: Route[] = [
             {offer && (
               <NavigationMenuLink asChild>
                 <a
-                  className="flex h-full w-full select-none flex-col justify-end rounded-md p-4 no-underline outline-none focus:shadow-md relative group"
+                  className="flex h-full w-full select-none flex-col justify-end rounded-md p-4 no-underline outline-none focus:shadow-panel relative group"
                   href={`/offers/${offer.id}`}
                   style={{
                     backgroundImage: `url(${getImage(offer.keyImages, ["DieselGameBoxTall", "DieselStoreFrontTall", "OfferImageTall"])?.url ?? "/placeholder.webp"})`,
@@ -261,7 +261,7 @@ const routes: Route[] = [
                     backgroundPosition: "center",
                   }}
                 >
-                  <span className="absolute inset-0 bg-gradient-to-b from-transparent via-card/75 to-card z-0 rounded-md" />
+                  <span className="absolute inset-0 z-0 rounded-md egd-image-overlay" />
                   <div className="mb-2 mt-4 text-base font-bold z-10">{offer.title}</div>
                   <p className="text-sm leading-tight text-muted-foreground z-10">
                     Top Seller on the Epic Games Store
@@ -302,7 +302,7 @@ export default function Navbar() {
 
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
         if (focus === false) {
           setFocus(true);
@@ -325,7 +325,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-6 gap-2">
+    <header className="sticky top-0 z-40 mx-auto flex h-20 w-full max-w-7xl shrink-0 items-center gap-2 border-b border-stroke-subtle bg-canvas/88 px-4 backdrop-blur-xl md:px-6">
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="lg:hidden">
@@ -334,7 +334,7 @@ export default function Navbar() {
           </Button>
         </SheetTrigger>
         <SheetContent side="left" className="w-[300px] sm:w-[400px] p-0">
-          <SheetHeader className="p-4 border-b">
+          <SheetHeader className="border-b border-stroke-subtle p-4">
             <Link to="/" className="flex items-center gap-2">
               <img
                 src="https://cdn.egdata.app/logo_simple_white_clean.png"
@@ -342,7 +342,7 @@ export default function Navbar() {
                 width={40}
                 height={40}
               />
-              <span className="text-xl text-white font-montserrat font-bold">EGDATA</span>
+              <span className="font-montserrat text-xl font-bold text-text-primary">EGDATA</span>
             </Link>
           </SheetHeader>
           <div className="p-4">
@@ -355,7 +355,7 @@ export default function Navbar() {
                 }
               }}
             >
-              <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
+              <SearchIcon className="absolute left-2.5 top-2.5 size-4 text-text-muted" />
               <Input
                 type="search"
                 placeholder="Search games..."
@@ -373,63 +373,63 @@ export default function Navbar() {
                         {route.name === "Explore" && (
                           <>
                             <div className="mb-4">
-                              <div className="text-xs font-semibold text-muted-foreground mb-2 tracking-wider uppercase">
+                              <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
                                 Genres
                               </div>
                               <MobileMenuItem href="/genres/action" title="Action">
-                                <SwordIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
+                                <SwordIcon className="mr-2 inline size-4 text-text-muted" />
                                 Action
                               </MobileMenuItem>
                               <MobileMenuItem href="/genres/rpg" title="RPG">
-                                <Gamepad2Icon className="w-4 h-4 mr-2 text-muted-foreground inline" />
+                                <Gamepad2Icon className="mr-2 inline size-4 text-text-muted" />
                                 RPG
                               </MobileMenuItem>
                               <MobileMenuItem href="/genres/indie" title="Indie">
-                                <JoystickIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
+                                <JoystickIcon className="mr-2 inline size-4 text-text-muted" />
                                 Indie
                               </MobileMenuItem>
                               <MobileMenuItem href="/genres/strategy" title="Strategy">
-                                <BrainIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
+                                <BrainIcon className="mr-2 inline size-4 text-text-muted" />
                                 Strategy
                               </MobileMenuItem>
                               {/* Add more genres as needed */}
                             </div>
                             <div>
-                              <div className="text-xs font-semibold text-muted-foreground mb-2 tracking-wider uppercase">
+                              <div className="mb-2 text-xs font-semibold uppercase tracking-wide text-text-muted">
                                 Other
                               </div>
                               <MobileMenuItem href="/collections/top-sellers" title="Top Sellers">
-                                <TrendingUpIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
+                                <TrendingUpIcon className="mr-2 inline size-4 text-text-muted" />
                                 Top Sellers
                               </MobileMenuItem>
                               <MobileMenuItem href="/collections/most-played" title="Most Played">
-                                <UsersIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
+                                <UsersIcon className="mr-2 inline size-4 text-text-muted" />
                                 Most Played
                               </MobileMenuItem>
                               <MobileMenuItem
                                 href="/collections/top-wishlisted"
                                 title="Top Wishlisted"
                               >
-                                <StarIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
+                                <StarIcon className="mr-2 inline size-4 text-text-muted" />
                                 Top Wishlisted
                               </MobileMenuItem>
                               <MobileMenuItem
                                 href="/collections/top-new-releases"
                                 title="Top New Releases"
                               >
-                                <CalendarCheck2Icon className="w-4 h-4 mr-2 text-muted-foreground inline" />
+                                <CalendarCheck2Icon className="mr-2 inline size-4 text-text-muted" />
                                 Top New Releases
                               </MobileMenuItem>
                               <MobileMenuItem href="/stats/releases" title="Release Stats">
-                                <BarChart3Icon className="w-4 h-4 mr-2 text-muted-foreground inline" />
+                                <BarChart3Icon className="mr-2 inline size-4 text-text-muted" />
                                 Release Stats
                               </MobileMenuItem>
                               <MobileMenuItem href="/sales" title="Sales">
-                                <TagIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
+                                <TagIcon className="mr-2 inline size-4 text-text-muted" />
                                 Sales
                               </MobileMenuItem>
                               <MobileMenuItem href="/freebies" title="Free Games">
-                                <GiftIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
+                                <GiftIcon className="mr-2 inline size-4 text-text-muted" />
                                 Free Games
                               </MobileMenuItem>
                               {/* Add more links as needed */}
@@ -453,7 +453,7 @@ export default function Navbar() {
                     ) : (
                       <Link
                         to={route.href}
-                        className="block py-2 text-muted-foreground hover:text-white transition-colors"
+            className="block py-2 text-text-secondary transition-colors hover:text-text-primary"
                       >
                         {route.name}
                       </Link>
@@ -475,7 +475,7 @@ export default function Navbar() {
           width={40}
           height={40}
         />
-        <span className="text-xl text-white font-montserrat ml-2 font-bold">EGDATA</span>
+        <span className="ml-2 font-montserrat text-xl font-bold text-text-primary">EGDATA</span>
       </Link>
       <NavigationMenu className="hidden lg:flex">
         <NavigationMenuList>
@@ -491,11 +491,7 @@ export default function Navbar() {
                         });
                       }
                     }}
-                    className={cn(
-                      "bg-transparent",
-                      "hover:text-white z-50",
-                      "active:text-white data-[active]:text-white data-[state=open]:text-white",
-                    )}
+                    className="z-50 bg-transparent active:text-text-primary data-[active]:text-text-primary data-[state=open]:text-text-primary"
                   >
                     {route.name}
                   </NavigationMenuTrigger>
@@ -506,7 +502,7 @@ export default function Navbar() {
 
             return (
               <NavigationMenuLink key={route.name} asChild>
-                <Button variant="ghost" className="hover:text-white" asChild>
+                <Button variant="ghost" asChild>
                   <Link key={route.name} to={route.href} className="inline-flex items-center gap-2">
                     {route.icon && <img src={route.icon} alt="" className="w-4 h-4" />}
                     {route.name}
@@ -528,7 +524,7 @@ export default function Navbar() {
             }
           }}
         >
-          <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
+          <SearchIcon className="absolute left-2.5 top-2.5 size-4 text-text-muted" />
           <Input
             type="search"
             placeholder="Search games..."
@@ -555,7 +551,7 @@ export default function Navbar() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>
-                <span className="dark:text-gray-300">Hello, {user.displayName}!</span>
+                <span className="text-text-secondary">Hello, {user.displayName}!</span>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild className="cursor-pointer">
@@ -654,7 +650,7 @@ const ListItem = React.forwardRef<React.ElementRef<"a">, ListItemProps>(
             ref={ref}
             className={cn(
               "block select-none rounded-md leading-none no-underline outline-none transition-colors h-full",
-              "hover:text-accent-foreground focus:bg-accent hover:bg-accent focus:text-accent-foreground",
+              "hover:bg-surface-hover hover:text-text-primary focus:bg-surface-hover focus:text-text-primary",
               "group relative overflow-hidden",
               className,
             )}
@@ -678,7 +674,7 @@ const ListItem = React.forwardRef<React.ElementRef<"a">, ListItemProps>(
             </div>
             {backgroundImage && (
               <>
-                <span className="absolute inset-0 bg-gradient-to-l from-transparent via-card/75 to-card z-10 rounded-md" />
+              <span className="absolute inset-0 z-10 rounded-md egd-image-overlay" />
                 <div
                   className="h-full absolute inset-0 opacity-25 group-hover:opacity-75 bg-cover bg-center transition-opacity duration-500 ease-in-out rounded-md"
                   style={{ backgroundImage: `url(${backgroundImage})` }}

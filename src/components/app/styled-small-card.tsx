@@ -18,19 +18,19 @@ export const StyledSmallCard: React.FC<{
 
   return (
     <Link
-      className="flex items-center justify-between bg-gray-800 rounded-lg shadow-lg w-full h-16 relative overflow-hidden group"
+      className="flex items-center justify-between bg-surface-panel rounded-lg shadow-raised w-full h-16 relative overflow-hidden group"
       to="/offers/$id"
       params={{ id: offer.id }}
       preload="viewport"
     >
-      <span className="text-white font-bold flex flex-col px-5 gap-1 z-10">
+      <span className="text-text-primary font-bold flex flex-col px-5 gap-1 z-10">
         <h6 className="text-xs">{title}</h6>
         <h4 className="text-lg font-bold truncate max-w-[175px] w-full">{offer.title}</h4>
       </span>
       {showPrice && offer.price && (
-        <span className="text-white font-bold flex flex-col px-5 gap-1 z-10">
+        <span className="text-text-primary font-bold flex flex-col px-5 gap-1 z-10">
           {offer.price?.price.discount > 0 && (
-            <span className="text-xs text-gray-100/50 line-through">
+            <span className="text-xs text-text-primary/50 line-through">
               {Intl.NumberFormat(locale, {
                 style: "currency",
                 currency: offer.price.price.currencyCode,
@@ -52,9 +52,9 @@ export const StyledSmallCard: React.FC<{
       <span
         className={cn(
           "absolute inset-0 z-[9]",
-          "from-gray-700/20 to-gray-700/20 backdrop-blur-sm",
+          "from-surface-hover to-gray-700/20 backdrop-blur-sm",
           "group-hover:backdrop-blur-[0.5px] transition-all duration-700",
-          "bg-gradient-to-r group-hover:from-gray-700/30 group-hover:from-40% group-hover:to-transparent",
+          "group-hover:egd-row-sheen",
         )}
       />
       <div className="absolute inset-0 z-0">

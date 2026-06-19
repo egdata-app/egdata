@@ -4,7 +4,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
   DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
+} from "@/components/aria/dropdown-menu";
 import type { SingleOffer } from "@/types/single-offer";
 import { EpicGamesIcon } from "../icons/epic";
 import { EGSIcon } from "../icons/egs";
@@ -26,11 +26,11 @@ export function StoreDropdown({ offer }: { offer: SingleOffer }) {
   return (
     <div className="w-[200px]">
       <DropdownMenu>
-        <DropdownMenuTrigger className="flex w-full items-center justify-between rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-800">
+        <DropdownMenuTrigger className="flex w-full items-center justify-between rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-text-primary hover:bg-zinc-800">
           <span className="flex items-center gap-2">View Store Page</span>
           <ChevronDown className="h-4 w-4" />
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-[200px] bg-zinc-900 text-white">
+        <DropdownMenuContent className="w-[200px] bg-zinc-900 text-text-primary">
           {offer.namespace !== "ue" && (
             <>
               <OpenEgs offer={offer} />

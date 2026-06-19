@@ -5,15 +5,15 @@ import { useQuery } from "@tanstack/react-query";
 import { httpClient } from "@/lib/http-client";
 import type { FullTag } from "@/types/tags";
 import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { Input } from "@/components/aria/input";
+import { Separator } from "@/components/aria/separator";
+import { ScrollArea } from "@/components/aria/scroll-area";
 import { offersDictionary, offerTypeValues } from "@/lib/offers-dictionary";
 import { CheckboxWithCount } from "@/components/app/checkbox-with-count";
 import { ExtendedSearch } from "@/components/app/extended-search";
 import { QuerySearch } from "@/components/app/query-search";
-import { Checkbox } from "@/components/ui/checkbox";
-import { PriceRangeSlider } from "@/components/ui/price-range-slider";
+import { Checkbox } from "@/components/aria/checkbox";
+import { PriceRangeSlider } from "@/components/aria/price-range-slider";
 import { QuickPill } from "@/components/app/quick-pill";
 import type { formSchema } from "./search-form";
 import {
@@ -21,7 +21,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from "@/components/aria/accordion";
 
 const tagTypes: {
   name: string | null;
@@ -255,7 +255,7 @@ export function SearchFilters({
                         }
                       </form.Field>
                       {tagTypeTags?.filter((tag) => tagCounts[tag.id] > 0).length === 0 && (
-                        <span className="text-gray-400 px-4">No tags found</span>
+                        <span className="text-text-muted px-4">No tags found</span>
                       )}
                     </div>
                   </ScrollArea>

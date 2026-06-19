@@ -1,5 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@/components/aria/scroll-area";
 import {
   Table,
   TableBody,
@@ -7,7 +6,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/components/aria/table";
 import { useCountry } from "@/hooks/use-country";
 import { useLocale } from "@/hooks/use-locale";
 import { httpClient } from "@/lib/http-client";
@@ -26,23 +25,23 @@ import { DateTime } from "luxon";
 import { getGiveawaysStats, GiveawaysStats } from "@/components/modules/giveaway-stats";
 import { cn } from "@/lib/utils";
 import { calculatePrice } from "@/lib/calculate-price";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/aria/hover-card";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/components/aria/dialog";
 import { Sparkles, TrendingUp } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/aria/badge";
 import { Image } from "@/components/app/image";
 import buildImageUrl, { buildSrcSet } from "@/lib/build-image-url";
 import { getImage } from "@/lib/get-image";
 import { getOfferOverview } from "@/queries/offer-overview";
 import { formatTimeToHumanReadable } from "@/lib/time-to-human-readable";
-import { Countdown } from "@/components/ui/countdown";
-import { Input } from "@/components/ui/input";
+import { Countdown } from "@/components/aria/countdown";
+import { Input } from "@/components/aria/input";
 import { Search } from "lucide-react";
 import { useSearch } from "@/hooks/use-search";
 import { getBuilds } from "@/queries/get-builds";
@@ -55,6 +54,7 @@ import { raritiesTextColors } from "@/components/app/achievement-card";
 import { mergeFreebies } from "@/utils/merge-freebies";
 import { RenderTextPlatformIcon } from "@/components/app/platform-icons";
 import { TruncatedText } from "@/lib/truncate-text";
+import { DataPanel, MetricTile, PageHeader, PageShell } from "@/components/app/design-system";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
@@ -129,7 +129,7 @@ function OfferHoverCard({ id }: { id: string }) {
   };
 
   return (
-    <div className="bg-slate-800 border-slate-700 text-slate-200 p-4 space-y-3 w-full h-fit border rounded-md">
+    <div className="w-full h-fit space-y-3 rounded-md egd-panel-raised p-4">
       <div>
         <Image
           src={
@@ -144,19 +144,19 @@ function OfferHoverCard({ id }: { id: string }) {
       </div>
 
       <div className="flex items-center justify-between gap-2">
-        <h3 className="text-xl font-bold text-white">{data.offer.title}</h3>
+        <h3 className="text-xl font-bold text-text-primary">{data.offer.title}</h3>
         {data.price && (
           <div className="text-right">
             {data.price.price.discountPrice === 0 ? (
-              <span className="text-green-400 font-bold">Free</span>
+              <span className="font-bold text-success">Free</span>
             ) : (
               <div className="flex flex-col items-end">
-                <span className="text-white font-bold">
+                <span className="font-bold text-text-primary">
                   {formatPrice(data.price.price.discountPrice, data.price.price.currencyCode)}
                 </span>
                 {data.price.price.originalPrice > data.price.price.discountPrice && (
                   <div className="flex items-center gap-1">
-                    <span className="text-xs text-slate-400 line-through">
+                    <span className="text-xs text-text-muted line-through">
                       {formatPrice(data.price.price.originalPrice, data.price.price.currencyCode)}
                     </span>
                     <Badge variant="destructive" className="text-xs px-1 py-0">
@@ -176,28 +176,28 @@ function OfferHoverCard({ id }: { id: string }) {
         )}
       </div>
 
-      <div className="text-sm space-y-1 text-slate-300">
+      <div className="space-y-1 text-sm text-text-secondary">
         <p>
-          <span className="text-slate-400">Seller:</span>{" "}
+          <span className="text-text-muted">Seller:</span>{" "}
           <Link
             to="/sellers/$id"
             params={{
               id: data.offer.seller.id,
             }}
-            className="text-blue-400 hover:underline"
+            className="text-interactive hover:text-interactive-hover hover:underline"
           >
             {data.offer.seller.name}
           </Link>
         </p>
         {data.offer.developerDisplayName && (
           <p>
-            <span className="text-slate-400">Developer:</span>{" "}
+            <span className="text-text-muted">Developer:</span>{" "}
             <Link
               to="/search"
               search={{
                 developerDisplayName: data.offer.developerDisplayName,
               }}
-              className="text-blue-400 hover:underline"
+              className="text-interactive hover:text-interactive-hover hover:underline"
             >
               {data.offer.developerDisplayName}
             </Link>
@@ -205,13 +205,13 @@ function OfferHoverCard({ id }: { id: string }) {
         )}
         {data.offer.publisherDisplayName && (
           <p>
-            <span className="text-slate-400">Publisher:</span>{" "}
+            <span className="text-text-muted">Publisher:</span>{" "}
             <Link
               to="/search"
               search={{
                 publisherDisplayName: data.offer.publisherDisplayName,
               }}
-              className="text-blue-400 hover:underline"
+              className="text-interactive hover:text-interactive-hover hover:underline"
             >
               {data.offer.publisherDisplayName}
             </Link>
@@ -219,13 +219,13 @@ function OfferHoverCard({ id }: { id: string }) {
         )}
         {data.offer.releaseDate && (
           <p>
-            <span className="text-slate-400">Release Date:</span>{" "}
+            <span className="text-text-muted">Release Date:</span>{" "}
             {formatDate(data.offer.releaseDate)}
           </p>
         )}
         {getAgeRatingDisplay() && (
           <p>
-            <span className="text-slate-400">Age Rating:</span> {getAgeRatingDisplay()}
+          <span className="text-text-muted">Age Rating:</span> {getAgeRatingDisplay()}
           </p>
         )}
       </div>
@@ -236,26 +236,26 @@ function OfferHoverCard({ id }: { id: string }) {
             <Badge
               key={genre.id}
               variant="outline"
-              className="border-purple-400/50 bg-purple-900/20 text-purple-300"
+              className="border-interactive/35 bg-interactive-muted text-interactive"
             >
-              <Sparkles className="w-3 h-3 mr-1.5 text-purple-400" />
+              <Sparkles className="mr-1.5 size-3 text-interactive" />
               {genre.name}
             </Badge>
           ))}
           {data.genres.length > 4 && (
-            <Badge variant="outline" className="border-slate-400/50 bg-slate-900/20 text-slate-400">
+            <Badge variant="outline">
               +{data.genres.length - 4} more
             </Badge>
           )}
         </div>
       )}
 
-      <div className="bg-slate-900/80 p-3 rounded-md space-y-2 text-sm">
+      <div className="space-y-2 rounded-md bg-surface-ground p-3 text-sm">
         {data.polls?.averageRating && (
           <div className="flex items-center gap-2">
             <span>🤯</span>
-            <span className="text-slate-400">Community Rating:</span>
-            <span className="font-bold text-yellow-400">
+            <span className="text-text-muted">Community Rating:</span>
+            <span className="font-bold text-warning">
               {(data.polls.averageRating * 2 * 10).toFixed(1)}%
             </span>
           </div>
@@ -264,12 +264,12 @@ function OfferHoverCard({ id }: { id: string }) {
           <>
             {data.igdb.total_rating && (
               <div className="flex items-center gap-2">
-                <div className="w-5 h-5 bg-green-500 rounded-sm flex items-center justify-center text-sm font-bold text-white">
+                <div className="flex size-5 items-center justify-center rounded-sm bg-success text-sm font-bold text-text-inverse">
                   {Math.round(data.igdb.total_rating)}
                 </div>
-                <span className="text-slate-400">IGDB Score</span>
+                <span className="text-text-muted">IGDB Score</span>
                 {data.igdb.total_rating_count && (
-                  <span className="text-slate-500 text-xs">
+                  <span className="text-xs text-text-subtle">
                     • {data.igdb.total_rating_count} reviews
                   </span>
                 )}
@@ -278,8 +278,8 @@ function OfferHoverCard({ id }: { id: string }) {
             {data.igdb.timeToBeat && (
               <div className="flex items-center gap-2">
                 <span>⏱️</span>
-                <span className="text-slate-400">Time to Beat:</span>
-                <span className="text-slate-300">
+                <span className="text-text-muted">Time to Beat:</span>
+                <span className="text-text-secondary">
                   {data.igdb.timeToBeat.normally
                     ? formatTimeToHumanReadable(data.igdb.timeToBeat.normally)
                     : "N/A"}
@@ -291,8 +291,8 @@ function OfferHoverCard({ id }: { id: string }) {
         {data.features.features.length > 0 && (
           <div className="flex items-center gap-2">
             <span>🎮</span>
-            <span className="text-slate-400">Features:</span>
-            <span className="text-slate-300">
+            <span className="text-text-muted">Features:</span>
+            <span className="text-text-secondary">
               {data.features.features.slice(0, 2).join(", ")}
               {data.features.features.length > 2 && ` +${data.features.features.length - 2} more`}
             </span>
@@ -334,7 +334,7 @@ function BuildHoverCard({
   const displayUrl = gameImage?.url ?? "/placeholder.webp";
 
   return (
-    <div className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700 text-slate-200 border rounded-lg shadow-xl overflow-hidden w-80">
+    <div className="w-80 overflow-hidden rounded-lg egd-panel-raised">
       {displayUrl && (
         <div className="w-full h-44 flex-shrink-0 relative">
           <img
@@ -351,11 +351,11 @@ function BuildHoverCard({
 
       <div className="p-4 space-y-3">
         <div>
-          <h3 className="text-lg font-bold text-white leading-tight line-clamp-2">
+          <h3 className="line-clamp-2 text-lg font-bold leading-tight text-text-primary">
             {build.item?.title ?? "Unknown Build"}
           </h3>
           {build.item?.developer && (
-            <p className="text-sm text-slate-400 mt-1">
+            <p className="mt-1 text-sm text-text-muted">
               {build.item?.developer ?? "Unknown Developer"}
             </p>
           )}
@@ -363,29 +363,29 @@ function BuildHoverCard({
 
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-400">Size</span>
-            <span className="text-sm font-medium text-slate-200">
+            <span className="text-xs text-text-muted">Size</span>
+            <span className="text-sm font-medium text-text-secondary">
               {calculateSize(build.downloadSizeBytes)}
             </span>
           </div>
 
           {build.buildVersion && (
             <div className="flex items-center justify-between">
-              <span className="text-xs text-slate-400">Version</span>
-              <span className="text-sm font-medium text-slate-200">{build.buildVersion}</span>
+              <span className="text-xs text-text-muted">Version</span>
+              <span className="text-sm font-medium text-text-secondary">{build.buildVersion}</span>
             </div>
           )}
 
           <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-400">Created</span>
-            <span className="text-xs text-slate-300">
+            <span className="text-xs text-text-muted">Created</span>
+            <span className="text-xs text-text-secondary">
               {DateTime.fromISO(build.createdAt).toLocaleString(DateTime.DATE_SHORT)}
             </span>
           </div>
         </div>
 
-        <div className="pt-2 border-t border-slate-700">
-          <p className="text-xs text-slate-500 font-mono truncate">ID: {build._id}</p>
+        <div className="border-t border-stroke-subtle pt-2">
+          <p className="truncate font-mono text-xs text-text-subtle">ID: {build._id}</p>
         </div>
       </div>
     </div>
@@ -515,7 +515,7 @@ function RouteComponent() {
               {headers.map((h, index) => (
                 <TableHead
                   key={typeof h === "string" ? h : `header-${index}`}
-                  className="text-neutral-400 font-normal"
+                  className="font-normal text-text-muted"
                 >
                   {h}
                 </TableHead>
@@ -534,7 +534,7 @@ function RouteComponent() {
                 cell.type === Image;
 
               const TableRowContent = (
-                <TableRow className="border-neutral-800 hover:bg-neutral-800/60">
+                <TableRow>
                   {cells.map((cell, j) => {
                     const headerKey =
                       typeof headers[j + 1] === "string" ? headers[j + 1] : `header-${j}`;
@@ -549,7 +549,7 @@ function RouteComponent() {
                       >
                         {isImage(cell) ? (
                           <div className="flex items-center justify-start">
-                            <div className="w-16 h-8 sm:w-24 sm:h-12 rounded overflow-hidden bg-neutral-800/40 flex items-center justify-center">
+                            <div className="flex h-8 w-16 items-center justify-center overflow-hidden rounded bg-surface-raised sm:h-12 sm:w-24">
                               {cell}
                             </div>
                           </div>
@@ -607,54 +607,44 @@ function RouteComponent() {
     params?: LinkComponentProps["params"];
     className?: string;
   }) => (
-    <Card
+    <DataPanel
+      title={
+        href ? (
+          <Link
+            to={href}
+            search={search}
+            params={params}
+            className="underline decoration-dotted underline-offset-4 hover:text-interactive"
+          >
+            {title}
+          </Link>
+        ) : (
+          title
+        )
+      }
+      contentClassName="min-h-0 flex-1 p-0"
       className={cn(
-        "flex flex-col rounded-lg border h-[650px]",
+        "flex h-[650px] flex-col overflow-hidden",
         spanFull ? "md:col-span-2" : "",
         className,
       )}
     >
-      <CardHeader className="border-b border-neutral-800 p-3">
-        <CardTitle className="text-sm font-mono text-neutral-400">
-          {href ? (
-            <Link
-              to={href}
-              search={search}
-              params={params}
-              className="underline decoration-dotted underline-offset-4"
-            >
-              {title}
-            </Link>
-          ) : (
-            title
-          )}
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="p-0">
-        <ScrollArea
-          className={cn("h-[650px] p-4", className?.includes("h-[400px]") && "h-[400px]")}
-        >
-          {children}
-        </ScrollArea>
-      </CardContent>
-    </Card>
+      <ScrollArea className="h-full p-4">{children}</ScrollArea>
+    </DataPanel>
   );
 
   return (
-    <main className="mx-auto w-full max-w-7xl flex-1 space-y-6 py-6 px-4 sm:px-6 lg:px-8">
-      {/* Hero Section */}
-      <section className="text-center space-y-4 py-6">
-        <div className="space-y-3">
-          <h1 className="text-3xl font-semiboold tracking-tight sm:text-4xl md:text-5xl font-montserrat">
-            egdata.app
-          </h1>
-          <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
-            Track prices, discover deals, and never miss a free game. Your ultimate companion for
-            Epic Games Store offers, discounts, and giveaways.
-          </p>
-        </div>
+    <PageShell>
+      <PageHeader
+        eyebrow="Epic Games Store intelligence"
+        title="egdata.app"
+        className="items-center text-center md:items-center md:text-center"
+      >
+        Track prices, discover deals, and never miss a free game. Your companion for Epic Games
+        Store offers, discounts, giveaways, builds, and performance data.
+      </PageHeader>
 
-        <div className="mx-auto max-w-md">
+      <section className="mx-auto w-full max-w-md">
           <div
             className="relative cursor-text"
             onClick={(e) => {
@@ -668,7 +658,7 @@ function RouteComponent() {
               }
             }}
           >
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-text-muted" />
             <Input
               type="search"
               placeholder="Search offers, items, or sellers..."
@@ -676,7 +666,6 @@ function RouteComponent() {
               readOnly
             />
           </div>
-        </div>
       </section>
 
       {/* Metrics Row */}
@@ -731,14 +720,14 @@ function RouteComponent() {
                   <DialogTrigger asChild>
                     <button
                       type="button"
-                      className="flex flex-col items-start justify-center text-left hover:text-blue-400 transition-colors"
+                      className="flex flex-col items-start justify-center text-left hover:text-interactive transition-colors"
                     >
                       <TruncatedText text={g.title} maxLength={35} />
                       <p className="inline-flex gap-1">
                         {g.platforms.map((p) =>
                           RenderTextPlatformIcon({
                             platform: p,
-                            className: "size-5 rounded-full p-1 bg-gray-600",
+                            className: "size-5 rounded-full bg-surface-hover p-1",
                             key: `${p}-${g.id}`,
                           }),
                         )}
@@ -761,7 +750,7 @@ function RouteComponent() {
                               <Link
                                 to="/offers/$id"
                                 params={{ id: offer.id }}
-                                className="flex items-center gap-3 p-3 border rounded-lg bg-card transition-colors hover:border-gray-400"
+                                className="flex items-center gap-3 rounded-lg border border-stroke-subtle bg-surface-panel p-3 transition-colors hover:border-stroke-strong"
                               >
                                 <img
                                   src={buildImageUrl(
@@ -783,7 +772,7 @@ function RouteComponent() {
                                     {offerPlatforms.map((platform, idx) =>
                                       RenderTextPlatformIcon({
                                         platform,
-                                        className: "size-6 rounded-full p-1 bg-gray-600",
+                                        className: "size-6 rounded-full bg-surface-hover p-1",
                                         key: `${platform}-${offer.id}-${idx}`,
                                       }),
                                     )}
@@ -819,7 +808,7 @@ function RouteComponent() {
                     {g.platforms.map((p) =>
                       RenderTextPlatformIcon({
                         platform: p,
-                        className: "size-5 rounded-full p-1 bg-gray-600",
+                        className: "size-5 rounded-full bg-surface-hover p-1",
                         key: `${p}-${g.id}`,
                       }),
                     )}
@@ -1182,15 +1171,12 @@ function RouteComponent() {
         </Section>
       </div>
       <ClientBanner />
-    </main>
+    </PageShell>
   );
 }
 
 function MetricBox({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-lg bg-card p-4 text-center">
-      <div className="text-2xl font-mono">{value}</div>
-      <div className="text-xs text-neutral-400">{label}</div>
-    </div>
+    <MetricTile label={label} value={value} className="text-center" />
   );
 }

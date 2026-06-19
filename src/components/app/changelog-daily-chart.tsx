@@ -1,12 +1,12 @@
 import * as React from "react";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from "recharts";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/aria/card";
 import {
   type ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart";
+} from "@/components/aria/chart";
 import type { ChangelogStats } from "@/types/changelog";
 
 const chartConfig = {

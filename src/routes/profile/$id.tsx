@@ -29,7 +29,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
+} from "@/components/aria/dialog";
 import {
   CalendarIcon,
   CrownIcon,
@@ -40,22 +40,22 @@ import {
   SparklesIcon,
   UploadIcon,
 } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { ExclamationTriangleIcon, ReloadIcon } from "@radix-ui/react-icons";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/aria/avatar";
+import { Label } from "@/components/aria/label";
+import { Input } from "@/components/aria/input";
+import { Button } from "@/components/aria/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/aria/alert";
+import { TriangleAlert as ExclamationTriangleIcon, RefreshCw as ReloadIcon } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/aria/tooltip";
 import { getAccountIcon } from "@/components/app/platform-icons";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@/components/aria/separator";
 import { EGSIcon } from "@/components/icons/egs";
 import { EpicTrophyIcon } from "@/components/icons/epic-trophy";
 import { cn } from "@/lib/utils";
 import { httpClient } from "@/lib/http-client";
 import axios, { type AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
+import { toast } from "@/components/aria/sonner";
 import { DiscordIcon } from "@/components/icons/discord";
 
 type LinkedAccount = {
@@ -278,11 +278,11 @@ function RouteComponent() {
                         <img
                           src={avatarUrl}
                           alt={displayName}
-                          className="size-32 rounded-full border border-white/20 object-cover shadow-2xl"
+                          className="size-32 rounded-full border border-stroke-subtle object-cover shadow-popover"
                         />
                         <DonnorBadge profile={legacyProfile} displayName={displayName} />
-                        <span className="absolute inset-0 flex items-center justify-center rounded-full bg-black/55 opacity-0 transition-opacity group-hover:opacity-100">
-                          <UploadIcon className="size-6 text-white" />
+                        <span className="absolute inset-0 flex items-center justify-center rounded-full bg-surface-scrim opacity-0 transition-opacity group-hover:opacity-100">
+                          <UploadIcon className="size-6 text-text-primary" />
                         </span>
                       </button>
                     </DialogTrigger>
@@ -321,20 +321,20 @@ function RouteComponent() {
                               aria-describedby="avatar-upload-description"
                               disabled={isUploading}
                             />
-                            <p id="avatar-upload-description" className="text-sm text-gray-500">
+                            <p id="avatar-upload-description" className="text-sm text-text-subtle">
                               Upload a new avatar image, max 5MB.
                             </p>
                           </div>
                         </div>
                         {isUploading && (
                           <div className="w-full space-y-2">
-                            <div className="h-2 w-full overflow-hidden rounded-full bg-gray-200">
+                            <div className="h-2 w-full overflow-hidden rounded-full bg-surface-hover">
                               <div
                                 className="h-full bg-primary transition-all duration-300 ease-in-out"
                                 style={{ width: `${uploadProgress}%` }}
                               />
                             </div>
-                            <p className="text-center text-sm text-gray-500">
+                            <p className="text-center text-sm text-text-subtle">
                               Uploading... {uploadProgress}%
                             </p>
                           </div>
@@ -373,7 +373,7 @@ function RouteComponent() {
                     <img
                       src={avatarUrl}
                       alt={displayName}
-                      className="size-32 rounded-full border border-white/20 object-cover shadow-2xl"
+                      className="size-32 rounded-full border border-stroke-subtle object-cover shadow-popover"
                     />
                     <DonnorBadge profile={legacyProfile} displayName={displayName} />
                   </div>
@@ -381,7 +381,7 @@ function RouteComponent() {
 
                 <div className="min-w-0 space-y-4">
                   <PlayerName displayName={displayName} donorProfile={legacyProfile} />
-                  <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm text-gray-200">
+                  <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm text-text-secondary">
                     {linkedAccounts.length > 0 && (
                       <div className="inline-flex items-center gap-4">
                         {linkedAccounts
@@ -399,10 +399,10 @@ function RouteComponent() {
                       </div>
                     )}
                     {linkedAccounts.length > 0 && profile.creationDate && (
-                      <Separator orientation="vertical" className="h-5 bg-white/25" />
+                      <Separator orientation="vertical" className="h-5 bg-surface-hover" />
                     )}
                     {profile.creationDate && (
-                      <span className="inline-flex items-center gap-2 text-gray-200">
+                      <span className="inline-flex items-center gap-2 text-text-secondary">
                         <CalendarIcon className="size-4" />
                         Joined{" "}
                         {new Date(profile.creationDate).toLocaleDateString("en-US", {
@@ -411,12 +411,12 @@ function RouteComponent() {
                         })}
                       </span>
                     )}
-                    <Separator orientation="vertical" className="hidden h-5 bg-white/25 sm:block" />
+                    <Separator orientation="vertical" className="hidden h-5 bg-surface-hover sm:block" />
                     <a
                       href={`https://store.epicgames.com/u/${accountId}?utm_source=egdata.app`}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="inline-flex items-center gap-2 text-gray-200 hover:text-white"
+                      className="inline-flex items-center gap-2 text-text-secondary hover:text-text-primary"
                     >
                       <EGSIcon className="size-4" />
                       <span>Epic Games Store</span>
@@ -428,7 +428,7 @@ function RouteComponent() {
 
               <div className="flex flex-wrap items-center gap-2 lg:justify-end">
                 {legacyProfile?.discord === false && isOwner && (
-                  <Button asChild variant="outline" className="bg-[#5865f2] hover:bg-[#4752c4]">
+                  <Button asChild variant="outline" className="bg-brand-discord hover:bg-brand-discord-hover">
                     <a href={`${httpClient.axiosInstance.defaults.baseURL}/auth/discord/link`}>
                       <DiscordIcon className="size-4" fill="white" />
                       <span>Link Discord</span>
@@ -458,7 +458,7 @@ function RouteComponent() {
                 detail="Perfect games"
                 icon={
                   <EpicPlatinumIcon
-                    className={cn("size-5", highlights.totalPlatinums > 0 && "text-[#8a7cff]")}
+                    className={cn("size-5", highlights.totalPlatinums > 0 && "text-platinum-start")}
                   />
                 }
               />
@@ -478,14 +478,14 @@ function RouteComponent() {
 
             <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-end">
               <div className="space-y-2">
-                <div className="flex items-center justify-between text-sm text-gray-200">
+                <div className="flex items-center justify-between text-sm text-text-secondary">
                   <span className="inline-flex items-center gap-2">
                     <SparklesIcon className="size-4" />
                     {xpToNextLevel} XP to level {highlights.level + 1}
                   </span>
                   <span>{Math.round(percentToNextLevel)}%</span>
                 </div>
-                <div className="h-2 overflow-hidden rounded-full bg-white/15">
+                <div className="h-2 overflow-hidden rounded-full bg-surface-hover">
                   <div
                     className="h-full rounded-full bg-white"
                     style={{ width: `${percentToNextLevel}%` }}
@@ -497,12 +497,12 @@ function RouteComponent() {
                   <Link
                     to="/profile/$id/achievements/$sandbox"
                     params={{ id: accountId, sandbox: profile.heroGame.sandboxId }}
-                    className="group flex items-center justify-between gap-4 rounded-md border border-white/15 bg-black/35 p-4 text-left transition-colors hover:bg-black/50"
+                    className="group flex items-center justify-between gap-4 rounded-md border border-stroke-subtle bg-surface-scrim p-4 text-left transition-colors hover:bg-surface-scrim"
                   >
                     <HeroGameSummary game={profile.heroGame} />
                   </Link>
                 ) : (
-                  <div className="flex items-center justify-between gap-4 rounded-md border border-white/15 bg-black/35 p-4 text-left">
+                  <div className="flex items-center justify-between gap-4 rounded-md border border-stroke-subtle bg-surface-scrim p-4 text-left">
                     <HeroGameSummary game={profile.heroGame} />
                   </div>
                 ))}
@@ -522,12 +522,12 @@ function HeroGameSummary({ game }: { game: NonNullable<ProfilePageProfile["heroG
   return (
     <>
       <div className="min-w-0">
-        <p className="text-xs uppercase text-gray-300">Hero game</p>
+        <p className="text-xs uppercase text-text-secondary">Hero game</p>
         <p className="truncate text-lg font-semibold">{game.title}</p>
       </div>
       <div className="shrink-0 text-right">
         <p className="text-2xl font-light">{Math.round(game.completionPercent ?? 0)}%</p>
-        <p className="text-xs text-gray-300">complete</p>
+        <p className="text-xs text-text-secondary">complete</p>
       </div>
     </>
   );
@@ -548,8 +548,8 @@ function ProfileHeroBackground({ imageUrl, title }: { imageUrl?: string | null; 
         className="absolute inset-0 bg-[linear-gradient(90deg,hsl(var(--background))_0%,hsl(var(--background)/0.94)_38%,hsl(var(--background)/0.72)_70%,hsl(var(--background)/0.58)_100%)]"
         aria-label={title}
       />
-      <div className="absolute inset-0 bg-black/20" />
-      <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-background to-transparent" />
+      <div className="absolute inset-0 bg-surface-scrim" />
+      <div className="absolute inset-x-0 bottom-0 h-44 egd-fade-to-canvas" />
     </div>
   );
 }
@@ -581,13 +581,13 @@ function HeroStat({
   icon: React.ReactNode;
 }) {
   return (
-    <div className="rounded-md border border-white/10 bg-black/35 p-4 backdrop-blur">
-      <div className="flex items-center justify-between text-gray-300">
+    <div className="rounded-md border border-stroke-subtle bg-surface-scrim p-4 backdrop-blur">
+      <div className="flex items-center justify-between text-text-secondary">
         <p className="text-xs uppercase tracking-normal">{label}</p>
         {icon}
       </div>
-      <p className="mt-3 text-3xl font-light text-white">{value.toLocaleString()}</p>
-      <p className="text-sm text-gray-300">{detail}</p>
+      <p className="mt-3 text-3xl font-light text-text-primary">{value.toLocaleString()}</p>
+      <p className="text-sm text-text-secondary">{detail}</p>
     </div>
   );
 }
@@ -658,7 +658,7 @@ function PlayerName({
     return <DonatorName>{displayName}</DonatorName>;
   }
 
-  return <h1 className="break-words text-5xl font-thin text-white md:text-6xl">{displayName}</h1>;
+  return <h1 className="break-words text-5xl font-thin text-text-primary md:text-6xl">{displayName}</h1>;
 }
 
 function DonatorName({ children, className }: { children: React.ReactNode; className?: string }) {
@@ -667,7 +667,7 @@ function DonatorName({ children, className }: { children: React.ReactNode; class
       <div
         className={cn(
           "absolute text-5xl font-thin md:text-6xl",
-          "text-transparent bg-gradient-to-r from-blue-500 via-purple-600 to-pink-600 bg-clip-text",
+          "egd-donor-text",
           "blur-md opacity-80 animate-[shadow-pulse_3s_ease-in-out_infinite]",
           "select-none pointer-events-none",
           className,
@@ -683,7 +683,7 @@ function DonatorName({ children, className }: { children: React.ReactNode; class
       <div
         className={cn(
           "absolute text-5xl font-thin md:text-6xl",
-          "text-transparent bg-gradient-to-r from-cyan-500 via-violet-600 to-fuchsia-600 bg-clip-text",
+          "egd-donor-text",
           "blur-lg opacity-90 animate-[shadow-pulse-2_4s_ease-in-out_infinite]",
           "select-none pointer-events-none",
           className,
@@ -698,7 +698,7 @@ function DonatorName({ children, className }: { children: React.ReactNode; class
 
       <h1
         className={cn(
-          "relative z-[1] break-words text-5xl font-thin text-white md:text-6xl",
+          "relative z-[1] break-words text-5xl font-thin text-text-primary md:text-6xl",
           className,
         )}
       >
@@ -723,10 +723,10 @@ function DonnorBadge({
     <Tooltip>
       <TooltipTrigger asChild>
         <span
-          className="absolute right-0 top-0 inline-flex rounded-full bg-gradient-to-r from-blue-500 via-purple-600 to-pink-600 p-1.5 shadow-lg"
+          className="absolute right-0 top-0 inline-flex rounded-full egd-donor-surface p-1.5 shadow-raised"
           tabIndex={0}
         >
-          <CrownIcon className="h-5 w-5 text-white" />
+          <CrownIcon className="h-5 w-5 text-text-primary" />
         </span>
       </TooltipTrigger>
       <TooltipContent
@@ -739,7 +739,7 @@ function DonnorBadge({
         </p>
         <p className="inline-flex items-center gap-1">
           Go to{" "}
-          <Link to="/donate-key" className="text-blue-500 hover:text-blue-600">
+          <Link to="/donate-key" className="text-interactive hover:text-interactive">
             this link
           </Link>
           to donate a key.
@@ -770,7 +770,7 @@ function RefreshProfile({ id }: { id: string }) {
           variant="outline"
           onClick={handleRefresh}
           disabled={isRefreshing || !refreshStatus?.canRefresh}
-          className="inline-flex items-center justify-center gap-2 bg-black/25"
+          className="inline-flex items-center justify-center gap-2 bg-surface-scrim"
         >
           <ReloadIcon className={cn("size-4", isRefreshing && "animate-spin")} />
           <span className="text-sm font-medium">Refresh profile</span>

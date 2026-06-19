@@ -9,7 +9,7 @@ export const Route = createFileRoute("/fair-use")({
       <p className="mb-4">
         Welcome to EGData App ("we", "our", "us"). This Fair Use Policy outlines the terms under
         which you may use the content and data provided on our website{" "}
-        <a href="https://egdata.app" className="text-blue-500">
+        <a href="https://egdata.app" className="text-interactive">
           https://egdata.app
         </a>{" "}
         (the "Site").
@@ -91,7 +91,7 @@ export const Route = createFileRoute("/fair-use")({
             href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32019L0790"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-500"
+            className="text-interactive"
           >
             Directive (EU) 2019/790 on copyright and related rights in the Digital Single Market
           </a>
@@ -101,7 +101,7 @@ export const Route = createFileRoute("/fair-use")({
             href="https://ec.europa.eu/commission/presscorner/detail/en/QANDA_21_2821"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-500"
+            className="text-interactive"
           >
             Questions and Answers – New EU copyright rules
           </a>
@@ -115,7 +115,7 @@ export const Route = createFileRoute("/fair-use")({
       </p>
       <p className="mb-4">
         Email:{" "}
-        <a href="mailto:fairuse@egdata.app" className="text-blue-500">
+        <a href="mailto:fairuse@egdata.app" className="text-interactive">
           fairuse@egdata.app
         </a>
       </p>

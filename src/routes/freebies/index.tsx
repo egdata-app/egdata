@@ -2,8 +2,8 @@ import { EGSIcon } from "@/components/icons/egs";
 import { GiveawaysCarousel } from "@/components/modules/giveaways";
 import { MobileFreebiesCarousel } from "@/components/modules/mobile-freebies";
 import { SearchContainer } from "@/components/search/SearchContainer";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/aria/button";
+import { Separator } from "@/components/aria/separator";
 import { httpClient } from "@/lib/http-client";
 import type { GiveawayOffer } from "@/types/giveaways";
 import { dehydrate, type DehydratedState, HydrationBoundary } from "@tanstack/react-query";
@@ -134,7 +134,7 @@ function FreeGames() {
       <div className="flex flex-row justify-between items-center gap-4 w-full">
         <h2 className="text-xl font-semibold mb-4">Current Free Games</h2>
         <Button
-          className="bg-black text-white hover:bg-card border inline-flex items-center gap-2 w-fit"
+          className="bg-black text-text-primary hover:bg-card border inline-flex items-center gap-2 w-fit"
           onClick={() => {
             // TODO: Implement redeem functionality for current free games
             console.log("Redeem current free games");

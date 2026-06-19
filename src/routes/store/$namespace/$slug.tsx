@@ -1,5 +1,5 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/aria/button";
 import {
   Card,
   CardContent,
@@ -7,7 +7,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
+} from "@/components/aria/card";
 import { EGSIcon } from "@/components/icons/egs";
 import { z } from "zod";
 
@@ -68,7 +68,7 @@ function CreatorCodePage() {
 
   return (
     <div className="container max-w-2xl py-12">
-      <Card className="bg-zinc-900 text-white border-zinc-800">
+      <Card className="bg-zinc-900 text-text-primary border-zinc-800">
         <CardHeader>
           <CardTitle className="text-2xl">Support egdata.app</CardTitle>
           <CardDescription className="text-zinc-400">
@@ -88,7 +88,7 @@ function CreatorCodePage() {
         <CardFooter className="flex gap-4">
           <Button
             variant="outline"
-            className="bg-zinc-800 text-white hover:bg-zinc-700 border-zinc-700"
+            className="bg-zinc-800 text-text-primary hover:bg-zinc-700 border-zinc-700"
             onClick={() => handleChoice(false)}
           >
             No thanks

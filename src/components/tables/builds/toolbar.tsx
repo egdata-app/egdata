@@ -1,7 +1,7 @@
 import type { Table } from "@tanstack/react-table";
 import { platforms } from "./columns";
-import { Button } from "@/components/ui/button";
-import { Cross2Icon } from "@radix-ui/react-icons";
+import { Button } from "@/components/aria/button";
+import { X as Cross2Icon } from "lucide-react";
 import { DataTableFacetedFilter } from "./faceted-filter";
 import { DataTableViewOptions } from "./view-options";
 

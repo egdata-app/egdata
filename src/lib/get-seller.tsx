@@ -109,7 +109,7 @@ export function Seller({
       >
         {developer}
       </Link>
-      <span className="text-gray-400">-</span>
+      <span className="text-text-muted">-</span>
       <Link
         to={"/search"}
         search={{

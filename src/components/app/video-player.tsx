@@ -61,7 +61,7 @@ export function Player({
     <div className={cn("w-full max-w-[640px] mx-auto", className)} ref={ref}>
       <MediaPlayer
         ref={player}
-        className="w-full bg-slate-900 text-white font-sans overflow-hidden rounded-md ring-media-focus data-[focus]:ring-4"
+        className="w-full bg-surface-ground text-text-primary font-sans overflow-hidden rounded-md ring-media-focus data-[focus]:ring-4"
         title={offer.title}
         src={manifests[0]?.url.replace(
           "media-cdn.epicgames.com",

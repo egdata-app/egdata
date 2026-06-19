@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { Button } from "../ui/button";
-import { Card, CardContent, CardTitle, CardDescription } from "../ui/card";
+import { Button } from "../aria/button";
+import { Card, CardContent, CardTitle, CardDescription } from "../aria/card";
 import { useCookiesContext } from "@/hooks/use-app-cookies";
 
 export function CookieBanner() {

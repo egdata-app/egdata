@@ -17,8 +17,8 @@ import { Bundle } from "@/components/modules/bundle";
 import { CollectionOffers } from "@/components/modules/collection-offers";
 import { SellerOffers } from "@/components/modules/seller-offers";
 import { SuggestedOffers } from "@/components/modules/suggested-offers";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/aria/badge";
+import { Button } from "@/components/aria/button";
 import {
   Table,
   TableBody,
@@ -26,10 +26,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Checkbox } from "@/components/ui/checkbox";
+} from "@/components/aria/table";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/aria/tooltip";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/aria/popover";
+import { Checkbox } from "@/components/aria/checkbox";
 import { useCompare } from "@/hooks/use-compare";
 import { useCountry } from "@/hooks/use-country";
 import { useLocale } from "@/hooks/use-locale";
@@ -305,7 +305,7 @@ function OfferPage() {
             )}
           </h4>
 
-          <div className="rounded-xl border border-gray-300/10 mt-2">
+          <div className="rounded-lg border border-stroke-subtle mt-2">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -451,7 +451,7 @@ function OfferPage() {
                               We use the{" "}
                               <a
                                 href="https://steamdb.info/tech/"
-                                className="text-blue-700 font-semibold"
+                                className="text-interactive font-semibold"
                                 target="_blank"
                                 rel="noopener noreferrer"
                               >
@@ -462,7 +462,7 @@ function OfferPage() {
                               <br />
                               <a
                                 href="https://github.com/SteamDatabase/FileDetectionRuleSets"
-                                className="text-blue-700 font-semibold"
+                                className="text-interactive font-semibold"
                                 target="_blank"
                                 rel="noopener noreferrer"
                               >
@@ -549,7 +549,7 @@ function OfferPage() {
                   addToCompare(offer.id);
                 }
               }}
-              className="inline-flex items-center gap-1 bg-card text-white hover:bg-card-hover border"
+              className="inline-flex items-center gap-1 bg-card text-text-primary hover:bg-card-hover border"
             >
               {compare.includes(offer.id) ? <RemoveIcon /> : <AddIcon />}
               <span>Compare</span>
@@ -557,7 +557,7 @@ function OfferPage() {
             <Popover>
               <PopoverTrigger asChild>
                 <Button
-                  className="inline-flex items-center gap-1 bg-card text-white hover:bg-card-hover border"
+                  className="inline-flex items-center gap-1 bg-card text-text-primary hover:bg-card-hover border"
                   size="sm"
                 >
                   <Bell className="h-4 w-4" />
@@ -812,7 +812,7 @@ function OfferPage() {
         <Outlet />
       </section>
 
-      <hr className="my-4 border-gray-300/40" />
+      <hr className="my-4 border-stroke-subtle" />
 
       <SellerOffers id={offer.seller.id} name={offer.seller.name} currentOffer={offer} />
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "@tanstack/react-router";
 import { X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/aria/button";
 
 const STORAGE_KEY = "android-install-banner-dismissed";
 

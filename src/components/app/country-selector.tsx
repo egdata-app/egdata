@@ -1,6 +1,6 @@
 import * as React from "react";
-import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
-import { Button } from "@/components/ui/button";
+import { ChevronsUpDown as CaretSortIcon, Check as CheckIcon } from "lucide-react";
+import { Button } from "@/components/aria/button";
 import {
   Command,
   CommandEmpty,
@@ -8,8 +8,8 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "@/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+} from "@/components/aria/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/aria/popover";
 import { httpClient } from "@/lib/http-client";
 import { useCountry } from "@/hooks/use-country";
 

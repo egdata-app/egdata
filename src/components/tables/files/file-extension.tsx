@@ -1,11 +1,11 @@
 import type React from "react";
 import { useState, useCallback, type KeyboardEvent, useRef, useEffect } from "react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Separator } from "@/components/ui/separator";
-import { PlusCircledIcon, Cross2Icon } from "@radix-ui/react-icons";
+import { Badge } from "@/components/aria/badge";
+import { Button } from "@/components/aria/button";
+import { Input } from "@/components/aria/input";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/aria/popover";
+import { Separator } from "@/components/aria/separator";
+import { CirclePlus as PlusCircledIcon, X as Cross2Icon } from "lucide-react";
 import type { Column } from "@tanstack/react-table";
 
 interface FileExtensionFilterProps<TData, TValue> {

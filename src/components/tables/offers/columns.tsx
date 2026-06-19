@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/aria/badge";
 import { offersDictionary } from "@/lib/offers-dictionary";
 import type { SingleOffer } from "@/types/single-offer";
 import { Link } from "@tanstack/react-router";

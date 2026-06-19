@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/aria/button";
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSeparator,
   InputOTPSlot,
-} from "@/components/ui/input-otp";
+} from "@/components/aria/input-otp";
 import { httpClient } from "@/lib/http-client";
 import consola from "consola";
 import { AlertCircle, CheckCircle, Loader } from "lucide-react";
-import { Alert, AlertDescription, AlertTitle } from "../ui/alert";
+import { Alert, AlertDescription, AlertTitle } from "../aria/alert";
 
 export function DonateKeyForm() {
   const [key, setKey] = useState("");
@@ -112,7 +112,7 @@ export function DonateKeyForm() {
               You can check the item details on the{" "}
               <a
                 href={`/offers/${id}`}
-                className="text-blue-600 underline underline-offset-4 decoration-dotted decoration-blue-600/50 hover:underline"
+                className="text-interactive underline underline-offset-4 decoration-dotted decoration-blue-600/50 hover:underline"
               >
                 Offer page
               </a>

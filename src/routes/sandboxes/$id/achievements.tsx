@@ -5,10 +5,10 @@ import {
 } from "@/components/app/achievement-card";
 import { SandboxHeader } from "@/components/app/sandbox-header";
 import { EpicTrophyIcon } from "@/components/icons/epic-trophy";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Button } from "@/components/aria/button";
+import { Card } from "@/components/aria/card";
+import { Input } from "@/components/aria/input";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/aria/tooltip";
 import { useLocale } from "@/hooks/use-locale";
 import { getQueryClient } from "@/lib/client";
 import { generateSandboxMeta } from "@/lib/generate-sandbox-meta";
@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils";
 import type { AchievementSet } from "@/queries/offer-achievements";
 import type { SingleOffer } from "@/types/single-offer";
 import type { SingleSandbox } from "@/types/single-sandbox";
-import { CardStackIcon, EyeOpenIcon } from "@radix-ui/react-icons";
+import { PanelsTopLeft as CardStackIcon, Eye as EyeOpenIcon } from "lucide-react";
 import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -168,7 +168,7 @@ function SandboxAchievementsPage() {
               onChange={(e) => setSearch(e.target.value)}
             />
             <Button
-              className="hover:bg-transparent border border-gray-800 bg-gray-800 inline-flex px-4 py-2 rounded-md text-center transition-all duration-300 ease-in-out text-white"
+              className="hover:bg-transparent border border-stroke-subtle bg-surface-panel inline-flex px-4 py-2 rounded-md text-center transition-all duration-300 ease-in-out text-text-primary"
               onClick={handleFlipAll}
               disabled={achievements.length === 0}
             >
@@ -176,7 +176,7 @@ function SandboxAchievementsPage() {
               Flip All
             </Button>
             <Button
-              className="hover:bg-transparent border border-gray-800 bg-gray-800 inline-flex px-4 py-2 rounded-md text-center transition-all duration-300 ease-in-out text-white"
+              className="hover:bg-transparent border border-stroke-subtle bg-surface-panel inline-flex px-4 py-2 rounded-md text-center transition-all duration-300 ease-in-out text-text-primary"
               onClick={() => setBlur(!blur)}
               disabled={achievements.length === 0}
             >
@@ -184,7 +184,7 @@ function SandboxAchievementsPage() {
             </Button>
           </div>
         </div>
-        <Card className="w-full bg-card text-white p-4">
+        <Card className="w-full bg-card text-text-primary p-4">
           <div className="flex flex-row items-center justify-center gap-10">
             {Object.entries(noOfAchievemenentsPerRarity).map(([rarity, count]) => (
               <div
@@ -308,12 +308,12 @@ function SandboxAchievementsPage() {
                   </p>
                 </div>
               )}
-              <hr className="w-full my-4 border-gray-300/40" />
+              <hr className="w-full my-4 border-stroke-subtle" />
             </div>
           ))}
         {achievements.length === 0 && (
           <div className="flex justify-center items-center h-96">
-            <p className="text-gray-500">No achievements found</p>
+            <p className="text-text-subtle">No achievements found</p>
           </div>
         )}
       </div>

@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "../ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "../aria/carousel";
 import { httpClient } from "@/lib/http-client";
-import { Skeleton } from "../ui/skeleton";
+import { Skeleton } from "../aria/skeleton";
 import { OfferCard } from "@/components/app/offer-card";
 import type { SingleOffer } from "@/types/single-offer";
 import { useCountry } from "@/hooks/use-country";
-import { ArrowUpIcon } from "@radix-ui/react-icons";
+import { ArrowUp as ArrowUpIcon } from "lucide-react";
 import { useState } from "react";
 
 export function CollectionOffers({ id }: { id: string }) {
@@ -42,14 +42,14 @@ export function CollectionOffers({ id }: { id: string }) {
           <div className="flex gap-2">
             <button
               onClick={handlePreviousSlide}
-              className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
+              className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-surface-ground focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
               type="button"
             >
               <ArrowUpIcon className="w-5 h-5 transform -rotate-90" />
             </button>
             <button
               onClick={handleNextSlide}
-              className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
+              className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-surface-ground focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
               type="button"
             >
               <ArrowUpIcon className="w-5 h-5 transform rotate-90" />
@@ -94,14 +94,14 @@ export function CollectionOffers({ id }: { id: string }) {
         <div className="flex gap-2">
           <button
             onClick={handlePreviousSlide}
-            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
+            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-surface-ground focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
             type="button"
           >
             <ArrowUpIcon className="w-5 h-5 transform -rotate-90" />
           </button>
           <button
             onClick={handleNextSlide}
-            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
+            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-surface-ground focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
             type="button"
           >
             <ArrowUpIcon className="w-5 h-5 transform rotate-90" />

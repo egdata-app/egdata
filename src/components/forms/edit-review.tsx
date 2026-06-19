@@ -1,11 +1,11 @@
 import { useForm } from "@tanstack/react-form";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../ui/card";
-import { Label } from "../ui/label";
-import { Slider } from "../ui/slider";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { Alert } from "../ui/alert";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "../aria/card";
+import { Label } from "../aria/label";
+import { Slider } from "../aria/slider";
+import { RadioGroup, RadioGroupItem } from "../aria/radio-group";
+import { Input } from "../aria/input";
+import { Button } from "../aria/button";
+import { Alert } from "../aria/alert";
 import type { SingleOffer } from "@/types/single-offer";
 import { useState } from "react";
 import MotionNumber from "@number-flow/react";
@@ -25,8 +25,8 @@ import {
   DialogFooter,
   DialogTitle,
   DialogTrigger,
-} from "../ui/dialog";
-import { AlertDialogHeader } from "../ui/alert-dialog";
+} from "../aria/dialog";
+import { AlertDialogHeader } from "../aria/alert-dialog";
 
 interface ReviewFormProps {
   setIsOpen: (isOpen: boolean) => void;

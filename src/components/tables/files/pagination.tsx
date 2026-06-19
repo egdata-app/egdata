@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { ChevronRightIcon, DoubleArrowLeftIcon, DoubleArrowRightIcon } from "@radix-ui/react-icons";
+import { Button } from "@/components/aria/button";
+import { ChevronRight as ChevronRightIcon, ChevronsLeft as DoubleArrowLeftIcon, ChevronsRight as DoubleArrowRightIcon } from "lucide-react";
 import type { Table } from "@tanstack/react-table";
 import { ChevronLeftIcon } from "lucide-react";
 

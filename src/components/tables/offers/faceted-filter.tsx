@@ -1,5 +1,5 @@
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/aria/badge";
+import { Button } from "@/components/aria/button";
 import {
   Command,
   CommandEmpty,
@@ -8,11 +8,11 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from "@/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Separator } from "@/components/ui/separator";
+} from "@/components/aria/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/aria/popover";
+import { Separator } from "@/components/aria/separator";
 import { cn } from "@/lib/utils";
-import { PlusCircledIcon } from "@radix-ui/react-icons";
+import { CirclePlus as PlusCircledIcon } from "lucide-react";
 import type { Column } from "@tanstack/react-table";
 import { CheckIcon } from "lucide-react";
 

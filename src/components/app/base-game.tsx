@@ -30,21 +30,21 @@ export const BaseGame: React.FC<{ offer: SingleOffer }> = ({ offer }) => {
 
   return (
     <Link
-      className="flex items-center bg-gray-800 rounded-lg shadow-lg w-full h-16 relative mt-2 overflow-hidden group"
+      className="flex items-center bg-surface-panel rounded-lg shadow-raised w-full h-16 relative mt-2 overflow-hidden group"
       to="/offers/$id"
       params={{ id: game.id }}
       preload="viewport"
     >
-      <span className="text-white font-bold absolute z-20 flex-col px-5 gap-1">
+      <span className="text-text-primary font-bold absolute z-20 flex-col px-5 gap-1">
         <h6 className="text-xs">Check the base game</h6>
         <h4 className="text-lg font-bold">{game.title}</h4>
       </span>
       <span
         className={cn(
           "absolute inset-0 z-[11]",
-          "from-gray-700/20 to-gray-700/20 backdrop-blur-sm",
+          "from-surface-hover to-gray-700/20 backdrop-blur-sm",
           "group-hover:backdrop-blur-none transition-all duration-700",
-          "bg-gradient-to-r group-hover:from-gray-700/30 group-hover:from-40% group-hover:to-transparent",
+          "group-hover:egd-row-sheen",
         )}
       />
       <div className="absolute inset-0">

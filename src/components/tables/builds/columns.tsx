@@ -1,5 +1,5 @@
 import { textPlatformIcons } from "@/components/app/platform-icons";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/aria/tooltip";
 import { calculateSize } from "@/lib/calculate-size";
 import type { Build } from "@/types/builds";
 import { Link } from "@tanstack/react-router";

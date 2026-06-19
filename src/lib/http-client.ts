@@ -33,7 +33,7 @@ class HttpFetch {
 
     // Handle async initialization for Node.js environment
     this.initializationPromise = (async () => {
-      if (typeof window === "undefined") {
+      if (import.meta.env.SSR) {
         try {
           const [http, https] = await Promise.all([
             import("node:http"),

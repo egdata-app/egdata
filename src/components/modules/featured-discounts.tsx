@@ -5,20 +5,19 @@ import {
   type CarouselApi,
   CarouselContent,
   CarouselItem,
-} from "@/components/ui/carousel";
-import { Button } from "@/components/ui/button";
+} from "@/components/aria/carousel";
+import { Button } from "@/components/aria/button";
 import { Image } from "@/components/app/image";
 import { getImage } from "@/lib/getImage";
 import type { Media } from "@/types/media";
 import { useCallback, useEffect, useMemo, useRef, useState, memo } from "react";
-import Autoplay from "embla-carousel-autoplay";
-import { TooltipProvider, TooltipTrigger, TooltipContent, Tooltip } from "@/components/ui/tooltip";
+import { TooltipProvider, TooltipTrigger, TooltipContent, Tooltip } from "@/components/aria/tooltip";
 import { cn } from "@/lib/utils";
-import { Badge } from "../ui/badge";
+import { Badge } from "../aria/badge";
 import buildImageUrl from "@/lib/build-image-url";
 import { useCountry } from "@/hooks/use-country";
 import { getFeaturedDiscounts } from "@/queries/featured-discounts";
-import { ArrowUpIcon } from "@radix-ui/react-icons";
+import { ArrowUp as ArrowUpIcon } from "lucide-react";
 import type { Price as OfferPrice } from "@/types/price";
 import { httpClient } from "@/lib/http-client";
 import { calculatePrice } from "@/lib/calculate-price";
@@ -128,7 +127,7 @@ export function FeaturedDiscounts() {
         <div className="flex gap-2">
           <button
             onClick={handlePreviousSlide}
-            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
+            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-surface-ground focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
             disabled={current === 1}
             type="button"
           >
@@ -136,7 +135,7 @@ export function FeaturedDiscounts() {
           </button>
           <button
             onClick={handleNextSlide}
-            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
+            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-surface-ground focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
             disabled={current === count}
             type="button"
           >
@@ -147,13 +146,6 @@ export function FeaturedDiscounts() {
       <Carousel
         className="mt-2 p-4 h-fit"
         setApi={setApi}
-        plugins={[
-          Autoplay({
-            delay: SLIDE_DELAY,
-            stopOnMouseEnter: true,
-            stopOnInteraction: false,
-          }),
-        ]}
       >
         <CarouselContent>
           {featuredDiscounts.map((offer) => (
@@ -186,7 +178,7 @@ const ProgressIndicator = memo(function ProgressIndicator({
 }: {
   current: number;
   total: number;
-  api: CarouselApi;
+  api?: CarouselApi;
   offers: SingleOffer[];
   progress: number[];
 }) {
@@ -197,8 +189,8 @@ const ProgressIndicator = memo(function ProgressIndicator({
         <TooltipTrigger
           className={cn(
             "block w-5 h-[5px] rounded-full cursor-pointer relative",
-            "bg-gray-500",
-            current === i + 1 ? "w-10" : "hover:bg-gray-700 hover:w-8",
+            "bg-surface-active",
+            current === i + 1 ? "w-10" : "hover:bg-surface-hover hover:w-8",
             "transition-width duration-300 ease-in-out",
           )}
           onClick={() => api?.scrollTo(i)}
@@ -292,13 +284,13 @@ const FeaturedOffer = memo(function FeaturedOffer({ offer }: { offer: SingleOffe
   const handleMouseLeave = useCallback(() => setIsHovered(false), []);
 
   return (
-    <div className="w-full mx-auto bg-background rounded-lg shadow-md">
+    <div className="w-full mx-auto bg-background rounded-lg shadow-panel">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
           {videoUrl && (
             <video
               className={cn(
-                "rounded-xl shadow-lg transition-opacity duration-700 absolute inset-0 ease-in-out w-full h-full object-cover",
+                "rounded-lg shadow-raised transition-opacity duration-700 absolute inset-0 ease-in-out w-full h-full object-cover",
                 isHovered ? "opacity-100" : "opacity-0",
               )}
               autoPlay
@@ -378,7 +370,7 @@ const Price = memo(function Price({ offer }: { offer: SingleOffer }) {
   const isFree = offer.price?.price.discountPrice === 0;
 
   if (!offer.price) {
-    return <span className="text-xl font-bold text-green-400">Coming Soon</span>;
+    return <span className="text-xl font-bold text-success">Coming Soon</span>;
   }
 
   return (
@@ -393,9 +385,9 @@ const Price = memo(function Price({ offer }: { offer: SingleOffer }) {
           </span>
         )}
         {isFree ? (
-          <span className="text-xl font-bold text-green-400">Free</span>
+          <span className="text-xl font-bold text-success">Free</span>
         ) : (
-          <span className="text-xl font-bold text-green-400">
+          <span className="text-xl font-bold text-success">
             {priceFmtd.format(
               calculatePrice(offer.price?.price.discountPrice, offer.price?.price.currencyCode),
             )}

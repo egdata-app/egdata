@@ -2,12 +2,12 @@
 
 import consola from "consola";
 import z from "zod";
+import { precacheAndRoute } from "workbox-precaching";
 
 declare const self: ServiceWorkerGlobalScope;
 
-// @ts-expect-error Used by workbox to inject the manifest
-const __manifest = self.__WB_MANIFEST;
-void __manifest; // Silence unused variable warning
+// Injected by workbox-build during production builds.
+precacheAndRoute(self.__WB_MANIFEST);
 
 const notificationSchema = z.object({
   title: z.string(),

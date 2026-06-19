@@ -1,6 +1,6 @@
 @import "tailwindcss" source("../src");
+@plugin "tailwindcss-react-aria-components";
 @import "@vidstack/react/player/styles/base.css";
-@import "tw-animate-css";
 
 @property --ambient-primary {
   syntax: "<color>";
@@ -28,41 +28,168 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@utility animate-in {
+  animation: egd-fade-in 160ms ease-out both;
+}
+
+@utility animate-out {
+  animation: egd-fade-out 120ms ease-in both;
+}
+
+@utility fade-in {
+  --egd-enter-opacity: 0;
+}
+
+@utility fade-in-0 {
+  --egd-enter-opacity: 0;
+}
+
+@utility fade-out-0 {
+  --egd-exit-opacity: 0;
+}
+
+@utility zoom-in-95 {
+  --egd-enter-scale: 0.95;
+}
+
+@utility zoom-out-95 {
+  --egd-exit-scale: 0.95;
+}
+
+@utility slide-in-from-top {
+  --egd-enter-y: -100%;
+}
+
+@utility slide-in-from-bottom {
+  --egd-enter-y: 100%;
+}
+
+@utility slide-in-from-bottom-2 {
+  --egd-enter-y: 0.5rem;
+}
+
+@utility slide-in-from-left {
+  --egd-enter-x: -100%;
+}
+
+@utility slide-in-from-left-3 {
+  --egd-enter-x: -0.75rem;
+}
+
+@utility slide-in-from-right {
+  --egd-enter-x: 100%;
+}
+
+@utility slide-in-from-right-3 {
+  --egd-enter-x: 0.75rem;
+}
+
+@utility slide-out-to-top {
+  --egd-exit-y: -100%;
+}
+
+@utility slide-out-to-bottom {
+  --egd-exit-y: 100%;
+}
+
+@utility slide-out-to-left {
+  --egd-exit-x: -100%;
+}
+
+@utility slide-out-to-right {
+  --egd-exit-x: 100%;
+}
+
+@utility animate-accordion-down {
+  animation: egd-accordion-down 200ms ease-out both;
+}
+
+@utility animate-accordion-up {
+  animation: egd-accordion-up 200ms ease-out both;
+}
+
 :root {
-  --background: hsl(240 11.1% 7.1%);
-  --foreground: hsl(166 33% 99%);
-  --muted: hsl(240 3% 21%);
-  --muted-foreground: hsl(136 8% 73%);
-  --popover: hsl(240 7% 12%);
-  --popover-foreground: hsl(180 39% 100%);
-  --card: hsl(240 7% 12%);
-  --card-foreground: hsl(180 39% 100%);
-  --border: hsl(240 3% 19%);
-  --input: hsl(240 3% 19%);
-  --primary: hsl(166 67% 88%);
-  --primary-foreground: hsl(166 67% 8%);
-  --secondary: hsl(136 67% 88%);
-  --secondary-foreground: hsl(136 67% 8%);
-  --accent: hsl(240 3.7% 15.9%);
-  --accent-foreground: hsl(0 0% 98%);
-  --destructive: hsl(0 94% 49%);
-  --destructive-foreground: hsl(0 0% 100%);
-  --ring: hsl(166 67% 88%);
-  --radius: 0.5rem;
-  --badge: hsl(198.8deg 100% 57.45%);
-  --chart-1: 220 70% 50%;
-  --chart-2: 340 75% 55%;
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  color-scheme: dark;
+
+  /* EGDATA launcher system: near-black canvas, layered panels, EGS-blue interaction. */
+  --canvas: hsl(225 12% 5%);
+  --surface-ground: hsl(225 11% 7%);
+  --surface-panel: hsl(225 10% 10%);
+  --surface-raised: hsl(225 9% 13%);
+  --surface-hover: hsl(225 9% 17%);
+  --surface-active: hsl(222 11% 21%);
+  --surface-overlay: hsl(225 11% 8% / 0.92);
+  --surface-scrim: hsl(225 12% 3% / 0.72);
+
+  --text-primary: hsl(210 18% 96%);
+  --text-secondary: hsl(216 12% 78%);
+  --text-muted: hsl(217 9% 59%);
+  --text-subtle: hsl(218 8% 43%);
+  --text-inverse: hsl(225 12% 5%);
+
+  --stroke-subtle: hsl(220 9% 18%);
+  --stroke-default: hsl(220 9% 24%);
+  --stroke-strong: hsl(218 10% 34%);
+
+  --interactive: hsl(204 100% 58%);
+  --interactive-hover: hsl(204 100% 66%);
+  --interactive-active: hsl(204 100% 48%);
+  --interactive-muted: hsl(204 100% 58% / 0.16);
+  --interactive-foreground: hsl(225 12% 5%);
+
+  --success: hsl(143 71% 45%);
+  --success-muted: hsl(143 71% 45% / 0.16);
+  --warning: hsl(42 96% 58%);
+  --warning-muted: hsl(42 96% 58% / 0.16);
+  --danger: hsl(0 84% 60%);
+  --danger-muted: hsl(0 84% 60% / 0.16);
+  --info: hsl(204 100% 58%);
+  --info-muted: hsl(204 100% 58% / 0.16);
+
+  --brand-discord: hsl(235 86% 65%);
+  --brand-discord-hover: hsl(235 71% 57%);
+
+  --background: var(--canvas);
+  --foreground: var(--text-primary);
+  --muted: var(--surface-raised);
+  --muted-foreground: var(--text-muted);
+  --popover: var(--surface-overlay);
+  --popover-foreground: var(--text-primary);
+  --card: var(--surface-panel);
+  --card-foreground: var(--text-primary);
+  --border: var(--stroke-subtle);
+  --input: var(--stroke-default);
+  --primary: var(--interactive);
+  --primary-foreground: var(--interactive-foreground);
+  --secondary: var(--surface-raised);
+  --secondary-foreground: var(--text-primary);
+  --accent: var(--surface-hover);
+  --accent-foreground: var(--text-primary);
+  --destructive: var(--danger);
+  --destructive-foreground: var(--text-primary);
+  --ring: var(--interactive);
+  --radius: 0.375rem;
+  --badge: var(--interactive);
+
+  --chart-1: hsl(204 100% 58%);
+  --chart-2: hsl(143 71% 45%);
+  --chart-3: hsl(42 96% 58%);
+  --chart-4: hsl(280 82% 70%);
+  --chart-5: hsl(0 84% 60%);
   --bronze-start: rgb(202, 81, 43);
   --bronze-end: rgb(202, 81, 43, 0.6);
   --silver-start: rgb(175, 180, 189);
   --silver-end: rgba(175, 180, 189, 0.6);
   --gold-start: rgb(255, 232, 60);
   --gold-end: rgb(255, 232, 60, 0.6);
-  --platinum-start: rgb(114, 91, 255);
-  --platinum-end: rgba(114, 91, 255, 0.6);
+  --platinum-start: rgb(138, 124, 255);
+  --platinum-end: rgba(138, 124, 255, 0.6);
+
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasized: cubic-bezier(0.2, 0, 0, 1.2);
+  --duration-fast: 120ms;
+  --duration-default: 180ms;
+  --duration-slow: 260ms;
 }
 
 @theme inline {
@@ -78,6 +205,36 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
+  --color-canvas: var(--canvas);
+  --color-surface-ground: var(--surface-ground);
+  --color-surface-panel: var(--surface-panel);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-hover: var(--surface-hover);
+  --color-surface-active: var(--surface-active);
+  --color-surface-overlay: var(--surface-overlay);
+  --color-surface-scrim: var(--surface-scrim);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-subtle: var(--text-subtle);
+  --color-text-inverse: var(--text-inverse);
+  --color-stroke-subtle: var(--stroke-subtle);
+  --color-stroke-default: var(--stroke-default);
+  --color-stroke-strong: var(--stroke-strong);
+  --color-interactive: var(--interactive);
+  --color-interactive-hover: var(--interactive-hover);
+  --color-interactive-active: var(--interactive-active);
+  --color-interactive-muted: var(--interactive-muted);
+  --color-success: var(--success);
+  --color-success-muted: var(--success-muted);
+  --color-warning: var(--warning);
+  --color-warning-muted: var(--warning-muted);
+  --color-danger: var(--danger);
+  --color-danger-muted: var(--danger-muted);
+  --color-info: var(--info);
+  --color-info-muted: var(--info-muted);
+  --color-brand-discord: var(--brand-discord);
+  --color-brand-discord-hover: var(--brand-discord-hover);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
@@ -95,6 +252,10 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --shadow-panel: 0 1px 0 hsl(0 0% 100% / 0.04) inset, 0 14px 34px hsl(225 16% 2% / 0.36);
+  --shadow-raised: 0 1px 0 hsl(0 0% 100% / 0.05) inset, 0 18px 48px hsl(225 16% 2% / 0.48);
+  --shadow-popover: 0 1px 0 hsl(0 0% 100% / 0.06) inset, 0 22px 64px hsl(225 16% 2% / 0.62);
+  --shadow-focus: 0 0 0 1px var(--interactive), 0 0 0 4px hsl(204 100% 58% / 0.18);
   --color-sidebar: var(--sidebar);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar-primary: var(--sidebar-primary);
@@ -110,6 +271,7 @@
   --color-gold-start: var(--gold-start);
   --color-gold-end: var(--gold-end);
   --color-platinum-start: var(--platinum-start);
+  --color-platinum-end: var(--platinum-end);
   --font-sans: "Nunito", sans-serif;
   --font-montserrat: "Montserrat", sans-serif;
   --font-raleway: "Raleway", sans-serif;
@@ -120,8 +282,84 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-canvas text-text-primary;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
   }
+  a {
+    @apply transition-colors;
+  }
+  ::selection {
+    @apply bg-interactive text-text-inverse;
+  }
+}
+
+@utility egd-focus-ring {
+  @apply outline-none focus-visible:ring-[3px] focus-visible:ring-interactive/25 focus-visible:border-interactive data-[focus-visible]:ring-[3px] data-[focus-visible]:ring-interactive/25 data-[focus-visible]:border-interactive;
+}
+
+@utility egd-panel {
+  @apply border border-stroke-subtle bg-surface-panel text-text-primary shadow-panel;
+}
+
+@utility egd-panel-raised {
+  @apply border border-stroke-default bg-surface-raised text-text-primary shadow-raised;
+}
+
+@utility egd-overlay {
+  @apply border border-stroke-default bg-surface-overlay text-text-primary shadow-popover backdrop-blur-xl;
+}
+
+@utility egd-row-hover {
+  @apply transition-colors hover:bg-surface-hover/80 data-[state=selected]:bg-surface-active;
+}
+
+@utility egd-image-overlay {
+  background: linear-gradient(
+    180deg,
+    hsl(225 12% 5% / 0) 0%,
+    hsl(225 12% 5% / 0.52) 52%,
+    hsl(225 12% 5% / 0.92) 100%
+  );
+}
+
+@utility egd-hero-scrim {
+  background: linear-gradient(
+    90deg,
+    hsl(225 12% 5% / 0.88) 0%,
+    hsl(225 12% 5% / 0.52) 46%,
+    hsl(225 12% 5% / 0.18) 100%
+  );
+}
+
+@utility egd-fade-to-canvas {
+  background: linear-gradient(
+    0deg,
+    var(--canvas) 0%,
+    hsl(225 12% 5% / 0.84) 38%,
+    hsl(225 12% 5% / 0) 100%
+  );
+}
+
+@utility egd-brand-wash {
+  background:
+    radial-gradient(circle at 16% 10%, hsl(204 100% 58% / 0.2), transparent 34%),
+    linear-gradient(135deg, var(--surface-raised), var(--surface-panel));
+}
+
+@utility egd-donor-text {
+  color: transparent;
+  background: linear-gradient(90deg, var(--interactive), var(--platinum-start), hsl(326 86% 64%));
+  background-clip: text;
+}
+
+@utility egd-donor-surface {
+  background: linear-gradient(90deg, var(--interactive), var(--platinum-start), hsl(326 86% 64%));
+}
+
+@utility egd-row-sheen {
+  background: linear-gradient(90deg, var(--surface-hover), hsl(225 12% 5% / 0));
 }
 
 @utility container {
@@ -239,7 +477,7 @@ body {
   top: 0;
   bottom: 0;
   width: 2px;
-  background: #d1d5db;
+  background: var(--stroke-default);
 }
 .tree::after,
 .tree-last::after {
@@ -249,10 +487,46 @@ body {
   top: 0.7em;
   width: 1.5em;
   height: 2px;
-  background: #d1d5db;
+  background: var(--stroke-default);
 }
 .tree-last::before {
   height: 0.7em;
+}
+
+@keyframes egd-fade-in {
+  from {
+    opacity: var(--egd-enter-opacity, 0);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes egd-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: var(--egd-exit-opacity, 0);
+  }
+}
+
+@keyframes egd-accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height, auto);
+  }
+}
+
+@keyframes egd-accordion-up {
+  from {
+    height: var(--radix-accordion-content-height, auto);
+  }
+  to {
+    height: 0;
+  }
 }
 
 @keyframes shadow-pulse {

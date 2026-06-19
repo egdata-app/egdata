@@ -1,13 +1,13 @@
-import { Button } from "@/components/ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/aria/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/aria/popover";
+import { Badge } from "@/components/aria/badge";
 import { Check, Globe } from "lucide-react";
 
 export function DiscordBotPopover() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="ghost" className="hover:text-white">
+        <Button variant="ghost" className="hover:text-text-primary">
           <svg
             viewBox="0 -28.5 256 256"
             version="1.1"
@@ -65,7 +65,7 @@ export function DiscordBotPopover() {
             </div>
           </div> */}
           <Button
-            className="w-full bg-indigo-500 text-white hover:bg-indigo-600 hover:text-white"
+            className="w-full bg-indigo-500 text-text-primary hover:bg-indigo-600 hover:text-text-primary"
             onClick={() => {
               // Open a browser popup to invite the bot to your server
               window.open(

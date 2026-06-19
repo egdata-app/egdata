@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/aria/card";
 import { calculateSize } from "@/lib/calculate-size";
 import { httpClient } from "@/lib/http-client";
 import type { BuildInstallOptions } from "@/types/builds";

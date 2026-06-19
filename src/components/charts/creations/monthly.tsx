@@ -5,14 +5,14 @@ import {
   ChartTooltip,
   ChartTooltipContent,
   type ChartConfig,
-} from "@/components/ui/chart";
+} from "@/components/aria/chart";
 import { Fragment, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { keepPreviousData } from "@tanstack/react-query";
 import { httpClient } from "@/lib/http-client";
 import { linearRegression } from "@/lib/linear-regression";
 import { CartesianGrid, LineChart, ReferenceLine, XAxis } from "recharts";
-import { Separator } from "@/components/ui/separator";
+import { Separator } from "@/components/aria/separator";
 
 export const getCreationsByMonth = async () =>
   httpClient.get<MonthlyCreation[]>("/stats/creations/monthly");

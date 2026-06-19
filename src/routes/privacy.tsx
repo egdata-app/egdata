@@ -38,7 +38,7 @@ export const Route = createFileRoute("/privacy")({
         <p className="mb-4">
           All the source code for egdata.app is available on{" "}
           <a
-            className="text-blue-500"
+            className="text-interactive"
             href="https://github.com/nachoaldamav/egdata"
             target="_blank"
             rel="noopener noreferrer"
@@ -105,7 +105,7 @@ export const Route = createFileRoute("/privacy")({
           responsible for protecting their sensitive information within the{" "}
           <a
             href="https://dev.epicgames.com/portal/en-US"
-            className="text-blue-500"
+            className="text-interactive"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -123,7 +123,7 @@ export const Route = createFileRoute("/privacy")({
               href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX%3A32019L0790"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-500"
+              className="text-interactive"
             >
               Directive (EU) 2019/790 on copyright and related rights in the Digital Single Market
             </a>
@@ -133,7 +133,7 @@ export const Route = createFileRoute("/privacy")({
               href="https://ec.europa.eu/commission/presscorner/detail/en/QANDA_21_2821"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-blue-500"
+              className="text-interactive"
             >
               Questions and Answers – New EU copyright rules
             </a>
@@ -143,7 +143,7 @@ export const Route = createFileRoute("/privacy")({
         <p className="mb-4">
           If you have questions about our Fair Use Policy or believe any content infringes on your
           copyright, please contact us at:{" "}
-          <a href="mailto:fairuse@egdata.app" className="text-blue-500">
+          <a href="mailto:fairuse@egdata.app" className="text-interactive">
             fairuse@egdata.app
           </a>
         </p>
@@ -151,7 +151,7 @@ export const Route = createFileRoute("/privacy")({
         <h2 className="text-2xl font-bold mb-2">Contact Us</h2>
         <p className="mb-4">
           You can contact us via{" "}
-          <a className="text-blue-500" href="mailto:contact@egdata.app">
+          <a className="text-interactive" href="mailto:contact@egdata.app">
             contact@egdata.app
           </a>
           .

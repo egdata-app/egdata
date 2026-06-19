@@ -13,6 +13,7 @@ import { keepPreviousData } from "@tanstack/react-query";
 import { SearchFilters } from "./SearchFilters";
 import { SearchHeader } from "./SearchHeader";
 import { SearchResults } from "./SearchResults";
+import { PageShell } from "@/components/app/design-system";
 
 export interface SearchContainerProps {
   contextId?: string; // Unique identifier for this search context
@@ -262,8 +263,8 @@ export function SearchContainer({
   }, [contextId]);
 
   return (
-    <div className="flex flex-col gap-4 min-h-screen w-full">
-      <main className="flex flex-row flex-nowrap items-start justify-between gap-4">
+    <PageShell>
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <SearchFilters
           query={query as TypeOf<typeof formSchema>}
           setField={setField}
@@ -278,7 +279,7 @@ export function SearchContainer({
           publisherCounts={publisherCounts}
           controls={mergedControls}
         />
-        <div className="flex flex-col gap-4 w-full justify-start items-start relative">
+        <div className="relative flex w-full flex-col items-start justify-start gap-4">
           <SearchHeader
             query={query as TypeOf<typeof formSchema>}
             setField={setField}
@@ -294,7 +295,7 @@ export function SearchContainer({
             results={results}
           />
         </div>
-      </main>
-    </div>
+      </div>
+    </PageShell>
   );
 }

@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { useCookies } from "react-cookie";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/aria/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/aria/card";
 import { Bell, BellOff, Loader2, Gift, GamepadIcon, TrendingDown } from "lucide-react";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Alert, AlertDescription } from "@/components/aria/alert";
 import { usePushNotifications } from "@/hooks/use-push-notifications";
 import { useQuery } from "@tanstack/react-query";
 import { subscriptionsQuery } from "@/queries/push-notifications";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Checkbox } from "@/components/aria/checkbox";
 
 // Generate a UUID v4
 const generateUUID = (): string => {

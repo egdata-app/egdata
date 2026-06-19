@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
+import { Button } from "@/components/aria/button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/aria/card";
+import { Label } from "@/components/aria/label";
+import { Switch } from "@/components/aria/switch";
 import { useCookies } from "@/hooks/use-cookies";
 import { Link } from "@tanstack/react-router";
 import type { ConsentSettings } from "./google-analytics";
-import { Separator } from "../ui/separator";
+import { Separator } from "../aria/separator";
 
 export function CookieBanner() {
   const [showCustomize, setShowCustomize] = useState(false);

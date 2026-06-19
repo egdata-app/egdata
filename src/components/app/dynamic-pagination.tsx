@@ -6,7 +6,7 @@ import {
   PaginationPreviousButton,
   PaginationButton,
   PaginationNextButton,
-} from "@/components/ui/pagination";
+} from "@/components/aria/pagination";
 
 interface PaginationProps {
   currentPage: number;

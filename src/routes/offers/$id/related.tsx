@@ -162,7 +162,7 @@ function RelatedOffersPage() {
             <div key={offerType} className="flex flex-col gap-4">
               <h3 className="text-lg md:text-xl font-semibold inline-flex items-center gap-2">
                 {offersDictionary[offerType as keyof typeof offersDictionary] ?? offerType}{" "}
-                <span className="text-xs text-gray-400">({offers.length})</span>
+                <span className="text-xs text-text-muted">({offers.length})</span>
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
                 {offers?.map((offer) => (

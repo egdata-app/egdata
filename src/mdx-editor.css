@@ -1,47 +1,44 @@
-@import url("@radix-ui/colors/tomato-dark.css");
-@import url("@radix-ui/colors/mauve-dark.css");
-
 .dark-editor {
-  --accentBase: var(--tomato-1);
-  --accentBgSubtle: var(--tomato-2);
-  --accentBg: var(--tomato-3);
-  --accentBgHover: var(--tomato-4);
-  --accentBgActive: var(--tomato-5);
-  --accentLine: var(--tomato-6);
-  --accentBorder: var(--tomato-7);
-  --accentBorderHover: var(--tomato-8);
-  --accentSolid: var(--tomato-9);
-  --accentSolidHover: var(--tomato-10);
-  --accentText: var(--tomato-11);
-  --accentTextContrast: var(--tomato-12);
+  --accentBase: hsl(10 23% 9%);
+  --accentBgSubtle: hsl(9 44% 12%);
+  --accentBg: hsl(8 52% 15%);
+  --accentBgHover: hsl(7 56% 18%);
+  --accentBgActive: hsl(7 60% 22%);
+  --accentLine: hsl(8 65% 27%);
+  --accentBorder: hsl(8 72% 33%);
+  --accentBorderHover: hsl(8 80% 43%);
+  --accentSolid: hsl(10 78% 54%);
+  --accentSolidHover: hsl(10 83% 59%);
+  --accentText: hsl(10 100% 72%);
+  --accentTextContrast: hsl(10 85% 96%);
 
-  --baseBase: var(--mauve-1);
-  --baseBgSubtle: var(--mauve-2);
-  --baseBg: var(--mauve-3);
-  --baseBgHover: var(--mauve-4);
-  --baseBgActive: var(--mauve-5);
-  --baseLine: var(--mauve-6);
-  --baseBorder: var(--mauve-7);
-  --baseBorderHover: var(--mauve-8);
-  --baseSolid: var(--mauve-9);
-  --baseSolidHover: var(--mauve-10);
-  --baseText: var(--mauve-11);
-  --baseTextContrast: var(--mauve-12);
+  --baseBase: hsl(240 11% 7%);
+  --baseBgSubtle: hsl(240 8% 10%);
+  --baseBg: hsl(240 7% 12%);
+  --baseBgHover: hsl(240 5% 16%);
+  --baseBgActive: hsl(240 4% 19%);
+  --baseLine: hsl(240 4% 24%);
+  --baseBorder: hsl(240 4% 29%);
+  --baseBorderHover: hsl(240 4% 36%);
+  --baseSolid: hsl(240 4% 45%);
+  --baseSolidHover: hsl(240 4% 50%);
+  --baseText: hsl(240 6% 76%);
+  --baseTextContrast: hsl(0 0% 98%);
 
-  --admonitionTipBg: var(--cyan4);
-  --admonitionTipBorder: var(--cyan8);
+  --admonitionTipBg: hsl(190 55% 17%);
+  --admonitionTipBorder: hsl(190 60% 36%);
 
-  --admonitionInfoBg: var(--grass4);
-  --admonitionInfoBorder: var(--grass8);
+  --admonitionInfoBg: hsl(142 45% 16%);
+  --admonitionInfoBorder: hsl(142 58% 34%);
 
-  --admonitionCautionBg: var(--amber4);
-  --admonitionCautionBorder: var(--amber8);
+  --admonitionCautionBg: hsl(38 75% 16%);
+  --admonitionCautionBorder: hsl(38 82% 39%);
 
-  --admonitionDangerBg: var(--red4);
-  --admonitionDangerBorder: var(--red8);
+  --admonitionDangerBg: hsl(0 65% 17%);
+  --admonitionDangerBorder: hsl(0 72% 39%);
 
-  --admonitionNoteBg: var(--mauve-4);
-  --admonitionNoteBorder: var(--mauve-8);
+  --admonitionNoteBg: var(--baseBgHover);
+  --admonitionNoteBorder: var(--baseBorderHover);
 
   --textBaseContrast: white;
 

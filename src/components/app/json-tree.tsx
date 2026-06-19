@@ -23,35 +23,35 @@ export const JsonVisualizer: React.FC<JsonVisualizerProps> = ({
 
     const renderKey = (k: string | number | undefined) => {
       if (k === undefined) return null;
-      return <span className="text-purple-600 mr-1">{k}: </span>;
+      return <span className="text-platinum-start mr-1">{k}: </span>;
     };
 
     if (value === null)
       return (
         <div className={lineClass}>
           {renderKey(key)}
-          <span className="text-gray-500">null</span>
+          <span className="text-text-subtle">null</span>
         </div>
       );
     if (typeof value === "boolean")
       return (
         <div className={lineClass}>
           {renderKey(key)}
-          <span className="text-blue-600">{value.toString()}</span>
+          <span className="text-interactive">{value.toString()}</span>
         </div>
       );
     if (typeof value === "number")
       return (
         <div className={lineClass}>
           {renderKey(key)}
-          <span className="text-green-600">{value}</span>
+          <span className="text-success">{value}</span>
         </div>
       );
     if (typeof value === "string")
       return (
         <div className={lineClass}>
           {renderKey(key)}
-          <span className="text-red-600">"{value}"</span>
+          <span className="text-danger">"{value}"</span>
         </div>
       );
 

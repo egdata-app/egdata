@@ -10,27 +10,27 @@ import {
 } from "@tanstack/react-query";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { Suspense, useState, useEffect } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/components/aria/skeleton";
 import { Image } from "@/components/app/image";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from "@/components/aria/accordion";
 import { Player } from "@/components/app/video-player";
 import { DownloadIcon, XIcon } from "lucide-react";
-import * as Portal from "@radix-ui/react-portal";
+import * as Portal from "@/components/aria/portal";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel";
+} from "@/components/aria/carousel";
 import { getQueryClient } from "@/lib/client";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/aria/button";
 
 type LoaderData = {
   dehydratedState: DehydratedState;
@@ -176,7 +176,7 @@ function MediaPage() {
                     src={image.src}
                     alt=""
                     onClick={() => setActive(image._id)}
-                    className="cursor-pointer rounded-xl w-full h-auto object-cover"
+                    className="cursor-pointer rounded-lg w-full h-auto object-cover"
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
                         setActive(image._id);
@@ -252,7 +252,7 @@ function MediaPage() {
         <Portal.Root>
           {/* biome-ignore lint/a11y/useKeyWithClickEvents: The explicit close button and escape key provide sufficient accessibility. */}
           <div
-            className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center backdrop-blur-sm"
+            className="fixed inset-0 bg-surface-scrim z-50 flex items-center justify-center backdrop-blur-sm"
             onClick={() => setActive(false)}
           >
             <button
@@ -261,7 +261,7 @@ function MediaPage() {
                 e.stopPropagation();
                 setActive(false);
               }}
-              className="absolute top-4 right-4 text-white z-[51] rounded-full bg-black/50 p-2"
+              className="absolute top-4 right-4 text-text-primary z-[51] rounded-full bg-surface-scrim p-2"
               aria-label="Close"
             >
               <XIcon className="w-6 h-6" />
@@ -281,7 +281,7 @@ function MediaPage() {
                     <div className="relative">
                       <Button
                         variant="outline"
-                        className="absolute top-4 right-4 text-white z-[51] rounded-md bg-black/50 p-2"
+                        className="absolute top-4 right-4 text-text-primary z-[51] rounded-md bg-surface-scrim p-2"
                         onClick={(e) => {
                           e.stopPropagation();
                           downloadImage(

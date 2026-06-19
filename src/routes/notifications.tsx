@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SimpleNotifications } from "@/components/simple-notifications";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/aria/card";
+import { Badge } from "@/components/aria/badge";
 import { Bell, BellOff, Calendar, Users, Settings } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/aria/tabs";
 import { useQuery } from "@tanstack/react-query";
 import { checkSubscriptionStatusQuery, subscriptionsQuery } from "@/queries/push-notifications";
 

@@ -1,5 +1,5 @@
 import { GithubIcon } from "@/components/icons/github";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/aria/card";
 import { type DetectedOS, useOSDetection } from "@/hooks/use-os-detection";
 import { cn } from "@/lib/utils";
 import { getGithubReleases } from "@/queries/github-releases";
@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { AlertCircle, AppleIcon, CheckCircleIcon, DownloadIcon, File } from "lucide-react";
 import { FaLinux, FaWindows } from "react-icons/fa6";
+import { DataPanel, EmptyState, PageShell } from "@/components/app/design-system";
 
 type ReleaseAsset = {
   id: number;
@@ -47,7 +48,7 @@ const getAssetInfo = (assetName: string): AssetInfo => {
       return {
         platform: "macOS",
         variant: "Apple Silicon",
-        icon: <AppleIcon className="h-6 w-6 text-slate-400" />,
+        icon: <AppleIcon className="h-6 w-6 text-text-muted" />,
         description: "For newer Mac computers with Apple chips (M1, M2, M3, etc.).",
       };
     }
@@ -59,14 +60,14 @@ const getAssetInfo = (assetName: string): AssetInfo => {
       return {
         platform: "macOS",
         variant: "Intel",
-        icon: <AppleIcon className="h-6 w-6 text-slate-400" />,
+        icon: <AppleIcon className="h-6 w-6 text-text-muted" />,
         description: "For older Mac computers with Intel processors.",
       };
     }
     return {
       platform: "macOS",
       variant: "Universal",
-      icon: <AppleIcon className="h-6 w-6 text-slate-400" />,
+      icon: <AppleIcon className="h-6 w-6 text-text-muted" />,
       description: "Compatible with both Apple Silicon and Intel Macs.",
     };
   }
@@ -76,7 +77,7 @@ const getAssetInfo = (assetName: string): AssetInfo => {
     return {
       platform: "Windows",
       variant: ".msi Installer",
-      icon: <FaWindows className="h-6 w-6 text-slate-400" />,
+      icon: <FaWindows className="h-6 w-6 text-text-muted" />,
       description: "A standard installer wizard. Recommended for most users.",
     };
   }
@@ -84,7 +85,7 @@ const getAssetInfo = (assetName: string): AssetInfo => {
     return {
       platform: "Windows",
       variant: ".exe Installer",
-      icon: <FaWindows className="h-6 w-6 text-slate-400" />,
+      icon: <FaWindows className="h-6 w-6 text-text-muted" />,
       description: "A standalone application file. May not require installation.",
     };
   }
@@ -99,7 +100,7 @@ const getAssetInfo = (assetName: string): AssetInfo => {
     return {
       platform: "Linux",
       variant: "Generic",
-      icon: <FaLinux className="h-6 w-6 text-slate-400" />,
+      icon: <FaLinux className="h-6 w-6 text-text-muted" />,
       description: "For Linux-based operating systems.",
     };
   }
@@ -107,7 +108,7 @@ const getAssetInfo = (assetName: string): AssetInfo => {
   return {
     platform: "Other",
     variant: "File",
-    icon: <File className="h-6 w-6 text-slate-400" />,
+    icon: <File className="h-6 w-6 text-text-muted" />,
     description: "A generic file or source code.",
   };
 };
@@ -117,38 +118,38 @@ function SkeletonLoader() {
     <div className="space-y-6 animate-pulse">
       {[...Array(2)].map((_, i) => (
         // biome-ignore lint/suspicious/noArrayIndexKey: skeleton
-        <Card key={i} className="bg-slate-800/50 border-slate-800">
+        <Card key={i} className="bg-surface-panel border-stroke-subtle">
           <CardHeader>
-            <div className="h-6 w-3/5 bg-slate-700 rounded-md" />
-            <div className="h-4 w-2/5 bg-slate-700 rounded-md mt-2" />
+            <div className="h-6 w-3/5 bg-surface-hover rounded-md" />
+            <div className="h-4 w-2/5 bg-surface-hover rounded-md mt-2" />
           </CardHeader>
           <CardContent className="space-y-4">
             {/* Skeleton for one platform */}
-            <div className="p-4 rounded-lg bg-slate-800/30">
-              <div className="h-5 w-1/3 bg-slate-700 rounded-md mb-4" />
+            <div className="p-4 rounded-lg bg-surface-panel">
+              <div className="h-5 w-1/3 bg-surface-hover rounded-md mb-4" />
               <ul className="space-y-2">
                 <li className="flex items-center justify-between p-3 bg-card rounded-md">
                   <div className="flex items-center gap-3 w-full">
-                    <div className="h-5 w-5 bg-slate-700 rounded-md" />
-                    <div className="h-5 w-4/5 bg-slate-700 rounded-md" />
+                    <div className="h-5 w-5 bg-surface-hover rounded-md" />
+                    <div className="h-5 w-4/5 bg-surface-hover rounded-md" />
                   </div>
                 </li>
                 <li className="flex items-center justify-between p-3 bg-card rounded-md">
                   <div className="flex items-center gap-3 w-full">
-                    <div className="h-5 w-5 bg-slate-700 rounded-md" />
-                    <div className="h-5 w-3/5 bg-slate-700 rounded-md" />
+                    <div className="h-5 w-5 bg-surface-hover rounded-md" />
+                    <div className="h-5 w-3/5 bg-surface-hover rounded-md" />
                   </div>
                 </li>
               </ul>
             </div>
             {/* Skeleton for another platform */}
-            <div className="p-4 rounded-lg bg-slate-800/30">
-              <div className="h-5 w-1/4 bg-slate-700 rounded-md mb-4" />
+            <div className="p-4 rounded-lg bg-surface-panel">
+              <div className="h-5 w-1/4 bg-surface-hover rounded-md mb-4" />
               <ul className="space-y-2">
                 <li className="flex items-center justify-between p-3 bg-card rounded-md">
                   <div className="flex items-center gap-3 w-full">
-                    <div className="h-5 w-5 bg-slate-700 rounded-md" />
-                    <div className="h-5 w-1/2 bg-slate-700 rounded-md" />
+                    <div className="h-5 w-5 bg-surface-hover rounded-md" />
+                    <div className="h-5 w-1/2 bg-surface-hover rounded-md" />
                   </div>
                 </li>
               </ul>
@@ -176,11 +177,19 @@ function RouteComponent() {
   });
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return (
+      <PageShell>
+        <EmptyState title="Unable to load releases">{error.message}</EmptyState>
+      </PageShell>
+    );
   }
 
   if (data && "error" in data) {
-    return <div>Error: {data.error}</div>;
+    return (
+      <PageShell>
+        <EmptyState title="Unable to load releases">{data.error}</EmptyState>
+      </PageShell>
+    );
   }
 
   const formatBytes = (bytes: number, decimals = 2) => {
@@ -207,22 +216,24 @@ function RouteComponent() {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
-      <Card className="w-full bg-card border-slate-800 shadow-2xl shadow-slate-950/50">
-        <CardHeader>
+    <PageShell className="max-w-3xl">
+      <DataPanel
+        title={
           <div className="flex items-center gap-3 mb-2">
-            <GithubIcon className="w-8 h-8 text-slate-300" />
-            <CardTitle className="text-2xl text-slate-50">egdata.app Client Releases</CardTitle>
+            <GithubIcon className="w-8 h-8 text-text-secondary" />
+            <span className="text-2xl text-text-primary">egdata.app Client Releases</span>
           </div>
-          <CardDescription className="text-slate-400">
+        }
+        description={
+          <span>
             Download the latest version. We've highlighted the recommended section for your
             operating system.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
+          </span>
+        }
+      >
           {loading && <SkeletonLoader />}
           {error && (
-            <div className="flex items-center gap-3 text-red-400 bg-red-950/50 border border-red-900 p-4 rounded-md">
+            <div className="flex items-center gap-3 rounded-md border border-danger/50 bg-danger-muted p-4 text-danger">
               <AlertCircle className="h-5 w-5 flex-shrink-0" />
               <p>{error}</p>
             </div>
@@ -262,12 +273,12 @@ function RouteComponent() {
                 });
 
                 return (
-                  <Card key={release.id} className="bg-slate-800/50 border-slate-800">
+                  <Card key={release.id} className="bg-surface-panel border-stroke-subtle">
                     <CardHeader>
-                      <CardTitle className="text-lg text-slate-200">
+                      <CardTitle className="text-lg text-text-secondary">
                         {release.name || release.tag_name}
                       </CardTitle>
-                      <CardDescription className="text-slate-400">
+                      <CardDescription className="text-text-muted">
                         Version {release.tag_name} - Published on{" "}
                         {new Date(release.published_at).toLocaleDateString()}
                       </CardDescription>
@@ -299,15 +310,15 @@ function RouteComponent() {
                             className={cn(
                               "rounded-lg border p-4 transition-all",
                               isPlatformRecommended
-                                ? "border-sky-700/50 bg-sky-950/20"
+                                ? "border-interactive/50 bg-interactive-muted"
                                 : "border-transparent",
                             )}
                           >
-                            <h3 className="font-semibold text-lg mb-3 flex items-center gap-2.5 text-slate-300">
+                            <h3 className="font-semibold text-lg mb-3 flex items-center gap-2.5 text-text-secondary">
                               {platformGroup.icon}
                               <span>{platformGroup.platform} Downloads</span>
                             </h3>
-                            <div className="space-y-4 pl-2 border-l-2 border-slate-700/50 ml-3">
+                            <div className="space-y-4 pl-2 border-l-2 border-stroke-subtle ml-3">
                               {sortedVariants.map((variantGroup) => {
                                 const recommended = isVariantRecommended(
                                   platformGroup.platform,
@@ -320,20 +331,20 @@ function RouteComponent() {
                                     className={cn(
                                       "p-4 rounded-lg transition-all",
                                       recommended
-                                        ? "bg-sky-950/30 border border-sky-700/50"
-                                        : "bg-slate-800/30",
+                                        ? "border border-interactive/50 bg-interactive-muted"
+                                        : "bg-surface-panel",
                                     )}
                                   >
-                                    <h4 className="font-semibold mb-1 flex items-center gap-2 text-md text-slate-300">
+                                    <h4 className="font-semibold mb-1 flex items-center gap-2 text-md text-text-secondary">
                                       <span>{variantGroup.variant}</span>
                                       {recommended && (
-                                        <span className="flex items-center gap-1.5 text-xs font-medium bg-sky-500/10 text-sky-400 px-2 py-1 rounded-full">
+                                        <span className="flex items-center gap-1.5 rounded-full bg-interactive-muted px-2 py-1 text-xs font-medium text-interactive">
                                           <CheckCircleIcon className="h-3.5 w-3.5" />
                                           Recommended
                                         </span>
                                       )}
                                     </h4>
-                                    <p className="text-sm text-slate-400 mb-3">
+                                    <p className="text-sm text-text-muted mb-3">
                                       {variantGroup.description}
                                     </p>
                                     <ul className="space-y-2">
@@ -342,15 +353,15 @@ function RouteComponent() {
                                           <a
                                             href={asset.download_url}
                                             download
-                                            className="flex items-center justify-between p-3 bg-card rounded-md hover:bg-slate-800/80 transition-colors group"
+                                            className="flex items-center justify-between p-3 bg-card rounded-md hover:bg-surface-panel transition-colors group"
                                           >
                                             <div className="flex items-center gap-3">
-                                              <DownloadIcon className="w-5 h-5 text-sky-400" />
-                                              <span className="font-medium text-slate-200">
+                                              <DownloadIcon className="w-5 h-5 text-interactive" />
+                                              <span className="font-medium text-text-secondary">
                                                 {asset.name}
                                               </span>
                                             </div>
-                                            <span className="text-sm text-slate-400 group-hover:text-slate-300">
+                                            <span className="text-sm text-text-muted group-hover:text-text-secondary">
                                               {formatBytes(asset.size)}
                                             </span>
                                           </a>
@@ -371,12 +382,11 @@ function RouteComponent() {
             </div>
           )}
           {!loading && !error && data && data.length === 0 && (
-            <div className="text-center p-10 text-slate-500">
+            <div className="p-10 text-center text-text-subtle">
               <p>No public releases found.</p>
             </div>
           )}
-        </CardContent>
-      </Card>
-    </div>
+      </DataPanel>
+    </PageShell>
   );
 }

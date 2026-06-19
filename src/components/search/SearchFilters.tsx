@@ -2,21 +2,22 @@ import type { TypeOf } from "zod";
 import type { formSchema } from "@/stores/searchStore";
 import type { FullTag } from "@/types/tags";
 import type { SearchV2Response } from "@/types/search-v2";
-import { Input } from "@/components/ui/input";
+import { Input } from "@/components/aria/input";
 import { QuickPill } from "@/components/app/quick-pill";
-import { Separator } from "@/components/ui/separator";
-import { PriceRangeSlider } from "@/components/ui/price-range-slider";
+import { Separator } from "@/components/aria/separator";
+import { PriceRangeSlider } from "@/components/aria/price-range-slider";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from "@/components/aria/accordion";
 import { CheckboxWithCount } from "@/components/app/checkbox-with-count";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@/components/aria/scroll-area";
 import { ExtendedSearch } from "@/components/app/extended-search";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Checkbox } from "@/components/aria/checkbox";
 import { offersDictionary, offerTypeValues } from "@/lib/offers-dictionary";
+import { FilterRail } from "@/components/app/design-system";
 
 export interface SearchFiltersProps {
   query: TypeOf<typeof formSchema>;
@@ -97,7 +98,7 @@ export function SearchFilters({
   }
 
   return (
-    <aside className="flex flex-col gap-4 w-80">
+    <FilterRail className="flex flex-col gap-4">
       {showTitle && (
         <Input
           type="search"
@@ -248,7 +249,7 @@ export function SearchFilters({
                           />
                         ))}
                       {tagTypeTags?.filter((tag) => tagCounts[tag.id] > 0).length === 0 && (
-                        <span className="text-gray-400 px-4">No tags found</span>
+                        <span className="px-4 text-text-muted">No tags found</span>
                       )}
                     </div>
                   </ScrollArea>
@@ -405,6 +406,6 @@ export function SearchFilters({
           </label>
         </div>
       )}
-    </aside>
+    </FilterRail>
   );
 }

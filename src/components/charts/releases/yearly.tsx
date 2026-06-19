@@ -3,7 +3,7 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/components/ui/chart";
+} from "@/components/aria/chart";
 import { httpClient } from "@/lib/http-client";
 import { linearRegression } from "@/lib/linear-regression";
 import { keepPreviousData } from "@tanstack/react-query";

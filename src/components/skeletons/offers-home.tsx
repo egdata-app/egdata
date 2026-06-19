@@ -1,4 +1,4 @@
-import { Skeleton } from "@/components/ui/skeleton";
+import { Skeleton } from "@/components/aria/skeleton";
 
 export function OffersHomeSkeleton() {
   return (
@@ -10,7 +10,7 @@ export function OffersHomeSkeleton() {
           <Skeleton className="h-6 w-1/2" />
 
           {/* Info table skeleton */}
-          <div className="rounded-xl border border-gray-300/10 mt-2">
+          <div className="rounded-lg border border-stroke-subtle mt-2">
             <div className="p-4 space-y-4">
               {Array.from({ length: 8 }).map((_, i) => (
                 <div key={`table-row-${i}`} className="flex gap-4">
@@ -65,7 +65,7 @@ export function OffersHomeSkeleton() {
         <Skeleton className="h-[400px] w-full" />
       </section>
 
-      <hr className="my-4 border-gray-300/40" />
+      <hr className="my-4 border-stroke-subtle" />
 
       {/* Seller offers skeleton */}
       <div className="w-full space-y-4">

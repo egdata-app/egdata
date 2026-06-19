@@ -7,10 +7,10 @@ import {
   type GameAwardsSection as GameAwardsSectionProps,
 } from "@/queries/game-awards";
 import { OfferCard } from "@/components/app/offer-card";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
+import { Card, CardContent } from "@/components/aria/card";
+import { Badge } from "@/components/aria/badge";
+import { Skeleton } from "@/components/aria/skeleton";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/aria/collapsible";
 import { ChevronDown, X, Maximize2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -172,8 +172,8 @@ function GameAwardsPage() {
             <div
               className={cn(
                 isMiniPlayer && !miniPlayerDismissed
-                  ? "fixed bottom-4 right-4 z-50 w-[500px] aspect-video rounded-lg overflow-hidden shadow-2xl border border-white/20 bg-black"
-                  : "relative w-full aspect-video rounded-xl overflow-hidden bg-black/50 border border-white/10 shadow-2xl",
+                  ? "fixed bottom-4 right-4 z-50 w-[500px] aspect-video rounded-lg overflow-hidden shadow-popover border border-stroke-subtle bg-black"
+                  : "relative w-full aspect-video rounded-lg overflow-hidden bg-surface-scrim border border-stroke-subtle shadow-popover",
               )}
             >
               <iframe
@@ -190,18 +190,18 @@ function GameAwardsPage() {
                   <button
                     type="button"
                     onClick={handleExpandMiniPlayer}
-                    className="p-1.5 bg-black/70 hover:bg-black rounded-full transition-colors"
+                    className="p-1.5 bg-surface-scrim hover:bg-black rounded-full transition-colors"
                     aria-label="Expand player"
                   >
-                    <Maximize2 className="w-3.5 h-3.5 text-white" />
+                    <Maximize2 className="w-3.5 h-3.5 text-text-primary" />
                   </button>
                   <button
                     type="button"
                     onClick={handleDismissMiniPlayer}
-                    className="p-1.5 bg-black/70 hover:bg-black rounded-full transition-colors"
+                    className="p-1.5 bg-surface-scrim hover:bg-black rounded-full transition-colors"
                     aria-label="Close mini player"
                   >
-                    <X className="w-3.5 h-3.5 text-white" />
+                    <X className="w-3.5 h-3.5 text-text-primary" />
                   </button>
                 </div>
               )}
@@ -219,10 +219,10 @@ function GameAwardsPage() {
               <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {[1, 2, 3, 4].map((j) => (
                   <Card key={j} className="animate-pulse">
-                    <div className="aspect-[3/4] bg-white/5 rounded-t-lg" />
+                    <div className="aspect-[3/4] bg-surface-hover rounded-t-lg" />
                     <CardContent className="p-4 space-y-2 h-44">
-                      <div className="h-5 bg-white/5 rounded w-3/4" />
-                      <div className="h-4 bg-white/5 rounded w-1/2" />
+                      <div className="h-5 bg-surface-hover rounded w-3/4" />
+                      <div className="h-4 bg-surface-hover rounded w-1/2" />
                     </CardContent>
                   </Card>
                 ))}

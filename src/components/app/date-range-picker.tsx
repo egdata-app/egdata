@@ -1,12 +1,21 @@
 import * as React from "react";
-import { Calendar } from "@/components/ui/calendar";
-import { Button } from "@/components/ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/aria/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/aria/popover";
 import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
-import type { DateRange } from "react-day-picker";
 import { DateTime } from "luxon";
 import { useLocale } from "@/hooks/use-locale";
+import {
+  CalendarCell,
+  CalendarGrid,
+  CalendarGridBody,
+  CalendarGridHeader,
+  CalendarHeaderCell,
+  Heading,
+  RangeCalendar,
+  type RangeValue,
+} from "react-aria-components";
+import { CalendarDate } from "@internationalized/date";
 
 export function DateRangePicker({
   handleChange,
@@ -20,12 +29,9 @@ export function DateRangePicker({
   const today = DateTime.now()
     .setZone(timezone || "UTC")
     .startOf("day");
-  const [dateRange, setDateRange] = React.useState<{
-    from: Date;
-    to: Date | undefined;
-  }>({
-    from: today.minus({ days: 6 }).toJSDate(), // 6 days ago + today = 7 days
-    to: today.toJSDate(),
+  const [dateRange, setDateRange] = React.useState<RangeValue<CalendarDate>>({
+    start: toCalendarDate(today.minus({ days: 6 })), // 6 days ago + today = 7 days
+    end: toCalendarDate(today),
   });
 
   const quickSelections = [
@@ -34,78 +40,62 @@ export function DateRangePicker({
   ];
 
   const handleQuickSelection = (days: number) => {
-    const to = today.toJSDate();
-    const from = today.minus({ days: days - 1 }).toJSDate(); // days - 1 to include today
-    const newRange = { from, to };
+    const newRange = {
+      start: toCalendarDate(today.minus({ days: days - 1 })),
+      end: toCalendarDate(today),
+    };
     setDateRange(newRange);
-    handleChange(newRange);
+    handleChange(toDateRange(newRange, timezone));
     setIsOpen(false);
   };
 
-  const getDaysDifference = (from: Date, to: Date | undefined): number => {
-    if (!from || !to) return 0;
-    const fromDate = DateTime.fromJSDate(from).startOf("day");
-    const toDate = DateTime.fromJSDate(to).startOf("day");
+  const getDaysDifference = (range: RangeValue<CalendarDate>): number => {
+    if (!range.start || !range.end) return 0;
+    const fromDate = calendarDateToDateTime(range.start, timezone).startOf("day");
+    const toDate = calendarDateToDateTime(range.end, timezone).startOf("day");
     return Math.floor(toDate.diff(fromDate, "days").days) + 1; // +1 to include both start and end dates
   };
 
-  const isValidRange = (from: Date, to: Date | undefined): boolean => {
-    if (!from || !to) return false;
-    const days = getDaysDifference(from, to);
+  const isValidRange = (range: RangeValue<CalendarDate>): boolean => {
+    if (!range.start || !range.end) return false;
+    const days = getDaysDifference(range);
     return days > 0 && days <= 30;
   };
 
-  const handleCalendarSelect = (newRange: DateRange | undefined) => {
-    if (!newRange || !newRange.from) {
-      setDateRange({ from: today.toJSDate(), to: undefined });
+  const handleCalendarSelect = (newRange: RangeValue<CalendarDate> | null) => {
+    if (!newRange?.start || !newRange.end) {
+      setDateRange(newRange ?? { start: toCalendarDate(today), end: toCalendarDate(today) });
       return;
     }
 
-    const { from, to } = newRange;
-
-    // If only 'from' is selected, set 'to' as undefined
-    if (from && !to) {
-      setDateRange({ from, to: undefined });
-      return;
-    }
-
-    // If both dates are selected, validate the range
-    if (from && to) {
-      const days = getDaysDifference(from, to);
-
-      if (days > 30) {
-        // Limit to 30 days from the 'from' date
-        const limitedTo = DateTime.fromJSDate(from).startOf("day").plus({ days: 29 }).toJSDate();
-        setDateRange({ from, to: limitedTo });
-      } else if (days > 0) {
-        setDateRange({ from, to });
-      }
+    const days = getDaysDifference(newRange);
+    if (days > 30) {
+      const limitedEnd = calendarDateToDateTime(newRange.start, timezone).plus({ days: 29 });
+      setDateRange({ start: newRange.start, end: toCalendarDate(limitedEnd) });
+    } else if (days > 0) {
+      setDateRange(newRange);
     }
   };
 
   const formatDateRange = () => {
-    if (dateRange.from && dateRange.to) {
-      const fromFormatted = DateTime.fromJSDate(dateRange.from)
-        .setZone(timezone || "UTC")
-        .toFormat("MMM dd, yyyy");
-      const toFormatted = DateTime.fromJSDate(dateRange.to)
-        .setZone(timezone || "UTC")
-        .toFormat("MMM dd, yyyy");
-      const days = getDaysDifference(dateRange.from, dateRange.to);
+    if (dateRange.start && dateRange.end) {
+      const fromFormatted = calendarDateToDateTime(dateRange.start, timezone).toFormat("MMM dd, yyyy");
+      const toFormatted = calendarDateToDateTime(dateRange.end, timezone).toFormat("MMM dd, yyyy");
+      const days = getDaysDifference(dateRange);
       return `${fromFormatted} - ${toFormatted} (${days} days)`;
     }
     return "Select Date Range";
   };
 
   const handleApply = () => {
-    if (isValidRange(dateRange.from, dateRange.to)) {
-      handleChange(dateRange);
+    if (isValidRange(dateRange)) {
+      handleChange(toDateRange(dateRange, timezone));
       setIsOpen(false);
     }
   };
 
-  const canApply = isValidRange(dateRange.from, dateRange.to);
-  const dayCount = getDaysDifference(dateRange.from, dateRange.to);
+  const canApply = isValidRange(dateRange);
+  const dayCount = getDaysDifference(dateRange);
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
@@ -114,7 +104,7 @@ export function DateRangePicker({
           variant="outline"
           className={cn(
             "w-[300px] justify-start text-left font-normal",
-            !dateRange.from && "text-muted-foreground",
+            !dateRange.start && "text-muted-foreground",
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
@@ -128,38 +118,52 @@ export function DateRangePicker({
               <div className="w-[calc(50%-0.5rem)]">
                 <div className="mb-2 text-sm text-foreground">From</div>
                 <div className="rounded-md border px-3 py-2 w-full">
-                  {dateRange.from
-                    ? DateTime.fromJSDate(dateRange.from)
-                        .setZone(timezone || "UTC")
-                        .toFormat("dd/MM/yyyy")
+                  {dateRange.start
+                    ? calendarDateToDateTime(dateRange.start, timezone).toFormat("dd/MM/yyyy")
                     : "Select Date"}
                 </div>
               </div>
               <div className="w-[calc(50%-0.5rem)]">
                 <div className="mb-2 text-sm text-foreground">To</div>
                 <div className="rounded-md border px-3 py-2 w-full">
-                  {dateRange.to
-                    ? DateTime.fromJSDate(dateRange.to)
-                        .setZone(timezone || "UTC")
-                        .toFormat("dd/MM/yyyy")
+                  {dateRange.end
+                    ? calendarDateToDateTime(dateRange.end, timezone).toFormat("dd/MM/yyyy")
                     : "Select Date"}
                 </div>
               </div>
             </div>
 
             <div className="flex gap-4 justify-between">
-              <Calendar
-                mode="range"
-                defaultMonth={dateRange.from}
-                selected={dateRange}
-                onSelect={handleCalendarSelect}
-                numberOfMonths={2}
-                className="rounded-md border flex-grow"
-                disabled={(date) => {
-                  // Disable future dates
-                  return date > today.toJSDate();
-                }}
-              />
+              <RangeCalendar
+                value={dateRange}
+                onChange={handleCalendarSelect}
+                visibleDuration={{ months: 2 }}
+                isDateUnavailable={(date) => calendarDateToDateTime(date as CalendarDate, timezone) > today}
+                className="flex-grow rounded-md border p-3"
+              >
+                <header className="mb-3 flex items-center justify-between gap-2">
+                  <Button slot="previous" variant="ghost" size="icon">‹</Button>
+                  <Heading className="text-sm font-medium" />
+                  <Button slot="next" variant="ghost" size="icon">›</Button>
+                </header>
+                <CalendarGrid className="border-separate border-spacing-1">
+                  <CalendarGridHeader>
+                    {(day) => (
+                      <CalendarHeaderCell className="size-8 text-xs font-normal text-muted-foreground">
+                        {day}
+                      </CalendarHeaderCell>
+                    )}
+                  </CalendarGridHeader>
+                  <CalendarGridBody>
+                    {(date) => (
+                      <CalendarCell
+                        date={date}
+                        className="flex size-8 items-center justify-center rounded-md text-sm outline-none data-[disabled]:opacity-40 data-[outside-month]:text-muted-foreground data-[selected]:bg-primary data-[selected]:text-primary-foreground data-[selection-start]:rounded-l-md data-[selection-end]:rounded-r-md data-[focus-visible]:ring-2 data-[focus-visible]:ring-ring"
+                      />
+                    )}
+                  </CalendarGridBody>
+                </CalendarGrid>
+              </RangeCalendar>
               <div className="grid gap-2 min-w-[150px]">
                 {quickSelections.map((selection) => (
                   <Button
@@ -173,7 +177,7 @@ export function DateRangePicker({
                 ))}
 
                 {/* Show current selection info */}
-                {dateRange.from && dateRange.to && (
+                {dateRange.start && dateRange.end && (
                   <div className="text-xs text-muted-foreground p-2 border rounded">
                     Selected: {dayCount} days
                   </div>
@@ -184,12 +188,12 @@ export function DateRangePicker({
                 </Button>
 
                 {/* Error message */}
-                {dateRange.from && dateRange.to && dayCount > 30 && (
-                  <p className="text-xs text-red-500 mt-1">Maximum range is 30 days</p>
+                {dateRange.start && dateRange.end && dayCount > 30 && (
+                  <p className="text-xs text-danger mt-1">Maximum range is 30 days</p>
                 )}
 
-                {dateRange.from && dateRange.to && dayCount <= 0 && (
-                  <p className="text-xs text-red-500 mt-1">Invalid date range</p>
+                {dateRange.start && dateRange.end && dayCount <= 0 && (
+                  <p className="text-xs text-danger mt-1">Invalid date range</p>
                 )}
               </div>
             </div>
@@ -198,4 +202,22 @@ export function DateRangePicker({
       </PopoverContent>
     </Popover>
   );
+}
+
+function toCalendarDate(date: DateTime) {
+  return new CalendarDate(date.year, date.month, date.day);
+}
+
+function calendarDateToDateTime(date: CalendarDate, timezone?: string) {
+  return DateTime.fromObject(
+    { year: date.year, month: date.month, day: date.day },
+    { zone: timezone || "UTC" },
+  ).startOf("day");
+}
+
+function toDateRange(range: RangeValue<CalendarDate>, timezone?: string) {
+  return {
+    from: calendarDateToDateTime(range.start, timezone).toJSDate(),
+    to: range.end ? calendarDateToDateTime(range.end, timezone).toJSDate() : undefined,
+  };
 }

@@ -7,8 +7,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+} from "@/components/aria/table";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/aria/tooltip";
 import { useLocale } from "@/hooks/use-locale";
 import { calculateSize } from "@/lib/calculate-size";
 import { getQueryClient } from "@/lib/client";
@@ -188,7 +188,7 @@ function BuildPage() {
           <strong className="text-lg font-medium">{items?.data[0].title}</strong>
           <span>{textPlatformIcons[build.labelName.split("-")[1]]}</span>
         </div>
-        <div className="rounded-xl border border-gray-300/10 w-full">
+        <div className="rounded-lg border border-stroke-subtle w-full">
           <Table className="w-full">
             <TableHeader>
               <TableRow>
@@ -215,7 +215,7 @@ function BuildPage() {
                 <TableCell className="font-medium">Hash</TableCell>
                 <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
                   {build.hash}{" "}
-                  <span className="text-xs text-gray-400">({getHashType(build.hash)})</span>
+                  <span className="text-xs text-text-muted">({getHashType(build.hash)})</span>
                 </TableCell>
               </TableRow>
               <TableRow>
@@ -230,7 +230,7 @@ function BuildPage() {
                   {calculateSize(build.downloadSizeBytes)}{" "}
                   <span
                     className={cn(
-                      "text-xs text-gray-400",
+                      "text-xs text-text-muted",
                       !build.downloadSizeBytes ? "opacity-0" : "opacity-100",
                     )}
                   >
@@ -285,7 +285,7 @@ function BuildPage() {
                           We use the{" "}
                           <a
                             href="https://steamdb.info/tech/"
-                            className="text-blue-700 font-semibold"
+                            className="text-interactive font-semibold"
                             target="_blank"
                             rel="noopener noreferrer"
                           >
@@ -296,7 +296,7 @@ function BuildPage() {
                           <br />
                           <a
                             href="https://github.com/SteamDatabase/FileDetectionRuleSets"
-                            className="text-blue-700 font-semibold"
+                            className="text-interactive font-semibold"
                             target="_blank"
                             rel="noopener noreferrer"
                           >
@@ -316,7 +316,7 @@ function BuildPage() {
                           key={`${tech.section}.${tech.technology}`}
                           className="inline-flex gap-1 items-center justify-start"
                         >
-                          <span className="text-xs text-gray-300">
+                          <span className="text-xs text-text-secondary">
                             {tech.section} / {tech.technology}
                           </span>
                         </span>

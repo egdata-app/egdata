@@ -10,10 +10,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/components/aria/table";
 import { Image } from "@/components/app/image";
 import { getImage } from "@/lib/getImage";
-import { Badge } from "../ui/badge";
+import { Badge } from "../aria/badge";
 import { useNavigate } from "@tanstack/react-router";
 import { useLocale } from "@/hooks/use-locale";
 

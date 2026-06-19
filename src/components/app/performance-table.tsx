@@ -1,14 +1,14 @@
 import { ChartBarIcon, ChevronDown, ChevronUp, Minus } from "lucide-react";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card } from "@/components/ui/card";
+import { Tabs, TabsList, TabsTrigger } from "@/components/aria/tabs";
+import { Card } from "@/components/aria/card";
 import type { OfferPosition } from "@/types/collections";
 import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import * as React from "react";
-import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { ScrollArea, ScrollBar } from "../aria/scroll-area";
 import { DateRangePicker } from "./date-range-picker";
 import { PerformancePositionsChart } from "../charts/performance/positions";
-import { CardStackIcon } from "@radix-ui/react-icons";
+import { PanelsTopLeft as CardStackIcon } from "lucide-react";
 import { DateTime } from "luxon";
 import { useLocale } from "@/hooks/use-locale";
 
@@ -33,15 +33,15 @@ function PerformanceCard({ position, change, date }: PerformanceCardProps) {
   };
 
   const getBackgroundClass = () => {
-    if (change < 0) return "bg-gradient-to-b from-green-700/50 to-card";
-    if (change > 0) return "bg-gradient-to-b from-red-800/50 to-card";
-    return "bg-card";
+    if (change < 0) return "border-success/35 bg-success-muted";
+    if (change > 0) return "border-danger/35 bg-danger-muted";
+    return "bg-surface-panel";
   };
 
   return (
     <Card
       className={cn(
-        "flex flex-col items-center justify-center p-6 text-white min-w-[150px]",
+        "flex min-w-[150px] flex-col items-center justify-center p-6 text-text-primary",
         getBackgroundClass(),
       )}
     >
@@ -77,7 +77,7 @@ function StatsBar({ data }: StatsBarProps) {
   if (!data) return null;
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-5 gap-4 px-4 py-3 bg-card border-white/10 border rounded-lg mt-4 text-center md:text-left">
+    <div className="mt-4 grid grid-cols-2 gap-4 rounded-lg border border-stroke-subtle bg-surface-panel px-4 py-3 text-center md:grid-cols-5 md:text-left">
       <div>
         Top 1: <span className="font-bold">{data.timesInTop1} days</span>
       </div>
@@ -172,9 +172,9 @@ export function PerformanceTable({
   }, [data?.positions, timeframe, timezone]);
 
   return (
-    <div className="w-full p-6 bg-card rounded-lg">
+    <div className="w-full rounded-lg egd-panel p-6">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-white">Performance Table</h2>
+        <h2 className="text-2xl font-bold text-text-primary">Performance Table</h2>
         <DateRangePicker
           handleChange={({ from, to }) => {
             setTimeframe({ from, to });
@@ -186,7 +186,7 @@ export function PerformanceTable({
       <Tabs defaultValue={defaultCollection} className="w-full" onValueChange={onChange}>
         {/* Flex row for tops selection (left) and view toggle (right) */}
         <div className="flex justify-between items-center mb-6">
-          <TabsList className="bg-gray-800 text-gray-400">
+          <TabsList>
             {Object.entries(tops).map(([key]) => (
               <TabsTrigger key={key} value={key}>
                 {topsDictionary[key]}
@@ -194,13 +194,13 @@ export function PerformanceTable({
             ))}
           </TabsList>
           {/* View toggle as button group */}
-          <div className="ml-4 flex gap-2 bg-gray-800 rounded-md p-1">
+          <div className="ml-4 flex gap-2 rounded-md border border-stroke-subtle bg-surface-raised p-1">
             <button
               type="button"
               onClick={() => setView("cards")}
               className={cn(
                 "px-2 py-1 rounded flex items-center",
-                view === "cards" ? "bg-gray-700 text-white" : "text-gray-400 hover:text-white",
+                view === "cards" ? "bg-surface-active text-text-primary" : "text-text-muted hover:text-text-primary",
               )}
               aria-label="Cards view"
             >
@@ -211,7 +211,7 @@ export function PerformanceTable({
               onClick={() => setView("chart")}
               className={cn(
                 "px-2 py-1 rounded flex items-center",
-                view === "chart" ? "bg-gray-700 text-white" : "text-gray-400 hover:text-white",
+                view === "chart" ? "bg-surface-active text-text-primary" : "text-text-muted hover:text-text-primary",
               )}
               aria-label="Chart view"
             >
@@ -271,13 +271,13 @@ export function PerformanceTable({
         {/* Show appropriate messages for different states */}
         {!data && (
           <div className="flex justify-center items-center h-60">
-            <p className="text-gray-500">No data found</p>
+            <p className="text-text-muted">No data found</p>
           </div>
         )}
 
         {data && filteredPositions.length === 0 && (
           <div className="flex justify-center items-center h-60">
-            <p className="text-gray-500">No data available for the selected date range</p>
+            <p className="text-text-muted">No data available for the selected date range</p>
           </div>
         )}
 

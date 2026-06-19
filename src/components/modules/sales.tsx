@@ -6,10 +6,10 @@ import {
   CarouselContent,
   CarouselItem,
   CarouselNext,
-} from "@/components/ui/carousel";
-import { Skeleton } from "@/components/ui/skeleton";
+} from "@/components/aria/carousel";
+import { Skeleton } from "@/components/aria/skeleton";
 import { useCountry } from "@/hooks/use-country";
-import { ArrowRightIcon } from "@radix-ui/react-icons";
+import { ArrowRight as ArrowRightIcon } from "lucide-react";
 import { OfferCard } from "@/components/app/offer-card";
 import type { SingleOffer } from "@/types/single-offer";
 import { Link } from "@tanstack/react-router";

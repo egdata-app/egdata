@@ -2,16 +2,15 @@ import { useQuery } from "@tanstack/react-query";
 import { httpClient } from "@/lib/http-client";
 import type { Media } from "@/types/media";
 import type { SingleOffer } from "@/types/single-offer";
-import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { getImage } from "@/lib/getImage";
-import useEmblaCarousel from "embla-carousel-react";
 import { Player } from "../app/video-player";
 import { Image } from "../app/image";
-import { Button } from "../ui/button";
+import { Button } from "../aria/button";
 import { ChevronLeft, ChevronRight, PlayIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Skeleton } from "../ui/skeleton";
-import { DownloadIcon } from "@radix-ui/react-icons";
+import { Skeleton } from "../aria/skeleton";
+import { Download as DownloadIcon } from "lucide-react";
 
 interface SlideBase {
   id: string;
@@ -79,66 +78,67 @@ export function OfferMediaSlider({ offer }: { offer: SingleOffer }) {
     return [...videos, ...images];
   }, [data, offer]);
 
-  const [mainCarousel, mainApi] = useEmblaCarousel({
-    watchDrag: (api) => {
-      // If the current slide is a video, don't allow dragging
-      const currentIndex = api.selectedScrollSnap();
-      return slides[currentIndex]?.type !== "video";
-    },
-  });
-  const [thumbCarousel, thumbApi] = useEmblaCarousel({
-    containScroll: "keepSnaps",
-    dragFree: true,
-  });
-
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const mainViewportRef = useRef<HTMLDivElement>(null);
+  const thumbViewportRef = useRef<HTMLDivElement>(null);
+  const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const thumbRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const scrollTo = useCallback(
     (index: number) => {
-      if (mainApi && thumbApi) {
-        mainApi.scrollTo(index);
-        thumbApi.scrollTo(index);
-        setSelectedIndex((currentIndex) => (currentIndex === index ? currentIndex : index));
-      }
+      slideRefs.current[index]?.scrollIntoView({ behavior: "smooth", inline: "start", block: "nearest" });
+      thumbRefs.current[index]?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      setSelectedIndex((currentIndex) => (currentIndex === index ? currentIndex : index));
     },
-    [mainApi, thumbApi],
+    [],
   );
 
   const handlePrevious = useCallback(() => {
-    if (mainApi) mainApi.scrollPrev();
-  }, [mainApi]);
+    scrollTo(Math.max(0, selectedIndex - 1));
+  }, [scrollTo, selectedIndex]);
 
   const handleNext = useCallback(() => {
-    if (mainApi) mainApi.scrollNext();
-  }, [mainApi]);
+    scrollTo(Math.min(slides.length - 1, selectedIndex + 1));
+  }, [scrollTo, selectedIndex, slides.length]);
 
   useEffect(() => {
-    if (!mainApi || !thumbApi) return;
+    const viewport = mainViewportRef.current;
+    if (!viewport) return;
 
-    const handleSelect = () => {
-      const currentIndex = mainApi.selectedScrollSnap();
-      setSelectedIndex((selected) => (selected === currentIndex ? selected : currentIndex));
-      thumbApi.scrollTo(currentIndex);
+    const handleScroll = () => {
+      const items = slideRefs.current.filter(Boolean) as HTMLDivElement[];
+      const nextIndex = items.reduce((closest, item, index) => {
+        return Math.abs(item.offsetLeft - viewport.scrollLeft) <
+          Math.abs(items[closest].offsetLeft - viewport.scrollLeft)
+          ? index
+          : closest;
+      }, 0);
+
+      setSelectedIndex((current) => (current === nextIndex ? current : nextIndex));
+      thumbRefs.current[nextIndex]?.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
     };
 
-    mainApi.on("select", handleSelect);
-    handleSelect();
+    viewport.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
 
     return () => {
-      mainApi.off("select", handleSelect);
+      viewport.removeEventListener("scroll", handleScroll);
     };
-  }, [mainApi, thumbApi]);
+  }, []);
 
   return (
     <div key={`media-slider-${offer.id}`} className="flex flex-col gap-4 w-full">
       <div className="relative">
-        <div ref={mainCarousel} className="overflow-hidden">
-          <div className="flex">
+        <div ref={mainViewportRef} className="overflow-hidden scroll-smooth">
+          <div className="flex snap-x snap-mandatory">
             {slides.map((slide, index) => (
               <div
                 key={`slide-${slide.id}`}
+                ref={(node) => {
+                  slideRefs.current[index] = node;
+                }}
                 className={cn(
-                  "flex-[0_0_100%] min-w-0",
+                  "flex-[0_0_100%] min-w-0 snap-start",
                   slide.type === "video" && "pointer-events-none cursor-pointer",
                   slide.type === "image" && "pointer-events-auto cursor-grab",
                 )}
@@ -215,10 +215,16 @@ export function OfferMediaSlider({ offer }: { offer: SingleOffer }) {
         </Button>
       </div>
       <div className="mt-4">
-        <div ref={thumbCarousel} className="overflow-hidden">
+        <div ref={thumbViewportRef} className="overflow-hidden scroll-smooth">
           <div className="flex -mx-2">
             {slides.map((slide, index) => (
-              <div key={`thumbnail-${slide.id}`} className="flex-[0_0_15%] min-w-0 px-2">
+              <div
+                key={`thumbnail-${slide.id}`}
+                ref={(node) => {
+                  thumbRefs.current[index] = node;
+                }}
+                className="flex-[0_0_15%] min-w-0 px-2"
+              >
                 <button
                   type="button"
                   className={cn(
@@ -229,7 +235,7 @@ export function OfferMediaSlider({ offer }: { offer: SingleOffer }) {
                 >
                   {slide.type === "video" && (
                     // Show a play icon so the user knows it's a video
-                    <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white z-50 opacity-75">
+                    <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-text-primary z-50 opacity-75">
                       <PlayIcon className="size-8" fill="white" />
                     </span>
                   )}
@@ -271,7 +277,7 @@ function DownloadImage({ src }: { src: string }) {
   return (
     <Button
       variant="outline"
-      className="border border-gray-300/25 text-xs gap-2 opacity-75 hover:opacity-100 transition duration-150 ease-in-out"
+      className="border border-stroke-subtle text-xs gap-2 opacity-75 hover:opacity-100 transition duration-150 ease-in-out"
       onClick={download}
       disabled={isDownloading}
     >

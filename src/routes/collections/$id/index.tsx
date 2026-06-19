@@ -1,7 +1,7 @@
 import { Image } from "@/components/app/image";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Button } from "@/components/aria/button";
+import { Card } from "@/components/aria/card";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/aria/tooltip";
 import { useCountry } from "@/hooks/use-country";
 import { useLocale } from "@/hooks/use-locale";
 import { calculatePrice } from "@/lib/calculate-price";
@@ -166,8 +166,8 @@ function CollectionPage() {
   if (isLoading) {
     return (
       <main className="container mx-auto flex flex-col items-center justify-center gap-4 min-h-screen">
-        <div className="relative h-96 overflow-hidden rounded-2xl flex items-center bg-cover bg-center w-full">
-          <div className="h-full w-full flex flex-col justify-center items-start text-white p-8 bg-gradient-to-r from-black/80 to-black/30">
+        <div className="relative h-96 overflow-hidden rounded-lg flex items-center bg-cover bg-center w-full">
+          <div className="h-full w-full flex flex-col justify-center items-start text-text-primary p-8 egd-hero-scrim">
             <span className="text-5xl font-bold">Loading...</span>
           </div>
         </div>
@@ -232,7 +232,7 @@ function CollectionPage() {
               {isFetchingNextPage ? (
                 <>
                   <svg
-                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-text-primary"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -275,7 +275,7 @@ function OfferInTop({ offer }: { offer: OfferWithTops }) {
 
   return (
     <Link to="/offers/$id" params={{ id: offer.id }} preload="viewport">
-      <Card className="w-full h-16 flex flex-row items-center rounded-xl overflow-hidden px-5">
+      <Card className="w-full h-16 flex flex-row items-center rounded-lg overflow-hidden px-5">
         <span className="text-xl font-bold w-10 flex-shrink-0">{offer.position}</span>
 
         <div className="h-full w-24 flex-shrink-0 flex flex-col justify-center items-center">
@@ -329,7 +329,7 @@ function OfferInTop({ offer }: { offer: OfferWithTops }) {
         <div
           className={cn(
             "flex flex-row gap-1 items-center text-badge w-16 justify-center",
-            offer.previousPosition && offer.position > offer.previousPosition ? "text-red-500" : "",
+            offer.previousPosition && offer.position > offer.previousPosition ? "text-danger" : "",
           )}
         >
           {offer.previousPosition && offer.position !== offer.previousPosition ? (
@@ -351,34 +351,34 @@ function OfferInTop({ offer }: { offer: OfferWithTops }) {
           <Tooltip>
             <TooltipTrigger className="text-md">{weeksInTop100}</TooltipTrigger>
             <TooltipContent className="max-w-xs bg-transparent" side="right">
-              <div className="flex flex-col gap-1 p-3 bg-gray-50 rounded-md shadow-md w-36">
-                <div className="flex justify-between text-xs font-medium text-gray-600">
+              <div className="flex flex-col gap-1 p-3 bg-surface-overlay rounded-md shadow-panel w-36">
+                <div className="flex justify-between text-xs font-medium text-text-subtle">
                   <span>Top 1:</span>
-                  <span className="text-gray-900 font-semibold">
+                  <span className="text-text-primary font-semibold">
                     {offer.metadata.timesInTop1} days
                   </span>
                 </div>
-                <div className="flex justify-between text-xs font-medium text-gray-600">
+                <div className="flex justify-between text-xs font-medium text-text-subtle">
                   <span>Top 5:</span>
-                  <span className="text-gray-900 font-semibold">
+                  <span className="text-text-primary font-semibold">
                     {offer.metadata.timesInTop5} days
                   </span>
                 </div>
-                <div className="flex justify-between text-xs font-medium text-gray-600">
+                <div className="flex justify-between text-xs font-medium text-text-subtle">
                   <span>Top 10:</span>
-                  <span className="text-gray-900 font-semibold">
+                  <span className="text-text-primary font-semibold">
                     {offer.metadata.timesInTop10} days
                   </span>
                 </div>
-                <div className="flex justify-between text-xs font-medium text-gray-600">
+                <div className="flex justify-between text-xs font-medium text-text-subtle">
                   <span>Top 50:</span>
-                  <span className="text-gray-900 font-semibold">
+                  <span className="text-text-primary font-semibold">
                     {offer.metadata.timesInTop50} days
                   </span>
                 </div>
-                <div className="flex justify-between text-xs font-medium text-gray-600">
+                <div className="flex justify-between text-xs font-medium text-text-subtle">
                   <span>Top 100:</span>
-                  <span className="text-gray-900 font-semibold">
+                  <span className="text-text-primary font-semibold">
                     {offer.metadata.timesInTop100} days
                   </span>
                 </div>

@@ -1,4 +1,4 @@
-import { ArrowRightIcon } from "@radix-ui/react-icons";
+import { ArrowRight as ArrowRightIcon } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useCountry } from "@/hooks/use-country";
 import { OfferCard } from "@/components/app/offer-card";
@@ -8,8 +8,8 @@ import {
   CarouselContent,
   CarouselItem,
   CarouselNext,
-} from "../ui/carousel";
-import { Skeleton } from "../ui/skeleton";
+} from "../aria/carousel";
+import { Skeleton } from "../aria/skeleton";
 import { getLastModified } from "@/queries/last-modified";
 import { Link } from "@tanstack/react-router";
 

@@ -23,7 +23,7 @@ export default function StarsRating({ rating }: StarRatingProps) {
               className="absolute top-0 left-0 overflow-hidden"
               style={{ width: `${fillPercentage}%` }}
             >
-              <Star className="w-6 h-6 text-white" fill="currentColor" />
+              <Star className="w-6 h-6 text-text-primary" fill="currentColor" />
             </div>
           </div>
         );
