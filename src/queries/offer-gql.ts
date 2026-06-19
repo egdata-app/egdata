@@ -1,12 +1,12 @@
-import { graphql, type ResultOf, type VariablesOf } from "@/graphql"
-import { httpClient } from "@/lib/http-client"
-import { queryOptions } from "@tanstack/react-query"
-import { print } from "graphql"
-import type { SingleOffer } from "@/types/single-offer"
-import type { Franchise } from "@/types/franchise"
-import type { Technology } from "@/types/builds"
+import { graphql, type ResultOf, type VariablesOf } from "@/graphql";
+import { httpClient } from "@/lib/http-client";
+import { queryOptions } from "@tanstack/react-query";
+import { print } from "graphql";
+import type { SingleOffer } from "@/types/single-offer";
+import type { Franchise } from "@/types/franchise";
+import type { Technology } from "@/types/builds";
 
-const GRAPHQL_URL = "/graphql"
+const GRAPHQL_URL = "/graphql";
 
 const offerPageQuery = graphql(`
   query OfferPage($id: ID!, $country: String!) {
@@ -108,16 +108,16 @@ const offerPageQuery = graphql(`
       }
     }
   }
-`)
+`);
 
-type OfferPageResult = ResultOf<typeof offerPageQuery>
+type OfferPageResult = ResultOf<typeof offerPageQuery>;
 
 function toRestOffer(gql: NonNullable<OfferPageResult["offer"]>): SingleOffer {
-  const attrs = gql.customAttributes ?? []
-  const customAttributes: Record<string, { type: string; value: string }> = {}
+  const attrs = gql.customAttributes ?? [];
+  const customAttributes: Record<string, { type: string; value: string }> = {};
   for (const attr of attrs) {
     if (attr && attr.key) {
-      customAttributes[attr.key] = { type: attr.type ?? "", value: attr.value ?? "" }
+      customAttributes[attr.key] = { type: attr.type ?? "", value: attr.value ?? "" };
     }
   }
 
@@ -133,17 +133,25 @@ function toRestOffer(gql: NonNullable<OfferPageResult["offer"]>): SingleOffer {
     creationDate: gql.creationDate ?? "",
     lastModifiedDate: gql.lastModifiedDate ?? "",
     isCodeRedemptionOnly: gql.isCodeRedemptionOnly ?? false,
-    keyImages: (gql.keyImages ?? []).filter((k): k is NonNullable<typeof k> => k != null) as SingleOffer["keyImages"],
-    seller: gql.seller as SingleOffer["seller"],
+    keyImages: (gql.keyImages ?? []).filter(
+      (k): k is NonNullable<typeof k> => k != null,
+    ) as SingleOffer["keyImages"],
+    seller: gql.seller
+      ? { id: gql.seller.id ?? "", name: gql.seller.name ?? "" }
+      : { id: "", name: "" },
     productSlug: (gql.productSlug as string | null) ?? null,
     urlSlug: (gql.urlSlug as string | null) ?? null,
     url: (gql.url as string | null) ?? null,
-    tags: (gql.tags ?? []).filter((t): t is NonNullable<typeof t> => t != null) as SingleOffer["tags"],
-    items: (gql.items ?? []).filter((i): i is NonNullable<typeof i> => i != null).map((i) => ({
-      id: i.id ?? "",
-      namespace: i.namespace ?? "",
-      _id: i._id ?? "",
-    })) as SingleOffer["items"],
+    tags: (gql.tags ?? []).filter(
+      (t): t is NonNullable<typeof t> => t != null,
+    ) as SingleOffer["tags"],
+    items: (gql.items ?? [])
+      .filter((i): i is NonNullable<typeof i> => i != null)
+      .map((i) => ({
+        id: i.id ?? "",
+        namespace: i.namespace ?? "",
+        _id: i._id ?? "",
+      })) as SingleOffer["items"],
     customAttributes,
     categories: (gql.categories ?? []) as string[],
     developerDisplayName: (gql.developerDisplayName as string | null) ?? null,
@@ -155,10 +163,12 @@ function toRestOffer(gql: NonNullable<OfferPageResult["offer"]>): SingleOffer {
     countriesBlacklist: (gql.countriesBlacklist as string[] | null) ?? null,
     countriesWhitelist: (gql.countriesWhitelist as string[] | null) ?? null,
     refundType: (gql.refundType as string) ?? "NON_REFUNDABLE",
-    offerMappings: (gql.offerMappings ?? []).filter((m): m is NonNullable<typeof m> => m != null).map((m) => ({
-      pageSlug: m.pageSlug ?? "",
-      pageType: m.pageType ?? "",
-    })) as SingleOffer["offerMappings"],
+    offerMappings: (gql.offerMappings ?? [])
+      .filter((m): m is NonNullable<typeof m> => m != null)
+      .map((m) => ({
+        pageSlug: m.pageSlug ?? "",
+        pageType: m.pageType ?? "",
+      })) as SingleOffer["offerMappings"],
     price: gql.price as SingleOffer["price"],
     giveaway: gql.giveaways?.[0]
       ? {
@@ -168,36 +178,38 @@ function toRestOffer(gql: NonNullable<OfferPageResult["offer"]>): SingleOffer {
           endDate: gql.giveaways[0].endDate ?? "",
         }
       : null,
-  }
+  };
 }
 
 function toTechnologies(gql: NonNullable<OfferPageResult["offer"]>): Technology[] {
-  const techMap = new Map<string, Technology>()
+  const techMap = new Map<string, Technology>();
   for (const item of gql.items ?? []) {
-    if (!item) continue
+    if (!item) continue;
     for (const build of item.builds ?? []) {
-      if (!build) continue
+      if (!build) continue;
       for (const tech of build.technologies ?? []) {
-        if (!tech) continue
-        const key = `${tech.section}:${tech.technology}`
+        if (!tech) continue;
+        const key = `${tech.section}:${tech.technology}`;
         if (!techMap.has(key)) {
           techMap.set(key, {
             section: tech.section ?? "",
             technology: tech.technology ?? "",
-          })
+          });
         }
       }
     }
   }
-  return Array.from(techMap.values())
+  return Array.from(techMap.values());
 }
 
 function toFranchises(gql: NonNullable<OfferPageResult["offer"]>): Franchise[] {
-  return (gql.franchises ?? []).filter((f): f is NonNullable<typeof f> => f != null).map((f) => ({
-    _id: f._id ?? "",
-    name: f.name ?? "",
-    offers: (f.offers ?? []) as string[],
-  })) as Franchise[]
+  return (gql.franchises ?? [])
+    .filter((f): f is NonNullable<typeof f> => f != null)
+    .map((f) => ({
+      _id: f._id ?? "",
+      name: f.name ?? "",
+      offers: (f.offers ?? []) as string[],
+    })) as Franchise[];
 }
 
 export const offerGqlQueryOptions = ({ id, country }: { id: string; country: string }) =>
@@ -207,17 +219,17 @@ export const offerGqlQueryOptions = ({ id, country }: { id: string; country: str
       const res = await httpClient.post<{ data: OfferPageResult }>(GRAPHQL_URL, {
         query: print(offerPageQuery),
         variables: { id, country },
-      })
-      const offer = res.data.offer
-      if (!offer) return null
+      });
+      const offer = res.data.offer;
+      if (!offer) return null;
       return {
         offer: toRestOffer(offer),
         technologies: toTechnologies(offer),
         franchises: toFranchises(offer),
-      }
+      };
     },
     staleTime: 60_000,
-  })
+  });
 
 const offerOnlyQuery = graphql(`
   query OfferOnly($id: ID!) {
@@ -283,9 +295,9 @@ const offerOnlyQuery = graphql(`
       }
     }
   }
-`)
+`);
 
-type OfferOnlyResult = ResultOf<typeof offerOnlyQuery>
+type OfferOnlyResult = ResultOf<typeof offerOnlyQuery>;
 
 export const offerOnlyQueryOptions = (id: string) =>
   queryOptions({
@@ -294,10 +306,10 @@ export const offerOnlyQueryOptions = (id: string) =>
       const res = await httpClient.post<{ data: OfferOnlyResult }>(GRAPHQL_URL, {
         query: print(offerOnlyQuery),
         variables: { id },
-      })
-      const offer = res.data.offer
-      if (!offer) return null
-      return toRestOffer(offer as NonNullable<OfferPageResult["offer"]>)
+      });
+      const offer = res.data.offer;
+      if (!offer) return null;
+      return toRestOffer(offer as NonNullable<OfferPageResult["offer"]>);
     },
     staleTime: 60_000,
-  })
+  });

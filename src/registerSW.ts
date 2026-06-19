@@ -1,24 +1,58 @@
-import { registerSW } from "virtual:pwa-register";
+let waitingWorker: ServiceWorker | null = null;
 
-const updateSW =
-  typeof window !== "undefined" && typeof navigator !== "undefined"
-    ? registerSW({
-        onNeedRefresh() {
-          // Show a prompt to user to refresh the app
-          if (window.confirm("New content available, reload?")) {
-            updateSW(true);
+const updateSW = async (reloadPage = false) => {
+  if (waitingWorker) {
+    waitingWorker.postMessage({ type: "SKIP_WAITING" });
+  }
+
+  if (reloadPage && typeof window !== "undefined") {
+    window.location.reload();
+  }
+};
+
+const canRegister =
+  typeof window !== "undefined" &&
+  typeof navigator !== "undefined" &&
+  "serviceWorker" in navigator &&
+  import.meta.env.PROD;
+
+if (canRegister) {
+  navigator.serviceWorker
+    .register("/sw.js", { type: "module" })
+    .then((registration) => {
+      console.log("SW Registered:", registration);
+
+      registration.addEventListener("updatefound", () => {
+        const worker = registration.installing;
+
+        if (!worker) {
+          return;
+        }
+
+        worker.addEventListener("statechange", () => {
+          if (worker.state !== "installed" || !navigator.serviceWorker.controller) {
+            return;
           }
-        },
-        onOfflineReady() {
-          console.log("App ready to work offline");
-        },
-        onRegistered(r) {
-          console.log(`SW Registered: ${r}`);
-        },
-        onRegisterError(error) {
-          console.log("SW registration error", error);
-        },
-      })
-    : async () => {};
+
+          waitingWorker = worker;
+
+          if (window.confirm("New content available, reload?")) {
+            void updateSW(true);
+          }
+        });
+      });
+    })
+    .catch((error: unknown) => {
+      console.log("SW registration error", error);
+    });
+
+  navigator.serviceWorker.ready
+    .then(() => {
+      console.log("App ready to work offline");
+    })
+    .catch((error: unknown) => {
+      console.log("SW ready error", error);
+    });
+}
 
 export { updateSW };

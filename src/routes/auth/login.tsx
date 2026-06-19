@@ -30,8 +30,8 @@ export const getEpicEnv = createServerFn({ method: "GET" }).handler(async () => 
     clientId = req.cloudflare.env.EPIC_CLIENT_ID as string;
     redirectUri = req.cloudflare.env.EPIC_REDIRECT_URI as string;
   } else {
-    clientId = import.meta.env.EPIC_CLIENT_ID ?? process.env.EPIC_CLIENT_ID;
-    redirectUri = import.meta.env.EPIC_REDIRECT_URI ?? process.env.EPIC_REDIRECT_URI;
+    clientId = process.env.EPIC_CLIENT_ID ?? "";
+    redirectUri = process.env.EPIC_REDIRECT_URI ?? "";
   }
 
   return {

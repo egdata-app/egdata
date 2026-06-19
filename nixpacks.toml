@@ -1,2 +1,2 @@
 [start]
-cmd = 'NODE_ENV=--enable-source-maps node .output/server/index.mjs'
+cmd = 'TZ=UTC NODE_OPTIONS=--enable-source-maps srvx --prod dist/server/index.js'

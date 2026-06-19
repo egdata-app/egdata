@@ -1,4 +1,3 @@
-/// <reference types="vite/client" />
 import { createRootRouteWithContext, Link } from "@tanstack/react-router";
 import { Outlet, HeadContent, Scripts } from "@tanstack/react-router";
 import type * as React from "react";
@@ -78,8 +77,7 @@ export const Route = createRootRouteWithContext<Context>()({
     } | null;
 
     if (import.meta.env.SSR) {
-      const { getCookies, getRequestHeaders, getRequestUrl } =
-        await import("@/lib/start-server");
+      const { getCookies, getRequestHeaders, getRequestUrl } = await import("@/lib/start-server");
       const reqUrl = getRequestUrl();
 
       url = new URL(reqUrl);
@@ -94,7 +92,7 @@ export const Route = createRootRouteWithContext<Context>()({
       } catch (error) {
         console.error(
           "Failed to load SSR session. Continuing unauthenticated (check Better Auth server configuration if unexpected).",
-          error
+          error,
         );
         session = null;
       }

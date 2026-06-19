@@ -35,10 +35,7 @@ export const saveAuthCookie = createServerFn({ method: "GET" })
     } else {
       privateKeyPem =
         process.env.JWT_SIGNING_KEY ??
-        (await readFile(
-          (process.env.JWT_SIGNING_CERT as string) || import.meta.env.JWT_SIGNING_CERT,
-          "utf-8",
-        ));
+        (await readFile(process.env.JWT_SIGNING_CERT as string, "utf-8"));
     }
 
     // Import the private key (PEM format) for signing

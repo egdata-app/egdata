@@ -12,7 +12,7 @@
         "./src/*"
       ]
     },
-    "types": ["node"],
+    "types": ["node", "@rsbuild/core/types"],
     "lib": ["ESNext", "DOM", "WebWorker"],
     "plugins": [
       {
@@ -22,5 +22,5 @@
       }
     ]
   },
-  "include": ["src", "global.d.ts", "*.config.ts"]
+  "include": ["src", "global.d.ts", "*.config.ts", "scripts/*.mjs"]
 }

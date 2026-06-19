@@ -12,11 +12,16 @@ COPY . .
 
 FROM deps AS build
 RUN pnpm run build
+RUN pnpm prune --prod
 RUN apk del .build-deps
 
 FROM node:24.6.0-alpine
 WORKDIR /app
+ENV NODE_ENV=production
+ENV TZ=UTC
 RUN apk add --no-cache ca-certificates wget
-COPY --from=build /app/.output /app/.output
+COPY --from=build /app/dist /app/dist
+COPY --from=build /app/node_modules /app/node_modules
+COPY --from=build /app/package.json /app/package.json
 EXPOSE 3000
-CMD [ "node", "--enable-source-maps", ".output/server/index.mjs" ]
+CMD [ "node", "--enable-source-maps", "node_modules/srvx/bin/srvx.mjs", "--prod", "dist/server/index.js" ]

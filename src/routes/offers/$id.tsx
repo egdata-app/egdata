@@ -726,7 +726,9 @@ function OfferPage() {
             </Popover>
           </div>
           <OfferHero offer={offer} />
-          {franchises && franchises.length > 0 && <FranchiseBanner franchise={franchises[0]} />}
+          {franchises && franchises.length > 0 && franchises[0].offers.length > 1 && (
+            <FranchiseBanner franchise={franchises[0]} />
+          )}
           <p className="px-1">{offer.description}</p>
         </div>
       </header>

@@ -24,7 +24,7 @@ pnpm test:e2e:headed    # Run E2E tests in headed mode
 ## Architecture
 
 ### Tech Stack
-- **Framework:** TanStack React Start (Vite-based meta-framework with SSR)
+- **Framework:** TanStack React Start (Rsbuild-based meta-framework with SSR)
 - **Routing:** TanStack Router with file-based routing
 - **Data Fetching:** TanStack React Query with SSR prefetching
 - **Styling:** Tailwind CSS 4 + shadcn/ui components (Radix UI primitives)
