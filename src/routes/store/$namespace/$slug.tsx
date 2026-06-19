@@ -68,16 +68,16 @@ function CreatorCodePage() {
 
   return (
     <div className="container max-w-2xl py-12">
-      <Card className="bg-zinc-900 text-white border-zinc-800">
+      <Card className="bg-card text-foreground border-border/60">
         <CardHeader>
           <CardTitle className="text-2xl">Support egdata.app</CardTitle>
-          <CardDescription className="text-zinc-400">
+          <CardDescription className="text-muted-foreground">
             Would you like to support egdata.app by using our creator code when purchasing games?
             This choice will be remembered for future visits.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center gap-4 text-zinc-400">
+          <div className="flex items-center gap-4 text-muted-foreground">
             <EGSIcon className="size-8" />
             <p>
               Using our creator code helps support the development of egdata.app and its features.
@@ -88,13 +88,13 @@ function CreatorCodePage() {
         <CardFooter className="flex gap-4">
           <Button
             variant="outline"
-            className="bg-zinc-800 text-white hover:bg-zinc-700 border-zinc-700"
+            className="bg-muted text-foreground hover:bg-muted/80 border-zinc-700"
             onClick={() => handleChoice(false)}
           >
             No thanks
           </Button>
           <Button
-            className="bg-white text-zinc-900 hover:bg-zinc-100"
+            className="bg-white text-primary-foreground hover:bg-primary/90"
             onClick={() => handleChoice(true)}
           >
             Yes, use code

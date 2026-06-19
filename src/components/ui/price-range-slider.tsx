@@ -94,7 +94,7 @@ export function PriceRangeSlider({
             onValueChange={handleSliderChange}
             aria-label="Price Range"
           >
-            <SliderPrimitive.Track className="bg-slate-900 relative grow rounded-full h-[3px]">
+            <SliderPrimitive.Track className="bg-background relative grow rounded-full h-[3px]">
               <SliderPrimitive.Range className="absolute bg-slate-200 rounded-full h-full" />
             </SliderPrimitive.Track>
             <SliderPrimitive.Thumb

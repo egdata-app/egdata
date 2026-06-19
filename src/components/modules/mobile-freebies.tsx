@@ -199,7 +199,7 @@ function Countdown({ targetDate }: { targetDate: Date }) {
   return (
     <div
       className={cn(
-        "flex flex-row items-center justify-center gap-2 text-sm font-semibold text-white py-1",
+        "flex flex-row items-center justify-center gap-2 text-sm font-semibold text-foreground py-1",
         isFinised && "bg-badge text-black",
         !isFinised && "bg-gray-900",
       )}

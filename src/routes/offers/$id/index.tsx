@@ -21,6 +21,7 @@ import { Separator } from "@/components/ui/separator";
 import { useLocale } from "@/hooks/use-locale";
 import type { OfferPosition } from "@/types/collections";
 import { PerformanceTable } from "@/components/app/performance-table";
+import { bestCollectionKey } from "@/lib/performance";
 import { getOfferIgdb } from "@/queries/igdb";
 import { getOfferPriceFairness } from "@/queries/offer-price-fairness";
 import { RegionalPricingBadge } from "@/components/app/regional-pricing-badge";
@@ -82,12 +83,7 @@ export const Route = createFileRoute("/offers/$id/")({
     });
 
     // Calculate the default collection
-    defaultCollection =
-      tops && Object.keys(tops).length > 0
-        ? Object.keys(tops).reduce((acc, key) => {
-            return tops[key] < tops[acc] ? key : acc;
-          }, Object.keys(tops)[0]) // Use the first key in tops as the initial value
-        : "top-sellers";
+    defaultCollection = bestCollectionKey(tops, "top-sellers");
 
     await queryClient.prefetchQuery({
       queryKey: ["collection", "positions", { id, collection: defaultCollection }],
@@ -217,15 +213,7 @@ function RouteComponent() {
   const timeToBeat = igdb?.timeToBeat;
 
   useEffect(() => {
-    if (tops && Object.keys(tops).length > 0) {
-      setCollection(
-        Object.keys(tops).reduce((acc, key) => {
-          return tops[key] < tops[acc] ? key : acc;
-        }, defaultCollection),
-      );
-    } else {
-      setCollection(defaultCollection);
-    }
+    setCollection(bestCollectionKey(tops, defaultCollection));
   }, [tops, defaultCollection]);
 
   const noOfAchievemenentsPerRarity = useMemo(() => {
@@ -259,6 +247,7 @@ function RouteComponent() {
           onChange={(value) => setCollection(value)}
           tops={tops || {}}
           defaultCollection={defaultCollection}
+          isLoading={collectionsQuery.isLoading}
         />
       )}
       <div className="grid gap-8 grid-cols-1 md:grid-cols-2 mt-4 w-full">
@@ -270,7 +259,7 @@ function RouteComponent() {
                   {genres?.map((genre) => (
                     <Link
                       key={genre.id}
-                      className="inline-flex items-center gap-1 text-sm font-medium text-white bg-white/15 px-3 py-1 rounded-md hover:bg-white/5 transition-colors duration-200 ease-in-out"
+                      className="inline-flex items-center gap-1 text-sm font-medium text-primary bg-primary/10 px-3 py-1 rounded-md hover:bg-primary/20 transition-colors duration-200 ease-in-out"
                       to="/search"
                       search={{
                         tags: [genre.id],
@@ -299,7 +288,7 @@ function RouteComponent() {
                             className="size-14 mx-auto"
                           />
                         ) : (
-                          <div className="size-20 mx-auto inline-flex items-center justify-center bg-gray-900 rounded-lg">
+                          <div className="size-20 mx-auto inline-flex items-center justify-center bg-muted rounded-md">
                             <span className="text-6xl font-bold">{rating.ageControl}</span>
                           </div>
                         )}
@@ -307,7 +296,7 @@ function RouteComponent() {
                           <span className="text-base text-left font-bold">
                             {rating.ratingSystem} {rating.ageControl}
                           </span>
-                          <span className="text-xs text-left text-gray-300">
+                          <span className="text-xs text-left text-muted-foreground">
                             {rating.descriptor?.split(",").join(", ")}
                           </span>
                         </div>
@@ -354,7 +343,7 @@ function RouteComponent() {
             </Card>
           </OverviewSection>
           <OverviewSection title="Achievements">
-            <Card className="w-full bg-card text-white p-4">
+            <Card className="w-full bg-card text-card-foreground p-4">
               <div className="flex flex-col gap-4 w-full">
                 <div className="flex flex-row items-center justify-center gap-10">
                   {Object.entries(noOfAchievemenentsPerRarity ?? {}).map(([rarity, count]) => (
@@ -453,7 +442,7 @@ function RouteComponent() {
         </OverviewColumn>
         <OverviewColumn>
           <OverviewSection title="Price">
-            <Card className="w-full bg-card text-white p-4">
+            <Card className="w-full bg-card text-card-foreground p-4">
               <CardContent className="p-6">
                 <div className="flex flex-col gap-4">
                   {priceFairness && (
@@ -495,8 +484,8 @@ function RouteComponent() {
                   >
                     {hltb?.gameTimes.map((time) => (
                       <div key={time._id} className="text-center">
-                        <div className="text-2xl font-bold text-white mb-1">{time.time}</div>
-                        <div className="text-sm text-zinc-400">{time.category}</div>
+                        <div className="text-2xl font-bold text-foreground mb-1">{time.time}</div>
+                        <div className="text-sm text-muted-foreground">{time.category}</div>
                       </div>
                     ))}
                     {!hltb?.gameTimes.length && (
@@ -609,7 +598,7 @@ function PriceText({ price, showDate }: { price: Price | null | undefined; showD
     <span
       className={cn(
         "text-xl font-bold flex flex-row gap-2 items-center justify-start",
-        isDiscounted && "text-green-400",
+        isDiscounted && "text-primary",
       )}
     >
       {fmtr.format(calculatePrice(price.price.discountPrice ?? 0, price.price.currencyCode))}

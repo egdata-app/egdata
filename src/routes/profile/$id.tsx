@@ -282,7 +282,7 @@ function RouteComponent() {
                         />
                         <DonnorBadge profile={legacyProfile} displayName={displayName} />
                         <span className="absolute inset-0 flex items-center justify-center rounded-full bg-black/55 opacity-0 transition-opacity group-hover:opacity-100">
-                          <UploadIcon className="size-6 text-white" />
+                          <UploadIcon className="size-6 text-foreground" />
                         </span>
                       </button>
                     </DialogTrigger>
@@ -321,7 +321,10 @@ function RouteComponent() {
                               aria-describedby="avatar-upload-description"
                               disabled={isUploading}
                             />
-                            <p id="avatar-upload-description" className="text-sm text-gray-500">
+                            <p
+                              id="avatar-upload-description"
+                              className="text-sm text-muted-foreground"
+                            >
                               Upload a new avatar image, max 5MB.
                             </p>
                           </div>
@@ -334,7 +337,7 @@ function RouteComponent() {
                                 style={{ width: `${uploadProgress}%` }}
                               />
                             </div>
-                            <p className="text-center text-sm text-gray-500">
+                            <p className="text-center text-sm text-muted-foreground">
                               Uploading... {uploadProgress}%
                             </p>
                           </div>
@@ -381,7 +384,7 @@ function RouteComponent() {
 
                 <div className="min-w-0 space-y-4">
                   <PlayerName displayName={displayName} donorProfile={legacyProfile} />
-                  <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm text-gray-200">
+                  <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm text-foreground">
                     {linkedAccounts.length > 0 && (
                       <div className="inline-flex items-center gap-4">
                         {linkedAccounts
@@ -402,7 +405,7 @@ function RouteComponent() {
                       <Separator orientation="vertical" className="h-5 bg-white/25" />
                     )}
                     {profile.creationDate && (
-                      <span className="inline-flex items-center gap-2 text-gray-200">
+                      <span className="inline-flex items-center gap-2 text-foreground">
                         <CalendarIcon className="size-4" />
                         Joined{" "}
                         {new Date(profile.creationDate).toLocaleDateString("en-US", {
@@ -416,7 +419,7 @@ function RouteComponent() {
                       href={`https://store.epicgames.com/u/${accountId}?utm_source=egdata.app`}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="inline-flex items-center gap-2 text-gray-200 hover:text-white"
+                      className="inline-flex items-center gap-2 text-foreground hover:text-foreground"
                     >
                       <EGSIcon className="size-4" />
                       <span>Epic Games Store</span>
@@ -478,7 +481,7 @@ function RouteComponent() {
 
             <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-end">
               <div className="space-y-2">
-                <div className="flex items-center justify-between text-sm text-gray-200">
+                <div className="flex items-center justify-between text-sm text-foreground">
                   <span className="inline-flex items-center gap-2">
                     <SparklesIcon className="size-4" />
                     {xpToNextLevel} XP to level {highlights.level + 1}
@@ -522,12 +525,12 @@ function HeroGameSummary({ game }: { game: NonNullable<ProfilePageProfile["heroG
   return (
     <>
       <div className="min-w-0">
-        <p className="text-xs uppercase text-gray-300">Hero game</p>
+        <p className="text-xs uppercase text-muted-foreground">Hero game</p>
         <p className="truncate text-lg font-semibold">{game.title}</p>
       </div>
       <div className="shrink-0 text-right">
         <p className="text-2xl font-light">{Math.round(game.completionPercent ?? 0)}%</p>
-        <p className="text-xs text-gray-300">complete</p>
+        <p className="text-xs text-muted-foreground">complete</p>
       </div>
     </>
   );
@@ -582,12 +585,12 @@ function HeroStat({
 }) {
   return (
     <div className="rounded-md border border-white/10 bg-black/35 p-4 backdrop-blur">
-      <div className="flex items-center justify-between text-gray-300">
+      <div className="flex items-center justify-between text-muted-foreground">
         <p className="text-xs uppercase tracking-normal">{label}</p>
         {icon}
       </div>
-      <p className="mt-3 text-3xl font-light text-white">{value.toLocaleString()}</p>
-      <p className="text-sm text-gray-300">{detail}</p>
+      <p className="mt-3 text-3xl font-light text-foreground">{value.toLocaleString()}</p>
+      <p className="text-sm text-muted-foreground">{detail}</p>
     </div>
   );
 }
@@ -658,7 +661,9 @@ function PlayerName({
     return <DonatorName>{displayName}</DonatorName>;
   }
 
-  return <h1 className="break-words text-5xl font-thin text-white md:text-6xl">{displayName}</h1>;
+  return (
+    <h1 className="break-words text-5xl font-thin text-foreground md:text-6xl">{displayName}</h1>
+  );
 }
 
 function DonatorName({ children, className }: { children: React.ReactNode; className?: string }) {
@@ -698,7 +703,7 @@ function DonatorName({ children, className }: { children: React.ReactNode; class
 
       <h1
         className={cn(
-          "relative z-[1] break-words text-5xl font-thin text-white md:text-6xl",
+          "relative z-[1] break-words text-5xl font-thin text-foreground md:text-6xl",
           className,
         )}
       >
@@ -726,7 +731,7 @@ function DonnorBadge({
           className="absolute right-0 top-0 inline-flex rounded-full bg-gradient-to-r from-blue-500 via-purple-600 to-pink-600 p-1.5 shadow-lg"
           tabIndex={0}
         >
-          <CrownIcon className="h-5 w-5 text-white" />
+          <CrownIcon className="h-5 w-5 text-foreground" />
         </span>
       </TooltipTrigger>
       <TooltipContent

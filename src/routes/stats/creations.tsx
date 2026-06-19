@@ -51,7 +51,7 @@ function RouteComponent() {
 
       <header className="flex flex-col gap-2">
         <h2 className="text-2xl font-bold">Epic Games Store creation stats</h2>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-muted-foreground">
           Monthly and yearly cadence of new creations landing on the store.
         </p>
       </header>

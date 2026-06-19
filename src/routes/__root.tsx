@@ -174,7 +174,7 @@ export const Route = createRootRouteWithContext<Context>()({
       },
       {
         rel: "preload",
-        href: "https://cdn.egdata.app/Montserrat/Montserrat-VariableFont_wght.ttf",
+        href: "https://cdn.egdata.app/fonts/sora/Sora-VariableFont_wght.ttf",
         as: "font",
         type: "font/ttf",
         crossOrigin: "anonymous",
@@ -292,50 +292,112 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
         <HeadContent />
       </head>
       <body className="antialiased">
+        <GlobalBackground />
         <div className="md:container mx-auto overflow-x-hidden">
           <LocaleProvider initialLocale={locale} initialTimezone={timezone}>
             <CountryProvider defaultCountry={country || "US"}>
               <CompareProvider>
                 <SearchProvider>
                   <Navbar />
-                  <PreferencesProvider>
-                    <CookiesProvider
-                      initialSelection={analyticsCookies as unknown as CookiesSelection}
-                    >
-                      <ExtensionProvider>{children}</ExtensionProvider>
-                    </CookiesProvider>
-                  </PreferencesProvider>
+                  <div className="pt-6">
+                    <PreferencesProvider>
+                      <CookiesProvider
+                        initialSelection={analyticsCookies as unknown as CookiesSelection}
+                      >
+                        <ExtensionProvider>{children}</ExtensionProvider>
+                      </CookiesProvider>
+                    </PreferencesProvider>
+                  </div>
                   <ComparisonPortal />
                   <Toaster />
-                  <footer className="flex flex-col items-center justify-center p-4 text-gray-500 dark:text-gray-400 text-xs gap-1">
-                    <p>
-                      egdata.app is a fan-made website and is not affiliated by any means with Epic
-                      Games, Inc.
-                    </p>
-                    <p>
-                      All the logos, images, trademarks and creatives are property of their
-                      respective owners.
-                    </p>
-                    <hr className="w-1/3 my-2 border-gray-300/40" />
-                    <div className="inline-flex gap-2">
-                      <span>
-                        Countries flags by{" "}
-                        <a href="https://flagpedia.net" target="_blank" rel="noopener noreferrer">
-                          <strong>Flagpedia</strong>
-                        </a>
-                      </span>
-                      <span>|</span>
-                      <span className="inline-flex gap-1 items-center">
-                        Made in <img src="https://flagcdn.com/16x12/eu.webp" alt="EU Flag" />
-                      </span>
-                      <span>|</span>
-                      <Link to="/privacy">Privacy Policy</Link>
-                      <span>|</span>
-                      <Link to="/notifications">Notifications</Link>
-                      <span>|</span>
-                      <a href="https://docs.egdata.app" target="_blank" rel="noopener noreferrer">
-                        API Docs
-                      </a>
+                  <footer className="mt-12 border-t border-border/40">
+                    <div
+                      className="h-px w-full"
+                      style={{
+                        background:
+                          "linear-gradient(to right, transparent, hsl(211 100% 52% / 0.4), transparent)",
+                      }}
+                    />
+                    <div className="py-8 px-4 md:px-6">
+                      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 max-w-5xl mx-auto">
+                        <div className="space-y-2">
+                          <Link to="/" className="flex items-center gap-2">
+                            <img
+                              src="https://cdn.egdata.app/logo_simple_white_clean.png"
+                              alt="EGDATA Logo"
+                              width={28}
+                              height={28}
+                            />
+                            <span className="text-base font-display font-bold tracking-tight text-foreground">
+                              EGDATA
+                            </span>
+                          </Link>
+                          <p className="text-xs text-muted-foreground max-w-sm leading-relaxed">
+                            A fan-made Epic Games Store database. Not affiliated with Epic Games,
+                            Inc. All logos, images, and trademarks belong to their respective
+                            owners.
+                          </p>
+                        </div>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-10 gap-y-3 text-sm">
+                          <div className="space-y-2">
+                            <h4 className="text-xs uppercase tracking-wider text-muted-foreground/70 font-display">
+                              Legal
+                            </h4>
+                            <Link
+                              to="/privacy"
+                              className="block text-muted-foreground hover:text-primary transition-colors"
+                            >
+                              Privacy Policy
+                            </Link>
+                            <Link
+                              to="/notifications"
+                              className="block text-muted-foreground hover:text-primary transition-colors"
+                            >
+                              Notifications
+                            </Link>
+                          </div>
+                          <div className="space-y-2">
+                            <h4 className="text-xs uppercase tracking-wider text-muted-foreground/70 font-display">
+                              Resources
+                            </h4>
+                            <a
+                              href="https://docs.egdata.app"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block text-muted-foreground hover:text-primary transition-colors"
+                            >
+                              API Docs
+                            </a>
+                            <Link
+                              to="/changelog"
+                              className="block text-muted-foreground hover:text-primary transition-colors"
+                            >
+                              Changelog
+                            </Link>
+                          </div>
+                          <div className="space-y-2">
+                            <h4 className="text-xs uppercase tracking-wider text-muted-foreground/70 font-display">
+                              Community
+                            </h4>
+                            <a
+                              href="https://flagpedia.net"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block text-muted-foreground hover:text-primary transition-colors"
+                            >
+                              Flags by Flagpedia
+                            </a>
+                            <span className="flex items-center gap-1 text-muted-foreground">
+                              Made in{" "}
+                              <img
+                                src="https://flagcdn.com/16x12/eu.webp"
+                                alt="EU Flag"
+                                className="inline"
+                              />
+                            </span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </footer>
                 </SearchProvider>

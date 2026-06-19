@@ -16,7 +16,7 @@ export interface OfferPosition {
   name: string;
 }
 
-interface Position {
+export interface Position {
   date: string;
   position: number;
   _id: string;

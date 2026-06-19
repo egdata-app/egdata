@@ -54,12 +54,12 @@ export function GiveawaysCarousel({ hideTitle }: { hideTitle?: boolean }) {
     >
       {!hideTitle && (
         <Link
-          className="text-xl font-bold text-left inline-flex group items-center gap-2"
+          className="text-xl font-display font-semibold text-left inline-flex group items-center gap-2"
           to="/freebies"
           search={{ developerDisplayName: undefined, publisherDisplayName: undefined }}
         >
-          <h2 className="text-xl font-bold">Giveaways 🎁</h2>
-          <ArrowRightIcon className="w-6 h-6 inline-block group-hover:translate-x-1 transition-transform duration-300 ease-in-out" />
+          <h2 className="text-xl font-display font-semibold">Giveaways</h2>
+          <ArrowRightIcon className="w-5 h-5 inline-block group-hover:translate-x-1 transition-transform duration-300 ease-in-out text-primary" />
         </Link>
       )}
       <ScrollArea className="w-full">
@@ -96,7 +96,7 @@ function GiveawayCard({ offer }: { offer: GiveawayOffer }) {
       params={{
         id: offer.id,
       }}
-      className="flex flex-col rounded-lg shadow-md overflow-hidden w-[300px]"
+      className="flex flex-col rounded-md overflow-hidden w-[300px] bg-card border border-border/60 group"
     >
       <div className="relative flex-shrink-0">
         <Image
@@ -110,19 +110,24 @@ function GiveawayCard({ offer }: { offer: GiveawayOffer }) {
             ])?.url
           }
           alt={offer.title}
-          className="w-full h-[200px] object-cover"
+          className="w-full h-[200px] object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
           width={400}
           height={225}
         />
       </div>
       {(isUpcoming || isOnGoing) && <Countdown targetDate={startDate} />}
-      <div className="flex flex-col flex-grow p-4 bg-card">
-        <h3 className="text-lg font-medium mb-2">{offer.title}</h3>
+      <div className="flex flex-col flex-grow p-4">
+        <h3 className="text-base font-display font-medium mb-2 line-clamp-2">{offer.title}</h3>
         <div className="flex justify-between items-baseline mt-auto">
           <div className="flex items-center gap-2">
             {offer.price && (
               <>
-                <span className="text-xl font-bold">
+                <span
+                  className={cn(
+                    "text-lg font-bold",
+                    isOnGoing ? "text-primary" : "text-foreground",
+                  )}
+                >
                   {isOnGoing
                     ? "Free"
                     : priceFmtr.format(
@@ -133,7 +138,7 @@ function GiveawayCard({ offer }: { offer: GiveawayOffer }) {
                       )}
                 </span>
                 {isOnGoing && (
-                  <span className="text-sm font-semibold line-through">
+                  <span className="text-sm font-semibold line-through text-muted-foreground">
                     {priceFmtr.format(
                       calculatePrice(
                         offer.price?.price.originalPrice,
@@ -145,7 +150,7 @@ function GiveawayCard({ offer }: { offer: GiveawayOffer }) {
               </>
             )}
           </div>
-          <span className="text-sm font-semibold flex items-center gap-1">
+          <span className="text-xs font-semibold flex items-center gap-1 text-muted-foreground">
             <TooltipProvider>
               Repeated:{" "}
               {offer.giveaway?.historical?.length > 1 ? (
@@ -235,9 +240,9 @@ function Countdown({ targetDate }: { targetDate: Date }) {
   return (
     <div
       className={cn(
-        "flex flex-row items-center justify-center gap-2 text-sm font-semibold text-white py-1",
-        isFinised && "bg-badge text-black",
-        !isFinised && "bg-gray-900",
+        "flex flex-row items-center justify-center gap-2 text-sm font-semibold py-1.5",
+        isFinised && "bg-primary text-primary-foreground",
+        !isFinised && "bg-muted text-foreground",
       )}
     >
       {!isFinised ? (

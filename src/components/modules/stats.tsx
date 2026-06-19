@@ -30,7 +30,7 @@ export function StatsModule() {
     <Card className="md:w-1/2 h-full my-auto w-full">
       <CardHeader className="flex flex-col">
         <h2 className="text-xl font-semibold">Stats</h2>
-        <p className="text-sm text-gray-500">Statistics about the platform</p>
+        <p className="text-sm text-muted-foreground">Statistics about the platform</p>
       </CardHeader>
       <CardContent className="grid grid-cols-3 gap-4 h-[300px]">
         <Count
@@ -66,7 +66,7 @@ function Count({ value, label, tooltip }: { value: number; label: string; toolti
         <Tooltip>
           <TooltipTrigger
             className={cn(
-              "text-xs text-gray-500",
+              "text-xs text-muted-foreground",
               tooltip ? "underline decoration-dotted underline-offset-4" : "cursor-default",
             )}
           >

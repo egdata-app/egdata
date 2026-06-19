@@ -325,24 +325,26 @@ export default function Navbar() {
   };
 
   return (
-    <header className="flex h-20 w-full shrink-0 items-center px-4 md:px-6 gap-2">
+    <header className="sticky top-0 z-50 flex h-16 w-full shrink-0 items-center px-4 md:px-6 gap-2 border-b border-border/50 bg-background/70 backdrop-blur-xl">
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="lg:hidden">
-            <MenuIcon className="h-6 w-6" />
+            <MenuIcon className="h-5 w-5" />
             <span className="sr-only">Toggle navigation menu</span>
           </Button>
         </SheetTrigger>
         <SheetContent side="left" className="w-[300px] sm:w-[400px] p-0">
-          <SheetHeader className="p-4 border-b">
+          <SheetHeader className="p-4 border-b border-border/50">
             <Link to="/" className="flex items-center gap-2">
               <img
                 src="https://cdn.egdata.app/logo_simple_white_clean.png"
-                alt="GameDB Logo"
-                width={40}
-                height={40}
+                alt="EGDATA Logo"
+                width={32}
+                height={32}
               />
-              <span className="text-xl text-white font-montserrat font-bold">EGDATA</span>
+              <span className="text-lg text-foreground font-display font-bold tracking-tight">
+                EGDATA
+              </span>
             </Link>
           </SheetHeader>
           <div className="p-4">
@@ -355,7 +357,7 @@ export default function Navbar() {
                 }
               }}
             >
-              <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
+              <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
                 type="search"
                 placeholder="Search games..."
@@ -366,7 +368,9 @@ export default function Navbar() {
             <Accordion type="single" collapsible className="w-full">
               {routes.map((route) => (
                 <AccordionItem key={route.name} value={route.name}>
-                  <AccordionTrigger className="text-lg font-medium">{route.name}</AccordionTrigger>
+                  <AccordionTrigger className="text-base font-medium">
+                    {route.name}
+                  </AccordionTrigger>
                   <AccordionContent>
                     {route.component ? (
                       <div className="pt-2">
@@ -453,7 +457,7 @@ export default function Navbar() {
                     ) : (
                       <Link
                         to={route.href}
-                        className="block py-2 text-muted-foreground hover:text-white transition-colors"
+                        className="block py-2 text-muted-foreground hover:text-foreground transition-colors"
                       >
                         {route.name}
                       </Link>
@@ -472,10 +476,12 @@ export default function Navbar() {
         <img
           src="https://cdn.egdata.app/logo_simple_white_clean.png"
           alt="EGDATA Logo"
-          width={40}
-          height={40}
+          width={32}
+          height={32}
         />
-        <span className="text-xl text-white font-montserrat ml-2 font-bold">EGDATA</span>
+        <span className="text-lg text-foreground font-display font-bold tracking-tight ml-2">
+          EGDATA
+        </span>
       </Link>
       <NavigationMenu className="hidden lg:flex">
         <NavigationMenuList>
@@ -492,9 +498,9 @@ export default function Navbar() {
                       }
                     }}
                     className={cn(
-                      "bg-transparent",
-                      "hover:text-white z-50",
-                      "active:text-white data-[active]:text-white data-[state=open]:text-white",
+                      "bg-transparent text-sm font-medium",
+                      "hover:text-primary z-50",
+                      "active:text-primary data-[active]:text-primary data-[state=open]:text-primary",
                     )}
                   >
                     {route.name}
@@ -506,36 +512,32 @@ export default function Navbar() {
 
             return (
               <NavigationMenuLink key={route.name} asChild>
-                <Button variant="ghost" className="hover:text-white" asChild>
-                  <Link key={route.name} to={route.href} className="inline-flex items-center gap-2">
-                    {route.icon && <img src={route.icon} alt="" className="w-4 h-4" />}
-                    {route.name}
-                  </Link>
-                </Button>
+                <Link
+                  key={route.name}
+                  to={route.href}
+                  className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
+                >
+                  {route.icon && <img src={route.icon} alt="" className="w-4 h-4" />}
+                  {route.name}
+                </Link>
               </NavigationMenuLink>
             );
           })}
           <DiscordBotPopover />
         </NavigationMenuList>
       </NavigationMenu>
-      <div className="ml-auto flex items-center gap-4">
-        <div
-          className="relative cursor-text hidden lg:block"
+      <div className="ml-auto flex items-center gap-3">
+        <button
+          type="button"
+          className="hidden lg:inline-flex items-center gap-2 h-9 px-3 rounded-md border border-border/60 bg-card/40 text-sm text-muted-foreground hover:text-foreground hover:border-primary/50 transition-colors cursor-text"
           onClick={handleSearchClick}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              handleSearchClick();
-            }
-          }}
         >
-          <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-400" />
-          <Input
-            type="search"
-            placeholder="Search games..."
-            className="pl-8 w-[200px] cursor-text"
-            readOnly
-          />
-        </div>
+          <SearchIcon className="h-4 w-4" />
+          <span>Search games...</span>
+          <kbd className="ml-2 inline-flex h-5 items-center gap-0.5 rounded border border-border/60 bg-background/60 px-1.5 text-[10px] font-mono text-muted-foreground">
+            ⌘K
+          </kbd>
+        </button>
         <CountriesSelector />
         {user && (
           <DropdownMenu>
@@ -555,7 +557,7 @@ export default function Navbar() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>
-                <span className="dark:text-gray-300">Hello, {user.displayName}!</span>
+                <span className="text-muted-foreground">Hello, {user.displayName}!</span>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild className="cursor-pointer">

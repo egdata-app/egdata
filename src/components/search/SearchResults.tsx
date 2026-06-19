@@ -48,7 +48,7 @@ export function SearchResults(props: SearchResultsProps) {
   if (!results || results.offers.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-full">
-        <span className="text-gray-400">No results found</span>
+        <span className="text-muted-foreground">No results found</span>
       </div>
     );
   }

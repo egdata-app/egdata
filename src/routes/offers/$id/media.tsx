@@ -261,7 +261,7 @@ function MediaPage() {
                 e.stopPropagation();
                 setActive(false);
               }}
-              className="absolute top-4 right-4 text-white z-[51] rounded-full bg-black/50 p-2"
+              className="absolute top-4 right-4 text-foreground z-[51] rounded-full bg-black/50 p-2"
               aria-label="Close"
             >
               <XIcon className="w-6 h-6" />
@@ -281,7 +281,7 @@ function MediaPage() {
                     <div className="relative">
                       <Button
                         variant="outline"
-                        className="absolute top-4 right-4 text-white z-[51] rounded-md bg-black/50 p-2"
+                        className="absolute top-4 right-4 text-foreground z-[51] rounded-md bg-black/50 p-2"
                         onClick={(e) => {
                           e.stopPropagation();
                           downloadImage(

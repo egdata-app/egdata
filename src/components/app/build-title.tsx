@@ -29,7 +29,7 @@ export function BuildTitle({
   const displayText = (
     <>
       <span>{truncatedTitle}</span>
-      {buildVersion && <span className="text-gray-500"> ({truncatedVersion})</span>}
+      {buildVersion && <span className="text-muted-foreground"> ({truncatedVersion})</span>}
     </>
   );
 

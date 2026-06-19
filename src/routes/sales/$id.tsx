@@ -203,7 +203,7 @@ function SalesPage() {
           })`,
         }}
       >
-        <div className="h-full w-full flex flex-col justify-center items-start text-white p-8 bg-gradient-to-r from-black/80 to-black/30">
+        <div className="h-full w-full flex flex-col justify-center items-start text-foreground p-8 bg-gradient-to-r from-black/80 to-black/30">
           <h1 className="text-5xl font-bold">{promotion.title}</h1>
           <p className="mt-4 text-lg">{promotion.count} offers available in this event</p>
         </div>

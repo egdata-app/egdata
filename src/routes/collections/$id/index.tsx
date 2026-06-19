@@ -167,7 +167,7 @@ function CollectionPage() {
     return (
       <main className="container mx-auto flex flex-col items-center justify-center gap-4 min-h-screen">
         <div className="relative h-96 overflow-hidden rounded-2xl flex items-center bg-cover bg-center w-full">
-          <div className="h-full w-full flex flex-col justify-center items-start text-white p-8 bg-gradient-to-r from-black/80 to-black/30">
+          <div className="h-full w-full flex flex-col justify-center items-start text-foreground p-8 bg-gradient-to-r from-black/80 to-black/30">
             <span className="text-5xl font-bold">Loading...</span>
           </div>
         </div>
@@ -187,7 +187,7 @@ function CollectionPage() {
           <span className="w-32 text-right" />
           <span className="w-16 text-center">
             <Tooltip>
-              <TooltipTrigger className="underline decoration-dotted decoration-gray-300/50 underline-offset-4 cursor-help">
+              <TooltipTrigger className="underline decoration-dotted decoration-border/60 underline-offset-4 cursor-help">
                 Variance
               </TooltipTrigger>
               <TooltipContent className="max-w-xs">
@@ -200,7 +200,7 @@ function CollectionPage() {
           </span>
           <span className="w-16 text-center">
             <Tooltip>
-              <TooltipTrigger className="underline decoration-dotted decoration-gray-300/50 underline-offset-4 cursor-help">
+              <TooltipTrigger className="underline decoration-dotted decoration-border/60 underline-offset-4 cursor-help">
                 Weeks
               </TooltipTrigger>
               <TooltipContent className="max-w-xs">
@@ -232,7 +232,7 @@ function CollectionPage() {
               {isFetchingNextPage ? (
                 <>
                   <svg
-                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-foreground"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -351,34 +351,34 @@ function OfferInTop({ offer }: { offer: OfferWithTops }) {
           <Tooltip>
             <TooltipTrigger className="text-md">{weeksInTop100}</TooltipTrigger>
             <TooltipContent className="max-w-xs bg-transparent" side="right">
-              <div className="flex flex-col gap-1 p-3 bg-gray-50 rounded-md shadow-md w-36">
-                <div className="flex justify-between text-xs font-medium text-gray-600">
+              <div className="flex flex-col gap-1 p-3 bg-muted/50 rounded-md shadow-md w-36">
+                <div className="flex justify-between text-xs font-medium text-muted-foreground">
                   <span>Top 1:</span>
-                  <span className="text-gray-900 font-semibold">
+                  <span className="text-foreground font-semibold">
                     {offer.metadata.timesInTop1} days
                   </span>
                 </div>
-                <div className="flex justify-between text-xs font-medium text-gray-600">
+                <div className="flex justify-between text-xs font-medium text-muted-foreground">
                   <span>Top 5:</span>
-                  <span className="text-gray-900 font-semibold">
+                  <span className="text-foreground font-semibold">
                     {offer.metadata.timesInTop5} days
                   </span>
                 </div>
-                <div className="flex justify-between text-xs font-medium text-gray-600">
+                <div className="flex justify-between text-xs font-medium text-muted-foreground">
                   <span>Top 10:</span>
-                  <span className="text-gray-900 font-semibold">
+                  <span className="text-foreground font-semibold">
                     {offer.metadata.timesInTop10} days
                   </span>
                 </div>
-                <div className="flex justify-between text-xs font-medium text-gray-600">
+                <div className="flex justify-between text-xs font-medium text-muted-foreground">
                   <span>Top 50:</span>
-                  <span className="text-gray-900 font-semibold">
+                  <span className="text-foreground font-semibold">
                     {offer.metadata.timesInTop50} days
                   </span>
                 </div>
-                <div className="flex justify-between text-xs font-medium text-gray-600">
+                <div className="flex justify-between text-xs font-medium text-muted-foreground">
                   <span>Top 100:</span>
-                  <span className="text-gray-900 font-semibold">
+                  <span className="text-foreground font-semibold">
                     {offer.metadata.timesInTop100} days
                   </span>
                 </div>

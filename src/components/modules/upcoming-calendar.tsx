@@ -151,7 +151,7 @@ function FloatingCountdown({ date }: { date: Date }) {
   }, [target, timezone]);
 
   return (
-    <div className="absolute top-0 left-0 dark:bg-gray-800/50 p-2 rounded-tl-lg rounded-br-lg shadow-lg z-50 backdrop-blur-sm">
+    <div className="absolute top-0 left-0 dark:bg-muted/50 p-2 rounded-tl-lg rounded-br-lg shadow-lg z-50 backdrop-blur-sm">
       <p>{formatTimeLeft(timeLeft)}</p>
     </div>
   );

@@ -18,14 +18,17 @@ import { getOffersWithAchievements } from "@/queries/offers-with-achievements";
 import { getStats } from "@/queries/stats";
 import { getTopSellers } from "@/queries/top-sellers";
 import type { GiveawayOffer } from "@/types/giveaways";
+import type { KeyImage, SingleOffer } from "@/types/single-offer";
 import type { SingleItem } from "@/types/single-item";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link, type LinkComponentProps } from "@tanstack/react-router";
 import type { JSX, ReactNode } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { DateTime } from "luxon";
 import { getGiveawaysStats, GiveawaysStats } from "@/components/modules/giveaway-stats";
 import { cn } from "@/lib/utils";
 import { calculatePrice } from "@/lib/calculate-price";
+import { getFeaturedDiscounts } from "@/queries/featured-discounts";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import {
   Dialog,
@@ -42,7 +45,6 @@ import { getImage } from "@/lib/get-image";
 import { getOfferOverview } from "@/queries/offer-overview";
 import { formatTimeToHumanReadable } from "@/lib/time-to-human-readable";
 import { Countdown } from "@/components/ui/countdown";
-import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { useSearch } from "@/hooks/use-search";
 import { getBuilds } from "@/queries/get-builds";
@@ -89,6 +91,11 @@ export const Route = createFileRoute("/")({
         queryFn: () => getLatestOffers(country ?? "US").catch(() => []),
       }),
       queryClient.prefetchQuery({
+        queryKey: ["latest-released", { country }],
+        queryFn: () =>
+          getLatestReleased({ country: country ?? "US" }).catch(() => ({ elements: [] })),
+      }),
+      queryClient.prefetchQuery({
         queryKey: ["stats", { country }],
         queryFn: () => getStats({ country: country ?? "US" }).catch(() => null),
       }),
@@ -96,6 +103,12 @@ export const Route = createFileRoute("/")({
         queryKey: ["giveaways-stats", { country }],
         queryFn: () => getGiveawaysStats({ country: country ?? "US" }).catch(() => null),
       }),
+      queryClient.prefetchQuery({
+        queryKey: ["featured-discounts", { country }],
+        queryFn: () =>
+          getFeaturedDiscounts({ country: country ?? "US", limit: 10 }).catch(() => []),
+      }),
+      queryClient.prefetchQuery(getBuilds({ sortDir: "desc", sortBy: "createdAt" })),
     ]);
   },
 });
@@ -129,7 +142,7 @@ function OfferHoverCard({ id }: { id: string }) {
   };
 
   return (
-    <div className="bg-slate-800 border-slate-700 text-slate-200 p-4 space-y-3 w-full h-fit border rounded-md">
+    <div className="bg-card border border-border/60 text-card-foreground p-4 space-y-3 w-full h-fit rounded-md">
       <div>
         <Image
           src={
@@ -144,22 +157,25 @@ function OfferHoverCard({ id }: { id: string }) {
       </div>
 
       <div className="flex items-center justify-between gap-2">
-        <h3 className="text-xl font-bold text-white">{data.offer.title}</h3>
+        <h3 className="text-xl font-display font-bold text-foreground">{data.offer.title}</h3>
         {data.price && (
           <div className="text-right">
             {data.price.price.discountPrice === 0 ? (
-              <span className="text-green-400 font-bold">Free</span>
+              <span className="text-primary font-bold">Free</span>
             ) : (
               <div className="flex flex-col items-end">
-                <span className="text-white font-bold">
+                <span className="text-foreground font-bold">
                   {formatPrice(data.price.price.discountPrice, data.price.price.currencyCode)}
                 </span>
                 {data.price.price.originalPrice > data.price.price.discountPrice && (
                   <div className="flex items-center gap-1">
-                    <span className="text-xs text-slate-400 line-through">
+                    <span className="text-xs text-muted-foreground line-through">
                       {formatPrice(data.price.price.originalPrice, data.price.price.currencyCode)}
                     </span>
-                    <Badge variant="destructive" className="text-xs px-1 py-0">
+                    <Badge
+                      variant="default"
+                      className="text-xs px-1 py-0 bg-primary text-primary-foreground"
+                    >
                       -
                       {Math.round(
                         ((data.price.price.originalPrice - data.price.price.discountPrice) /
@@ -176,28 +192,28 @@ function OfferHoverCard({ id }: { id: string }) {
         )}
       </div>
 
-      <div className="text-sm space-y-1 text-slate-300">
+      <div className="text-sm space-y-1 text-muted-foreground">
         <p>
-          <span className="text-slate-400">Seller:</span>{" "}
+          <span className="text-muted-foreground/70">Seller:</span>{" "}
           <Link
             to="/sellers/$id"
             params={{
               id: data.offer.seller.id,
             }}
-            className="text-blue-400 hover:underline"
+            className="text-primary hover:underline"
           >
             {data.offer.seller.name}
           </Link>
         </p>
         {data.offer.developerDisplayName && (
           <p>
-            <span className="text-slate-400">Developer:</span>{" "}
+            <span className="text-muted-foreground/70">Developer:</span>{" "}
             <Link
               to="/search"
               search={{
                 developerDisplayName: data.offer.developerDisplayName,
               }}
-              className="text-blue-400 hover:underline"
+              className="text-primary hover:underline"
             >
               {data.offer.developerDisplayName}
             </Link>
@@ -205,13 +221,13 @@ function OfferHoverCard({ id }: { id: string }) {
         )}
         {data.offer.publisherDisplayName && (
           <p>
-            <span className="text-slate-400">Publisher:</span>{" "}
+            <span className="text-muted-foreground/70">Publisher:</span>{" "}
             <Link
               to="/search"
               search={{
                 publisherDisplayName: data.offer.publisherDisplayName,
               }}
-              className="text-blue-400 hover:underline"
+              className="text-primary hover:underline"
             >
               {data.offer.publisherDisplayName}
             </Link>
@@ -219,13 +235,13 @@ function OfferHoverCard({ id }: { id: string }) {
         )}
         {data.offer.releaseDate && (
           <p>
-            <span className="text-slate-400">Release Date:</span>{" "}
+            <span className="text-muted-foreground/70">Release Date:</span>{" "}
             {formatDate(data.offer.releaseDate)}
           </p>
         )}
         {getAgeRatingDisplay() && (
           <p>
-            <span className="text-slate-400">Age Rating:</span> {getAgeRatingDisplay()}
+            <span className="text-muted-foreground/70">Age Rating:</span> {getAgeRatingDisplay()}
           </p>
         )}
       </div>
@@ -236,26 +252,26 @@ function OfferHoverCard({ id }: { id: string }) {
             <Badge
               key={genre.id}
               variant="outline"
-              className="border-purple-400/50 bg-purple-900/20 text-purple-300"
+              className="border-primary/40 bg-primary/10 text-primary"
             >
-              <Sparkles className="w-3 h-3 mr-1.5 text-purple-400" />
+              <Sparkles className="w-3 h-3 mr-1.5 text-primary" />
               {genre.name}
             </Badge>
           ))}
           {data.genres.length > 4 && (
-            <Badge variant="outline" className="border-slate-400/50 bg-slate-900/20 text-slate-400">
+            <Badge variant="outline" className="border-border/50 bg-muted/20 text-muted-foreground">
               +{data.genres.length - 4} more
             </Badge>
           )}
         </div>
       )}
 
-      <div className="bg-slate-900/80 p-3 rounded-md space-y-2 text-sm">
+      <div className="bg-muted/30 p-3 rounded-md space-y-2 text-sm">
         {data.polls?.averageRating && (
           <div className="flex items-center gap-2">
             <span>🤯</span>
-            <span className="text-slate-400">Community Rating:</span>
-            <span className="font-bold text-yellow-400">
+            <span className="text-muted-foreground">Community Rating:</span>
+            <span className="font-bold text-primary">
               {(data.polls.averageRating * 2 * 10).toFixed(1)}%
             </span>
           </div>
@@ -264,12 +280,12 @@ function OfferHoverCard({ id }: { id: string }) {
           <>
             {data.igdb.total_rating && (
               <div className="flex items-center gap-2">
-                <div className="w-5 h-5 bg-green-500 rounded-sm flex items-center justify-center text-sm font-bold text-white">
+                <div className="w-5 h-5 bg-primary rounded-sm flex items-center justify-center text-sm font-bold text-primary-foreground">
                   {Math.round(data.igdb.total_rating)}
                 </div>
-                <span className="text-slate-400">IGDB Score</span>
+                <span className="text-muted-foreground">IGDB Score</span>
                 {data.igdb.total_rating_count && (
-                  <span className="text-slate-500 text-xs">
+                  <span className="text-muted-foreground/70 text-xs">
                     • {data.igdb.total_rating_count} reviews
                   </span>
                 )}
@@ -278,8 +294,8 @@ function OfferHoverCard({ id }: { id: string }) {
             {data.igdb.timeToBeat && (
               <div className="flex items-center gap-2">
                 <span>⏱️</span>
-                <span className="text-slate-400">Time to Beat:</span>
-                <span className="text-slate-300">
+                <span className="text-muted-foreground">Time to Beat:</span>
+                <span className="text-foreground/80">
                   {data.igdb.timeToBeat.normally
                     ? formatTimeToHumanReadable(data.igdb.timeToBeat.normally)
                     : "N/A"}
@@ -291,8 +307,8 @@ function OfferHoverCard({ id }: { id: string }) {
         {data.features.features.length > 0 && (
           <div className="flex items-center gap-2">
             <span>🎮</span>
-            <span className="text-slate-400">Features:</span>
-            <span className="text-slate-300">
+            <span className="text-muted-foreground">Features:</span>
+            <span className="text-foreground/80">
               {data.features.features.slice(0, 2).join(", ")}
               {data.features.features.length > 2 && ` +${data.features.features.length - 2} more`}
             </span>
@@ -334,7 +350,7 @@ function BuildHoverCard({
   const displayUrl = gameImage?.url ?? "/placeholder.webp";
 
   return (
-    <div className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700 text-slate-200 border rounded-lg shadow-xl overflow-hidden w-80">
+    <div className="bg-gradient-to-br from-card to-background border border-border/60 text-card-foreground border rounded-md shadow-xl overflow-hidden w-80">
       {displayUrl && (
         <div className="w-full h-44 flex-shrink-0 relative">
           <img
@@ -351,11 +367,11 @@ function BuildHoverCard({
 
       <div className="p-4 space-y-3">
         <div>
-          <h3 className="text-lg font-bold text-white leading-tight line-clamp-2">
+          <h3 className="text-lg font-display font-bold text-foreground leading-tight line-clamp-2">
             {build.item?.title ?? "Unknown Build"}
           </h3>
           {build.item?.developer && (
-            <p className="text-sm text-slate-400 mt-1">
+            <p className="text-sm text-muted-foreground mt-1">
               {build.item?.developer ?? "Unknown Developer"}
             </p>
           )}
@@ -363,29 +379,29 @@ function BuildHoverCard({
 
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-400">Size</span>
-            <span className="text-sm font-medium text-slate-200">
+            <span className="text-xs text-muted-foreground">Size</span>
+            <span className="text-sm font-medium text-foreground">
               {calculateSize(build.downloadSizeBytes)}
             </span>
           </div>
 
           {build.buildVersion && (
             <div className="flex items-center justify-between">
-              <span className="text-xs text-slate-400">Version</span>
-              <span className="text-sm font-medium text-slate-200">{build.buildVersion}</span>
+              <span className="text-xs text-muted-foreground">Version</span>
+              <span className="text-sm font-medium text-foreground">{build.buildVersion}</span>
             </div>
           )}
 
           <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-400">Created</span>
-            <span className="text-xs text-slate-300">
+            <span className="text-xs text-muted-foreground">Created</span>
+            <span className="text-xs text-foreground/80">
               {DateTime.fromISO(build.createdAt).toLocaleString(DateTime.DATE_SHORT)}
             </span>
           </div>
         </div>
 
-        <div className="pt-2 border-t border-slate-700">
-          <p className="text-xs text-slate-500 font-mono truncate">ID: {build._id}</p>
+        <div className="pt-2 border-t border-border/50">
+          <p className="text-xs text-muted-foreground/70 font-mono truncate">ID: {build._id}</p>
         </div>
       </div>
     </div>
@@ -419,6 +435,7 @@ function RouteComponent() {
     topSellersQuery,
     statsQuery,
     latestBuildsQuery,
+    featuredDiscountsQuery,
   ] = useQueries({
     queries: [
       {
@@ -468,10 +485,18 @@ function RouteComponent() {
           giveaways: 0,
         },
       },
-      getBuilds({
-        sortDir: "desc",
-        sortBy: "createdAt",
-      }),
+      {
+        ...getBuilds({
+          sortDir: "desc",
+          sortBy: "createdAt",
+        }),
+        placeholderData: [],
+      },
+      {
+        queryKey: ["featured-discounts", { country }],
+        queryFn: () => getFeaturedDiscounts({ country, limit: 10 }),
+        placeholderData: [],
+      },
     ],
   });
   const { data: giveawayOffers = [] } = freebiesQuery;
@@ -489,6 +514,7 @@ function RouteComponent() {
     },
   } = statsQuery;
   const { data: latestBuilds = [] } = latestBuildsQuery;
+  const { data: featuredDiscounts = [] } = featuredDiscountsQuery;
 
   function formatDate(iso: string) {
     return DateTime.fromISO(iso)
@@ -515,7 +541,7 @@ function RouteComponent() {
               {headers.map((h, index) => (
                 <TableHead
                   key={typeof h === "string" ? h : `header-${index}`}
-                  className="text-neutral-400 font-normal"
+                  className="text-muted-foreground font-normal"
                 >
                   {h}
                 </TableHead>
@@ -534,7 +560,7 @@ function RouteComponent() {
                 cell.type === Image;
 
               const TableRowContent = (
-                <TableRow className="border-neutral-800 hover:bg-neutral-800/60">
+                <TableRow className="border-border/40 hover:bg-primary/5">
                   {cells.map((cell, j) => {
                     const headerKey =
                       typeof headers[j + 1] === "string" ? headers[j + 1] : `header-${j}`;
@@ -549,7 +575,7 @@ function RouteComponent() {
                       >
                         {isImage(cell) ? (
                           <div className="flex items-center justify-start">
-                            <div className="w-16 h-8 sm:w-24 sm:h-12 rounded overflow-hidden bg-neutral-800/40 flex items-center justify-center">
+                            <div className="w-16 h-8 sm:w-24 sm:h-12 rounded overflow-hidden bg-muted/40 flex items-center justify-center">
                               {cell}
                             </div>
                           </div>
@@ -609,19 +635,19 @@ function RouteComponent() {
   }) => (
     <Card
       className={cn(
-        "flex flex-col rounded-lg border h-[650px]",
+        "flex flex-col rounded-md border border-border/60 h-[650px] bg-card/40 backdrop-blur-sm",
         spanFull ? "md:col-span-2" : "",
         className,
       )}
     >
-      <CardHeader className="border-b border-neutral-800 p-3">
-        <CardTitle className="text-sm font-mono text-neutral-400">
+      <CardHeader className="border-b border-border/50 p-3">
+        <CardTitle className="text-sm font-display font-semibold text-muted-foreground tracking-tight">
           {href ? (
             <Link
               to={href}
               search={search}
               params={params}
-              className="underline decoration-dotted underline-offset-4"
+              className="underline decoration-dotted underline-offset-4 hover:text-primary transition-colors"
             >
               {title}
             </Link>
@@ -641,53 +667,39 @@ function RouteComponent() {
   );
 
   return (
-    <main className="mx-auto w-full max-w-7xl flex-1 space-y-6 py-6 px-4 sm:px-6 lg:px-8">
-      {/* Hero Section */}
-      <section className="text-center space-y-4 py-6">
-        <div className="space-y-3">
-          <h1 className="text-3xl font-semiboold tracking-tight sm:text-4xl md:text-5xl font-montserrat">
-            egdata.app
-          </h1>
-          <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
-            Track prices, discover deals, and never miss a free game. Your ultimate companion for
-            Epic Games Store offers, discounts, and giveaways.
-          </p>
+    <main className="mx-auto w-full max-w-7xl flex-1 space-y-8 py-6 px-4 sm:px-6 lg:px-8">
+      {/* Search-first hero + Live now strip */}
+      <div className="grid gap-6 grid-cols-1 lg:grid-cols-5">
+        <div className="lg:col-span-3">
+          <SearchHero onSearch={() => setFocus(true)} />
         </div>
-
-        <div className="mx-auto max-w-md">
-          <div
-            className="relative cursor-text"
-            onClick={(e) => {
-              e.preventDefault();
-              setFocus(true);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                setFocus(true);
-              }
-            }}
-          >
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search offers, items, or sellers..."
-              className="pl-10 h-10 text-sm cursor-text"
-              readOnly
-            />
-          </div>
+        <div className="lg:col-span-2">
+          <LiveNowStrip
+            giveawayOffers={giveawayOffers}
+            giveawayLoading={freebiesQuery.isLoading}
+            featuredDiscounts={featuredDiscounts}
+            discountsLoading={featuredDiscountsQuery.isLoading}
+            latestReleasedOffers={latestReleasedOffers}
+            latestReleasedLoading={latestReleasedQuery.isLoading}
+            latestBuilds={latestBuilds}
+            latestBuildsLoading={latestBuildsQuery.isLoading}
+            locale={locale}
+          />
         </div>
-      </section>
+      </div>
 
-      {/* Metrics Row */}
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-        <MetricBox label="Offers Tracked" value={stats.offers.toLocaleString("en-UK")} />
-        <MetricBox
+      {/* Stats Bar */}
+      <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 py-3 border-y border-border/40 rounded-md bg-card/30 px-4">
+        <StatItem label="Offers Tracked" value={stats.offers.toLocaleString("en-UK")} />
+        <StatDivider />
+        <StatItem
           label="Price Changes / 72h"
           value={stats.trackedPriceChanges.toLocaleString("en-UK")}
         />
-        <MetricBox label="Active Discounts" value={stats.activeDiscounts.toLocaleString("en-UK")} />
-        <MetricBox label="Giveaways to Date" value={stats.giveaways.toLocaleString("en-UK")} />
+        <StatDivider />
+        <StatItem label="Active Discounts" value={stats.activeDiscounts.toLocaleString("en-UK")} />
+        <StatDivider />
+        <StatItem label="Giveaways to Date" value={stats.giveaways.toLocaleString("en-UK")} />
       </div>
 
       {/* First row - shorter sections */}
@@ -731,14 +743,14 @@ function RouteComponent() {
                   <DialogTrigger asChild>
                     <button
                       type="button"
-                      className="flex flex-col items-start justify-center text-left hover:text-blue-400 transition-colors"
+                      className="flex flex-col items-start justify-center text-left hover:text-primary transition-colors"
                     >
                       <TruncatedText text={g.title} maxLength={35} />
                       <p className="inline-flex gap-1">
                         {g.platforms.map((p) =>
                           RenderTextPlatformIcon({
                             platform: p,
-                            className: "size-5 rounded-full p-1 bg-gray-600",
+                            className: "size-5 rounded-full p-1 bg-muted",
                             key: `${p}-${g.id}`,
                           }),
                         )}
@@ -761,7 +773,7 @@ function RouteComponent() {
                               <Link
                                 to="/offers/$id"
                                 params={{ id: offer.id }}
-                                className="flex items-center gap-3 p-3 border rounded-lg bg-card transition-colors hover:border-gray-400"
+                                className="flex items-center gap-3 p-3 border rounded-lg bg-card transition-colors hover:border-primary/60"
                               >
                                 <img
                                   src={buildImageUrl(
@@ -783,7 +795,7 @@ function RouteComponent() {
                                     {offerPlatforms.map((platform, idx) =>
                                       RenderTextPlatformIcon({
                                         platform,
-                                        className: "size-6 rounded-full p-1 bg-gray-600",
+                                        className: "size-6 rounded-full p-1 bg-muted",
                                         key: `${platform}-${offer.id}-${idx}`,
                                       }),
                                     )}
@@ -819,7 +831,7 @@ function RouteComponent() {
                     {g.platforms.map((p) =>
                       RenderTextPlatformIcon({
                         platform: p,
-                        className: "size-5 rounded-full p-1 bg-gray-600",
+                        className: "size-5 rounded-full p-1 bg-muted",
                         key: `${p}-${g.id}`,
                       }),
                     )}
@@ -1186,11 +1198,352 @@ function RouteComponent() {
   );
 }
 
-function MetricBox({ label, value }: { label: string; value: string }) {
+function StatItem({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-lg bg-card p-4 text-center">
-      <div className="text-2xl font-mono">{value}</div>
-      <div className="text-xs text-neutral-400">{label}</div>
+    <div className="flex flex-col items-center text-center">
+      <span className="text-xl font-display font-semibold tabular-nums text-foreground">
+        {value}
+      </span>
+      <span className="text-[0.7rem] uppercase tracking-wide text-muted-foreground mt-0.5">
+        {label}
+      </span>
     </div>
+  );
+}
+
+function StatDivider() {
+  return <span className="h-8 w-px bg-border/50 hidden sm:block" aria-hidden="true" />;
+}
+
+function SearchHero({ onSearch }: { onSearch: () => void }) {
+  const chips: {
+    label: string;
+    to: LinkComponentProps["to"];
+    search?: LinkComponentProps["search"];
+    params?: LinkComponentProps["params"];
+  }[] = [
+    { label: "Free now", to: "/freebies" },
+    { label: "Just released", to: "/search", search: { sortBy: "releaseDate", sortDir: "desc" } },
+    { label: "Price drops (72h)", to: "/sales" },
+    { label: "Has achievements", to: "/search", search: { tags: ["19847"] } },
+    { label: "Upcoming", to: "/search", search: { sortBy: "upcoming" } },
+    { label: "Top sellers", to: "/collections/$id", params: { id: "top-sellers" } },
+  ];
+
+  return (
+    <section className="flex flex-col justify-center h-full min-h-[280px] rounded-lg border border-border/60 bg-card/40 backdrop-blur-sm p-6 md:p-8">
+      <h1 className="text-3xl md:text-5xl font-display font-bold tracking-tight text-foreground">
+        egdata.app
+      </h1>
+      <p className="mt-3 max-w-xl text-muted-foreground">
+        Track prices, discover deals, and never miss a free game. Your companion for the Epic Games
+        Store database — offers, discounts, giveaways, builds, and more.
+      </p>
+
+      <button
+        type="button"
+        onClick={onSearch}
+        className="mt-6 w-full max-w-xl inline-flex items-center gap-2 rounded-md border border-border/60 bg-background/60 px-4 py-3 text-left text-sm text-muted-foreground hover:border-primary/60 hover:text-primary transition-colors"
+      >
+        <Search className="size-4" />
+        Search the database…
+      </button>
+
+      <div className="mt-4 flex flex-wrap gap-2 max-w-xl">
+        {chips.map((chip) => (
+          <Link
+            key={chip.label}
+            to={chip.to}
+            search={chip.search}
+            params={chip.params}
+            className="inline-flex items-center rounded-full border border-border/60 bg-background/40 px-3 py-1 text-xs font-medium text-muted-foreground hover:border-primary/60 hover:text-primary transition-colors"
+          >
+            {chip.label}
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function LiveNowStrip({
+  giveawayOffers,
+  giveawayLoading,
+  featuredDiscounts,
+  discountsLoading,
+  latestReleasedOffers,
+  latestReleasedLoading,
+  latestBuilds,
+  latestBuildsLoading,
+  locale,
+}: {
+  giveawayOffers: GiveawayOffer[];
+  giveawayLoading: boolean;
+  featuredDiscounts: SingleOffer[];
+  discountsLoading: boolean;
+  latestReleasedOffers: { elements: SingleOffer[] };
+  latestReleasedLoading: boolean;
+  latestBuilds: Array<{
+    _id: string;
+    item: SingleItem;
+    downloadSizeBytes: number;
+    createdAt: string;
+    buildVersion?: string;
+  }>;
+  latestBuildsLoading: boolean;
+  locale: string;
+}) {
+  const activeGiveaways = useMemo(
+    () =>
+      giveawayOffers
+        .filter((g) => g.giveaway?.startDate && new Date(g.giveaway.endDate) > new Date())
+        .slice(0, 3),
+    [giveawayOffers],
+  );
+  const [giveawayIdx, setGiveawayIdx] = useState(0);
+
+  useEffect(() => {
+    if (activeGiveaways.length <= 1) return;
+    const timer = setInterval(() => {
+      setGiveawayIdx((i) => (i + 1) % activeGiveaways.length);
+    }, 10000);
+    return () => clearInterval(timer);
+  }, [activeGiveaways.length]);
+
+  const biggestDrop = useMemo(() => {
+    if (featuredDiscounts.length === 0) return null;
+    return featuredDiscounts.reduce((best, o) => {
+      const pct =
+        o.price && o.price.price.originalPrice > 0
+          ? (o.price.price.originalPrice - o.price.price.discountPrice) /
+            o.price.price.originalPrice
+          : 0;
+      const bestPct =
+        best && best.price && best.price.price.originalPrice > 0
+          ? (best.price.price.originalPrice - best.price.price.discountPrice) /
+            best.price.price.originalPrice
+          : 0;
+      return pct > bestPct ? o : best;
+    }, featuredDiscounts[0]);
+  }, [featuredDiscounts]);
+
+  const newestRelease = latestReleasedOffers.elements[0] ?? null;
+  const newestBuild = latestBuilds[0] ?? null;
+
+  const formatPrice = (price: number, currencyCode: string) =>
+    new Intl.NumberFormat(locale, { style: "currency", currency: currencyCode }).format(
+      calculatePrice(price, currencyCode),
+    );
+
+  const currentGiveaway = activeGiveaways[giveawayIdx];
+
+  type Slot = { kind: "card"; node: JSX.Element } | { kind: "skeleton" } | { kind: "empty" };
+
+  const slots: Slot[] = [
+    currentGiveaway
+      ? {
+          kind: "card",
+          node: (
+            <SignalCard
+              key="giveaway"
+              href="/offers/$id"
+              id={currentGiveaway.id}
+              imageType="tall"
+              keyImages={currentGiveaway.keyImages}
+              title={currentGiveaway.title}
+              badge="Free Now"
+            >
+              <Countdown targetDate={currentGiveaway.giveaway.endDate} />
+            </SignalCard>
+          ),
+        }
+      : giveawayLoading
+        ? { kind: "skeleton" }
+        : { kind: "empty" },
+    biggestDrop && biggestDrop.price
+      ? {
+          kind: "card",
+          node: (
+            <SignalCard
+              key="drop"
+              href="/offers/$id"
+              id={biggestDrop.id}
+              imageType="tall"
+              keyImages={biggestDrop.keyImages}
+              title={biggestDrop.title}
+              badge="Price Drop"
+            >
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-sm font-semibold text-primary">
+                  {formatPrice(
+                    biggestDrop.price.price.discountPrice,
+                    biggestDrop.price.price.currencyCode,
+                  )}
+                </span>
+                <span className="text-xs text-muted-foreground line-through">
+                  {formatPrice(
+                    biggestDrop.price.price.originalPrice,
+                    biggestDrop.price.price.currencyCode,
+                  )}
+                </span>
+                <span className="text-xs text-muted-foreground">
+                  -
+                  {Math.round(
+                    ((biggestDrop.price.price.originalPrice -
+                      biggestDrop.price.price.discountPrice) /
+                      biggestDrop.price.price.originalPrice) *
+                      100,
+                  )}
+                  %
+                </span>
+              </div>
+            </SignalCard>
+          ),
+        }
+      : discountsLoading
+        ? { kind: "skeleton" }
+        : { kind: "empty" },
+    newestRelease
+      ? {
+          kind: "card",
+          node: (
+            <SignalCard
+              key="release"
+              href="/offers/$id"
+              id={newestRelease.id}
+              imageType="tall"
+              keyImages={newestRelease.keyImages}
+              title={newestRelease.title}
+              badge="New Release"
+            >
+              <span className="text-xs text-muted-foreground">
+                {newestRelease.releaseDate
+                  ? DateTime.fromISO(newestRelease.releaseDate).toLocaleString(DateTime.DATE_MED)
+                  : "N/A"}
+              </span>
+            </SignalCard>
+          ),
+        }
+      : latestReleasedLoading
+        ? { kind: "skeleton" }
+        : { kind: "empty" },
+    newestBuild
+      ? {
+          kind: "card",
+          node: (
+            <SignalCard
+              key="build"
+              href="/builds/$id"
+              id={newestBuild._id}
+              imageType="tall"
+              keyImages={newestBuild.item?.keyImages ?? []}
+              title={newestBuild.item?.title ?? "Unknown Build"}
+              badge="New Build"
+            >
+              <span className="text-xs text-muted-foreground">
+                {calculateSize(newestBuild.downloadSizeBytes)}
+              </span>
+            </SignalCard>
+          ),
+        }
+      : latestBuildsLoading
+        ? { kind: "skeleton" }
+        : { kind: "empty" },
+  ];
+
+  const hasContent = slots.some((s) => s.kind !== "empty");
+
+  return (
+    <Card className="flex flex-col rounded-md border border-border/60 h-full min-h-[280px] bg-card/40 backdrop-blur-sm">
+      <CardHeader className="border-b border-border/50 p-3">
+        <CardTitle className="text-sm font-display font-semibold text-muted-foreground tracking-tight">
+          Activity
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="p-0 flex-1">
+        {hasContent ? (
+          <div className="divide-y divide-border/30">
+            {slots.map((slot, i) => {
+              if (slot.kind === "empty") return null;
+              if (slot.kind === "skeleton") return <SignalCardSkeleton key={`skeleton-${i}`} />;
+              return slot.node;
+            })}
+          </div>
+        ) : (
+          <div className="flex h-full items-center justify-center text-sm text-muted-foreground/70 p-4">
+            No recent activity.
+          </div>
+        )}
+        {activeGiveaways.length > 1 && (
+          <div className="flex gap-1.5 justify-center py-2">
+            {activeGiveaways.map((_, i) => (
+              <span
+                key={i}
+                className={cn(
+                  "h-1.5 rounded-full transition-all",
+                  i === giveawayIdx ? "w-6 bg-primary" : "w-1.5 bg-foreground/40",
+                )}
+              />
+            ))}
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+}
+
+function SignalCardSkeleton() {
+  return (
+    <div className="flex items-center gap-3 p-3">
+      <div className="size-10 rounded shrink-0 bg-muted/40 animate-pulse" />
+      <div className="flex flex-col gap-1.5 min-w-0 flex-1">
+        <div className="h-3.5 w-3/4 rounded bg-muted/40 animate-pulse" />
+        <div className="h-3 w-1/3 rounded bg-muted/40 animate-pulse" />
+      </div>
+    </div>
+  );
+}
+
+function SignalCard({
+  href,
+  id,
+  imageType,
+  keyImages,
+  title,
+  badge,
+  children,
+}: {
+  href: LinkComponentProps["to"];
+  id: string;
+  imageType: "tall";
+  keyImages: KeyImage[];
+  title: string;
+  badge: string;
+  children: ReactNode;
+}) {
+  const imageTypes =
+    imageType === "tall"
+      ? ["DieselGameBoxTall", "OfferImageTall"]
+      : ["DieselGameBoxWide", "OfferImageWide"];
+
+  return (
+    <Link
+      to={href}
+      params={{ id }}
+      className="flex items-center gap-3 p-3 hover:bg-primary/5 transition-colors"
+    >
+      <img
+        src={buildImageUrl(getImage(keyImages, imageTypes)?.url ?? "/placeholder.webp", 80, "low")}
+        alt={title}
+        loading="lazy"
+        decoding="async"
+        className="size-10 object-cover rounded shrink-0"
+      />
+      <div className="flex flex-col gap-0.5 min-w-0 flex-1">
+        <TruncatedText text={title} maxLength={30} />
+        {children}
+      </div>
+      <span className="text-[0.7rem] text-muted-foreground/60 shrink-0">{badge}</span>
+    </Link>
   );
 }

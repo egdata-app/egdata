@@ -460,7 +460,7 @@ function PriceBlock({ price }: { price: Price | null }) {
 
   return (
     <div className="flex h-10 items-center gap-3 rounded-lg border bg-card px-4">
-      <span className={cn("text-lg font-semibold", discounted && "text-green-400")}>
+      <span className={cn("text-lg font-semibold", discounted && "text-primary")}>
         {discountPrice === 0 ? "Free" : formatter.format(discountPrice)}
       </span>
       {discounted && (

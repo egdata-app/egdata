@@ -229,7 +229,7 @@ export function OfferMediaSlider({ offer }: { offer: SingleOffer }) {
                 >
                   {slide.type === "video" && (
                     // Show a play icon so the user knows it's a video
-                    <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white z-50 opacity-75">
+                    <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-foreground z-50 opacity-75">
                       <PlayIcon className="size-8" fill="white" />
                     </span>
                   )}

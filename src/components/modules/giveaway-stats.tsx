@@ -70,7 +70,7 @@ export function GiveawaysStats({ showTitle = true, wrap = false }: GiveawayStats
                 className="text-4xl font-medium"
               />
               <TooltipTrigger>
-                <span className="text-lg font-medium text-gray-400 decoration-dotted decoration-gray-400/50 underline underline-offset-4">
+                <span className="text-lg font-medium text-muted-foreground decoration-dotted decoration-gray-400/50 underline underline-offset-4">
                   Total Value
                 </span>
               </TooltipTrigger>
@@ -100,7 +100,7 @@ export function GiveawaysStats({ showTitle = true, wrap = false }: GiveawayStats
                 className="text-4xl font-medium"
               />
               <TooltipTrigger>
-                <span className="text-lg font-medium text-gray-400 decoration-dotted decoration-gray-400/50 underline underline-offset-4">
+                <span className="text-lg font-medium text-muted-foreground decoration-dotted decoration-gray-400/50 underline underline-offset-4">
                   Giveaways
                 </span>
               </TooltipTrigger>
@@ -119,7 +119,7 @@ export function GiveawaysStats({ showTitle = true, wrap = false }: GiveawayStats
                 className="text-4xl font-medium"
               />
               <TooltipTrigger>
-                <span className="text-lg font-medium text-gray-400 decoration-dotted decoration-gray-400/50 underline underline-offset-4">
+                <span className="text-lg font-medium text-muted-foreground decoration-dotted decoration-gray-400/50 underline underline-offset-4">
                   Offers
                 </span>
               </TooltipTrigger>
@@ -138,7 +138,7 @@ export function GiveawaysStats({ showTitle = true, wrap = false }: GiveawayStats
                 className="text-4xl font-medium"
               />
               <TooltipTrigger>
-                <span className="text-lg font-medium text-gray-400 decoration-dotted decoration-gray-400/50 underline underline-offset-4">
+                <span className="text-lg font-medium text-muted-foreground decoration-dotted decoration-gray-400/50 underline underline-offset-4">
                   Repeated
                 </span>
               </TooltipTrigger>
@@ -160,7 +160,7 @@ export function GiveawaysStats({ showTitle = true, wrap = false }: GiveawayStats
                 className="text-4xl font-medium"
               />
               <TooltipTrigger>
-                <span className="text-lg font-medium text-gray-400 decoration-dotted decoration-gray-400/50 underline underline-offset-4">
+                <span className="text-lg font-medium text-muted-foreground decoration-dotted decoration-gray-400/50 underline underline-offset-4">
                   Sellers
                 </span>
               </TooltipTrigger>

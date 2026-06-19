@@ -7,7 +7,7 @@ export function DiscordBotPopover() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="ghost" className="hover:text-white">
+        <Button variant="ghost" className="hover:text-foreground">
           <svg
             viewBox="0 -28.5 256 256"
             version="1.1"
@@ -65,7 +65,7 @@ export function DiscordBotPopover() {
             </div>
           </div> */}
           <Button
-            className="w-full bg-indigo-500 text-white hover:bg-indigo-600 hover:text-white"
+            className="w-full bg-indigo-500 text-foreground hover:bg-indigo-600 hover:text-foreground"
             onClick={() => {
               // Open a browser popup to invite the bot to your server
               window.open(

@@ -128,7 +128,7 @@ export function FeaturedDiscounts() {
         <div className="flex gap-2">
           <button
             onClick={handlePreviousSlide}
-            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
+            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-muted focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
             disabled={current === 1}
             type="button"
           >
@@ -136,7 +136,7 @@ export function FeaturedDiscounts() {
           </button>
           <button
             onClick={handleNextSlide}
-            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
+            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-muted focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
             disabled={current === count}
             type="button"
           >
@@ -197,8 +197,8 @@ const ProgressIndicator = memo(function ProgressIndicator({
         <TooltipTrigger
           className={cn(
             "block w-5 h-[5px] rounded-full cursor-pointer relative",
-            "bg-gray-500",
-            current === i + 1 ? "w-10" : "hover:bg-gray-700 hover:w-8",
+            "bg-muted/500",
+            current === i + 1 ? "w-10" : "hover:bg-muted/80 hover:w-8",
             "transition-width duration-300 ease-in-out",
           )}
           onClick={() => api?.scrollTo(i)}
@@ -378,7 +378,7 @@ const Price = memo(function Price({ offer }: { offer: SingleOffer }) {
   const isFree = offer.price?.price.discountPrice === 0;
 
   if (!offer.price) {
-    return <span className="text-xl font-bold text-green-400">Coming Soon</span>;
+    return <span className="text-xl font-bold text-primary">Coming Soon</span>;
   }
 
   return (
@@ -393,9 +393,9 @@ const Price = memo(function Price({ offer }: { offer: SingleOffer }) {
           </span>
         )}
         {isFree ? (
-          <span className="text-xl font-bold text-green-400">Free</span>
+          <span className="text-xl font-bold text-primary">Free</span>
         ) : (
-          <span className="text-xl font-bold text-green-400">
+          <span className="text-xl font-bold text-primary">
             {priceFmtd.format(
               calculatePrice(offer.price?.price.discountPrice, offer.price?.price.currencyCode),
             )}

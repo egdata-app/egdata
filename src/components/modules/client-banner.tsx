@@ -17,7 +17,7 @@ export function ClientBanner() {
           {/* Left Content */}
           <div className="flex-1 text-center lg:text-left">
             {/* Main Heading */}
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-3 leading-tight">
+            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3 leading-tight">
               Power the{" "}
               <span className="bg-gradient-to-r from-[#4fa3ff] to-[#7ad3ff] bg-clip-text text-transparent">
                 egdata.app
@@ -41,7 +41,7 @@ export function ClientBanner() {
             {/* CTA Button */}
             <Button
               size="lg"
-              className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold px-8 py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 group"
+              className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-foreground font-semibold px-8 py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 group"
               asChild
             >
               <Link to="/downloads">

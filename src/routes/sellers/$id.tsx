@@ -1,4 +1,3 @@
-import * as React from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, useQueries } from "@tanstack/react-query";
@@ -11,6 +10,30 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { getQueryClient } from "@/lib/client";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { SearchContainer } from "@/components/search/SearchContainer";
+import buildImageUrl, { buildSrcSet } from "@/lib/build-image-url";
+
+interface SellerStats {
+  offers: number;
+  items: number;
+  games: number;
+  freegames: number;
+  seller: {
+    _id: string;
+    name: string;
+    igdb_id?: number;
+    logo?: {
+      _id: string;
+      url: string;
+      height: number;
+      width: number;
+      checksum: string;
+      animated: boolean;
+      alpha_channel: boolean;
+    };
+    createdAt?: string;
+    updatedAt?: string;
+  };
+}
 
 export const Route = createFileRoute("/sellers/$id")({
   component: () => {
@@ -48,6 +71,10 @@ export const Route = createFileRoute("/sellers/$id")({
             })
             .catch(() => []),
       }),
+      queryClient.prefetchQuery({
+        queryKey: ["seller:stats", { id }],
+        queryFn: async () => httpClient.get<SellerStats>(`/sellers/${id}/stats`).catch(() => null),
+      }),
     ]);
 
     return {
@@ -77,7 +104,12 @@ export const Route = createFileRoute("/sellers/$id")({
       { id: params.id, country: loaderData.country },
     ]);
 
-    const sellerName = seller?.[0]?.seller?.name;
+    const stats = getFetchedQuery<SellerStats | null>(queryClient, loaderData?.dehydratedState, [
+      "seller:stats",
+      { id: params.id },
+    ]);
+
+    const sellerName = seller?.[0]?.seller?.name ?? stats?.seller.name;
 
     if (!sellerName)
       return {
@@ -109,7 +141,7 @@ function RouteComponent() {
   const navigate = Route.useNavigate();
   const search = Route.useSearch();
 
-  const [sellerData, coverData] = useQueries({
+  const [sellerData, coverData, statsData] = useQueries({
     queries: [
       {
         queryKey: ["seller", { id, country }],
@@ -122,63 +154,109 @@ function RouteComponent() {
             params: { country },
           }),
       },
+      {
+        queryKey: ["seller:stats", { id }],
+        queryFn: () => httpClient.get<SellerStats>(`/sellers/${id}/stats`),
+      },
     ],
   });
 
-  const randomCoverIndex = React.useMemo(() => Math.floor(Math.random() * 5 || 0), []);
-
   const { data, isLoading } = sellerData;
   const { data: cover } = coverData;
+  const { data: stats } = statsData;
 
   if (isLoading || !data) {
     return <SellerPageSkeleton />;
   }
 
-  const sellerName = data[0]?.seller?.name;
+  const sellerName = data[0]?.seller?.name ?? stats?.seller.name;
 
   if (!sellerName) {
     return (
       <div className="min-h-[85vh] flex items-center justify-center">
-        <h1 className="text-4xl font-bold">Seller not found</h1>
+        <h1 className="text-4xl font-display font-bold">Seller not found</h1>
       </div>
     );
   }
 
-  const featuredCover = cover?.[randomCoverIndex] ?? cover?.[0] ?? data[0];
+  const featuredCover = cover?.[0] ?? data[0];
+  const bannerImage = featuredCover
+    ? getImage(featuredCover.keyImages, [
+        "DieselGameBoxWide",
+        "DieselStoreFrontWide",
+        "OfferImageWide",
+      ])?.url
+    : null;
+
+  const logoUrl = stats?.seller?.logo?.url ? `https:${stats.seller.logo.url}` : null;
+
+  const statsItems = [
+    stats ? { label: "Offers", value: stats.offers } : null,
+    stats ? { label: "Games", value: stats.games } : null,
+    stats ? { label: "Items", value: stats.items } : null,
+    stats && stats.freegames > 0 ? { label: "Free Games", value: stats.freegames } : null,
+  ].filter(Boolean) as { label: string; value: number }[];
 
   return (
     <div className="min-h-[85vh]">
-      <h1 className="text-4xl font-bold text-left">{sellerName}</h1>
-      {featuredCover && (
-        <section className="w-full bg-card rounded-xl mt-10 relative group min-h-[500px]">
-          <div className="grid gap-8 md:grid-cols-2 lg:gap-16 py-24 px-10 z-[1] relative rounded-xl">
-            <span className="hidden md:block" />
-            <div className="space-y-4">
-              <div className="inline-block rounded-lg bg-primary px-3 py-1 text-sm text-primary-foreground">
-                Featured Game
-              </div>
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                {featuredCover.title}
-              </h2>
-              <p className="text-gray-300 md:text-xl">{featuredCover.description}</p>
+      {/* Cinematic Banner */}
+      <section className="relative w-full h-[42vh] max-h-[440px] min-h-[280px] overflow-hidden rounded-lg">
+        {bannerImage ? (
+          <img
+            src={buildImageUrl(bannerImage, 1280, "high")}
+            srcSet={buildSrcSet(bannerImage, 1280)}
+            sizes="100vw"
+            alt={featuredCover?.title ?? sellerName}
+            className="w-full h-full object-cover"
+            loading="eager"
+            decoding="async"
+          />
+        ) : (
+          <div className="w-full h-full bg-card" />
+        )}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to top, hsl(222 47% 5%) 0%, hsl(222 47% 5% / 0.5) 40%, hsl(222 47% 5% / 0.3) 100%)",
+          }}
+        />
+        <div className="absolute inset-x-0 bottom-0 p-6 md:p-10">
+          <div className="flex items-end gap-4">
+            {logoUrl && (
+              <img
+                src={logoUrl}
+                alt={`${sellerName} logo`}
+                className="w-16 h-16 md:w-20 md:h-20 rounded-lg object-contain bg-background/60 backdrop-blur-sm p-2 border border-border/40 shrink-0"
+                loading="eager"
+              />
+            )}
+            <div className="space-y-2">
+              <h1 className="text-3xl md:text-5xl font-display font-bold tracking-tight text-foreground drop-shadow-lg">
+                {sellerName}
+              </h1>
+              {statsItems.length > 0 && (
+                <div className="flex flex-wrap items-center gap-2">
+                  {statsItems.map((s) => (
+                    <span
+                      key={s.label}
+                      className="inline-flex items-center gap-1.5 rounded-full bg-background/60 backdrop-blur-sm border border-border/40 px-3 py-1 text-xs"
+                    >
+                      <span className="font-semibold tabular-nums text-foreground">
+                        {s.value.toLocaleString()}
+                      </span>
+                      <span className="text-muted-foreground">{s.label}</span>
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
-          <div
-            id="cover-bg-image"
-            className="absolute top-0 left-0 w-full h-full bg-cover bg-center rounded-xl z-0"
-            style={{
-              backgroundImage: `url(${getImage(featuredCover.keyImages, [
-                "DieselGameBoxWide",
-                "DieselStoreFrontWide",
-                "OfferImageWide",
-              ])?.url.replaceAll(" ", "%20")})`,
-            }}
-          />
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-card/65 to-card z-0 rounded-xl" />
-        </section>
-      )}
+        </div>
+      </section>
 
-      <section className="mt-16">
+      {/* Offers */}
+      <section className="mt-10">
         <SearchContainer
           contextId={`seller-${id}`}
           fixedParams={{ seller: id }}
@@ -202,48 +280,15 @@ function RouteComponent() {
 function SellerPageSkeleton() {
   return (
     <div className="min-h-[85vh]">
-      <h1 className="text-4xl font-bold text-left">
-        <Skeleton className=" w-[200px]" />
-      </h1>
-      <Skeleton className="w-full h-[500px] mt-10" />
-
-      <section className="mt-16">
-        <h2 className="text-2xl font-bold">Offers</h2>
-        <div className="grid grid-cols-1 gap-4 mt-8 md:grid-cols-2 lg:grid-cols-5">
-          <OfferCardSkeleton />
-          <OfferCardSkeleton />
-          <OfferCardSkeleton />
-          <OfferCardSkeleton />
-          <OfferCardSkeleton />
+      <Skeleton className="w-full h-[440px] rounded-lg" />
+      <section className="mt-10">
+        <Skeleton className="w-48 h-7 mb-4" />
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Skeleton key={i} className="aspect-[3/4] rounded-md" />
+          ))}
         </div>
       </section>
-    </div>
-  );
-}
-
-function OfferCardSkeleton() {
-  return (
-    <div className="bg-card rounded-xl p-4">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-2">
-          <Skeleton className="w-12 h-12 rounded-lg" />
-          <div>
-            <Skeleton className="w-[200px]" />
-            <Skeleton className="w-[100px]" />
-          </div>
-        </div>
-        <Skeleton className="w-12 h-12 rounded-lg" />
-      </div>
-      <div className="flex items-center justify-between mt-4">
-        <div className="flex items-center space-x-2">
-          <Skeleton className="w-12 h-12 rounded-lg" />
-          <div>
-            <Skeleton className="w-[200px]" />
-            <Skeleton className="w-[100px]" />
-          </div>
-        </div>
-        <Skeleton className="w-12 h-12 rounded-lg" />
-      </div>
     </div>
   );
 }

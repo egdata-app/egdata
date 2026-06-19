@@ -47,7 +47,7 @@ const getAssetInfo = (assetName: string): AssetInfo => {
       return {
         platform: "macOS",
         variant: "Apple Silicon",
-        icon: <AppleIcon className="h-6 w-6 text-slate-400" />,
+        icon: <AppleIcon className="h-6 w-6 text-muted-foreground" />,
         description: "For newer Mac computers with Apple chips (M1, M2, M3, etc.).",
       };
     }
@@ -59,14 +59,14 @@ const getAssetInfo = (assetName: string): AssetInfo => {
       return {
         platform: "macOS",
         variant: "Intel",
-        icon: <AppleIcon className="h-6 w-6 text-slate-400" />,
+        icon: <AppleIcon className="h-6 w-6 text-muted-foreground" />,
         description: "For older Mac computers with Intel processors.",
       };
     }
     return {
       platform: "macOS",
       variant: "Universal",
-      icon: <AppleIcon className="h-6 w-6 text-slate-400" />,
+      icon: <AppleIcon className="h-6 w-6 text-muted-foreground" />,
       description: "Compatible with both Apple Silicon and Intel Macs.",
     };
   }
@@ -76,7 +76,7 @@ const getAssetInfo = (assetName: string): AssetInfo => {
     return {
       platform: "Windows",
       variant: ".msi Installer",
-      icon: <FaWindows className="h-6 w-6 text-slate-400" />,
+      icon: <FaWindows className="h-6 w-6 text-muted-foreground" />,
       description: "A standard installer wizard. Recommended for most users.",
     };
   }
@@ -84,7 +84,7 @@ const getAssetInfo = (assetName: string): AssetInfo => {
     return {
       platform: "Windows",
       variant: ".exe Installer",
-      icon: <FaWindows className="h-6 w-6 text-slate-400" />,
+      icon: <FaWindows className="h-6 w-6 text-muted-foreground" />,
       description: "A standalone application file. May not require installation.",
     };
   }
@@ -99,7 +99,7 @@ const getAssetInfo = (assetName: string): AssetInfo => {
     return {
       platform: "Linux",
       variant: "Generic",
-      icon: <FaLinux className="h-6 w-6 text-slate-400" />,
+      icon: <FaLinux className="h-6 w-6 text-muted-foreground" />,
       description: "For Linux-based operating systems.",
     };
   }
@@ -107,7 +107,7 @@ const getAssetInfo = (assetName: string): AssetInfo => {
   return {
     platform: "Other",
     variant: "File",
-    icon: <File className="h-6 w-6 text-slate-400" />,
+    icon: <File className="h-6 w-6 text-muted-foreground" />,
     description: "A generic file or source code.",
   };
 };
@@ -117,38 +117,38 @@ function SkeletonLoader() {
     <div className="space-y-6 animate-pulse">
       {[...Array(2)].map((_, i) => (
         // biome-ignore lint/suspicious/noArrayIndexKey: skeleton
-        <Card key={i} className="bg-slate-800/50 border-slate-800">
+        <Card key={i} className="bg-muted/50 border-border/60">
           <CardHeader>
-            <div className="h-6 w-3/5 bg-slate-700 rounded-md" />
-            <div className="h-4 w-2/5 bg-slate-700 rounded-md mt-2" />
+            <div className="h-6 w-3/5 bg-muted/80 rounded-md" />
+            <div className="h-4 w-2/5 bg-muted/80 rounded-md mt-2" />
           </CardHeader>
           <CardContent className="space-y-4">
             {/* Skeleton for one platform */}
-            <div className="p-4 rounded-lg bg-slate-800/30">
-              <div className="h-5 w-1/3 bg-slate-700 rounded-md mb-4" />
+            <div className="p-4 rounded-lg bg-muted/30">
+              <div className="h-5 w-1/3 bg-muted/80 rounded-md mb-4" />
               <ul className="space-y-2">
                 <li className="flex items-center justify-between p-3 bg-card rounded-md">
                   <div className="flex items-center gap-3 w-full">
-                    <div className="h-5 w-5 bg-slate-700 rounded-md" />
-                    <div className="h-5 w-4/5 bg-slate-700 rounded-md" />
+                    <div className="h-5 w-5 bg-muted/80 rounded-md" />
+                    <div className="h-5 w-4/5 bg-muted/80 rounded-md" />
                   </div>
                 </li>
                 <li className="flex items-center justify-between p-3 bg-card rounded-md">
                   <div className="flex items-center gap-3 w-full">
-                    <div className="h-5 w-5 bg-slate-700 rounded-md" />
-                    <div className="h-5 w-3/5 bg-slate-700 rounded-md" />
+                    <div className="h-5 w-5 bg-muted/80 rounded-md" />
+                    <div className="h-5 w-3/5 bg-muted/80 rounded-md" />
                   </div>
                 </li>
               </ul>
             </div>
             {/* Skeleton for another platform */}
-            <div className="p-4 rounded-lg bg-slate-800/30">
-              <div className="h-5 w-1/4 bg-slate-700 rounded-md mb-4" />
+            <div className="p-4 rounded-lg bg-muted/30">
+              <div className="h-5 w-1/4 bg-muted/80 rounded-md mb-4" />
               <ul className="space-y-2">
                 <li className="flex items-center justify-between p-3 bg-card rounded-md">
                   <div className="flex items-center gap-3 w-full">
-                    <div className="h-5 w-5 bg-slate-700 rounded-md" />
-                    <div className="h-5 w-1/2 bg-slate-700 rounded-md" />
+                    <div className="h-5 w-5 bg-muted/80 rounded-md" />
+                    <div className="h-5 w-1/2 bg-muted/80 rounded-md" />
                   </div>
                 </li>
               </ul>
@@ -208,13 +208,13 @@ function RouteComponent() {
 
   return (
     <div className="w-full max-w-2xl mx-auto">
-      <Card className="w-full bg-card border-slate-800 shadow-2xl shadow-slate-950/50">
+      <Card className="w-full bg-card border-border/60 shadow-2xl shadow-slate-950/50">
         <CardHeader>
           <div className="flex items-center gap-3 mb-2">
-            <GithubIcon className="w-8 h-8 text-slate-300" />
-            <CardTitle className="text-2xl text-slate-50">egdata.app Client Releases</CardTitle>
+            <GithubIcon className="w-8 h-8 text-muted-foreground" />
+            <CardTitle className="text-2xl text-foreground">egdata.app Client Releases</CardTitle>
           </div>
-          <CardDescription className="text-slate-400">
+          <CardDescription className="text-muted-foreground">
             Download the latest version. We've highlighted the recommended section for your
             operating system.
           </CardDescription>
@@ -262,12 +262,12 @@ function RouteComponent() {
                 });
 
                 return (
-                  <Card key={release.id} className="bg-slate-800/50 border-slate-800">
+                  <Card key={release.id} className="bg-muted/50 border-border/60">
                     <CardHeader>
-                      <CardTitle className="text-lg text-slate-200">
+                      <CardTitle className="text-lg text-foreground">
                         {release.name || release.tag_name}
                       </CardTitle>
-                      <CardDescription className="text-slate-400">
+                      <CardDescription className="text-muted-foreground">
                         Version {release.tag_name} - Published on{" "}
                         {new Date(release.published_at).toLocaleDateString()}
                       </CardDescription>
@@ -303,11 +303,11 @@ function RouteComponent() {
                                 : "border-transparent",
                             )}
                           >
-                            <h3 className="font-semibold text-lg mb-3 flex items-center gap-2.5 text-slate-300">
+                            <h3 className="font-semibold text-lg mb-3 flex items-center gap-2.5 text-muted-foreground">
                               {platformGroup.icon}
                               <span>{platformGroup.platform} Downloads</span>
                             </h3>
-                            <div className="space-y-4 pl-2 border-l-2 border-slate-700/50 ml-3">
+                            <div className="space-y-4 pl-2 border-l-2 border-border/60/50 ml-3">
                               {sortedVariants.map((variantGroup) => {
                                 const recommended = isVariantRecommended(
                                   platformGroup.platform,
@@ -321,10 +321,10 @@ function RouteComponent() {
                                       "p-4 rounded-lg transition-all",
                                       recommended
                                         ? "bg-sky-950/30 border border-sky-700/50"
-                                        : "bg-slate-800/30",
+                                        : "bg-muted/30",
                                     )}
                                   >
-                                    <h4 className="font-semibold mb-1 flex items-center gap-2 text-md text-slate-300">
+                                    <h4 className="font-semibold mb-1 flex items-center gap-2 text-md text-muted-foreground">
                                       <span>{variantGroup.variant}</span>
                                       {recommended && (
                                         <span className="flex items-center gap-1.5 text-xs font-medium bg-sky-500/10 text-sky-400 px-2 py-1 rounded-full">
@@ -333,7 +333,7 @@ function RouteComponent() {
                                         </span>
                                       )}
                                     </h4>
-                                    <p className="text-sm text-slate-400 mb-3">
+                                    <p className="text-sm text-muted-foreground mb-3">
                                       {variantGroup.description}
                                     </p>
                                     <ul className="space-y-2">
@@ -342,15 +342,15 @@ function RouteComponent() {
                                           <a
                                             href={asset.download_url}
                                             download
-                                            className="flex items-center justify-between p-3 bg-card rounded-md hover:bg-slate-800/80 transition-colors group"
+                                            className="flex items-center justify-between p-3 bg-card rounded-md hover:bg-muted/80 transition-colors group"
                                           >
                                             <div className="flex items-center gap-3">
                                               <DownloadIcon className="w-5 h-5 text-sky-400" />
-                                              <span className="font-medium text-slate-200">
+                                              <span className="font-medium text-foreground">
                                                 {asset.name}
                                               </span>
                                             </div>
-                                            <span className="text-sm text-slate-400 group-hover:text-slate-300">
+                                            <span className="text-sm text-muted-foreground group-hover:text-muted-foreground">
                                               {formatBytes(asset.size)}
                                             </span>
                                           </a>
@@ -371,7 +371,7 @@ function RouteComponent() {
             </div>
           )}
           {!loading && !error && data && data.length === 0 && (
-            <div className="text-center p-10 text-slate-500">
+            <div className="text-center p-10 text-muted-foreground">
               <p>No public releases found.</p>
             </div>
           )}

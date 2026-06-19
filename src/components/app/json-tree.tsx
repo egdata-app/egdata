@@ -30,7 +30,7 @@ export const JsonVisualizer: React.FC<JsonVisualizerProps> = ({
       return (
         <div className={lineClass}>
           {renderKey(key)}
-          <span className="text-gray-500">null</span>
+          <span className="text-muted-foreground">null</span>
         </div>
       );
     if (typeof value === "boolean")

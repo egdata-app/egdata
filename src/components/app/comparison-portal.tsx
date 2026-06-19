@@ -60,10 +60,10 @@ export function ComparisonPortal() {
             onClick={() => setOpen((prev) => !prev)}
             type="button"
           >
-            <span className="absolute -top-2 -right-2 bg-primary/10 text-white rounded-full text-xs size-6 p-1">
+            <span className="absolute -top-2 -right-2 bg-primary/10 text-foreground rounded-full text-xs size-6 p-1">
               {compare.length}
             </span>
-            <CompareIcon className="text-white size-7" />
+            <CompareIcon className="text-foreground size-7" />
           </button>
         </div>
       )}
@@ -237,7 +237,7 @@ function SingleGame({ query, id }: { query: UseQueryResult<SingleOffer, Error>; 
       <div className="flex justify-center">
         <Button
           variant="outline"
-          className="bg-card text-white hover:bg-destructive hover:text-white transition-all duration-300 ease-in-out"
+          className="bg-card text-foreground hover:bg-destructive hover:text-foreground transition-all duration-300 ease-in-out"
           onClick={() => removeFromCompare(data.id)}
         >
           Remove
@@ -250,7 +250,7 @@ function SingleGame({ query, id }: { query: UseQueryResult<SingleOffer, Error>; 
 function OfferMetadataRow({ label, value }: { label: string; value: string | JSX.Element }) {
   return (
     <div className="flex flex-row justify-start items-center gap-2">
-      <span className="text-sm text-gray-500">{label}:</span>
+      <span className="text-sm text-muted-foreground">{label}:</span>
       <span className="text-sm font-semibold max-w-full truncate">{value}</span>
     </div>
   );
@@ -313,7 +313,7 @@ const trophyColors: { [key: string]: string } = {
   silver: "text-silver-start",
   gold: "text-gold-start",
   platinum: "text-platinum-start",
-  unknown: "text-gray-300",
+  unknown: "text-muted-foreground",
 };
 
 function Achievements({ id }: { id: string }) {
@@ -325,7 +325,7 @@ function Achievements({ id }: { id: string }) {
   if (isLoading) {
     return (
       <div className="flex flex-col gap-4 h-20">
-        <span className="text-sm text-gray-500">Achievements:</span>
+        <span className="text-sm text-muted-foreground">Achievements:</span>
         <Skeleton className="w-full h-48" />
       </div>
     );
@@ -334,8 +334,8 @@ function Achievements({ id }: { id: string }) {
   if (isError || !data || data.length === 0) {
     return (
       <div className="flex flex-col gap-4 h-20">
-        <span className="text-sm text-gray-500">Achievements:</span>
-        <span className="w-full inline-flex justify-center items-center text-gray-500 text-xl">
+        <span className="text-sm text-muted-foreground">Achievements:</span>
+        <span className="w-full inline-flex justify-center items-center text-muted-foreground text-xl">
           -
         </span>
       </div>
@@ -347,27 +347,27 @@ function Achievements({ id }: { id: string }) {
 
   return (
     <div className="flex flex-col gap-4 h-20">
-      <span className="text-sm text-gray-500">Achievements:</span>
+      <span className="text-sm text-muted-foreground">Achievements:</span>
       <div className="flex flex-row gap-3 justify-center items-center">
         {Object.entries(rarityCount)
           .filter(([_, count]) => count > 0)
           .map(([rarity, count]) => (
             <div key={rarity} className="flex flex-col items-center">
-              <span className="text-xs text-white font-semibold">{count}</span>
-              <TrophyIcon className={cn("text-white size-5", trophyColors[rarity])} />
+              <span className="text-xs text-foreground font-semibold">{count}</span>
+              <TrophyIcon className={cn("text-foreground size-5", trophyColors[rarity])} />
             </div>
           ))}
 
         {Object.values(rarityCount).reduce((acc, count) => acc + count, 0) > 0 && (
-          <span className="text-xs text-white font-bold">=</span>
+          <span className="text-xs text-foreground font-bold">=</span>
         )}
 
         {Object.values(rarityCount).reduce((acc, count) => acc + count, 0) > 0 && (
           <div className="flex flex-col items-center">
-            <span className="text-xs text-white font-semibold">
+            <span className="text-xs text-foreground font-semibold">
               {Object.values(rarityCount).reduce((acc, count) => acc + count, 0)}
             </span>
-            <TrophyIcon className={cn("text-white size-6", trophyColors.platinum)} />
+            <TrophyIcon className={cn("text-foreground size-6", trophyColors.platinum)} />
           </div>
         )}
 
@@ -377,7 +377,7 @@ function Achievements({ id }: { id: string }) {
             Object.values(rarityCount).reduce((acc, count) => acc + count, 0) > 0 ? "ml-3" : "ml-0",
           )}
         >
-          <span className="text-sm text-white font-bold">{xp} XP</span>
+          <span className="text-sm text-foreground font-bold">{xp} XP</span>
         </div>
       </div>
     </div>
@@ -409,7 +409,7 @@ function AgeRatings({ id }: { id: string }) {
     return (
       <div className="flex flex-col gap-4 h-32">
         <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-500">Age Rating:</span>
+          <span className="text-sm text-muted-foreground">Age Rating:</span>
         </div>
         <Skeleton className="w-full h-48" />
       </div>
@@ -420,9 +420,9 @@ function AgeRatings({ id }: { id: string }) {
     return (
       <div className="flex flex-col gap-4 h-32">
         <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-500">Age Rating:</span>
+          <span className="text-sm text-muted-foreground">Age Rating:</span>
         </div>
-        <p className="text-sm text-gray-500">No age ratings found</p>
+        <p className="text-sm text-muted-foreground">No age ratings found</p>
       </div>
     );
   }
@@ -430,7 +430,7 @@ function AgeRatings({ id }: { id: string }) {
   return (
     <div className="flex flex-col gap-4 h-32">
       <div className="flex justify-between items-center">
-        <span className="text-sm text-gray-500">Age Rating:</span>
+        <span className="text-sm text-muted-foreground">Age Rating:</span>
       </div>
       <div className="flex flex-row gap-2 flex-wrap justify-center items-center">
         {Object.entries(data || {}).map(([key, rating]) => (
@@ -444,7 +444,7 @@ function AgeRatings({ id }: { id: string }) {
                 className="size-16 mx-auto"
               />
             ) : (
-              <div className="size-16 mx-auto inline-flex items-center justify-center bg-gray-900 rounded-lg">
+              <div className="size-16 mx-auto inline-flex items-center justify-center bg-muted rounded-lg">
                 <span className="text-lg font-bold">{rating.ageControl}</span>
               </div>
             )}
@@ -519,7 +519,7 @@ function Price({ id }: { id: string }) {
     return (
       <div className="flex flex-col gap-4 h-28">
         <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-500">Price:</span>
+          <span className="text-sm text-muted-foreground">Price:</span>
         </div>
         <Skeleton className="w-full h-48" />
       </div>
@@ -530,9 +530,9 @@ function Price({ id }: { id: string }) {
     return (
       <div className="flex flex-col gap-4 h-28">
         <div className="flex justify-between items-center">
-          <span className="text-sm text-gray-500">Price:</span>
+          <span className="text-sm text-muted-foreground">Price:</span>
         </div>
-        <p className="text-sm text-gray-500">No price found</p>
+        <p className="text-sm text-muted-foreground">No price found</p>
       </div>
     );
   }
@@ -544,7 +544,7 @@ function Price({ id }: { id: string }) {
 
   return (
     <div className="flex flex-col gap-4 h-28">
-      <span className="text-sm text-gray-500">Price:</span>
+      <span className="text-sm text-muted-foreground">Price:</span>
       {data.currentPrice && (
         <div className="flex justify-evenly gap-4">
           <div className="text-center">
@@ -554,7 +554,7 @@ function Price({ id }: { id: string }) {
                 className={cn(
                   "text-sm mt-3 font-bold",
                   data.currentPrice?.price.discount > 0
-                    ? "bg-blue-600 text-white px-2 rounded-md"
+                    ? "bg-blue-600 text-foreground px-2 rounded-md"
                     : "",
                 )}
               >
@@ -566,7 +566,7 @@ function Price({ id }: { id: string }) {
                 )}
               </span>
               {data.currentPrice?.price.discount > 0 && (
-                <span className="text-xs mt-3 font-bold line-through text-gray-500 ml-2">
+                <span className="text-xs mt-3 font-bold line-through text-muted-foreground ml-2">
                   {priceFmtr.format(
                     calculatePrice(
                       data.currentPrice?.price.originalPrice,
@@ -595,7 +595,7 @@ function Price({ id }: { id: string }) {
         </div>
       )}
       {!data.currentPrice && (
-        <div className="text-sm text-gray-500 text-center">No price found</div>
+        <div className="text-sm text-muted-foreground text-center">No price found</div>
       )}
     </div>
   );

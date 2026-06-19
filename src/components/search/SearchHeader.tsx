@@ -50,7 +50,7 @@ export function SearchHeader(props: SearchHeaderProps) {
         <h1 className="text-2xl font-bold">{title}</h1>
         {loading && (
           <svg
-            className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+            className="animate-spin -ml-1 mr-3 h-5 w-5 text-foreground"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"

@@ -170,7 +170,7 @@ function AchievementsPage() {
   if (!achievements) {
     return (
       <div className="flex justify-center items-center h-96">
-        <p className="text-gray-500">No achievements found</p>
+        <p className="text-muted-foreground">No achievements found</p>
       </div>
     );
   }
@@ -216,7 +216,7 @@ function AchievementsPage() {
             onChange={(e) => setSearch(e.target.value)}
           />
           <Button
-            className="hover:bg-transparent border border-gray-800 bg-gray-800 inline-flex px-4 py-2 rounded-md text-center transition-all duration-300 ease-in-out text-white"
+            className="hover:bg-transparent border border-border/60 bg-muted inline-flex px-4 py-2 rounded-md text-center transition-all duration-300 ease-in-out text-foreground"
             onClick={handleFlipAll}
             disabled={achievements.length === 0}
           >
@@ -224,7 +224,7 @@ function AchievementsPage() {
             Flip All
           </Button>
           <Button
-            className="hover:bg-transparent border border-gray-800 bg-gray-800 inline-flex px-4 py-2 rounded-md text-center transition-all duration-300 ease-in-out text-white"
+            className="hover:bg-transparent border border-border/60 bg-muted inline-flex px-4 py-2 rounded-md text-center transition-all duration-300 ease-in-out text-foreground"
             onClick={() => setBlur(!blur)}
             disabled={achievements.length === 0}
           >
@@ -233,7 +233,7 @@ function AchievementsPage() {
         </div>
       </div>
 
-      <Card className="w-full bg-card text-white p-4">
+      <Card className="w-full bg-card text-foreground p-4">
         <div className="flex flex-row items-center justify-center gap-10">
           {Object.entries(noOfAchievemenentsPerRarity).map(([rarity, count]) => (
             <div
@@ -271,7 +271,7 @@ function AchievementsPage() {
             <div className="w-full justify-between items-center flex flex-row">
               <Tooltip>
                 <TooltipTrigger>
-                  <h4 className="text-xl font-thin underline decoration-dotted decoration-gray-300/50 underline-offset-4">
+                  <h4 className="text-xl font-thin underline decoration-dotted decoration-border/60 underline-offset-4">
                     {achievementSet.isBase ? "Base Game" : "DLC"} Achievements
                   </h4>
                 </TooltipTrigger>
@@ -286,7 +286,7 @@ function AchievementsPage() {
                 {achievementSet.lastUpdated && (
                   <Tooltip>
                     <TooltipTrigger>
-                      <span className="text-sm underline decoration-dotted decoration-gray-300/50 underline-offset-4">
+                      <span className="text-sm underline decoration-dotted decoration-border/60 underline-offset-4">
                         Last Updated:{" "}
                         {DateTime.fromISO(achievementSet.lastUpdated, {
                           zone: timezone,
@@ -386,7 +386,7 @@ function AchievementsPage() {
 
       {achievements.length === 0 && (
         <div className="flex justify-center items-center h-96">
-          <p className="text-gray-500">No achievements found</p>
+          <p className="text-muted-foreground">No achievements found</p>
         </div>
       )}
     </div>

@@ -1,6 +1,5 @@
 import { Link } from "@tanstack/react-router";
 import { Image } from "./image";
-import { Card, CardContent, CardHeader } from "../ui/card";
 import { getImage } from "@/lib/getImage";
 import { Skeleton } from "../ui/skeleton";
 import type { SingleOffer } from "@/types/single-offer";
@@ -25,6 +24,13 @@ export function GameCard({ offer }: { offer: SingleOffer }) {
   const isPreOrder = offer.prePurchase;
   const isFree = offer.price?.price.discountPrice === 0;
 
+  const gradientImage = getImage(offer.keyImages, [
+    "OfferImageTall",
+    "Thumbnail",
+    "DieselGameBoxTall",
+    "DieselStoreFrontTall",
+  ])?.url;
+
   return (
     <Link
       to="/offers/$id"
@@ -32,101 +38,66 @@ export function GameCard({ offer }: { offer: SingleOffer }) {
       preload="viewport"
       aria-label={`Open offer ${offer.title}`}
     >
-      <Card className="w-full max-w-sm rounded-lg overflow-hidden shadow-lg relative">
-        <CardHeader className="p-0 rounded-t-xl relative">
-          <Image
-            src={
-              getImage(offer.keyImages, [
-                "OfferImageTall",
-                "Thumbnail",
-                "DieselGameBoxTall",
-                "DieselStoreFrontTall",
-              ])?.url
-            }
-            quality="medium"
-            alt={offer.title}
-            width={400}
-            height={500}
-            className="w-full h-96 object-cover hover:scale-105 transition-transform duration-300 relative"
-            loading="lazy"
-          />
-          {offer.offerType && (
-            <span className="absolute -top-1.5 right-0 bg-gray-500/40 py-2 px-3 justify-center items-center text-white backdrop-blur-sm text-xs font-bold rounded-bl-xl z-10 bg-opacity-40">
-              {offersDictionary[offer.offerType as keyof typeof offersDictionary]}
-            </span>
-          )}
-        </CardHeader>
-        <CardContent className="p-4 flex-grow flex flex-col gap-1 justify-between">
-          <div className="flex items-center justify-between">
-            <h3 className="text-xl font-semibold max-w-xs truncate">{offer.title}</h3>
-          </div>
-          <div className="flex flex-row justify-between items-end gap-1 h-full">
-            <span className="text-sm text-gray-600 dark:text-gray-400 text-left truncate items-end flex-1">
-              {offer.seller.name}
-            </span>
-            <div className="inline-flex justify-end items-center flex-0">
+      <div className="w-full max-w-sm overflow-hidden rounded-md bg-card aspect-[3/4] relative group">
+        <Image
+          src={gradientImage}
+          quality="medium"
+          alt={offer.title}
+          width={400}
+          height={500}
+          className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/30 to-transparent" />
+        {offer.offerType && (
+          <span className="absolute top-2 left-2 bg-background/60 backdrop-blur-sm text-foreground/90 text-[0.65rem] font-semibold px-2 py-1 rounded uppercase tracking-wide">
+            {offersDictionary[offer.offerType as keyof typeof offersDictionary]}
+          </span>
+        )}
+        <div className="absolute inset-x-0 bottom-0 p-3 z-10">
+          <h3 className="text-lg font-display font-semibold text-foreground leading-tight line-clamp-2">
+            {offer.title}
+          </h3>
+          <div className="mt-1.5 flex items-center justify-between gap-2">
+            <span className="text-xs text-muted-foreground truncate">{offer.seller.name}</span>
+            <div className="inline-flex items-center gap-2 justify-end">
               {isReleased && offer.price && (
-                <div className="flex items-center gap-2 text-right w-full justify-end">
+                <>
                   {offer.price?.price.discount > 0 && (
-                    <span className="text-gray-500 line-through dark:text-gray-400">
+                    <span className="text-xs text-muted-foreground line-through">
                       {fmt.format(offer.price?.price.originalPrice / 100)}
                     </span>
                   )}
-                  <span className="text-primary font-semibold">
+                  <span
+                    className={cn(
+                      "text-sm font-semibold",
+                      isFree || offer.price.price.discount > 0 ? "text-primary" : "text-foreground",
+                    )}
+                  >
                     {isFree ? "Free" : fmt.format(offer.price?.price.discountPrice / 100)}
                   </span>
-                </div>
+                </>
               )}
               {!isReleased && isPreOrder && offer.price?.price.discountPrice !== undefined && (
-                <div className="flex items-center gap-2 text-right w-full justify-end">
-                  <span className="text-primary font-semibold">
-                    {fmt.format(offer.price.price.discountPrice / 100)}
-                  </span>
-                </div>
+                <span className="text-sm font-semibold text-foreground">
+                  {fmt.format(offer.price.price.discountPrice / 100)}
+                </span>
               )}
               {!isReleased && !isPreOrder && !offer.price && (
-                <span className="text-primary font-semibold text-right">Coming Soon</span>
+                <span className="text-sm font-semibold text-muted-foreground">Coming Soon</span>
               )}
-              {!isReleased &&
-                !isPreOrder &&
-                offer.price &&
-                offer.price?.price.discountPrice !== 0 && (
-                  <div className="flex items-center gap-2 text-right w-full justify-end">
-                    <span className="text-primary font-semibold">
-                      {fmt.format(offer.price?.price.discountPrice / 100)}
-                    </span>
-                  </div>
-                )}
-              {!isReleased &&
-                !isPreOrder &&
-                offer.price &&
-                offer.price?.price.discountPrice === 0 && (
-                  <span className="text-primary font-semibold text-xs text-right">Coming Soon</span>
-                )}
             </div>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </Link>
   );
 }
 
 export function GameCardSkeleton() {
   return (
-    <Card className="w-full max-w-sm rounded-lg overflow-hidden shadow-lg">
-      <CardHeader className="p-0 rounded-t-xl">
-        <Skeleton className="w-full h-72" />
-      </CardHeader>
-      <CardContent className="p-4 flex-grow flex flex-col justify-between">
-        <div className="flex items-center justify-between">
-          <Skeleton className="w-3/4 h-6" />
-        </div>
-        <div className="mt-2 flex items-end justify-between gap-2 h-full">
-          <Skeleton className="w-1/2 h-4" />
-          <Skeleton className="w-1/4 h-4" />
-        </div>
-      </CardContent>
-    </Card>
+    <div className="w-full max-w-sm overflow-hidden rounded-md bg-card aspect-[3/4] relative">
+      <Skeleton className="w-full h-full absolute inset-0" />
+    </div>
   );
 }
 
@@ -272,60 +243,66 @@ export function OfferCard({
       viewTransition
       aria-label={`Open offer ${offer.title}`}
     >
-      <Card className="w-64 md:w-full overflow-hidden rounded-lg border-0 relative">
+      <div className="relative w-64 md:w-full overflow-hidden rounded-md bg-card aspect-[3/4]">
         <Image
           src={gradientImage}
-          alt="Game Cover"
+          alt={offer.title}
           width={600}
           height={800}
           quality="high"
           loading="lazy"
-          className="w-full h-auto object-cover"
+          className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
         />
-        <div className="relative p-4 bg-card h-44 shadow-xl">
-          <div className="flex flex-col z-10 h-full">
-            {!content && (
-              <>
-                <div className="flex items-start justify-between mb-2 z-10">
-                  <h3
-                    className={cn(
-                      "text-xl font-bold inline-flex items-center gap-3",
-                      textSizes[size] ?? textSizes.xl,
-                    )}
-                  >
-                    {offer.title}{" "}
-                    {offer.tags
-                      .filter((tag) => tag)
-                      .filter((tag) => mobilePlatforms.includes(tag?.id))
-                      .map((tag) => (
-                        <span key={tag?.id}>{platformIcons[tag?.id]}</span>
-                      ))}
-                  </h3>
-                </div>
-                <div className="text-sm text-muted-foreground mb-4 z-10">
-                  {offerGenres.length > 0
-                    ? offerGenres.join(", ")
-                    : offersDictionary[offer.offerType as keyof typeof offersDictionary]}
-                </div>
-                <OfferPrice offer={offer} size={size} />
-              </>
-            )}
-            {content}
-          </div>
-          <div
-            className="absolute top-0 left-0 opacity-[0.075] transition-opacity duration-1000 ease-in-out group-hover:opacity-[0.2]"
-            style={{
-              width: "100%",
-              height: "100%",
-              backgroundImage: gradient ?? "linear-gradient(0deg, #000, #000)",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              zIndex: 1,
-            }}
-          />
-        </div>
+        <div
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          style={{
+            backgroundImage: gradient ?? "linear-gradient(0deg, #000, #000)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            mixBlendMode: "screen",
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/30 to-transparent" />
+        {offer.offerType && (
+          <span className="absolute top-2 left-2 bg-background/60 backdrop-blur-sm text-foreground/90 text-[0.65rem] font-semibold px-2 py-1 rounded uppercase tracking-wide">
+            {offersDictionary[offer.offerType as keyof typeof offersDictionary]}
+          </span>
+        )}
         <OfferBadges offer={offer} owned={owned} />
-      </Card>
+        {!content && (
+          <div className="absolute inset-x-0 bottom-0 p-3 z-10">
+            <h3
+              className={cn(
+                "font-display font-semibold text-foreground leading-tight line-clamp-2 drop-shadow-md",
+                textSizes[size] ?? textSizes.xl,
+              )}
+            >
+              {offer.title}{" "}
+              <span className="inline-flex items-center gap-1.5 align-middle">
+                {offer.tags
+                  .filter((tag) => tag)
+                  .filter((tag) => mobilePlatforms.includes(tag?.id))
+                  .map((tag) => (
+                    <span key={tag?.id} className="scale-90">
+                      {platformIcons[tag?.id]}
+                    </span>
+                  ))}
+              </span>
+            </h3>
+            <div className="mt-1 max-h-0 overflow-hidden group-hover:max-h-24 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out">
+              <p className="text-xs text-muted-foreground mb-2">
+                {offerGenres.length > 0
+                  ? offerGenres.join(", ")
+                  : offersDictionary[offer.offerType as keyof typeof offersDictionary]}
+              </p>
+            </div>
+            <div className="mt-1.5">
+              <OfferPrice offer={offer} size={size} />
+            </div>
+          </div>
+        )}
+        {content && <div className="absolute inset-x-0 bottom-0 p-3 z-10">{content}</div>}
+      </div>
     </Link>
   );
 }
@@ -350,7 +327,10 @@ function OfferBadges({ offer, owned }: { offer: SingleOffer; owned: boolean | un
   }, [offer.tags, offer.prePurchase, owned]);
 
   return badges.length > 0 ? (
-    <Badge variant={"default"} className="absolute top-2 right-2">
+    <Badge
+      variant={"default"}
+      className="absolute top-2 right-2 bg-primary text-primary-foreground"
+    >
       {badges.join(" - ")}
     </Badge>
   ) : null;
@@ -394,11 +374,20 @@ function OfferPrice({
   const formatPrice = (price: number) =>
     fmt.format(calculatePrice(price, offer.price?.price.currencyCode ?? "USD"));
 
+  const isDiscounted = (offer.price?.price.discount ?? 0) > 0;
+
   const renderPrice = () => (
     <>
-      <span>{isFree ? "Free" : formatPrice(offer.price?.price.discountPrice ?? 0)}</span>
-      {(offer.price?.price.discount ?? 0) > 0 && (
-        <span className={cn("line-through", discountTextSizes[size] ?? discountTextSizes.xl)}>
+      <span className={isFree || isDiscounted ? "text-primary" : "text-foreground"}>
+        {isFree ? "Free" : formatPrice(offer.price?.price.discountPrice ?? 0)}
+      </span>
+      {isDiscounted && (
+        <span
+          className={cn(
+            "line-through text-muted-foreground",
+            discountTextSizes[size] ?? discountTextSizes.xl,
+          )}
+        >
           {formatPrice(offer.price?.price.originalPrice ?? 0)}
         </span>
       )}
@@ -406,7 +395,7 @@ function OfferPrice({
   );
 
   const renderDiscountBadge = () => (
-    <div className="text-xs inline-flex items-center rounded-full bg-badge text-black px-2 py-1 font-semibold">
+    <div className="text-xs inline-flex items-center rounded-full bg-primary text-primary-foreground px-2 py-1 font-semibold shadow-sm">
       {`-${Math.round(
         (((offer.price?.price.originalPrice ?? 0) - (offer.price?.price.discountPrice ?? 0)) /
           (offer.price?.price.originalPrice ?? 0)) *
@@ -418,7 +407,7 @@ function OfferPrice({
   return (
     <div
       className={cn(
-        "text-lg font-bold text-primary inline-flex items-end gap-2 z-10 h-full justify-between",
+        "text-lg font-bold inline-flex items-end gap-2 z-10 h-full justify-between",
         textSizes[size] ?? textSizes.xl,
       )}
     >
@@ -430,7 +419,7 @@ function OfferPrice({
         ) : offer.price && offer.price.price.discountPrice !== 0 ? (
           renderPrice()
         ) : (
-          <span>Coming Soon</span>
+          <span className="text-muted-foreground">Coming Soon</span>
         )}
       </div>
       {offer.price.price.discount > 0 && renderDiscountBadge()}

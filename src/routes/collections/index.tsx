@@ -227,7 +227,7 @@ function CollectionCard({ collection }: { collection: (typeof collections)[0] })
                   <h3
                     className={cn(
                       "text-sm font-semibold text-muted-foreground",
-                      game.position === 1 && "text-2xl font-bold text-white",
+                      game.position === 1 && "text-2xl font-bold text-foreground",
                     )}
                   >
                     {game.title}

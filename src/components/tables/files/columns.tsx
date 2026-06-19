@@ -24,7 +24,7 @@ export const columns: ColumnDef<File>[] = [
           <TooltipTrigger asChild>
             <span className="font-mono cursor-help inline-flex gap-2 items-center justify-center">
               {`${hash?.slice(0, 6)}...${hash?.slice(-6)}`}
-              <span className="text-xs text-gray-400">({getHashType(hash ?? "")})</span>
+              <span className="text-xs text-muted-foreground">({getHashType(hash ?? "")})</span>
             </span>
           </TooltipTrigger>
           <TooltipContent>
