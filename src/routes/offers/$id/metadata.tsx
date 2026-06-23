@@ -157,10 +157,10 @@ function MetadataPage() {
   return (
     <main className="flex flex-col gap-2 w-full">
       <h2 className="text-2xl font-bold">Metadata</h2>
-      <Table>
+      <Table className="min-w-[620px]">
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[300px]">Type</TableHead>
+            <TableHead className="w-[180px] md:w-[300px]">Type</TableHead>
             <TableHead>Value</TableHead>
           </TableRow>
         </TableHeader>

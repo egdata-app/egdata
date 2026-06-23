@@ -81,7 +81,7 @@ export function ChangelistModule() {
     <section id="changelist" className="w-full h-full pb-10">
       <h2 className="text-2xl font-bold">Changelist</h2>
       <ScrollArea className="w-full h-[400px]">
-        <Table>
+        <Table className="min-w-[640px]">
           <TableHeader>
             <TableRow>
               <TableHead />

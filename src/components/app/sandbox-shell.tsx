@@ -190,7 +190,7 @@ function SandboxHero({
         </div>
 
         <div className="max-w-5xl space-y-3">
-          <h1 className="text-4xl font-bold leading-tight tracking-tight md:text-5xl">{title}</h1>
+          <h1 className="text-3xl font-bold leading-tight tracking-tight md:text-5xl">{title}</h1>
           <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
             <span className="font-mono text-xs">{id}</span>
             {developer && (
@@ -320,7 +320,7 @@ function PriceBlock({ price }: { price: Price | null }) {
     : 0;
 
   return (
-    <div className="flex h-10 items-center gap-3 rounded-md border border-border/45 bg-background/60 px-4 backdrop-blur">
+    <div className="flex min-h-10 flex-wrap items-center gap-2 rounded-md border border-border/45 bg-background/60 px-4 py-2 backdrop-blur md:gap-3 md:py-0">
       <span className={cn("text-lg font-semibold", discounted && "text-primary")}>
         {discountPrice === 0 ? "Free" : formatter.format(discountPrice)}
       </span>

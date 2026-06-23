@@ -29,11 +29,11 @@ export const Route = createFileRoute("/items/$id/")({
     return (
       <div className="flex flex-col items-start justify-start h-full gap-4 w-full">
         <h2 className="text-xl font-bold">Metadata</h2>
-        <div className="rounded-xl border border-border/10 w-full">
-          <Table>
+        <div className="w-full overflow-hidden rounded-xl border border-border/10">
+          <Table className="min-w-[620px]">
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[300px]">Key</TableHead>
+                <TableHead className="w-[180px] md:w-[300px]">Key</TableHead>
                 <TableHead className="border-l-border/10 border-l">Value</TableHead>
               </TableRow>
             </TableHeader>

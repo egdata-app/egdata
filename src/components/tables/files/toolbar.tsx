@@ -13,13 +13,13 @@ export function DataTableToolbar<TData>({ table }: DataTableToolbarProps<TData>)
   const isFiltered = table.getState().columnFilters.length > 0;
 
   return (
-    <div className="flex items-center justify-between">
-      <div className="flex flex-1 items-center space-x-2">
+    <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex w-full flex-1 flex-wrap items-center gap-2">
         <Input
           placeholder="Filter files..."
           value={(table.getColumn("fileName")?.getFilterValue() as string) ?? ""}
           onChange={(event) => table.getColumn("fileName")?.setFilterValue(event.target.value)}
-          className="h-8 w-[150px] lg:w-[250px]"
+          className="h-8 w-full sm:w-[150px] lg:w-[250px]"
         />
         <FileExtensionFilter column={table.getColumn("mimeType")} title="File Extensions" />
         {isFiltered && (

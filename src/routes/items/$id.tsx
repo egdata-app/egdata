@@ -113,15 +113,15 @@ function ItemPage() {
     <div className="flex flex-col items-center w-full min-h-[75vh] px-5 md:px-0">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
         <div className="flex flex-col gap-4 w-full">
-          <div className="flex items-center gap-4">
-            <h1 className="text-2xl font-bold">{item.title}</h1>
+          <div className="flex min-w-0 flex-wrap items-center gap-3 md:gap-4">
+            <h1 className="min-w-0 text-2xl font-bold leading-tight">{item.title}</h1>
             <Badge>Item</Badge>
           </div>
-          <div className="rounded-xl border border-border/10 mt-2">
-            <Table>
+          <div className="mt-2 overflow-hidden rounded-xl border border-border/10">
+            <Table className="min-w-[620px]">
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[300px]">Item ID</TableHead>
+                  <TableHead className="w-[180px] md:w-[300px]">Item ID</TableHead>
                   <TableHead className="border-l-border/10 border-l">{item.id}</TableHead>
                 </TableRow>
               </TableHeader>
@@ -233,8 +233,8 @@ function ItemPage() {
       </div>
       <hr className="w-full border-t border-border/10 my-4" />
 
-      <div className="flex flex-row items-start justify-start h-full gap-4 w-full min-h-[75vh]">
-        <aside>
+      <div className="flex min-h-[75vh] h-full w-full flex-col items-start justify-start gap-4 md:flex-row">
+        <aside className="w-full md:w-auto">
           <SectionsNav
             links={[
               {

@@ -63,7 +63,7 @@ export function GiveawaysCarousel({ hideTitle }: { hideTitle?: boolean }) {
         </Link>
       )}
       <ScrollArea className="w-full">
-        <div className="flex flex-row items-stretch justify-evenly gap-6 w-full">
+        <div className="flex min-w-full w-max flex-row items-stretch justify-start gap-6 pb-2 md:justify-evenly">
           {data
             .filter((offer) => offer.title)
             .map((offer) => (
@@ -96,7 +96,7 @@ function GiveawayCard({ offer }: { offer: GiveawayOffer }) {
       params={{
         id: offer.id,
       }}
-      className="flex flex-col rounded-md overflow-hidden w-[300px] bg-card border border-border/60 group"
+      className="flex w-[300px] shrink-0 flex-col overflow-hidden rounded-md border border-border/60 bg-card group"
     >
       <div className="relative flex-shrink-0">
         <Image

@@ -407,7 +407,7 @@ function RouteComponent() {
   return (
     <main className="container mx-auto">
       <div
-        className="relative h-96 overflow-hidden rounded-2xl flex items-center bg-cover bg-center"
+        className="relative flex h-72 items-center overflow-hidden rounded-2xl bg-cover bg-center md:h-96"
         style={{
           backgroundImage: `url(${
             getImage(cover?.keyImages ?? [], [
@@ -419,14 +419,16 @@ function RouteComponent() {
           })`,
         }}
       >
-        <div className="h-full w-full flex flex-col justify-center items-start text-foreground p-8 bg-gradient-to-r from-black/80 to-black/30">
-          <h1 className="text-5xl font-bold">{promotion.pages[0].title}</h1>
+        <div className="flex h-full w-full flex-col items-start justify-center bg-gradient-to-r from-black/80 to-black/30 p-5 text-foreground md:p-8">
+          <h1 className="text-3xl font-bold leading-tight md:text-5xl">
+            {promotion.pages[0].title}
+          </h1>
           <p className="mt-4 text-lg">{promotion.pages[0]?.count} offers available in this event</p>
         </div>
       </div>
 
-      <header className="flex flex-col md:flex-row justify-between items-center gap-4 mt-5">
-        <div className="inline-flex items-center gap-2">
+      <header className="mt-5 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
+        <div className="inline-flex flex-wrap items-center gap-2">
           <h2 className="text-2xl">Results</h2>
           <span className="text-sm text-muted-foreground">
             ({promotion.pages.reduce((acc, page) => acc + page.elements.length, 0)} results)
@@ -454,16 +456,16 @@ function RouteComponent() {
             </svg>
           )}
         </div>
-        <div className="flex :flex-row gap-2">
+        <div className="flex w-full flex-wrap gap-2 md:w-auto">
           <Input
             type="search"
             placeholder="Search..."
-            className="w-[200px] cursor-text"
+            className="w-full cursor-text sm:w-[200px]"
             onChange={handleInputChange}
             value={inputValue}
           />
           <Select value={sortBy} onValueChange={(value) => setSortBy(value as SortBy)}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-full sm:w-[180px]">
               <SelectValue className="text-sm">{sortByDisplay[sortBy]}</SelectValue>
             </SelectTrigger>
             <SelectContent>

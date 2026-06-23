@@ -92,13 +92,13 @@ export function OfferListItem({
       preload="viewport"
       aria-label={`Open offer ${game.title}`}
     >
-      <Card className="flex flex-row w-full bg-card text-card-foreground p-2 rounded-md h-fit relative border-border/60">
+      <Card className="relative flex h-fit w-full flex-col rounded-md border-border/60 bg-card p-2 text-card-foreground md:flex-row">
         {/* Image Section */}
-        <div className="flex-shrink-0 w-72 h-auto inline-flex items-center justify-center relative">
+        <div className="relative inline-flex aspect-video w-full shrink-0 items-center justify-center md:w-72">
           <Image
             src={epicImage ?? "/300x150-egdata-placeholder.png"}
             alt={game.title}
-            className="w-full object-cover rounded-md"
+            className="h-full w-full rounded-md object-cover"
             width={350}
             height={200}
           />
@@ -113,19 +113,21 @@ export function OfferListItem({
         </div>
 
         {/* Content Section */}
-        <div className="flex flex-col flex-grow ml-4 p-2 w-full justify-between">
+        <div className="flex min-w-0 flex-grow flex-col justify-between p-2 md:ml-4">
           {/* Title and Tags */}
-          <div className="flex items-start justify-between">
-            <div className="flex flex-col">
-              <div className="flex items-center space-x-2">
-                <h2 className="text-xl font-bold truncate">{game.title}</h2>
-                <span className="text-sm text-muted-foreground">-</span>
+          <div className="flex min-w-0 items-start justify-between">
+            <div className="flex min-w-0 flex-col">
+              <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1">
+                <h2 className="min-w-0 max-w-full truncate text-lg font-bold md:text-xl">
+                  {game.title}
+                </h2>
+                <span className="hidden text-sm text-muted-foreground md:inline">-</span>
                 <span className="text-sm text-muted-foreground">
                   {offersDictionary[game.offerType as keyof typeof offersDictionary] ||
                     game.offerType}
                 </span>
               </div>
-              <div className="flex flex-wrap mt-1 space-x-2">
+              <div className="mt-1 flex flex-wrap gap-2">
                 {game.tags
                   .filter((tag) => tag?.name)
                   .slice(0, 4)
@@ -177,7 +179,7 @@ export function OfferListItem({
 
           {/* Price and Sale Info */}
           {game.price && (
-            <div className="flex items-end justify-end space-x-4 mt-4">
+            <div className="mt-4 flex flex-wrap items-end justify-start gap-3 md:justify-end md:gap-4">
               {game.price.appliedRules.length > 0 && <SaleModule game={game} />}
               {game.price.price.originalPrice !== game.price.price.discountPrice && (
                 <span className="line-through text-muted-foreground">
@@ -203,7 +205,7 @@ export function OfferListItem({
         </div>
 
         {/* Platform Tags */}
-        <span className="absolute top-0 right-0 p-3">
+        <span className="absolute right-0 top-0 p-3">
           {game.tags
             .filter((tag) => textPlatformIcons[tag?.name])
             .map((tag) => (

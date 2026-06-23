@@ -36,7 +36,6 @@ import { useLocale } from "@/hooks/use-locale";
 import { usePushNotifications } from "@/hooks/use-push-notifications";
 import { ClientOnly } from "@/lib/cllient-only";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
-import { getImage } from "@/lib/get-image";
 import { Seller } from "@/lib/get-seller";
 import { httpClient } from "@/lib/http-client";
 import { offerGqlQueryOptions, offerOnlyQueryOptions } from "@/queries/offer-gql";
@@ -283,14 +282,14 @@ function OfferPage() {
       <ClientOnly>
         <PrepurchasePopup id={offer.id} />
       </ClientOnly>
-      <header className="grid col-span-1 gap-4 md:grid-cols-2 w-full">
+      <header className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
         <div className="flex flex-col gap-1">
-          <div className="inline-flex items-center gap-4">
+          <div className="inline-flex min-w-0 flex-wrap items-center gap-3 md:gap-4">
             {isFabItem && <FabIcon className="size-10" />}
-            <h1 className="text-4xl font-bold">{offer.title}</h1>
+            <h1 className="min-w-0 text-2xl font-bold leading-tight md:text-4xl">{offer.title}</h1>
           </div>
           <h4
-            className="text-lg font-semibold opacity-50 inline-flex items-center gap-2"
+            className="inline-flex flex-wrap items-center gap-2 text-base font-semibold opacity-50 md:text-lg"
             aria-label={`Offered by ${offer.seller.name}`}
           >
             <Seller
@@ -305,11 +304,11 @@ function OfferPage() {
             )}
           </h4>
 
-          <div className="rounded-xl border border-border/10 mt-2">
-            <Table>
+          <div className="mt-2 overflow-hidden rounded-xl border border-border/10">
+            <Table className="min-w-[640px]">
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[300px]">Offer ID</TableHead>
+                  <TableHead className="w-[180px] md:w-[300px]">Offer ID</TableHead>
                   <TableHead className="text-left font-mono border-l-border/10 border-l">
                     {offer.id}
                   </TableHead>
@@ -538,7 +537,7 @@ function OfferPage() {
           <OfferInBundle offer={offer} />
         </div>
         <div className="flex justify-start items-start flex-col gap-4">
-          <div className="inline-flex items-center gap-2 justify-end w-full h-8">
+          <div className="flex h-auto w-full flex-wrap items-center justify-start gap-2 md:h-8 md:justify-end">
             <StoreDropdown offer={offer} />
             <OpenLauncher id={offer.id} />
             <Button

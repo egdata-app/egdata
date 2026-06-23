@@ -178,9 +178,9 @@ function CollectionPage() {
   return (
     <TooltipProvider>
       <main className="flex flex-col items-start justify-start h-full gap-1 px-4 w-full">
-        <h1 className="text-4xl font-semibold">{data?.pages[0].title}</h1>
+        <h1 className="text-3xl font-semibold md:text-4xl">{data?.pages[0].title}</h1>
 
-        <div className="w-full h-12 flex flex-row items-center px-5 font-thin text-muted-foreground">
+        <div className="hidden h-12 w-full flex-row items-center px-5 font-thin text-muted-foreground md:flex">
           <span className="w-10">Position</span>
           <span className="w-24" />
           <span className="flex-grow pl-4" />
@@ -275,10 +275,10 @@ function OfferInTop({ offer }: { offer: OfferWithTops }) {
 
   return (
     <Link to="/offers/$id" params={{ id: offer.id }} preload="viewport">
-      <Card className="w-full h-16 flex flex-row items-center rounded-xl overflow-hidden px-5">
+      <Card className="flex h-auto min-h-20 w-full flex-wrap items-center gap-3 overflow-hidden rounded-xl px-4 py-3 md:h-16 md:min-h-0 md:flex-nowrap md:gap-0 md:px-5 md:py-0">
         <span className="text-xl font-bold w-10 flex-shrink-0">{offer.position}</span>
 
-        <div className="h-full w-24 flex-shrink-0 flex flex-col justify-center items-center">
+        <div className="flex h-14 w-24 flex-shrink-0 flex-col items-center justify-center md:h-full">
           <Image
             src={
               getImage(offer.keyImages, [
@@ -296,11 +296,11 @@ function OfferInTop({ offer }: { offer: OfferWithTops }) {
           />
         </div>
 
-        <div className="flex-grow flex flex-col justify-center px-4">
-          <h3 className="text-xl font-light truncate">{offer.title}</h3>
+        <div className="min-w-0 flex flex-1 flex-col justify-center md:px-4">
+          <h3 className="truncate text-lg font-light md:text-xl">{offer.title}</h3>
         </div>
 
-        <div className="flex-shrink-0 w-40 text-right inline-flex items-center justify-end gap-2 pr-5">
+        <div className="inline-flex w-full shrink-0 items-center justify-start gap-2 text-left md:w-40 md:justify-end md:pr-5 md:text-right">
           <span
             className={cn(
               "text-lg font-semibold",

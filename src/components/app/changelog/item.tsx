@@ -239,7 +239,7 @@ export function ChangeTracker({
         </div>
       </CardHeader>
       <CardContent>
-        <Table>
+        <Table className="min-w-[760px]">
           <TableHeader>
             <TableRow>
               <TableHead>Action</TableHead>

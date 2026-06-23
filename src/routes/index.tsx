@@ -1316,16 +1316,6 @@ function SearchPulseHero({
           density="desktop"
         />
       </div>
-      <div className="pointer-events-none absolute inset-x-4 bottom-4 z-0 h-32 opacity-10 lg:hidden">
-        <AmbientPulsePanel
-          events={events.slice(0, 3)}
-          isLoading={isLoading}
-          isFetching={isFetching}
-          isError={isError}
-          density="mobile"
-        />
-      </div>
-
       <div className="relative z-10 flex min-h-[260px] max-w-2xl flex-col justify-center lg:min-h-[252px]">
         <h1 className="text-3xl md:text-4xl font-display font-bold tracking-tight text-foreground">
           egdata.app

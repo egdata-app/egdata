@@ -77,7 +77,7 @@ export function GamesWithAchievements() {
         Games with Epic Achievements 🏆
         <ArrowRightIcon className="w-6 h-6 transform group-hover:translate-x-1 transition-transform" />
       </Link>
-      <Table>
+      <Table className="min-w-[720px]">
         <TableHeader>
           <TableRow>
             <TableHead>Game</TableHead>

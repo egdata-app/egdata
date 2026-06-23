@@ -97,7 +97,7 @@ export function SearchFilters({
   }
 
   return (
-    <aside className="flex flex-col gap-4 w-80">
+    <aside className="flex w-full flex-col gap-4 md:w-80">
       {showTitle && (
         <Input
           type="search"

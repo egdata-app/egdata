@@ -1,4 +1,5 @@
 import type { TypeOf } from "zod";
+import type * as React from "react";
 import type { formSchema } from "@/stores/searchStore";
 import { usePreferences } from "@/hooks/use-preferences";
 import { cn } from "@/lib/utils";
@@ -38,47 +39,53 @@ export interface SearchHeaderProps {
   title: string;
   showSort: boolean;
   showViewToggle: boolean;
+  mobileFilterButton?: React.ReactNode;
 }
 
 export function SearchHeader(props: SearchHeaderProps) {
   const { view, setView } = usePreferences();
-  const { query, setField, loading, title, showSort, showViewToggle } = props;
+  const { query, setField, loading, title, showSort, showViewToggle, mobileFilterButton } = props;
 
   return (
-    <header className={cn("inline-flex items-center justify-between w-full gap-2")}>
-      <div className="flex flex-row items-center justify-start gap-2">
-        <h1 className="text-2xl font-bold">{title}</h1>
-        {loading && (
-          <svg
-            className="animate-spin -ml-1 mr-3 h-5 w-5 text-foreground"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-          >
-            <circle
-              className="opacity-25"
-              cx="12"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              strokeWidth="4"
-            />
-            <path
-              className="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-            />
-          </svg>
-        )}
+    <header
+      className={cn("flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between")}
+    >
+      <div className="flex min-w-0 flex-row items-center justify-between gap-2 sm:justify-start">
+        <div className="flex min-w-0 flex-row items-center justify-start gap-2">
+          <h1 className="truncate text-2xl font-bold">{title}</h1>
+          {loading && (
+            <svg
+              className="-ml-1 mr-3 h-5 w-5 shrink-0 animate-spin text-foreground"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              />
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              />
+            </svg>
+          )}
+        </div>
+        {mobileFilterButton}
       </div>
-      <div className="flex flex-row items-center justify-start gap-2">
+      <div className="flex w-full flex-row items-center justify-start gap-2 sm:w-auto">
         {showSort && (
           <>
             <Select
               value={query.sortBy ?? undefined}
               onValueChange={(value) => setField("sortBy", value as typeof query.sortBy)}
             >
-              <SelectTrigger className="w-[180px]" aria-label="Sort offers">
+              <SelectTrigger className="w-full min-w-0 sm:w-[180px]" aria-label="Sort offers">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
               <SelectContent>

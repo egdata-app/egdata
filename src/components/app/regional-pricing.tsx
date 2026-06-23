@@ -107,7 +107,7 @@ export function RegionalPricing({ id }: { id: string }) {
         regionStats={regionalPricing[selectedRegion]}
       />
       <div className="w-full md:w-3/4 mx-auto mt-2 overflow-x-auto">
-        <Table className="w-full">
+        <Table className="min-w-[680px]">
           <TableCaption>Regional Pricing</TableCaption>
           <TableHeader>
             <TableRow>

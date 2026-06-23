@@ -58,7 +58,7 @@ export function MobileFreebiesCarousel() {
       </div>
       {isExpanded && (
         <ScrollArea className="w-full">
-          <div className="flex flex-row items-stretch justify-evenly gap-6 w-full">
+          <div className="flex min-w-full w-max flex-row items-stretch justify-start gap-6 pb-2 md:justify-evenly">
             {data.map((game) => (
               <MobileGiveawayCard key={game._id} offer={game} />
             ))}
@@ -88,7 +88,7 @@ function MobileGiveawayCard({ offer }: { offer: GiveawayOffer }) {
     <Link
       to="/offers/$id"
       params={{ id: offer.id }}
-      className="flex flex-col rounded-lg shadow-md overflow-hidden w-[300px]"
+      className="flex w-[300px] shrink-0 flex-col overflow-hidden rounded-lg shadow-md"
     >
       <div className="relative flex-shrink-0">
         <Image

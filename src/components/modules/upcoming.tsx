@@ -60,7 +60,7 @@ export function UpcomingOffers() {
 
   return (
     <section id="upcoming-offers" className="mb-8 w-full -mt-4">
-      <Table className="w-[73.5vw] mx-auto max-w-full">
+      <Table className="mx-auto min-w-[640px] md:w-[73.5vw] md:max-w-full">
         <TableCaption>Upcoming Offers</TableCaption>
         <TableHeader className="hover:bg-accent/50 transition-colors duration-200">
           <TableRow>

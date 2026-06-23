@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useDebounce } from "@uidotdev/usehooks";
 import { useQuery } from "@tanstack/react-query";
 import { useStore } from "@tanstack/react-store";
@@ -13,6 +13,9 @@ import { keepPreviousData } from "@tanstack/react-query";
 import { SearchFilters } from "./SearchFilters";
 import { SearchHeader } from "./SearchHeader";
 import { SearchResults } from "./SearchResults";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { SlidersHorizontal } from "lucide-react";
 
 export interface SearchContainerProps {
   contextId?: string; // Unique identifier for this search context
@@ -78,6 +81,7 @@ export function SearchContainer({
   onSearchChange,
   title = "Search",
 }: SearchContainerProps) {
+  const [filtersOpen, setFiltersOpen] = useState(false);
   // Get the appropriate store for this context with initial state
   const store = getSearchStore(contextId, mergeSearchStates(initialSearch, fixedParams));
 
@@ -237,6 +241,43 @@ export function SearchContainer({
 
   // Controls (merge defaults with overrides)
   const mergedControls = { ...defaultControls, ...controls };
+  const activeFilterCount = [
+    query.tags,
+    query.developerDisplayName,
+    query.publisherDisplayName,
+    query.offerType,
+    query.onSale,
+    query.isCodeRedemptionOnly,
+    query.excludeBlockchain,
+    query.pastGiveaways,
+    query.seller,
+    query.price,
+    query.isLowestPrice,
+    query.isLowestPriceEver,
+  ].reduce((count, value) => {
+    if (Array.isArray(value)) {
+      return count + value.length;
+    }
+
+    return value === undefined || value === false || value === null ? count : count + 1;
+  }, 0);
+
+  const filtersPanel = (
+    <SearchFilters
+      query={query as TypeOf<typeof formSchema>}
+      setField={setField}
+      loading={isLoading}
+      results={results}
+      tags={tags ?? []}
+      tagTypes={tagTypes}
+      priceRange={priceRange}
+      offerTypeCounts={offerTypeCounts}
+      tagCounts={tagCounts}
+      developerCounts={developerCounts}
+      publisherCounts={publisherCounts}
+      controls={mergedControls}
+    />
+  );
 
   // Notify parent of search changes - only when search actually changes and after initialization
   useEffect(() => {
@@ -262,23 +303,10 @@ export function SearchContainer({
   }, [contextId]);
 
   return (
-    <div className="flex flex-col gap-4 min-h-screen w-full">
-      <main className="flex flex-row flex-nowrap items-start justify-between gap-4">
-        <SearchFilters
-          query={query as TypeOf<typeof formSchema>}
-          setField={setField}
-          loading={isLoading}
-          results={results}
-          tags={tags ?? []}
-          tagTypes={tagTypes}
-          priceRange={priceRange}
-          offerTypeCounts={offerTypeCounts}
-          tagCounts={tagCounts}
-          developerCounts={developerCounts}
-          publisherCounts={publisherCounts}
-          controls={mergedControls}
-        />
-        <div className="flex flex-col gap-4 w-full justify-start items-start relative">
+    <div className="flex min-h-screen w-full flex-col gap-4 px-4 md:px-0">
+      <main className="flex flex-col items-stretch gap-4 md:flex-row md:flex-nowrap md:items-start md:justify-between">
+        <div className="hidden md:block">{filtersPanel}</div>
+        <div className="flex w-full min-w-0 flex-col items-start justify-start gap-4 relative">
           <SearchHeader
             query={query as TypeOf<typeof formSchema>}
             setField={setField}
@@ -286,6 +314,27 @@ export function SearchContainer({
             title={title}
             showSort={true}
             showViewToggle={true}
+            mobileFilterButton={
+              <Sheet open={filtersOpen} onOpenChange={setFiltersOpen}>
+                <SheetTrigger asChild>
+                  <Button variant="outline" size="sm" className="gap-2 md:hidden">
+                    <SlidersHorizontal className="size-4" />
+                    <span>Filters</span>
+                    {activeFilterCount > 0 && (
+                      <span className="rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-semibold text-primary-foreground">
+                        {activeFilterCount}
+                      </span>
+                    )}
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="left" className="w-[min(92vw,24rem)] overflow-y-auto p-4">
+                  <SheetHeader className="mb-4 border-b border-border/50 pb-4 text-left">
+                    <SheetTitle>Filters</SheetTitle>
+                  </SheetHeader>
+                  {filtersPanel}
+                </SheetContent>
+              </Sheet>
+            }
           />
           <SearchResults
             query={query as TypeOf<typeof formSchema>}

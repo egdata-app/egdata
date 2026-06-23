@@ -181,18 +181,18 @@ function BuildPage() {
   return (
     <main className="flex flex-col items-start justify-start h-full gap-4 p-4 w-full">
       <div className="flex flex-col gap-4 mx-auto w-full">
-        <div className="inline-flex items-center gap-2 justify-start w-full h-8">
+        <div className="flex h-auto w-full flex-wrap items-center justify-start gap-2 md:h-8">
           <span className="text-lg text-muted-foreground inline-flex items-center">Build</span>
           <strong className="text-lg font-medium">{id.toUpperCase()}</strong>
           <span className="text-lg text-muted-foreground inline-flex items-center">for</span>
           <strong className="text-lg font-medium">{items?.data[0].title}</strong>
           <span>{textPlatformIcons[build.labelName.split("-")[1]]}</span>
         </div>
-        <div className="rounded-xl border border-border/10 w-full">
-          <Table className="w-full">
+        <div className="w-full overflow-hidden rounded-xl border border-border/10">
+          <Table className="min-w-[680px]">
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[300px]">Build ID</TableHead>
+                <TableHead className="w-[180px] md:w-[300px]">Build ID</TableHead>
                 <TableHead className="text-left font-mono border-l-border/10 border-l">
                   {id.toUpperCase()}
                 </TableHead>
@@ -308,7 +308,7 @@ function BuildPage() {
                   </TooltipProvider>
                 </TableCell>
                 <TableCell className="border-l-border/10 border-l">
-                  <div className="grid grid-cols-3 gap-2">
+                  <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3">
                     {build.technologies
                       ?.filter((tech) => tech.section !== "Evidence")
                       .map((tech) => (
@@ -328,7 +328,7 @@ function BuildPage() {
           </Table>
         </div>
       </div>
-      <div className="flex flex-row justify-start items-start gap-1 w-full">
+      <div className="flex w-full flex-col items-start justify-start gap-4 md:flex-row md:gap-1">
         <SectionsNav
           links={[
             {
@@ -372,7 +372,7 @@ function BuildPage() {
           }}
           orientation="vertical"
         />
-        <div className="w-full h-full">
+        <div className="h-full w-full min-w-0">
           <Outlet />
         </div>
       </div>
