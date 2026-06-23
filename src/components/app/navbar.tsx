@@ -293,7 +293,7 @@ const routeApi = getRouteApi("__root__");
 export default function Navbar() {
   const { session } = routeApi.useRouteContext();
   const navigate = useNavigate();
-  const { setFocus, focus } = useSearch();
+  const { setFocus, toggleFocus } = useSearch();
   const [sheetOpen, setSheetOpen] = React.useState(false);
   const { data: user } = useQuery({
     queryKey: ["user", { id: session?.user.email.split("@")[0] }],
@@ -304,11 +304,7 @@ export default function Navbar() {
     function handleKeyDown(e: KeyboardEvent) {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
-        if (focus === false) {
-          setFocus(true);
-        } else {
-          setFocus(false);
-        }
+        toggleFocus();
       }
     }
 
@@ -317,7 +313,7 @@ export default function Navbar() {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [setFocus, focus]);
+  }, [toggleFocus]);
 
   const handleSearchClick = () => {
     setFocus(true);

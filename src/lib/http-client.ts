@@ -48,6 +48,10 @@ class HttpFetch {
   }
 
   private handleAxiosError(error: unknown): never {
+    if (axios.isCancel(error)) {
+      throw error;
+    }
+
     if (axios.isAxiosError(error)) {
       const axiosError = error as AxiosError;
       const errorData = axiosError.response?.data;
@@ -96,6 +100,7 @@ class HttpFetch {
         params: options.params,
         headers: options.headers,
         timeout: options.timeout,
+        signal: options.signal,
       });
       return response.data;
     } catch (error) {

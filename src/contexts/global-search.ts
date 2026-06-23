@@ -1,21 +1,15 @@
-import { createContext } from "react";
+import { createContext, type RefObject } from "react";
 
-export interface SearchState {
-  focus: boolean;
-  query: string;
-  results: Element[];
-  inputRef: React.RefObject<HTMLInputElement | null>;
-  setQuery: (query: string) => void;
+export interface SearchContextValue {
+  inputRef: RefObject<HTMLInputElement | null>;
   setFocus: (focus: boolean) => void;
+  toggleFocus: () => void;
 }
 
-export const defaultState: SearchState = {
-  focus: false,
-  query: "",
-  results: [],
+export const defaultState: SearchContextValue = {
   inputRef: { current: null },
-  setQuery: () => {},
   setFocus: () => {},
+  toggleFocus: () => {},
 };
 
-export const SearchContext = createContext<SearchState | undefined>(undefined);
+export const SearchContext = createContext<SearchContextValue | undefined>(undefined);

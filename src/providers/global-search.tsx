@@ -5,10 +5,8 @@ import {
   useRef,
   useState,
   type CSSProperties,
-  type Dispatch,
   type ReactNode,
   type RefObject,
-  type SetStateAction,
 } from "react";
 import { Portal } from "@radix-ui/react-portal";
 import { keepPreviousData, useQueries } from "@tanstack/react-query";
@@ -26,7 +24,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Image } from "@/components/app/image";
 import { getImage } from "@/lib/getImage";
-import { defaultState, SearchContext, type SearchState } from "@/contexts/global-search";
+import { SearchContext } from "@/contexts/global-search";
 import { getPlatformsArray, textPlatformIcons } from "@/components/app/platform-icons";
 import { httpClient } from "@/lib/http-client";
 import { calculatePrice } from "@/lib/calculate-price";
@@ -60,8 +58,9 @@ interface Multisearch<T> {
 }
 
 interface SearchPortalProps {
-  searchState: SearchState;
-  setSearchState: Dispatch<SetStateAction<SearchState>>;
+  initialQuery: string;
+  closeSearch: (clearQuery?: boolean) => void;
+  storeQuery: (query: string) => void;
   inputRef: RefObject<HTMLInputElement | null>;
 }
 
@@ -69,47 +68,54 @@ const SEARCH_LIMIT = 6;
 const MIN_QUERY_LENGTH = 2;
 const GROUP_CLASS_NAME = "min-w-0 max-w-full [&_[cmdk-group-items]]:min-w-0";
 const RESULT_ROW_CLASS_NAME =
-  "w-full max-w-full min-w-0 items-center gap-3 overflow-hidden rounded-md px-3 py-2";
+  "w-full max-w-full min-w-0 items-center gap-3 overflow-hidden rounded-md px-3 py-2 transition-colors hover:bg-accent hover:text-accent-foreground";
 const RESULT_ROW_STYLE: CSSProperties = {
   display: "grid",
   gridTemplateColumns: "auto minmax(0, 1fr) auto",
 };
 
 export function SearchProvider({ children }: SearchProviderProps) {
-  const [searchState, setSearchState] = useState<SearchState>(defaultState);
+  const [searchOpen, setSearchOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const lastQueryRef = useRef("");
 
-  const setQuery = useCallback((query: string) => {
-    setSearchState((prevState) => ({
-      ...prevState,
-      query,
-    }));
+  const storeQuery = useCallback((query: string) => {
+    lastQueryRef.current = query;
   }, []);
 
   const setFocus = useCallback((focus: boolean) => {
-    setSearchState((prevState) => ({
-      ...prevState,
-      focus,
-    }));
+    setSearchOpen(focus);
+  }, []);
+
+  const toggleFocus = useCallback(() => {
+    setSearchOpen((open) => !open);
+  }, []);
+
+  const closeSearch = useCallback((clearQuery = false) => {
+    if (clearQuery) {
+      lastQueryRef.current = "";
+    }
+
+    setSearchOpen(false);
   }, []);
 
   const contextValue = useMemo(
     () => ({
-      ...searchState,
-      setQuery,
-      setFocus,
       inputRef,
+      setFocus,
+      toggleFocus,
     }),
-    [searchState, setFocus, setQuery],
+    [setFocus, toggleFocus],
   );
 
   return (
     <SearchContext.Provider value={contextValue}>
       {children}
-      {searchState.focus && (
+      {searchOpen && (
         <SearchPortal
-          searchState={searchState}
-          setSearchState={setSearchState}
+          initialQuery={lastQueryRef.current}
+          closeSearch={closeSearch}
+          storeQuery={storeQuery}
           inputRef={inputRef}
         />
       )}
@@ -117,25 +123,26 @@ export function SearchProvider({ children }: SearchProviderProps) {
   );
 }
 
-function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalProps) {
+function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: SearchPortalProps) {
   const navigate = useNavigate();
   const { locale } = useLocale();
   const resolvedLocale = locale ?? "en-US";
-  const [debouncedQuery, setDebouncedQuery] = useState(searchState.query);
+  const [queryValue, setQueryValue] = useState(initialQuery);
+  const [debouncedQuery, setDebouncedQuery] = useState(initialQuery);
 
-  const query = searchState.query.trim();
+  const query = queryValue.trim();
   const resolvedQuery = debouncedQuery.trim();
   const queryReady = resolvedQuery.length >= MIN_QUERY_LENGTH;
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
-      setDebouncedQuery(searchState.query);
+      setDebouncedQuery(queryValue);
     }, 180);
 
     return () => {
       window.clearTimeout(timeout);
     };
-  }, [searchState.query]);
+  }, [queryValue]);
 
   useEffect(() => {
     window.requestAnimationFrame(() => inputRef.current?.focus());
@@ -149,9 +156,10 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
     queries: [
       {
         queryKey: ["global-search", "offers", resolvedQuery],
-        queryFn: () =>
+        queryFn: ({ signal }) =>
           httpClient.get<Multisearch<SingleOffer>>("/multisearch/offers", {
             params: { query: resolvedQuery, limit: SEARCH_LIMIT },
+            signal,
           }),
         enabled: queryReady,
         placeholderData: keepPreviousData,
@@ -159,9 +167,10 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
       },
       {
         queryKey: ["global-search", "items", resolvedQuery],
-        queryFn: () =>
+        queryFn: ({ signal }) =>
           httpClient.get<Multisearch<SingleItem>>("/multisearch/items", {
             params: { query: resolvedQuery, limit: SEARCH_LIMIT },
+            signal,
           }),
         enabled: queryReady,
         placeholderData: keepPreviousData,
@@ -169,9 +178,10 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
       },
       {
         queryKey: ["global-search", "sellers", resolvedQuery],
-        queryFn: () =>
+        queryFn: ({ signal }) =>
           httpClient.get<Multisearch<SingleSeller>>("/multisearch/sellers", {
             params: { query: resolvedQuery, limit: SEARCH_LIMIT },
+            signal,
           }),
         enabled: queryReady,
         placeholderData: keepPreviousData,
@@ -180,25 +190,12 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
     ],
   });
 
-  const closeSearch = useCallback(
-    (clearQuery = false) => {
-      setSearchState((prevState) => ({
-        ...prevState,
-        focus: false,
-        query: clearQuery ? "" : prevState.query,
-      }));
-    },
-    [setSearchState],
-  );
-
   const updateQuery = useCallback(
     (nextQuery: string) => {
-      setSearchState((prevState) => ({
-        ...prevState,
-        query: nextQuery,
-      }));
+      setQueryValue(nextQuery);
+      storeQuery(nextQuery);
     },
-    [setSearchState],
+    [storeQuery],
   );
 
   const openFullSearch = useCallback(
@@ -297,7 +294,7 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
   return (
     <Portal>
       <div
-        className="fixed inset-0 z-[60] bg-background/70 backdrop-blur-sm"
+        className="fixed inset-0 z-[60] bg-background/80"
         onMouseDown={(event) => {
           if (event.target === event.currentTarget) {
             closeSearch(false);
@@ -307,10 +304,11 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
         <div className="fixed left-1/2 top-4 z-[61] w-[calc(100%-1rem)] max-w-2xl -translate-x-1/2 sm:top-[10vh]">
           <Command
             shouldFilter={false}
+            disablePointerSelection
             role="dialog"
             aria-modal="true"
             aria-labelledby="global-search-title"
-            className="overflow-hidden rounded-lg border border-border/70 bg-card/95 shadow-2xl"
+            className="overflow-hidden rounded-lg border border-border/70 bg-card shadow-2xl"
           >
             <h2 id="global-search-title" className="sr-only">
               Search EGDATA
@@ -318,7 +316,7 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
             <div className="relative">
               <CommandInput
                 ref={inputRef}
-                value={searchState.query}
+                value={queryValue}
                 onValueChange={updateQuery}
                 placeholder="Search games, items, sellers..."
                 className="h-14 pr-11 text-base"
@@ -326,9 +324,9 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
               <button
                 type="button"
                 className="absolute right-3 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                aria-label={searchState.query ? "Clear search" : "Close search"}
+                aria-label={queryValue ? "Clear search" : "Close search"}
                 onClick={() => {
-                  if (searchState.query) {
+                  if (queryValue) {
                     updateQuery("");
                     inputRef.current?.focus();
                     return;
