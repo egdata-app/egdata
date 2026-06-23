@@ -3,6 +3,23 @@ import { expectMainReady } from "./support/assertions";
 
 const searchQuery = "red dead redemption 2";
 const imageUrl = "https://cdn.example.test/rdr2-wide.jpg";
+const acceptedCookies = Buffer.from(
+  JSON.stringify({
+    googleAnalytics: false,
+    selfHostedAnalytics: false,
+    ahrefsAnalytics: false,
+    googleConsent: {
+      ad_storage: "denied",
+      ad_user_data: "denied",
+      ad_personalization: "denied",
+      analytics_storage: "denied",
+      functionality_storage: "denied",
+      personalization_storage: "denied",
+      security_storage: "denied",
+    },
+  }),
+  "utf-8",
+).toString("base64");
 const tinyPng = Buffer.from(
   "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/p9sAAAAASUVORK5CYII=",
   "base64",
@@ -16,12 +33,25 @@ test.describe("Global search", () => {
   test("keeps duplicate results independently selectable and uses sharper thumbnails", async ({
     page,
   }) => {
+    await page.setViewportSize({ width: 1024, height: 720 });
+    await page.context().addCookies([
+      {
+        name: "EGDATA_COOKIES_2",
+        value: acceptedCookies,
+        domain: "localhost",
+        path: "/",
+      },
+    ]);
     await page.goto("/about");
     await expectMainReady(page);
 
-    await page.getByRole("button", { name: /Search games/i }).click();
+    const searchButton = page.getByRole("button", { name: /Search games/i });
     const dialog = page.getByRole("dialog", { name: "Search EGDATA" });
-    await expect(dialog).toBeVisible();
+    await expect(async () => {
+      await searchButton.click();
+      await expect(dialog).toBeVisible({ timeout: 1_000 });
+    }).toPass({ timeout: 15_000 });
+    await page.setViewportSize({ width: 698, height: 720 });
 
     await page.getByPlaceholder("Search games, items, sellers...").fill(searchQuery);
     await expect(page.locator('[cmdk-item][data-value="offer:offer-rdr2-standard"]')).toBeVisible();
@@ -36,6 +66,19 @@ test.describe("Global search", () => {
       .locator("[cmdk-list]")
       .evaluate((node) => node.scrollWidth <= node.clientWidth + 1);
     expect(commandListHasNoHorizontalOverflow).toBe(true);
+
+    await expectFullyInside(
+      dialog,
+      page
+        .locator(`[cmdk-item][data-value="action:search-offers:${searchQuery}"]`)
+        .getByText("Search", { exact: true }),
+    );
+    await expectFullyInside(
+      dialog,
+      page
+        .locator('[cmdk-item][data-value="offer:offer-rdr2-duplicate"]')
+        .getByText("Pre-purchase", { exact: true }),
+    );
 
     const image = page.getByRole("img", { name: "Red Dead Redemption 2" }).first();
     await expect(image).toHaveAttribute("src", /w=88/);
@@ -164,7 +207,7 @@ function offer(id: string, title: string) {
     categories: [],
     developerDisplayName: null,
     publisherDisplayName: null,
-    prePurchase: null,
+    prePurchase: id === "offer-rdr2-duplicate",
     releaseDate: "",
     pcReleaseDate: null,
     viewableDate: "",
@@ -175,4 +218,22 @@ function offer(id: string, title: string) {
     price: null,
     giveaway: null,
   };
+}
+
+async function expectFullyInside(
+  container: ReturnType<Page["locator"]>,
+  target: ReturnType<Page["locator"]>,
+) {
+  const [containerBox, targetBox] = await Promise.all([
+    container.boundingBox(),
+    target.boundingBox(),
+  ]);
+
+  expect(containerBox).not.toBeNull();
+  expect(targetBox).not.toBeNull();
+
+  expect(targetBox!.x).toBeGreaterThanOrEqual(containerBox!.x);
+  expect(targetBox!.x + targetBox!.width).toBeLessThanOrEqual(
+    containerBox!.x + containerBox!.width,
+  );
 }

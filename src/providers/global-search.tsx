@@ -4,6 +4,7 @@ import {
   useMemo,
   useRef,
   useState,
+  type CSSProperties,
   type Dispatch,
   type ReactNode,
   type RefObject,
@@ -66,6 +67,13 @@ interface SearchPortalProps {
 
 const SEARCH_LIMIT = 6;
 const MIN_QUERY_LENGTH = 2;
+const GROUP_CLASS_NAME = "min-w-0 max-w-full [&_[cmdk-group-items]]:min-w-0";
+const RESULT_ROW_CLASS_NAME =
+  "w-full max-w-full min-w-0 items-center gap-3 overflow-hidden rounded-md px-3 py-2";
+const RESULT_ROW_STYLE: CSSProperties = {
+  display: "grid",
+  gridTemplateColumns: "auto minmax(0, 1fr) auto",
+};
 
 export function SearchProvider({ children }: SearchProviderProps) {
   const [searchState, setSearchState] = useState<SearchState>(defaultState);
@@ -334,9 +342,9 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
             </div>
 
             <ScrollArea className="h-[min(74vh,640px)]">
-              <CommandList className="max-h-none overflow-x-hidden !overflow-y-visible">
+              <CommandList className="max-h-none overflow-x-hidden !overflow-y-visible pr-3 [&_[cmdk-list-sizer]]:min-w-0 [&_[cmdk-list-sizer]]:max-w-full [&_[cmdk-list-sizer]]:w-full">
                 {!query && (
-                  <CommandGroup heading="Quick links">
+                  <CommandGroup className={GROUP_CLASS_NAME} heading="Quick links">
                     <SearchActionItem
                       value="action:browse-catalog"
                       icon={SearchIcon}
@@ -380,7 +388,7 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
 
                 {queryReady && (
                   <>
-                    <CommandGroup heading={`Results for "${query}"`}>
+                    <CommandGroup className={GROUP_CLASS_NAME} heading={`Results for "${query}"`}>
                       <SearchActionItem
                         value={`action:search-offers:${query}`}
                         icon={SearchIcon}
@@ -484,7 +492,8 @@ function SearchActionItem({
       value={value}
       keywords={[label, title, description]}
       onSelect={onSelect}
-      className="flex min-h-14 w-full max-w-full min-w-0 items-center gap-3 overflow-hidden rounded-md px-3 py-2"
+      className={cn("min-h-14", RESULT_ROW_CLASS_NAME)}
+      style={RESULT_ROW_STYLE}
     >
       <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground">
         <Icon className="h-4 w-4" />
@@ -525,6 +534,7 @@ function ResultGroup({
 
   return (
     <CommandGroup
+      className={GROUP_CLASS_NAME}
       heading={
         <span className="flex items-center gap-2">
           <Icon className="h-3.5 w-3.5" />
@@ -558,7 +568,8 @@ function OfferResultItem({
       value={`offer:${offer.id}`}
       keywords={[offer.title, offer.seller?.name ?? ""]}
       onSelect={onSelect}
-      className="flex min-h-16 w-full max-w-full min-w-0 items-center gap-3 overflow-hidden rounded-md px-3 py-2"
+      className={cn("min-h-16", RESULT_ROW_CLASS_NAME)}
+      style={RESULT_ROW_STYLE}
     >
       <ResultImage
         src={
@@ -577,9 +588,9 @@ function OfferResultItem({
           {offer.seller?.name ?? "Epic Games Store offer"}
         </span>
       </span>
-      <span className="ml-2 flex min-w-0 shrink-0 items-center gap-2 overflow-hidden">
+      <span className="ml-2 flex min-w-0 items-center justify-end gap-2 overflow-hidden">
         {offer.prePurchase && (
-          <Badge variant="secondary" className="hidden sm:inline-flex">
+          <Badge variant="secondary" className="hidden max-w-full truncate sm:inline-flex">
             Pre-purchase
           </Badge>
         )}
@@ -608,7 +619,8 @@ function ItemResultItem({ item, onSelect }: { item: SingleItem; onSelect: () => 
       value={`item:${item._id || item.id}`}
       keywords={[item.title, item.namespace]}
       onSelect={onSelect}
-      className="flex min-h-16 w-full max-w-full min-w-0 items-center gap-3 overflow-hidden rounded-md px-3 py-2"
+      className={cn("min-h-16", RESULT_ROW_CLASS_NAME)}
+      style={RESULT_ROW_STYLE}
     >
       <ResultImage
         src={getImage(item.keyImages, ["DieselGameBoxWide", "DieselGameBox"])?.url}
@@ -621,7 +633,7 @@ function ItemResultItem({ item, onSelect }: { item: SingleItem; onSelect: () => 
         </span>
       </span>
       {platforms.length > 0 && (
-        <span className="ml-2 hidden shrink-0 items-center gap-2 text-sm text-muted-foreground sm:flex">
+        <span className="ml-2 hidden min-w-0 items-center justify-end gap-2 overflow-hidden text-sm text-muted-foreground sm:flex">
           {platforms.slice(0, 4).map((platform) => (
             <span key={platform} title={platform}>
               {textPlatformIcons[platform]}
@@ -639,7 +651,8 @@ function SellerResultItem({ seller, onSelect }: { seller: SingleSeller; onSelect
       value={`seller:${seller._id}`}
       keywords={[seller.name]}
       onSelect={onSelect}
-      className="flex min-h-16 w-full max-w-full min-w-0 items-center gap-3 overflow-hidden rounded-md px-3 py-2"
+      className={cn("min-h-16", RESULT_ROW_CLASS_NAME)}
+      style={RESULT_ROW_STYLE}
     >
       <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-md bg-muted">
         {seller.logo?.url ? (
