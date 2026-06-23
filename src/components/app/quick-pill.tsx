@@ -6,7 +6,7 @@ export function QuickPill({ label, onRemove }: { label: string; onRemove: () => 
     <Button
       variant="outline"
       onClick={onRemove}
-      className="rounded-xl px-3 py-1 text-xs bg-white/5 text-white h-7"
+      className="rounded-xl px-3 py-1 text-xs bg-white/5 text-foreground h-7"
     >
       <span>{label}</span>
       <XIcon className="h-4 w-4" />

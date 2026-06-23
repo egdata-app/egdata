@@ -1,103 +1,52 @@
-import { useState, useEffect, useCallback, useMemo, useRef, type ReactNode } from "react";
-import debounce from "lodash.debounce";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type Dispatch,
+  type ReactNode,
+  type RefObject,
+  type SetStateAction,
+} from "react";
 import { Portal } from "@radix-ui/react-portal";
-import { defaultState, SearchContext, type SearchState } from "@/contexts/global-search";
-import { Link } from "@tanstack/react-router";
-import { Input } from "@/components/ui/input";
+import { keepPreviousData, useQueries } from "@tanstack/react-query";
+import { useNavigate } from "@tanstack/react-router";
 import { Badge } from "@/components/ui/badge";
-import { useCountry } from "@/hooks/use-country";
-import { keepPreviousData, useQueries, useQuery } from "@tanstack/react-query";
-import type { SingleOffer } from "@/types/single-offer";
-import type { SingleItem } from "@/types/single-item";
-import type { SingleSeller } from "@/types/sellers";
+import {
+  Command,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+} from "@/components/ui/command";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Image } from "@/components/app/image";
 import { getImage } from "@/lib/getImage";
-import {
-  getPlatformsArray,
-  platformIcons,
-  textPlatformIcons,
-} from "@/components/app/platform-icons";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { defaultState, SearchContext, type SearchState } from "@/contexts/global-search";
+import { getPlatformsArray, textPlatformIcons } from "@/components/app/platform-icons";
 import { httpClient } from "@/lib/http-client";
 import { calculatePrice } from "@/lib/calculate-price";
 import { useLocale } from "@/hooks/use-locale";
-import consola from "consola";
-import { Gamepad2, SearchIcon, Store, Tag } from "lucide-react";
+import type { SingleOffer } from "@/types/single-offer";
+import type { SingleItem } from "@/types/single-item";
+import type { SingleSeller } from "@/types/sellers";
 import { cn } from "@/lib/utils";
-
-interface Search {
-  elements: Element[];
-  total: number;
-}
+import {
+  CalendarDays,
+  Gamepad2,
+  Gift,
+  SearchIcon,
+  Store,
+  Tag,
+  X,
+  type LucideIcon,
+} from "lucide-react";
 
 interface SearchProviderProps {
   children: ReactNode;
-}
-
-export function SearchProvider({ children }: SearchProviderProps) {
-  const [searchState, setSearchState] = useState<SearchState>(defaultState);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const debouncedSearch = useMemo(
-    () =>
-      debounce(
-        (query: string) => {
-          httpClient
-            .get<Search>("/autocomplete", {
-              params: { query },
-            })
-            .then((data) => {
-              setSearchState((prevState) => ({
-                ...prevState,
-                results: data.elements,
-              }));
-            });
-        },
-        300,
-      ),
-    [],
-  );
-
-  useEffect(() => {
-    debouncedSearch(searchState.query);
-  }, [searchState.query, debouncedSearch]);
-
-  useEffect(() => {
-    return () => {
-      debouncedSearch.cancel();
-    };
-  }, [debouncedSearch]);
-
-  return (
-    <SearchContext.Provider
-      value={{
-        ...searchState,
-        setQuery: (query: string) =>
-          setSearchState((prevState) => ({
-            ...prevState,
-            query,
-          })),
-        setFocus: (focus: boolean) =>
-          setSearchState((prevState) => ({
-            ...prevState,
-            focus,
-          })),
-        inputRef,
-      }}
-    >
-      {children}
-      <Portal>
-        {searchState.focus && (
-          <SearchPortal
-            searchState={searchState}
-            setSearchState={setSearchState}
-            inputRef={inputRef}
-          />
-        )}
-      </Portal>
-    </SearchContext.Provider>
-  );
 }
 
 interface Multisearch<T> {
@@ -111,114 +60,222 @@ interface Multisearch<T> {
 
 interface SearchPortalProps {
   searchState: SearchState;
-  setSearchState: (value: React.SetStateAction<SearchState>) => void;
-  inputRef: React.RefObject<HTMLInputElement | null>;
+  setSearchState: Dispatch<SetStateAction<SearchState>>;
+  inputRef: RefObject<HTMLInputElement | null>;
 }
 
-type SectionType = "offers" | "items" | "sellers";
-type SelectedResult = { type: "offer" | "item" | "seller"; id: string };
+const SEARCH_LIMIT = 6;
+const MIN_QUERY_LENGTH = 2;
+
+export function SearchProvider({ children }: SearchProviderProps) {
+  const [searchState, setSearchState] = useState<SearchState>(defaultState);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const setQuery = useCallback((query: string) => {
+    setSearchState((prevState) => ({
+      ...prevState,
+      query,
+    }));
+  }, []);
+
+  const setFocus = useCallback((focus: boolean) => {
+    setSearchState((prevState) => ({
+      ...prevState,
+      focus,
+    }));
+  }, []);
+
+  const contextValue = useMemo(
+    () => ({
+      ...searchState,
+      setQuery,
+      setFocus,
+      inputRef,
+    }),
+    [searchState, setFocus, setQuery],
+  );
+
+  return (
+    <SearchContext.Provider value={contextValue}>
+      {children}
+      {searchState.focus && (
+        <SearchPortal
+          searchState={searchState}
+          setSearchState={setSearchState}
+          inputRef={inputRef}
+        />
+      )}
+    </SearchContext.Provider>
+  );
+}
 
 function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalProps) {
-  const { country } = useCountry();
-  const [searchQuery, setSearchQuery] = useState<string>(searchState.query);
-  const [activeSection, setActiveSection] = useState<SectionType>("offers");
+  const navigate = useNavigate();
+  const { locale } = useLocale();
+  const resolvedLocale = locale ?? "en-US";
+  const [debouncedQuery, setDebouncedQuery] = useState(searchState.query);
+
+  const query = searchState.query.trim();
+  const resolvedQuery = debouncedQuery.trim();
+  const queryReady = resolvedQuery.length >= MIN_QUERY_LENGTH;
+
+  useEffect(() => {
+    const timeout = window.setTimeout(() => {
+      setDebouncedQuery(searchState.query);
+    }, 180);
+
+    return () => {
+      window.clearTimeout(timeout);
+    };
+  }, [searchState.query]);
+
+  useEffect(() => {
+    window.requestAnimationFrame(() => inputRef.current?.focus());
+  }, [inputRef]);
 
   const [
-    { data: offersData, isLoading: offersLoading, error: offersError },
-    { data: itemsData, isLoading: itemsLoading, error: itemsError },
-    { data: sellersData, isLoading: sellersLoading, error: sellersError },
+    { data: offersData, isFetching: offersFetching, isError: offersError },
+    { data: itemsData, isFetching: itemsFetching, isError: itemsError },
+    { data: sellersData, isFetching: sellersFetching, isError: sellersError },
   ] = useQueries({
     queries: [
       {
-        queryKey: [
-          "multisearch:offers",
-          {
-            query: searchQuery,
-          },
-        ],
-        queryFn: async () => {
-          const data = await httpClient.get<Multisearch<SingleOffer>>("/multisearch/offers", {
-            params: { query: searchQuery, limit: 20 },
-          });
-          return data;
-        },
-        enabled: activeSection === "offers",
+        queryKey: ["global-search", "offers", resolvedQuery],
+        queryFn: () =>
+          httpClient.get<Multisearch<SingleOffer>>("/multisearch/offers", {
+            params: { query: resolvedQuery, limit: SEARCH_LIMIT },
+          }),
+        enabled: queryReady,
         placeholderData: keepPreviousData,
+        staleTime: 30_000,
       },
       {
-        queryKey: [
-          "multisearch:items",
-          {
-            query: searchQuery,
-          },
-        ],
-        queryFn: async () => {
-          const data = await httpClient.get<Multisearch<SingleItem>>("/multisearch/items", {
-            params: { query: searchQuery, limit: 20 },
-          });
-          return data;
-        },
-        enabled: activeSection === "items",
+        queryKey: ["global-search", "items", resolvedQuery],
+        queryFn: () =>
+          httpClient.get<Multisearch<SingleItem>>("/multisearch/items", {
+            params: { query: resolvedQuery, limit: SEARCH_LIMIT },
+          }),
+        enabled: queryReady,
         placeholderData: keepPreviousData,
+        staleTime: 30_000,
       },
       {
-        queryKey: [
-          "multisearch:sellers",
-          {
-            query: searchQuery,
-          },
-        ],
-        queryFn: async () => {
-          const data = await httpClient.get<Multisearch<SingleSeller>>("/multisearch/sellers", {
-            params: { query: searchQuery, limit: 20 },
-          });
-          return data;
-        },
-        enabled: activeSection === "sellers",
+        queryKey: ["global-search", "sellers", resolvedQuery],
+        queryFn: () =>
+          httpClient.get<Multisearch<SingleSeller>>("/multisearch/sellers", {
+            params: { query: resolvedQuery, limit: SEARCH_LIMIT },
+          }),
+        enabled: queryReady,
         placeholderData: keepPreviousData,
+        staleTime: 30_000,
       },
     ],
   });
-  const [selected, setSelected] = useState<SelectedResult | null>(null);
 
-  const selectSection = useCallback((section: SectionType) => {
-    setActiveSection((current) => (current === section ? current : section));
-  }, []);
+  const closeSearch = useCallback(
+    (clearQuery = false) => {
+      setSearchState((prevState) => ({
+        ...prevState,
+        focus: false,
+        query: clearQuery ? "" : prevState.query,
+      }));
+    },
+    [setSearchState],
+  );
 
-  const selectResult = useCallback((result: SelectedResult) => {
-    setSelected((current) =>
-      current?.type === result.type && current.id === result.id ? current : result,
-    );
-  }, []);
+  const updateQuery = useCallback(
+    (nextQuery: string) => {
+      setSearchState((prevState) => ({
+        ...prevState,
+        query: nextQuery,
+      }));
+    },
+    [setSearchState],
+  );
+
+  const openFullSearch = useCallback(
+    (title?: string) => {
+      closeSearch(true);
+      void navigate({
+        to: "/search",
+        search: title ? { title } : {},
+      });
+    },
+    [closeSearch, navigate],
+  );
+
+  const openDiscounts = useCallback(() => {
+    closeSearch(true);
+    void navigate({
+      to: "/search",
+      search: { onSale: true },
+    });
+  }, [closeSearch, navigate]);
+
+  const openOffer = useCallback(
+    (id: string) => {
+      closeSearch(true);
+      void navigate({
+        to: "/offers/$id",
+        params: { id },
+      });
+    },
+    [closeSearch, navigate],
+  );
+
+  const openItem = useCallback(
+    (id: string) => {
+      closeSearch(true);
+      void navigate({
+        to: "/items/$id",
+        params: { id },
+      });
+    },
+    [closeSearch, navigate],
+  );
+
+  const openSeller = useCallback(
+    (id: string) => {
+      closeSearch(true);
+      void navigate({
+        to: "/sellers/$id",
+        params: { id },
+      });
+    },
+    [closeSearch, navigate],
+  );
+
+  const openFreebies = useCallback(() => {
+    closeSearch(true);
+    void navigate({
+      to: "/freebies",
+      search: { developerDisplayName: undefined, publisherDisplayName: undefined },
+    });
+  }, [closeSearch, navigate]);
+
+  const openSales = useCallback(() => {
+    closeSearch(true);
+    void navigate({ to: "/sales" });
+  }, [closeSearch, navigate]);
+
+  const offers = offersData?.hits ?? [];
+  const items = itemsData?.hits ?? [];
+  const sellers = sellersData?.hits ?? [];
+  const isSearching =
+    queryReady &&
+    (offersFetching || itemsFetching || sellersFetching) &&
+    !hasAnyResults(offers, items, sellers);
+  const hasNoDirectMatches =
+    queryReady &&
+    !offersFetching &&
+    !itemsFetching &&
+    !sellersFetching &&
+    !hasAnyResults(offers, items, sellers);
 
   useEffect(() => {
-    inputRef.current?.focus();
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setSearchState((prevState: SearchState) => ({
-          ...prevState,
-          focus: false,
-        }));
-      } else if (e.key === "Enter" && selected) {
-        e.preventDefault();
-        // Navigate to the selected result
-        let url = "";
-        if (selected.type === "offer") {
-          url = `/offers/${selected.id}`;
-        } else if (selected.type === "item") {
-          url = `/items/${selected.id}`;
-        } else if (selected.type === "seller") {
-          url = `/sellers/${selected.id}`;
-        }
-
-        if (url) {
-          setSearchState((prevState) => ({
-            ...prevState,
-            focus: false,
-          }));
-          window.location.href = url;
-        }
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeSearch(false);
       }
     };
 
@@ -227,505 +284,440 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [inputRef, setSearchState, selected]);
-
-  useEffect(() => {
-    const debouncedSearch = debounce((query: string) => {
-      setSearchQuery(query);
-    }, 300);
-
-    debouncedSearch(searchState.query);
-
-    return () => {
-      debouncedSearch.cancel();
-    };
-  }, [searchState.query]);
-
-  const sections = [
-    {
-      id: "offers",
-      label: "Offers",
-      icon: <Tag className="w-5 h-5" />,
-      count: offersData?.estimatedTotalHits,
-    },
-    {
-      id: "items",
-      label: "Items",
-      icon: <Gamepad2 className="w-5 h-5" />,
-      count: itemsData?.estimatedTotalHits,
-    },
-    {
-      id: "sellers",
-      label: "Sellers",
-      icon: <Store className="w-5 h-5" />,
-      count: sellersData?.estimatedTotalHits,
-    },
-  ];
+  }, [closeSearch]);
 
   return (
-    <div className="fixed top-0 right-0 z-20 w-full h-full bg-card/50 backdrop-blur-[3px] items-center flex-col gap-2 justify-center flex">
-      <span
-        className="absolute top-0 left-0 w-full h-full cursor-pointer z-0"
-        onClick={() =>
-          setSearchState((prevState) => ({
-            ...prevState,
-            focus: false,
-          }))
-        }
-        onKeyDown={(e) => {
-          if (e.key === "Escape") {
-            setSearchState((prevState) => ({
-              ...prevState,
-              focus: false,
-            }));
+    <Portal>
+      <div
+        className="fixed inset-0 z-[60] bg-background/70 backdrop-blur-sm"
+        onMouseDown={(event) => {
+          if (event.target === event.currentTarget) {
+            closeSearch(false);
           }
         }}
-      />
-
-      <div className="w-full inline-flex justify-center items-center z-10">
-        <div className="relative md:w-1/3 w-full">
-          <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
-          <Input
-            type="text"
-            value={searchState.query}
-            className="w-full h-14 pl-12 pr-4 bg-card text-white text-lg rounded-xl shadow-2xl border-slate-700"
-            placeholder="Search for games, items, sellers..."
-            onChange={(e) =>
-              setSearchState((prevState) => ({
-                ...prevState,
-                query: e.target.value,
-              }))
-            }
-            ref={inputRef}
-          />
-        </div>
-      </div>
-      <div className="flex gap-0 w-full h-[80vh] xl:w-2/3 mx-auto bg-card rounded-xl z-10 overflow-hidden border border-slate-700 shadow-2xl">
-        {/* Sidebar */}
-        <div className="w-64 bg-slate-900/50 border-r border-slate-700 flex flex-col p-2 gap-1">
-          {sections.map((section) => (
-            <button
-              type="button"
-              key={section.id}
-              className={cn(
-                "flex items-center gap-3 p-3 rounded-lg text-left transition-all duration-200",
-                activeSection === section.id
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:bg-slate-800 hover:text-white",
-              )}
-              onMouseEnter={() => selectSection(section.id as SectionType)}
-              onClick={() => selectSection(section.id as SectionType)}
-            >
-              {section.icon}
-              <div className="flex-1 font-medium">{section.label}</div>
-            </button>
-          ))}
-        </div>
-
-        {/* Results Area */}
-        <div className="flex-1 flex flex-col min-w-0">
-          <ScrollArea className="h-full">
-            <div className="p-4 space-y-4">
-              <h2 className="text-xl font-bold sticky top-0 bg-card z-10 pb-2 border-b border-slate-700 mb-4">
-                {activeSection.charAt(0).toUpperCase() + activeSection.slice(1)}
-              </h2>
-
-              {/* Offers Results */}
-              {activeSection === "offers" && (
-                <div className="space-y-2">
-                  {offersLoading && (
-                    <>
-                      <ResultItemSkeleton />
-                      <ResultItemSkeleton />
-                      <ResultItemSkeleton />
-                    </>
-                  )}
-                  {offersError && <p>Error: {offersError.message}</p>}
-                  {offersData && offersData.hits.length === 0 && (
-                    <div className="text-center text-muted-foreground py-8">No offers found</div>
-                  )}
-                  {offersData?.hits.map((offer) => (
-                    <Link
-                      className="flex items-center justify-between p-2 hover:bg-slate-700/50 rounded-lg transition-colors group"
-                      key={offer._id}
-                      to={"/offers/$id"}
-                      params={{
-                        id: offer.id,
-                      }}
-                      onClick={() => {
-                        setSearchState((prevState) => ({
-                          ...prevState,
-                          focus: false,
-                          query: "",
-                        }));
-                      }}
-                      onMouseEnter={() => selectResult({ type: "offer", id: offer.id })}
-                    >
-                      <div className="flex items-center space-x-3">
-                        <div className="w-12 h-12 rounded overflow-hidden bg-slate-800">
-                          <Image
-                            src={
-                              getImage(offer.keyImages, [
-                                "DieselStoreFrontWide",
-                                "OfferImageWide",
-                                "DieselGameBoxWide",
-                                "TakeoverWide",
-                              ])?.url ?? "/placeholder.webp"
-                            }
-                            alt={offer.title}
-                            height={48}
-                            width={48}
-                            quality="low"
-                            sizes="48px"
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <div>
-                          <div className="font-medium group-hover:text-primary transition-colors">
-                            {offer.title}
-                          </div>
-                          {offer.prePurchase && (
-                            <Badge variant="secondary" className="text-xs">
-                              Pre-Purchase
-                            </Badge>
-                          )}
-                        </div>
-                      </div>
-                      <OfferPrice id={offer.id} country={country} />
-                    </Link>
-                  ))}
-                </div>
-              )}
-
-              {/* Items Results */}
-              {activeSection === "items" && (
-                <div className="space-y-2">
-                  {itemsLoading && (
-                    <>
-                      <ResultItemSkeleton />
-                      <ResultItemSkeleton />
-                      <ResultItemSkeleton />
-                    </>
-                  )}
-                  {itemsError && <p>Error: {itemsError.message}</p>}
-                  {itemsData && itemsData.hits.length === 0 && (
-                    <div className="text-center text-muted-foreground py-8">No items found</div>
-                  )}
-                  {itemsData?.hits.map((item) => (
-                    <Link
-                      className="flex items-center justify-between p-2 hover:bg-slate-700/50 rounded-lg transition-colors group"
-                      key={item._id}
-                      to={"/items/$id"}
-                      params={{
-                        id: item.id,
-                      }}
-                      onClick={() => {
-                        setSearchState((prevState) => ({
-                          ...prevState,
-                          focus: false,
-                          query: "",
-                        }));
-                      }}
-                      onMouseEnter={() => selectResult({ type: "item", id: item._id })}
-                    >
-                      <div className="flex items-center space-x-3">
-                        <div className="w-12 h-12 rounded overflow-hidden bg-slate-800">
-                          <Image
-                            src={
-                              getImage(item.keyImages, ["DieselGameBoxWide", "DieselGameBox"])
-                                ?.url ?? "/placeholder.webp"
-                            }
-                            alt={item.title}
-                            height={48}
-                            width={48}
-                            quality="low"
-                            sizes="48px"
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                        <span className="font-medium group-hover:text-primary transition-colors">
-                          {item.title}
-                        </span>
-                      </div>
-                      <div className="inline-flex items-center gap-2">
-                        {getPlatformsArray(item.releaseInfo)
-                          .filter((platform) => textPlatformIcons[platform])
-                          .map((platform) => (
-                            <span key={platform} title={platform} className="text-muted-foreground">
-                              {textPlatformIcons[platform]}
-                            </span>
-                          ))}
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              )}
-
-              {/* Sellers Results */}
-              {activeSection === "sellers" && (
-                <div className="space-y-2">
-                  {sellersLoading && (
-                    <>
-                      <ResultItemSkeleton />
-                      <ResultItemSkeleton />
-                      <ResultItemSkeleton />
-                    </>
-                  )}
-                  {sellersError && <p>Error: {sellersError.message}</p>}
-                  {sellersData && sellersData.hits.length === 0 && (
-                    <div className="text-center text-muted-foreground py-8">No sellers found</div>
-                  )}
-                  {sellersData?.hits.map((seller) => (
-                    <Link
-                      className="flex items-center justify-between p-2 hover:bg-slate-700/50 rounded-lg transition-colors group"
-                      key={seller._id}
-                      to={"/sellers/$id"}
-                      params={{
-                        id: seller._id,
-                      }}
-                      onClick={() => {
-                        setSearchState((prevState) => ({
-                          ...prevState,
-                          focus: false,
-                          query: "",
-                        }));
-                      }}
-                      onMouseEnter={() => selectResult({ type: "seller", id: seller._id })}
-                    >
-                      <div className="flex items-center space-x-3">
-                        <img
-                          src={seller.logo?.url ?? "/placeholder.webp"}
-                          alt={seller.name}
-                          className="w-12 h-12 rounded object-cover bg-slate-800"
-                          width="50"
-                          height="50"
-                        />
-                        <span className="font-medium group-hover:text-primary transition-colors">
-                          {seller.name}
-                        </span>
-                      </div>
-                      <span className="text-muted-foreground text-sm">
-                        {seller.igdb_id ? `ID: ${seller.igdb_id}` : ""}
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              )}
-            </div>
-          </ScrollArea>
-        </div>
-
-        {/* Preview Area */}
-        <div className="w-1/3 bg-slate-900/30 border-l border-slate-700 hidden lg:block">
-          <ScrollArea className="h-full p-6">
-            <div className="w-full flex justify-between items-center">
-              {selected && (
-                <FeaturedResult
-                  id={selected.id}
-                  type={selected.type}
-                  data={
-                    selected.type === "offer"
-                      ? offersData?.hits.find((offer) => offer.id === selected.id)
-                      : selected.type === "item"
-                        ? itemsData?.hits.find((item) => item._id === selected.id)
-                        : sellersData?.hits.find((seller) => seller._id === selected.id)
+      >
+        <div className="fixed left-1/2 top-4 z-[61] w-[calc(100%-1rem)] max-w-2xl -translate-x-1/2 sm:top-[10vh]">
+          <Command
+            shouldFilter={false}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="global-search-title"
+            className="overflow-hidden rounded-lg border border-border/70 bg-card/95 shadow-2xl"
+          >
+            <h2 id="global-search-title" className="sr-only">
+              Search EGDATA
+            </h2>
+            <div className="relative">
+              <CommandInput
+                ref={inputRef}
+                value={searchState.query}
+                onValueChange={updateQuery}
+                placeholder="Search games, items, sellers..."
+                className="h-14 pr-11 text-base"
+              />
+              <button
+                type="button"
+                className="absolute right-3 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                aria-label={searchState.query ? "Clear search" : "Close search"}
+                onClick={() => {
+                  if (searchState.query) {
+                    updateQuery("");
+                    inputRef.current?.focus();
+                    return;
                   }
-                />
-              )}
-              {!selected && (
-                <div className="w-full h-full flex flex-col items-center justify-center text-muted-foreground gap-4 pt-20">
-                  <SearchIcon className="w-16 h-16 opacity-20" />
-                  <p className="text-lg font-medium">Hover a result to see details</p>
-                </div>
-              )}
+
+                  closeSearch(false);
+                }}
+              >
+                <X className="h-4 w-4" />
+              </button>
             </div>
-          </ScrollArea>
+
+            <ScrollArea className="h-[min(74vh,640px)]">
+              <CommandList className="max-h-none overflow-x-hidden !overflow-y-visible">
+                {!query && (
+                  <CommandGroup heading="Quick links">
+                    <SearchActionItem
+                      icon={SearchIcon}
+                      title="Browse catalog"
+                      description="Open the advanced offer search"
+                      label="Search"
+                      onSelect={() => openFullSearch()}
+                    />
+                    <SearchActionItem
+                      icon={Tag}
+                      title="Discounts"
+                      description="Show offers that are currently on sale"
+                      label="Search"
+                      onSelect={openDiscounts}
+                    />
+                    <SearchActionItem
+                      icon={Gift}
+                      title="Free games"
+                      description="Open current and past giveaways"
+                      label="Page"
+                      onSelect={openFreebies}
+                    />
+                    <SearchActionItem
+                      icon={CalendarDays}
+                      title="Sales"
+                      description="Open sale events"
+                      label="Page"
+                      onSelect={openSales}
+                    />
+                  </CommandGroup>
+                )}
+
+                {query && !queryReady && (
+                  <div className="px-4 py-10 text-center text-sm text-muted-foreground">
+                    Type at least {MIN_QUERY_LENGTH} characters.
+                  </div>
+                )}
+
+                {queryReady && (
+                  <>
+                    <CommandGroup heading={`Results for "${query}"`}>
+                      <SearchActionItem
+                        icon={SearchIcon}
+                        title={`Search all offers for "${query}"`}
+                        description="Open the full catalog with filters"
+                        label="Search"
+                        onSelect={() => openFullSearch(query)}
+                      />
+                    </CommandGroup>
+
+                    <CommandSeparator />
+
+                    {isSearching && <ResultSkeletonList />}
+
+                    {!isSearching && (
+                      <>
+                        <ResultGroup
+                          icon={Tag}
+                          title="Offers"
+                          count={offersData?.estimatedTotalHits}
+                          error={offersError}
+                          emptyLabel="No matching offers"
+                        >
+                          {offers.map((offer) => (
+                            <OfferResultItem
+                              key={offer.id}
+                              offer={offer}
+                              locale={resolvedLocale}
+                              onSelect={() => openOffer(offer.id)}
+                            />
+                          ))}
+                        </ResultGroup>
+
+                        <ResultGroup
+                          icon={Gamepad2}
+                          title="Items"
+                          count={itemsData?.estimatedTotalHits}
+                          error={itemsError}
+                          emptyLabel="No matching items"
+                        >
+                          {items.map((item) => (
+                            <ItemResultItem
+                              key={item._id}
+                              item={item}
+                              onSelect={() => openItem(item.id)}
+                            />
+                          ))}
+                        </ResultGroup>
+
+                        <ResultGroup
+                          icon={Store}
+                          title="Sellers"
+                          count={sellersData?.estimatedTotalHits}
+                          error={sellersError}
+                          emptyLabel="No matching sellers"
+                        >
+                          {sellers.map((seller) => (
+                            <SellerResultItem
+                              key={seller._id}
+                              seller={seller}
+                              onSelect={() => openSeller(seller._id)}
+                            />
+                          ))}
+                        </ResultGroup>
+                      </>
+                    )}
+
+                    {hasNoDirectMatches && (
+                      <div className="px-4 pb-6 pt-2 text-center text-sm text-muted-foreground">
+                        No direct matches. Try the full catalog search.
+                      </div>
+                    )}
+                  </>
+                )}
+              </CommandList>
+            </ScrollArea>
+          </Command>
         </div>
       </div>
-    </div>
+    </Portal>
   );
 }
 
-function FeaturedResult({
-  id,
-  type,
-  data,
+function SearchActionItem({
+  icon: Icon,
+  title,
+  description,
+  label,
+  onSelect,
 }: {
-  id: string;
-  type: string;
-  data?: SingleOffer | SingleItem | SingleSeller;
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  label: string;
+  onSelect: () => void;
 }) {
-  if (!data) {
-    return null;
-  }
-
-  if (type === "offer") {
-    return <FeaturedOffer id={id} data={data as SingleOffer} />;
-  }
-
-  const imageToShow =
-    // @ts-expect-error
-    getImage(data?.keyImages ?? [], ["Featured", "DieselStoreFrontWide", "OfferImageWide"])?.url ??
-    "/placeholder.webp";
-
   return (
-    <div
-      className="flex flex-col gap-4 w-full animate-in fade-in duration-300"
-      key={`multi-search-${id}`}
+    <CommandItem
+      value={`${label} ${title} ${description}`}
+      onSelect={onSelect}
+      className="flex min-h-14 items-center gap-3 rounded-md px-3 py-2"
     >
-      <div className="rounded-xl overflow-hidden border border-slate-700 shadow-lg">
-        <Image
-          src={imageToShow}
-          // @ts-expect-error
-          alt={type === "item" || type === "offer" ? data.title : data.name}
-          className="w-full aspect-video object-cover"
-          width={600}
-          height={325}
-          quality="high"
-          key={`${id}-preview-image`}
-        />
-      </div>
-      <div className="space-y-2">
-        <h6 className="text-2xl font-bold inline-flex items-center gap-2">
-          {/** @ts-expect-error */}
-          {type === "offer" || type === "item" ? data.title : data.name}{" "}
-        </h6>
-        <Badge variant="outline" className="capitalize">
-          {type}
-        </Badge>
-      </div>
-    </div>
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground">
+        <Icon className="h-4 w-4" />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block truncate font-medium">{title}</span>
+        <span className="block truncate text-xs text-muted-foreground">{description}</span>
+      </span>
+      <Badge variant="outline" className="ml-2 shrink-0">
+        {label}
+      </Badge>
+    </CommandItem>
   );
 }
 
-function FeaturedOffer({ id, data }: { id: string; data: SingleOffer }) {
-  if (!data) {
-    return null;
-  }
+function ResultGroup({
+  icon: Icon,
+  title,
+  count,
+  error,
+  emptyLabel,
+  children,
+}: {
+  icon: LucideIcon;
+  title: string;
+  count?: number;
+  error: boolean;
+  emptyLabel: string;
+  children: ReactNode;
+}) {
+  const childCount = useMemo(() => {
+    if (!Array.isArray(children)) {
+      return children ? 1 : 0;
+    }
 
-  const imageToShow =
-    getImage(data.keyImages, ["Featured", "DieselStoreFrontWide", "OfferImageWide"])?.url ??
-    "/placeholder.webp";
+    return children.filter(Boolean).length;
+  }, [children]);
 
   return (
-    <div className="flex flex-col gap-4 w-full animate-in fade-in duration-300">
-      <div className="rounded-xl overflow-hidden border border-slate-700 shadow-lg">
-        <Image
-          src={imageToShow}
-          alt="Game Screenshot"
-          className="w-full aspect-video object-cover"
-          width={600}
-          height={325}
-          quality="high"
-          key={`${id}-preview-image`}
-        />
-      </div>
+    <CommandGroup
+      heading={
+        <span className="flex items-center gap-2">
+          <Icon className="h-3.5 w-3.5" />
+          <span>{title}</span>
+          {count !== undefined && (
+            <span className="text-muted-foreground/70">{formatCount(count)}</span>
+          )}
+        </span>
+      }
+    >
+      {error && <ResultNotice>Could not load {title.toLowerCase()}.</ResultNotice>}
+      {!error && childCount === 0 && <ResultNotice>{emptyLabel}</ResultNotice>}
+      {!error && children}
+    </CommandGroup>
+  );
+}
 
-      <div className="space-y-4">
-        <div>
-          <h6 className="text-2xl font-bold">{data.title}</h6>
-          <div className="flex flex-wrap gap-2 mt-2">
-            {data.tags
-              .filter((tag) => tag !== null)
-              .slice(0, 4)
-              .map((tag) => (
-                <Badge variant="secondary" key={`${data.id}-${tag?.id}`}>
-                  {tag.name}
-                </Badge>
-              ))}
-          </div>
-        </div>
+function OfferResultItem({
+  offer,
+  locale,
+  onSelect,
+}: {
+  offer: SingleOffer;
+  locale: string;
+  onSelect: () => void;
+}) {
+  const price = formatOfferPrice(offer.price, locale);
 
-        <div className="space-y-3 text-sm text-muted-foreground bg-slate-800/50 p-4 rounded-lg">
-          <div className="flex justify-between border-b border-slate-700/50 pb-2">
-            <span className="font-medium text-foreground">Seller</span>
-            <span>{data.seller.name}</span>
-          </div>
-          <div className="flex justify-between border-b border-slate-700/50 pb-2">
-            <span className="font-medium text-foreground">Developer</span>
-            <span>{data.developerDisplayName ?? data.seller.name}</span>
-          </div>
-          <div className="flex justify-between border-b border-slate-700/50 pb-2">
-            <span className="font-medium text-foreground">Release Date</span>
-            <span>
-              {new Date(data.releaseDate).toLocaleDateString("en-UK", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
+  return (
+    <CommandItem
+      value={`offer ${offer.title} ${offer.seller?.name ?? ""}`}
+      onSelect={onSelect}
+      className="flex min-h-16 items-center gap-3 rounded-md px-3 py-2"
+    >
+      <ResultImage
+        src={
+          getImage(offer.keyImages, [
+            "DieselStoreFrontWide",
+            "OfferImageWide",
+            "DieselGameBoxWide",
+            "TakeoverWide",
+          ])?.url
+        }
+        alt={offer.title}
+      />
+      <span className="min-w-0 flex-1">
+        <span className="block truncate font-medium">{offer.title}</span>
+        <span className="block truncate text-xs text-muted-foreground">
+          {offer.seller?.name ?? "Epic Games Store offer"}
+        </span>
+      </span>
+      <span className="ml-2 flex shrink-0 items-center gap-2">
+        {offer.prePurchase && (
+          <Badge variant="secondary" className="hidden sm:inline-flex">
+            Pre-purchase
+          </Badge>
+        )}
+        {price && (
+          <span
+            className={cn(
+              "text-sm font-semibold",
+              price === "Free" ? "text-primary" : "text-foreground",
+            )}
+          >
+            {price}
+          </span>
+        )}
+      </span>
+    </CommandItem>
+  );
+}
+
+function ItemResultItem({ item, onSelect }: { item: SingleItem; onSelect: () => void }) {
+  const platforms = getPlatformsArray(item.releaseInfo).filter(
+    (platform) => textPlatformIcons[platform],
+  );
+
+  return (
+    <CommandItem
+      value={`item ${item.title} ${item.namespace}`}
+      onSelect={onSelect}
+      className="flex min-h-16 items-center gap-3 rounded-md px-3 py-2"
+    >
+      <ResultImage
+        src={getImage(item.keyImages, ["DieselGameBoxWide", "DieselGameBox"])?.url}
+        alt={item.title}
+      />
+      <span className="min-w-0 flex-1">
+        <span className="block truncate font-medium">{item.title}</span>
+        <span className="block truncate text-xs text-muted-foreground">
+          {item.itemType || "Item"} - {item.namespace}
+        </span>
+      </span>
+      {platforms.length > 0 && (
+        <span className="ml-2 hidden shrink-0 items-center gap-2 text-sm text-muted-foreground sm:flex">
+          {platforms.slice(0, 4).map((platform) => (
+            <span key={platform} title={platform}>
+              {textPlatformIcons[platform]}
             </span>
-          </div>
-          <div className="pt-1">
-            <span className="font-medium text-foreground block mb-2">Platforms</span>
-            <div className="flex gap-3">
-              {data.tags
-                .filter((tag) => platformIcons[tag.id])
-                .map((tag) => (
-                  <span key={`${data.id}-${tag.id}`} title={tag.name} className="text-foreground">
-                    {platformIcons[tag.id]}
-                  </span>
-                ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+          ))}
+        </span>
+      )}
+    </CommandItem>
   );
 }
 
-function ResultItemSkeleton() {
+function SellerResultItem({ seller, onSelect }: { seller: SingleSeller; onSelect: () => void }) {
   return (
-    <div className="flex items-center justify-between p-2 bg-slate-800/50 rounded-lg">
-      <div className="flex items-center space-x-3">
-        <Skeleton className="w-12 h-12 rounded" />
-        <div className="space-y-2">
-          <Skeleton className="w-32 h-4" />
-          <Skeleton className="w-20 h-3" />
-        </div>
-      </div>
-      <Skeleton className="w-24 h-8" />
-    </div>
+    <CommandItem
+      value={`seller ${seller.name}`}
+      onSelect={onSelect}
+      className="flex min-h-16 items-center gap-3 rounded-md px-3 py-2"
+    >
+      <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-md bg-muted">
+        {seller.logo?.url ? (
+          <img
+            src={seller.logo.url}
+            alt=""
+            className="h-full w-full object-cover"
+            width={44}
+            height={44}
+            loading="lazy"
+          />
+        ) : (
+          <Store className="h-4 w-4 text-muted-foreground" />
+        )}
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block truncate font-medium">{seller.name}</span>
+        <span className="block truncate text-xs text-muted-foreground">
+          {seller.igdb_id ? `IGDB ${seller.igdb_id}` : "Seller"}
+        </span>
+      </span>
+      <Badge variant="outline" className="ml-2 shrink-0">
+        Seller
+      </Badge>
+    </CommandItem>
   );
 }
 
-function OfferPrice({ id, country }: { id: string; country: string }) {
-  const { locale } = useLocale();
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["offer-price", { id, country }],
-    queryFn: async () => {
-      const data = await httpClient.get<SingleOffer["price"]>(`/offers/${id}/price`, {
-        params: { country },
-      });
-      return data;
-    },
-  });
-
-  if (isLoading) {
-    return <Skeleton className="w-20 h-6" />;
-  }
-
-  if (error) {
-    consola.error(error);
-    return null;
-  }
-
-  if (!data) {
-    return null;
-  }
-
-  const priceFmtr = new Intl.NumberFormat(locale, {
-    style: "currency",
-    currency: data.price.currencyCode,
-    currencySign: "standard",
-  });
-
-  if (data.price.discountPrice === 0) {
-    return <span className="font-bold text-green-400">Free</span>;
-  }
-
+function ResultImage({ src, alt }: { src?: string; alt: string }) {
   return (
-    <span className="font-bold">
-      {priceFmtr.format(calculatePrice(data.price.discountPrice, data.price.currencyCode))}
+    <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-md bg-muted">
+      <Image
+        src={src ?? "/placeholder.webp"}
+        alt={alt}
+        height={44}
+        width={44}
+        quality="low"
+        sizes="44px"
+        className="h-full w-full object-cover"
+      />
     </span>
   );
+}
+
+function ResultNotice({ children }: { children: ReactNode }) {
+  return <div className="px-3 py-3 text-sm text-muted-foreground">{children}</div>;
+}
+
+function ResultSkeletonList() {
+  return (
+    <div className="space-y-2 p-3">
+      {Array.from({ length: 5 }).map((_, index) => (
+        <div key={index} className="flex min-h-16 items-center gap-3 rounded-md px-3 py-2">
+          <Skeleton className="h-11 w-11 rounded-md" />
+          <div className="min-w-0 flex-1 space-y-2">
+            <Skeleton className="h-4 w-2/3" />
+            <Skeleton className="h-3 w-1/3" />
+          </div>
+          <Skeleton className="h-6 w-16 rounded-md" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function hasAnyResults(offers: SingleOffer[], items: SingleItem[], sellers: SingleSeller[]) {
+  return offers.length > 0 || items.length > 0 || sellers.length > 0;
+}
+
+function formatOfferPrice(price: SingleOffer["price"], locale: string) {
+  if (!price) {
+    return null;
+  }
+
+  if (price.price.discountPrice === 0) {
+    return "Free";
+  }
+
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: price.price.currencyCode,
+    currencySign: "standard",
+  }).format(calculatePrice(price.price.discountPrice, price.price.currencyCode));
+}
+
+function formatCount(count: number) {
+  if (count > 9999) {
+    return new Intl.NumberFormat("en", { notation: "compact" }).format(count);
+  }
+
+  return count.toLocaleString("en");
 }

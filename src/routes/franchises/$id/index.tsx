@@ -163,7 +163,7 @@ function FranchisePage() {
     return (
       <main className="container mx-auto flex flex-col items-center justify-center gap-4 min-h-screen">
         <div className="relative h-96 overflow-hidden rounded-2xl flex items-center bg-cover bg-center w-full">
-          <div className="h-full w-full flex flex-col justify-center items-start text-white p-8 bg-gradient-to-r from-black/80 to-black/30">
+          <div className="h-full w-full flex flex-col justify-center items-start text-foreground p-8 bg-gradient-to-r from-black/80 to-black/30">
             <span className="text-5xl font-bold">Loading...</span>
           </div>
         </div>
@@ -227,7 +227,7 @@ function FranchisePage() {
             {isFetchingNextPage ? (
               <>
                 <svg
-                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-foreground"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"

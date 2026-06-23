@@ -194,7 +194,7 @@ function ChangelogPage() {
   if (!data) {
     return (
       <div className="flex justify-center items-center h-96">
-        <p className="text-2xl font-bold text-gray-300">No changelog available</p>
+        <p className="text-2xl font-bold text-muted-foreground">No changelog available</p>
       </div>
     );
   }
@@ -207,7 +207,7 @@ function ChangelogPage() {
             <Tooltip>
               <TooltipTrigger className="inline-flex gap-2 items-center">
                 <h2
-                  className="text-2xl font-bold underline decoration-dotted underline-offset-4 decoration-gray-300/50"
+                  className="text-2xl font-bold underline decoration-dotted underline-offset-4 decoration-border/60"
                   id="changelog-title"
                 >
                   Changelog
@@ -224,7 +224,7 @@ function ChangelogPage() {
                   <Link
                     to="/sandboxes/$id/changelog"
                     params={{ id: offer?.namespace ?? "epic" }}
-                    className="underline decoration-dotted underline-offset-4 decoration-gray-300/50"
+                    className="underline decoration-dotted underline-offset-4 decoration-border/60"
                   >
                     sandbox changelog
                   </Link>

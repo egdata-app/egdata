@@ -248,7 +248,7 @@ export function SearchFilters({
                           />
                         ))}
                       {tagTypeTags?.filter((tag) => tagCounts[tag.id] > 0).length === 0 && (
-                        <span className="text-gray-400 px-4">No tags found</span>
+                        <span className="text-muted-foreground px-4">No tags found</span>
                       )}
                     </div>
                   </ScrollArea>

@@ -51,7 +51,7 @@ export const FranchiseBanner = ({ franchise }: { franchise: Franchise }) => {
       />
 
       <div className="relative z-20 p-3 flex flex-col justify-center h-full">
-        <span className="text-lg font-bold text-left text-gray-200 drop-shadow-md">
+        <span className="text-lg font-bold text-left text-foreground drop-shadow-md">
           Check the {franchise.name} Franchise
         </span>
       </div>

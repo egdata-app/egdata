@@ -97,7 +97,7 @@ interface SimplifiedReleases {
   }[];
 }
 
-const repo = "egdata-app/egdata-client";
+const repo = "egdata-app/egdata-flutter";
 
 /**
  * 1 hour

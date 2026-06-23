@@ -30,12 +30,12 @@ export const BaseGame: React.FC<{ offer: SingleOffer }> = ({ offer }) => {
 
   return (
     <Link
-      className="flex items-center bg-gray-800 rounded-lg shadow-lg w-full h-16 relative mt-2 overflow-hidden group"
+      className="flex items-center bg-muted rounded-lg shadow-lg w-full h-16 relative mt-2 overflow-hidden group"
       to="/offers/$id"
       params={{ id: game.id }}
       preload="viewport"
     >
-      <span className="text-white font-bold absolute z-20 flex-col px-5 gap-1">
+      <span className="text-foreground font-bold absolute z-20 flex-col px-5 gap-1">
         <h6 className="text-xs">Check the base game</h6>
         <h4 className="text-lg font-bold">{game.title}</h4>
       </span>

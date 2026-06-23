@@ -54,7 +54,7 @@ export function OpenEgs({ offer }: { offer: SingleOffer }) {
       <PopoverTrigger asChild>
         <Button
           asChild
-          className="bg-gray-900 text-white dark:hover:text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+          className="bg-muted text-foreground dark:hover:text-foreground hover:bg-muted focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 dark:bg-muted dark:hover:bg-muted/80 dark:focus:ring-gray-700"
         >
           <a
             href={finalUrl}

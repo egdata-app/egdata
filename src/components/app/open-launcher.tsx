@@ -28,7 +28,7 @@ export function OpenLauncher({ id }: { id: string }) {
   return (
     <Button
       variant="outline"
-      className="text-white bg-[#1d77a1] hover:bg-[#20688a] transition-all duration-300 ease-in-out"
+      className="text-foreground bg-[#1d77a1] hover:bg-[#20688a] transition-all duration-300 ease-in-out"
       onClick={() =>
         open(
           buildGameLauncherURI({

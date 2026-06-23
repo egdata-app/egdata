@@ -1,7 +1,7 @@
 import type { SingleOffer } from "@/types/single-offer";
 import { CarouselItem } from "../ui/carousel";
 import { Link } from "@tanstack/react-router";
-import { Card, CardContent } from "../ui/card";
+import { Card } from "../ui/card";
 import { Image } from "./image";
 import { getImage } from "@/lib/getImage";
 import { Badge } from "../ui/badge";
@@ -24,31 +24,30 @@ export function GameCard({
       <Link
         to="/offers/$id"
         params={{ id: game.id }}
-        className="w-96 relative select-none"
+        className="w-full relative select-none group"
         preload="viewport"
         aria-label={`Open offer ${game.title}`}
       >
-        <Card className="w-72 lg:max-w-sm rounded-lg overflow-hidden shadow-lg">
+        <div className="relative w-full overflow-hidden rounded-md bg-card aspect-[3/4]">
           <Image
-            src={getImage(game.keyImages, ["Thumbnail"])?.url}
+            src={getImage(game.keyImages, ["Thumbnail", "OfferImageTall"])?.url}
             alt={game.title}
             width={400}
             height={500}
-            className="w-full h-96 object-cover hover:scale-105 transition-transform duration-300"
+            className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
           />
-          <CardContent className="p-4 flex-grow flex flex-col justify-between">
-            <div className="flex items-center justify-between">
-              <h3 className="text-xl font-semibold max-w-xs truncate">{game.title}</h3>
-            </div>
-            <div className="mt-2 flex items-end justify-between gap-2 h-full max-w-xs truncate">
-              {game.seller && (
-                <div className="text-sm text-gray-400">
-                  {typeof game.seller === "string" ? game.seller : game.seller.name}
-                </div>
-              )}
-            </div>
-          </CardContent>
-        </Card>
+          <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/30 to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 p-3 z-10">
+            <h3 className="text-lg font-display font-semibold text-foreground leading-tight line-clamp-2">
+              {game.title}
+            </h3>
+            {game.seller && (
+              <p className="text-xs text-muted-foreground mt-1 truncate">
+                {typeof game.seller === "string" ? game.seller : game.seller.name}
+              </p>
+            )}
+          </div>
+        </div>
       </Link>
     </CarouselItem>
   );
@@ -93,18 +92,21 @@ export function OfferListItem({
       preload="viewport"
       aria-label={`Open offer ${game.title}`}
     >
-      <Card className="flex flex-row w-full bg-card text-white p-2 rounded-lg h-fit relative">
+      <Card className="flex flex-row w-full bg-card text-card-foreground p-2 rounded-md h-fit relative border-border/60">
         {/* Image Section */}
         <div className="flex-shrink-0 w-72 h-auto inline-flex items-center justify-center relative">
           <Image
             src={epicImage ?? "/300x150-egdata-placeholder.png"}
             alt={game.title}
-            className="w-full object-cover rounded-lg"
+            className="w-full object-cover rounded-md"
             width={350}
             height={200}
           />
           {game.prePurchase && (
-            <Badge variant="default" className="absolute top-2 left-2 text-sm">
+            <Badge
+              variant="default"
+              className="absolute top-2 left-2 text-sm bg-primary text-primary-foreground"
+            >
               Pre-purchase
             </Badge>
           )}
@@ -188,8 +190,8 @@ export function OfferListItem({
                 className={cn(
                   "text-lg font-bold",
                   game.price.price.originalPrice !== game.price.price.discountPrice
-                    ? "text-green-400"
-                    : "text-white",
+                    ? "text-primary"
+                    : "text-foreground",
                 )}
               >
                 {priceFmtd.format(
@@ -232,7 +234,7 @@ function SaleModule({ game }: { game: Pick<SingleOffer, "price"> }) {
           ends in {relativeFutureDate(new Date(sale.endDate))} days
         </span>
       </div>
-      <Badge variant="default" className="bg-green-500 text-black text-sm">
+      <Badge variant="default" className="bg-primary text-primary-foreground text-sm">
         -{100 - sale.discountSetting.discountPercentage}%
       </Badge>
     </div>

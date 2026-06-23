@@ -263,11 +263,11 @@ export function PriceChart({ selectedRegion, id, regionStats }: PriceChartProps)
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6 relative">
         {isFetching && (
-          <div className="absolute inset-0 bg-opacity-50 bg-gray-900 z-10 w-full h-full flex items-center justify-center">
+          <div className="absolute inset-0 bg-opacity-50 bg-muted z-10 w-full h-full flex items-center justify-center">
             <span className="flex flex-col items-center justify-center gap-2">
               <div className="flex flex-col items-center justify-center gap-1">
                 <span className="text-sm font-medium">Loading...</span>
-                <span className="text-xs text-gray-400">Fetching latest data</span>
+                <span className="text-xs text-muted-foreground">Fetching latest data</span>
               </div>
               <svg
                 className="animate-spin -ml-1 mr-3 h-5 w-5"
@@ -380,7 +380,7 @@ export function PriceChart({ selectedRegion, id, regionStats }: PriceChartProps)
                         </span>
                         {saleName && label === "Region" && <Separator orientation="horizontal" />}
                         {saleName && label === "Region" && (
-                          <span className="text-xs text-gray-300">{saleName}</span>
+                          <span className="text-xs text-muted-foreground">{saleName}</span>
                         )}
                       </span>
                     );

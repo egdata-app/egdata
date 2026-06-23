@@ -195,7 +195,7 @@ function RouteComponent() {
           <ArrowRight className="w-4 h-4 rotate-180 transform group-hover:-translate-x-1 transition-transform duration-300" />
           My Achievements
         </Link>
-        <span className="text-gray-600 text-xl">|</span>
+        <span className="text-muted-foreground text-xl">|</span>
         {offer?.title && <h4 className="text-2xl font-bold">{offer.title}</h4>}
       </div>
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mt-4">

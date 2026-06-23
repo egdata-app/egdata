@@ -46,7 +46,7 @@ export function SearchFormV2({ query, onQueryChange, loading, results }: SearchF
         </div>
       )}
       {!loading && results && results.offers.length === 0 && (
-        <div className="text-center text-gray-400 py-12">No results found.</div>
+        <div className="text-center text-muted-foreground py-12">No results found.</div>
       )}
       {!loading && results && results.offers.length > 0 && (
         <div className="grid grid-cols-1 gap-4 mt-8 md:grid-cols-2 lg:grid-cols-5">
@@ -59,7 +59,9 @@ export function SearchFormV2({ query, onQueryChange, loading, results }: SearchF
                 loading="lazy"
               />
               <h3 className="text-lg font-bold truncate w-full">{offer.title}</h3>
-              <div className="text-sm text-gray-400 truncate w-full">{offer.seller?.name}</div>
+              <div className="text-sm text-muted-foreground truncate w-full">
+                {offer.seller?.name}
+              </div>
               <div className="text-primary font-semibold mt-2">{formatPrice(offer)}</div>
             </div>
           ))}

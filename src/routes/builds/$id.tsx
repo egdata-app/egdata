@@ -188,12 +188,12 @@ function BuildPage() {
           <strong className="text-lg font-medium">{items?.data[0].title}</strong>
           <span>{textPlatformIcons[build.labelName.split("-")[1]]}</span>
         </div>
-        <div className="rounded-xl border border-gray-300/10 w-full">
+        <div className="rounded-xl border border-border/10 w-full">
           <Table className="w-full">
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[300px]">Build ID</TableHead>
-                <TableHead className="text-left font-mono border-l-gray-300/10 border-l">
+                <TableHead className="text-left font-mono border-l-border/10 border-l">
                   {id.toUpperCase()}
                 </TableHead>
               </TableRow>
@@ -201,36 +201,36 @@ function BuildPage() {
             <TableBody>
               <TableRow>
                 <TableCell className="font-medium">Build Name</TableCell>
-                <TableCell className="font-mono text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
+                <TableCell className="font-mono text-left inline-flex items-center gap-1 border-l-border/10 border-l">
                   {build.buildVersion}
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell className="font-medium">App Name</TableCell>
-                <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
+                <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
                   {build.appName}
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell className="font-medium">Hash</TableCell>
-                <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
+                <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
                   {build.hash}{" "}
-                  <span className="text-xs text-gray-400">({getHashType(build.hash)})</span>
+                  <span className="text-xs text-muted-foreground">({getHashType(build.hash)})</span>
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell className="font-medium">Installed Size</TableCell>
-                <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
+                <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
                   {calculateSize(build.installedSizeBytes)}
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell className="font-medium">Download Size</TableCell>
-                <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
+                <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
                   {calculateSize(build.downloadSizeBytes)}{" "}
                   <span
                     className={cn(
-                      "text-xs text-gray-400",
+                      "text-xs text-muted-foreground",
                       !build.downloadSizeBytes ? "opacity-0" : "opacity-100",
                     )}
                   >
@@ -241,7 +241,7 @@ function BuildPage() {
               </TableRow>
               <TableRow>
                 <TableCell className="font-medium">Created At</TableCell>
-                <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
+                <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
                   {DateTime.fromISO(build.createdAt)
                     .setZone(timezone || "UTC")
                     .setLocale("en-GB")
@@ -257,7 +257,7 @@ function BuildPage() {
               </TableRow>
               <TableRow>
                 <TableCell className="font-medium">Updated At</TableCell>
-                <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
+                <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
                   {DateTime.fromISO(build.updatedAt)
                     .setZone(timezone || "UTC")
                     .setLocale("en-GB")
@@ -276,7 +276,7 @@ function BuildPage() {
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger>
-                        <span className="underline decoration-dotted decoration-gray-300/50 underline-offset-4 cursor-help">
+                        <span className="underline decoration-dotted decoration-border/60 underline-offset-4 cursor-help">
                           Technologies
                         </span>
                       </TooltipTrigger>
@@ -307,7 +307,7 @@ function BuildPage() {
                     </Tooltip>
                   </TooltipProvider>
                 </TableCell>
-                <TableCell className="border-l-gray-300/10 border-l">
+                <TableCell className="border-l-border/10 border-l">
                   <div className="grid grid-cols-3 gap-2">
                     {build.technologies
                       ?.filter((tech) => tech.section !== "Evidence")
@@ -316,7 +316,7 @@ function BuildPage() {
                           key={`${tech.section}.${tech.technology}`}
                           className="inline-flex gap-1 items-center justify-start"
                         >
-                          <span className="text-xs text-gray-300">
+                          <span className="text-xs text-muted-foreground">
                             {tech.section} / {tech.technology}
                           </span>
                         </span>

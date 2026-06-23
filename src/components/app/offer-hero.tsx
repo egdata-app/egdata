@@ -189,7 +189,7 @@ export function OfferHero({ offer }: { offer: SingleOffer }) {
       {videoUrl && (
         <video
           className={cn(
-            "rounded-xl shadow-lg transition-opacity duration-700 absolute inset-0 ease-in-out w-full h-full object-cover",
+            "rounded-md transition-opacity duration-700 absolute inset-0 ease-in-out w-full h-full object-cover",
             isHovered ? "opacity-100" : "opacity-0",
           )}
           loop
@@ -218,7 +218,7 @@ export function OfferHero({ offer }: { offer: SingleOffer }) {
         width={720}
         height={400}
         className={cn(
-          "rounded-xl shadow-lg transition-opacity duration-700 ease-in-out",
+          "rounded-md transition-opacity duration-700 ease-in-out",
           videoUrl && isHovered ? "opacity-0" : "opacity-100",
         )}
         eager

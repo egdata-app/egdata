@@ -216,7 +216,7 @@ export function SearchForm({
         if (!data || data.elements.length === 0) {
           return (
             <div className="flex flex-col items-center justify-center h-full">
-              <span className="text-gray-400">No results found</span>
+              <span className="text-muted-foreground">No results found</span>
             </div>
           );
         }
@@ -246,11 +246,11 @@ export function SearchForm({
               limit={data.limit}
             />
             {showLongLoading && (
-              <div className="absolute inset-0 bg-opacity-90 bg-gray-900 z-10 w-full h-screen flex items-center justify-center rounded-xl">
+              <div className="absolute inset-0 bg-muted/90 z-10 w-full h-screen flex items-center justify-center rounded-xl">
                 <span className="flex flex-col items-center justify-center gap-2">
                   <div className="flex flex-col items-center justify-center gap-1">
                     <span className="text-sm font-medium">Loading...</span>
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-muted-foreground">
                       This query is taking more than usual...
                     </span>
                   </div>

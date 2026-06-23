@@ -193,7 +193,7 @@ function GameAwardsPage() {
                     className="p-1.5 bg-black/70 hover:bg-black rounded-full transition-colors"
                     aria-label="Expand player"
                   >
-                    <Maximize2 className="w-3.5 h-3.5 text-white" />
+                    <Maximize2 className="w-3.5 h-3.5 text-foreground" />
                   </button>
                   <button
                     type="button"
@@ -201,7 +201,7 @@ function GameAwardsPage() {
                     className="p-1.5 bg-black/70 hover:bg-black rounded-full transition-colors"
                     aria-label="Close mini player"
                   >
-                    <X className="w-3.5 h-3.5 text-white" />
+                    <X className="w-3.5 h-3.5 text-foreground" />
                   </button>
                 </div>
               )}

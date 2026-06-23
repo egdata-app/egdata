@@ -20,13 +20,13 @@ export function TagSelect({
       className={cn(
         "rounded-lg inline-flex justify-between items-center gap-2 px-4 py-2 text-sm w-[250px]",
         isSelected
-          ? "bg-white/5 text-white"
-          : "bg-transparent text-white hover:bg-white/5 transition-colors duration-200 ease-in-out hover:text-white",
+          ? "bg-white/5 text-foreground"
+          : "bg-transparent text-foreground hover:bg-white/5 transition-colors duration-200 ease-in-out hover:text-foreground",
       )}
     >
       <div className="inline-flex items-center justify-between w-full">
         <span>{tag.name}</span>
-        {count && <span className="text-xs text-gray-400">{count.count}</span>}
+        {count && <span className="text-xs text-muted-foreground">{count.count}</span>}
       </div>
     </Button>
   );

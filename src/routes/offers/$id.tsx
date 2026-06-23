@@ -305,12 +305,12 @@ function OfferPage() {
             )}
           </h4>
 
-          <div className="rounded-xl border border-gray-300/10 mt-2">
+          <div className="rounded-xl border border-border/10 mt-2">
             <Table>
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-[300px]">Offer ID</TableHead>
-                  <TableHead className="text-left font-mono border-l-gray-300/10 border-l">
+                  <TableHead className="text-left font-mono border-l-border/10 border-l">
                     {offer.id}
                   </TableHead>
                 </TableRow>
@@ -320,7 +320,7 @@ function OfferPage() {
                   <TableCell className="font-medium">Namespace</TableCell>
                   <TableCell
                     className={
-                      "text-left font-mono border-l-gray-300/10 border-l underline decoration-dotted decoration-slate-600 underline-offset-4"
+                      "text-left font-mono border-l-border/10 border-l underline decoration-dotted decoration-border underline-offset-4"
                     }
                   >
                     <Link
@@ -346,14 +346,14 @@ function OfferPage() {
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Offer Type</TableCell>
-                  <TableCell className="text-left border-l-gray-300/10 border-l">
+                  <TableCell className="text-left border-l-border/10 border-l">
                     {offersDictionary[offer.offerType as keyof typeof offersDictionary] ||
                       offer.offerType}
                   </TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Seller</TableCell>
-                  <TableCell className="text-left border-l-gray-300/10 border-l">
+                  <TableCell className="text-left border-l-border/10 border-l">
                     <Link
                       to="/sellers/$id"
                       params={{ id: offer.seller.id }}
@@ -365,7 +365,7 @@ function OfferPage() {
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Developer</TableCell>
-                  <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
+                  <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
                     <Seller
                       developerDisplayName={offer.developerDisplayName as string}
                       publisherDisplayName={offer.publisherDisplayName as string}
@@ -376,7 +376,7 @@ function OfferPage() {
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Supported Platforms</TableCell>
-                  <TableCell className="text-left border-l-gray-300/10 border-l inline-flex items-center justify-start gap-1">
+                  <TableCell className="text-left border-l-border/10 border-l inline-flex items-center justify-start gap-1">
                     {platformTags.map((tag) => (
                       <span key={tag.id} className="text-xs">
                         {platformIcons[tag.id]}
@@ -388,7 +388,7 @@ function OfferPage() {
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Release Date</TableCell>
-                  <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
+                  <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
                     <ReleaseDate
                       releaseDate={offer.releaseDate}
                       pcReleaseDate={offer.pcReleaseDate}
@@ -398,7 +398,7 @@ function OfferPage() {
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Last Update</TableCell>
-                  <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
+                  <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
                     {offer.lastModifiedDate
                       ? DateTime.fromISO(offer.lastModifiedDate, {
                           zone: timezone,
@@ -418,7 +418,7 @@ function OfferPage() {
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Creation Date</TableCell>
-                  <TableCell className="text-left inline-flex items-center gap-1 border-l-gray-300/10 border-l">
+                  <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
                     {offer.creationDate
                       ? DateTime.fromISO(offer.creationDate, {
                           zone: timezone,
@@ -442,7 +442,7 @@ function OfferPage() {
                       <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger>
-                            <span className="underline decoration-dotted decoration-gray-300/50 underline-offset-4 cursor-help">
+                            <span className="underline decoration-dotted decoration-border/60 underline-offset-4 cursor-help">
                               Technologies
                             </span>
                           </TooltipTrigger>
@@ -473,7 +473,7 @@ function OfferPage() {
                         </Tooltip>
                       </TooltipProvider>
                     </TableCell>
-                    <TableCell className="text-left border-l-gray-300/10 border-l flex flex-wrap flex-row gap-1">
+                    <TableCell className="text-left border-l-border/10 border-l flex flex-wrap flex-row gap-1">
                       {technologies
                         .filter(
                           (technology) =>
@@ -549,7 +549,7 @@ function OfferPage() {
                   addToCompare(offer.id);
                 }
               }}
-              className="inline-flex items-center gap-1 bg-card text-white hover:bg-card-hover border"
+              className="inline-flex items-center gap-1 bg-card text-card-foreground hover:bg-accent border border-border/60"
             >
               {compare.includes(offer.id) ? <RemoveIcon /> : <AddIcon />}
               <span>Compare</span>
@@ -557,7 +557,7 @@ function OfferPage() {
             <Popover>
               <PopoverTrigger asChild>
                 <Button
-                  className="inline-flex items-center gap-1 bg-card text-white hover:bg-card-hover border"
+                  className="inline-flex items-center gap-1 bg-card text-card-foreground hover:bg-accent border border-border/60"
                   size="sm"
                 >
                   <Bell className="h-4 w-4" />
@@ -814,7 +814,7 @@ function OfferPage() {
         <Outlet />
       </section>
 
-      <hr className="my-4 border-gray-300/40" />
+      <hr className="my-4 border-border/40" />
 
       <SellerOffers id={offer.seller.id} name={offer.seller.name} currentOffer={offer} />
 

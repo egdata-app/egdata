@@ -29,12 +29,12 @@ export const Route = createFileRoute("/items/$id/")({
     return (
       <div className="flex flex-col items-start justify-start h-full gap-4 w-full">
         <h2 className="text-xl font-bold">Metadata</h2>
-        <div className="rounded-xl border border-gray-300/10 w-full">
+        <div className="rounded-xl border border-border/10 w-full">
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[300px]">Key</TableHead>
-                <TableHead className="border-l-gray-300/10 border-l">Value</TableHead>
+                <TableHead className="border-l-border/10 border-l">Value</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -43,7 +43,7 @@ export const Route = createFileRoute("/items/$id/")({
                 .map(([key, value]) => (
                   <TableRow key={key}>
                     <TableCell className="font-medium">{key}</TableCell>
-                    <TableCell className="border-l-gray-300/10 border-l font-mono">
+                    <TableCell className="border-l-border/10 border-l font-mono">
                       {jsonAttributes.includes(key) && (
                         <JsonVisualizer data={JSON.parse(value.value)} />
                       )}

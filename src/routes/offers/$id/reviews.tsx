@@ -301,7 +301,7 @@ function Reviews() {
                   Captured from players in the Epic Games ecosystem
                 </p>
               </div>
-              <Card className="w-full bg-card text-white p-4">
+              <Card className="w-full bg-card text-foreground p-4">
                 <div className="flex flex-row items-center justify-evenly gap-4">
                   <div className="flex flex-col items-center justify-center text-center">
                     <h2 className="text-6xl font-bold mb-1">
@@ -324,7 +324,7 @@ function Reviews() {
                       .map((result) => (
                         <Link
                           key={result.id}
-                          className="bg-[#202024] text-white flex flex-row gap-4 items-center justify-start p-4 w-[300px] shadow-sm rounded-lg transform transition-transform hover:translate-y-[-2px]"
+                          className="bg-muted text-foreground flex flex-row gap-4 items-center justify-start p-4 w-[300px] shadow-sm rounded-lg transform transition-transform hover:translate-y-[-2px]"
                           to="/search"
                           search={{ tags: result.tagId }}
                         >
@@ -334,7 +334,7 @@ function Reviews() {
                             className="size-10"
                           />
                           <div className="flex flex-col items-start justify-center">
-                            <p className="text-xs text-gray-400">
+                            <p className="text-xs text-muted-foreground">
                               {result.localizations.resultText}
                             </p>
                             <p className="text-base font-bold">
@@ -348,12 +348,12 @@ function Reviews() {
               </Card>
             </section>
           )}
-          <hr className="border-t border-gray-200/15 my-2 w-full" />
+          <hr className="border-t border-border/30 my-2 w-full" />
           <div className="flex flex-col items-start justify-center text-center w-full">
             <h3 className="text-2xl font-semibold mb-1 text-left">EGDATA Rating</h3>
           </div>
           <div className="flex items-center justify-between flex-row w-full h-32 gap-4">
-            <Card className="w-full bg-card text-white h-32">
+            <Card className="w-full bg-card text-foreground h-32">
               <CardContent className="p-6">
                 <div className="flex flex-col sm:flex-row items-center justify-evenly gap-4">
                   <div className="flex flex-col items-center justify-center text-center">
@@ -405,7 +405,7 @@ function Reviews() {
           <div className="inline-flex items-center gap-2">
             <Tooltip>
               <TooltipTrigger className="inline-flex items-center gap-1">
-                <InfoCircledIcon className="size-4" fill="white" />
+                <InfoCircledIcon className="size-4" fill="currentColor" />
               </TooltipTrigger>
               <p className="text-muted-foreground inline-flex items-center gap-1">
                 <strong>Ownership verification</strong> is based on the completion of at least one
@@ -457,7 +457,7 @@ function Reviews() {
       <Portal.Root>
         {showReviewForm && <ReviewForm setIsOpen={setShowReviewForm} offer={offer} />}
       </Portal.Root>
-      <hr className="border-t border-gray-200/15 my-2" />
+      <hr className="border-t border-border/30 my-2" />
       {ratings && (
         <div className="flex items-center flex-col gap-4 w-full">
           <section className="flex flex-col items-start justify-center text-left w-full">
@@ -467,7 +467,7 @@ function Reviews() {
                 Based on {ratings?.reviews.length ?? 0} critic reviews
               </p>
             </div>
-            <Card className="w-full bg-card text-white p-4">
+            <Card className="w-full bg-card text-foreground p-4">
               <div className="flex flex-row items-center justify-evenly gap-4">
                 <div className="flex flex-row items-center justify-center gap-4">
                   <span className="text-xl text-center">
@@ -531,7 +531,7 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
     `https://shared-static-prod.epicgames.com/epic-profile-icon/D8033C/${review.user.displayName[0].toUpperCase()}/icon.png?size=512`;
 
   return (
-    <div className="p-4 bg-card text-white rounded-lg max-w-2xl min-w-1/2 mx-auto w-full h-full flex flex-col">
+    <div className="p-4 bg-card text-foreground rounded-lg max-w-2xl min-w-1/2 mx-auto w-full h-full flex flex-col">
       <div className="flex items-center mb-4">
         <Avatar>
           <AvatarImage src={userAvatar as string} alt={review.user.displayName} />
@@ -546,8 +546,10 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
           <div className="font-bold">{review.user.displayName}</div>
           {review.verified && <Badge variant="secondary">Verified Owner</Badge>}
         </Link>
-        <div className="ml-auto flex items-end space-x-2 bg-gray-900 px-2 py-1 rounded-lg">
-          <div className=" text-white px-2 py-1 rounded-lg font-bold">{review.rating} / 10</div>
+        <div className="ml-auto flex items-end space-x-2 bg-muted px-2 py-1 rounded-lg">
+          <div className=" text-foreground px-2 py-1 rounded-lg font-bold">
+            {review.rating} / 10
+          </div>
           <div className="flex items-center space-x-1 font-bold">
             <span>{review.recommended ? "Recommended" : "Not Recommended"}</span>
             <ThumbsUpIcon
@@ -560,7 +562,7 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
           </div>
         </div>
       </div>
-      <div className="bg-gray-900 p-4 rounded-lg h-full">
+      <div className="bg-muted p-4 rounded-lg h-full">
         <h3 className="font-bold mb-2 text-lg md:text-xl">{review.title}</h3>
         <div className="relative">
           <p className="mb-4 prose prose-sm md:prose-base prose-invert max-w-none min-w-1/2">
@@ -575,7 +577,7 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
           </p>
           {review.content.length > 750 && (
             <div className="absolute bottom-0 left-0 w-full">
-              <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-b via-gray-900/50 from-transparent to-gray-900 pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-b via-background/50 from-transparent to-background pointer-events-none" />
               <Button
                 variant="link"
                 className="text-sm absolute z-10 -bottom-4 right-0 left-0 w-fit mx-auto inline-flex items-center gap-1 font-bold"
@@ -593,7 +595,7 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
         <div className="mt-4 inline-flex justify-between items-center w-full">
           <TooltipProvider>
             <div className="flex items-center">
-              <span className="text-gray-400">
+              <span className="text-muted-foreground">
                 Reviewed on{" "}
                 {DateTime.fromISO(review.createdAt).setLocale("en-GB").toLocaleString({
                   year: "numeric",
@@ -604,7 +606,7 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
               {review.editions?.length && review.editions.length > 0 ? (
                 <Tooltip disableHoverableContent={!review.editions}>
                   <TooltipTrigger className="inline-flex items-center gap-1 ml-2">
-                    <InfoCircledIcon className="size-4" fill="white" />
+                    <InfoCircledIcon className="size-4" fill="currentColor" />
                   </TooltipTrigger>
                   <TooltipContent>
                     <span className="text-xs flex flex-col gap-1">
@@ -676,7 +678,7 @@ function FullReview({
           }
         }}
       />
-      <div className="p-2 bg-card text-white rounded-lg max-w-2xl mx-auto w-full z-30">
+      <div className="p-2 bg-card text-foreground rounded-lg max-w-2xl mx-auto w-full z-30">
         <div className="w-full  p-4 rounded-lg">
           <div className="flex items-center mb-4">
             <Avatar>
@@ -687,8 +689,10 @@ function FullReview({
               <div className="font-bold">{review.user.displayName}</div>
               {review.verified && <Badge variant="secondary">Verified Owner</Badge>}
             </div>
-            <div className="ml-auto flex items-end space-x-2 bg-gray-900 px-2 py-1 rounded-lg">
-              <div className=" text-white px-2 py-1 rounded-lg font-bold">{review.rating} / 10</div>
+            <div className="ml-auto flex items-end space-x-2 bg-muted px-2 py-1 rounded-lg">
+              <div className=" text-foreground px-2 py-1 rounded-lg font-bold">
+                {review.rating} / 10
+              </div>
               <div className="flex items-center space-x-1 font-bold">
                 <span>{review.recommended ? "Recommended" : "Not Recommended"}</span>
                 <ThumbsUpIcon
@@ -701,7 +705,7 @@ function FullReview({
               </div>
             </div>
           </div>
-          <div className="bg-gray-900 p-4 rounded-lg">
+          <div className="bg-muted p-4 rounded-lg">
             <h3 className="font-bold mb-2">{review.title}</h3>
             <div className="relative">
               <ScrollArea className="h-[50vh]">
@@ -717,7 +721,7 @@ function FullReview({
             </div>
           </div>
           <div className="mt-4 inline-flex justify-between items-center w-full">
-            <span className="text-gray-400">
+            <span className="text-muted-foreground">
               Reviewed on{" "}
               {DateTime.fromISO(review.createdAt).setLocale("en-GB").toLocaleString({
                 year: "numeric",

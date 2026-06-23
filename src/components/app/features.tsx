@@ -44,7 +44,7 @@ export function GameFeatures({ id, size: _size = "md" }: { id: string; size?: Fe
 
   return (
     <div className="w-full justify-center items-center flex absolute bottom-3 right-0 left-0 px-2">
-      <div className="h-auto flex flex-wrap gap-3 w-fit max-w-full bg-gray-500/30 py-2 px-6 rounded-xl justify-center items-center text-white backdrop-blur-sm">
+      <div className="h-auto flex flex-wrap gap-3 w-fit max-w-full bg-muted/40 py-2 px-6 rounded-xl justify-center items-center text-foreground backdrop-blur-sm">
         {launcher && (
           <TooltipProvider>
             <Tooltip delayDuration={50}>
@@ -261,7 +261,7 @@ export function GameFeaturesV2({ id }: { id: string }) {
       {launcher && (
         <TooltipProvider>
           <Tooltip delayDuration={50}>
-            <TooltipTrigger className="bg-gray-400/25 rounded-full p-2 text-center">
+            <TooltipTrigger className="bg-muted/30 rounded-full p-2 text-center">
               {launcher.icon}
             </TooltipTrigger>
             <TooltipContent>
@@ -273,7 +273,7 @@ export function GameFeaturesV2({ id }: { id: string }) {
       {storeFeatures.map((feature) => (
         <TooltipProvider key={feature.key}>
           <Tooltip delayDuration={50}>
-            <TooltipTrigger className="bg-gray-400/25 rounded-full p-2 text-center">
+            <TooltipTrigger className="bg-muted/30 rounded-full p-2 text-center">
               {feature.icon}
             </TooltipTrigger>
             <TooltipContent>
@@ -285,7 +285,7 @@ export function GameFeaturesV2({ id }: { id: string }) {
       {features.map((feature) => (
         <TooltipProvider key={feature.key}>
           <Tooltip delayDuration={50}>
-            <TooltipTrigger className="bg-gray-400/25 rounded-full p-2 text-center">
+            <TooltipTrigger className="bg-muted/30 rounded-full p-2 text-center">
               {feature.icon}
             </TooltipTrigger>
             <TooltipContent>

@@ -48,7 +48,7 @@ export function SearchFiltersV2({ query, onQueryChange, loading, results }: Sear
             <button
               key={tag.key}
               type="button"
-              className={`px-2 py-1 rounded border ${selectedTags.includes(tag.key) ? "bg-primary text-white" : "bg-gray-200"}`}
+              className={`px-2 py-1 rounded border ${selectedTags.includes(tag.key) ? "bg-primary text-foreground" : "bg-gray-200"}`}
               onClick={(e) => {
                 e.preventDefault();
                 const newTags = selectedTags.includes(tag.key)
@@ -58,7 +58,7 @@ export function SearchFiltersV2({ query, onQueryChange, loading, results }: Sear
               }}
               disabled={loading}
             >
-              {tag.key} <span className="text-xs text-gray-500">({tag.doc_count})</span>
+              {tag.key} <span className="text-xs text-muted-foreground">({tag.doc_count})</span>
             </button>
           ))}
         </div>

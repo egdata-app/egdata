@@ -169,7 +169,7 @@ export function RegionalPricing({ id }: { id: string }) {
                   }}
                   className={cn(
                     "cursor-pointer",
-                    selectedRegion === key && "bg-slate-800/25 text-white",
+                    selectedRegion === key && "bg-muted text-foreground",
                   )}
                 >
                   <TableCell className="inline-flex items-center gap-2">

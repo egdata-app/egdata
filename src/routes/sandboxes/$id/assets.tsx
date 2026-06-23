@@ -1,18 +1,19 @@
 import { httpClient } from "@/lib/http-client";
 import type { DehydratedState } from "@tanstack/react-query";
-import { dehydrate, HydrationBoundary, keepPreviousData, useQueries } from "@tanstack/react-query";
+import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import { formatSandboxCount, SandboxPageHeader } from "@/components/app/sandbox-layout";
 import { DataTable } from "@/components/tables/assets/table";
 import { columns } from "@/components/tables/assets/columns";
 import type { SingleOffer } from "@/types/single-offer";
 import type { Asset } from "@/types/asset";
-import { SandboxHeader } from "@/components/app/sandbox-header";
 import type { SingleSandbox } from "@/types/single-sandbox";
 import { getQueryClient } from "@/lib/client";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { generateSandboxMeta } from "@/lib/generate-sandbox-meta";
 import { useState } from "react";
 import type { ColumnFiltersState } from "@tanstack/react-table";
+import { Archive } from "lucide-react";
 
 interface PaginatedResponse<T> {
   elements: T[];
@@ -102,51 +103,35 @@ function SandboxAssetsPage() {
   const { id } = Route.useParams();
   const [page, setPage] = useState({ pageIndex: 0, pageSize: 20 });
   const [filters, setFilters] = useState<ColumnFiltersState>([]);
-  const [assetsQuery, baseGameQuery, sandboxQuery] = useQueries({
-    queries: [
-      {
-        queryKey: [
-          "sandbox",
-          "assets",
-          { id, page: page.pageIndex + 1, limit: page.pageSize, filters },
-        ],
-        queryFn: () => {
-          const queryParams = new URLSearchParams();
-          queryParams.set("page", (page.pageIndex + 1).toString());
-          queryParams.set("limit", page.pageSize.toString());
-          for (const filter of filters) {
-            queryParams.set(filter.id, filter.value as string);
-          }
-
-          return httpClient.get<PaginatedResponse<Asset>>(`/sandboxes/${id}/assets`, {
-            params: Object.fromEntries(queryParams),
-          });
-        },
-        placeholderData: keepPreviousData,
-      },
-      {
-        queryKey: ["sandbox", "base-game", { id }],
-        queryFn: () => httpClient.get<SingleOffer>(`/sandboxes/${id}/base-game`),
-        retry: false,
-      },
-      {
-        queryKey: ["sandbox", { id }],
-        queryFn: () => httpClient.get<SingleSandbox>(`/sandboxes/${id}`),
-      },
+  const { data: assetsData } = useQuery({
+    queryKey: [
+      "sandbox",
+      "assets",
+      { id, page: page.pageIndex + 1, limit: page.pageSize, filters },
     ],
+    queryFn: () => {
+      const queryParams = new URLSearchParams();
+      queryParams.set("page", (page.pageIndex + 1).toString());
+      queryParams.set("limit", page.pageSize.toString());
+      for (const filter of filters) {
+        queryParams.set(filter.id, filter.value as string);
+      }
+
+      return httpClient.get<PaginatedResponse<Asset>>(`/sandboxes/${id}/assets`, {
+        params: Object.fromEntries(queryParams),
+      });
+    },
+    placeholderData: keepPreviousData,
   });
 
-  const { data: assetsData } = assetsQuery;
-  const { data: baseGame } = baseGameQuery;
-  const { data: sandbox } = sandboxQuery;
-
   return (
-    <main className="flex flex-col items-start justify-start h-full gap-4 px-4 w-full">
-      <SandboxHeader
-        title={baseGame?.title ?? sandbox?.displayName ?? (sandbox?.name as string)}
-        section="assets"
-        id={id}
-        sandbox={id}
+    <div className="flex flex-col gap-6 w-full">
+      <SandboxPageHeader
+        icon={Archive}
+        eyebrow="Assets and artifacts"
+        title="Assets"
+        description="Distribution and media records attached to sandbox items, including artifacts that connect store catalog content to downloadable builds."
+        stats={[{ label: "Total assets", value: formatSandboxCount(assetsData?.count) }]}
       />
       <DataTable
         columns={columns}
@@ -157,6 +142,6 @@ function SandboxAssetsPage() {
         filters={filters}
         setFilters={setFilters}
       />
-    </main>
+    </div>
   );
 }

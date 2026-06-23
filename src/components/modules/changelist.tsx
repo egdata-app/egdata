@@ -54,7 +54,7 @@ const icons = {
       <UpdateIcon />
     </span>
   ),
-  new: <span className="text-green-500">🆕</span>,
+  new: <span className="text-primary">🆕</span>,
 };
 
 export function ChangelistModule() {

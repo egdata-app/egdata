@@ -368,7 +368,7 @@ function AchievementSpotlight({
         <p className="line-clamp-2 text-sm text-muted-foreground">{achievement.description}</p>
         <div className="mt-4 flex items-center justify-between gap-3 text-sm">
           <span className="truncate text-muted-foreground">{achievement.gameTitle}</span>
-          <span className="shrink-0 font-medium text-white">
+          <span className="shrink-0 font-medium text-foreground">
             {formatRarity(achievement.rarityPercent)}
           </span>
         </div>
@@ -408,7 +408,7 @@ function GameSpotlight({ game, profileId }: { game: ProfileGame; profileId: stri
               </p>
             </div>
             {game.hasPlatinum && (
-              <span className="inline-flex items-center gap-2 rounded-md bg-[#6e59e6]/25 px-3 py-2 text-sm text-white">
+              <span className="inline-flex items-center gap-2 rounded-md bg-platinum-start/25 px-3 py-2 text-sm text-foreground">
                 <EpicPlatinumIcon className="size-4" />
                 Platinum
               </span>
@@ -496,7 +496,7 @@ function LibraryView({
                 "rounded-md border px-3 py-2 text-sm transition-colors",
                 search.filter === filter
                   ? "border-white bg-white text-black"
-                  : "border-border bg-background text-muted-foreground hover:text-white",
+                  : "border-border bg-background text-muted-foreground hover:text-foreground",
               )}
             >
               {filterLabels[filter]}
@@ -506,7 +506,7 @@ function LibraryView({
         <div className="flex items-center gap-2">
           <FilterIcon className="size-4 text-muted-foreground" />
           <Select value={search.sort} onValueChange={(value) => onSortChange(value as SearchSort)}>
-            <SelectTrigger className="w-[180px] rounded-md">
+            <SelectTrigger className="w-[180px] rounded-md" aria-label="Sort library">
               <SelectValue placeholder="Sort by" />
             </SelectTrigger>
             <SelectContent>
@@ -575,7 +575,7 @@ function ProfileGameCard({
           sizes="(min-width: 1280px) 400px, (min-width: 768px) 50vw, 100vw"
         />
         {game.hasPlatinum && (
-          <span className="absolute left-3 top-3 inline-flex items-center gap-2 rounded-md bg-[#6e59e6]/90 px-2.5 py-1.5 text-xs font-medium text-white">
+          <span className="absolute left-3 top-3 inline-flex items-center gap-2 rounded-md bg-platinum-start px-2.5 py-1.5 text-xs font-medium text-foreground">
             <EpicPlatinumIcon className="size-3.5" />
             Platinum
           </span>

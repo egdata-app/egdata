@@ -18,10 +18,12 @@ import { getOffersWithAchievements } from "@/queries/offers-with-achievements";
 import { getStats } from "@/queries/stats";
 import { getTopSellers } from "@/queries/top-sellers";
 import type { GiveawayOffer } from "@/types/giveaways";
+import type { KeyImage } from "@/types/single-offer";
 import type { SingleItem } from "@/types/single-item";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link, type LinkComponentProps } from "@tanstack/react-router";
 import type { JSX, ReactNode } from "react";
+import { useMemo } from "react";
 import { DateTime } from "luxon";
 import { getGiveawaysStats, GiveawaysStats } from "@/components/modules/giveaway-stats";
 import { cn } from "@/lib/utils";
@@ -34,7 +36,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Sparkles, TrendingUp } from "lucide-react";
+import {
+  Box,
+  Package,
+  Radio,
+  RefreshCw,
+  Search,
+  Sparkles,
+  Tag,
+  TrendingUp,
+  Trophy,
+  Zap,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Image } from "@/components/app/image";
 import buildImageUrl, { buildSrcSet } from "@/lib/build-image-url";
@@ -42,8 +55,6 @@ import { getImage } from "@/lib/get-image";
 import { getOfferOverview } from "@/queries/offer-overview";
 import { formatTimeToHumanReadable } from "@/lib/time-to-human-readable";
 import { Countdown } from "@/components/ui/countdown";
-import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
 import { useSearch } from "@/hooks/use-search";
 import { getBuilds } from "@/queries/get-builds";
 import { calculateSize } from "@/lib/calculate-size";
@@ -55,6 +66,72 @@ import { raritiesTextColors } from "@/components/app/achievement-card";
 import { mergeFreebies } from "@/utils/merge-freebies";
 import { RenderTextPlatformIcon } from "@/components/app/platform-icons";
 import { TruncatedText } from "@/lib/truncate-text";
+import { timeAgo } from "@/lib/time-ago";
+
+type LiveChangeAction = "insert" | "update" | "delete" | string;
+
+type LiveChangeDelta = {
+  changeType: LiveChangeAction;
+  field: string;
+  newValue: unknown;
+  oldValue: unknown;
+};
+
+type LiveChangeContext = {
+  _id?: string;
+  id?: string;
+  namespace?: string;
+  title?: string;
+  keyImages?: KeyImage[];
+  offerType?: string;
+  appName?: string;
+  buildVersion?: string;
+  name?: string;
+};
+
+type LiveChangeEvent = {
+  _id: string;
+  timestamp: string;
+  metadata: {
+    changes: LiveChangeDelta[];
+    contextId: string;
+    contextType: string;
+    context?: LiveChangeContext | null;
+  };
+  __v?: number;
+};
+
+type PulseEvent = {
+  id: string;
+  timestamp: string;
+  contextType: string;
+  action: LiveChangeAction;
+  badge: string;
+  title: string;
+  detail: string;
+  changeCount: number;
+  imageUrl?: string;
+};
+
+const liveChangelistBaseQueryOptions = () => ({
+  queryKey: ["changelist", "home-pulse"] as const,
+  queryFn: () =>
+    httpClient.get<LiveChangeEvent[]>("/changelist", {
+      params: {
+        limit: 12,
+      },
+    }),
+  staleTime: 10_000,
+});
+
+const liveChangelistQueryOptions = () => ({
+  ...liveChangelistBaseQueryOptions(),
+  placeholderData: [] as LiveChangeEvent[],
+  refetchInterval: 25_000,
+  refetchIntervalInBackground: false,
+  refetchOnWindowFocus: true,
+  retry: 1,
+});
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
@@ -89,6 +166,11 @@ export const Route = createFileRoute("/")({
         queryFn: () => getLatestOffers(country ?? "US").catch(() => []),
       }),
       queryClient.prefetchQuery({
+        queryKey: ["latest-released", { country }],
+        queryFn: () =>
+          getLatestReleased({ country: country ?? "US" }).catch(() => ({ elements: [] })),
+      }),
+      queryClient.prefetchQuery({
         queryKey: ["stats", { country }],
         queryFn: () => getStats({ country: country ?? "US" }).catch(() => null),
       }),
@@ -96,6 +178,8 @@ export const Route = createFileRoute("/")({
         queryKey: ["giveaways-stats", { country }],
         queryFn: () => getGiveawaysStats({ country: country ?? "US" }).catch(() => null),
       }),
+      queryClient.prefetchQuery(liveChangelistBaseQueryOptions()),
+      queryClient.prefetchQuery(getBuilds({ sortDir: "desc", sortBy: "createdAt" })),
     ]);
   },
 });
@@ -129,7 +213,7 @@ function OfferHoverCard({ id }: { id: string }) {
   };
 
   return (
-    <div className="bg-slate-800 border-slate-700 text-slate-200 p-4 space-y-3 w-full h-fit border rounded-md">
+    <div className="bg-card border border-border/60 text-card-foreground p-4 space-y-3 w-full h-fit rounded-md">
       <div>
         <Image
           src={
@@ -144,22 +228,25 @@ function OfferHoverCard({ id }: { id: string }) {
       </div>
 
       <div className="flex items-center justify-between gap-2">
-        <h3 className="text-xl font-bold text-white">{data.offer.title}</h3>
+        <h3 className="text-xl font-display font-bold text-foreground">{data.offer.title}</h3>
         {data.price && (
           <div className="text-right">
             {data.price.price.discountPrice === 0 ? (
-              <span className="text-green-400 font-bold">Free</span>
+              <span className="text-primary font-bold">Free</span>
             ) : (
               <div className="flex flex-col items-end">
-                <span className="text-white font-bold">
+                <span className="text-foreground font-bold">
                   {formatPrice(data.price.price.discountPrice, data.price.price.currencyCode)}
                 </span>
                 {data.price.price.originalPrice > data.price.price.discountPrice && (
                   <div className="flex items-center gap-1">
-                    <span className="text-xs text-slate-400 line-through">
+                    <span className="text-xs text-muted-foreground line-through">
                       {formatPrice(data.price.price.originalPrice, data.price.price.currencyCode)}
                     </span>
-                    <Badge variant="destructive" className="text-xs px-1 py-0">
+                    <Badge
+                      variant="default"
+                      className="text-xs px-1 py-0 bg-primary text-primary-foreground"
+                    >
                       -
                       {Math.round(
                         ((data.price.price.originalPrice - data.price.price.discountPrice) /
@@ -176,28 +263,28 @@ function OfferHoverCard({ id }: { id: string }) {
         )}
       </div>
 
-      <div className="text-sm space-y-1 text-slate-300">
+      <div className="text-sm space-y-1 text-muted-foreground">
         <p>
-          <span className="text-slate-400">Seller:</span>{" "}
+          <span className="text-muted-foreground/70">Seller:</span>{" "}
           <Link
             to="/sellers/$id"
             params={{
               id: data.offer.seller.id,
             }}
-            className="text-blue-400 hover:underline"
+            className="text-primary hover:underline"
           >
             {data.offer.seller.name}
           </Link>
         </p>
         {data.offer.developerDisplayName && (
           <p>
-            <span className="text-slate-400">Developer:</span>{" "}
+            <span className="text-muted-foreground/70">Developer:</span>{" "}
             <Link
               to="/search"
               search={{
                 developerDisplayName: data.offer.developerDisplayName,
               }}
-              className="text-blue-400 hover:underline"
+              className="text-primary hover:underline"
             >
               {data.offer.developerDisplayName}
             </Link>
@@ -205,13 +292,13 @@ function OfferHoverCard({ id }: { id: string }) {
         )}
         {data.offer.publisherDisplayName && (
           <p>
-            <span className="text-slate-400">Publisher:</span>{" "}
+            <span className="text-muted-foreground/70">Publisher:</span>{" "}
             <Link
               to="/search"
               search={{
                 publisherDisplayName: data.offer.publisherDisplayName,
               }}
-              className="text-blue-400 hover:underline"
+              className="text-primary hover:underline"
             >
               {data.offer.publisherDisplayName}
             </Link>
@@ -219,13 +306,13 @@ function OfferHoverCard({ id }: { id: string }) {
         )}
         {data.offer.releaseDate && (
           <p>
-            <span className="text-slate-400">Release Date:</span>{" "}
+            <span className="text-muted-foreground/70">Release Date:</span>{" "}
             {formatDate(data.offer.releaseDate)}
           </p>
         )}
         {getAgeRatingDisplay() && (
           <p>
-            <span className="text-slate-400">Age Rating:</span> {getAgeRatingDisplay()}
+            <span className="text-muted-foreground/70">Age Rating:</span> {getAgeRatingDisplay()}
           </p>
         )}
       </div>
@@ -236,26 +323,26 @@ function OfferHoverCard({ id }: { id: string }) {
             <Badge
               key={genre.id}
               variant="outline"
-              className="border-purple-400/50 bg-purple-900/20 text-purple-300"
+              className="border-primary/40 bg-primary/10 text-primary"
             >
-              <Sparkles className="w-3 h-3 mr-1.5 text-purple-400" />
+              <Sparkles className="w-3 h-3 mr-1.5 text-primary" />
               {genre.name}
             </Badge>
           ))}
           {data.genres.length > 4 && (
-            <Badge variant="outline" className="border-slate-400/50 bg-slate-900/20 text-slate-400">
+            <Badge variant="outline" className="border-border/50 bg-muted/20 text-muted-foreground">
               +{data.genres.length - 4} more
             </Badge>
           )}
         </div>
       )}
 
-      <div className="bg-slate-900/80 p-3 rounded-md space-y-2 text-sm">
+      <div className="bg-muted/30 p-3 rounded-md space-y-2 text-sm">
         {data.polls?.averageRating && (
           <div className="flex items-center gap-2">
             <span>🤯</span>
-            <span className="text-slate-400">Community Rating:</span>
-            <span className="font-bold text-yellow-400">
+            <span className="text-muted-foreground">Community Rating:</span>
+            <span className="font-bold text-primary">
               {(data.polls.averageRating * 2 * 10).toFixed(1)}%
             </span>
           </div>
@@ -264,12 +351,12 @@ function OfferHoverCard({ id }: { id: string }) {
           <>
             {data.igdb.total_rating && (
               <div className="flex items-center gap-2">
-                <div className="w-5 h-5 bg-green-500 rounded-sm flex items-center justify-center text-sm font-bold text-white">
+                <div className="w-5 h-5 bg-primary rounded-sm flex items-center justify-center text-sm font-bold text-primary-foreground">
                   {Math.round(data.igdb.total_rating)}
                 </div>
-                <span className="text-slate-400">IGDB Score</span>
+                <span className="text-muted-foreground">IGDB Score</span>
                 {data.igdb.total_rating_count && (
-                  <span className="text-slate-500 text-xs">
+                  <span className="text-muted-foreground/70 text-xs">
                     • {data.igdb.total_rating_count} reviews
                   </span>
                 )}
@@ -278,8 +365,8 @@ function OfferHoverCard({ id }: { id: string }) {
             {data.igdb.timeToBeat && (
               <div className="flex items-center gap-2">
                 <span>⏱️</span>
-                <span className="text-slate-400">Time to Beat:</span>
-                <span className="text-slate-300">
+                <span className="text-muted-foreground">Time to Beat:</span>
+                <span className="text-foreground/80">
                   {data.igdb.timeToBeat.normally
                     ? formatTimeToHumanReadable(data.igdb.timeToBeat.normally)
                     : "N/A"}
@@ -291,8 +378,8 @@ function OfferHoverCard({ id }: { id: string }) {
         {data.features.features.length > 0 && (
           <div className="flex items-center gap-2">
             <span>🎮</span>
-            <span className="text-slate-400">Features:</span>
-            <span className="text-slate-300">
+            <span className="text-muted-foreground">Features:</span>
+            <span className="text-foreground/80">
               {data.features.features.slice(0, 2).join(", ")}
               {data.features.features.length > 2 && ` +${data.features.features.length - 2} more`}
             </span>
@@ -334,7 +421,7 @@ function BuildHoverCard({
   const displayUrl = gameImage?.url ?? "/placeholder.webp";
 
   return (
-    <div className="bg-gradient-to-br from-slate-800 to-slate-900 border-slate-700 text-slate-200 border rounded-lg shadow-xl overflow-hidden w-80">
+    <div className="bg-gradient-to-br from-card to-background border border-border/60 text-card-foreground border rounded-md shadow-xl overflow-hidden w-80">
       {displayUrl && (
         <div className="w-full h-44 flex-shrink-0 relative">
           <img
@@ -351,11 +438,11 @@ function BuildHoverCard({
 
       <div className="p-4 space-y-3">
         <div>
-          <h3 className="text-lg font-bold text-white leading-tight line-clamp-2">
+          <h3 className="text-lg font-display font-bold text-foreground leading-tight line-clamp-2">
             {build.item?.title ?? "Unknown Build"}
           </h3>
           {build.item?.developer && (
-            <p className="text-sm text-slate-400 mt-1">
+            <p className="text-sm text-muted-foreground mt-1">
               {build.item?.developer ?? "Unknown Developer"}
             </p>
           )}
@@ -363,29 +450,29 @@ function BuildHoverCard({
 
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-400">Size</span>
-            <span className="text-sm font-medium text-slate-200">
+            <span className="text-xs text-muted-foreground">Size</span>
+            <span className="text-sm font-medium text-foreground">
               {calculateSize(build.downloadSizeBytes)}
             </span>
           </div>
 
           {build.buildVersion && (
             <div className="flex items-center justify-between">
-              <span className="text-xs text-slate-400">Version</span>
-              <span className="text-sm font-medium text-slate-200">{build.buildVersion}</span>
+              <span className="text-xs text-muted-foreground">Version</span>
+              <span className="text-sm font-medium text-foreground">{build.buildVersion}</span>
             </div>
           )}
 
           <div className="flex items-center justify-between">
-            <span className="text-xs text-slate-400">Created</span>
-            <span className="text-xs text-slate-300">
+            <span className="text-xs text-muted-foreground">Created</span>
+            <span className="text-xs text-foreground/80">
               {DateTime.fromISO(build.createdAt).toLocaleString(DateTime.DATE_SHORT)}
             </span>
           </div>
         </div>
 
-        <div className="pt-2 border-t border-slate-700">
-          <p className="text-xs text-slate-500 font-mono truncate">ID: {build._id}</p>
+        <div className="pt-2 border-t border-border/50">
+          <p className="text-xs text-muted-foreground/70 font-mono truncate">ID: {build._id}</p>
         </div>
       </div>
     </div>
@@ -468,12 +555,16 @@ function RouteComponent() {
           giveaways: 0,
         },
       },
-      getBuilds({
-        sortDir: "desc",
-        sortBy: "createdAt",
-      }),
+      {
+        ...getBuilds({
+          sortDir: "desc",
+          sortBy: "createdAt",
+        }),
+        placeholderData: [],
+      },
     ],
   });
+  const liveChangelistQuery = useQuery(liveChangelistQueryOptions());
   const { data: giveawayOffers = [] } = freebiesQuery;
   const { data: upcomingOffers = { elements: [] } } = upcomingQuery;
   const { data: latestOffers = [] } = latestGamesQuery;
@@ -515,7 +606,7 @@ function RouteComponent() {
               {headers.map((h, index) => (
                 <TableHead
                   key={typeof h === "string" ? h : `header-${index}`}
-                  className="text-neutral-400 font-normal"
+                  className="text-muted-foreground font-normal"
                 >
                   {h}
                 </TableHead>
@@ -534,7 +625,7 @@ function RouteComponent() {
                 cell.type === Image;
 
               const TableRowContent = (
-                <TableRow className="border-neutral-800 hover:bg-neutral-800/60">
+                <TableRow className="border-border/40 hover:bg-primary/5">
                   {cells.map((cell, j) => {
                     const headerKey =
                       typeof headers[j + 1] === "string" ? headers[j + 1] : `header-${j}`;
@@ -549,7 +640,7 @@ function RouteComponent() {
                       >
                         {isImage(cell) ? (
                           <div className="flex items-center justify-start">
-                            <div className="w-16 h-8 sm:w-24 sm:h-12 rounded overflow-hidden bg-neutral-800/40 flex items-center justify-center">
+                            <div className="w-16 h-8 sm:w-24 sm:h-12 rounded overflow-hidden bg-muted/40 flex items-center justify-center">
                               {cell}
                             </div>
                           </div>
@@ -609,19 +700,19 @@ function RouteComponent() {
   }) => (
     <Card
       className={cn(
-        "flex flex-col rounded-lg border h-[650px]",
+        "flex flex-col rounded-md border border-border/60 h-[650px] bg-card/40 backdrop-blur-sm",
         spanFull ? "md:col-span-2" : "",
         className,
       )}
     >
-      <CardHeader className="border-b border-neutral-800 p-3">
-        <CardTitle className="text-sm font-mono text-neutral-400">
+      <CardHeader className="border-b border-border/50 p-3">
+        <CardTitle className="text-sm font-display font-semibold text-muted-foreground tracking-tight">
           {href ? (
             <Link
               to={href}
               search={search}
               params={params}
-              className="underline decoration-dotted underline-offset-4"
+              className="underline decoration-dotted underline-offset-4 hover:text-primary transition-colors"
             >
               {title}
             </Link>
@@ -641,53 +732,27 @@ function RouteComponent() {
   );
 
   return (
-    <main className="mx-auto w-full max-w-7xl flex-1 space-y-6 py-6 px-4 sm:px-6 lg:px-8">
-      {/* Hero Section */}
-      <section className="text-center space-y-4 py-6">
-        <div className="space-y-3">
-          <h1 className="text-3xl font-semiboold tracking-tight sm:text-4xl md:text-5xl font-montserrat">
-            egdata.app
-          </h1>
-          <p className="mx-auto max-w-2xl text-base text-muted-foreground sm:text-lg">
-            Track prices, discover deals, and never miss a free game. Your ultimate companion for
-            Epic Games Store offers, discounts, and giveaways.
-          </p>
-        </div>
+    <main className="mx-auto w-full max-w-7xl flex-1 space-y-8 py-6 px-4 sm:px-6 lg:px-8">
+      <SearchPulseHero
+        onSearch={() => setFocus(true)}
+        changes={liveChangelistQuery.data ?? []}
+        isLoading={liveChangelistQuery.isLoading}
+        isFetching={liveChangelistQuery.isFetching}
+        isError={liveChangelistQuery.isError}
+      />
 
-        <div className="mx-auto max-w-md">
-          <div
-            className="relative cursor-text"
-            onClick={(e) => {
-              e.preventDefault();
-              setFocus(true);
-            }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                setFocus(true);
-              }
-            }}
-          >
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search offers, items, or sellers..."
-              className="pl-10 h-10 text-sm cursor-text"
-              readOnly
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Metrics Row */}
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-        <MetricBox label="Offers Tracked" value={stats.offers.toLocaleString("en-UK")} />
-        <MetricBox
+      {/* Stats Bar */}
+      <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 py-3 border-y border-border/40 rounded-md bg-card/30 px-4">
+        <StatItem label="Offers Tracked" value={stats.offers.toLocaleString("en-UK")} />
+        <StatDivider />
+        <StatItem
           label="Price Changes / 72h"
           value={stats.trackedPriceChanges.toLocaleString("en-UK")}
         />
-        <MetricBox label="Active Discounts" value={stats.activeDiscounts.toLocaleString("en-UK")} />
-        <MetricBox label="Giveaways to Date" value={stats.giveaways.toLocaleString("en-UK")} />
+        <StatDivider />
+        <StatItem label="Active Discounts" value={stats.activeDiscounts.toLocaleString("en-UK")} />
+        <StatDivider />
+        <StatItem label="Giveaways to Date" value={stats.giveaways.toLocaleString("en-UK")} />
       </div>
 
       {/* First row - shorter sections */}
@@ -731,14 +796,14 @@ function RouteComponent() {
                   <DialogTrigger asChild>
                     <button
                       type="button"
-                      className="flex flex-col items-start justify-center text-left hover:text-blue-400 transition-colors"
+                      className="flex flex-col items-start justify-center text-left hover:text-primary transition-colors"
                     >
                       <TruncatedText text={g.title} maxLength={35} />
                       <p className="inline-flex gap-1">
                         {g.platforms.map((p) =>
                           RenderTextPlatformIcon({
                             platform: p,
-                            className: "size-5 rounded-full p-1 bg-gray-600",
+                            className: "size-5 rounded-full p-1 bg-muted",
                             key: `${p}-${g.id}`,
                           }),
                         )}
@@ -761,7 +826,7 @@ function RouteComponent() {
                               <Link
                                 to="/offers/$id"
                                 params={{ id: offer.id }}
-                                className="flex items-center gap-3 p-3 border rounded-lg bg-card transition-colors hover:border-gray-400"
+                                className="flex items-center gap-3 p-3 border rounded-lg bg-card transition-colors hover:border-primary/60"
                               >
                                 <img
                                   src={buildImageUrl(
@@ -783,7 +848,7 @@ function RouteComponent() {
                                     {offerPlatforms.map((platform, idx) =>
                                       RenderTextPlatformIcon({
                                         platform,
-                                        className: "size-6 rounded-full p-1 bg-gray-600",
+                                        className: "size-6 rounded-full p-1 bg-muted",
                                         key: `${platform}-${offer.id}-${idx}`,
                                       }),
                                     )}
@@ -819,7 +884,7 @@ function RouteComponent() {
                     {g.platforms.map((p) =>
                       RenderTextPlatformIcon({
                         platform: p,
-                        className: "size-5 rounded-full p-1 bg-gray-600",
+                        className: "size-5 rounded-full p-1 bg-muted",
                         key: `${p}-${g.id}`,
                       }),
                     )}
@@ -1186,11 +1251,413 @@ function RouteComponent() {
   );
 }
 
-function MetricBox({ label, value }: { label: string; value: string }) {
+function StatItem({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-lg bg-card p-4 text-center">
-      <div className="text-2xl font-mono">{value}</div>
-      <div className="text-xs text-neutral-400">{label}</div>
+    <div className="flex flex-col items-center text-center">
+      <span className="text-xl font-display font-semibold tabular-nums text-foreground">
+        {value}
+      </span>
+      <span className="text-[0.7rem] uppercase tracking-wide text-muted-foreground mt-0.5">
+        {label}
+      </span>
     </div>
   );
+}
+
+function StatDivider() {
+  return <span className="h-8 w-px bg-border/50 hidden sm:block" aria-hidden="true" />;
+}
+
+function SearchPulseHero({
+  onSearch,
+  changes,
+  isLoading,
+  isFetching,
+  isError,
+}: {
+  onSearch: () => void;
+  changes: LiveChangeEvent[];
+  isLoading: boolean;
+  isFetching: boolean;
+  isError: boolean;
+}) {
+  const chips: {
+    label: string;
+    to: LinkComponentProps["to"];
+    search?: LinkComponentProps["search"];
+    params?: LinkComponentProps["params"];
+  }[] = [
+    { label: "Free now", to: "/freebies" },
+    { label: "Just released", to: "/search", search: { sortBy: "releaseDate", sortDir: "desc" } },
+    { label: "Price drops (72h)", to: "/sales" },
+    { label: "Has achievements", to: "/search", search: { tags: ["19847"] } },
+    { label: "Upcoming", to: "/search", search: { sortBy: "upcoming" } },
+    { label: "Top sellers", to: "/collections/$id", params: { id: "top-sellers" } },
+  ];
+
+  const events = useMemo(
+    () =>
+      changes
+        .filter((change) => change.metadata?.changes?.length)
+        .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+        .slice(0, 6)
+        .map(normalizePulseEvent),
+    [changes],
+  );
+
+  return (
+    <section className="relative isolate overflow-hidden rounded-md border border-border/60 bg-card/40 p-5 backdrop-blur-sm md:p-6">
+      <div className="pointer-events-none absolute inset-y-5 right-5 z-0 hidden w-[35%] lg:block">
+        <AmbientPulsePanel
+          events={events}
+          isLoading={isLoading}
+          isFetching={isFetching}
+          isError={isError}
+          density="desktop"
+        />
+      </div>
+      <div className="pointer-events-none absolute inset-x-4 bottom-4 z-0 h-32 opacity-10 lg:hidden">
+        <AmbientPulsePanel
+          events={events.slice(0, 3)}
+          isLoading={isLoading}
+          isFetching={isFetching}
+          isError={isError}
+          density="mobile"
+        />
+      </div>
+
+      <div className="relative z-10 flex min-h-[260px] max-w-2xl flex-col justify-center lg:min-h-[252px]">
+        <h1 className="text-3xl md:text-4xl font-display font-bold tracking-tight text-foreground">
+          egdata.app
+        </h1>
+        <p className="mt-3 max-w-xl text-muted-foreground">
+          Track prices, discover deals, and never miss a free game. Your companion for the Epic
+          Games Store database — offers, discounts, giveaways, builds, and more.
+        </p>
+
+        <button
+          type="button"
+          onClick={onSearch}
+          className="mt-5 w-full max-w-xl inline-flex items-center gap-2 rounded-md border border-border/60 bg-background/70 px-4 py-2.5 text-left text-sm text-muted-foreground hover:border-primary/60 hover:text-primary transition-colors"
+        >
+          <Search className="size-4" />
+          Search the database…
+        </button>
+
+        <div className="mt-4 flex flex-nowrap gap-1.5 overflow-x-auto max-w-xl">
+          {chips.map((chip) => (
+            <Link
+              key={chip.label}
+              to={chip.to}
+              search={chip.search}
+              params={chip.params}
+              className="inline-flex items-center rounded-full border border-border/60 bg-background/50 px-2 py-0.5 text-[0.7rem] font-medium text-muted-foreground hover:border-primary/60 hover:text-primary transition-colors whitespace-nowrap"
+            >
+              {chip.label}
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AmbientPulsePanel({
+  events,
+  isLoading,
+  isFetching,
+  density,
+}: {
+  events: PulseEvent[];
+  isLoading: boolean;
+  isFetching: boolean;
+  isError: boolean;
+  density: "desktop" | "mobile";
+}) {
+  return (
+    <div
+      className={cn(
+        "relative overflow-hidden",
+        density === "desktop"
+          ? "h-full p-3 text-muted-foreground/80"
+          : "rounded-md border border-border/40 bg-background/25 p-3",
+      )}
+    >
+      <div className="flex items-center justify-between gap-3">
+        <span className="text-[0.7rem] font-medium tracking-tight text-muted-foreground">
+          Recent activity
+        </span>
+        {isFetching && !isLoading && (
+          <RefreshCw className="size-3 animate-spin text-muted-foreground/60" />
+        )}
+      </div>
+
+      <div className="mt-3 flex flex-col gap-2">
+        {isLoading || events.length === 0
+          ? Array.from({ length: density === "desktop" ? 4 : 2 }).map((_, index) => (
+              <div
+                // biome-ignore lint/suspicious/noArrayIndexKey: skeleton rows are positional placeholders
+                key={index}
+                className="flex items-center gap-2.5"
+              >
+                <div className="size-7 rounded bg-muted/40 animate-pulse" />
+                <div className="h-3 flex-1 rounded bg-muted/30 animate-pulse" />
+              </div>
+            ))
+          : events
+              .slice(0, density === "desktop" ? 5 : 3)
+              .map((event) => <PulseChangeRow key={event.id} event={event} />)}
+      </div>
+    </div>
+  );
+}
+
+function PulseChangeRow({ event }: { event: PulseEvent }) {
+  const tone = getPulseTone(event.contextType, event.action);
+  const Icon = getPulseIcon(event.contextType, event.action);
+
+  return (
+    <div className="flex items-center gap-2.5">
+      <div className="relative flex size-7 shrink-0 items-center justify-center">
+        {event.imageUrl ? (
+          <img
+            src={buildImageUrl(event.imageUrl, 80, "low")}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="size-6 rounded object-cover"
+          />
+        ) : (
+          <Icon className={cn("size-3.5", tone.text)} />
+        )}
+      </div>
+
+      <span className="truncate text-[0.78rem] text-foreground/85">{event.title}</span>
+      <span className="shrink-0 text-[0.62rem] tabular-nums text-muted-foreground/70">
+        {event.badge.toLowerCase()}
+      </span>
+      <span
+        suppressHydrationWarning
+        className="shrink-0 ml-auto text-[0.62rem] tabular-nums text-muted-foreground/60"
+      >
+        {timeAgo(new Date(event.timestamp))}
+      </span>
+    </div>
+  );
+}
+
+function normalizePulseEvent(change: LiveChangeEvent): PulseEvent {
+  const primaryChange = getPrimaryChange(change.metadata.changes);
+  const contextType = change.metadata.contextType || "change";
+  const action = primaryChange?.changeType ?? "update";
+
+  return {
+    id: change._id,
+    timestamp: change.timestamp,
+    contextType,
+    action,
+    badge: getPulseBadge(contextType, action),
+    title: getPulseTitle(change),
+    detail: getPulseDetail(change, primaryChange),
+    changeCount: change.metadata.changes.length,
+    imageUrl: getPulseImageUrl(change.metadata.context),
+  };
+}
+
+function getPrimaryChange(changes: LiveChangeDelta[]) {
+  const lowSignalFields = new Set(["createdAt", "updatedAt", "lastModifiedDate"]);
+  return changes.find((change) => !lowSignalFields.has(change.field)) ?? changes[0];
+}
+
+function getPulseTitle(change: LiveChangeEvent) {
+  const { context, contextId, contextType } = change.metadata;
+  const title = context?.title?.trim();
+
+  if (title) return title;
+
+  if (contextType === "build") {
+    if (context?.buildVersion) return `Build ${context.buildVersion}`;
+    if (context?.appName) return `Build ${shortId(context.appName)}`;
+  }
+
+  if (contextType === "achievements") {
+    return `Achievements ${shortId(contextId)}`;
+  }
+
+  return context?.name || context?.id || shortId(contextId);
+}
+
+function getPulseDetail(change: LiveChangeEvent, primaryChange: LiveChangeDelta | undefined) {
+  const { changes, contextType } = change.metadata;
+  const action = primaryChange?.changeType ?? "update";
+  const field = primaryChange?.field ?? "record";
+
+  if (contextType === "build") {
+    return action === "insert" ? "New build indexed" : "Build manifest refreshed";
+  }
+
+  if (contextType === "achievements") {
+    return `${changes.length.toLocaleString("en-UK")} achievement ${pluralize(
+      changes.length,
+      "entry",
+      "entries",
+    )} ${getActionVerb(action)}`;
+  }
+
+  if (contextType === "offer" && field === "lastModifiedDate") {
+    return "Offer metadata refreshed";
+  }
+
+  if (changes.length > 1) {
+    return `${changes.length.toLocaleString("en-UK")} fields ${getActionVerb(action)}`;
+  }
+
+  return `${formatChangeField(field)} ${getActionVerb(action)}`;
+}
+
+function getPulseImageUrl(context: LiveChangeContext | null | undefined) {
+  if (!context?.keyImages?.length) return undefined;
+
+  const image = getImage(context.keyImages, [
+    "Thumbnail",
+    "OfferImageTall",
+    "DieselGameBoxTall",
+    "OfferImageWide",
+    "DieselStoreFrontWide",
+  ]);
+
+  return image?.url === "/placeholder.webp" ? undefined : image?.url;
+}
+
+function getPulseBadge(contextType: string, action: LiveChangeAction) {
+  if (action === "insert") return "New";
+  if (action === "delete") return "Gone";
+
+  switch (contextType) {
+    case "offer":
+      return "Offer";
+    case "build":
+      return "Build";
+    case "item":
+      return "Item";
+    case "asset":
+      return "Asset";
+    case "achievements":
+      return "XP";
+    case "sandbox":
+      return "Sandbox";
+    default:
+      return "Change";
+  }
+}
+
+function getActionVerb(action: LiveChangeAction) {
+  switch (action) {
+    case "insert":
+      return "added";
+    case "delete":
+      return "removed";
+    case "update":
+      return "updated";
+    default:
+      return "changed";
+  }
+}
+
+function formatChangeField(field: string) {
+  return field
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/[_-]+/g, " ")
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function pluralize(count: number, singular: string, plural: string) {
+  return count === 1 ? singular : plural;
+}
+
+function shortId(id: string) {
+  return id.length > 12 ? `${id.slice(0, 6)}…${id.slice(-4)}` : id;
+}
+
+function getPulseIcon(contextType: string, action: LiveChangeAction) {
+  if (action === "insert") return Sparkles;
+  if (action === "delete") return Zap;
+
+  switch (contextType) {
+    case "build":
+      return Package;
+    case "offer":
+      return Tag;
+    case "achievements":
+      return Trophy;
+    case "item":
+      return Box;
+    default:
+      return Radio;
+  }
+}
+
+function getPulseTone(contextType: string, action: LiveChangeAction) {
+  if (action === "insert") {
+    return {
+      bg: "bg-emerald-400/10",
+      border: "border-emerald-300/35",
+      text: "text-emerald-200",
+      dot: "bg-emerald-300",
+    };
+  }
+
+  if (action === "delete") {
+    return {
+      bg: "bg-rose-400/10",
+      border: "border-rose-300/35",
+      text: "text-rose-200",
+      dot: "bg-rose-300",
+    };
+  }
+
+  switch (contextType) {
+    case "build":
+      return {
+        bg: "bg-cyan-400/10",
+        border: "border-cyan-300/35",
+        text: "text-cyan-200",
+        dot: "bg-cyan-300",
+      };
+    case "offer":
+      return {
+        bg: "bg-sky-400/10",
+        border: "border-sky-300/35",
+        text: "text-sky-200",
+        dot: "bg-sky-300",
+      };
+    case "achievements":
+      return {
+        bg: "bg-amber-400/10",
+        border: "border-amber-300/35",
+        text: "text-amber-200",
+        dot: "bg-amber-300",
+      };
+    case "item":
+      return {
+        bg: "bg-lime-400/10",
+        border: "border-lime-300/35",
+        text: "text-lime-200",
+        dot: "bg-lime-300",
+      };
+    case "asset":
+      return {
+        bg: "bg-fuchsia-400/10",
+        border: "border-fuchsia-300/35",
+        text: "text-fuchsia-200",
+        dot: "bg-fuchsia-300",
+      };
+    default:
+      return {
+        bg: "bg-primary/10",
+        border: "border-primary/35",
+        text: "text-primary",
+        dot: "bg-primary",
+      };
+  }
 }

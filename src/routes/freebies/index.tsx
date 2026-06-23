@@ -132,9 +132,9 @@ function FreeGames() {
     <div className="flex flex-col items-start justify-start h-full gap-4 p-4">
       <GiveawaysStats />
       <div className="flex flex-row justify-between items-center gap-4 w-full">
-        <h2 className="text-xl font-semibold mb-4">Current Free Games</h2>
+        <h2 className="text-xl font-display font-semibold">Current Free Games</h2>
         <Button
-          className="bg-black text-white hover:bg-card border inline-flex items-center gap-2 w-fit"
+          className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center gap-2 w-fit"
           onClick={() => {
             // TODO: Implement redeem functionality for current free games
             console.log("Redeem current free games");

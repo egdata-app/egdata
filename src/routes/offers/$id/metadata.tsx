@@ -287,7 +287,7 @@ function AgeRatings({ ageRatings }: { ageRatings: SingleSandbox["ageGatings"] })
               className="size-20 mx-auto"
             />
           ) : (
-            <div className="size-20 mx-auto inline-flex items-center justify-center bg-gray-900 rounded-lg">
+            <div className="size-20 mx-auto inline-flex items-center justify-center bg-muted rounded-lg">
               <span className="text-6xl font-bold">{rating.ageControl}</span>
             </div>
           )}

@@ -69,14 +69,14 @@ export function Bundle({ id, offer }: { id: string; offer: SingleOffer }) {
           <div className="flex gap-2">
             <button
               onClick={handlePreviousSlide}
-              className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
+              className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-muted focus:outline-none focus:ring focus:ring-ring/50 disabled:opacity-50"
               type="button"
             >
               <ArrowUpIcon className="w-5 h-5 transform -rotate-90" />
             </button>
             <button
               onClick={handleNextSlide}
-              className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
+              className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-muted focus:outline-none focus:ring focus:ring-ring/50 disabled:opacity-50"
               type="button"
             >
               <ArrowUpIcon className="w-5 h-5 transform rotate-90" />
@@ -138,14 +138,14 @@ export function Bundle({ id, offer }: { id: string; offer: SingleOffer }) {
           <div className="flex gap-2">
             <button
               onClick={handlePreviousSlide}
-              className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
+              className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-muted focus:outline-none focus:ring focus:ring-ring/50 disabled:opacity-50"
               type="button"
             >
               <ArrowUpIcon className="w-5 h-5 transform -rotate-90" />
             </button>
             <button
               onClick={handleNextSlide}
-              className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-gray-900 focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
+              className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-muted focus:outline-none focus:ring focus:ring-ring/50 disabled:opacity-50"
               type="button"
             >
               <ArrowUpIcon className="w-5 h-5 transform rotate-90" />
@@ -198,7 +198,7 @@ export function Bundle({ id, offer }: { id: string; offer: SingleOffer }) {
                 </Badge>
               </div>
               <div className="pt-4">
-                <Button className="w-full bg-black text-white hover:bg-card border" asChild>
+                <Button className="w-full bg-black text-foreground hover:bg-card border" asChild>
                   <Link
                     to={getBuyLink({
                       offers: bundleIsBetter ? [offer] : (collection?.offers ?? []),

@@ -117,12 +117,12 @@ function ItemPage() {
             <h1 className="text-2xl font-bold">{item.title}</h1>
             <Badge>Item</Badge>
           </div>
-          <div className="rounded-xl border border-gray-300/10 mt-2">
+          <div className="rounded-xl border border-border/10 mt-2">
             <Table>
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-[300px]">Item ID</TableHead>
-                  <TableHead className="border-l-gray-300/10 border-l">{item.id}</TableHead>
+                  <TableHead className="border-l-border/10 border-l">{item.id}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -130,7 +130,7 @@ function ItemPage() {
                   <TableCell className="font-medium">Namespace</TableCell>
                   <TableCell
                     className={
-                      "text-left font-mono border-l-gray-300/10 border-l underline decoration-dotted decoration-slate-600 underline-offset-4"
+                      "text-left font-mono border-l-border/10 border-l underline decoration-dotted decoration-border underline-offset-4"
                     }
                   >
                     <Link to="/sandboxes/$id/items" params={{ id: item.namespace }}>
@@ -151,11 +151,11 @@ function ItemPage() {
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Developer</TableCell>
-                  <TableCell className="border-l-gray-300/10 border-l">{item.developer}</TableCell>
+                  <TableCell className="border-l-border/10 border-l">{item.developer}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Entitlement Type</TableCell>
-                  <TableCell className="border-l-gray-300/10 border-l">
+                  <TableCell className="border-l-border/10 border-l">
                     {item.entitlementType}
                   </TableCell>
                 </TableRow>
@@ -164,18 +164,18 @@ function ItemPage() {
                   item.entitlementName !== item.title && (
                     <TableRow>
                       <TableCell className="font-medium">Entitlement Name</TableCell>
-                      <TableCell className="border-l-gray-300/10 border-l">
+                      <TableCell className="border-l-border/10 border-l">
                         {item.entitlementName}
                       </TableCell>
                     </TableRow>
                   )}
                 <TableRow>
                   <TableCell className="font-medium">Status</TableCell>
-                  <TableCell className="border-l-gray-300/10 border-l">{item.status}</TableCell>
+                  <TableCell className="border-l-border/10 border-l">{item.status}</TableCell>
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Creation Date</TableCell>
-                  <TableCell className="border-l-gray-300/10 border-l">
+                  <TableCell className="border-l-border/10 border-l">
                     {DateTime.fromISO(item.creationDate)
                       .setZone(timezone || "UTC")
                       .setLocale("en-GB")
@@ -191,7 +191,7 @@ function ItemPage() {
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Last Modified</TableCell>
-                  <TableCell className="border-l-gray-300/10 border-l">
+                  <TableCell className="border-l-border/10 border-l">
                     {new Date(item.lastModifiedDate).toLocaleString("en-UK", {
                       year: "numeric",
                       month: "long",
@@ -205,7 +205,7 @@ function ItemPage() {
                 </TableRow>
                 <TableRow>
                   <TableCell className="font-medium">Platforms</TableCell>
-                  <TableCell className="border-l-gray-300/10 border-l inline-flex items-center justify-start gap-1">
+                  <TableCell className="border-l-border/10 border-l inline-flex items-center justify-start gap-1">
                     {getPlatformsArray(item.releaseInfo)
                       .filter((platform) => textPlatformIcons[platform])
                       .map((platform) => (
@@ -231,7 +231,7 @@ function ItemPage() {
           <p className="text-sm px-1">{item.description}</p>
         </div>
       </div>
-      <hr className="w-full border-t border-gray-300/10 my-4" />
+      <hr className="w-full border-t border-border/10 my-4" />
 
       <div className="flex flex-row items-start justify-start h-full gap-4 w-full min-h-[75vh]">
         <aside>

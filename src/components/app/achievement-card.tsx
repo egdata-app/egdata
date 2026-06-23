@@ -18,7 +18,7 @@ export const raritiesTextColors = {
   silver: "text-silver-start",
   gold: "text-gold-start",
   platinum: "text-platinum-start",
-  unknown: "text-gray-300",
+  unknown: "text-muted-foreground",
 };
 
 export function FlippableCard({
@@ -88,7 +88,7 @@ export function FlippableCard({
                       alt={achievement.unlockedDisplayName}
                       height={64}
                       width={64}
-                      className="z-10 bg-gray-900 rounded-sm"
+                      className="z-10 bg-muted rounded-sm"
                     />
                   </div>
                   <CardTitle>{achievement.unlockedDisplayName}</CardTitle>

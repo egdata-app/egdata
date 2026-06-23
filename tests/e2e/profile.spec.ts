@@ -76,23 +76,27 @@ test.describe("Profile page", () => {
       timeout: 30_000,
     });
 
-    await page.getByRole("tab", { name: "Library" }).click();
-    const libraryPanel = page.getByRole("tabpanel", { name: "Library" });
-    await expect(libraryPanel.getByRole("button", { name: "All", exact: true })).toBeVisible();
-    await expect(libraryPanel.getByRole("button", { name: "In Progress" })).toBeVisible();
+    const libraryTab = page.getByRole("tab", { name: "Library" });
+    const libraryFilter = page.getByRole("group", { name: "Library filter" });
+    await expect(async () => {
+      await libraryTab.click();
+      await expect(libraryFilter).toBeVisible({ timeout: 2_000 });
+    }).toPass({ timeout: 15_000 });
+    await expect(libraryFilter.getByRole("button", { name: "All", exact: true })).toBeVisible();
+    await expect(libraryFilter.getByRole("button", { name: "In Progress" })).toBeVisible();
 
     const nextPageResponse = waitForApiResponse(page, "/graphql", { method: "POST" });
-    await libraryPanel.getByRole("button", { name: "Go to next page" }).click();
+    await page.getByRole("button", { name: "Go to next page" }).click();
     await nextPageResponse;
     await expect(page).toHaveURL(/page=2/);
 
     const filterResponse = waitForApiResponse(page, "/graphql", { method: "POST" });
-    await libraryPanel.getByRole("button", { name: "In Progress" }).click();
+    await libraryFilter.getByRole("button", { name: "In Progress" }).click();
     await filterResponse;
     await expect(page).toHaveURL(/filter=in-progress/);
 
     const sortResponse = waitForApiResponse(page, "/graphql", { method: "POST" });
-    await libraryPanel.getByRole("combobox").click();
+    await page.getByRole("combobox", { name: "Sort library" }).click();
     await page.getByRole("option", { name: "XP" }).click();
     await sortResponse;
     await expect(page).toHaveURL(/sort=xp/);
