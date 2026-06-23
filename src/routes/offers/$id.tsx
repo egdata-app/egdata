@@ -377,7 +377,7 @@ function OfferPage() {
                   <TableCell className="font-medium">Supported Platforms</TableCell>
                   <TableCell className="text-left border-l-border/10 border-l inline-flex items-center justify-start gap-1">
                     {platformTags.map((tag) => (
-                      <span key={tag.id} className="text-xs">
+                      <span key={tag.id} className="text-sm">
                         {platformIcons[tag.id]}
                       </span>
                     ))}
@@ -522,7 +522,7 @@ function OfferPage() {
                             className="font-mono"
                           >
                             {technology.technology}
-                            <sup className="text-[9px] ml-[2px]">{technology.section}</sup>
+                            <sup className="ml-[2px] text-[0.68rem]">{technology.section}</sup>
                             {index < array.length - 1 && ","}
                           </span>
                         ))}

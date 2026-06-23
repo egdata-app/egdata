@@ -2,6 +2,7 @@ import { expect, test } from "@playwright/test";
 import {
   expectMainReady,
   expectNoAppError,
+  expectNoPageHorizontalOverflow,
   expectSearchResultsReady,
   waitForSearchResponse,
 } from "./support/assertions";
@@ -54,6 +55,41 @@ test.describe("Offer detail flow", () => {
     await page.goto("/offers/non-existent-offer-id-12345");
     await expect(page).toHaveURL(/\/offers\/non-existent-offer-id-12345/);
     await expect(page.locator("main")).toContainText("Offer not found");
+    await expectNoAppError(page);
+  });
+
+  test("opens compare tray from the navbar without narrow-width overflow", async ({ page }) => {
+    const initialSearch = waitForSearchResponse(page);
+    await page.goto("/search?sortBy=creationDate");
+    await initialSearch;
+
+    await expectMainReady(page);
+    await expectSearchResultsReady(page);
+
+    const firstOffer = page.getByRole("link", { name: /^Open offer / }).first();
+    await expect(firstOffer).toBeVisible();
+    await Promise.all([page.waitForURL(/\/offers\/[^/?#]+\/?$/), firstOffer.click()]);
+
+    await expectMainReady(page);
+    await page.getByRole("button", { name: "Compare", exact: true }).click();
+
+    const compareTrigger = page.getByTestId("compare-tray-trigger");
+    await expect(compareTrigger).toBeVisible();
+    await expect(compareTrigger).toContainText("1");
+    await expect(compareTrigger).toHaveAttribute("aria-label", /1 selected/);
+
+    for (const viewport of [
+      { width: 503, height: 360 },
+      { width: 390, height: 844 },
+    ]) {
+      await page.setViewportSize(viewport);
+      await expect(compareTrigger).toBeVisible();
+      await expectNoPageHorizontalOverflow(page);
+    }
+
+    await compareTrigger.click();
+    await expect(page.getByRole("dialog", { name: "Compare selected offers" })).toBeVisible();
+    await expectNoPageHorizontalOverflow(page);
     await expectNoAppError(page);
   });
 

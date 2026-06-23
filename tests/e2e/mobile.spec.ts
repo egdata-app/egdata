@@ -1,18 +1,10 @@
 import { expect, test } from "@playwright/test";
 import {
   expectMainReady,
+  expectNoPageHorizontalOverflow,
   expectSearchResultsReady,
   waitForSearchResponse,
 } from "./support/assertions";
-
-async function expectNoPageHorizontalOverflow(page: import("@playwright/test").Page) {
-  const overflow = await page.evaluate(() => {
-    const root = document.documentElement;
-    return root.scrollWidth - root.clientWidth;
-  });
-
-  expect(overflow).toBeLessThanOrEqual(2);
-}
 
 test.describe("Mobile layout smoke", () => {
   test.use({ viewport: { width: 390, height: 844 }, isMobile: true });

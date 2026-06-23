@@ -128,7 +128,7 @@ function PerformanceCard({ position, change, date, hasPrevious }: PerformanceCar
       )}
     >
       <div className="flex items-center justify-between gap-2">
-        <span className="text-xs text-muted-foreground">{dateLabel}</span>
+        <span className="text-sm text-muted-foreground">{dateLabel}</span>
         {changeBadge}
       </div>
 
@@ -154,10 +154,10 @@ function StatGrid({ data, loading }: { data: OfferPosition | undefined; loading?
         if (loading || !data) {
           return (
             <Card key={key} className="flex flex-col gap-1 p-3">
-              <span className="text-xs text-muted-foreground">{label}</span>
+              <span className="text-sm text-muted-foreground">{label}</span>
               <div className="flex items-baseline gap-1">
                 <Skeleton className="h-5 w-8" />
-                <span className="text-xs text-muted-foreground">days</span>
+                <span className="text-sm text-muted-foreground">days</span>
               </div>
             </Card>
           );
@@ -166,10 +166,10 @@ function StatGrid({ data, loading }: { data: OfferPosition | undefined; loading?
         const isZero = value === 0;
         return (
           <Card key={key} className={cn("flex flex-col gap-1 p-3", isZero && "opacity-50")}>
-            <span className="text-xs text-muted-foreground">{label}</span>
+            <span className="text-sm text-muted-foreground">{label}</span>
             <div className="flex items-baseline gap-1">
               <span className="text-xl font-bold tabular-nums text-foreground">{value}</span>
-              <span className="text-xs text-muted-foreground">days</span>
+              <span className="text-sm text-muted-foreground">days</span>
             </div>
             {tier <= 10 && value > 0 ? <Crown className="mt-0.5 size-3.5 text-amber-500" /> : null}
           </Card>
@@ -185,7 +185,7 @@ function SummaryLine({ data, loading }: { data: OfferPosition | undefined; loadi
 
   if (loading || !data || summary.tracked === 0) {
     return (
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground h-[18px]">
+      <div className="flex min-h-5 flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
         {loading ? (
           <>
             <Skeleton className="h-3.5 w-28" />
@@ -204,7 +204,7 @@ function SummaryLine({ data, loading }: { data: OfferPosition | undefined; loadi
     : null;
 
   return (
-    <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground h-[18px]">
+    <div className="flex min-h-5 flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
       <span className="inline-flex items-center gap-1">
         <Crown className="size-3.5 text-amber-500" />
         Best:
@@ -297,7 +297,7 @@ export function PerformanceTable({
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="space-y-1">
             <h2 className="text-xl font-bold text-foreground">Performance</h2>
-            <p className="text-xs text-muted-foreground">{activeCollectionLabel}</p>
+            <p className="text-sm text-muted-foreground">{activeCollectionLabel}</p>
             <SummaryLine data={data} loading={isLoading} />
           </div>
 

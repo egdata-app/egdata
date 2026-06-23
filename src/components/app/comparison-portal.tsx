@@ -18,6 +18,7 @@ import { Link } from "@tanstack/react-router";
 import type { SingleSandbox } from "@/types/single-sandbox";
 import { useCountry } from "@/hooks/use-country";
 import { Button } from "../ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 import { platformIcons } from "./platform-icons";
 import { GameFeatures } from "./features";
 import { calculatePrice } from "@/lib/calculate-price";
@@ -51,38 +52,56 @@ export function ComparisonPortal() {
     }
   }, [compare]);
 
+  if (compare.length === 0) {
+    return null;
+  }
+
+  const compareLabel = `Open compare tray, ${compare.length} selected`;
+
   return (
-    <Portal.Root>
-      {compare.length > 0 && (
-        <div className="fixed top-0 right-0 m-4">
-          <button
-            className="bg-card rounded-full p-2 relative z-20"
+    <>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            aria-label={compareLabel}
+            className="relative shrink-0 overflow-visible rounded-full"
+            data-testid="compare-tray-trigger"
             onClick={() => setOpen((prev) => !prev)}
+            size="icon"
             type="button"
+            variant="outline"
           >
-            <span className="absolute -top-2 -right-2 bg-primary/10 text-foreground rounded-full text-xs size-6 p-1">
+            <span className="absolute -right-1.5 -top-1.5 inline-flex min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-[0.7rem] font-semibold leading-5 text-primary-foreground">
               {compare.length}
             </span>
-            <CompareIcon className="text-foreground size-7" />
-          </button>
-        </div>
-      )}
+            <CompareIcon className="size-5 text-foreground" />
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>Compare selected offers</TooltipContent>
+      </Tooltip>
       {open && (
-        <div className="fixed inset-0 z-20">
-          <div
-            className="absolute inset-0 bg-black/50 cursor-pointer backdrop-blur-[2px] transition-all duration-300 ease-in-out"
-            onClick={() => setOpen(false)}
-            onKeyDown={(e) => e.key === "Escape" && setOpen(false)}
-            tabIndex={-1} // To make it focusable for keyboard events
-          />
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="bg-card rounded-lg p-4 w-fit max-w-5xl pointer-events-auto">
-              <CompareTable />
+        <Portal.Root>
+          <div className="fixed inset-0 z-[80]">
+            <div
+              className="absolute inset-0 cursor-pointer bg-black/50 backdrop-blur-[2px] transition-all duration-300 ease-in-out"
+              onClick={() => setOpen(false)}
+              onKeyDown={(e) => e.key === "Escape" && setOpen(false)}
+              tabIndex={-1}
+            />
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-4">
+              <div
+                aria-label="Compare selected offers"
+                aria-modal="true"
+                className="pointer-events-auto max-h-[calc(100vh-2rem)] w-full max-w-5xl overflow-hidden rounded-lg bg-card p-4"
+                role="dialog"
+              >
+                <CompareTable />
+              </div>
             </div>
           </div>
-        </div>
+        </Portal.Root>
       )}
-    </Portal.Root>
+    </>
   );
 }
 

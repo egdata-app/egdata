@@ -48,9 +48,9 @@ function CountriesSelectorImpl() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[170px] justify-between"
+          className="min-w-0 w-[130px] justify-between sm:w-[150px] md:w-[170px]"
         >
-          {regionNameFmt.of(country)}
+          <span className="min-w-0 truncate">{regionNameFmt.of(country)}</span>
           <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>

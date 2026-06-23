@@ -28,6 +28,7 @@ import { CountriesSelector } from "./countries-selector";
 import { useSearch } from "@/hooks/use-search";
 import { getRouteApi } from "@tanstack/react-router";
 import { getUserInformation } from "@/queries/profiles";
+import { ComparisonPortal } from "./comparison-portal";
 import { DiscordBotPopover } from "./discord-bot";
 import { authClient } from "@/lib/auth-client";
 import {
@@ -522,15 +523,15 @@ export default function Navbar() {
           <DiscordBotPopover />
         </NavigationMenuList>
       </NavigationMenu>
-      <div className="ml-auto flex items-center gap-3">
+      <div className="ml-auto flex min-w-0 items-center gap-2 md:gap-3">
         <button
           type="button"
-          className="hidden lg:inline-flex items-center gap-2 h-9 px-3 rounded-md border border-border/60 bg-card/40 text-sm text-muted-foreground hover:text-foreground hover:border-primary/50 transition-colors cursor-text"
+          className="hidden min-w-0 cursor-text items-center gap-2 rounded-md border border-border/60 bg-card/40 px-3 text-sm text-muted-foreground transition-colors hover:border-primary/50 hover:text-foreground lg:inline-flex lg:h-9 lg:max-w-[190px] xl:max-w-none"
           onClick={handleSearchClick}
         >
-          <SearchIcon className="h-4 w-4" />
-          <span>Search games...</span>
-          <kbd className="ml-2 inline-flex h-5 items-center gap-0.5 rounded border border-border/60 bg-background/60 px-1.5 text-[10px] font-mono text-muted-foreground">
+          <SearchIcon className="h-4 w-4 shrink-0" />
+          <span className="min-w-0 truncate">Search games...</span>
+          <kbd className="ml-1 hidden h-5 shrink-0 items-center gap-0.5 rounded border border-border/60 bg-background/60 px-1.5 font-mono text-[0.7rem] text-muted-foreground xl:inline-flex">
             ⌘K
           </kbd>
         </button>
@@ -591,6 +592,7 @@ export default function Navbar() {
             </AvatarFallback>
           </Avatar>
         )}
+        <ComparisonPortal />
       </div>
     </header>
   );

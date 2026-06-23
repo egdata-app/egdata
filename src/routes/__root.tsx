@@ -13,7 +13,6 @@ import { SearchProvider } from "@/providers/global-search";
 import { getUserInformation } from "@/queries/profiles";
 import { PreferencesProvider } from "@/providers/preferences";
 import { CompareProvider } from "@/providers/compare";
-import { ComparisonPortal } from "@/components/app/comparison-portal";
 import { LocaleProvider } from "@/providers/locale";
 import { CookiesProvider } from "@/providers/cookies";
 import { Base64Utils } from "@/lib/base-64";
@@ -308,7 +307,6 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
                       </CookiesProvider>
                     </PreferencesProvider>
                   </div>
-                  <ComparisonPortal />
                   <Toaster />
                   <footer className="mt-12 border-t border-border/40">
                     <div

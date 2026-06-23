@@ -1257,9 +1257,7 @@ function StatItem({ label, value }: { label: string; value: string }) {
       <span className="text-xl font-display font-semibold tabular-nums text-foreground">
         {value}
       </span>
-      <span className="text-[0.7rem] uppercase tracking-wide text-muted-foreground mt-0.5">
-        {label}
-      </span>
+      <span className="mt-0.5 text-xs uppercase tracking-wide text-muted-foreground">{label}</span>
     </div>
   );
 }
@@ -1287,7 +1285,6 @@ function SearchPulseHero({
     search?: LinkComponentProps["search"];
     params?: LinkComponentProps["params"];
   }[] = [
-    { label: "Free now", to: "/freebies" },
     { label: "Just released", to: "/search", search: { sortBy: "releaseDate", sortDir: "desc" } },
     { label: "Price drops (72h)", to: "/sales" },
     { label: "Has achievements", to: "/search", search: { tags: ["19847"] } },
@@ -1334,14 +1331,14 @@ function SearchPulseHero({
           Search the database…
         </button>
 
-        <div className="mt-4 flex flex-nowrap gap-1.5 overflow-x-auto max-w-xl">
+        <div className="mt-4 flex max-w-xl flex-wrap gap-2" data-testid="hero-quick-links">
           {chips.map((chip) => (
             <Link
               key={chip.label}
               to={chip.to}
               search={chip.search}
               params={chip.params}
-              className="inline-flex items-center rounded-full border border-border/60 bg-background/50 px-2 py-0.5 text-[0.7rem] font-medium text-muted-foreground hover:border-primary/60 hover:text-primary transition-colors whitespace-nowrap"
+              className="inline-flex items-center whitespace-nowrap rounded-full border border-border/60 bg-background/50 px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/60 hover:text-primary"
             >
               {chip.label}
             </Link>
@@ -1374,11 +1371,11 @@ function AmbientPulsePanel({
       )}
     >
       <div className="flex items-center justify-between gap-3">
-        <span className="text-[0.7rem] font-medium tracking-tight text-muted-foreground">
+        <span className="text-xs font-medium tracking-tight text-muted-foreground">
           Recent activity
         </span>
         {isFetching && !isLoading && (
-          <RefreshCw className="size-3 animate-spin text-muted-foreground/60" />
+          <RefreshCw className="size-3.5 animate-spin text-muted-foreground/60" />
         )}
       </div>
 
@@ -1407,7 +1404,7 @@ function PulseChangeRow({ event }: { event: PulseEvent }) {
   const Icon = getPulseIcon(event.contextType, event.action);
 
   return (
-    <div className="flex items-center gap-2.5">
+    <div className="flex min-w-0 items-center gap-2.5">
       <div className="relative flex size-7 shrink-0 items-center justify-center">
         {event.imageUrl ? (
           <img
@@ -1422,13 +1419,13 @@ function PulseChangeRow({ event }: { event: PulseEvent }) {
         )}
       </div>
 
-      <span className="truncate text-[0.78rem] text-foreground/85">{event.title}</span>
-      <span className="shrink-0 text-[0.62rem] tabular-nums text-muted-foreground/70">
+      <span className="min-w-0 flex-1 truncate text-sm text-foreground/85">{event.title}</span>
+      <span className="shrink-0 text-xs tabular-nums text-muted-foreground/70">
         {event.badge.toLowerCase()}
       </span>
       <span
         suppressHydrationWarning
-        className="shrink-0 ml-auto text-[0.62rem] tabular-nums text-muted-foreground/60"
+        className="ml-auto shrink-0 text-xs tabular-nums text-muted-foreground/60"
       >
         {timeAgo(new Date(event.timestamp))}
       </span>

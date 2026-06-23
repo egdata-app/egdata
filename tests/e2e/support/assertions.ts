@@ -12,6 +12,15 @@ export async function expectMainReady(page: Page) {
   await expectNoAppError(page);
 }
 
+export async function expectNoPageHorizontalOverflow(page: Page) {
+  const overflow = await page.evaluate(() => {
+    const root = document.documentElement;
+    return root.scrollWidth - root.clientWidth;
+  });
+
+  expect(overflow).toBeLessThanOrEqual(2);
+}
+
 export async function waitForApiResponse(
   page: Page,
   urlPart: string | RegExp,
@@ -43,7 +52,10 @@ export async function waitForSearchResponse(page: Page) {
 
 export async function expectSearchResultsReady(page: Page) {
   await expect(
-    page.getByRole("link", { name: /^Open offer / }).first().or(page.getByText("No results found")),
+    page
+      .getByRole("link", { name: /^Open offer / })
+      .first()
+      .or(page.getByText("No results found")),
   ).toBeVisible({ timeout: 30_000 });
   await expectNoAppError(page);
 }
