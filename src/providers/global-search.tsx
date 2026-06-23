@@ -338,6 +338,7 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
                 {!query && (
                   <CommandGroup heading="Quick links">
                     <SearchActionItem
+                      value="action:browse-catalog"
                       icon={SearchIcon}
                       title="Browse catalog"
                       description="Open the advanced offer search"
@@ -345,6 +346,7 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
                       onSelect={() => openFullSearch()}
                     />
                     <SearchActionItem
+                      value="action:discounts"
                       icon={Tag}
                       title="Discounts"
                       description="Show offers that are currently on sale"
@@ -352,6 +354,7 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
                       onSelect={openDiscounts}
                     />
                     <SearchActionItem
+                      value="action:free-games"
                       icon={Gift}
                       title="Free games"
                       description="Open current and past giveaways"
@@ -359,6 +362,7 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
                       onSelect={openFreebies}
                     />
                     <SearchActionItem
+                      value="action:sales"
                       icon={CalendarDays}
                       title="Sales"
                       description="Open sale events"
@@ -378,6 +382,7 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
                   <>
                     <CommandGroup heading={`Results for "${query}"`}>
                       <SearchActionItem
+                        value={`action:search-offers:${query}`}
                         icon={SearchIcon}
                         title={`Search all offers for "${query}"`}
                         description="Open the full catalog with filters"
@@ -460,12 +465,14 @@ function SearchPortal({ searchState, setSearchState, inputRef }: SearchPortalPro
 }
 
 function SearchActionItem({
+  value,
   icon: Icon,
   title,
   description,
   label,
   onSelect,
 }: {
+  value: string;
   icon: LucideIcon;
   title: string;
   description: string;
@@ -474,9 +481,10 @@ function SearchActionItem({
 }) {
   return (
     <CommandItem
-      value={`${label} ${title} ${description}`}
+      value={value}
+      keywords={[label, title, description]}
       onSelect={onSelect}
-      className="flex min-h-14 items-center gap-3 rounded-md px-3 py-2"
+      className="flex min-h-14 w-full max-w-full min-w-0 items-center gap-3 overflow-hidden rounded-md px-3 py-2"
     >
       <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground">
         <Icon className="h-4 w-4" />
@@ -547,9 +555,10 @@ function OfferResultItem({
 
   return (
     <CommandItem
-      value={`offer ${offer.title} ${offer.seller?.name ?? ""}`}
+      value={`offer:${offer.id}`}
+      keywords={[offer.title, offer.seller?.name ?? ""]}
       onSelect={onSelect}
-      className="flex min-h-16 items-center gap-3 rounded-md px-3 py-2"
+      className="flex min-h-16 w-full max-w-full min-w-0 items-center gap-3 overflow-hidden rounded-md px-3 py-2"
     >
       <ResultImage
         src={
@@ -568,7 +577,7 @@ function OfferResultItem({
           {offer.seller?.name ?? "Epic Games Store offer"}
         </span>
       </span>
-      <span className="ml-2 flex shrink-0 items-center gap-2">
+      <span className="ml-2 flex min-w-0 shrink-0 items-center gap-2 overflow-hidden">
         {offer.prePurchase && (
           <Badge variant="secondary" className="hidden sm:inline-flex">
             Pre-purchase
@@ -596,9 +605,10 @@ function ItemResultItem({ item, onSelect }: { item: SingleItem; onSelect: () => 
 
   return (
     <CommandItem
-      value={`item ${item.title} ${item.namespace}`}
+      value={`item:${item._id || item.id}`}
+      keywords={[item.title, item.namespace]}
       onSelect={onSelect}
-      className="flex min-h-16 items-center gap-3 rounded-md px-3 py-2"
+      className="flex min-h-16 w-full max-w-full min-w-0 items-center gap-3 overflow-hidden rounded-md px-3 py-2"
     >
       <ResultImage
         src={getImage(item.keyImages, ["DieselGameBoxWide", "DieselGameBox"])?.url}
@@ -626,9 +636,10 @@ function ItemResultItem({ item, onSelect }: { item: SingleItem; onSelect: () => 
 function SellerResultItem({ seller, onSelect }: { seller: SingleSeller; onSelect: () => void }) {
   return (
     <CommandItem
-      value={`seller ${seller.name}`}
+      value={`seller:${seller._id}`}
+      keywords={[seller.name]}
       onSelect={onSelect}
-      className="flex min-h-16 items-center gap-3 rounded-md px-3 py-2"
+      className="flex min-h-16 w-full max-w-full min-w-0 items-center gap-3 overflow-hidden rounded-md px-3 py-2"
     >
       <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-md bg-muted">
         {seller.logo?.url ? (
@@ -663,9 +674,9 @@ function ResultImage({ src, alt }: { src?: string; alt: string }) {
       <Image
         src={src ?? "/placeholder.webp"}
         alt={alt}
-        height={44}
-        width={44}
-        quality="low"
+        height={88}
+        width={88}
+        quality="high"
         sizes="44px"
         className="h-full w-full object-cover"
       />
