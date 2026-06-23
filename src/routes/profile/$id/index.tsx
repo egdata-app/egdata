@@ -506,7 +506,7 @@ function LibraryView({
         <div className="flex items-center gap-2">
           <FilterIcon className="size-4 text-muted-foreground" />
           <Select value={search.sort} onValueChange={(value) => onSortChange(value as SearchSort)}>
-            <SelectTrigger className="w-[180px] rounded-md">
+            <SelectTrigger className="w-[180px] rounded-md" aria-label="Sort library">
               <SelectValue placeholder="Sort by" />
             </SelectTrigger>
             <SelectContent>
