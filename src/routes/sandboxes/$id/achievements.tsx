@@ -3,7 +3,7 @@ import {
   type rarities,
   raritiesTextColors,
 } from "@/components/app/achievement-card";
-import { SandboxHeader } from "@/components/app/sandbox-header";
+import { formatSandboxCount, SandboxPageHeader } from "@/components/app/sandbox-layout";
 import { EpicTrophyIcon } from "@/components/icons/epic-trophy";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -122,22 +122,9 @@ function SandboxAchievementsPage() {
     queryKey: ["sandbox", "achievements", { id }],
     queryFn: () => httpClient.get<AchievementSet[]>(`/sandboxes/${id}/achievements`),
   });
-  const { data: offer } = useQuery({
-    queryKey: ["sandbox", "base-game", { id }],
-    queryFn: () => httpClient.get<SingleOffer>(`/sandboxes/${id}/base-game`),
-    retry: false,
-  });
-  const { data: sandbox } = useQuery({
-    queryKey: ["sandbox", { id }],
-    queryFn: () => httpClient.get<SingleSandbox>(`/sandboxes/${id}`),
-  });
-
-  if (!achievements) {
-    return null;
-  }
 
   const noOfAchievemenentsPerRarity = useMemo(() => {
-    return achievements
+    return (achievements ?? [])
       .flatMap((set) => set.achievements)
       .reduce(
         (acc, achievement) => {
@@ -149,43 +136,81 @@ function SandboxAchievementsPage() {
       );
   }, [achievements]);
 
+  const totalAchievements = useMemo(() => {
+    return (achievements ?? []).flatMap((set) => set.achievements).length;
+  }, [achievements]);
+
+  const baseAchievements = useMemo(() => {
+    return (achievements ?? []).filter((set) => set.isBase).flatMap((set) => set.achievements)
+      .length;
+  }, [achievements]);
+
+  const totalXp = useMemo(() => {
+    return (achievements ?? [])
+      .flatMap((set) => set.achievements)
+      .reduce((acc, achievement) => acc + achievement.xp, 0);
+  }, [achievements]);
+
+  if (!achievements) {
+    return (
+      <div className="flex flex-col gap-6 w-full">
+        <SandboxPageHeader
+          icon={EpicTrophyIcon}
+          eyebrow="Progression"
+          title="Achievements"
+          description="Achievement sets, hidden states, rarity distribution, and XP totals attached to this sandbox."
+          stats={[
+            { label: "Sets", value: "Loading" },
+            { label: "Achievements", value: "Loading" },
+            { label: "XP", value: "Loading" },
+          ]}
+        />
+        <div className="h-64 animate-pulse rounded-md bg-muted" />
+      </div>
+    );
+  }
+
   return (
-    <main className="flex flex-col items-start justify-start h-full gap-4 px-4 w-full">
-      <SandboxHeader
-        title={offer?.title ?? sandbox?.displayName ?? (sandbox?.name as string)}
-        section="achievements"
-        id={id}
-        sandbox={id}
-      />
+    <div className="flex flex-col gap-6 w-full">
+      <SandboxPageHeader
+        icon={EpicTrophyIcon}
+        eyebrow="Progression"
+        title="Achievements"
+        description="Achievement sets, hidden states, rarity distribution, and XP totals attached to this sandbox."
+        stats={[
+          { label: "Achievements", value: formatSandboxCount(totalAchievements) },
+          { label: "Sets", value: formatSandboxCount(achievements.length) },
+          { label: "XP", value: formatSandboxCount(totalXp) },
+        ]}
+      >
+        <Input
+          className="h-8 w-full min-w-44 sm:w-64"
+          placeholder="Search achievements"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={handleFlipAll}
+          disabled={achievements.length === 0}
+        >
+          <CardStackIcon className="size-4" />
+          <span>Flip all</span>
+        </Button>
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => setBlur(!blur)}
+          disabled={achievements.length === 0}
+          aria-label={blur ? "Reveal hidden achievement text" : "Hide hidden achievement text"}
+        >
+          {blur ? <EyeOpenIcon className="size-4" /> : <EyeClosedIcon className="size-4" />}
+        </Button>
+      </SandboxPageHeader>
       <div className="flex flex-col gap-4 w-full">
-        <div className="inline-flex w-full justify-between items-center">
-          <h1 className="text-2xl font-bold">Achievements</h1>
-          <div className="flex gap-2">
-            <Input
-              className="w-full"
-              placeholder="Search"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-            <Button
-              className="hover:bg-transparent border border-border/60 bg-muted inline-flex px-4 py-2 rounded-md text-center transition-all duration-300 ease-in-out text-foreground"
-              onClick={handleFlipAll}
-              disabled={achievements.length === 0}
-            >
-              <CardStackIcon className="w-6 h-6 mr-2" />
-              Flip All
-            </Button>
-            <Button
-              className="hover:bg-transparent border border-border/60 bg-muted inline-flex px-4 py-2 rounded-md text-center transition-all duration-300 ease-in-out text-foreground"
-              onClick={() => setBlur(!blur)}
-              disabled={achievements.length === 0}
-            >
-              {blur ? <EyeOpenIcon className="w-6 h-6" /> : <EyeClosedIcon className="w-6 h-6" />}
-            </Button>
-          </div>
-        </div>
         <Card className="w-full bg-card text-foreground p-4">
-          <div className="flex flex-row items-center justify-center gap-10">
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-5">
             {Object.entries(noOfAchievemenentsPerRarity).map(([rarity, count]) => (
               <div
                 key={rarity}
@@ -202,25 +227,22 @@ function SandboxAchievementsPage() {
                 <span className="text-xl font-bold">{count}</span>
               </div>
             ))}
-            <span className="text-2xl font-bold">{"="}</span>
             <div
               className={cn(
                 "flex flex-col items-center justify-center gap-2 rounded-md p-4 text-center",
               )}
             >
               <EpicTrophyIcon className={cn("size-8", raritiesTextColors.platinum)} />
-              <span className="text-2xl font-bold">
-                {achievements.filter((set) => set.isBase).flatMap((set) => set.achievements).length}
-              </span>
+              <span className="text-2xl font-bold">{baseAchievements}</span>
             </div>
           </div>
         </Card>
-        {achievements
+        {[...achievements]
           .sort((a, b) => (a.isBase ? -1 : b.isBase ? 1 : 0))
           .map((achievementSet) => (
             <div key={achievementSet.achievementSetId}>
               <TooltipProvider>
-                <div className="w-full justify-between items-center flex flex-row">
+                <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                   <Tooltip>
                     <TooltipTrigger>
                       <h4 className="text-xl font-thin underline decoration-dotted decoration-border/60 underline-offset-4">
@@ -317,6 +339,6 @@ function SandboxAchievementsPage() {
           </div>
         )}
       </div>
-    </main>
+    </div>
   );
 }

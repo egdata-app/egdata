@@ -105,9 +105,19 @@ function PerformanceCard({ position, change, date, hasPrevious }: PerformanceCar
       <TooltipContent>{changeAriaLabel(change)}</TooltipContent>
     </Tooltip>
   ) : (
-    <span className="inline-flex w-fit items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
-      No prior data
-    </span>
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <span
+          tabIndex={0}
+          role="status"
+          aria-label="No prior data"
+          className="inline-flex w-fit items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground"
+        >
+          <Minus className="size-3.5" />
+        </span>
+      </TooltipTrigger>
+      <TooltipContent>No prior data</TooltipContent>
+    </Tooltip>
   );
 
   return (

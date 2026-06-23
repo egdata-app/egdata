@@ -293,7 +293,7 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
       </head>
       <body className="antialiased">
         <GlobalBackground />
-        <div className="md:container mx-auto overflow-x-hidden">
+        <div className="md:container relative z-[1] mx-auto overflow-x-hidden">
           <LocaleProvider initialLocale={locale} initialTimezone={timezone}>
             <CountryProvider defaultCountry={country || "US"}>
               <CompareProvider>
@@ -315,7 +315,7 @@ function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
                       className="h-px w-full"
                       style={{
                         background:
-                          "linear-gradient(to right, transparent, hsl(211 100% 52% / 0.4), transparent)",
+                          "linear-gradient(to right, transparent, hsl(199 100% 50% / 0.28), transparent)",
                       }}
                     />
                     <div className="py-8 px-4 md:px-6">

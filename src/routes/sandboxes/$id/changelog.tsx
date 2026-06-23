@@ -1,6 +1,6 @@
 import { ChangeTracker } from "@/components/app/changelog/item";
 import { DynamicPagination } from "@/components/app/dynamic-pagination";
-import { SandboxHeader } from "@/components/app/sandbox-header";
+import { formatSandboxCount, SandboxPageHeader } from "@/components/app/sandbox-layout";
 import { getQueryClient } from "@/lib/client";
 import { generateSandboxMeta } from "@/lib/generate-sandbox-meta";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
@@ -11,6 +11,7 @@ import type { SingleSandbox } from "@/types/single-sandbox";
 import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import { FileClock } from "lucide-react";
 import { useState } from "react";
 
 interface ChangelogResponse {
@@ -151,27 +152,40 @@ function RouteComponent() {
         })
         .catch(() => null),
   });
-  const { data: baseGame } = useQuery({
-    queryKey: ["sandbox", "base-game", { id }],
-    queryFn: () => httpClient.get<SingleOffer>(`/sandboxes/${id}/base-game`),
-    retry: false,
-  });
-  const { data: sandbox } = useQuery({
-    queryKey: ["sandbox", { id }],
-    queryFn: () => httpClient.get<SingleSandbox>(`/sandboxes/${id}`),
-  });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex flex-col gap-6 w-full">
+        <SandboxPageHeader
+          icon={FileClock}
+          eyebrow="Audit trail"
+          title="Changelog"
+          description="Observed changes across this sandbox's offers, items, assets, builds, and related catalog metadata."
+          stats={[
+            { label: "Changes", value: "Loading" },
+            { label: "Query time", value: "Loading" },
+          ]}
+        />
+        <div className="grid grid-cols-1 gap-4 w-full">
+          {Array.from({ length: 5 }).map((_, index) => (
+            <div key={index} className="h-28 animate-pulse rounded-md bg-muted" />
+          ))}
+        </div>
+      </div>
+    );
   }
 
   return (
-    <main className="flex flex-col items-start justify-start h-full gap-4 px-4 w-full">
-      <SandboxHeader
-        title={baseGame?.title ?? sandbox?.displayName ?? (sandbox?.name as string)}
-        section="changelog"
-        id={id}
-        sandbox={id}
+    <div className="flex flex-col gap-6 w-full">
+      <SandboxPageHeader
+        icon={FileClock}
+        eyebrow="Audit trail"
+        title="Changelog"
+        description="Observed changes across this sandbox's offers, items, assets, builds, and related catalog metadata."
+        stats={[
+          { label: "Changes", value: formatSandboxCount(data?.estimatedTotalHits) },
+          { label: "Query time", value: `${data?.processingTimeMs ?? 0} ms` },
+        ]}
       />
       <div className="grid grid-cols-1 gap-4 w-full">
         {data?.hits
@@ -197,6 +211,6 @@ function RouteComponent() {
           setPage={setPage}
         />
       )}
-    </main>
+    </div>
   );
 }

@@ -218,7 +218,7 @@ function RouteComponent() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to top, hsl(222 47% 5%) 0%, hsl(222 47% 5% / 0.5) 40%, hsl(222 47% 5% / 0.3) 100%)",
+              "linear-gradient(to top, hsl(240 11% 7%) 0%, hsl(240 11% 7% / 0.6) 40%, hsl(240 11% 7% / 0.35) 100%)",
           }}
         />
         <div className="absolute inset-x-0 bottom-0 p-6 md:p-10">

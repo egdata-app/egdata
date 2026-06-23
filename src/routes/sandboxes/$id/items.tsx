@@ -1,11 +1,11 @@
 import { httpClient } from "@/lib/http-client";
 import type { SingleItem } from "@/types/single-item";
-import { dehydrate, HydrationBoundary, keepPreviousData, useQueries } from "@tanstack/react-query";
+import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import { formatSandboxCount, SandboxPageHeader } from "@/components/app/sandbox-layout";
 import { DataTable } from "@/components/tables/items/table";
 import { columns } from "@/components/tables/items/columns";
 import type { SingleOffer } from "@/types/single-offer";
-import { SandboxHeader } from "@/components/app/sandbox-header";
 import type { SingleSandbox } from "@/types/single-sandbox";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { getQueryClient } from "@/lib/client";
@@ -13,6 +13,7 @@ import { generateSandboxMeta } from "@/lib/generate-sandbox-meta";
 import { useState } from "react";
 import type { ColumnFiltersState } from "@tanstack/react-table";
 import type { DehydratedState } from "@tanstack/react-query";
+import { LibrarySquareIcon } from "lucide-react";
 
 interface PaginatedResponse<T> {
   elements: T[];
@@ -102,50 +103,32 @@ function SandboxItemsPage() {
   const { id } = Route.useParams();
   const [page, setPage] = useState({ pageIndex: 0, pageSize: 20 });
   const [filters, setFilters] = useState<ColumnFiltersState>([]);
-  const [itemsQuery, baseGameQuery, sandboxQuery] = useQueries({
-    queries: [
-      {
-        queryKey: [
-          "sandbox",
-          "items",
-          { id, page: page.pageIndex + 1, limit: page.pageSize, filters },
-        ],
-        queryFn: () => {
-          const queryParams = new URLSearchParams();
-          queryParams.set("page", (page.pageIndex + 1).toString());
-          queryParams.set("limit", page.pageSize.toString());
-          for (const filter of filters) {
-            queryParams.set(filter.id, filter.value as string);
-          }
-          return httpClient.get<PaginatedResponse<SingleItem>>(`/sandboxes/${id}/items`, {
-            params: Object.fromEntries(queryParams),
-          });
-        },
-        placeholderData: keepPreviousData,
-      },
-      {
-        queryKey: ["sandbox", "base-game", { id }],
-        queryFn: () => httpClient.get<SingleOffer>(`/sandboxes/${id}/base-game`),
-        retry: false,
-      },
-      {
-        queryKey: ["sandbox", { id }],
-        queryFn: () => httpClient.get<SingleSandbox>(`/sandboxes/${id}`),
-      },
-    ],
+  const itemsQuery = useQuery({
+    queryKey: ["sandbox", "items", { id, page: page.pageIndex + 1, limit: page.pageSize, filters }],
+    queryFn: () => {
+      const queryParams = new URLSearchParams();
+      queryParams.set("page", (page.pageIndex + 1).toString());
+      queryParams.set("limit", page.pageSize.toString());
+      for (const filter of filters) {
+        queryParams.set(filter.id, filter.value as string);
+      }
+      return httpClient.get<PaginatedResponse<SingleItem>>(`/sandboxes/${id}/items`, {
+        params: Object.fromEntries(queryParams),
+      });
+    },
+    placeholderData: keepPreviousData,
   });
 
   const { data: itemsData } = itemsQuery;
-  const { data: baseGame } = baseGameQuery;
-  const { data: sandbox } = sandboxQuery;
 
   return (
-    <main className="flex flex-col items-start justify-start h-full gap-4 px-4 w-full">
-      <SandboxHeader
-        title={baseGame?.title ?? sandbox?.displayName ?? (sandbox?.name as string)}
-        section="items"
-        id={id}
-        sandbox={id}
+    <div className="flex flex-col gap-6 w-full">
+      <SandboxPageHeader
+        icon={LibrarySquareIcon}
+        eyebrow="Catalog ownership"
+        title="Items"
+        description="Ownable catalog items contained by offers. These are the records that become player entitlements after a purchase or redemption."
+        stats={[{ label: "Total items", value: formatSandboxCount(itemsData?.count) }]}
       />
       <DataTable
         columns={columns}
@@ -156,6 +139,6 @@ function SandboxItemsPage() {
         filters={filters}
         setFilters={setFilters}
       />
-    </main>
+    </div>
   );
 }

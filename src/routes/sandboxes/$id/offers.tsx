@@ -2,9 +2,9 @@ import { httpClient } from "@/lib/http-client";
 import type { SingleOffer } from "@/types/single-offer";
 import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import { formatSandboxCount, SandboxPageHeader } from "@/components/app/sandbox-layout";
 import { DataTable } from "@/components/tables/offers/table";
 import { columns } from "@/components/tables/offers/columns";
-import { SandboxHeader } from "@/components/app/sandbox-header";
 import type { SingleSandbox } from "@/types/single-sandbox";
 import { getQueryClient } from "@/lib/client";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
@@ -12,6 +12,7 @@ import { generateSandboxMeta } from "@/lib/generate-sandbox-meta";
 import { useState } from "react";
 import type { ColumnFiltersState } from "@tanstack/react-table";
 import type { DehydratedState } from "@tanstack/react-query";
+import { StoreIcon } from "lucide-react";
 
 interface PaginatedResponse<T> {
   elements: T[];
@@ -121,23 +122,14 @@ function SandboxOffersPage() {
     },
     placeholderData: keepPreviousData,
   });
-  const { data: baseGame } = useQuery({
-    queryKey: ["sandbox", "base-game", { id }],
-    queryFn: () => httpClient.get<SingleOffer>(`/sandboxes/${id}/base-game`),
-    retry: false,
-  });
-  const { data: sandbox } = useQuery({
-    queryKey: ["sandbox", { id }],
-    queryFn: () => httpClient.get<SingleSandbox>(`/sandboxes/${id}`),
-  });
-
   return (
-    <main className="flex flex-col items-start justify-start h-full gap-4 px-4 w-full">
-      <SandboxHeader
-        title={baseGame?.title ?? sandbox?.displayName ?? (sandbox?.name as string)}
-        section="offers"
-        id={id}
-        sandbox={id}
+    <div className="flex flex-col gap-6 w-full">
+      <SandboxPageHeader
+        icon={StoreIcon}
+        eyebrow="E-commerce"
+        title="Offers"
+        description="Storefront entries in this sandbox, including base games, editions, DLC, add-ons, bundles, and any offer that can grant catalog items."
+        stats={[{ label: "Total offers", value: formatSandboxCount(offersData?.count) }]}
       />
       <DataTable
         columns={columns}
@@ -148,6 +140,6 @@ function SandboxOffersPage() {
         filters={filters}
         setFilters={setFilters}
       />
-    </main>
+    </div>
   );
 }

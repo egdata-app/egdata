@@ -12,6 +12,14 @@ if (import.meta.env.SSR) {
   dotenv.config();
 }
 
+const authPool = new Pool({
+  connectionString: process.env.NEON_CONNECTION_URI,
+});
+
+authPool.on("error", (err) => {
+  consola.warn("Idle auth pool client error:", err.message);
+});
+
 const discovery = {
   issuer: "https://api.epicgames.dev/epic/oauth/v2",
   authorization_endpoint: "https://www.epicgames.com/id/authorize",
@@ -28,9 +36,7 @@ export const auth = betterAuth({
   logger: {
     level: "debug",
   },
-  database: new Pool({
-    connectionString: process.env.NEON_CONNECTION_URI,
-  }),
+  database: authPool,
   plugins: [
     genericOAuth({
       config: [

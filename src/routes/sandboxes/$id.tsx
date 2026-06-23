@@ -1,23 +1,15 @@
-import { httpClient } from "@/lib/http-client";
-import type { SingleSandbox } from "@/types/single-sandbox";
-import type { DehydratedState } from "@tanstack/react-query";
-import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
-import { createFileRoute, Outlet, useLocation } from "@tanstack/react-router";
-import { SectionsNav } from "@/components/app/offer-sections";
-import {
-  Archive,
-  BoxIcon,
-  CalculatorIcon,
-  LibrarySquareIcon,
-  PackageIcon,
-  StoreIcon,
-} from "lucide-react";
-import type { SingleOffer } from "@/types/single-offer";
+import { SandboxShell } from "@/components/app/sandbox-shell";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { getQueryClient } from "@/lib/client";
-import { EpicTrophyIcon } from "@/components/icons/epic-trophy";
 import { generateSandboxMeta } from "@/lib/generate-sandbox-meta";
+import { sandboxBaseGameQueryOptions, sandboxQueryOptions } from "@/queries/sandbox";
+import { sandboxHubQueryOptions } from "@/queries/sandbox-hub";
 import type { SingleItem } from "@/types/single-item";
+import type { SingleOffer } from "@/types/single-offer";
+import type { SingleSandbox } from "@/types/single-sandbox";
+import type { DehydratedState } from "@tanstack/react-query";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/sandboxes/$id")({
   component: () => {
@@ -28,7 +20,7 @@ export const Route = createFileRoute("/sandboxes/$id")({
 
     return (
       <HydrationBoundary state={dehydratedState}>
-        <SandboxPage />
+        <SandboxShell id={Route.useParams().id} />
       </HydrationBoundary>
     );
   },
@@ -46,20 +38,19 @@ export const Route = createFileRoute("/sandboxes/$id")({
   // @ts-expect-error - loader return type
   beforeLoad: async ({ context, params }) => {
     const { id } = params;
-    const { queryClient } = context;
+    const { country, queryClient } = context;
 
     await Promise.allSettled([
-      queryClient.prefetchQuery({
-        queryKey: ["sandbox", { id }],
-        queryFn: () => httpClient.get<SingleSandbox>(`/sandboxes/${id}`).catch(() => null),
-      }),
-      queryClient.prefetchQuery({
-        queryKey: ["sandbox", "base-game", { id }],
-        queryFn: () =>
-          httpClient
-            .get<SingleOffer | (SingleItem & { isItem: true })>(`/sandboxes/${id}/base-game`)
-            .catch(() => null),
-      }),
+      queryClient.prefetchQuery(sandboxQueryOptions(id)),
+      queryClient.prefetchQuery(sandboxBaseGameQueryOptions(id)),
+      queryClient.prefetchQuery(
+        sandboxHubQueryOptions({
+          id,
+          country: country || "US",
+          offerLimit: 8,
+          updateLimit: 8,
+        }),
+      ),
     ]);
 
     return {
@@ -120,118 +111,3 @@ export const Route = createFileRoute("/sandboxes/$id")({
     };
   },
 });
-
-function SandboxPage() {
-  const { id } = Route.useParams();
-  const navigate = Route.useNavigate();
-  const subPath = useLocation().pathname.split(`/${id}/`)[1];
-  const isHubPage = !subPath;
-  const { data: sandbox } = useQuery({
-    queryKey: ["sandbox", { id }],
-    queryFn: () => httpClient.get<SingleSandbox>(`/sandboxes/${id}`),
-    retry: false,
-  });
-
-  if (isHubPage) {
-    return (
-      <div className="w-full min-h-[75vh]">
-        <Outlet />
-      </div>
-    );
-  }
-
-  if (!sandbox) {
-    return null;
-  }
-
-  return (
-    <div className="flex flex-row items-start justify-start h-full gap-4 px-4 w-full min-h-[75vh]">
-      <aside className="mt-12">
-        <SectionsNav
-          links={[
-            {
-              id: "",
-              label: (
-                <span className="inline-flex items-center gap-2">
-                  <BoxIcon className="size-4" />
-                  <span>Sandbox</span>
-                </span>
-              ),
-              href: `/sandboxes/${id}`,
-            },
-            {
-              id: "items",
-              label: (
-                <span className="inline-flex items-center gap-2">
-                  <LibrarySquareIcon className="size-4" />
-                  <span>Items</span>
-                </span>
-              ),
-              href: `/sandboxes/${id}/items`,
-            },
-            {
-              id: "offers",
-              label: (
-                <span className="inline-flex items-center gap-2">
-                  <StoreIcon className="size-4" />
-                  <span>Offers</span>
-                </span>
-              ),
-              href: `/sandboxes/${id}/offers`,
-            },
-            {
-              id: "assets",
-              label: (
-                <span className="inline-flex items-center gap-2">
-                  <Archive className="size-4" />
-                  <span>Assets</span>
-                </span>
-              ),
-              href: `/sandboxes/${id}/assets`,
-            },
-            {
-              id: "builds",
-              label: (
-                <span className="inline-flex items-center gap-2">
-                  <PackageIcon className="size-4" />
-                  <span>Builds</span>
-                </span>
-              ),
-              href: `/sandboxes/${id}/builds`,
-            },
-            {
-              id: "achievements",
-              label: (
-                <span className="inline-flex items-center gap-2">
-                  <EpicTrophyIcon className="size-4" />
-                  <span>Achievements</span>
-                </span>
-              ),
-              href: `/sandboxes/${id}/achievements`,
-            },
-            {
-              id: "changelog",
-              label: (
-                <span className="inline-flex items-center gap-2">
-                  <CalculatorIcon className="size-4" />
-                  <span>Changelog</span>
-                </span>
-              ),
-              href: `/sandboxes/${id}/changelog`,
-            },
-          ]}
-          activeSection={subPath ?? ""}
-          onSectionChange={(location) => {
-            navigate({
-              to: location ? `/sandboxes/${id}/${location}` : `/sandboxes/${id}`,
-              replace: false,
-              resetScroll: false,
-            });
-          }}
-          orientation="vertical"
-        />
-      </aside>
-      <Outlet />
-    </div>
-  );
-}

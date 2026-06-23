@@ -1,18 +1,15 @@
-import { Image } from "@/components/app/image";
-import { OpenLauncher } from "@/components/app/open-launcher";
 import { OfferCard } from "@/components/app/offer-card";
-import { Badge } from "@/components/ui/badge";
+import {
+  formatSandboxCount,
+  SandboxDataSurface,
+  SandboxPageHeader,
+} from "@/components/app/sandbox-layout";
+import { EpicTrophyIcon } from "@/components/icons/epic-trophy";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
 import { useCountry } from "@/hooks/use-country";
-import { useLocale } from "@/hooks/use-locale";
-import { calculatePrice } from "@/lib/calculate-price";
 import { calculateSize } from "@/lib/calculate-size";
-import { getImage } from "@/lib/get-image";
 import { cn } from "@/lib/utils";
 import { sandboxHubQueryOptions, type SandboxHubData } from "@/queries/sandbox-hub";
-import type { Price } from "@/types/price";
 import type { SingleOffer } from "@/types/single-offer";
 import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
@@ -20,15 +17,12 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { DateTime } from "luxon";
 import {
   Archive,
-  BoxIcon,
-  CalendarDays,
-  Clock3,
-  Gamepad2,
+  ArrowRight,
+  FileClock,
   LibrarySquareIcon,
   PackageIcon,
-  ShoppingBag,
   StoreIcon,
-  Trophy,
+  Workflow,
 } from "lucide-react";
 
 export const Route = createFileRoute("/sandboxes/$id/")({
@@ -40,7 +34,7 @@ export const Route = createFileRoute("/sandboxes/$id/")({
 
     return (
       <HydrationBoundary state={dehydratedState}>
-        <SandboxPage />
+        <SandboxHubPage />
       </HydrationBoundary>
     );
   },
@@ -67,7 +61,7 @@ export const Route = createFileRoute("/sandboxes/$id/")({
   },
 });
 
-function SandboxPage() {
+function SandboxHubPage() {
   const { id } = Route.useParams();
   const { country } = useCountry();
   const {
@@ -89,207 +83,120 @@ function SandboxPage() {
 
   if (isError) {
     return (
-      <main className="mx-auto flex min-h-[60vh] w-full max-w-6xl items-center justify-center px-4">
+      <div className="flex min-h-[40vh] items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-semibold">Sandbox unavailable</h1>
+          <h2 className="text-2xl font-semibold">Sandbox unavailable</h2>
           <p className="mt-2 text-sm text-muted-foreground">The product hub could not be loaded.</p>
         </div>
-      </main>
+      </div>
     );
   }
 
   if (!hub) {
     return (
-      <main className="mx-auto flex min-h-[60vh] w-full max-w-6xl items-center justify-center px-4">
+      <div className="flex min-h-[40vh] items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-semibold">Sandbox not found</h1>
+          <h2 className="text-2xl font-semibold">Sandbox not found</h2>
           <p className="mt-2 text-sm text-muted-foreground">
             No product data exists for this sandbox.
           </p>
         </div>
-      </main>
+      </div>
     );
   }
 
   return (
-    <main className="mx-auto flex w-full max-w-[1500px] flex-col gap-10 px-4 pb-16 md:px-8">
-      <SandboxHero hub={hub} />
-      <Overview hub={hub} />
+    <div className="flex flex-col gap-8">
+      <SandboxPageHeader
+        icon={Workflow}
+        eyebrow="Sandbox"
+        title="Overview"
+        description="A focused map of the storefront, ownership, delivery, and update records for this namespace."
+      >
+        <Button asChild variant="outline" size="sm">
+          <Link to="/sandboxes/$id/changelog" params={{ id: hub.id ?? "" }}>
+            <FileClock className="size-4" />
+            Latest changes
+          </Link>
+        </Button>
+      </SandboxPageHeader>
+
+      <EntityMap hub={hub} />
       <FeaturedOffers offers={hub.featuredOffers} />
       <RecentActivity hub={hub} />
-      <AdvancedLinks hub={hub} />
-    </main>
+    </div>
   );
 }
 
-function SandboxHero({ hub }: { hub: SandboxHubData }) {
-  const title = hub.title || hub.sandbox?.displayName || hub.namespace || "Sandbox";
-  const image = getImage((hub.keyImages ?? []).filter(Boolean) as SingleOffer["keyImages"], [
-    "DieselStoreFrontWide",
-    "OfferImageWide",
-    "DieselGameBoxWide",
-    "TakeoverWide",
-    "Screenshot",
-  ]);
-  const releaseStatus = getReleaseStatus(hub.primaryOffer);
-
-  return (
-    <section className="grid w-full grid-cols-1 gap-8 pt-4 lg:grid-cols-[minmax(0,1fr)_minmax(360px,520px)]">
-      <div className="flex min-w-0 flex-col justify-center gap-5">
-        <div className="flex flex-wrap items-center gap-2">
-          <Badge variant="outline">{hub.primaryKind === "item" ? "Executable" : "Product"}</Badge>
-          {releaseStatus && <Badge variant="secondary">{releaseStatus}</Badge>}
-          {hub.sandbox?.status && <Badge variant="outline">{hub.sandbox.status}</Badge>}
-        </div>
-
-        <div className="space-y-3">
-          <h1 className="text-4xl font-bold leading-tight md:text-5xl">{title}</h1>
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
-            {hub.developer && <span>{hub.developer}</span>}
-            {hub.publisher && (
-              <>
-                <span>/</span>
-                <span>{hub.publisher}</span>
-              </>
-            )}
-            {hub.seller?.id ? (
-              <>
-                <span>/</span>
-                <Link
-                  to="/sellers/$id"
-                  params={{ id: hub.seller.id }}
-                  className="underline decoration-dotted underline-offset-4"
-                >
-                  {hub.seller.name}
-                </Link>
-              </>
-            ) : (
-              hub.seller?.name && (
-                <>
-                  <span>/</span>
-                  <span>{hub.seller.name}</span>
-                </>
-              )
-            )}
-          </div>
-        </div>
-
-        {hub.description && (
-          <p className="max-w-3xl text-base leading-7 text-muted-foreground md:text-lg">
-            {hub.description}
-          </p>
-        )}
-
-        <div className="flex flex-wrap items-center gap-2">
-          {hub.genres?.slice(0, 5).map((genre) => (
-            <Badge key={genre?.id ?? genre?.name} variant="secondary">
-              {genre?.name}
-            </Badge>
-          ))}
-          {hub.platforms?.slice(0, 6).map((platform) => (
-            <Badge key={platform} variant="outline">
-              {platform}
-            </Badge>
-          ))}
-        </div>
-
-        <div className="flex flex-wrap items-center gap-3">
-          <PriceBlock price={hub.price} />
-          {hub.primaryOffer && <StoreActions offer={hub.primaryOffer} />}
-        </div>
-      </div>
-
-      <div className="relative overflow-hidden rounded-lg border bg-card">
-        <Image
-          src={image.url}
-          alt={title}
-          width={900}
-          height={506}
-          quality="high"
-          eager
-          className="aspect-video h-full w-full object-cover"
-        />
-      </div>
-    </section>
-  );
-}
-
-function StoreActions({ offer }: { offer: SingleOffer }) {
-  const storeUrl = getStoreUrl(offer);
-
-  return (
-    <>
-      {storeUrl && (
-        <Button asChild className="h-10 gap-2 rounded-lg">
-          <a href={storeUrl} target="_blank" rel="noopener noreferrer">
-            <ShoppingBag className="size-4" />
-            <span>Store Page</span>
-          </a>
-        </Button>
-      )}
-      <OpenLauncher id={offer.id} />
-    </>
-  );
-}
-
-function getStoreUrl(offer: SingleOffer) {
-  if (offer.namespace === "ue") {
-    const fabListingId = offer.customAttributes?.FabListingId?.value;
-    return fabListingId ? `https://www.fab.com/listings/${fabListingId}` : null;
-  }
-
-  const isBundle = offer.offerType === "BUNDLE";
-  const namespace = isBundle ? "bundles" : "product";
-  const urlType = offer.offerType === "BASE_GAME" ? "product" : "url";
-  const slug =
-    offer.customAttributes?.["com.epicgames.app.productSlug"]?.value ??
-    offer.offerMappings?.[0]?.pageSlug ??
-    offer.urlSlug ??
-    (urlType === "product" ? offer.productSlug : offer.urlSlug);
-
-  if (!slug) {
-    return null;
-  }
-
-  return `/store/${namespace}/${slug.replaceAll("-pp", "")}?id=${offer.id}&ns=${offer.namespace}`;
-}
-
-function Overview({ hub }: { hub: SandboxHubData }) {
-  const metadata = [
+function EntityMap({ hub }: { hub: SandboxHubData }) {
+  const entities = [
     {
-      icon: CalendarDays,
-      label: "Release",
-      value: formatDate(hub.primaryOffer?.releaseDate),
+      label: "Offers",
+      value: hub.stats?.offers,
+      description: "Store entries",
+      icon: StoreIcon,
+      to: "/sandboxes/$id/offers",
     },
     {
-      icon: Clock3,
-      label: "Updated",
-      value: formatDate(hub.updated),
+      label: "Items",
+      value: hub.stats?.items,
+      description: "Ownable records",
+      icon: LibrarySquareIcon,
+      to: "/sandboxes/$id/items",
     },
     {
-      icon: Gamepad2,
-      label: "Platforms",
-      value: hub.platforms?.length ? hub.platforms.join(", ") : "N/A",
+      label: "Assets",
+      value: hub.stats?.assets,
+      description: "Artifacts and media",
+      icon: Archive,
+      to: "/sandboxes/$id/assets",
     },
     {
-      icon: Trophy,
+      label: "Builds",
+      value: hub.stats?.builds,
+      description: "Binary bundles",
+      icon: PackageIcon,
+      to: "/sandboxes/$id/builds",
+    },
+    {
       label: "Achievements",
-      value: hub.achievements?.total ? `${hub.achievements.total} achievements` : "N/A",
+      value: hub.stats?.achievements,
+      description: "Progression data",
+      icon: EpicTrophyIcon,
+      to: "/sandboxes/$id/achievements",
+    },
+    {
+      label: "Changelog",
+      value: null,
+      description: "Tracked updates",
+      icon: FileClock,
+      to: "/sandboxes/$id/changelog",
     },
   ];
 
   return (
-    <section className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
-      {metadata.map((item) => (
-        <Card key={item.label} className="rounded-lg">
-          <CardContent className="flex items-start gap-3 p-5">
-            <item.icon className="mt-1 size-5 text-muted-foreground" />
-            <div className="min-w-0">
-              <div className="text-sm text-muted-foreground">{item.label}</div>
-              <div className="mt-1 break-words text-lg font-semibold">{item.value}</div>
+    <section className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+      {entities.map((entity) => (
+        <Link
+          key={entity.label}
+          to={entity.to}
+          params={{ id: hub.id ?? "" }}
+          className="group rounded-md border border-border/60 bg-card/75 p-4 transition-colors hover:border-primary/40 hover:bg-muted/35"
+        >
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex min-w-0 items-center gap-3">
+              <entity.icon className="size-4 text-primary" />
+              <div className="min-w-0">
+                <div className="font-medium">{entity.label}</div>
+                <div className="mt-0.5 text-xs text-muted-foreground">{entity.description}</div>
+              </div>
             </div>
-          </CardContent>
-        </Card>
+            <ArrowRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-primary" />
+          </div>
+          <div className="mt-5 text-2xl font-semibold">
+            {typeof entity.value === "number" ? formatSandboxCount(entity.value) : "View"}
+          </div>
+        </Link>
       ))}
     </section>
   );
@@ -301,20 +208,23 @@ function FeaturedOffers({ offers }: { offers: SingleOffer[] }) {
   }
 
   return (
-    <section className="flex flex-col gap-4">
-      <SectionHeading title="Offers and Editions" />
+    <SandboxDataSurface
+      title="Storefront offers"
+      description="Representative store entries found in this sandbox."
+      badge={`${formatSandboxCount(offers.length)} shown`}
+    >
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {offers.map((offer) => (
           <OfferCard key={offer.id} offer={offer} size="sm" />
         ))}
       </div>
-    </section>
+    </SandboxDataSurface>
   );
 }
 
 function RecentActivity({ hub }: { hub: SandboxHubData }) {
-  const recentBuilds = (hub.recentBuilds ?? []).filter((build) => build?._id).slice(0, 5);
-  const recentChanges = (hub.recentChanges ?? []).filter((change) => change?._id).slice(0, 5);
+  const recentBuilds = (hub.recentBuilds ?? []).filter((build) => build?._id).slice(0, 3);
+  const recentChanges = (hub.recentChanges ?? []).filter((change) => change?._id).slice(0, 3);
   const hasBuilds = recentBuilds.length > 0;
   const hasChanges = recentChanges.length > 0;
 
@@ -325,8 +235,11 @@ function RecentActivity({ hub }: { hub: SandboxHubData }) {
   return (
     <section className="grid grid-cols-1 gap-6 lg:grid-cols-2">
       {hasBuilds && (
-        <div className="flex flex-col gap-3">
-          <SectionHeading title="Recent Builds" />
+        <SandboxDataSurface
+          title="Recent builds"
+          description="Newest binary records."
+          badge={`${recentBuilds.length} latest`}
+        >
           <div className="flex flex-col gap-2">
             {recentBuilds.map((build) => {
               if (!build?._id) {
@@ -338,7 +251,7 @@ function RecentActivity({ hub }: { hub: SandboxHubData }) {
                   key={build._id}
                   to="/builds/$id"
                   params={{ id: build._id }}
-                  className="flex items-center justify-between gap-4 rounded-lg border bg-card p-4 transition-colors hover:bg-muted/40"
+                  className="group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 rounded-md border border-border/60 bg-card/75 p-4 transition-colors hover:border-primary/40 hover:bg-muted/35"
                 >
                   <div className="min-w-0">
                     <div className="truncate font-medium">
@@ -356,12 +269,15 @@ function RecentActivity({ hub }: { hub: SandboxHubData }) {
               );
             })}
           </div>
-        </div>
+        </SandboxDataSurface>
       )}
 
       {hasChanges && (
-        <div className="flex flex-col gap-3">
-          <SectionHeading title="Recent Changes" />
+        <SandboxDataSurface
+          title="Recent changes"
+          description="Latest catalog mutations."
+          badge={`${recentChanges.length} latest`}
+        >
           <div className="flex flex-col gap-2">
             {recentChanges.map((change) => {
               if (!change?._id) {
@@ -375,14 +291,17 @@ function RecentActivity({ hub }: { hub: SandboxHubData }) {
                   key={change._id}
                   to="/sandboxes/$id/changelog"
                   params={{ id: hub.id ?? "" }}
-                  className="flex items-center justify-between gap-4 rounded-lg border bg-card p-4 transition-colors hover:bg-muted/40"
+                  className="group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 rounded-md border border-border/60 bg-card/75 p-4 transition-colors hover:border-primary/40 hover:bg-muted/35"
                 >
                   <div className="min-w-0">
-                    <div className="truncate font-medium">
-                      {change?.metadata?.contextType || "Change"}
-                      {firstChange?.field ? ` - ${firstChange.field}` : ""}
+                    <div className="flex items-center gap-2">
+                      <ChangeTypeBadge value={firstChange?.changeType} />
+                      <div className="truncate font-medium">
+                        {formatContextType(change?.metadata?.contextType)}
+                        {firstChange?.field ? ` - ${firstChange.field}` : ""}
+                      </div>
                     </div>
-                    <div className="mt-1 truncate text-sm text-muted-foreground">
+                    <div className="mt-1 truncate font-mono text-xs text-muted-foreground">
                       {change?.metadata?.contextId}
                     </div>
                   </div>
@@ -393,127 +312,46 @@ function RecentActivity({ hub }: { hub: SandboxHubData }) {
               );
             })}
           </div>
-        </div>
+        </SandboxDataSurface>
       )}
     </section>
   );
 }
 
-function AdvancedLinks({ hub }: { hub: SandboxHubData }) {
-  const stats = hub.stats;
-  const links = [
-    { label: "Offers", value: stats?.offers, to: "/sandboxes/$id/offers", icon: StoreIcon },
-    { label: "Items", value: stats?.items, to: "/sandboxes/$id/items", icon: LibrarySquareIcon },
-    { label: "Assets", value: stats?.assets, to: "/sandboxes/$id/assets", icon: Archive },
-    { label: "Builds", value: stats?.builds, to: "/sandboxes/$id/builds", icon: PackageIcon },
-    {
-      label: "Achievements",
-      value: stats?.achievements,
-      to: "/sandboxes/$id/achievements",
-      icon: Trophy,
-    },
-    { label: "Changelog", value: null, to: "/sandboxes/$id/changelog", icon: BoxIcon },
-  ];
-
+function ChangeTypeBadge({ value }: { value: string | null | undefined }) {
   return (
-    <section className="flex flex-col gap-4">
-      <SectionHeading title="Advanced Data" />
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
-        {links.map((link) => (
-          <Link
-            key={link.label}
-            to={link.to}
-            params={{ id: hub.id ?? "" }}
-            className="rounded-lg border bg-card p-4 transition-colors hover:bg-muted/40"
-          >
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <link.icon className="size-4" />
-              <span>{link.label}</span>
-            </div>
-            <div className="mt-3 text-2xl font-semibold">
-              {typeof link.value === "number" ? link.value.toLocaleString("en-GB") : "View"}
-            </div>
-          </Link>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function PriceBlock({ price }: { price: Price | null }) {
-  const { locale } = useLocale();
-
-  if (!price) {
-    return null;
-  }
-
-  const formatter = new Intl.NumberFormat(locale, {
-    style: "currency",
-    currency: price.price.currencyCode || "USD",
-  });
-  const discountPrice = calculatePrice(price.price.discountPrice ?? 0, price.price.currencyCode);
-  const originalPrice = calculatePrice(price.price.originalPrice ?? 0, price.price.currencyCode);
-  const discounted = (price.price.discount ?? 0) > 0 && originalPrice > discountPrice;
-  const discountPercent = discounted
-    ? Math.round(((originalPrice - discountPrice) / originalPrice) * 100)
-    : 0;
-
-  return (
-    <div className="flex h-10 items-center gap-3 rounded-lg border bg-card px-4">
-      <span className={cn("text-lg font-semibold", discounted && "text-primary")}>
-        {discountPrice === 0 ? "Free" : formatter.format(discountPrice)}
-      </span>
-      {discounted && (
-        <>
-          <span className="text-sm text-muted-foreground line-through">
-            {formatter.format(originalPrice)}
-          </span>
-          <Badge className="bg-badge text-black">-{discountPercent}%</Badge>
-        </>
+    <span
+      className={cn(
+        "rounded-sm px-1.5 py-0.5 text-[11px] font-semibold uppercase leading-none",
+        value === "insert" && "bg-emerald-500/15 text-emerald-300",
+        value === "delete" && "bg-destructive/15 text-destructive",
+        value !== "insert" && value !== "delete" && "bg-primary/15 text-primary",
       )}
-    </div>
+    >
+      {value ?? "update"}
+    </span>
   );
-}
-
-function SectionHeading({ title }: { title: string }) {
-  return <h2 className="text-2xl font-semibold">{title}</h2>;
 }
 
 function SandboxHubSkeleton() {
   return (
-    <main className="mx-auto flex w-full max-w-[1500px] flex-col gap-8 px-4 pb-16 md:px-8">
-      <section className="grid grid-cols-1 gap-8 pt-4 lg:grid-cols-[minmax(0,1fr)_minmax(360px,520px)]">
-        <div className="flex flex-col gap-4">
-          <Skeleton className="h-8 w-48" />
-          <Skeleton className="h-14 w-3/4" />
-          <Skeleton className="h-24 w-full max-w-3xl" />
-          <Skeleton className="h-10 w-96" />
-        </div>
-        <Skeleton className="aspect-video w-full rounded-lg" />
-      </section>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
-        {Array.from({ length: 4 }).map((_, index) => (
-          <Skeleton key={index} className="h-28 rounded-lg" />
+    <div className="flex flex-col gap-8">
+      <div className="h-44 animate-pulse rounded-md border border-border/60 bg-card/75" />
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+        {Array.from({ length: 6 }).map((_, index) => (
+          <div key={index} className="h-28 animate-pulse rounded-md bg-muted" />
         ))}
       </div>
-    </main>
+    </div>
   );
 }
 
-function getReleaseStatus(offer: SingleOffer | null) {
-  if (!offer) {
-    return null;
+function formatContextType(value: string | null | undefined) {
+  if (!value) {
+    return "Change";
   }
 
-  if (offer.prePurchase) {
-    return "Pre-purchase";
-  }
-
-  if (!offer.releaseDate || offer.releaseDate.includes("2099")) {
-    return "Date pending";
-  }
-
-  return new Date(offer.releaseDate) > new Date() ? "Coming soon" : "Released";
+  return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
 function formatDate(value: string | null | undefined) {

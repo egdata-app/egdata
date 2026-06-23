@@ -18,17 +18,16 @@ import { getOffersWithAchievements } from "@/queries/offers-with-achievements";
 import { getStats } from "@/queries/stats";
 import { getTopSellers } from "@/queries/top-sellers";
 import type { GiveawayOffer } from "@/types/giveaways";
-import type { KeyImage, SingleOffer } from "@/types/single-offer";
+import type { KeyImage } from "@/types/single-offer";
 import type { SingleItem } from "@/types/single-item";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { createFileRoute, Link, type LinkComponentProps } from "@tanstack/react-router";
 import type { JSX, ReactNode } from "react";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { DateTime } from "luxon";
 import { getGiveawaysStats, GiveawaysStats } from "@/components/modules/giveaway-stats";
 import { cn } from "@/lib/utils";
 import { calculatePrice } from "@/lib/calculate-price";
-import { getFeaturedDiscounts } from "@/queries/featured-discounts";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import {
   Dialog,
@@ -37,7 +36,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Sparkles, TrendingUp } from "lucide-react";
+import {
+  Box,
+  Package,
+  Radio,
+  RefreshCw,
+  Search,
+  Sparkles,
+  Tag,
+  TrendingUp,
+  Trophy,
+  Zap,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Image } from "@/components/app/image";
 import buildImageUrl, { buildSrcSet } from "@/lib/build-image-url";
@@ -45,7 +55,6 @@ import { getImage } from "@/lib/get-image";
 import { getOfferOverview } from "@/queries/offer-overview";
 import { formatTimeToHumanReadable } from "@/lib/time-to-human-readable";
 import { Countdown } from "@/components/ui/countdown";
-import { Search } from "lucide-react";
 import { useSearch } from "@/hooks/use-search";
 import { getBuilds } from "@/queries/get-builds";
 import { calculateSize } from "@/lib/calculate-size";
@@ -57,6 +66,72 @@ import { raritiesTextColors } from "@/components/app/achievement-card";
 import { mergeFreebies } from "@/utils/merge-freebies";
 import { RenderTextPlatformIcon } from "@/components/app/platform-icons";
 import { TruncatedText } from "@/lib/truncate-text";
+import { timeAgo } from "@/lib/time-ago";
+
+type LiveChangeAction = "insert" | "update" | "delete" | string;
+
+type LiveChangeDelta = {
+  changeType: LiveChangeAction;
+  field: string;
+  newValue: unknown;
+  oldValue: unknown;
+};
+
+type LiveChangeContext = {
+  _id?: string;
+  id?: string;
+  namespace?: string;
+  title?: string;
+  keyImages?: KeyImage[];
+  offerType?: string;
+  appName?: string;
+  buildVersion?: string;
+  name?: string;
+};
+
+type LiveChangeEvent = {
+  _id: string;
+  timestamp: string;
+  metadata: {
+    changes: LiveChangeDelta[];
+    contextId: string;
+    contextType: string;
+    context?: LiveChangeContext | null;
+  };
+  __v?: number;
+};
+
+type PulseEvent = {
+  id: string;
+  timestamp: string;
+  contextType: string;
+  action: LiveChangeAction;
+  badge: string;
+  title: string;
+  detail: string;
+  changeCount: number;
+  imageUrl?: string;
+};
+
+const liveChangelistBaseQueryOptions = () => ({
+  queryKey: ["changelist", "home-pulse"] as const,
+  queryFn: () =>
+    httpClient.get<LiveChangeEvent[]>("/changelist", {
+      params: {
+        limit: 12,
+      },
+    }),
+  staleTime: 10_000,
+});
+
+const liveChangelistQueryOptions = () => ({
+  ...liveChangelistBaseQueryOptions(),
+  placeholderData: [] as LiveChangeEvent[],
+  refetchInterval: 25_000,
+  refetchIntervalInBackground: false,
+  refetchOnWindowFocus: true,
+  retry: 1,
+});
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
@@ -103,11 +178,7 @@ export const Route = createFileRoute("/")({
         queryKey: ["giveaways-stats", { country }],
         queryFn: () => getGiveawaysStats({ country: country ?? "US" }).catch(() => null),
       }),
-      queryClient.prefetchQuery({
-        queryKey: ["featured-discounts", { country }],
-        queryFn: () =>
-          getFeaturedDiscounts({ country: country ?? "US", limit: 10 }).catch(() => []),
-      }),
+      queryClient.prefetchQuery(liveChangelistBaseQueryOptions()),
       queryClient.prefetchQuery(getBuilds({ sortDir: "desc", sortBy: "createdAt" })),
     ]);
   },
@@ -435,7 +506,6 @@ function RouteComponent() {
     topSellersQuery,
     statsQuery,
     latestBuildsQuery,
-    featuredDiscountsQuery,
   ] = useQueries({
     queries: [
       {
@@ -492,13 +562,9 @@ function RouteComponent() {
         }),
         placeholderData: [],
       },
-      {
-        queryKey: ["featured-discounts", { country }],
-        queryFn: () => getFeaturedDiscounts({ country, limit: 10 }),
-        placeholderData: [],
-      },
     ],
   });
+  const liveChangelistQuery = useQuery(liveChangelistQueryOptions());
   const { data: giveawayOffers = [] } = freebiesQuery;
   const { data: upcomingOffers = { elements: [] } } = upcomingQuery;
   const { data: latestOffers = [] } = latestGamesQuery;
@@ -514,7 +580,6 @@ function RouteComponent() {
     },
   } = statsQuery;
   const { data: latestBuilds = [] } = latestBuildsQuery;
-  const { data: featuredDiscounts = [] } = featuredDiscountsQuery;
 
   function formatDate(iso: string) {
     return DateTime.fromISO(iso)
@@ -668,25 +733,13 @@ function RouteComponent() {
 
   return (
     <main className="mx-auto w-full max-w-7xl flex-1 space-y-8 py-6 px-4 sm:px-6 lg:px-8">
-      {/* Search-first hero + Live now strip */}
-      <div className="grid gap-6 grid-cols-1 lg:grid-cols-5">
-        <div className="lg:col-span-3">
-          <SearchHero onSearch={() => setFocus(true)} />
-        </div>
-        <div className="lg:col-span-2">
-          <LiveNowStrip
-            giveawayOffers={giveawayOffers}
-            giveawayLoading={freebiesQuery.isLoading}
-            featuredDiscounts={featuredDiscounts}
-            discountsLoading={featuredDiscountsQuery.isLoading}
-            latestReleasedOffers={latestReleasedOffers}
-            latestReleasedLoading={latestReleasedQuery.isLoading}
-            latestBuilds={latestBuilds}
-            latestBuildsLoading={latestBuildsQuery.isLoading}
-            locale={locale}
-          />
-        </div>
-      </div>
+      <SearchPulseHero
+        onSearch={() => setFocus(true)}
+        changes={liveChangelistQuery.data ?? []}
+        isLoading={liveChangelistQuery.isLoading}
+        isFetching={liveChangelistQuery.isFetching}
+        isError={liveChangelistQuery.isError}
+      />
 
       {/* Stats Bar */}
       <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 py-3 border-y border-border/40 rounded-md bg-card/30 px-4">
@@ -1215,7 +1268,19 @@ function StatDivider() {
   return <span className="h-8 w-px bg-border/50 hidden sm:block" aria-hidden="true" />;
 }
 
-function SearchHero({ onSearch }: { onSearch: () => void }) {
+function SearchPulseHero({
+  onSearch,
+  changes,
+  isLoading,
+  isFetching,
+  isError,
+}: {
+  onSearch: () => void;
+  changes: LiveChangeEvent[];
+  isLoading: boolean;
+  isFetching: boolean;
+  isError: boolean;
+}) {
   const chips: {
     label: string;
     to: LinkComponentProps["to"];
@@ -1230,320 +1295,369 @@ function SearchHero({ onSearch }: { onSearch: () => void }) {
     { label: "Top sellers", to: "/collections/$id", params: { id: "top-sellers" } },
   ];
 
+  const events = useMemo(
+    () =>
+      changes
+        .filter((change) => change.metadata?.changes?.length)
+        .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+        .slice(0, 6)
+        .map(normalizePulseEvent),
+    [changes],
+  );
+
   return (
-    <section className="flex flex-col justify-center h-full min-h-[280px] rounded-lg border border-border/60 bg-card/40 backdrop-blur-sm p-6 md:p-8">
-      <h1 className="text-3xl md:text-5xl font-display font-bold tracking-tight text-foreground">
-        egdata.app
-      </h1>
-      <p className="mt-3 max-w-xl text-muted-foreground">
-        Track prices, discover deals, and never miss a free game. Your companion for the Epic Games
-        Store database — offers, discounts, giveaways, builds, and more.
-      </p>
+    <section className="relative isolate overflow-hidden rounded-md border border-border/60 bg-card/40 p-5 backdrop-blur-sm md:p-6">
+      <div className="pointer-events-none absolute inset-y-5 right-5 z-0 hidden w-[35%] lg:block">
+        <AmbientPulsePanel
+          events={events}
+          isLoading={isLoading}
+          isFetching={isFetching}
+          isError={isError}
+          density="desktop"
+        />
+      </div>
+      <div className="pointer-events-none absolute inset-x-4 bottom-4 z-0 h-32 opacity-10 lg:hidden">
+        <AmbientPulsePanel
+          events={events.slice(0, 3)}
+          isLoading={isLoading}
+          isFetching={isFetching}
+          isError={isError}
+          density="mobile"
+        />
+      </div>
 
-      <button
-        type="button"
-        onClick={onSearch}
-        className="mt-6 w-full max-w-xl inline-flex items-center gap-2 rounded-md border border-border/60 bg-background/60 px-4 py-3 text-left text-sm text-muted-foreground hover:border-primary/60 hover:text-primary transition-colors"
-      >
-        <Search className="size-4" />
-        Search the database…
-      </button>
+      <div className="relative z-10 flex min-h-[260px] max-w-2xl flex-col justify-center lg:min-h-[252px]">
+        <h1 className="text-3xl md:text-4xl font-display font-bold tracking-tight text-foreground">
+          egdata.app
+        </h1>
+        <p className="mt-3 max-w-xl text-muted-foreground">
+          Track prices, discover deals, and never miss a free game. Your companion for the Epic
+          Games Store database — offers, discounts, giveaways, builds, and more.
+        </p>
 
-      <div className="mt-4 flex flex-wrap gap-2 max-w-xl">
-        {chips.map((chip) => (
-          <Link
-            key={chip.label}
-            to={chip.to}
-            search={chip.search}
-            params={chip.params}
-            className="inline-flex items-center rounded-full border border-border/60 bg-background/40 px-3 py-1 text-xs font-medium text-muted-foreground hover:border-primary/60 hover:text-primary transition-colors"
-          >
-            {chip.label}
-          </Link>
-        ))}
+        <button
+          type="button"
+          onClick={onSearch}
+          className="mt-5 w-full max-w-xl inline-flex items-center gap-2 rounded-md border border-border/60 bg-background/70 px-4 py-2.5 text-left text-sm text-muted-foreground hover:border-primary/60 hover:text-primary transition-colors"
+        >
+          <Search className="size-4" />
+          Search the database…
+        </button>
+
+        <div className="mt-4 flex flex-nowrap gap-1.5 overflow-x-auto max-w-xl">
+          {chips.map((chip) => (
+            <Link
+              key={chip.label}
+              to={chip.to}
+              search={chip.search}
+              params={chip.params}
+              className="inline-flex items-center rounded-full border border-border/60 bg-background/50 px-2 py-0.5 text-[0.7rem] font-medium text-muted-foreground hover:border-primary/60 hover:text-primary transition-colors whitespace-nowrap"
+            >
+              {chip.label}
+            </Link>
+          ))}
+        </div>
       </div>
     </section>
   );
 }
 
-function LiveNowStrip({
-  giveawayOffers,
-  giveawayLoading,
-  featuredDiscounts,
-  discountsLoading,
-  latestReleasedOffers,
-  latestReleasedLoading,
-  latestBuilds,
-  latestBuildsLoading,
-  locale,
+function AmbientPulsePanel({
+  events,
+  isLoading,
+  isFetching,
+  density,
 }: {
-  giveawayOffers: GiveawayOffer[];
-  giveawayLoading: boolean;
-  featuredDiscounts: SingleOffer[];
-  discountsLoading: boolean;
-  latestReleasedOffers: { elements: SingleOffer[] };
-  latestReleasedLoading: boolean;
-  latestBuilds: Array<{
-    _id: string;
-    item: SingleItem;
-    downloadSizeBytes: number;
-    createdAt: string;
-    buildVersion?: string;
-  }>;
-  latestBuildsLoading: boolean;
-  locale: string;
+  events: PulseEvent[];
+  isLoading: boolean;
+  isFetching: boolean;
+  isError: boolean;
+  density: "desktop" | "mobile";
 }) {
-  const activeGiveaways = useMemo(
-    () =>
-      giveawayOffers
-        .filter((g) => g.giveaway?.startDate && new Date(g.giveaway.endDate) > new Date())
-        .slice(0, 3),
-    [giveawayOffers],
-  );
-  const [giveawayIdx, setGiveawayIdx] = useState(0);
+  return (
+    <div
+      className={cn(
+        "relative overflow-hidden",
+        density === "desktop"
+          ? "h-full p-3 text-muted-foreground/80"
+          : "rounded-md border border-border/40 bg-background/25 p-3",
+      )}
+    >
+      <div className="flex items-center justify-between gap-3">
+        <span className="text-[0.7rem] font-medium tracking-tight text-muted-foreground">
+          Recent activity
+        </span>
+        {isFetching && !isLoading && (
+          <RefreshCw className="size-3 animate-spin text-muted-foreground/60" />
+        )}
+      </div>
 
-  useEffect(() => {
-    if (activeGiveaways.length <= 1) return;
-    const timer = setInterval(() => {
-      setGiveawayIdx((i) => (i + 1) % activeGiveaways.length);
-    }, 10000);
-    return () => clearInterval(timer);
-  }, [activeGiveaways.length]);
-
-  const biggestDrop = useMemo(() => {
-    if (featuredDiscounts.length === 0) return null;
-    return featuredDiscounts.reduce((best, o) => {
-      const pct =
-        o.price && o.price.price.originalPrice > 0
-          ? (o.price.price.originalPrice - o.price.price.discountPrice) /
-            o.price.price.originalPrice
-          : 0;
-      const bestPct =
-        best && best.price && best.price.price.originalPrice > 0
-          ? (best.price.price.originalPrice - best.price.price.discountPrice) /
-            best.price.price.originalPrice
-          : 0;
-      return pct > bestPct ? o : best;
-    }, featuredDiscounts[0]);
-  }, [featuredDiscounts]);
-
-  const newestRelease = latestReleasedOffers.elements[0] ?? null;
-  const newestBuild = latestBuilds[0] ?? null;
-
-  const formatPrice = (price: number, currencyCode: string) =>
-    new Intl.NumberFormat(locale, { style: "currency", currency: currencyCode }).format(
-      calculatePrice(price, currencyCode),
-    );
-
-  const currentGiveaway = activeGiveaways[giveawayIdx];
-
-  type Slot = { kind: "card"; node: JSX.Element } | { kind: "skeleton" } | { kind: "empty" };
-
-  const slots: Slot[] = [
-    currentGiveaway
-      ? {
-          kind: "card",
-          node: (
-            <SignalCard
-              key="giveaway"
-              href="/offers/$id"
-              id={currentGiveaway.id}
-              imageType="tall"
-              keyImages={currentGiveaway.keyImages}
-              title={currentGiveaway.title}
-              badge="Free Now"
-            >
-              <Countdown targetDate={currentGiveaway.giveaway.endDate} />
-            </SignalCard>
-          ),
-        }
-      : giveawayLoading
-        ? { kind: "skeleton" }
-        : { kind: "empty" },
-    biggestDrop && biggestDrop.price
-      ? {
-          kind: "card",
-          node: (
-            <SignalCard
-              key="drop"
-              href="/offers/$id"
-              id={biggestDrop.id}
-              imageType="tall"
-              keyImages={biggestDrop.keyImages}
-              title={biggestDrop.title}
-              badge="Price Drop"
-            >
-              <div className="flex items-baseline gap-1.5">
-                <span className="text-sm font-semibold text-primary">
-                  {formatPrice(
-                    biggestDrop.price.price.discountPrice,
-                    biggestDrop.price.price.currencyCode,
-                  )}
-                </span>
-                <span className="text-xs text-muted-foreground line-through">
-                  {formatPrice(
-                    biggestDrop.price.price.originalPrice,
-                    biggestDrop.price.price.currencyCode,
-                  )}
-                </span>
-                <span className="text-xs text-muted-foreground">
-                  -
-                  {Math.round(
-                    ((biggestDrop.price.price.originalPrice -
-                      biggestDrop.price.price.discountPrice) /
-                      biggestDrop.price.price.originalPrice) *
-                      100,
-                  )}
-                  %
-                </span>
+      <div className="mt-3 flex flex-col gap-2">
+        {isLoading || events.length === 0
+          ? Array.from({ length: density === "desktop" ? 4 : 2 }).map((_, index) => (
+              <div
+                // biome-ignore lint/suspicious/noArrayIndexKey: skeleton rows are positional placeholders
+                key={index}
+                className="flex items-center gap-2.5"
+              >
+                <div className="size-7 rounded bg-muted/40 animate-pulse" />
+                <div className="h-3 flex-1 rounded bg-muted/30 animate-pulse" />
               </div>
-            </SignalCard>
-          ),
-        }
-      : discountsLoading
-        ? { kind: "skeleton" }
-        : { kind: "empty" },
-    newestRelease
-      ? {
-          kind: "card",
-          node: (
-            <SignalCard
-              key="release"
-              href="/offers/$id"
-              id={newestRelease.id}
-              imageType="tall"
-              keyImages={newestRelease.keyImages}
-              title={newestRelease.title}
-              badge="New Release"
-            >
-              <span className="text-xs text-muted-foreground">
-                {newestRelease.releaseDate
-                  ? DateTime.fromISO(newestRelease.releaseDate).toLocaleString(DateTime.DATE_MED)
-                  : "N/A"}
-              </span>
-            </SignalCard>
-          ),
-        }
-      : latestReleasedLoading
-        ? { kind: "skeleton" }
-        : { kind: "empty" },
-    newestBuild
-      ? {
-          kind: "card",
-          node: (
-            <SignalCard
-              key="build"
-              href="/builds/$id"
-              id={newestBuild._id}
-              imageType="tall"
-              keyImages={newestBuild.item?.keyImages ?? []}
-              title={newestBuild.item?.title ?? "Unknown Build"}
-              badge="New Build"
-            >
-              <span className="text-xs text-muted-foreground">
-                {calculateSize(newestBuild.downloadSizeBytes)}
-              </span>
-            </SignalCard>
-          ),
-        }
-      : latestBuildsLoading
-        ? { kind: "skeleton" }
-        : { kind: "empty" },
-  ];
-
-  const hasContent = slots.some((s) => s.kind !== "empty");
-
-  return (
-    <Card className="flex flex-col rounded-md border border-border/60 h-full min-h-[280px] bg-card/40 backdrop-blur-sm">
-      <CardHeader className="border-b border-border/50 p-3">
-        <CardTitle className="text-sm font-display font-semibold text-muted-foreground tracking-tight">
-          Activity
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="p-0 flex-1">
-        {hasContent ? (
-          <div className="divide-y divide-border/30">
-            {slots.map((slot, i) => {
-              if (slot.kind === "empty") return null;
-              if (slot.kind === "skeleton") return <SignalCardSkeleton key={`skeleton-${i}`} />;
-              return slot.node;
-            })}
-          </div>
-        ) : (
-          <div className="flex h-full items-center justify-center text-sm text-muted-foreground/70 p-4">
-            No recent activity.
-          </div>
-        )}
-        {activeGiveaways.length > 1 && (
-          <div className="flex gap-1.5 justify-center py-2">
-            {activeGiveaways.map((_, i) => (
-              <span
-                key={i}
-                className={cn(
-                  "h-1.5 rounded-full transition-all",
-                  i === giveawayIdx ? "w-6 bg-primary" : "w-1.5 bg-foreground/40",
-                )}
-              />
-            ))}
-          </div>
-        )}
-      </CardContent>
-    </Card>
-  );
-}
-
-function SignalCardSkeleton() {
-  return (
-    <div className="flex items-center gap-3 p-3">
-      <div className="size-10 rounded shrink-0 bg-muted/40 animate-pulse" />
-      <div className="flex flex-col gap-1.5 min-w-0 flex-1">
-        <div className="h-3.5 w-3/4 rounded bg-muted/40 animate-pulse" />
-        <div className="h-3 w-1/3 rounded bg-muted/40 animate-pulse" />
+            ))
+          : events
+              .slice(0, density === "desktop" ? 5 : 3)
+              .map((event) => <PulseChangeRow key={event.id} event={event} />)}
       </div>
     </div>
   );
 }
 
-function SignalCard({
-  href,
-  id,
-  imageType,
-  keyImages,
-  title,
-  badge,
-  children,
-}: {
-  href: LinkComponentProps["to"];
-  id: string;
-  imageType: "tall";
-  keyImages: KeyImage[];
-  title: string;
-  badge: string;
-  children: ReactNode;
-}) {
-  const imageTypes =
-    imageType === "tall"
-      ? ["DieselGameBoxTall", "OfferImageTall"]
-      : ["DieselGameBoxWide", "OfferImageWide"];
+function PulseChangeRow({ event }: { event: PulseEvent }) {
+  const tone = getPulseTone(event.contextType, event.action);
+  const Icon = getPulseIcon(event.contextType, event.action);
 
   return (
-    <Link
-      to={href}
-      params={{ id }}
-      className="flex items-center gap-3 p-3 hover:bg-primary/5 transition-colors"
-    >
-      <img
-        src={buildImageUrl(getImage(keyImages, imageTypes)?.url ?? "/placeholder.webp", 80, "low")}
-        alt={title}
-        loading="lazy"
-        decoding="async"
-        className="size-10 object-cover rounded shrink-0"
-      />
-      <div className="flex flex-col gap-0.5 min-w-0 flex-1">
-        <TruncatedText text={title} maxLength={30} />
-        {children}
+    <div className="flex items-center gap-2.5">
+      <div className="relative flex size-7 shrink-0 items-center justify-center">
+        {event.imageUrl ? (
+          <img
+            src={buildImageUrl(event.imageUrl, 80, "low")}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="size-6 rounded object-cover"
+          />
+        ) : (
+          <Icon className={cn("size-3.5", tone.text)} />
+        )}
       </div>
-      <span className="text-[0.7rem] text-muted-foreground/60 shrink-0">{badge}</span>
-    </Link>
+
+      <span className="truncate text-[0.78rem] text-foreground/85">{event.title}</span>
+      <span className="shrink-0 text-[0.62rem] tabular-nums text-muted-foreground/70">
+        {event.badge.toLowerCase()}
+      </span>
+      <span
+        suppressHydrationWarning
+        className="shrink-0 ml-auto text-[0.62rem] tabular-nums text-muted-foreground/60"
+      >
+        {timeAgo(new Date(event.timestamp))}
+      </span>
+    </div>
   );
+}
+
+function normalizePulseEvent(change: LiveChangeEvent): PulseEvent {
+  const primaryChange = getPrimaryChange(change.metadata.changes);
+  const contextType = change.metadata.contextType || "change";
+  const action = primaryChange?.changeType ?? "update";
+
+  return {
+    id: change._id,
+    timestamp: change.timestamp,
+    contextType,
+    action,
+    badge: getPulseBadge(contextType, action),
+    title: getPulseTitle(change),
+    detail: getPulseDetail(change, primaryChange),
+    changeCount: change.metadata.changes.length,
+    imageUrl: getPulseImageUrl(change.metadata.context),
+  };
+}
+
+function getPrimaryChange(changes: LiveChangeDelta[]) {
+  const lowSignalFields = new Set(["createdAt", "updatedAt", "lastModifiedDate"]);
+  return changes.find((change) => !lowSignalFields.has(change.field)) ?? changes[0];
+}
+
+function getPulseTitle(change: LiveChangeEvent) {
+  const { context, contextId, contextType } = change.metadata;
+  const title = context?.title?.trim();
+
+  if (title) return title;
+
+  if (contextType === "build") {
+    if (context?.buildVersion) return `Build ${context.buildVersion}`;
+    if (context?.appName) return `Build ${shortId(context.appName)}`;
+  }
+
+  if (contextType === "achievements") {
+    return `Achievements ${shortId(contextId)}`;
+  }
+
+  return context?.name || context?.id || shortId(contextId);
+}
+
+function getPulseDetail(change: LiveChangeEvent, primaryChange: LiveChangeDelta | undefined) {
+  const { changes, contextType } = change.metadata;
+  const action = primaryChange?.changeType ?? "update";
+  const field = primaryChange?.field ?? "record";
+
+  if (contextType === "build") {
+    return action === "insert" ? "New build indexed" : "Build manifest refreshed";
+  }
+
+  if (contextType === "achievements") {
+    return `${changes.length.toLocaleString("en-UK")} achievement ${pluralize(
+      changes.length,
+      "entry",
+      "entries",
+    )} ${getActionVerb(action)}`;
+  }
+
+  if (contextType === "offer" && field === "lastModifiedDate") {
+    return "Offer metadata refreshed";
+  }
+
+  if (changes.length > 1) {
+    return `${changes.length.toLocaleString("en-UK")} fields ${getActionVerb(action)}`;
+  }
+
+  return `${formatChangeField(field)} ${getActionVerb(action)}`;
+}
+
+function getPulseImageUrl(context: LiveChangeContext | null | undefined) {
+  if (!context?.keyImages?.length) return undefined;
+
+  const image = getImage(context.keyImages, [
+    "Thumbnail",
+    "OfferImageTall",
+    "DieselGameBoxTall",
+    "OfferImageWide",
+    "DieselStoreFrontWide",
+  ]);
+
+  return image?.url === "/placeholder.webp" ? undefined : image?.url;
+}
+
+function getPulseBadge(contextType: string, action: LiveChangeAction) {
+  if (action === "insert") return "New";
+  if (action === "delete") return "Gone";
+
+  switch (contextType) {
+    case "offer":
+      return "Offer";
+    case "build":
+      return "Build";
+    case "item":
+      return "Item";
+    case "asset":
+      return "Asset";
+    case "achievements":
+      return "XP";
+    case "sandbox":
+      return "Sandbox";
+    default:
+      return "Change";
+  }
+}
+
+function getActionVerb(action: LiveChangeAction) {
+  switch (action) {
+    case "insert":
+      return "added";
+    case "delete":
+      return "removed";
+    case "update":
+      return "updated";
+    default:
+      return "changed";
+  }
+}
+
+function formatChangeField(field: string) {
+  return field
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/[_-]+/g, " ")
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function pluralize(count: number, singular: string, plural: string) {
+  return count === 1 ? singular : plural;
+}
+
+function shortId(id: string) {
+  return id.length > 12 ? `${id.slice(0, 6)}…${id.slice(-4)}` : id;
+}
+
+function getPulseIcon(contextType: string, action: LiveChangeAction) {
+  if (action === "insert") return Sparkles;
+  if (action === "delete") return Zap;
+
+  switch (contextType) {
+    case "build":
+      return Package;
+    case "offer":
+      return Tag;
+    case "achievements":
+      return Trophy;
+    case "item":
+      return Box;
+    default:
+      return Radio;
+  }
+}
+
+function getPulseTone(contextType: string, action: LiveChangeAction) {
+  if (action === "insert") {
+    return {
+      bg: "bg-emerald-400/10",
+      border: "border-emerald-300/35",
+      text: "text-emerald-200",
+      dot: "bg-emerald-300",
+    };
+  }
+
+  if (action === "delete") {
+    return {
+      bg: "bg-rose-400/10",
+      border: "border-rose-300/35",
+      text: "text-rose-200",
+      dot: "bg-rose-300",
+    };
+  }
+
+  switch (contextType) {
+    case "build":
+      return {
+        bg: "bg-cyan-400/10",
+        border: "border-cyan-300/35",
+        text: "text-cyan-200",
+        dot: "bg-cyan-300",
+      };
+    case "offer":
+      return {
+        bg: "bg-sky-400/10",
+        border: "border-sky-300/35",
+        text: "text-sky-200",
+        dot: "bg-sky-300",
+      };
+    case "achievements":
+      return {
+        bg: "bg-amber-400/10",
+        border: "border-amber-300/35",
+        text: "text-amber-200",
+        dot: "bg-amber-300",
+      };
+    case "item":
+      return {
+        bg: "bg-lime-400/10",
+        border: "border-lime-300/35",
+        text: "text-lime-200",
+        dot: "bg-lime-300",
+      };
+    case "asset":
+      return {
+        bg: "bg-fuchsia-400/10",
+        border: "border-fuchsia-300/35",
+        text: "text-fuchsia-200",
+        dot: "bg-fuchsia-300",
+      };
+    default:
+      return {
+        bg: "bg-primary/10",
+        border: "border-primary/35",
+        text: "text-primary",
+        dot: "bg-primary",
+      };
+  }
 }

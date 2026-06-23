@@ -49,7 +49,13 @@ export function Countdown({ targetDate, onComplete }: CountdownProps) {
   });
 
   if (!isClient) {
-    return null;
+    return (
+      <div className="tabular-nums p-2">
+        <span aria-hidden="true" className="invisible inline-block min-w-[10ch]">
+          00h 00m 00s
+        </span>
+      </div>
+    );
   }
 
   const timerComponents: JSX.Element[] = [];
@@ -69,7 +75,9 @@ export function Countdown({ targetDate, onComplete }: CountdownProps) {
 
   return (
     <div className="tabular-nums p-2">
-      {timerComponents.length ? timerComponents : <span>Released!</span>}
+      <span className="inline-block min-w-[10ch]">
+        {timerComponents.length ? timerComponents : "Released!"}
+      </span>
     </div>
   );
 }

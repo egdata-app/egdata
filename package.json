@@ -155,8 +155,8 @@
     "workbox-build": "7.4.1",
     "wrangler": "3.99.0"
   },
-  "packageManager": "pnpm@11.3.0",
+  "packageManager": "pnpm@11.8.0",
   "engines": {
-    "node": "^22.16.0"
+    "node": "^26.3.1"
   }
 }

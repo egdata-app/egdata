@@ -29,28 +29,28 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: hsl(222 47% 5%);
-  --foreground: hsl(200 30% 98%);
-  --muted: hsl(222 30% 14%);
-  --muted-foreground: hsl(220 15% 65%);
-  --popover: hsl(222 45% 9%);
-  --popover-foreground: hsl(200 30% 98%);
-  --card: hsl(222 40% 7%);
-  --card-foreground: hsl(200 30% 98%);
-  --border: hsl(222 25% 16%);
-  --input: hsl(222 25% 18%);
-  --primary: hsl(211 100% 52%);
-  --primary-foreground: hsl(0 0% 100%);
-  --secondary: hsl(211 60% 40%);
+  --background: hsl(240 11% 7%);
+  --foreground: hsl(0 0% 96%);
+  --muted: hsl(240 4% 16%);
+  --muted-foreground: hsl(240 6% 65%);
+  --popover: hsl(240 8% 10%);
+  --popover-foreground: hsl(0 0% 96%);
+  --card: hsl(240 8% 9%);
+  --card-foreground: hsl(0 0% 96%);
+  --border: hsl(240 5% 19%);
+  --input: hsl(240 5% 16%);
+  --primary: hsl(199 100% 50%);
+  --primary-foreground: hsl(240 11% 7%);
+  --secondary: hsl(240 4% 18%);
   --secondary-foreground: hsl(0 0% 100%);
-  --accent: hsl(211 50% 14%);
-  --accent-foreground: hsl(200 30% 98%);
+  --accent: hsl(240 4% 20%);
+  --accent-foreground: hsl(0 0% 96%);
   --destructive: hsl(0 72% 51%);
   --destructive-foreground: hsl(0 0% 100%);
-  --ring: hsl(211 100% 52%);
+  --ring: hsl(199 100% 50%);
   --radius: 0.375rem;
-  --badge: hsl(211 100% 52%);
-  --chart-1: 211 100% 52%;
+  --badge: hsl(199 100% 50%);
+  --chart-1: 199 100% 50%;
   --chart-2: 340 75% 55%;
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
@@ -63,14 +63,14 @@
   --gold-end: rgb(255, 232, 60, 0.6);
   --platinum-start: rgb(114, 91, 255);
   --platinum-end: rgba(114, 91, 255, 0.6);
-  --ambient-blue: hsl(211 100% 52% / 0.08);
+  --ambient-blue: hsl(199 100% 50% / 0.045);
   --hero-gradient: linear-gradient(
     to top,
-    hsl(222 47% 5%) 0%,
-    hsl(222 47% 5% / 0.6) 40%,
+    hsl(240 11% 7%) 0%,
+    hsl(240 11% 7% / 0.72) 40%,
     transparent 80%
   );
-  --card-hover-glow: hsl(211 100% 52% / 0.12);
+  --card-hover-glow: hsl(199 100% 50% / 0.09);
 }
 
 @theme inline {
@@ -168,11 +168,6 @@ body::before {
   background: radial-gradient(ellipse 80% 60% at 50% 0%, var(--ambient-blue), transparent 70%);
   pointer-events: none;
   z-index: 0;
-}
-
-body > * {
-  position: relative;
-  z-index: 1;
 }
 
 .cover-section {
