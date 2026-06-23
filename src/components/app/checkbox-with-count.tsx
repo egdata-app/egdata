@@ -15,10 +15,10 @@ export function CheckboxWithCount({ count, label, checked, onChange }: CheckboxW
       onClick={() => onChange(!checked)}
       className={cn(
         "group relative flex w-[95%] items-center justify-between rounded-lg px-4 py-2 text-sm",
-        "border border-gray-700 transition-colors duration-300 ease-in-out",
+        "border border-border transition-colors duration-300 ease-in-out",
         checked
           ? "bg-muted hover:bg-muted/80 text-foreground"
-          : "bg-transparent hover:bg-gray-800/10 text-muted-foreground hover:text-muted-foreground",
+          : "bg-transparent hover:bg-muted/20 text-muted-foreground hover:text-foreground",
       )}
     >
       <div className="flex items-center gap-2 w-full overflow-hidden">

@@ -75,14 +75,14 @@ export function SellerOffers({
         <div className="flex gap-2">
           <button
             onClick={handlePreviousSlide}
-            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-muted focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
+            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-muted focus:outline-none focus:ring focus:ring-ring/50 disabled:opacity-50"
             type="button"
           >
             <ArrowUpIcon className="w-5 h-5 transform -rotate-90" />
           </button>
           <button
             onClick={handleNextSlide}
-            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-muted focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
+            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-muted focus:outline-none focus:ring focus:ring-ring/50 disabled:opacity-50"
             type="button"
           >
             <ArrowUpIcon className="w-5 h-5 transform rotate-90" />

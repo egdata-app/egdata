@@ -1,4 +1,4 @@
-import { ChartBarIcon, Crown, Minus, TrendingDown, TrendingUp } from "lucide-react";
+import { ChartBar, Crown, Minus, TrendingDown, TrendingUp } from "lucide-react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import type { OfferPosition } from "@/types/collections";
@@ -322,7 +322,7 @@ export function PerformanceTable({
                 <CardStackIcon className="size-4" />
               </ToggleGroupItem>
               <ToggleGroupItem value="chart" aria-label="Chart view">
-                <ChartBarIcon className="size-4" />
+                <ChartBar className="size-4" />
               </ToggleGroupItem>
             </ToggleGroup>
           </div>

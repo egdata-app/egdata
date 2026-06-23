@@ -187,11 +187,9 @@ const mobilePlatforms = ["39070", "39071"];
 export function OfferCard({
   offer,
   size = "xl",
-  content,
 }: {
   offer: SingleOffer;
   size?: "xs" | "sm" | "md" | "lg" | "xl";
-  content?: React.ReactNode;
 }) {
   const { addId, removeId, ownedStatus } = useExtension();
   const { genres } = useGenres();
@@ -269,39 +267,36 @@ export function OfferCard({
           </span>
         )}
         <OfferBadges offer={offer} owned={owned} />
-        {!content && (
-          <div className="absolute inset-x-0 bottom-0 p-3 z-10">
-            <h3
-              className={cn(
-                "font-display font-semibold text-foreground leading-tight line-clamp-2 drop-shadow-md",
-                textSizes[size] ?? textSizes.xl,
-              )}
-            >
-              {offer.title}{" "}
-              <span className="inline-flex items-center gap-1.5 align-middle">
-                {offer.tags
-                  .filter((tag) => tag)
-                  .filter((tag) => mobilePlatforms.includes(tag?.id))
-                  .map((tag) => (
-                    <span key={tag?.id} className="scale-90">
-                      {platformIcons[tag?.id]}
-                    </span>
-                  ))}
-              </span>
-            </h3>
-            <div className="mt-1 max-h-0 overflow-hidden group-hover:max-h-24 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out">
-              <p className="text-xs text-muted-foreground mb-2">
-                {offerGenres.length > 0
-                  ? offerGenres.join(", ")
-                  : offersDictionary[offer.offerType as keyof typeof offersDictionary]}
-              </p>
-            </div>
-            <div className="mt-1.5">
-              <OfferPrice offer={offer} size={size} />
-            </div>
+        <div className="absolute inset-x-0 bottom-0 p-3 z-10">
+          <h3
+            className={cn(
+              "font-display font-semibold text-foreground leading-tight line-clamp-2 drop-shadow-md",
+              textSizes[size] ?? textSizes.xl,
+            )}
+          >
+            {offer.title}{" "}
+            <span className="inline-flex items-center gap-1.5 align-middle">
+              {offer.tags
+                .filter((tag) => tag)
+                .filter((tag) => mobilePlatforms.includes(tag?.id))
+                .map((tag) => (
+                  <span key={tag?.id} className="scale-90">
+                    {platformIcons[tag?.id]}
+                  </span>
+                ))}
+            </span>
+          </h3>
+          <div className="mt-1 max-h-0 overflow-hidden group-hover:max-h-24 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out">
+            <p className="text-xs text-muted-foreground mb-2">
+              {offerGenres.length > 0
+                ? offerGenres.join(", ")
+                : offersDictionary[offer.offerType as keyof typeof offersDictionary]}
+            </p>
           </div>
-        )}
-        {content && <div className="absolute inset-x-0 bottom-0 p-3 z-10">{content}</div>}
+          <div className="mt-1.5">
+            <OfferPrice offer={offer} size={size} />
+          </div>
+        </div>
       </div>
     </Link>
   );

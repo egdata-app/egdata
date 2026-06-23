@@ -93,10 +93,7 @@ function CreatorCodePage() {
           >
             No thanks
           </Button>
-          <Button
-            className="bg-white text-primary-foreground hover:bg-primary/90"
-            onClick={() => handleChoice(true)}
-          >
+          <Button onClick={() => handleChoice(true)}>
             Yes, use code
           </Button>
         </CardFooter>

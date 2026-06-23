@@ -188,7 +188,11 @@ function RouteComponent() {
       ])?.url
     : null;
 
-  const logoUrl = stats?.seller?.logo?.url ? `https:${stats.seller.logo.url}` : null;
+  const logoUrl = stats?.seller?.logo?.url
+    ? stats.seller.logo.url.startsWith("//")
+      ? `https:${stats.seller.logo.url}`
+      : stats.seller.logo.url
+    : null;
 
   const statsItems = [
     stats ? { label: "Offers", value: stats.offers } : null,

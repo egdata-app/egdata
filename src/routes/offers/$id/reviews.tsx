@@ -405,7 +405,7 @@ function Reviews() {
           <div className="inline-flex items-center gap-2">
             <Tooltip>
               <TooltipTrigger className="inline-flex items-center gap-1">
-                <InfoCircledIcon className="size-4" fill="white" />
+                <InfoCircledIcon className="size-4" fill="currentColor" />
               </TooltipTrigger>
               <p className="text-muted-foreground inline-flex items-center gap-1">
                 <strong>Ownership verification</strong> is based on the completion of at least one
@@ -606,7 +606,7 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
               {review.editions?.length && review.editions.length > 0 ? (
                 <Tooltip disableHoverableContent={!review.editions}>
                   <TooltipTrigger className="inline-flex items-center gap-1 ml-2">
-                    <InfoCircledIcon className="size-4" fill="white" />
+                    <InfoCircledIcon className="size-4" fill="currentColor" />
                   </TooltipTrigger>
                   <TooltipContent>
                     <span className="text-xs flex flex-col gap-1">

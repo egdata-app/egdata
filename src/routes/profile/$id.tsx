@@ -419,7 +419,7 @@ function RouteComponent() {
                       href={`https://store.epicgames.com/u/${accountId}?utm_source=egdata.app`}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="inline-flex items-center gap-2 text-foreground hover:text-foreground"
+                      className="inline-flex items-center gap-2 text-foreground hover:text-primary"
                     >
                       <EGSIcon className="size-4" />
                       <span>Epic Games Store</span>

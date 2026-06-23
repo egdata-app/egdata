@@ -246,7 +246,7 @@ export function SearchForm({
               limit={data.limit}
             />
             {showLongLoading && (
-              <div className="absolute inset-0 bg-opacity-90 bg-muted z-10 w-full h-screen flex items-center justify-center rounded-xl">
+              <div className="absolute inset-0 bg-muted/90 z-10 w-full h-screen flex items-center justify-center rounded-xl">
                 <span className="flex flex-col items-center justify-center gap-2">
                   <div className="flex flex-col items-center justify-center gap-1">
                     <span className="text-sm font-medium">Loading...</span>

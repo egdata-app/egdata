@@ -408,7 +408,7 @@ function GameSpotlight({ game, profileId }: { game: ProfileGame; profileId: stri
               </p>
             </div>
             {game.hasPlatinum && (
-              <span className="inline-flex items-center gap-2 rounded-md bg-primary/15 px-3 py-2 text-sm text-foreground">
+              <span className="inline-flex items-center gap-2 rounded-md bg-platinum-start/25 px-3 py-2 text-sm text-foreground">
                 <EpicPlatinumIcon className="size-4" />
                 Platinum
               </span>
@@ -575,7 +575,7 @@ function ProfileGameCard({
           sizes="(min-width: 1280px) 400px, (min-width: 768px) 50vw, 100vw"
         />
         {game.hasPlatinum && (
-          <span className="absolute left-3 top-3 inline-flex items-center gap-2 rounded-md bg-primary px-2.5 py-1.5 text-xs font-medium text-foreground">
+          <span className="absolute left-3 top-3 inline-flex items-center gap-2 rounded-md bg-platinum-start px-2.5 py-1.5 text-xs font-medium text-foreground">
             <EpicPlatinumIcon className="size-3.5" />
             Platinum
           </span>

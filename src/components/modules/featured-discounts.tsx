@@ -128,7 +128,7 @@ export function FeaturedDiscounts() {
         <div className="flex gap-2">
           <button
             onClick={handlePreviousSlide}
-            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-muted focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
+            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-muted focus:outline-none focus:ring focus:ring-ring/50 disabled:opacity-50"
             disabled={current === 1}
             type="button"
           >
@@ -136,7 +136,7 @@ export function FeaturedDiscounts() {
           </button>
           <button
             onClick={handleNextSlide}
-            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-muted focus:outline-none focus:ring focus:ring-gray-300/50 disabled:opacity-50"
+            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-card text-muted-foreground hover:bg-muted focus:outline-none focus:ring focus:ring-ring/50 disabled:opacity-50"
             disabled={current === count}
             type="button"
           >
@@ -197,7 +197,7 @@ const ProgressIndicator = memo(function ProgressIndicator({
         <TooltipTrigger
           className={cn(
             "block w-5 h-[5px] rounded-full cursor-pointer relative",
-            "bg-muted/500",
+            "bg-muted/50",
             current === i + 1 ? "w-10" : "hover:bg-muted/80 hover:w-8",
             "transition-width duration-300 ease-in-out",
           )}

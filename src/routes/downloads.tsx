@@ -307,7 +307,7 @@ function RouteComponent() {
                               {platformGroup.icon}
                               <span>{platformGroup.platform} Downloads</span>
                             </h3>
-                            <div className="space-y-4 pl-2 border-l-2 border-border/60/50 ml-3">
+                            <div className="space-y-4 pl-2 border-l-2 border-border/50 ml-3">
                               {sortedVariants.map((variantGroup) => {
                                 const recommended = isVariantRecommended(
                                   platformGroup.platform,
