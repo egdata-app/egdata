@@ -26,6 +26,8 @@ import { Separator } from "../ui/separator";
 import { useLocale } from "@/hooks/use-locale";
 import type { SingleRegionalPrice } from "@/types/regional-pricing";
 import { DateTime } from "luxon";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 
 const chartConfig = {
   price: {
@@ -134,6 +136,7 @@ export function PriceChart({ selectedRegion, id, regionStats }: PriceChartProps)
   const { locale } = useLocale();
   const [timeRange, setTimeRange] = React.useState("1y");
   const [compareUSD, setCompareUSD] = React.useState(false);
+  const isUSDRegion = selectedRegion === "US";
 
   const [regionQuery, usdQuery] = useQueries({
     queries: [
@@ -193,7 +196,7 @@ export function PriceChart({ selectedRegion, id, regionStats }: PriceChartProps)
 
       if (isComparison) {
         return {
-          date: date.toDateString(),
+          date: date.toISOString(),
           price: item.price.basePayoutPrice / 100,
           usd: (findApproximateUSDPrice(item, usdPricing)?.price.discountPrice || 0) / 100,
         };
@@ -231,18 +234,32 @@ export function PriceChart({ selectedRegion, id, regionStats }: PriceChartProps)
           </CardDescription>
         </div>
         <div className="items-center flex space-x-2">
-          <Checkbox
-            id="compare"
-            checked={compareUSD}
-            onCheckedChange={(value) => setCompareUSD(Boolean(value))}
-            disabled={selectedRegion === "US"}
-          />
-          <label
-            htmlFor="compare"
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
-            Compare with USD
-          </label>
+          <Tooltip open={isUSDRegion ? undefined : false}>
+            <TooltipTrigger asChild>
+              <div
+                className={cn("inline-flex items-center gap-2", isUSDRegion && "cursor-help")}
+                tabIndex={isUSDRegion ? 0 : undefined}
+              >
+                <Checkbox
+                  id="compare"
+                  checked={compareUSD}
+                  onCheckedChange={(value) => setCompareUSD(Boolean(value))}
+                  disabled={isUSDRegion}
+                  className={isUSDRegion ? "disabled:cursor-help" : undefined}
+                />
+                <label
+                  htmlFor="compare"
+                  className={cn(
+                    "cursor-pointer text-sm font-medium leading-none peer-disabled:opacity-70",
+                    isUSDRegion && "cursor-help text-muted-foreground",
+                  )}
+                >
+                  Compare with USD
+                </label>
+              </div>
+            </TooltipTrigger>
+            <TooltipContent side="bottom">USD is already the selected region.</TooltipContent>
+          </Tooltip>
         </div>
         <Select value={timeRange} onValueChange={setTimeRange}>
           <SelectTrigger className="w-[160px] rounded-lg sm:ml-auto" aria-label="Select a value">
