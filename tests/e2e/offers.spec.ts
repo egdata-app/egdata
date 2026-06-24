@@ -93,6 +93,46 @@ test.describe("Offer detail flow", () => {
     await expectNoAppError(page);
   });
 
+  test("sanitizes malformed persisted compare state on reload", async ({ page }) => {
+    const cases = [
+      { name: "object", value: "{}", expectedStored: "[]", expectedCount: 0 },
+      { name: "string", value: JSON.stringify("bad"), expectedStored: "[]", expectedCount: 0 },
+      {
+        name: "mixed array",
+        value: JSON.stringify(["offer-a", "", 42, "offer-a", " offer-b "]),
+        expectedStored: JSON.stringify(["offer-a", "offer-b"]),
+        expectedCount: 2,
+      },
+    ];
+
+    for (const compareCase of cases) {
+      await test.step(compareCase.name, async () => {
+        await page.goto("/about");
+        await expectMainReady(page);
+
+        await page.evaluate((value) => {
+          window.sessionStorage.setItem("compare", value);
+        }, compareCase.value);
+
+        await page.reload({ waitUntil: "domcontentloaded" });
+        await expectMainReady(page);
+        await expectNoAppError(page);
+
+        await expect
+          .poll(() => page.evaluate(() => window.sessionStorage.getItem("compare")))
+          .toBe(compareCase.expectedStored);
+
+        const compareTrigger = page.getByTestId("compare-tray-trigger");
+        if (compareCase.expectedCount === 0) {
+          await expect(compareTrigger).toHaveCount(0);
+        } else {
+          await expect(compareTrigger).toBeVisible();
+          await expect(compareTrigger).toContainText(String(compareCase.expectedCount));
+        }
+      });
+    }
+  });
+
   test("renders static informational route", async ({ page }) => {
     await page.goto("/about");
     await expect(page).toHaveURL(/\/about/);

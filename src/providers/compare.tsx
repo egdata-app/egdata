@@ -1,9 +1,26 @@
 import { type ReactNode, useState, useEffect } from "react";
 import { CompareContext } from "@/contexts/compare";
 
+const normalizeCompareIds = (value: unknown): string[] => {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  const ids = value
+    .filter((item): item is string => typeof item === "string")
+    .map((item) => item.trim())
+    .filter((item) => item.length > 0);
+
+  return Array.from(new Set(ids));
+};
+
 const safeParse = (value: string | null): string[] => {
+  if (!value) {
+    return [];
+  }
+
   try {
-    return JSON.parse(value || "[]");
+    return normalizeCompareIds(JSON.parse(value));
   } catch {
     return [];
   }
@@ -15,10 +32,20 @@ export function CompareProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const loadFromSessionStorage = async () => {
-      const storedCompare = sessionStorage.getItem("compare");
-      if (storedCompare) {
-        setCompare(safeParse(storedCompare));
+      try {
+        const storedCompare = sessionStorage.getItem("compare");
+        const parsedCompare = safeParse(storedCompare);
+
+        setCompare(parsedCompare);
+
+        if (storedCompare && storedCompare !== JSON.stringify(parsedCompare)) {
+          sessionStorage.setItem("compare", JSON.stringify(parsedCompare));
+        }
+      } catch (error) {
+        console.error("Failed to load compare state", error);
+        setCompare([]);
       }
+
       setIsLoading(false);
     };
 
@@ -27,13 +54,16 @@ export function CompareProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!isLoading) {
-      // Only save if not loading initial data
-      sessionStorage.setItem("compare", JSON.stringify(compare));
+      try {
+        sessionStorage.setItem("compare", JSON.stringify(normalizeCompareIds(compare)));
+      } catch (error) {
+        console.error("Failed to save compare state", error);
+      }
     }
   }, [compare, isLoading]);
 
   const addToCompare = (id: string) => {
-    setCompare((prev) => [...prev, id]);
+    setCompare((prev) => normalizeCompareIds([...prev, id]));
   };
 
   const removeFromCompare = (id: string) => {

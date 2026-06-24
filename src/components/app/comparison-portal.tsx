@@ -42,21 +42,37 @@ const CompareIcon = (props: JSX.IntrinsicElements["svg"]) => (
   </svg>
 );
 
+const normalizeCompareIds = (value: unknown): string[] => {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+
+  return Array.from(
+    new Set(
+      value
+        .filter((item): item is string => typeof item === "string")
+        .map((item) => item.trim())
+        .filter((item) => item.length > 0),
+    ),
+  );
+};
+
 export function ComparisonPortal() {
   const { compare } = useCompare();
+  const compareIds = normalizeCompareIds(compare);
   const [open, setOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    if (compare.length === 0) {
+    if (compareIds.length === 0) {
       setOpen(false);
     }
-  }, [compare]);
+  }, [compareIds.length]);
 
-  if (compare.length === 0) {
+  if (compareIds.length === 0) {
     return null;
   }
 
-  const compareLabel = `Open compare tray, ${compare.length} selected`;
+  const compareLabel = `Open compare tray, ${compareIds.length} selected`;
 
   return (
     <>
@@ -72,7 +88,7 @@ export function ComparisonPortal() {
             variant="outline"
           >
             <span className="absolute -right-1.5 -top-1.5 inline-flex min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-[0.7rem] font-semibold leading-5 text-primary-foreground">
-              {compare.length}
+              {compareIds.length}
             </span>
             <CompareIcon className="size-5 text-foreground" />
           </Button>
@@ -107,21 +123,26 @@ export function ComparisonPortal() {
 
 function CompareTable() {
   const { compare } = useCompare();
+  const compareIds = normalizeCompareIds(compare);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const queries = useQueries({
-    queries: compare.map((id) => ({
+    queries: compareIds.map((id) => ({
       queryKey: ["offer", { id }],
       queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`),
     })),
   });
 
+  if (compareIds.length === 0) {
+    return null;
+  }
+
   return (
     <ScrollArea>
       <div className="flex flex-row gap-2 overflow-x-auto mb-4" ref={scrollContainerRef}>
         {queries.map((query, index) => (
-          <div key={compare[index]} className="flex flex-row gap-2">
-            <SingleGame key={compare[index]} query={query} id={compare[index]} />
+          <div key={compareIds[index]} className="flex flex-row gap-2">
+            <SingleGame key={compareIds[index]} query={query} id={compareIds[index]} />
             {index < queries.length - 1 && (
               <div className="h-full border-l border-gray-300/25 w-1" />
             )}

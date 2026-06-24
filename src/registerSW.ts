@@ -1,12 +1,27 @@
 let waitingWorker: ServiceWorker | null = null;
+let reloadOnControllerChange = false;
+let isRefreshing = false;
 
 const updateSW = async (reloadPage = false) => {
+  if (reloadPage) {
+    reloadOnControllerChange = true;
+  }
+
   if (waitingWorker) {
     waitingWorker.postMessage({ type: "SKIP_WAITING" });
+    return;
   }
 
   if (reloadPage && typeof window !== "undefined") {
     window.location.reload();
+  }
+};
+
+const promptForUpdate = (worker: ServiceWorker) => {
+  waitingWorker = worker;
+
+  if (window.confirm("New content available, reload?")) {
+    void updateSW(true);
   }
 };
 
@@ -17,10 +32,23 @@ const canRegister =
   import.meta.env.PROD;
 
 if (canRegister) {
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if (!reloadOnControllerChange || isRefreshing) {
+      return;
+    }
+
+    isRefreshing = true;
+    window.location.reload();
+  });
+
   navigator.serviceWorker
     .register("/sw.js", { type: "module" })
     .then((registration) => {
       console.log("SW Registered:", registration);
+
+      if (registration.waiting && navigator.serviceWorker.controller) {
+        promptForUpdate(registration.waiting);
+      }
 
       registration.addEventListener("updatefound", () => {
         const worker = registration.installing;
@@ -34,11 +62,7 @@ if (canRegister) {
             return;
           }
 
-          waitingWorker = worker;
-
-          if (window.confirm("New content available, reload?")) {
-            void updateSW(true);
-          }
+          promptForUpdate(worker);
         });
       });
     })

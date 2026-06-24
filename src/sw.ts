@@ -160,11 +160,16 @@ self.addEventListener("notificationclick", (event: NotificationEvent) => {
   }
 });
 
+// Message handler
+self.addEventListener("message", (event: ExtendableMessageEvent) => {
+  if (event.data?.type === "SKIP_WAITING") {
+    event.waitUntil(self.skipWaiting());
+  }
+});
+
 // Service worker lifecycle events
 self.addEventListener("install", (_event: ExtendableEvent) => {
   console.debug("Service worker installed");
-  // Service Worker skipping waiting phase immediately for simplicity
-  self.skipWaiting();
 });
 
 self.addEventListener("activate", (event: ExtendableEvent) => {
