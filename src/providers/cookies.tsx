@@ -5,6 +5,7 @@ import { CookieBanner } from "@/components/app/cookies";
 import { Base64Utils } from "@/lib/base-64";
 import { GoogleAnalytics } from "@/components/app/google-analytics";
 import { AhrefsAnalytics } from "@/components/app/ahrefs-analytics";
+import { captureError } from "@/lib/pulse-telemetry";
 
 export interface CookiesProviderProps {
   children: ReactNode;
@@ -19,6 +20,9 @@ const decodeCookie = (cookie: string): CookiesSelection | null => {
     return JSON.parse(Base64Utils.decode(cookie)) as CookiesSelection;
   } catch (error) {
     console.error("Failed to decode cookie", error);
+    captureError(error, {
+      source: "cookies.decode",
+    });
     return null;
   }
 };

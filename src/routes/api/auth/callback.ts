@@ -1,4 +1,5 @@
 import type { EpicToken } from "@/types/epic";
+import { captureMessage } from "@/lib/pulse-telemetry";
 import { createFileRoute } from "@tanstack/react-router";
 import consola from "consola";
 import { importPKCS8, SignJWT } from "jose";
@@ -32,7 +33,14 @@ export const Route = createFileRoute("/api/auth/callback")({
         });
 
         if (!response.ok) {
-          console.error("Failed to validate state", response.status, await response.json());
+          const errorBody = await response.json();
+          console.error("Failed to validate state", response.status, errorBody);
+          captureMessage("Failed to validate auth state", {
+            attributes: {
+              "http.response.status_code": response.status,
+            },
+            source: "api.auth.callback.validate-state",
+          });
 
           return new Response(null, {
             headers: new Headers({
@@ -104,7 +112,14 @@ export const Route = createFileRoute("/api/auth/callback")({
         });
 
         if (!persistResponse.ok) {
-          console.error("Failed to persist tokens", await persistResponse.json());
+          const errorBody = await persistResponse.json();
+          console.error("Failed to persist tokens", errorBody);
+          captureMessage("Failed to persist auth tokens", {
+            attributes: {
+              "http.response.status_code": persistResponse.status,
+            },
+            source: "api.auth.callback.persist",
+          });
           return new Response(null, {
             headers: new Headers({
               Location: import.meta.env.PROD ? "https://egdata.app/" : "http://localhost:3000/",

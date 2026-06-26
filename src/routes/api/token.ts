@@ -2,6 +2,7 @@ import { json } from "@tanstack/react-start";
 import { createFileRoute } from "@tanstack/react-router";
 import consola from "consola";
 import { URLSearchParams } from "node:url";
+import { captureMessage } from "@/lib/pulse-telemetry";
 
 export const Route = createFileRoute("/api/token")({
   server: {
@@ -55,7 +56,14 @@ export const Route = createFileRoute("/api/token")({
         });
 
         if (!response.ok) {
-          console.error("Failed to save state", response.status, await response.json());
+          const errorBody = await response.json();
+          console.error("Failed to save state", response.status, errorBody);
+          captureMessage("Failed to fetch Epic OAuth token", {
+            attributes: {
+              "http.response.status_code": response.status,
+            },
+            source: "api.token.epic-oauth",
+          });
           throw new Error("Failed to save state");
         }
 

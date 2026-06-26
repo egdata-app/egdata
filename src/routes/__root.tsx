@@ -1,6 +1,6 @@
 import { createRootRouteWithContext, Link } from "@tanstack/react-router";
 import { Outlet, HeadContent, Scripts } from "@tanstack/react-router";
-import type * as React from "react";
+import { useEffect, type ReactNode } from "react";
 import Navbar from "@/components/app/navbar";
 import { queryOptions, type QueryClient } from "@tanstack/react-query";
 import { CountryProvider } from "@/providers/country";
@@ -26,6 +26,7 @@ import { VideoProvider } from "@/providers/offers-video";
 import { GlobalBackground } from "@/components/app/global-background";
 import "../registerSW";
 import type { CookiesSelection } from "@/contexts/cookies";
+import { captureError } from "@/lib/pulse-telemetry";
 
 const getClientSession = queryOptions({
   queryKey: ["session"],
@@ -93,6 +94,9 @@ export const Route = createRootRouteWithContext<Context>()({
           "Failed to load SSR session. Continuing unauthenticated (check Better Auth server configuration if unexpected).",
           error,
         );
+        captureError(error, {
+          source: "root.beforeLoad.session",
+        });
         session = null;
       }
     } else {
@@ -282,8 +286,18 @@ function RootComponent() {
   );
 }
 
-function RootDocument({ children }: Readonly<{ children: React.ReactNode }>) {
+function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
   const { country, locale, timezone, analyticsCookies } = Route.useLoaderData() as Context;
+
+  useEffect(() => {
+    void import("@/lib/pulse-telemetry/browser")
+      .then(({ initPulseBrowserTelemetry }) => {
+        initPulseBrowserTelemetry();
+      })
+      .catch((error: unknown) => {
+        console.error("Failed to initialize Pulse telemetry", error);
+      });
+  }, []);
 
   return (
     <html lang="en">

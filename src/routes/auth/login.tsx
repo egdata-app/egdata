@@ -1,5 +1,6 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
+import { captureMessage } from "@/lib/pulse-telemetry";
 
 export const saveStateFile = createServerFn({ method: "GET" }).handler(async (ctx) => {
   console.log("Saving state", ctx);
@@ -9,7 +10,14 @@ export const saveStateFile = createServerFn({ method: "GET" }).handler(async (ct
   });
 
   if (!response.ok) {
-    console.error("Failed to save state", response.status, await response.json());
+    const errorBody = await response.json();
+    console.error("Failed to save state", response.status, errorBody);
+    captureMessage("Failed to save auth state", {
+      attributes: {
+        "http.response.status_code": response.status,
+      },
+      source: "auth.login.save-state",
+    });
     throw new Error("Failed to save state");
   }
 

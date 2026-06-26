@@ -53,6 +53,7 @@ import { EGSIcon } from "@/components/icons/egs";
 import { EpicTrophyIcon } from "@/components/icons/epic-trophy";
 import { cn } from "@/lib/utils";
 import { httpClient } from "@/lib/http-client";
+import { captureError } from "@/lib/pulse-telemetry";
 import axios, { type AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -222,6 +223,12 @@ function RouteComponent() {
       return response.data;
     } catch (error) {
       console.error("Upload failed:", error);
+      captureError(error, {
+        attributes: {
+          "egdata.profile_id": id,
+        },
+        source: "profile.avatar-upload",
+      });
       setAvatarErrors([error instanceof Error ? error.message : "Upload failed"]);
     } finally {
       setIsUploading(false);

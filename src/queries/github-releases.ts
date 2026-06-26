@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { captureError } from "@/lib/pulse-telemetry";
 
 export interface Release {
   url: string;
@@ -157,6 +158,9 @@ export const getGithubReleases = createServerFn().handler(async () => {
     return simplifiedReleases;
   } catch (error) {
     console.error("Failed to fetch from GitHub API:", error);
+    captureError(error, {
+      source: "github-releases.fetch",
+    });
     return { error: "An internal server error occurred." };
   }
 });

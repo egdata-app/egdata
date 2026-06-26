@@ -1,4 +1,5 @@
 import { saveAuthCookie } from "@/lib/cookies";
+import { captureError, captureMessage } from "@/lib/pulse-telemetry";
 import type { EpicToken } from "@/types/epic";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
@@ -18,7 +19,14 @@ export const validateState = createServerFn({ method: "GET" })
       return (await response.json())?.valid || false;
     }
 
-    console.error("Failed to validate state", response.status, await response.json());
+    const errorBody = await response.json();
+    console.error("Failed to validate state", response.status, errorBody);
+    captureMessage("Failed to validate auth state", {
+      attributes: {
+        "http.response.status_code": response.status,
+      },
+      source: "auth.callback.validate-state",
+    });
     return false;
   });
 
@@ -57,7 +65,14 @@ export const getTokens = createServerFn({ method: "GET" })
       return data;
     }
 
-    console.error(response.status, await response.json());
+    const errorBody = await response.json();
+    console.error(response.status, errorBody);
+    captureMessage("Failed to exchange Epic auth code", {
+      attributes: {
+        "http.response.status_code": response.status,
+      },
+      source: "auth.callback.get-tokens",
+    });
     throw new Error("Failed to get token");
   });
 
@@ -96,6 +111,9 @@ export const Route = createFileRoute("/auth/callback")({
 
     const tokens = await getTokens({ data: code }).catch((error) => {
       console.error(error);
+      captureError(error, {
+        source: "auth.callback.tokens",
+      });
       throw redirect({
         to: "/",
         search: { error: "invalid_request" },
@@ -123,7 +141,14 @@ export const Route = createFileRoute("/auth/callback")({
     });
 
     if (!persistResponse.ok) {
-      console.error("Failed to persist tokens", await persistResponse.json());
+      const errorBody = await persistResponse.json();
+      console.error("Failed to persist tokens", errorBody);
+      captureMessage("Failed to persist auth tokens", {
+        attributes: {
+          "http.response.status_code": persistResponse.status,
+        },
+        source: "auth.callback.persist",
+      });
       throw redirect({
         to: "/",
         search: { error: "persist_error" },

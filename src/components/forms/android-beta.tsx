@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { AlertCircle, CheckCircle, Loader, Users } from "lucide-react";
 import { GoogleOAuthProvider, GoogleLogin, type CredentialResponse } from "@react-oauth/google";
+import { captureError } from "@/lib/pulse-telemetry";
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || "";
 
@@ -79,6 +80,9 @@ export function AndroidBetaForm() {
         }
       } catch (err) {
         console.error("Registration error:", err);
+        captureError(err, {
+          source: "android-beta.register",
+        });
         setState({
           status: "error",
           error: "Something went wrong. Please try again.",

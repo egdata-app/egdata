@@ -11,6 +11,7 @@ import { getQueryClient } from "@/lib/client";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { httpClient } from "@/lib/http-client";
+import { captureError } from "@/lib/pulse-telemetry";
 import type { Asset } from "@/types/asset";
 import type { SingleOffer } from "@/types/single-offer";
 import type { SingleSandbox } from "@/types/single-sandbox";
@@ -324,6 +325,9 @@ function Assets({ assets }: { assets: { assets: Asset }[] }) {
     );
   } catch (error) {
     console.error(error);
+    captureError(error, {
+      source: "offer-metadata.assets-render",
+    });
     return null;
   }
 }

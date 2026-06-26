@@ -1,8 +1,9 @@
 import { SearchDispatchContext, SearchStateContext } from "@/contexts/search";
 import { useCountry } from "@/hooks/use-country";
 import { httpClient } from "@/lib/http-client";
+import { captureError } from "@/lib/pulse-telemetry";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { type PropsWithChildren, useMemo, useState } from "react";
+import { type PropsWithChildren, useEffect, useMemo, useState } from "react";
 
 export type CountData = {
   tagCounts: Array<{ _id: string; count: number }>;
@@ -88,10 +89,16 @@ export function SearchProvider({ children }: PropsWithChildren<{}>) {
     [],
   );
 
-  // Optional: Log any errors
-  if (error) {
+  useEffect(() => {
+    if (!error) {
+      return;
+    }
+
     console.error("Error fetching count data:", error);
-  }
+    captureError(error, {
+      source: "search.counts",
+    });
+  }, [error]);
 
   return (
     <SearchStateContext.Provider value={stateValue}>

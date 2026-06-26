@@ -9,6 +9,7 @@ import {
   useSubscribeToTopicMutation,
   useUnsubscribeFromTopicMutation,
 } from "@/queries/push-notifications";
+import { captureError } from "@/lib/pulse-telemetry";
 import consola from "consola";
 
 const VAPID_PUBLIC_KEY = import.meta.env.VITE_VAPID_PUBLIC_KEY;
@@ -97,6 +98,9 @@ export function usePushNotifications(userApiKey: string) {
       return null;
     } catch (error) {
       console.error("Failed to get service worker registration:", error);
+      captureError(error, {
+        source: "push.registration",
+      });
       return null;
     }
   };
@@ -166,6 +170,9 @@ export function usePushNotifications(userApiKey: string) {
       setSubscription({ id: response.id, ...pushSubscription });
     } catch (error) {
       console.error("Error subscribing to push notifications:", error);
+      captureError(error, {
+        source: "push.subscribe",
+      });
     }
   };
 
@@ -190,6 +197,9 @@ export function usePushNotifications(userApiKey: string) {
       setSubscription(null);
     } catch (error) {
       console.error("Error unsubscribing from push notifications:", error);
+      captureError(error, {
+        source: "push.unsubscribe",
+      });
     }
   };
 
@@ -218,6 +228,9 @@ export function usePushNotifications(userApiKey: string) {
       return true;
     } catch (error) {
       console.error("Error subscribing to topics:", error);
+      captureError(error, {
+        source: "push.topic-subscribe",
+      });
       return false;
     }
   };
@@ -244,6 +257,9 @@ export function usePushNotifications(userApiKey: string) {
       return true;
     } catch (error) {
       console.error("Error unsubscribing from topics:", error);
+      captureError(error, {
+        source: "push.topic-unsubscribe",
+      });
       return false;
     }
   };

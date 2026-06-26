@@ -6,6 +6,8 @@ import {
   useMatch,
   useRouter,
 } from "@tanstack/react-router";
+import { useEffect } from "react";
+import { captureError } from "@/lib/pulse-telemetry";
 import { Button } from "../ui/button";
 
 export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
@@ -15,7 +17,12 @@ export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
     select: (state) => state.id === rootRouteId,
   });
 
-  console.error(error);
+  useEffect(() => {
+    console.error(error);
+    captureError(error, {
+      source: "router.catch-boundary",
+    });
+  }, [error]);
 
   return (
     <div className="min-w-0 flex-1 p-4 flex flex-col items-center justify-center gap-6">

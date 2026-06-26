@@ -14,6 +14,7 @@ import type { JSONContent } from "@tiptap/react";
 import { useMutation } from "@tanstack/react-query";
 import { getRouteApi, redirect } from "@tanstack/react-router";
 import { httpClient } from "@/lib/http-client";
+import { captureError } from "@/lib/pulse-telemetry";
 import consola from "consola";
 import { Viewer } from "../app/viewer";
 import type { SingleReview } from "@/types/reviews";
@@ -119,6 +120,13 @@ export function EditReviewForm({ setIsOpen, offer, previousReview }: ReviewFormP
         window.location.reload();
       } catch (error) {
         console.error(error);
+        captureError(error, {
+          attributes: {
+            "egdata.offer_id": offer?.id,
+            "egdata.review_id": previousReview.id,
+          },
+          source: "review.edit",
+        });
         throw new Error("Error submitting review");
       }
     },
@@ -430,6 +438,12 @@ function DeleteReviewButton({ reviewId, onDelete }: DeleteReviewButtonProps) {
       await onDelete(reviewId);
     } catch (error) {
       console.error(error);
+      captureError(error, {
+        attributes: {
+          "egdata.review_id": reviewId,
+        },
+        source: "review.delete",
+      });
       return;
     } finally {
       setIsDeleting(false);

@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { captureMessage } from "@/lib/pulse-telemetry";
 
 export const Route = createFileRoute("/api/auth/login")({
   server: {
@@ -9,7 +10,14 @@ export const Route = createFileRoute("/api/auth/login")({
         });
 
         if (!response.ok) {
-          console.error("Failed to save state", response.status, await response.json());
+          const errorBody = await response.json();
+          console.error("Failed to save state", response.status, errorBody);
+          captureMessage("Failed to save auth state", {
+            attributes: {
+              "http.response.status_code": response.status,
+            },
+            source: "api.auth.login.save-state",
+          });
           throw new Error("Failed to save state");
         }
 

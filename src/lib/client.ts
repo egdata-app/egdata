@@ -1,4 +1,5 @@
 import { isServer, QueryClient } from "@tanstack/react-query";
+import { captureError, flushPulseTelemetry } from "@/lib/pulse-telemetry";
 
 // Convert stray promise rejections into explicit logs so they can be GC'd.
 // Without this, Node retains references to rejection reasons (including axios
@@ -12,6 +13,13 @@ if (
   process.on("unhandledRejection", (reason) => {
     const status = (reason as { status?: number } | null)?.status;
     console.error(`[unhandledRejection] status=${status ?? "n/a"}`, reason);
+    captureError(reason, {
+      attributes: {
+        "http.response.status_code": status,
+      },
+      source: "query-client.unhandledRejection",
+    });
+    void flushPulseTelemetry();
   });
 }
 

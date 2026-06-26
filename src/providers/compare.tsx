@@ -1,5 +1,6 @@
 import { type ReactNode, useState, useEffect } from "react";
 import { CompareContext } from "@/contexts/compare";
+import { captureError } from "@/lib/pulse-telemetry";
 
 const normalizeCompareIds = (value: unknown): string[] => {
   if (!Array.isArray(value)) {
@@ -43,6 +44,9 @@ export function CompareProvider({ children }: { children: ReactNode }) {
         }
       } catch (error) {
         console.error("Failed to load compare state", error);
+        captureError(error, {
+          source: "compare.load",
+        });
         setCompare([]);
       }
 
@@ -58,6 +62,9 @@ export function CompareProvider({ children }: { children: ReactNode }) {
         sessionStorage.setItem("compare", JSON.stringify(normalizeCompareIds(compare)));
       } catch (error) {
         console.error("Failed to save compare state", error);
+        captureError(error, {
+          source: "compare.save",
+        });
       }
     }
   }, [compare, isLoading]);

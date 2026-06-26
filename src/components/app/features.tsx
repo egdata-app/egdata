@@ -7,6 +7,7 @@ import { EpicGamesIcon } from "../icons/epic";
 import { EaIcon } from "../icons/ea";
 import { UbisoftIcon } from "../icons/ubisoft";
 import { httpClient } from "@/lib/http-client";
+import { captureError } from "@/lib/pulse-telemetry";
 import { useQuery } from "@tanstack/react-query";
 
 interface OfferFeatures {
@@ -28,6 +29,12 @@ export function GameFeatures({ id, size: _size = "md" }: { id: string; size?: Fe
       })
       .catch((error) => {
         console.error(error);
+        captureError(error, {
+          attributes: {
+            "egdata.offer_id": id,
+          },
+          source: "offer-features.fetch",
+        });
         return null;
       });
   }, [id]);

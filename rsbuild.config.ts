@@ -1,7 +1,6 @@
 import { defineConfig, loadEnv } from "@rsbuild/core";
 import { pluginReact } from "@rsbuild/plugin-react";
 import { pluginTailwindcss } from "@rsbuild/plugin-tailwindcss";
-import { sentryWebpackPlugin } from "@sentry/webpack-plugin";
 import { tanstackStart } from "@tanstack/react-start/plugin/rsbuild";
 import { SECURITY_HEADERS } from "./src/lib/security-headers";
 
@@ -38,21 +37,6 @@ export default defineConfig({
           ],
         },
       },
-    },
-  },
-  tools: {
-    rspack(_config, { appendPlugins }) {
-      if (!process.env.SENTRY_AUTH_TOKEN) {
-        return;
-      }
-
-      appendPlugins(
-        sentryWebpackPlugin({
-          authToken: process.env.SENTRY_AUTH_TOKEN,
-          org: "royale-radar",
-          project: "egdata",
-        }),
-      );
     },
   },
   plugins: [pluginReact(), pluginTailwindcss(), tanstackStart()],
