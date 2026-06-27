@@ -71,7 +71,7 @@ export function UpcomingOffers() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data?.elements.map((offer) => (
+          {data?.elements?.map((offer) => (
             <TableRow
               key={offer.id}
               className="cursor-pointer hover:bg-accent/50 transition-colors duration-200"

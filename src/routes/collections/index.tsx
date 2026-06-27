@@ -193,6 +193,7 @@ function CollectionCard({ collection }: { collection: (typeof collections)[0] })
       </Link>
     );
   }
+  const offers = Array.isArray(collectionData.elements) ? collectionData.elements : [];
 
   return (
     <Link to="/collections/$id" params={{ id: collection.slug }}>
@@ -203,7 +204,7 @@ function CollectionCard({ collection }: { collection: (typeof collections)[0] })
         <div
           className="absolute inset-0 bg-gradient-to-b from-card/90 via-card/95 to-card rounded-xl"
           style={{
-            backgroundImage: `url(${getImage(collectionData.elements[0]?.keyImages ?? [], ["DieselGameBoxWide", "DieselStoreFrontWide", "Featured", "OfferImageWide"])?.url ?? "/placeholder.webp"})`,
+            backgroundImage: `url(${getImage(offers[0]?.keyImages ?? [], ["DieselGameBoxWide", "DieselStoreFrontWide", "Featured", "OfferImageWide"])?.url ?? "/placeholder.webp"})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -218,7 +219,7 @@ function CollectionCard({ collection }: { collection: (typeof collections)[0] })
             <p className="text-sm text-muted-foreground">{collection.description}</p>
           </CardHeader>
           <CardContent className="text-sm flex flex-col gap-4">
-            {collectionData.elements.map((game) => (
+            {offers.map((game) => (
               <div key={game.id} className="flex flex-col gap-2 items-start justify-start">
                 <div className="flex flex-row gap-2 items-center justify-start">
                   <span className={cn("text-xs", game.position === 1 && "text-xl font-bold")}>

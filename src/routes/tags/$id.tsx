@@ -398,6 +398,15 @@ function RouteComponent() {
   if (!promotion) {
     return null;
   }
+  const promotionPages = promotion.pages?.filter(Boolean) ?? [];
+  const firstPromotionPage = promotionPages[0];
+
+  if (!firstPromotionPage) {
+    return null;
+  }
+  const promotionOffers = promotionPages.flatMap((page) =>
+    Array.isArray(page.elements) ? page.elements : [],
+  );
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
@@ -421,9 +430,9 @@ function RouteComponent() {
       >
         <div className="flex h-full w-full flex-col items-start justify-center bg-gradient-to-r from-black/80 to-black/30 p-5 text-foreground md:p-8">
           <h1 className="text-3xl font-bold leading-tight md:text-5xl">
-            {promotion.pages[0].title}
+            {firstPromotionPage.title}
           </h1>
-          <p className="mt-4 text-lg">{promotion.pages[0]?.count} offers available in this event</p>
+          <p className="mt-4 text-lg">{firstPromotionPage.count} offers available in this event</p>
         </div>
       </div>
 
@@ -431,7 +440,7 @@ function RouteComponent() {
         <div className="inline-flex flex-wrap items-center gap-2">
           <h2 className="text-2xl">Results</h2>
           <span className="text-sm text-muted-foreground">
-            ({promotion.pages.reduce((acc, page) => acc + page.elements.length, 0)} results)
+            ({promotionOffers.length} results)
           </span>
           {isFetching && (
             <svg
@@ -508,9 +517,7 @@ function RouteComponent() {
           view === "grid" ? "grid-cols-1 lg:grid-cols-3 xl:grid-cols-5" : "grid-cols-1",
         )}
       >
-        {promotion.pages
-          .flatMap((page) => page.elements)
-          .map((game) =>
+        {promotionOffers.map((game) =>
             view === "grid" ? (
               <OfferCard offer={game} key={game.id} size="md" />
             ) : (

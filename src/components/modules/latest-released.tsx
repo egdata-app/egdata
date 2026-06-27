@@ -19,7 +19,9 @@ export function LatestReleased() {
     queryFn: () => getLatestReleased({ country }),
   });
 
-  if (loading || !offers?.elements) return null;
+  const latestOffers = Array.isArray(offers?.elements) ? offers.elements : [];
+
+  if (loading || latestOffers.length === 0) return null;
 
   return (
     <section className="w-full pt-4" id="latest-games">
@@ -36,7 +38,7 @@ export function LatestReleased() {
       <Carousel className="mt-2 h-full p-4">
         <CarouselPrevious />
         <CarouselContent>
-          {offers.elements.map((game) => (
+          {latestOffers.map((game) => (
             <CarouselItem key={game.id} className="basis-1/1 lg:basis-1/5">
               <OfferCard offer={game} key={game.id} size="md" />
             </CarouselItem>

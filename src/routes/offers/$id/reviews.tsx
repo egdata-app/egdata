@@ -274,6 +274,7 @@ function Reviews() {
   const poll = pollsQuery.data;
   const ratings = ratingsQuery.data;
   const permissions = permissionsQuery.data;
+  const reviewItems = Array.isArray(reviews?.elements) ? reviews.elements : [];
 
   const userCanReview = permissions
     ? {
@@ -428,9 +429,9 @@ function Reviews() {
           </div>
         </TooltipProvider>
       </div>
-      {reviews?.elements.length ? (
+      {reviewItems.length ? (
         <div className="grid gap-6 grid-cols-1 md:grid-cols-2 w-full max-w-7xl mx-auto px-4">
-          {reviews?.elements.map((review) => (
+          {reviewItems.map((review) => (
             <Review key={review.id} review={review} />
           ))}
         </div>

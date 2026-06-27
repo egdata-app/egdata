@@ -237,7 +237,7 @@ const routes: Route[] = [
         queryFn: () => getTopSection("top-sellers"),
       });
 
-      const offer = data?.elements[0];
+      const offer = data?.elements?.[0];
 
       return (
         <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[1fr_.75fr] lg:grid-rows-[repeat(3, auto)]">

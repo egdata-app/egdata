@@ -22,6 +22,7 @@ export interface SearchResultsProps {
 export function SearchResults(props: SearchResultsProps) {
   const { view } = usePreferences();
   const { query, setField, loading, results } = props;
+  const offers = Array.isArray(results?.offers) ? results.offers : [];
 
   if (loading && !results) {
     return (
@@ -45,7 +46,7 @@ export function SearchResults(props: SearchResultsProps) {
     );
   }
 
-  if (!results || results.offers.length === 0) {
+  if (!results || offers.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-full">
         <span className="text-muted-foreground">No results found</span>
@@ -62,7 +63,7 @@ export function SearchResults(props: SearchResultsProps) {
             : "flex flex-col gap-4",
         )}
       >
-        {results.offers.map((offer) => {
+        {offers.map((offer) => {
           if (view === "grid") {
             return <OfferCard key={offer.id} offer={offer as unknown as SingleOffer} size="md" />;
           }

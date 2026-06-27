@@ -178,7 +178,7 @@ function CollectionPage() {
   return (
     <TooltipProvider>
       <main className="flex flex-col items-start justify-start h-full gap-1 px-4 w-full">
-        <h1 className="text-3xl font-semibold md:text-4xl">{data?.pages[0].title}</h1>
+        <h1 className="text-3xl font-semibold md:text-4xl">{data?.pages[0]?.title}</h1>
 
         <div className="hidden h-12 w-full flex-row items-center px-5 font-thin text-muted-foreground md:flex">
           <span className="w-10">Position</span>
@@ -206,7 +206,7 @@ function CollectionPage() {
               <TooltipContent className="max-w-xs">
                 <p>
                   The number of weeks the game has been in the top 100 for{" "}
-                  {data?.pages[0].title.toLowerCase()}.
+                  {data?.pages[0]?.title?.toLowerCase()}.
                 </p>
               </TooltipContent>
             </Tooltip>
@@ -216,7 +216,7 @@ function CollectionPage() {
         {/* Offers List */}
         <div className="flex flex-col gap-2 w-full">
           {data?.pages
-            .flatMap((page) => page.elements)
+            .flatMap((page) => (Array.isArray(page?.elements) ? page.elements : []))
             .map((offer) => (
               <OfferInTop key={offer.id} offer={offer} />
             ))}

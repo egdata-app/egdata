@@ -198,6 +198,7 @@ function ChangelogPage() {
       </div>
     );
   }
+  const changelogItems = Array.isArray(data.elements) ? data.elements : [];
 
   return (
     <TooltipProvider>
@@ -307,7 +308,7 @@ function ChangelogPage() {
           </div>
         </div>
         <div className="flex flex-col w-full gap-4">
-          {data.elements
+          {changelogItems
             .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
             .map((changelist) => (
               <ChangeTracker
@@ -320,7 +321,7 @@ function ChangelogPage() {
                 metadata={changelist.metadata}
               />
             ))}
-          {data.elements.length === 0 && (
+          {changelogItems.length === 0 && (
             <p className="text-sm text-muted-foreground">No changes found for this offer</p>
           )}
         </div>

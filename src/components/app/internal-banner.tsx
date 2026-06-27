@@ -34,7 +34,9 @@ export const InternalBanner: React.FC<{
         total: number;
       }>(`/autocomplete?query=${title}`);
 
-      return response.elements
+      const elements = Array.isArray(response?.elements) ? response.elements : [];
+
+      return elements
         .filter(({ namespace }) => !internalNamespaces.includes(namespace))
         .filter(({ title: t, customAttributes }) => {
           const titleSimilarity = compareTitleSimilarity(title, t);

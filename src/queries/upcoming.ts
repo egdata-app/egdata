@@ -2,12 +2,17 @@ import { httpClient } from "@/lib/http-client";
 import type { SingleOffer } from "@/types/single-offer";
 
 export async function getUpcoming({ country }: { country: string }) {
-  return httpClient.get<{
+  const data = await httpClient.get<{
     elements: SingleOffer[];
-  }>("/offers/upcoming", {
+  } | null>("/offers/upcoming", {
     params: {
       country,
       limit: 25,
     },
   });
+
+  return {
+    ...data,
+    elements: Array.isArray(data?.elements) ? data.elements : [],
+  };
 }

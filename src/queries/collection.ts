@@ -40,7 +40,7 @@ export const getCollection = async ({
   country: string;
   week?: string;
 }) => {
-  const data = await httpClient.get<Collections>(
+  const data = await httpClient.get<Collections | null>(
     !week ? `/collections/${slug}` : `/collections/${slug}/${week}`,
     {
       params: {
@@ -51,5 +51,12 @@ export const getCollection = async ({
     },
   );
 
-  return data;
+  return {
+    ...data,
+    elements: Array.isArray(data?.elements) ? data.elements : [],
+    limit: data?.limit ?? limit,
+    page: data?.page ?? page,
+    total: data?.total ?? 0,
+    title: data?.title ?? slug,
+  };
 };

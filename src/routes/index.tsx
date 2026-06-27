@@ -580,6 +580,10 @@ function RouteComponent() {
     },
   } = statsQuery;
   const { data: latestBuilds = [] } = latestBuildsQuery;
+  const upcomingOfferRows = Array.isArray(upcomingOffers?.elements) ? upcomingOffers.elements : [];
+  const latestReleasedOfferRows = Array.isArray(latestReleasedOffers?.elements)
+    ? latestReleasedOffers.elements
+    : [];
 
   function formatDate(iso: string) {
     return DateTime.fromISO(iso)
@@ -908,7 +912,7 @@ function RouteComponent() {
         >
           <SimpleTable
             headers={["#", "Title", "Release Date"]}
-            rows={upcomingOffers.elements.slice(0, 10).map((o) => [
+            rows={upcomingOfferRows.slice(0, 10).map((o) => [
               o.id,
               <Link
                 key={o.id}
@@ -1017,7 +1021,7 @@ function RouteComponent() {
         >
           <SimpleTable
             headers={["#", "Date", "Title", "Price"]}
-            rows={latestReleasedOffers.elements.slice(0, 10).map((u) => [
+            rows={latestReleasedOfferRows.slice(0, 10).map((u) => [
               u.id,
               <Link
                 key={u.id}

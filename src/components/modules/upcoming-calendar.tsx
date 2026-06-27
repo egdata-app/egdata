@@ -45,7 +45,7 @@ export function UpcomingCalendar() {
     );
   }
 
-  const groupedOffersByDay = data?.elements.reduce(
+  const groupedOffersByDay = data?.elements?.reduce(
     (acc, offer) => {
       const releaseDate = new Date(offer.releaseDate);
       const key = releaseDate.toDateString();

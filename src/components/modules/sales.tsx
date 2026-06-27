@@ -25,7 +25,7 @@ export function SalesModule({ eventId, event }: { eventId: string; event: string
         elements: SingleOffer[];
       }>(`/promotions/${eventId}?country=${country || "US"}`)
       .then((res) => {
-        setGames(res.elements);
+        setGames(Array.isArray(res?.elements) ? res.elements : []);
         setLoading(false);
       });
   }, [eventId, country]);

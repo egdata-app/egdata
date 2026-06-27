@@ -6,5 +6,5 @@ export const getTopSellers = async (country: string) => {
     limit: 25,
     page: 1,
     country,
-  }).then((res) => res.elements);
+  }).then((res) => (Array.isArray(res?.elements) ? res.elements : []));
 };

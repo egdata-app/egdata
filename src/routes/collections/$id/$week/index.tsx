@@ -83,17 +83,17 @@ function CollectionPage() {
     <TooltipProvider>
       <main className="flex flex-col items-start justify-start h-full gap-1 px-4 w-full">
         <div className="flex flex-row items-center justify-between gap-4">
-          <h1 className="text-4xl font-semibold">{data?.pages[0].title}</h1>
+          <h1 className="text-4xl font-semibold">{data?.pages[0]?.title}</h1>
           <span className="text-4xl text-muted-foreground">-</span>
-          {data?.pages[0].start && data?.pages[0].end && (
+          {data?.pages[0]?.start && data?.pages[0]?.end && (
             <div className="text-4xl text-muted-foreground">
-              {new Date(data?.pages[0].start).toLocaleDateString("en-UK", {
+              {new Date(data.pages[0].start).toLocaleDateString("en-UK", {
                 year: undefined,
                 month: "long",
                 day: "numeric",
               })}{" "}
               -{" "}
-              {new Date(data?.pages[0].end).toLocaleDateString("en-UK", {
+              {new Date(data.pages[0].end).toLocaleDateString("en-UK", {
                 year: "numeric",
                 month: "long",
                 day: "numeric",
@@ -128,7 +128,7 @@ function CollectionPage() {
               <TooltipContent className="max-w-xs">
                 <p>
                   The number of weeks the game has been in the top 100 for{" "}
-                  {data?.pages[0].title.toLowerCase()}.
+                  {data?.pages[0]?.title?.toLowerCase()}.
                 </p>
               </TooltipContent>
             </Tooltip>
@@ -138,7 +138,7 @@ function CollectionPage() {
         {/* Offers List */}
         <div className="flex flex-col gap-2 w-full">
           {data?.pages
-            .flatMap((page) => page.elements)
+            .flatMap((page) => (Array.isArray(page?.elements) ? page.elements : []))
             .map((offer) => (
               <OfferInTop key={offer.id} offer={offer} />
             ))}

@@ -168,6 +168,7 @@ export function SearchForm({
             }),
           placeholderData: keepPreviousData,
         });
+        const offers = Array.isArray(data?.elements) ? data.elements : [];
 
         useEffect(() => {
           if (data?.query) {
@@ -213,7 +214,7 @@ export function SearchForm({
           return <div>Error: {error.message}</div>;
         }
 
-        if (!data || data.elements.length === 0) {
+        if (!data || offers.length === 0) {
           return (
             <div className="flex flex-col items-center justify-center h-full">
               <span className="text-muted-foreground">No results found</span>
@@ -231,7 +232,7 @@ export function SearchForm({
                 resultsClassName,
               )}
             >
-              {data.elements.map((offer) => {
+              {offers.map((offer) => {
                 if (view === "grid") {
                   return <OfferCard key={offer.id} offer={offer} size="md" />;
                 }
@@ -243,7 +244,7 @@ export function SearchForm({
               page={values.page ?? 1}
               setPage={setCurrentPageNumber}
               total={totalCount || 0}
-              limit={data.limit}
+              limit={data.limit ?? 28}
             />
             {showLongLoading && (
               <div className="absolute inset-0 bg-muted/90 z-10 w-full h-screen flex items-center justify-center rounded-xl">

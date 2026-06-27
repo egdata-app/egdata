@@ -171,9 +171,12 @@ function FranchisePage() {
     );
   }
 
-  const franchise = data?.pages[0];
+  const pages = data?.pages?.filter(Boolean) ?? [];
+  const franchise = pages[0];
   const stats = franchise?.stats;
-  const allOffers = data?.pages.flatMap((page) => page.elements) ?? [];
+  const allOffers = pages.flatMap((page) =>
+    Array.isArray(page.elements) ? page.elements : [],
+  );
 
   return (
     <main className="flex flex-col items-start justify-start h-full gap-6 px-4 w-full">

@@ -33,30 +33,30 @@ export function TopSection({
     queryKey: ["top-section", { slug, limit: 1 }],
     queryFn: () => getTopSection(slug),
   });
+  const offer = data?.elements?.[0];
   const { data: price } = useQuery({
     queryKey: [
       "price",
       {
-        id: data?.elements[0].id ?? null,
+        id: offer?.id ?? null,
       },
     ],
     queryFn: () =>
       httpClient
-        .get<SingleOffer["price"]>(`/offers/${data?.elements[0].id}/price`, {
+        .get<SingleOffer["price"]>(`/offers/${offer?.id}/price`, {
           params: { country },
         })
         .then((res) => res),
+    enabled: Boolean(offer?.id),
   });
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
-  if (!data) {
-    return <div>Not found</div>;
+  if (!offer) {
+    return null;
   }
-
-  const offer = data.elements[0];
 
   return (
     <section className="w-full py-4 bg-card rounded-2xl" id={slug}>
