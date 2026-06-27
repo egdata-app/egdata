@@ -20,7 +20,10 @@ export default defineConfig({
     define: publicVars,
   },
   output: {
-    sourceMap: true,
+    sourceMap: {
+      css: true,
+      js: "source-map",
+    },
   },
   environments: {
     ssr: {
