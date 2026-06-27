@@ -2,12 +2,69 @@
 
 import consola from "consola";
 import z from "zod";
+import { CacheableResponsePlugin } from "workbox-cacheable-response";
+import { ExpirationPlugin } from "workbox-expiration";
+import {
+  addPlugins,
+  cleanupOutdatedCaches,
+  matchPrecache,
+  precacheAndRoute,
+  type PrecacheEntry,
+} from "workbox-precaching";
+import { registerRoute } from "workbox-routing";
+import { CacheFirst } from "workbox-strategies";
 
-declare const self: ServiceWorkerGlobalScope;
+declare const self: ServiceWorkerGlobalScope & {
+  __WB_MANIFEST: Array<PrecacheEntry | string>;
+};
 
-// @ts-expect-error Used by workbox to inject the manifest
-const __manifest = self.__WB_MANIFEST;
-void __manifest; // Silence unused variable warning
+const OFFLINE_URL = "/offline.html";
+const IMAGE_CACHE_NAME = "egdata-images-v1";
+
+addPlugins([new CacheableResponsePlugin({ statuses: [200] })]);
+precacheAndRoute(self.__WB_MANIFEST);
+cleanupOutdatedCaches();
+
+registerRoute(
+  ({ request }) => request.mode === "navigate",
+  async ({ event, request }) => {
+    try {
+      const preloadResponse = await (event as FetchEvent).preloadResponse;
+
+      if (preloadResponse) {
+        return preloadResponse;
+      }
+
+      return await fetch(request);
+    } catch {
+      const offlineResponse = await matchPrecache(OFFLINE_URL);
+
+      return (
+        offlineResponse ??
+        new Response("You are offline.", {
+          status: 503,
+          statusText: "Service Unavailable",
+          headers: { "Content-Type": "text/plain; charset=utf-8" },
+        })
+      );
+    }
+  },
+);
+
+registerRoute(
+  ({ request }) => request.destination === "image",
+  new CacheFirst({
+    cacheName: IMAGE_CACHE_NAME,
+    plugins: [
+      new CacheableResponsePlugin({ statuses: [200] }),
+      new ExpirationPlugin({
+        maxEntries: 250,
+        maxAgeSeconds: 60 * 60 * 24 * 30,
+        purgeOnQuotaError: true,
+      }),
+    ],
+  }),
+);
 
 const notificationSchema = z.object({
   title: z.string(),
@@ -175,5 +232,12 @@ self.addEventListener("install", (_event: ExtendableEvent) => {
 self.addEventListener("activate", (event: ExtendableEvent) => {
   console.debug("Service worker activated");
   // Take control of all clients as soon as the SW is activated
-  event.waitUntil(self.clients.claim());
+  event.waitUntil(
+    Promise.all([
+      "navigationPreload" in self.registration
+        ? self.registration.navigationPreload.enable()
+        : Promise.resolve(),
+      self.clients.claim(),
+    ]),
+  );
 });

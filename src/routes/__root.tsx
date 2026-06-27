@@ -249,8 +249,7 @@ export const Route = createRootRouteWithContext<Context>()({
           "A free and open-source Epic Games Store database with comprehensive game information, sales tracking, and more. Community-driven and constantly updated.",
       },
     ],
-    scripts: [
-      ...(import.meta.env.DEV
+    scripts: (import.meta.env.DEV
         ? []
         : [
             {
@@ -259,11 +258,6 @@ export const Route = createRootRouteWithContext<Context>()({
               "data-website-id": "931f85f9-f8b6-422c-882d-04864194435b",
             } as any,
           ]),
-      {
-        src: "https://insights.egdata.app/tracker.js",
-        defer: true,
-      },
-    ],
   }),
 });
 

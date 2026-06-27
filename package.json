@@ -158,6 +158,11 @@
     "tailwindcss": "^4.3.0",
     "typescript": "^5.9.2",
     "workbox-build": "7.4.1",
+    "workbox-cacheable-response": "7.4.1",
+    "workbox-expiration": "7.4.1",
+    "workbox-precaching": "7.4.1",
+    "workbox-routing": "7.4.1",
+    "workbox-strategies": "7.4.1",
     "wrangler": "3.99.0"
   },
   "packageManager": "pnpm@11.8.0",

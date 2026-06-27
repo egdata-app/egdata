@@ -17,12 +17,8 @@ const updateSW = async (reloadPage = false) => {
   }
 };
 
-const promptForUpdate = (worker: ServiceWorker) => {
+const rememberWaitingWorker = (worker: ServiceWorker) => {
   waitingWorker = worker;
-
-  if (window.confirm("New content available, reload?")) {
-    void updateSW(true);
-  }
 };
 
 const canRegister =
@@ -47,7 +43,7 @@ if (canRegister) {
       console.log("SW Registered:", registration);
 
       if (registration.waiting && navigator.serviceWorker.controller) {
-        promptForUpdate(registration.waiting);
+        rememberWaitingWorker(registration.waiting);
       }
 
       registration.addEventListener("updatefound", () => {
@@ -62,7 +58,7 @@ if (canRegister) {
             return;
           }
 
-          promptForUpdate(worker);
+          rememberWaitingWorker(worker);
         });
       });
     })

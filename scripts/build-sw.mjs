@@ -31,7 +31,7 @@ const { count, size, warnings } = await injectManifest({
   swSrc: tempSw,
   swDest,
   globDirectory: clientDist,
-  globPatterns: ["**/*.{js,css,html,ico,png,svg,webp}"],
+  globPatterns: ["**/*.{js,css,ico,png,svg,webp,webmanifest}", "offline.html"],
   globIgnores: ["sw.js", "sw.js.map"],
 });
 
