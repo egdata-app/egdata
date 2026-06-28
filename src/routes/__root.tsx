@@ -20,7 +20,7 @@ import type { EpicToken } from "@/types/epic";
 import type { auth } from "@/lib/auth";
 import { authClient } from "@/lib/auth-client";
 import { Toaster } from "@/components/ui/sonner";
-import styles from "@/styles.css?url";
+import "@/styles.css";
 import { ExtensionProvider } from "@/providers/extension";
 import { VideoProvider } from "@/providers/offers-video";
 import { GlobalBackground } from "@/components/app/global-background";
@@ -145,7 +145,6 @@ export const Route = createRootRouteWithContext<Context>()({
 
   head: () => ({
     links: [
-      { rel: "stylesheet", href: styles },
       { rel: "preconnect", href: "https://cdn1.epicgames.com/" },
       { rel: "preconnect", href: "https://api.egdata.app/" },
       { rel: "preconnect", href: "https://cdn.egdata.app/" },
@@ -249,15 +248,15 @@ export const Route = createRootRouteWithContext<Context>()({
           "A free and open-source Epic Games Store database with comprehensive game information, sales tracking, and more. Community-driven and constantly updated.",
       },
     ],
-    scripts: (import.meta.env.DEV
-        ? []
-        : [
-            {
-              src: "https://analytics.egdata.app/script.js",
-              async: true,
-              "data-website-id": "931f85f9-f8b6-422c-882d-04864194435b",
-            } as any,
-          ]),
+    scripts: import.meta.env.DEV
+      ? []
+      : [
+          {
+            src: "https://analytics.egdata.app/script.js",
+            async: true,
+            "data-website-id": "931f85f9-f8b6-422c-882d-04864194435b",
+          } as any,
+        ],
   }),
 });
 

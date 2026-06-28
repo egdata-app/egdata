@@ -9,6 +9,9 @@ const isClient = typeof window !== "undefined" && typeof window.chrome !== "unde
 
 type IdNamespace = { id: string; namespace: string };
 type OwnedStatusMap = Record<string, boolean | undefined>;
+type OwnedOffersResponse =
+  | { ownedOffers: IdNamespace[]; error?: never }
+  | { ownedOffers?: never; error: string };
 
 export type ExtensionContextType = {
   ids: IdNamespace[];
@@ -69,7 +72,7 @@ export function ExtensionProvider({ children }: { children: ReactNode }) {
   }, []);
 
   // TanStack mutation for batch fetching
-  const mutation = useMutation({
+  const { mutate } = useMutation({
     mutationFn: async (ids: IdNamespace[]) => {
       const keys = ids.map(({ id, namespace }) => getKey(id, namespace));
       const cached = await getOwnedStatus(keys);
@@ -85,10 +88,13 @@ export function ExtensionProvider({ children }: { children: ReactNode }) {
             chrome.runtime.sendMessage(
               EXTENSION_ID,
               { action: "getOwnedOffers", payload: { offers: missing } },
-              (response: { ownedOffers: { id: string; namespace: string }[] }) => {
+              (response?: OwnedOffersResponse) => {
                 if (chrome.runtime.lastError) {
                   consola.error("getOwnedOffers", chrome.runtime.lastError);
                   reject(chrome.runtime.lastError);
+                } else if (!Array.isArray(response?.ownedOffers)) {
+                  consola.info("received response from extension", response);
+                  resolve();
                 } else {
                   consola.info("received response from extension", response);
                   const ownedOffers = response.ownedOffers.map((offer) =>
@@ -131,12 +137,12 @@ export function ExtensionProvider({ children }: { children: ReactNode }) {
     if (ids.length === 0) return;
     if (debounceRef.current) clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
-      mutation.mutate(ids);
+      mutate(ids);
     }, 100);
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
-  }, [ids, mutation.mutate]);
+  }, [ids, mutate]);
 
   // isOwned helper (always returns boolean)
   const isOwned = useCallback(
