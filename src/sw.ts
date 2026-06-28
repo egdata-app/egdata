@@ -228,8 +228,9 @@ self.addEventListener("message", (event: ExtendableMessageEvent) => {
 });
 
 // Service worker lifecycle events
-self.addEventListener("install", (_event: ExtendableEvent) => {
+self.addEventListener("install", (event: ExtendableEvent) => {
   console.debug("Service worker installed");
+  event.waitUntil(self.skipWaiting());
 });
 
 self.addEventListener("activate", (event: ExtendableEvent) => {

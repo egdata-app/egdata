@@ -21,6 +21,11 @@ const rememberWaitingWorker = (worker: ServiceWorker) => {
   waitingWorker = worker;
 };
 
+const activateWaitingWorker = (worker: ServiceWorker) => {
+  rememberWaitingWorker(worker);
+  worker.postMessage({ type: "SKIP_WAITING" });
+};
+
 const canRegister =
   typeof window !== "undefined" &&
   typeof navigator !== "undefined" &&
@@ -38,13 +43,17 @@ if (canRegister) {
   });
 
   navigator.serviceWorker
-    .register("/sw.js", { type: "module" })
+    .register("/sw.js", { type: "module", updateViaCache: "none" })
     .then((registration) => {
       console.log("SW Registered:", registration);
 
       if (registration.waiting && navigator.serviceWorker.controller) {
-        rememberWaitingWorker(registration.waiting);
+        activateWaitingWorker(registration.waiting);
       }
+
+      void registration.update().catch((error: unknown) => {
+        console.log("SW update check error", error);
+      });
 
       registration.addEventListener("updatefound", () => {
         const worker = registration.installing;
@@ -58,7 +67,7 @@ if (canRegister) {
             return;
           }
 
-          rememberWaitingWorker(worker);
+          activateWaitingWorker(worker);
         });
       });
     })

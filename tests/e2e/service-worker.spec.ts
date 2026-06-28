@@ -30,6 +30,14 @@ test.describe("service worker", () => {
     "base64",
   );
 
+  test("serves the service worker without browser or edge caching", async ({ request }) => {
+    const response = await request.get("/sw.js");
+
+    expect(response.headers()["cache-control"]).toBe(
+      "no-cache, no-store, max-age=0, must-revalidate",
+    );
+  });
+
   test("registers without showing the update prompt", async ({ page }) => {
     const dialogs: string[] = [];
 
