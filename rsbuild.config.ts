@@ -5,6 +5,11 @@ import { tanstackStart } from "@tanstack/react-start/plugin/rsbuild";
 import { SECURITY_HEADERS } from "./src/lib/security-headers";
 
 const { publicVars } = loadEnv({ prefixes: ["VITE_"] });
+const swVersion =
+  process.env.VITE_SW_VERSION ||
+  process.env.CF_PAGES_COMMIT_SHA ||
+  process.env.GITHUB_SHA ||
+  Date.now().toString();
 
 export default defineConfig({
   server: {
@@ -17,7 +22,10 @@ export default defineConfig({
     },
   },
   source: {
-    define: publicVars,
+    define: {
+      ...publicVars,
+      __SW_VERSION__: JSON.stringify(swVersion),
+    },
   },
   output: {
     sourceMap: {

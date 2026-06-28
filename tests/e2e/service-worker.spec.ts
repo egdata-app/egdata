@@ -22,6 +22,7 @@ async function waitForControlledServiceWorker(page: Page) {
   });
 
   expect(scriptUrl).toContain("/sw.js");
+  return scriptUrl;
 }
 
 test.describe("service worker", () => {
@@ -46,9 +47,10 @@ test.describe("service worker", () => {
       await dialog.dismiss();
     });
 
-    await waitForControlledServiceWorker(page);
+    const scriptUrl = await waitForControlledServiceWorker(page);
 
     expect(dialogs).not.toContain("New content available, reload?");
+    expect(new URL(scriptUrl!).searchParams.has("v")).toBe(true);
   });
 
   test("shows the offline fallback only when navigation cannot reach the network", async ({

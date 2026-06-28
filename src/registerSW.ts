@@ -1,6 +1,7 @@
 let waitingWorker: ServiceWorker | null = null;
 let reloadOnControllerChange = false;
 let isRefreshing = false;
+const serviceWorkerUrl = `/sw.js?v=${encodeURIComponent(__SW_VERSION__)}`;
 
 const updateSW = async (reloadPage = false) => {
   if (reloadPage) {
@@ -43,7 +44,7 @@ if (canRegister) {
   });
 
   navigator.serviceWorker
-    .register("/sw.js", { type: "module", updateViaCache: "none" })
+    .register(serviceWorkerUrl, { type: "module", scope: "/", updateViaCache: "none" })
     .then((registration) => {
       console.log("SW Registered:", registration);
 

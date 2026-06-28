@@ -11,6 +11,8 @@ interface CloudflareContext {
 }
 
 declare global {
+  const __SW_VERSION__: string;
+
   interface Window {
     dataLayer: unknown[];
     gtag?: Gtag.Gtag;
