@@ -39,6 +39,14 @@ test.describe("service worker", () => {
     );
   });
 
+  test("does not precache hashed app chunks", async ({ request }) => {
+    const response = await request.get("/sw.js");
+    const source = await response.text();
+
+    expect(source).not.toContain('"url":"static/js/');
+    expect(source).not.toContain('"url":"static/css/');
+  });
+
   test("registers without showing the update prompt", async ({ page }) => {
     const dialogs: string[] = [];
 
