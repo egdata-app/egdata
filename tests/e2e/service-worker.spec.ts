@@ -25,6 +25,11 @@ async function waitForControlledServiceWorker(page: Page) {
 }
 
 test.describe("service worker", () => {
+  const transparentPng = Buffer.from(
+    "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/p9sAAAAASUVORK5CYII=",
+    "base64",
+  );
+
   test("registers without showing the update prompt", async ({ page }) => {
     const dialogs: string[] = [];
 
@@ -131,6 +136,42 @@ test.describe("service worker", () => {
       goodStatus: 200,
       missingLoaded: false,
       missingCached: false,
+    });
+  });
+
+  test("lets cross-origin images bypass the service-worker image cache", async ({ page }) => {
+    await page.route("https://cdn1.epicgames.com/**", async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: "image/png",
+        body: transparentPng,
+      });
+    });
+
+    await waitForControlledServiceWorker(page);
+
+    const result = await page.evaluate(async () => {
+      const loadImage = (src: string) =>
+        new Promise<boolean>((resolve) => {
+          const image = new Image();
+          image.onload = () => resolve(true);
+          image.onerror = () => resolve(false);
+          image.src = src;
+          document.body.append(image);
+        });
+
+      const cache = await caches.open("egdata-images-v1");
+      const imageUrl = `https://cdn1.epicgames.com/egdata-sw-test.png?sw-image-cache-test=${Date.now()}`;
+
+      const loaded = await loadImage(imageUrl);
+      const cached = Boolean(await cache.match(imageUrl));
+
+      return { loaded, cached };
+    });
+
+    expect(result).toEqual({
+      loaded: true,
+      cached: false,
     });
   });
 });

@@ -21,6 +21,9 @@ declare const self: ServiceWorkerGlobalScope & {
 const OFFLINE_URL = "/offline.html";
 const IMAGE_CACHE_NAME = "egdata-images-v1";
 
+const isSameOriginImageRequest = (request: Request) =>
+  request.destination === "image" && new URL(request.url).origin === self.location.origin;
+
 addPlugins([new CacheableResponsePlugin({ statuses: [200] })]);
 precacheAndRoute(self.__WB_MANIFEST);
 cleanupOutdatedCaches();
@@ -52,7 +55,7 @@ registerRoute(
 );
 
 registerRoute(
-  ({ request }) => request.destination === "image",
+  ({ request }) => isSameOriginImageRequest(request),
   new CacheFirst({
     cacheName: IMAGE_CACHE_NAME,
     plugins: [
