@@ -1,0 +1,1763 @@
+{
+  "common": {
+    "appName": "EGDATA",
+    "search": "Cari",
+    "searchPlaceholder": "Cari game...",
+    "loading": "Memuat...",
+    "free": "Gratis",
+    "notAvailable": "Tidak tersedia",
+    "cancel": "Batal",
+    "save": "Simpan",
+    "close": "Tutup"
+  },
+  "nav": {
+    "toggleMenu": "Alihkan menu navigasi",
+    "logoAlt": "Logo EGDATA",
+    "explore": "Jelajahi",
+    "browse": "Telusuri",
+    "sales": "Diskon",
+    "changelog": "Catatan perubahan",
+    "about": "Tentang",
+    "rankings": "Peringkat",
+    "topSellers": "Terlaris",
+    "mostPlayed": "Paling banyak dimainkan",
+    "topWishlisted": "Paling diinginkan",
+    "topNewReleases": "Rilis baru teratas",
+    "seeAllCollections": "Lihat semua koleksi",
+    "others": "Lainnya",
+    "releaseStats": "Statistik rilis",
+    "genres": "Genre",
+    "seeAllGenres": "Lihat semua genre",
+    "other": "Lainnya",
+    "action": "Aksi",
+    "rpg": "RPG",
+    "indie": "Indie",
+    "strategy": "Strategi",
+    "topSellerOnEpic": "Terlaris di Epic Games Store",
+    "searchItemTitle": "Cari",
+    "searchItemDesc": "Temukan apa yang Anda cari di Epic Games Store.",
+    "freeGamesItemTitle": "Game Gratis",
+    "freeGamesItemDesc": "Jelajahi penawaran game gratis terbaru di Epic Games Store.",
+    "withDiscountsItemTitle": "Dengan Diskon",
+    "withDiscountsItemDesc": "Lihat game yang sedang diskon besar-besaran.",
+    "helloUser": "Halo, {{name}}!",
+    "dashboard": "Dasbor",
+    "logout": "Keluar",
+    "searchLanguages": "Cari bahasa...",
+    "noLanguagesFound": "Tidak ada bahasa ditemukan"
+  },
+  "footer": {
+    "logoAlt": "Logo EGDATA",
+    "disclaimer": "Database Epic Games Store buatan penggemar. Tidak terafiliasi dengan Epic Games, Inc. Semua logo, gambar, dan merek dagang milik pemiliknya masing-masing.",
+    "legal": "Hukum",
+    "privacyPolicy": "Kebijakan Privasi",
+    "notifications": "Notifikasi",
+    "resources": "Sumber daya",
+    "apiDocs": "Dokumentasi API",
+    "changelog": "Catatan perubahan",
+    "community": "Komunitas",
+    "flagsByFlagpedia": "Bendera oleh Flagpedia",
+    "madeIn": "Dibuat di"
+  },
+  "meta": {
+    "title": "Database Epic Games - egdata.app",
+    "description": "Database Epic Games Store yang komprehensif: info game, harga, riwayat penjualan, daftar file, dan banyak lagi. Jelajahi game gratis, rilis mendatang, dan wawasan komunitas.",
+    "twitterTitle": "Database Epic Games",
+    "twitterDescription": "Database Epic Games Store gratis dan sumber terbuka dengan informasi game lengkap, pelacakan penjualan, dan banyak lagi. Berbasis komunitas dan terus diperbarui.",
+    "twitterImageAlt": "Database Epic Games",
+    "ogTitle": "Database Epic Games",
+    "ogDescription": "Database Epic Games Store gratis dan sumber terbuka dengan informasi game lengkap, pelacakan penjualan, dan banyak lagi. Berbasis komunitas dan terus diperbarui.",
+    "ogImageAlt": "Database Epic Games"
+  },
+  "notFound": {
+    "title": "Halaman tidak ditemukan"
+  },
+  "home": {
+    "statsBar": {
+      "offersTracked": "Penawaran Dilacak",
+      "priceChanges72h": "Perubahan Harga / 72 Jam",
+      "activeDiscounts": "Diskon Aktif",
+      "giveawaysToDate": "Giveaway hingga Saat Ini"
+    },
+    "sections": {
+      "giveawayStats": "Statistik Giveaway",
+      "giveawayOffers": "Penawaran Giveaway",
+      "upcomingOffers": "Penawaran Mendatang",
+      "latestOffers": "Penawaran Terbaru",
+      "latestReleased": "Rilis Terbaru",
+      "latestOffersWithAchievements": "Penawaran Terbaru dgn Pencapaian",
+      "topSellingOffers": "Penawaran Terlaris",
+      "latestBuilds": "Build Terbaru"
+    },
+    "tableHeaders": {
+      "hash": "#",
+      "pos": "Pos",
+      "dash": "-",
+      "title": "Judul",
+      "starts": "Mulai",
+      "ends": "Berakhir",
+      "releaseDate": "Tanggal Rilis",
+      "createdAt": "Dibuat Pada",
+      "date": "Tanggal",
+      "price": "Harga",
+      "size": "Ukuran",
+      "creationDate": "Tanggal Pembuatan"
+    },
+    "offerHover": {
+      "seller": "Penjual:",
+      "developer": "Pengembang:",
+      "publisher": "Penerbit:",
+      "releaseDate": "Tanggal Rilis:",
+      "ageRating": "Peringkat Usia:",
+      "moreGenres_one": "+{{count}} lainnya",
+      "moreGenres_other": "+{{count}} lainnya",
+      "communityRating": "Peringkat Komunitas:",
+      "igdbScore": "Skor IGDB",
+      "reviews": "• {{count}} ulasan",
+      "timeToBeat": "Waktu untuk Menamatkan:",
+      "features": "Fitur:",
+      "moreFeatures": " +{{count}} lainnya"
+    },
+    "buildHover": {
+      "unknownBuild": "Build Tidak Diketahui",
+      "unknownDeveloper": "Pengembang Tidak Diketahui",
+      "size": "Ukuran",
+      "version": "Versi",
+      "created": "Dibuat",
+      "id": "ID: {{id}}"
+    },
+    "multipleOffers": "{{title}} - Banyak Penawaran",
+    "hero": {
+      "subtitle": "Lacak harga, temukan diskon, dan jangan pernah lewatkan game gratis. Pendamping Anda untuk database Epic Games Store — penawaran, diskon, giveaway, build, dan banyak lagi.",
+      "searchPlaceholder": "Cari di database…",
+      "justReleased": "Baru dirilis",
+      "priceDrops72h": "Penurunan harga (72j)",
+      "hasAchievements": "Memiliki pencapaian",
+      "upcoming": "Mendatang",
+      "topSellers": "Terlaris"
+    },
+    "pulse": {
+      "recentActivity": "Aktivitas terbaru",
+      "badge": {
+        "new": "Baru",
+        "gone": "Hilang",
+        "offer": "Penawaran",
+        "build": "Build",
+        "item": "Item",
+        "asset": "Asset",
+        "xp": "XP",
+        "sandbox": "Sandbox",
+        "change": "Perubahan"
+      },
+      "title": {
+        "buildVersion": "Build {{version}}",
+        "buildId": "Build {{id}}",
+        "achievementsId": "Pencapaian {{id}}"
+      },
+      "detail": {
+        "newBuildIndexed": "Build baru diindeks",
+        "buildManifestRefreshed": "Manifest build disegarkan",
+        "achievementChanges_one": "{{count}} pencapaian {{entry}} {{verb}}",
+        "achievementChanges_other": "{{count}} pencapaian {{entry}} {{verb}}",
+        "offerMetadataRefreshed": "Metadata penawaran disegarkan",
+        "fieldsChanged_one": "{{count}} bidang {{verb}}",
+        "fieldsChanged_other": "{{count}} bidang {{verb}}",
+        "fieldChanged": "{{field}} {{verb}}"
+      },
+      "actionVerb": {
+        "added": "ditambahkan",
+        "removed": "dihapus",
+        "updated": "diperbarui",
+        "changed": "diubah"
+      },
+      "entry_one": "entri",
+      "entry_other": "entri"
+    }
+  },
+  "offerDetail": {
+    "common": {
+      "offerNotFound": "Penawaran tidak ditemukan",
+      "notAvailable": "Tidak tersedia",
+      "na": "N/A",
+      "loading": "Memuat...",
+      "somethingWentWrong": "Terjadi kesalahan",
+      "noChangesFound": "Tidak ada perubahan yang ditemukan untuk penawaran ini"
+    },
+    "tabs": {
+      "overview": "Ikhtisar",
+      "price": "Harga",
+      "items": "Item",
+      "builds": "Build",
+      "achievements": "Pencapaian",
+      "related": "Terkait",
+      "metadata": "Metadata",
+      "changelog": "Catatan perubahan",
+      "media": "Media",
+      "reviews": "Ulasan"
+    },
+    "table": {
+      "offerId": "ID Penawaran",
+      "namespace": "Namespace",
+      "offerType": "Jenis Penawaran",
+      "seller": "Penjual",
+      "developer": "Pengembang",
+      "supportedPlatforms": "Platform yang Didukung",
+      "releaseDate": "Tanggal Rilis",
+      "lastUpdate": "Pembaruan Terakhir",
+      "creationDate": "Tanggal Pembuatan",
+      "technologies": "Teknologi",
+      "type": "Jenis",
+      "value": "Nilai",
+      "countriesBlacklist": "Daftar Hitam Negara",
+      "countriesWhitelist": "Daftar Putih Negara",
+      "categories": "Kategori",
+      "refundType": "Jenis Pengembalian Dana",
+      "tags": "Tag",
+      "ageRatings": "Peringkat Usia",
+      "assets": "Assets"
+    },
+    "badges": {
+      "prePurchase": "Pre-Pembelian",
+      "earlyAccess": "Akses Awal"
+    },
+    "hero": {
+      "offeredBy": "Ditawarkan oleh {{seller}}"
+    },
+    "tooltip": {
+      "internalNamespace": "Namespace internal Epic Games",
+      "techDescription": "daftar teknologi untuk melacak mesin yang digunakan dan berbagai teknologi dari file game.",
+      "techSource": "Kami menggunakan",
+      "techSourceSteamDb": "SteamDB",
+      "source": "Sumber"
+    },
+    "actions": {
+      "compare": "Bandingkan"
+    },
+    "releaseDate": {
+      "releasedOnPc": "Dirilis di PC",
+      "theEgs": " EGS",
+      "releasedSameDay": "Dirilis di Epic pada hari yang sama dengan PC"
+    },
+    "notifications": {
+      "title": "Pengaturan Notifikasi",
+      "description": "Pilih notifikasi yang ingin Anda terima untuk penawaran ini.",
+      "all": "Semua",
+      "price": "Harga",
+      "achievements": "Pencapaian",
+      "builds": "Build",
+      "items": "Item",
+      "requirements": "Persyaratan",
+      "metadata": "Metadata",
+      "media": "Media",
+      "enablePushDescription": "Anda perlu mengaktifkan notifikasi push untuk menerima notifikasi penawaran ini.",
+      "enablePushAction": "Aktifkan Notifikasi Push"
+    },
+    "overview": {
+      "genres": "Genre",
+      "ageRating": "Peringkat Usia",
+      "noAgeRatings": "Tidak ada peringkat usia ditemukan",
+      "giveaways": "Giveaway",
+      "noGiveaways": "Tidak ada giveaway ditemukan",
+      "achievements": "Pencapaian",
+      "igdbTimeToBeat": "IGDB Waktu untuk Menamatkan",
+      "hastily": "Cepat",
+      "normally": "Normal",
+      "completely": "Sepenuhnya",
+      "hltbSubmissions_one": "Berdasarkan {{count}} kiriman",
+      "hltbSubmissions_other": "Berdasarkan {{count}} kiriman",
+      "price": "Harga",
+      "priceCurrent": "Saat ini:",
+      "priceLowest": "Terendah:",
+      "priceLastDiscount": "Diskon Terakhir:",
+      "hltbTitle": "Berapa Lama untuk Menamatkan",
+      "noGameTimes": "Tidak ada waktu game ditemukan",
+      "epicRating": "Peringkat Pemain Epic",
+      "epicRatingDescription": "Diambil dari pemain di ekosistem Epic Games",
+      "igdbRating": "Peringkat IGDB",
+      "igdbReviews_one": "{{count}} ulasan",
+      "igdbReviews_other": "{{count}} ulasan"
+    },
+    "achievements": {
+      "title": "Pencapaian",
+      "sortBy": "Urutkan berdasarkan",
+      "defaultSort": "Urutan Default",
+      "sortByRarity": "Urutkan berdasarkan Kelangkaan",
+      "sortByCompleted": "Urutkan berdasarkan % Selesai",
+      "search": "Cari",
+      "flipAll": "Balik Semua",
+      "noAchievements": "Tidak ada pencapaian ditemukan",
+      "noAchievementsSet": "Tidak ada pencapaian ditemukan untuk set ini.",
+      "noAchievementsSetDescription": "Ini mungkin berarti pencapaian belum tersedia saat ini tetapi akan ditambahkan di masa mendatang.",
+      "baseGame": "Game Dasar",
+      "dlc": "DLC",
+      "achievementsLabel": "Pencapaian",
+      "baseGameDescription": "Daftar pencapaian ini untuk game dasar.",
+      "dlcDescription": "Daftar pencapaian ini untuk salah satu DLC.",
+      "lastUpdated": "Terakhir Diperbarui:",
+      "lastUpdatedTooltip": "Set pencapaian ini terakhir diperbarui pada {{date}}.",
+      "lastUpdatedTooltipDescription": "Ini adalah tanggal pembuatan atau tanggal pembaruan terakhir."
+    },
+    "builds": {
+      "title": "Build"
+    },
+    "items": {
+      "title": "Item"
+    },
+    "price": {
+      "title": "Harga"
+    },
+    "related": {
+      "title": "Penawaran Terkait"
+    },
+    "media": {
+      "images": "Gambar",
+      "videos": "Video",
+      "covers": "Sampul",
+      "noImages": "Tidak ada gambar ditemukan",
+      "noVideos": "Tidak ada video ditemukan",
+      "noCovers": "Tidak ada sampul ditemukan",
+      "download": "Unduh",
+      "close": "Tutup",
+      "downloadCoverAria": "Unduh sampul {{type}}"
+    },
+    "metadata": {
+      "title": "Metadata",
+      "download": "Unduh:",
+      "install": "Pasang:"
+    },
+    "changelog": {
+      "title": "Catatan perubahan",
+      "tooltip": "Daftar ini adalah perubahan yang dibuat pada penawaran khusus ini atau item, asset, atau build terkait.",
+      "sandboxChangelog": "changelog sandbox",
+      "sandboxChangelogPrefix": "Anda dapat melihat changelog untuk seluruh produk di",
+      "noChangelog": "Tidak ada changelog tersedia",
+      "allTypes": "Semua jenis",
+      "selectField": "Pilih bidang",
+      "allFields": "Semua bidang",
+      "search": "Cari",
+      "previous": "Sebelumnya",
+      "next": "Berikutnya",
+      "pageOf": "Halaman {{page}} dari {{totalPages}}",
+      "typeUpdate": "Perbarui",
+      "typeDelete": "Hapus",
+      "typeInsert": "Sisipkan"
+    },
+    "reviews": {
+      "epicRating": "Peringkat Pemain Epic",
+      "epicRatingDescription": "Diambil dari pemain di ekosistem Epic Games",
+      "egdataRating": "Peringkat EGDATA",
+      "overallScore": "Skor Keseluruhan",
+      "scoreOutOf10": "{{score}} / 10",
+      "basedOnReviews": "Berdasarkan {{count}} ulasan",
+      "allReviews": "Semua Ulasan",
+      "onlyVerified": "Hanya Terverifikasi",
+      "notVerified": "Tidak Terverifikasi",
+      "leaveReview": "Tinggalkan ulasan",
+      "alreadyReviewed": "Sudah diulas",
+      "loginToReview": "Masuk untuk mengulas",
+      "noReviews": "Belum ada ulasan",
+      "notReleased": "Produk ini belum dirilis",
+      "beFirst": "Jadilah yang pertama meninggalkan ulasan untuk produk ini!",
+      "checkBack": "Kembali lagi setelah tanggal rilis untuk meninggalkan ulasan!",
+      "verifiedOwner": "Pemilik Terverifikasi",
+      "recommended": "Direkomendasikan",
+      "notRecommended": "Tidak Direkomendasikan",
+      "readMore": "Baca selengkapnya",
+      "reviewedOn": "Diulas pada",
+      "lastUpdatedOn": "Terakhir diperbarui pada",
+      "editedTimes": "Diedit {{count}} kali",
+      "edit": "Sunting",
+      "close": "Tutup",
+      "reviewCount_one": "{{count}} ulasan",
+      "reviewCount_other": "{{count}} ulasan",
+      "ownershipVerification": "Verifikasi kepemilikan",
+      "ownershipVerificationDescription": "didasarkan pada penyelesaian setidaknya satu pencapaian oleh pemain.",
+      "ownershipVerificationTooltip": "Kami menggunakan pencapaian Epic Games untuk memverifikasi kepemilikan produk. Untuk menandai pemain sebagai pemilik terverifikasi, mereka harus menyelesaikan setidaknya satu pencapaian untuk produk yang dipilih di Epic Games Store. Untuk menautkan akun Anda ke profil egdata, Anda perlu pergi ke",
+      "yourDashboard": "dasbor Anda",
+      "criticReviews": "Ulasan Kritikus",
+      "basedOnCriticReviews": "Berdasarkan {{count}} ulasan kritikus",
+      "opencriticRating": "Peringkat OpenCritic",
+      "topCriticAverage": "Rata-rata Kritikus Teratas",
+      "criticsRecommend": "Kritikus Merekomendasikan",
+      "opencriticRatingAlt": "Peringkat OpenCritic"
+    }
+  },
+  "search": {
+    "meta": {
+      "title": "Cari | egdata.app",
+      "description": "Cari penawaran dari Epic Games Store."
+    },
+    "defaultTitle": "Cari",
+    "filters": "Filter",
+    "filtersPlaceholder": "Cari game",
+    "pills": {
+      "onSale": "Sedang Diskon",
+      "codeRedemptionOnly": "Hanya Penukaran Kode",
+      "excludeBlockchain": "Kecualikan Blockchain/NFT",
+      "pastGiveaways": "Giveaway Sebelumnya"
+    },
+    "accordion": {
+      "offerType": "Jenis Penawaran",
+      "developer": "Pengembang",
+      "publisher": "Penerbit",
+      "noTags": "Tidak ada tag ditemukan",
+      "seller": "Penjual"
+    },
+    "checkboxes": {
+      "pastGiveaways": "Giveaway Sebelumnya",
+      "onSale": "Sedang Diskon",
+      "codeRedemptionOnly": "Hanya Penukaran Kode",
+      "excludeBlockchain": "Kecualikan Blockchain/NFT",
+      "onlyHistoricalLows": "Hanya harga terendah historis",
+      "onlyLowestPriceEver": "Hanya harga termurah"
+    },
+    "tagGroups": {
+      "event": "Acara",
+      "genre": "Genre",
+      "epicfeature": "Fitur Epic",
+      "accessibility": "Aksesibilitas",
+      "feature": "Fitur",
+      "usersay": "Kata Pengguna",
+      "subscription": "Langganan",
+      "platform": "Platform",
+      "all": "Semua Tag"
+    },
+    "sort": {
+      "sortBy": "Urutkan berdasarkan",
+      "sortAriaLabel": "Urutkan penawaran",
+      "sortDirectionAriaLabel": "Alihkan arah urutan",
+      "showListView": "Tampilkan tampilan daftar",
+      "showGridView": "Tampilkan tampilan grid",
+      "releaseDate": "Tanggal Rilis",
+      "lastModifiedDate": "Tanggal Dimodifikasi",
+      "effectiveDate": "Tanggal Efektif",
+      "creationDate": "Tanggal Pembuatan",
+      "viewableDate": "Tanggal Dapat Dilihat",
+      "pcReleaseDate": "Tanggal Rilis PC",
+      "upcoming": "Mendatang",
+      "price": "Harga",
+      "discount": "Diskon",
+      "discountPercent": "Diskon %",
+      "giveawayDate": "Tanggal Giveaway"
+    },
+    "results": {
+      "noResults": "Tidak ada hasil ditemukan"
+    }
+  },
+  "freebies": {
+    "meta": {
+      "title": "Game Gratis | egdata.app",
+      "description": "Jelajahi game gratis dari Epic Games Store."
+    },
+    "headings": {
+      "current": "Game Gratis Saat Ini",
+      "past": "Game Gratis Sebelumnya",
+      "sellers": "Penjual Game Gratis"
+    },
+    "buttons": {
+      "redeem": "Tukarkan Sekarang",
+      "downloadJson": "Unduh sebagai JSON",
+      "downloadCsv": "Unduh sebagai CSV",
+      "downloadTxt": "Unduh sebagai Teks"
+    },
+    "placeholders": {
+      "searchSellers": "Cari penjual..."
+    },
+    "aria": {
+      "downloadList": "Unduh daftar"
+    },
+    "errors": {
+      "loadSellers": "Kesalahan memuat data penjual. Silakan coba lagi nanti."
+    },
+    "table": {
+      "sellerName": "Nama Penjual",
+      "totalGames": "Total Game Tunggal"
+    }
+  },
+  "sales": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Lihat {{title}} dari Epic Games Store."
+    },
+    "metaIndex": {
+      "title": "Diskon Aktif | egdata.app",
+      "description": "Jelajahi diskon aktif di egdata.app"
+    },
+    "status": {
+      "loading": "Memuat...",
+      "noData": "Tidak ada data"
+    },
+    "headings": {
+      "active": "Diskon Aktif",
+      "pastUpcoming": "Diskon Sebelumnya / Mendatang",
+      "offersList": "Penawaran {{title}}"
+    },
+    "errors": {
+      "notFound": "Promosi tidak ditemukan"
+    },
+    "labels": {
+      "offersCount": "{{count}} penawaran tersedia di acara ini"
+    }
+  },
+  "collections": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Lihat {{title}} dari Epic Games Store."
+    },
+    "metaIndex": {
+      "title": "Koleksi | egdata.app",
+      "description": "Koleksi di egdata.app"
+    },
+    "headings": {
+      "main": "Koleksi"
+    },
+    "description": {
+      "overview": "Game terlaris, paling banyak dimainkan, dan terpopuler di Epic Games Store"
+    },
+    "status": {
+      "loading": "Memuat..."
+    },
+    "errors": {
+      "notFound": "Koleksi tidak ditemukan"
+    },
+    "table": {
+      "position": "Posisi",
+      "variance": "Variansi",
+      "weeks": "Minggu"
+    },
+    "tooltips": {
+      "variance": "Selisih antara posisi saat ini dan posisi sebelumnya. Biasanya berubah setiap hari.",
+      "weeks": "Jumlah minggu game tersebut berada di 100 besar untuk {{title}}."
+    },
+    "buttons": {
+      "loadMore": "Muat lebih banyak"
+    }
+  },
+  "sandboxes": {
+    "notFoundTitle": "Sandbox tidak ditemukan",
+    "notFoundDescription": "Sandbox tidak ditemukan",
+    "unrealEngineTitle": "Unreal Engine",
+    "unavailableTitle": "Sandbox tidak tersedia",
+    "unavailableDescription": "Hub produk tidak dapat dimuat.",
+    "noProductDataDescription": "Tidak ada data produk untuk sandbox ini.",
+    "hubEyebrow": "Sandbox",
+    "hubOverviewTitle": "Ikhtisar",
+    "hubOverviewDescription": "Peta terfokus dari etalase, kepemilikan, pengiriman, dan catatan pembaruan untuk Namespace ini.",
+    "latestChangesButton": "Perubahan terbaru",
+    "entityOffersLabel": "Penawaran",
+    "entityOffersDescription": "Entri toko",
+    "entityItemsLabel": "Item",
+    "entityItemsDescription": "Catatan kepemilikan",
+    "entityAssetsLabel": "Assets",
+    "entityAssetsDescription": "Artefak dan media",
+    "entityBuildsLabel": "Build",
+    "entityBuildsDescription": "Paket biner",
+    "entityAchievementsLabel": "Pencapaian",
+    "entityAchievementsDescription": "Data kemajuan",
+    "entityChangelogLabel": "Catatan perubahan",
+    "entityChangelogDescription": "Pembaruan yang dilacak",
+    "viewButton": "Lihat",
+    "storefrontOffersTitle": "Penawaran etalase",
+    "storefrontOffersDescription": "Entri toko representatif yang ditemukan di sandbox ini.",
+    "recentBuildsTitle": "Build terbaru",
+    "recentBuildsDescription": "Catatan biner terbaru.",
+    "latestBadge": "terbaru",
+    "unknownBuildLabel": "Build tidak diketahui",
+    "recentChangesTitle": "Perubahan terbaru",
+    "recentChangesDescription": "Mutasi katalog terbaru.",
+    "updateBadge": "perbarui",
+    "changeDefaultLabel": "Perubahan",
+    "metaOffersTitle": "Penawaran",
+    "offersEyebrow": "E-dagang",
+    "offersTitle": "Penawaran",
+    "offersDescription": "Entri etalase di sandbox ini, termasuk game dasar, edisi, DLC, add-on, bundel, dan penawaran apa pun yang dapat memberikan item katalog.",
+    "totalOffersLabel": "Total penawaran",
+    "metaAchievementsTitle": "Pencapaian",
+    "achievementsEyebrow": "Kemajuan",
+    "achievementsTitle": "Pencapaian",
+    "achievementsDescription": "Set pencapaian, status tersembunyi, distribusi kelangkaan, dan total XP yang dilampirkan ke sandbox ini.",
+    "achievementsSetsLabel": "Set",
+    "achievementsLabel": "Pencapaian",
+    "achievementsXpLabel": "XP",
+    "searchAchievementsPlaceholder": "Cari pencapaian",
+    "flipAllButton": "Balik semua",
+    "revealHiddenAchievementAria": "Tampilkan teks pencapaian tersembunyi",
+    "hideHiddenAchievementAria": "Sembunyikan teks pencapaian tersembunyi",
+    "achievementsBaseGameLabel": "Game Dasar",
+    "achievementsDlcLabel": "DLC",
+    "achievementsBaseGameTooltip": "Daftar pencapaian ini untuk game dasar.",
+    "achievementsDlcTooltip": "Daftar pencapaian ini untuk salah satu DLC.",
+    "lastUpdatedLabel": "Terakhir Diperbarui:",
+    "achievementsLastUpdatedTooltip": "Set pencapaian ini terakhir diperbarui pada",
+    "achievementsLastUpdatedTooltipExtra": "Ini adalah tanggal pembuatan atau tanggal pembaruan terakhir.",
+    "noAchievementsForSet": "Tidak ada pencapaian ditemukan untuk set ini.",
+    "noAchievementsForSetExtra": "Ini mungkin berarti pencapaian belum tersedia saat ini tetapi akan ditambahkan di masa mendatang.",
+    "noAchievementsFound": "Tidak ada pencapaian ditemukan",
+    "metaItemsTitle": "Item",
+    "itemsEyebrow": "Kepemilikan katalog",
+    "itemsTitle": "Item",
+    "itemsDescription": "Item katalog yang dapat dimiliki yang terkandung dalam penawaran. Ini adalah catatan yang menjadi hak pemain setelah pembelian atau penukaran.",
+    "totalItemsLabel": "Total item",
+    "metaChangelogTitle": "Catatan perubahan",
+    "changelogEyebrow": "Jejak audit",
+    "changelogTitle": "Catatan perubahan",
+    "changelogDescription": "Perubahan yang diamati di seluruh penawaran, item, asset, build, dan metadata katalog terkait sandbox ini.",
+    "totalChangesLabel": "Perubahan",
+    "queryTimeLabel": "Waktu kueri",
+    "noChangelogFound": "Tidak ada changelog ditemukan",
+    "metaBuildsTitle": "Build",
+    "buildsEyebrow": "Biner",
+    "buildsTitle": "Build",
+    "buildsDescription": "Paket file berversi yang diunggah untuk sandbox. Build ditetapkan ke artefak dan menentukan apa yang diunduh pemain melalui peluncur.",
+    "totalBuildsLabel": "Total build",
+    "metaAssetsTitle": "Assets",
+    "assetsEyebrow": "Asset dan artefak",
+    "assetsTitle": "Assets",
+    "assetsDescription": "Catatan distribusi dan media yang dilampirkan ke item sandbox, termasuk artefak yang menghubungkan konten katalog toko ke build yang dapat diunduh.",
+    "totalAssetsLabel": "Total asset"
+  },
+  "items": {
+    "notFound": "Item tidak ditemukan",
+    "badge": "Item",
+    "table": {
+      "itemId": "ID Item",
+      "namespace": "Namespace",
+      "developer": "Pengembang",
+      "entitlementType": "Jenis Hak",
+      "entitlementName": "Nama Hak",
+      "status": "Status",
+      "creationDate": "Tanggal Pembuatan",
+      "lastModified": "Terakhir Dimodifikasi",
+      "platforms": "Platform"
+    },
+    "tooltip": {
+      "internalNamespace": "Namespace internal Epic Games"
+    },
+    "tabs": {
+      "item": "Item",
+      "assets": "Assets",
+      "images": "Gambar",
+      "builds": "Build",
+      "changelog": "Catatan perubahan"
+    },
+    "metadata": {
+      "title": "Metadata",
+      "key": "Kunci",
+      "value": "Nilai"
+    },
+    "assets": {
+      "title": "Assets"
+    },
+    "builds": {
+      "title": "Build"
+    },
+    "changelog": {
+      "title": "Catatan perubahan",
+      "noChangelog": "Tidak ada changelog tersedia"
+    },
+    "images": {
+      "title": "Gambar"
+    }
+  },
+  "builds": {
+    "notFound": "Build tidak ditemukan",
+    "build": "Build",
+    "for": "untuk",
+    "compressed": "({{percent}}% terkompresi)",
+    "table": {
+      "buildId": "ID Build",
+      "buildName": "Nama Build",
+      "appName": "Nama Aplikasi",
+      "hash": "Hash",
+      "installedSize": "Ukuran Terinstal",
+      "downloadSize": "Ukuran Unduhan",
+      "createdAt": "Dibuat Pada",
+      "updatedAt": "Diperbarui Pada",
+      "technologies": "Teknologi"
+    },
+    "tooltip": {
+      "techSource": "Kami menggunakan",
+      "techSourceSteamDb": "SteamDB",
+      "techDescription": "daftar teknologi untuk melacak mesin yang digunakan dan berbagai teknologi dari file game.",
+      "source": "Sumber"
+    },
+    "tabs": {
+      "files": "File",
+      "items": "Item",
+      "installOptions": "Opsi Instalasi"
+    },
+    "files": {
+      "title": "File"
+    },
+    "items": {
+      "title": "Item"
+    },
+    "installOptions": {
+      "title": "Opsi Instalasi",
+      "file_one": "file",
+      "file_other": "file"
+    },
+    "meta": {
+      "title": "{{title}} ({{version}}) | egdata.app",
+      "description": "Build {{version}} untuk {{title}} dari Epic Games Store."
+    }
+  },
+  "profile": {
+    "meta": {
+      "notFoundTitle": "Profil tidak ditemukan",
+      "notFoundDescription": "Profil tidak ditemukan",
+      "title": "{{name}} | egdata.app",
+      "description": "Lihat pencapaian dan game {{name}} di egdata.app",
+      "defaultName": "Profil",
+      "defaultDescriptionName": "pemain ini"
+    },
+    "errors": {
+      "notFoundTitle": "Profil tidak ditemukan",
+      "notFoundDescription": "Profil ini tidak tersedia atau belum diindeks.",
+      "unavailableTitle": "Profil tidak tersedia",
+      "unavailableDescription": "Profil ini tidak dapat dimuat saat ini.",
+      "invalidImageFormat": "Format gambar tidak valid",
+      "failedToUpload": "Gagal mengunggah",
+      "uploadFailed": "Unggah gagal",
+      "failedToRefresh": "Gagal menyegarkan profil",
+      "refreshQueued": "Profil ditambahkan ke antrean untuk disegarkan, akan segera diperbarui."
+    },
+    "fallbackName": "Profil tidak diketahui",
+    "avatar": {
+      "changeAvatar": "Ubah Avatar",
+      "dialogDescription": "Unggah gambar profil baru.",
+      "previewAlt": "Pratinjau avatar",
+      "fallback": "Avatar",
+      "description": "Unggah gambar avatar baru, maks 5MB.",
+      "uploadingWithProgress": "Mengunggah... {{progress}}%",
+      "uploading": "Mengunggah...",
+      "updateAvatar": "Perbarui Avatar",
+      "errorTitle": "Error"
+    },
+    "hero": {
+      "joined": "Bergabung",
+      "epicGamesStore": "Epic Games Store",
+      "linkDiscord": "Tautkan Discord",
+      "refreshProfile": "Segarkan profil",
+      "refreshAvailableIn": "Penyegaran tersedia dalam",
+      "level": "Level",
+      "achievements": "Pencapaian",
+      "unlocked": "Terbuka",
+      "platinum": "Platinum",
+      "perfectGames": "Game sempurna",
+      "library": "Pustaka",
+      "achievementGames": "Game dengan pencapaian",
+      "reviews": "Ulasan",
+      "contributed": "Kontribusi",
+      "xpToNextLevel": "{{xp}} XP ke level {{level}}",
+      "heroGame": "Game utama",
+      "complete": "selesai"
+    },
+    "donor": {
+      "donated_one": "{{name}} telah menyumbangkan {{count}} kunci ke egdata.app",
+      "donated_other": "{{name}} telah menyumbangkan {{count}} kunci ke egdata.app",
+      "goTo": "Pergi ke",
+      "thisLink": "tautan ini",
+      "toDonateKey": "untuk menyumbangkan kunci."
+    },
+    "countdown": {
+      "minutesSeconds_one": "{{minutes}} menit {{seconds}} detik",
+      "minutesSeconds_other": "{{minutes}} menit {{seconds}} detik",
+      "seconds_one": "{{seconds}} detik",
+      "seconds_other": "{{seconds}} detik"
+    },
+    "tabs": {
+      "showcase": "Etalase",
+      "library": "Pustaka",
+      "activity": "Aktivitas"
+    },
+    "stats": {
+      "games": "{{count}} game",
+      "achievements": "{{count}} pencapaian",
+      "platinum": "{{count}} platinum"
+    },
+    "showcase": {
+      "ariaLabel": "Sorotan etalase profil",
+      "featuredGamesTitle": "Game Unggulan",
+      "featuredGamesDetail": "{{count}} dipilih berdasarkan performa profil",
+      "rareAchievementsTitle": "Pencapaian Langka",
+      "rareAchievementsDetail": "Pencapaian sulit ditemukan di seluruh profil",
+      "recentUnlocksTitle": "Pembukaan Terbaru",
+      "recentUnlocksDetail": "Aktivitas terlihat terbaru",
+      "noDataTitle": "Belum ada data etalase",
+      "noDataDescription": "Hanya game yang diluncurkan dengan kemajuan pencapaian publik yang muncul di profil.",
+      "rarestUnlock": "Pembukaan paling langka",
+      "definingGame": "Game penentu",
+      "latestActivity": "Aktivitas terbaru",
+      "achievementsCount": "{{unlocked}} / {{total}} pencapaian",
+      "platinum": "Platinum"
+    },
+    "library": {
+      "filterAriaLabel": "Filter pustaka",
+      "sortAriaLabel": "Urutkan pustaka",
+      "sortByPlaceholder": "Urutkan berdasarkan",
+      "noGamesTitle": "Tidak ada game ditemukan",
+      "noGamesDescription": "Hanya game yang diluncurkan dengan pencapaian yang muncul di pustaka ini.",
+      "gameAlt": "Game",
+      "complete": "selesai",
+      "featured": "Unggulan",
+      "rareUnlocks": "Pembukaan langka",
+      "filters": {
+        "all": "Semua",
+        "completed": "Selesai",
+        "nearPlatinum": "Mendekati Platinum",
+        "inProgress": "Sedang Berlangsung",
+        "platinum": "Platinum"
+      },
+      "sorts": {
+        "completion": "Penyelesaian",
+        "alphabetical": "Abjad",
+        "xp": "XP",
+        "achievements": "Pencapaian"
+      }
+    },
+    "activity": {
+      "title": "Aktivitas",
+      "detail": "{{count}} pencapaian terbuka",
+      "noActivityTitle": "Belum ada aktivitas",
+      "noActivityDescription": "Pembukaan pencapaian akan muncul di sini ketika profil ini memiliki kemajuan publik.",
+      "achievementAlt": "Pencapaian",
+      "platinumEarned": "Platinum diperoleh",
+      "achievementUnlocked": "Pencapaian terbuka",
+      "unknownRarity": "Kelangkaan tidak diketahui",
+      "rarity": "{{value}}% kelangkaan",
+      "unknownDate": "Tanggal tidak diketahui"
+    },
+    "achievements": {
+      "loading": "Memuat...",
+      "notFound": "Profil tidak ditemukan",
+      "myAchievements": "Pencapaian Saya"
+    }
+  },
+  "tags": {
+    "meta": {
+      "notFoundTitle": "Promosi tidak ditemukan",
+      "notFoundDescription": "Promosi tidak ditemukan",
+      "title": "{{title}} | egdata.app",
+      "description": "Lihat {{count}} penawaran tersedia untuk {{title}} di egdata.app.",
+      "socialTitle": "{{title}} - egdata.app"
+    },
+    "loading": "Memuat...",
+    "offersCount": "{{count}} penawaran tersedia di acara ini",
+    "results": "Hasil",
+    "resultsCount": "({{count}} hasil)",
+    "searchPlaceholder": "Cari...",
+    "loadMore": "Muat Lebih Banyak",
+    "sortBy": {
+      "releaseDate": "Tanggal Rilis",
+      "lastModifiedDate": "Tanggal Dimodifikasi",
+      "effectiveDate": "Tanggal Efektif",
+      "creationDate": "Tanggal Pembuatan",
+      "viewableDate": "Tanggal Dapat Dilihat",
+      "pcReleaseDate": "Tanggal Rilis PC",
+      "upcoming": "Mendatang",
+      "price": "Harga"
+    }
+  },
+  "genres": {
+    "meta": {
+      "title": "Genre - egdata.app",
+      "description": "Genre di egdata.app"
+    },
+    "heading": "Genre"
+  },
+  "sellers": {
+    "meta": {
+      "notFoundTitle": "Penjual tidak ditemukan",
+      "notFoundDescription": "Penjual tidak ditemukan",
+      "title": "{{name}} | egdata.app"
+    },
+    "notFound": "Penjual tidak ditemukan",
+    "logoAlt": "Logo {{name}}",
+    "bannerAlt": "{{name}}",
+    "offersTitle": "Penawaran {{name}}",
+    "stats": {
+      "offers": "Penawaran",
+      "games": "Game",
+      "items": "Item",
+      "freeGames": "Game Gratis"
+    }
+  },
+  "franchises": {
+    "meta": {
+      "notFoundTitle": "Waralaba tidak ditemukan",
+      "notFoundDescription": "Waralaba tidak ditemukan",
+      "title": "Waralaba {{name}} | egdata.app",
+      "description": "Jelajahi semua game dalam waralaba {{name}} di Epic Games Store."
+    },
+    "loading": "Memuat...",
+    "gamesCount_one": "{{count}} game",
+    "gamesCount_other": "{{count}} game",
+    "timeToBeat": "Waktu untuk menamatkan",
+    "achievements": "Pencapaian",
+    "loadMore": "Muat lebih banyak",
+    "free": "Gratis"
+  },
+  "stats": {
+    "creations": {
+      "meta": {
+        "title": "Statistik kreasi - egdata.app",
+        "description": "Irama bulanan dan tahunan dari kreasi baru yang mendarat di Epic Games Store."
+      },
+      "viewReleases": "Lihat Rilis",
+      "heading": "Statistik kreasi Epic Games Store",
+      "description": "Irama bulanan dan tahunan dari kreasi baru yang mendarat di toko.",
+      "monthlyTitle": "Kreasi bulanan",
+      "yearlyTitle": "Kreasi tahunan"
+    },
+    "releases": {
+      "meta": {
+        "title": "Statistik rilis - egdata.app",
+        "description": "Irama bulanan dan tahunan dari judul baru yang mendarat di Epic Games Store."
+      },
+      "viewCreations": "Lihat Kreasi",
+      "heading": "Statistik rilis Epic Games Store",
+      "description": "Irama bulanan dan tahunan dari judul baru yang mendarat di toko.",
+      "monthlyTitle": "Rilis bulanan",
+      "yearlyTitle": "Rilis tahunan"
+    }
+  },
+  "store": {
+    "creatorCode": {
+      "title": "Dukung egdata.app",
+      "description": "Apakah Anda ingin mendukung egdata.app dengan menggunakan kode kreator kami saat membeli game? Pilihan ini akan diingat untuk kunjungan mendatang.",
+      "body": "Menggunakan kode kreator kami membantu mendukung pengembangan egdata.app dan fitur-fiturnya. Ini tidak memengaruhi harga yang Anda bayar.",
+      "noThanks": "Tidak, terima kasih",
+      "yesUseCode": "Ya, gunakan kode"
+    }
+  },
+  "dashboard": {
+    "placeholder": "Halo /dashboard!"
+  },
+  "auth": {
+    "login": {
+      "placeholder": "Halo /auth/login!"
+    },
+    "callback": {
+      "placeholder": "Halo /auth/callback!"
+    },
+    "logout": {
+      "placeholder": "Halo /auth/logout!"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "Tentang - egdata.app",
+      "description": "Tentang egdata.app"
+    },
+    "title": "Tentang",
+    "intro": "egdata.app adalah situs web berbasis komunitas yang didedikasikan untuk melacak dan menyediakan informasi tentang Epic Games Store. Mirip dengan SteamDB untuk Steam, kami bertujuan menawarkan sumber daya komprehensif bagi pengguna untuk menjelajahi perubahan, menemukan game baru, dan tetap mengikuti perkembangan terbaru di platform.",
+    "missionTitle": "Misi Kami",
+    "missionBody": "Misi kami adalah memberikan transparansi dan wawasan ke dalam ekosistem Epic Games Store. Kami percaya bahwa dengan mengumpulkan dan menyajikan data dengan cara yang mudah diakses, kami dapat memberdayakan pengguna untuk membuat keputusan yang tepat tentang pembelian game mereka dan berkontribusi pada pemahaman yang lebih baik tentang platform.",
+    "featuresTitle": "Fitur",
+    "features": {
+      "trackPrices": "Lacak perubahan harga game dan data historis",
+      "upcomingReleases": "Lihat rilis mendatang dan promosi game gratis",
+      "gameDetails": "Jelajahi detail game, peringkat, dan ulasan pengguna",
+      "analyzeTrends": "Analisis tren dan pola di Epic Games Store"
+    },
+    "communityTitle": "Berbasis Komunitas",
+    "communityBody": "egdata.app dibangun dan dipelihara oleh komunitas gamer dan pengembang yang bersemangat. Kami menyambut kontribusi dari siapa pun yang ingin membantu meningkatkan situs web dan menjadikannya sumber daya yang berharga bagi semua orang. Jangan ragu untuk menghubungi kami jika Anda memiliki umpan balik, saran, atau ingin terlibat.",
+    "sourceCodeIntro": "Semua kode sumber untuk egdata.app tersedia di",
+    "github": "GitHub",
+    "notTitle": "Apa yang BUKAN egdata.app",
+    "notIntro": "Penting untuk menjelaskan bahwa egdata.app bukan:",
+    "notList": {
+      "affiliated": "Berafiliasi dengan Epic Games: Kami adalah proyek independen berbasis komunitas dan tidak didukung secara resmi atau terkait dengan Epic Games dengan cara apa pun.",
+      "storefront": "Toko atau pasar: Kami tidak menjual game atau menyediakan opsi pembelian apa pun. Fokus kami adalah menyediakan informasi dan data tentang Epic Games Store.",
+      "piracy": "Platform untuk pembajakan atau aktivitas ilegal: Kami sangat mengutuk pembajakan dan tidak menyediakan cara apa pun untuk mengakses atau mendistribusikan konten berhak cipta secara ilegal."
+    },
+    "fairUseTitle": "Kebijakan Penggunaan Wajar",
+    "fairUseBody": "egdata.app berkomitmen untuk mematuhi prinsip penggunaan wajar di bawah hukum hak cipta. Kami menyediakan informasi dan data hanya untuk tujuan informasi, bertujuan mendidik dan menginformasikan publik tentang game yang tersedia di Epic Games Store.",
+    "fairUseFactorsTitle": "Faktor Kunci yang Membenarkan Penggunaan Wajar:",
+    "fairUseFactors": {
+      "nonCommercial": "Tujuan Non-Komersial, Edukasi:",
+      "nonCommercialBody": "Situs web kami bersifat non-komersial dan berusaha meningkatkan pengetahuan publik tentang game Epic Games Store.",
+      "factual": "Informasi Faktual:",
+      "factualBody": "Kami terutama menyajikan data faktual seperti judul game, tanggal rilis, dan pengembang, yang kurang dilindungi di bawah hak cipta.",
+      "limited": "Penggunaan Terbatas:",
+      "limitedBody": "Kami hanya menggunakan jumlah data yang diperlukan untuk memberikan informasi yang berarti tanpa menggantikan karya asli.",
+      "noMarketHarm": "Tidak Ada Kerugian Pasar:",
+      "noMarketHarmBody": "Penggunaan kami tidak berdampak negatif pada pasar game asli; sebaliknya, ini dapat mempromosikannya melalui peningkatan minat pengguna."
+    },
+    "autoTrackBody": "Kami secara otomatis melacak dan memperbarui data game dari sumber yang tersedia untuk umum, termasuk Epic Games Store. Kami memuat aset grafis langsung dari server mereka dan tidak menyimpannya.",
+    "leakedDataTitle": "Penyangkalan Data Bocor:",
+    "leakedDataBody": "Setiap data yang tampaknya bocor di situs kami berasal dari informasi yang tersedia untuk umum di Epic Games Store. Kami tidak mengakses data rahasia atau kepemilikan. Penerbit bertanggung jawab untuk melindungi informasi sensitif mereka di dalam",
+    "epicDevPortal": "portal Pengembang Epic Games",
+    "euDirectivesIntro": "Dalam mengembangkan Kebijakan Penggunaan Wajar kami, kami telah mempertimbangkan prinsip-prinsip yang diuraikan dalam direktif hak cipta UE berikut:",
+    "euDirective1": "Directive (UE) 2019/790 tentang hak cipta dan hak terkait di Pasar Tunggal Digital",
+    "euDirective2": "Pertanyaan dan Jawaban – Aturan hak cipta UE baru",
+    "fairUseContact": "Jika Anda memiliki pertanyaan tentang Kebijakan Penggunaan Wajar kami atau percaya bahwa konten apa pun melanggar hak cipta Anda, silakan hubungi kami di:",
+    "contactTitle": "Hubungi Kami",
+    "contactBody": "Anda dapat menghubungi kami melalui"
+  },
+  "changelog": {
+    "index": {
+      "meta": {
+        "title": "Catatan Perubahan | egdata.app"
+      },
+      "searchPlaceholder": "Cari changelog...",
+      "searchButton": "Cari",
+      "loading": "Memuat...",
+      "error": "Kesalahan mengambil data"
+    },
+    "detail": {
+      "meta": {
+        "title": "Detail Perubahan | egdata.app"
+      },
+      "loading": "Memuat...",
+      "error": "Kesalahan memuat detail perubahan",
+      "notFound": "Perubahan tidak ditemukan"
+    }
+  },
+  "privacy": {
+    "title": "Tentang",
+    "intro": "egdata.app adalah situs web berbasis komunitas yang didedikasikan untuk melacak dan menyediakan informasi tentang Epic Games Store. Mirip dengan SteamDB untuk Steam, kami bertujuan menawarkan sumber daya komprehensif bagi pengguna untuk menjelajahi perubahan, menemukan game baru, dan tetap mengikuti perkembangan terbaru di platform.",
+    "missionTitle": "Misi Kami",
+    "missionBody": "Misi kami adalah memberikan transparansi dan wawasan ke dalam ekosistem Epic Games Store. Kami percaya bahwa dengan mengumpulkan dan menyajikan data dengan cara yang mudah diakses, kami dapat memberdayakan pengguna untuk membuat keputusan yang tepat tentang pembelian game mereka dan berkontribusi pada pemahaman yang lebih baik tentang platform.",
+    "featuresTitle": "Fitur",
+    "features": {
+      "trackPrices": "Lacak perubahan harga game dan data historis",
+      "upcomingReleases": "Lihat rilis mendatang dan promosi game gratis",
+      "gameDetails": "Jelajahi detail game, peringkat, dan ulasan pengguna",
+      "analyzeTrends": "Analisis tren dan pola di Epic Games Store"
+    },
+    "communityTitle": "Berbasis Komunitas",
+    "communityBody": "egdata.app dibangun dan dipelihara oleh komunitas gamer dan pengembang yang bersemangat. Kami menyambut kontribusi dari siapa pun yang ingin membantu meningkatkan situs web dan menjadikannya sumber daya yang berharga bagi semua orang. Jangan ragu untuk menghubungi kami jika Anda memiliki umpan balik, saran, atau ingin terlibat.",
+    "sourceCodeIntro": "Semua kode sumber untuk egdata.app tersedia di",
+    "github": "GitHub",
+    "notTitle": "Apa yang BUKAN egdata.app",
+    "notIntro": "Penting untuk menjelaskan bahwa egdata.app bukan:",
+    "notList": {
+      "affiliated": "Berafiliasi dengan Epic Games: Kami adalah proyek independen berbasis komunitas dan tidak didukung secara resmi atau terkait dengan Epic Games dengan cara apa pun.",
+      "storefront": "Toko atau pasar: Kami tidak menjual game atau menyediakan opsi pembelian apa pun. Fokus kami adalah menyediakan informasi dan data tentang Epic Games Store.",
+      "piracy": "Platform untuk pembajakan atau aktivitas ilegal: Kami sangat mengutuk pembajakan dan tidak menyediakan cara apa pun untuk mengakses atau mendistribusikan konten berhak cipta secara ilegal."
+    },
+    "fairUseTitle": "Kebijakan Penggunaan Wajar",
+    "fairUseBody": "egdata.app berkomitmen untuk mematuhi prinsip penggunaan wajar di bawah hukum hak cipta. Kami menyediakan informasi dan data hanya untuk tujuan informasi, bertujuan mendidik dan menginformasikan publik tentang game yang tersedia di Epic Games Store.",
+    "fairUseFactorsTitle": "Faktor Kunci yang Membenarkan Penggunaan Wajar:",
+    "fairUseFactors": {
+      "nonCommercial": "Tujuan Non-Komersial, Edukasi:",
+      "nonCommercialBody": "Situs web kami bersifat non-komersial dan berusaha meningkatkan pengetahuan publik tentang game Epic Games Store.",
+      "factual": "Informasi Faktual:",
+      "factualBody": "Kami terutama menyajikan data faktual seperti judul game, tanggal rilis, dan pengembang, yang kurang dilindungi di bawah hak cipta.",
+      "limited": "Penggunaan Terbatas:",
+      "limitedBody": "Kami hanya menggunakan jumlah data yang diperlukan untuk memberikan informasi yang berarti tanpa menggantikan karya asli.",
+      "noMarketHarm": "Tidak Ada Kerugian Pasar:",
+      "noMarketHarmBody": "Penggunaan kami tidak berdampak negatif pada pasar game asli; sebaliknya, ini dapat mempromosikannya melalui peningkatan minat pengguna."
+    },
+    "autoTrackBody": "Kami secara otomatis melacak dan memperbarui data game dari sumber yang tersedia untuk umum, termasuk Epic Games Store. Kami memuat aset grafis langsung dari server mereka dan tidak menyimpannya.",
+    "leakedDataTitle": "Penyangkalan Data Bocor:",
+    "leakedDataBody": "Setiap data yang tampaknya bocor di situs kami berasal dari informasi yang tersedia untuk umum di Epic Games Store. Kami tidak mengakses data rahasia atau kepemilikan. Penerbit bertanggung jawab untuk melindungi informasi sensitif mereka di dalam",
+    "epicDevPortal": "portal Pengembang Epic Games",
+    "euDirectivesIntro": "Dalam mengembangkan Kebijakan Penggunaan Wajar kami, kami telah mempertimbangkan prinsip-prinsip yang diuraikan dalam direktif hak cipta UE berikut:",
+    "euDirective1": "Directive (UE) 2019/790 tentang hak cipta dan hak terkait di Pasar Tunggal Digital",
+    "euDirective2": "Pertanyaan dan Jawaban – Aturan hak cipta UE baru",
+    "fairUseContact": "Jika Anda memiliki pertanyaan tentang Kebijakan Penggunaan Wajar kami atau percaya bahwa konten apa pun melanggar hak cipta Anda, silakan hubungi kami di:",
+    "contactTitle": "Hubungi Kami",
+    "contactBody": "Anda dapat menghubungi kami melalui"
+  },
+  "notifications": {
+    "meta": {
+      "title": "Notifikasi - egdata.app",
+      "description": "Konfigurasi dan kelola notifikasi push untuk pembaruan Epic Games Store, rilis game, dan banyak lagi."
+    },
+    "title": "Notifikasi",
+    "description": "Konfigurasi dan kelola notifikasi push untuk pembaruan Epic Games Store, rilis game, dan peringatan yang dipersonalisasi.",
+    "tabs": {
+      "notifications": "Notifikasi",
+      "mySubscriptions": "Langganan Saya"
+    },
+    "aboutPushTitle": "Tentang Notifikasi Push",
+    "aboutPushDescription": "Pelajari lebih lanjut tentang cara kerja notifikasi push di EGData.",
+    "whatYoullReceive": "Apa yang akan Anda terima:",
+    "receiveList": {
+      "freeGames": "Pengumuman game gratis baru",
+      "releases": "Notifikasi rilis game",
+      "priceDrops": "Peringatan penurunan harga untuk game yang diinginkan",
+      "news": "Berita dan pembaruan Epic Games Store",
+      "custom": "Notifikasi berbasis topik khusus"
+    },
+    "privacySecurity": "Privasi & Keamanan:",
+    "privacyList": {
+      "apiKey": "Kunci API Anda disimpan dengan aman di cookie browser",
+      "onlySubscribed": "Kami hanya mengirim notifikasi yang Anda langgani",
+      "unsubscribe": "Anda dapat berhenti berlangganan kapan saja",
+      "noPersonalData": "Tidak ada data pribadi yang diperlukan selain kunci API Anda"
+    },
+    "browserSupport": "Dukungan Browser:",
+    "browserSupportBody": "Notifikasi push didukung di browser modern termasuk Chrome, Firefox, Safari, dan Edge. Pastikan untuk mengizinkan notifikasi saat diminta oleh browser Anda.",
+    "subscriptionOverview": "Ikhtisar Langganan",
+    "totalSubscribed": "Total topik yang dilanggani: {{count}}",
+    "notSubscribedApi": "Kunci API tidak berlangganan notifikasi push",
+    "notSubscribedTitle": "Tidak Berlangganan",
+    "notSubscribedBody": "Kunci API Anda tidak berlangganan notifikasi push. Gunakan tab \"Pengaturan & Berlangganan\" untuk berlangganan terlebih dahulu.",
+    "subscriptionId": "Langganan {{id}}",
+    "created": "Dibuat:",
+    "subscribedTopics": "Topik yang Dilanggani:",
+    "noTopics": "Tidak ada topik yang dilanggani",
+    "lastUpdated": "Terakhir diperbarui:",
+    "noSubscriptionsTitle": "Tidak Ada Langganan Ditemukan",
+    "noSubscriptionsBody": "Anda berlangganan tetapi belum membuat langganan perangkat. Gunakan tab \"Pengaturan & Berlangganan\" untuk membuat langganan pertama Anda.",
+    "fetchError": "Gagal mengambil langganan. Silakan coba lagi.",
+    "push": {
+      "title": "Notifikasi Push",
+      "notSupported": "Notifikasi push tidak didukung di browser ini.",
+      "setApiKey": "Silakan atur kunci API Anda untuk mengaktifkan notifikasi push.",
+      "manage": "Kelola preferensi notifikasi push Anda.",
+      "unsubscribe": "Berhenti Berlangganan",
+      "subscribe": "Berlangganan",
+      "subscribed": "Berlangganan",
+      "notSubscribed": "Tidak berlangganan",
+      "subscribeToTopic": "Berlangganan ke Topik",
+      "topicPlaceholder": "Masukkan nama topik (mis., game-updates)",
+      "subscribedTopics": "Topik yang Dilanggani",
+      "clickToUnsubscribe": "Klik pada topik untuk berhenti berlangganan"
+    },
+    "simple": {
+      "title": "Notifikasi Push",
+      "notSupported": "Notifikasi push tidak didukung di browser ini.",
+      "subscribedDesc": "Anda berlangganan {{count}} topik notifikasi",
+      "notSubscribedDesc": "Dapatkan notifikasi tentang pembaruan Epic Games Store, game gratis, dan banyak lagi",
+      "subscribeToNotifications": "Berlangganan ke Notifikasi",
+      "unsubscribe": "Berhenti Berlangganan",
+      "chooseWhat": "Pilih apa yang ingin Anda dapatkan notifikasinya:",
+      "freeGames": "Game Gratis",
+      "freeGamesDesc": "Dapatkan notifikasi saat game gratis baru tersedia",
+      "newReleases": "Rilis Baru",
+      "newReleasesDesc": "Notifikasi untuk rilis game baru",
+      "priceDrops": "Penurunan Harga",
+      "priceDropsDesc": "Dapatkan peringatan saat game diskon",
+      "youWillReceive": "Anda akan menerima notifikasi untuk:",
+      "subscribedTo": "Berlangganan ke {{name}}",
+      "unsubscribedFrom": "Berhenti berlangganan dari {{name}}",
+      "failedSubscribe": "Gagal berlangganan notifikasi",
+      "failedUnsubscribe": "Gagal berhenti berlangganan notifikasi",
+      "failedTopicSubscribe": "Gagal berlangganan ke topik",
+      "failedTopicUnsubscribe": "Gagal berhenti berlangganan dari topik",
+      "successSubscribe": "Berhasil berlangganan notifikasi!",
+      "successUnsubscribe": "Berhasil berhenti berlangganan notifikasi"
+    },
+    "apiKey": {
+      "title": "Manajemen Kunci API",
+      "label": "Kunci API",
+      "placeholderGenerated": "Kunci API dibuat",
+      "placeholderNone": "Belum ada kunci API dibuat",
+      "regenerate": "Hasilkan Ulang Kunci",
+      "generate": "Hasilkan Kunci",
+      "clear": "Hapus Kunci",
+      "generated": "Kunci API baru berhasil dibuat!",
+      "copied": "Kunci API disalin ke clipboard!",
+      "cleared": "Kunci API berhasil dihapus!",
+      "failedGenerate": "Gagal membuat kunci API",
+      "failedCopy": "Gagal menyalin kunci API",
+      "failedClear": "Gagal menghapus kunci API",
+      "noneToCopy": "Tidak ada kunci API untuk disalin",
+      "description": "Kunci API Anda adalah UUID yang disimpan secara lokal di browser Anda dan digunakan untuk mengautentikasi permintaan notifikasi push. Gunakan tombol hasilkan ulang untuk membuat kunci baru jika diperlukan."
+    }
+  },
+  "promotions": {
+    "placeholder": "Halo /promotions/$id!"
+  },
+  "misc": {
+    "gameAwards": {
+      "meta": {
+        "title": "Liputan The Game Awards | egdata.app",
+        "description": "Game terbaru yang diumumkan dan dinominasikan di The Game Awards yang hadir di Epic Games Store."
+      },
+      "logoAlt": "The Game Awards 2025",
+      "subtitle": "Game yang diumumkan atau dinominasikan di The Game Awards yang hadir di Epic Games Store",
+      "videoTitle": "The Game Awards 2024 - Siaran Langsung",
+      "expandPlayer": "Perbesar pemutar",
+      "closeMiniPlayer": "Tutup pemutar mini",
+      "noGamesTitle": "Belum ada game yang diumumkan",
+      "noGamesBody": "Kembali lagi setelah The Game Awards!"
+    },
+    "downloads": {
+      "title": "Rilis Klien egdata.app",
+      "description": "Unduh versi terbaru. Kami telah menyoroti bagian yang direkomendasikan untuk sistem operasi Anda.",
+      "errorPrefix": "Error:",
+      "noPublicReleases": "Tidak ada rilis publik ditemukan.",
+      "recommended": "Direkomendasikan",
+      "downloadsSuffix": "Unduhan",
+      "versionPublished": "Versi {{version}} - Diterbitkan pada {{date}}",
+      "assetInfo": {
+        "appleSilicon": "Untuk komputer Mac baru dengan chip Apple (M1, M2, M3, dll.).",
+        "intel": "Untuk komputer Mac lama dengan prosesor Intel.",
+        "universal": "Kompatibel dengan Apple Silicon dan Intel Mac.",
+        "msi": "Wizard instalasi standar. Direkomendasikan untuk sebagian besar pengguna.",
+        "exe": "File aplikasi mandiri. Mungkin tidak memerlukan instalasi.",
+        "linux": "Untuk sistem operasi berbasis Linux.",
+        "generic": "File generik atau kode sumber."
+      }
+    },
+    "discordLinked": {
+      "title": "Akun Berhasil Ditautkan!",
+      "body": "Akun Discord Anda telah berhasil ditautkan ke egdata.app",
+      "footer": "Anda sekarang dapat menutup jendela ini dan kembali ke Discord. Akun Anda siap digunakan dengan egdata.app"
+    },
+    "posts": {
+      "coverAlt": "Karya Seni Sampul LEGO Star Wars: The Skywalker Saga",
+      "title": "Dapatkan LEGO® Star Wars™: The Skywalker Saga GRATIS di Epic Games Store",
+      "freeGameBadge": "Game Gratis",
+      "published": "Diterbitkan pada 30 November 2023",
+      "intro": "Tandai kalender Anda, penggemar Star Wars! Dari {{dateRange}}, Anda bisa mendapatkan {{game}} yang diakui secara GRATIS di Epic Games Store. Game ini, yang biasanya berharga {{price}}, memungkinkan Anda menghidupkan kembali momen ikonik dari {{saga}} dengan sentuhan LEGO yang menyenangkan.",
+      "dateRange": "5 Desember hingga 12 Desember 2024",
+      "game": "LEGO® Star Wars™: The Skywalker Saga",
+      "price": "$49.99",
+      "saga": "saga Skywalker",
+      "gameplayAlt": "Gameplay LEGO Star Wars",
+      "charactersAlt": "Karakter LEGO Star Wars",
+      "whatToExpect": "🧩 Apa yang Diharapkan?",
+      "whatToExpectBody": "Dikembangkan oleh {{developer}} dan diterbitkan oleh {{publisher}}, judul ini menawarkan pengalaman Star Wars yang komprehensif seperti tidak ada yang lain. Inilah yang membuatnya wajib dimainkan:",
+      "developer": "TT Games",
+      "publisher": "Warner Bros.",
+      "expectList": {
+        "allMovies": "🌌 {{strong}}: Hidupkan kembali jalan cerita dari sembilan film saga Skywalker, penuh dengan humor LEGO klasik.",
+        "allMoviesStrong": "Semua 9 Film",
+        "characters": "🚀 {{strong}}: Kendalikan pahlawan dan penjahat favorit Anda dari galaksi yang jauh, jauh sekali.",
+        "charactersStrong": "300+ Karakter yang Dapat Dimainkan",
+        "vehicles": "🚀 {{strong}}: Terbangkan kapal ikonik seperti Millennium Falcon dan TIE Fighters.",
+        "vehiclesStrong": "100+ Kendaraan",
+        "planets": "🌍 {{strong}}: Bepergian ke dunia yang familiar, dari Tatooine ke Endor, dan seterusnya.",
+        "planetsStrong": "23 Planet untuk Dijelajahi"
+      },
+      "specialTitle": "🌟 Apa yang Membuat Game Ini Spesial?",
+      "specialBody": "Sejak dirilis pada {{releaseDate}}, LEGO Star Wars: The Skywalker Saga telah dipuji karena gameplaynya yang menarik dan adaptasi setia dari alam semesta Star Wars. Dengan {{metascore}} di Metacritic, kritikus dan penggemar sama-sama menyoroti:",
+      "releaseDate": "April 2022",
+      "metascore": "82 Metascore",
+      "specialList": {
+        "combat": "🎮 {{strong}}: Pertarungan lightsaber, baku tembak blaster, dan pertempuran luar angkasa.",
+        "combatStrong": "Pertarungan Dinamis",
+        "charm": "🏗️ {{strong}}: Humor Star Wars klasik, dibayangkan ulang dalam gaya unik LEGO.",
+        "charmStrong": "Pesona LEGO",
+        "replayability": "🤯 {{strong}}: Banyak koleksi, misi sampingan, dan rahasia tersembunyi.",
+        "replayabilityStrong": "Replayabilitas"
+      },
+      "howToClaim": "🎁 Cara Mendapatkannya?",
+      "howToClaimBody": "Mendapatkan salinan gratis Anda mudah!",
+      "step1": "Kunjungi {{storeLink}} antara {{dec5}} dan {{dec12}}.",
+      "storeLink": "Epic Games Store",
+      "dec5": "5 Desember",
+      "dec12": "12 Desember 2024",
+      "step2": "Tambahkan game ke pustaka Anda.",
+      "step3": "Itu milik Anda selamanya!",
+      "cardTitle": "Jangan lewatkan kesempatan ini untuk memulai petualangan LEGO melintasi galaksi!",
+      "cardBody": "Apakah Anda penggemar berat Star Wars atau pendatang baru, game ini menawarkan kesenangan tanpa akhir untuk semua orang.",
+      "footer": "Semoga Force (dan bata LEGO) menyertai Anda! 🧱✨"
+    },
+    "fairUse": {
+      "meta": {
+        "title": "Kebijakan Penggunaan Wajar - egdata.app",
+        "description": "Kebijakan Penggunaan Wajar untuk egdata.app"
+      },
+      "title": "Kebijakan Penggunaan Wajar untuk EGData App",
+      "section1Title": "1. Pendahuluan",
+      "section1Body": "Selamat datang di EGData App (\"kami\", \"milik kami\"). Kebijakan Penggunaan Wajar ini menguraikan ketentuan di mana Anda dapat menggunakan konten dan data yang disediakan di situs web kami {{siteLink}} (\"Situs\").",
+      "section2Title": "2. Tujuan Penggunaan Wajar",
+      "section2Body": "Konten dan data di EGData App disediakan hanya untuk tujuan informasi. Tujuan kami adalah menawarkan database komprehensif game (atau data terkait game) yang tersedia di Epic Games Store untuk penggunaan edukasi dan referensi oleh komunitas.",
+      "section3Title": "3. Kepatuhan terhadap Penggunaan Wajar",
+      "section3Body": "EGData App mematuhi prinsip penggunaan wajar di bawah hukum hak cipta dengan menyediakan informasi dan data dengan cara yang bermanfaat bagi publik tanpa melanggar hak pemilik konten. Berikut adalah faktor kunci yang membenarkan penggunaan kami sebagai penggunaan wajar:",
+      "section3List": {
+        "purpose": "Tujuan dan Karakter Penggunaan:",
+        "purposeBody": "Situs web kami bersifat non-komersial dan bertujuan mendidik serta menginformasikan publik tentang game yang tersedia di Epic Games Store. Kami menyediakan informasi penting, ulasan, dan pembaruan, meningkatkan pengetahuan dan apresiasi publik tentang game-game ini.",
+        "nature": "Sifat Karya yang Dilindungi Hak Cipta:",
+        "natureBody": "Data yang kami kumpulkan dan sajikan terdiri dari informasi faktual seperti judul game, tanggal rilis, pengembang, dan pembaruan. Informasi faktual kurang dilindungi di bawah hukum hak cipta dibandingkan karya kreatif.",
+        "amount": "Jumlah dan Substansialitas:",
+        "amountBody": "Kami hanya menggunakan jumlah data yang diperlukan untuk memberikan informasi yang bermakna dan relevan kepada pengguna kami. Kami tidak mereproduksi seluruh karya atau memberikan kutipan ekstensif yang dapat menggantikan produk asli.",
+        "effect": "Efek pada Pasar:",
+        "effectBody": "Penggunaan data game kami tidak berdampak negatif pada pasar game asli. Sebaliknya, ini mempromosikan game-game ini dengan menyediakan informasi terkini dan mendorong keterlibatan serta minat pengguna."
+      },
+      "section4Title": "4. Pengumpulan dan Pembaruan Data",
+      "section4Body1": "Situs kami secara otomatis melacak dan memperbarui data game untuk memastikan bahwa informasi yang kami berikan adalah terkini dan akurat. Proses otomatis ini melibatkan pengumpulan informasi yang tersedia untuk umum dari Epic Games Store dan sumber terpercaya lainnya.",
+      "section4Body2": "Dengan menjaga database kami tetap terbarui, kami memastikan bahwa pengguna memiliki akses ke informasi terbaru tentang game favorit mereka, termasuk rilis baru, pembaruan, dan perubahan ketersediaan.",
+      "section4Body3": "Dalam hal aset grafis, kami memuat gambar langsung dari server Epic Games Store. Kami tidak menyimpan gambar apa pun di server kami.",
+      "section5Title": "5. Penyangkalan Data Bocor",
+      "section5Body1": "Setiap data yang tampaknya bocor di Situs kami berasal dari informasi yang tersedia untuk umum yang disediakan oleh Epic Games Store. Kami tidak memiliki akses ke data rahasia atau kepemilikan yang tidak dapat diakses publik. Oleh karena itu, adalah tanggung jawab penerbit untuk melindungi kekayaan intelektual (IP), game, konten yang dapat diunduh (DLC), dan informasi sensitif lainnya yang akan datang di portal Pengembang Epic Games.",
+      "section5Body2": "Penerbit didorong untuk memastikan bahwa informasi sensitif diamankan dengan benar dan tidak secara tidak sengaja menjadi publik. EGData App tidak dapat bertanggung jawab atas informasi bocor yang diperoleh dari sumber yang tersedia untuk umum.",
+      "section5Body3": "Untuk informasi lebih lanjut tentang perlindungan data dan penggunaan wajar di Uni Eropa, silakan merujuk ke sumber daya berikut:",
+      "euDirective1": "Directive (UE) 2019/790 tentang hak cipta dan hak terkait di Pasar Tunggal Digital",
+      "euDirective2": "Pertanyaan dan Jawaban – Aturan hak cipta UE baru",
+      "section6Title": "6. Hubungi Kami",
+      "section6Body": "Jika Anda memiliki pertanyaan tentang Kebijakan Penggunaan Wajar ini atau jika Anda percaya bahwa konten atau data apa pun di Situs kami melanggar hak cipta Anda, silakan hubungi kami di:",
+      "email": "Email:"
+    },
+    "donateKey": {
+      "title": "Sumbangkan Kunci",
+      "body": "Jika Anda memiliki kunci yang ingin Anda sumbangkan ke proyek, silakan isi formulir di bawah ini."
+    },
+    "androidBeta": {
+      "meta": {
+        "title": "Beta Android - egdata.app",
+        "description": "Ikuti program pengujian beta tertutup aplikasi Android egdata.app"
+      },
+      "title": "Program Beta Android",
+      "description": "Bergabunglah dengan beta tertutup kami untuk menguji aplikasi Android egdata.app sebelum rilis publik.",
+      "whatHappensNext": "Apa yang terjadi selanjutnya?",
+      "steps": {
+        "signIn": "Masuk dengan akun Google Anda",
+        "added": "Anda akan ditambahkan secara manual ke jalur pengujian tertutup dalam beberapa jam",
+        "download": "Setelah ditambahkan, Anda dapat mengunduh aplikasi dari tautan yang disediakan"
+      }
+    }
+  },
+  "components": {
+    "stats": {
+      "title": "Statistik",
+      "description": "Statistik tentang platform",
+      "offers": "Penawaran",
+      "offersTooltip": "Penawaran adalah item yang dapat dibeli dari toko",
+      "items": "Item",
+      "itemsTooltip": "Item adalah hak untuk peluncur",
+      "tags": "Tag",
+      "offersYear": "Penawaran (Tahun)",
+      "itemsYear": "Item (Tahun)",
+      "assets": "Assets",
+      "assetsTooltip": "Asset adalah file game",
+      "regPrices": "Harga Reg.",
+      "changes": "Perubahan",
+      "sandboxes": "Sandbox",
+      "sandboxesTooltip": "Sandbox adalah grup penawaran"
+    },
+    "sandboxShell": {
+      "overview": "Ikhtisar",
+      "offers": "Penawaran",
+      "items": "Item",
+      "assets": "Assets",
+      "builds": "Build",
+      "achievements": "Pencapaian",
+      "changelog": "Catatan perubahan",
+      "sandbox": "Sandbox",
+      "internalNamespace": "Namespace internal",
+      "storePage": "Halaman Toko",
+      "updated": "Diperbarui {{date}}",
+      "unrealEngine": "Unreal Engine",
+      "internalSandbox": "Sandbox Internal",
+      "releaseStatus": {
+        "prePurchase": "Pre-pembelian",
+        "datePending": "Tanggal tertunda",
+        "comingSoon": "Segera hadir",
+        "released": "Dirilis"
+      }
+    },
+    "comparison": {
+      "openCompareTray": "Buka baki perbandingan, {{count}} dipilih",
+      "compareSelected": "Bandingkan penawaran yang dipilih",
+      "error": "Error",
+      "type": "Jenis",
+      "seller": "Penjual",
+      "developer": "Pengembang",
+      "releaseDate": "Tanggal Rilis",
+      "pcReleaseDate": "Tanggal Rilis PC",
+      "genres": "Genre",
+      "platforms": "Platform",
+      "remove": "Hapus",
+      "current": "Saat Ini",
+      "lowest": "Terendah",
+      "noPriceFound": "Tidak ada harga ditemukan",
+      "noAgeRatingsFound": "Tidak ada peringkat usia ditemukan",
+      "achievements": "Pencapaian:",
+      "ageRating": "Peringkat Usia:",
+      "price": "Harga:",
+      "unknown": "Tidak Diketahui"
+    },
+    "search": {
+      "sellers": "Penjual",
+      "noResults": "Tidak ada hasil ditemukan",
+      "noResultsShort": "Tidak ada hasil ditemukan.",
+      "allOfferTypes": "Semua Jenis Penawaran",
+      "tags": "Tag"
+    },
+    "changelist": {
+      "title": "Daftar Perubahan",
+      "loading": "Memuat...",
+      "error": "Error: {{message}}",
+      "id": "ID",
+      "type": "Jenis",
+      "titleOrId": "Judul/ID",
+      "date": "Tanggal",
+      "new": "baru",
+      "update": "perbarui"
+    },
+    "upcoming": {
+      "caption": "Penawaran Mendatang",
+      "loading": "Memuat...",
+      "title": "Judul",
+      "price": "Harga",
+      "releaseDate": "Tanggal Rilis",
+      "unknown": "Tidak Diketahui",
+      "prePurchase": "Pre-Pembelian"
+    },
+    "giveaways": {
+      "title": "Giveaway",
+      "free": "Gratis",
+      "freeNow": "Gratis Sekarang",
+      "startsIn": "Mulai dalam",
+      "repeated": "Diulang:",
+      "yes": "Ya",
+      "no": "Tidak",
+      "repeatedTooltip": "Penawaran ini telah diberikan {{count}} kali."
+    },
+    "giveawayStats": {
+      "title": "Giveaway dalam Angka",
+      "loading": "Memuat...",
+      "totalValue": "Total Nilai",
+      "totalValueTooltip": "Total nilai termasuk diskon aktif",
+      "giveaways": "Giveaway",
+      "giveawaysTooltip": "Jumlah total giveaway yang muncul di database",
+      "offers": "Penawaran",
+      "offersTooltip": "Jumlah total penawaran unik yang telah muncul di giveaway",
+      "repeated": "Diulang",
+      "repeatedTooltip": "Jumlah penawaran unik yang muncul beberapa kali di giveaway",
+      "sellers": "Penjual",
+      "sellersTooltip": "Jumlah total penjual unik yang menyediakan penawaran"
+    },
+    "offerCard": {
+      "openOffer": "Buka penawaran {{title}}",
+      "free": "Gratis",
+      "comingSoon": "Segera Hadir",
+      "earlyAccess": "Akses Awal",
+      "prePurchase": "Pre-Pembelian",
+      "owned": "dimiliki"
+    },
+    "baseGame": {
+      "checkBaseGame": "Lihat game dasar",
+      "partOfBundle": "Penawaran ini adalah bagian dari"
+    },
+    "notFound": {
+      "message": "Halaman yang Anda cari tidak ada."
+    },
+    "sellerOffers": {
+      "error": "Kesalahan memuat penawaran. Silakan coba lagi.",
+      "moreFrom": "Lainnya dari {{name}}"
+    },
+    "achievementsBlade": {
+      "noData": "Tidak ada data",
+      "game": "Game",
+      "achievements": "Pencapaian",
+      "xp": "XP",
+      "bronze": "Perunggu",
+      "silver": "Perak",
+      "gold": "Emas",
+      "gamesWithAchievements": "Game dengan Pencapaian Epic"
+    },
+    "topSection": {
+      "free": "Gratis",
+      "releaseDate": "Tanggal Rilis:",
+      "tba": "TBA",
+      "platforms": "Platform:",
+      "tags": "Tag:",
+      "checkOffer": "Lihat Penawaran"
+    },
+    "featuredDiscounts": {
+      "free": "Gratis",
+      "title": "Diskon Unggulan",
+      "countMore": "+{{count}} lainnya",
+      "checkOffer": "Lihat Penawaran",
+      "until": "hingga"
+    },
+    "performanceTable": {
+      "title": "Performa",
+      "noPriorData": "Tidak ada data sebelumnya",
+      "cardsView": "Tampilan kartu",
+      "chartView": "Tampilan grafik"
+    },
+    "priceChart": {
+      "selectValue": "Pilih nilai",
+      "last3Months": "3 bulan terakhir",
+      "fetchingData": "Mengambil data terbaru"
+    },
+    "dateRangePicker": {
+      "from": "Dari",
+      "to": "Ke",
+      "maxRange": "Rentang maksimum adalah 30 hari",
+      "invalidRange": "Rentang tanggal tidak valid"
+    },
+    "regionalPricing": {
+      "region": "Wilayah",
+      "price": "Harga"
+    },
+    "regionalPricingBadge": {
+      "analysis": "Analisis harga regional",
+      "currentPrice": "Harga saat ini",
+      "suggestedPrice": "Harga yang disarankan",
+      "belowSuggested": "Penawaran ini sebenarnya di bawah itu juga — penawaran yang bagus di semua sisi.",
+      "closeToSuggested": "Penawaran ini mendekati itu, dan jauh di bawah harga tipikal {{region}}."
+    },
+    "countrySelector": {
+      "searchCountries": "Cari negara...",
+      "noCountries": "Tidak ada negara ditemukan"
+    },
+    "countriesSelector": {
+      "searchCountries": "Cari negara...",
+      "noCountries": "Tidak ada negara ditemukan"
+    },
+    "querySearch": {
+      "searchItems": "Cari item..."
+    },
+    "extendedSearch": {
+      "searchItems": "Cari item...",
+      "noItems": "Tidak ada item ditemukan."
+    },
+    "searchForm": {
+      "noResults": "Tidak ada hasil ditemukan",
+      "error": "Error: {{message}}",
+      "loadingLong": "Kueri ini memakan waktu lebih lama dari biasanya..."
+    },
+    "searchFormV2": {
+      "noResults": "Tidak ada hasil ditemukan."
+    },
+    "androidBetaBanner": {
+      "dismiss": "Tutup spanduk"
+    },
+    "videoPlayer": {
+      "title": "{{title}}"
+    },
+    "mediaSlider": {
+      "previousSlide": "Slide sebelumnya",
+      "nextSlide": "Slide berikutnya",
+      "image": "Gambar {{index}}",
+      "thumbnail": "Thumbnail {{index}}",
+      "downloading": "Mengunduh...",
+      "download": "Unduh"
+    },
+    "changelogItem": {
+      "action": "Aksi",
+      "type": "Jenis",
+      "oldValue": "Nilai lama",
+      "newValue": "Nilai baru",
+      "previousValue": "Nilai sebelumnya:",
+      "newValueLabel": "Nilai baru:"
+    },
+    "changelogCharts": {
+      "byWeekday": "Perubahan berdasarkan Hari",
+      "byWeekdayDesc": "Perubahan terakumulasi berdasarkan hari dalam seminggu",
+      "typesOfChanges": "Jenis Perubahan",
+      "typesOfChangesDesc": "Jumlah perubahan berdasarkan jenis",
+      "byField": "Perubahan berdasarkan Bidang",
+      "byFieldDesc": "Perubahan dikelompokkan berdasarkan bidang yang diubah",
+      "dailyDesc": "Menampilkan perubahan harian untuk tahun lalu",
+      "noData": "Tidak ada data yang tersedia untuk ditampilkan."
+    },
+    "openEgl": {
+      "open": "Buka"
+    },
+    "openEgs": {
+      "store": "Toko"
+    },
+    "openLauncher": {
+      "play": "Mainkan"
+    },
+    "storeDropdown": {
+      "launcher": "Peluncur",
+      "viewStorePage": "Lihat Halaman Toko",
+      "webBrowser": "Peramban Web"
+    },
+    "prepurchasePopup": {
+      "title": "{{title}}"
+    },
+    "apiKeyManager": {
+      "title": "Manajemen Kunci API",
+      "label": "Kunci API",
+      "placeholder": {
+        "generated": "Kunci API dibuat",
+        "none": "Belum ada kunci API dibuat"
+      },
+      "button": {
+        "regenerate": "Hasilkan Ulang Kunci",
+        "generate": "Hasilkan Kunci",
+        "clear": "Hapus Kunci"
+      },
+      "notification": {
+        "generated": "Kunci API baru berhasil dibuat!",
+        "generateFailed": "Gagal membuat kunci API",
+        "copied": "Kunci API disalin ke clipboard!",
+        "copyFailed": "Gagal menyalin kunci API",
+        "noneToCopy": "Tidak ada kunci API untuk disalin",
+        "cleared": "Kunci API berhasil dihapus!",
+        "clearFailed": "Gagal menghapus kunci API"
+      },
+      "description": "Kunci API Anda adalah UUID yang disimpan secara lokal di browser Anda dan digunakan untuk mengautentikasi permintaan notifikasi push. Gunakan tombol hasilkan ulang untuk membuat kunci baru jika diperlukan."
+    },
+    "cookieBanner": {
+      "title": "Pemberitahuan Cookie",
+      "description": "Situs web ini menggunakan cookie untuk meningkatkan pengalaman menjelajah Anda. Dengan menerima cookie, Anda menerima {{privacyPolicyLink}}.",
+      "accept": "Terima",
+      "decline": "Tolak"
+    },
+    "searchHeader": {
+      "results": "{{count}} hasil",
+      "showingResultsFor": "Menampilkan hasil untuk"
+    },
+    "bundle": {
+      "collectionOffers": "Penawaran Koleksi",
+      "bundleOffers": "Penawaran Bundel",
+      "offersCount": "- {{count}} Penawaran",
+      "bundlePriceTitle": "Harga Bundel",
+      "totalValueLabel": "Total Nilai:",
+      "bundlePriceLabel": "Harga Bundel:",
+      "youSave": "Anda hemat:",
+      "youPayMore": "Anda bayar lebih:",
+      "buyBundle": "Beli Bundel",
+      "buyIndividually": "Beli Item Secara Individual"
+    },
+    "clientBanner": {
+      "heading": "Dukung database build {{appName}}",
+      "subheading": "Bantu petakan setiap build Epic Games Store",
+      "description": "Klien Windows & macOS ringan kami memindai instalasi Epic Games Launcher Anda dan mengunggah dengan aman hanya file manifest—daftar chunk dan metadata—ke database terbuka kami. Setiap unggahan memperkaya komunitas dan membantu kami melacak perubahan dari waktu ke waktu.",
+      "cta": "Unduh untuk Windows & macOS"
+    },
+    "collectionOffers": {
+      "title": "Penawaran Koleksi"
+    },
+    "lastModifiedOffers": {
+      "title": "Penawaran yang Terakhir Dimodifikasi"
+    },
+    "latestOffers": {
+      "title": "Terbaru Ditambahkan"
+    },
+    "latestReleased": {
+      "title": "Terbaru Dirilis"
+    },
+    "mobileFreebies": {
+      "title": "Game Gratis Seluler",
+      "collapse": "Ciutkan game gratis seluler",
+      "expand": "Perluas game gratis seluler"
+    },
+    "sectionHeader": {
+      "seeAll": "Lihat semua"
+    },
+    "suggestedOffers": {
+      "title": "Anda mungkin juga suka"
+    }
+  },
+  "table": {
+    "pagination": {
+      "rowsPerPage": "Baris per halaman",
+      "pageOf": "Halaman {{page}} dari {{total}}",
+      "goToFirst": "Pergi ke halaman pertama",
+      "goToPrevious": "Pergi ke halaman sebelumnya",
+      "goToNext": "Pergi ke halaman berikutnya",
+      "goToLast": "Pergi ke halaman terakhir",
+      "previous": "Sebelumnya",
+      "next": "Berikutnya",
+      "morePages": "Halaman lainnya"
+    },
+    "toolbar": {
+      "platform": "Platform",
+      "status": "Status",
+      "type": "Jenis",
+      "platforms": "Platform",
+      "fileExtensions": "Ekstensi File",
+      "filterOffers": "Filter penawaran...",
+      "filterItems": "Filter item...",
+      "filterFiles": "Filter file...",
+      "reset": "Atur Ulang"
+    },
+    "viewOptions": {
+      "view": "Lihat",
+      "toggleColumns": "Alihkan kolom"
+    },
+    "facetedFilter": {
+      "noResults": "Tidak ada hasil ditemukan.",
+      "selected": "dipilih",
+      "clearFilters": "Hapus filter"
+    },
+    "builds": {
+      "noResults": "Tidak ada hasil.",
+      "donateKey": "Sumbangkan Kunci"
+    }
+  },
+  "forms": {
+    "review": {
+      "submitTitle": "Kirim Ulasan",
+      "editTitle": "Sunting Ulasan",
+      "description": "Bagikan pemikiran Anda tentang {{title}}",
+      "rating": "Peringkat",
+      "ratingError": "Peringkat harus antara 1 dan 10",
+      "recommend": "Apakah Anda merekomendasikan produk ini?",
+      "recommendError": "Silakan pilih ya atau tidak",
+      "yes": "Ya",
+      "no": "Tidak",
+      "title": "Judul",
+      "titlePlaceholder": "Masukkan judul untuk ulasan Anda",
+      "titleRequired": "Judul wajib diisi",
+      "titleMinLength": "Judul harus minimal 3 karakter",
+      "titleMinLengthLong": "Judul harus minimal 3 karakter",
+      "titleMaxLength": "Judul harus kurang dari 75 karakter",
+      "reviewContent": "Konten Ulasan",
+      "contentMinLength": "Konten harus minimal 3 karakter",
+      "tags": "Tag (dipisahkan koma)",
+      "tagsPlaceholder": "mis. kualitas, desain, performa",
+      "previous": "Sebelumnya",
+      "next": "Berikutnya",
+      "submit": "Kirim Ulasan",
+      "deleteReview": "Hapus ulasan",
+      "confirmDelete": "Apakah Anda yakin ingin menghapus ulasan ini?",
+      "deleteDescription": "Tindakan ini tidak dapat dibatalkan. Ini akan menghapus ulasan secara permanen dari server kami.",
+      "cancel": "Batal",
+      "delete": "Hapus",
+      "deleting": "Menghapus...",
+      "errorSubmitting": "Kesalahan mengirim ulasan",
+      "errorDeleting": "Kesalahan menghapus ulasan",
+      "spamDetected": "Spam terdeteksi",
+      "defaultContent": "Silakan masukkan ulasan Anda di sini",
+      "theProduct": "produk"
+    },
+    "androidBeta": {
+      "title": "Bergabung dengan Beta",
+      "description": "Masuk dengan Google untuk mendaftar beta tertutup. Kami hanya memerlukan alamat email Anda.",
+      "spotsRemaining": "<strong>{{remaining}}</strong> dari {{max}} tempat tersisa",
+      "betaFull": "Beta Penuh",
+      "betaFullDesc": "Semua {{max}} tempat telah terisi. Kembali lagi nanti atau ikuti kami untuk pembaruan tentang kapan tempat tersedia lagi.",
+      "registering": "Mendaftarkan Anda untuk beta...",
+      "registered": "Anda terdaftar!",
+      "registeredDesc": "Kami telah mendaftarkan <strong>{{email}}</strong> untuk beta tertutup.",
+      "registeredDesc2": "Mungkin perlu beberapa jam hingga Anda ditambahkan secara manual ke daftar penguji. Setelah ditambahkan, Anda dapat bergabung dengan beta di sini:",
+      "joinBeta": "Bergabung dengan Beta di Google Play",
+      "alreadyRegistered": "Sudah Terdaftar",
+      "alreadyRegisteredDesc": "<strong>{{email}}</strong> sudah terdaftar untuk beta.",
+      "alreadyRegisteredDesc2": "Jika Anda sudah ditambahkan ke daftar penguji, Anda dapat bergabung dengan beta di sini:",
+      "error": "Error",
+      "tryAgain": "Coba Lagi",
+      "noCredential": "Tidak ada kredensial yang diterima dari Google",
+      "somethingWrong": "Terjadi kesalahan. Silakan coba lagi.",
+      "googleFailed": "Google Sign-In gagal. Silakan coba lagi."
+    },
+    "donateKey": {
+      "donate": "Donasi",
+      "error": "Error",
+      "success": "Berhasil",
+      "successDesc": "Terima kasih atas donasi Anda! Item telah ditukarkan dengan benar dan datanya akan segera tersedia.",
+      "offerPage": "Halaman penawaran",
+      "somethingWrong": "Terjadi kesalahan. Silakan coba lagi."
+    }
+  },
+  "ui": {
+    "dialog": {
+      "close": "Tutup"
+    },
+    "sheet": {
+      "close": "Tutup"
+    },
+    "carousel": {
+      "previous": "Slide sebelumnya",
+      "next": "Slide berikutnya"
+    },
+    "pagination": {
+      "previous": "Sebelumnya",
+      "next": "Berikutnya",
+      "morePages": "Halaman lainnya"
+    },
+    "priceRangeSlider": {
+      "priceRange": "Rentang Harga",
+      "minPrice": "Harga min",
+      "maxPrice": "Harga maks"
+    }
+  }
+}

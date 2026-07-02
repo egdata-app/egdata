@@ -1,0 +1,1252 @@
+{
+  "common": {
+    "appName": "EGDATA",
+    "search": "搜索",
+    "searchPlaceholder": "搜索游戏...",
+    "loading": "加载中...",
+    "free": "免费",
+    "notAvailable": "不可用",
+    "cancel": "取消",
+    "save": "保存",
+    "close": "关闭"
+  },
+  "nav": {
+    "toggleMenu": "切换导航菜单",
+    "logoAlt": "EGDATA Logo",
+    "explore": "探索",
+    "browse": "浏览",
+    "sales": "促销",
+    "changelog": "更新日志",
+    "about": "关于",
+    "rankings": "排行榜",
+    "topSellers": "畅销榜",
+    "mostPlayed": "热门游玩",
+    "topWishlisted": "心愿单榜",
+    "topNewReleases": "最新发布",
+    "seeAllCollections": "查看所有合集",
+    "others": "其他",
+    "releaseStats": "发布统计",
+    "genres": "类型",
+    "seeAllGenres": "查看所有类型",
+    "other": "其他",
+    "action": "动作",
+    "rpg": "角色扮演",
+    "indie": "独立",
+    "strategy": "策略",
+    "topSellerOnEpic": "Epic游戏商城畅销榜",
+    "searchItemTitle": "搜索",
+    "searchItemDesc": "在Epic游戏商城查找您需要的内容。",
+    "freeGamesItemTitle": "免费游戏",
+    "freeGamesItemDesc": "探索Epic游戏商城最新的免费游戏赠送。",
+    "withDiscountsItemTitle": "打折游戏",
+    "withDiscountsItemDesc": "查看当前正在促销的折扣游戏。",
+    "helloUser": "您好，{{name}}！",
+    "dashboard": "仪表盘",
+    "logout": "退出登录",
+    "searchLanguages": "搜索语言...",
+    "noLanguagesFound": "未找到相关语言"
+  },
+  "footer": {
+    "logoAlt": "EGDATA Logo",
+    "disclaimer": "这是一个粉丝制作的Epic游戏商城数据库，与Epic Games, Inc.无任何关联。所有Logo、图像和商标均属于其各自的所有者。",
+    "legal": "法律信息",
+    "privacyPolicy": "隐私政策",
+    "notifications": "通知",
+    "resources": "资源",
+    "apiDocs": "API文档",
+    "changelog": "更新日志",
+    "community": "社区",
+    "flagsByFlagpedia": "旗帜图标来自 Flagpedia",
+    "madeIn": "制作于"
+  },
+  "meta": {
+    "title": "Epic游戏数据库 - egdata.app",
+    "description": "全面的Epic游戏商城数据库：包含游戏信息、价格、促销历史、文件列表等。探索免费游戏、即将发布的游戏及社区洞察。",
+    "twitterTitle": "Epic游戏数据库",
+    "twitterDescription": "一个免费且开源的Epic游戏商城数据库，提供全面的游戏信息、价格追踪等功能。由社区驱动并保持实时更新。",
+    "twitterImageAlt": "Epic游戏数据库",
+    "ogTitle": "Epic游戏数据库",
+    "ogDescription": "一个免费且开源的Epic游戏商城数据库，提供全面的游戏信息、价格追踪等功能。由社区驱动并保持实时更新。",
+    "ogImageAlt": "Epic游戏数据库"
+  },
+  "notFound": {
+    "title": "页面未找到"
+  },
+  "home": {
+    "statsBar": {
+      "offersTracked": "已追踪目录项",
+      "priceChanges72h": "72小时价格变动",
+      "activeDiscounts": "当前折扣",
+      "giveawaysToDate": "累计赠送游戏"
+    },
+    "sections": {
+      "giveawayStats": "赠送统计",
+      "giveawayOffers": "赠送目录项",
+      "upcomingOffers": "即将到来的目录项",
+      "latestOffers": "最新目录项",
+      "latestReleased": "最新发布",
+      "latestOffersWithAchievements": "带成就的最新目录项",
+      "topSellingOffers": "畅销目录项",
+      "latestBuilds": "最新构建版本"
+    },
+    "tableHeaders": {
+      "hash": "#",
+      "pos": "排名",
+      "dash": "-",
+      "title": "标题",
+      "starts": "开始时间",
+      "ends": "结束时间",
+      "releaseDate": "发布日期",
+      "createdAt": "创建日期",
+      "date": "日期",
+      "price": "价格",
+      "size": "大小",
+      "creationDate": "创建日期"
+    },
+    "offerHover": {
+      "seller": "销售商:",
+      "developer": "开发商:",
+      "publisher": "发行商:",
+      "releaseDate": "发布日期:",
+      "ageRating": "年龄分级:",
+      "moreGenres_one": "+{{count}} 个更多",
+      "moreGenres_other": "+{{count}} 个更多",
+      "communityRating": "社区评分:",
+      "igdbScore": "IGDB评分",
+      "reviews": "• {{count}} 条评论",
+      "timeToBeat": "通关时间:",
+      "features": "特色功能:",
+      "moreFeatures": " +{{count}} 个更多"
+    },
+    "buildHover": {
+      "unknownBuild": "未知构建版本",
+      "unknownDeveloper": "未知开发商",
+      "size": "大小",
+      "version": "版本",
+      "created": "创建于",
+      "id": "ID: {{id}}"
+    },
+    "multipleOffers": "{{title}} - 多个目录项",
+    "hero": {
+      "subtitle": "追踪价格、发现折扣、不错过任何一款免费游戏。您的Epic游戏商城数据库伴侣 — 提供目录项、折扣、赠送、构建版本等信息。",
+      "searchPlaceholder": "搜索数据库...",
+      "justReleased": "刚刚发布",
+      "priceDrops72h": "价格降幅 (72h)",
+      "hasAchievements": "包含成就",
+      "upcoming": "即将发布",
+      "topSellers": "畅销产品"
+    },
+    "pulse": {
+      "recentActivity": "近期活动",
+      "badge": {
+        "new": "新增",
+        "gone": "移除",
+        "offer": "目录项",
+        "build": "构建版本",
+        "item": "物品",
+        "asset": "资源",
+        "xp": "经验值",
+        "sandbox": "沙盒",
+        "change": "更改"
+      },
+      "title": {
+        "buildVersion": "构建版本 {{version}}",
+        "buildId": "构建ID {{id}}",
+        "achievementsId": "成就 {{id}}"
+      },
+      "detail": {
+        "newBuildIndexed": "已索引新构建版本",
+        "buildManifestRefreshed": "构建清单已刷新",
+        "achievementChanges_one": "{{count}} 个成就 {{entry}} {{verb}}",
+        "achievementChanges_other": "{{count}} 个成就 {{entry}} {{verb}}",
+        "offerMetadataRefreshed": "目录项元数据已刷新",
+        "fieldsChanged_one": "{{count}} 个字段 {{verb}}",
+        "fieldsChanged_other": "{{count}} 个字段 {{verb}}",
+        "fieldChanged": "{{field}} {{verb}}"
+      },
+      "actionVerb": {
+        "added": "已添加",
+        "removed": "已移除",
+        "updated": "已更新",
+        "changed": "已更改"
+      },
+      "entry_one": "条目",
+      "entry_other": "条目"
+    }
+  },
+  "offerDetail": {
+    "common": {
+      "offerNotFound": "目录项未找到",
+      "notAvailable": "不可用",
+      "na": "N/A",
+      "loading": "加载中...",
+      "somethingWentWrong": "出错了",
+      "noChangesFound": "此目录项无更改记录"
+    },
+    "tabs": {
+      "overview": "概览",
+      "price": "价格",
+      "items": "物品",
+      "builds": "构建版本",
+      "achievements": "成就",
+      "related": "相关内容",
+      "metadata": "元数据",
+      "changelog": "更新日志",
+      "media": "媒体",
+      "reviews": "评论"
+    },
+    "table": {
+      "offerId": "目录项ID",
+      "namespace": "命名空间",
+      "offerType": "目录项类型",
+      "seller": "销售商",
+      "developer": "开发商",
+      "supportedPlatforms": "支持平台",
+      "releaseDate": "发布日期",
+      "lastUpdate": "最后更新",
+      "creationDate": "创建日期",
+      "technologies": "技术栈",
+      "type": "类型",
+      "value": "数值",
+      "countriesBlacklist": "国家/地区黑名单",
+      "countriesWhitelist": "国家/地区白名单",
+      "categories": "分类",
+      "refundType": "退款类型",
+      "tags": "标签",
+      "ageRatings": "年龄分级",
+      "assets": "资源"
+    },
+    "badges": {
+      "prePurchase": "预购",
+      "earlyAccess": "抢先体验"
+    },
+    "hero": {
+      "offeredBy": "由 {{seller}} 提供"
+    },
+    "tooltip": {
+      "internalNamespace": "Epic游戏内部命名空间",
+      "techDescription": "用于追踪游戏文件中使用的引擎及相关技术栈的技术列表。",
+      "techSource": "我们使用",
+      "techSourceSteamDb": "SteamDB",
+      "source": "来源"
+    },
+    "actions": {
+      "compare": "对比"
+    },
+    "releaseDate": {
+      "releasedOnPc": "PC发布日期",
+      "theEgs": " Epic游戏商城",
+      "releasedSameDay": "与PC同日于Epic发布"
+    },
+    "notifications": {
+      "title": "通知设置",
+      "description": "选择您希望接收此目录项的哪些通知。",
+      "all": "全部",
+      "price": "价格",
+      "achievements": "成就",
+      "builds": "构建版本",
+      "items": "物品",
+      "requirements": "系统需求",
+      "metadata": "元数据",
+      "media": "媒体",
+      "enablePushDescription": "您需要开启推送通知以接收此目录项的相关更新。",
+      "enablePushAction": "启用推送通知"
+    },
+    "overview": {
+      "genres": "类型",
+      "ageRating": "年龄分级",
+      "noAgeRatings": "未找到年龄分级",
+      "giveaways": "免费赠送",
+      "noGiveaways": "未找到赠送活动",
+      "achievements": "成就",
+      "igdbTimeToBeat": "IGDB通关时间",
+      "hastily": "速通",
+      "normally": "正常流程",
+      "completely": "完美通关",
+      "hltbSubmissions_one": "基于 {{count}} 条提交",
+      "hltbSubmissions_other": "基于 {{count}} 条提交",
+      "price": "价格",
+      "priceCurrent": "当前:",
+      "priceLowest": "历史最低:",
+      "priceLastDiscount": "上次折扣:",
+      "hltbTitle": "通关时间 (How Long To Beat)",
+      "noGameTimes": "未找到游戏时间数据",
+      "epicRating": "Epic玩家评分",
+      "epicRatingDescription": "来自Epic游戏生态系统内玩家的评分",
+      "igdbRating": "IGDB评分",
+      "igdbReviews_one": "{{count}} 条评论",
+      "igdbReviews_other": "{{count}} 条评论"
+    },
+    "achievements": {
+      "title": "成就",
+      "sortBy": "排序方式",
+      "defaultSort": "默认排序",
+      "sortByRarity": "按稀有度排序",
+      "sortByCompleted": "按完成百分比排序",
+      "search": "搜索",
+      "flipAll": "全部翻转",
+      "noAchievements": "未找到成就",
+      "noAchievementsSet": "此集合中未找到成就。",
+      "noAchievementsSetDescription": "这可能意味着成就当前不可用，但在未来会添加。",
+      "baseGame": "基础游戏",
+      "dlc": "DLC",
+      "achievementsLabel": "成就",
+      "baseGameDescription": "此成就列表属于基础游戏。",
+      "dlcDescription": "此成就列表属于其中一个DLC。",
+      "lastUpdated": "最后更新:",
+      "lastUpdatedTooltip": "此成就集合最后更新于 {{date}}。",
+      "lastUpdatedTooltipDescription": "这是创建日期或最后更新日期。"
+    },
+    "builds": {
+      "title": "构建版本"
+    },
+    "items": {
+      "title": "物品"
+    },
+    "price": {
+      "title": "价格"
+    },
+    "related": {
+      "title": "相关目录项"
+    },
+    "media": {
+      "images": "图像",
+      "videos": "视频",
+      "covers": "封面",
+      "noImages": "未找到图像",
+      "noVideos": "未找到视频",
+      "noCovers": "未找到封面",
+      "download": "下载",
+      "close": "关闭",
+      "downloadCoverAria": "下载 {{type}} 封面"
+    },
+    "metadata": {
+      "title": "元数据",
+      "download": "下载:",
+      "install": "安装:"
+    },
+    "changelog": {
+      "title": "更新日志",
+      "tooltip": "此列表显示了对此特定目录项或相关物品、资源或构建版本所做的更改。",
+      "sandboxChangelog": "沙盒更新日志",
+      "sandboxChangelogPrefix": "您可以在以下页面查看整个产品的更新日志：",
+      "noChangelog": "无可用更新日志",
+      "allTypes": "所有类型",
+      "selectField": "选择一个字段",
+      "allFields": "所有字段",
+      "search": "搜索",
+      "previous": "上一页",
+      "next": "下一页",
+      "pageOf": "第 {{page}} 页，共 {{totalPages}} 页",
+      "typeUpdate": "更新",
+      "typeDelete": "删除",
+      "typeInsert": "插入"
+    },
+    "reviews": {
+      "epicRating": "Epic玩家评分",
+      "epicRatingDescription": "来自Epic游戏生态系统内玩家的评分",
+      "egdataRating": "EGDATA评分",
+      "overallScore": "总分",
+      "scoreOutOf10": "{{score}} / 10",
+      "basedOnReviews": "基于 {{count}} 条评论",
+      "allReviews": "所有评论",
+      "onlyVerified": "仅限已验证",
+      "notVerified": "未验证",
+      "leaveReview": "发表评论",
+      "alreadyReviewed": "已发表评论",
+      "loginToReview": "登录以发表评论",
+      "noReviews": "暂无评论",
+      "notReleased": "该产品尚未发布",
+      "beFirst": "成为第一个为该产品发表评论的人！",
+      "checkBack": "请在产品发布后再回来发表评论！",
+      "verifiedOwner": "已验证拥有者",
+      "recommended": "推荐",
+      "notRecommended": "不推荐",
+      "readMore": "阅读更多",
+      "reviewedOn": "发表于",
+      "lastUpdatedOn": "最后更新于",
+      "editedTimes": "已编辑 {{count}} 次",
+      "edit": "编辑",
+      "close": "关闭",
+      "reviewCount_one": "{{count}} 条评论",
+      "reviewCount_other": "{{count}} 条评论",
+      "ownershipVerification": "拥有权验证",
+      "ownershipVerificationDescription": "基于玩家是否至少完成了一个成就。",
+      "ownershipVerificationTooltip": "我们使用Epic游戏成就来验证产品的拥有权。要将玩家标记为已验证拥有者，他们必须为所选产品在Epic游戏商城中至少完成一个成就。要将您的账户链接到您的egdata个人资料，您需要前往",
+      "yourDashboard": "您的仪表盘",
+      "criticReviews": "媒体评分",
+      "basedOnCriticReviews": "基于 {{count}} 条媒体评分",
+      "opencriticRating": "OpenCritic评分",
+      "topCriticAverage": "顶级媒体平均分",
+      "criticsRecommend": "媒体推荐度",
+      "opencriticRatingAlt": "OpenCritic评分"
+    }
+  },
+  "search": {
+    "meta": {
+      "title": "搜索 | egdata.app",
+      "description": "搜索Epic游戏商城的目录项。"
+    },
+    "defaultTitle": "搜索",
+    "filters": "筛选器",
+    "filtersPlaceholder": "搜索游戏",
+    "pills": {
+      "onSale": "促销中",
+      "codeRedemptionOnly": "仅限兑换码",
+      "excludeBlockchain": "排除区块链/NFT",
+      "pastGiveaways": "往期赠送"
+    },
+    "accordion": {
+      "offerType": "目录项类型",
+      "developer": "开发商",
+      "publisher": "发行商",
+      "noTags": "未找到标签"
+    },
+    "checkboxes": {
+      "pastGiveaways": "往期赠送",
+      "onSale": "促销中",
+      "codeRedemptionOnly": "仅限兑换码",
+      "excludeBlockchain": "排除区块链/NFT",
+      "onlyHistoricalLows": "仅限历史最低价",
+      "onlyLowestPriceEver": "仅限史上最低价"
+    },
+    "tagGroups": {
+      "event": "活动",
+      "genre": "类型",
+      "epicfeature": "Epic功能",
+      "accessibility": "无障碍",
+      "feature": "功能",
+      "usersay": "用户评价",
+      "subscription": "订阅",
+      "platform": "平台"
+    },
+    "sort": {
+      "sortBy": "排序方式",
+      "sortAriaLabel": "排序目录项",
+      "sortDirectionAriaLabel": "切换排序方向",
+      "showListView": "显示列表视图",
+      "showGridView": "显示网格视图",
+      "releaseDate": "发布日期",
+      "lastModifiedDate": "修改日期",
+      "effectiveDate": "生效日期",
+      "creationDate": "创建日期",
+      "viewableDate": "可见日期",
+      "pcReleaseDate": "PC发布日期",
+      "upcoming": "即将发布",
+      "price": "价格",
+      "discount": "折扣",
+      "discountPercent": "折扣百分比",
+      "giveawayDate": "赠送日期"
+    },
+    "results": {
+      "noResults": "未找到结果"
+    }
+  },
+  "freebies": {
+    "meta": {
+      "title": "免费游戏 | egdata.app",
+      "description": "浏览来自Epic游戏商城的免费游戏。"
+    },
+    "headings": {
+      "current": "当前免费游戏",
+      "past": "往期免费游戏",
+      "sellers": "免费游戏发行商"
+    },
+    "buttons": {
+      "redeem": "立即领取",
+      "downloadJson": "下载为JSON",
+      "downloadCsv": "下载为CSV",
+      "downloadTxt": "下载为TXT"
+    },
+    "placeholders": {
+      "searchSellers": "搜索发行商..."
+    },
+    "aria": {
+      "downloadList": "下载列表"
+    },
+    "errors": {
+      "loadSellers": "加载发行商数据出错。请稍后再试。"
+    },
+    "table": {
+      "sellerName": "发行商名称",
+      "totalGames": "单机游戏总数"
+    }
+  },
+  "sales": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "查看来自Epic游戏商城的 {{title}}。"
+    },
+    "metaIndex": {
+      "title": "进行中的促销 | egdata.app",
+      "description": "浏览egdata.app上进行中的促销活动"
+    },
+    "status": {
+      "loading": "加载中...",
+      "noData": "无数据"
+    },
+    "headings": {
+      "active": "正在进行的促销",
+      "pastUpcoming": "往期 / 即将到来的促销",
+      "offersList": "{{title}} 促销目录项"
+    },
+    "errors": {
+      "notFound": "促销活动未找到"
+    },
+    "labels": {
+      "offersCount": "此活动包含 {{count}} 个目录项"
+    }
+  },
+  "collections": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "查看来自Epic游戏商城的 {{title}}。"
+    },
+    "metaIndex": {
+      "title": "合集 | egdata.app",
+      "description": "egdata.app上的合集"
+    },
+    "headings": {
+      "main": "合集"
+    },
+    "description": {
+      "overview": "Epic游戏商城中最畅销、游玩人数最多以及最受欢迎的游戏"
+    },
+    "status": {
+      "loading": "加载中..."
+    },
+    "errors": {
+      "notFound": "合集未找到"
+    },
+    "table": {
+      "position": "排名",
+      "variance": "变动",
+      "weeks": "周数"
+    },
+    "tooltips": {
+      "variance": "当前排名与上一排名的差值。通常每天更新一次。",
+      "weeks": "该游戏进入 {{title}} 前100名的周数。"
+    },
+    "buttons": {
+      "loadMore": "加载更多"
+    }
+  },
+  "sandboxes": {
+    "notFoundTitle": "沙盒未找到",
+    "notFoundDescription": "沙盒未找到",
+    "unrealEngineTitle": "虚幻引擎",
+    "unavailableTitle": "沙盒不可用",
+    "unavailableDescription": "无法加载产品中心。",
+    "noProductDataDescription": "此沙盒不存在产品数据。",
+    "hubEyebrow": "沙盒",
+    "hubOverviewTitle": "概览",
+    "hubOverviewDescription": "该命名空间的商店、拥有权、交付及更新记录的焦点视图。",
+    "latestChangesButton": "最新更改",
+    "entityOffersLabel": "目录项",
+    "entityOffersDescription": "商店条目",
+    "entityItemsLabel": "物品",
+    "entityItemsDescription": "可拥有权记录",
+    "entityAssetsLabel": "资源",
+    "entityAssetsDescription": "制品与媒体",
+    "entityBuildsLabel": "构建版本",
+    "entityBuildsDescription": "二进制捆绑包",
+    "entityAchievementsLabel": "成就",
+    "entityAchievementsDescription": "进度数据",
+    "entityChangelogLabel": "更新日志",
+    "entityChangelogDescription": "已追踪的更新",
+    "viewButton": "查看",
+    "storefrontOffersTitle": "商店目录项",
+    "storefrontOffersDescription": "此沙盒中代表性的商店条目。",
+    "recentBuildsTitle": "最近构建版本",
+    "recentBuildsDescription": "最新的二进制记录。",
+    "latestBadge": "最新",
+    "unknownBuildLabel": "未知构建版本",
+    "recentChangesTitle": "最近更改",
+    "recentChangesDescription": "最新的目录变更。",
+    "updateBadge": "更新",
+    "changeDefaultLabel": "更改",
+    "metaOffersTitle": "目录项",
+    "offersEyebrow": "电子商务",
+    "offersTitle": "目录项",
+    "offersDescription": "此沙盒中的商店条目，包括基础游戏、版本、DLC、附加内容、捆绑包以及任何可以授予目录项的目录项。",
+    "totalOffersLabel": "目录项总数",
+    "metaAchievementsTitle": "成就",
+    "achievementsEyebrow": "进度",
+    "achievementsTitle": "成就",
+    "achievementsDescription": "附加到此沙盒的成就集合、隐藏状态、稀有度分布和经验值总计。",
+    "achievementsSetsLabel": "集合",
+    "achievementsLabel": "成就",
+    "achievementsXpLabel": "经验值",
+    "searchAchievementsPlaceholder": "搜索成就",
+    "flipAllButton": "全部翻转",
+    "revealHiddenAchievementAria": "显示隐藏成就文本",
+    "hideHiddenAchievementAria": "隐藏隐藏成就文本",
+    "achievementsBaseGameLabel": "基础游戏",
+    "achievementsDlcLabel": "DLC",
+    "achievementsBaseGameTooltip": "此列表显示的是基础游戏成就。",
+    "achievementsDlcTooltip": "此列表显示的是其中一个DLC的成就。",
+    "lastUpdatedLabel": "最后更新:",
+    "achievementsLastUpdatedTooltip": "此成就集合最后更新于",
+    "achievementsLastUpdatedTooltipExtra": "这是创建日期或最后更新日期。",
+    "noAchievementsForSet": "此集合未找到成就。",
+    "noAchievementsForSetExtra": "这可能意味着成就当前不可用，但在未来会添加。",
+    "noAchievementsFound": "未找到成就",
+    "metaItemsTitle": "物品",
+    "itemsEyebrow": "目录拥有权",
+    "itemsTitle": "物品",
+    "itemsDescription": "包含在目录项中的可拥有目录物品。这些是玩家在购买或兑换后获得授权的记录。",
+    "totalItemsLabel": "物品总数",
+    "metaChangelogTitle": "更新日志",
+    "changelogEyebrow": "审计追踪",
+    "changelogTitle": "更新日志",
+    "changelogDescription": "观察到的此沙盒目录项、物品、资源、构建版本及相关元数据的变更。",
+    "totalChangesLabel": "变更记录",
+    "queryTimeLabel": "查询耗时",
+    "noChangelogFound": "未找到更新日志",
+    "metaBuildsTitle": "构建版本",
+    "buildsEyebrow": "二进制文件",
+    "buildsTitle": "构建版本",
+    "buildsDescription": "为沙盒上传的版本化文件捆绑包。构建版本被分配给制品，并驱动玩家通过启动器下载的内容。",
+    "totalBuildsLabel": "构建版本总数",
+    "metaAssetsTitle": "资源",
+    "assetsEyebrow": "资源与制品",
+    "assetsTitle": "资源",
+    "assetsDescription": "附加到沙盒物品的发布与媒体记录，包括将商店目录内容连接到可下载构建版本的制品。",
+    "totalAssetsLabel": "资源总数"
+  },
+  "items": {
+    "notFound": "物品未找到",
+    "badge": "物品",
+    "table": {
+      "itemId": "物品ID",
+      "namespace": "命名空间",
+      "developer": "开发商",
+      "entitlementType": "授权类型",
+      "entitlementName": "授权名称",
+      "status": "状态",
+      "creationDate": "创建日期",
+      "lastModified": "最后修改",
+      "platforms": "平台"
+    },
+    "tooltip": {
+      "internalNamespace": "Epic游戏内部命名空间"
+    },
+    "tabs": {
+      "item": "物品",
+      "assets": "资源",
+      "images": "图像",
+      "builds": "构建版本",
+      "changelog": "更新日志"
+    },
+    "metadata": {
+      "title": "元数据",
+      "key": "键",
+      "value": "值"
+    },
+    "assets": {
+      "title": "资源"
+    },
+    "builds": {
+      "title": "构建版本"
+    },
+    "changelog": {
+      "title": "更新日志",
+      "noChangelog": "无可用更新日志"
+    },
+    "images": {
+      "title": "图像"
+    }
+  },
+  "builds": {
+    "notFound": "构建版本未找到",
+    "build": "构建版本",
+    "for": "用于",
+    "compressed": "({{percent}}% 已压缩)",
+    "table": {
+      "buildId": "构建ID",
+      "buildName": "构建名称",
+      "appName": "应用名称",
+      "hash": "哈希值",
+      "installedSize": "安装大小",
+      "downloadSize": "下载大小",
+      "createdAt": "创建日期",
+      "updatedAt": "更新日期",
+      "technologies": "技术栈"
+    },
+    "tooltip": {
+      "techSource": "我们使用",
+      "techSourceSteamDb": "SteamDB",
+      "techDescription": "用于追踪游戏文件中使用的引擎及相关技术栈的技术列表。",
+      "source": "来源"
+    },
+    "tabs": {
+      "files": "文件",
+      "items": "物品",
+      "installOptions": "安装选项"
+    },
+    "files": {
+      "title": "文件"
+    },
+    "items": {
+      "title": "物品"
+    },
+    "installOptions": {
+      "title": "安装选项",
+      "file_one": "文件",
+      "file_other": "文件"
+    },
+    "meta": {
+      "title": "{{title}} ({{version}}) | egdata.app",
+      "description": "{{title}} 的 {{version}} 构建版本，来自Epic游戏商城。"
+    }
+  },
+  "profile": {
+    "meta": {
+      "notFoundTitle": "个人资料未找到",
+      "notFoundDescription": "个人资料未找到",
+      "title": "{{name}} | egdata.app",
+      "description": "查看 {{name}} 在 egdata.app 上的成就和游戏库",
+      "defaultName": "个人资料",
+      "defaultDescriptionName": "这位玩家的"
+    },
+    "errors": {
+      "notFoundTitle": "个人资料未找到",
+      "notFoundDescription": "此个人资料不可用或尚未被索引。",
+      "unavailableTitle": "个人资料不可用",
+      "unavailableDescription": "当前无法加载此个人资料。",
+      "invalidImageFormat": "无效的图像格式",
+      "failedToUpload": "上传失败",
+      "uploadFailed": "上传失败",
+      "failedToRefresh": "刷新个人资料失败",
+      "refreshQueued": "个人资料已加入刷新队列，即将更新。"
+    },
+    "fallbackName": "未知个人资料",
+    "avatar": {
+      "changeAvatar": "更改头像",
+      "dialogDescription": "上传新的个人资料图片。",
+      "previewAlt": "头像预览",
+      "fallback": "头像",
+      "description": "上传新的头像图片，最大5MB。",
+      "uploadingWithProgress": "正在上传... {{progress}}%",
+      "uploading": "正在上传...",
+      "updateAvatar": "更新头像",
+      "errorTitle": "错误"
+    },
+    "hero": {
+      "joined": "加入时间",
+      "epicGamesStore": "Epic游戏商城",
+      "linkDiscord": "链接Discord",
+      "refreshProfile": "刷新个人资料",
+      "refreshAvailableIn": "下次刷新时间",
+      "level": "等级",
+      "achievements": "成就",
+      "unlocked": "已解锁",
+      "platinum": "白金成就",
+      "perfectGames": "完美游戏",
+      "library": "游戏库",
+      "achievementGames": "有成就的游戏",
+      "reviews": "评论",
+      "contributed": "贡献",
+      "xpToNextLevel": "距离 {{level}} 级还差 {{xp}} XP",
+      "heroGame": "代表游戏",
+      "complete": "完成"
+    },
+    "donor": {
+      "donated_one": "{{name}} 已向 egdata.app 捐赠了 {{count}} 个Key",
+      "donated_other": "{{name}} 已向 egdata.app 捐赠了 {{count}} 个Key",
+      "goTo": "前往",
+      "thisLink": "此链接",
+      "toDonateKey": "捐赠Key。"
+    },
+    "countdown": {
+      "minutesSeconds_one": "{{minutes}} 分 {{seconds}} 秒",
+      "minutesSeconds_other": "{{minutes}} 分 {{seconds}} 秒",
+      "seconds_one": "{{seconds}} 秒",
+      "seconds_other": "{{seconds}} 秒"
+    },
+    "tabs": {
+      "showcase": "展示柜",
+      "library": "游戏库",
+      "activity": "动态"
+    },
+    "stats": {
+      "games": "{{count}} 款游戏",
+      "achievements": "{{count}} 项成就",
+      "platinum": "{{count}} 项白金"
+    },
+    "showcase": {
+      "ariaLabel": "个人资料展示柜",
+      "featuredGamesTitle": "精选游戏",
+      "featuredGamesDetail": "{{count}} 款根据档案表现挑选的游戏",
+      "rareAchievementsTitle": "稀有成就",
+      "rareAchievementsDetail": "档案中难以解锁的成就",
+      "recentUnlocksTitle": "最近解锁",
+      "recentUnlocksDetail": "最新的可见动态",
+      "noDataTitle": "暂无展示柜数据",
+      "noDataDescription": "只有已运行且有公开成就进度的游戏才会显示在档案中。",
+      "rarestUnlock": "最稀有解锁",
+      "definingGame": "代表游戏",
+      "latestActivity": "最近动态",
+      "achievementsCount": "{{unlocked}} / {{total}} 项成就",
+      "platinum": "白金"
+    },
+    "library": {
+      "filterAriaLabel": "游戏库筛选",
+      "sortAriaLabel": "排序游戏库",
+      "sortByPlaceholder": "排序方式",
+      "noGamesTitle": "未找到游戏",
+      "noGamesDescription": "只有已运行且有成就的游戏才会显示在此游戏库中。",
+      "gameAlt": "游戏",
+      "complete": "完成",
+      "featured": "精选",
+      "rareUnlocks": "稀有解锁",
+      "filters": {
+        "all": "全部",
+        "completed": "已完成",
+        "nearPlatinum": "即将白金",
+        "inProgress": "进行中",
+        "platinum": "白金"
+      },
+      "sorts": {
+        "completion": "完成度",
+        "alphabetical": "按字母排序",
+        "xp": "经验值",
+        "achievements": "成就数"
+      }
+    },
+    "activity": {
+      "title": "动态",
+      "detail": "{{count}} 项成就解锁",
+      "noActivityTitle": "暂无动态",
+      "noActivityDescription": "成就解锁动态将在该档案拥有公开进度后出现在这里。",
+      "achievementAlt": "成就",
+      "platinumEarned": "获得白金成就",
+      "achievementUnlocked": "解锁成就",
+      "unknownRarity": "未知稀有度",
+      "rarity": "稀有度 {{value}}%",
+      "unknownDate": "日期未知"
+    },
+    "achievements": {
+      "loading": "加载中...",
+      "notFound": "个人资料未找到",
+      "myAchievements": "我的成就"
+    }
+  },
+  "tags": {
+    "meta": {
+      "notFoundTitle": "促销活动未找到",
+      "notFoundDescription": "促销活动未找到",
+      "title": "{{title}} | egdata.app",
+      "description": "查看 {{title}} 下的 {{count}} 个可用目录项，尽在 egdata.app。",
+      "socialTitle": "{{title}} - egdata.app"
+    },
+    "loading": "加载中...",
+    "offersCount": "此活动包含 {{count}} 个目录项",
+    "results": "结果",
+    "resultsCount": "({{count}} 个结果)",
+    "searchPlaceholder": "搜索...",
+    "loadMore": "加载更多",
+    "sortBy": {
+      "releaseDate": "发布日期",
+      "lastModifiedDate": "修改日期",
+      "effectiveDate": "生效日期",
+      "creationDate": "创建日期",
+      "viewableDate": "可见日期",
+      "pcReleaseDate": "PC发布日期",
+      "upcoming": "即将发布",
+      "price": "价格"
+    }
+  },
+  "genres": {
+    "meta": {
+      "title": "类型 - egdata.app",
+      "description": "egdata.app上的游戏类型"
+    },
+    "heading": "类型"
+  },
+  "sellers": {
+    "meta": {
+      "notFoundTitle": "发行商未找到",
+      "notFoundDescription": "发行商未找到",
+      "title": "{{name}} | egdata.app"
+    },
+    "notFound": "发行商未找到",
+    "logoAlt": "{{name}} Logo",
+    "bannerAlt": "{{name}}",
+    "offersTitle": "{{name}} 的目录项",
+    "stats": {
+      "offers": "目录项",
+      "games": "游戏",
+      "items": "物品",
+      "freeGames": "免费游戏"
+    }
+  },
+  "franchises": {
+    "meta": {
+      "notFoundTitle": "系列未找到",
+      "notFoundDescription": "系列未找到",
+      "title": "{{name}} 系列 | egdata.app",
+      "description": "在Epic游戏商城浏览 {{name}} 系列的所有游戏。"
+    },
+    "loading": "加载中...",
+    "gamesCount_one": "{{count}} 款游戏",
+    "gamesCount_other": "{{count}} 款游戏",
+    "timeToBeat": "通关时间",
+    "achievements": "成就",
+    "loadMore": "加载更多",
+    "free": "免费"
+  },
+  "stats": {
+    "creations": {
+      "meta": {
+        "title": "创作统计 - egdata.app",
+        "description": "Epic游戏商城每月和每年的新内容发布频率。"
+      },
+      "viewReleases": "查看发布",
+      "heading": "Epic游戏商城创作统计",
+      "description": "每月和每年的新内容发布频率。",
+      "monthlyTitle": "每月创作",
+      "yearlyTitle": "每年创作"
+    },
+    "releases": {
+      "meta": {
+        "title": "发布统计 - egdata.app",
+        "description": "Epic游戏商城每月和每年的新游戏发布频率。"
+      },
+      "viewCreations": "查看创作",
+      "heading": "Epic游戏商城发布统计",
+      "description": "每月和每年的新游戏发布频率。",
+      "monthlyTitle": "每月发布",
+      "yearlyTitle": "每年发布"
+    }
+  },
+  "store": {
+    "creatorCode": {
+      "title": "支持 egdata.app",
+      "description": "您愿意在购买游戏时使用我们的创作者代码来支持 egdata.app 吗？此选择将在未来访问时被记住。",
+      "body": "使用我们的创作者代码有助于支持 egdata.app 及其功能的开发，且不会影响您支付的价格。",
+      "noThanks": "不用了",
+      "yesUseCode": "是的，使用代码"
+    }
+  },
+  "dashboard": {
+    "placeholder": "您好 /dashboard!"
+  },
+  "auth": {
+    "login": {
+      "placeholder": "您好 /auth/login!"
+    },
+    "callback": {
+      "placeholder": "您好 /auth/callback!"
+    },
+    "logout": {
+      "placeholder": "您好 /auth/logout!"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "关于 - egdata.app",
+      "description": "关于 egdata.app"
+    },
+    "title": "关于",
+    "intro": "egdata.app 是一个社区驱动的网站，致力于追踪并提供Epic游戏商城的相关信息。类似于SteamDB之于Steam，我们的目标是为用户提供一个全面的资源库，用于探索变更、发现新游戏，并及时掌握该平台的最新动态。",
+    "missionTitle": "我们的使命",
+    "missionBody": "我们的使命是为Epic游戏商城生态系统提供透明度和深入见解。我们坚信，通过以易于访问的方式聚合和呈现数据，我们可以使用户在做出游戏购买决策时更具依据，并有助于更好地了解该平台。",
+    "featuresTitle": "功能特点",
+    "features": {
+      "trackPrices": "追踪游戏价格变动和历史数据",
+      "upcomingReleases": "查看即将发布的游戏和免费游戏赠送活动",
+      "gameDetails": "探索游戏详情、评分和用户评论",
+      "analyzeTrends": "分析Epic游戏商城的发展趋势和模式"
+    },
+    "communityTitle": "社区驱动",
+    "communityBody": "egdata.app 由一群热情的玩家和开发者构建并维护。我们欢迎任何想要帮助改进网站、使其成为更有价值资源的人做出贡献。如果您有任何反馈、建议或想要参与其中，请随时联系我们。",
+    "sourceCodeIntro": "egdata.app 的所有源代码均可在以下位置找到：",
+    "github": "GitHub",
+    "notTitle": "egdata.app 不是什么",
+    "notIntro": "需要明确的是，egdata.app 不是：",
+    "notList": {
+      "affiliated": "与Epic Games有关联：我们是一个独立的、社区驱动的项目，未以任何方式得到Epic Games的官方认可或关联。",
+      "storefront": "商店或市场：我们不销售游戏，也不提供任何购买途径。我们的重点是提供关于Epic游戏商城的各种信息和数据。",
+      "piracy": "盗版或非法活动的平台：我们强烈谴责盗版行为，不提供任何访问或分发受版权保护内容的途径。"
+    },
+    "fairUseTitle": "合理使用政策",
+    "fairUseBody": "egdata.app 致力于遵守版权法下的合理使用原则。我们仅为提供信息之目的提供内容和数据，旨在普及并向公众告知Epic游戏商城上架的游戏。",
+    "fairUseFactorsTitle": "支持合理使用的关键因素：",
+    "fairUseFactors": {
+      "nonCommercial": "非商业性、教育目的：",
+      "nonCommercialBody": "我们的网站是非商业性的，旨在增强公众对Epic游戏商城游戏的知识。",
+      "factual": "事实性信息：",
+      "factualBody": "我们主要展示事实性数据，如游戏名称、发布日期和开发商，这些内容受版权保护程度较低。",
+      "limited": "有限使用：",
+      "limitedBody": "我们仅使用提供有意义信息所需的必要数据量，而不会取代原作。",
+      "noMarketHarm": "无市场损害：",
+      "noMarketHarmBody": "我们的使用不会对原游戏市场产生负面影响；相反，通过提高用户兴趣，可能还会起到推广作用。"
+    },
+    "autoTrackBody": "我们自动追踪并更新来自包括Epic游戏商城在内的公开可用来源的游戏数据。我们直接从其服务器加载图形资源，而不进行本地存储。",
+    "leakedDataTitle": "泄露数据免责声明：",
+    "leakedDataBody": "网站上任何看似泄露的数据均源自Epic游戏商城公开可用的信息。我们不会访问机密或专有数据。发行商有责任在以下平台内保护其敏感信息：",
+    "epicDevPortal": "Epic游戏开发者门户",
+    "euDirectivesIntro": "在制定我们的合理使用政策时，我们考虑了以下欧盟版权指令中概述的原则：",
+    "euDirective1": "第 (EU) 2019/790 号指令：数字单一市场版权和相关权指令",
+    "euDirective2": "问题与解答 – 新的欧盟版权规则",
+    "fairUseContact": "如果您对我们的合理使用政策有疑问，或认为任何内容侵犯了您的版权，请通过以下方式联系我们：",
+    "contactTitle": "联系我们",
+    "contactBody": "您可以通过以下方式联系我们"
+  },
+  "changelog": {
+    "index": {
+      "meta": {
+        "title": "更新日志 | egdata.app"
+      },
+      "searchPlaceholder": "搜索更新日志...",
+      "searchButton": "搜索",
+      "loading": "加载中...",
+      "error": "获取数据错误"
+    },
+    "detail": {
+      "meta": {
+        "title": "更新详情 | egdata.app"
+      },
+      "loading": "加载中...",
+      "error": "加载更新详情出错",
+      "notFound": "未找到相关更改"
+    }
+  },
+  "privacy": {
+    "title": "关于",
+    "intro": "egdata.app 是一个社区驱动的网站，致力于追踪并提供Epic游戏商城的相关信息。类似于SteamDB之于Steam，我们的目标是为用户提供一个全面的资源库，用于探索变更、发现新游戏，并及时掌握该平台的最新动态。",
+    "missionTitle": "我们的使命",
+    "missionBody": "我们的使命是为Epic游戏商城生态系统提供透明度和深入见解。我们坚信，通过以易于访问的方式聚合和呈现数据，我们可以使用户在做出游戏购买决策时更具依据，并有助于更好地了解该平台。",
+    "featuresTitle": "功能特点",
+    "features": {
+      "trackPrices": "追踪游戏价格变动和历史数据",
+      "upcomingReleases": "查看即将发布的游戏和免费游戏赠送活动",
+      "gameDetails": "探索游戏详情、评分和用户评论",
+      "analyzeTrends": "分析Epic游戏商城的发展趋势和模式"
+    },
+    "communityTitle": "社区驱动",
+    "communityBody": "egdata.app 由一群热情的玩家和开发者构建并维护。我们欢迎任何想要帮助改进网站、使其成为更有价值资源的人做出贡献。如果您有任何反馈、建议或想要参与其中，请随时联系我们。",
+    "sourceCodeIntro": "egdata.app 的所有源代码均可在以下位置找到：",
+    "github": "GitHub",
+    "notTitle": "egdata.app 不是什么",
+    "notIntro": "需要明确的是，egdata.app 不是：",
+    "notList": {
+      "affiliated": "与Epic Games有关联：我们是一个独立的、社区驱动的项目，未以任何方式得到Epic Games的官方认可或关联。",
+      "storefront": "商店或市场：我们不销售游戏，也不提供任何购买途径。我们的重点是提供关于Epic游戏商城的各种信息和数据。",
+      "piracy": "盗版或非法活动的平台：我们强烈谴责盗版行为，不提供任何访问或分发受版权保护内容的途径。"
+    },
+    "fairUseTitle": "合理使用政策",
+    "fairUseBody": "egdata.app 致力于遵守版权法下的合理使用原则。我们仅为提供信息之目的提供内容和数据，旨在普及并向公众告知Epic游戏商城上架的游戏。",
+    "fairUseFactorsTitle": "支持合理使用的关键因素：",
+    "fairUseFactors": {
+      "nonCommercial": "非商业性、教育目的：",
+      "nonCommercialBody": "我们的网站是非商业性的，旨在增强公众对Epic游戏商城游戏的知识。",
+      "factual": "事实性信息：",
+      "factualBody": "我们主要展示事实性数据，如游戏名称、发布日期和开发商，这些内容受版权保护程度较低。",
+      "limited": "有限使用：",
+      "limitedBody": "我们仅使用提供有意义信息所需的必要数据量，而不会取代原作。",
+      "noMarketHarm": "无市场损害：",
+      "noMarketHarmBody": "我们的使用不会对原游戏市场产生负面影响；相反，通过提高用户兴趣，可能还会起到推广作用。"
+    },
+    "autoTrackBody": "我们自动追踪并更新来自包括Epic游戏商城在内的公开可用来源的游戏数据。我们直接从其服务器加载图形资源，而不进行本地存储。",
+    "leakedDataTitle": "泄露数据免责声明：",
+    "leakedDataBody": "网站上任何看似泄露的数据均源自Epic游戏商城公开可用的信息。我们不会访问机密或专有数据。发行商有责任在以下平台内保护其敏感信息：",
+    "epicDevPortal": "Epic游戏开发者门户",
+    "euDirectivesIntro": "在制定我们的合理使用政策时，我们考虑了以下欧盟版权指令中概述的原则：",
+    "euDirective1": "第 (EU) 2019/790 号指令：数字单一市场版权和相关权指令",
+    "euDirective2": "问题与解答 – 新的欧盟版权规则",
+    "fairUseContact": "如果您对我们的合理使用政策有疑问，或认为任何内容侵犯了您的版权，请通过以下方式联系我们：",
+    "contactTitle": "联系我们",
+    "contactBody": "您可以通过以下方式联系我们"
+  },
+  "notifications": {
+    "meta": {
+      "title": "通知 - egdata.app",
+      "description": "配置并管理Epic游戏商城的推送通知，包括游戏发布、更新等。"
+    },
+    "title": "通知",
+    "description": "配置并管理关于Epic游戏商城更新、游戏发布及个性化提醒的推送通知。",
+    "tabs": {
+      "notifications": "通知",
+      "mySubscriptions": "我的订阅"
+    },
+    "aboutPushTitle": "关于推送通知",
+    "aboutPushDescription": "了解更多关于EGData推送通知的工作原理。",
+    "whatYoullReceive": "您将收到：",
+    "receiveList": {
+      "freeGames": "新免费游戏公告",
+      "releases": "游戏发布通知",
+      "priceDrops": "心愿单游戏降价提醒",
+      "news": "Epic游戏商城新闻和更新",
+      "custom": "基于主题的自定义通知"
+    },
+    "privacySecurity": "隐私与安全：",
+    "privacyList": {
+      "apiKey": "您的API密钥安全存储在浏览器Cookie中",
+      "onlySubscribed": "我们仅发送您已订阅的通知",
+      "unsubscribe": "您可以随时取消订阅",
+      "noPersonalData": "除API密钥外，无需任何个人数据"
+    },
+    "browserSupport": "浏览器支持：",
+    "browserSupportBody": "现代浏览器（包括Chrome、Firefox、Safari和Edge）均支持推送通知。请确保在浏览器提示时允许通知。",
+    "subscriptionOverview": "订阅概览",
+    "totalSubscribed": "已订阅主题总数：{{count}}",
+    "notSubscribedApi": "API密钥未订阅推送通知",
+    "notSubscribedTitle": "未订阅",
+    "notSubscribedBody": "您的API密钥未订阅推送通知。请先使用“设置与订阅”选项卡进行订阅。",
+    "subscriptionId": "订阅 {{id}}",
+    "created": "创建于：",
+    "subscribedTopics": "已订阅主题：",
+    "noTopics": "无订阅主题",
+    "lastUpdated": "最后更新：",
+    "noSubscriptionsTitle": "未找到订阅",
+    "noSubscriptionsBody": "您已订阅但尚未创建任何设备订阅。请使用“设置与订阅”选项卡创建您的第一个订阅。",
+    "fetchError": "获取订阅失败。请稍后再试。"
+  },
+  "promotions": {
+    "placeholder": "你好 /promotions/$id!"
+  },
+  "misc": {
+    "gameAwards": {
+      "meta": {
+        "title": "The Game Awards 报道 | egdata.app",
+        "description": "即将登陆 Epic Games Store 的 The Game Awards 最新公布和提名游戏。"
+      },
+      "logoAlt": "The Game Awards 2025",
+      "subtitle": "The Game Awards 公布或提名、即将登陆 Epic Games Store 的游戏",
+      "videoTitle": "The Game Awards 2024 - 直播",
+      "expandPlayer": "展开播放器",
+      "closeMiniPlayer": "关闭迷你播放器",
+      "noGamesTitle": "尚未公布游戏",
+      "noGamesBody": "请在 The Game Awards 结束后回来查看！"
+    },
+    "downloads": {
+      "title": "egdata.app 客户端版本",
+      "description": "下载最新版本。我们已为你的操作系统突出显示推荐选项。",
+      "errorPrefix": "错误：",
+      "noPublicReleases": "未找到公开版本。",
+      "recommended": "推荐",
+      "downloadsSuffix": "下载",
+      "versionPublished": "版本 {{version}} - 发布于 {{date}}",
+      "assetInfo": {
+        "appleSilicon": "适用于搭载 Apple 芯片（M1、M2、M3 等）的较新 Mac。",
+        "intel": "适用于搭载 Intel 处理器的较旧 Mac。",
+        "universal": "同时兼容 Apple Silicon 和 Intel Mac。",
+        "msi": "标准安装向导。推荐大多数用户使用。",
+        "exe": "独立应用程序文件。可能无需安装。",
+        "linux": "适用于基于 Linux 的操作系统。",
+        "generic": "通用文件或源代码。"
+      }
+    },
+    "discordLinked": {
+      "title": "账号关联成功！",
+      "body": "你的 Discord 账号已成功关联到 egdata.app",
+      "footer": "现在可以关闭此窗口并返回 Discord。你的账号已可用于 egdata.app"
+    },
+    "posts": {
+      "coverAlt": "LEGO Star Wars: The Skywalker Saga 封面图",
+      "title": "在 Epic Games Store 免费领取 LEGO® Star Wars™: The Skywalker Saga",
+      "freeGameBadge": "免费游戏",
+      "published": "发布于 2023年11月30日",
+      "intro": "星球大战粉丝们，记好日期！从 {{dateRange}}，你可以在 Epic Games Store 免费领取广受好评的 {{game}}。这款通常售价 {{price}} 的游戏，让你用有趣的 LEGO 风格重温 {{saga}} 的经典时刻。",
+      "dateRange": "2024年12月5日至12月12日",
+      "game": "LEGO® Star Wars™: The Skywalker Saga",
+      "price": "$49.99",
+      "saga": "天行者传奇",
+      "gameplayAlt": "乐高星球大战游戏画面",
+      "charactersAlt": "乐高星球大战角色",
+      "whatToExpect": "🧩 有什么期待？",
+      "whatToExpectBody": "本作由 {{developer}} 开发，{{publisher}} 发行，提供无与伦比的星球大战游戏体验。以下是它成为必玩之作的原因：",
+      "developer": "TT Games",
+      "publisher": "华纳兄弟",
+      "expectList": {
+        "allMovies": "🌌 {{strong}}：重温全部九部星球大战电影的故事情节，并配有经典的乐高式幽默。",
+        "allMoviesStrong": "全部9部电影",
+        "characters": "🛸 {{strong}}：控制来自遥远银河系中您最喜爱的英雄和反派。",
+        "charactersStrong": "300+ 可控角色",
+        "vehicles": "🚀 {{strong}}：驾驶千岁鹰号和TIE战机等经典飞船。",
+        "vehiclesStrong": "100+ 载具",
+        "planets": "🌍 {{strong}}：前往塔图因星到恩多星等熟悉的世界进行探索。",
+        "planetsStrong": "23颗星球待探索"
+      },
+      "specialTitle": "🌟 是什么让这款游戏特别？",
+      "specialBody": "自 {{releaseDate}} 发布以来，《乐高星球大战：天行者传奇》因其引人入胜的游戏玩法和对星球大战宇宙的忠实改编而受到赞誉。凭借 Metacritic 上的 {{metascore}}，影评人和粉丝们都强调了其：",
+      "releaseDate": "2022年4月",
+      "metascore": "82分",
+      "specialList": {
+        "combat": "🕹️ {{strong}}：光剑对决、爆能枪激战和太空狗斗。",
+        "combatStrong": "动态战斗",
+        "charm": "🏗️ {{strong}}：经典的星球大战幽默，以乐高独特风格重新演绎。",
+        "charmStrong": "乐高魅力",
+        "replayability": "🤯 {{strong}}：海量的收集要素、支线任务和隐藏秘密。",
+        "replayabilityStrong": "重玩价值"
+      },
+      "howToClaim": "🎁 如何领取？",
+      "howToClaimBody": "领取免费副本非常简单！",
+      "step1": "在 {{dec5}} 至 {{dec12}} 期间访问 {{storeLink}}。",
+      "storeLink": "Epic游戏商城",
+      "dec5": "12月5日",
+      "dec12": "2024年12月12日",
+      "step2": "将游戏添加到您的游戏库。",
+      "step3": "它将永久属于您！",
+      "cardTitle": "千万不要错过这次踏上穿越银河系的乐高之旅的机会！",
+      "cardBody": "无论您是星球大战的忠实粉丝还是新手，这款游戏都能为您带来无限乐趣。",
+      "footer": "愿原力（和乐高积木）与您同在！🧱✨"
+    },
+    "fairUse": {
+      "meta": {
+        "title": "合理使用政策 - egdata.app",
+        "description": "egdata.app 的合理使用政策"
+      },
+      "title": "EGData App 合理使用政策",
+      "section1Title": "1. 简介",
+      "section1Body": "欢迎使用 EGData App（“我们”、“我们的”）。本合理使用政策概述了您使用我们网站 {{siteLink}}（“本网站”）上提供的内容和数据的条款。",
+      "section2Title": "2. 合理使用目的",
+      "section2Body": "EGData App 上的内容和数据仅供参考。我们的目标是为社区提供一个全面的Epic游戏商城游戏（或游戏相关数据）数据库，用于教育和参考用途。",
+      "section3Title": "3. 合理使用合规性",
+      "section3Body": "EGData App 通过以有益于公众且不侵犯内容所有者权利的方式提供信息和数据，遵守版权法下的合理使用原则。以下是支撑我们“合理使用”的关键因素：",
+      "section3List": {
+        "purpose": "使用的目的和性质：",
+        "purposeBody": "我们的网站是非商业性的，旨在普及并向公众告知Epic游戏商城上架的游戏。我们提供关键信息、评论和更新，增强公众对这些游戏的知识和了解。",
+        "nature": "受版权作品的性质：",
+        "natureBody": "我们收集和呈现的数据包含事实信息，如游戏名称、发布日期、开发商和更新。事实信息受版权保护程度低于创造性作品。",
+        "amount": "使用的数量和实质性：",
+        "amountBody": "我们仅使用为用户提供有意义且相关的信息所需的必要数据量。我们不会复制全部作品，也不会提供可能取代原产品的广泛摘录。",
+        "effect": "对市场的影响：",
+        "effectBody": "我们对游戏数据的使用不会对原游戏市场产生负面影响。相反，它通过提供即时更新的信息和推动用户参与度与兴趣，起到促进这些游戏发展的作用。"
+      },
+      "section4Title": "4. 数据收集与更新",
+      "section4Body1": "我们的网站会自动追踪并更新游戏数据，以确保我们提供的信息是最新的且准确的。这一自动化流程涉及从Epic游戏商城和其他可靠来源收集公开可用的信息。",
+      "section4Body2": "通过保持数据库的更新，我们确保用户能够获得关于其喜爱游戏的最新信息，包括新发布、更新和可用性变更。",
+      "section4Body3": "在图形资源方面，我们直接从Epic游戏商城的服务器加载图片，不会在我们的服务器上存储任何图片。",
+      "section5Title": "5. 泄露数据免责声明",
+      "section5Body1": "网站上看似泄露的任何数据均来自Epic游戏商城提供的公开信息。我们无法访问未公开的机密或专有数据。因此，发行商有责任在Epic游戏开发者门户内保护其即将发布的知识产权（IP）、游戏、下载内容（DLC）及其他敏感信息。",
+      "section5Body2": "我们鼓励发行商确保敏感信息已得到妥善保护，而非无意中公开。对于从公开来源获取的任何泄露信息，EGData App 概不负责。",
+      "section5Body3": "有关欧盟数据保护和合理使用的更多信息，请参阅以下资源：",
+      "euDirective1": "第 (EU) 2019/790 号指令：数字单一市场版权和相关权指令",
+      "euDirective2": "问题与解答 – 新的欧盟版权规则",
+      "section6Title": "6. 联系我们",
+      "section6Body": "如果您对本合理使用政策有任何疑问，或认为我们网站上的任何内容或数据侵犯了您的版权，请通过以下方式联系我们：",
+      "email": "电子邮箱："
+    },
+    "donateKey": {
+      "title": "捐赠Key",
+      "body": "如果您有想要捐赠给该项目的Key，请填写下表。"
+    },
+    "androidBeta": {
+      "meta": {
+        "title": "Android内测版 - egdata.app",
+        "description": "加入 egdata.app Android应用内测计划"
+      },
+      "title": "Android内测计划",
+      "description": "加入我们的封闭测试，在公开发布之前试用 egdata.app Android应用程序。",
+      "whatHappensNext": "接下来会发生什么？",
+      "steps": {
+        "signIn": "使用您的Google账户登录",
+        "added": "您将在几小时内被手动添加到封闭测试轨道",
+        "download": "添加成功后，您可以通过提供的链接下载应用"
+      }
+    }
+  }
+}

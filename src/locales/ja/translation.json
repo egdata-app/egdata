@@ -1,0 +1,1763 @@
+{
+  "common": {
+    "appName": "EGDATA",
+    "search": "検索",
+    "searchPlaceholder": "ゲームを検索...",
+    "loading": "読み込み中...",
+    "free": "無料",
+    "notAvailable": "利用不可",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "close": "閉じる"
+  },
+  "nav": {
+    "toggleMenu": "ナビゲーションメニューを切り替え",
+    "logoAlt": "EGDATA ロゴ",
+    "explore": "探索",
+    "browse": "閲覧",
+    "sales": "セール",
+    "changelog": "更新履歴",
+    "about": "概要",
+    "rankings": "ランキング",
+    "topSellers": "トップセラー",
+    "mostPlayed": "最もプレイされた",
+    "topWishlisted": "ウィッシュリスト上位",
+    "topNewReleases": "注目の新作",
+    "seeAllCollections": "すべてのコレクションを見る",
+    "others": "その他",
+    "releaseStats": "リリース統計",
+    "genres": "ジャンル",
+    "seeAllGenres": "すべてのジャンルを見る",
+    "other": "その他",
+    "action": "アクション",
+    "rpg": "RPG",
+    "indie": "インディー",
+    "strategy": "ストラテジー",
+    "topSellerOnEpic": "Epic Games Store トップセラー",
+    "searchItemTitle": "検索",
+    "searchItemDesc": "Epic Games Store でお探しのものを見つけましょう。",
+    "freeGamesItemTitle": "無料ゲーム",
+    "freeGamesItemDesc": "Epic Games Store の最新無料ゲームをチェック。",
+    "withDiscountsItemTitle": "割引あり",
+    "withDiscountsItemDesc": "お得な割引が適用されているゲームをチェック。",
+    "helloUser": "こんにちは、{{name}}さん！",
+    "dashboard": "ダッシュボード",
+    "logout": "ログアウト",
+    "searchLanguages": "言語を検索...",
+    "noLanguagesFound": "言語が見つかりません"
+  },
+  "footer": {
+    "logoAlt": "EGDATA ロゴ",
+    "disclaimer": "ファン制作の Epic Games Store データベースです。Epic Games, Inc. とは提携していません。すべてのロゴ、画像、商標はそれぞれの所有者に帰属します。",
+    "legal": "法的情報",
+    "privacyPolicy": "プライバシーポリシー",
+    "notifications": "通知",
+    "resources": "リソース",
+    "apiDocs": "API ドキュメント",
+    "changelog": "更新履歴",
+    "community": "コミュニティ",
+    "flagsByFlagpedia": "Flagpedia による旗",
+    "madeIn": "制作"
+  },
+  "meta": {
+    "title": "Epic Games データベース - egdata.app",
+    "description": "包括的な Epic Games Store データベース：ゲーム情報、価格、販売履歴、ファイルリストなど。無料ゲーム、今後のリリース、コミュニティインサイトを探索。",
+    "twitterTitle": "Epic Games データベース",
+    "twitterDescription": "無料のオープンソース Epic Games Store データベース。包括的なゲーム情報、販売追跡などを提供。コミュニティ主導で常に更新。",
+    "twitterImageAlt": "Epic Games データベース",
+    "ogTitle": "Epic Games データベース",
+    "ogDescription": "無料のオープンソース Epic Games Store データベース。包括的なゲーム情報、販売追跡などを提供。コミュニティ主導で常に更新。",
+    "ogImageAlt": "Epic Games データベース"
+  },
+  "notFound": {
+    "title": "ページが見つかりません"
+  },
+  "home": {
+    "statsBar": {
+      "offersTracked": "追跡中のオファー",
+      "priceChanges72h": "価格変動 / 72時間",
+      "activeDiscounts": "アクティブな割引",
+      "giveawaysToDate": "配布実績"
+    },
+    "sections": {
+      "giveawayStats": "配布統計",
+      "giveawayOffers": "配布オファー",
+      "upcomingOffers": "今後のオファー",
+      "latestOffers": "最新オファー",
+      "latestReleased": "最新リリース",
+      "latestOffersWithAchievements": "実績付き最新オファー",
+      "topSellingOffers": "ベストセラーオファー",
+      "latestBuilds": "最新ビルド"
+    },
+    "tableHeaders": {
+      "hash": "#",
+      "pos": "順位",
+      "dash": "-",
+      "title": "タイトル",
+      "starts": "開始",
+      "ends": "終了",
+      "releaseDate": "リリース日",
+      "createdAt": "作成日",
+      "date": "日付",
+      "price": "価格",
+      "size": "サイズ",
+      "creationDate": "作成日"
+    },
+    "offerHover": {
+      "seller": "販売元：",
+      "developer": "開発元：",
+      "publisher": "パブリッシャー：",
+      "releaseDate": "リリース日：",
+      "ageRating": "年齢レーティング：",
+      "moreGenres_one": "他+{{count}}",
+      "moreGenres_other": "他+{{count}}",
+      "communityRating": "コミュニティ評価：",
+      "igdbScore": "IGDB スコア",
+      "reviews": "• {{count}} レビュー",
+      "timeToBeat": "クリア時間：",
+      "features": "特徴：",
+      "moreFeatures": " +{{count}} 件"
+    },
+    "buildHover": {
+      "unknownBuild": "不明なビルド",
+      "unknownDeveloper": "不明な開発者",
+      "size": "サイズ",
+      "version": "バージョン",
+      "created": "作成日",
+      "id": "ID: {{id}}"
+    },
+    "multipleOffers": "{{title}} - 複数オファー",
+    "hero": {
+      "subtitle": "価格を追跡し、お得な情報を見つけ、無料ゲームを見逃しません。Epic Games Store データベースのコンパニオン — オファー、割引、配布、ビルドなど。",
+      "searchPlaceholder": "データベースを検索…",
+      "justReleased": "リリースされたばかり",
+      "priceDrops72h": "値下がり (72時間)",
+      "hasAchievements": "実績あり",
+      "upcoming": "近日公開",
+      "topSellers": "トップセラー"
+    },
+    "pulse": {
+      "recentActivity": "最近のアクティビティ",
+      "badge": {
+        "new": "新規",
+        "gone": "削除",
+        "offer": "オファー",
+        "build": "ビルド",
+        "item": "アイテム",
+        "asset": "アセット",
+        "xp": "XP",
+        "sandbox": "サンドボックス",
+        "change": "変更"
+      },
+      "title": {
+        "buildVersion": "ビルド {{version}}",
+        "buildId": "ビルド {{id}}",
+        "achievementsId": "実績 {{id}}"
+      },
+      "detail": {
+        "newBuildIndexed": "新しいビルドがインデックスされました",
+        "buildManifestRefreshed": "ビルドマニフェストを更新しました",
+        "achievementChanges_one": "{{count}} 件の実績が{{entry}}{{verb}}",
+        "achievementChanges_other": "{{count}} 件の実績が{{entry}}{{verb}}",
+        "offerMetadataRefreshed": "オファーメタデータを更新しました",
+        "fieldsChanged_one": "{{count}} フィールドが{{verb}}",
+        "fieldsChanged_other": "{{count}} フィールドが{{verb}}",
+        "fieldChanged": "{{field}} が{{verb}}"
+      },
+      "actionVerb": {
+        "added": "追加されました",
+        "removed": "削除されました",
+        "updated": "更新されました",
+        "changed": "変更されました"
+      },
+      "entry_one": "エントリー",
+      "entry_other": "エントリー"
+    }
+  },
+  "offerDetail": {
+    "common": {
+      "offerNotFound": "オファーが見つかりません",
+      "notAvailable": "利用不可",
+      "na": "N/A",
+      "loading": "読み込み中...",
+      "somethingWentWrong": "エラーが発生しました",
+      "noChangesFound": "このオファーに変更は見つかりません"
+    },
+    "tabs": {
+      "overview": "概要",
+      "price": "価格",
+      "items": "アイテム",
+      "builds": "ビルド",
+      "achievements": "実績",
+      "related": "関連",
+      "metadata": "メタデータ",
+      "changelog": "更新履歴",
+      "media": "メディア",
+      "reviews": "レビュー"
+    },
+    "table": {
+      "offerId": "オファーID",
+      "namespace": "Namespace",
+      "offerType": "オファータイプ",
+      "seller": "販売元",
+      "developer": "開発元",
+      "supportedPlatforms": "対応プラットフォーム",
+      "releaseDate": "リリース日",
+      "lastUpdate": "最終更新",
+      "creationDate": "作成日",
+      "technologies": "テクノロジー",
+      "type": "タイプ",
+      "value": "値",
+      "countriesBlacklist": "ブラックリスト国",
+      "countriesWhitelist": "ホワイトリスト国",
+      "categories": "カテゴリ",
+      "refundType": "返金タイプ",
+      "tags": "タグ",
+      "ageRatings": "年齢レーティング",
+      "assets": "アセット"
+    },
+    "badges": {
+      "prePurchase": "予約購入",
+      "earlyAccess": "アーリーアクセス"
+    },
+    "hero": {
+      "offeredBy": "{{seller}} 提供"
+    },
+    "tooltip": {
+      "internalNamespace": "Epic Games 内部 Namespace",
+      "techDescription": "ゲームファイルから使用されているエンジンや様々なテクノロジーを追跡するテクノロジ一覧。",
+      "techSource": "使用元：",
+      "techSourceSteamDb": "SteamDB",
+      "source": "ソース"
+    },
+    "actions": {
+      "compare": "比較"
+    },
+    "releaseDate": {
+      "releasedOnPc": "PC版リリース",
+      "theEgs": " EGS",
+      "releasedSameDay": "PC版と同日にEpicでリリース"
+    },
+    "notifications": {
+      "title": "通知設定",
+      "description": "このオファーに対して受け取る通知を選択してください。",
+      "all": "すべて",
+      "price": "価格",
+      "achievements": "実績",
+      "builds": "ビルド",
+      "items": "アイテム",
+      "requirements": "要件",
+      "metadata": "メタデータ",
+      "media": "メディア",
+      "enablePushDescription": "このオファーの通知を受け取るには、プッシュ通知を有効にする必要があります。",
+      "enablePushAction": "プッシュ通知を有効にする"
+    },
+    "overview": {
+      "genres": "ジャンル",
+      "ageRating": "年齢レーティング",
+      "noAgeRatings": "年齢レーティングが見つかりません",
+      "giveaways": "配布",
+      "noGiveaways": "配布が見つかりません",
+      "achievements": "実績",
+      "igdbTimeToBeat": "IGDB クリア時間",
+      "hastily": "急いで",
+      "normally": "通常",
+      "completely": "完全",
+      "hltbSubmissions_one": "{{count}} 件の投稿に基づく",
+      "hltbSubmissions_other": "{{count}} 件の投稿に基づく",
+      "price": "価格",
+      "priceCurrent": "現在：",
+      "priceLowest": "最安値：",
+      "priceLastDiscount": "最終割引：",
+      "hltbTitle": "クリアまでの時間",
+      "noGameTimes": "ゲーム時間が見つかりません",
+      "epicRating": "Epic プレイヤーレーティング",
+      "epicRatingDescription": "Epic Games エコシステムのプレイヤーから取得",
+      "igdbRating": "IGDB レーティング",
+      "igdbReviews_one": "{{count}} レビュー",
+      "igdbReviews_other": "{{count}} レビュー"
+    },
+    "achievements": {
+      "title": "実績",
+      "sortBy": "並び替え",
+      "defaultSort": "デフォルト順",
+      "sortByRarity": "レアリティ順",
+      "sortByCompleted": "達成率順",
+      "search": "検索",
+      "flipAll": "すべて反転",
+      "noAchievements": "実績が見つかりません",
+      "noAchievementsSet": "このセットの実績は見つかりません。",
+      "noAchievementsSetDescription": "実績が現在利用できないが、将来追加される可能性があります。",
+      "baseGame": "ベースゲーム",
+      "dlc": "DLC",
+      "achievementsLabel": "実績",
+      "baseGameDescription": "この実績リストはベースゲーム用です。",
+      "dlcDescription": "この実績リストはDLCの1つ用です。",
+      "lastUpdated": "最終更新：",
+      "lastUpdatedTooltip": "この実績セットの最終更新日は {{date}} です。",
+      "lastUpdatedTooltipDescription": "これは作成日または最終更新日のいずれかです。"
+    },
+    "builds": {
+      "title": "ビルド"
+    },
+    "items": {
+      "title": "アイテム"
+    },
+    "price": {
+      "title": "価格"
+    },
+    "related": {
+      "title": "関連オファー"
+    },
+    "media": {
+      "images": "画像",
+      "videos": "動画",
+      "covers": "カバー",
+      "noImages": "画像が見つかりません",
+      "noVideos": "動画が見つかりません",
+      "noCovers": "カバーが見つかりません",
+      "download": "ダウンロード",
+      "close": "閉じる",
+      "downloadCoverAria": "{{type}} カバーをダウンロード"
+    },
+    "metadata": {
+      "title": "メタデータ",
+      "download": "ダウンロード：",
+      "install": "インストール："
+    },
+    "changelog": {
+      "title": "更新履歴",
+      "tooltip": "このリストは、この特定のオファーまたは関連するアイテム、アセット、ビルドに加えられた変更です。",
+      "sandboxChangelog": "サンドボックス更新履歴",
+      "sandboxChangelogPrefix": "製品全体の更新履歴はこちらで確認できます：",
+      "noChangelog": "利用可能な更新履歴はありません",
+      "allTypes": "すべてのタイプ",
+      "selectField": "フィールドを選択",
+      "allFields": "すべてのフィールド",
+      "search": "検索",
+      "previous": "前へ",
+      "next": "次へ",
+      "pageOf": "{{page}} / {{totalPages}} ページ",
+      "typeUpdate": "更新",
+      "typeDelete": "削除",
+      "typeInsert": "挿入"
+    },
+    "reviews": {
+      "epicRating": "Epic プレイヤーレーティング",
+      "epicRatingDescription": "Epic Games エコシステムのプレイヤーから取得",
+      "egdataRating": "EGDATA レーティング",
+      "overallScore": "総合スコア",
+      "scoreOutOf10": "{{score}} / 10",
+      "basedOnReviews": "{{count}} 件のレビューに基づく",
+      "allReviews": "すべてのレビュー",
+      "onlyVerified": "確認済みのみ",
+      "notVerified": "未確認",
+      "leaveReview": "レビューを書く",
+      "alreadyReviewed": "レビュー済み",
+      "loginToReview": "ログインしてレビュー",
+      "noReviews": "まだレビューはありません",
+      "notReleased": "この製品はまだリリースされていません",
+      "beFirst": "この製品の最初のレビューを書いてみませんか！",
+      "checkBack": "リリース日以降に戻ってきてレビューを書いてください！",
+      "verifiedOwner": "確認済み所有者",
+      "recommended": "おすすめ",
+      "notRecommended": "おすすめしない",
+      "readMore": "続きを読む",
+      "reviewedOn": "レビュー日",
+      "lastUpdatedOn": "最終更新日",
+      "editedTimes": "{{count}} 回編集",
+      "edit": "編集",
+      "close": "閉じる",
+      "reviewCount_one": "{{count}} レビュー",
+      "reviewCount_other": "{{count}} レビュー",
+      "ownershipVerification": "所有権確認",
+      "ownershipVerificationDescription": "プレイヤーが少なくとも1つの実績を達成することに基づきます。",
+      "ownershipVerificationTooltip": "Epic Games の実績を使用して製品の所有権を確認します。プレイヤーを確認済み所有者としてマークするには、Epic Games Store で選択した製品の実績を少なくとも1つ達成している必要があります。アカウントを egdata プロフィールにリンクするには、次の場所にアクセスしてください：",
+      "yourDashboard": "ダッシュボード",
+      "criticReviews": "批評家レビュー",
+      "basedOnCriticReviews": "{{count}} 件の批評家レビューに基づく",
+      "opencriticRating": "OpenCritic レーティング",
+      "topCriticAverage": "トップ批評家平均",
+      "criticsRecommend": "批評家のおすすめ",
+      "opencriticRatingAlt": "OpenCritic レーティング"
+    }
+  },
+  "search": {
+    "meta": {
+      "title": "検索 | egdata.app",
+      "description": "Epic Games Store のオファーを検索。"
+    },
+    "defaultTitle": "検索",
+    "filters": "フィルター",
+    "filtersPlaceholder": "ゲームを検索",
+    "pills": {
+      "onSale": "セール中",
+      "codeRedemptionOnly": "コード引き換えのみ",
+      "excludeBlockchain": "Blockchain/NFT を除外",
+      "pastGiveaways": "過去の配布"
+    },
+    "accordion": {
+      "offerType": "オファータイプ",
+      "developer": "開発元",
+      "publisher": "パブリッシャー",
+      "noTags": "タグが見つかりません",
+      "seller": "販売元"
+    },
+    "checkboxes": {
+      "pastGiveaways": "過去の配布",
+      "onSale": "セール中",
+      "codeRedemptionOnly": "コード引き換えのみ",
+      "excludeBlockchain": "Blockchain/NFT を除外",
+      "onlyHistoricalLows": "過去最安値のみ",
+      "onlyLowestPriceEver": "史上最安値のみ"
+    },
+    "tagGroups": {
+      "event": "イベント",
+      "genre": "ジャンル",
+      "epicfeature": "Epic 機能",
+      "accessibility": "アクセシビリティ",
+      "feature": "機能",
+      "usersay": "Usersay",
+      "subscription": "サブスクリプション",
+      "platform": "プラットフォーム",
+      "all": "すべてのタグ"
+    },
+    "sort": {
+      "sortBy": "並び替え",
+      "sortAriaLabel": "オファーを並び替え",
+      "sortDirectionAriaLabel": "並び替え方向を切り替え",
+      "showListView": "リスト表示",
+      "showGridView": "グリッド表示",
+      "releaseDate": "リリース日",
+      "lastModifiedDate": "更新日",
+      "effectiveDate": "発効日",
+      "creationDate": "作成日",
+      "viewableDate": "表示可能日",
+      "pcReleaseDate": "PC リリース日",
+      "upcoming": "近日公開",
+      "price": "価格",
+      "discount": "割引",
+      "discountPercent": "割引率",
+      "giveawayDate": "配布日"
+    },
+    "results": {
+      "noResults": "結果が見つかりません"
+    }
+  },
+  "freebies": {
+    "meta": {
+      "title": "無料ゲーム | egdata.app",
+      "description": "Epic Games Store の無料ゲームを閲覧。"
+    },
+    "headings": {
+      "current": "現在の無料ゲーム",
+      "past": "過去の無料ゲーム",
+      "sellers": "無料ゲーム販売元"
+    },
+    "buttons": {
+      "redeem": "今すぐ受け取る",
+      "downloadJson": "JSON としてダウンロード",
+      "downloadCsv": "CSV としてダウンロード",
+      "downloadTxt": "テキストとしてダウンロード"
+    },
+    "placeholders": {
+      "searchSellers": "販売元を検索..."
+    },
+    "aria": {
+      "downloadList": "リストをダウンロード"
+    },
+    "errors": {
+      "loadSellers": "販売元データの読み込みエラー。後でもう一度お試しください。"
+    },
+    "table": {
+      "sellerName": "販売元名",
+      "totalGames": "合計単体ゲーム数"
+    }
+  },
+  "sales": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Epic Games Store の {{title}} をチェック。"
+    },
+    "metaIndex": {
+      "title": "アクティブなセール | egdata.app",
+      "description": "egdata.app でアクティブなセールを閲覧"
+    },
+    "status": {
+      "loading": "読み込み中...",
+      "noData": "データがありません"
+    },
+    "headings": {
+      "active": "アクティブなセール",
+      "pastUpcoming": "過去 / 今後のセール",
+      "offersList": "{{title}} オファー"
+    },
+    "errors": {
+      "notFound": "プロモーションが見つかりません"
+    },
+    "labels": {
+      "offersCount": "このイベントでは {{count}} 件のオファーが利用可能"
+    }
+  },
+  "collections": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Epic Games Store の {{title}} をチェック。"
+    },
+    "metaIndex": {
+      "title": "コレクション | egdata.app",
+      "description": "egdata.app のコレクション"
+    },
+    "headings": {
+      "main": "コレクション"
+    },
+    "description": {
+      "overview": "Epic Games Store のトップセラー、最もプレイされた、最も人気のあるゲーム"
+    },
+    "status": {
+      "loading": "読み込み中..."
+    },
+    "errors": {
+      "notFound": "コレクションが見つかりません"
+    },
+    "table": {
+      "position": "順位",
+      "variance": "変動",
+      "weeks": "週数"
+    },
+    "tooltips": {
+      "variance": "現在の順位と前回の順位の差。通常は毎日変わります。",
+      "weeks": "{{title}} でゲームがトップ100に入っている週数。"
+    },
+    "buttons": {
+      "loadMore": "さらに読み込む"
+    }
+  },
+  "sandboxes": {
+    "notFoundTitle": "サンドボックスが見つかりません",
+    "notFoundDescription": "サンドボックスが見つかりません",
+    "unrealEngineTitle": "Unreal Engine",
+    "unavailableTitle": "サンドボックスは利用できません",
+    "unavailableDescription": "プロダクトハブを読み込めませんでした。",
+    "noProductDataDescription": "このサンドボックスの製品データは存在しません。",
+    "hubEyebrow": "サンドボックス",
+    "hubOverviewTitle": "概要",
+    "hubOverviewDescription": "この Namespace のストアフロント、所有権、配信、更新記録の焦点を絞ったマップ。",
+    "latestChangesButton": "最新の変更",
+    "entityOffersLabel": "オファー",
+    "entityOffersDescription": "ストアエントリー",
+    "entityItemsLabel": "アイテム",
+    "entityItemsDescription": "所有可能なレコード",
+    "entityAssetsLabel": "アセット",
+    "entityAssetsDescription": "アーティファクトとメディア",
+    "entityBuildsLabel": "ビルド",
+    "entityBuildsDescription": "バイナリバンドル",
+    "entityAchievementsLabel": "実績",
+    "entityAchievementsDescription": "進行データ",
+    "entityChangelogLabel": "更新履歴",
+    "entityChangelogDescription": "追跡された更新",
+    "viewButton": "表示",
+    "storefrontOffersTitle": "ストアフロントオファー",
+    "storefrontOffersDescription": "このサンドボックスで見つかった代表的なストアエントリー。",
+    "recentBuildsTitle": "最近のビルド",
+    "recentBuildsDescription": "最新のバイナリレコード。",
+    "latestBadge": "最新",
+    "unknownBuildLabel": "不明なビルド",
+    "recentChangesTitle": "最近の変更",
+    "recentChangesDescription": "最新のカタログ変更。",
+    "updateBadge": "更新",
+    "changeDefaultLabel": "変更",
+    "metaOffersTitle": "オファー",
+    "offersEyebrow": "Eコマース",
+    "offersTitle": "オファー",
+    "offersDescription": "このサンドボックス内のストアフロントエントリー。ベースゲーム、エディション、DLC、アドオン、バンドル、カタログアイテムを付与できるあらゆるオファーを含みます。",
+    "totalOffersLabel": "オファー総数",
+    "metaAchievementsTitle": "実績",
+    "achievementsEyebrow": "進行状況",
+    "achievementsTitle": "実績",
+    "achievementsDescription": "このサンドボックスに紐づく実績セット、非表示状態、レアリティ分布、XP 合計。",
+    "achievementsSetsLabel": "セット",
+    "achievementsLabel": "実績",
+    "achievementsXpLabel": "XP",
+    "searchAchievementsPlaceholder": "実績を検索",
+    "flipAllButton": "すべて反転",
+    "revealHiddenAchievementAria": "隠された実績テキストを表示",
+    "hideHiddenAchievementAria": "隠された実績テキストを非表示",
+    "achievementsBaseGameLabel": "ベースゲーム",
+    "achievementsDlcLabel": "DLC",
+    "achievementsBaseGameTooltip": "この実績リストはベースゲーム用です。",
+    "achievementsDlcTooltip": "この実績リストはDLCの1つ用です。",
+    "lastUpdatedLabel": "最終更新：",
+    "achievementsLastUpdatedTooltip": "この実績セットの最終更新日：",
+    "achievementsLastUpdatedTooltipExtra": "これは作成日または最終更新日のいずれかです。",
+    "noAchievementsForSet": "このセットの実績は見つかりません。",
+    "noAchievementsForSetExtra": "実績が現在利用できないが、将来追加される可能性があります。",
+    "noAchievementsFound": "実績が見つかりません",
+    "metaItemsTitle": "アイテム",
+    "itemsEyebrow": "カタログ所有権",
+    "itemsTitle": "アイテム",
+    "itemsDescription": "オファーに含まれる所有可能なカタログアイテム。これらは購入または引き換え後にプレイヤーの権利となるレコードです。",
+    "totalItemsLabel": "アイテム総数",
+    "metaChangelogTitle": "更新履歴",
+    "changelogEyebrow": "監査証跡",
+    "changelogTitle": "更新履歴",
+    "changelogDescription": "このサンドボックスのオファー、アイテム、アセット、ビルド、関連カタログメタデータ全体で観察された変更。",
+    "totalChangesLabel": "変更数",
+    "queryTimeLabel": "クエリ時間",
+    "noChangelogFound": "更新履歴が見つかりません",
+    "metaBuildsTitle": "ビルド",
+    "buildsEyebrow": "バイナリ",
+    "buildsTitle": "ビルド",
+    "buildsDescription": "サンドボックスにアップロードされたバージョン管理されたファイルバンドル。ビルドはアーティファクトに割り当てられ、プレイヤーがランチャーを通じてダウンロードするものを決定します。",
+    "totalBuildsLabel": "ビルド総数",
+    "metaAssetsTitle": "アセット",
+    "assetsEyebrow": "アセットとアーティファクト",
+    "assetsTitle": "アセット",
+    "assetsDescription": "サンドボックスアイテムに添付された配信およびメディアレコード。ストアカタログコンテンツをダウンロード可能なビルドに接続するアーティファクトを含みます。",
+    "totalAssetsLabel": "アセット総数"
+  },
+  "items": {
+    "notFound": "アイテムが見つかりません",
+    "badge": "アイテム",
+    "table": {
+      "itemId": "アイテムID",
+      "namespace": "Namespace",
+      "developer": "開発元",
+      "entitlementType": "権利タイプ",
+      "entitlementName": "権利名",
+      "status": "ステータス",
+      "creationDate": "作成日",
+      "lastModified": "最終更新",
+      "platforms": "プラットフォーム"
+    },
+    "tooltip": {
+      "internalNamespace": "Epic Games 内部 Namespace"
+    },
+    "tabs": {
+      "item": "アイテム",
+      "assets": "アセット",
+      "images": "画像",
+      "builds": "ビルド",
+      "changelog": "更新履歴"
+    },
+    "metadata": {
+      "title": "メタデータ",
+      "key": "キー",
+      "value": "値"
+    },
+    "assets": {
+      "title": "アセット"
+    },
+    "builds": {
+      "title": "ビルド"
+    },
+    "changelog": {
+      "title": "更新履歴",
+      "noChangelog": "利用可能な更新履歴はありません"
+    },
+    "images": {
+      "title": "画像"
+    }
+  },
+  "builds": {
+    "notFound": "ビルドが見つかりません",
+    "build": "ビルド",
+    "for": "対象",
+    "compressed": "({{percent}}% 圧縮)",
+    "table": {
+      "buildId": "ビルドID",
+      "buildName": "ビルド名",
+      "appName": "アプリ名",
+      "hash": "ハッシュ",
+      "installedSize": "インストールサイズ",
+      "downloadSize": "ダウンロードサイズ",
+      "createdAt": "作成日",
+      "updatedAt": "更新日",
+      "technologies": "テクノロジー"
+    },
+    "tooltip": {
+      "techSource": "使用元：",
+      "techSourceSteamDb": "SteamDB",
+      "techDescription": "ゲームファイルから使用されているエンジンや様々なテクノロジーを追跡するテクノロジ一覧。",
+      "source": "ソース"
+    },
+    "tabs": {
+      "files": "ファイル",
+      "items": "アイテム",
+      "installOptions": "インストールオプション"
+    },
+    "files": {
+      "title": "ファイル"
+    },
+    "items": {
+      "title": "アイテム"
+    },
+    "installOptions": {
+      "title": "インストールオプション",
+      "file_one": "ファイル",
+      "file_other": "ファイル"
+    },
+    "meta": {
+      "title": "{{title}} ({{version}}) | egdata.app",
+      "description": "Epic Games Store の {{title}} 向けビルド {{version}}。"
+    }
+  },
+  "profile": {
+    "meta": {
+      "notFoundTitle": "プロフィールが見つかりません",
+      "notFoundDescription": "プロフィールが見つかりません",
+      "title": "{{name}} | egdata.app",
+      "description": "egdata.app で {{name}} の実績とゲームをチェック",
+      "defaultName": "プロフィール",
+      "defaultDescriptionName": "このプレイヤーの"
+    },
+    "errors": {
+      "notFoundTitle": "プロフィールが見つかりません",
+      "notFoundDescription": "このプロフィールは利用できないか、まだインデックスされていません。",
+      "unavailableTitle": "プロフィールは利用できません",
+      "unavailableDescription": "現在このプロフィールを読み込めません。",
+      "invalidImageFormat": "無効な画像形式",
+      "failedToUpload": "アップロードに失敗しました",
+      "uploadFailed": "アップロード失敗",
+      "failedToRefresh": "プロフィールの更新に失敗しました",
+      "refreshQueued": "プロフィールが更新キューに追加されました。まもなく更新されます。"
+    },
+    "fallbackName": "不明なプロフィール",
+    "avatar": {
+      "changeAvatar": "アバターを変更",
+      "dialogDescription": "新しいプロフィール画像をアップロード。",
+      "previewAlt": "アバタープレビュー",
+      "fallback": "アバター",
+      "description": "新しいアバター画像をアップロード（最大5MB）。",
+      "uploadingWithProgress": "アップロード中... {{progress}}%",
+      "uploading": "アップロード中...",
+      "updateAvatar": "アバターを更新",
+      "errorTitle": "エラー"
+    },
+    "hero": {
+      "joined": "参加日",
+      "epicGamesStore": "Epic Games Store",
+      "linkDiscord": "Discord と連携",
+      "refreshProfile": "プロフィールを更新",
+      "refreshAvailableIn": "更新可能まで",
+      "level": "レベル",
+      "achievements": "実績",
+      "unlocked": "解除済み",
+      "platinum": "プラチナ",
+      "perfectGames": "パーフェクトゲーム",
+      "library": "ライブラリ",
+      "achievementGames": "実績対応ゲーム",
+      "reviews": "レビュー",
+      "contributed": "投稿数",
+      "xpToNextLevel": "次のレベル{{level}}まで {{xp}} XP",
+      "heroGame": "ヒーローゲーム",
+      "complete": "完了"
+    },
+    "donor": {
+      "donated_one": "{{name}} が egdata.app に {{count}} 個のキーを寄付しました",
+      "donated_other": "{{name}} が egdata.app に {{count}} 個のキーを寄付しました",
+      "goTo": "こちらへ",
+      "thisLink": "このリンク",
+      "toDonateKey": "キーを寄付する。"
+    },
+    "countdown": {
+      "minutesSeconds_one": "{{minutes}} 分 {{seconds}} 秒",
+      "minutesSeconds_other": "{{minutes}} 分 {{seconds}} 秒",
+      "seconds_one": "{{seconds}} 秒",
+      "seconds_other": "{{seconds}} 秒"
+    },
+    "tabs": {
+      "showcase": "ショーケース",
+      "library": "ライブラリ",
+      "activity": "アクティビティ"
+    },
+    "stats": {
+      "games": "{{count}} ゲーム",
+      "achievements": "{{count}} 実績",
+      "platinum": "{{count}} プラチナ"
+    },
+    "showcase": {
+      "ariaLabel": "プロフィールショーケースハイライト",
+      "featuredGamesTitle": "注目のゲーム",
+      "featuredGamesDetail": "プロフィールパフォーマンスにより {{count}} 件選択",
+      "rareAchievementsTitle": "レア実績",
+      "rareAchievementsDetail": "プロフィール全体で見つけにくい解除",
+      "recentUnlocksTitle": "最近の解除",
+      "recentUnlocksDetail": "最新の表示可能アクティビティ",
+      "noDataTitle": "まだショーケースデータがありません",
+      "noDataDescription": "公開実績の進行状況があるリリース済みゲームのみがプロフィールに表示されます。",
+      "rarestUnlock": "最もレアな解除",
+      "definingGame": "代表的なゲーム",
+      "latestActivity": "最新アクティビティ",
+      "achievementsCount": "{{unlocked}} / {{total}} 実績",
+      "platinum": "プラチナ"
+    },
+    "library": {
+      "filterAriaLabel": "ライブラリフィルター",
+      "sortAriaLabel": "ライブラリを並び替え",
+      "sortByPlaceholder": "並び替え",
+      "noGamesTitle": "ゲームが見つかりません",
+      "noGamesDescription": "実績があるリリース済みゲームのみがこのライブラリに表示されます。",
+      "gameAlt": "ゲーム",
+      "complete": "完了",
+      "featured": "注目",
+      "rareUnlocks": "レア解除",
+      "filters": {
+        "all": "すべて",
+        "completed": "完了",
+        "nearPlatinum": "プラチナ目前",
+        "inProgress": "進行中",
+        "platinum": "プラチナ"
+      },
+      "sorts": {
+        "completion": "達成率",
+        "alphabetical": "アルファベット順",
+        "xp": "XP",
+        "achievements": "実績"
+      }
+    },
+    "activity": {
+      "title": "アクティビティ",
+      "detail": "{{count}} 件の実績解除",
+      "noActivityTitle": "まだアクティビティはありません",
+      "noActivityDescription": "このプロフィールが公開進行状況を持っている場合、ここに実績解除が表示されます。",
+      "achievementAlt": "実績",
+      "platinumEarned": "プラチナ獲得",
+      "achievementUnlocked": "実績解除",
+      "unknownRarity": "不明なレアリティ",
+      "rarity": "レアリティ {{value}}%",
+      "unknownDate": "不明な日付"
+    },
+    "achievements": {
+      "loading": "読み込み中...",
+      "notFound": "プロフィールが見つかりません",
+      "myAchievements": "自分の実績"
+    }
+  },
+  "tags": {
+    "meta": {
+      "notFoundTitle": "プロモーションが見つかりません",
+      "notFoundDescription": "プロモーションが見つかりません",
+      "title": "{{title}} | egdata.app",
+      "description": "egdata.app で {{title}} の利用可能な {{count}} 件のオファーをチェック。",
+      "socialTitle": "{{title}} - egdata.app"
+    },
+    "loading": "読み込み中...",
+    "offersCount": "このイベントでは {{count}} 件のオファーが利用可能",
+    "results": "結果",
+    "resultsCount": "({{count}} 件の結果)",
+    "searchPlaceholder": "検索...",
+    "loadMore": "さらに読み込む",
+    "sortBy": {
+      "releaseDate": "リリース日",
+      "lastModifiedDate": "更新日",
+      "effectiveDate": "発効日",
+      "creationDate": "作成日",
+      "viewableDate": "表示可能日",
+      "pcReleaseDate": "PC リリース日",
+      "upcoming": "近日公開",
+      "price": "価格"
+    }
+  },
+  "genres": {
+    "meta": {
+      "title": "ジャンル - egdata.app",
+      "description": "egdata.app のジャンル"
+    },
+    "heading": "ジャンル"
+  },
+  "sellers": {
+    "meta": {
+      "notFoundTitle": "販売元が見つかりません",
+      "notFoundDescription": "販売元が見つかりません",
+      "title": "{{name}} | egdata.app"
+    },
+    "notFound": "販売元が見つかりません",
+    "logoAlt": "{{name}} ロゴ",
+    "bannerAlt": "{{name}}",
+    "offersTitle": "{{name}} のオファー",
+    "stats": {
+      "offers": "オファー",
+      "games": "ゲーム",
+      "items": "アイテム",
+      "freeGames": "無料ゲーム"
+    }
+  },
+  "franchises": {
+    "meta": {
+      "notFoundTitle": "フランチャイズが見つかりません",
+      "notFoundDescription": "フランチャイズが見つかりません",
+      "title": "{{name}} フランチャイズ | egdata.app",
+      "description": "Epic Games Store で {{name}} フランチャイズのすべてのゲームを閲覧。"
+    },
+    "loading": "読み込み中...",
+    "gamesCount_one": "{{count}} ゲーム",
+    "gamesCount_other": "{{count}} ゲーム",
+    "timeToBeat": "クリア時間",
+    "achievements": "実績",
+    "loadMore": "さらに読み込む",
+    "free": "無料"
+  },
+  "stats": {
+    "creations": {
+      "meta": {
+        "title": "作成統計 - egdata.app",
+        "description": "Epic Games Store に新しく作成されたものの月別・年別の頻度。"
+      },
+      "viewReleases": "リリースを見る",
+      "heading": "Epic Games Store 作成統計",
+      "description": "ストアに新しく作成されたものの月別・年別の頻度。",
+      "monthlyTitle": "月別作成数",
+      "yearlyTitle": "年別作成数"
+    },
+    "releases": {
+      "meta": {
+        "title": "リリース統計 - egdata.app",
+        "description": "Epic Games Store の新規タイトルの月別・年別の頻度。"
+      },
+      "viewCreations": "作成を見る",
+      "heading": "Epic Games Store リリース統計",
+      "description": "ストアの新規タイトルの月別・年別の頻度。",
+      "monthlyTitle": "月別リリース数",
+      "yearlyTitle": "年別リリース数"
+    }
+  },
+  "store": {
+    "creatorCode": {
+      "title": "egdata.app をサポート",
+      "description": "ゲーム購入時にクリエイターコードを使用して egdata.app をサポートしませんか？この選択は今後の訪問のために記憶されます。",
+      "body": "クリエイターコードを使用すると、egdata.app とその機能の開発をサポートできます。お支払い価格には影響しません。",
+      "noThanks": "結構です",
+      "yesUseCode": "はい、コードを使用する"
+    }
+  },
+  "dashboard": {
+    "placeholder": "こんにちは /dashboard!"
+  },
+  "auth": {
+    "login": {
+      "placeholder": "こんにちは /auth/login!"
+    },
+    "callback": {
+      "placeholder": "こんにちは /auth/callback!"
+    },
+    "logout": {
+      "placeholder": "こんにちは /auth/logout!"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "概要 - egdata.app",
+      "description": "egdata.app について"
+    },
+    "title": "概要",
+    "intro": "egdata.app は、Epic Games Store に関する情報を追跡・提供することに特化したコミュニティ主導のウェブサイトです。Steam 向けの SteamDB と同様に、ユーザーが変更を探索し、新しいゲームを発見し、プラットフォームの最新情報を入手するための包括的なリソースを提供することを目指しています。",
+    "missionTitle": "私たちの使命",
+    "missionBody": "私たちの使命は、Epic Games Store エコシステムに関する透明性と洞察を提供することです。データをアクセシブルな方法で集約・提示することで、ユーザーがゲーム購入について情報に基づいた決定を下し、プラットフォームの理解を深めることに貢献できると信じています。",
+    "featuresTitle": "機能",
+    "features": {
+      "trackPrices": "ゲームの価格変更と履歴データを追跡",
+      "upcomingReleases": "今後のリリースと無料ゲームキャンペーンを表示",
+      "gameDetails": "ゲームの詳細、評価、ユーザーレビューを探索",
+      "analyzeTrends": "Epic Games Store のトレンドとパターンを分析"
+    },
+    "communityTitle": "コミュニティ主導",
+    "communityBody": "egdata.app は、熱心なゲーマーと開発者のコミュニティによって構築・維持されています。ウェブサイトの改善に協力し、誰にとっても価値あるリソースにしたいと思う方の貢献を歓迎します。フィードバックや提案があれば、お気軽にお問い合わせください。",
+    "sourceCodeIntro": "egdata.app のすべてのソースコードは以下で入手可能です：",
+    "github": "GitHub",
+    "notTitle": "egdata.app ではないもの",
+    "notIntro": "egdata.app は以下ではないことを明確にすることが重要です：",
+    "notList": {
+      "affiliated": "Epic Games の関連会社：私たちは独立したコミュニティ主導のプロジェクトであり、Epic Games とは公式に承認されておらず、関連もありません。",
+      "storefront": "ストアフロントやマーケットプレイス：ゲームを販売したり、購入オプションを提供したりしていません。Epic Games Store に関する情報とデータを提供することに重点を置いています。",
+      "piracy": "海賊行為や違法行為のプラットフォーム：私たちは海賊行為を強く非難し、著作権で保護されたコンテンツに違法にアクセスしたり配布したりする手段を一切提供しません。"
+    },
+    "fairUseTitle": "フェアユースポリシー",
+    "fairUseBody": "egdata.app は、著作権法に基づくフェアユースの原則を遵守することに取り組んでいます。Epic Games Store で利用可能なゲームについて一般の人々に教育・情報を提供する目的で、情報提供のみを目的として情報とデータを提供します。",
+    "fairUseFactorsTitle": "フェアユースを正当化する主な要因：",
+    "fairUseFactors": {
+      "nonCommercial": "非営利・教育目的：",
+      "nonCommercialBody": "当ウェブサイトは非営利であり、Epic Games Store のゲームに関する一般の知識を高めることを目的としています。",
+      "factual": "事実情報：",
+      "factualBody": "ゲームタイトル、リリース日、開発者などの事実データを主に提示しており、これらは著作権による保護が弱いものです。",
+      "limited": "限定的な使用：",
+      "limitedBody": "オリジナル作品を代替することなく、有意義な情報を提供するために必要な量のデータのみを使用しています。",
+      "noMarketHarm": "市場への悪影響なし：",
+      "noMarketHarmBody": "当社の使用はオリジナルゲームの市場に悪影響を与えません。むしろ、ユーザーの関心を高めることでゲームを促進する可能性があります。"
+    },
+    "autoTrackBody": "Epic Games Store を含む公開情報源からゲームデータを自動的に追跡・更新しています。グラフィカルアセットは直接サーバーから読み込み、保存はしていません。",
+    "leakedDataTitle": "リークデータに関する免責事項：",
+    "leakedDataBody": "当サイトにリークされたと思われるデータは、Epic Games Store で公開されている情報に由来します。機密データや専有データにはアクセスしません。パブリッシャーは機密情報を保護する責任があります（",
+    "epicDevPortal": "Epic Games デベロッパーポータル",
+    "euDirectivesIntro": "フェアユースポリシーの策定にあたり、以下の EU 著作権指令に概説された原則を考慮しました：",
+    "euDirective1": "デジタル単一市場における著作権および関連する権利に関する指令 (EU) 2019/790",
+    "euDirective2": "よくある質問 – 新しい EU 著作権ルール",
+    "fairUseContact": "フェアユースポリシーについて質問がある場合、またはコンテンツが著作権を侵害していると思われる場合は、こちらまでご連絡ください：",
+    "contactTitle": "お問い合わせ",
+    "contactBody": "こちらからお問い合わせいただけます："
+  },
+  "changelog": {
+    "index": {
+      "meta": {
+        "title": "更新履歴 | egdata.app"
+      },
+      "searchPlaceholder": "更新履歴を検索...",
+      "searchButton": "検索",
+      "loading": "読み込み中...",
+      "error": "データの取得エラー"
+    },
+    "detail": {
+      "meta": {
+        "title": "変更詳細 | egdata.app"
+      },
+      "loading": "読み込み中...",
+      "error": "変更詳細の読み込みエラー",
+      "notFound": "変更が見つかりません"
+    }
+  },
+  "privacy": {
+    "title": "概要",
+    "intro": "egdata.app は、Epic Games Store に関する情報を追跡・提供することに特化したコミュニティ主導のウェブサイトです。Steam 向けの SteamDB と同様に、ユーザーが変更を探索し、新しいゲームを発見し、プラットフォームの最新情報を入手するための包括的なリソースを提供することを目指しています。",
+    "missionTitle": "私たちの使命",
+    "missionBody": "私たちの使命は、Epic Games Store エコシステムに関する透明性と洞察を提供することです。データをアクセシブルな方法で集約・提示することで、ユーザーがゲーム購入について情報に基づいた決定を下し、プラットフォームの理解を深めることに貢献できると信じています。",
+    "featuresTitle": "機能",
+    "features": {
+      "trackPrices": "ゲームの価格変更と履歴データを追跡",
+      "upcomingReleases": "今後のリリースと無料ゲームキャンペーンを表示",
+      "gameDetails": "ゲームの詳細、評価、ユーザーレビューを探索",
+      "analyzeTrends": "Epic Games Store のトレンドとパターンを分析"
+    },
+    "communityTitle": "コミュニティ主導",
+    "communityBody": "egdata.app は、熱心なゲーマーと開発者のコミュニティによって構築・維持されています。ウェブサイトの改善に協力し、誰にとっても価値あるリソースにしたいと思う方の貢献を歓迎します。フィードバックや提案があれば、お気軽にお問い合わせください。",
+    "sourceCodeIntro": "egdata.app のすべてのソースコードは以下で入手可能です：",
+    "github": "GitHub",
+    "notTitle": "egdata.app ではないもの",
+    "notIntro": "egdata.app は以下ではないことを明確にすることが重要です：",
+    "notList": {
+      "affiliated": "Epic Games の関連会社：私たちは独立したコミュニティ主導のプロジェクトであり、Epic Games とは公式に承認されておらず、関連もありません。",
+      "storefront": "ストアフロントやマーケットプレイス：ゲームを販売したり、購入オプションを提供したりしていません。Epic Games Store に関する情報とデータを提供することに重点を置いています。",
+      "piracy": "海賊行為や違法行為のプラットフォーム：私たちは海賊行為を強く非難し、著作権で保護されたコンテンツに違法にアクセスしたり配布したりする手段を一切提供しません。"
+    },
+    "fairUseTitle": "フェアユースポリシー",
+    "fairUseBody": "egdata.app は、著作権法に基づくフェアユースの原則を遵守することに取り組んでいます。Epic Games Store で利用可能なゲームについて一般の人々に教育・情報を提供する目的で、情報提供のみを目的として情報とデータを提供します。",
+    "fairUseFactorsTitle": "フェアユースを正当化する主な要因：",
+    "fairUseFactors": {
+      "nonCommercial": "非営利・教育目的：",
+      "nonCommercialBody": "当ウェブサイトは非営利であり、Epic Games Store のゲームに関する一般の知識を高めることを目的としています。",
+      "factual": "事実情報：",
+      "factualBody": "ゲームタイトル、リリース日、開発者などの事実データを主に提示しており、これらは著作権による保護が弱いものです。",
+      "limited": "限定的な使用：",
+      "limitedBody": "オリジナル作品を代替することなく、有意義な情報を提供するために必要な量のデータのみを使用しています。",
+      "noMarketHarm": "市場への悪影響なし：",
+      "noMarketHarmBody": "当社の使用はオリジナルゲームの市場に悪影響を与えません。むしろ、ユーザーの関心を高めることでゲームを促進する可能性があります。"
+    },
+    "autoTrackBody": "Epic Games Store を含む公開情報源からゲームデータを自動的に追跡・更新しています。グラフィカルアセットは直接サーバーから読み込み、保存はしていません。",
+    "leakedDataTitle": "リークデータに関する免責事項：",
+    "leakedDataBody": "当サイトにリークされたと思われるデータは、Epic Games Store で公開されている情報に由来します。機密データや専有データにはアクセスしません。パブリッシャーは機密情報を保護する責任があります（",
+    "epicDevPortal": "Epic Games デベロッパーポータル",
+    "euDirectivesIntro": "フェアユースポリシーの策定にあたり、以下の EU 著作権指令に概説された原則を考慮しました：",
+    "euDirective1": "デジタル単一市場における著作権および関連する権利に関する指令 (EU) 2019/790",
+    "euDirective2": "よくある質問 – 新しい EU 著作権ルール",
+    "fairUseContact": "フェアユースポリシーについて質問がある場合、またはコンテンツが著作権を侵害していると思われる場合は、こちらまでご連絡ください：",
+    "contactTitle": "お問い合わせ",
+    "contactBody": "こちらからお問い合わせいただけます："
+  },
+  "notifications": {
+    "meta": {
+      "title": "通知 - egdata.app",
+      "description": "Epic Games Store の更新、ゲームリリースなどのプッシュ通知を設定・管理。"
+    },
+    "title": "通知",
+    "description": "Epic Games Store の更新、ゲームリリース、パーソナライズされたアラートのプッシュ通知を設定・管理。",
+    "tabs": {
+      "notifications": "通知",
+      "mySubscriptions": "マイサブスクリプション"
+    },
+    "aboutPushTitle": "プッシュ通知について",
+    "aboutPushDescription": "EGData でのプッシュ通知の仕組みについて詳しく学ぶ。",
+    "whatYoullReceive": "受け取れるもの：",
+    "receiveList": {
+      "freeGames": "新しい無料ゲームのお知らせ",
+      "releases": "ゲームリリース通知",
+      "priceDrops": "ウィッシュリストのゲームの値下がりアラート",
+      "news": "Epic Games Store のニュースと更新",
+      "custom": "カスタムトピックベースの通知"
+    },
+    "privacySecurity": "プライバシーとセキュリティ：",
+    "privacyList": {
+      "apiKey": "API キーはブラウザの Cookie に安全に保存されます",
+      "onlySubscribed": "購読した通知のみを送信します",
+      "unsubscribe": "いつでも購読を解除できます",
+      "noPersonalData": "API キー以外の個人データは不要です"
+    },
+    "browserSupport": "ブラウザサポート：",
+    "browserSupportBody": "プッシュ通知は Chrome、Firefox、Safari、Edge などのモダンブラウザでサポートされています。ブラウザから促されたら通知を許可してください。",
+    "subscriptionOverview": "サブスクリプション概要",
+    "totalSubscribed": "購読中のトピック数：{{count}}",
+    "notSubscribedApi": "API キーはプッシュ通知に購読していません",
+    "notSubscribedTitle": "未購読",
+    "notSubscribedBody": "API キーはプッシュ通知に購読していません。「設定と購読」タブを使用して先に購読してください。",
+    "subscriptionId": "サブスクリプション {{id}}",
+    "created": "作成日：",
+    "subscribedTopics": "購読中のトピック：",
+    "noTopics": "購読中のトピックはありません",
+    "lastUpdated": "最終更新：",
+    "noSubscriptionsTitle": "サブスクリプションが見つかりません",
+    "noSubscriptionsBody": "購読はしていますが、まだデバイスサブスクリプションを作成していません。「設定と購読」タブを使用して最初のサブスクリプションを作成してください。",
+    "fetchError": "サブスクリプションの取得に失敗しました。もう一度お試しください。",
+    "push": {
+      "title": "プッシュ通知",
+      "notSupported": "このブラウザはプッシュ通知をサポートしていません。",
+      "setApiKey": "プッシュ通知を有効にするには API キーを設定してください。",
+      "manage": "プッシュ通知の設定を管理します。",
+      "unsubscribe": "購読解除",
+      "subscribe": "購読",
+      "subscribed": "購読中",
+      "notSubscribed": "未購読",
+      "subscribeToTopic": "トピックを購読",
+      "topicPlaceholder": "トピック名を入力（例：game-updates）",
+      "subscribedTopics": "購読中のトピック",
+      "clickToUnsubscribe": "トピックをクリックして購読解除"
+    },
+    "simple": {
+      "title": "プッシュ通知",
+      "notSupported": "このブラウザはプッシュ通知をサポートしていません。",
+      "subscribedDesc": "{{count}} 件の通知トピックを購読中",
+      "notSubscribedDesc": "Epic Games Store の更新、無料ゲームなどの通知を受け取る",
+      "subscribeToNotifications": "通知を購読",
+      "unsubscribe": "購読解除",
+      "chooseWhat": "通知を受け取りたいものを選択：",
+      "freeGames": "無料ゲーム",
+      "freeGamesDesc": "新しい無料ゲームが利用可能になったら通知",
+      "newReleases": "新着リリース",
+      "newReleasesDesc": "新作ゲームリリースの通知",
+      "priceDrops": "値下がり",
+      "priceDropsDesc": "ゲームがセールになったらアラートを受け取る",
+      "youWillReceive": "以下の通知を受け取ります：",
+      "subscribedTo": "{{name}} を購読しました",
+      "unsubscribedFrom": "{{name}} の購読を解除しました",
+      "failedSubscribe": "通知の購読に失敗しました",
+      "failedUnsubscribe": "通知の購読解除に失敗しました",
+      "failedTopicSubscribe": "トピックの購読に失敗しました",
+      "failedTopicUnsubscribe": "トピックの購読解除に失敗しました",
+      "successSubscribe": "通知の購読に成功しました！",
+      "successUnsubscribe": "通知の購読解除に成功しました"
+    },
+    "apiKey": {
+      "title": "API キー管理",
+      "label": "API キー",
+      "placeholderGenerated": "API キーを生成しました",
+      "placeholderNone": "API キーが生成されていません",
+      "regenerate": "キーを再生成",
+      "generate": "キーを生成",
+      "clear": "キーをクリア",
+      "generated": "新しい API キーを生成しました！",
+      "copied": "API キーをクリップボードにコピーしました！",
+      "cleared": "API キーをクリアしました！",
+      "failedGenerate": "API キーの生成に失敗しました",
+      "failedCopy": "API キーのコピーに失敗しました",
+      "failedClear": "API キーのクリアに失敗しました",
+      "noneToCopy": "コピーする API キーがありません",
+      "description": "API キーはブラウザにローカル保存される UUID で、プッシュ通知リクエストの認証に使用されます。必要に応じて再生成ボタンを使用して新しいキーを作成できます。"
+    }
+  },
+  "promotions": {
+    "placeholder": "こんにちは /promotions/$id!"
+  },
+  "misc": {
+    "gameAwards": {
+      "meta": {
+        "title": "The Game Awards カバレッジ | egdata.app",
+        "description": "The Game Awards で発表・ノミネートされ、Epic Games Store に登場する最新ゲーム。"
+      },
+      "logoAlt": "The Game Awards 2025",
+      "subtitle": "The Game Awards で発表またはノミネートされ、Epic Games Store に登場するゲーム",
+      "videoTitle": "The Game Awards 2024 - ライブ配信",
+      "expandPlayer": "プレイヤーを拡大",
+      "closeMiniPlayer": "ミニプレイヤーを閉じる",
+      "noGamesTitle": "まだ発表されたゲームはありません",
+      "noGamesBody": "The Game Awards 後にまたチェックしてください！"
+    },
+    "downloads": {
+      "title": "egdata.app クライアントリリース",
+      "description": "最新バージョンをダウンロード。お使いのOSに最適なセクションをハイライトしています。",
+      "errorPrefix": "エラー：",
+      "noPublicReleases": "公開リリースが見つかりません。",
+      "recommended": "推奨",
+      "downloadsSuffix": "ダウンロード",
+      "versionPublished": "バージョン {{version}} - {{date}} 公開",
+      "assetInfo": {
+        "appleSilicon": "Apple チップ (M1, M2, M3 など) 搭載の新しい Mac コンピュータ向け。",
+        "intel": "Intel プロセッサ搭載の古い Mac コンピュータ向け。",
+        "universal": "Apple Silicon と Intel Mac の両方に対応。",
+        "msi": "標準インストーラーウィザード。ほとんどのユーザーに推奨。",
+        "exe": "スタンドアロンアプリケーションファイル。インストール不要の場合あり。",
+        "linux": "Linux ベースのオペレーティングシステム向け。",
+        "generic": "汎用ファイルまたはソースコード。"
+      }
+    },
+    "discordLinked": {
+      "title": "アカウントの連携に成功しました！",
+      "body": "Discord アカウントが egdata.app に正常に連携されました",
+      "footer": "このウィンドウを閉じて Discord に戻れます。アカウントは egdata.app で使用する準備ができています"
+    },
+    "posts": {
+      "coverAlt": "LEGO Star Wars: The Skywalker Saga カバーアート",
+      "title": "LEGO® Star Wars™: The Skywalker Saga を Epic Games Store で無料で入手",
+      "freeGameBadge": "無料ゲーム",
+      "published": "2023年11月30日公開",
+      "intro": "カレンダーにマークを付けてください、Star Wars ファンの皆さん！{{dateRange}} の間、絶賛された {{game}} を Epic Games Store で無料で入手できます。通常 {{price}} のこのゲームでは、楽しい LEGO のひねりを加えて {{saga}} の象徴的な瞬間を追体験できます。",
+      "dateRange": "2024年12月5日～12月12日",
+      "game": "LEGO® Star Wars™: The Skywalker Saga",
+      "price": "$49.99",
+      "saga": "スカイウォーカー・サーガ",
+      "gameplayAlt": "LEGO Star Wars ゲームプレイ",
+      "charactersAlt": "LEGO Star Wars キャラクター",
+      "whatToExpect": "🧩 どんな内容？",
+      "whatToExpectBody": "{{developer}} 開発、{{publisher}} 発売のこのタイトルは、類を見ない包括的な Star Wars 体験を提供します。これが必読の理由です：",
+      "developer": "TT Games",
+      "publisher": "Warner Bros.",
+      "expectList": {
+        "allMovies": "🌌 {{strong}}：スカイウォーカー・サーガの全9作品のストーリーを、クラシックな LEGO ユーモアたっぷりに追体験。",
+        "allMoviesStrong": "全9作品",
+        "characters": "🛸 {{strong}}：はるか彼方の銀河系からお気に入りのヒーローとヴィランを操作。",
+        "charactersStrong": "300以上のプレイアブルキャラクター",
+        "vehicles": "🚀 {{strong}}：ミレニアム・ファルコンやTIEファイターなどの象徴的な船を操縦。",
+        "vehiclesStrong": "100以上の乗り物",
+        "planets": "🌍 {{strong}}：タトゥイーンからエンドアまで、おなじみの世界を旅しよう。",
+        "planetsStrong": "探索可能な23の惑星"
+      },
+      "specialTitle": "🌟 このゲームの特別な点は？",
+      "specialBody": "{{releaseDate}} のリリース以来、LEGO Star Wars: The Skywalker Saga は魅力的なゲームプレイと Star Wars 宇宙への忠実な適応で賞賛されています。Metacritic で {{metascore}} を獲得し、批評家とファンの両方が以下を強調しています：",
+      "releaseDate": "2022年4月",
+      "metascore": "Metascore 82",
+      "specialList": {
+        "combat": "🎮 {{strong}}：ライトセーバー戦、ブラスター戦、宇宙ドッグファイト。",
+        "combatStrong": "ダイナミックな戦闘",
+        "charm": "🏗️ {{strong}}：クラシックな Star Wars ユーモアを LEGO のユニークなスタイルで再構築。",
+        "charmStrong": "LEGO の魅力",
+        "replayability": "🤯 {{strong}}：たくさんの収集品、サイドミッション、隠された秘密。",
+        "replayabilityStrong": "リプレイ性"
+      },
+      "howToClaim": "🎁 入手方法は？",
+      "howToClaimBody": "無料コピーの入手は簡単です！",
+      "step1": "{{dec5}} から {{dec12}} の間に {{storeLink}} にアクセス。",
+      "storeLink": "Epic Games Store",
+      "dec5": "12月5日",
+      "dec12": "2024年12月12日",
+      "step2": "ゲームをライブラリに追加。",
+      "step3": "永久にあなたのものです！",
+      "cardTitle": "銀河を巡る LEGO 満載の旅に出るこのチャンスをお見逃しなく！",
+      "cardBody": "熱狂的な Star Wars ファンでも初心者でも、このゲームは誰にでも無限の楽しさを提供します。",
+      "footer": "フォース（と LEGO ブロック）があなたとともにありますように！🧱✨"
+    },
+    "fairUse": {
+      "meta": {
+        "title": "フェアユースポリシー - egdata.app",
+        "description": "egdata.app のフェアユースポリシー"
+      },
+      "title": "EGData アプリのフェアユースポリシー",
+      "section1Title": "1. はじめに",
+      "section1Body": "EGData アプリ（「当社」）へようこそ。このフェアユースポリシーは、当ウェブサイト {{siteLink}}（「サイト」）で提供されるコンテンツとデータを使用する条件を概説します。",
+      "section2Title": "2. フェアユースの目的",
+      "section2Body": "EGData アプリのコンテンツとデータは情報提供のみを目的として提供されます。当社の目標は、コミュニティによる教育および参考使用のために、Epic Games Store で利用可能なゲーム（またはゲーム関連データ）の包括的なデータベースを提供することです。",
+      "section3Title": "3. フェアユースの遵守",
+      "section3Body": "EGData アプリは、コンテンツ所有者の権利を侵害することなく一般に利益をもたらす方法で情報とデータを提供することにより、著作権法に基づくフェアユースの原則を遵守しています。当社の使用をフェアユースとして正当化する主な要因は次のとおりです：",
+      "section3List": {
+        "purpose": "使用の目的と性質：",
+        "purposeBody": "当ウェブサイトは非営利であり、Epic Games Store で利用可能なゲームについて一般の人々に教育・情報を提供することを目的としています。重要な情報、レビュー、更新を提供し、これらのゲームに関する一般の知識と評価を高めます。",
+        "nature": "著作権で保護された作品の性質：",
+        "natureBody": "当社が収集・提示するデータは、ゲームタイトル、リリース日、開発者、更新などの事実情報で構成されています。事実情報は著作権法による保護が創作作品よりも弱いものです。",
+        "amount": "量と実質性：",
+        "amountBody": "ユーザーに有意義で関連性のある情報を提供するために必要な量のデータのみを使用しています。作品全体を複製したり、オリジナル製品を代替する可能性のある広範な抜粋を提供したりすることはありません。",
+        "effect": "市場への影響：",
+        "effectBody": "ゲームデータの使用はオリジナルゲームの市場に悪影響を与えません。むしろ、最新情報を提供し、ユーザーのエンゲージメントと関心を高めることでゲームを促進します。"
+      },
+      "section4Title": "4. データ収集と更新",
+      "section4Body1": "当サイトは、提供する情報が最新かつ正確であることを保証するために、ゲームデータを自動的に追跡・更新します。この自動プロセスには、Epic Games Store やその他の信頼できるソースから公開情報を収集することが含まれます。",
+      "section4Body2": "データベースを最新に保つことで、ユーザーが新しいリリース、更新、可用性の変更など、お気に入りのゲームに関する最新情報にアクセスできるようにしています。",
+      "section4Body3": "グラフィカルアセットについては、Epic Games Store のサーバーから直接画像を読み込みます。当社のサーバーに画像を保存することはありません。",
+      "section5Title": "5. リークデータに関する免責事項",
+      "section5Body1": "当サイトにリークされたように見えるデータは、Epic Games Store が提供する公開情報から得られたものです。公開されていない機密データや専有データにアクセスすることはありません。したがって、パブリッシャーは Epic Games デベロッパーポータル内で今後の知的財産（IP）、ゲーム、ダウンロードコンテンツ（DLC）、その他の機密情報を保護する責任があります。",
+      "section5Body2": "パブリッシャーは機密情報が適切に保護され、誤って公開されないようにすることをお勧めします。EGData アプリは、公開されているソースから取得されたリーク情報について責任を負いません。",
+      "section5Body3": "EU におけるデータ保護とフェアユースの詳細については、以下のリソースを参照してください：",
+      "euDirective1": "デジタル単一市場における著作権および関連する権利に関する指令 (EU) 2019/790",
+      "euDirective2": "よくある質問 – 新しい EU 著作権ルール",
+      "section6Title": "6. お問い合わせ",
+      "section6Body": "このフェアユースポリシーについてご質問がある場合、またはサイト上のコンテンツやデータが著作権を侵害していると思われる場合は、こちらまでご連絡ください：",
+      "email": "メール："
+    },
+    "donateKey": {
+      "title": "キーを寄付",
+      "body": "プロジェクトに寄付したいキーをお持ちの場合は、以下のフォームにご記入ください。"
+    },
+    "androidBeta": {
+      "meta": {
+        "title": "Android ベータ - egdata.app",
+        "description": "egdata.app Android アプリのクローズドベータテストプログラムに参加"
+      },
+      "title": "Android ベータプログラム",
+      "description": "公開リリース前に egdata.app Android アプリケーションをテストするクローズドベータ版に参加。",
+      "whatHappensNext": "次のステップ：",
+      "steps": {
+        "signIn": "Google アカウントでサインイン",
+        "added": "数時間以内にクローズドテストトラックに手動で追加されます",
+        "download": "追加されると、提供されたリンクからアプリをダウンロードできます"
+      }
+    }
+  },
+  "components": {
+    "stats": {
+      "title": "統計",
+      "description": "プラットフォームに関する統計",
+      "offers": "オファー",
+      "offersTooltip": "オファーはストアから購入可能なアイテムです",
+      "items": "アイテム",
+      "itemsTooltip": "アイテムはランチャーのエンタイトルメントです",
+      "tags": "タグ",
+      "offersYear": "オファー (年間)",
+      "itemsYear": "アイテム (年間)",
+      "assets": "アセット",
+      "assetsTooltip": "アセットはゲームファイルです",
+      "regPrices": "通常価格",
+      "changes": "変更",
+      "sandboxes": "サンドボックス",
+      "sandboxesTooltip": "サンドボックスはオファーのグループです"
+    },
+    "sandboxShell": {
+      "overview": "概要",
+      "offers": "オファー",
+      "items": "アイテム",
+      "assets": "アセット",
+      "builds": "ビルド",
+      "achievements": "実績",
+      "changelog": "更新履歴",
+      "sandbox": "サンドボックス",
+      "internalNamespace": "内部 Namespace",
+      "storePage": "ストアページ",
+      "updated": "{{date}} 更新",
+      "unrealEngine": "Unreal Engine",
+      "internalSandbox": "内部サンドボックス",
+      "releaseStatus": {
+        "prePurchase": "予約購入",
+        "datePending": "日付未定",
+        "comingSoon": "近日公開",
+        "released": "リリース済み"
+      }
+    },
+    "comparison": {
+      "openCompareTray": "比較トレイを開く（{{count}} 件選択）",
+      "compareSelected": "選択したオファーを比較",
+      "error": "エラー",
+      "type": "タイプ",
+      "seller": "販売元",
+      "developer": "開発元",
+      "releaseDate": "リリース日",
+      "pcReleaseDate": "PC リリース日",
+      "genres": "ジャンル",
+      "platforms": "プラットフォーム",
+      "remove": "削除",
+      "current": "現在",
+      "lowest": "最安値",
+      "noPriceFound": "価格が見つかりません",
+      "noAgeRatingsFound": "年齢レーティングが見つかりません",
+      "achievements": "実績：",
+      "ageRating": "年齢レーティング：",
+      "price": "価格：",
+      "unknown": "不明"
+    },
+    "search": {
+      "sellers": "販売元",
+      "noResults": "結果が見つかりません",
+      "noResultsShort": "結果が見つかりません。",
+      "allOfferTypes": "すべてのオファータイプ",
+      "tags": "タグ"
+    },
+    "changelist": {
+      "title": "変更リスト",
+      "loading": "読み込み中...",
+      "error": "エラー：{{message}}",
+      "id": "ID",
+      "type": "タイプ",
+      "titleOrId": "タイトル/ID",
+      "date": "日付",
+      "new": "新規",
+      "update": "更新"
+    },
+    "upcoming": {
+      "caption": "今後のオファー",
+      "loading": "読み込み中...",
+      "title": "タイトル",
+      "price": "価格",
+      "releaseDate": "リリース日",
+      "unknown": "不明",
+      "prePurchase": "予約購入"
+    },
+    "giveaways": {
+      "title": "配布",
+      "free": "無料",
+      "freeNow": "今すぐ無料",
+      "startsIn": "開始まで",
+      "repeated": "繰り返し：",
+      "yes": "はい",
+      "no": "いいえ",
+      "repeatedTooltip": "このオファーは {{count}} 回配布されました。"
+    },
+    "giveawayStats": {
+      "title": "数字で見る配布",
+      "loading": "読み込み中...",
+      "totalValue": "合計価値",
+      "totalValueTooltip": "アクティブな割引を含む合計価値",
+      "giveaways": "配布数",
+      "giveawaysTooltip": "データベースに表示される配布の総数",
+      "offers": "オファー数",
+      "offersTooltip": "配布に登場したユニークなオファーの総数",
+      "repeated": "繰り返し",
+      "repeatedTooltip": "配布に複数回登場するユニークなオファーの数",
+      "sellers": "販売元",
+      "sellersTooltip": "オファーを提供するユニークな販売元の総数"
+    },
+    "offerCard": {
+      "openOffer": "オファー {{title}} を開く",
+      "free": "無料",
+      "comingSoon": "近日公開",
+      "earlyAccess": "アーリーアクセス",
+      "prePurchase": "予約購入",
+      "owned": "所有済み"
+    },
+    "baseGame": {
+      "checkBaseGame": "ベースゲームを確認",
+      "partOfBundle": "このオファーは次の一部です："
+    },
+    "notFound": {
+      "message": "お探しのページは存在しません。"
+    },
+    "sellerOffers": {
+      "error": "オファーの読み込みエラー。もう一度お試しください。",
+      "moreFrom": "{{name}} の他の作品"
+    },
+    "achievementsBlade": {
+      "noData": "データなし",
+      "game": "ゲーム",
+      "achievements": "実績",
+      "xp": "XP",
+      "bronze": "ブロンズ",
+      "silver": "シルバー",
+      "gold": "ゴールド",
+      "gamesWithAchievements": "Epic 実績対応ゲーム"
+    },
+    "topSection": {
+      "free": "無料",
+      "releaseDate": "リリース日：",
+      "tba": "未定",
+      "platforms": "プラットフォーム：",
+      "tags": "タグ：",
+      "checkOffer": "オファーを見る"
+    },
+    "featuredDiscounts": {
+      "free": "無料",
+      "title": "注目の割引",
+      "countMore": "+{{count}} 件",
+      "checkOffer": "オファーを見る",
+      "until": "まで"
+    },
+    "performanceTable": {
+      "title": "パフォーマンス",
+      "noPriorData": "以前のデータなし",
+      "cardsView": "カード表示",
+      "chartView": "チャート表示"
+    },
+    "priceChart": {
+      "selectValue": "値を選択",
+      "last3Months": "過去3ヶ月",
+      "fetchingData": "最新データを取得中"
+    },
+    "dateRangePicker": {
+      "from": "開始",
+      "to": "終了",
+      "maxRange": "最大範囲は30日間です",
+      "invalidRange": "無効な日付範囲"
+    },
+    "regionalPricing": {
+      "region": "地域",
+      "price": "価格"
+    },
+    "regionalPricingBadge": {
+      "analysis": "地域価格分析",
+      "currentPrice": "現在の価格",
+      "suggestedPrice": "推奨価格",
+      "belowSuggested": "この取引はそれよりもさらに低く、あらゆる面でお得です。",
+      "closeToSuggested": "この取引はそれに近く、一般的な {{region}} の価格を大幅に下回っています。"
+    },
+    "countrySelector": {
+      "searchCountries": "国を検索...",
+      "noCountries": "国が見つかりません"
+    },
+    "countriesSelector": {
+      "searchCountries": "国を検索...",
+      "noCountries": "国が見つかりません"
+    },
+    "querySearch": {
+      "searchItems": "アイテムを検索..."
+    },
+    "extendedSearch": {
+      "searchItems": "アイテムを検索...",
+      "noItems": "アイテムが見つかりません。"
+    },
+    "searchForm": {
+      "noResults": "結果が見つかりません",
+      "error": "エラー：{{message}}",
+      "loadingLong": "このクエリは通常より時間がかかっています..."
+    },
+    "searchFormV2": {
+      "noResults": "結果が見つかりません。"
+    },
+    "androidBetaBanner": {
+      "dismiss": "バナーを閉じる"
+    },
+    "videoPlayer": {
+      "title": "{{title}}"
+    },
+    "mediaSlider": {
+      "previousSlide": "前のスライド",
+      "nextSlide": "次のスライド",
+      "image": "画像 {{index}}",
+      "thumbnail": "サムネイル {{index}}",
+      "downloading": "ダウンロード中...",
+      "download": "ダウンロード"
+    },
+    "changelogItem": {
+      "action": "アクション",
+      "type": "タイプ",
+      "oldValue": "旧値",
+      "newValue": "新値",
+      "previousValue": "以前の値：",
+      "newValueLabel": "新しい値："
+    },
+    "changelogCharts": {
+      "byWeekday": "曜日別の変更",
+      "byWeekdayDesc": "曜日別の累積変更",
+      "typesOfChanges": "変更のタイプ",
+      "typesOfChangesDesc": "タイプ別の変更数",
+      "byField": "フィールド別の変更",
+      "byFieldDesc": "変更されたフィールドでグループ化された変更",
+      "dailyDesc": "過去1年間の日別変更を表示",
+      "noData": "表示できるデータがありません。"
+    },
+    "openEgl": {
+      "open": "開く"
+    },
+    "openEgs": {
+      "store": "ストア"
+    },
+    "openLauncher": {
+      "play": "プレイ"
+    },
+    "storeDropdown": {
+      "launcher": "ランチャー",
+      "viewStorePage": "ストアページを見る",
+      "webBrowser": "ウェブブラウザ"
+    },
+    "prepurchasePopup": {
+      "title": "{{title}}"
+    },
+    "apiKeyManager": {
+      "title": "API キー管理",
+      "label": "API キー",
+      "placeholder": {
+        "generated": "API キーを生成しました",
+        "none": "API キーが生成されていません"
+      },
+      "button": {
+        "regenerate": "キーを再生成",
+        "generate": "キーを生成",
+        "clear": "キーをクリア"
+      },
+      "notification": {
+        "generated": "新しい API キーを生成しました",
+        "generateFailed": "API キーの生成に失敗しました",
+        "copied": "API キーをクリップボードにコピーしました！",
+        "copyFailed": "API キーのコピーに失敗しました",
+        "noneToCopy": "コピーする API キーがありません",
+        "cleared": "API キーをクリアしました！",
+        "clearFailed": "API キーのクリアに失敗しました"
+      },
+      "description": "API キーはブラウザにローカル保存される UUID で、プッシュ通知リクエストの認証に使用されます。必要に応じて再生成ボタンを使用して新しいキーを作成できます。"
+    },
+    "cookieBanner": {
+      "title": "Cookie 通知",
+      "description": "このウェブサイトは、ブラウジング体験を向上させるために Cookie を使用しています。Cookie を受け入れることで、{{privacyPolicyLink}} に同意したことになります。",
+      "accept": "同意する",
+      "decline": "拒否する"
+    },
+    "searchHeader": {
+      "results": "{{count}} 件の結果",
+      "showingResultsFor": "結果を表示中："
+    },
+    "bundle": {
+      "collectionOffers": "コレクションオファー",
+      "bundleOffers": "バンドルオファー",
+      "offersCount": "- {{count}} オファー",
+      "bundlePriceTitle": "バンドル価格",
+      "totalValueLabel": "合計金額：",
+      "bundlePriceLabel": "バンドル価格：",
+      "youSave": "お得額：",
+      "youPayMore": "追加支払額：",
+      "buyBundle": "バンドルを購入",
+      "buyIndividually": "個別に購入"
+    },
+    "clientBanner": {
+      "heading": "{{appName}} ビルドデータベースを強化",
+      "subheading": "すべての Epic Games Store ビルドのマッピングに協力",
+      "description": "軽量の Windows & macOS クライアントが Epic Games Launcher のインストールをスキャンし、マニフェストファイル（チャンクリストとメタデータ）のみを安全にオープンデータベースにアップロードします。すべてのアップロードがコミュニティを豊かにし、経時的な変更の追跡に役立ちます。",
+      "cta": "Windows & macOS 向けダウンロード"
+    },
+    "collectionOffers": {
+      "title": "コレクションオファー"
+    },
+    "lastModifiedOffers": {
+      "title": "最終更新オファー"
+    },
+    "latestOffers": {
+      "title": "新着"
+    },
+    "latestReleased": {
+      "title": "最新リリース"
+    },
+    "mobileFreebies": {
+      "title": "モバイル無料ゲーム",
+      "collapse": "モバイル無料ゲームを折りたたむ",
+      "expand": "モバイル無料ゲームを展開"
+    },
+    "sectionHeader": {
+      "seeAll": "すべて見る"
+    },
+    "suggestedOffers": {
+      "title": "あなたへのおすすめ"
+    }
+  },
+  "table": {
+    "pagination": {
+      "rowsPerPage": "表示行数",
+      "pageOf": "{{page}} / {{total}} ページ",
+      "goToFirst": "最初のページへ",
+      "goToPrevious": "前のページへ",
+      "goToNext": "次のページへ",
+      "goToLast": "最後のページへ",
+      "previous": "前へ",
+      "next": "次へ",
+      "morePages": "その他のページ"
+    },
+    "toolbar": {
+      "platform": "プラットフォーム",
+      "status": "ステータス",
+      "type": "タイプ",
+      "platforms": "プラットフォーム",
+      "fileExtensions": "ファイル拡張子",
+      "filterOffers": "オファーをフィルター...",
+      "filterItems": "アイテムをフィルター...",
+      "filterFiles": "ファイルをフィルター...",
+      "reset": "リセット"
+    },
+    "viewOptions": {
+      "view": "表示",
+      "toggleColumns": "列の表示切替"
+    },
+    "facetedFilter": {
+      "noResults": "結果が見つかりません。",
+      "selected": "選択中",
+      "clearFilters": "フィルターをクリア"
+    },
+    "builds": {
+      "noResults": "結果がありません。",
+      "donateKey": "キーを寄付"
+    }
+  },
+  "forms": {
+    "review": {
+      "submitTitle": "レビューを投稿",
+      "editTitle": "レビューを編集",
+      "description": "{{title}} についての感想を共有",
+      "rating": "評価",
+      "ratingError": "評価は1から10の間でなければなりません",
+      "recommend": "この製品をおすすめしますか？",
+      "recommendError": "はいまたはいいえを選択してください",
+      "yes": "はい",
+      "no": "いいえ",
+      "title": "タイトル",
+      "titlePlaceholder": "レビューのタイトルを入力",
+      "titleRequired": "タイトルは必須です",
+      "titleMinLength": "タイトルは3文字以上である必要があります",
+      "titleMinLengthLong": "タイトルは3文字以上である必要があります",
+      "titleMaxLength": "タイトルは75文字未満である必要があります",
+      "reviewContent": "レビュー内容",
+      "contentMinLength": "内容は3文字以上である必要があります",
+      "tags": "タグ（カンマ区切り）",
+      "tagsPlaceholder": "例：品質、デザイン、パフォーマンス",
+      "previous": "前へ",
+      "next": "次へ",
+      "submit": "レビューを送信",
+      "deleteReview": "レビューを削除",
+      "confirmDelete": "このレビューを削除してもよろしいですか？",
+      "deleteDescription": "この操作は取り消せません。レビューはサーバーから完全に削除されます。",
+      "cancel": "キャンセル",
+      "delete": "削除",
+      "deleting": "削除中...",
+      "errorSubmitting": "レビューの送信エラー",
+      "errorDeleting": "レビューの削除エラー",
+      "spamDetected": "スパムが検出されました",
+      "defaultContent": "ここにレビューを入力してください",
+      "theProduct": "製品"
+    },
+    "androidBeta": {
+      "title": "ベータ版に参加",
+      "description": "Google でサインインしてクローズドベータ版に登録。メールアドレスのみ必要です。",
+      "spotsRemaining": "残り <strong>{{remaining}}</strong> / {{max}} 枠",
+      "betaFull": "ベータ版は満員です",
+      "betaFullDesc": "{{max}} 枠すべてが埋まりました。後日再度チェックするか、枠が追加されたときにフォローしてください。",
+      "registering": "ベータ版に登録中...",
+      "registered": "登録完了！",
+      "registeredDesc": "クローズドベータ版に <strong>{{email}}</strong> を登録しました。",
+      "registeredDesc2": "テスターリストに手動で追加されるまで数時間かかる場合があります。追加され次第、こちらからベータ版に参加できます：",
+      "joinBeta": "Google Play でベータ版に参加",
+      "alreadyRegistered": "登録済み",
+      "alreadyRegisteredDesc": "<strong>{{email}}</strong> はすでにベータ版に登録されています。",
+      "alreadyRegisteredDesc2": "すでにテスターリストに追加されている場合は、こちらからベータ版に参加できます：",
+      "error": "エラー",
+      "tryAgain": "再試行",
+      "noCredential": "Google から資格情報を受信しませんでした",
+      "somethingWrong": "エラーが発生しました。もう一度お試しください。",
+      "googleFailed": "Google サインインに失敗しました。もう一度お試しください。"
+    },
+    "donateKey": {
+      "donate": "寄付",
+      "error": "エラー",
+      "success": "成功",
+      "successDesc": "寄付ありがとうございます！アイテムは正常に引き換えられ、データはまもなく利用可能になります。",
+      "offerPage": "オファーページ",
+      "somethingWrong": "エラーが発生しました。もう一度お試しください。"
+    }
+  },
+  "ui": {
+    "dialog": {
+      "close": "閉じる"
+    },
+    "sheet": {
+      "close": "閉じる"
+    },
+    "carousel": {
+      "previous": "前のスライド",
+      "next": "次のスライド"
+    },
+    "pagination": {
+      "previous": "前へ",
+      "next": "次へ",
+      "morePages": "その他のページ"
+    },
+    "priceRangeSlider": {
+      "priceRange": "価格帯",
+      "minPrice": "最低価格",
+      "maxPrice": "最高価格"
+    }
+  }
+}

@@ -7,6 +7,8 @@ import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { AlertCircle, AppleIcon, CheckCircleIcon, DownloadIcon, File } from "lucide-react";
 import { FaLinux, FaWindows } from "react-icons/fa6";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 type ReleaseAsset = {
   id: number;
@@ -48,7 +50,7 @@ const getAssetInfo = (assetName: string): AssetInfo => {
         platform: "macOS",
         variant: "Apple Silicon",
         icon: <AppleIcon className="h-6 w-6 text-muted-foreground" />,
-        description: "For newer Mac computers with Apple chips (M1, M2, M3, etc.).",
+        description: i18n.t("misc.downloads.assetInfo.appleSilicon"),
       };
     }
     if (
@@ -60,14 +62,14 @@ const getAssetInfo = (assetName: string): AssetInfo => {
         platform: "macOS",
         variant: "Intel",
         icon: <AppleIcon className="h-6 w-6 text-muted-foreground" />,
-        description: "For older Mac computers with Intel processors.",
+        description: i18n.t("misc.downloads.assetInfo.intel"),
       };
     }
     return {
       platform: "macOS",
       variant: "Universal",
       icon: <AppleIcon className="h-6 w-6 text-muted-foreground" />,
-      description: "Compatible with both Apple Silicon and Intel Macs.",
+      description: i18n.t("misc.downloads.assetInfo.universal"),
     };
   }
 
@@ -77,7 +79,7 @@ const getAssetInfo = (assetName: string): AssetInfo => {
       platform: "Windows",
       variant: ".msi Installer",
       icon: <FaWindows className="h-6 w-6 text-muted-foreground" />,
-      description: "A standard installer wizard. Recommended for most users.",
+      description: i18n.t("misc.downloads.assetInfo.msi"),
     };
   }
   if (lowerCaseName.endsWith(".exe")) {
@@ -85,7 +87,7 @@ const getAssetInfo = (assetName: string): AssetInfo => {
       platform: "Windows",
       variant: ".exe Installer",
       icon: <FaWindows className="h-6 w-6 text-muted-foreground" />,
-      description: "A standalone application file. May not require installation.",
+      description: i18n.t("misc.downloads.assetInfo.exe"),
     };
   }
 
@@ -100,7 +102,7 @@ const getAssetInfo = (assetName: string): AssetInfo => {
       platform: "Linux",
       variant: "Generic",
       icon: <FaLinux className="h-6 w-6 text-muted-foreground" />,
-      description: "For Linux-based operating systems.",
+      description: i18n.t("misc.downloads.assetInfo.linux"),
     };
   }
 
@@ -108,7 +110,7 @@ const getAssetInfo = (assetName: string): AssetInfo => {
     platform: "Other",
     variant: "File",
     icon: <File className="h-6 w-6 text-muted-foreground" />,
-    description: "A generic file or source code.",
+    description: i18n.t("misc.downloads.assetInfo.generic"),
   };
 };
 
@@ -165,6 +167,7 @@ export const Route = createFileRoute("/downloads")({
 });
 
 function RouteComponent() {
+  const { t } = useTranslation();
   const detectedOS = useOSDetection();
   const {
     data,
@@ -176,11 +179,19 @@ function RouteComponent() {
   });
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return (
+      <div>
+        {t("misc.downloads.errorPrefix")} {error.message}
+      </div>
+    );
   }
 
   if (data && "error" in data) {
-    return <div>Error: {data.error}</div>;
+    return (
+      <div>
+        {t("misc.downloads.errorPrefix")} {data.error}
+      </div>
+    );
   }
 
   const formatBytes = (bytes: number, decimals = 2) => {
@@ -212,11 +223,10 @@ function RouteComponent() {
         <CardHeader>
           <div className="flex items-center gap-3 mb-2">
             <GithubIcon className="w-8 h-8 text-muted-foreground" />
-            <CardTitle className="text-2xl text-foreground">egdata.app Client Releases</CardTitle>
+            <CardTitle className="text-2xl text-foreground">{t("misc.downloads.title")}</CardTitle>
           </div>
           <CardDescription className="text-muted-foreground">
-            Download the latest version. We've highlighted the recommended section for your
-            operating system.
+            {t("misc.downloads.description")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -268,8 +278,10 @@ function RouteComponent() {
                         {release.name || release.tag_name}
                       </CardTitle>
                       <CardDescription className="text-muted-foreground">
-                        Version {release.tag_name} - Published on{" "}
-                        {new Date(release.published_at).toLocaleDateString()}
+                        {t("misc.downloads.versionPublished", {
+                          version: release.tag_name,
+                          date: new Date(release.published_at).toLocaleDateString(),
+                        })}
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
@@ -305,7 +317,9 @@ function RouteComponent() {
                           >
                             <h3 className="font-semibold text-lg mb-3 flex items-center gap-2.5 text-muted-foreground">
                               {platformGroup.icon}
-                              <span>{platformGroup.platform} Downloads</span>
+                              <span>
+                                {platformGroup.platform} {t("misc.downloads.downloadsSuffix")}
+                              </span>
                             </h3>
                             <div className="space-y-4 pl-2 border-l-2 border-border/50 ml-3">
                               {sortedVariants.map((variantGroup) => {
@@ -329,7 +343,7 @@ function RouteComponent() {
                                       {recommended && (
                                         <span className="flex items-center gap-1.5 text-xs font-medium bg-sky-500/10 text-sky-400 px-2 py-1 rounded-full">
                                           <CheckCircleIcon className="h-3.5 w-3.5" />
-                                          Recommended
+                                          {t("misc.downloads.recommended")}
                                         </span>
                                       )}
                                     </h4>
@@ -372,7 +386,7 @@ function RouteComponent() {
           )}
           {!loading && !error && data && data.length === 0 && (
             <div className="text-center p-10 text-muted-foreground">
-              <p>No public releases found.</p>
+              <p>{t("misc.downloads.noPublicReleases")}</p>
             </div>
           )}
         </CardContent>

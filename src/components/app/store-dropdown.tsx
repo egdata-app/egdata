@@ -10,6 +10,7 @@ import { EpicGamesIcon } from "../icons/epic";
 import { EGSIcon } from "../icons/egs";
 import consola from "consola";
 import { FabIcon } from "../icons/fab";
+import { useTranslation } from "react-i18next";
 
 function trackEvent(offer: SingleOffer) {
   try {
@@ -23,11 +24,14 @@ function trackEvent(offer: SingleOffer) {
 }
 
 export function StoreDropdown({ offer }: { offer: SingleOffer }) {
+  const { t } = useTranslation();
   return (
     <div className="w-[200px]">
       <DropdownMenu>
         <DropdownMenuTrigger className="flex w-full items-center justify-between rounded-lg bg-card px-4 py-2 text-sm font-medium text-foreground hover:bg-muted">
-          <span className="flex items-center gap-2">View Store Page</span>
+          <span className="flex items-center gap-2">
+            {t("components.storeDropdown.viewStorePage")}
+          </span>
           <ChevronDown className="h-4 w-4" />
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-[200px] bg-card text-foreground">
@@ -45,6 +49,7 @@ export function StoreDropdown({ offer }: { offer: SingleOffer }) {
 }
 
 function OpenEgl({ offer }: { offer: SingleOffer }) {
+  const { t } = useTranslation();
   const urlType: "product" | "url" = offer.offerType === "BASE_GAME" ? "product" : "url";
   const isBundle = offer.offerType === "BUNDLE";
   const namespace = isBundle ? "bundles" : "product";
@@ -72,13 +77,14 @@ function OpenEgl({ offer }: { offer: SingleOffer }) {
     >
       <div className="flex items-center justify-center gap-2">
         <EpicGamesIcon className="size-5" />
-        <span className="font-semibold">Launcher</span>
+        <span className="font-semibold">{t("components.storeDropdown.launcher")}</span>
       </div>
     </DropdownMenuItem>
   );
 }
 
 function OpenEgs({ offer }: { offer: SingleOffer }) {
+  const { t } = useTranslation();
   const urlType: "product" | "url" = offer.offerType === "BASE_GAME" ? "product" : "url";
   const isBundle = offer.offerType === "BUNDLE";
   const namespace = isBundle ? "bundles" : "product";
@@ -108,7 +114,7 @@ function OpenEgs({ offer }: { offer: SingleOffer }) {
       >
         <div className="flex items-center justify-center gap-2">
           <EGSIcon className="size-6 w-[20px]" />
-          <span className="font-semibold">Web Browser</span>
+          <span className="font-semibold">{t("components.storeDropdown.webBrowser")}</span>
         </div>
       </a>
     </DropdownMenuItem>
@@ -116,6 +122,7 @@ function OpenEgs({ offer }: { offer: SingleOffer }) {
 }
 
 function OpenFabWeb({ offer }: { offer: SingleOffer }) {
+  const { t } = useTranslation();
   const id = offer.customAttributes?.FabListingId?.value;
   if (!id) {
     return null;
@@ -126,7 +133,7 @@ function OpenFabWeb({ offer }: { offer: SingleOffer }) {
       <a href={`https://www.fab.com/listings/${id}`} target="_blank" rel="noopener noreferrer">
         <div className="flex items-center justify-center gap-2">
           <FabIcon className="size-6 w-[20px]" />
-          <span className="font-semibold">Web Browser</span>
+          <span className="font-semibold">{t("components.storeDropdown.webBrowser")}</span>
         </div>
       </a>
     </DropdownMenuItem>

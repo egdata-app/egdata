@@ -18,6 +18,8 @@ import {
 } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Clock, Trophy } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 export const Route = createFileRoute("/franchises/$id/")({
   component: () => {
@@ -75,8 +77,8 @@ export const Route = createFileRoute("/franchises/$id/")({
       return {
         meta: [
           {
-            title: "Franchise not found",
-            description: "Franchise not found",
+            title: i18n.t("franchises.meta.notFoundTitle"),
+            description: i18n.t("franchises.meta.notFoundDescription"),
           },
         ],
       };
@@ -95,8 +97,8 @@ export const Route = createFileRoute("/franchises/$id/")({
       return {
         meta: [
           {
-            title: "Franchise not found",
-            description: "Franchise not found",
+            title: i18n.t("franchises.meta.notFoundTitle"),
+            description: i18n.t("franchises.meta.notFoundDescription"),
           },
         ],
       };
@@ -105,27 +107,27 @@ export const Route = createFileRoute("/franchises/$id/")({
     return {
       meta: [
         {
-          title: `${franchise.name} Franchise | egdata.app`,
+          title: i18n.t("franchises.meta.title", { name: franchise.name }),
         },
         {
           name: "description",
-          content: `Browse all games in the ${franchise.name} franchise on the Epic Games Store.`,
+          content: i18n.t("franchises.meta.description", { name: franchise.name }),
         },
         {
           name: "og:title",
-          content: `${franchise.name} Franchise | egdata.app`,
+          content: i18n.t("franchises.meta.title", { name: franchise.name }),
         },
         {
           name: "og:description",
-          content: `Browse all games in the ${franchise.name} franchise on the Epic Games Store.`,
+          content: i18n.t("franchises.meta.description", { name: franchise.name }),
         },
         {
           property: "twitter:title",
-          content: `${franchise.name} Franchise | egdata.app`,
+          content: i18n.t("franchises.meta.title", { name: franchise.name }),
         },
         {
           property: "twitter:description",
-          content: `Browse all games in the ${franchise.name} franchise on the Epic Games Store.`,
+          content: i18n.t("franchises.meta.description", { name: franchise.name }),
         },
       ],
     };
@@ -139,6 +141,7 @@ function formatTime(seconds: number) {
 }
 
 function FranchisePage() {
+  const { t } = useTranslation();
   const { id } = Route.useParams();
   const { country } = useCountry();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery({
@@ -164,7 +167,7 @@ function FranchisePage() {
       <main className="container mx-auto flex flex-col items-center justify-center gap-4 min-h-screen">
         <div className="relative h-96 overflow-hidden rounded-2xl flex items-center bg-cover bg-center w-full">
           <div className="h-full w-full flex flex-col justify-center items-start text-foreground p-8 bg-gradient-to-r from-black/80 to-black/30">
-            <span className="text-5xl font-bold">Loading...</span>
+            <span className="text-5xl font-bold">{t("franchises.loading")}</span>
           </div>
         </div>
       </main>
@@ -174,16 +177,14 @@ function FranchisePage() {
   const pages = data?.pages?.filter(Boolean) ?? [];
   const franchise = pages[0];
   const stats = franchise?.stats;
-  const allOffers = pages.flatMap((page) =>
-    Array.isArray(page.elements) ? page.elements : [],
-  );
+  const allOffers = pages.flatMap((page) => (Array.isArray(page.elements) ? page.elements : []));
 
   return (
     <main className="flex flex-col items-start justify-start h-full gap-6 px-4 w-full">
       <div className="flex flex-col gap-2">
         <h1 className="text-4xl font-semibold">{franchise?.name}</h1>
         <span className="text-muted-foreground">
-          {franchise?.total} {franchise?.total === 1 ? "game" : "games"}
+          {t("franchises.gamesCount", { count: franchise?.total ?? 0 })}
         </span>
       </div>
 
@@ -193,7 +194,7 @@ function FranchisePage() {
             <div className="flex items-center gap-2 bg-card rounded-lg px-4 py-3">
               <Clock className="h-5 w-5 text-muted-foreground" />
               <div className="flex flex-col">
-                <span className="text-xs text-muted-foreground">Time to beat</span>
+                <span className="text-xs text-muted-foreground">{t("franchises.timeToBeat")}</span>
                 <span className="text-sm font-medium">
                   {formatTime(stats.totalTimeHastily)} - {formatTime(stats.totalTimeCompletely)}
                 </span>
@@ -204,7 +205,9 @@ function FranchisePage() {
             <div className="flex items-center gap-2 bg-card rounded-lg px-4 py-3">
               <Trophy className="h-5 w-5 text-muted-foreground" />
               <div className="flex flex-col">
-                <span className="text-xs text-muted-foreground">Achievements</span>
+                <span className="text-xs text-muted-foreground">
+                  {t("franchises.achievements")}
+                </span>
                 <span className="text-sm font-medium">
                   {stats.totalAchievements} ({stats.totalXp} XP)
                 </span>
@@ -249,10 +252,10 @@ function FranchisePage() {
                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                   />
                 </svg>
-                Loading...
+                {t("franchises.loading")}
               </>
             ) : (
-              "Load more"
+              t("franchises.loadMore")
             )}
           </Button>
         </div>
@@ -262,6 +265,7 @@ function FranchisePage() {
 }
 
 function FranchiseOfferCard({ offer }: { offer: SingleOffer }) {
+  const { t } = useTranslation();
   const { locale } = useLocale();
   const fmt = Intl.NumberFormat(locale, {
     style: "currency",
@@ -312,7 +316,7 @@ function FranchiseOfferCard({ offer }: { offer: SingleOffer }) {
                 )}
                 <span className={cn("text-sm font-semibold", hasDiscount && "text-badge")}>
                   {isFree
-                    ? "Free"
+                    ? t("franchises.free")
                     : fmt.format(
                         calculatePrice(
                           offer.price.price.discountPrice,

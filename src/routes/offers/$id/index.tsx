@@ -1,5 +1,6 @@
 import type * as React from "react";
 import { useMemo, useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Card, CardContent } from "@/components/ui/card";
 import { keepPreviousData, useQueries, useQuery } from "@tanstack/react-query";
@@ -106,6 +107,7 @@ export const Route = createFileRoute("/offers/$id/")({
 });
 
 function RouteComponent() {
+  const { t } = useTranslation();
   const { defaultCollection } = Route.useLoaderData();
   const { timezone } = useLocale();
   const { id } = Route.useParams();
@@ -252,7 +254,7 @@ function RouteComponent() {
       )}
       <div className="grid gap-8 grid-cols-1 md:grid-cols-2 mt-4 w-full">
         <OverviewColumn>
-          <OverviewSection title="Genres">
+          <OverviewSection title={t("offerDetail.overview.genres")}>
             <Card className="w-full">
               <CardContent className="p-6">
                 <div className="flex flex-row items-center justify-center gap-4">
@@ -272,7 +274,7 @@ function RouteComponent() {
               </CardContent>
             </Card>
           </OverviewSection>
-          <OverviewSection title="Age Rating">
+          <OverviewSection title={t("offerDetail.overview.ageRating")}>
             <Card className="w-full">
               <CardContent className="p-6">
                 <div className="flex flex-row items-center justify-center gap-4">
@@ -303,16 +305,20 @@ function RouteComponent() {
                       </div>
                     </div>
                   ))}
-                  {!ageRating && <div className="text-center">No age ratings found</div>}
+                  {!ageRating && (
+                    <div className="text-center">{t("offerDetail.overview.noAgeRatings")}</div>
+                  )}
                 </div>
               </CardContent>
             </Card>
           </OverviewSection>
-          <OverviewSection title="Giveaways">
+          <OverviewSection title={t("offerDetail.overview.giveaways")}>
             <Card className="w-full">
               <CardContent className="p-9">
                 <div className="flex flex-row items-center justify-center gap-4">
-                  {giveaways?.length === 0 && <div className="text-center">No giveaways found</div>}
+                  {giveaways?.length === 0 && (
+                    <div className="text-center">{t("offerDetail.overview.noGiveaways")}</div>
+                  )}
                   {giveaways?.map((giveaway) => (
                     <div key={giveaway._id} className="flex flex-row gap-2">
                       <span>
@@ -342,7 +348,7 @@ function RouteComponent() {
               </CardContent>
             </Card>
           </OverviewSection>
-          <OverviewSection title="Achievements">
+          <OverviewSection title={t("offerDetail.overview.achievements")}>
             <Card className="w-full bg-card text-card-foreground p-4">
               <div className="flex flex-col gap-4 w-full">
                 <div className="flex flex-row items-center justify-center gap-10">
@@ -402,7 +408,7 @@ function RouteComponent() {
           </OverviewSection>
           {timeToBeat && (
             <OverviewSection
-              title="IGDB Time To Beat"
+              title={t("offerDetail.overview.igdbTimeToBeat")}
               href={`https://www.igdb.com/games/${igdb?.slug}?utm_source=egdata.app`}
             >
               <Card className="w-full">
@@ -415,24 +421,29 @@ function RouteComponent() {
                             timeToBeat.hastily ?? timeToBeat.hurriedly ?? 0,
                           )}
                         </span>
-                        <span className="text-sm text-muted-foreground">Hastily</span>
+                        <span className="text-sm text-muted-foreground">
+                          {t("offerDetail.overview.hastily")}
+                        </span>
                       </div>
                       <div className="flex flex-col items-center justify-center gap-2">
                         <span className="text-4xl font-extrabold">
                           {formatTimeToHumanReadable(timeToBeat.normally ?? 0)}
                         </span>
-                        <span className="text-sm text-muted-foreground">Normally</span>
+                        <span className="text-sm text-muted-foreground">
+                          {t("offerDetail.overview.normally")}
+                        </span>
                       </div>
                       <div className="flex flex-col items-center justify-center gap-2">
                         <span className="text-4xl font-extrabold">
                           {formatTimeToHumanReadable(timeToBeat.completely ?? 0)}
                         </span>
-                        <span className="text-sm text-muted-foreground">Completely</span>
+                        <span className="text-sm text-muted-foreground">
+                          {t("offerDetail.overview.completely")}
+                        </span>
                       </div>
                     </div>
                     <span className="text-sm text-muted-foreground">
-                      Based on {timeToBeat.count}
-                      {timeToBeat.count === 1 ? " submission" : " submissions"}
+                      {t("offerDetail.overview.hltbSubmissions", { count: timeToBeat.count })}
                     </span>
                   </div>
                 </CardContent>
@@ -441,7 +452,7 @@ function RouteComponent() {
           )}
         </OverviewColumn>
         <OverviewColumn>
-          <OverviewSection title="Price">
+          <OverviewSection title={t("offerDetail.overview.price")}>
             <Card className="w-full bg-card text-card-foreground p-4">
               <CardContent className="p-6">
                 <div className="flex flex-col gap-4">
@@ -451,19 +462,21 @@ function RouteComponent() {
                     </div>
                   )}
                   <div className="flex items-start justify-start gap-2 flex-wrap">
-                    <span className="text-xl font-bold text-muted-foreground">Current:</span>
+                    <span className="text-xl font-bold text-muted-foreground">
+                      {t("offerDetail.overview.priceCurrent")}
+                    </span>
                     <PriceText price={price?.current} />
                     {priceFairness && <RegionalPricingBadge score={priceFairness} />}
                   </div>
                   <div className="flex items-start justify-start gap-2">
                     <span className="text-xl font-bold flex flex-row gap-1 items-center justify-start text-muted-foreground">
-                      Lowest:
+                      {t("offerDetail.overview.priceLowest")}
                     </span>
                     <PriceText price={price?.lowest} showDate />
                   </div>
                   <div className="flex items-start justify-start gap-2">
                     <span className="text-xl font-bold flex flex-row gap-1 items-center justify-start text-muted-foreground">
-                      Last Discount:
+                      {t("offerDetail.overview.priceLastDiscount")}
                     </span>
                     <PriceText price={price?.lastDiscount} showDate />
                   </div>
@@ -471,7 +484,7 @@ function RouteComponent() {
               </CardContent>
             </Card>
           </OverviewSection>
-          <OverviewSection title="How Long To Beat">
+          <OverviewSection title={t("offerDetail.overview.hltbTitle")}>
             <Card className="w-full">
               <CardContent className="p-6">
                 <div className="flex flex-row items-center justify-center gap-4">
@@ -489,14 +502,14 @@ function RouteComponent() {
                       </div>
                     ))}
                     {!hltb?.gameTimes.length && (
-                      <div className="text-center">No game times found</div>
+                      <div className="text-center">{t("offerDetail.overview.noGameTimes")}</div>
                     )}
                   </div>
                 </div>
               </CardContent>
             </Card>
           </OverviewSection>
-          <OverviewSection title="Epic Players Rating">
+          <OverviewSection title={t("offerDetail.overview.epicRating")}>
             <Card className="w-full">
               <CardContent className="p-6">
                 <div className="flex flex-col items-center justify-center gap-2">
@@ -510,7 +523,7 @@ function RouteComponent() {
           </OverviewSection>
           {igdb && (
             <OverviewSection
-              title="IGDB Rating"
+              title={t("offerDetail.overview.igdbRating")}
               href={`https://www.igdb.com/games/${igdb?.slug}?utm_source=egdata.app`}
             >
               <Card className="w-full">
@@ -521,8 +534,9 @@ function RouteComponent() {
                     </span>
                     <StarsRating rating={(igdb?.total_rating ?? 0) / 20} />
                     <span className="text-sm text-muted-foreground">
-                      {igdb?.total_rating_count}
-                      {igdb?.total_rating_count === 1 ? " review" : " reviews"}
+                      {t("offerDetail.overview.igdbReviews", {
+                        count: igdb?.total_rating_count ?? 0,
+                      })}
                     </span>
                   </div>
                 </CardContent>

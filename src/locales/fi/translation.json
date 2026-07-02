@@ -1,0 +1,1763 @@
+{
+  "common": {
+    "appName": "EGDATA",
+    "search": "Hae",
+    "searchPlaceholder": "Hae pelejä...",
+    "loading": "Ladataan...",
+    "free": "Ilmainen",
+    "notAvailable": "Ei saatavilla",
+    "cancel": "Peruuta",
+    "save": "Tallenna",
+    "close": "Sulje"
+  },
+  "nav": {
+    "toggleMenu": "Vaihda navigointivalikkoa",
+    "logoAlt": "EGDATA-logo",
+    "explore": "Tutki",
+    "browse": "Selaa",
+    "sales": "Alemukset",
+    "changelog": "Muutosloki",
+    "about": "Tietoa",
+    "rankings": "Sijoitukset",
+    "topSellers": "Myydyimmät",
+    "mostPlayed": "Pelatuimmat",
+    "topWishlisted": "Toivotuimmat",
+    "topNewReleases": "Parhaat uudet julkaisut",
+    "seeAllCollections": "Katso kaikki kokoelmat",
+    "others": "Muut",
+    "releaseStats": "Julkaisutilastot",
+    "genres": "Lajityypit",
+    "seeAllGenres": "Katso kaikki lajityypit",
+    "other": "Muu",
+    "action": "Toiminta",
+    "rpg": "RPG",
+    "indie": "Indie",
+    "strategy": "Strategia",
+    "topSellerOnEpic": "Myydyin Epic Games Storessa",
+    "searchItemTitle": "Hae",
+    "searchItemDesc": "Löydä etsimäsi Epic Games Storesta.",
+    "freeGamesItemTitle": "Ilmaiset pelit",
+    "freeGamesItemDesc": "Tutustu uusimpiin ilmaisiin peleihin Epic Games Storessa.",
+    "withDiscountsItemTitle": "Alemuksilla",
+    "withDiscountsItemDesc": "Katso parhaillaan alennuksessa olevia pelejä.",
+    "helloUser": "Hei, {{name}}!",
+    "dashboard": "Hallintapaneeli",
+    "logout": "Kirjaudu ulos",
+    "searchLanguages": "Hae kieliä...",
+    "noLanguagesFound": "Ei kieliä löytynyt"
+  },
+  "footer": {
+    "logoAlt": "EGDATA-logo",
+    "disclaimer": "Fanien tekemä Epic Games Store -tietokanta. Ei sidoksissa Epic Games, Inc:iin. Kaikki logot, kuvat ja tavaramerkit kuuluvat omistajilleen.",
+    "legal": "Lakiasiat",
+    "privacyPolicy": "Tietosuojakäytäntö",
+    "notifications": "Ilmoitukset",
+    "resources": "Resurssit",
+    "apiDocs": "API-dokumentaatio",
+    "changelog": "Muutosloki",
+    "community": "Yhteisö",
+    "flagsByFlagpedia": "Liput Flagpediasta",
+    "madeIn": "Tehty"
+  },
+  "meta": {
+    "title": "Epic Games -tietokanta - egdata.app",
+    "description": "Kattava Epic Games Store -tietokanta: pelitiedot, hinnat, myyntihistoria, tiedostolistaukset ja paljon muuta. Tutki ilmaisia pelejä, tulevia julkaisuja ja yhteisön oivalluksia.",
+    "twitterTitle": "Epic Games -tietokanta",
+    "twitterDescription": "Ilmainen ja avoimen lähdekoodin Epic Games Store -tietokanta kattavilla pelitiedoilla, myynnin seurannalla ja muulla. Yhteisön ylläpitämä ja jatkuvasti päivitetty.",
+    "twitterImageAlt": "Epic Games -tietokanta",
+    "ogTitle": "Epic Games -tietokanta",
+    "ogDescription": "Ilmainen ja avoimen lähdekoodin Epic Games Store -tietokanta kattavilla pelitiedoilla, myynnin seurannalla ja muulla. Yhteisön ylläpitämä ja jatkuvasti päivitetty.",
+    "ogImageAlt": "Epic Games -tietokanta"
+  },
+  "notFound": {
+    "title": "Sivua ei löydy"
+  },
+  "home": {
+    "statsBar": {
+      "offersTracked": "Seuratut tarjoukset",
+      "priceChanges72h": "Hinnanmuutokset / 72h",
+      "activeDiscounts": "Aktiiviset alennukset",
+      "giveawaysToDate": "Ilmaisjaot tähän mennessä"
+    },
+    "sections": {
+      "giveawayStats": "Ilmaisjakotilastot",
+      "giveawayOffers": "Ilmaistarjoukset",
+      "upcomingOffers": "Tulevat tarjoukset",
+      "latestOffers": "Viimeisimmät tarjoukset",
+      "latestReleased": "Viimeisimmät julkaisut",
+      "latestOffersWithAchievements": "Viimeisimmät tarjoukset saavutuksilla",
+      "topSellingOffers": "Myydyimmät tarjoukset",
+      "latestBuilds": "Viimeisimmät koontiversiot"
+    },
+    "tableHeaders": {
+      "hash": "#",
+      "pos": "Sij",
+      "dash": "-",
+      "title": "Otsikko",
+      "starts": "Alkaa",
+      "ends": "Päättyy",
+      "releaseDate": "Julkaisupäivä",
+      "createdAt": "Luotu",
+      "date": "Päiväys",
+      "price": "Hinta",
+      "size": "Koko",
+      "creationDate": "Luontipäivä"
+    },
+    "offerHover": {
+      "seller": "Myyjä:",
+      "developer": "Kehittäjä:",
+      "publisher": "Julkaisija:",
+      "releaseDate": "Julkaisupäivä:",
+      "ageRating": "Ikäraja:",
+      "moreGenres_one": "+{{count}} lisää",
+      "moreGenres_other": "+{{count}} lisää",
+      "communityRating": "Yhteisön arvio:",
+      "igdbScore": "IGDB-pisteet",
+      "reviews": "• {{count}} arvostelua",
+      "timeToBeat": "Läpäisyaika:",
+      "features": "Ominaisuudet:",
+      "moreFeatures": " +{{count}} lisää"
+    },
+    "buildHover": {
+      "unknownBuild": "Tuntematon koontiversio",
+      "unknownDeveloper": "Tuntematon kehittäjä",
+      "size": "Koko",
+      "version": "Versio",
+      "created": "Luotu",
+      "id": "Tunnus: {{id}}"
+    },
+    "multipleOffers": "{{title}} - Useita tarjouksia",
+    "hero": {
+      "subtitle": "Seuraa hintoja, löydä tarjouksia ja älä koskaan missaa ilmaista peliä. Kumppanisi Epic Games Store -tietokantaan — tarjoukset, alennukset, ilmaisjaot, koontiversiot ja paljon muuta.",
+      "searchPlaceholder": "Hae tietokannasta…",
+      "justReleased": "Juuri julkaistu",
+      "priceDrops72h": "Hinnanlaskut (72h)",
+      "hasAchievements": "Saavutuksia",
+      "upcoming": "Tulevat",
+      "topSellers": "Myydyimmät"
+    },
+    "pulse": {
+      "recentActivity": "Viimeisin toiminta",
+      "badge": {
+        "new": "Uusi",
+        "gone": "Poistettu",
+        "offer": "Tarjous",
+        "build": "Koontiversio",
+        "item": "Kohde",
+        "asset": "Resurssi",
+        "xp": "XP",
+        "sandbox": "Hiekkalaatikko",
+        "change": "Muutos"
+      },
+      "title": {
+        "buildVersion": "Koontiversio {{version}}",
+        "buildId": "Koontiversio {{id}}",
+        "achievementsId": "Saavutukset {{id}}"
+      },
+      "detail": {
+        "newBuildIndexed": "Uusi koontiversio indeksoitu",
+        "buildManifestRefreshed": "Koontiversion manifesti päivitetty",
+        "achievementChanges_one": "{{count}} saavutus {{entry}} {{verb}}",
+        "achievementChanges_other": "{{count}} saavutusta {{entry}} {{verb}}",
+        "offerMetadataRefreshed": "Tarjouksen metatiedot päivitetty",
+        "fieldsChanged_one": "{{count}} kenttä {{verb}}",
+        "fieldsChanged_other": "{{count}} kenttää {{verb}}",
+        "fieldChanged": "{{field}} {{verb}}"
+      },
+      "actionVerb": {
+        "added": "lisätty",
+        "removed": "poistettu",
+        "updated": "päivitetty",
+        "changed": "muutettu"
+      },
+      "entry_one": "merkintä",
+      "entry_other": "merkintää"
+    }
+  },
+  "offerDetail": {
+    "common": {
+      "offerNotFound": "Tarjousta ei löydy",
+      "notAvailable": "Ei saatavilla",
+      "na": "E/O",
+      "loading": "Ladataan...",
+      "somethingWentWrong": "Jokin meni pieleen",
+      "noChangesFound": "Tälle tarjoukselle ei löytynyt muutoksia"
+    },
+    "tabs": {
+      "overview": "Yleiskatsaus",
+      "price": "Hinta",
+      "items": "Kohteet",
+      "builds": "Koontiversiot",
+      "achievements": "Saavutukset",
+      "related": "Liittyvät",
+      "metadata": "Metatiedot",
+      "changelog": "Muutosloki",
+      "media": "Media",
+      "reviews": "Arvostelut"
+    },
+    "table": {
+      "offerId": "Tarjouksen tunnus",
+      "namespace": "Namespace",
+      "offerType": "Tarjouksen tyyppi",
+      "seller": "Myyjä",
+      "developer": "Kehittäjä",
+      "supportedPlatforms": "Tuetut alustat",
+      "releaseDate": "Julkaisupäivä",
+      "lastUpdate": "Viimeisin päivitys",
+      "creationDate": "Luontipäivä",
+      "technologies": "Teknologiat",
+      "type": "Tyyppi",
+      "value": "Arvo",
+      "countriesBlacklist": "Maidensisältölista",
+      "countriesWhitelist": "Maasallintalista",
+      "categories": "Kategoriat",
+      "refundType": "Hyvitystyyppi",
+      "tags": "Tagit",
+      "ageRatings": "Ikärajat",
+      "assets": "Resurssit"
+    },
+    "badges": {
+      "prePurchase": "Ennakko-osto",
+      "earlyAccess": "Early Access"
+    },
+    "hero": {
+      "offeredBy": "Tarjoaa {{seller}}"
+    },
+    "tooltip": {
+      "internalNamespace": "Epic Gamesin sisäinen namespace",
+      "techDescription": "teknologialista pelitiedostojen käyttämien moottorien ja eri teknologioiden seurantaan.",
+      "techSource": "Käytämme",
+      "techSourceSteamDb": "SteamDB:tä",
+      "source": "Lähde"
+    },
+    "actions": {
+      "compare": "Vertaile"
+    },
+    "releaseDate": {
+      "releasedOnPc": "Julkaistu PC:lle",
+      "theEgs": " EGS:ään",
+      "releasedSameDay": "Julkaistu Epicissä samana päivänä kuin PC:lle"
+    },
+    "notifications": {
+      "title": "Ilmoitusasetukset",
+      "description": "Valitse, mitä ilmoituksia haluat saada tästä tarjouksesta.",
+      "all": "Kaikki",
+      "price": "Hinta",
+      "achievements": "Saavutukset",
+      "builds": "Koontiversiot",
+      "items": "Kohteet",
+      "requirements": "Vaatimukset",
+      "metadata": "Metatiedot",
+      "media": "Media",
+      "enablePushDescription": "Sinun on otettava push-ilmoitukset käyttöön saadaksesi ilmoituksia tästä tarjouksesta.",
+      "enablePushAction": "Ota push-ilmoitukset käyttöön"
+    },
+    "overview": {
+      "genres": "Lajityypit",
+      "ageRating": "Ikäraja",
+      "noAgeRatings": "Ikärajoja ei löytynyt",
+      "giveaways": "Ilmaisjaot",
+      "noGiveaways": "Ilmaisjakoja ei löytynyt",
+      "achievements": "Saavutukset",
+      "igdbTimeToBeat": "IGDB Läpäisyaika",
+      "hastily": "Nopeasti",
+      "normally": "Normaalisti",
+      "completely": "Täysin",
+      "hltbSubmissions_one": "Perustuu {{count}} lähetykseen",
+      "hltbSubmissions_other": "Perustuu {{count}} lähetykseen",
+      "price": "Hinta",
+      "priceCurrent": "Nykyinen:",
+      "priceLowest": "Alin:",
+      "priceLastDiscount": "Viimeisin alennus:",
+      "hltbTitle": "Kuinka kauan läpäistä",
+      "noGameTimes": "Pelille ei löytynyt läpäisyaikoja",
+      "epicRating": "Epic-pelaajien arvio",
+      "epicRatingDescription": "Kerätty pelaajilta Epic Games -ekosysteemissä",
+      "igdbRating": "IGDB-arvio",
+      "igdbReviews_one": "{{count}} arvostelu",
+      "igdbReviews_other": "{{count}} arvostelua"
+    },
+    "achievements": {
+      "title": "Saavutukset",
+      "sortBy": "Järjestä",
+      "defaultSort": "Oletusjärjestys",
+      "sortByRarity": "Järjestä harvinaisuuden mukaan",
+      "sortByCompleted": "Järjestä suoritusprosentin mukaan",
+      "search": "Hae",
+      "flipAll": "Käännä kaikki",
+      "noAchievements": "Saavutuksia ei löytynyt",
+      "noAchievementsSet": "Tälle sarjalle ei löytynyt saavutuksia.",
+      "noAchievementsSetDescription": "Tämä voi tarkoittaa, että saavutukset eivät ole tällä hetkellä saatavilla, mutta ne lisätään tulevaisuudessa.",
+      "baseGame": "Peruspeli",
+      "dlc": "DLC",
+      "achievementsLabel": "Saavutukset",
+      "baseGameDescription": "Tämä saavutuslista koskee peruspeliä.",
+      "dlcDescription": "Tämä saavutuslista koskee yhtä DLC:stä.",
+      "lastUpdated": "Viimeksi päivitetty:",
+      "lastUpdatedTooltip": "Tämä saavutussarja päivitettiin viimeksi {{date}}.",
+      "lastUpdatedTooltipDescription": "Tämä on joko sen luontipäivä tai viimeisimmän päivityksen päivä."
+    },
+    "builds": {
+      "title": "Koontiversiot"
+    },
+    "items": {
+      "title": "Kohteet"
+    },
+    "price": {
+      "title": "Hinta"
+    },
+    "related": {
+      "title": "Liittyvät tarjoukset"
+    },
+    "media": {
+      "images": "Kuvat",
+      "videos": "Videot",
+      "covers": "Kannet",
+      "noImages": "Kuvia ei löytynyt",
+      "noVideos": "Videoita ei löytynyt",
+      "noCovers": "Kansia ei löytynyt",
+      "download": "Lataa",
+      "close": "Sulje",
+      "downloadCoverAria": "Lataa {{type}}-kansi"
+    },
+    "metadata": {
+      "title": "Metatiedot",
+      "download": "Lataus:",
+      "install": "Asennus:"
+    },
+    "changelog": {
+      "title": "Muutosloki",
+      "tooltip": "Tämä lista näyttää tähän tarjoukseen tai liittyviin kohteisiin, resursseihin tai koontiversioihin tehdyt muutokset.",
+      "sandboxChangelog": "hiekkalaatikon muutosloki",
+      "sandboxChangelogPrefix": "Voit nähdä koko tuotteen muutoslokin",
+      "noChangelog": "Muutoslokia ei saatavilla",
+      "allTypes": "Kaikki tyypit",
+      "selectField": "Valitse kenttä",
+      "allFields": "Kaikki kentät",
+      "search": "Hae",
+      "previous": "Edellinen",
+      "next": "Seuraava",
+      "pageOf": "Sivu {{page}} / {{totalPages}}",
+      "typeUpdate": "Päivitys",
+      "typeDelete": "Poisto",
+      "typeInsert": "Lisäys"
+    },
+    "reviews": {
+      "epicRating": "Epic-pelaajien arvio",
+      "epicRatingDescription": "Kerätty pelaajilta Epic Games -ekosysteemissä",
+      "egdataRating": "EGDATA-arvio",
+      "overallScore": "Kokonaispisteet",
+      "scoreOutOf10": "{{score}} / 10",
+      "basedOnReviews": "Perustuu {{count}} arvosteluun",
+      "allReviews": "Kaikki arvostelut",
+      "onlyVerified": "Vain vahvistetut",
+      "notVerified": "Ei vahvistetut",
+      "leaveReview": "Jätä arvostelu",
+      "alreadyReviewed": "Arvosteltu jo",
+      "loginToReview": "Kirjaudu sisään arvostellaksesi",
+      "noReviews": "Ei vielä arvosteluja",
+      "notReleased": "Tätä tuotetta ei ole vielä julkaistu",
+      "beFirst": "Ole ensimmäinen, joka jättää arvostelun tästä tuotteesta!",
+      "checkBack": "Palaa julkaisupäivän jälkeen jättääksesi arvostelun!",
+      "verifiedOwner": "Vahvistettu omistaja",
+      "recommended": "Suositeltu",
+      "notRecommended": "Ei suositeltu",
+      "readMore": "Lue lisää",
+      "reviewedOn": "Arvosteltu",
+      "lastUpdatedOn": "Viimeksi päivitetty",
+      "editedTimes": "Muokattu {{count}} kertaa",
+      "edit": "Muokkaa",
+      "close": "Sulje",
+      "reviewCount_one": "{{count}} arvostelu",
+      "reviewCount_other": "{{count}} arvostelua",
+      "ownershipVerification": "Omistuksen vahvistus",
+      "ownershipVerificationDescription": "perustuu vähintään yhden saavutuksen suorittamiseen pelaajan toimesta.",
+      "ownershipVerificationTooltip": "Käytämme Epic Gamesin saavutuksia tuotteen omistuksen vahvistamiseen. Jotta pelaaja voidaan merkitä vahvistetuksi omistajaksi, hänen on täytynyt suorittaa vähintään yksi saavutus valitulle tuotteelle Epic Games Storessa. Yhdistääksesi tilisi egdata-profiiliisi, sinun tulee mennä",
+      "yourDashboard": "hallintapaneeliisi",
+      "criticReviews": "Kriitikoiden arvostelut",
+      "basedOnCriticReviews": "Perustuu {{count}} kriitikon arvosteluun",
+      "opencriticRating": "OpenCritic-arvio",
+      "topCriticAverage": "Parhaiden kriitikoiden keskiarvo",
+      "criticsRecommend": "Kriitikot suosittelevat",
+      "opencriticRatingAlt": "OpenCritic-arvio"
+    }
+  },
+  "search": {
+    "meta": {
+      "title": "Haku | egdata.app",
+      "description": "Etsi tarjouksia Epic Games Storesta."
+    },
+    "defaultTitle": "Haku",
+    "filters": "Suodattimet",
+    "filtersPlaceholder": "Hae pelejä",
+    "pills": {
+      "onSale": "Alemuksessa",
+      "codeRedemptionOnly": "Vain koodin lunastus",
+      "excludeBlockchain": "Sulje pois Blockchain/NFT",
+      "pastGiveaways": "Aikaisemmat ilmaisjaot"
+    },
+    "accordion": {
+      "offerType": "Tarjouksen tyyppi",
+      "developer": "Kehittäjä",
+      "publisher": "Julkaisija",
+      "noTags": "Tageja ei löytynyt",
+      "seller": "Myyjä"
+    },
+    "checkboxes": {
+      "pastGiveaways": "Aikaisemmat ilmaisjaot",
+      "onSale": "Alemuksessa",
+      "codeRedemptionOnly": "Vain koodin lunastus",
+      "excludeBlockchain": "Sulje pois Blockchain/NFT",
+      "onlyHistoricalLows": "Vain historialliset pohjahinnat",
+      "onlyLowestPriceEver": "Vain alin hinta koskaan"
+    },
+    "tagGroups": {
+      "event": "Tapahtuma",
+      "genre": "Lajityyppi",
+      "epicfeature": "Epic-ominaisuus",
+      "accessibility": "Saavutettavuus",
+      "feature": "Ominaisuus",
+      "usersay": "Usersay",
+      "subscription": "Tilaus",
+      "platform": "Alusta",
+      "all": "Kaikki tagit"
+    },
+    "sort": {
+      "sortBy": "Järjestä",
+      "sortAriaLabel": "Järjestä tarjoukset",
+      "sortDirectionAriaLabel": "Vaihda järjestyssuuntaa",
+      "showListView": "Näytä listanäkymä",
+      "showGridView": "Näytä ruudukkonäkymä",
+      "releaseDate": "Julkaisupäivä",
+      "lastModifiedDate": "Muokkauspäivä",
+      "effectiveDate": "Voimaantulopäivä",
+      "creationDate": "Luontipäivä",
+      "viewableDate": "Näkyvä päivä",
+      "pcReleaseDate": "PC-julkaisupäivä",
+      "upcoming": "Tulevat",
+      "price": "Hinta",
+      "discount": "Alennus",
+      "discountPercent": "Alennus %",
+      "giveawayDate": "Ilmaisjaon päivä"
+    },
+    "results": {
+      "noResults": "Ei tuloksia"
+    }
+  },
+  "freebies": {
+    "meta": {
+      "title": "Ilmaiset pelit | egdata.app",
+      "description": "Selaa ilmaisia pelejä Epic Games Storesta."
+    },
+    "headings": {
+      "current": "Nykyiset ilmaispelit",
+      "past": "Aikaisemmat ilmaispelit",
+      "sellers": "Ilmaispelien myyjät"
+    },
+    "buttons": {
+      "redeem": "Lunasta nyt",
+      "downloadJson": "Lataa JSON-muodossa",
+      "downloadCsv": "Lataa CSV-muodossa",
+      "downloadTxt": "Lataa tekstimuodossa"
+    },
+    "placeholders": {
+      "searchSellers": "Hae myyjiä..."
+    },
+    "aria": {
+      "downloadList": "Lataa lista"
+    },
+    "errors": {
+      "loadSellers": "Virhe ladattaessa myyjätietoja. Yritä myöhemmin uudelleen."
+    },
+    "table": {
+      "sellerName": "Myyjän nimi",
+      "totalGames": "Yksittäisten pelien kokonaismäärä"
+    }
+  },
+  "sales": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Tutustu {{title}} Epic Games Storesta."
+    },
+    "metaIndex": {
+      "title": "Aktiiviset alennukset | egdata.app",
+      "description": "Selaa aktiivisia alennuksia egdata.appissa"
+    },
+    "status": {
+      "loading": "Ladataan...",
+      "noData": "Ei tietoja"
+    },
+    "headings": {
+      "active": "Aktiiviset alennukset",
+      "pastUpcoming": "Aikaisemmat / tulevat alennukset",
+      "offersList": "Tarjoukset {{title}}"
+    },
+    "errors": {
+      "notFound": "Kampanjaa ei löydy"
+    },
+    "labels": {
+      "offersCount": "{{count}} tarjousta saatavilla tässä tapahtumassa"
+    }
+  },
+  "collections": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Tutustu {{title}} Epic Games Storesta."
+    },
+    "metaIndex": {
+      "title": "Kokoelmat | egdata.app",
+      "description": "Kokoelmat egdata.appissa"
+    },
+    "headings": {
+      "main": "Kokoelmat"
+    },
+    "description": {
+      "overview": "Myydyimmät, pelatuimmat ja suosituimmat pelit Epic Games Storessa"
+    },
+    "status": {
+      "loading": "Ladataan..."
+    },
+    "errors": {
+      "notFound": "Kokoelmaa ei löydy"
+    },
+    "table": {
+      "position": "Sijoitus",
+      "variance": "Muutos",
+      "weeks": "Viikot"
+    },
+    "tooltips": {
+      "variance": "Ero nykyisen ja edellisen sijoituksen välillä. Yleensä muuttuu päivittäin.",
+      "weeks": "Niiden viikkojen määrä, joina peli on ollut top 100:ssa kohteelle {{title}}."
+    },
+    "buttons": {
+      "loadMore": "Lataa lisää"
+    }
+  },
+  "sandboxes": {
+    "notFoundTitle": "Hiekkalaatikkoa ei löydy",
+    "notFoundDescription": "Hiekkalaatikkoa ei löydy",
+    "unrealEngineTitle": "Unreal Engine",
+    "unavailableTitle": "Hiekkalaatikko ei käytettävissä",
+    "unavailableDescription": "Tuotehubia ei voitu ladata.",
+    "noProductDataDescription": "Tälle hiekkalaatikolle ei ole tuotetietoja.",
+    "hubEyebrow": "Hiekkalaatikko",
+    "hubOverviewTitle": "Yleiskatsaus",
+    "hubOverviewDescription": "Kohdennettu kartta kauppapaikan, omistuksen, toimituksen ja päivitystietueista tälle Namespacelle.",
+    "latestChangesButton": "Viimeisimmät muutokset",
+    "entityOffersLabel": "Tarjoukset",
+    "entityOffersDescription": "Kauppapaikan merkinnät",
+    "entityItemsLabel": "Kohteet",
+    "entityItemsDescription": "Omistettavat tietueet",
+    "entityAssetsLabel": "Resurssit",
+    "entityAssetsDescription": "Artfaktit ja media",
+    "entityBuildsLabel": "Koontiversiot",
+    "entityBuildsDescription": "Binaaripaketit",
+    "entityAchievementsLabel": "Saavutukset",
+    "entityAchievementsDescription": "Edistymistiedot",
+    "entityChangelogLabel": "Muutosloki",
+    "entityChangelogDescription": "Seuratut päivitykset",
+    "viewButton": "Näytä",
+    "storefrontOffersTitle": "Kauppapaikan tarjoukset",
+    "storefrontOffersDescription": "Edustavat kauppapaikan merkinnät tästä hiekkalaatikosta.",
+    "recentBuildsTitle": "Viimeisimmät koontiversiot",
+    "recentBuildsDescription": "Uusimmat binaaritietueet.",
+    "latestBadge": "viimeisin",
+    "unknownBuildLabel": "Tuntematon koontiversio",
+    "recentChangesTitle": "Viimeisimmät muutokset",
+    "recentChangesDescription": "Uusimmat katalogimutaatiot.",
+    "updateBadge": "päivitys",
+    "changeDefaultLabel": "Muutos",
+    "metaOffersTitle": "Tarjoukset",
+    "offersEyebrow": "Verkkokauppa",
+    "offersTitle": "Tarjoukset",
+    "offersDescription": "Kauppapaikan merkinnät tässä hiekkalaatikossa, mukaan lukien peruspelit, versiot, DLC:t, lisäosat, paketit ja kaikki tarjoukset, jotka voivat myöntää katalogikohteita.",
+    "totalOffersLabel": "Tarjouksia yhteensä",
+    "metaAchievementsTitle": "Saavutukset",
+    "achievementsEyebrow": "Edistyminen",
+    "achievementsTitle": "Saavutukset",
+    "achievementsDescription": "Saavutussarjat, piilotetut tilat, harvinaisuusjakauma ja XP-kokonaismäärät liitettynä tähän hiekkalaatikkoon.",
+    "achievementsSetsLabel": "Sarjat",
+    "achievementsLabel": "Saavutukset",
+    "achievementsXpLabel": "XP",
+    "searchAchievementsPlaceholder": "Hae saavutuksia",
+    "flipAllButton": "Käännä kaikki",
+    "revealHiddenAchievementAria": "Paljasta piilotetun saavutuksen teksti",
+    "hideHiddenAchievementAria": "Piilota piilotetun saavutuksen teksti",
+    "achievementsBaseGameLabel": "Peruspeli",
+    "achievementsDlcLabel": "DLC",
+    "achievementsBaseGameTooltip": "Tämä saavutuslista koskee peruspeliä.",
+    "achievementsDlcTooltip": "Tämä saavutuslista koskee yhtä DLC:stä.",
+    "lastUpdatedLabel": "Viimeksi päivitetty:",
+    "achievementsLastUpdatedTooltip": "Tämä saavutussarja päivitettiin viimeksi",
+    "achievementsLastUpdatedTooltipExtra": "Tämä on joko sen luontipäivä tai viimeisimmän päivityksen päivä.",
+    "noAchievementsForSet": "Tälle sarjalle ei löytynyt saavutuksia.",
+    "noAchievementsForSetExtra": "Tämä voi tarkoittaa, että saavutukset eivät ole tällä hetkellä saatavilla, mutta ne lisätään tulevaisuudessa.",
+    "noAchievementsFound": "Saavutuksia ei löytynyt",
+    "metaItemsTitle": "Kohteet",
+    "itemsEyebrow": "Katalogin omistus",
+    "itemsTitle": "Kohteet",
+    "itemsDescription": "Omistettavat katalogikohteet, jotka sisältyvät tarjouksiin. Nämä ovat tietueita, joista tulee pelaajan oikeuksia oston tai lunastuksen jälkeen.",
+    "totalItemsLabel": "Kohteita yhteensä",
+    "metaChangelogTitle": "Muutosloki",
+    "changelogEyebrow": "Tarkastuspolku",
+    "changelogTitle": "Muutosloki",
+    "changelogDescription": "Havaitut muutokset tämän hiekkalaatikon tarjouksissa, kohteissa, resursseissa, koontiversioissa ja niihin liittyvissä katalogin metatiedoissa.",
+    "totalChangesLabel": "Muutokset",
+    "queryTimeLabel": "Kyselyaika",
+    "noChangelogFound": "Muutoslokia ei löytynyt",
+    "metaBuildsTitle": "Koontiversiot",
+    "buildsEyebrow": "Binaarit",
+    "buildsTitle": "Koontiversiot",
+    "buildsDescription": "Versioidut tiedostopaketit, jotka on ladattu hiekkalaatikolle. Koontiversiot liitetään artfakteihin ja määräävät, mitä pelaajat lataavat launcherin kautta.",
+    "totalBuildsLabel": "Koontiversioita yhteensä",
+    "metaAssetsTitle": "Resurssit",
+    "assetsEyebrow": "Resurssit ja artfaktit",
+    "assetsTitle": "Resurssit",
+    "assetsDescription": "Jakelu- ja mediatietueet, jotka on liitetty hiekkalaatikon kohteisiin, mukaan lukien artfaktit, jotka yhdistävät kauppakatalogin sisällön ladattaviin koontiversioihin.",
+    "totalAssetsLabel": "Resursseja yhteensä"
+  },
+  "items": {
+    "notFound": "Kohdetta ei löydy",
+    "badge": "Kohde",
+    "table": {
+      "itemId": "Kohteen tunnus",
+      "namespace": "Namespace",
+      "developer": "Kehittäjä",
+      "entitlementType": "Oikeustyyppi",
+      "entitlementName": "Oikeuden nimi",
+      "status": "Tila",
+      "creationDate": "Luontipäivä",
+      "lastModified": "Viimeksi muokattu",
+      "platforms": "Alustat"
+    },
+    "tooltip": {
+      "internalNamespace": "Epic Gamesin sisäinen namespace"
+    },
+    "tabs": {
+      "item": "Kohde",
+      "assets": "Resurssit",
+      "images": "Kuvat",
+      "builds": "Koontiversiot",
+      "changelog": "Muutosloki"
+    },
+    "metadata": {
+      "title": "Metatiedot",
+      "key": "Avain",
+      "value": "Arvo"
+    },
+    "assets": {
+      "title": "Resurssit"
+    },
+    "builds": {
+      "title": "Koontiversiot"
+    },
+    "changelog": {
+      "title": "Muutosloki",
+      "noChangelog": "Muutoslokia ei saatavilla"
+    },
+    "images": {
+      "title": "Kuvat"
+    }
+  },
+  "builds": {
+    "notFound": "Koontiversiota ei löydy",
+    "build": "Koontiversio",
+    "for": "kohteelle",
+    "compressed": "({{percent}}% pakattu)",
+    "table": {
+      "buildId": "Koontiversion tunnus",
+      "buildName": "Koontiversion nimi",
+      "appName": "Sovelluksen nimi",
+      "hash": "Hash",
+      "installedSize": "Asennettu koko",
+      "downloadSize": "Latauskoko",
+      "createdAt": "Luotu",
+      "updatedAt": "Päivitetty",
+      "technologies": "Teknologiat"
+    },
+    "tooltip": {
+      "techSource": "Käytämme",
+      "techSourceSteamDb": "SteamDB:tä",
+      "techDescription": "teknologialista pelitiedostojen käyttämien moottorien ja eri teknologioiden seurantaan.",
+      "source": "Lähde"
+    },
+    "tabs": {
+      "files": "Tiedostot",
+      "items": "Kohteet",
+      "installOptions": "Asennusasetukset"
+    },
+    "files": {
+      "title": "Tiedostot"
+    },
+    "items": {
+      "title": "Kohteet"
+    },
+    "installOptions": {
+      "title": "Asennusasetukset",
+      "file_one": "tiedosto",
+      "file_other": "tiedostoa"
+    },
+    "meta": {
+      "title": "{{title}} ({{version}}) | egdata.app",
+      "description": "Koontiversio {{version}} pelille {{title}} Epic Games Storesta."
+    }
+  },
+  "profile": {
+    "meta": {
+      "notFoundTitle": "Profiilia ei löydy",
+      "notFoundDescription": "Profiilia ei löydy",
+      "title": "{{name}} | egdata.app",
+      "description": "Tutustu henkilön {{name}} saavutuksiin ja peleihin egdata.appissa",
+      "defaultName": "Profiili",
+      "defaultDescriptionName": "tämän pelaajan"
+    },
+    "errors": {
+      "notFoundTitle": "Profiilia ei löydy",
+      "notFoundDescription": "Tämä profiili ei ole käytettävissä tai sitä ei ole vielä indeksoitu.",
+      "unavailableTitle": "Profiili ei käytettävissä",
+      "unavailableDescription": "Tätä profiilia ei voitu ladata juuri nyt.",
+      "invalidImageFormat": "Virheellinen kuvamuoto",
+      "failedToUpload": "Lataus epäonnistui",
+      "uploadFailed": "Lataus epäonnistui",
+      "failedToRefresh": "Profiilin päivitys epäonnistui",
+      "refreshQueued": "Profiili lisätty päivitysjonoon, se päivitetään pian."
+    },
+    "fallbackName": "Tuntematon profiili",
+    "avatar": {
+      "changeAvatar": "Vaihda avatar",
+      "dialogDescription": "Lataa uusi profiilikuva.",
+      "previewAlt": "Avataren esikatselu",
+      "fallback": "Avatar",
+      "description": "Lataa uusi avatar-kuva, enintään 5 Mt.",
+      "uploadingWithProgress": "Ladataan... {{progress}}%",
+      "uploading": "Ladataan...",
+      "updateAvatar": "Päivitä avatar",
+      "errorTitle": "Virhe"
+    },
+    "hero": {
+      "joined": "Liittynyt",
+      "epicGamesStore": "Epic Games Store",
+      "linkDiscord": "Yhdistä Discord",
+      "refreshProfile": "Päivitä profiili",
+      "refreshAvailableIn": "Päivitys saatavilla",
+      "level": "Taso",
+      "achievements": "Saavutukset",
+      "unlocked": "Avattu",
+      "platinum": "Platina",
+      "perfectGames": "Täydelliset pelit",
+      "library": "Kirjasto",
+      "achievementGames": "Saavutuspelit",
+      "reviews": "Arvostelut",
+      "contributed": "Lisätty",
+      "xpToNextLevel": "{{xp}} XP tasolle {{level}}",
+      "heroGame": "Sankaripeli",
+      "complete": "valmis"
+    },
+    "donor": {
+      "donated_one": "{{name}} on lahjoittanut {{count}} avaimen egdata.appiin",
+      "donated_other": "{{name}} on lahjoittanut {{count}} avainta egdata.appiin",
+      "goTo": "Siirry",
+      "thisLink": "tähän linkkiin",
+      "toDonateKey": "lahjoittaaksesi avaimen."
+    },
+    "countdown": {
+      "minutesSeconds_one": "{{minutes}} minuutti {{seconds}} sekunti",
+      "minutesSeconds_other": "{{minutes}} minuuttia {{seconds}} sekuntia",
+      "seconds_one": "{{seconds}} sekunti",
+      "seconds_other": "{{seconds}} sekuntia"
+    },
+    "tabs": {
+      "showcase": "Esittely",
+      "library": "Kirjasto",
+      "activity": "Toiminta"
+    },
+    "stats": {
+      "games": "{{count}} peliä",
+      "achievements": "{{count}} saavutusta",
+      "platinum": "{{count}} platinaa"
+    },
+    "showcase": {
+      "ariaLabel": "Profiilin esittelykohokohdat",
+      "featuredGamesTitle": "Esitellyt pelit",
+      "featuredGamesDetail": "{{count}} valittu profiilin suorituskyvyn perusteella",
+      "rareAchievementsTitle": "Harvinaiset saavutukset",
+      "rareAchievementsDetail": "Vaikeasti löydettävät avaukset profiilissa",
+      "recentUnlocksTitle": "Viimeisimmät avaukset",
+      "recentUnlocksDetail": "Viimeisin näkyvä toiminta",
+      "noDataTitle": "Ei vielä esittelytietoja",
+      "noDataDescription": "Vain julkaistut pelit, joissa on julkinen saavutusten edistyminen, näkyvät profiileissa.",
+      "rarestUnlock": "Harvinaisin avaus",
+      "definingGame": "Määrittelevä peli",
+      "latestActivity": "Viimeisin toiminta",
+      "achievementsCount": "{{unlocked}} / {{total}} saavutusta",
+      "platinum": "Platina"
+    },
+    "library": {
+      "filterAriaLabel": "Kirjastosuodatin",
+      "sortAriaLabel": "Järjestä kirjasto",
+      "sortByPlaceholder": "Järjestä",
+      "noGamesTitle": "Pelejä ei löytynyt",
+      "noGamesDescription": "Vain julkaistut pelit, joissa on saavutuksia, näkyvät tässä kirjastossa.",
+      "gameAlt": "Peli",
+      "complete": "valmis",
+      "featured": "Esitelty",
+      "rareUnlocks": "Harvinaiset avaukset",
+      "filters": {
+        "all": "Kaikki",
+        "completed": "Valmiit",
+        "nearPlatinum": "Lähellä platinaa",
+        "inProgress": "Kesken",
+        "platinum": "Platina"
+      },
+      "sorts": {
+        "completion": "Valmiusaste",
+        "alphabetical": "Aakkosjärjestys",
+        "xp": "XP",
+        "achievements": "Saavutukset"
+      }
+    },
+    "activity": {
+      "title": "Toiminta",
+      "detail": "{{count}} saavutusta avattu",
+      "noActivityTitle": "Ei vielä toimintaa",
+      "noActivityDescription": "Saavutusten avaukset näkyvät täällä, kun tällä profiililla on julkinen edistyminen.",
+      "achievementAlt": "Saavutus",
+      "platinumEarned": "Platina ansaittu",
+      "achievementUnlocked": "Saavutus avattu",
+      "unknownRarity": "Tuntematon harvinaisuus",
+      "rarity": "{{value}}% harvinaisuus",
+      "unknownDate": "Tuntematon päivämäärä"
+    },
+    "achievements": {
+      "loading": "Ladataan...",
+      "notFound": "Profiilia ei löydy",
+      "myAchievements": "Omat saavutukseni"
+    }
+  },
+  "tags": {
+    "meta": {
+      "notFoundTitle": "Kampanjaa ei löydy",
+      "notFoundDescription": "Kampanjaa ei löydy",
+      "title": "{{title}} | egdata.app",
+      "description": "Tutustu {{count}} saatavilla olevaan tarjoukseen kohteelle {{title}} egdata.appissa.",
+      "socialTitle": "{{title}} - egdata.app"
+    },
+    "loading": "Ladataan...",
+    "offersCount": "{{count}} tarjousta saatavilla tässä tapahtumassa",
+    "results": "Tulokset",
+    "resultsCount": "({{count}} tulosta)",
+    "searchPlaceholder": "Hae...",
+    "loadMore": "Lataa lisää",
+    "sortBy": {
+      "releaseDate": "Julkaisupäivä",
+      "lastModifiedDate": "Muokkauspäivä",
+      "effectiveDate": "Voimaantulopäivä",
+      "creationDate": "Luontipäivä",
+      "viewableDate": "Näkyvä päivä",
+      "pcReleaseDate": "PC-julkaisupäivä",
+      "upcoming": "Tulevat",
+      "price": "Hinta"
+    }
+  },
+  "genres": {
+    "meta": {
+      "title": "Lajityypit - egdata.app",
+      "description": "Lajityypit egdata.appissa"
+    },
+    "heading": "Lajityypit"
+  },
+  "sellers": {
+    "meta": {
+      "notFoundTitle": "Myyjää ei löydy",
+      "notFoundDescription": "Myyjää ei löydy",
+      "title": "{{name}} | egdata.app"
+    },
+    "notFound": "Myyjää ei löydy",
+    "logoAlt": "{{name}}-logo",
+    "bannerAlt": "{{name}}",
+    "offersTitle": "Myyjän {{name}} tarjoukset",
+    "stats": {
+      "offers": "Tarjoukset",
+      "games": "Pelit",
+      "items": "Kohteet",
+      "freeGames": "Ilmaispelit"
+    }
+  },
+  "franchises": {
+    "meta": {
+      "notFoundTitle": "Sarjaa ei löydy",
+      "notFoundDescription": "Sarjaa ei löydy",
+      "title": "Sarja {{name}} | egdata.app",
+      "description": "Selaa kaikki pelit sarjassa {{name}} Epic Games Storessa."
+    },
+    "loading": "Ladataan...",
+    "gamesCount_one": "{{count}} peli",
+    "gamesCount_other": "{{count}} peliä",
+    "timeToBeat": "Läpäisyaika",
+    "achievements": "Saavutukset",
+    "loadMore": "Lataa lisää",
+    "free": "Ilmainen"
+  },
+  "stats": {
+    "creations": {
+      "meta": {
+        "title": "Luontitilastot - egdata.app",
+        "description": "Uusien luontien kuukausi- ja vuositahti Epic Games Storessa."
+      },
+      "viewReleases": "Näytä julkaisut",
+      "heading": "Epic Games Storen luontitilastot",
+      "description": "Uusien luontien kuukausi- ja vuositahti kaupassa.",
+      "monthlyTitle": "Kuukausittaiset luonnit",
+      "yearlyTitle": "Vuosittaiset luonnit"
+    },
+    "releases": {
+      "meta": {
+        "title": "Julkaisutilastot - egdata.app",
+        "description": "Uusien nimikkeiden kuukausi- ja vuositahti Epic Games Storessa."
+      },
+      "viewCreations": "Näytä luonnit",
+      "heading": "Epic Games Storen julkaisutilastot",
+      "description": "Uusien nimikkeiden kuukausi- ja vuositahti kaupassa.",
+      "monthlyTitle": "Kuukausittaiset julkaisut",
+      "yearlyTitle": "Vuosittaiset julkaisut"
+    }
+  },
+  "store": {
+    "creatorCode": {
+      "title": "Tue egdata.appia",
+      "description": "Haluatko tukea egdata.appia käyttämällä luojakoodiamme ostaessasi pelejä? Tämä valinta muistetaan tulevia käyntejä varten.",
+      "body": "Luojakoodimme käyttäminen auttaa tukemaan egdata.appin ja sen ominaisuuksien kehitystä. Se ei vaikuta maksamaasi hintaan.",
+      "noThanks": "Ei kiitos",
+      "yesUseCode": "Kyllä, käytä koodia"
+    }
+  },
+  "dashboard": {
+    "placeholder": "Hei /dashboard!"
+  },
+  "auth": {
+    "login": {
+      "placeholder": "Hei /auth/login!"
+    },
+    "callback": {
+      "placeholder": "Hei /auth/callback!"
+    },
+    "logout": {
+      "placeholder": "Hei /auth/logout!"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "Tietoa - egdata.app",
+      "description": "Tietoa egdata.appista"
+    },
+    "title": "Tietoa",
+    "intro": "egdata.app on yhteisön ylläpitämä verkkosivusto, joka on omistautunut Epic Games Storen seuraamiseen ja tiedon tarjoamiseen. Kuten SteamDB Steamille, tavoitteenamme on tarjota kattava resurssi käyttäjille muutosten tutkimiseen, uusien pelien löytämiseen ja alustan viimeisimmistä tapahtumista ajan tasalla pysymiseen.",
+    "missionTitle": "Tehtävämme",
+    "missionBody": "Tehtävämme on tarjota läpinäkyvyyttä ja oivalluksia Epic Games Store -ekosysteemiin. Uskomme, että kokoamalla ja esittämällä tietoa helposti lähestyttävällä tavalla voimme auttaa käyttäjiä tekemään tietoon perustuvia päätöksiä peliostoistaan ja edistää alustan parempaa ymmärtämistä.",
+    "featuresTitle": "Ominaisuudet",
+    "features": {
+      "trackPrices": "Seuraa pelien hintamuutoksia ja historiatietoja",
+      "upcomingReleases": "Näytä tulevat julkaisut ja ilmaispelitarjoukset",
+      "gameDetails": "Tutki pelien yksityiskohtia, arvioita ja käyttäjäarvosteluja",
+      "analyzeTrends": "Analysoi trendejä ja kaavoja Epic Games Storessa"
+    },
+    "communityTitle": "Yhteisön ylläpitämä",
+    "communityBody": "egdata.app on intohimoisen pelaaja- ja kehittäjäyhteisön rakentama ja ylläpitämä. Otamme mielellämme vastaan panoksia kaikilta, jotka haluavat auttaa parantamaan sivustoa ja tekemään siitä arvokkaan resurssin kaikille. Ota rohkeasti yhteyttä, jos sinulla on palautetta, ehdotuksia tai haluat osallistua.",
+    "sourceCodeIntro": "Kaikki egdata.appin lähdekoodi on saatavilla",
+    "github": "GitHubissa",
+    "notTitle": "Mitä egdata.app EI ole",
+    "notIntro": "On tärkeää selventää, että egdata.app ei ole:",
+    "notList": {
+      "affiliated": "Sidoksissa Epic Gamesiin: Olemme itsenäinen, yhteisön ylläpitämä projekti, jota Epic Games ei ole virallisesti hyväksynyt tai joka ei ole millään tavalla yhteydessä Epic Gamesiin.",
+      "storefront": "Kauppa tai markkinapaikka: Emme myy pelejä tai tarjoa ostomahdollisuuksia. Keskitymme tarjoamaan tietoa Epic Games Storesta.",
+      "piracy": "Alusta piratismille tai laittomille toimille: Tuomitsemme jyrkästi piratismin emmekä tarjoa mitään keinoa päästä käsiksi tai levittää tekijänoikeudella suojattua sisältöä laittomasti."
+    },
+    "fairUseTitle": "Kohtuullisen käytön käytäntö",
+    "fairUseBody": "egdata.app sitoutuu noudattamaan kohtuullisen käytön periaatteita tekijänoikeuslain mukaisesti. Tarjoamme tietoa ja dataa vain tiedotustarkoituksiin, tavoitteenamme kouluttaa ja tiedottaa yleisöä Epic Games Storessa saatavilla olevista peleistä.",
+    "fairUseFactorsTitle": "Kohtuullista käyttöä oikeuttavat keskeiset tekijät:",
+    "fairUseFactors": {
+      "nonCommercial": "Ei-kaupallinen, koulutuksellinen tarkoitus:",
+      "nonCommercialBody": "Sivustomme on ei-kaupallinen ja pyrkii lisäämään yleistä tietämystä Epic Games Storen peleistä.",
+      "factual": "Faktatieto:",
+      "factualBody": "Esitämme pääasiassa faktatietoja, kuten pelien nimiä, julkaisupäiviä ja kehittäjiä, jotka ovat vähemmän suojattuja tekijänoikeudella.",
+      "limited": "Rajoitettu käyttö:",
+      "limitedBody": "Käytämme vain tarvittavan määrän tietoa tarjotaksemme merkityksellistä tietoa korvaamatta alkuperäisiä teoksia.",
+      "noMarketHarm": "Ei haittaa markkinoille:",
+      "noMarketHarmBody": "Käyttömme ei vaikuta negatiivisesti alkuperäisten pelien markkinoihin; pikemminkin se voi edistää niitä lisäämällä käyttäjien kiinnostusta."
+    },
+    "autoTrackBody": "Seuraamme ja päivitämme automaattisesti pelitietoja julkisista lähteistä, mukaan lukien Epic Games Store. Lataamme graafiset resurssit suoraan heidän palvelimiltaan emmekä tallenna niitä.",
+    "leakedDataTitle": "Tietovuotoja koskeva vastuuvapauslauseke:",
+    "leakedDataBody": "Mahdollisesti vuotaneet tiedot sivustollamme ovat peräisin julkisesti saatavilla olevista tiedoista Epic Games Storessa. Meillä ei ole pääsyä luottamuksellisiin tai omistusoikeudellisiin tietoihin. Kustantajat ovat vastuussa arkaluonteisten tietojensa suojaamisesta",
+    "epicDevPortal": "Epic Gamesin kehittäjäportaalissa",
+    "euDirectivesIntro": "Kehittäessämme kohtuullisen käytön käytäntöämme olemme ottaneet huomioon seuraavissa EU:n tekijänoikeusdirektiiveissä kuvatut periaatteet:",
+    "euDirective1": "Direktiivi (EU) 2019/790 tekijänoikeudesta ja siihen liittyvistä oikeuksista digitaalisilla sisämarkkinoilla",
+    "euDirective2": "Kysymyksiä ja vastauksia – Uudet EU:n tekijänoikeussäännöt",
+    "fairUseContact": "Jos sinulla on kysyttävää kohtuullisen käytön käytännöstämme tai uskot jonkin sisällön loukkaavan tekijänoikeuksiasi, ota meihin yhteyttä:",
+    "contactTitle": "Ota yhteyttä",
+    "contactBody": "Voit ottaa meihin yhteyttä"
+  },
+  "changelog": {
+    "index": {
+      "meta": {
+        "title": "Muutosloki | egdata.app"
+      },
+      "searchPlaceholder": "Hae muutoslokeja...",
+      "searchButton": "Hae",
+      "loading": "Ladataan...",
+      "error": "Virhe tietojen haussa"
+    },
+    "detail": {
+      "meta": {
+        "title": "Muutoksen tiedot | egdata.app"
+      },
+      "loading": "Ladataan...",
+      "error": "Virhe ladattaessa muutoksen tietoja",
+      "notFound": "Muutosta ei löydy"
+    }
+  },
+  "privacy": {
+    "title": "Tietoa",
+    "intro": "egdata.app on yhteisön ylläpitämä verkkosivusto, joka on omistautunut Epic Games Storen seuraamiseen ja tiedon tarjoamiseen. Kuten SteamDB Steamille, tavoitteenamme on tarjota kattava resurssi käyttäjille muutosten tutkimiseen, uusien pelien löytämiseen ja alustan viimeisimmistä tapahtumista ajan tasalla pysymiseen.",
+    "missionTitle": "Tehtävämme",
+    "missionBody": "Tehtävämme on tarjota läpinäkyvyyttä ja oivalluksia Epic Games Store -ekosysteemiin. Uskomme, että kokoamalla ja esittämällä tietoa helposti lähestyttävällä tavalla voimme auttaa käyttäjiä tekemään tietoon perustuvia päätöksiä peliostoistaan ja edistää alustan parempaa ymmärtämistä.",
+    "featuresTitle": "Ominaisuudet",
+    "features": {
+      "trackPrices": "Seuraa pelien hintamuutoksia ja historiatietoja",
+      "upcomingReleases": "Näytä tulevat julkaisut ja ilmaispelitarjoukset",
+      "gameDetails": "Tutki pelien yksityiskohtia, arvioita ja käyttäjäarvosteluja",
+      "analyzeTrends": "Analysoi trendejä ja kaavoja Epic Games Storessa"
+    },
+    "communityTitle": "Yhteisön ylläpitämä",
+    "communityBody": "egdata.app on intohimoisen pelaaja- ja kehittäjäyhteisön rakentama ja ylläpitämä. Otamme mielellämme vastaan panoksia kaikilta, jotka haluavat auttaa parantamaan sivustoa ja tekemään siitä arvokkaan resurssin kaikille. Ota rohkeasti yhteyttä, jos sinulla on palautetta, ehdotuksia tai haluat osallistua.",
+    "sourceCodeIntro": "Kaikki egdata.appin lähdekoodi on saatavilla",
+    "github": "GitHubissa",
+    "notTitle": "Mitä egdata.app EI ole",
+    "notIntro": "On tärkeää selventää, että egdata.app ei ole:",
+    "notList": {
+      "affiliated": "Sidoksissa Epic Gamesiin: Olemme itsenäinen, yhteisön ylläpitämä projekti, jota Epic Games ei ole virallisesti hyväksynyt tai joka ei ole millään tavalla yhteydessä Epic Gamesiin.",
+      "storefront": "Kauppa tai markkinapaikka: Emme myy pelejä tai tarjoa ostomahdollisuuksia. Keskitymme tarjoamaan tietoa Epic Games Storesta.",
+      "piracy": "Alusta piratismille tai laittomille toimille: Tuomitsemme jyrkästi piratismin emmekä tarjoa mitään keinoa päästä käsiksi tai levittää tekijänoikeudella suojattua sisältöä laittomasti."
+    },
+    "fairUseTitle": "Kohtuullisen käytön käytäntö",
+    "fairUseBody": "egdata.app sitoutuu noudattamaan kohtuullisen käytön periaatteita tekijänoikeuslain mukaisesti. Tarjoamme tietoa ja dataa vain tiedotustarkoituksiin, tavoitteenamme kouluttaa ja tiedottaa yleisöä Epic Games Storessa saatavilla olevista peleistä.",
+    "fairUseFactorsTitle": "Kohtuullista käyttöä oikeuttavat keskeiset tekijät:",
+    "fairUseFactors": {
+      "nonCommercial": "Ei-kaupallinen, koulutuksellinen tarkoitus:",
+      "nonCommercialBody": "Sivustomme on ei-kaupallinen ja pyrkii lisäämään yleistä tietämystä Epic Games Storen peleistä.",
+      "factual": "Faktatieto:",
+      "factualBody": "Esitämme pääasiassa faktatietoja, kuten pelien nimiä, julkaisupäiviä ja kehittäjiä, jotka ovat vähemmän suojattuja tekijänoikeudella.",
+      "limited": "Rajoitettu käyttö:",
+      "limitedBody": "Käytämme vain tarvittavan määrän tietoa tarjotaksemme merkityksellistä tietoa korvaamatta alkuperäisiä teoksia.",
+      "noMarketHarm": "Ei haittaa markkinoille:",
+      "noMarketHarmBody": "Käyttömme ei vaikuta negatiivisesti alkuperäisten pelien markkinoihin; pikemminkin se voi edistää niitä lisäämällä käyttäjien kiinnostusta."
+    },
+    "autoTrackBody": "Seuraamme ja päivitämme automaattisesti pelitietoja julkisista lähteistä, mukaan lukien Epic Games Store. Lataamme graafiset resurssit suoraan heidän palvelimiltaan emmekä tallenna niitä.",
+    "leakedDataTitle": "Tietovuotoja koskeva vastuuvapauslauseke:",
+    "leakedDataBody": "Mahdollisesti vuotaneet tiedot sivustollamme ovat peräisin julkisesti saatavilla olevista tiedoista Epic Games Storessa. Meillä ei ole pääsyä luottamuksellisiin tai omistusoikeudellisiin tietoihin. Kustantajat ovat vastuussa arkaluonteisten tietojensa suojaamisesta",
+    "epicDevPortal": "Epic Gamesin kehittäjäportaalissa",
+    "euDirectivesIntro": "Kehittäessämme kohtuullisen käytön käytäntöämme olemme ottaneet huomioon seuraavissa EU:n tekijänoikeusdirektiiveissä kuvatut periaatteet:",
+    "euDirective1": "Direktiivi (EU) 2019/790 tekijänoikeudesta ja siihen liittyvistä oikeuksista digitaalisilla sisämarkkinoilla",
+    "euDirective2": "Kysymyksiä ja vastauksia – Uudet EU:n tekijänoikeussäännöt",
+    "fairUseContact": "Jos sinulla on kysyttävää kohtuullisen käytön käytännöstämme tai uskot jonkin sisällön loukkaavan tekijänoikeuksiasi, ota meihin yhteyttä:",
+    "contactTitle": "Ota yhteyttä",
+    "contactBody": "Voit ottaa meihin yhteyttä"
+  },
+  "notifications": {
+    "meta": {
+      "title": "Ilmoitukset - egdata.app",
+      "description": "Määritä ja hallitse push-ilmoituksia Epic Games Store -päivityksille, pelijulkaisuille ja muulle."
+    },
+    "title": "Ilmoitukset",
+    "description": "Määritä ja hallitse push-ilmoituksia Epic Games Store -päivityksille, pelijulkaisuille ja henkilökohtaisille hälytyksille.",
+    "tabs": {
+      "notifications": "Ilmoitukset",
+      "mySubscriptions": "Omat tilaukset"
+    },
+    "aboutPushTitle": "Tietoa push-ilmoituksista",
+    "aboutPushDescription": "Lue lisää siitä, miten push-ilmoitukset toimivat EGDatassa.",
+    "whatYoullReceive": "Mitä saat:",
+    "receiveList": {
+      "freeGames": "Ilmoitukset uusista ilmaispeleistä",
+      "releases": "Pelien julkaisuilmoitukset",
+      "priceDrops": "Hälytykset toivelistan pelien hinnanlaskuista",
+      "news": "Epic Games Storen uutiset ja päivitykset",
+      "custom": "Mukautetut aihekohtaiset ilmoitukset"
+    },
+    "privacySecurity": "Yksityisyys ja turvallisuus:",
+    "privacyList": {
+      "apiKey": "API-avaimesi tallennetaan turvallisesti selaimesi evästeisiin",
+      "onlySubscribed": "Lähetämme vain ilmoituksia, joihin olet tilannut",
+      "unsubscribe": "Voit peruuttaa tilauksen milloin tahansa",
+      "noPersonalData": "Henkilötietoja ei tarvita API-avaimen lisäksi"
+    },
+    "browserSupport": "Selaintuki:",
+    "browserSupportBody": "Push-ilmoituksia tuetaan nykyaikaisissa selaimissa, kuten Chrome, Firefox, Safari ja Edge. Varmista, että sallit ilmoitukset, kun selain pyytää.",
+    "subscriptionOverview": "Tilausten yhteenveto",
+    "totalSubscribed": "Tilattuja aiheita yhteensä: {{count}}",
+    "notSubscribedApi": "API-avain ei ole tilannut push-ilmoituksia",
+    "notSubscribedTitle": "Ei tilattu",
+    "notSubscribedBody": "API-avaimesi ei ole tilannut push-ilmoituksia. Käytä \"Asetukset ja tilaa\" -välilehteä tilataksesi ensin.",
+    "subscriptionId": "Tilaus {{id}}",
+    "created": "Luotu:",
+    "subscribedTopics": "Tilatut aiheet:",
+    "noTopics": "Ei tilattuja aiheita",
+    "lastUpdated": "Viimeksi päivitetty:",
+    "noSubscriptionsTitle": "Ei tilauksia",
+    "noSubscriptionsBody": "Olet tilannut, mutta et ole vielä luonut laitetilauksia. Käytä \"Asetukset ja tilaa\" -välilehteä luodaksesi ensimmäisen tilauksesi.",
+    "fetchError": "Tilausten nouto epäonnistui. Yritä uudelleen.",
+    "push": {
+      "title": "Push-ilmoitukset",
+      "notSupported": "Push-ilmoituksia ei tueta tässä selaimessa.",
+      "setApiKey": "Aseta API-avain ottaaksesi push-ilmoitukset käyttöön.",
+      "manage": "Hallitse push-ilmoitusasetuksiasi.",
+      "unsubscribe": "Peruuta tilaus",
+      "subscribe": "Tilaa",
+      "subscribed": "Tilattu",
+      "notSubscribed": "Ei tilattu",
+      "subscribeToTopic": "Tilaa aihe",
+      "topicPlaceholder": "Syötä aiheen nimi (esim. peli-päivitykset)",
+      "subscribedTopics": "Tilatut aiheet",
+      "clickToUnsubscribe": "Napsauta aihetta peruuttaaksesi tilauksen"
+    },
+    "simple": {
+      "title": "Push-ilmoitukset",
+      "notSupported": "Push-ilmoituksia ei tueta tässä selaimessa.",
+      "subscribedDesc": "Olet tilannut {{count}} ilmoitusaihetta",
+      "notSubscribedDesc": "Saat ilmoituksia Epic Games Storen päivityksistä, ilmaispeleistä ja muusta",
+      "subscribeToNotifications": "Tilaa ilmoitukset",
+      "unsubscribe": "Peruuta tilaus",
+      "chooseWhat": "Valitse, mistä haluat ilmoituksia:",
+      "freeGames": "Ilmaispelit",
+      "freeGamesDesc": "Saat ilmoituksen, kun uusia ilmaispelejä on saatavilla",
+      "newReleases": "Uudet julkaisut",
+      "newReleasesDesc": "Ilmoitukset uusista pelijulkaisuista",
+      "priceDrops": "Hinnanlaskut",
+      "priceDropsDesc": "Saat hälytyksiä, kun pelit ovat alennuksessa",
+      "youWillReceive": "Saat ilmoituksia kohteesta:",
+      "subscribedTo": "Tilattu {{name}}",
+      "unsubscribedFrom": "Tilaus peruutettu aiheesta {{name}}",
+      "failedSubscribe": "Ilmoitusten tilaus epäonnistui",
+      "failedUnsubscribe": "Ilmoitusten tilauksen peruutus epäonnistui",
+      "failedTopicSubscribe": "Aiheen tilaus epäonnistui",
+      "failedTopicUnsubscribe": "Aiheen tilauksen peruutus epäonnistui",
+      "successSubscribe": "Ilmoitukset tilattu onnistuneesti!",
+      "successUnsubscribe": "Ilmoitusten tilaus peruutettu onnistuneesti"
+    },
+    "apiKey": {
+      "title": "API-avaimen hallinta",
+      "label": "API-avain",
+      "placeholderGenerated": "API-avain luotu",
+      "placeholderNone": "API-avainta ei ole luotu",
+      "regenerate": "Luo uusi avain",
+      "generate": "Luo avain",
+      "clear": "Tyhjennä avain",
+      "generated": "Uusi API-avain luotu onnistuneesti!",
+      "copied": "API-avain kopioitu leikepöydälle!",
+      "cleared": "API-avain tyhjennetty onnistuneesti!",
+      "failedGenerate": "API-avaimen luonti epäonnistui",
+      "failedCopy": "API-avaimen kopiointi epäonnistui",
+      "failedClear": "API-avaimen tyhjennys epäonnistui",
+      "noneToCopy": "Ei API-avainta kopioitavaksi",
+      "description": "API-avaimesi on UUID, joka tallennetaan paikallisesti selaimeesi ja jota käytetään push-ilmoituspyyntöjen todentamiseen. Käytä uudelleenluontipainiketta luodaksesi uuden avaimen tarvittaessa."
+    }
+  },
+  "promotions": {
+    "placeholder": "Hei /promotions/$id!"
+  },
+  "misc": {
+    "gameAwards": {
+      "meta": {
+        "title": "The Game Awards -kattaus | egdata.app",
+        "description": "Viimeisimmät The Game Awards -tapahtumassa ilmoitetut ja ehdokkaat pelit tulossa Epic Games Storeen."
+      },
+      "logoAlt": "The Game Awards 2025",
+      "subtitle": "The Game Awards -tapahtumassa ilmoitetut tai ehdokkaat pelit tulossa Epic Games Storeen",
+      "videoTitle": "The Game Awards 2024 - Live-lähetys",
+      "expandPlayer": "Laajenna soitin",
+      "closeMiniPlayer": "Sulje minisoitin",
+      "noGamesTitle": "Ei vielä ilmoitettuja pelejä",
+      "noGamesBody": "Palaa The Game Awardsin jälkeen!"
+    },
+    "downloads": {
+      "title": "egdata.app-asiakasohjelman julkaisut",
+      "description": "Lataa uusin versio. Olemme korostaneet suositeltua osiota käyttöjärjestelmällesi.",
+      "errorPrefix": "Virhe:",
+      "noPublicReleases": "Julkisia julkaisuja ei löytynyt.",
+      "recommended": "Suositeltu",
+      "downloadsSuffix": "Lataukset",
+      "versionPublished": "Versio {{version}} - Julkaistu {{date}}",
+      "assetInfo": {
+        "appleSilicon": "Uudemmille Mac-tietokoneille, joissa on Apple-siru (M1, M2, M3 jne.).",
+        "intel": "Vanhemmille Mac-tietokoneille, joissa on Intel-suoritin.",
+        "universal": "Yhteensopiva sekä Apple Silicon- että Intel-Macien kanssa.",
+        "msi": "Vakioasennusvelho. Suositeltu useimmille käyttäjille.",
+        "exe": "Erillinen sovellustiedosto. Ei välttämättä vaadi asennusta.",
+        "linux": "Linux-pohjaisille käyttöjärjestelmille.",
+        "generic": "Yleinen tiedosto tai lähdekoodi."
+      }
+    },
+    "discordLinked": {
+      "title": "Tili linkitetty onnistuneesti!",
+      "body": "Discord-tilisi on linkitetty onnistuneesti egdata.appiin",
+      "footer": "Voit nyt sulkea tämän ikkunan ja palata Discordiin. Tilisi on valmis käytettäväksi egdata.appin kanssa"
+    },
+    "posts": {
+      "coverAlt": "LEGO Star Wars: The Skywalker Saga -kansikuva",
+      "title": "Hanki LEGO® Star Wars™: The Skywalker Saga ILMAISEKSI Epic Games Storesta",
+      "freeGameBadge": "Ilmainen peli",
+      "published": "Julkaistu 30. marraskuuta 2023",
+      "intro": "Merkitkää kalentereihinne, Star Wars -fanit! {{dateRange}} välisenä aikana voit hankkia ylistetyn {{game}} ILMAISEKSI Epic Games Storesta. Tämä peli, joka maksaa yleensä {{price}}, antaa sinun elää uudelleen ikoniset hetket {{saga}} hauskalla LEGO-twistillä.",
+      "dateRange": "5. joulukuuta – 12. joulukuuta 2024",
+      "game": "LEGO® Star Wars™: The Skywalker Saga",
+      "price": "$49.99",
+      "saga": "Skywalker-saagasta",
+      "gameplayAlt": "LEGO Star Wars -pelaaminen",
+      "charactersAlt": "LEGO Star Wars -hahmot",
+      "whatToExpect": "🧩 Mitä odottaa?",
+      "whatToExpectBody": "Kehittänyt {{developer}} ja julkaissut {{publisher}}, tämä nimike tarjoaa kattavan Star Wars -elämyksen kuten mikään muu. Tässä on, mikä tekee siitä pakollisen:",
+      "developer": "TT Games",
+      "publisher": "Warner Bros.",
+      "expectList": {
+        "allMovies": "🌌 {{strong}}: Elä uudelleen kaikkien yhdeksän Skywalker-saagan elokuvan tarinat, täynnä klassista LEGO-huumoria.",
+        "allMoviesStrong": "Kaikki 9 elokuvaa",
+        "characters": "🛸 {{strong}}: Ohjaa suosikkisankareitasi ja -konnojasi kaukaisesta galaksista.",
+        "charactersStrong": "Yli 300 pelattavaa hahmoa",
+        "vehicles": "🚀 {{strong}}: Lennä ikonisilla aluksilla, kuten Millennium Falcon ja TIE-hävittäjät.",
+        "vehiclesStrong": "Yli 100 ajoneuvoa",
+        "planets": "🌍 {{strong}}: Matkusta tuttuihin maailmoihin Tatooinesta Endoriin ja sen yli.",
+        "planetsStrong": "23 planeettaa tutkittavana"
+      },
+      "specialTitle": "🌟 Mikä tekee tästä pelistä erityisen?",
+      "specialBody": "Julkaisunsa {{releaseDate}} jälkeen LEGO Star Wars: The Skywalker Sagaa on kehuttu sen mukaansatempaavasta pelattavuudesta ja uskollisesta Star Wars -universumin sovituksesta. {{metascore}} Metacriticissä, kriitikot ja fanit ovat korostaneet:",
+      "releaseDate": "huhtikuussa 2022",
+      "metascore": "82 Metascore",
+      "specialList": {
+        "combat": "🕹️ {{strong}}: Valosapelitaistelut, blasteriampumiset ja avaruusottelut.",
+        "combatStrong": "Dynaaminen taistelu",
+        "charm": "🏗️ {{strong}}: Klassinen Star Wars -huumori, kuviteltu uudelleen LEGOn ainutlaatuisella tyylillä.",
+        "charmStrong": "LEGO- viehätys",
+        "replayability": "🤯 {{strong}}: Valtavasti keräilyesineitä, sivutehtäviä ja piilotettuja salaisuuksia.",
+        "replayabilityStrong": "Uudelleenpelattavuus"
+      },
+      "howToClaim": "🎁 Miten lunastaa?",
+      "howToClaimBody": "Ilmaiskappaleen saaminen on helppoa!",
+      "step1": "Käy {{storeLink}}ssa {{dec5}} ja {{dec12}} välisenä aikana.",
+      "storeLink": "Epic Games Store",
+      "dec5": "5. joulukuuta",
+      "dec12": "12. joulukuuta 2024",
+      "step2": "Lisää peli kirjastoosi.",
+      "step3": "Se on sinun ikuisesti!",
+      "cardTitle": "Älä missaa tätä mahdollisuutta lähteä LEGO-matkalle galaksin halki!",
+      "cardBody": "Olitpa sitten intohimoinen Star Wars -fani tai uusi tulokas, tämä peli tarjoaa loputonta hauskaa kaikille.",
+      "footer": "Olkoon Voima (ja LEGO-palikat) kanssasi! 🧱✨"
+    },
+    "fairUse": {
+      "meta": {
+        "title": "Kohtuullisen käytön käytäntö - egdata.app",
+        "description": "Kohtuullisen käytön käytäntö egdata.appille"
+      },
+      "title": "EGData Appin kohtuullisen käytön käytäntö",
+      "section1Title": "1. Johdanto",
+      "section1Body": "Tervetuloa EGData Appiin („me\", „meidän\"). Tämä kohtuullisen käytön käytäntö määrittelee ehdot, joilla voit käyttää verkkosivustollamme {{siteLink}} („Sivusto\") tarjottua sisältöä ja tietoja.",
+      "section2Title": "2. Kohtuullisen käytön tarkoitus",
+      "section2Body": "EGData Appin sisältö ja tiedot tarjotaan vain tiedotustarkoituksiin. Tavoitteemme on tarjota kattava tietokanta peleistä (tai peliin liittyvistä tiedoista), jotka ovat saatavilla Epic Games Storessa koulutus- ja viitetarkoituksiin yhteisön käyttöön.",
+      "section3Title": "3. Kohtuullisen käytön noudattaminen",
+      "section3Body": "EGData App noudattaa kohtuullisen käytön periaatteita tekijänoikeuslain mukaisesti tarjoamalla tietoa ja dataa tavalla, joka hyödyttää yleisöä loukkaamatta sisällön omistajien oikeuksia. Tässä ovat keskeiset tekijät, jotka oikeuttavat käyttömme kohtuullisena käyttönä:",
+      "section3List": {
+        "purpose": "Käytön tarkoitus ja luonne:",
+        "purposeBody": "Sivustomme on ei-kaupallinen ja pyrkii kouluttamaan ja tiedottamaan yleisöä Epic Games Storessa saatavilla olevista peleistä. Tarjoamme kriittistä tietoa, arvosteluja ja päivityksiä, parantaen yleisön tietämystä ja arvostusta näistä peleistä.",
+        "nature": "Tekijänoikeudella suojatun teoksen luonne:",
+        "natureBody": "Keräämämme ja esittämämme tiedot koostuvat faktatiedoista, kuten pelien nimistä, julkaisupäivistä, kehittäjistä ja päivityksistä. Faktatiedot ovat vähemmän suojattuja tekijänoikeuslailla kuin luovat teokset.",
+        "amount": "Määrä ja olennaisuus:",
+        "amountBody": "Käytämme vain tarvittavan määrän tietoa tarjotaksemme merkityksellistä ja olennaista tietoa käyttäjillemme. Emme kopioi kokonaisia teoksia tai tarjoa laajoja otteita, jotka voisivat korvata alkuperäiset tuotteet.",
+        "effect": "Vaikutus markkinoihin:",
+        "effectBody": "Pelitietojen käyttömme ei vaikuta negatiivisesti alkuperäisten pelien markkinoihin. Sen sijaan se edistää näitä pelejä tarjoamalla ajantasaista tietoa ja lisäämällä käyttäjien sitoutumista ja kiinnostusta."
+      },
+      "section4Title": "4. Tietojen keruu ja päivitykset",
+      "section4Body1": "Sivustomme seuraa ja päivittää automaattisesti pelitietoja varmistaakseen, että tarjoamamme tiedot ovat ajantasaisia ja tarkkoja. Tämä automatisoitu prosessi sisältää julkisesti saatavilla olevien tietojen keräämistä Epic Games Storesta ja muista luotettavista lähteistä.",
+      "section4Body2": "Pitämällä tietokantamme ajan tasalla varmistamme, että käyttäjillä on pääsy viimeisimpiin tietoihin suosikkipeleistään, mukaan lukien uudet julkaisut, päivitykset ja muutokset saatavuudessa.",
+      "section4Body3": "Graafisten resurssien osalta lataamme kuvat suoraan Epic Games Storen palvelimilta. Emme tallenna kuvia omille palvelimillemme.",
+      "section5Title": "5. Tietovuotoja koskeva vastuuvapauslauseke",
+      "section5Body1": "Kaikki sivustollamme vuotaneelta vaikuttavat tiedot ovat peräisin julkisesti saatavilla olevista tiedoista, jotka Epic Games Store tarjoaa. Meillä ei ole pääsyä luottamuksellisiin tai omistusoikeudellisiin tietoihin, jotka eivät ole julkisesti saatavilla. Siksi kustantajien vastuulla on suojata tulevia immateriaalioikeuksiaan (IP), pelejä, ladattavaa sisältöä (DLC) ja muita arkaluonteisia tietoja Epic Gamesin kehittäjäportaalissa.",
+      "section5Body2": "Kustantajia kehotetaan varmistamaan, että arkaluonteiset tiedot on suojattu asianmukaisesti eikä niitä ole tahattomasti julkistettu. EGData Appia ei voida pitää vastuullisena mistään vuotaneista tiedoista, jotka on saatu julkisesti saatavilla olevista lähteistä.",
+      "section5Body3": "Lisätietoja tietosuojasta ja kohtuullisesta käytöstä Euroopan unionissa on seuraavissa resursseissa:",
+      "euDirective1": "Direktiivi (EU) 2019/790 tekijänoikeudesta ja siihen liittyvistä oikeuksista digitaalisilla sisämarkkinoilla",
+      "euDirective2": "Kysymyksiä ja vastauksia – Uudet EU:n tekijänoikeussäännöt",
+      "section6Title": "6. Ota yhteyttä",
+      "section6Body": "Jos sinulla on kysyttävää tästä kohtuullisen käytön käytännöstä tai uskot jonkin sivustomme sisällön tai tiedon loukkaavan tekijänoikeuksiasi, ota meihin yhteyttä:",
+      "email": "Sähköposti:"
+    },
+    "donateKey": {
+      "title": "Lahjoita avain",
+      "body": "Jos sinulla on avain, jonka haluaisit lahjoittaa projektille, täytä alla oleva lomake."
+    },
+    "androidBeta": {
+      "meta": {
+        "title": "Android Beta - egdata.app",
+        "description": "Liity egdata.app Android -sovelluksen suljettuun beta-testausohjelmaan"
+      },
+      "title": "Android Beta -ohjelma",
+      "description": "Liity suljettuun betaamme testataksesi egdata.app Android -sovellusta ennen julkista julkaisua.",
+      "whatHappensNext": "Mitä tapahtuu seuraavaksi?",
+      "steps": {
+        "signIn": "Kirjaudu sisään Google-tililläsi",
+        "added": "Sinut lisätään manuaalisesti suljettuun testausraiteeseen muutaman tunnin kuluessa",
+        "download": "Kun sinut on lisätty, voit ladata sovelluksen annetusta linkistä"
+      }
+    }
+  },
+  "components": {
+    "stats": {
+      "title": "Tilastot",
+      "description": "Tilastoja alustasta",
+      "offers": "Tarjoukset",
+      "offersTooltip": "Tarjous on ostettava katalogikohde kaupasta",
+      "items": "Kohteet",
+      "itemsTooltip": "Kohde on oikeus launcherille",
+      "tags": "Tagit",
+      "offersYear": "Tarjoukset (vuosi)",
+      "itemsYear": "Kohteet (vuosi)",
+      "assets": "Resurssit",
+      "assetsTooltip": "Resurssi on pelin tiedostoja",
+      "regPrices": "Normaalihinnat",
+      "changes": "Muutokset",
+      "sandboxes": "Hiekkalaatikot",
+      "sandboxesTooltip": "Hiekkalaatikko on tarjousten ryhmä"
+    },
+    "sandboxShell": {
+      "overview": "Yleiskatsaus",
+      "offers": "Tarjoukset",
+      "items": "Kohteet",
+      "assets": "Resurssit",
+      "builds": "Koontiversiot",
+      "achievements": "Saavutukset",
+      "changelog": "Muutosloki",
+      "sandbox": "Hiekkalaatikko",
+      "internalNamespace": "Sisäinen namespace",
+      "storePage": "Kauppasivu",
+      "updated": "Päivitetty {{date}}",
+      "unrealEngine": "Unreal Engine",
+      "internalSandbox": "Sisäinen hiekkalaatikko",
+      "releaseStatus": {
+        "prePurchase": "Ennakko-osto",
+        "datePending": "Päivämäärä odottaa",
+        "comingSoon": "Tulossa pian",
+        "released": "Julkaistu"
+      }
+    },
+    "comparison": {
+      "openCompareTray": "Avaa vertailualusta, {{count}} valittu",
+      "compareSelected": "Vertaile valittuja tarjouksia",
+      "error": "Virhe",
+      "type": "Tyyppi",
+      "seller": "Myyjä",
+      "developer": "Kehittäjä",
+      "releaseDate": "Julkaisupäivä",
+      "pcReleaseDate": "PC-julkaisupäivä",
+      "genres": "Lajityypit",
+      "platforms": "Alustat",
+      "remove": "Poista",
+      "current": "Nykyinen",
+      "lowest": "Alin",
+      "noPriceFound": "Hintaa ei löytynyt",
+      "noAgeRatingsFound": "Ikärajoja ei löytynyt",
+      "achievements": "Saavutukset:",
+      "ageRating": "Ikäraja:",
+      "price": "Hinta:",
+      "unknown": "Tuntematon"
+    },
+    "search": {
+      "sellers": "Myyjät",
+      "noResults": "Ei tuloksia",
+      "noResultsShort": "Ei tuloksia.",
+      "allOfferTypes": "Kaikki tarjoustyypit",
+      "tags": "Tagit"
+    },
+    "changelist": {
+      "title": "Muutoslista",
+      "loading": "Ladataan...",
+      "error": "Virhe: {{message}}",
+      "id": "Tunnus",
+      "type": "Tyyppi",
+      "titleOrId": "Otsikko/tunnus",
+      "date": "Päiväys",
+      "new": "uusi",
+      "update": "päivitys"
+    },
+    "upcoming": {
+      "caption": "Tulevat tarjoukset",
+      "loading": "Ladataan...",
+      "title": "Otsikko",
+      "price": "Hinta",
+      "releaseDate": "Julkaisupäivä",
+      "unknown": "Tuntematon",
+      "prePurchase": "Ennakko-osto"
+    },
+    "giveaways": {
+      "title": "Ilmaisjaot",
+      "free": "Ilmainen",
+      "freeNow": "Ilmainen nyt",
+      "startsIn": "Alkaa",
+      "repeated": "Toistettu:",
+      "yes": "Kyllä",
+      "no": "Ei",
+      "repeatedTooltip": "Tämä tarjous on jaettu ilmaiseksi {{count}} kertaa."
+    },
+    "giveawayStats": {
+      "title": "Ilmaisjaot numeroina",
+      "loading": "Ladataan...",
+      "totalValue": "Kokonaisarvo",
+      "totalValueTooltip": "Kokonaisarvo mukaan lukien aktiiviset alennukset",
+      "giveaways": "Ilmaisjaot",
+      "giveawaysTooltip": "Ilmaisjakojen kokonaismäärä tietokannassa",
+      "offers": "Tarjoukset",
+      "offersTooltip": "Ilmaisjakojen ainutlaatuisten tarjousten kokonaismäärä",
+      "repeated": "Toistuneet",
+      "repeatedTooltip": "Niiden ainutlaatuisten tarjousten määrä, jotka esiintyvät useita kertoja ilmaisjaoissa",
+      "sellers": "Myyjät",
+      "sellersTooltip": "Tarjouksia tarjoavien ainutlaatuisten myyjien kokonaismäärä"
+    },
+    "offerCard": {
+      "openOffer": "Avaa tarjous {{title}}",
+      "free": "Ilmainen",
+      "comingSoon": "Tulossa pian",
+      "earlyAccess": "Early Access",
+      "prePurchase": "Ennakko-osto",
+      "owned": "omistettu"
+    },
+    "baseGame": {
+      "checkBaseGame": "Tarkista peruspeli",
+      "partOfBundle": "Tämä tarjous on osa"
+    },
+    "notFound": {
+      "message": "Etsimääsi sivua ei ole olemassa."
+    },
+    "sellerOffers": {
+      "error": "Virhe ladattaessa tarjouksia. Yritä uudelleen.",
+      "moreFrom": "Lisää myyjältä {{name}}"
+    },
+    "achievementsBlade": {
+      "noData": "Ei tietoja",
+      "game": "Peli",
+      "achievements": "Saavutukset",
+      "xp": "XP",
+      "bronze": "Pronssi",
+      "silver": "Hopea",
+      "gold": "Kulta",
+      "gamesWithAchievements": "Pelit, joissa on Epic-saavutuksia"
+    },
+    "topSection": {
+      "free": "Ilmainen",
+      "releaseDate": "Julkaisupäivä:",
+      "tba": "TBA",
+      "platforms": "Alustat:",
+      "tags": "Tagit:",
+      "checkOffer": "Tarkista tarjous"
+    },
+    "featuredDiscounts": {
+      "free": "Ilmainen",
+      "title": "Suositellut alennukset",
+      "countMore": "+{{count}} lisää",
+      "checkOffer": "Tarkista tarjous",
+      "until": "asti"
+    },
+    "performanceTable": {
+      "title": "Suorituskyky",
+      "noPriorData": "Ei aiempia tietoja",
+      "cardsView": "Korttinäkymä",
+      "chartView": "Kaavionäkymä"
+    },
+    "priceChart": {
+      "selectValue": "Valitse arvo",
+      "last3Months": "Viimeiset 3 kuukautta",
+      "fetchingData": "Haetaan uusimpia tietoja"
+    },
+    "dateRangePicker": {
+      "from": "Alkaen",
+      "to": "Päättyen",
+      "maxRange": "Enimmäisväli on 30 päivää",
+      "invalidRange": "Virheellinen päivämääräväli"
+    },
+    "regionalPricing": {
+      "region": "Alue",
+      "price": "Hinta"
+    },
+    "regionalPricingBadge": {
+      "analysis": "Alueellinen hinnoitteluanalyysi",
+      "currentPrice": "Nykyinen hinta",
+      "suggestedPrice": "Ehdotettu hinta",
+      "belowSuggested": "Tämä tarjous on jopa sen alapuolella — erinomainen diili.",
+      "closeToSuggested": "Tämä tarjous on lähellä ehdotettua ja selvästi alle tyypillisen {{region}} hinnoittelun."
+    },
+    "countrySelector": {
+      "searchCountries": "Hae maita...",
+      "noCountries": "Maita ei löytynyt"
+    },
+    "countriesSelector": {
+      "searchCountries": "Hae maita...",
+      "noCountries": "Maita ei löytynyt"
+    },
+    "querySearch": {
+      "searchItems": "Hae kohteita..."
+    },
+    "extendedSearch": {
+      "searchItems": "Hae kohteita...",
+      "noItems": "Kohteita ei löytynyt."
+    },
+    "searchForm": {
+      "noResults": "Ei tuloksia",
+      "error": "Virhe: {{message}}",
+      "loadingLong": "Tämä kysely kestää tavallista pidempään..."
+    },
+    "searchFormV2": {
+      "noResults": "Ei tuloksia."
+    },
+    "androidBetaBanner": {
+      "dismiss": "Hylkää banneri"
+    },
+    "videoPlayer": {
+      "title": "{{title}}"
+    },
+    "mediaSlider": {
+      "previousSlide": "Edellinen dia",
+      "nextSlide": "Seuraava dia",
+      "image": "Kuva {{index}}",
+      "thumbnail": "Pikkukuva {{index}}",
+      "downloading": "Ladataan...",
+      "download": "Lataa"
+    },
+    "changelogItem": {
+      "action": "Toiminto",
+      "type": "Tyyppi",
+      "oldValue": "Vanha arvo",
+      "newValue": "Uusi arvo",
+      "previousValue": "Edellinen arvo:",
+      "newValueLabel": "Uusi arvo:"
+    },
+    "changelogCharts": {
+      "byWeekday": "Muutokset viikonpäivittäin",
+      "byWeekdayDesc": "Kertyneet muutokset viikonpäivittäin",
+      "typesOfChanges": "Muutostyypit",
+      "typesOfChangesDesc": "Muutosten määrä tyypeittäin",
+      "byField": "Muutokset kentittäin",
+      "byFieldDesc": "Muutokset ryhmiteltynä muuttuneen kentän mukaan",
+      "dailyDesc": "Näytetään päivittäiset muutokset viimeiseltä vuodelta",
+      "noData": "Ei saatavilla olevia tietoja näytettäväksi."
+    },
+    "openEgl": {
+      "open": "Avaa"
+    },
+    "openEgs": {
+      "store": "Kauppa"
+    },
+    "openLauncher": {
+      "play": "Pelaa"
+    },
+    "storeDropdown": {
+      "launcher": "Launcher",
+      "viewStorePage": "Näytä kauppasivu",
+      "webBrowser": "Verkkoselain"
+    },
+    "prepurchasePopup": {
+      "title": "{{title}}"
+    },
+    "apiKeyManager": {
+      "title": "API-avaimen hallinta",
+      "label": "API-avain",
+      "placeholder": {
+        "generated": "API-avain luotu",
+        "none": "API-avainta ei ole luotu"
+      },
+      "button": {
+        "regenerate": "Luo uusi avain",
+        "generate": "Luo avain",
+        "clear": "Tyhjennä avain"
+      },
+      "notification": {
+        "generated": "Uusi API-avain luotu onnistuneesti!",
+        "generateFailed": "API-avaimen luonti epäonnistui",
+        "copied": "API-avain kopioitu leikepöydälle!",
+        "copyFailed": "API-avaimen kopiointi epäonnistui",
+        "noneToCopy": "Ei API-avainta kopioitavaksi",
+        "cleared": "API-avain tyhjennetty onnistuneesti!",
+        "clearFailed": "API-avaimen tyhjennys epäonnistui"
+      },
+      "description": "API-avaimesi on UUID, joka tallennetaan paikallisesti selaimeesi ja jota käytetään push-ilmoituspyyntöjen todentamiseen. Käytä uudelleenluontipainiketta luodaksesi uuden avaimen tarvittaessa."
+    },
+    "cookieBanner": {
+      "title": "Evästeilmoitus",
+      "description": "Tämä verkkosivusto käyttää evästeitä parantaakseen selauskokemustasi. Hyväksymällä evästeet hyväksyt {{privacyPolicyLink}}.",
+      "accept": "Hyväksy",
+      "decline": "Hylkää"
+    },
+    "searchHeader": {
+      "results": "{{count}} tulosta",
+      "showingResultsFor": "Näytetään tulokset haulle"
+    },
+    "bundle": {
+      "collectionOffers": "Kokoelmien tarjoukset",
+      "bundleOffers": "Pakettitarjoukset",
+      "offersCount": "- {{count}} tarjousta",
+      "bundlePriceTitle": "Paketin hinta",
+      "totalValueLabel": "Kokonaisarvo:",
+      "bundlePriceLabel": "Paketin hinta:",
+      "youSave": "Säästät:",
+      "youPayMore": "Maksat enemmän:",
+      "buyBundle": "Osta paketti",
+      "buyIndividually": "Osta kohteet erikseen"
+    },
+    "clientBanner": {
+      "heading": "Tehosta {{appName}}-koontiversioiden tietokantaa",
+      "subheading": "Auta kartoittamaan jokainen Epic Games Store -koontiversio",
+      "description": "Kevyt Windows- ja macOS-asiakasohjelmamme skannaa Epic Games Launcher -asennuksesi ja lähettää turvallisesti vain manifestitiedostot — palalistat ja metatiedot — avoimeen tietokantaamme. Jokainen lähetys rikastuttaa yhteisöä ja auttaa meitä seuraamaan muutoksia ajan myötä.",
+      "cta": "Lataa Windowsille ja macOS:lle"
+    },
+    "collectionOffers": {
+      "title": "Kokoelmien tarjoukset"
+    },
+    "lastModifiedOffers": {
+      "title": "Viimeksi muokatut tarjoukset"
+    },
+    "latestOffers": {
+      "title": "Viimeksi lisätyt"
+    },
+    "latestReleased": {
+      "title": "Viimeksi julkaistut"
+    },
+    "mobileFreebies": {
+      "title": "Mobiilin ilmaispelit",
+      "collapse": "Kutista mobiilin ilmaispelit",
+      "expand": "Laajenna mobiilin ilmaispelit"
+    },
+    "sectionHeader": {
+      "seeAll": "Näytä kaikki"
+    },
+    "suggestedOffers": {
+      "title": "Saatat myös pitää"
+    }
+  },
+  "table": {
+    "pagination": {
+      "rowsPerPage": "Rivejä per sivu",
+      "pageOf": "Sivu {{page}} / {{total}}",
+      "goToFirst": "Siirry ensimmäiselle sivulle",
+      "goToPrevious": "Siirry edelliselle sivulle",
+      "goToNext": "Siirry seuraavalle sivulle",
+      "goToLast": "Siirry viimeiselle sivulle",
+      "previous": "Edellinen",
+      "next": "Seuraava",
+      "morePages": "Lisää sivuja"
+    },
+    "toolbar": {
+      "platform": "Alusta",
+      "status": "Tila",
+      "type": "Tyyppi",
+      "platforms": "Alustat",
+      "fileExtensions": "Tiedostopäätteet",
+      "filterOffers": "Suodata tarjouksia...",
+      "filterItems": "Suodata kohteita...",
+      "filterFiles": "Suodata tiedostoja...",
+      "reset": "Nollaa"
+    },
+    "viewOptions": {
+      "view": "Näytä",
+      "toggleColumns": "Vaihda sarakkeita"
+    },
+    "facetedFilter": {
+      "noResults": "Ei tuloksia.",
+      "selected": "valittu",
+      "clearFilters": "Tyhjennä suodattimet"
+    },
+    "builds": {
+      "noResults": "Ei tuloksia.",
+      "donateKey": "Lahjoita avain"
+    }
+  },
+  "forms": {
+    "review": {
+      "submitTitle": "Lähetä arvostelu",
+      "editTitle": "Muokkaa arvostelua",
+      "description": "Jaa ajatuksesi pelistä {{title}}",
+      "rating": "Arvosana",
+      "ratingError": "Arvosanan tulee olla välillä 1–10",
+      "recommend": "Suosittelisitko tätä tuotetta?",
+      "recommendError": "Valitse kyllä tai ei",
+      "yes": "Kyllä",
+      "no": "Ei",
+      "title": "Otsikko",
+      "titlePlaceholder": "Syötä arvostelullesi otsikko",
+      "titleRequired": "Otsikko vaaditaan",
+      "titleMinLength": "Otsikon on oltava vähintään 3 merkkiä",
+      "titleMinLengthLong": "Otsikon on oltava vähintään 3 merkkiä pitkä",
+      "titleMaxLength": "Otsikon on oltava alle 75 merkkiä",
+      "reviewContent": "Arvostelun sisältö",
+      "contentMinLength": "Sisällön on oltava vähintään 3 merkkiä pitkä",
+      "tags": "Tagit (pilkuilla eroteltuna)",
+      "tagsPlaceholder": "esim. laatu, muotoilu, suorituskyky",
+      "previous": "Edellinen",
+      "next": "Seuraava",
+      "submit": "Lähetä arvostelu",
+      "deleteReview": "Poista arvostelu",
+      "confirmDelete": "Oletko varma, että haluat poistaa tämän arvostelun?",
+      "deleteDescription": "Tätä toimintoa ei voi peruuttaa. Arvostelu poistetaan pysyvästi palvelimiltamme.",
+      "cancel": "Peruuta",
+      "delete": "Poista",
+      "deleting": "Poistetaan...",
+      "errorSubmitting": "Virhe arvostelun lähetyksessä",
+      "errorDeleting": "Virhe arvostelun poistossa",
+      "spamDetected": "Roskaposti havaittu",
+      "defaultContent": "Kirjoita arvostelusi tähän",
+      "theProduct": "tuotetta"
+    },
+    "androidBeta": {
+      "title": "Liity betaan",
+      "description": "Kirjaudu sisään Google-tilillä rekisteröityäksesi suljettuun betaan. Tarvitsemme vain sähköpostiosoitteesi.",
+      "spotsRemaining": "<strong>{{remaining}}</strong> / {{max}} paikkaa jäljellä",
+      "betaFull": "Beta on täynnä",
+      "betaFullDesc": "Kaikki {{max}} paikkaa on täytetty. Palaa myöhemmin tai seuraa meitä saadaksesi päivityksiä siitä, milloin lisää paikkoja tulee saataville.",
+      "registering": "Rekisteröidään sinua betaan...",
+      "registered": "Olet rekisteröitynyt!",
+      "registeredDesc": "Olemme rekisteröineet <strong>{{email}}</strong> suljettuun betaan.",
+      "registeredDesc2": "Saattaa kestää muutaman tunnin, ennen kuin sinut lisätään manuaalisesti testaajien listalle. Kun olet lisätty, voit liittyä betaan täällä:",
+      "joinBeta": "Liity betaan Google Playssa",
+      "alreadyRegistered": "Jo rekisteröitynyt",
+      "alreadyRegisteredDesc": "<strong>{{email}}</strong> on jo rekisteröitynyt betaan.",
+      "alreadyRegisteredDesc2": "Jos sinut on jo lisätty testaajien listalle, voit liittyä betaan täällä:",
+      "error": "Virhe",
+      "tryAgain": "Yritä uudelleen",
+      "noCredential": "Googlelta ei saatu tunnistetietoja",
+      "somethingWrong": "Jokin meni pieleen. Yritä uudelleen.",
+      "googleFailed": "Google-kirjautuminen epäonnistui. Yritä uudelleen."
+    },
+    "donateKey": {
+      "donate": "Lahjoita",
+      "error": "Virhe",
+      "success": "Onnistui",
+      "successDesc": "Kiitos lahjoituksestasi! Kohde on lunastettu oikein ja sen tiedot ovat saatavilla pian.",
+      "offerPage": "Tarjoussivu",
+      "somethingWrong": "Jokin meni pieleen. Yritä uudelleen."
+    }
+  },
+  "ui": {
+    "dialog": {
+      "close": "Sulje"
+    },
+    "sheet": {
+      "close": "Sulje"
+    },
+    "carousel": {
+      "previous": "Edellinen dia",
+      "next": "Seuraava dia"
+    },
+    "pagination": {
+      "previous": "Edellinen",
+      "next": "Seuraava",
+      "morePages": "Lisää sivuja"
+    },
+    "priceRangeSlider": {
+      "priceRange": "Hinta-alue",
+      "minPrice": "Min hinta",
+      "maxPrice": "Max hinta"
+    }
+  }
+}

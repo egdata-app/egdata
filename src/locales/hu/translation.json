@@ -1,0 +1,1763 @@
+{
+  "common": {
+    "appName": "EGDATA",
+    "search": "Keresés",
+    "searchPlaceholder": "Játékok keresése...",
+    "loading": "Betöltés...",
+    "free": "Ingyenes",
+    "notAvailable": "Nem elérhető",
+    "cancel": "Mégse",
+    "save": "Mentés",
+    "close": "Bezárás"
+  },
+  "nav": {
+    "toggleMenu": "Navigációs menü ki/be",
+    "logoAlt": "EGDATA logó",
+    "explore": "Felfedezés",
+    "browse": "Böngészés",
+    "sales": "Akciók",
+    "changelog": "Változásnapló",
+    "about": "Névjegy",
+    "rankings": "Rangsorok",
+    "topSellers": "Legkelendőbbek",
+    "mostPlayed": "Legtöbbet játszottak",
+    "topWishlisted": "Legtöbbet kívántak",
+    "topNewReleases": "Legjobb új megjelenések",
+    "seeAllCollections": "Összes gyűjtemény megtekintése",
+    "others": "Egyebek",
+    "releaseStats": "Megjelenési statisztikák",
+    "genres": "Műfajok",
+    "seeAllGenres": "Összes műfaj megtekintése",
+    "other": "Egyéb",
+    "action": "Akció",
+    "rpg": "RPG",
+    "indie": "Indie",
+    "strategy": "Stratégia",
+    "topSellerOnEpic": "Legkelendőbb az Epic Games Store-ban",
+    "searchItemTitle": "Keresés",
+    "searchItemDesc": "Találd meg, amit keresel az Epic Games Store-ban.",
+    "freeGamesItemTitle": "Ingyenes játékok",
+    "freeGamesItemDesc": "Fedezd fel a legújabb ingyenes játékokat az Epic Games Store-ban.",
+    "withDiscountsItemTitle": "Kedvezményekkel",
+    "withDiscountsItemDesc": "Nézd meg az aktuálisan akciós játékokat nagyszerű kedvezményekkel.",
+    "helloUser": "Szia, {{name}}!",
+    "dashboard": "Irányítópult",
+    "logout": "Kijelentkezés",
+    "searchLanguages": "Nyelvek keresése...",
+    "noLanguagesFound": "Nincs találat"
+  },
+  "footer": {
+    "logoAlt": "EGDATA logó",
+    "disclaimer": "Egy rajongói készítésű Epic Games Store adatbázis. Nem áll kapcsolatban az Epic Games, Inc.-vel. Minden logó, kép és védjegy a jogosult tulajdonosoké.",
+    "legal": "Jogi nyilatkozat",
+    "privacyPolicy": "Adatvédelmi irányelvek",
+    "notifications": "Értesítések",
+    "resources": "Források",
+    "apiDocs": "API dokumentáció",
+    "changelog": "Változásnapló",
+    "community": "Közösség",
+    "flagsByFlagpedia": "Zászlók a Flagpedia-től",
+    "madeIn": "Készült"
+  },
+  "meta": {
+    "title": "Epic Games Adatbázis - egdata.app",
+    "description": "Átfogó Epic Games Store adatbázis: játékinformációk, árak, eladási előzmények, fájllisták és több. Fedezd fel az ingyenes játékokat, közelgő megjelenéseket és közösségi betekintéseket.",
+    "twitterTitle": "Epic Games Adatbázis",
+    "twitterDescription": "Egy ingyenes és nyílt forráskódú Epic Games Store adatbázis átfogó játékinformációkkal, eladáskövetéssel és többel. Közösség által működtetett és folyamatosan frissített.",
+    "twitterImageAlt": "Epic Games Adatbázis",
+    "ogTitle": "Epic Games Adatbázis",
+    "ogDescription": "Egy ingyenes és nyílt forráskódú Epic Games Store adatbázis átfogó játékinformációkkal, eladáskövetéssel és többel. Közösség által működtetett és folyamatosan frissített.",
+    "ogImageAlt": "Epic Games Adatbázis"
+  },
+  "notFound": {
+    "title": "Az oldal nem található"
+  },
+  "home": {
+    "statsBar": {
+      "offersTracked": "Ajánlatok követve",
+      "priceChanges72h": "Árváltozások / 72 óra",
+      "activeDiscounts": "Aktív kedvezmények",
+      "giveawaysToDate": "Ajándékok eddig"
+    },
+    "sections": {
+      "giveawayStats": "Ajándék statisztikák",
+      "giveawayOffers": "Ajándék ajánlatok",
+      "upcomingOffers": "Közelgő ajánlatok",
+      "latestOffers": "Legújabb ajánlatok",
+      "latestReleased": "Legújabb megjelenések",
+      "latestOffersWithAchievements": "Legújabb ajánlatok teljesítményekkel",
+      "topSellingOffers": "Legkelendőbb ajánlatok",
+      "latestBuilds": "Legújabb build-ek"
+    },
+    "tableHeaders": {
+      "hash": "#",
+      "pos": "Poz",
+      "dash": "-",
+      "title": "Cím",
+      "starts": "Kezdés",
+      "ends": "Vég",
+      "releaseDate": "Megjelenés dátuma",
+      "createdAt": "Létrehozva",
+      "date": "Dátum",
+      "price": "Ár",
+      "size": "Méret",
+      "creationDate": "Létrehozás dátuma"
+    },
+    "offerHover": {
+      "seller": "Eladó:",
+      "developer": "Fejlesztő:",
+      "publisher": "Kiadó:",
+      "releaseDate": "Megjelenés dátuma:",
+      "ageRating": "Korhatár besorolás:",
+      "moreGenres_one": "+{{count}} további",
+      "moreGenres_other": "+{{count}} további",
+      "communityRating": "Közösségi értékelés:",
+      "igdbScore": "IGDB pontszám",
+      "reviews": "• {{count}} értékelés",
+      "timeToBeat": "Teljesítési idő:",
+      "features": "Funkciók:",
+      "moreFeatures": " +{{count}} további"
+    },
+    "buildHover": {
+      "unknownBuild": "Ismeretlen build",
+      "unknownDeveloper": "Ismeretlen fejlesztő",
+      "size": "Méret",
+      "version": "Verzió",
+      "created": "Létrehozva",
+      "id": "ID: {{id}}"
+    },
+    "multipleOffers": "{{title}} - Több ajánlat",
+    "hero": {
+      "subtitle": "Kövesd az árakat, fedezd fel az ajánlatokat, és soha ne maradj le egy ingyenes játékról sem. A társad az Epic Games Store adatbázisához — ajánlatok, kedvezmények, ajándékok, build-ek és több.",
+      "searchPlaceholder": "Keresés az adatbázisban…",
+      "justReleased": "Most megjelent",
+      "priceDrops72h": "Áresések (72 óra)",
+      "hasAchievements": "Van teljesítménye",
+      "upcoming": "Közelgő",
+      "topSellers": "Legkelendőbbek"
+    },
+    "pulse": {
+      "recentActivity": "Legutóbbi tevékenység",
+      "badge": {
+        "new": "Új",
+        "gone": "Eltűnt",
+        "offer": "Ajánlat",
+        "build": "Build",
+        "item": "Elem",
+        "asset": "Asset",
+        "xp": "XP",
+        "sandbox": "Sandbox",
+        "change": "Változás"
+      },
+      "title": {
+        "buildVersion": "Build {{version}}",
+        "buildId": "Build {{id}}",
+        "achievementsId": "Teljesítmények {{id}}"
+      },
+      "detail": {
+        "newBuildIndexed": "Új build indexelve",
+        "buildManifestRefreshed": "Build manifest frissítve",
+        "achievementChanges_one": "{{count}} teljesítmény {{entry}} {{verb}}",
+        "achievementChanges_other": "{{count}} teljesítmény {{entry}} {{verb}}",
+        "offerMetadataRefreshed": "Ajánlat metaadatok frissítve",
+        "fieldsChanged_one": "{{count}} mező {{verb}}",
+        "fieldsChanged_other": "{{count}} mező {{verb}}",
+        "fieldChanged": "{{field}} {{verb}}"
+      },
+      "actionVerb": {
+        "added": "hozzáadva",
+        "removed": "eltávolítva",
+        "updated": "frissítve",
+        "changed": "megváltozott"
+      },
+      "entry_one": "bejegyzés",
+      "entry_other": "bejegyzés"
+    }
+  },
+  "offerDetail": {
+    "common": {
+      "offerNotFound": "Ajánlat nem található",
+      "notAvailable": "Nem elérhető",
+      "na": "N/A",
+      "loading": "Betöltés...",
+      "somethingWentWrong": "Valami hiba történt",
+      "noChangesFound": "Nem található változás ehhez az ajánlathoz"
+    },
+    "tabs": {
+      "overview": "Áttekintés",
+      "price": "Ár",
+      "items": "Elemek",
+      "builds": "Build-ek",
+      "achievements": "Teljesítmények",
+      "related": "Kapcsolódó",
+      "metadata": "Metaadatok",
+      "changelog": "Változásnapló",
+      "media": "Média",
+      "reviews": "Értékelések"
+    },
+    "table": {
+      "offerId": "Ajánlat azonosító",
+      "namespace": "Namespace",
+      "offerType": "Ajánlat típusa",
+      "seller": "Eladó",
+      "developer": "Fejlesztő",
+      "supportedPlatforms": "Támogatott platformok",
+      "releaseDate": "Megjelenés dátuma",
+      "lastUpdate": "Utolsó frissítés",
+      "creationDate": "Létrehozás dátuma",
+      "technologies": "Technológiák",
+      "type": "Típus",
+      "value": "Érték",
+      "countriesBlacklist": "Országok feketelista",
+      "countriesWhitelist": "Országok fehérlista",
+      "categories": "Kategóriák",
+      "refundType": "Visszatérítés típusa",
+      "tags": "Címkék",
+      "ageRatings": "Korhatár besorolások",
+      "assets": "Asset-ek"
+    },
+    "badges": {
+      "prePurchase": "Előrendelés",
+      "earlyAccess": "Korai hozzáférés"
+    },
+    "hero": {
+      "offeredBy": "Ajánlotta {{seller}}"
+    },
+    "tooltip": {
+      "internalNamespace": "Epic Games belső namespace",
+      "techDescription": "technológiák listája a használt motorok és különböző technológiák követéséhez a játékfájlokból.",
+      "techSource": "Használjuk a",
+      "techSourceSteamDb": "SteamDB",
+      "source": "Forrás"
+    },
+    "actions": {
+      "compare": "Összehasonlítás"
+    },
+    "releaseDate": {
+      "releasedOnPc": "Megjelent PC-n",
+      "theEgs": " az EGS-en",
+      "releasedSameDay": "Megjelent Epic-en ugyanazon a napon, mint PC-n"
+    },
+    "notifications": {
+      "title": "Értesítési beállítások",
+      "description": "Válaszd ki, milyen értesítéseket szeretnél kapni ehhez az ajánlathoz.",
+      "all": "Mind",
+      "price": "Ár",
+      "achievements": "Teljesítmények",
+      "builds": "Build-ek",
+      "items": "Elemek",
+      "requirements": "Követelmények",
+      "metadata": "Metaadatok",
+      "media": "Média",
+      "enablePushDescription": "Engedélyezned kell a push értesítéseket, hogy értesítéseket kapj ehhez az ajánlathoz.",
+      "enablePushAction": "Push értesítések engedélyezése"
+    },
+    "overview": {
+      "genres": "Műfajok",
+      "ageRating": "Korhatár besorolás",
+      "noAgeRatings": "Nem található korhatár besorolás",
+      "giveaways": "Ajándékok",
+      "noGiveaways": "Nem található ajándék",
+      "achievements": "Teljesítmények",
+      "igdbTimeToBeat": "IGDB Teljesítési idő",
+      "hastily": "Gyorsan",
+      "normally": "Normál",
+      "completely": "Teljesen",
+      "hltbSubmissions_one": "{{count}} beküldés alapján",
+      "hltbSubmissions_other": "{{count}} beküldés alapján",
+      "price": "Ár",
+      "priceCurrent": "Aktuális:",
+      "priceLowest": "Legalacsonyabb:",
+      "priceLastDiscount": "Utolsó kedvezmény:",
+      "hltbTitle": "Mennyi ideig tart kiverni",
+      "noGameTimes": "Nem található játékidő",
+      "epicRating": "Epic játékosok értékelése",
+      "epicRatingDescription": "Az Epic Games ökoszisztéma játékosaitól gyűjtve",
+      "igdbRating": "IGDB értékelés",
+      "igdbReviews_one": "{{count}} értékelés",
+      "igdbReviews_other": "{{count}} értékelés"
+    },
+    "achievements": {
+      "title": "Teljesítmények",
+      "sortBy": "Rendezés",
+      "defaultSort": "Alapértelmezett rendezés",
+      "sortByRarity": "Rendezés ritkaság szerint",
+      "sortByCompleted": "Rendezés teljesítési % szerint",
+      "search": "Keresés",
+      "flipAll": "Összes megfordítása",
+      "noAchievements": "Nem található teljesítmény",
+      "noAchievementsSet": "Nem található teljesítmény ehhez a készlethez.",
+      "noAchievementsSetDescription": "Ez azt jelentheti, hogy a teljesítmények jelenleg nem érhetők el, de a jövőben hozzáadásra kerülnek.",
+      "baseGame": "Alapjáték",
+      "dlc": "DLC",
+      "achievementsLabel": "Teljesítmények",
+      "baseGameDescription": "Ez a teljesítménylista az alapjátékhoz tartozik.",
+      "dlcDescription": "Ez a teljesítménylista az egyik DLC-hez tartozik.",
+      "lastUpdated": "Utolsó frissítés:",
+      "lastUpdatedTooltip": "Ez a teljesítménykészlet utoljára {{date}}-án frissült.",
+      "lastUpdatedTooltipDescription": "Ez vagy a létrehozás dátuma, vagy az utolsó frissítés dátuma."
+    },
+    "builds": {
+      "title": "Build-ek"
+    },
+    "items": {
+      "title": "Elemek"
+    },
+    "price": {
+      "title": "Ár"
+    },
+    "related": {
+      "title": "Kapcsolódó ajánlatok"
+    },
+    "media": {
+      "images": "Képek",
+      "videos": "Videók",
+      "covers": "Borítók",
+      "noImages": "Nem található kép",
+      "noVideos": "Nem található videó",
+      "noCovers": "Nem található borító",
+      "download": "Letöltés",
+      "close": "Bezárás",
+      "downloadCoverAria": "{{type}} borító letöltése"
+    },
+    "metadata": {
+      "title": "Metaadatok",
+      "download": "Letöltés:",
+      "install": "Telepítés:"
+    },
+    "changelog": {
+      "title": "Változásnapló",
+      "tooltip": "Ez a lista az ehhez az ajánlathoz vagy kapcsolódó elemekhez, asset-ekhez vagy build-ekhez végrehajtott változtatásokat tartalmazza.",
+      "sandboxChangelog": "sandbox változásnapló",
+      "sandboxChangelogPrefix": "A teljes termék változásnaplóját itt tekintheted meg:",
+      "noChangelog": "Nem elérhető változásnapló",
+      "allTypes": "Minden típus",
+      "selectField": "Válassz mezőt",
+      "allFields": "Minden mező",
+      "search": "Keresés",
+      "previous": "Előző",
+      "next": "Következő",
+      "pageOf": "{{page}}. oldal / {{totalPages}}",
+      "typeUpdate": "Frissítés",
+      "typeDelete": "Törlés",
+      "typeInsert": "Beszúrás"
+    },
+    "reviews": {
+      "epicRating": "Epic játékosok értékelése",
+      "epicRatingDescription": "Az Epic Games ökoszisztéma játékosaitól gyűjtve",
+      "egdataRating": "EGDATA értékelés",
+      "overallScore": "Összpontszám",
+      "scoreOutOf10": "{{score}} / 10",
+      "basedOnReviews": "{{count}} értékelés alapján",
+      "allReviews": "Minden értékelés",
+      "onlyVerified": "Csak hitelesített",
+      "notVerified": "Nem hitelesített",
+      "leaveReview": "Értékelés írása",
+      "alreadyReviewed": "Már értékeltél",
+      "loginToReview": "Jelentkezz be az értékeléshez",
+      "noReviews": "Még nincsenek értékelések",
+      "notReleased": "Ez a termék még nem jelent meg",
+      "beFirst": "Légy az első, aki értékeli ezt a terméket!",
+      "checkBack": "Nézz vissza a megjelenés után, hogy értékelést írhass!",
+      "verifiedOwner": "Hitelesített tulajdonos",
+      "recommended": "Ajánlott",
+      "notRecommended": "Nem ajánlott",
+      "readMore": "Bővebben",
+      "reviewedOn": "Értékelve",
+      "lastUpdatedOn": "Utoljára frissítve",
+      "editedTimes": "Szerkesztve {{count}} alkalommal",
+      "edit": "Szerkesztés",
+      "close": "Bezárás",
+      "reviewCount_one": "{{count}} értékelés",
+      "reviewCount_other": "{{count}} értékelés",
+      "ownershipVerification": "Tulajdonjog ellenőrzése",
+      "ownershipVerificationDescription": "a játékos által elért legalább egy teljesítmény teljesítésén alapul.",
+      "ownershipVerificationTooltip": "Az Epic Games teljesítményeket használjuk a termék tulajdonjogának ellenőrzésére. Ahhoz, hogy egy játékost hitelesített tulajdonosként jelöljünk meg, legalább egy teljesítményt teljesítenie kell a kiválasztott termékhez az Epic Games Store-ban. A fiókod összekapcsolásához az egdata profiloddal, látogass el a",
+      "yourDashboard": "irányítópultodra",
+      "criticReviews": "Kritikai értékelések",
+      "basedOnCriticReviews": "{{count}} kritikai értékelés alapján",
+      "opencriticRating": "OpenCritic értékelés",
+      "topCriticAverage": "Legjobb kritikusok átlaga",
+      "criticsRecommend": "Kritikusok ajánlják",
+      "opencriticRatingAlt": "OpenCritic értékelés"
+    }
+  },
+  "search": {
+    "meta": {
+      "title": "Keresés | egdata.app",
+      "description": "Ajánlatok keresése az Epic Games Store-ból."
+    },
+    "defaultTitle": "Keresés",
+    "filters": "Szűrők",
+    "filtersPlaceholder": "Játékok keresése",
+    "pills": {
+      "onSale": "Akciós",
+      "codeRedemptionOnly": "Csak kód beváltás",
+      "excludeBlockchain": "Blockchain/NFT kizárása",
+      "pastGiveaways": "Korábbi ajándékok"
+    },
+    "accordion": {
+      "offerType": "Ajánlat típusa",
+      "developer": "Fejlesztő",
+      "publisher": "Kiadó",
+      "noTags": "Nem található címke",
+      "seller": "Eladó"
+    },
+    "checkboxes": {
+      "pastGiveaways": "Korábbi ajándékok",
+      "onSale": "Akciós",
+      "codeRedemptionOnly": "Csak kód beváltás",
+      "excludeBlockchain": "Blockchain/NFT kizárása",
+      "onlyHistoricalLows": "Csak történelmi mélypontok",
+      "onlyLowestPriceEver": "Csak a valaha volt legalacsonyabb ár"
+    },
+    "tagGroups": {
+      "event": "Esemény",
+      "genre": "Műfaj",
+      "epicfeature": "Epic funkció",
+      "accessibility": "Akadálymentesítés",
+      "feature": "Funkció",
+      "usersay": "Usersay",
+      "subscription": "Előfizetés",
+      "platform": "Platform",
+      "all": "Minden címke"
+    },
+    "sort": {
+      "sortBy": "Rendezés",
+      "sortAriaLabel": "Ajánlatok rendezése",
+      "sortDirectionAriaLabel": "Rendezési irány váltása",
+      "showListView": "Lista nézet mutatása",
+      "showGridView": "Rács nézet mutatása",
+      "releaseDate": "Megjelenés dátuma",
+      "lastModifiedDate": "Módosítás dátuma",
+      "effectiveDate": "Hatályos dátum",
+      "creationDate": "Létrehozás dátuma",
+      "viewableDate": "Megtekinthető dátum",
+      "pcReleaseDate": "PC megjelenés dátuma",
+      "upcoming": "Közelgő",
+      "price": "Ár",
+      "discount": "Kedvezmény",
+      "discountPercent": "Kedvezmény %",
+      "giveawayDate": "Ajándék dátuma"
+    },
+    "results": {
+      "noResults": "Nincs találat"
+    }
+  },
+  "freebies": {
+    "meta": {
+      "title": "Ingyenes játékok | egdata.app",
+      "description": "Böngéssz az ingyenes játékok között az Epic Games Store-ból."
+    },
+    "headings": {
+      "current": "Jelenlegi ingyenes játékok",
+      "past": "Korábbi ingyenes játékok",
+      "sellers": "Ingyenes játékok eladói"
+    },
+    "buttons": {
+      "redeem": "Beváltás most",
+      "downloadJson": "Letöltés JSON-ként",
+      "downloadCsv": "Letöltés CSV-ként",
+      "downloadTxt": "Letöltés szövegként"
+    },
+    "placeholders": {
+      "searchSellers": "Eladók keresése..."
+    },
+    "aria": {
+      "downloadList": "Lista letöltése"
+    },
+    "errors": {
+      "loadSellers": "Hiba az eladói adatok betöltésekor. Kérjük, próbáld újra később."
+    },
+    "table": {
+      "sellerName": "Eladó neve",
+      "totalGames": "Összes egyedi játék"
+    }
+  },
+  "sales": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Nézd meg a {{title}} ajánlatokat az Epic Games Store-ból."
+    },
+    "metaIndex": {
+      "title": "Aktív akciók | egdata.app",
+      "description": "Aktív akciók böngészése az egdata.app-on"
+    },
+    "status": {
+      "loading": "Betöltés...",
+      "noData": "Nincs adat"
+    },
+    "headings": {
+      "active": "Aktív akciók",
+      "pastUpcoming": "Korábbi / Közelgő akciók",
+      "offersList": "{{title}} ajánlatok"
+    },
+    "errors": {
+      "notFound": "Promóció nem található"
+    },
+    "labels": {
+      "offersCount": "{{count}} ajánlat elérhető ebben az eseményben"
+    }
+  },
+  "collections": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Nézd meg a {{title}} gyűjteményt az Epic Games Store-ból."
+    },
+    "metaIndex": {
+      "title": "Gyűjtemények | egdata.app",
+      "description": "Gyűjtemények az egdata.app-on"
+    },
+    "headings": {
+      "main": "Gyűjtemények"
+    },
+    "description": {
+      "overview": "A legkelendőbb, legtöbbet játszott és legnépszerűbb játékok az Epic Games Store-ban"
+    },
+    "status": {
+      "loading": "Betöltés..."
+    },
+    "errors": {
+      "notFound": "Gyűjtemény nem található"
+    },
+    "table": {
+      "position": "Pozíció",
+      "variance": "Eltérés",
+      "weeks": "Hetek"
+    },
+    "tooltips": {
+      "variance": "A különbség az aktuális és az előző pozíció között. Általában naponta változik.",
+      "weeks": "A hetek száma, amióta a játék a top 100-ban van a {{title}} kategóriában."
+    },
+    "buttons": {
+      "loadMore": "Több betöltése"
+    }
+  },
+  "sandboxes": {
+    "notFoundTitle": "Sandbox nem található",
+    "notFoundDescription": "Sandbox nem található",
+    "unrealEngineTitle": "Unreal Engine",
+    "unavailableTitle": "Sandbox nem elérhető",
+    "unavailableDescription": "A termékközpontot nem lehet betölteni.",
+    "noProductDataDescription": "Nem létezik termékadat ehhez a sandbox-hoz.",
+    "hubEyebrow": "Sandbox",
+    "hubOverviewTitle": "Áttekintés",
+    "hubOverviewDescription": "A boltfront, tulajdonjog, kézbesítés és frissítési rekordok fókuszált térképe ehhez a Namespace-hez.",
+    "latestChangesButton": "Legutóbbi változások",
+    "entityOffersLabel": "Ajánlatok",
+    "entityOffersDescription": "Bolt bejegyzések",
+    "entityItemsLabel": "Elemek",
+    "entityItemsDescription": "Tulajdonolható rekordok",
+    "entityAssetsLabel": "Asset-ek",
+    "entityAssetsDescription": "Artefaktumok és média",
+    "entityBuildsLabel": "Build-ek",
+    "entityBuildsDescription": "Bináris csomagok",
+    "entityAchievementsLabel": "Teljesítmények",
+    "entityAchievementsDescription": "Előrehaladási adatok",
+    "entityChangelogLabel": "Változásnapló",
+    "entityChangelogDescription": "Követett frissítések",
+    "viewButton": "Megtekintés",
+    "storefrontOffersTitle": "Boltfront ajánlatok",
+    "storefrontOffersDescription": "Reprezentatív bolt bejegyzések ebben a sandbox-ban.",
+    "recentBuildsTitle": "Legutóbbi build-ek",
+    "recentBuildsDescription": "Legújabb bináris rekordok.",
+    "latestBadge": "legutóbbi",
+    "unknownBuildLabel": "Ismeretlen build",
+    "recentChangesTitle": "Legutóbbi változások",
+    "recentChangesDescription": "Legújabb katalógus módosítások.",
+    "updateBadge": "frissítés",
+    "changeDefaultLabel": "Változás",
+    "metaOffersTitle": "Ajánlatok",
+    "offersEyebrow": "E-kereskedelem",
+    "offersTitle": "Ajánlatok",
+    "offersDescription": "Boltfront bejegyzések ebben a sandbox-ban, beleértve az alapjátékokat, kiadásokat, DLC-ket, kiegészítőket, csomagokat és bármely ajánlatot, amely katalóguselemeket biztosíthat.",
+    "totalOffersLabel": "Összes ajánlat",
+    "metaAchievementsTitle": "Teljesítmények",
+    "achievementsEyebrow": "Előrehaladás",
+    "achievementsTitle": "Teljesítmények",
+    "achievementsDescription": "Teljesítménykészletek, rejtett állapotok, ritkaságeloszlás és XP-összegek ehhez a sandbox-hoz csatolva.",
+    "achievementsSetsLabel": "Készletek",
+    "achievementsLabel": "Teljesítmények",
+    "achievementsXpLabel": "XP",
+    "searchAchievementsPlaceholder": "Teljesítmények keresése",
+    "flipAllButton": "Összes megfordítása",
+    "revealHiddenAchievementAria": "Rejtett teljesítmény szöveg felfedése",
+    "hideHiddenAchievementAria": "Rejtett teljesítmény szöveg elrejtése",
+    "achievementsBaseGameLabel": "Alapjáték",
+    "achievementsDlcLabel": "DLC",
+    "achievementsBaseGameTooltip": "Ez a teljesítménylista az alapjátékhoz tartozik.",
+    "achievementsDlcTooltip": "Ez a teljesítménylista az egyik DLC-hez tartozik.",
+    "lastUpdatedLabel": "Utolsó frissítés:",
+    "achievementsLastUpdatedTooltip": "Ez a teljesítménykészlet utoljára frissült:",
+    "achievementsLastUpdatedTooltipExtra": "Ez vagy a létrehozás dátuma, vagy az utolsó frissítés dátuma.",
+    "noAchievementsForSet": "Nem található teljesítmény ehhez a készlethez.",
+    "noAchievementsForSetExtra": "Ez azt jelentheti, hogy a teljesítmények jelenleg nem érhetők el, de a jövőben hozzáadásra kerülnek.",
+    "noAchievementsFound": "Nem található teljesítmény",
+    "metaItemsTitle": "Elemek",
+    "itemsEyebrow": "Katalógus tulajdonjog",
+    "itemsTitle": "Elemek",
+    "itemsDescription": "Ajánlatok által tartalmazott tulajdonolható katalóguselemek. Ezek a rekordok válnak játékos jogosultságokká vásárlás vagy beváltás után.",
+    "totalItemsLabel": "Összes elem",
+    "metaChangelogTitle": "Változásnapló",
+    "changelogEyebrow": "Naplózás",
+    "changelogTitle": "Változásnapló",
+    "changelogDescription": "Megfigyelt változások a sandbox ajánlatai, elemei, asset-jei, build-jei és kapcsolódó katalógus metaadatai között.",
+    "totalChangesLabel": "Változások",
+    "queryTimeLabel": "Lekérdezési idő",
+    "noChangelogFound": "Nem található változásnapló",
+    "metaBuildsTitle": "Build-ek",
+    "buildsEyebrow": "Binárisok",
+    "buildsTitle": "Build-ek",
+    "buildsDescription": "Verziózott fájlcsomagok feltöltve a sandbox-hoz. A build-ek artefaktumokhoz vannak rendelve, és meghatározzák, hogy a játékosok mit töltenek le a launcheren keresztül.",
+    "totalBuildsLabel": "Összes build",
+    "metaAssetsTitle": "Asset-ek",
+    "assetsEyebrow": "Asset-ek és artefaktumok",
+    "assetsTitle": "Asset-ek",
+    "assetsDescription": "Terjesztési és média rekordok a sandbox elemeihez csatolva, beleértve az artefaktumokat, amelyek összekötik a bolt katalógus tartalmát a letölthető build-ekkel.",
+    "totalAssetsLabel": "Összes asset"
+  },
+  "items": {
+    "notFound": "Elem nem található",
+    "badge": "Elem",
+    "table": {
+      "itemId": "Elem azonosító",
+      "namespace": "Namespace",
+      "developer": "Fejlesztő",
+      "entitlementType": "Jogosultság típusa",
+      "entitlementName": "Jogosultság neve",
+      "status": "Állapot",
+      "creationDate": "Létrehozás dátuma",
+      "lastModified": "Utolsó módosítás",
+      "platforms": "Platformok"
+    },
+    "tooltip": {
+      "internalNamespace": "Epic Games belső namespace"
+    },
+    "tabs": {
+      "item": "Elem",
+      "assets": "Asset-ek",
+      "images": "Képek",
+      "builds": "Build-ek",
+      "changelog": "Változásnapló"
+    },
+    "metadata": {
+      "title": "Metaadatok",
+      "key": "Kulcs",
+      "value": "Érték"
+    },
+    "assets": {
+      "title": "Asset-ek"
+    },
+    "builds": {
+      "title": "Build-ek"
+    },
+    "changelog": {
+      "title": "Változásnapló",
+      "noChangelog": "Nem elérhető változásnapló"
+    },
+    "images": {
+      "title": "Képek"
+    }
+  },
+  "builds": {
+    "notFound": "Build nem található",
+    "build": "Build",
+    "for": "-",
+    "compressed": "({{percent}}% tömörítve)",
+    "table": {
+      "buildId": "Build azonosító",
+      "buildName": "Build neve",
+      "appName": "Alkalmazás neve",
+      "hash": "Hash",
+      "installedSize": "Telepített méret",
+      "downloadSize": "Letöltési méret",
+      "createdAt": "Létrehozva",
+      "updatedAt": "Frissítve",
+      "technologies": "Technológiák"
+    },
+    "tooltip": {
+      "techSource": "Használjuk a",
+      "techSourceSteamDb": "SteamDB",
+      "techDescription": "technológiák listája a használt motorok és különböző technológiák követéséhez a játékfájlokból.",
+      "source": "Forrás"
+    },
+    "tabs": {
+      "files": "Fájlok",
+      "items": "Elemek",
+      "installOptions": "Telepítési opciók"
+    },
+    "files": {
+      "title": "Fájlok"
+    },
+    "items": {
+      "title": "Elemek"
+    },
+    "installOptions": {
+      "title": "Telepítési opciók",
+      "file_one": "fájl",
+      "file_other": "fájl"
+    },
+    "meta": {
+      "title": "{{title}} ({{version}}) | egdata.app",
+      "description": "{{version}} Build a {{title}} játékhoz az Epic Games Store-ból."
+    }
+  },
+  "profile": {
+    "meta": {
+      "notFoundTitle": "Profil nem található",
+      "notFoundDescription": "Profil nem található",
+      "title": "{{name}} | egdata.app",
+      "description": "Nézd meg {{name}} teljesítményeit és játékait az egdata.app-on",
+      "defaultName": "Profil",
+      "defaultDescriptionName": "ezen játékos"
+    },
+    "errors": {
+      "notFoundTitle": "Profil nem található",
+      "notFoundDescription": "Ez a profil nem elérhető, vagy még nem lett indexelve.",
+      "unavailableTitle": "Profil nem elérhető",
+      "unavailableDescription": "Ez a profil jelenleg nem tölthető be.",
+      "invalidImageFormat": "Érvénytelen képformátum",
+      "failedToUpload": "Sikertelen feltöltés",
+      "uploadFailed": "Sikertelen feltöltés",
+      "failedToRefresh": "A profil frissítése sikertelen",
+      "refreshQueued": "Profil hozzáadva a frissítési sorhoz, hamarosan frissülni fog."
+    },
+    "fallbackName": "Ismeretlen profil",
+    "avatar": {
+      "changeAvatar": "Avatar csere",
+      "dialogDescription": "Tölts fel egy új profilkép.",
+      "previewAlt": "Avatar előnézet",
+      "fallback": "Avatar",
+      "description": "Tölts fel egy új avatar képet, max 5MB.",
+      "uploadingWithProgress": "Feltöltés... {{progress}}%",
+      "uploading": "Feltöltés...",
+      "updateAvatar": "Avatar frissítése",
+      "errorTitle": "Hiba"
+    },
+    "hero": {
+      "joined": "Csatlakozott",
+      "epicGamesStore": "Epic Games Store",
+      "linkDiscord": "Discord összekapcsolása",
+      "refreshProfile": "Profil frissítése",
+      "refreshAvailableIn": "Frissítés elérhető",
+      "level": "Szint",
+      "achievements": "Teljesítmények",
+      "unlocked": "Feloldva",
+      "platinum": "Platina",
+      "perfectGames": "Tökéletes játékok",
+      "library": "Könyvtár",
+      "achievementGames": "Teljesítményekkel rendelkező játékok",
+      "reviews": "Értékelések",
+      "contributed": "Hozzájárult",
+      "xpToNextLevel": "{{xp}} XP a {{level}}. szintig",
+      "heroGame": "Kiemelt játék",
+      "complete": "kész"
+    },
+    "donor": {
+      "donated_one": "{{name}} adományozott {{count}} kulcsot az egdata.app-nak",
+      "donated_other": "{{name}} adományozott {{count}} kulcsot az egdata.app-nak",
+      "goTo": "Ugrás",
+      "thisLink": "erre a linkre",
+      "toDonateKey": "egy kulcs adományozásához."
+    },
+    "countdown": {
+      "minutesSeconds_one": "{{minutes}} perc {{seconds}} másodperc",
+      "minutesSeconds_other": "{{minutes}} perc {{seconds}} másodperc",
+      "seconds_one": "{{seconds}} másodperc",
+      "seconds_other": "{{seconds}} másodperc"
+    },
+    "tabs": {
+      "showcase": "Kirakat",
+      "library": "Könyvtár",
+      "activity": "Tevékenység"
+    },
+    "stats": {
+      "games": "{{count}} játék",
+      "achievements": "{{count}} teljesítmény",
+      "platinum": "{{count}} platina"
+    },
+    "showcase": {
+      "ariaLabel": "Profil kirakat kiemelései",
+      "featuredGamesTitle": "Kiemelt játékok",
+      "featuredGamesDetail": "{{count}} kiválasztva a profil teljesítménye alapján",
+      "rareAchievementsTitle": "Ritka teljesítmények",
+      "rareAchievementsDetail": "Nehezen megtalálható feloldások a profilban",
+      "recentUnlocksTitle": "Legutóbbi feloldások",
+      "recentUnlocksDetail": "Legutóbbi látható tevékenység",
+      "noDataTitle": "Még nincs kirakat adat",
+      "noDataDescription": "Csak a nyilvános teljesítmény-előrehaladással rendelkező kiadott játékok jelennek meg a profilokon.",
+      "rarestUnlock": "Legritkább feloldás",
+      "definingGame": "Meghatározó játék",
+      "latestActivity": "Legutóbbi tevékenység",
+      "achievementsCount": "{{unlocked}} / {{total}} teljesítmény",
+      "platinum": "Platina"
+    },
+    "library": {
+      "filterAriaLabel": "Könyvtár szűrő",
+      "sortAriaLabel": "Könyvtár rendezése",
+      "sortByPlaceholder": "Rendezés",
+      "noGamesTitle": "Nem található játék",
+      "noGamesDescription": "Csak a teljesítménnyel rendelkező kiadott játékok jelennek meg ebben a könyvtárban.",
+      "gameAlt": "Játék",
+      "complete": "kész",
+      "featured": "Kiemelt",
+      "rareUnlocks": "Ritka feloldások",
+      "filters": {
+        "all": "Mind",
+        "completed": "Teljesítve",
+        "nearPlatinum": "Platina közelében",
+        "inProgress": "Folyamatban",
+        "platinum": "Platina"
+      },
+      "sorts": {
+        "completion": "Teljesítés",
+        "alphabetical": "Ábécé sorrend",
+        "xp": "XP",
+        "achievements": "Teljesítmények"
+      }
+    },
+    "activity": {
+      "title": "Tevékenység",
+      "detail": "{{count}} teljesítmény feloldva",
+      "noActivityTitle": "Még nincs tevékenység",
+      "noActivityDescription": "A teljesítményfeloldások itt jelennek meg, ha ez a profil nyilvános előrehaladással rendelkezik.",
+      "achievementAlt": "Teljesítmény",
+      "platinumEarned": "Platina megszerezve",
+      "achievementUnlocked": "Teljesítmény feloldva",
+      "unknownRarity": "Ismeretlen ritkaság",
+      "rarity": "{{value}}% ritkaság",
+      "unknownDate": "Ismeretlen dátum"
+    },
+    "achievements": {
+      "loading": "Betöltés...",
+      "notFound": "Profil nem található",
+      "myAchievements": "Saját teljesítményeim"
+    }
+  },
+  "tags": {
+    "meta": {
+      "notFoundTitle": "Promóció nem található",
+      "notFoundDescription": "Promóció nem található",
+      "title": "{{title}} | egdata.app",
+      "description": "Nézd meg a {{count}} elérhető ajánlatot a {{title}} számára az egdata.app-on.",
+      "socialTitle": "{{title}} - egdata.app"
+    },
+    "loading": "Betöltés...",
+    "offersCount": "{{count}} ajánlat elérhető ebben az eseményben",
+    "results": "Eredmények",
+    "resultsCount": "({{count}} eredmény)",
+    "searchPlaceholder": "Keresés...",
+    "loadMore": "Több betöltése",
+    "sortBy": {
+      "releaseDate": "Megjelenés dátuma",
+      "lastModifiedDate": "Módosítás dátuma",
+      "effectiveDate": "Hatályos dátum",
+      "creationDate": "Létrehozás dátuma",
+      "viewableDate": "Megtekinthető dátum",
+      "pcReleaseDate": "PC megjelenés dátuma",
+      "upcoming": "Közelgő",
+      "price": "Ár"
+    }
+  },
+  "genres": {
+    "meta": {
+      "title": "Műfajok - egdata.app",
+      "description": "Műfajok az egdata.app-on"
+    },
+    "heading": "Műfajok"
+  },
+  "sellers": {
+    "meta": {
+      "notFoundTitle": "Eladó nem található",
+      "notFoundDescription": "Eladó nem található",
+      "title": "{{name}} | egdata.app"
+    },
+    "notFound": "Eladó nem található",
+    "logoAlt": "{{name}} logó",
+    "bannerAlt": "{{name}}",
+    "offersTitle": "{{name}} ajánlatok",
+    "stats": {
+      "offers": "Ajánlatok",
+      "games": "Játékok",
+      "items": "Elemek",
+      "freeGames": "Ingyenes játékok"
+    }
+  },
+  "franchises": {
+    "meta": {
+      "notFoundTitle": " franchise nem található",
+      "notFoundDescription": " franchise nem található",
+      "title": "{{name}} franchise | egdata.app",
+      "description": "Böngéssz az összes játék között a {{name}} franchise-ban az Epic Games Store-ban."
+    },
+    "loading": "Betöltés...",
+    "gamesCount_one": "{{count}} játék",
+    "gamesCount_other": "{{count}} játék",
+    "timeToBeat": "Teljesítési idő",
+    "achievements": "Teljesítmények",
+    "loadMore": "Több betöltése",
+    "free": "Ingyenes"
+  },
+  "stats": {
+    "creations": {
+      "meta": {
+        "title": "Létrehozási statisztikák - egdata.app",
+        "description": "Havi és éves ütem az Epic Games Store-ba érkező új létrehozásokról."
+      },
+      "viewReleases": "Megjelenések megtekintése",
+      "heading": "Epic Games Store létrehozási statisztikák",
+      "description": "Havi és éves ütem az áruházba érkező új létrehozásokról.",
+      "monthlyTitle": "Havi létrehozások",
+      "yearlyTitle": "Éves létrehozások"
+    },
+    "releases": {
+      "meta": {
+        "title": "Megjelenési statisztikák - egdata.app",
+        "description": "Havi és éves ütem az Epic Games Store-ba érkező új címekről."
+      },
+      "viewCreations": "Létrehozások megtekintése",
+      "heading": "Epic Games Store megjelenési statisztikák",
+      "description": "Havi és éves ütem az áruházba érkező új címekről.",
+      "monthlyTitle": "Havi megjelenések",
+      "yearlyTitle": "Éves megjelenések"
+    }
+  },
+  "store": {
+    "creatorCode": {
+      "title": "Támogasd az egdata.app-ot",
+      "description": "Szeretnéd támogatni az egdata.app-ot a kreator kódunk használatával játékvásárlás során? Ezt a választást megjegyezzük a későbbi látogatásokhoz.",
+      "body": "A kreator kódunk használata segíti az egdata.app és funkcióinak fejlesztését. Nem befolyásolja a fizetendő árat.",
+      "noThanks": "Nem, köszönöm",
+      "yesUseCode": "Igen, használd a kódot"
+    }
+  },
+  "dashboard": {
+    "placeholder": "Szia /dashboard!"
+  },
+  "auth": {
+    "login": {
+      "placeholder": "Szia /auth/login!"
+    },
+    "callback": {
+      "placeholder": "Szia /auth/callback!"
+    },
+    "logout": {
+      "placeholder": "Szia /auth/logout!"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "Névjegy - egdata.app",
+      "description": "Névjegy az egdata.app-ról"
+    },
+    "title": "Névjegy",
+    "intro": "Az egdata.app egy közösség által működtetett weboldal, amely az Epic Games Store nyomon követésére és információinak biztosítására specializálódott. Hasonlóan a SteamDB-hez a Steam számára, célunk egy átfogó forrás biztosítása a felhasználók számára a változások felfedezéséhez, új játékok megtalálásához és a platform legújabb eseményeinek követéséhez.",
+    "missionTitle": "Küldetésünk",
+    "missionBody": "Küldetésünk, hogy átláthatóságot és betekintést nyújtsunk az Epic Games Store ökoszisztémájába. Hiszünk abban, hogy az adatok hozzáférhető módon történő összegyűjtésével és bemutatásával képessé tehetjük a felhasználókat, hogy tájékozott döntéseket hozzanak játékvásárlásaikról, és hozzájáruljunk a platform jobb megértéséhez.",
+    "featuresTitle": "Funkciók",
+    "features": {
+      "trackPrices": "Játékárak változásainak és előzményeinek követése",
+      "upcomingReleases": "Közelgő megjelenések és ingyenes játék promóciók megtekintése",
+      "gameDetails": "Játékrészletek, értékelések és felhasználói vélemények felfedezése",
+      "analyzeTrends": "Trendek és minták elemzése az Epic Games Store-ban"
+    },
+    "communityTitle": "Közösség által működtetett",
+    "communityBody": "Az egdata.app-ot egy szenvedélyes játékosokból és fejlesztőkből álló közösség építi és tartja karban. Szívesen fogadjuk mindazok hozzájárulását, akik szeretnének segíteni a weboldal fejlesztésében és értékes forrássá tételében mindenki számára. Nyugodtan lépj kapcsolatba velünk, ha visszajelzésed, javaslatod van, vagy szeretnél részt venni.",
+    "sourceCodeIntro": "Az egdata.app teljes forráskódja elérhető a",
+    "github": "GitHub",
+    "notTitle": "Mit NEM az egdata.app",
+    "notIntro": "Fontos tisztázni, hogy az egdata.app nem:",
+    "notList": {
+      "affiliated": "Epic Games-szel társult: Független, közösség által működtetett projekt vagyunk, amely semmilyen módon nem áll hivatalos kapcsolatban az Epic Games-szel.",
+      "storefront": "Bolt vagy piactér: Nem árulunk játékokat és nem biztosítunk vásárlási lehetőségeket. A hangsúly az Epic Games Store-ról szóló információk és adatok szolgáltatásán van.",
+      "piracy": "Platform kalózkodáshoz vagy illegális tevékenységekhez: Határozottan elítéljük a kalózkodást, és nem biztosítunk semmilyen eszközt szerzői joggal védett tartalom illegális eléréséhez vagy terjesztéséhez."
+    },
+    "fairUseTitle": "Fair Use irányelv",
+    "fairUseBody": "Az egdata.app elkötelezett a szerzői jogi törvény szerinti fair use elvek betartása mellett. Az információkat és adatokat kizárólag tájékoztatási célból szolgáltatjuk, azzal a céllal, hogy tájékoztassuk a nyilvánosságot az Epic Games Store-ban elérhető játékokról.",
+    "fairUseFactorsTitle": "A fair use-t igazoló kulcsfontosságú tényezők:",
+    "fairUseFactors": {
+      "nonCommercial": "Nem kereskedelmi, oktatási cél:",
+      "nonCommercialBody": "Weboldalunk nem kereskedelmi jellegű, és célja a nyilvánosság Epic Games Store játékokkal kapcsolatos ismereteinek bővítése.",
+      "factual": "Tényszerű információk:",
+      "factualBody": "Elsősorban tényszerű adatokat mutatunk be, mint például játékcímeket, megjelenési dátumokat és fejlesztőket, amelyek kevésbé védettek a szerzői jog által.",
+      "limited": "Korlátozott felhasználás:",
+      "limitedBody": "Csak a szükséges mennyiségű adatot használjuk fel, hogy értelmes információt nyújtsunk anélkül, hogy helyettesítenénk az eredeti műveket.",
+      "noMarketHarm": "Nincs piaci kár:",
+      "noMarketHarmBody": "Használatunk nincs negatív hatással az eredeti játékok piacára; inkább népszerűsítheti azokat a megnövekedett felhasználói érdeklődés révén."
+    },
+    "autoTrackBody": "Automatikusan követjük és frissítjük a játékadatok nyilvánosan elérhető forrásokból, beleértve az Epic Games Store-t is. A grafikus asset-eket közvetlenül a szervereikről töltjük be, és nem tároljuk azokat.",
+    "leakedDataTitle": "Jogi nyilatkozat a kiszivárgott adatokról:",
+    "leakedDataBody": "Az oldalunkon esetlegesen kiszivárgottnak tűnő adatok az Epic Games Store nyilvánosan elérhető információiból származnak. Nem férünk hozzá bizalmas vagy védett adatokhoz. A kiadók felelősek az érzékeny információk védelméért az",
+    "epicDevPortal": "Epic Games Fejlesztői portálon belül",
+    "euDirectivesIntro": "Fair Use irányelvünk kidolgozása során figyelembe vettük a következő EU-s szerzői jogi irányelvekben foglalt elveket:",
+    "euDirective1": "(EU) 2019/790 irányelv a szerzői és szomszédos jogokról a digitális egységes piacon",
+    "euDirective2": "Kérdések és válaszok – Új EU-s szerzői jogi szabályok",
+    "fairUseContact": "Ha kérdésed van Fair Use irányelvünkkel kapcsolatban, vagy úgy véled, hogy bármely tartalom sérti a szerzői jogodat, kérjük, lépj kapcsolatba velünk a következő címen:",
+    "contactTitle": "Kapcsolat",
+    "contactBody": "Kapcsolatba léphetsz velünk a következőn keresztül"
+  },
+  "changelog": {
+    "index": {
+      "meta": {
+        "title": "Változásnapló | egdata.app"
+      },
+      "searchPlaceholder": "Változásnaplók keresése...",
+      "searchButton": "Keresés",
+      "loading": "Betöltés...",
+      "error": "Hiba az adatok lekérésekor"
+    },
+    "detail": {
+      "meta": {
+        "title": "Változás részletei | egdata.app"
+      },
+      "loading": "Betöltés...",
+      "error": "Hiba a változás részleteinek betöltésekor",
+      "notFound": "Változás nem található"
+    }
+  },
+  "privacy": {
+    "title": "Névjegy",
+    "intro": "Az egdata.app egy közösség által működtetett weboldal, amely az Epic Games Store nyomon követésére és információinak biztosítására specializálódott. Hasonlóan a SteamDB-hez a Steam számára, célunk egy átfogó forrás biztosítása a felhasználók számára a változások felfedezéséhez, új játékok megtalálásához és a platform legújabb eseményeinek követéséhez.",
+    "missionTitle": "Küldetésünk",
+    "missionBody": "Küldetésünk, hogy átláthatóságot és betekintést nyújtsunk az Epic Games Store ökoszisztémájába. Hiszünk abban, hogy az adatok hozzáférhető módon történő összegyűjtésével és bemutatásával képessé tehetjük a felhasználókat, hogy tájékozott döntéseket hozzanak játékvásárlásaikról, és hozzájáruljunk a platform jobb megértéséhez.",
+    "featuresTitle": "Funkciók",
+    "features": {
+      "trackPrices": "Játékárak változásainak és előzményeinek követése",
+      "upcomingReleases": "Közelgő megjelenések és ingyenes játék promóciók megtekintése",
+      "gameDetails": "Játékrészletek, értékelések és felhasználói vélemények felfedezése",
+      "analyzeTrends": "Trendek és minták elemzése az Epic Games Store-ban"
+    },
+    "communityTitle": "Közösség által működtetett",
+    "communityBody": "Az egdata.app-ot egy szenvedélyes játékosokból és fejlesztőkből álló közösség építi és tartja karban. Szívesen fogadjuk mindazok hozzájárulását, akik szeretnének segíteni a weboldal fejlesztésében és értékes forrássá tételében mindenki számára. Nyugodtan lépj kapcsolatba velünk, ha visszajelzésed, javaslatod van, vagy szeretnél részt venni.",
+    "sourceCodeIntro": "Az egdata.app teljes forráskódja elérhető a",
+    "github": "GitHub",
+    "notTitle": "Mit NEM az egdata.app",
+    "notIntro": "Fontos tisztázni, hogy az egdata.app nem:",
+    "notList": {
+      "affiliated": "Epic Games-szel társult: Független, közösség által működtetett projekt vagyunk, amely semmilyen módon nem áll hivatalos kapcsolatban az Epic Games-szel.",
+      "storefront": "Bolt vagy piactér: Nem árulunk játékokat és nem biztosítunk vásárlási lehetőségeket. A hangsúly az Epic Games Store-ról szóló információk és adatok szolgáltatásán van.",
+      "piracy": "Platform kalózkodáshoz vagy illegális tevékenységekhez: Határozottan elítéljük a kalózkodást, és nem biztosítunk semmilyen eszközt szerzői joggal védett tartalom illegális eléréséhez vagy terjesztéséhez."
+    },
+    "fairUseTitle": "Fair Use irányelv",
+    "fairUseBody": "Az egdata.app elkötelezett a szerzői jogi törvény szerinti fair use elvek betartása mellett. Az információkat és adatokat kizárólag tájékoztatási célból szolgáltatjuk, azzal a céllal, hogy tájékoztassuk a nyilvánosságot az Epic Games Store-ban elérhető játékokról.",
+    "fairUseFactorsTitle": "A fair use-t igazoló kulcsfontosságú tényezők:",
+    "fairUseFactors": {
+      "nonCommercial": "Nem kereskedelmi, oktatási cél:",
+      "nonCommercialBody": "Weboldalunk nem kereskedelmi jellegű, és célja a nyilvánosság Epic Games Store játékokkal kapcsolatos ismereteinek bővítése.",
+      "factual": "Tényszerű információk:",
+      "factualBody": "Elsősorban tényszerű adatokat mutatunk be, mint például játékcímeket, megjelenési dátumokat és fejlesztőket, amelyek kevésbé védettek a szerzői jog által.",
+      "limited": "Korlátozott felhasználás:",
+      "limitedBody": "Csak a szükséges mennyiségű adatot használjuk fel, hogy értelmes információt nyújtsunk anélkül, hogy helyettesítenénk az eredeti műveket.",
+      "noMarketHarm": "Nincs piaci kár:",
+      "noMarketHarmBody": "Használatunk nincs negatív hatással az eredeti játékok piacára; inkább népszerűsítheti azokat a megnövekedett felhasználói érdeklődés révén."
+    },
+    "autoTrackBody": "Automatikusan követjük és frissítjük a játékadatok nyilvánosan elérhető forrásokból, beleértve az Epic Games Store-t is. A grafikus asset-eket közvetlenül a szervereikről töltjük be, és nem tároljuk azokat.",
+    "leakedDataTitle": "Jogi nyilatkozat a kiszivárgott adatokról:",
+    "leakedDataBody": "Az oldalunkon esetlegesen kiszivárgottnak tűnő adatok az Epic Games Store nyilvánosan elérhető információiból származnak. Nem férünk hozzá bizalmas vagy védett adatokhoz. A kiadók felelősek az érzékeny információk védelméért az",
+    "epicDevPortal": "Epic Games Fejlesztői portálon belül",
+    "euDirectivesIntro": "Fair Use irányelvünk kidolgozása során figyelembe vettük a következő EU-s szerzői jogi irányelvekben foglalt elveket:",
+    "euDirective1": "(EU) 2019/790 irányelv a szerzői és szomszédos jogokról a digitális egységes piacon",
+    "euDirective2": "Kérdések és válaszok – Új EU-s szerzői jogi szabályok",
+    "fairUseContact": "Ha kérdésed van Fair Use irányelvünkkel kapcsolatban, vagy úgy véled, hogy bármely tartalom sérti a szerzői jogodat, kérjük, lépj kapcsolatba velünk a következő címen:",
+    "contactTitle": "Kapcsolat",
+    "contactBody": "Kapcsolatba léphetsz velünk a következőn keresztül"
+  },
+  "notifications": {
+    "meta": {
+      "title": "Értesítések - egdata.app",
+      "description": "Push értesítések konfigurálása és kezelése az Epic Games Store frissítéseihez, játékmegjelenésekhez és egyéb eseményekhez."
+    },
+    "title": "Értesítések",
+    "description": "Push értesítések konfigurálása és kezelése az Epic Games Store frissítéseihez, játékmegjelenésekhez és személyre szabott figyelmeztetésekhez.",
+    "tabs": {
+      "notifications": "Értesítések",
+      "mySubscriptions": "Feliratkozásaim"
+    },
+    "aboutPushTitle": "A push értesítésekről",
+    "aboutPushDescription": "Tudj meg többet arról, hogyan működnek a push értesítések az EGData-on.",
+    "whatYoullReceive": "Mit fogsz kapni:",
+    "receiveList": {
+      "freeGames": "Új ingyenes játék bejelentések",
+      "releases": "Játékmegjelenési értesítések",
+      "priceDrops": "Áresés figyelmeztetések kívánt játékokhoz",
+      "news": "Epic Games Store hírek és frissítések",
+      "custom": "Egyéni témakör alapú értesítések"
+    },
+    "privacySecurity": "Adatvédelem és biztonság:",
+    "privacyList": {
+      "apiKey": "API kulcsod biztonságosan a böngésző sütikben tárolódik",
+      "onlySubscribed": "Csak azokról a témákról küldünk értesítést, amelyekre feliratkoztál",
+      "unsubscribe": "Bármikor leiratkozhatsz",
+      "noPersonalData": "Az API kulcsodon kívül nincs szükség személyes adatokra"
+    },
+    "browserSupport": "Böngésző támogatás:",
+    "browserSupportBody": "A push értesítések támogatottak a modern böngészőkben, beleértve a Chrome-ot, Firefox-ot, Safari-t és Edge-t. Győződj meg róla, hogy engedélyezed az értesítéseket, amikor a böngésző kéri.",
+    "subscriptionOverview": "Feliratkozás áttekintése",
+    "totalSubscribed": "Összes feliratkozott témakör: {{count}}",
+    "notSubscribedApi": "API kulcs nincs feliratkozva push értesítésekre",
+    "notSubscribedTitle": "Nincs feliratkozva",
+    "notSubscribedBody": "API kulcsod nincs feliratkozva push értesítésekre. Használd a \"Beállítás és feliratkozás\" fület az előzetes feliratkozáshoz.",
+    "subscriptionId": "Feliratkozás {{id}}",
+    "created": "Létrehozva:",
+    "subscribedTopics": "Feliratkozott témák:",
+    "noTopics": "Nincs feliratkozott téma",
+    "lastUpdated": "Utolsó frissítés:",
+    "noSubscriptionsTitle": "Nincs feliratkozás",
+    "noSubscriptionsBody": "Fel vagy iratkozva, de még nem hoztál létre eszköz feliratkozásokat. Használd a \"Beállítás és feliratkozás\" fület az első feliratkozás létrehozásához.",
+    "fetchError": "A feliratkozások lekérése sikertelen. Kérjük, próbáld újra.",
+    "push": {
+      "title": "Push értesítések",
+      "notSupported": "A push értesítések nem támogatottak ebben a böngészőben.",
+      "setApiKey": "Kérjük, állítsd be az API kulcsodat a push értesítések engedélyezéséhez.",
+      "manage": "Kezeld a push értesítési preferenciáidat.",
+      "unsubscribe": "Leiratkozás",
+      "subscribe": "Feliratkozás",
+      "subscribed": "Feliratkozva",
+      "notSubscribed": "Nincs feliratkozva",
+      "subscribeToTopic": "Feliratkozás témára",
+      "topicPlaceholder": "Add meg a téma nevét (pl. game-updates)",
+      "subscribedTopics": "Feliratkozott témák",
+      "clickToUnsubscribe": "Kattints egy témára a leiratkozáshoz"
+    },
+    "simple": {
+      "title": "Push értesítések",
+      "notSupported": "A push értesítések nem támogatottak ebben a böngészőben.",
+      "subscribedDesc": "Feliratkoztál {{count}} értesítési témára",
+      "notSubscribedDesc": "Értesülj az Epic Games Store frissítéseiről, ingyenes játékokról és többől",
+      "subscribeToNotifications": "Feliratkozás az értesítésekre",
+      "unsubscribe": "Leiratkozás",
+      "chooseWhat": "Válaszd ki, miről szeretnél értesítést kapni:",
+      "freeGames": "Ingyenes játékok",
+      "freeGamesDesc": "Értesítés, amikor új ingyenes játékok érhetők el",
+      "newReleases": "Új megjelenések",
+      "newReleasesDesc": "Értesítések új játékmegjelenésekről",
+      "priceDrops": "Árcsökkenések",
+      "priceDropsDesc": "Riasztások, amikor a játékok akciósak",
+      "youWillReceive": "Értesítéseket kapsz a következőkről:",
+      "subscribedTo": "Feliratkozva: {{name}}",
+      "unsubscribedFrom": "Leiratkozva: {{name}}",
+      "failedSubscribe": "Sikertelen feliratkozás az értesítésekre",
+      "failedUnsubscribe": "Sikertelen leiratkozás az értesítésekről",
+      "failedTopicSubscribe": "Sikertelen feliratkozás a témára",
+      "failedTopicUnsubscribe": "Sikertelen leiratkozás a témáról",
+      "successSubscribe": "Sikeresen feliratkoztál az értesítésekre!",
+      "successUnsubscribe": "Sikeresen leiratkoztál az értesítésekről"
+    },
+    "apiKey": {
+      "title": "API kulcs kezelés",
+      "label": "API kulcs",
+      "placeholderGenerated": "API kulcs létrehozva",
+      "placeholderNone": "Nincs API kulcs létrehozva",
+      "regenerate": "Kulcs újragenerálása",
+      "generate": "Kulcs generálása",
+      "clear": "Kulcs törlése",
+      "generated": "Új API kulcs sikeresen létrehozva!",
+      "copied": "API kulcs a vágólapra másolva!",
+      "cleared": "API kulcs sikeresen törölve!",
+      "failedGenerate": "Sikertelen API kulcs generálás",
+      "failedCopy": "Sikertelen API kulcs másolás",
+      "failedClear": "Sikertelen API kulcs törlés",
+      "noneToCopy": "Nincs API kulcs másolni",
+      "description": "API kulcsod egy UUID, amely helyileg a böngésződben tárolódik, és a push értesítési kérések hitelesítésére szolgál. Használd az újragenerálás gombot egy új kulcs létrehozásához, ha szükséges."
+    }
+  },
+  "promotions": {
+    "placeholder": "Szia /promotions/$id!"
+  },
+  "misc": {
+    "gameAwards": {
+      "meta": {
+        "title": "The Game Awards lefedettség | egdata.app",
+        "description": "Legújabb játékok, amelyeket a The Game Awards-on jelentettek be vagy jelöltek, és érkeznek az Epic Games Store-ba."
+      },
+      "logoAlt": "The Game Awards 2025",
+      "subtitle": "A The Game Awards-on bejelentett vagy jelölt játékok, amelyek érkeznek az Epic Games Store-ba",
+      "videoTitle": "The Game Awards 2024 - Élő közvetítés",
+      "expandPlayer": "Lejátszó kibontása",
+      "closeMiniPlayer": "Mini lejátszó bezárása",
+      "noGamesTitle": "Még nincs bejelentett játék",
+      "noGamesBody": "Nézz vissza a The Game Awards után!"
+    },
+    "downloads": {
+      "title": "egdata.app kliens kiadások",
+      "description": "Töltse le a legújabb verziót. Kiemeltük az operációs rendszeréhez ajánlott szakaszt.",
+      "errorPrefix": "Hiba:",
+      "noPublicReleases": "Nem található nyilvános kiadás.",
+      "recommended": "Ajánlott",
+      "downloadsSuffix": "Letöltések",
+      "versionPublished": "{{version}} verzió - Közzétéve: {{date}}",
+      "assetInfo": {
+        "appleSilicon": "Újabb Mac számítógépekhez Apple chipekkel (M1, M2, M3, stb.).",
+        "intel": "Régebbi Mac számítógépekhez Intel processzorokkal.",
+        "universal": "Kompatibilis mind Apple Silicon, mind Intel Mac gépekkel.",
+        "msi": "Szabványos telepítővarázsló. A legtöbb felhasználónak ajánlott.",
+        "exe": "Önálló alkalmazásfájl. Lehet, hogy nem igényel telepítést.",
+        "linux": "Linux alapú operációs rendszerekhez.",
+        "generic": "Általános fájl vagy forráskód."
+      }
+    },
+    "discordLinked": {
+      "title": "Fiók sikeresen összekapcsolva!",
+      "body": "Discord fiókod sikeresen össze lett kapcsolva az egdata.app-pal",
+      "footer": "Most bezárhatod ezt az ablakot, és visszatérhetsz a Discordhoz. Fiókod készen áll az egdata.app-pal való használatra."
+    },
+    "posts": {
+      "coverAlt": "LEGO Star Wars: The Skywalker Saga borítókép",
+      "title": "Szerezd meg a LEGO® Star Wars™: The Skywalker Saga játékot INGYEN az Epic Games Store-ban",
+      "freeGameBadge": "Ingyenes játék",
+      "published": "Közzétéve: 2023. november 30.",
+      "intro": "Jelöld meg a naptáradban, Star Wars rajongók! {{dateRange}} között ingyen megszerezheted a kritikusok által elismert {{game}} játékot az Epic Games Store-ban. Ez a játék, amely általában {{price}}-ba kerül, lehetővé teszi, hogy újraélj a {{saga}} ikonikus pillanatait egy szórakoztató LEGO csavarral.",
+      "dateRange": "2024. december 5. és december 12. között",
+      "game": "LEGO® Star Wars™: The Skywalker Saga",
+      "price": "$49.99",
+      "saga": "Skywalker saga",
+      "gameplayAlt": "LEGO Star Wars játékmenet",
+      "charactersAlt": "LEGO Star Wars karakterek",
+      "whatToExpect": "Mire számíthatsz?",
+      "whatToExpectBody": "A {{developer}} fejlesztésében és a {{publisher}} kiadásában megjelent cím egy teljes Star Wars élményt kínál, mint senki más. Íme, mi teszi kötelező darabbá:",
+      "developer": "TT Games",
+      "publisher": "Warner Bros.",
+      "expectList": {
+        "allMovies": "{{strong}}: Éld újra mind a kilenc Skywalker saga film történetét, klasszikus LEGO humorral teli.",
+        "allMoviesStrong": "Mind a 9 film",
+        "characters": "{{strong}}: Irányítsd kedvenc hőseidet és gonosztevőidet a messzi-messzi galaxisból.",
+        "charactersStrong": "300+ játszható karakter",
+        "vehicles": "{{strong}}: Repülj ikonikus űrhajókkal, mint az Ezeréves Sólyom és TIE Vadászok.",
+        "vehiclesStrong": "100+ jármű",
+        "planets": "{{strong}}: Utazz ismerős világokba, Tatooine-tól Endorig és azon túl.",
+        "planetsStrong": "23 felfedezhető bolygó"
+      },
+      "specialTitle": "Mitől különleges ez a játék?",
+      "specialBody": "A {{releaseDate}}-i megjelenése óta a LEGO Star Wars: The Skywalker Saga dicséretet kapott lebilincselő játékmenetéért és a Star Wars univerzum hű adaptációjáért. A Metacritic-en elért {{metascore}} pontszámmal a kritikusok és a rajongók egyaránt kiemelték:",
+      "releaseDate": "2022. április",
+      "metascore": "82 Metascore",
+      "specialList": {
+        "combat": "{{strong}}: Fénykardpárbajok, blaster lövöldözések és űrcsaták.",
+        "combatStrong": "Dinamikus harc",
+        "charm": "{{strong}}: Klasszikus Star Wars humor, LEGO egyedi stílusában újragondolva.",
+        "charmStrong": "LEGO báj",
+        "replayability": "{{strong}}: Rengeteg gyűjthető tárgy, mellékküldetés és rejtett titok.",
+        "replayabilityStrong": "Újrajátszhatóság"
+      },
+      "howToClaim": "Hogyan igényelhető?",
+      "howToClaimBody": "Az ingyenes példány megszerzése egyszerű!",
+      "step1": "Látogass el a {{storeLink}}-ra {{dec5}} és {{dec12}} között.",
+      "storeLink": "Epic Games Store",
+      "dec5": "december 5.",
+      "dec12": "2024. december 12.",
+      "step2": "Add hozzá a játékot a könyvtáradhoz.",
+      "step3": "A tiéd örökre!",
+      "cardTitle": "Ne hagyd ki ezt a lehetőséget, hogy egy LEGO-val átitatott utazásra indulj a galaxisban!",
+      "cardBody": "Akár megrögzött Star Wars rajongó vagy, akár újonc, ez a játék végtelen szórakozást kínál mindenkinek.",
+      "footer": "Legyen veled az Erő (és a LEGO kockák)! 🧱✨"
+    },
+    "fairUse": {
+      "meta": {
+        "title": "Fair Use irányelv - egdata.app",
+        "description": "Fair Use irányelv az egdata.app számára"
+      },
+      "title": "Fair Use irányelv az EGData App számára",
+      "section1Title": "1. Bevezetés",
+      "section1Body": "Üdvözöljük az EGData App-nál (\"mi\", \"mienk\"). Ez a Fair Use irányelv meghatározza azokat a feltételeket, amelyek mellett használhatja a weboldalunkon {{siteLink}} (a \"Webhely\") biztosított tartalmat és adatokat.",
+      "section2Title": "2. A Fair Use célja",
+      "section2Body": "Az EGData App tartalma és adatai kizárólag tájékoztatási célokat szolgálnak. Célunk, hogy átfogó adatbázist kínáljunk az Epic Games Store-ban elérhető játékokról (vagy játékokkal kapcsolatos adatokról) a közösség oktatási és referencia célú felhasználására.",
+      "section3Title": "3. Megfelelés a Fair Use-nak",
+      "section3Body": "Az EGData App megfelel a szerzői jogi törvény szerinti fair use elveknek azáltal, hogy az információkat és adatokat oly módon biztosítja, amely a nyilvánosság javát szolgálja anélkül, hogy megsértené a tartalomtulajdonosok jogait. Íme a kulcsfontosságú tényezők, amelyek igazolják használatunkat fair use-ként:",
+      "section3List": {
+        "purpose": "A használat célja és jellege:",
+        "purposeBody": "Weboldalunk nem kereskedelmi jellegű, és célja a nyilvánosság tájékoztatása és oktatása az Epic Games Store-ban elérhető játékokról. Kritikus információkat, értékeléseket és frissítéseket biztosítunk, növelve a nyilvánosság ismereteit és elismerését ezekről a játékokról.",
+        "nature": "A szerzői joggal védett mű természete:",
+        "natureBody": "Az általunk gyűjtött és bemutatott adatok tényszerű információk, például játékcímek, megjelenési dátumok, fejlesztők és frissítések. A tényszerű információk kevésbé védettek a szerzői jogi törvény által, mint a kreatív művek.",
+        "amount": "Mennyiség és lényegesség:",
+        "amountBody": "Csak a szükséges mennyiségű adatot használjuk fel, hogy értelmes és releváns információkat nyújtsunk felhasználóinknak. Nem reprodukálunk teljes műveket, és nem biztosítunk kiterjedt kivonatokat, amelyek helyettesíthetnék az eredeti termékeket.",
+        "effect": "Hatás a piacra:",
+        "effectBody": "A játékadatok használata nincs negatív hatással az eredeti játékok piacára. Ehelyett népszerűsíti ezeket a játékokat azáltal, hogy naprakész információkat biztosít, és növeli a felhasználói elkötelezettséget és érdeklődést."
+      },
+      "section4Title": "4. Adatgyűjtés és frissítések",
+      "section4Body1": "Webhelyünk automatikusan nyomon követi és frissíti a játékadatok, hogy biztosítsa az általunk szolgáltatott információk naprakész és pontos voltát. Ez az automatizált folyamat magában foglalja a nyilvánosan elérhető információk gyűjtését az Epic Games Store-ból és más megbízható forrásokból.",
+      "section4Body2": "Adatbázisunk naprakészen tartásával biztosítjuk, hogy a felhasználók hozzáférjenek a kedvenc játékaikról szóló legfrissebb információkhoz, beleértve az új megjelenéseket, frissítéseket és az elérhetőség változásait.",
+      "section4Body3": "A grafikus eszközök tekintetében a képeket közvetlenül az Epic Games Store szervereiről töltjük be. Nem tárolunk képeket a saját szervereinken.",
+      "section5Title": "5. Jogi nyilatkozat a kiszivárgott adatokról",
+      "section5Body1": "Minden olyan adat, amely kiszivárgottnak tűnik a Webhelyünkön, az Epic Games Store által nyilvánosan elérhetővé tett információkról származik. Nem férünk hozzá olyan bizalmas vagy védett adatokhoz, amelyek nem nyilvánosan hozzáférhetők. Ezért a kiadók felelőssége, hogy megvédjék közelgő szellemi tulajdonaikat, játékaikat, letölthető tartalmaikat és más érzékeny információikat az Epic Games Fejlesztői portálon belül.",
+      "section5Body2": "A kiadóknak javasoljuk, hogy gondoskodjanak az érzékeny információk megfelelő védelméről, és hogy azok ne kerüljenek véletlenül nyilvánosságra. Az EGData App nem vonható felelősségre olyan kiszivárgott információkért, amelyek nyilvánosan elérhető forrásokból származnak.",
+      "section5Body3": "Az adatvédelemről és a fair use-ról az Európai Unióban további információkért kérjük, tekintse meg a következő forrásokat:",
+      "euDirective1": "(EU) 2019/790 irányelv a szerzői és szomszédos jogokról a digitális egységes piacon",
+      "euDirective2": "Kérdések és válaszok – Új EU-s szerzői jogi szabályok",
+      "section6Title": "6. Kapcsolat",
+      "section6Body": "Ha bármilyen kérdése van ezzel a Fair Use irányelvvel kapcsolatban, vagy úgy véli, hogy a Webhelyünkön található bármely tartalom vagy adat sérti a szerzői jogát, kérjük, lépjen kapcsolatba velünk a következő címen:",
+      "email": "E-mail:"
+    },
+    "donateKey": {
+      "title": "Kulcs adományozása",
+      "body": "Ha van egy kulcsod, amelyet szeretnél adományozni a projektnek, kérjük, töltsd ki az alábbi űrlapot."
+    },
+    "androidBeta": {
+      "meta": {
+        "title": "Android Beta - egdata.app",
+        "description": "Csatlakozz az egdata.app Android alkalmazás zárt béta tesztelési programjához"
+      },
+      "title": "Android Béta Program",
+      "description": "Csatlakozz a zárt bétánkhoz, és teszteld az egdata.app Android alkalmazást a nyilvános megjelenés előtt.",
+      "whatHappensNext": "Mi történik ezután?",
+      "steps": {
+        "signIn": "Jelentkezz be a Google fiókoddal",
+        "added": "Kézzel hozzáadunk a zárt tesztelési pályához néhány órán belül",
+        "download": "Ha hozzáadtak, letöltheted az alkalmazást a megadott linkről"
+      }
+    }
+  },
+  "components": {
+    "stats": {
+      "title": "Statisztikák",
+      "description": "Statisztikák a platformról",
+      "offers": "Ajánlatok",
+      "offersTooltip": "Az ajánlat egy megvásárolható elem az áruházból",
+      "items": "Elemek",
+      "itemsTooltip": "Az elem a jogosultság a launcherhez",
+      "tags": "Címkék",
+      "offersYear": "Ajánlatok (Év)",
+      "itemsYear": "Elemek (Év)",
+      "assets": "Asset-ek",
+      "assetsTooltip": "Az asset a játék fájljai",
+      "regPrices": "Normál árak",
+      "changes": "Változások",
+      "sandboxes": "Sandbox-ok",
+      "sandboxesTooltip": "A sandbox az ajánlatok csoportja"
+    },
+    "sandboxShell": {
+      "overview": "Áttekintés",
+      "offers": "Ajánlatok",
+      "items": "Elemek",
+      "assets": "Asset-ek",
+      "builds": "Build-ek",
+      "achievements": "Teljesítmények",
+      "changelog": "Változásnapló",
+      "sandbox": "Sandbox",
+      "internalNamespace": "Belső namespace",
+      "storePage": "Bolt oldal",
+      "updated": "Frissítve: {{date}}",
+      "unrealEngine": "Unreal Engine",
+      "internalSandbox": "Belső sandbox",
+      "releaseStatus": {
+        "prePurchase": "Előrendelés",
+        "datePending": "Dátum függőben",
+        "comingSoon": "Hamarosan",
+        "released": "Megjelent"
+      }
+    },
+    "comparison": {
+      "openCompareTray": "Összehasonlító panel megnyitása, {{count}} kiválasztva",
+      "compareSelected": "Kiválasztott ajánlatok összehasonlítása",
+      "error": "Hiba",
+      "type": "Típus",
+      "seller": "Eladó",
+      "developer": "Fejlesztő",
+      "releaseDate": "Megjelenés dátuma",
+      "pcReleaseDate": "PC megjelenés dátuma",
+      "genres": "Műfajok",
+      "platforms": "Platformok",
+      "remove": "Eltávolítás",
+      "current": "Aktuális",
+      "lowest": "Legalacsonyabb",
+      "noPriceFound": "Nem található ár",
+      "noAgeRatingsFound": "Nem található korhatár besorolás",
+      "achievements": "Teljesítmények:",
+      "ageRating": "Korhatár besorolás:",
+      "price": "Ár:",
+      "unknown": "Ismeretlen"
+    },
+    "search": {
+      "sellers": "Eladók",
+      "noResults": "Nincs találat",
+      "noResultsShort": "Nincs találat.",
+      "allOfferTypes": "Minden ajánlattípus",
+      "tags": "Címkék"
+    },
+    "changelist": {
+      "title": "Változtatási lista",
+      "loading": "Betöltés...",
+      "error": "Hiba: {{message}}",
+      "id": "Azonosító",
+      "type": "Típus",
+      "titleOrId": "Cím/Azonosító",
+      "date": "Dátum",
+      "new": "új",
+      "update": "frissítés"
+    },
+    "upcoming": {
+      "caption": "Közelgő ajánlatok",
+      "loading": "Betöltés...",
+      "title": "Cím",
+      "price": "Ár",
+      "releaseDate": "Megjelenés dátuma",
+      "unknown": "Ismeretlen",
+      "prePurchase": "Előrendelés"
+    },
+    "giveaways": {
+      "title": "Ajándékok",
+      "free": "Ingyenes",
+      "freeNow": "Ingyenes most",
+      "startsIn": "Kezdődik",
+      "repeated": "Ismételt:",
+      "yes": "Igen",
+      "no": "Nem",
+      "repeatedTooltip": "Ez az ajánlat {{count}} alkalommal került kiosztásra."
+    },
+    "giveawayStats": {
+      "title": "Ajándékok számokban",
+      "loading": "Betöltés...",
+      "totalValue": "Teljes érték",
+      "totalValueTooltip": "Teljes érték az aktív kedvezményekkel együtt",
+      "giveaways": "Ajándékok",
+      "giveawaysTooltip": "Az adatbázisban megjelenő ajándékok teljes száma",
+      "offers": "Ajánlatok",
+      "offersTooltip": "Az ajándékokban megjelent egyedi ajánlatok teljes száma",
+      "repeated": "Ismételt",
+      "repeatedTooltip": "Az ajándékokban többször megjelenő egyedi ajánlatok száma",
+      "sellers": "Eladók",
+      "sellersTooltip": "Az ajánlatokat biztosító egyedi eladók teljes száma"
+    },
+    "offerCard": {
+      "openOffer": "Ajánlat megnyitása: {{title}}",
+      "free": "Ingyenes",
+      "comingSoon": "Hamarosan",
+      "earlyAccess": "Korai hozzáférés",
+      "prePurchase": "Előrendelés",
+      "owned": "birtokolt"
+    },
+    "baseGame": {
+      "checkBaseGame": "Alapjáték megtekintése",
+      "partOfBundle": "Ez az ajánlat része a"
+    },
+    "notFound": {
+      "message": "A keresett oldal nem létezik."
+    },
+    "sellerOffers": {
+      "error": "Hiba az ajánlatok betöltésekor. Kérjük, próbáld újra.",
+      "moreFrom": "Több tőle: {{name}}"
+    },
+    "achievementsBlade": {
+      "noData": "Nincs adat",
+      "game": "Játék",
+      "achievements": "Teljesítmények",
+      "xp": "XP",
+      "bronze": "Bronz",
+      "silver": "Ezüst",
+      "gold": "Arany",
+      "gamesWithAchievements": "Játékok Epic teljesítményekkel"
+    },
+    "topSection": {
+      "free": "Ingyenes",
+      "releaseDate": "Megjelenés dátuma:",
+      "tba": "Később",
+      "platforms": "Platformok:",
+      "tags": "Címkék:",
+      "checkOffer": "Ajánlat megtekintése"
+    },
+    "featuredDiscounts": {
+      "free": "Ingyenes",
+      "title": "Kiemelt kedvezmények",
+      "countMore": "+{{count}} további",
+      "checkOffer": "Ajánlat megtekintése",
+      "until": "-ig"
+    },
+    "performanceTable": {
+      "title": "Teljesítmény",
+      "noPriorData": "Nincs korábbi adat",
+      "cardsView": "Kártya nézet",
+      "chartView": "Diagram nézet"
+    },
+    "priceChart": {
+      "selectValue": "Válassz értéket",
+      "last3Months": "Utolsó 3 hónap",
+      "fetchingData": "Legfrissebb adatok lekérése"
+    },
+    "dateRangePicker": {
+      "from": "Tól",
+      "to": "Ig",
+      "maxRange": "Maximum 30 napos intervallum",
+      "invalidRange": "Érvénytelen dátumintervallum"
+    },
+    "regionalPricing": {
+      "region": "Régió",
+      "price": "Ár"
+    },
+    "regionalPricingBadge": {
+      "analysis": "Regionális árazás elemzése",
+      "currentPrice": "Aktuális ár",
+      "suggestedPrice": "Javasolt ár",
+      "belowSuggested": "Ez az ajánlat még ez alatt is van — nagyszerű ajánlat minden szempontból.",
+      "closeToSuggested": "Ez az ajánlat közel van ehhez, és jócskán a tipikus {{region}} árazás alatt van."
+    },
+    "countrySelector": {
+      "searchCountries": "Országok keresése...",
+      "noCountries": "Nem található ország"
+    },
+    "countriesSelector": {
+      "searchCountries": "Országok keresése...",
+      "noCountries": "Nem található ország"
+    },
+    "querySearch": {
+      "searchItems": "Elemek keresése..."
+    },
+    "extendedSearch": {
+      "searchItems": "Elemek keresése...",
+      "noItems": "Nem található elem."
+    },
+    "searchForm": {
+      "noResults": "Nincs találat",
+      "error": "Hiba: {{message}}",
+      "loadingLong": "Ez a lekérdezés a szokásosnál tovább tart..."
+    },
+    "searchFormV2": {
+      "noResults": "Nincs találat."
+    },
+    "androidBetaBanner": {
+      "dismiss": "Banner elutasítása"
+    },
+    "videoPlayer": {
+      "title": "{{title}}"
+    },
+    "mediaSlider": {
+      "previousSlide": "Előző dia",
+      "nextSlide": "Következő dia",
+      "image": "Kép {{index}}",
+      "thumbnail": "Miniatűr {{index}}",
+      "downloading": "Letöltés...",
+      "download": "Letöltés"
+    },
+    "changelogItem": {
+      "action": "Művelet",
+      "type": "Típus",
+      "oldValue": "Régi érték",
+      "newValue": "Új érték",
+      "previousValue": "Előző érték:",
+      "newValueLabel": "Új érték:"
+    },
+    "changelogCharts": {
+      "byWeekday": "Változások a hét napjai szerint",
+      "byWeekdayDesc": "Összegyűjtött változások a hét napjai szerint",
+      "typesOfChanges": "Változások típusai",
+      "typesOfChangesDesc": "Változások mennyisége típus szerint",
+      "byField": "Változások mező szerint",
+      "byFieldDesc": "Változások a megváltoztatott mező szerint csoportosítva",
+      "dailyDesc": "Napi változások megjelenítése az elmúlt évre",
+      "noData": "Nincs megjeleníthető adat."
+    },
+    "openEgl": {
+      "open": "Megnyitás"
+    },
+    "openEgs": {
+      "store": "Bolt"
+    },
+    "openLauncher": {
+      "play": "Játék"
+    },
+    "storeDropdown": {
+      "launcher": "Launcher",
+      "viewStorePage": "Bolt oldal megtekintése",
+      "webBrowser": "Webböngésző"
+    },
+    "prepurchasePopup": {
+      "title": "{{title}}"
+    },
+    "apiKeyManager": {
+      "title": "API kulcs kezelés",
+      "label": "API kulcs",
+      "placeholder": {
+        "generated": "API kulcs létrehozva",
+        "none": "Nincs API kulcs létrehozva"
+      },
+      "button": {
+        "regenerate": "Kulcs újragenerálása",
+        "generate": "Kulcs generálása",
+        "clear": "Kulcs törlése"
+      },
+      "notification": {
+        "generated": "Új API kulcs sikeresen létrehozva!",
+        "generateFailed": "Sikertelen API kulcs generálás",
+        "copied": "API kulcs a vágólapra másolva!",
+        "copyFailed": "Sikertelen API kulcs másolás",
+        "noneToCopy": "Nincs API kulcs másolni",
+        "cleared": "API kulcs sikeresen törölve!",
+        "clearFailed": "Sikertelen API kulcs törlés"
+      },
+      "description": "API kulcsod egy UUID, amely helyileg a böngésződben tárolódik, és a push értesítési kérések hitelesítésére szolgál. Használd az újragenerálás gombot egy új kulcs létrehozásához, ha szükséges."
+    },
+    "cookieBanner": {
+      "title": "Süti tájékoztató",
+      "description": "Ez a weboldal sütiket használ a böngészési élmény javítása érdekében. A sütik elfogadásával elfogadod a(z) {{privacyPolicyLink}}.",
+      "accept": "Elfogadás",
+      "decline": "Elutasítás"
+    },
+    "searchHeader": {
+      "results": "{{count}} találat",
+      "showingResultsFor": "Találatok a következőre:"
+    },
+    "bundle": {
+      "collectionOffers": "Gyűjtemény ajánlatok",
+      "bundleOffers": "Csomag ajánlatok",
+      "offersCount": "- {{count}} ajánlat",
+      "bundlePriceTitle": "Csomag ár",
+      "totalValueLabel": "Teljes érték:",
+      "bundlePriceLabel": "Csomag ár:",
+      "youSave": "Megtakarítás:",
+      "youPayMore": "Többet fizetsz:",
+      "buyBundle": "Csomag vásárlása",
+      "buyIndividually": "Elemek egyenkénti vásárlása"
+    },
+    "clientBanner": {
+      "heading": "Tápláld a {{appName}} build adatbázist",
+      "subheading": "Segíts feltérképezni minden Epic Games Store buildet",
+      "description": "Könnyűsúlyú Windows és macOS kliensünk beolvassa az Epic Games Launcher telepítéseidet, és biztonságosan feltölti csak a manifest fájlokat—darab listákat és metaadatokat—a nyílt adatbázisunkba. Minden feltöltés gazdagítja a közösséget és segít nyomon követni a változásokat az idő múlásával.",
+      "cta": "Letöltés Windows és macOS rendszerre"
+    },
+    "collectionOffers": {
+      "title": "Gyűjtemény ajánlatok"
+    },
+    "lastModifiedOffers": {
+      "title": "Utoljára módosított ajánlatok"
+    },
+    "latestOffers": {
+      "title": "Legutóbb hozzáadott"
+    },
+    "latestReleased": {
+      "title": "Legutóbb megjelent"
+    },
+    "mobileFreebies": {
+      "title": "Mobil ingyenes játékok",
+      "collapse": "Mobil ingyenes játékok összecsukása",
+      "expand": "Mobil ingyenes játékok kibontása"
+    },
+    "sectionHeader": {
+      "seeAll": "Összes megtekintése"
+    },
+    "suggestedOffers": {
+      "title": "Ez is érdekelhet"
+    }
+  },
+  "table": {
+    "pagination": {
+      "rowsPerPage": "Sorok oldalanként",
+      "pageOf": "{{page}}. oldal / {{total}}",
+      "goToFirst": "Ugrás az első oldalra",
+      "goToPrevious": "Ugrás az előző oldalra",
+      "goToNext": "Ugrás a következő oldalra",
+      "goToLast": "Ugrás az utolsó oldalra",
+      "previous": "Előző",
+      "next": "Következő",
+      "morePages": "További oldalak"
+    },
+    "toolbar": {
+      "platform": "Platform",
+      "status": "Állapot",
+      "type": "Típus",
+      "platforms": "Platformok",
+      "fileExtensions": "Fájlkiterjesztések",
+      "filterOffers": "Ajánlatok szűrése...",
+      "filterItems": "Elemek szűrése...",
+      "filterFiles": "Fájlok szűrése...",
+      "reset": "Visszaállítás"
+    },
+    "viewOptions": {
+      "view": "Nézet",
+      "toggleColumns": "Oszlopok ki/be"
+    },
+    "facetedFilter": {
+      "noResults": "Nincs találat.",
+      "selected": "kiválasztva",
+      "clearFilters": "Szűrők törlése"
+    },
+    "builds": {
+      "noResults": "Nincs találat.",
+      "donateKey": "Kulcs adományozása"
+    }
+  },
+  "forms": {
+    "review": {
+      "submitTitle": "Értékelés beküldése",
+      "editTitle": "Értékelés szerkesztése",
+      "description": "Oszd meg gondolataidat a(z) {{title}} játékról",
+      "rating": "Értékelés",
+      "ratingError": "Az értékelésnek 1 és 10 között kell lennie",
+      "recommend": "Ajánlanád ezt a terméket?",
+      "recommendError": "Kérjük, válassz igent vagy nemet",
+      "yes": "Igen",
+      "no": "Nem",
+      "title": "Cím",
+      "titlePlaceholder": "Adj címet az értékelésednek",
+      "titleRequired": "A cím megadása kötelező",
+      "titleMinLength": "A címnek legalább 3 karakter hosszúnak kell lennie",
+      "titleMinLengthLong": "A címnek legalább 3 karakter hosszúnak kell lennie",
+      "titleMaxLength": "A címnek 75 karakternél rövidebbnek kell lennie",
+      "reviewContent": "Értékelés tartalma",
+      "contentMinLength": "A tartalomnak legalább 3 karakter hosszúnak kell lennie",
+      "tags": "Címkék (vesszővel elválasztva)",
+      "tagsPlaceholder": "pl. minőség, dizájn, teljesítmény",
+      "previous": "Előző",
+      "next": "Következő",
+      "submit": "Értékelés elküldése",
+      "deleteReview": "Értékelés törlése",
+      "confirmDelete": "Biztosan törölni szeretnéd ezt az értékelést?",
+      "deleteDescription": "Ez a művelet nem vonható vissza. Az értékelés véglegesen törlődik a szervereinkről.",
+      "cancel": "Mégse",
+      "delete": "Törlés",
+      "deleting": "Törlés...",
+      "errorSubmitting": "Hiba az értékelés beküldésekor",
+      "errorDeleting": "Hiba az értékelés törlésekor",
+      "spamDetected": "Spam észlelve",
+      "defaultContent": "Kérjük, írd ide az értékelésed",
+      "theProduct": "a terméket"
+    },
+    "androidBeta": {
+      "title": "Csatlakozz a Bétához",
+      "description": "Jelentkezz be Google-lal a zárt bétára való regisztrációhoz. Csak az e-mail címedre van szükségünk.",
+      "spotsRemaining": "<strong>{{remaining}}</strong> / {{max}} hely maradt",
+      "betaFull": "A Béta megtelt",
+      "betaFullDesc": "Mind a {{max}} hely elfogyott. Nézz vissza később, vagy kövess minket a frissítésekért, hogy mikor lesznek új helyek.",
+      "registering": "Regisztrálás a bétára...",
+      "registered": "Regisztráltál!",
+      "registeredDesc": "Regisztráltuk a(z) <strong>{{email}}</strong> címet a zárt bétára.",
+      "registeredDesc2": "Eltarthat néhány óráig, amíg manuálisan hozzáadnak a tesztelők listájához. Ha hozzáadtak, itt csatlakozhatsz a bétához:",
+      "joinBeta": "Csatlakozz a Bétához a Google Play-en",
+      "alreadyRegistered": "Már regisztrált",
+      "alreadyRegisteredDesc": "A(z) <strong>{{email}}</strong> már regisztrálva van a bétára.",
+      "alreadyRegisteredDesc2": "Ha már hozzáadtak a tesztelők listájához, itt csatlakozhatsz a bétához:",
+      "error": "Hiba",
+      "tryAgain": "Próbáld újra",
+      "noCredential": "Nem érkezett hitelesítő adat a Google-től",
+      "somethingWrong": "Valami hiba történt. Kérjük, próbáld újra.",
+      "googleFailed": "Google bejelentkezés sikertelen. Kérjük, próbáld újra."
+    },
+    "donateKey": {
+      "donate": "Adományozás",
+      "error": "Hiba",
+      "success": "Siker",
+      "successDesc": "Köszönjük az adományod! Az elem sikeresen beváltásra került, és az adatai hamarosan elérhetőek lesznek.",
+      "offerPage": "Ajánlat oldal",
+      "somethingWrong": "Valami hiba történt. Kérjük, próbáld újra."
+    }
+  },
+  "ui": {
+    "dialog": {
+      "close": "Bezárás"
+    },
+    "sheet": {
+      "close": "Bezárás"
+    },
+    "carousel": {
+      "previous": "Előző dia",
+      "next": "Következő dia"
+    },
+    "pagination": {
+      "previous": "Előző",
+      "next": "Következő",
+      "morePages": "További oldalak"
+    },
+    "priceRangeSlider": {
+      "priceRange": "Ár tartomány",
+      "minPrice": "Min ár",
+      "maxPrice": "Max ár"
+    }
+  }
+}

@@ -1,0 +1,1763 @@
+{
+  "common": {
+    "appName": "EGDATA",
+    "search": "Sök",
+    "searchPlaceholder": "Sök spel...",
+    "loading": "Laddar...",
+    "free": "Gratis",
+    "notAvailable": "Inte tillgänglig",
+    "cancel": "Avbryt",
+    "save": "Spara",
+    "close": "Stäng"
+  },
+  "nav": {
+    "toggleMenu": "Växla navigeringsmeny",
+    "logoAlt": "EGDATA-logotyp",
+    "explore": "Utforska",
+    "browse": "Bläddra",
+    "sales": "Reor",
+    "changelog": "Ändringslogg",
+    "about": "Om",
+    "rankings": "Rankningar",
+    "topSellers": "Bästsäljare",
+    "mostPlayed": "Mest spelade",
+    "topWishlisted": "Mest önskade",
+    "topNewReleases": "Topp nya släpp",
+    "seeAllCollections": "Se alla samlingar",
+    "others": "Andra",
+    "releaseStats": "Släppstatistik",
+    "genres": "Genrer",
+    "seeAllGenres": "Se alla genrer",
+    "other": "Annan",
+    "action": "Action",
+    "rpg": "RPG",
+    "indie": "Indie",
+    "strategy": "Strategi",
+    "topSellerOnEpic": "Bästsäljare i Epic Games Store",
+    "searchItemTitle": "Sök",
+    "searchItemDesc": "Hitta vad du letar efter i Epic Games Store.",
+    "freeGamesItemTitle": "Gratis spel",
+    "freeGamesItemDesc": "Utforska de senaste gratisspelen i Epic Games Store.",
+    "withDiscountsItemTitle": "Med rabatt",
+    "withDiscountsItemDesc": "Kolla in spel som för närvarande har bra rabatter.",
+    "helloUser": "Hej, {{name}}!",
+    "dashboard": "Panel",
+    "logout": "Logga ut",
+    "searchLanguages": "Sök språk...",
+    "noLanguagesFound": "Inga språk hittades"
+  },
+  "footer": {
+    "logoAlt": "EGDATA-logotyp",
+    "disclaimer": "En fanbaserad Epic Games Store-databas. Inte ansluten till Epic Games, Inc. Alla logotyper, bilder och varumärken tillhör respektive ägare.",
+    "legal": "Juridik",
+    "privacyPolicy": "Integritetspolicy",
+    "notifications": "Notiser",
+    "resources": "Resurser",
+    "apiDocs": "API-dokumentation",
+    "changelog": "Ändringslogg",
+    "community": "Gemenskap",
+    "flagsByFlagpedia": "Flaggor från Flagpedia",
+    "madeIn": "Gjord i"
+  },
+  "meta": {
+    "title": "Epic Games-databas - egdata.app",
+    "description": "Omfattande Epic Games Store-databas: spelinfo, priser, försäljningshistorik, fillistor och mer. Utforska gratis spel, kommande släpp och community-insikter.",
+    "twitterTitle": "Epic Games-databas",
+    "twitterDescription": "En gratis och öppen källkod-databas för Epic Games Store med omfattande spelinformation, försäljningsspårning och mer. Community-drivet och ständigt uppdaterat.",
+    "twitterImageAlt": "Epic Games-databas",
+    "ogTitle": "Epic Games-databas",
+    "ogDescription": "En gratis och öppen källkod-databas för Epic Games Store med omfattande spelinformation, försäljningsspårning och mer. Community-drivet och ständigt uppdaterat.",
+    "ogImageAlt": "Epic Games-databas"
+  },
+  "notFound": {
+    "title": "Sidan hittades inte"
+  },
+  "home": {
+    "statsBar": {
+      "offersTracked": "Spårade erbjudanden",
+      "priceChanges72h": "Prisändringar / 72h",
+      "activeDiscounts": "Aktiva rabatter",
+      "giveawaysToDate": "Utlottningar hittills"
+    },
+    "sections": {
+      "giveawayStats": "Utlottningsstatistik",
+      "giveawayOffers": "Gratiserbjudanden",
+      "upcomingOffers": "Kommande erbjudanden",
+      "latestOffers": "Senaste erbjudandena",
+      "latestReleased": "Senast släppta",
+      "latestOffersWithAchievements": "Senaste erbjudanden med prestationer",
+      "topSellingOffers": "Bästsäljande erbjudanden",
+      "latestBuilds": "Senaste byggen"
+    },
+    "tableHeaders": {
+      "hash": "#",
+      "pos": "Pos",
+      "dash": "-",
+      "title": "Titel",
+      "starts": "Börjar",
+      "ends": "Slutar",
+      "releaseDate": "Releasedatum",
+      "createdAt": "Skapad",
+      "date": "Datum",
+      "price": "Pris",
+      "size": "Storlek",
+      "creationDate": "Skapelsedatum"
+    },
+    "offerHover": {
+      "seller": "Säljare:",
+      "developer": "Utvecklare:",
+      "publisher": "Utgivare:",
+      "releaseDate": "Releasedatum:",
+      "ageRating": "Åldersklassificering:",
+      "moreGenres_one": "+{{count}} mer",
+      "moreGenres_other": "+{{count}} fler",
+      "communityRating": "Community-betyg:",
+      "igdbScore": "IGDB-poäng",
+      "reviews": "• {{count}} recensioner",
+      "timeToBeat": "Tid att slå:",
+      "features": "Funktioner:",
+      "moreFeatures": " +{{count}} fler"
+    },
+    "buildHover": {
+      "unknownBuild": "Okänt bygge",
+      "unknownDeveloper": "Okänd utvecklare",
+      "size": "Storlek",
+      "version": "Version",
+      "created": "Skapad",
+      "id": "ID: {{id}}"
+    },
+    "multipleOffers": "{{title}} - Flera erbjudanden",
+    "hero": {
+      "subtitle": "Spåra priser, upptäck erbjudanden och missa aldrig ett gratis spel. Din följeslagare för Epic Games Store-databasen — erbjudanden, rabatter, utlottningar, byggen och mer.",
+      "searchPlaceholder": "Sök i databasen…",
+      "justReleased": "Nyss släppt",
+      "priceDrops72h": "Prisfall (72h)",
+      "hasAchievements": "Har prestationer",
+      "upcoming": "Kommande",
+      "topSellers": "Bästsäljare"
+    },
+    "pulse": {
+      "recentActivity": "Senaste aktivitet",
+      "badge": {
+        "new": "Ny",
+        "gone": "Borttagen",
+        "offer": "Erbjudande",
+        "build": "Bygge",
+        "item": "Objekt",
+        "asset": "Tillgång",
+        "xp": "XP",
+        "sandbox": "Sandlåda",
+        "change": "Ändring"
+      },
+      "title": {
+        "buildVersion": "Bygge {{version}}",
+        "buildId": "Bygge {{id}}",
+        "achievementsId": "Prestationer {{id}}"
+      },
+      "detail": {
+        "newBuildIndexed": "Nytt bygge indexerat",
+        "buildManifestRefreshed": "Byggemanifest uppdaterat",
+        "achievementChanges_one": "{{count}} prestation {{entry}} {{verb}}",
+        "achievementChanges_other": "{{count}} prestationer {{entry}} {{verb}}",
+        "offerMetadataRefreshed": "Erbjudandets metadata uppdaterad",
+        "fieldsChanged_one": "{{count}} fält {{verb}}",
+        "fieldsChanged_other": "{{count}} fält {{verb}}",
+        "fieldChanged": "{{field}} {{verb}}"
+      },
+      "actionVerb": {
+        "added": "tillagd",
+        "removed": "borttagen",
+        "updated": "uppdaterad",
+        "changed": "ändrad"
+      },
+      "entry_one": "post",
+      "entry_other": "poster"
+    }
+  },
+  "offerDetail": {
+    "common": {
+      "offerNotFound": "Erbjudandet hittades inte",
+      "notAvailable": "Inte tillgänglig",
+      "na": "N/A",
+      "loading": "Laddar...",
+      "somethingWentWrong": "Något gick fel",
+      "noChangesFound": "Inga ändringar hittades för detta erbjudande"
+    },
+    "tabs": {
+      "overview": "Översikt",
+      "price": "Pris",
+      "items": "Objekt",
+      "builds": "Byggen",
+      "achievements": "Prestationer",
+      "related": "Relaterat",
+      "metadata": "Metadata",
+      "changelog": "Ändringslogg",
+      "media": "Media",
+      "reviews": "Recensioner"
+    },
+    "table": {
+      "offerId": "Erbjudande-ID",
+      "namespace": "Namespace",
+      "offerType": "Erbjudandetyp",
+      "seller": "Säljare",
+      "developer": "Utvecklare",
+      "supportedPlatforms": "Stödda plattformar",
+      "releaseDate": "Releasedatum",
+      "lastUpdate": "Senaste uppdatering",
+      "creationDate": "Skapelsedatum",
+      "technologies": "Teknologier",
+      "type": "Typ",
+      "value": "Värde",
+      "countriesBlacklist": "Ländersvartlista",
+      "countriesWhitelist": "Ländervitlista",
+      "categories": "Kategorier",
+      "refundType": "Återbetalningstyp",
+      "tags": "Taggar",
+      "ageRatings": "Åldersklassificeringar",
+      "assets": "Tillgångar"
+    },
+    "badges": {
+      "prePurchase": "Förköp",
+      "earlyAccess": "Early Access"
+    },
+    "hero": {
+      "offeredBy": "Erbjuds av {{seller}}"
+    },
+    "tooltip": {
+      "internalNamespace": "Internt namespace för Epic Games",
+      "techDescription": "teknologilista för att spåra de använda motorerna och olika teknologier från spelfilerna.",
+      "techSource": "Vi använder",
+      "techSourceSteamDb": "SteamDB",
+      "source": "Källa"
+    },
+    "actions": {
+      "compare": "Jämför"
+    },
+    "releaseDate": {
+      "releasedOnPc": "Släppt på PC",
+      "theEgs": " på EGS",
+      "releasedSameDay": "Släppt på Epic samma dag som på PC"
+    },
+    "notifications": {
+      "title": "Notisinställningar",
+      "description": "Välj vilka notiser du vill få för detta erbjudande.",
+      "all": "Alla",
+      "price": "Pris",
+      "achievements": "Prestationer",
+      "builds": "Byggen",
+      "items": "Objekt",
+      "requirements": "Krav",
+      "metadata": "Metadata",
+      "media": "Media",
+      "enablePushDescription": "Du måste aktivera push-notiser för att få notiser för detta erbjudande.",
+      "enablePushAction": "Aktivera push-notiser"
+    },
+    "overview": {
+      "genres": "Genrer",
+      "ageRating": "Åldersklassificering",
+      "noAgeRatings": "Inga åldersklassificeringar hittades",
+      "giveaways": "Utlottningar",
+      "noGiveaways": "Inga utlottningar hittades",
+      "achievements": "Prestationer",
+      "igdbTimeToBeat": "IGDB Tid att slå",
+      "hastily": "Snabb",
+      "normally": "Normal",
+      "completely": "Fullständig",
+      "hltbSubmissions_one": "Baserat på {{count}} inskickning",
+      "hltbSubmissions_other": "Baserat på {{count}} inskickningar",
+      "price": "Pris",
+      "priceCurrent": "Nuvarande:",
+      "priceLowest": "Lägsta:",
+      "priceLastDiscount": "Senaste rabatt:",
+      "hltbTitle": "How Long To Beat",
+      "noGameTimes": "Inga speltider hittades",
+      "epicRating": "Epic-spelarbetyg",
+      "epicRatingDescription": "Insamlat från spelare i Epic Games ekosystem",
+      "igdbRating": "IGDB-betyg",
+      "igdbReviews_one": "{{count}} recension",
+      "igdbReviews_other": "{{count}} recensioner"
+    },
+    "achievements": {
+      "title": "Prestationer",
+      "sortBy": "Sortera efter",
+      "defaultSort": "Standardsortering",
+      "sortByRarity": "Sortera efter sällsynthet",
+      "sortByCompleted": "Sortera efter slutförande %",
+      "search": "Sök",
+      "flipAll": "Vänd alla",
+      "noAchievements": "Inga prestationer hittades",
+      "noAchievementsSet": "Inga prestationer hittades för denna uppsättning.",
+      "noAchievementsSetDescription": "Detta kan innebära att prestationerna inte är tillgängliga just nu men kommer att läggas till i framtiden.",
+      "baseGame": "Grundspel",
+      "dlc": "DLC",
+      "achievementsLabel": "Prestationer",
+      "baseGameDescription": "Denna lista med prestationer är för grundspelet.",
+      "dlcDescription": "Denna lista med prestationer är för ett av DLC-paketen.",
+      "lastUpdated": "Senast uppdaterad:",
+      "lastUpdatedTooltip": "Denna prestationsuppsättning uppdaterades senast {{date}}.",
+      "lastUpdatedTooltipDescription": "Detta är antingen dess skapelsedatum eller datumet för den senaste uppdateringen."
+    },
+    "builds": {
+      "title": "Byggen"
+    },
+    "items": {
+      "title": "Objekt"
+    },
+    "price": {
+      "title": "Pris"
+    },
+    "related": {
+      "title": "Relaterade erbjudanden"
+    },
+    "media": {
+      "images": "Bilder",
+      "videos": "Videor",
+      "covers": "Omslag",
+      "noImages": "Inga bilder hittades",
+      "noVideos": "Inga videor hittades",
+      "noCovers": "Inga omslag hittades",
+      "download": "Ladda ner",
+      "close": "Stäng",
+      "downloadCoverAria": "Ladda ner {{type}}-omslag"
+    },
+    "metadata": {
+      "title": "Metadata",
+      "download": "Nedladdning:",
+      "install": "Installation:"
+    },
+    "changelog": {
+      "title": "Ändringslogg",
+      "tooltip": "Denna lista visar ändringarna som gjorts i detta specifika erbjudande eller relaterade objekt, tillgångar eller byggen.",
+      "sandboxChangelog": "sandlådans ändringslogg",
+      "sandboxChangelogPrefix": "Du kan se ändringsloggen för hela produkten i",
+      "noChangelog": "Ingen ändringslogg tillgänglig",
+      "allTypes": "Alla typer",
+      "selectField": "Välj ett fält",
+      "allFields": "Alla fält",
+      "search": "Sök",
+      "previous": "Föregående",
+      "next": "Nästa",
+      "pageOf": "Sida {{page}} av {{totalPages}}",
+      "typeUpdate": "Uppdatering",
+      "typeDelete": "Radering",
+      "typeInsert": "Infogning"
+    },
+    "reviews": {
+      "epicRating": "Epic-spelarbetyg",
+      "epicRatingDescription": "Insamlat från spelare i Epic Games ekosystem",
+      "egdataRating": "EGDATA-betyg",
+      "overallScore": "Totalpoäng",
+      "scoreOutOf10": "{{score}} / 10",
+      "basedOnReviews": "Baserat på {{count}} recensioner",
+      "allReviews": "Alla recensioner",
+      "onlyVerified": "Endast verifierade",
+      "notVerified": "Ej verifierade",
+      "leaveReview": "Lämna en recension",
+      "alreadyReviewed": "Redan recenserad",
+      "loginToReview": "Logga in för att recensera",
+      "noReviews": "Inga recensioner än",
+      "notReleased": "Denna produkt har inte släppts än",
+      "beFirst": "Bli först med att lämna en recension för denna produkt!",
+      "checkBack": "Kom tillbaka efter releasedatumet för att lämna en recension!",
+      "verifiedOwner": "Verifierad ägare",
+      "recommended": "Rekommenderad",
+      "notRecommended": "Rekommenderas inte",
+      "readMore": "Läs mer",
+      "reviewedOn": "Recenserad",
+      "lastUpdatedOn": "Senast uppdaterad",
+      "editedTimes": "Redigerad {{count}} gånger",
+      "edit": "Redigera",
+      "close": "Stäng",
+      "reviewCount_one": "{{count}} recension",
+      "reviewCount_other": "{{count}} recensioner",
+      "ownershipVerification": "Ägarverifiering",
+      "ownershipVerificationDescription": "baseras på att spelaren har slutfört minst en prestation.",
+      "ownershipVerificationTooltip": "Vi använder Epic Games prestationer för att verifiera ägarskap av produkten. För att markera en spelare som verifierad ägare måste de ha slutfört minst en prestation för den valda produkten i Epic Games Store. För att länka ditt konto till din egdata-profil måste du gå till",
+      "yourDashboard": "din panel",
+      "criticReviews": "Kritikerrecensioner",
+      "basedOnCriticReviews": "Baserat på {{count}} kritikerrecensioner",
+      "opencriticRating": "OpenCritic-betyg",
+      "topCriticAverage": "Toppkritikernas genomsnitt",
+      "criticsRecommend": "Kritiker rekommenderar",
+      "opencriticRatingAlt": "OpenCritic-betyg"
+    }
+  },
+  "search": {
+    "meta": {
+      "title": "Sök | egdata.app",
+      "description": "Sök efter erbjudanden från Epic Games Store."
+    },
+    "defaultTitle": "Sök",
+    "filters": "Filter",
+    "filtersPlaceholder": "Sök efter spel",
+    "pills": {
+      "onSale": "På rea",
+      "codeRedemptionOnly": "Endast kod-inlösen",
+      "excludeBlockchain": "Exkludera Blockchain/NFT",
+      "pastGiveaways": "Tidigare utlottningar"
+    },
+    "accordion": {
+      "offerType": "Erbjudandetyp",
+      "developer": "Utvecklare",
+      "publisher": "Utgivare",
+      "noTags": "Inga taggar hittades",
+      "seller": "Säljare"
+    },
+    "checkboxes": {
+      "pastGiveaways": "Tidigare utlottningar",
+      "onSale": "På rea",
+      "codeRedemptionOnly": "Endast kod-inlösen",
+      "excludeBlockchain": "Exkludera Blockchain/NFT",
+      "onlyHistoricalLows": "Endast historiska bottenpriser",
+      "onlyLowestPriceEver": "Endast lägsta priset någonsin"
+    },
+    "tagGroups": {
+      "event": "Evenemang",
+      "genre": "Genre",
+      "epicfeature": "Epic-funktion",
+      "accessibility": "Tillgänglighet",
+      "feature": "Funktion",
+      "usersay": "Usersay",
+      "subscription": "Prenumeration",
+      "platform": "Plattform",
+      "all": "Alla taggar"
+    },
+    "sort": {
+      "sortBy": "Sortera efter",
+      "sortAriaLabel": "Sortera erbjudanden",
+      "sortDirectionAriaLabel": "Växla sorteringsriktning",
+      "showListView": "Visa listvy",
+      "showGridView": "Visa rutnätsvy",
+      "releaseDate": "Releasedatum",
+      "lastModifiedDate": "Ändringsdatum",
+      "effectiveDate": "Ikraftträdandedatum",
+      "creationDate": "Skapelsedatum",
+      "viewableDate": "Synligt datum",
+      "pcReleaseDate": "PC-releasedatum",
+      "upcoming": "Kommande",
+      "price": "Pris",
+      "discount": "Rabatt",
+      "discountPercent": "Rabatt %",
+      "giveawayDate": "Utlottningsdatum"
+    },
+    "results": {
+      "noResults": "Inga resultat hittades"
+    }
+  },
+  "freebies": {
+    "meta": {
+      "title": "Gratis spel | egdata.app",
+      "description": "Bläddra bland gratis spel från Epic Games Store."
+    },
+    "headings": {
+      "current": "Aktuella gratis spel",
+      "past": "Tidigare gratis spel",
+      "sellers": "Säljare av gratis spel"
+    },
+    "buttons": {
+      "redeem": "Lös in nu",
+      "downloadJson": "Ladda ner som JSON",
+      "downloadCsv": "Ladda ner som CSV",
+      "downloadTxt": "Ladda ner som text"
+    },
+    "placeholders": {
+      "searchSellers": "Sök säljare..."
+    },
+    "aria": {
+      "downloadList": "Ladda ner lista"
+    },
+    "errors": {
+      "loadSellers": "Fel vid inläsning av säljardata. Försök igen senare."
+    },
+    "table": {
+      "sellerName": "Säljarnamn",
+      "totalGames": "Totalt antal enskilda spel"
+    }
+  },
+  "sales": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Kolla in {{title}} från Epic Games Store."
+    },
+    "metaIndex": {
+      "title": "Aktiva reor | egdata.app",
+      "description": "Bläddra bland aktiva reor på egdata.app"
+    },
+    "status": {
+      "loading": "Laddar...",
+      "noData": "Ingen data"
+    },
+    "headings": {
+      "active": "Aktiva reor",
+      "pastUpcoming": "Tidigare / kommande reor",
+      "offersList": "Erbjudanden för {{title}}"
+    },
+    "errors": {
+      "notFound": "Kampanjen hittades inte"
+    },
+    "labels": {
+      "offersCount": "{{count}} erbjudanden tillgängliga i detta evenemang"
+    }
+  },
+  "collections": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Kolla in {{title}} från Epic Games Store."
+    },
+    "metaIndex": {
+      "title": "Samlingar | egdata.app",
+      "description": "Samlingar på egdata.app"
+    },
+    "headings": {
+      "main": "Samlingar"
+    },
+    "description": {
+      "overview": "De bästsäljande, mest spelade och mest populära spelen på Epic Games Store"
+    },
+    "status": {
+      "loading": "Laddar..."
+    },
+    "errors": {
+      "notFound": "Samlingen hittades inte"
+    },
+    "table": {
+      "position": "Position",
+      "variance": "Förändring",
+      "weeks": "Veckor"
+    },
+    "tooltips": {
+      "variance": "Skillnaden mellan nuvarande position och föregående position. Ändras vanligtvis varje dag.",
+      "weeks": "Antalet veckor som spelet har funnits i topp 100 för {{title}}."
+    },
+    "buttons": {
+      "loadMore": "Ladda fler"
+    }
+  },
+  "sandboxes": {
+    "notFoundTitle": "Sandlådan hittades inte",
+    "notFoundDescription": "Sandlådan hittades inte",
+    "unrealEngineTitle": "Unreal Engine",
+    "unavailableTitle": "Sandlådan inte tillgänglig",
+    "unavailableDescription": "Produktnavet kunde inte laddas.",
+    "noProductDataDescription": "Ingen produktdata finns för denna sandlåda.",
+    "hubEyebrow": "Sandlåda",
+    "hubOverviewTitle": "Översikt",
+    "hubOverviewDescription": "En fokuserad karta över butiks-, ägar-, leverans- och uppdateringsposter för detta namespace.",
+    "latestChangesButton": "Senaste ändringarna",
+    "entityOffersLabel": "Erbjudanden",
+    "entityOffersDescription": "Butiksposter",
+    "entityItemsLabel": "Objekt",
+    "entityItemsDescription": "Ägande-poster",
+    "entityAssetsLabel": "Tillgångar",
+    "entityAssetsDescription": "Artefakter och media",
+    "entityBuildsLabel": "Byggen",
+    "entityBuildsDescription": "Binära paket",
+    "entityAchievementsLabel": "Prestationer",
+    "entityAchievementsDescription": "Framstegsdata",
+    "entityChangelogLabel": "Ändringslogg",
+    "entityChangelogDescription": "Spårade uppdateringar",
+    "viewButton": "Visa",
+    "storefrontOffersTitle": "Butikserbjudanden",
+    "storefrontOffersDescription": "Representativa butiksposter som finns i denna sandlåda.",
+    "recentBuildsTitle": "Senaste byggen",
+    "recentBuildsDescription": "Nyaste binära poster.",
+    "latestBadge": "senaste",
+    "unknownBuildLabel": "Okänt bygge",
+    "recentChangesTitle": "Senaste ändringarna",
+    "recentChangesDescription": "Senaste katalogförändringarna.",
+    "updateBadge": "uppdatering",
+    "changeDefaultLabel": "Ändring",
+    "metaOffersTitle": "Erbjudanden",
+    "offersEyebrow": "E-handel",
+    "offersTitle": "Erbjudanden",
+    "offersDescription": "Butiksposter i denna sandlåda, inklusive grundspel, utgåvor, DLC, tillägg, paket och alla erbjudanden som kan ge katalogobjekt.",
+    "totalOffersLabel": "Totalt antal erbjudanden",
+    "metaAchievementsTitle": "Prestationer",
+    "achievementsEyebrow": "Framsteg",
+    "achievementsTitle": "Prestationer",
+    "achievementsDescription": "Prestationsuppsättningar, dolda tillstånd, sällsynthetsfördelning och XP-summor kopplade till denna sandlåda.",
+    "achievementsSetsLabel": "Uppsättningar",
+    "achievementsLabel": "Prestationer",
+    "achievementsXpLabel": "XP",
+    "searchAchievementsPlaceholder": "Sök prestationer",
+    "flipAllButton": "Vänd alla",
+    "revealHiddenAchievementAria": "Visa dold prestationstext",
+    "hideHiddenAchievementAria": "Dölj dold prestationstext",
+    "achievementsBaseGameLabel": "Grundspel",
+    "achievementsDlcLabel": "DLC",
+    "achievementsBaseGameTooltip": "Denna lista med prestationer är för grundspelet.",
+    "achievementsDlcTooltip": "Denna lista med prestationer är för ett av DLC-paketen.",
+    "lastUpdatedLabel": "Senast uppdaterad:",
+    "achievementsLastUpdatedTooltip": "Denna prestationsuppsättning uppdaterades senast",
+    "achievementsLastUpdatedTooltipExtra": "Detta är antingen dess skapelsedatum eller datumet för den senaste uppdateringen.",
+    "noAchievementsForSet": "Inga prestationer hittades för denna uppsättning.",
+    "noAchievementsForSetExtra": "Detta kan innebära att prestationerna inte är tillgängliga just nu men kommer att läggas till i framtiden.",
+    "noAchievementsFound": "Inga prestationer hittades",
+    "metaItemsTitle": "Objekt",
+    "itemsEyebrow": "Katalogägande",
+    "itemsTitle": "Objekt",
+    "itemsDescription": "Ägarbara katalogobjekt som ingår i erbjudanden. Dessa är posterna som blir spelarens rättigheter efter ett köp eller inlösen.",
+    "totalItemsLabel": "Totalt antal objekt",
+    "metaChangelogTitle": "Ändringslogg",
+    "changelogEyebrow": "Revisionsspår",
+    "changelogTitle": "Ändringslogg",
+    "changelogDescription": "Observerade ändringar i denna sandlådas erbjudanden, objekt, tillgångar, byggen och relaterad katalogmetadata.",
+    "totalChangesLabel": "Ändringar",
+    "queryTimeLabel": "Frågetid",
+    "noChangelogFound": "Ingen ändringslogg hittades",
+    "metaBuildsTitle": "Byggen",
+    "buildsEyebrow": "Binärfiler",
+    "buildsTitle": "Byggen",
+    "buildsDescription": "Versionshanterade filpaket som laddats upp för sandlådan. Byggen tilldelas artefakter och styr vad spelare laddar ner via launchern.",
+    "totalBuildsLabel": "Totalt antal byggen",
+    "metaAssetsTitle": "Tillgångar",
+    "assetsEyebrow": "Tillgångar och artefakter",
+    "assetsTitle": "Tillgångar",
+    "assetsDescription": "Distributions- och mediaposter kopplade till sandlådeobjekt, inklusive artefakter som binder butikskatalogens innehåll till nedladdningsbara byggen.",
+    "totalAssetsLabel": "Totalt antal tillgångar"
+  },
+  "items": {
+    "notFound": "Objektet hittades inte",
+    "badge": "Objekt",
+    "table": {
+      "itemId": "Objekt-ID",
+      "namespace": "Namespace",
+      "developer": "Utvecklare",
+      "entitlementType": "Rättighetstyp",
+      "entitlementName": "Rättighetsnamn",
+      "status": "Status",
+      "creationDate": "Skapelsedatum",
+      "lastModified": "Senast ändrad",
+      "platforms": "Plattformar"
+    },
+    "tooltip": {
+      "internalNamespace": "Internt namespace för Epic Games"
+    },
+    "tabs": {
+      "item": "Objekt",
+      "assets": "Tillgångar",
+      "images": "Bilder",
+      "builds": "Byggen",
+      "changelog": "Ändringslogg"
+    },
+    "metadata": {
+      "title": "Metadata",
+      "key": "Nyckel",
+      "value": "Värde"
+    },
+    "assets": {
+      "title": "Tillgångar"
+    },
+    "builds": {
+      "title": "Byggen"
+    },
+    "changelog": {
+      "title": "Ändringslogg",
+      "noChangelog": "Ingen ändringslogg tillgänglig"
+    },
+    "images": {
+      "title": "Bilder"
+    }
+  },
+  "builds": {
+    "notFound": "Bygget hittades inte",
+    "build": "Bygge",
+    "for": "för",
+    "compressed": "({{percent}}% komprimerat)",
+    "table": {
+      "buildId": "Bygg-ID",
+      "buildName": "Byggnamn",
+      "appName": "App-namn",
+      "hash": "Hash",
+      "installedSize": "Installerad storlek",
+      "downloadSize": "Nedladdningsstorlek",
+      "createdAt": "Skapad",
+      "updatedAt": "Uppdaterad",
+      "technologies": "Teknologier"
+    },
+    "tooltip": {
+      "techSource": "Vi använder",
+      "techSourceSteamDb": "SteamDB",
+      "techDescription": "teknologilista för att spåra de använda motorerna och olika teknologier från spelfilerna.",
+      "source": "Källa"
+    },
+    "tabs": {
+      "files": "Filer",
+      "items": "Objekt",
+      "installOptions": "Installationsalternativ"
+    },
+    "files": {
+      "title": "Filer"
+    },
+    "items": {
+      "title": "Objekt"
+    },
+    "installOptions": {
+      "title": "Installationsalternativ",
+      "file_one": "fil",
+      "file_other": "filer"
+    },
+    "meta": {
+      "title": "{{title}} ({{version}}) | egdata.app",
+      "description": "Bygge {{version}} för {{title}} från Epic Games Store."
+    }
+  },
+  "profile": {
+    "meta": {
+      "notFoundTitle": "Profilen hittades inte",
+      "notFoundDescription": "Profilen hittades inte",
+      "title": "{{name}} | egdata.app",
+      "description": "Kolla in {{name}}s prestationer och spel på egdata.app",
+      "defaultName": "Profil",
+      "defaultDescriptionName": "denna spelares"
+    },
+    "errors": {
+      "notFoundTitle": "Profilen hittades inte",
+      "notFoundDescription": "Denna profil är inte tillgänglig eller har inte indexerats än.",
+      "unavailableTitle": "Profilen inte tillgänglig",
+      "unavailableDescription": "Denna profil kunde inte laddas just nu.",
+      "invalidImageFormat": "Ogiltigt bildformat",
+      "failedToUpload": "Uppladdning misslyckades",
+      "uploadFailed": "Uppladdning misslyckades",
+      "failedToRefresh": "Uppdatering av profilen misslyckades",
+      "refreshQueued": "Profil tillagd i kön för uppdatering, den kommer att uppdateras snart."
+    },
+    "fallbackName": "Okänd profil",
+    "avatar": {
+      "changeAvatar": "Ändra avatar",
+      "dialogDescription": "Ladda upp en ny profilbild.",
+      "previewAlt": "Avatarförhandsgranskning",
+      "fallback": "Avatar",
+      "description": "Ladda upp en ny avatar-bild, max 5 MB.",
+      "uploadingWithProgress": "Laddar upp... {{progress}}%",
+      "uploading": "Laddar upp...",
+      "updateAvatar": "Uppdatera avatar",
+      "errorTitle": "Fel"
+    },
+    "hero": {
+      "joined": "Gick med",
+      "epicGamesStore": "Epic Games Store",
+      "linkDiscord": "Länka Discord",
+      "refreshProfile": "Uppdatera profil",
+      "refreshAvailableIn": "Uppdatering tillgänglig om",
+      "level": "Nivå",
+      "achievements": "Prestationer",
+      "unlocked": "Upplåsta",
+      "platinum": "Platina",
+      "perfectGames": "Perfekta spel",
+      "library": "Bibliotek",
+      "achievementGames": "Prestationsspel",
+      "reviews": "Recensioner",
+      "contributed": "Bidragit",
+      "xpToNextLevel": "{{xp}} XP till nivå {{level}}",
+      "heroGame": "Hjältespel",
+      "complete": "slutförd"
+    },
+    "donor": {
+      "donated_one": "{{name}} har donerat {{count}} nyckel till egdata.app",
+      "donated_other": "{{name}} har donerat {{count}} nycklar till egdata.app",
+      "goTo": "Gå till",
+      "thisLink": "denna länk",
+      "toDonateKey": "för att donera en nyckel."
+    },
+    "countdown": {
+      "minutesSeconds_one": "{{minutes}} minut {{seconds}} sekund",
+      "minutesSeconds_other": "{{minutes}} minuter {{seconds}} sekunder",
+      "seconds_one": "{{seconds}} sekund",
+      "seconds_other": "{{seconds}} sekunder"
+    },
+    "tabs": {
+      "showcase": "Skyltfönster",
+      "library": "Bibliotek",
+      "activity": "Aktivitet"
+    },
+    "stats": {
+      "games": "{{count}} spel",
+      "achievements": "{{count}} prestationer",
+      "platinum": "{{count}} platina"
+    },
+    "showcase": {
+      "ariaLabel": "Profilens skyltfönster-höjdpunkter",
+      "featuredGamesTitle": "Utvalda spel",
+      "featuredGamesDetail": "{{count}} valda efter profilprestanda",
+      "rareAchievementsTitle": "Sällsynta prestationer",
+      "rareAchievementsDetail": "Svårhittade upplåsningar i profilen",
+      "recentUnlocksTitle": "Senaste upplåsningar",
+      "recentUnlocksDetail": "Senaste synliga aktiviteten",
+      "noDataTitle": "Inga skyltfönsterdata än",
+      "noDataDescription": "Endast lanserade spel med offentlig prestationsframgång visas på profiler.",
+      "rarestUnlock": "Sällsyntaste upplåsning",
+      "definingGame": "Definierande spel",
+      "latestActivity": "Senaste aktivitet",
+      "achievementsCount": "{{unlocked}} / {{total}} prestationer",
+      "platinum": "Platina"
+    },
+    "library": {
+      "filterAriaLabel": "Biblioteksfilter",
+      "sortAriaLabel": "Sortera bibliotek",
+      "sortByPlaceholder": "Sortera efter",
+      "noGamesTitle": "Inga spel hittades",
+      "noGamesDescription": "Endast lanserade spel med prestationer visas i detta bibliotek.",
+      "gameAlt": "Spel",
+      "complete": "slutförd",
+      "featured": "Utvald",
+      "rareUnlocks": "Sällsynta upplåsningar",
+      "filters": {
+        "all": "Alla",
+        "completed": "Slutförda",
+        "nearPlatinum": "Nära Platina",
+        "inProgress": "Pågående",
+        "platinum": "Platina"
+      },
+      "sorts": {
+        "completion": "Slutförande",
+        "alphabetical": "Alfabetisk",
+        "xp": "XP",
+        "achievements": "Prestationer"
+      }
+    },
+    "activity": {
+      "title": "Aktivitet",
+      "detail": "{{count}} prestationsupplåsningar",
+      "noActivityTitle": "Ingen aktivitet än",
+      "noActivityDescription": "Prestationsupplåsningar kommer att visas här när denna profil har offentlig framgång.",
+      "achievementAlt": "Prestation",
+      "platinumEarned": "Platina intjänad",
+      "achievementUnlocked": "Prestation upplåst",
+      "unknownRarity": "Okänd sällsynthet",
+      "rarity": "{{value}}% sällsynthet",
+      "unknownDate": "Okänt datum"
+    },
+    "achievements": {
+      "loading": "Laddar...",
+      "notFound": "Profilen hittades inte",
+      "myAchievements": "Mina prestationer"
+    }
+  },
+  "tags": {
+    "meta": {
+      "notFoundTitle": "Kampanjen hittades inte",
+      "notFoundDescription": "Kampanjen hittades inte",
+      "title": "{{title}} | egdata.app",
+      "description": "Kolla in {{count}} tillgängliga erbjudanden för {{title}} på egdata.app.",
+      "socialTitle": "{{title}} - egdata.app"
+    },
+    "loading": "Laddar...",
+    "offersCount": "{{count}} erbjudanden tillgängliga i detta evenemang",
+    "results": "Resultat",
+    "resultsCount": "({{count}} resultat)",
+    "searchPlaceholder": "Sök...",
+    "loadMore": "Ladda fler",
+    "sortBy": {
+      "releaseDate": "Releasedatum",
+      "lastModifiedDate": "Ändringsdatum",
+      "effectiveDate": "Ikraftträdandedatum",
+      "creationDate": "Skapelsedatum",
+      "viewableDate": "Synligt datum",
+      "pcReleaseDate": "PC-releasedatum",
+      "upcoming": "Kommande",
+      "price": "Pris"
+    }
+  },
+  "genres": {
+    "meta": {
+      "title": "Genrer - egdata.app",
+      "description": "Genrer på egdata.app"
+    },
+    "heading": "Genrer"
+  },
+  "sellers": {
+    "meta": {
+      "notFoundTitle": "Säljaren hittades inte",
+      "notFoundDescription": "Säljaren hittades inte",
+      "title": "{{name}} | egdata.app"
+    },
+    "notFound": "Säljaren hittades inte",
+    "logoAlt": "{{name}}-logotyp",
+    "bannerAlt": "{{name}}",
+    "offersTitle": "Erbjudanden från {{name}}",
+    "stats": {
+      "offers": "Erbjudanden",
+      "games": "Spel",
+      "items": "Objekt",
+      "freeGames": "Gratis spel"
+    }
+  },
+  "franchises": {
+    "meta": {
+      "notFoundTitle": "Serien hittades inte",
+      "notFoundDescription": "Serien hittades inte",
+      "title": "Serien {{name}} | egdata.app",
+      "description": "Bläddra bland alla spel i serien {{name}} i Epic Games Store."
+    },
+    "loading": "Laddar...",
+    "gamesCount_one": "{{count}} spel",
+    "gamesCount_other": "{{count}} spel",
+    "timeToBeat": "Tid att slå",
+    "achievements": "Prestationer",
+    "loadMore": "Ladda fler",
+    "free": "Gratis"
+  },
+  "stats": {
+    "creations": {
+      "meta": {
+        "title": "Skapelsestatistik - egdata.app",
+        "description": "Månads- och årstakt av nya skapelser som landar i Epic Games Store."
+      },
+      "viewReleases": "Visa släpp",
+      "heading": "Epic Games Store skapelsestatistik",
+      "description": "Månads- och årstakt av nya skapelser som landar i butiken.",
+      "monthlyTitle": "Månatliga skapelser",
+      "yearlyTitle": "Årliga skapelser"
+    },
+    "releases": {
+      "meta": {
+        "title": "Släppstatistik - egdata.app",
+        "description": "Månads- och årstakt av nya titlar som landar i Epic Games Store."
+      },
+      "viewCreations": "Visa skapelser",
+      "heading": "Epic Games Store släppstatistik",
+      "description": "Månads- och årstakt av nya titlar som landar i butiken.",
+      "monthlyTitle": "Månatliga släpp",
+      "yearlyTitle": "Årliga släpp"
+    }
+  },
+  "store": {
+    "creatorCode": {
+      "title": "Stöd egdata.app",
+      "description": "Vill du stödja egdata.app genom att använda vår skaparkod när du köper spel? Detta val kommer att kommas ihåg för framtida besök.",
+      "body": "Att använda vår skaparkod hjälper till att stödja utvecklingen av egdata.app och dess funktioner. Det påverkar inte priset du betalar.",
+      "noThanks": "Nej tack",
+      "yesUseCode": "Ja, använd koden"
+    }
+  },
+  "dashboard": {
+    "placeholder": "Hej /dashboard!"
+  },
+  "auth": {
+    "login": {
+      "placeholder": "Hej /auth/login!"
+    },
+    "callback": {
+      "placeholder": "Hej /auth/callback!"
+    },
+    "logout": {
+      "placeholder": "Hej /auth/logout!"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "Om - egdata.app",
+      "description": "Om egdata.app"
+    },
+    "title": "Om",
+    "intro": "egdata.app är en community-driven webbplats dedikerad till att spåra och tillhandahålla information om Epic Games Store. I likhet med SteamDB för Steam, strävar vi efter att erbjuda en omfattande resurs för användare att utforska förändringar, upptäcka nya spel och hålla sig uppdaterad med de senaste händelserna på plattformen.",
+    "missionTitle": "Vårt uppdrag",
+    "missionBody": "Vårt uppdrag är att tillhandahålla transparens och insikter i Epic Games Stores ekosystem. Vi tror att genom att sammanställa och presentera data på ett tillgängligt sätt kan vi ge användare möjlighet att fatta informerade beslut om sina spelköp och bidra till en bättre förståelse av plattformen.",
+    "featuresTitle": "Funktioner",
+    "features": {
+      "trackPrices": "Spåra prisförändringar och historisk data för spel",
+      "upcomingReleases": "Visa kommande släpp och gratisspelkampanjer",
+      "gameDetails": "Utforska spelinformation, betyg och användarrecensioner",
+      "analyzeTrends": "Analysera trender och mönster i Epic Games Store"
+    },
+    "communityTitle": "Community-driven",
+    "communityBody": "egdata.app byggs och underhålls av en passionerad gemenskap av spelare och utvecklare. Vi välkomnar bidrag från alla som vill hjälpa till att förbättra webbplatsen och göra den till en värdefull resurs för alla. Kontakta oss gärna om du har feedback, förslag eller vill engagera dig.",
+    "sourceCodeIntro": "All källkod för egdata.app finns tillgänglig på",
+    "github": "GitHub",
+    "notTitle": "Vad egdata.app INTE är",
+    "notIntro": "Det är viktigt att klargöra att egdata.app inte är:",
+    "notList": {
+      "affiliated": "Anslutet till Epic Games: Vi är ett oberoende, community-drivet projekt och inte officiellt godkänt eller associerat med Epic Games på något sätt.",
+      "storefront": "En butik eller marknadsplats: Vi säljer inte spel eller tillhandahåller köpalternativ. Vårt fokus är att tillhandahålla information och data om Epic Games Store.",
+      "piracy": "En plattform för piratkopiering eller olaglig verksamhet: Vi fördömer starkt piratkopiering och tillhandahåller inga medel för att olagligt komma åt eller distribuera upphovsrättsskyddat material."
+    },
+    "fairUseTitle": "Policy för skälig användning",
+    "fairUseBody": "egdata.app åtar sig att följa principerna för skälig användning enligt upphovsrättslagen. Vi tillhandahåller information och data endast i informationssyfte, med målet att utbilda och informera allmänheten om spel som finns tillgängliga i Epic Games Store.",
+    "fairUseFactorsTitle": "Nyckelfaktorer som motiverar skälig användning:",
+    "fairUseFactors": {
+      "nonCommercial": "Icke-kommersiellt, utbildningssyfte:",
+      "nonCommercialBody": "Vår webbplats är icke-kommersiell och syftar till att öka allmänhetens kunskap om spel i Epic Games Store.",
+      "factual": "Faktisk information:",
+      "factualBody": "Vi presenterar främst faktadata som speltitlar, releasedatum och utvecklare, vilket är mindre skyddat av upphovsrätt.",
+      "limited": "Begränsad användning:",
+      "limitedBody": "Vi använder endast den mängd data som krävs för att tillhandahålla meningsfull information utan att ersätta originalverken.",
+      "noMarketHarm": "Ingen marknadsskada:",
+      "noMarketHarmBody": "Vår användning påverkar inte marknaden för originalspelen negativt; snarare kan den främja dem genom ökat användarintresse."
+    },
+    "autoTrackBody": "Vi spårar och uppdaterar automatiskt speldata från offentligt tillgängliga källor, inklusive Epic Games Store. Vi laddar grafiska tillgångar direkt från deras servrar och lagrar dem inte.",
+    "leakedDataTitle": "Ansvarsfriskrivning för läckta data:",
+    "leakedDataBody": "Eventuellt läckta data på vår webbplats kommer från offentligt tillgänglig information på Epic Games Store. Vi har inte tillgång till konfidentiell eller proprietär data. Utgivare är ansvariga för att skydda sin känsliga information inom",
+    "epicDevPortal": "Epic Games utvecklarportal",
+    "euDirectivesIntro": "När vi utvecklade vår policy för skälig användning har vi tagit hänsyn till principerna i följande EU-upphovsrättsdirektiv:",
+    "euDirective1": "Direktiv (EU) 2019/790 om upphovsrätt och närstående rättigheter på den digitala inre marknaden",
+    "euDirective2": "Frågor och svar – Nya EU-regler om upphovsrätt",
+    "fairUseContact": "Om du har frågor om vår policy för skälig användning eller anser att något innehåll kränker din upphovsrätt, kontakta oss på:",
+    "contactTitle": "Kontakta oss",
+    "contactBody": "Du kan kontakta oss via"
+  },
+  "changelog": {
+    "index": {
+      "meta": {
+        "title": "Ändringslogg | egdata.app"
+      },
+      "searchPlaceholder": "Sök i ändringsloggar...",
+      "searchButton": "Sök",
+      "loading": "Laddar...",
+      "error": "Fel vid hämtning av data"
+    },
+    "detail": {
+      "meta": {
+        "title": "Ändringsdetalj | egdata.app"
+      },
+      "loading": "Laddar...",
+      "error": "Fel vid inläsning av ändringsdetaljer",
+      "notFound": "Ändringen hittades inte"
+    }
+  },
+  "privacy": {
+    "title": "Om",
+    "intro": "egdata.app är en community-driven webbplats dedikerad till att spåra och tillhandahålla information om Epic Games Store. I likhet med SteamDB för Steam, strävar vi efter att erbjuda en omfattande resurs för användare att utforska förändringar, upptäcka nya spel och hålla sig uppdaterad med de senaste händelserna på plattformen.",
+    "missionTitle": "Vårt uppdrag",
+    "missionBody": "Vårt uppdrag är att tillhandahålla transparens och insikter i Epic Games Stores ekosystem. Vi tror att genom att sammanställa och presentera data på ett tillgängligt sätt kan vi ge användare möjlighet att fatta informerade beslut om sina spelköp och bidra till en bättre förståelse av plattformen.",
+    "featuresTitle": "Funktioner",
+    "features": {
+      "trackPrices": "Spåra prisförändringar och historisk data för spel",
+      "upcomingReleases": "Visa kommande släpp och gratisspelkampanjer",
+      "gameDetails": "Utforska spelinformation, betyg och användarrecensioner",
+      "analyzeTrends": "Analysera trender och mönster i Epic Games Store"
+    },
+    "communityTitle": "Community-driven",
+    "communityBody": "egdata.app byggs och underhålls av en passionerad gemenskap av spelare och utvecklare. Vi välkomnar bidrag från alla som vill hjälpa till att förbättra webbplatsen och göra den till en värdefull resurs för alla. Kontakta oss gärna om du har feedback, förslag eller vill engagera dig.",
+    "sourceCodeIntro": "All källkod för egdata.app finns tillgänglig på",
+    "github": "GitHub",
+    "notTitle": "Vad egdata.app INTE är",
+    "notIntro": "Det är viktigt att klargöra att egdata.app inte är:",
+    "notList": {
+      "affiliated": "Anslutet till Epic Games: Vi är ett oberoende, community-drivet projekt och inte officiellt godkänt eller associerat med Epic Games på något sätt.",
+      "storefront": "En butik eller marknadsplats: Vi säljer inte spel eller tillhandahåller köpalternativ. Vårt fokus är att tillhandahålla information och data om Epic Games Store.",
+      "piracy": "En plattform för piratkopiering eller olaglig verksamhet: Vi fördömer starkt piratkopiering och tillhandahåller inga medel för att olagligt komma åt eller distribuera upphovsrättsskyddat material."
+    },
+    "fairUseTitle": "Policy för skälig användning",
+    "fairUseBody": "egdata.app åtar sig att följa principerna för skälig användning enligt upphovsrättslagen. Vi tillhandahåller information och data endast i informationssyfte, med målet att utbilda och informera allmänheten om spel som finns tillgängliga i Epic Games Store.",
+    "fairUseFactorsTitle": "Nyckelfaktorer som motiverar skälig användning:",
+    "fairUseFactors": {
+      "nonCommercial": "Icke-kommersiellt, utbildningssyfte:",
+      "nonCommercialBody": "Vår webbplats är icke-kommersiell och syftar till att öka allmänhetens kunskap om spel i Epic Games Store.",
+      "factual": "Faktisk information:",
+      "factualBody": "Vi presenterar främst faktadata som speltitlar, releasedatum och utvecklare, vilket är mindre skyddat av upphovsrätt.",
+      "limited": "Begränsad användning:",
+      "limitedBody": "Vi använder endast den mängd data som krävs för att tillhandahålla meningsfull information utan att ersätta originalverken.",
+      "noMarketHarm": "Ingen marknadsskada:",
+      "noMarketHarmBody": "Vår användning påverkar inte marknaden för originalspelen negativt; snarare kan den främja dem genom ökat användarintresse."
+    },
+    "autoTrackBody": "Vi spårar och uppdaterar automatiskt speldata från offentligt tillgängliga källor, inklusive Epic Games Store. Vi laddar grafiska tillgångar direkt från deras servrar och lagrar dem inte.",
+    "leakedDataTitle": "Ansvarsfriskrivning för läckta data:",
+    "leakedDataBody": "Eventuellt läckta data på vår webbplats kommer från offentligt tillgänglig information på Epic Games Store. Vi har inte tillgång till konfidentiell eller proprietär data. Utgivare är ansvariga för att skydda sin känsliga information inom",
+    "epicDevPortal": "Epic Games utvecklarportal",
+    "euDirectivesIntro": "När vi utvecklade vår policy för skälig användning har vi tagit hänsyn till principerna i följande EU-upphovsrättsdirektiv:",
+    "euDirective1": "Direktiv (EU) 2019/790 om upphovsrätt och närstående rättigheter på den digitala inre marknaden",
+    "euDirective2": "Frågor och svar – Nya EU-regler om upphovsrätt",
+    "fairUseContact": "Om du har frågor om vår policy för skälig användning eller anser att något innehåll kränker din upphovsrätt, kontakta oss på:",
+    "contactTitle": "Kontakta oss",
+    "contactBody": "Du kan kontakta oss via"
+  },
+  "notifications": {
+    "meta": {
+      "title": "Notiser - egdata.app",
+      "description": "Konfigurera och hantera push-notiser för Epic Games Store-uppdateringar, spelrelease och mer."
+    },
+    "title": "Notiser",
+    "description": "Konfigurera och hantera push-notiser för Epic Games Store-uppdateringar, spelrelease och personliga aviseringar.",
+    "tabs": {
+      "notifications": "Notiser",
+      "mySubscriptions": "Mina prenumerationer"
+    },
+    "aboutPushTitle": "Om push-notiser",
+    "aboutPushDescription": "Lär dig mer om hur push-notiser fungerar på EGData.",
+    "whatYoullReceive": "Vad du får:",
+    "receiveList": {
+      "freeGames": "Meddelanden om nya gratis spel",
+      "releases": "Notiser om spelrelease",
+      "priceDrops": "Aviseringar om prisfall för önskade spel",
+      "news": "Nyheter och uppdateringar om Epic Games Store",
+      "custom": "Anpassade ämnesbaserade notiser"
+    },
+    "privacySecurity": "Integritet och säkerhet:",
+    "privacyList": {
+      "apiKey": "Din API-nyckel lagras säkert i webbläsarens cookies",
+      "onlySubscribed": "Vi skickar endast notiser du prenumererat på",
+      "unsubscribe": "Du kan avsluta prenumerationen när som helst",
+      "noPersonalData": "Inga personuppgifter krävs utöver din API-nyckel"
+    },
+    "browserSupport": "Webbläsarstöd:",
+    "browserSupportBody": "Push-notiser stöds i moderna webbläsare inklusive Chrome, Firefox, Safari och Edge. Se till att tillåta notiser när din webbläsare frågar.",
+    "subscriptionOverview": "Prenumerationsöversikt",
+    "totalSubscribed": "Totalt antal prenumererade ämnen: {{count}}",
+    "notSubscribedApi": "API-nyckeln prenumererar inte på push-notiser",
+    "notSubscribedTitle": "Inte prenumererad",
+    "notSubscribedBody": "Din API-nyckel prenumererar inte på push-notiser. Använd fliken \"Konfigurera & prenumerera\" för att prenumerera först.",
+    "subscriptionId": "Prenumeration {{id}}",
+    "created": "Skapad:",
+    "subscribedTopics": "Prenumererade ämnen:",
+    "noTopics": "Inga prenumererade ämnen",
+    "lastUpdated": "Senast uppdaterad:",
+    "noSubscriptionsTitle": "Inga prenumerationer hittades",
+    "noSubscriptionsBody": "Du prenumererar men har inte skapat några enhetsprenumerationer än. Använd fliken \"Konfigurera & prenumerera\" för att skapa din första prenumeration.",
+    "fetchError": "Kunde inte hämta prenumerationer. Försök igen.",
+    "push": {
+      "title": "Push-notiser",
+      "notSupported": "Push-notiser stöds inte i denna webbläsare.",
+      "setApiKey": "Vänligen ange din API-nyckel för att aktivera push-notiser.",
+      "manage": "Hantera dina push-notisinställningar.",
+      "unsubscribe": "Avsluta prenumeration",
+      "subscribe": "Prenumerera",
+      "subscribed": "Prenumererar",
+      "notSubscribed": "Prenumererar inte",
+      "subscribeToTopic": "Prenumerera på ämne",
+      "topicPlaceholder": "Ange ämnesnamn (t.ex., spel-uppdateringar)",
+      "subscribedTopics": "Prenumererade ämnen",
+      "clickToUnsubscribe": "Klicka på ett ämne för att avsluta prenumerationen"
+    },
+    "simple": {
+      "title": "Push-notiser",
+      "notSupported": "Push-notiser stöds inte i denna webbläsare.",
+      "subscribedDesc": "Du prenumererar på {{count}} notisämnen",
+      "notSubscribedDesc": "Få notiser om Epic Games Store-uppdateringar, gratis spel och mer",
+      "subscribeToNotifications": "Prenumerera på notiser",
+      "unsubscribe": "Avsluta prenumeration",
+      "chooseWhat": "Välj vad du vill bli notifierad om:",
+      "freeGames": "Gratis spel",
+      "freeGamesDesc": "Få notiser när nya gratis spel är tillgängliga",
+      "newReleases": "Nya släpp",
+      "newReleasesDesc": "Notiser för nya spelrelease",
+      "priceDrops": "Prisfall",
+      "priceDropsDesc": "Få aviseringar när spel är på rea",
+      "youWillReceive": "Du får notiser för:",
+      "subscribedTo": "Prenumererar på {{name}}",
+      "unsubscribedFrom": "Prenumeration avslutad för {{name}}",
+      "failedSubscribe": "Misslyckades att prenumerera på notiser",
+      "failedUnsubscribe": "Misslyckades att avsluta notisprenumeration",
+      "failedTopicSubscribe": "Misslyckades att prenumerera på ämne",
+      "failedTopicUnsubscribe": "Misslyckades att avsluta ämnesprenumeration",
+      "successSubscribe": "Prenumererar på notiser!",
+      "successUnsubscribe": "Notisprenumeration avslutad"
+    },
+    "apiKey": {
+      "title": "API-nyckelhantering",
+      "label": "API-nyckel",
+      "placeholderGenerated": "API-nyckel genererad",
+      "placeholderNone": "Ingen API-nyckel genererad",
+      "regenerate": "Återskapa nyckel",
+      "generate": "Generera nyckel",
+      "clear": "Rensa nyckel",
+      "generated": "Ny API-nyckel genererad!",
+      "copied": "API-nyckel kopierad till urklipp!",
+      "cleared": "API-nyckel rensad!",
+      "failedGenerate": "Misslyckades att generera API-nyckel",
+      "failedCopy": "Misslyckades att kopiera API-nyckel",
+      "failedClear": "Misslyckades att rensa API-nyckel",
+      "noneToCopy": "Ingen API-nyckel att kopiera",
+      "description": "Din API-nyckel är en UUID som lagras lokalt i din webbläsare och används för att autentisera push-notisförfrågningar. Använd återskapa-knappen för att skapa en ny nyckel om det behövs."
+    }
+  },
+  "promotions": {
+    "placeholder": "Hej /promotions/$id!"
+  },
+  "misc": {
+    "gameAwards": {
+      "meta": {
+        "title": "The Game Awards-bevakning | egdata.app",
+        "description": "Senaste spelen som tillkännages och nomineras på The Game Awards som kommer till Epic Games Store."
+      },
+      "logoAlt": "The Game Awards 2025",
+      "subtitle": "Spel som tillkännages eller nomineras på The Game Awards som kommer till Epic Games Store",
+      "videoTitle": "The Game Awards 2024 - Live-sändning",
+      "expandPlayer": "Expandera spelare",
+      "closeMiniPlayer": "Stäng minispelare",
+      "noGamesTitle": "Inga spel tillkännagivna än",
+      "noGamesBody": "Kom tillbaka efter The Game Awards!"
+    },
+    "downloads": {
+      "title": "egdata.app-klientrelease",
+      "description": "Ladda ner den senaste versionen. Vi har markerat den rekommenderade sektionen för ditt operativsystem.",
+      "errorPrefix": "Fel:",
+      "noPublicReleases": "Inga publika releaser hittades.",
+      "recommended": "Rekommenderad",
+      "downloadsSuffix": "Nedladdningar",
+      "versionPublished": "Version {{version}} - Publicerad {{date}}",
+      "assetInfo": {
+        "appleSilicon": "För nyare Mac-datorer med Apple-chips (M1, M2, M3, etc.).",
+        "intel": "För äldre Mac-datorer med Intel-processorer.",
+        "universal": "Kompatibel med både Apple Silicon och Intel Mac.",
+        "msi": "En standardinstallationsguide. Rekommenderas för de flesta användare.",
+        "exe": "En fristående applikationsfil. Kräver kanske inte installation.",
+        "linux": "För Linux-baserade operativsystem.",
+        "generic": "En generisk fil eller källkod."
+      }
+    },
+    "discordLinked": {
+      "title": "Konto länkat!",
+      "body": "Ditt Discord-konto har länkats till egdata.app",
+      "footer": "Du kan nu stänga detta fönster och återgå till Discord. Ditt konto är redo att användas med egdata.app"
+    },
+    "posts": {
+      "coverAlt": "LEGO Star Wars: The Skywalker Saga-omslag",
+      "title": "Få LEGO® Star Wars™: The Skywalker Saga GRATIS på Epic Games Store",
+      "freeGameBadge": "Gratis spel",
+      "published": "Publicerad 30 november 2023",
+      "intro": "Markera era kalendrar, Star Wars-fans! Från {{dateRange}} kan du få det kritikerrosade {{game}} GRATIS på Epic Games Store. Detta spel, som vanligtvis kostar {{price}}, låter dig återuppleva de ikoniska ögonblicken i {{saga}} med en rolig LEGO-twist.",
+      "dateRange": "5 december till 12 december 2024",
+      "game": "LEGO® Star Wars™: The Skywalker Saga",
+      "price": "$49.99",
+      "saga": "Skywalker-sagan",
+      "gameplayAlt": "LEGO Star Wars-gameplay",
+      "charactersAlt": "LEGO Star Wars-karaktärer",
+      "whatToExpect": "🧩 Vad kan du förvänta dig?",
+      "whatToExpectBody": "Utvecklat av {{developer}} och publicerat av {{publisher}}, erbjuder denna titel en omfattande Star Wars-upplevelse som ingen annan. Här är vad som gör den till ett måste:",
+      "developer": "TT Games",
+      "publisher": "Warner Bros.",
+      "expectList": {
+        "allMovies": "🌌 {{strong}}: Återupplev berättelserna från alla nio Skywalker-sagans filmer, fyllda med klassisk LEGO-humor.",
+        "allMoviesStrong": "Alla 9 filmer",
+        "characters": "🛸 {{strong}}: Kontrollera dina favorithjältar och -skurkar från galaxen långt, långt borta.",
+        "charactersStrong": "Över 300 spelbara karaktärer",
+        "vehicles": "🚀 {{strong}}: Flyg ikoniska skepp som Millennium Falcon och TIE-fighters.",
+        "vehiclesStrong": "Över 100 fordon",
+        "planets": "🌍 {{strong}}: Res till välbekanta världar, från Tatooine till Endor och bortom.",
+        "planetsStrong": "23 planeter att utforska"
+      },
+      "specialTitle": "🌟 Vad gör detta spel speciellt?",
+      "specialBody": "Sedan releasen {{releaseDate}} har LEGO Star Wars: The Skywalker Saga hyllats för sitt engagerande gameplay och trogna anpassning av Star Wars-universumet. Med {{metascore}} på Metacritic har kritiker och fans lyft fram:",
+      "releaseDate": "april 2022",
+      "metascore": "82 Metascore",
+      "specialList": {
+        "combat": "🕹️ {{strong}}: Ljussvärdsstrider, blaster-skjutningar och rymdstrider.",
+        "combatStrong": "Dynamisk strid",
+        "charm": "🏗️ {{strong}}: Klassisk Star Wars-humor, nytänkt i LEGOs unika stil.",
+        "charmStrong": "LEGO-charm",
+        "replayability": "🤯 {{strong}}: Massor av samlarobjekt, sidouppdrag och dolda hemligheter.",
+        "replayabilityStrong": "Omissionsbarhet"
+      },
+      "howToClaim": "🎁 Hur löser man in?",
+      "howToClaimBody": "Att få din gratis kopia är enkelt!",
+      "step1": "Besök {{storeLink}} mellan {{dec5}} och {{dec12}}.",
+      "storeLink": "Epic Games Store",
+      "dec5": "5 december",
+      "dec12": "12 december 2024",
+      "step2": "Lägg till spelet i ditt bibliotek.",
+      "step3": "Det är ditt för alltid!",
+      "cardTitle": "Missa inte denna chans att ge dig ut på en LEGO-infuserad resa genom galaxen!",
+      "cardBody": "Oavsett om du är ett inbitet Star Wars-fan eller nykomling, erbjuder detta spelet oändligt roligt för alla.",
+      "footer": "Må Kraften (och LEGO-klossarna) vara med dig! 🧱✨"
+    },
+    "fairUse": {
+      "meta": {
+        "title": "Policy för skälig användning - egdata.app",
+        "description": "Policy för skälig användning för egdata.app"
+      },
+      "title": "Policy för skälig användning för EGData App",
+      "section1Title": "1. Introduktion",
+      "section1Body": "Välkommen till EGData App (\"vi\", \"oss\", \"vår\"). Denna policy för skälig användning beskriver villkoren under vilka du får använda innehållet och datan som tillhandahålls på vår webbplats {{siteLink}} (\"Webbplatsen\").",
+      "section2Title": "2. Syfte med skälig användning",
+      "section2Body": "Innehållet och datan på EGData App tillhandahålls endast i informationssyfte. Vårt mål är att erbjuda en omfattande databas över spel (eller spelrelaterad data) som finns tillgängliga i Epic Games Store för utbildnings- och referensbruk av communityn.",
+      "section3Title": "3. Efterlevnad av skälig användning",
+      "section3Body": "EGData App följer principerna för skälig användning enligt upphovsrättslagen genom att tillhandahålla information och data på ett sätt som gynnar allmänheten utan att inkräkta på innehållsägarnas rättigheter. Här är nyckelfaktorerna som motiverar vår användning som skälig användning:",
+      "section3List": {
+        "purpose": "Ändamål och karaktär av användning:",
+        "purposeBody": "Vår webbplats är icke-kommersiell och syftar till att utbilda och informera allmänheten om spel som finns i Epic Games Store. Vi tillhandahåller kritisk information, recensioner och uppdateringar, vilket förbättrar allmänhetens kunskap och uppskattning av dessa spel.",
+        "nature": "Typ av upphovsrättsskyddat verk:",
+        "natureBody": "Datan vi samlar in och presenterar består av faktauppgifter som speltitlar, releasedatum, utvecklare och uppdateringar. Faktauppgifter är mindre skyddade av upphovsrättslagen än kreativa verk.",
+        "amount": "Mängd och väsentlighet:",
+        "amountBody": "Vi använder endast den mängd data som är nödvändig för att tillhandahålla meningsfull och relevant information till våra användare. Vi återger inte hela verk eller tillhandahåller omfattande utdrag som skulle kunna ersätta originalprodukterna.",
+        "effect": "Effekt på marknaden:",
+        "effectBody": "Vår användning av speldata påverkar inte marknaden för originalspelen negativt. Istället främjar den dessa spel genom att tillhandahålla uppdaterad information och öka användarnas engagemang och intresse."
+      },
+      "section4Title": "4. Datainsamling och uppdateringar",
+      "section4Body1": "Vår Webbplats spårar och uppdaterar automatiskt speldata för att säkerställa att informationen vi tillhandahåller är aktuell och korrekt. Denna automatiserade process innebär att offentligt tillgänglig information samlas in från Epic Games Store och andra tillförlitliga källor.",
+      "section4Body2": "Genom att hålla vår databas uppdaterad säkerställer vi att användare har tillgång till den senaste informationen om sina favoritspel, inklusive nya releaser, uppdateringar och ändringar i tillgänglighet.",
+      "section4Body3": "När det gäller grafiska tillgångar laddar vi bilderna direkt från Epic Games Stores servrar. Vi lagrar inga bilder på våra servrar.",
+      "section5Title": "5. Ansvarsfriskrivning för läckta data",
+      "section5Body1": "All data som verkar vara läckt på vår Webbplats kommer från offentligt tillgänglig information som tillhandahålls av Epic Games Store. Vi har inte tillgång till konfidentiell eller proprietär data som inte är offentligt tillgänglig. Därför är det utgivarnas ansvar att skydda sina kommande immateriella rättigheter (IP), spel, nedladdningsbart innehåll (DLC) och annan känslig information inom Epic Games utvecklarportal.",
+      "section5Body2": "Utgivare uppmanas att säkerställa att känslig information är ordentligt skyddad och inte oavsiktligt görs offentlig. EGData App kan inte hållas ansvarig för läckt information som erhållits från offentligt tillgängliga källor.",
+      "section5Body3": "För mer information om dataskydd och skälig användning i Europeiska unionen, se följande resurser:",
+      "euDirective1": "Direktiv (EU) 2019/790 om upphovsrätt och närstående rättigheter på den digitala inre marknaden",
+      "euDirective2": "Frågor och svar – Nya EU-regler om upphovsrätt",
+      "section6Title": "6. Kontakta oss",
+      "section6Body": "Om du har några frågor om denna policy för skälig användning eller om du anser att något innehåll eller data på vår Webbplats kränker din upphovsrätt, kontakta oss på:",
+      "email": "E-post:"
+    },
+    "donateKey": {
+      "title": "Donera en nyckel",
+      "body": "Om du har en nyckel som du vill donera till projektet, fyll i formuläret nedan."
+    },
+    "androidBeta": {
+      "meta": {
+        "title": "Android Beta - egdata.app",
+        "description": "Gå med i egdata.app Android-appens slutna betatestprogram"
+      },
+      "title": "Android Beta-program",
+      "description": "Gå med i vår slutna beta för att testa egdata.app Android-appen före publik release.",
+      "whatHappensNext": "Vad händer härnäst?",
+      "steps": {
+        "signIn": "Logga in med ditt Google-konto",
+        "added": "Du kommer att läggas till manuellt i det slutna testspåret inom några timmar",
+        "download": "När du har lagts till kan du ladda ner appen från den angivna länken"
+      }
+    }
+  },
+  "components": {
+    "stats": {
+      "title": "Statistik",
+      "description": "Statistik om plattformen",
+      "offers": "Erbjudanden",
+      "offersTooltip": "Ett erbjudande är ett köpbart katalogobjekt från butiken",
+      "items": "Objekt",
+      "itemsTooltip": "Ett objekt är rättigheten för launchern",
+      "tags": "Taggar",
+      "offersYear": "Erbjudanden (År)",
+      "itemsYear": "Objekt (År)",
+      "assets": "Tillgångar",
+      "assetsTooltip": "En tillgång är spelfilerna",
+      "regPrices": "Ord. priser",
+      "changes": "Ändringar",
+      "sandboxes": "Sandlådor",
+      "sandboxesTooltip": "En sandlåda är gruppen av erbjudanden"
+    },
+    "sandboxShell": {
+      "overview": "Översikt",
+      "offers": "Erbjudanden",
+      "items": "Objekt",
+      "assets": "Tillgångar",
+      "builds": "Byggen",
+      "achievements": "Prestationer",
+      "changelog": "Ändringslogg",
+      "sandbox": "Sandlåda",
+      "internalNamespace": "Internt namespace",
+      "storePage": "Butikssida",
+      "updated": "Uppdaterad {{date}}",
+      "unrealEngine": "Unreal Engine",
+      "internalSandbox": "Intern sandlåda",
+      "releaseStatus": {
+        "prePurchase": "Förköp",
+        "datePending": "Datum väntar",
+        "comingSoon": "Kommer snart",
+        "released": "Släppt"
+      }
+    },
+    "comparison": {
+      "openCompareTray": "Öppna jämför-fack, {{count}} valda",
+      "compareSelected": "Jämför valda erbjudanden",
+      "error": "Fel",
+      "type": "Typ",
+      "seller": "Säljare",
+      "developer": "Utvecklare",
+      "releaseDate": "Releasedatum",
+      "pcReleaseDate": "PC-releasedatum",
+      "genres": "Genrer",
+      "platforms": "Plattformar",
+      "remove": "Ta bort",
+      "current": "Nuvarande",
+      "lowest": "Lägsta",
+      "noPriceFound": "Inget pris hittades",
+      "noAgeRatingsFound": "Inga åldersklassificeringar hittades",
+      "achievements": "Prestationer:",
+      "ageRating": "Åldersklassificering:",
+      "price": "Pris:",
+      "unknown": "Okänd"
+    },
+    "search": {
+      "sellers": "Säljare",
+      "noResults": "Inga resultat hittades",
+      "noResultsShort": "Inga resultat hittades.",
+      "allOfferTypes": "Alla erbjudandetyper",
+      "tags": "Taggar"
+    },
+    "changelist": {
+      "title": "Ändringslista",
+      "loading": "Laddar...",
+      "error": "Fel: {{message}}",
+      "id": "ID",
+      "type": "Typ",
+      "titleOrId": "Titel/ID",
+      "date": "Datum",
+      "new": "ny",
+      "update": "uppdatering"
+    },
+    "upcoming": {
+      "caption": "Kommande erbjudanden",
+      "loading": "Laddar...",
+      "title": "Titel",
+      "price": "Pris",
+      "releaseDate": "Releasedatum",
+      "unknown": "Okänd",
+      "prePurchase": "Förköp"
+    },
+    "giveaways": {
+      "title": "Utlottningar",
+      "free": "Gratis",
+      "freeNow": "Gratis nu",
+      "startsIn": "Börjar om",
+      "repeated": "Upprepad:",
+      "yes": "Ja",
+      "no": "Nej",
+      "repeatedTooltip": "Detta erbjudande har getts bort {{count}} gånger."
+    },
+    "giveawayStats": {
+      "title": "Utlottningar i siffror",
+      "loading": "Laddar...",
+      "totalValue": "Totala värdet",
+      "totalValueTooltip": "Totalt värde inklusive eventuella aktiva rabatter",
+      "giveaways": "Utlottningar",
+      "giveawaysTooltip": "Totalt antal utlottningar i databasen",
+      "offers": "Erbjudanden",
+      "offersTooltip": "Totalt antal unika erbjudanden som förekommit i utlottningar",
+      "repeated": "Upprepade",
+      "repeatedTooltip": "Antal unika erbjudanden som förekommer flera gånger i utlottningar",
+      "sellers": "Säljare",
+      "sellersTooltip": "Totalt antal unika säljare som tillhandahåller erbjudanden"
+    },
+    "offerCard": {
+      "openOffer": "Öppna erbjudande {{title}}",
+      "free": "Gratis",
+      "comingSoon": "Kommer snart",
+      "earlyAccess": "Early Access",
+      "prePurchase": "Förköp",
+      "owned": "ägd"
+    },
+    "baseGame": {
+      "checkBaseGame": "Kolla grundspelet",
+      "partOfBundle": "Detta erbjudande är en del av"
+    },
+    "notFound": {
+      "message": "Sidan du letar efter finns inte."
+    },
+    "sellerOffers": {
+      "error": "Fel vid inläsning av erbjudanden. Försök igen.",
+      "moreFrom": "Mer från {{name}}"
+    },
+    "achievementsBlade": {
+      "noData": "Ingen data",
+      "game": "Spel",
+      "achievements": "Prestationer",
+      "xp": "XP",
+      "bronze": "Brons",
+      "silver": "Silver",
+      "gold": "Guld",
+      "gamesWithAchievements": "Spel med Epic-prestationer"
+    },
+    "topSection": {
+      "free": "Gratis",
+      "releaseDate": "Releasedatum:",
+      "tba": "TBA",
+      "platforms": "Plattformar:",
+      "tags": "Taggar:",
+      "checkOffer": "Kolla erbjudande"
+    },
+    "featuredDiscounts": {
+      "free": "Gratis",
+      "title": "Utvalda rabatter",
+      "countMore": "+{{count}} fler",
+      "checkOffer": "Kolla erbjudande",
+      "until": "tills"
+    },
+    "performanceTable": {
+      "title": "Prestanda",
+      "noPriorData": "Ingen tidigare data",
+      "cardsView": "Kortvy",
+      "chartView": "Diagramvy"
+    },
+    "priceChart": {
+      "selectValue": "Välj ett värde",
+      "last3Months": "Senaste 3 månaderna",
+      "fetchingData": "Hämtar senaste data"
+    },
+    "dateRangePicker": {
+      "from": "Från",
+      "to": "Till",
+      "maxRange": "Maximalt intervall är 30 dagar",
+      "invalidRange": "Ogiltigt datumintervall"
+    },
+    "regionalPricing": {
+      "region": "Region",
+      "price": "Pris"
+    },
+    "regionalPricingBadge": {
+      "analysis": "Analys av regional prissättning",
+      "currentPrice": "Nuvarande pris",
+      "suggestedPrice": "Rekommenderat pris",
+      "belowSuggested": "Detta erbjudande är faktiskt under det också — ett utmärkt erbjudande.",
+      "closeToSuggested": "Detta erbjudande ligger nära det rekommenderade och långt under typisk {{region}}-prissättning."
+    },
+    "countrySelector": {
+      "searchCountries": "Sök länder...",
+      "noCountries": "Inga länder hittades"
+    },
+    "countriesSelector": {
+      "searchCountries": "Sök länder...",
+      "noCountries": "Inga länder hittades"
+    },
+    "querySearch": {
+      "searchItems": "Sök objekt..."
+    },
+    "extendedSearch": {
+      "searchItems": "Sök objekt...",
+      "noItems": "Inga objekt hittades."
+    },
+    "searchForm": {
+      "noResults": "Inga resultat hittades",
+      "error": "Fel: {{message}}",
+      "loadingLong": "Denna fråga tar längre tid än vanligt..."
+    },
+    "searchFormV2": {
+      "noResults": "Inga resultat hittades."
+    },
+    "androidBetaBanner": {
+      "dismiss": "Avfärda banner"
+    },
+    "videoPlayer": {
+      "title": "{{title}}"
+    },
+    "mediaSlider": {
+      "previousSlide": "Föregående bild",
+      "nextSlide": "Nästa bild",
+      "image": "Bild {{index}}",
+      "thumbnail": "Miniatyr {{index}}",
+      "downloading": "Laddar ner...",
+      "download": "Ladda ner"
+    },
+    "changelogItem": {
+      "action": "Åtgärd",
+      "type": "Typ",
+      "oldValue": "Gammalt värde",
+      "newValue": "Nytt värde",
+      "previousValue": "Föregående värde:",
+      "newValueLabel": "Nytt värde:"
+    },
+    "changelogCharts": {
+      "byWeekday": "Ändringar per veckodag",
+      "byWeekdayDesc": "Ackumulerade ändringar per veckodag",
+      "typesOfChanges": "Typer av ändringar",
+      "typesOfChangesDesc": "Antal ändringar per typ",
+      "byField": "Ändringar per fält",
+      "byFieldDesc": "Ändringar grupperade efter ändrat fält",
+      "dailyDesc": "Visar dagliga ändringar för det senaste året",
+      "noData": "Ingen data tillgänglig att visa."
+    },
+    "openEgl": {
+      "open": "Öppna"
+    },
+    "openEgs": {
+      "store": "Butik"
+    },
+    "openLauncher": {
+      "play": "Spela"
+    },
+    "storeDropdown": {
+      "launcher": "Launcher",
+      "viewStorePage": "Visa butikssida",
+      "webBrowser": "Webbläsare"
+    },
+    "prepurchasePopup": {
+      "title": "{{title}}"
+    },
+    "apiKeyManager": {
+      "title": "API-nyckelhantering",
+      "label": "API-nyckel",
+      "placeholder": {
+        "generated": "API-nyckel genererad",
+        "none": "Ingen API-nyckel genererad"
+      },
+      "button": {
+        "regenerate": "Återskapa nyckel",
+        "generate": "Generera nyckel",
+        "clear": "Rensa nyckel"
+      },
+      "notification": {
+        "generated": "Ny API-nyckel genererad!",
+        "generateFailed": "Misslyckades att generera API-nyckel",
+        "copied": "API-nyckel kopierad till urklipp!",
+        "copyFailed": "Misslyckades att kopiera API-nyckel",
+        "noneToCopy": "Ingen API-nyckel att kopiera",
+        "cleared": "API-nyckel rensad!",
+        "clearFailed": "Misslyckades att rensa API-nyckel"
+      },
+      "description": "Din API-nyckel är en UUID som lagras lokalt i din webbläsare och används för att autentisera push-notisförfrågningar. Använd återskapa-knappen för att skapa en ny nyckel om det behövs."
+    },
+    "cookieBanner": {
+      "title": "Cookie-meddelande",
+      "description": "Denna webbplats använder cookies för att förbättra din surfupplevelse. Genom att acceptera cookies accepterar du vår {{privacyPolicyLink}}.",
+      "accept": "Acceptera",
+      "decline": "Avvisa"
+    },
+    "searchHeader": {
+      "results": "{{count}} resultat",
+      "showingResultsFor": "Visar resultat för"
+    },
+    "bundle": {
+      "collectionOffers": "Samlingserbjudanden",
+      "bundleOffers": "Paketerbjudanden",
+      "offersCount": "- {{count}} erbjudanden",
+      "bundlePriceTitle": "Paketpris",
+      "totalValueLabel": "Totalt värde:",
+      "bundlePriceLabel": "Paketpris:",
+      "youSave": "Du sparar:",
+      "youPayMore": "Du betalar mer:",
+      "buyBundle": "Köp paket",
+      "buyIndividually": "Köp objekt individuellt"
+    },
+    "clientBanner": {
+      "heading": "Driv {{appName}}s byggdatabas",
+      "subheading": "Hjälp till att kartlägga varje Epic Games Store-bygge",
+      "description": "Vår lätta Windows- och macOS-klient skannar dina Epic Games Launcher-installationer och laddar säkert upp endast manifestfilerna — chunk-listor och metadata — till vår öppna databas. Varje uppladdning berikar communityn och hjälper oss att spåra förändringar över tid.",
+      "cta": "Ladda ner för Windows och macOS"
+    },
+    "collectionOffers": {
+      "title": "Samlingserbjudanden"
+    },
+    "lastModifiedOffers": {
+      "title": "Senast ändrade erbjudanden"
+    },
+    "latestOffers": {
+      "title": "Senast tillagda"
+    },
+    "latestReleased": {
+      "title": "Senast släppta"
+    },
+    "mobileFreebies": {
+      "title": "Mobil gratisspel",
+      "collapse": "Dölj mobil gratisspel",
+      "expand": "Expandera mobil gratisspel"
+    },
+    "sectionHeader": {
+      "seeAll": "Se alla"
+    },
+    "suggestedOffers": {
+      "title": "Du kanske också gillar"
+    }
+  },
+  "table": {
+    "pagination": {
+      "rowsPerPage": "Rader per sida",
+      "pageOf": "Sida {{page}} av {{total}}",
+      "goToFirst": "Gå till första sidan",
+      "goToPrevious": "Gå till föregående sida",
+      "goToNext": "Gå till nästa sida",
+      "goToLast": "Gå till sista sidan",
+      "previous": "Föregående",
+      "next": "Nästa",
+      "morePages": "Fler sidor"
+    },
+    "toolbar": {
+      "platform": "Plattform",
+      "status": "Status",
+      "type": "Typ",
+      "platforms": "Plattformar",
+      "fileExtensions": "Filtillägg",
+      "filterOffers": "Filtrera erbjudanden...",
+      "filterItems": "Filtrera objekt...",
+      "filterFiles": "Filtrera filer...",
+      "reset": "Återställ"
+    },
+    "viewOptions": {
+      "view": "Visa",
+      "toggleColumns": "Växla kolumner"
+    },
+    "facetedFilter": {
+      "noResults": "Inga resultat hittades.",
+      "selected": "valda",
+      "clearFilters": "Rensa filter"
+    },
+    "builds": {
+      "noResults": "Inga resultat.",
+      "donateKey": "Donera en nyckel"
+    }
+  },
+  "forms": {
+    "review": {
+      "submitTitle": "Skicka en recension",
+      "editTitle": "Redigera recension",
+      "description": "Dela dina tankar om {{title}}",
+      "rating": "Betyg",
+      "ratingError": "Betyget måste vara mellan 1 och 10",
+      "recommend": "Skulle du rekommendera denna produkt?",
+      "recommendError": "Vänligen välj ja eller nej",
+      "yes": "Ja",
+      "no": "Nej",
+      "title": "Titel",
+      "titlePlaceholder": "Ange en titel för din recension",
+      "titleRequired": "Titel krävs",
+      "titleMinLength": "Titeln måste vara minst 3 tecken",
+      "titleMinLengthLong": "Titeln måste vara minst 3 tecken lång",
+      "titleMaxLength": "Titeln måste vara mindre än 75 tecken",
+      "reviewContent": "Recensionsinnehåll",
+      "contentMinLength": "Innehållet måste vara minst 3 tecken långt",
+      "tags": "Taggar (komma-separerade)",
+      "tagsPlaceholder": "t.ex. kvalitet, design, prestanda",
+      "previous": "Föregående",
+      "next": "Nästa",
+      "submit": "Skicka recension",
+      "deleteReview": "Ta bort recension",
+      "confirmDelete": "Är du säker på att du vill ta bort denna recension?",
+      "deleteDescription": "Denna åtgärd kan inte ångras. Recensionen kommer att tas bort permanent från våra servrar.",
+      "cancel": "Avbryt",
+      "delete": "Ta bort",
+      "deleting": "Tar bort...",
+      "errorSubmitting": "Fel vid inskickning av recension",
+      "errorDeleting": "Fel vid borttagning av recension",
+      "spamDetected": "Spam upptäckt",
+      "defaultContent": "Vänligen skriv din recension här",
+      "theProduct": "produkten"
+    },
+    "androidBeta": {
+      "title": "Gå med i Betan",
+      "description": "Logga in med Google för att registrera dig för den slutna betan. Vi behöver bara din e-postadress.",
+      "spotsRemaining": "<strong>{{remaining}}</strong> av {{max}} platser kvar",
+      "betaFull": "Betan är full",
+      "betaFullDesc": "Alla {{max}} platser har tagits. Kom tillbaka senare eller följ oss för uppdateringar om när fler platser blir tillgängliga.",
+      "registering": "Registrerar dig för betan...",
+      "registered": "Du är registrerad!",
+      "registeredDesc": "Vi har registrerat <strong>{{email}}</strong> för den slutna betan.",
+      "registeredDesc2": "Det kan ta några timmar tills du läggs till manuellt i testlistan. När du har lagts till kan du gå med i betan här:",
+      "joinBeta": "Gå med i Betan på Google Play",
+      "alreadyRegistered": "Redan registrerad",
+      "alreadyRegisteredDesc": "<strong>{{email}}</strong> är redan registrerad för betan.",
+      "alreadyRegisteredDesc2": "Om du redan har lagts till i testlistan kan du gå med i betan här:",
+      "error": "Fel",
+      "tryAgain": "Försök igen",
+      "noCredential": "Ingen credential mottagen från Google",
+      "somethingWrong": "Något gick fel. Försök igen.",
+      "googleFailed": "Google-inloggning misslyckades. Försök igen."
+    },
+    "donateKey": {
+      "donate": "Donera",
+      "error": "Fel",
+      "success": "Lyckades",
+      "successDesc": "Tack för din donation! Objektet har lösts in korrekt och dess data kommer snart att finnas tillgänglig.",
+      "offerPage": "Erbjudandesida",
+      "somethingWrong": "Något gick fel. Försök igen."
+    }
+  },
+  "ui": {
+    "dialog": {
+      "close": "Stäng"
+    },
+    "sheet": {
+      "close": "Stäng"
+    },
+    "carousel": {
+      "previous": "Föregående bild",
+      "next": "Nästa bild"
+    },
+    "pagination": {
+      "previous": "Föregående",
+      "next": "Nästa",
+      "morePages": "Fler sidor"
+    },
+    "priceRangeSlider": {
+      "priceRange": "Prisintervall",
+      "minPrice": "Min pris",
+      "maxPrice": "Max pris"
+    }
+  }
+}

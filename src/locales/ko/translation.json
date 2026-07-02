@@ -1,0 +1,1252 @@
+{
+  "common": {
+    "appName": "EGDATA",
+    "search": "검색",
+    "searchPlaceholder": "게임 검색...",
+    "loading": "로딩 중...",
+    "free": "무료",
+    "notAvailable": "사용할 수 없음",
+    "cancel": "취소",
+    "save": "저장",
+    "close": "닫기"
+  },
+  "nav": {
+    "toggleMenu": "탐색 메뉴 열기",
+    "logoAlt": "EGDATA 로고",
+    "explore": "탐색",
+    "browse": "둘러보기",
+    "sales": "할인",
+    "changelog": "변경 내역",
+    "about": "소개",
+    "rankings": "순위",
+    "topSellers": "최고 판매",
+    "mostPlayed": "최다 플레이",
+    "topWishlisted": "위시리스트 TOP",
+    "topNewReleases": "신규 출시 TOP",
+    "seeAllCollections": "모든 컬렉션 보기",
+    "others": "기타",
+    "releaseStats": "출시 통계",
+    "genres": "장르",
+    "seeAllGenres": "모든 장르 보기",
+    "other": "기타",
+    "action": "액션",
+    "rpg": "RPG",
+    "indie": "인디",
+    "strategy": "전략",
+    "topSellerOnEpic": "Epic Games Store 최고 판매",
+    "searchItemTitle": "검색",
+    "searchItemDesc": "Epic Games Store에서 원하는 것을 찾아보세요.",
+    "freeGamesItemTitle": "무료 게임",
+    "freeGamesItemDesc": "Epic Games Store의 최신 무료 게임을 살펴보세요.",
+    "withDiscountsItemTitle": "할인 중",
+    "withDiscountsItemDesc": "현재 할인 중인 게임을 확인하세요.",
+    "helloUser": "안녕하세요, {{name}}님!",
+    "dashboard": "대시보드",
+    "logout": "로그아웃",
+    "searchLanguages": "언어 검색...",
+    "noLanguagesFound": "언어를 찾을 수 없음"
+  },
+  "footer": {
+    "logoAlt": "EGDATA 로고",
+    "disclaimer": "팬 제작 Epic Games Store 데이터베이스입니다. Epic Games, Inc.와 제휴되어 있지 않습니다. 모든 로고, 이미지 및 상표는 해당 소유자의 자산입니다.",
+    "legal": "법적 고지",
+    "privacyPolicy": "개인정보 처리방침",
+    "notifications": "알림",
+    "resources": "리소스",
+    "apiDocs": "API 문서",
+    "changelog": "변경 내역",
+    "community": "커뮤니티",
+    "flagsByFlagpedia": "Flagpedia 제공 국기",
+    "madeIn": "제작"
+  },
+  "meta": {
+    "title": "Epic Games 데이터베이스 - egdata.app",
+    "description": "Epic Games Store 종합 데이터베이스: 게임 정보, 가격, 판매 내역, 파일 목록 등. 무료 게임, 출시 예정작 및 커뮤니티 인사이트를 탐색하세요.",
+    "twitterTitle": "Epic Games 데이터베이스",
+    "twitterDescription": "무료 오픈소스 Epic Games Store 데이터베이스로, 종합적인 게임 정보, 판매 추적 등을 제공합니다. 커뮤니티 기반으로 지속적으로 업데이트됩니다.",
+    "twitterImageAlt": "Epic Games 데이터베이스",
+    "ogTitle": "Epic Games 데이터베이스",
+    "ogDescription": "무료 오픈소스 Epic Games Store 데이터베이스로, 종합적인 게임 정보, 판매 추적 등을 제공합니다. 커뮤니티 기반으로 지속적으로 업데이트됩니다.",
+    "ogImageAlt": "Epic Games 데이터베이스"
+  },
+  "notFound": {
+    "title": "페이지를 찾을 수 없음"
+  },
+  "home": {
+    "statsBar": {
+      "offersTracked": "추적 중인 오퍼",
+      "priceChanges72h": "가격 변동 / 72시간",
+      "activeDiscounts": "진행 중인 할인",
+      "giveawaysToDate": "역대 무료 배포"
+    },
+    "sections": {
+      "giveawayStats": "무료 배포 통계",
+      "giveawayOffers": "무료 배포 오퍼",
+      "upcomingOffers": "출시 예정 오퍼",
+      "latestOffers": "최신 오퍼",
+      "latestReleased": "최신 출시",
+      "latestOffersWithAchievements": "도전 과제 포함 최신 오퍼",
+      "topSellingOffers": "최고 판매 오퍼",
+      "latestBuilds": "최신 빌드"
+    },
+    "tableHeaders": {
+      "hash": "#",
+      "pos": "순위",
+      "dash": "-",
+      "title": "제목",
+      "starts": "시작",
+      "ends": "종료",
+      "releaseDate": "출시일",
+      "createdAt": "생성일",
+      "date": "날짜",
+      "price": "가격",
+      "size": "크기",
+      "creationDate": "생성 날짜"
+    },
+    "offerHover": {
+      "seller": "판매자:",
+      "developer": "개발자:",
+      "publisher": "배급사:",
+      "releaseDate": "출시일:",
+      "ageRating": "연령 등급:",
+      "moreGenres_one": "+{{count}}개 더",
+      "moreGenres_other": "+{{count}}개 더",
+      "communityRating": "커뮤니티 평점:",
+      "igdbScore": "IGDB 점수",
+      "reviews": "• {{count}}개의 리뷰",
+      "timeToBeat": "클리어 시간:",
+      "features": "특징:",
+      "moreFeatures": " +{{count}}개 더"
+    },
+    "buildHover": {
+      "unknownBuild": "알 수 없는 빌드",
+      "unknownDeveloper": "알 수 없는 개발자",
+      "size": "크기",
+      "version": "버전",
+      "created": "생성됨",
+      "id": "ID: {{id}}"
+    },
+    "multipleOffers": "{{title}} - 여러 오퍼",
+    "hero": {
+      "subtitle": "가격을 추적하고, 할인을 발견하고, 무료 게임을 놓치지 마세요. Epic Games Store 데이터베이스 — 오퍼, 할인, 무료 배포, 빌드 등을 위한 당신의 동반자입니다.",
+      "searchPlaceholder": "데이터베이스 검색…",
+      "justReleased": "방금 출시",
+      "priceDrops72h": "가격 인하 (72시간)",
+      "hasAchievements": "도전 과제 있음",
+      "upcoming": "출시 예정",
+      "topSellers": "최고 판매"
+    },
+    "pulse": {
+      "recentActivity": "최근 활동",
+      "badge": {
+        "new": "새로움",
+        "gone": "사라짐",
+        "offer": "오퍼",
+        "build": "빌드",
+        "item": "아이템",
+        "asset": "에셋",
+        "xp": "XP",
+        "sandbox": "Sandbox",
+        "change": "변경"
+      },
+      "title": {
+        "buildVersion": "빌드 {{version}}",
+        "buildId": "빌드 {{id}}",
+        "achievementsId": "도전 과제 {{id}}"
+      },
+      "detail": {
+        "newBuildIndexed": "새 빌드 인덱싱됨",
+        "buildManifestRefreshed": "빌드 매니페스트 새로고침됨",
+        "achievementChanges_one": "도전 과제 {{count}}개 {{entry}} {{verb}}",
+        "achievementChanges_other": "도전 과제 {{count}}개 {{entry}} {{verb}}",
+        "offerMetadataRefreshed": "오퍼 메타데이터 새로고침됨",
+        "fieldsChanged_one": "필드 {{count}}개 {{verb}}",
+        "fieldsChanged_other": "필드 {{count}}개 {{verb}}",
+        "fieldChanged": "{{field}} {{verb}}"
+      },
+      "actionVerb": {
+        "added": "추가됨",
+        "removed": "제거됨",
+        "updated": "업데이트됨",
+        "changed": "변경됨"
+      },
+      "entry_one": "항목",
+      "entry_other": "항목"
+    }
+  },
+  "offerDetail": {
+    "common": {
+      "offerNotFound": "오퍼를 찾을 수 없음",
+      "notAvailable": "사용할 수 없음",
+      "na": "N/A",
+      "loading": "로딩 중...",
+      "somethingWentWrong": "문제가 발생했습니다",
+      "noChangesFound": "이 오퍼에 대한 변경 사항이 없습니다"
+    },
+    "tabs": {
+      "overview": "개요",
+      "price": "가격",
+      "items": "아이템",
+      "builds": "빌드",
+      "achievements": "도전 과제",
+      "related": "관련",
+      "metadata": "메타데이터",
+      "changelog": "변경 내역",
+      "media": "미디어",
+      "reviews": "리뷰"
+    },
+    "table": {
+      "offerId": "오퍼 ID",
+      "namespace": "Namespace",
+      "offerType": "오퍼 유형",
+      "seller": "판매자",
+      "developer": "개발자",
+      "supportedPlatforms": "지원 플랫폼",
+      "releaseDate": "출시일",
+      "lastUpdate": "마지막 업데이트",
+      "creationDate": "생성 날짜",
+      "technologies": "기술",
+      "type": "유형",
+      "value": "값",
+      "countriesBlacklist": "국가 블랙리스트",
+      "countriesWhitelist": "국가 화이트리스트",
+      "categories": "카테고리",
+      "refundType": "환불 유형",
+      "tags": "태그",
+      "ageRatings": "연령 등급",
+      "assets": "에셋"
+    },
+    "badges": {
+      "prePurchase": "선구매",
+      "earlyAccess": "얼리 액세스"
+    },
+    "hero": {
+      "offeredBy": "{{seller}} 제공"
+    },
+    "tooltip": {
+      "internalNamespace": "Epic Games 내부 Namespace",
+      "techDescription": "게임 파일에서 사용된 엔진과 다양한 기술을 추적하는 기술 목록입니다.",
+      "techSource": "다음을 사용합니다",
+      "techSourceSteamDb": "SteamDB",
+      "source": "출처"
+    },
+    "actions": {
+      "compare": "비교"
+    },
+    "releaseDate": {
+      "releasedOnPc": "PC 출시",
+      "theEgs": " EGS",
+      "releasedSameDay": "PC와 같은 날 Epic에 출시됨"
+    },
+    "notifications": {
+      "title": "알림 설정",
+      "description": "이 오퍼에 대해 수신할 알림을 선택하세요.",
+      "all": "모두",
+      "price": "가격",
+      "achievements": "도전 과제",
+      "builds": "빌드",
+      "items": "아이템",
+      "requirements": "요구 사항",
+      "metadata": "메타데이터",
+      "media": "미디어",
+      "enablePushDescription": "이 오퍼에 대한 알림을 받으려면 푸시 알림을 활성화해야 합니다.",
+      "enablePushAction": "푸시 알림 활성화"
+    },
+    "overview": {
+      "genres": "장르",
+      "ageRating": "연령 등급",
+      "noAgeRatings": "연령 등급을 찾을 수 없음",
+      "giveaways": "무료 배포",
+      "noGiveaways": "무료 배포 내역이 없음",
+      "achievements": "도전 과제",
+      "igdbTimeToBeat": "IGDB 클리어 시간",
+      "hastily": "서둘러",
+      "normally": "보통",
+      "completely": "완전히",
+      "hltbSubmissions_one": "{{count}}개 제출 기준",
+      "hltbSubmissions_other": "{{count}}개 제출 기준",
+      "price": "가격",
+      "priceCurrent": "현재:",
+      "priceLowest": "최저:",
+      "priceLastDiscount": "마지막 할인:",
+      "hltbTitle": "How Long To Beat",
+      "noGameTimes": "게임 플레이 시간 정보 없음",
+      "epicRating": "Epic 플레이어 평점",
+      "epicRatingDescription": "Epic Games 생태계의 플레이어로부터 수집",
+      "igdbRating": "IGDB 평점",
+      "igdbReviews_one": "리뷰 {{count}}개",
+      "igdbReviews_other": "리뷰 {{count}}개"
+    },
+    "achievements": {
+      "title": "도전 과제",
+      "sortBy": "정렬 기준",
+      "defaultSort": "기본 정렬",
+      "sortByRarity": "희귀도별 정렬",
+      "sortByCompleted": "완료율별 정렬",
+      "search": "검색",
+      "flipAll": "모두 뒤집기",
+      "noAchievements": "도전 과제 없음",
+      "noAchievementsSet": "이 세트에 도전 과제가 없습니다.",
+      "noAchievementsSetDescription": "현재 도전 과제를 사용할 수 없지만 향후 추가될 수 있습니다.",
+      "baseGame": "기본 게임",
+      "dlc": "DLC",
+      "achievementsLabel": "도전 과제",
+      "baseGameDescription": "이 도전 과제 목록은 기본 게임용입니다.",
+      "dlcDescription": "이 도전 과제 목록은 DLC 중 하나용입니다.",
+      "lastUpdated": "마지막 업데이트:",
+      "lastUpdatedTooltip": "이 도전 과제 세트는 {{date}}에 마지막으로 업데이트되었습니다.",
+      "lastUpdatedTooltipDescription": "생성 날짜 또는 마지막 업데이트 날짜입니다."
+    },
+    "builds": {
+      "title": "빌드"
+    },
+    "items": {
+      "title": "아이템"
+    },
+    "price": {
+      "title": "가격"
+    },
+    "related": {
+      "title": "관련 오퍼"
+    },
+    "media": {
+      "images": "이미지",
+      "videos": "동영상",
+      "covers": "커버",
+      "noImages": "이미지를 찾을 수 없음",
+      "noVideos": "동영상을 찾을 수 없음",
+      "noCovers": "커버를 찾을 수 없음",
+      "download": "다운로드",
+      "close": "닫기",
+      "downloadCoverAria": "{{type}} 커버 다운로드"
+    },
+    "metadata": {
+      "title": "메타데이터",
+      "download": "다운로드:",
+      "install": "설치:"
+    },
+    "changelog": {
+      "title": "변경 내역",
+      "tooltip": "이 목록은 이 특정 오퍼 또는 관련 아이템, 에셋, 빌드에 대한 변경 사항입니다.",
+      "sandboxChangelog": "Sandbox 변경 내역",
+      "sandboxChangelogPrefix": "전체 제품의 변경 내역은 다음에서 확인할 수 있습니다",
+      "noChangelog": "변경 내역을 사용할 수 없음",
+      "allTypes": "모든 유형",
+      "selectField": "필드 선택",
+      "allFields": "모든 필드",
+      "search": "검색",
+      "previous": "이전",
+      "next": "다음",
+      "pageOf": "{{page}} / {{totalPages}} 페이지",
+      "typeUpdate": "업데이트",
+      "typeDelete": "삭제",
+      "typeInsert": "삽입"
+    },
+    "reviews": {
+      "epicRating": "Epic 플레이어 평점",
+      "epicRatingDescription": "Epic Games 생태계의 플레이어로부터 수집",
+      "egdataRating": "EGDATA 평점",
+      "overallScore": "전체 점수",
+      "scoreOutOf10": "{{score}} / 10",
+      "basedOnReviews": "리뷰 {{count}}개 기준",
+      "allReviews": "모든 리뷰",
+      "onlyVerified": "인증된 리뷰만",
+      "notVerified": "인증되지 않음",
+      "leaveReview": "리뷰 작성",
+      "alreadyReviewed": "이미 리뷰 작성함",
+      "loginToReview": "로그인하여 리뷰 작성",
+      "noReviews": "아직 리뷰가 없습니다",
+      "notReleased": "이 제품은 아직 출시되지 않았습니다",
+      "beFirst": "이 제품에 대한 첫 리뷰를 남겨보세요!",
+      "checkBack": "출시일 이후에 다시 방문하여 리뷰를 남겨주세요!",
+      "verifiedOwner": "인증된 소유자",
+      "recommended": "추천",
+      "notRecommended": "추천하지 않음",
+      "readMore": "더 읽기",
+      "reviewedOn": "리뷰 작성일",
+      "lastUpdatedOn": "마지막 업데이트일",
+      "editedTimes": "{{count}}회 수정됨",
+      "edit": "수정",
+      "close": "닫기",
+      "reviewCount_one": "리뷰 {{count}}개",
+      "reviewCount_other": "리뷰 {{count}}개",
+      "ownershipVerification": "소유권 인증",
+      "ownershipVerificationDescription": "플레이어가 최소 하나의 도전 과제를 완료한 것을 기준으로 합니다.",
+      "ownershipVerificationTooltip": "Epic Games 도전 과제를 사용하여 제품 소유권을 인증합니다. 플레이어를 인증된 소유자로 표시하려면 Epic Games Store에서 선택한 제품의 도전 과제를 최소 하나 완료해야 합니다. 계정을 egdata 프로필에 연결하려면 다음으로 이동하세요",
+      "yourDashboard": "내 대시보드",
+      "criticReviews": "비평가 리뷰",
+      "basedOnCriticReviews": "비평가 리뷰 {{count}}개 기준",
+      "opencriticRating": "OpenCritic 평점",
+      "topCriticAverage": "주요 비평가 평균",
+      "criticsRecommend": "비평가 추천",
+      "opencriticRatingAlt": "OpenCritic 평점"
+    }
+  },
+  "search": {
+    "meta": {
+      "title": "검색 | egdata.app",
+      "description": "Epic Games Store의 오퍼를 검색합니다."
+    },
+    "defaultTitle": "검색",
+    "filters": "필터",
+    "filtersPlaceholder": "게임 검색",
+    "pills": {
+      "onSale": "할인 중",
+      "codeRedemptionOnly": "코드 교환 전용",
+      "excludeBlockchain": "블록체인/NFT 제외",
+      "pastGiveaways": "지난 무료 배포"
+    },
+    "accordion": {
+      "offerType": "오퍼 유형",
+      "developer": "개발자",
+      "publisher": "배급사",
+      "noTags": "태그를 찾을 수 없음"
+    },
+    "checkboxes": {
+      "pastGiveaways": "지난 무료 배포",
+      "onSale": "할인 중",
+      "codeRedemptionOnly": "코드 교환 전용",
+      "excludeBlockchain": "블록체인/NFT 제외",
+      "onlyHistoricalLows": "역대 최저가만",
+      "onlyLowestPriceEver": "최저 가격만"
+    },
+    "tagGroups": {
+      "event": "이벤트",
+      "genre": "장르",
+      "epicfeature": "Epic 기능",
+      "accessibility": "접근성",
+      "feature": "기능",
+      "usersay": "사용자 평가",
+      "subscription": "구독",
+      "platform": "플랫폼"
+    },
+    "sort": {
+      "sortBy": "정렬 기준",
+      "sortAriaLabel": "오퍼 정렬",
+      "sortDirectionAriaLabel": "정렬 방향 전환",
+      "showListView": "리스트 보기",
+      "showGridView": "그리드 보기",
+      "releaseDate": "출시일",
+      "lastModifiedDate": "수정일",
+      "effectiveDate": "적용일",
+      "creationDate": "생성일",
+      "viewableDate": "표시일",
+      "pcReleaseDate": "PC 출시일",
+      "upcoming": "출시 예정",
+      "price": "가격",
+      "discount": "할인",
+      "discountPercent": "할인율",
+      "giveawayDate": "무료 배포일"
+    },
+    "results": {
+      "noResults": "검색 결과가 없습니다"
+    }
+  },
+  "freebies": {
+    "meta": {
+      "title": "무료 게임 | egdata.app",
+      "description": "Epic Games Store의 무료 게임을 둘러보세요."
+    },
+    "headings": {
+      "current": "현재 무료 게임",
+      "past": "지난 무료 게임",
+      "sellers": "무료 게임 판매자"
+    },
+    "buttons": {
+      "redeem": "지금 받기",
+      "downloadJson": "JSON 다운로드",
+      "downloadCsv": "CSV 다운로드",
+      "downloadTxt": "텍스트 다운로드"
+    },
+    "placeholders": {
+      "searchSellers": "판매자 검색..."
+    },
+    "aria": {
+      "downloadList": "목록 다운로드"
+    },
+    "errors": {
+      "loadSellers": "판매자 데이터를 불러오는 중 오류가 발생했습니다. 나중에 다시 시도해 주세요."
+    },
+    "table": {
+      "sellerName": "판매자명",
+      "totalGames": "총 단일 게임"
+    }
+  },
+  "sales": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Epic Games Store의 {{title}}을(를) 확인하세요."
+    },
+    "metaIndex": {
+      "title": "진행 중인 할인 | egdata.app",
+      "description": "egdata.app에서 진행 중인 할인을 둘러보세요"
+    },
+    "status": {
+      "loading": "로딩 중...",
+      "noData": "데이터 없음"
+    },
+    "headings": {
+      "active": "진행 중인 할인",
+      "pastUpcoming": "지난 / 예정 할인",
+      "offersList": "{{title}} 오퍼"
+    },
+    "errors": {
+      "notFound": "프로모션을 찾을 수 없음"
+    },
+    "labels": {
+      "offersCount": "이 이벤트에서 이용 가능한 {{count}}개의 오퍼"
+    }
+  },
+  "collections": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Epic Games Store의 {{title}}을(를) 확인하세요."
+    },
+    "metaIndex": {
+      "title": "컬렉션 | egdata.app",
+      "description": "egdata.app의 컬렉션"
+    },
+    "headings": {
+      "main": "컬렉션"
+    },
+    "description": {
+      "overview": "Epic Games Store의 최고 판매, 최다 플레이, 가장 인기 있는 게임"
+    },
+    "status": {
+      "loading": "로딩 중..."
+    },
+    "errors": {
+      "notFound": "컬렉션을 찾을 수 없음"
+    },
+    "table": {
+      "position": "순위",
+      "variance": "변동",
+      "weeks": "주"
+    },
+    "tooltips": {
+      "variance": "현재 순위와 이전 순위의 차이입니다. 보통 매일 변경됩니다.",
+      "weeks": "{{title}}에서 게임이 TOP 100에 있었던 주 수입니다."
+    },
+    "buttons": {
+      "loadMore": "더 보기"
+    }
+  },
+  "sandboxes": {
+    "notFoundTitle": "Sandbox를 찾을 수 없음",
+    "notFoundDescription": "Sandbox를 찾을 수 없음",
+    "unrealEngineTitle": "Unreal Engine",
+    "unavailableTitle": "Sandbox를 사용할 수 없음",
+    "unavailableDescription": "제품 허브를 불러올 수 없습니다.",
+    "noProductDataDescription": "이 Sandbox에 대한 제품 데이터가 없습니다.",
+    "hubEyebrow": "Sandbox",
+    "hubOverviewTitle": "개요",
+    "hubOverviewDescription": "이 Namespace의 스토어프론트, 소유권, 전달 및 업데이트 레코드에 대한 집중 지도입니다.",
+    "latestChangesButton": "최근 변경 사항",
+    "entityOffersLabel": "오퍼",
+    "entityOffersDescription": "스토어 항목",
+    "entityItemsLabel": "아이템",
+    "entityItemsDescription": "소유 가능 레코드",
+    "entityAssetsLabel": "에셋",
+    "entityAssetsDescription": "아티팩트 및 미디어",
+    "entityBuildsLabel": "빌드",
+    "entityBuildsDescription": "바이너리 번들",
+    "entityAchievementsLabel": "도전 과제",
+    "entityAchievementsDescription": "진행 데이터",
+    "entityChangelogLabel": "변경 내역",
+    "entityChangelogDescription": "추적된 업데이트",
+    "viewButton": "보기",
+    "storefrontOffersTitle": "스토어프론트 오퍼",
+    "storefrontOffersDescription": "이 Sandbox에서 발견된 대표적인 스토어 항목입니다.",
+    "recentBuildsTitle": "최근 빌드",
+    "recentBuildsDescription": "최신 바이너리 레코드입니다.",
+    "latestBadge": "최신",
+    "unknownBuildLabel": "알 수 없는 빌드",
+    "recentChangesTitle": "최근 변경 사항",
+    "recentChangesDescription": "최신 카탈로그 변경 사항입니다.",
+    "updateBadge": "업데이트",
+    "changeDefaultLabel": "변경",
+    "metaOffersTitle": "오퍼",
+    "offersEyebrow": "이커머스",
+    "offersTitle": "오퍼",
+    "offersDescription": "이 Sandbox의 스토어프론트 항목으로, 기본 게임, 에디션, DLC, 애드온, 번들 및 카탈로그 아이템을 부여할 수 있는 모든 오퍼를 포함합니다.",
+    "totalOffersLabel": "총 오퍼",
+    "metaAchievementsTitle": "도전 과제",
+    "achievementsEyebrow": "진행",
+    "achievementsTitle": "도전 과제",
+    "achievementsDescription": "이 Sandbox에 연결된 도전 과제 세트, 숨김 상태, 희귀도 분포 및 XP 합계입니다.",
+    "achievementsSetsLabel": "세트",
+    "achievementsLabel": "도전 과제",
+    "achievementsXpLabel": "XP",
+    "searchAchievementsPlaceholder": "도전 과제 검색",
+    "flipAllButton": "모두 뒤집기",
+    "revealHiddenAchievementAria": "숨겨진 도전 과제 텍스트 표시",
+    "hideHiddenAchievementAria": "숨겨진 도전 과제 텍스트 숨기기",
+    "achievementsBaseGameLabel": "기본 게임",
+    "achievementsDlcLabel": "DLC",
+    "achievementsBaseGameTooltip": "이 도전 과제 목록은 기본 게임용입니다.",
+    "achievementsDlcTooltip": "이 도전 과제 목록은 DLC 중 하나용입니다.",
+    "lastUpdatedLabel": "마지막 업데이트:",
+    "achievementsLastUpdatedTooltip": "이 도전 과제 세트는 다음에 마지막으로 업데이트되었습니다",
+    "achievementsLastUpdatedTooltipExtra": "생성 날짜 또는 마지막 업데이트 날짜입니다.",
+    "noAchievementsForSet": "이 세트에 도전 과제가 없습니다.",
+    "noAchievementsForSetExtra": "현재 도전 과제를 사용할 수 없지만 향후 추가될 수 있습니다.",
+    "noAchievementsFound": "도전 과제를 찾을 수 없음",
+    "metaItemsTitle": "아이템",
+    "itemsEyebrow": "카탈로그 소유권",
+    "itemsTitle": "아이템",
+    "itemsDescription": "오퍼에 포함된 소유 가능한 카탈로그 아이템입니다. 구매 또는 교환 후 플레이어 권한이 되는 레코드입니다.",
+    "totalItemsLabel": "총 아이템",
+    "metaChangelogTitle": "변경 내역",
+    "changelogEyebrow": "감사 추적",
+    "changelogTitle": "변경 내역",
+    "changelogDescription": "이 Sandbox의 오퍼, 아이템, 에셋, 빌드 및 관련 카탈로그 메타데이터에 대한 관찰된 변경 사항입니다.",
+    "totalChangesLabel": "변경 사항",
+    "queryTimeLabel": "쿼리 시간",
+    "noChangelogFound": "변경 내역을 찾을 수 없음",
+    "metaBuildsTitle": "빌드",
+    "buildsEyebrow": "바이너리",
+    "buildsTitle": "빌드",
+    "buildsDescription": "Sandbox에 업로드된 버전별 파일 번들입니다. 빌드는 아티팩트에 할당되며 플레이어가 런처를 통해 다운로드하는 내용을 결정합니다.",
+    "totalBuildsLabel": "총 빌드",
+    "metaAssetsTitle": "에셋",
+    "assetsEyebrow": "에셋 및 아티팩트",
+    "assetsTitle": "에셋",
+    "assetsDescription": "Sandbox 아이템에 연결된 배포 및 미디어 레코드로, 카탈로그 콘텐츠를 다운로드 가능한 빌드에 연결하는 아티팩트를 포함합니다.",
+    "totalAssetsLabel": "총 에셋"
+  },
+  "items": {
+    "notFound": "아이템을 찾을 수 없음",
+    "badge": "아이템",
+    "table": {
+      "itemId": "아이템 ID",
+      "namespace": "Namespace",
+      "developer": "개발자",
+      "entitlementType": "권한 유형",
+      "entitlementName": "권한 이름",
+      "status": "상태",
+      "creationDate": "생성 날짜",
+      "lastModified": "마지막 수정",
+      "platforms": "플랫폼"
+    },
+    "tooltip": {
+      "internalNamespace": "Epic Games 내부 Namespace"
+    },
+    "tabs": {
+      "item": "아이템",
+      "assets": "에셋",
+      "images": "이미지",
+      "builds": "빌드",
+      "changelog": "변경 내역"
+    },
+    "metadata": {
+      "title": "메타데이터",
+      "key": "키",
+      "value": "값"
+    },
+    "assets": {
+      "title": "에셋"
+    },
+    "builds": {
+      "title": "빌드"
+    },
+    "changelog": {
+      "title": "변경 내역",
+      "noChangelog": "변경 내역을 사용할 수 없음"
+    },
+    "images": {
+      "title": "이미지"
+    }
+  },
+  "builds": {
+    "notFound": "빌드를 찾을 수 없음",
+    "build": "빌드",
+    "for": "대상",
+    "compressed": "({{percent}}% 압축)",
+    "table": {
+      "buildId": "빌드 ID",
+      "buildName": "빌드 이름",
+      "appName": "앱 이름",
+      "hash": "해시",
+      "installedSize": "설치 용량",
+      "downloadSize": "다운로드 용량",
+      "createdAt": "생성일",
+      "updatedAt": "업데이트일",
+      "technologies": "기술"
+    },
+    "tooltip": {
+      "techSource": "다음을 사용합니다",
+      "techSourceSteamDb": "SteamDB",
+      "techDescription": "게임 파일에서 사용된 엔진과 다양한 기술을 추적하는 기술 목록입니다.",
+      "source": "출처"
+    },
+    "tabs": {
+      "files": "파일",
+      "items": "아이템",
+      "installOptions": "설치 옵션"
+    },
+    "files": {
+      "title": "파일"
+    },
+    "items": {
+      "title": "아이템"
+    },
+    "installOptions": {
+      "title": "설치 옵션",
+      "file_one": "파일",
+      "file_other": "파일"
+    },
+    "meta": {
+      "title": "{{title}} ({{version}}) | egdata.app",
+      "description": "Epic Games Store의 {{title}}용 {{version}} 빌드입니다."
+    }
+  },
+  "profile": {
+    "meta": {
+      "notFoundTitle": "프로필을 찾을 수 없음",
+      "notFoundDescription": "프로필을 찾을 수 없음",
+      "title": "{{name}} | egdata.app",
+      "description": "egdata.app에서 {{name}}님의 도전 과제와 게임을 확인하세요",
+      "defaultName": "프로필",
+      "defaultDescriptionName": "이 플레이어"
+    },
+    "errors": {
+      "notFoundTitle": "프로필을 찾을 수 없음",
+      "notFoundDescription": "이 프로필을 사용할 수 없거나 아직 인덱싱되지 않았습니다.",
+      "unavailableTitle": "프로필을 사용할 수 없음",
+      "unavailableDescription": "현재 이 프로필을 불러올 수 없습니다.",
+      "invalidImageFormat": "잘못된 이미지 형식",
+      "failedToUpload": "업로드 실패",
+      "uploadFailed": "업로드 실패",
+      "failedToRefresh": "프로필 새로고침 실패",
+      "refreshQueued": "프로필이 새로고침 대기열에 추가되었습니다. 곧 업데이트됩니다."
+    },
+    "fallbackName": "알 수 없는 프로필",
+    "avatar": {
+      "changeAvatar": "아바타 변경",
+      "dialogDescription": "새 프로필 이미지를 업로드하세요.",
+      "previewAlt": "아바타 미리보기",
+      "fallback": "아바타",
+      "description": "새 아바타 이미지를 업로드하세요. 최대 5MB입니다.",
+      "uploadingWithProgress": "업로드 중... {{progress}}%",
+      "uploading": "업로드 중...",
+      "updateAvatar": "아바타 업데이트",
+      "errorTitle": "오류"
+    },
+    "hero": {
+      "joined": "가입일",
+      "epicGamesStore": "Epic Games Store",
+      "linkDiscord": "Discord 연결",
+      "refreshProfile": "프로필 새로고침",
+      "refreshAvailableIn": "새로고침 가능까지",
+      "level": "레벨",
+      "achievements": "도전 과제",
+      "unlocked": "잠금 해제",
+      "platinum": "플래티넘",
+      "perfectGames": "완벽한 게임",
+      "library": "라이브러리",
+      "achievementGames": "도전 과제 게임",
+      "reviews": "리뷰",
+      "contributed": "기여",
+      "xpToNextLevel": "레벨 {{level}}까지 {{xp}} XP",
+      "heroGame": "대표 게임",
+      "complete": "완료"
+    },
+    "donor": {
+      "donated_one": "{{name}}님이 egdata.app에 키 {{count}}개를 기부했습니다",
+      "donated_other": "{{name}}님이 egdata.app에 키 {{count}}개를 기부했습니다",
+      "goTo": "이동",
+      "thisLink": "이 링크",
+      "toDonateKey": "에서 키를 기부할 수 있습니다."
+    },
+    "countdown": {
+      "minutesSeconds_one": "{{minutes}}분 {{seconds}}초",
+      "minutesSeconds_other": "{{minutes}}분 {{seconds}}초",
+      "seconds_one": "{{seconds}}초",
+      "seconds_other": "{{seconds}}초"
+    },
+    "tabs": {
+      "showcase": "쇼케이스",
+      "library": "라이브러리",
+      "activity": "활동"
+    },
+    "stats": {
+      "games": "게임 {{count}}개",
+      "achievements": "도전 과제 {{count}}개",
+      "platinum": "플래티넘 {{count}}개"
+    },
+    "showcase": {
+      "ariaLabel": "프로필 쇼케이스 하이라이트",
+      "featuredGamesTitle": "추천 게임",
+      "featuredGamesDetail": "프로필 성과 기준 {{count}}개 선택됨",
+      "rareAchievementsTitle": "희귀 도전 과제",
+      "rareAchievementsDetail": "프로필 전반의 찾기 힘든 잠금 해제",
+      "recentUnlocksTitle": "최근 잠금 해제",
+      "recentUnlocksDetail": "최근 표시된 활동",
+      "noDataTitle": "쇼케이스 데이터가 아직 없습니다",
+      "noDataDescription": "공개 도전 과제 진행 상황이 있는 출시된 게임만 프로필에 표시됩니다.",
+      "rarestUnlock": "가장 희귀한 잠금 해제",
+      "definingGame": "대표 게임",
+      "latestActivity": "최근 활동",
+      "achievementsCount": "{{unlocked}} / {{total}} 도전 과제",
+      "platinum": "플래티넘"
+    },
+    "library": {
+      "filterAriaLabel": "라이브러리 필터",
+      "sortAriaLabel": "라이브러리 정렬",
+      "sortByPlaceholder": "정렬 기준",
+      "noGamesTitle": "게임을 찾을 수 없음",
+      "noGamesDescription": "도전 과제가 있는 출시된 게임만 이 라이브러리에 표시됩니다.",
+      "gameAlt": "게임",
+      "complete": "완료",
+      "featured": "추천",
+      "rareUnlocks": "희귀 잠금 해제",
+      "filters": {
+        "all": "전체",
+        "completed": "완료",
+        "nearPlatinum": "플래티넘 근접",
+        "inProgress": "진행 중",
+        "platinum": "플래티넘"
+      },
+      "sorts": {
+        "completion": "완료율",
+        "alphabetical": "알파벳순",
+        "xp": "XP",
+        "achievements": "도전 과제"
+      }
+    },
+    "activity": {
+      "title": "활동",
+      "detail": "도전 과제 {{count}}개 잠금 해제",
+      "noActivityTitle": "아직 활동이 없습니다",
+      "noActivityDescription": "이 프로필에 공개 진행 상황이 있으면 도전 과제 잠금 해제가 여기에 표시됩니다.",
+      "achievementAlt": "도전 과제",
+      "platinumEarned": "플래티넘 획득",
+      "achievementUnlocked": "도전 과제 잠금 해제",
+      "unknownRarity": "알 수 없는 희귀도",
+      "rarity": "희귀도 {{value}}%",
+      "unknownDate": "알 수 없는 날짜"
+    },
+    "achievements": {
+      "loading": "로딩 중...",
+      "notFound": "프로필을 찾을 수 없음",
+      "myAchievements": "내 도전 과제"
+    }
+  },
+  "tags": {
+    "meta": {
+      "notFoundTitle": "프로모션을 찾을 수 없음",
+      "notFoundDescription": "프로모션을 찾을 수 없음",
+      "title": "{{title}} | egdata.app",
+      "description": "egdata.app에서 {{title}}에 대한 {{count}}개의 이용 가능한 오퍼를 확인하세요.",
+      "socialTitle": "{{title}} - egdata.app"
+    },
+    "loading": "로딩 중...",
+    "offersCount": "이 이벤트에서 이용 가능한 {{count}}개의 오퍼",
+    "results": "결과",
+    "resultsCount": "(결과 {{count}}개)",
+    "searchPlaceholder": "검색...",
+    "loadMore": "더 보기",
+    "sortBy": {
+      "releaseDate": "출시일",
+      "lastModifiedDate": "수정일",
+      "effectiveDate": "적용일",
+      "creationDate": "생성일",
+      "viewableDate": "표시일",
+      "pcReleaseDate": "PC 출시일",
+      "upcoming": "출시 예정",
+      "price": "가격"
+    }
+  },
+  "genres": {
+    "meta": {
+      "title": "장르 - egdata.app",
+      "description": "egdata.app의 장르"
+    },
+    "heading": "장르"
+  },
+  "sellers": {
+    "meta": {
+      "notFoundTitle": "판매자를 찾을 수 없음",
+      "notFoundDescription": "판매자를 찾을 수 없음",
+      "title": "{{name}} | egdata.app"
+    },
+    "notFound": "판매자를 찾을 수 없음",
+    "logoAlt": "{{name}} 로고",
+    "bannerAlt": "{{name}}",
+    "offersTitle": "{{name}} 오퍼",
+    "stats": {
+      "offers": "오퍼",
+      "games": "게임",
+      "items": "아이템",
+      "freeGames": "무료 게임"
+    }
+  },
+  "franchises": {
+    "meta": {
+      "notFoundTitle": "프랜차이즈를 찾을 수 없음",
+      "notFoundDescription": "프랜차이즈를 찾을 수 없음",
+      "title": "{{name}} 프랜차이즈 | egdata.app",
+      "description": "Epic Games Store에서 {{name}} 프랜차이즈의 모든 게임을 둘러보세요."
+    },
+    "loading": "로딩 중...",
+    "gamesCount_one": "게임 {{count}}개",
+    "gamesCount_other": "게임 {{count}}개",
+    "timeToBeat": "클리어 시간",
+    "achievements": "도전 과제",
+    "loadMore": "더 보기",
+    "free": "무료"
+  },
+  "stats": {
+    "creations": {
+      "meta": {
+        "title": "생성 통계 - egdata.app",
+        "description": "Epic Games Store에 새로 생성되는 항목의 월별 및 연별 추이입니다."
+      },
+      "viewReleases": "출시 보기",
+      "heading": "Epic Games Store 생성 통계",
+      "description": "스토어에 새로 생성되는 항목의 월별 및 연별 추이입니다.",
+      "monthlyTitle": "월별 생성",
+      "yearlyTitle": "연별 생성"
+    },
+    "releases": {
+      "meta": {
+        "title": "출시 통계 - egdata.app",
+        "description": "Epic Games Store에 새로 출시되는 타이틀의 월별 및 연별 추이입니다."
+      },
+      "viewCreations": "생성 보기",
+      "heading": "Epic Games Store 출시 통계",
+      "description": "스토어에 새로 출시되는 타이틀의 월별 및 연별 추이입니다.",
+      "monthlyTitle": "월별 출시",
+      "yearlyTitle": "연별 출시"
+    }
+  },
+  "store": {
+    "creatorCode": {
+      "title": "egdata.app 지원하기",
+      "description": "게임 구매 시 당사의 크리에이터 코드를 사용하여 egdata.app을 지원하시겠습니까? 이 선택은 향후 방문 시 기억됩니다.",
+      "body": "크리에이터 코드를 사용하면 egdata.app 및 그 기능 개발을 지원하는 데 도움이 됩니다. 지불하는 가격에는 영향을 미치지 않습니다.",
+      "noThanks": "괜찮습니다",
+      "yesUseCode": "네, 코드 사용"
+    }
+  },
+  "dashboard": {
+    "placeholder": "/dashboard에 오신 것을 환영합니다!"
+  },
+  "auth": {
+    "login": {
+      "placeholder": "/auth/login에 오신 것을 환영합니다!"
+    },
+    "callback": {
+      "placeholder": "/auth/callback에 오신 것을 환영합니다!"
+    },
+    "logout": {
+      "placeholder": "/auth/logout에 오신 것을 환영합니다!"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "소개 - egdata.app",
+      "description": "egdata.app 소개"
+    },
+    "title": "소개",
+    "intro": "egdata.app은 Epic Games Store에 대한 정보를 추적하고 제공하는 커뮤니티 기반 웹사이트입니다. Steam의 SteamDB와 유사하게, 사용자가 변경 사항을 탐색하고, 새로운 게임을 발견하며, 플랫폼의 최신 소식을 접할 수 있는 종합 리소스를 제공하는 것을 목표로 합니다.",
+    "missionTitle": "우리의 사명",
+    "missionBody": "우리의 사명은 Epic Games Store 생태계에 대한 투명성과 통찰력을 제공하는 것입니다. 데이터를 수집하고 접근 가능한 방식으로 제시함으로써 사용자가 게임 구매에 대해 정보에 입각한 결정을 내리고 플랫폼에 대한 더 나은 이해에 기여할 수 있다고 믿습니다.",
+    "featuresTitle": "기능",
+    "features": {
+      "trackPrices": "게임 가격 변동 및 과거 데이터 추적",
+      "upcomingReleases": "출시 예정작 및 무료 게임 프로모션 확인",
+      "gameDetails": "게임 세부 정보, 평점 및 사용자 리뷰 탐색",
+      "analyzeTrends": "Epic Games Store의 트렌드 및 패턴 분석"
+    },
+    "communityTitle": "커뮤니티 기반",
+    "communityBody": "egdata.app은 열정적인 게이머와 개발자 커뮤니티에 의해 구축되고 유지관리됩니다. 웹사이트 개선과 모두를 위한 가치 있는 리소스 만들기에 도움을 주고 싶은 누구의 기여도 환영합니다. 피드백, 제안 또는 참여하고 싶으시다면 언제든지 문의해 주세요.",
+    "sourceCodeIntro": "egdata.app의 모든 소스 코드는 다음에서 확인할 수 있습니다",
+    "github": "GitHub",
+    "notTitle": "egdata.app이 아닌 것",
+    "notIntro": "egdata.app은 다음과 같지 않음을 분명히 합니다:",
+    "notList": {
+      "affiliated": "Epic Games와 제휴: 우리는 독립적인 커뮤니티 기반 프로젝트이며, Epic Games와 공식적으로 승인되거나 관련되지 않았습니다.",
+      "storefront": "스토어 또는 마켓플레이스: 게임을 판매하거나 구매 옵션을 제공하지 않습니다. Epic Games Store에 대한 정보와 데이터를 제공하는 데 초점을 맞추고 있습니다.",
+      "piracy": "불법 복제 또는 불법 활동을 위한 플랫폼: 불법 복제를 강력히 반대하며 불법적으로 저작권이 있는 콘텐츠에 접근하거나 배포하는 수단을 제공하지 않습니다."
+    },
+    "fairUseTitle": "공정 사용 정책",
+    "fairUseBody": "egdata.app은 저작권법에 따른 공정 사용 원칙을 준수하기 위해 노력합니다. 정보 제공 목적으로만 정보와 데이터를 제공하며, Epic Games Store에서 이용 가능한 게임에 대해 대중을 교육하고 정보를 제공하는 것을 목표로 합니다.",
+    "fairUseFactorsTitle": "공정 사용을 정당화하는 주요 요소:",
+    "fairUseFactors": {
+      "nonCommercial": "비상업적, 교육적 목적:",
+      "nonCommercialBody": "당사 웹사이트는 비상업적이며 Epic Games Store 게임에 대한 대중의 지식을 향상시키고자 합니다.",
+      "factual": "사실적 정보:",
+      "factualBody": "게임 제목, 출시일, 개발자 등과 같은 사실적 데이터를 주로 제공하며, 이는 저작권 보호가 덜 적용됩니다.",
+      "limited": "제한된 사용:",
+      "limitedBody": "원저작물을 대체하지 않고 의미 있는 정보를 제공하는 데 필요한 최소한의 데이터만 사용합니다.",
+      "noMarketHarm": "시장에 대한 피해 없음:",
+      "noMarketHarmBody": "당사의 사용은 원본 게임의 시장에 부정적인 영향을 미치지 않으며, 오히려 사용자 관심 증가를 통해 게임을 홍보할 수 있습니다."
+    },
+    "autoTrackBody": "Epic Games Store를 포함한 공개적으로 이용 가능한 출처에서 게임 데이터를 자동으로 추적하고 업데이트합니다. 그래픽 에셋은 해당 서버에서 직접 로드하며 저장하지 않습니다.",
+    "leakedDataTitle": "유출 데이터 면책 조항:",
+    "leakedDataBody": "당사 사이트에 유출된 것으로 보이는 모든 데이터는 Epic Games Store에서 공개적으로 이용 가능한 정보에서 비롯됩니다. 기밀 또는 독점 데이터에 접근하지 않습니다. 게시자는 민감한 정보를 다음 내에서 보호할 책임이 있습니다",
+    "epicDevPortal": "Epic Games 개발자 포털",
+    "euDirectivesIntro": "공정 사용 정책을 개발하면서 다음 EU 저작권 지침에 명시된 원칙을 고려했습니다:",
+    "euDirective1": "디지털 단일 시장에서의 저작권 및 관련 권리에 관한 지침 (EU) 2019/790",
+    "euDirective2": "질문과 답변 – 새로운 EU 저작권 규칙",
+    "fairUseContact": "공정 사용 정책에 대해 문의사항이 있거나 콘텐츠가 저작권을 침해한다고 생각되면 다음으로 연락해 주세요:",
+    "contactTitle": "문의하기",
+    "contactBody": "다음을 통해 문의할 수 있습니다"
+  },
+  "changelog": {
+    "index": {
+      "meta": {
+        "title": "변경 내역 | egdata.app"
+      },
+      "searchPlaceholder": "변경 내역 검색...",
+      "searchButton": "검색",
+      "loading": "로딩 중...",
+      "error": "데이터를 불러오는 중 오류 발생"
+    },
+    "detail": {
+      "meta": {
+        "title": "변경 상세 | egdata.app"
+      },
+      "loading": "로딩 중...",
+      "error": "변경 상세 정보를 불러오는 중 오류 발생",
+      "notFound": "변경 사항을 찾을 수 없음"
+    }
+  },
+  "privacy": {
+    "title": "소개",
+    "intro": "egdata.app은 Epic Games Store에 대한 정보를 추적하고 제공하는 커뮤니티 기반 웹사이트입니다. Steam의 SteamDB와 유사하게, 사용자가 변경 사항을 탐색하고, 새로운 게임을 발견하며, 플랫폼의 최신 소식을 접할 수 있는 종합 리소스를 제공하는 것을 목표로 합니다.",
+    "missionTitle": "우리의 사명",
+    "missionBody": "우리의 사명은 Epic Games Store 생태계에 대한 투명성과 통찰력을 제공하는 것입니다. 데이터를 수집하고 접근 가능한 방식으로 제시함으로써 사용자가 게임 구매에 대해 정보에 입각한 결정을 내리고 플랫폼에 대한 더 나은 이해에 기여할 수 있다고 믿습니다.",
+    "featuresTitle": "기능",
+    "features": {
+      "trackPrices": "게임 가격 변동 및 과거 데이터 추적",
+      "upcomingReleases": "출시 예정작 및 무료 게임 프로모션 확인",
+      "gameDetails": "게임 세부 정보, 평점 및 사용자 리뷰 탐색",
+      "analyzeTrends": "Epic Games Store의 트렌드 및 패턴 분석"
+    },
+    "communityTitle": "커뮤니티 기반",
+    "communityBody": "egdata.app은 열정적인 게이머와 개발자 커뮤니티에 의해 구축되고 유지관리됩니다. 웹사이트 개선과 모두를 위한 가치 있는 리소스 만들기에 도움을 주고 싶은 누구의 기여도 환영합니다. 피드백, 제안 또는 참여하고 싶으시다면 언제든지 문의해 주세요.",
+    "sourceCodeIntro": "egdata.app의 모든 소스 코드는 다음에서 확인할 수 있습니다",
+    "github": "GitHub",
+    "notTitle": "egdata.app이 아닌 것",
+    "notIntro": "egdata.app은 다음과 같지 않음을 분명히 합니다:",
+    "notList": {
+      "affiliated": "Epic Games와 제휴: 우리는 독립적인 커뮤니티 기반 프로젝트이며, Epic Games와 공식적으로 승인되거나 관련되지 않았습니다.",
+      "storefront": "스토어 또는 마켓플레이스: 게임을 판매하거나 구매 옵션을 제공하지 않습니다. Epic Games Store에 대한 정보와 데이터를 제공하는 데 초점을 맞추고 있습니다.",
+      "piracy": "불법 복제 또는 불법 활동을 위한 플랫폼: 불법 복제를 강력히 반대하며 불법적으로 저작권이 있는 콘텐츠에 접근하거나 배포하는 수단을 제공하지 않습니다."
+    },
+    "fairUseTitle": "공정 사용 정책",
+    "fairUseBody": "egdata.app은 저작권법에 따른 공정 사용 원칙을 준수하기 위해 노력합니다. 정보 제공 목적으로만 정보와 데이터를 제공하며, Epic Games Store에서 이용 가능한 게임에 대해 대중을 교육하고 정보를 제공하는 것을 목표로 합니다.",
+    "fairUseFactorsTitle": "공정 사용을 정당화하는 주요 요소:",
+    "fairUseFactors": {
+      "nonCommercial": "비상업적, 교육적 목적:",
+      "nonCommercialBody": "당사 웹사이트는 비상업적이며 Epic Games Store 게임에 대한 대중의 지식을 향상시키고자 합니다.",
+      "factual": "사실적 정보:",
+      "factualBody": "게임 제목, 출시일, 개발자 등과 같은 사실적 데이터를 주로 제공하며, 이는 저작권 보호가 덜 적용됩니다.",
+      "limited": "제한된 사용:",
+      "limitedBody": "원저작물을 대체하지 않고 의미 있는 정보를 제공하는 데 필요한 최소한의 데이터만 사용합니다.",
+      "noMarketHarm": "시장에 대한 피해 없음:",
+      "noMarketHarmBody": "당사의 사용은 원본 게임의 시장에 부정적인 영향을 미치지 않으며, 오히려 사용자 관심 증가를 통해 게임을 홍보할 수 있습니다."
+    },
+    "autoTrackBody": "Epic Games Store를 포함한 공개적으로 이용 가능한 출처에서 게임 데이터를 자동으로 추적하고 업데이트합니다. 그래픽 에셋은 해당 서버에서 직접 로드하며 저장하지 않습니다.",
+    "leakedDataTitle": "유출 데이터 면책 조항:",
+    "leakedDataBody": "당사 사이트에 유출된 것으로 보이는 모든 데이터는 Epic Games Store에서 공개적으로 이용 가능한 정보에서 비롯됩니다. 기밀 또는 독점 데이터에 접근하지 않습니다. 게시자는 민감한 정보를 다음 내에서 보호할 책임이 있습니다",
+    "epicDevPortal": "Epic Games 개발자 포털",
+    "euDirectivesIntro": "공정 사용 정책을 개발하면서 다음 EU 저작권 지침에 명시된 원칙을 고려했습니다:",
+    "euDirective1": "디지털 단일 시장에서의 저작권 및 관련 권리에 관한 지침 (EU) 2019/790",
+    "euDirective2": "질문과 답변 – 새로운 EU 저작권 규칙",
+    "fairUseContact": "공정 사용 정책에 대해 문의사항이 있거나 콘텐츠가 저작권을 침해한다고 생각되면 다음으로 연락해 주세요:",
+    "contactTitle": "문의하기",
+    "contactBody": "다음을 통해 문의할 수 있습니다"
+  },
+  "notifications": {
+    "meta": {
+      "title": "알림 - egdata.app",
+      "description": "Epic Games Store 업데이트, 게임 출시 등에 대한 푸시 알림을 구성하고 관리합니다."
+    },
+    "title": "알림",
+    "description": "Epic Games Store 업데이트, 게임 출시 및 개인화된 알림에 대한 푸시 알림을 구성하고 관리합니다.",
+    "tabs": {
+      "notifications": "알림",
+      "mySubscriptions": "내 구독"
+    },
+    "aboutPushTitle": "푸시 알림 정보",
+    "aboutPushDescription": "EGData에서 푸시 알림이 작동하는 방식에 대해 자세히 알아보세요.",
+    "whatYoullReceive": "받게 될 알림:",
+    "receiveList": {
+      "freeGames": "새 무료 게임 알림",
+      "releases": "게임 출시 알림",
+      "priceDrops": "위시리스트 게임 가격 인하 알림",
+      "news": "Epic Games Store 뉴스 및 업데이트",
+      "custom": "맞춤 주제 기반 알림"
+    },
+    "privacySecurity": "개인정보 및 보안:",
+    "privacyList": {
+      "apiKey": "API 키는 브라우저 쿠키에 안전하게 저장됩니다",
+      "onlySubscribed": "구독한 알림만 전송합니다",
+      "unsubscribe": "언제든지 구독을 취소할 수 있습니다",
+      "noPersonalData": "API 키 외에는 개인 데이터가 필요하지 않습니다"
+    },
+    "browserSupport": "브라우저 지원:",
+    "browserSupportBody": "푸시 알림은 Chrome, Firefox, Safari, Edge 등 최신 브라우저에서 지원됩니다. 브라우저에서 알림을 요청하면 허용해 주세요.",
+    "subscriptionOverview": "구독 개요",
+    "totalSubscribed": "총 구독 주제: {{count}}",
+    "notSubscribedApi": "API 키가 푸시 알림에 구독되어 있지 않음",
+    "notSubscribedTitle": "구독되지 않음",
+    "notSubscribedBody": "API 키가 푸시 알림에 구독되어 있지 않습니다. 먼저 \"설정 및 구독\" 탭을 사용하여 구독하세요.",
+    "subscriptionId": "구독 {{id}}",
+    "created": "생성일:",
+    "subscribedTopics": "구독한 주제:",
+    "noTopics": "구독한 주제 없음",
+    "lastUpdated": "마지막 업데이트:",
+    "noSubscriptionsTitle": "구독을 찾을 수 없음",
+    "noSubscriptionsBody": "구독은 되어 있지만 아직 기기 구독을 생성하지 않았습니다. \"설정 및 구독\" 탭을 사용하여 첫 번째 구독을 생성하세요.",
+    "fetchError": "구독을 불러오지 못했습니다. 다시 시도해 주세요."
+  },
+  "promotions": {
+    "placeholder": "/promotions/$id에 오신 것을 환영합니다!"
+  },
+  "misc": {
+    "gameAwards": {
+      "meta": {
+        "title": "The Game Awards 취재 | egdata.app",
+        "description": "The Game Awards에서 발표 및 후보에 오른 Epic Games Store 출시 예정 최신 게임."
+      },
+      "logoAlt": "The Game Awards 2025",
+      "subtitle": "The Game Awards에서 발표되거나 후보에 오른 Epic Games Store 출시 예정 게임",
+      "videoTitle": "The Game Awards 2024 - 라이브 스트림",
+      "expandPlayer": "플레이어 확장",
+      "closeMiniPlayer": "미니 플레이어 닫기",
+      "noGamesTitle": "아직 발표된 게임이 없습니다",
+      "noGamesBody": "The Game Awards 이후에 다시 확인하세요!"
+    },
+    "downloads": {
+      "title": "egdata.app 클라이언트 릴리스",
+      "description": "최신 버전을 다운로드하세요. 운영 체제에 맞는 권장 항목이 강조 표시되어 있습니다.",
+      "errorPrefix": "오류:",
+      "noPublicReleases": "공개 릴리스가 없습니다.",
+      "recommended": "권장",
+      "downloadsSuffix": "다운로드",
+      "versionPublished": "버전 {{version}} - {{date}}에 게시됨",
+      "assetInfo": {
+        "appleSilicon": "Apple 칩(M1, M2, M3 등)이 탑재된 최신 Mac 컴퓨터용.",
+        "intel": "Intel 프로세서가 탑재된 구형 Mac 컴퓨터용.",
+        "universal": "Apple Silicon 및 Intel Mac 모두와 호환됩니다.",
+        "msi": "표준 설치 마법사입니다. 대부분의 사용자에게 권장됩니다.",
+        "exe": "독립 실행형 응용 프로그램 파일입니다. 설치가 필요하지 않을 수 있습니다.",
+        "linux": "Linux 기반 운영 체제용.",
+        "generic": "일반 파일 또는 소스 코드입니다."
+      }
+    },
+    "discordLinked": {
+      "title": "계정이 성공적으로 연결되었습니다!",
+      "body": "Discord 계정이 egdata.app에 성공적으로 연결되었습니다.",
+      "footer": "이제 이 창을 닫고 Discord로 돌아가면 됩니다. 계정을 egdata.app과 함께 사용할 준비가 되었습니다."
+    },
+    "posts": {
+      "coverAlt": "LEGO Star Wars: The Skywalker Saga 커버 아트",
+      "title": "Epic Games Store에서 LEGO® Star Wars™: The Skywalker Saga를 무료로 받으세요",
+      "freeGameBadge": "무료 게임",
+      "published": "2023년 11월 30일 게시됨",
+      "intro": "캘린더에 표시하세요, 스타워즈 팬 여러분! {{dateRange}}에 Epic Games Store에서 비평가들의 극찬을 받은 {{game}}을(를) 무료로 받을 수 있습니다. 보통 {{price}}인 이 게임은 재미있는 LEGO 스타일로 {{saga}}의 상징적인 순간을 재현합니다.",
+      "dateRange": "2024년 12월 5일 ~ 12월 12일",
+      "game": "LEGO® Star Wars™: The Skywalker Saga",
+      "price": "$49.99",
+      "saga": "Skywalker 사가",
+      "gameplayAlt": "LEGO Star Wars 게임플레이",
+      "charactersAlt": "LEGO Star Wars 캐릭터",
+      "whatToExpect": "예상되는 내용:",
+      "whatToExpectBody": "{{developer}}가 개발하고 {{publisher}}가 배급한 이 타이틀은 다른 어떤 것과도 비교할 수 없는 종합적인 스타워즈 경험을 제공합니다. 꼭 플레이해야 하는 이유:",
+      "developer": "TT Games",
+      "publisher": "Warner Bros.",
+      "expectList": {
+        "allMovies": "{{strong}}: 클래식 LEGO 유머가 담긴 9개의 Skywalker 사가 영화 스토리라인을 재현합니다.",
+        "allMoviesStrong": "모든 9개 영화",
+        "characters": "{{strong}}: 은하계의 좋아하는 영웅과 악당을 조종하세요.",
+        "charactersStrong": "300개 이상의 플레이 가능 캐릭터",
+        "vehicles": "{{strong}}: Millennium Falcon, TIE Fighters 등 상징적인 함선을 조종하세요.",
+        "vehiclesStrong": "100개 이상의 탈것",
+        "planets": "{{strong}}: Tatooine에서 Endor까지 익숙한 세계를 여행하세요.",
+        "planetsStrong": "탐험 가능한 23개의 행성"
+      },
+      "specialTitle": "이 게임의 특별한 점:",
+      "specialBody": "{{releaseDate}}에 출시된 이후 LEGO Star Wars: The Skywalker Saga는 매력적인 게임플레이와 스타워즈 세계관의 충실한 각색으로 호평을 받아 왔습니다. Metacritic에서 {{metascore}}를 기록하며 비평가와 팬 모두가 강조한 점:",
+      "releaseDate": "2022년 4월",
+      "metascore": "82 Metascore",
+      "specialList": {
+        "combat": "라이트세이버 전투, 블래스터 총격전, 우주 공중전.",
+        "combatStrong": "다이나믹 전투",
+        "charm": "LEGO만의 독특한 스타일로 재해석된 클래식 스타워즈 유머.",
+        "charmStrong": "LEGO의 매력",
+        "replayability": "수많은 수집품, 사이드 미션 및 숨겨진 비밀.",
+        "replayabilityStrong": "재플레이성"
+      },
+      "howToClaim": "받는 방법:",
+      "howToClaimBody": "무료 사본을 받는 것은 쉽습니다!",
+      "step1": "{{dec5}}~{{dec12}} 사이에 {{storeLink}}를 방문하세요.",
+      "storeLink": "Epic Games Store",
+      "dec5": "12월 5일",
+      "dec12": "2024년 12월 12일",
+      "step2": "게임을 라이브러리에 추가하세요.",
+      "step3": "영원히 소장하세요!",
+      "cardTitle": "LEGO로 가득한 은하계 여행을 떠날 이 기회를 놓치지 마세요!",
+      "cardBody": "열렬한 스타워즈 팬이든 새로 오신 분이든, 이 게임은 모두에게 끝없는 재미를 제공합니다.",
+      "footer": "Force(와 LEGO 브릭)가 함께 하길! 🧱✨"
+    },
+    "fairUse": {
+      "meta": {
+        "title": "공정 사용 정책 - egdata.app",
+        "description": "egdata.app의 공정 사용 정책"
+      },
+      "title": "EGData 앱 공정 사용 정책",
+      "section1Title": "1. 소개",
+      "section1Body": "EGData App(\"당사\", \"저희\", \"당사의\")에 오신 것을 환영합니다. 본 공정 사용 정책은 당사 웹사이트 {{siteLink}}(\"사이트\")에서 제공하는 콘텐츠와 데이터를 사용할 수 있는 조건을 설명합니다.",
+      "section2Title": "2. 공정 사용의 목적",
+      "section2Body": "EGData App의 콘텐츠와 데이터는 정보 제공 목적으로만 제공됩니다. 당사의 목표는 커뮤니티의 교육 및 참고를 위해 Epic Games Store에서 제공되는 게임(또는 게임 관련 데이터)의 종합적인 데이터베이스를 제공하는 것입니다.",
+      "section3Title": "3. 공정 사용 준수",
+      "section3Body": "EGData App은 콘텐츠 소유자의 권리를 침해하지 않으면서 대중에게 도움이 되는 방식으로 정보와 데이터를 제공함으로써 저작권법에 따른 공정 사용 원칙을 준수합니다. 다음은 당사의 사용을 공정 사용으로 정당화하는 주요 요소입니다:",
+      "section3List": {
+        "purpose": "사용의 목적과 성격:",
+        "purposeBody": "당사 웹사이트는 비상업적이며 Epic Games Store에서 제공되는 게임에 대해 대중을 교육하고 정보를 제공하는 것을 목표로 합니다. 비평적 정보, 리뷰 및 업데이트를 제공하여 이러한 게임에 대한 대중의 지식과 이해를 향상시킵니다.",
+        "nature": "저작권 보호 저작물의 성격:",
+        "natureBody": "당사가 수집하고 제시하는 데이터는 게임 제목, 출시일, 개발자 및 업데이트와 같은 사실적 정보로 구성됩니다. 사실적 정보는 창작물보다 저작권법의 보호를 덜 받습니다.",
+        "amount": "사용량 및 실질성:",
+        "amountBody": "사용자에게 의미 있고 관련성 있는 정보를 제공하는 데 필요한 데이터만 사용합니다. 전체 저작물을 복제하거나 원본 제품을 대체할 수 있는 광범위한 발췌문을 제공하지 않습니다.",
+        "effect": "시장에 미치는 영향:",
+        "effectBody": "게임 데이터 사용은 원본 게임의 시장에 부정적인 영향을 미치지 않습니다. 대신 최신 정보를 제공하고 사용자 참여와 관심을 유도하여 게임을 홍보합니다."
+      },
+      "section4Title": "4. 데이터 수집 및 업데이트",
+      "section4Body1": "당사 사이트는 게임 데이터를 자동으로 추적하고 업데이트하여 제공하는 정보가 최신이고 정확하도록 합니다. 이 자동화된 프로세스는 Epic Games Store 및 기타 신뢰할 수 있는 출처에서 공개적으로 이용 가능한 정보를 수집하는 것을 포함합니다.",
+      "section4Body2": "데이터베이스를 최신 상태로 유지함으로써 사용자가 좋아하는 게임에 대한 최신 정보(신규 출시, 업데이트 및 이용 가능성 변경 포함)에 접근할 수 있도록 합니다.",
+      "section4Body3": "그래픽 에셋의 경우 Epic Games Store 서버에서 직접 이미지를 로드합니다. 당사 서버에 이미지를 저장하지 않습니다.",
+      "section5Title": "5. 유출 데이터 면책 조항",
+      "section5Body1": "당사 사이트에 유출된 것으로 보이는 모든 데이터는 Epic Games Store에서 제공하는 공개적으로 이용 가능한 정보에서 비롯됩니다. 공개적으로 접근할 수 없는 기밀 또는 독점 데이터에 접근할 수 없습니다. 따라서 게시자는 Epic Games 개발자 포털 내에서 향후 지적 재산(IP), 게임, 다운로드 가능한 콘텐츠(DLC) 및 기타 민감한 정보를 보호할 책임이 있습니다.",
+      "section5Body2": "게시자는 민감한 정보가 적절히 보호되고 실수로 공개되지 않도록 해야 합니다. EGData App은 공개적으로 이용 가능한 출처에서 얻은 유출 정보에 대해 책임을 지지 않습니다.",
+      "section5Body3": "유럽 연합의 데이터 보호 및 공정 사용에 대한 자세한 내용은 다음 리소스를 참조하세요:",
+      "euDirective1": "디지털 단일 시장에서의 저작권 및 관련 권리에 관한 지침 (EU) 2019/790",
+      "euDirective2": "질문과 답변 – 새로운 EU 저작권 규칙",
+      "section6Title": "6. 문의하기",
+      "section6Body": "본 공정 사용 정책에 대해 문의사항이 있거나 사이트의 콘텐츠나 데이터가 저작권을 침해한다고 생각되면 다음으로 연락해 주세요:",
+      "email": "이메일:"
+    },
+    "donateKey": {
+      "title": "키 기부하기",
+      "body": "프로젝트에 기부하고 싶은 키가 있다면 아래 양식을 작성해 주세요."
+    },
+    "androidBeta": {
+      "meta": {
+        "title": "Android 베타 - egdata.app",
+        "description": "egdata.app Android 앱 클로즈드 베타 테스트 프로그램에 참여하세요"
+      },
+      "title": "Android 베타 프로그램",
+      "description": "공개 출시 전에 egdata.app Android 애플리케이션을 테스트할 클로즈드 베타에 참여하세요.",
+      "whatHappensNext": "다음 단계는 무엇인가요?",
+      "steps": {
+        "signIn": "Google 계정으로 로그인",
+        "added": "몇 시간 내에 클로즈드 테스트 트랙에 수동으로 추가됩니다",
+        "download": "추가되면 제공된 링크에서 앱을 다운로드할 수 있습니다"
+      }
+    }
+  }
+}

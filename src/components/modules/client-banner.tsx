@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
 import { Download } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export function ClientBanner() {
+  const { t } = useTranslation();
   return (
     <div className="relative w-full max-w-7xl mx-auto overflow-hidden rounded-2xl shadow-2xl">
       {/* Animated Gradient Background */}
@@ -18,24 +20,17 @@ export function ClientBanner() {
           <div className="flex-1 text-center lg:text-left">
             {/* Main Heading */}
             <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3 leading-tight">
-              Power the{" "}
-              <span className="bg-gradient-to-r from-[#4fa3ff] to-[#7ad3ff] bg-clip-text text-transparent">
-                egdata.app
-              </span>{" "}
-              builds database
+              {t("components.clientBanner.heading")}
             </h1>
 
             {/* Subheading */}
             <p className="text-lg md:text-xl text-white/90 mb-4 font-medium">
-              Help map every Epic&nbsp;Games Store build
+              {t("components.clientBanner.subheading")}
             </p>
 
             {/* Description */}
             <p className="text-base text-white/80 mb-6 max-w-lg mx-auto lg:mx-0">
-              Our lightweight Windows & macOS client scans your Epic Games Launcher installs and
-              securely uploads <strong>only</strong> the manifest files—chunk lists and metadata—to
-              our open database. Every upload enriches the community and helps us track changes over
-              time.
+              {t("components.clientBanner.description")}
             </p>
 
             {/* CTA Button */}
@@ -46,7 +41,7 @@ export function ClientBanner() {
             >
               <Link to="/downloads">
                 <Download strokeWidth={3} className="w-5 h-5 mr-2" />
-                Download for Windows & macOS
+                {t("components.clientBanner.cta")}
               </Link>
             </Button>
           </div>

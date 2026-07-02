@@ -1,6 +1,7 @@
 import React from "react";
 import { offersDictionary, offerTypeValues } from "@/lib/offers-dictionary";
 import type { SearchV2Response } from "@/types/search-v2";
+import { useTranslation } from "react-i18next";
 
 export interface SearchFiltersV2Props {
   query: Record<string, unknown>;
@@ -10,6 +11,7 @@ export interface SearchFiltersV2Props {
 }
 
 export function SearchFiltersV2({ query, onQueryChange, loading, results }: SearchFiltersV2Props) {
+  const { t } = useTranslation();
   // Extract tags from aggregations if available
   const tagsAggregation = results?.aggregations?.tags;
   const tagBuckets = tagsAggregation && "buckets" in tagsAggregation ? tagsAggregation.buckets : [];
@@ -19,7 +21,7 @@ export function SearchFiltersV2({ query, onQueryChange, loading, results }: Sear
     <aside className="flex flex-col gap-4 w-80">
       <input
         type="search"
-        placeholder="Search for games"
+        placeholder={t("search.filtersPlaceholder")}
         className="input input-bordered"
         value={(query.q as string) || ""}
         onChange={(e) => onQueryChange({ q: e.target.value, page: 1 })}
@@ -32,7 +34,7 @@ export function SearchFiltersV2({ query, onQueryChange, loading, results }: Sear
         onChange={(e) => onQueryChange({ offerType: e.target.value || undefined, page: 1 })}
         disabled={loading}
       >
-        <option value="">All Offer Types</option>
+        <option value="">{t("components.search.allOfferTypes")}</option>
         {offerTypeValues.map((type) => (
           <option key={type} value={type}>
             {offersDictionary[type] ?? type.replace(/_/g, " ")}
@@ -41,7 +43,7 @@ export function SearchFiltersV2({ query, onQueryChange, loading, results }: Sear
       </select>
       <div>
         <label className="block mb-1 font-semibold" htmlFor="search-tags-filter">
-          Tags
+          {t("components.search.tags")}
         </label>
         <div className="flex flex-wrap gap-2" id="search-tags-filter">
           {tagBuckets.map((tag) => (

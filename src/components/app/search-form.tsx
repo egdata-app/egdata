@@ -14,6 +14,7 @@ import { OfferListItem } from "@/components/app/game-card";
 import { DynamicPagination } from "@/components/app/dynamic-pagination";
 import { offerTypeValues } from "@/lib/offers-dictionary";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export const formSchema = z.object({
   title: z.string().optional(),
@@ -80,6 +81,7 @@ export function SearchForm({
   initialPage = 1,
   fixedFilters = {},
 }: SearchFormProps) {
+  const { t } = useTranslation();
   const [showLongLoading, setShowLongLoading] = useState(false);
   const { isFetching, currentPageNumber, totalCount } = useSearchState();
   const { view } = usePreferences();
@@ -211,13 +213,13 @@ export function SearchForm({
         }
 
         if (error) {
-          return <div>Error: {error.message}</div>;
+          return <div>{t("components.searchForm.error", { message: error.message })}</div>;
         }
 
         if (!data || offers.length === 0) {
           return (
             <div className="flex flex-col items-center justify-center h-full">
-              <span className="text-muted-foreground">No results found</span>
+              <span className="text-muted-foreground">{t("components.searchForm.noResults")}</span>
             </div>
           );
         }
@@ -250,9 +252,9 @@ export function SearchForm({
               <div className="absolute inset-0 bg-muted/90 z-10 w-full h-screen flex items-center justify-center rounded-xl">
                 <span className="flex flex-col items-center justify-center gap-2">
                   <div className="flex flex-col items-center justify-center gap-1">
-                    <span className="text-sm font-medium">Loading...</span>
+                    <span className="text-sm font-medium">{t("common.loading")}</span>
                     <span className="text-xs text-muted-foreground">
-                      This query is taking more than usual...
+                      {t("components.searchForm.loadingLong")}
                     </span>
                   </div>
                   <svg

@@ -38,6 +38,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { EyeClosedIcon, FileWarningIcon } from "lucide-react";
 import { useMemo, useState } from "react";
 import { DateTime } from "luxon";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 const rarityOrder: (keyof typeof rarities)[] = ["gold", "silver", "bronze"];
 
@@ -50,6 +52,7 @@ type LoaderData = {
   dehydratedState: DehydratedState;
   id: string;
   offer: SingleOffer;
+  locale: string | undefined;
 };
 
 export const Route = createFileRoute("/offers/$id/achievements")({
@@ -63,7 +66,7 @@ export const Route = createFileRoute("/offers/$id/achievements")({
   },
 
   loader: async ({ params, context }) => {
-    const { queryClient } = context;
+    const { queryClient, locale } = context;
     const { id } = params;
 
     await queryClient.prefetchQuery({
@@ -72,12 +75,16 @@ export const Route = createFileRoute("/offers/$id/achievements")({
     });
 
     const offer = await queryClient.ensureQueryData({
-      queryKey: ["offer", { id: params.id }],
-      queryFn: () => httpClient.get<SingleOffer>(`/offers/${params.id}`).catch(() => null),
+      queryKey: ["offer", { id: params.id, locale }],
+      queryFn: () =>
+        httpClient
+          .get<SingleOffer>(`/offers/${params.id}`, { params: { locale } })
+          .catch(() => null),
     });
 
     return {
       id,
+      locale,
       dehydratedState: dehydrate(queryClient),
       offer,
     };
@@ -91,8 +98,8 @@ export const Route = createFileRoute("/offers/$id/achievements")({
       return {
         meta: [
           {
-            title: "Offer not found",
-            description: "Offer not found",
+            title: i18n.t("offerDetail.common.offerNotFound"),
+            description: i18n.t("offerDetail.common.offerNotFound"),
           },
         ],
       };
@@ -100,15 +107,15 @@ export const Route = createFileRoute("/offers/$id/achievements")({
 
     const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
       "offer",
-      { id: params.id },
+      { id: params.id, locale: ctx.loaderData?.locale },
     ]);
 
     if (!offer) {
       return {
         meta: [
           {
-            title: "Offer not found",
-            description: "Offer not found",
+            title: i18n.t("offerDetail.common.offerNotFound"),
+            description: i18n.t("offerDetail.common.offerNotFound"),
           },
         ],
       };
@@ -121,6 +128,7 @@ export const Route = createFileRoute("/offers/$id/achievements")({
 });
 
 function AchievementsPage() {
+  const { t } = useTranslation();
   const { id } = Route.useLoaderData() as LoaderData;
   const { timezone } = useLocale();
   const [search, setSearch] = useState("");
@@ -155,7 +163,7 @@ function AchievementsPage() {
     return (
       <div className="flex flex-col gap-4">
         <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Achievements</h1>
+          <h1 className="text-2xl font-bold">{t("offerDetail.achievements.title")}</h1>
         </div>
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mt-4">
           {Array.from({ length: 10 }).map((_, index) => (
@@ -170,7 +178,7 @@ function AchievementsPage() {
   if (!achievements) {
     return (
       <div className="flex justify-center items-center h-96">
-        <p className="text-muted-foreground">No achievements found</p>
+        <p className="text-muted-foreground">{t("offerDetail.achievements.noAchievements")}</p>
       </div>
     );
   }
@@ -191,27 +199,29 @@ function AchievementsPage() {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col w-full justify-between items-start gap-4 md:flex-row md:items-center">
-        <h1 className="text-2xl font-bold">Achievements</h1>
+        <h1 className="text-2xl font-bold">{t("offerDetail.achievements.title")}</h1>
         <div className="flex flex-col gap-2 w-full md:w-auto md:flex-row md:items-center">
           <Select
             value={sortBy}
             onValueChange={(value) => setSortBy(value as "default" | "rarity")}
           >
             <SelectTrigger className="w-full md:w-[180px]">
-              <SelectValue placeholder="Sort by" />
+              <SelectValue placeholder={t("offerDetail.achievements.sortBy")} />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectLabel>Sort by</SelectLabel>
-                <SelectItem value="default">Default Sort</SelectItem>
-                <SelectItem value="rarity">Sort by Rarity</SelectItem>
-                <SelectItem value="unlockedPercentage">Sort by Completed %</SelectItem>
+                <SelectLabel>{t("offerDetail.achievements.sortBy")}</SelectLabel>
+                <SelectItem value="default">{t("offerDetail.achievements.defaultSort")}</SelectItem>
+                <SelectItem value="rarity">{t("offerDetail.achievements.sortByRarity")}</SelectItem>
+                <SelectItem value="unlockedPercentage">
+                  {t("offerDetail.achievements.sortByCompleted")}
+                </SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
           <Input
             className="w-full"
-            placeholder="Search"
+            placeholder={t("offerDetail.achievements.search")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
@@ -221,7 +231,7 @@ function AchievementsPage() {
             disabled={achievements.length === 0}
           >
             <CardStackIcon className="w-6 h-6 mr-2" />
-            Flip All
+            {t("offerDetail.achievements.flipAll")}
           </Button>
           <Button
             className="hover:bg-transparent border border-border/60 bg-muted inline-flex px-4 py-2 rounded-md text-center transition-all duration-300 ease-in-out text-foreground"
@@ -272,13 +282,16 @@ function AchievementsPage() {
               <Tooltip>
                 <TooltipTrigger>
                   <h4 className="text-xl font-thin underline decoration-dotted decoration-border/60 underline-offset-4">
-                    {achievementSet.isBase ? "Base Game" : "DLC"} Achievements
+                    {achievementSet.isBase
+                      ? t("offerDetail.achievements.baseGame")
+                      : t("offerDetail.achievements.dlc")}{" "}
+                    {t("offerDetail.achievements.achievementsLabel")}
                   </h4>
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>
-                    {achievementSet.isBase && "This list of achievements are for the base game."}
-                    {!achievementSet.isBase && "This list of achievements are for one of the DLCs."}
+                    {achievementSet.isBase && t("offerDetail.achievements.baseGameDescription")}
+                    {!achievementSet.isBase && t("offerDetail.achievements.dlcDescription")}
                   </p>
                 </TooltipContent>
               </Tooltip>
@@ -287,7 +300,7 @@ function AchievementsPage() {
                   <Tooltip>
                     <TooltipTrigger>
                       <span className="text-sm underline decoration-dotted decoration-border/60 underline-offset-4">
-                        Last Updated:{" "}
+                        {t("offerDetail.achievements.lastUpdated")}{" "}
                         {DateTime.fromISO(achievementSet.lastUpdated, {
                           zone: timezone,
                         })
@@ -301,18 +314,18 @@ function AchievementsPage() {
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>
-                        This achievement set was last updated on{" "}
-                        {DateTime.fromISO(achievementSet.lastUpdated, {
-                          zone: timezone,
-                        })
-                          .setLocale("en-GB")
-                          .toLocaleString({
-                            timeStyle: "short",
-                            dateStyle: "short",
-                          })}
-                        .
+                        {t("offerDetail.achievements.lastUpdatedTooltip", {
+                          date: DateTime.fromISO(achievementSet.lastUpdated, {
+                            zone: timezone,
+                          })
+                            .setLocale("en-GB")
+                            .toLocaleString({
+                              timeStyle: "short",
+                              dateStyle: "short",
+                            }),
+                        })}
                         <br />
-                        This is either it's date of creation or the date of the last update.
+                        {t("offerDetail.achievements.lastUpdatedTooltipDescription")}
                       </p>
                     </TooltipContent>
                   </Tooltip>
@@ -374,10 +387,9 @@ function AchievementsPage() {
             <div className="w-full flex flex-col items-center justify-center h-96 mt-10 gap-2">
               <FileWarningIcon className="size-10 opacity-75" />
               <p className="text-center font-thin">
-                No achievements found for this set.
+                {t("offerDetail.achievements.noAchievementsSet")}
                 <br />
-                This could mean that the achievements are not currently available but will be added
-                in the future.
+                {t("offerDetail.achievements.noAchievementsSetDescription")}
               </p>
             </div>
           )}
@@ -386,7 +398,7 @@ function AchievementsPage() {
 
       {achievements.length === 0 && (
         <div className="flex justify-center items-center h-96">
-          <p className="text-muted-foreground">No achievements found</p>
+          <p className="text-muted-foreground">{t("offerDetail.achievements.noAchievements")}</p>
         </div>
       )}
     </div>

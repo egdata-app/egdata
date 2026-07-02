@@ -1,5 +1,6 @@
 import type { TypeOf } from "zod";
 import type * as React from "react";
+import { useTranslation } from "react-i18next";
 import type { formSchema } from "@/stores/searchStore";
 import { usePreferences } from "@/hooks/use-preferences";
 import { cn } from "@/lib/utils";
@@ -15,20 +16,6 @@ import {
 } from "@/components/ui/select";
 import { ArrowDown } from "lucide-react";
 
-const sortByDisplay: Record<string, string> = {
-  releaseDate: "Release Date",
-  lastModifiedDate: "Modified Date",
-  effectiveDate: "Effective Date",
-  creationDate: "Creation Date",
-  viewableDate: "Viewable Date",
-  pcReleaseDate: "PC Release Date",
-  upcoming: "Upcoming",
-  price: "Price",
-  discount: "Discount",
-  discountPercent: "Discount %",
-  giveawayDate: "Giveaway Date",
-};
-
 export interface SearchHeaderProps {
   query: TypeOf<typeof formSchema>;
   setField: <K extends keyof TypeOf<typeof formSchema>>(
@@ -43,8 +30,23 @@ export interface SearchHeaderProps {
 }
 
 export function SearchHeader(props: SearchHeaderProps) {
+  const { t } = useTranslation();
   const { view, setView } = usePreferences();
   const { query, setField, loading, title, showSort, showViewToggle, mobileFilterButton } = props;
+
+  const sortByDisplay: Record<string, string> = {
+    releaseDate: t("search.sort.releaseDate"),
+    lastModifiedDate: t("search.sort.lastModifiedDate"),
+    effectiveDate: t("search.sort.effectiveDate"),
+    creationDate: t("search.sort.creationDate"),
+    viewableDate: t("search.sort.viewableDate"),
+    pcReleaseDate: t("search.sort.pcReleaseDate"),
+    upcoming: t("search.sort.upcoming"),
+    price: t("search.sort.price"),
+    discount: t("search.sort.discount"),
+    discountPercent: t("search.sort.discountPercent"),
+    giveawayDate: t("search.sort.giveawayDate"),
+  };
 
   return (
     <header
@@ -85,8 +87,11 @@ export function SearchHeader(props: SearchHeaderProps) {
               value={query.sortBy ?? undefined}
               onValueChange={(value) => setField("sortBy", value as typeof query.sortBy)}
             >
-              <SelectTrigger className="w-full min-w-0 sm:w-[180px]" aria-label="Sort offers">
-                <SelectValue placeholder="Sort by" />
+              <SelectTrigger
+                className="w-full min-w-0 sm:w-[180px]"
+                aria-label={t("search.sort.sortAriaLabel")}
+              >
+                <SelectValue placeholder={t("search.sort.sortBy")} />
               </SelectTrigger>
               <SelectContent>
                 {Object.entries(sortByDisplay).map(([key, value]) => (
@@ -100,7 +105,7 @@ export function SearchHeader(props: SearchHeaderProps) {
               onClick={() => setField("sortDir", query.sortDir === "asc" ? "desc" : "asc")}
               variant="outline"
               className="w-9"
-              aria-label="Toggle sort direction"
+              aria-label={t("search.sort.sortDirectionAriaLabel")}
             >
               <ArrowDown
                 className={cn(
@@ -116,7 +121,9 @@ export function SearchHeader(props: SearchHeaderProps) {
             variant="outline"
             className="h-9 w-9 p-0 hidden md:flex"
             onClick={() => setView(view === "grid" ? "list" : "grid")}
-            aria-label={view === "grid" ? "Show list view" : "Show grid view"}
+            aria-label={
+              view === "grid" ? t("search.sort.showListView") : t("search.sort.showGridView")
+            }
           >
             {view === "grid" ? (
               <ListBulletIcon className="h-5 w-5" aria-hidden="true" />

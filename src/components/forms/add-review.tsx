@@ -18,6 +18,7 @@ import { captureError } from "@/lib/pulse-telemetry";
 import consola from "consola";
 import { Viewer } from "../app/viewer";
 import { Loader } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 interface ReviewFormProps {
   setIsOpen: (isOpen: boolean) => void;
@@ -32,7 +33,7 @@ const defaultContent: JSONContent = {
       content: [
         {
           type: "text",
-          text: "Please enter your review here",
+          text: "",
         },
       ],
     },
@@ -44,6 +45,7 @@ const routeApi = getRouteApi("__root__");
 export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
   const { session } = routeApi.useRouteContext();
   const [step, setStep] = useState(1);
+  const { t } = useTranslation();
 
   const postReviewMutation = useMutation({
     mutationKey: ["post-review"],
@@ -59,7 +61,7 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
           "Content-Type": "application/json",
         },
       });
-      if (!res) throw new Error("Error submitting review");
+      if (!res) throw new Error(t("forms.review.errorSubmitting"));
       return { success: true };
     },
   });
@@ -103,7 +105,7 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
           },
           source: "review.add",
         });
-        throw new Error("Error submitting review");
+        throw new Error(t("forms.review.errorSubmitting"));
       }
     },
     validators: {
@@ -111,7 +113,7 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
         if (!value.title) {
           return {
             fields: {
-              title: "Title is required",
+              title: t("forms.review.titleRequired"),
             },
           };
         }
@@ -119,7 +121,7 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
         if (value.title.length < 3) {
           return {
             fields: {
-              title: "Title must be at least 3 characters",
+              title: t("forms.review.titleMinLength"),
             },
           };
         }
@@ -127,7 +129,7 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
         if (value.title.length > 75) {
           return {
             fields: {
-              title: "Title must be less than 75 characters",
+              title: t("forms.review.titleMaxLength"),
             },
           };
         }
@@ -201,9 +203,11 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
           </form.Field>
 
           <CardHeader>
-            <CardTitle>Submit a Review</CardTitle>
+            <CardTitle>{t("forms.review.submitTitle")}</CardTitle>
             <CardDescription>
-              Share your thoughts about {offer?.title ?? "the product"}
+              {t("forms.review.description", {
+                title: offer?.title ?? t("forms.review.theProduct"),
+              })}
             </CardDescription>
           </CardHeader>
 
@@ -222,12 +226,12 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
                   name="rating"
                   validators={{
                     onChange: ({ value }) =>
-                      value < 1 || value > 10 ? "Rating must be between 1 and 10" : undefined,
+                      value < 1 || value > 10 ? t("forms.review.ratingError") : undefined,
                   }}
                 >
                   {({ state, setValue, name }) => (
                     <div className="space-y-2">
-                      <Label htmlFor="rating">Rating</Label>
+                      <Label htmlFor="rating">{t("forms.review.rating")}</Label>
                       <Slider
                         name={name}
                         id="rating"
@@ -248,24 +252,26 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
                   name="recommended"
                   validators={{
                     onChange: ({ value }) =>
-                      value !== "yes" && value !== "no" ? "Please select yes or no" : undefined,
+                      value !== "yes" && value !== "no"
+                        ? t("forms.review.recommendError")
+                        : undefined,
                   }}
                 >
                   {({ state, name, handleChange }) => (
                     <div className="space-y-2">
-                      <Label htmlFor="recommended">Would you recommend this product?</Label>
+                      <Label htmlFor="recommended">{t("forms.review.recommend")}</Label>
                       <RadioGroup
                         name={name}
                         value={state.value}
                         onValueChange={(v: "yes" | "no") => handleChange(v)}
                       >
                         <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="yes">Yes</RadioGroupItem>
-                          <Label htmlFor="yes">Yes</Label>
+                          <RadioGroupItem value="yes">{t("forms.review.yes")}</RadioGroupItem>
+                          <Label htmlFor="yes">{t("forms.review.yes")}</Label>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <RadioGroupItem value="no">No</RadioGroupItem>
-                          <Label htmlFor="no">No</Label>
+                          <RadioGroupItem value="no">{t("forms.review.no")}</RadioGroupItem>
+                          <Label htmlFor="no">{t("forms.review.no")}</Label>
                         </div>
                       </RadioGroup>
                       {state.meta.errors.map((error, index) => (
@@ -287,21 +293,21 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
                   validators={{
                     onChange: ({ value }) =>
                       value.length < 3
-                        ? "Title must be at least 3 characters long"
+                        ? t("forms.review.titleMinLengthLong")
                         : value.length > 75
-                          ? "Title must be less than 75 characters"
+                          ? t("forms.review.titleMaxLength")
                           : undefined,
                   }}
                 >
                   {({ state, setValue, name }) => (
                     <div className="space-y-2">
-                      <Label htmlFor="title">Title</Label>
+                      <Label htmlFor="title">{t("forms.review.title")}</Label>
                       <Input
                         id="title"
                         name={name}
                         value={state.value}
                         onChange={(e) => setValue(e.target.value)}
-                        placeholder="Enter a title for your review"
+                        placeholder={t("forms.review.titlePlaceholder")}
                         required
                       />
                       {state.meta.errors.map((error, index) => (
@@ -318,12 +324,12 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
                   name="content"
                   validators={{
                     onChange: ({ value }) =>
-                      value.length < 3 ? "Content must be at least 3 characters long" : undefined,
+                      value.length < 3 ? t("forms.review.contentMinLength") : undefined,
                   }}
                 >
                   {({ state, setValue }) => (
                     <div className="space-y-2">
-                      <Label htmlFor="content">Review Content</Label>
+                      <Label htmlFor="content">{t("forms.review.reviewContent")}</Label>
                       <Editor content={state.value} setContent={setValue} />
                     </div>
                   )}
@@ -332,13 +338,13 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
                 <form.Field name="tags">
                   {({ state, setValue, name }) => (
                     <div className="space-y-2">
-                      <Label htmlFor="tags">Tags (comma-separated)</Label>
+                      <Label htmlFor="tags">{t("forms.review.tags")}</Label>
                       <Input
                         id="tags"
                         name={name}
                         value={state.value}
                         onChange={(e) => setValue(e.target.value)}
-                        placeholder="e.g. quality, design, performance"
+                        placeholder={t("forms.review.tagsPlaceholder")}
                       />
                     </div>
                   )}
@@ -348,7 +354,7 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
 
             {step === 3 && (
               <div className="space-y-2">
-                <Label htmlFor="review">Review Content</Label>
+                <Label htmlFor="review">{t("forms.review.reviewContent")}</Label>
                 <Viewer content={form.state.values.content} />
               </div>
             )}
@@ -362,7 +368,7 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
                 onClick={handlePrevStep}
                 disabled={step === 1}
               >
-                Previous
+                {t("forms.review.previous")}
               </Button>
             )}
             <form.Subscribe
@@ -380,7 +386,7 @@ export function ReviewForm({ setIsOpen, offer }: ReviewFormProps) {
                   key={`submit-review-${step}`}
                 >
                   {isSubmitting ? <Loader className="animate-spin" /> : null}
-                  {step >= 1 && step < 3 ? "Next" : "Submit Review"}
+                  {step >= 1 && step < 3 ? t("forms.review.next") : t("forms.review.submit")}
                 </Button>
               )}
             </form.Subscribe>

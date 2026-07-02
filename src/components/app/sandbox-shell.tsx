@@ -18,6 +18,8 @@ import type { SingleSandbox } from "@/types/single-sandbox";
 import { useQuery } from "@tanstack/react-query";
 import { Link, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
 import { DateTime } from "luxon";
+import { useTranslation } from "react-i18next";
+import type { TFunction } from "i18next";
 import {
   Archive,
   BoxIcon,
@@ -40,6 +42,7 @@ export interface SandboxShellProps {
 
 export function SandboxShell({ id, hub }: SandboxShellProps) {
   const { country } = useCountry();
+  const { t } = useTranslation();
   const { data: sandbox } = useQuery(sandboxQueryOptions(id));
   const { data: baseGame } = useQuery(sandboxBaseGameQueryOptions(id));
   const { data: hubData } = useQuery(
@@ -64,37 +67,43 @@ export function SandboxShell({ id, hub }: SandboxShellProps) {
           links={[
             {
               id: "",
-              label: <NavLabel icon={BoxIcon} label="Overview" />,
+              label: <NavLabel icon={BoxIcon} label={t("components.sandboxShell.overview")} />,
               href: `/sandboxes/${id}`,
             },
             {
               id: "offers",
-              label: <NavLabel icon={StoreIcon} label="Offers" />,
+              label: <NavLabel icon={StoreIcon} label={t("components.sandboxShell.offers")} />,
               href: `/sandboxes/${id}/offers`,
             },
             {
               id: "items",
-              label: <NavLabel icon={LibrarySquareIcon} label="Items" />,
+              label: (
+                <NavLabel icon={LibrarySquareIcon} label={t("components.sandboxShell.items")} />
+              ),
               href: `/sandboxes/${id}/items`,
             },
             {
               id: "assets",
-              label: <NavLabel icon={Archive} label="Assets" />,
+              label: <NavLabel icon={Archive} label={t("components.sandboxShell.assets")} />,
               href: `/sandboxes/${id}/assets`,
             },
             {
               id: "builds",
-              label: <NavLabel icon={PackageIcon} label="Builds" />,
+              label: <NavLabel icon={PackageIcon} label={t("components.sandboxShell.builds")} />,
               href: `/sandboxes/${id}/builds`,
             },
             {
               id: "achievements",
-              label: <NavLabel icon={EpicTrophyIcon} label="Achievements" />,
+              label: (
+                <NavLabel icon={EpicTrophyIcon} label={t("components.sandboxShell.achievements")} />
+              ),
               href: `/sandboxes/${id}/achievements`,
             },
             {
               id: "changelog",
-              label: <NavLabel icon={CalculatorIcon} label="Changelog" />,
+              label: (
+                <NavLabel icon={CalculatorIcon} label={t("components.sandboxShell.changelog")} />
+              ),
               href: `/sandboxes/${id}/changelog`,
             },
           ]}
@@ -134,16 +143,21 @@ function SandboxHero({
   sandbox: SingleSandbox | null;
   baseGame: BaseGame;
 }) {
+  const { t } = useTranslation();
   const isInternal = useMemo(() => internalNamespaces.includes(id), [id]);
   const isUnreal = id === "ue";
 
   const title =
     hub?.title ??
-    (isUnreal ? "Unreal Engine" : isInternal ? "Internal Sandbox" : undefined) ??
+    (isUnreal
+      ? t("components.sandboxShell.unrealEngine")
+      : isInternal
+        ? t("components.sandboxShell.internalSandbox")
+        : undefined) ??
     (baseGame && "title" in baseGame ? baseGame.title : undefined) ??
     sandbox?.displayName ??
     (sandbox?.name as string | undefined) ??
-    "Sandbox";
+    t("components.sandboxShell.sandbox");
 
   const description = hub?.description ?? undefined;
   const developer = hub?.developer ?? undefined;
@@ -170,7 +184,7 @@ function SandboxHero({
     "DieselGameBox",
   ]);
 
-  const releaseStatus = getReleaseStatus(primaryOffer);
+  const releaseStatus = getReleaseStatus(primaryOffer, t);
   const updated = hub?.updated ?? sandbox?.updated;
 
   return (
@@ -183,10 +197,12 @@ function SandboxHero({
 
       <div className="relative z-10 flex min-h-[330px] flex-col justify-end gap-5 p-6 md:p-9 lg:p-10">
         <div className="flex flex-wrap items-center gap-2">
-          <Badge variant="secondary">Sandbox</Badge>
+          <Badge variant="secondary">{t("components.sandboxShell.sandbox")}</Badge>
           {releaseStatus && <Badge variant="outline">{releaseStatus}</Badge>}
           {sandbox?.status && <Badge variant="outline">{sandbox.status}</Badge>}
-          {isInternal && <Badge variant="outline">Internal namespace</Badge>}
+          {isInternal && (
+            <Badge variant="outline">{t("components.sandboxShell.internalNamespace")}</Badge>
+          )}
         </div>
 
         <div className="max-w-5xl space-y-3">
@@ -227,7 +243,7 @@ function SandboxHero({
             {updated && (
               <>
                 <span>/</span>
-                <span>Updated {formatDate(updated)}</span>
+                <span>{t("components.sandboxShell.updated", { date: formatDate(updated) })}</span>
               </>
             )}
           </div>
@@ -263,6 +279,7 @@ function SandboxHero({
 
 function StoreActions({ offer }: { offer: SingleOffer }) {
   const storeUrl = getStoreUrl(offer);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -270,7 +287,7 @@ function StoreActions({ offer }: { offer: SingleOffer }) {
         <Button asChild className="h-10 gap-2">
           <a href={storeUrl} target="_blank" rel="noopener noreferrer">
             <ShoppingBag className="size-4" />
-            <span>Store Page</span>
+            <span>{t("components.sandboxShell.storePage")}</span>
           </a>
         </Button>
       )}
@@ -303,6 +320,7 @@ function getStoreUrl(offer: SingleOffer) {
 
 function PriceBlock({ price }: { price: Price | null }) {
   const { locale } = useLocale();
+  const { t } = useTranslation();
 
   if (!price) {
     return null;
@@ -322,7 +340,7 @@ function PriceBlock({ price }: { price: Price | null }) {
   return (
     <div className="flex min-h-10 flex-wrap items-center gap-2 rounded-md border border-border/45 bg-background/60 px-4 py-2 backdrop-blur md:gap-3 md:py-0">
       <span className={cn("text-lg font-semibold", discounted && "text-primary")}>
-        {discountPrice === 0 ? "Free" : formatter.format(discountPrice)}
+        {discountPrice === 0 ? t("common.free") : formatter.format(discountPrice)}
       </span>
       {discounted && (
         <>
@@ -336,20 +354,22 @@ function PriceBlock({ price }: { price: Price | null }) {
   );
 }
 
-function getReleaseStatus(offer: SingleOffer | null) {
+function getReleaseStatus(offer: SingleOffer | null, t: TFunction) {
   if (!offer) {
     return null;
   }
 
   if (offer.prePurchase) {
-    return "Pre-purchase";
+    return t("components.sandboxShell.releaseStatus.prePurchase");
   }
 
   if (!offer.releaseDate || offer.releaseDate.includes("2099")) {
-    return "Date pending";
+    return t("components.sandboxShell.releaseStatus.datePending");
   }
 
-  return new Date(offer.releaseDate) > new Date() ? "Coming soon" : "Released";
+  return new Date(offer.releaseDate) > new Date()
+    ? t("components.sandboxShell.releaseStatus.comingSoon")
+    : t("components.sandboxShell.releaseStatus.released");
 }
 
 function formatDate(value: string | null | undefined) {

@@ -1,0 +1,1763 @@
+{
+  "common": {
+    "appName": "EGDATA",
+    "search": "Maghanap",
+    "searchPlaceholder": "Maghanap ng mga laro...",
+    "loading": "Naglo-load...",
+    "free": "Libre",
+    "notAvailable": "Hindi available",
+    "cancel": "Kanselahin",
+    "save": "I-save",
+    "close": "Isara"
+  },
+  "nav": {
+    "toggleMenu": "I-toggle ang navigation menu",
+    "logoAlt": "Logo ng EGDATA",
+    "explore": "Galugarin",
+    "browse": "Mag-browse",
+    "sales": "Mga Sale",
+    "changelog": "Talaan ng mga Pagbabago",
+    "about": "Tungkol Sa",
+    "rankings": "Mga Ranggo",
+    "topSellers": "Pinakamabenta",
+    "mostPlayed": "Pinakamalaro",
+    "topWishlisted": "Pinakawishlist",
+    "topNewReleases": "Pinakabagong Release",
+    "seeAllCollections": "Tingnan lahat ng koleksyon",
+    "others": "Iba Pa",
+    "releaseStats": "Estadistika ng Release",
+    "genres": "Mga Genre",
+    "seeAllGenres": "Tingnan lahat ng genre",
+    "other": "Iba",
+    "action": "Aksyon",
+    "rpg": "RPG",
+    "indie": "Indie",
+    "strategy": "Estratehiya",
+    "topSellerOnEpic": "Pinakamabenta sa Epic Games Store",
+    "searchItemTitle": "Maghanap",
+    "searchItemDesc": "Hanapin ang iyong hinahanap sa Epic Games Store.",
+    "freeGamesItemTitle": "Mga Libreng Laro",
+    "freeGamesItemDesc": "Tuklasin ang mga pinakabagong libreng laro sa Epic Games Store.",
+    "withDiscountsItemTitle": "May Diskwento",
+    "withDiscountsItemDesc": "Tingnan ang mga larong kasalukuyang naka-sale na may magagandang diskwento.",
+    "helloUser": "Hello, {{name}}!",
+    "dashboard": "Dashboard",
+    "logout": "Logout",
+    "searchLanguages": "Maghanap ng mga wika...",
+    "noLanguagesFound": "Walang nakitang wika"
+  },
+  "footer": {
+    "logoAlt": "Logo ng EGDATA",
+    "disclaimer": "Isang fan-made Epic Games Store database. Hindi kaakibat ng Epic Games, Inc. Lahat ng logo, larawan, at trademark ay pag-aari ng kani-kanilang may-ari.",
+    "legal": "Legal",
+    "privacyPolicy": "Patakaran sa Privacy",
+    "notifications": "Mga Notipikasyon",
+    "resources": "Mga Resource",
+    "apiDocs": "Dokumentasyon ng API",
+    "changelog": "Talaan ng mga Pagbabago",
+    "community": "Komunidad",
+    "flagsByFlagpedia": "Mga Watawat mula sa Flagpedia",
+    "madeIn": "Ginawa sa"
+  },
+  "meta": {
+    "title": "Epic Games Database - egdata.app",
+    "description": "Komprehensibong Epic Games Store database: impormasyon ng laro, presyo, kasaysayan ng benta, listahan ng file, at marami pa. Galugarin ang mga libreng laro, paparating na release, at mga insight ng komunidad.",
+    "twitterTitle": "Epic Games Database",
+    "twitterDescription": "Isang libre at open-source na Epic Games Store database na may komprehensibong impormasyon ng laro, pagsubaybay sa benta, at marami pa. Pinapatakbo ng komunidad at palaging ina-update.",
+    "twitterImageAlt": "Epic Games Database",
+    "ogTitle": "Epic Games Database",
+    "ogDescription": "Isang libre at open-source na Epic Games Store database na may komprehensibong impormasyon ng laro, pagsubaybay sa benta, at marami pa. Pinapatakbo ng komunidad at palaging ina-update.",
+    "ogImageAlt": "Epic Games Database"
+  },
+  "notFound": {
+    "title": "Hindi nahanap ang pahina"
+  },
+  "home": {
+    "statsBar": {
+      "offersTracked": "Mga Offer na Natrack",
+      "priceChanges72h": "Pagbabago ng Presyo / 72h",
+      "activeDiscounts": "Mga Aktibong Diskwento",
+      "giveawaysToDate": "Mga Giveaway Hanggang Ngayon"
+    },
+    "sections": {
+      "giveawayStats": "Estadistika ng Giveaway",
+      "giveawayOffers": "Mga Offer na Giveaway",
+      "upcomingOffers": "Mga Paparating na Offer",
+      "latestOffers": "Mga Pinakabagong Offer",
+      "latestReleased": "Mga Pinakabagong Release",
+      "latestOffersWithAchievements": "Mga Pinakabagong Offer na may Achievements",
+      "topSellingOffers": "Mga Pinakamabentang Offer",
+      "latestBuilds": "Mga Pinakabagong Build"
+    },
+    "tableHeaders": {
+      "hash": "#",
+      "pos": "Pos",
+      "dash": "-",
+      "title": "Pamagat",
+      "starts": "Magsisimula",
+      "ends": "Magtatapos",
+      "releaseDate": "Petsa ng Release",
+      "createdAt": "Ginawa Noong",
+      "date": "Petsa",
+      "price": "Presyo",
+      "size": "Sukat",
+      "creationDate": "Petsa ng Paggawa"
+    },
+    "offerHover": {
+      "seller": "Nagbebenta:",
+      "developer": "Developer:",
+      "publisher": "Publisher:",
+      "releaseDate": "Petsa ng Release:",
+      "ageRating": "Rating ng Edad:",
+      "moreGenres_one": "+{{count}} pa",
+      "moreGenres_other": "+{{count}} pa",
+      "communityRating": "Rating ng Komunidad:",
+      "igdbScore": "IGDB Score",
+      "reviews": "• {{count}} review",
+      "timeToBeat": "Oras para Matapos:",
+      "features": "Mga Tampok:",
+      "moreFeatures": " +{{count}} pa"
+    },
+    "buildHover": {
+      "unknownBuild": "Hindi Kilalang Build",
+      "unknownDeveloper": "Hindi Kilalang Developer",
+      "size": "Sukat",
+      "version": "Bersyon",
+      "created": "Ginawa",
+      "id": "ID: {{id}}"
+    },
+    "multipleOffers": "{{title}} - Maramihang Offer",
+    "hero": {
+      "subtitle": "Subaybayan ang mga presyo, tumuklas ng mga deal, at huwag palampasin ang libreng laro. Iyong kasama para sa Epic Games Store database — mga offer, diskwento, giveaway, build, at marami pa.",
+      "searchPlaceholder": "Maghanap sa database…",
+      "justReleased": "Kakarelease lang",
+      "priceDrops72h": "Pagbaba ng presyo (72h)",
+      "hasAchievements": "May achievements",
+      "upcoming": "Paparating",
+      "topSellers": "Pinakamabenta"
+    },
+    "pulse": {
+      "recentActivity": "Kamakailang aktibidad",
+      "badge": {
+        "new": "Bago",
+        "gone": "Wala na",
+        "offer": "Offer",
+        "build": "Build",
+        "item": "Item",
+        "asset": "Asset",
+        "xp": "XP",
+        "sandbox": "Sandbox",
+        "change": "Pagbabago"
+      },
+      "title": {
+        "buildVersion": "Build {{version}}",
+        "buildId": "Build {{id}}",
+        "achievementsId": "Achievements {{id}}"
+      },
+      "detail": {
+        "newBuildIndexed": "Bagong build na na-index",
+        "buildManifestRefreshed": "Na-refresh ang manifest ng build",
+        "achievementChanges_one": "{{count}} achievement {{entry}} {{verb}}",
+        "achievementChanges_other": "{{count}} achievement {{entry}} {{verb}}",
+        "offerMetadataRefreshed": "Na-refresh ang metadata ng offer",
+        "fieldsChanged_one": "{{count}} field {{verb}}",
+        "fieldsChanged_other": "{{count}} field {{verb}}",
+        "fieldChanged": "{{field}} {{verb}}"
+      },
+      "actionVerb": {
+        "added": "idinagdag",
+        "removed": "tinanggal",
+        "updated": "na-update",
+        "changed": "binago"
+      },
+      "entry_one": "entry",
+      "entry_other": "entry"
+    }
+  },
+  "offerDetail": {
+    "common": {
+      "offerNotFound": "Hindi nahanap ang offer",
+      "notAvailable": "Hindi available",
+      "na": "N/A",
+      "loading": "Naglo-load...",
+      "somethingWentWrong": "May maling nangyari",
+      "noChangesFound": "Walang nakitang pagbabago para sa offer na ito"
+    },
+    "tabs": {
+      "overview": "Pangkalahatang-ideya",
+      "price": "Presyo",
+      "items": "Mga Item",
+      "builds": "Mga Build",
+      "achievements": "Mga Achievement",
+      "related": "Kaugnay",
+      "metadata": "Metadata",
+      "changelog": "Talaan ng Pagbabago",
+      "media": "Media",
+      "reviews": "Mga Review"
+    },
+    "table": {
+      "offerId": "ID ng Offer",
+      "namespace": "Namespace",
+      "offerType": "Uri ng Offer",
+      "seller": "Nagbebenta",
+      "developer": "Developer",
+      "supportedPlatforms": "Mga Suportadong Platform",
+      "releaseDate": "Petsa ng Release",
+      "lastUpdate": "Huling Update",
+      "creationDate": "Petsa ng Paggawa",
+      "technologies": "Mga Teknolohiya",
+      "type": "Uri",
+      "value": "Halaga",
+      "countriesBlacklist": "Blacklist ng mga Bansa",
+      "countriesWhitelist": "Whitelist ng mga Bansa",
+      "categories": "Mga Kategorya",
+      "refundType": "Uri ng Refund",
+      "tags": "Mga Tag",
+      "ageRatings": "Mga Rating ng Edad",
+      "assets": "Mga Asset"
+    },
+    "badges": {
+      "prePurchase": "Pre-Purchase",
+      "earlyAccess": "Early Access"
+    },
+    "hero": {
+      "offeredBy": "Inaalok ni {{seller}}"
+    },
+    "tooltip": {
+      "internalNamespace": "Internal na namespace ng Epic Games",
+      "techDescription": "listahan ng mga teknolohiya para subaybayan ang mga ginamit na engine at iba't ibang teknolohiya mula sa mga file ng laro.",
+      "techSource": "Ginagamit namin ang",
+      "techSourceSteamDb": "SteamDB",
+      "source": "Pinagmulan"
+    },
+    "actions": {
+      "compare": "Ihambing"
+    },
+    "releaseDate": {
+      "releasedOnPc": "Inilabas sa PC",
+      "theEgs": " sa EGS",
+      "releasedSameDay": "Inilabas sa Epic kasabay ng PC"
+    },
+    "notifications": {
+      "title": "Mga Setting ng Notipikasyon",
+      "description": "Pumili kung anong mga notipikasyon ang gusto mong matanggap para sa offer na ito.",
+      "all": "Lahat",
+      "price": "Presyo",
+      "achievements": "Mga Achievement",
+      "builds": "Mga Build",
+      "items": "Mga Item",
+      "requirements": "Mga Requirement",
+      "metadata": "Metadata",
+      "media": "Media",
+      "enablePushDescription": "Kailangan mong i-enable ang push notifications para makatanggap ng mga notipikasyon para sa offer na ito.",
+      "enablePushAction": "I-enable ang Push Notifications"
+    },
+    "overview": {
+      "genres": "Mga Genre",
+      "ageRating": "Rating ng Edad",
+      "noAgeRatings": "Walang nakitang rating ng edad",
+      "giveaways": "Mga Giveaway",
+      "noGiveaways": "Walang nakitang giveaway",
+      "achievements": "Mga Achievement",
+      "igdbTimeToBeat": "IGDB Time To Beat",
+      "hastily": "Mabilisan",
+      "normally": "Normal",
+      "completely": "Ganap",
+      "hltbSubmissions_one": "Batay sa {{count}} submission",
+      "hltbSubmissions_other": "Batay sa {{count}} submission",
+      "price": "Presyo",
+      "priceCurrent": "Kasalukuyan:",
+      "priceLowest": "Pinakamababa:",
+      "priceLastDiscount": "Huling Diskwento:",
+      "hltbTitle": "Gaano Katagal Laruin",
+      "noGameTimes": "Walang nakitang oras ng laro",
+      "epicRating": "Rating ng Manlalaro ng Epic",
+      "epicRatingDescription": "Nakuha mula sa mga manlalaro sa Epic Games ecosystem",
+      "igdbRating": "Rating ng IGDB",
+      "igdbReviews_one": "{{count}} review",
+      "igdbReviews_other": "{{count}} review"
+    },
+    "achievements": {
+      "title": "Mga Achievement",
+      "sortBy": "Pagbukud-bukurin ayon sa",
+      "defaultSort": "Default na Pagkakasunod",
+      "sortByRarity": "Pagbukud-bukurin ayon sa Rarity",
+      "sortByCompleted": "Pagbukud-bukurin ayon sa % ng Natapos",
+      "search": "Maghanap",
+      "flipAll": "I-flip Lahat",
+      "noAchievements": "Walang nakitang achievement",
+      "noAchievementsSet": "Walang nakitang achievement para sa set na ito.",
+      "noAchievementsSetDescription": "Maaaring nangangahulugan ito na ang mga achievement ay hindi kasalukuyang available ngunit idadagdag sa hinaharap.",
+      "baseGame": "Base Game",
+      "dlc": "DLC",
+      "achievementsLabel": "Mga Achievement",
+      "baseGameDescription": "Ang listahang ito ng achievement ay para sa base game.",
+      "dlcDescription": "Ang listahang ito ng achievement ay para sa isa sa mga DLC.",
+      "lastUpdated": "Huling Na-update:",
+      "lastUpdatedTooltip": "Ang achievement set na ito ay huling na-update noong {{date}}.",
+      "lastUpdatedTooltipDescription": "Ito ay alinman sa petsa ng paggawa nito o petsa ng huling update."
+    },
+    "builds": {
+      "title": "Mga Build"
+    },
+    "items": {
+      "title": "Mga Item"
+    },
+    "price": {
+      "title": "Presyo"
+    },
+    "related": {
+      "title": "Mga Kaugnay na Offer"
+    },
+    "media": {
+      "images": "Mga Larawan",
+      "videos": "Mga Video",
+      "covers": "Mga Cover",
+      "noImages": "Walang nakitang larawan",
+      "noVideos": "Walang nakitang video",
+      "noCovers": "Walang nakitang cover",
+      "download": "I-download",
+      "close": "Isara",
+      "downloadCoverAria": "I-download ang {{type}} cover"
+    },
+    "metadata": {
+      "title": "Metadata",
+      "download": "I-download:",
+      "install": "I-install:"
+    },
+    "changelog": {
+      "title": "Talaan ng Pagbabago",
+      "tooltip": "Ang listahang ito ay ang mga pagbabagong ginawa sa partikular na offer na ito o mga kaugnay na item, asset o build.",
+      "sandboxChangelog": "talaan ng pagbabago ng sandbox",
+      "sandboxChangelogPrefix": "Maaari mong makita ang talaan ng pagbabago para sa buong produkto sa",
+      "noChangelog": "Walang available na talaan ng pagbabago",
+      "allTypes": "Lahat ng uri",
+      "selectField": "Pumili ng field",
+      "allFields": "Lahat ng field",
+      "search": "Maghanap",
+      "previous": "Nakaraan",
+      "next": "Susunod",
+      "pageOf": "Pahina {{page}} ng {{totalPages}}",
+      "typeUpdate": "Update",
+      "typeDelete": "Delete",
+      "typeInsert": "Insert"
+    },
+    "reviews": {
+      "epicRating": "Rating ng Manlalaro ng Epic",
+      "epicRatingDescription": "Nakuha mula sa mga manlalaro sa Epic Games ecosystem",
+      "egdataRating": "Rating ng EGDATA",
+      "overallScore": "Kabuuang Puntos",
+      "scoreOutOf10": "{{score}} / 10",
+      "basedOnReviews": "Batay sa {{count}} review",
+      "allReviews": "Lahat ng Review",
+      "onlyVerified": "Na-verify Lang",
+      "notVerified": "Hindi Na-verify",
+      "leaveReview": "Mag-iwan ng review",
+      "alreadyReviewed": "Na-review na",
+      "loginToReview": "Mag-login para mag-review",
+      "noReviews": "Wala pang review",
+      "notReleased": "Ang produktong ito ay hindi pa nailalabas",
+      "beFirst": "Maging una na mag-iwan ng review para sa produktong ito!",
+      "checkBack": "Bumalik pagkatapos ng release date para mag-iwan ng review!",
+      "verifiedOwner": "Na-verify na May-ari",
+      "recommended": "Inirerekomenda",
+      "notRecommended": "Hindi Inirerekomenda",
+      "readMore": "Magbasa pa",
+      "reviewedOn": "Na-review noong",
+      "lastUpdatedOn": "Huling na-update noong",
+      "editedTimes": "Na-edit {{count}} beses",
+      "edit": "I-edit",
+      "close": "Isara",
+      "reviewCount_one": "{{count}} review",
+      "reviewCount_other": "{{count}} review",
+      "ownershipVerification": "Pagpapatunay ng pagmamay-ari",
+      "ownershipVerificationDescription": "ay batay sa pagkumpleto ng kahit isang achievement ng manlalaro.",
+      "ownershipVerificationTooltip": "Ginagamit namin ang mga achievement ng Epic Games upang patunayan ang pagmamay-ari ng produkto. Upang markahan ang isang manlalaro bilang verified owner, dapat silang nakatapos ng kahit isang achievement para sa napiling produkto sa Epic Games Store. Upang i-link ang iyong account sa iyong egdata profile, kailangan mong pumunta sa",
+      "yourDashboard": "iyong dashboard",
+      "criticReviews": "Mga Review ng Kritiko",
+      "basedOnCriticReviews": "Batay sa {{count}} review ng kritiko",
+      "opencriticRating": "Rating ng OpenCritic",
+      "topCriticAverage": "Average ng Nangungunang Kritiko",
+      "criticsRecommend": "Inirerekomenda ng mga Kritiko",
+      "opencriticRatingAlt": "Rating ng OpenCritic"
+    }
+  },
+  "search": {
+    "meta": {
+      "title": "Maghanap | egdata.app",
+      "description": "Maghanap ng mga offer mula sa Epic Games Store."
+    },
+    "defaultTitle": "Maghanap",
+    "filters": "Mga Filter",
+    "filtersPlaceholder": "Maghanap ng mga laro",
+    "pills": {
+      "onSale": "Naka-sale",
+      "codeRedemptionOnly": "Code Redemption Lang",
+      "excludeBlockchain": "Ibukod ang Blockchain/NFT",
+      "pastGiveaways": "Mga Nakaraang Giveaway"
+    },
+    "accordion": {
+      "offerType": "Uri ng Offer",
+      "developer": "Developer",
+      "publisher": "Publisher",
+      "noTags": "Walang nakitang tag",
+      "seller": "Nagbebenta"
+    },
+    "checkboxes": {
+      "pastGiveaways": "Mga Nakaraang Giveaway",
+      "onSale": "Naka-sale",
+      "codeRedemptionOnly": "Code Redemption Lang",
+      "excludeBlockchain": "Ibukod ang Blockchain/NFT",
+      "onlyHistoricalLows": "Mga historical lows lang",
+      "onlyLowestPriceEver": "Pinakamababang presyo lang"
+    },
+    "tagGroups": {
+      "event": "Kaganapan",
+      "genre": "Genre",
+      "epicfeature": "Epic Feature",
+      "accessibility": "Accessibility",
+      "feature": "Feature",
+      "usersay": "Usersay",
+      "subscription": "Subscription",
+      "platform": "Platform",
+      "all": "Lahat ng Tag"
+    },
+    "sort": {
+      "sortBy": "Pagbukud-bukurin ayon sa",
+      "sortAriaLabel": "Pagbukud-bukurin ang mga offer",
+      "sortDirectionAriaLabel": "I-toggle ang direksyon ng pagbukud-bukod",
+      "showListView": "Ipakita ang list view",
+      "showGridView": "Ipakita ang grid view",
+      "releaseDate": "Petsa ng Release",
+      "lastModifiedDate": "Petsa ng Pagbabago",
+      "effectiveDate": "Epektibong Petsa",
+      "creationDate": "Petsa ng Paggawa",
+      "viewableDate": "Petsa na Maaaring Makita",
+      "pcReleaseDate": "Petsa ng PC Release",
+      "upcoming": "Paparating",
+      "price": "Presyo",
+      "discount": "Diskwento",
+      "discountPercent": "Diskwento %",
+      "giveawayDate": "Petsa ng Giveaway"
+    },
+    "results": {
+      "noResults": "Walang nakitang resulta"
+    }
+  },
+  "freebies": {
+    "meta": {
+      "title": "Mga Libreng Laro | egdata.app",
+      "description": "Mag-browse ng mga libreng laro mula sa Epic Games Store."
+    },
+    "headings": {
+      "current": "Kasalukuyang Libreng Laro",
+      "past": "Mga Nakaraang Libreng Laro",
+      "sellers": "Mga Nagbebenta ng Libreng Laro"
+    },
+    "buttons": {
+      "redeem": "I-redeem Ngayon",
+      "downloadJson": "I-download bilang JSON",
+      "downloadCsv": "I-download bilang CSV",
+      "downloadTxt": "I-download bilang Text"
+    },
+    "placeholders": {
+      "searchSellers": "Maghanap ng mga nagbebenta..."
+    },
+    "aria": {
+      "downloadList": "I-download ang listahan"
+    },
+    "errors": {
+      "loadSellers": "Error sa pag-load ng data ng nagbebenta. Pakisubukan muli mamaya."
+    },
+    "table": {
+      "sellerName": "Pangalan ng Nagbebenta",
+      "totalGames": "Kabuuang Indibidwal na Laro"
+    }
+  },
+  "sales": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Tingnan ang {{title}} mula sa Epic Games Store."
+    },
+    "metaIndex": {
+      "title": "Mga Aktibong Sale | egdata.app",
+      "description": "Mag-browse ng mga aktibong sale sa egdata.app"
+    },
+    "status": {
+      "loading": "Naglo-load...",
+      "noData": "Walang data"
+    },
+    "headings": {
+      "active": "Mga Aktibong Sale",
+      "pastUpcoming": "Mga Nakaraan / Paparating na Sale",
+      "offersList": "{{title}} Offer"
+    },
+    "errors": {
+      "notFound": "Hindi nahanap ang promosyon"
+    },
+    "labels": {
+      "offersCount": "{{count}} offer na available sa event na ito"
+    }
+  },
+  "collections": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Tingnan ang {{title}} mula sa Epic Games Store."
+    },
+    "metaIndex": {
+      "title": "Mga Koleksyon | egdata.app",
+      "description": "Mga Koleksyon sa egdata.app"
+    },
+    "headings": {
+      "main": "Mga Koleksyon"
+    },
+    "description": {
+      "overview": "Ang mga pinakamabenta, pinakamalaro, at pinakasikat na laro sa Epic Games Store"
+    },
+    "status": {
+      "loading": "Naglo-load..."
+    },
+    "errors": {
+      "notFound": "Hindi nahanap ang koleksyon"
+    },
+    "table": {
+      "position": "Posisyon",
+      "variance": "Pagkakaiba",
+      "weeks": "Linggo"
+    },
+    "tooltips": {
+      "variance": "Ang pagkakaiba sa pagitan ng kasalukuyang posisyon at nakaraang posisyon. Karaniwang nagbabago araw-araw.",
+      "weeks": "Ang bilang ng mga linggo na ang laro ay nasa top 100 para sa {{title}}."
+    },
+    "buttons": {
+      "loadMore": "Mag-load pa"
+    }
+  },
+  "sandboxes": {
+    "notFoundTitle": "Hindi nahanap ang Sandbox",
+    "notFoundDescription": "Hindi nahanap ang Sandbox",
+    "unrealEngineTitle": "Unreal Engine",
+    "unavailableTitle": "Hindi available ang Sandbox",
+    "unavailableDescription": "Hindi ma-load ang product hub.",
+    "noProductDataDescription": "Walang data ng produkto para sa sandbox na ito.",
+    "hubEyebrow": "Sandbox",
+    "hubOverviewTitle": "Pangkalahatang-ideya",
+    "hubOverviewDescription": "Isang nakatuong mapa ng storefront, pagmamay-ari, paghahatid, at mga talaan ng update para sa Namespace na ito.",
+    "latestChangesButton": "Mga pinakabagong pagbabago",
+    "entityOffersLabel": "Mga Offer",
+    "entityOffersDescription": "Mga entry sa tindahan",
+    "entityItemsLabel": "Mga Item",
+    "entityItemsDescription": "Mga talaan na maaaring pag-aari",
+    "entityAssetsLabel": "Mga Asset",
+    "entityAssetsDescription": "Mga artifact at media",
+    "entityBuildsLabel": "Mga Build",
+    "entityBuildsDescription": "Mga bundle ng binary",
+    "entityAchievementsLabel": "Mga Achievement",
+    "entityAchievementsDescription": "Data ng progreso",
+    "entityChangelogLabel": "Talaan ng Pagbabago",
+    "entityChangelogDescription": "Mga na-track na update",
+    "viewButton": "Tingnan",
+    "storefrontOffersTitle": "Mga offer sa storefront",
+    "storefrontOffersDescription": "Mga representatibong entry sa tindahan na matatagpuan sa sandbox na ito.",
+    "recentBuildsTitle": "Mga kamakailang build",
+    "recentBuildsDescription": "Mga pinakabagong talaan ng binary.",
+    "latestBadge": "pinakabago",
+    "unknownBuildLabel": "Hindi kilalang build",
+    "recentChangesTitle": "Mga kamakailang pagbabago",
+    "recentChangesDescription": "Mga pinakabagong mutasyon ng catalog.",
+    "updateBadge": "update",
+    "changeDefaultLabel": "Pagbabago",
+    "metaOffersTitle": "Mga Offer",
+    "offersEyebrow": "E-commerce",
+    "offersTitle": "Mga Offer",
+    "offersDescription": "Mga entry sa storefront sa sandbox na ito, kasama ang base games, editions, DLC, add-ons, bundle, at anumang offer na maaaring magbigay ng mga item sa catalog.",
+    "totalOffersLabel": "Kabuuang offer",
+    "metaAchievementsTitle": "Mga Achievement",
+    "achievementsEyebrow": "Progreso",
+    "achievementsTitle": "Mga Achievement",
+    "achievementsDescription": "Mga set ng achievement, hidden states, distribution ng rarity, at XP totals na naka-attach sa sandbox na ito.",
+    "achievementsSetsLabel": "Mga Set",
+    "achievementsLabel": "Mga Achievement",
+    "achievementsXpLabel": "XP",
+    "searchAchievementsPlaceholder": "Maghanap ng achievement",
+    "flipAllButton": "I-flip lahat",
+    "revealHiddenAchievementAria": "Ibunyag ang nakatagong teksto ng achievement",
+    "hideHiddenAchievementAria": "Itago ang nakatagong teksto ng achievement",
+    "achievementsBaseGameLabel": "Base Game",
+    "achievementsDlcLabel": "DLC",
+    "achievementsBaseGameTooltip": "Ang listahang ito ng achievement ay para sa base game.",
+    "achievementsDlcTooltip": "Ang listahang ito ng achievement ay para sa isa sa mga DLC.",
+    "lastUpdatedLabel": "Huling Na-update:",
+    "achievementsLastUpdatedTooltip": "Ang achievement set na ito ay huling na-update noong",
+    "achievementsLastUpdatedTooltipExtra": "Ito ay alinman sa petsa ng paggawa nito o petsa ng huling update.",
+    "noAchievementsForSet": "Walang nakitang achievement para sa set na ito.",
+    "noAchievementsForSetExtra": "Maaaring nangangahulugan ito na ang mga achievement ay hindi kasalukuyang available ngunit idadagdag sa hinaharap.",
+    "noAchievementsFound": "Walang nakitang achievement",
+    "metaItemsTitle": "Mga Item",
+    "itemsEyebrow": "Pagmamay-ari ng catalog",
+    "itemsTitle": "Mga Item",
+    "itemsDescription": "Mga item sa catalog na maaaring pag-aari na nakapaloob sa mga offer. Ito ang mga talaan na nagiging entitlement ng manlalaro pagkatapos ng pagbili o pag-redeem.",
+    "totalItemsLabel": "Kabuuang item",
+    "metaChangelogTitle": "Talaan ng Pagbabago",
+    "changelogEyebrow": "Audit trail",
+    "changelogTitle": "Talaan ng Pagbabago",
+    "changelogDescription": "Naobserbahang pagbabago sa mga offer, item, asset, build, at kaugnay na metadata ng catalog ng sandbox na ito.",
+    "totalChangesLabel": "Mga Pagbabago",
+    "queryTimeLabel": "Oras ng query",
+    "noChangelogFound": "Walang nakitang talaan ng pagbabago",
+    "metaBuildsTitle": "Mga Build",
+    "buildsEyebrow": "Binary",
+    "buildsTitle": "Mga Build",
+    "buildsDescription": "Mga bersyong file bundle na in-upload para sa sandbox. Ang mga build ay nakatalaga sa mga artifact at nagtutulak kung ano ang dina-download ng mga manlalaro sa pamamagitan ng launcher.",
+    "totalBuildsLabel": "Kabuuang build",
+    "metaAssetsTitle": "Mga Asset",
+    "assetsEyebrow": "Mga asset at artifact",
+    "assetsTitle": "Mga Asset",
+    "assetsDescription": "Distribution at media records na naka-attach sa mga item ng sandbox, kasama ang mga artifact na nag-uugnay ng content ng store catalog sa mga nada-download na build.",
+    "totalAssetsLabel": "Kabuuang asset"
+  },
+  "items": {
+    "notFound": "Hindi nahanap ang item",
+    "badge": "Item",
+    "table": {
+      "itemId": "ID ng Item",
+      "namespace": "Namespace",
+      "developer": "Developer",
+      "entitlementType": "Uri ng Entitlement",
+      "entitlementName": "Pangalan ng Entitlement",
+      "status": "Katayuan",
+      "creationDate": "Petsa ng Paggawa",
+      "lastModified": "Huling Binago",
+      "platforms": "Mga Platform"
+    },
+    "tooltip": {
+      "internalNamespace": "Internal na namespace ng Epic Games"
+    },
+    "tabs": {
+      "item": "Item",
+      "assets": "Mga Asset",
+      "images": "Mga Larawan",
+      "builds": "Mga Build",
+      "changelog": "Talaan ng Pagbabago"
+    },
+    "metadata": {
+      "title": "Metadata",
+      "key": "Key",
+      "value": "Halaga"
+    },
+    "assets": {
+      "title": "Mga Asset"
+    },
+    "builds": {
+      "title": "Mga Build"
+    },
+    "changelog": {
+      "title": "Talaan ng Pagbabago",
+      "noChangelog": "Walang available na talaan ng pagbabago"
+    },
+    "images": {
+      "title": "Mga Larawan"
+    }
+  },
+  "builds": {
+    "notFound": "Hindi nahanap ang build",
+    "build": "Build",
+    "for": "para sa",
+    "compressed": "({{percent}}% compressed)",
+    "table": {
+      "buildId": "ID ng Build",
+      "buildName": "Pangalan ng Build",
+      "appName": "Pangalan ng App",
+      "hash": "Hash",
+      "installedSize": "Sukat ng Naka-install",
+      "downloadSize": "Sukat ng Download",
+      "createdAt": "Ginawa Noong",
+      "updatedAt": "Na-update Noong",
+      "technologies": "Mga Teknolohiya"
+    },
+    "tooltip": {
+      "techSource": "Ginagamit namin ang",
+      "techSourceSteamDb": "SteamDB",
+      "techDescription": "listahan ng mga teknolohiya para subaybayan ang mga ginamit na engine at iba't ibang teknolohiya mula sa mga file ng laro.",
+      "source": "Pinagmulan"
+    },
+    "tabs": {
+      "files": "Mga File",
+      "items": "Mga Item",
+      "installOptions": "Mga Opsyon sa Pag-install"
+    },
+    "files": {
+      "title": "Mga File"
+    },
+    "items": {
+      "title": "Mga Item"
+    },
+    "installOptions": {
+      "title": "Mga Opsyon sa Pag-install",
+      "file_one": "file",
+      "file_other": "file"
+    },
+    "meta": {
+      "title": "{{title}} ({{version}}) | egdata.app",
+      "description": "Build {{version}} para sa {{title}} mula sa Epic Games Store."
+    }
+  },
+  "profile": {
+    "meta": {
+      "notFoundTitle": "Hindi nahanap ang profile",
+      "notFoundDescription": "Hindi nahanap ang profile",
+      "title": "{{name}} | egdata.app",
+      "description": "Tingnan ang mga achievement at laro ni {{name}} sa egdata.app",
+      "defaultName": "Profile",
+      "defaultDescriptionName": "manlalarong ito"
+    },
+    "errors": {
+      "notFoundTitle": "Hindi nahanap ang profile",
+      "notFoundDescription": "Ang profile na ito ay hindi available o hindi pa na-index.",
+      "unavailableTitle": "Hindi available ang profile",
+      "unavailableDescription": "Hindi ma-load ang profile na ito sa ngayon.",
+      "invalidImageFormat": "Hindi valid na format ng larawan",
+      "failedToUpload": "Nabigong mag-upload",
+      "uploadFailed": "Nabigo ang upload",
+      "failedToRefresh": "Nabigong i-refresh ang profile",
+      "refreshQueued": "Idinagdag ang profile sa queue para sa refresh, malapit na itong ma-update."
+    },
+    "fallbackName": "Hindi kilalang profile",
+    "avatar": {
+      "changeAvatar": "Palitan ang Avatar",
+      "dialogDescription": "Mag-upload ng bagong larawan ng profile.",
+      "previewAlt": "Preview ng avatar",
+      "fallback": "Avatar",
+      "description": "Mag-upload ng bagong avatar image, max 5MB.",
+      "uploadingWithProgress": "Nag-u-upload... {{progress}}%",
+      "uploading": "Nag-u-upload...",
+      "updateAvatar": "I-update ang Avatar",
+      "errorTitle": "Error"
+    },
+    "hero": {
+      "joined": "Sumali",
+      "epicGamesStore": "Epic Games Store",
+      "linkDiscord": "I-link ang Discord",
+      "refreshProfile": "I-refresh ang profile",
+      "refreshAvailableIn": "Refresh available sa",
+      "level": "Level",
+      "achievements": "Mga Achievement",
+      "unlocked": "Na-unlock",
+      "platinum": "Platinum",
+      "perfectGames": "Perpektong laro",
+      "library": "Library",
+      "achievementGames": "Mga larong may achievement",
+      "reviews": "Mga Review",
+      "contributed": "Na-contribute",
+      "xpToNextLevel": "{{xp}} XP hanggang level {{level}}",
+      "heroGame": "Hero game",
+      "complete": "kumpleto"
+    },
+    "donor": {
+      "donated_one": "Si {{name}} ay nag-donate ng {{count}} key sa egdata.app",
+      "donated_other": "Si {{name}} ay nag-donate ng {{count}} key sa egdata.app",
+      "goTo": "Pumunta sa",
+      "thisLink": "link na ito",
+      "toDonateKey": "upang mag-donate ng key."
+    },
+    "countdown": {
+      "minutesSeconds_one": "{{minutes}} minuto {{seconds}} segundo",
+      "minutesSeconds_other": "{{minutes}} minuto {{seconds}} segundo",
+      "seconds_one": "{{seconds}} segundo",
+      "seconds_other": "{{seconds}} segundo"
+    },
+    "tabs": {
+      "showcase": "Showcase",
+      "library": "Library",
+      "activity": "Aktibidad"
+    },
+    "stats": {
+      "games": "{{count}} laro",
+      "achievements": "{{count}} achievement",
+      "platinum": "{{count}} platinum"
+    },
+    "showcase": {
+      "ariaLabel": "Mga highlight ng showcase ng profile",
+      "featuredGamesTitle": "Mga Itinatampok na Laro",
+      "featuredGamesDetail": "{{count}} pinili ayon sa performance ng profile",
+      "rareAchievementsTitle": "Mga Bihirang Achievement",
+      "rareAchievementsDetail": "Mahirap makitang mga unlock sa buong profile",
+      "recentUnlocksTitle": "Mga Kamakailang Unlock",
+      "recentUnlocksDetail": "Pinakabagong nakikitang aktibidad",
+      "noDataTitle": "Wala pang data ng showcase",
+      "noDataDescription": "Ang mga nailabas na laro na may pampublikong progress ng achievement lamang ang lumalabas sa profile.",
+      "rarestUnlock": "Pinakabihirang unlock",
+      "definingGame": "Pangunahing laro",
+      "latestActivity": "Pinakabagong aktibidad",
+      "achievementsCount": "{{unlocked}} / {{total}} achievement",
+      "platinum": "Platinum"
+    },
+    "library": {
+      "filterAriaLabel": "Filter ng library",
+      "sortAriaLabel": "Pagbukud-bukurin ang library",
+      "sortByPlaceholder": "Pagbukud-bukurin ayon sa",
+      "noGamesTitle": "Walang nakitang laro",
+      "noGamesDescription": "Ang mga nailabas na laro na may achievement lamang ang lumalabas sa library na ito.",
+      "gameAlt": "Laro",
+      "complete": "kumpleto",
+      "featured": "Itinatampok",
+      "rareUnlocks": "Mga bihirang unlock",
+      "filters": {
+        "all": "Lahat",
+        "completed": "Natapos",
+        "nearPlatinum": "Malapit sa Platinum",
+        "inProgress": "Kasalukuyan",
+        "platinum": "Platinum"
+      },
+      "sorts": {
+        "completion": "Pagkumpleto",
+        "alphabetical": "Alpabetikal",
+        "xp": "XP",
+        "achievements": "Mga Achievement"
+      }
+    },
+    "activity": {
+      "title": "Aktibidad",
+      "detail": "{{count}} achievement na na-unlock",
+      "noActivityTitle": "Wala pang aktibidad",
+      "noActivityDescription": "Lilitaw dito ang mga unlock ng achievement kapag ang profile na ito ay may pampublikong progress.",
+      "achievementAlt": "Achievement",
+      "platinumEarned": "Nakamit ang Platinum",
+      "achievementUnlocked": "Na-unlock ang achievement",
+      "unknownRarity": "Hindi kilalang rarity",
+      "rarity": "{{value}}% rarity",
+      "unknownDate": "Hindi kilalang petsa"
+    },
+    "achievements": {
+      "loading": "Naglo-load...",
+      "notFound": "Hindi nahanap ang profile",
+      "myAchievements": "Aking mga Achievement"
+    }
+  },
+  "tags": {
+    "meta": {
+      "notFoundTitle": "Hindi nahanap ang promosyon",
+      "notFoundDescription": "Hindi nahanap ang promosyon",
+      "title": "{{title}} | egdata.app",
+      "description": "Tingnan mo ang {{count}} available na offer para sa {{title}} sa egdata.app.",
+      "socialTitle": "{{title}} - egdata.app"
+    },
+    "loading": "Naglo-load...",
+    "offersCount": "{{count}} offer na available sa event na ito",
+    "results": "Mga Resulta",
+    "resultsCount": "({{count}} resulta)",
+    "searchPlaceholder": "Maghanap...",
+    "loadMore": "Mag-load Pa",
+    "sortBy": {
+      "releaseDate": "Petsa ng Release",
+      "lastModifiedDate": "Petsa ng Pagbabago",
+      "effectiveDate": "Epektibong Petsa",
+      "creationDate": "Petsa ng Paggawa",
+      "viewableDate": "Petsa na Maaaring Makita",
+      "pcReleaseDate": "Petsa ng PC Release",
+      "upcoming": "Paparating",
+      "price": "Presyo"
+    }
+  },
+  "genres": {
+    "meta": {
+      "title": "Mga Genre - egdata.app",
+      "description": "Mga Genre sa egdata.app"
+    },
+    "heading": "Mga Genre"
+  },
+  "sellers": {
+    "meta": {
+      "notFoundTitle": "Hindi nahanap ang nagbebenta",
+      "notFoundDescription": "Hindi nahanap ang nagbebenta",
+      "title": "{{name}} | egdata.app"
+    },
+    "notFound": "Hindi nahanap ang nagbebenta",
+    "logoAlt": "Logo ni {{name}}",
+    "bannerAlt": "{{name}}",
+    "offersTitle": "Mga Offer ni {{name}}",
+    "stats": {
+      "offers": "Mga Offer",
+      "games": "Mga Laro",
+      "items": "Mga Item",
+      "freeGames": "Mga Libreng Laro"
+    }
+  },
+  "franchises": {
+    "meta": {
+      "notFoundTitle": "Hindi nahanap ang franchise",
+      "notFoundDescription": "Hindi nahanap ang franchise",
+      "title": "Franquicia {{name}} | egdata.app",
+      "description": "Mag-browse ng lahat ng laro sa {{name}} franchise sa Epic Games Store."
+    },
+    "loading": "Naglo-load...",
+    "gamesCount_one": "{{count}} laro",
+    "gamesCount_other": "{{count}} laro",
+    "timeToBeat": "Oras para matapos",
+    "achievements": "Mga Achievement",
+    "loadMore": "Mag-load pa",
+    "free": "Libre"
+  },
+  "stats": {
+    "creations": {
+      "meta": {
+        "title": "Estadistika ng mga creation - egdata.app",
+        "description": "Buwanan at taunang dalas ng mga bagong creation na dumarating sa Epic Games Store."
+      },
+      "viewReleases": "Tingnan ang mga Release",
+      "heading": "Estadistika ng creation ng Epic Games Store",
+      "description": "Buwanan at taunang dalas ng mga bagong creation na dumarating sa tindahan.",
+      "monthlyTitle": "Buwanang creation",
+      "yearlyTitle": "Taunang creation"
+    },
+    "releases": {
+      "meta": {
+        "title": "Estadistika ng Release - egdata.app",
+        "description": "Buwanan at taunang dalas ng mga bagong title na dumarating sa Epic Games Store."
+      },
+      "viewCreations": "Tingnan ang mga Creation",
+      "heading": "Estadistika ng release ng Epic Games Store",
+      "description": "Buwanan at taunang dalas ng mga bagong title na dumarating sa tindahan.",
+      "monthlyTitle": "Buwanang release",
+      "yearlyTitle": "Taunang release"
+    }
+  },
+  "store": {
+    "creatorCode": {
+      "title": "Suportahan ang egdata.app",
+      "description": "Gusto mo bang suportahan ang egdata.app sa pamamagitan ng paggamit ng aming creator code kapag bumibili ng laro? Ang pagpipiliang ito ay tatandaan para sa mga susunod na pagbisita.",
+      "body": "Ang paggamit ng aming creator code ay tumutulong suportahan ang pag-develop ng egdata.app at mga feature nito. Hindi ito nakakaapekto sa presyong iyong binabayaran.",
+      "noThanks": "Hindi, salamat",
+      "yesUseCode": "Oo, gamitin ang code"
+    }
+  },
+  "dashboard": {
+    "placeholder": "Hello /dashboard!"
+  },
+  "auth": {
+    "login": {
+      "placeholder": "Hello /auth/login!"
+    },
+    "callback": {
+      "placeholder": "Hello /auth/callback!"
+    },
+    "logout": {
+      "placeholder": "Hello /auth/logout!"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "Tungkol Sa - egdata.app",
+      "description": "Tungkol Sa egdata.app"
+    },
+    "title": "Tungkol Sa",
+    "intro": "Ang egdata.app ay isang website na pinapatakbo ng komunidad na nakatuon sa pagsubaybay at pagbibigay ng impormasyon tungkol sa Epic Games Store. Katulad ng SteamDB para sa Steam, layunin naming mag-alok ng komprehensibong mapagkukunan para sa mga user upang galugarin ang mga pagbabago, tumuklas ng mga bagong laro, at manatiling updated sa pinakabagong mga pangyayari sa platform.",
+    "missionTitle": "Aming Misyon",
+    "missionBody": "Ang aming misyon ay magbigay ng transparency at mga insight sa ecosystem ng Epic Games Store. Naniniwala kami na sa pamamagitan ng pag-iipon at paglalahad ng datos sa isang naa-access na paraan, mabibigyan namin ng kapangyarihan ang mga user na gumawa ng mga may kaalamang desisyon tungkol sa kanilang mga pagbili ng laro at mag-ambag sa mas mahusay na pag-unawa sa platform.",
+    "featuresTitle": "Mga Tampok",
+    "features": {
+      "trackPrices": "Subaybayan ang mga pagbabago ng presyo ng laro at historical data",
+      "upcomingReleases": "Tingnan ang mga paparating na release at libreng game promotions",
+      "gameDetails": "Galugarin ang mga detalye ng laro, rating, at review ng user",
+      "analyzeTrends": "Suriin ang mga trend at pattern sa Epic Games Store"
+    },
+    "communityTitle": "Pinapatakbo ng Komunidad",
+    "communityBody": "Ang egdata.app ay binuo at pinapanatili ng isang masugid na komunidad ng mga manlalaro at developer. Tinatanggap namin ang mga kontribusyon mula sa sinumang gustong tumulong na pagbutihin ang website at gawin itong isang mahalagang mapagkukunan para sa lahat. Huwag mag-atubiling makipag-ugnayan sa amin kung mayroon kang feedback, mungkahi, o gusto mong makilahok.",
+    "sourceCodeIntro": "Ang lahat ng source code para sa egdata.app ay available sa",
+    "github": "GitHub",
+    "notTitle": "Ano ang egdata.app HINDI",
+    "notIntro": "Mahalagang linawin na ang egdata.app ay hindi:",
+    "notList": {
+      "affiliated": "Kaakibat ng Epic Games: Kami ay isang independyente, proyektong pinapatakbo ng komunidad at hindi opisyal na ini-endorso o kaakibat ng Epic Games sa anumang paraan.",
+      "storefront": "Isang storefront o marketplace: Hindi kami nagbebenta ng laro o nagbibigay ng anumang opsyon sa pagbili. Ang aming pokus ay sa pagbibigay ng impormasyon at datos tungkol sa Epic Games Store.",
+      "piracy": "Isang platform para sa piracy o ilegal na aktibidad: Mahigpit naming kinokondena ang piracy at hindi kami nagbibigay ng anumang paraan upang ma-access o maikalat ang naka-copyright na content nang ilegal."
+    },
+    "fairUseTitle": "Patakaran sa Patas na Paggamit",
+    "fairUseBody": "Ang egdata.app ay nakatuon sa pagsunod sa mga prinsipyo ng patas na paggamit sa ilalim ng batas ng copyright. Nagbibigay kami ng impormasyon at datos para sa mga layuning pang-impormasyon lamang, na naglalayong turuan at ipaalam sa publiko ang tungkol sa mga larong available sa Epic Games Store.",
+    "fairUseFactorsTitle": "Mga Pangunahing Salik na Nagbibigay-katwiran sa Patas na Paggamit:",
+    "fairUseFactors": {
+      "nonCommercial": "Di-komersyal, Pang-edukasyon na Layunin:",
+      "nonCommercialBody": "Ang aming website ay di-komersyal at naglalayong pahusayin ang kaalaman ng publiko tungkol sa mga laro ng Epic Games Store.",
+      "factual": "Impormasyong Makatotohanan:",
+      "factualBody": "Pangunahing naglalahad kami ng makatotohanang datos tulad ng mga pamagat ng laro, petsa ng release, at developer, na mas mababa ang proteksyon sa ilalim ng copyright.",
+      "limited": "Limitadong Paggamit:",
+      "limitedBody": "Ginagamit lamang namin ang kinakailangang dami ng datos upang magbigay ng makabuluhang impormasyon nang hindi pinapalitan ang orihinal na mga gawa.",
+      "noMarketHarm": "Walang Pinsala sa Merkado:",
+      "noMarketHarmBody": "Ang aming paggamit ay hindi negatibong nakakaapekto sa merkado para sa orihinal na mga laro; sa halip, maaari itong mag-promote sa kanila sa pamamagitan ng pagtaas ng interes ng user."
+    },
+    "autoTrackBody": "Awtomatiko naming sinusubaybayan at ina-update ang data ng laro mula sa mga pampublikong available na source, kasama ang Epic Games Store. Naglo-load kami ng graphical assets direktang mula sa kanilang mga server at hindi namin iniimbak ang mga ito.",
+    "leakedDataTitle": "Disclaimer sa Na-leak na Data:",
+    "leakedDataBody": "Ang anumang tila na-leak na data sa aming site ay nagmumula sa pampublikong available na impormasyon sa Epic Games Store. Hindi kami nag-a-access ng kumpidensyal o pagmamay-ari na data. Ang mga publisher ay responsable sa pagprotekta ng kanilang sensitibong impormasyon sa loob ng",
+    "epicDevPortal": "portal ng Epic Games Developer",
+    "euDirectivesIntro": "Sa pag-develop ng aming Patakaran sa Patas na Paggamit, isinasaalang-alang namin ang mga prinsipyong nakabalangkas sa mga sumusunod na EU copyright directive:",
+    "euDirective1": "Directive (EU) 2019/790 sa copyright at mga kaugnay na karapatan sa Digital Single Market",
+    "euDirective2": "Mga Tanong at Sagot – Mga bagong panuntunan sa copyright ng EU",
+    "fairUseContact": "Kung mayroon kang mga katanungan tungkol sa aming Patakaran sa Patas na Paggamit o naniniwala na ang anumang content ay lumalabag sa iyong copyright, mangyaring makipag-ugnayan sa amin sa:",
+    "contactTitle": "Makipag-ugnayan sa Amin",
+    "contactBody": "Maaari kang makipag-ugnayan sa amin sa pamamagitan ng"
+  },
+  "changelog": {
+    "index": {
+      "meta": {
+        "title": "Talaan ng Pagbabago | egdata.app"
+      },
+      "searchPlaceholder": "Maghanap ng talaan ng pagbabago...",
+      "searchButton": "Maghanap",
+      "loading": "Naglo-load...",
+      "error": "Error sa pagkuha ng data"
+    },
+    "detail": {
+      "meta": {
+        "title": "Detalye ng Pagbabago | egdata.app"
+      },
+      "loading": "Naglo-load...",
+      "error": "Error sa pag-load ng detalye ng pagbabago",
+      "notFound": "Hindi nahanap ang pagbabago"
+    }
+  },
+  "privacy": {
+    "title": "Tungkol Sa",
+    "intro": "Ang egdata.app ay isang website na pinapatakbo ng komunidad na nakatuon sa pagsubaybay at pagbibigay ng impormasyon tungkol sa Epic Games Store. Katulad ng SteamDB para sa Steam, layunin naming mag-alok ng komprehensibong mapagkukunan para sa mga user upang galugarin ang mga pagbabago, tumuklas ng mga bagong laro, at manatiling updated sa pinakabagong mga pangyayari sa platform.",
+    "missionTitle": "Aming Misyon",
+    "missionBody": "Ang aming misyon ay magbigay ng transparency at mga insight sa ecosystem ng Epic Games Store. Naniniwala kami na sa pamamagitan ng pag-iipon at paglalahad ng datos sa isang naa-access na paraan, mabibigyan namin ng kapangyarihan ang mga user na gumawa ng mga may kaalamang desisyon tungkol sa kanilang mga pagbili ng laro at mag-ambag sa mas mahusay na pag-unawa sa platform.",
+    "featuresTitle": "Mga Tampok",
+    "features": {
+      "trackPrices": "Subaybayan ang mga pagbabago ng presyo ng laro at historical data",
+      "upcomingReleases": "Tingnan ang mga paparating na release at libreng game promotions",
+      "gameDetails": "Galugarin ang mga detalye ng laro, rating, at review ng user",
+      "analyzeTrends": "Suriin ang mga trend at pattern sa Epic Games Store"
+    },
+    "communityTitle": "Pinapatakbo ng Komunidad",
+    "communityBody": "Ang egdata.app ay binuo at pinapanatili ng isang masugid na komunidad ng mga manlalaro at developer. Tinatanggap namin ang mga kontribusyon mula sa sinumang gustong tumulong na pagbutihin ang website at gawin itong isang mahalagang mapagkukunan para sa lahat. Huwag mag-atubiling makipag-ugnayan sa amin kung mayroon kang feedback, mungkahi, o gusto mong makilahok.",
+    "sourceCodeIntro": "Ang lahat ng source code para sa egdata.app ay available sa",
+    "github": "GitHub",
+    "notTitle": "Ano ang egdata.app HINDI",
+    "notIntro": "Mahalagang linawin na ang egdata.app ay hindi:",
+    "notList": {
+      "affiliated": "Kaakibat ng Epic Games: Kami ay isang independyente, proyektong pinapatakbo ng komunidad at hindi opisyal na ini-endorso o kaakibat ng Epic Games sa anumang paraan.",
+      "storefront": "Isang storefront o marketplace: Hindi kami nagbebenta ng laro o nagbibigay ng anumang opsyon sa pagbili. Ang aming pokus ay sa pagbibigay ng impormasyon at datos tungkol sa Epic Games Store.",
+      "piracy": "Isang platform para sa piracy o ilegal na aktibidad: Mahigpit naming kinokondena ang piracy at hindi kami nagbibigay ng anumang paraan upang ma-access o maikalat ang naka-copyright na content nang ilegal."
+    },
+    "fairUseTitle": "Patakaran sa Patas na Paggamit",
+    "fairUseBody": "Ang egdata.app ay nakatuon sa pagsunod sa mga prinsipyo ng patas na paggamit sa ilalim ng batas ng copyright. Nagbibigay kami ng impormasyon at datos para sa mga layuning pang-impormasyon lamang, na naglalayong turuan at ipaalam sa publiko ang tungkol sa mga larong available sa Epic Games Store.",
+    "fairUseFactorsTitle": "Mga Pangunahing Salik na Nagbibigay-katwiran sa Patas na Paggamit:",
+    "fairUseFactors": {
+      "nonCommercial": "Di-komersyal, Pang-edukasyon na Layunin:",
+      "nonCommercialBody": "Ang aming website ay di-komersyal at naglalayong pahusayin ang kaalaman ng publiko tungkol sa mga laro ng Epic Games Store.",
+      "factual": "Impormasyong Makatotohanan:",
+      "factualBody": "Pangunahing naglalahad kami ng makatotohanang datos tulad ng mga pamagat ng laro, petsa ng release, at developer, na mas mababa ang proteksyon sa ilalim ng copyright.",
+      "limited": "Limitadong Paggamit:",
+      "limitedBody": "Ginagamit lamang namin ang kinakailangang dami ng datos upang magbigay ng makabuluhang impormasyon nang hindi pinapalitan ang orihinal na mga gawa.",
+      "noMarketHarm": "Walang Pinsala sa Merkado:",
+      "noMarketHarmBody": "Ang aming paggamit ay hindi negatibong nakakaapekto sa merkado para sa orihinal na mga laro; sa halip, maaari itong mag-promote sa kanila sa pamamagitan ng pagtaas ng interes ng user."
+    },
+    "autoTrackBody": "Awtomatiko naming sinusubaybayan at ina-update ang data ng laro mula sa mga pampublikong available na source, kasama ang Epic Games Store. Naglo-load kami ng graphical assets direktang mula sa kanilang mga server at hindi namin iniimbak ang mga ito.",
+    "leakedDataTitle": "Disclaimer sa Na-leak na Data:",
+    "leakedDataBody": "Ang anumang tila na-leak na data sa aming site ay nagmumula sa pampublikong available na impormasyon sa Epic Games Store. Hindi kami nag-a-access ng kumpidensyal o pagmamay-ari na data. Ang mga publisher ay responsable sa pagprotekta ng kanilang sensitibong impormasyon sa loob ng",
+    "epicDevPortal": "portal ng Epic Games Developer",
+    "euDirectivesIntro": "Sa pag-develop ng aming Patakaran sa Patas na Paggamit, isinasaalang-alang namin ang mga prinsipyong nakabalangkas sa mga sumusunod na EU copyright directive:",
+    "euDirective1": "Directive (EU) 2019/790 sa copyright at mga kaugnay na karapatan sa Digital Single Market",
+    "euDirective2": "Mga Tanong at Sagot – Mga bagong panuntunan sa copyright ng EU",
+    "fairUseContact": "Kung mayroon kang mga katanungan tungkol sa aming Patakaran sa Patas na Paggamit o naniniwala na ang anumang content ay lumalabag sa iyong copyright, mangyaring makipag-ugnayan sa amin sa:",
+    "contactTitle": "Makipag-ugnayan sa Amin",
+    "contactBody": "Maaari kang makipag-ugnayan sa amin sa pamamagitan ng"
+  },
+  "notifications": {
+    "meta": {
+      "title": "Mga Notipikasyon - egdata.app",
+      "description": "I-configure at pamahalaan ang mga push notification para sa mga update ng Epic Games Store, paglabas ng laro, at marami pa."
+    },
+    "title": "Mga Notipikasyon",
+    "description": "I-configure at pamahalaan ang mga push notification para sa mga update ng Epic Games Store, paglabas ng laro, at mga personalized na alerto.",
+    "tabs": {
+      "notifications": "Mga Notipikasyon",
+      "mySubscriptions": "Aking mga Subscription"
+    },
+    "aboutPushTitle": "Tungkol sa Push Notifications",
+    "aboutPushDescription": "Matuto pa tungkol sa kung paano gumagana ang push notifications sa EGData.",
+    "whatYoullReceive": "Ano ang matatanggap mo:",
+    "receiveList": {
+      "freeGames": "Mga anunsyo ng bagong libreng laro",
+      "releases": "Mga notipikasyon sa paglabas ng laro",
+      "priceDrops": "Mga alerto sa pagbaba ng presyo para sa mga wishlisted na laro",
+      "news": "Balita at update ng Epic Games Store",
+      "custom": "Mga custom na notipikasyon batay sa paksa"
+    },
+    "privacySecurity": "Privacy at Seguridad:",
+    "privacyList": {
+      "apiKey": "Ang iyong API key ay ligtas na nakaimbak sa browser cookies",
+      "onlySubscribed": "Nagpapadala lang kami ng mga notipikasyong ni-subscribe mo",
+      "unsubscribe": "Maaari kang mag-unsubscribe anumang oras",
+      "noPersonalData": "Walang personal na data ang kinakailangan bukod sa iyong API key"
+    },
+    "browserSupport": "Suporta sa Browser:",
+    "browserSupportBody": "Ang push notifications ay sinusuportahan sa mga modernong browser kabilang ang Chrome, Firefox, Safari, at Edge. Siguraduhing payagan ang mga notification kapag na-prompt ng iyong browser.",
+    "subscriptionOverview": "Pangkalahatang-ideya ng Subscription",
+    "totalSubscribed": "Kabuuang naka-subscribe na paksa: {{count}}",
+    "notSubscribedApi": "Ang API key ay hindi naka-subscribe sa push notifications",
+    "notSubscribedTitle": "Hindi Naka-subscribe",
+    "notSubscribedBody": "Ang iyong API key ay hindi naka-subscribe sa push notifications. Gamitin ang tab na \"Setup & Subscribe\" para mag-subscribe muna.",
+    "subscriptionId": "Subscription {{id}}",
+    "created": "Ginawa:",
+    "subscribedTopics": "Mga Naka-subscribe na Paksa:",
+    "noTopics": "Walang naka-subscribe na paksa",
+    "lastUpdated": "Huling na-update:",
+    "noSubscriptionsTitle": "Walang Nakitang Subscription",
+    "noSubscriptionsBody": "Ikaw ay naka-subscribe ngunit wala ka pang nagagawang device subscription. Gamitin ang tab na \"Setup & Subscribe\" para gumawa ng iyong unang subscription.",
+    "fetchError": "Nabigong makuha ang mga subscription. Pakisubukan muli.",
+    "push": {
+      "title": "Push Notifications",
+      "notSupported": "Hindi sinusuportahan ang push notifications sa browser na ito.",
+      "setApiKey": "Mangyaring itakda ang iyong API key upang i-enable ang push notifications.",
+      "manage": "Pamahalaan ang iyong mga kagustuhan sa push notification.",
+      "unsubscribe": "Mag-unsubscribe",
+      "subscribe": "Mag-subscribe",
+      "subscribed": "Naka-subscribe",
+      "notSubscribed": "Hindi naka-subscribe",
+      "subscribeToTopic": "Mag-subscribe sa Paksa",
+      "topicPlaceholder": "Ilagay ang pangalan ng paksa (hal., game-updates)",
+      "subscribedTopics": "Mga Naka-subscribe na Paksa",
+      "clickToUnsubscribe": "I-click ang isang paksa upang mag-unsubscribe"
+    },
+    "simple": {
+      "title": "Push Notifications",
+      "notSupported": "Hindi sinusuportahan ang push notifications sa browser na ito.",
+      "subscribedDesc": "Naka-subscribe ka sa {{count}} notification topic",
+      "notSubscribedDesc": "Maabisuhan tungkol sa mga update ng Epic Games Store, libreng laro, at marami pa",
+      "subscribeToNotifications": "Mag-subscribe sa mga Notipikasyon",
+      "unsubscribe": "Mag-unsubscribe",
+      "chooseWhat": "Pumili kung ano ang gusto mong maabisuhan:",
+      "freeGames": "Libreng Laro",
+      "freeGamesDesc": "Maabisuhan kapag may bagong libreng laro na available",
+      "newReleases": "Bagong Release",
+      "newReleasesDesc": "Mga notipikasyon para sa bagong release ng laro",
+      "priceDrops": "Pagbaba ng Presyo",
+      "priceDropsDesc": "Makatanggap ng alerto kapag naka-sale ang mga laro",
+      "youWillReceive": "Makakatanggap ka ng mga notipikasyon para sa:",
+      "subscribedTo": "Naka-subscribe sa {{name}}",
+      "unsubscribedFrom": "Nag-unsubscribe mula sa {{name}}",
+      "failedSubscribe": "Nabigong mag-subscribe sa mga notipikasyon",
+      "failedUnsubscribe": "Nabigong mag-unsubscribe mula sa mga notipikasyon",
+      "failedTopicSubscribe": "Nabigong mag-subscribe sa paksa",
+      "failedTopicUnsubscribe": "Nabigong mag-unsubscribe mula sa paksa",
+      "successSubscribe": "Matagumpay na naka-subscribe sa mga notipikasyon!",
+      "successUnsubscribe": "Matagumpay na nag-unsubscribe mula sa mga notipikasyon"
+    },
+    "apiKey": {
+      "title": "Pamamahala ng API Key",
+      "label": "API Key",
+      "placeholderGenerated": "Na-generate ang API key",
+      "placeholderNone": "Walang na-generate na API key",
+      "regenerate": "I-regenerate ang Key",
+      "generate": "I-generate ang Key",
+      "clear": "I-clear ang Key",
+      "generated": "Matagumpay na na-generate ang bagong API key!",
+      "copied": "Na-kopya ang API key sa clipboard!",
+      "cleared": "Matagumpay na na-clear ang API key!",
+      "failedGenerate": "Nabigong i-generate ang API key",
+      "failedCopy": "Nabigong kopyahin ang API key",
+      "failedClear": "Nabigong i-clear ang API key",
+      "noneToCopy": "Walang API key na kopyahin",
+      "description": "Ang iyong API key ay isang UUID na naka-store locally sa iyong browser at ginagamit upang patotohanan ang mga kahilingan ng push notification. Gamitin ang regenerate button upang lumikha ng bagong key kung kinakailangan."
+    }
+  },
+  "promotions": {
+    "placeholder": "Hello /promotions/$id!"
+  },
+  "misc": {
+    "gameAwards": {
+      "meta": {
+        "title": "The Game Awards Coverage | egdata.app",
+        "description": "Mga pinakabagong larong inanunsyo at hinirang sa The Game Awards na darating sa Epic Games Store."
+      },
+      "logoAlt": "The Game Awards 2025",
+      "subtitle": "Mga larong inanunsyo o hinirang sa The Game Awards na darating sa Epic Games Store",
+      "videoTitle": "The Game Awards 2024 - Live Stream",
+      "expandPlayer": "Palawakin ang player",
+      "closeMiniPlayer": "Isara ang mini player",
+      "noGamesTitle": "Wala pang inanunsyong laro",
+      "noGamesBody": "Bumalik pagkatapos ng The Game Awards!"
+    },
+    "downloads": {
+      "title": "Mga Release ng egdata.app Client",
+      "description": "I-download ang pinakabagong bersyon. Na-highlight namin ang inirerekomendang seksyon para sa iyong operating system.",
+      "errorPrefix": "Error:",
+      "noPublicReleases": "Walang nakitang pampublikong release.",
+      "recommended": "Inirerekomenda",
+      "downloadsSuffix": "Mga Download",
+      "versionPublished": "Bersyon {{version}} - Nai-publish noong {{date}}",
+      "assetInfo": {
+        "appleSilicon": "Para sa mga mas bagong Mac computer na may Apple chips (M1, M2, M3, atbp.).",
+        "intel": "Para sa mas lumang Mac computer na may Intel processors.",
+        "universal": "Katugma sa parehong Apple Silicon at Intel Macs.",
+        "msi": "Isang standard na installer wizard. Inirerekomenda para sa karamihan ng mga user.",
+        "exe": "Isang standalone application file. Maaaring hindi nangangailangan ng installation.",
+        "linux": "Para sa mga operating system na batay sa Linux.",
+        "generic": "Isang generic na file o source code."
+      }
+    },
+    "discordLinked": {
+      "title": "Matagumpay na Na-link ang Account!",
+      "body": "Ang iyong Discord account ay matagumpay na na-link sa egdata.app",
+      "footer": "Maaari mo na ngayong isara ang window na ito at bumalik sa Discord. Ang iyong account ay handa nang gamitin sa egdata.app"
+    },
+    "posts": {
+      "coverAlt": "Cover Art ng LEGO Star Wars: The Skywalker Saga",
+      "title": "Kunin ang LEGO® Star Wars™: The Skywalker Saga nang LIBRE sa Epic Games Store",
+      "freeGameBadge": "Libreng Laro",
+      "published": "Nai-publish noong Nobyembre 30, 2023",
+      "intro": "Markahan ang iyong kalendaryo, mga tagahanga ng Star Wars! Mula {{dateRange}}, maaari mong makuha ang kinikilalang {{game}} nang LIBRE sa Epic Games Store. Ang larong ito, na karaniwang nagkakahalaga ng {{price}}, ay nagbibigay-daan sa iyong muling buhayin ang mga iconic na sandali ng {{saga}} na may masayang LEGO twist.",
+      "dateRange": "Disyembre 5 hanggang Disyembre 12, 2024",
+      "game": "LEGO® Star Wars™: The Skywalker Saga",
+      "price": "$49.99",
+      "saga": "Skywalker saga",
+      "gameplayAlt": "LEGO Star Wars Gameplay",
+      "charactersAlt": "LEGO Star Wars Characters",
+      "whatToExpect": "Ano ang Aasahan?",
+      "whatToExpectBody": "Binuo ng {{developer}} at na-publish ng {{publisher}}, ang title na ito ay nag-aalok ng komprehensibong Star Wars experience na walang katulad. Narito ang mga dahilan kung bakit ito dapat laruin:",
+      "developer": "TT Games",
+      "publisher": "Warner Bros.",
+      "expectList": {
+        "allMovies": "{{strong}}: Buhayin ang mga storyline ng lahat ng siyam na pelikula ng Skywalker saga, puno ng klasikong LEGO humor.",
+        "allMoviesStrong": "Lahat ng 9 na Pelikula",
+        "characters": "{{strong}}: Kontrolin ang iyong mga paboritong bayani at kontrabida mula sa malayong kalawakan.",
+        "charactersStrong": "300+ Character na Maaaring Laruin",
+        "vehicles": "{{strong}}: Lumipad sa mga iconic na sasakyan tulad ng Millennium Falcon at TIE Fighters.",
+        "vehiclesStrong": "100+ Sasakyan",
+        "planets": "{{strong}}: Maglakbay sa mga pamilyar na mundo, mula Tatooine hanggang Endor, at higit pa.",
+        "planetsStrong": "23 Planeta na Tuklasin"
+      },
+      "specialTitle": "Ano ang Nagpapaspesyal sa Larong Ito?",
+      "specialBody": "Mula nang ilabas ito noong {{releaseDate}}, ang LEGO Star Wars: The Skywalker Saga ay pinuri para sa nakakaengganyong gameplay at tapat na adaptasyon ng Star Wars universe. Na may {{metascore}} sa Metacritic, parehong pinuri ng mga kritiko at tagahanga ang:",
+      "releaseDate": "Abril 2022",
+      "metascore": "82 Metascore",
+      "specialList": {
+        "combat": "{{strong}}: Laban ng lightsaber, shootout ng blaster, at space dogfights.",
+        "combatStrong": "Dynamic na Labanan",
+        "charm": "{{strong}}: Klasikong Star Wars humor, muling inimaginar sa natatanging istilo ng LEGO.",
+        "charmStrong": "LEGO Charm",
+        "replayability": "{{strong}}: Maraming collectibles, side missions, at nakatagong mga lihim.",
+        "replayabilityStrong": "Replayability"
+      },
+      "howToClaim": "Paano Ito I-claim?",
+      "howToClaimBody": "Ang pagkuha ng iyong libreng kopya ay madali!",
+      "step1": "Bisitahin ang {{storeLink}} sa pagitan ng {{dec5}} at {{dec12}}.",
+      "storeLink": "Epic Games Store",
+      "dec5": "Disyembre 5",
+      "dec12": "Disyembre 12, 2024",
+      "step2": "Idagdag ang laro sa iyong library.",
+      "step3": "Iyo na ito magpakailanman!",
+      "cardTitle": "Huwag palampasin ang pagkakataong ito na magsimula sa isang paglalakbay na puno ng LEGO sa buong kalawakan!",
+      "cardBody": "Kung ikaw ay isang matapat na tagahanga ng Star Wars o isang baguhan, ang larong ito ay nag-aalok ng walang katapusang kasiyahan para sa lahat.",
+      "footer": "Nawa'y sumainyo ang Force (at LEGO bricks)! 🧱✨"
+    },
+    "fairUse": {
+      "meta": {
+        "title": "Patakaran sa Patas na Paggamit - egdata.app",
+        "description": "Patakaran sa Patas na Paggamit para sa egdata.app"
+      },
+      "title": "Patakaran sa Patas na Paggamit para sa EGData App",
+      "section1Title": "1. Panimula",
+      "section1Body": "Maligayang pagdating sa EGData App (\"kami\", \"atin\"). Ang Patakaran sa Patas na Paggamit na ito ay nagbabalangkas ng mga tuntunin kung saan maaari mong gamitin ang nilalaman at data na ibinigay sa aming website na {{siteLink}} (ang \"Site\").",
+      "section2Title": "2. Layunin ng Patas na Paggamit",
+      "section2Body": "Ang nilalaman at data sa EGData App ay ibinigay para sa mga layuning pang-impormasyon lamang. Ang aming layunin ay mag-alok ng komprehensibong database ng mga laro (o datos na may kaugnayan sa laro) na available sa Epic Games Store para sa pang-edukasyon at sangguniang paggamit ng komunidad.",
+      "section3Title": "3. Pagsunod sa Patas na Paggamit",
+      "section3Body": "Ang EGData App ay sumusunod sa mga prinsipyo ng patas na paggamit sa ilalim ng batas ng copyright sa pamamagitan ng pagbibigay ng impormasyon at data sa paraang nakikinabang sa publiko nang hindi lumalabag sa mga karapatan ng mga may-ari ng nilalaman. Narito ang mga pangunahing salik na nagbibigay-katwiran sa aming paggamit bilang patas na paggamit:",
+      "section3List": {
+        "purpose": "Layunin at Katangian ng Paggamit:",
+        "purposeBody": "Ang aming website ay di-komersyal at naglalayong turuan at ipaalam sa publiko ang tungkol sa mga larong available sa Epic Games Store. Nagbibigay kami ng kritikal na impormasyon, review, at update, na nagpapahusay sa kaalaman at pagpapahalaga ng publiko sa mga larong ito.",
+        "nature": "Kalikasan ng Akdang May Copyright:",
+        "natureBody": "Ang data na aming kinokolekta at inilalahad ay binubuo ng makatotohanang impormasyon tulad ng mga pamagat ng laro, petsa ng release, developer, at update. Ang makatotohanang impormasyon ay mas mababa ang proteksyon sa ilalim ng batas ng copyright kaysa sa mga malikhaing akda.",
+        "amount": "Dami at Kabuuan:",
+        "amountBody": "Ginagamit lamang namin ang dami ng data na kinakailangan upang magbigay ng makabuluhan at may kaugnayang impormasyon sa aming mga user. Hindi namin ginagaya ang buong akda o nagbibigay ng malawak na extract na maaaring pumalit sa orihinal na mga produkto.",
+        "effect": "Epekto sa Merkado:",
+        "effectBody": "Ang aming paggamit ng data ng laro ay hindi negatibong nakakaapekto sa merkado para sa orihinal na mga laro. Sa halip, ito ay nagpo-promote ng mga larong ito sa pamamagitan ng pagbibigay ng up-to-date na impormasyon at pagmamaneho ng pakikipag-ugnayan at interes ng user."
+      },
+      "section4Title": "4. Pagkolekta at Pag-update ng Data",
+      "section4Body1": "Ang aming Site ay awtomatikong sumusubaybay at nag-a-update ng data ng laro upang matiyak na ang impormasyong ibinibigay namin ay kasalukuyan at tumpak. Ang awtomatikong prosesong ito ay nagsasangkot ng pagkolekta ng pampublikong available na impormasyon mula sa Epic Games Store at iba pang maaasahang source.",
+      "section4Body2": "Sa pamamagitan ng pagpapanatiling updated ng aming database, tinitiyak namin na ang mga user ay may access sa pinakabagong impormasyon tungkol sa kanilang mga paboritong laro, kabilang ang mga bagong release, update, at pagbabago sa availability.",
+      "section4Body3": "Sa usapin ng graphical assets, nilo-load namin ang mga larawan nang direkta mula sa mga server ng Epic Games Store. Hindi kami nag-iimbak ng anumang larawan sa aming mga server.",
+      "section5Title": "5. Disclaimer sa Na-leak na Data",
+      "section5Body1": "Ang anumang data na lumilitaw na na-leak sa aming Site ay nagmumula sa pampublikong available na impormasyon na ibinigay ng Epic Games Store. Wala kaming access sa kumpidensyal o pagmamay-ari na data na hindi pampublikong accessible. Samakatuwid, responsibilidad ng mga publisher na protektahan ang kanilang mga paparating na intellectual properties (IPs), laro, downloadable content (DLCs), at iba pang sensitibong impormasyon sa loob ng Epic Games Developer portal.",
+      "section5Body2": "Hinihikayat ang mga publisher na tiyakin na ang sensitibong impormasyon ay maayos na nase-secure at hindi sinasadyang naipalathala. Ang EGData App ay hindi maaaring managot para sa anumang na-leak na impormasyon na nakuha mula sa pampublikong available na mga source.",
+      "section5Body3": "Para sa karagdagang impormasyon tungkol sa proteksyon ng data at patas na paggamit sa European Union, mangyaring sumangguni sa mga sumusunod na mapagkukunan:",
+      "euDirective1": "Directive (EU) 2019/790 sa copyright at mga kaugnay na karapatan sa Digital Single Market",
+      "euDirective2": "Mga Tanong at Sagot – Mga bagong panuntunan sa copyright ng EU",
+      "section6Title": "6. Makipag-ugnayan sa Amin",
+      "section6Body": "Kung mayroon kang anumang mga katanungan tungkol sa Patakaran sa Patas na Paggamit na ito o kung naniniwala ka na ang anumang nilalaman o data sa aming Site ay lumalabag sa iyong copyright, mangyaring makipag-ugnayan sa amin sa:",
+      "email": "Email:"
+    },
+    "donateKey": {
+      "title": "Mag-donate ng Key",
+      "body": "Kung mayroon kang key na nais mong i-donate sa proyekto, mangyaring punan ang form sa ibaba."
+    },
+    "androidBeta": {
+      "meta": {
+        "title": "Android Beta - egdata.app",
+        "description": "Sumali sa closed beta testing program ng egdata.app Android app"
+      },
+      "title": "Android Beta Program",
+      "description": "Sumali sa aming closed beta upang subukan ang egdata.app Android application bago ang pampublikong release.",
+      "whatHappensNext": "Ano ang susunod na mangyayari?",
+      "steps": {
+        "signIn": "Mag-sign in gamit ang iyong Google account",
+        "added": "Ikaw ay manu-manong idadagdag sa closed testing track sa loob ng ilang oras",
+        "download": "Kapag naidagdag, maaari mong i-download ang app mula sa ibinigay na link"
+      }
+    }
+  },
+  "components": {
+    "stats": {
+      "title": "Estadistika",
+      "description": "Estadistika tungkol sa platform",
+      "offers": "Mga Offer",
+      "offersTooltip": "Ang offer ay isang mabibiling item mula sa tindahan",
+      "items": "Mga Item",
+      "itemsTooltip": "Ang item ay ang entitlement para sa launcher",
+      "tags": "Mga Tag",
+      "offersYear": "Mga Offer (Taon)",
+      "itemsYear": "Mga Item (Taon)",
+      "assets": "Mga Asset",
+      "assetsTooltip": "Ang asset ay ang mga file ng laro",
+      "regPrices": "Mga Presyong Regular",
+      "changes": "Mga Pagbabago",
+      "sandboxes": "Mga Sandbox",
+      "sandboxesTooltip": "Ang sandbox ay ang grupo ng mga offer"
+    },
+    "sandboxShell": {
+      "overview": "Pangkalahatang-ideya",
+      "offers": "Mga Offer",
+      "items": "Mga Item",
+      "assets": "Mga Asset",
+      "builds": "Mga Build",
+      "achievements": "Mga Achievement",
+      "changelog": "Talaan ng Pagbabago",
+      "sandbox": "Sandbox",
+      "internalNamespace": "Internal na namespace",
+      "storePage": "Pahina ng Tindahan",
+      "updated": "Na-update {{date}}",
+      "unrealEngine": "Unreal Engine",
+      "internalSandbox": "Internal na Sandbox",
+      "releaseStatus": {
+        "prePurchase": "Pre-purchase",
+        "datePending": "Nakabinbin ang petsa",
+        "comingSoon": "Malapit na",
+        "released": "Inilabas"
+      }
+    },
+    "comparison": {
+      "openCompareTray": "Buksan ang compare tray, {{count}} napili",
+      "compareSelected": "Ihambing ang mga napiling offer",
+      "error": "Error",
+      "type": "Uri",
+      "seller": "Nagbebenta",
+      "developer": "Developer",
+      "releaseDate": "Petsa ng Release",
+      "pcReleaseDate": "Petsa ng PC Release",
+      "genres": "Mga Genre",
+      "platforms": "Mga Platform",
+      "remove": "Tanggalin",
+      "current": "Kasalukuyan",
+      "lowest": "Pinakamababa",
+      "noPriceFound": "Walang nakitang presyo",
+      "noAgeRatingsFound": "Walang nakitang rating ng edad",
+      "achievements": "Mga Achievement:",
+      "ageRating": "Rating ng Edad:",
+      "price": "Presyo:",
+      "unknown": "Hindi Kilala"
+    },
+    "search": {
+      "sellers": "Mga Nagbebenta",
+      "noResults": "Walang nakitang resulta",
+      "noResultsShort": "Walang nakitang resulta.",
+      "allOfferTypes": "Lahat ng Uri ng Offer",
+      "tags": "Mga Tag"
+    },
+    "changelist": {
+      "title": "Listahan ng Pagbabago",
+      "loading": "Naglo-load...",
+      "error": "Error: {{message}}",
+      "id": "ID",
+      "type": "Uri",
+      "titleOrId": "Pamagat/ID",
+      "date": "Petsa",
+      "new": "bago",
+      "update": "update"
+    },
+    "upcoming": {
+      "caption": "Mga Paparating na Offer",
+      "loading": "Naglo-load...",
+      "title": "Pamagat",
+      "price": "Presyo",
+      "releaseDate": "Petsa ng Release",
+      "unknown": "Hindi Kilala",
+      "prePurchase": "Pre-Purchase"
+    },
+    "giveaways": {
+      "title": "Mga Giveaway",
+      "free": "Libre",
+      "freeNow": "Libre Ngayon",
+      "startsIn": "Magsisimula sa",
+      "repeated": "Inulit:",
+      "yes": "Oo",
+      "no": "Hindi",
+      "repeatedTooltip": "Ang offer na ito ay naibigay nang {{count}} beses."
+    },
+    "giveawayStats": {
+      "title": "Giveaway sa numero",
+      "loading": "Naglo-load...",
+      "totalValue": "Kabuuang Halaga",
+      "totalValueTooltip": "Kabuuang halaga kabilang ang anumang aktibong diskwento",
+      "giveaways": "Mga Giveaway",
+      "giveawaysTooltip": "Kabuuang bilang ng mga giveaway na lumalabas sa database",
+      "offers": "Mga Offer",
+      "offersTooltip": "Kabuuang bilang ng mga natatanging offer na lumitaw sa mga giveaway",
+      "repeated": "Inulit",
+      "repeatedTooltip": "Bilang ng mga natatanging offer na lumalabas nang maraming beses sa mga giveaway",
+      "sellers": "Mga Nagbebenta",
+      "sellersTooltip": "Kabuuang bilang ng mga natatanging nagbebenta na nagbibigay ng mga offer"
+    },
+    "offerCard": {
+      "openOffer": "Buksan ang offer {{title}}",
+      "free": "Libre",
+      "comingSoon": "Malapit Na",
+      "earlyAccess": "Early Access",
+      "prePurchase": "Pre-Purchase",
+      "owned": "pag-aari"
+    },
+    "baseGame": {
+      "checkBaseGame": "Tingnan ang base game",
+      "partOfBundle": "Ang offer na ito ay bahagi ng"
+    },
+    "notFound": {
+      "message": "Ang pahinang iyong hinahanap ay hindi umiiral."
+    },
+    "sellerOffers": {
+      "error": "Error sa pag-load ng mga offer. Pakisubukan muli.",
+      "moreFrom": "Higit pa mula kay {{name}}"
+    },
+    "achievementsBlade": {
+      "noData": "Walang data",
+      "game": "Laro",
+      "achievements": "Mga Achievement",
+      "xp": "XP",
+      "bronze": "Bronze",
+      "silver": "Silver",
+      "gold": "Gold",
+      "gamesWithAchievements": "Mga Larong May Epic Achievements"
+    },
+    "topSection": {
+      "free": "Libre",
+      "releaseDate": "Petsa ng Release:",
+      "tba": "TBA",
+      "platforms": "Mga Platform:",
+      "tags": "Mga Tag:",
+      "checkOffer": "Tingnan ang Offer"
+    },
+    "featuredDiscounts": {
+      "free": "Libre",
+      "title": "Mga Itinatampok na Diskwento",
+      "countMore": "+{{count}} pa",
+      "checkOffer": "Tingnan ang Offer",
+      "until": "hanggang"
+    },
+    "performanceTable": {
+      "title": "Pagganap",
+      "noPriorData": "Walang naunang data",
+      "cardsView": "Cards view",
+      "chartView": "Chart view"
+    },
+    "priceChart": {
+      "selectValue": "Pumili ng halaga",
+      "last3Months": "Huling 3 buwan",
+      "fetchingData": "Kinukuha ang pinakabagong data"
+    },
+    "dateRangePicker": {
+      "from": "Mula",
+      "to": "Hanggang",
+      "maxRange": "Ang maximum range ay 30 araw",
+      "invalidRange": "Hindi valid na date range"
+    },
+    "regionalPricing": {
+      "region": "Rehiyon",
+      "price": "Presyo"
+    },
+    "regionalPricingBadge": {
+      "analysis": "Pagsusuri ng regional pricing",
+      "currentPrice": "Kasalukuyang presyo",
+      "suggestedPrice": "Iminungkahing presyo",
+      "belowSuggested": "Ang deal na ito ay mas mababa pa riyan — isang mahusay na deal sa lahat ng aspeto.",
+      "closeToSuggested": "Ang deal na ito ay malapit riyan, at mas mababa sa tipikal na presyo sa {{region}}."
+    },
+    "countrySelector": {
+      "searchCountries": "Maghanap ng mga bansa...",
+      "noCountries": "Walang nakitang bansa"
+    },
+    "countriesSelector": {
+      "searchCountries": "Maghanap ng mga bansa...",
+      "noCountries": "Walang nakitang bansa"
+    },
+    "querySearch": {
+      "searchItems": "Maghanap ng mga item..."
+    },
+    "extendedSearch": {
+      "searchItems": "Maghanap ng mga item...",
+      "noItems": "Walang nakitang item."
+    },
+    "searchForm": {
+      "noResults": "Walang nakitang resulta",
+      "error": "Error: {{message}}",
+      "loadingLong": "Ang query na ito ay tumatagal nang mas mahaba kaysa karaniwan..."
+    },
+    "searchFormV2": {
+      "noResults": "Walang nakitang resulta."
+    },
+    "androidBetaBanner": {
+      "dismiss": "I-dismiss ang banner"
+    },
+    "videoPlayer": {
+      "title": "{{title}}"
+    },
+    "mediaSlider": {
+      "previousSlide": "Nakaraang slide",
+      "nextSlide": "Susunod na slide",
+      "image": "Larawan {{index}}",
+      "thumbnail": "Thumbnail {{index}}",
+      "downloading": "Nagda-download...",
+      "download": "I-download"
+    },
+    "changelogItem": {
+      "action": "Aksyon",
+      "type": "Uri",
+      "oldValue": "Lumang halaga",
+      "newValue": "Bagong halaga",
+      "previousValue": "Nakaraang halaga:",
+      "newValueLabel": "Bagong halaga:"
+    },
+    "changelogCharts": {
+      "byWeekday": "Mga Pagbabago ayon sa Araw ng Linggo",
+      "byWeekdayDesc": "Mga naipon na pagbabago ayon sa araw ng linggo",
+      "typesOfChanges": "Mga Uri ng Pagbabago",
+      "typesOfChangesDesc": "Bilang ng mga pagbabago ayon sa uri",
+      "byField": "Mga Pagbabago ayon sa Field",
+      "byFieldDesc": "Mga pagbabagong naka-grupo ayon sa binagong field",
+      "dailyDesc": "Ipinapakita ang araw-araw na pagbabago para sa nakaraang taon",
+      "noData": "Walang available na data upang ipakita."
+    },
+    "openEgl": {
+      "open": "Buksan"
+    },
+    "openEgs": {
+      "store": "Tindahan"
+    },
+    "openLauncher": {
+      "play": "Laruin"
+    },
+    "storeDropdown": {
+      "launcher": "Launcher",
+      "viewStorePage": "Tingnan ang Pahina ng Tindahan",
+      "webBrowser": "Web Browser"
+    },
+    "prepurchasePopup": {
+      "title": "{{title}}"
+    },
+    "apiKeyManager": {
+      "title": "Pamamahala ng API Key",
+      "label": "API Key",
+      "placeholder": {
+        "generated": "Na-generate ang API key",
+        "none": "Walang na-generate na API key"
+      },
+      "button": {
+        "regenerate": "I-regenerate ang Key",
+        "generate": "I-generate ang Key",
+        "clear": "I-clear ang Key"
+      },
+      "notification": {
+        "generated": "Matagumpay na na-generate ang bagong API key!",
+        "generateFailed": "Nabigong i-generate ang API key",
+        "copied": "Na-kopya ang API key sa clipboard!",
+        "copyFailed": "Nabigong kopyahin ang API key",
+        "noneToCopy": "Walang API key na kopyahin",
+        "cleared": "Matagumpay na na-clear ang API key!",
+        "clearFailed": "Nabigong i-clear ang API key"
+      },
+      "description": "Ang iyong API key ay isang UUID na naka-store locally sa iyong browser at ginagamit upang patotohanan ang mga kahilingan ng push notification. Gamitin ang regenerate button upang lumikha ng bagong key kung kinakailangan."
+    },
+    "cookieBanner": {
+      "title": "Abiso sa Cookie",
+      "description": "Ang website na ito ay gumagamit ng cookies upang mapahusay ang iyong karanasan sa pagba-browse. Sa pagtanggap ng cookies, tinatanggap mo ang aming {{privacyPolicyLink}}.",
+      "accept": "Tanggapin",
+      "decline": "Tanggihan"
+    },
+    "searchHeader": {
+      "results": "{{count}} resulta",
+      "showingResultsFor": "Ipinapakita ang mga resulta para sa"
+    },
+    "bundle": {
+      "collectionOffers": "Mga Collection Offer",
+      "bundleOffers": "Mga Bundle Offer",
+      "offersCount": "- {{count}} Offer",
+      "bundlePriceTitle": "Presyo ng Bundle",
+      "totalValueLabel": "Kabuuang Halaga:",
+      "bundlePriceLabel": "Presyo ng Bundle:",
+      "youSave": "Matitipid mo:",
+      "youPayMore": "Dagdag na babayaran:",
+      "buyBundle": "Bilhin ang Bundle",
+      "buyIndividually": "Bilhin ang mga Item nang Isa-isa"
+    },
+    "clientBanner": {
+      "heading": "Palakasin ang {{appName}} builds database",
+      "subheading": "Tumulong i-map ang bawat Epic Games Store build",
+      "description": "Ang aming lightweight na Windows at macOS client ay nag-scan sa iyong Epic Games Launcher installs at ligtas na nag-u-upload lamang ng mga manifest file—chunk list at metadata—sa aming open database. Ang bawat upload ay nagpapayaman sa komunidad at tumutulong sa amin na subaybayan ang mga pagbabago sa paglipas ng panahon.",
+      "cta": "I-download para sa Windows at macOS"
+    },
+    "collectionOffers": {
+      "title": "Mga Collection Offer"
+    },
+    "lastModifiedOffers": {
+      "title": "Mga Huling Binagong Offer"
+    },
+    "latestOffers": {
+      "title": "Mga Pinakabagong Idinagdag"
+    },
+    "latestReleased": {
+      "title": "Mga Pinakabagong Nailabas"
+    },
+    "mobileFreebies": {
+      "title": "Mga Mobile na Libreng Laro",
+      "collapse": "I-collapse ang mobile free games",
+      "expand": "Palawakin ang mobile free games"
+    },
+    "sectionHeader": {
+      "seeAll": "Tingnan lahat"
+    },
+    "suggestedOffers": {
+      "title": "Maaari mo ring magustuhan"
+    }
+  },
+  "table": {
+    "pagination": {
+      "rowsPerPage": "Rows bawat pahina",
+      "pageOf": "Pahina {{page}} ng {{total}}",
+      "goToFirst": "Pumunta sa unang pahina",
+      "goToPrevious": "Pumunta sa nakaraang pahina",
+      "goToNext": "Pumunta sa susunod na pahina",
+      "goToLast": "Pumunta sa huling pahina",
+      "previous": "Nakaraan",
+      "next": "Susunod",
+      "morePages": "Marami pang pahina"
+    },
+    "toolbar": {
+      "platform": "Platform",
+      "status": "Katayuan",
+      "type": "Uri",
+      "platforms": "Mga Platform",
+      "fileExtensions": "Mga Extension ng File",
+      "filterOffers": "I-filter ang mga offer...",
+      "filterItems": "I-filter ang mga item...",
+      "filterFiles": "I-filter ang mga file...",
+      "reset": "I-reset"
+    },
+    "viewOptions": {
+      "view": "Tingnan",
+      "toggleColumns": "I-toggle ang mga column"
+    },
+    "facetedFilter": {
+      "noResults": "Walang nakitang resulta.",
+      "selected": "napili",
+      "clearFilters": "I-clear ang mga filter"
+    },
+    "builds": {
+      "noResults": "Walang resulta.",
+      "donateKey": "Mag-donate ng Key"
+    }
+  },
+  "forms": {
+    "review": {
+      "submitTitle": "Magsumite ng Review",
+      "editTitle": "I-edit ang Review",
+      "description": "Ibahagi ang iyong mga saloobin tungkol sa {{title}}",
+      "rating": "Rating",
+      "ratingError": "Ang rating ay dapat nasa pagitan ng 1 at 10",
+      "recommend": "Irerekomenda mo ba ang produktong ito?",
+      "recommendError": "Mangyaring pumili ng oo o hindi",
+      "yes": "Oo",
+      "no": "Hindi",
+      "title": "Pamagat",
+      "titlePlaceholder": "Magpasok ng pamagat para sa iyong review",
+      "titleRequired": "Kinakailangan ang pamagat",
+      "titleMinLength": "Ang pamagat ay dapat na hindi bababa sa 3 character",
+      "titleMinLengthLong": "Ang pamagat ay dapat na hindi bababa sa 3 character ang haba",
+      "titleMaxLength": "Ang pamagat ay dapat na mas mababa sa 75 character",
+      "reviewContent": "Nilalaman ng Review",
+      "contentMinLength": "Ang nilalaman ay dapat na hindi bababa sa 3 character ang haba",
+      "tags": "Mga Tag (pinaghihiwalay ng kuwit)",
+      "tagsPlaceholder": "hal. kalidad, disenyo, pagganap",
+      "previous": "Nakaraan",
+      "next": "Susunod",
+      "submit": "Isumite ang Review",
+      "deleteReview": "Tanggalin ang review",
+      "confirmDelete": "Sigurado ka bang gusto mong tanggalin ang review na ito?",
+      "deleteDescription": "Ang pagkilos na ito ay hindi maaaring i-undo. Permanente nitong tatanggalin ang review mula sa aming mga server.",
+      "cancel": "Kanselahin",
+      "delete": "Tanggalin",
+      "deleting": "Inaalis...",
+      "errorSubmitting": "Error sa pagsusumite ng review",
+      "errorDeleting": "Error sa pagtanggal ng review",
+      "spamDetected": "Natukoy ang spam",
+      "defaultContent": "Mangyaring ilagay ang iyong review dito",
+      "theProduct": "ang produkto"
+    },
+    "androidBeta": {
+      "title": "Sumali sa Beta",
+      "description": "Mag-sign in gamit ang Google upang magrehistro para sa closed beta. Ang kailangan lang namin ay ang iyong email address.",
+      "spotsRemaining": "<strong>{{remaining}}</strong> sa {{max}} natitirang puwesto",
+      "betaFull": "Puno na ang Beta",
+      "betaFullDesc": "Lahat ng {{max}} puwesto ay napuno na. Bumalik mamaya o sundan kami para sa mga update kung kailan magkakaroon ng mga bagong puwesto.",
+      "registering": "Inirerehistro ka para sa beta...",
+      "registered": "Ikaw ay rehistrado!",
+      "registeredDesc": "Nairehistro namin ang <strong>{{email}}</strong> para sa closed beta.",
+      "registeredDesc2": "Maaaring tumagal ng ilang oras hanggang ikaw ay manu-manong idagdag sa listahan ng mga tester. Kapag naidagdag, maaari kang sumali sa beta dito:",
+      "joinBeta": "Sumali sa Beta sa Google Play",
+      "alreadyRegistered": "Naka-rehistro Na",
+      "alreadyRegisteredDesc": "Ang <strong>{{email}}</strong> ay naka-rehistro na para sa beta.",
+      "alreadyRegisteredDesc2": "Kung naidagdag ka na sa listahan ng mga tester, maaari kang sumali sa beta dito:",
+      "error": "Error",
+      "tryAgain": "Subukan Muli",
+      "noCredential": "Walang natanggap na credential mula sa Google",
+      "somethingWrong": "May maling nangyari. Pakisubukan muli.",
+      "googleFailed": "Nabigo ang Google Sign-In. Pakisubukan muli."
+    },
+    "donateKey": {
+      "donate": "Mag-donate",
+      "error": "Error",
+      "success": "Tagumpay",
+      "successDesc": "Salamat sa iyong donasyon! Ang item ay na-redeem nang tama at ang data nito ay magiging available sa lalong madaling panahon.",
+      "offerPage": "Pahina ng offer",
+      "somethingWrong": "May maling nangyari. Pakisubukan muli."
+    }
+  },
+  "ui": {
+    "dialog": {
+      "close": "Isara"
+    },
+    "sheet": {
+      "close": "Isara"
+    },
+    "carousel": {
+      "previous": "Nakaraang slide",
+      "next": "Susunod na slide"
+    },
+    "pagination": {
+      "previous": "Nakaraan",
+      "next": "Susunod",
+      "morePages": "Marami pang pahina"
+    },
+    "priceRangeSlider": {
+      "priceRange": "Saklaw ng Presyo",
+      "minPrice": "Min na presyo",
+      "maxPrice": "Max na presyo"
+    }
+  }
+}

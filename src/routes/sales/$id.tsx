@@ -1,4 +1,5 @@
 import { checkCountryCode } from "@/lib/check-country";
+import i18n from "@/lib/i18n";
 import { getImage } from "@/lib/get-image";
 import { httpClient } from "@/lib/http-client";
 import type { SingleOffer } from "@/types/single-offer";
@@ -7,6 +8,7 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 import { zodSearchValidator } from "@tanstack/router-zod-adapter";
 import { SearchContainer } from "@/components/search/SearchContainer";
 import { formSchema } from "@/stores/searchStore";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/sales/$id")({
   component: () => {
@@ -97,8 +99,8 @@ export const Route = createFileRoute("/sales/$id")({
       return {
         meta: [
           {
-            title: "Promotion not found",
-            description: "Promotion not found",
+            title: i18n.t("sales.errors.notFound"),
+            description: i18n.t("sales.errors.notFound"),
           },
         ],
       };
@@ -110,8 +112,8 @@ export const Route = createFileRoute("/sales/$id")({
       return {
         meta: [
           {
-            title: "Promotion not found",
-            description: "Promotion not found",
+            title: i18n.t("sales.errors.notFound"),
+            description: i18n.t("sales.errors.notFound"),
           },
         ],
       };
@@ -119,27 +121,27 @@ export const Route = createFileRoute("/sales/$id")({
     return {
       meta: [
         {
-          title: `${promotion.title} | egdata.app`,
+          title: i18n.t("sales.meta.title", { title: promotion.title }),
         },
         {
           name: "description",
-          content: `Check out ${promotion.title} from the Epic Games Store.`,
+          content: i18n.t("sales.meta.description", { title: promotion.title }),
         },
         {
           name: "og:title",
-          content: `${promotion.title} | egdata.app`,
+          content: i18n.t("sales.meta.title", { title: promotion.title }),
         },
         {
           name: "og:description",
-          content: `Check out ${promotion.title} from the Epic Games Store.`,
+          content: i18n.t("sales.meta.description", { title: promotion.title }),
         },
         {
           property: "twitter:title",
-          content: `${promotion.title} | egdata.app`,
+          content: i18n.t("sales.meta.title", { title: promotion.title }),
         },
         {
           property: "twitter:description",
-          content: `Check out ${promotion.title} from the Epic Games Store.`,
+          content: i18n.t("sales.meta.description", { title: promotion.title }),
         },
         {
           name: "og:image",
@@ -169,6 +171,7 @@ export const Route = createFileRoute("/sales/$id")({
 });
 
 function SalesPage() {
+  const { t } = useTranslation();
   const { cover, id, promotion } = Route.useLoaderData() as {
     dehydratedState: DehydratedState;
     cover: Pick<SingleOffer, "_id" | "id" | "namespace" | "title" | "keyImages"> | null;
@@ -185,7 +188,7 @@ function SalesPage() {
   const search = Route.useSearch();
 
   if (!promotion) {
-    return <div>Loading...</div>;
+    return <div>{t("sales.status.loading")}</div>;
   }
 
   return (
@@ -205,7 +208,9 @@ function SalesPage() {
       >
         <div className="flex h-full w-full flex-col items-start justify-center bg-gradient-to-r from-black/80 to-black/30 p-5 text-foreground md:p-8">
           <h1 className="text-3xl font-bold leading-tight md:text-5xl">{promotion.title}</h1>
-          <p className="mt-4 text-lg">{promotion.count} offers available in this event</p>
+          <p className="mt-4 text-lg">
+            {t("sales.labels.offersCount", { count: promotion.count })}
+          </p>
         </div>
       </div>
 
@@ -215,7 +220,7 @@ function SalesPage() {
           fixedParams={{
             tags: [id],
           }}
-          title={`${promotion.title} Offers`}
+          title={t("sales.headings.offersList", { title: promotion.title })}
           initialSearch={search}
           onSearchChange={(search) => {
             navigate({

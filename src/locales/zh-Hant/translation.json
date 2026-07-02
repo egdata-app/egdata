@@ -1,0 +1,1252 @@
+{
+  "common": {
+    "appName": "EGDATA",
+    "search": "搜尋",
+    "searchPlaceholder": "搜尋遊戲...",
+    "loading": "載入中...",
+    "free": "免費",
+    "notAvailable": "無法使用",
+    "cancel": "取消",
+    "save": "儲存",
+    "close": "關閉"
+  },
+  "nav": {
+    "toggleMenu": "切換導覽選單",
+    "logoAlt": "EGDATA Logo",
+    "explore": "探索",
+    "browse": "瀏覽",
+    "sales": "促銷",
+    "changelog": "更新日誌",
+    "about": "關於",
+    "rankings": "排行榜",
+    "topSellers": "暢銷榜",
+    "mostPlayed": "熱門遊玩",
+    "topWishlisted": "願望清單榜",
+    "topNewReleases": "最新發布",
+    "seeAllCollections": "檢視所有合集",
+    "others": "其他",
+    "releaseStats": "發布統計",
+    "genres": "類型",
+    "seeAllGenres": "檢視所有類型",
+    "other": "其他",
+    "action": "動作",
+    "rpg": "角色扮演",
+    "indie": "獨立",
+    "strategy": "策略",
+    "topSellerOnEpic": "Epic遊戲商城暢銷榜",
+    "searchItemTitle": "搜尋",
+    "searchItemDesc": "在Epic遊戲商城尋找您需要的內容。",
+    "freeGamesItemTitle": "免費遊戲",
+    "freeGamesItemDesc": "探索Epic遊戲商城最新的免費遊戲贈送。",
+    "withDiscountsItemTitle": "打折遊戲",
+    "withDiscountsItemDesc": "檢視目前正在促銷的折扣遊戲。",
+    "helloUser": "您好，{{name}}！",
+    "dashboard": "儀表板",
+    "logout": "登出",
+    "searchLanguages": "搜尋語言...",
+    "noLanguagesFound": "未找到相關語言"
+  },
+  "footer": {
+    "logoAlt": "EGDATA Logo",
+    "disclaimer": "這是一個粉絲製作的Epic遊戲商城資料庫，與Epic Games, Inc.無任何關聯。所有Logo、圖像和商標均屬於其各自的所有者。",
+    "legal": "法律資訊",
+    "privacyPolicy": "隱私權政策",
+    "notifications": "通知",
+    "resources": "資源",
+    "apiDocs": "API文件",
+    "changelog": "更新日誌",
+    "community": "社群",
+    "flagsByFlagpedia": "旗幟圖示來自 Flagpedia",
+    "madeIn": "製作於"
+  },
+  "meta": {
+    "title": "Epic遊戲資料庫 - egdata.app",
+    "description": "全面的Epic遊戲商城資料庫：包含遊戲資訊、價格、促銷歷史、檔案清單等。探索免費遊戲、即將發布的遊戲及社群洞察。",
+    "twitterTitle": "Epic遊戲資料庫",
+    "twitterDescription": "一個免費且開源的Epic遊戲商城資料庫，提供全面的遊戲資訊、價格追蹤等功能。由社群驅動並保持即時更新。",
+    "twitterImageAlt": "Epic遊戲資料庫",
+    "ogTitle": "Epic遊戲資料庫",
+    "ogDescription": "一個免費且開源的Epic遊戲商城資料庫，提供全面的遊戲資訊、價格追蹤等功能。由社群驅動並保持即時更新。",
+    "ogImageAlt": "Epic遊戲資料庫"
+  },
+  "notFound": {
+    "title": "頁面未找到"
+  },
+  "home": {
+    "statsBar": {
+      "offersTracked": "已追蹤目錄項目",
+      "priceChanges72h": "72小時價格變動",
+      "activeDiscounts": "目前折扣",
+      "giveawaysToDate": "累計贈送遊戲"
+    },
+    "sections": {
+      "giveawayStats": "贈送統計",
+      "giveawayOffers": "贈送目錄項目",
+      "upcomingOffers": "即將到來的目錄項目",
+      "latestOffers": "最新目錄項目",
+      "latestReleased": "最新發布",
+      "latestOffersWithAchievements": "帶成就的最新目錄項目",
+      "topSellingOffers": "暢銷目錄項目",
+      "latestBuilds": "最新建置版本"
+    },
+    "tableHeaders": {
+      "hash": "#",
+      "pos": "排名",
+      "dash": "-",
+      "title": "標題",
+      "starts": "開始時間",
+      "ends": "結束時間",
+      "releaseDate": "發布日期",
+      "createdAt": "建立日期",
+      "date": "日期",
+      "price": "價格",
+      "size": "大小",
+      "creationDate": "建立日期"
+    },
+    "offerHover": {
+      "seller": "銷售商：",
+      "developer": "開發商：",
+      "publisher": "發行商：",
+      "releaseDate": "發布日期：",
+      "ageRating": "年齡分級：",
+      "moreGenres_one": "+{{count}} 個更多",
+      "moreGenres_other": "+{{count}} 個更多",
+      "communityRating": "社群評分：",
+      "igdbScore": "IGDB評分",
+      "reviews": "• {{count}} 條評論",
+      "timeToBeat": "通關時間：",
+      "features": "特色功能：",
+      "moreFeatures": " +{{count}} 個更多"
+    },
+    "buildHover": {
+      "unknownBuild": "未知建置版本",
+      "unknownDeveloper": "未知開發商",
+      "size": "大小",
+      "version": "版本",
+      "created": "建立於",
+      "id": "ID：{{id}}"
+    },
+    "multipleOffers": "{{title}} - 多個目錄項目",
+    "hero": {
+      "subtitle": "追蹤價格、發現折扣、不錯過任何一款免費遊戲。您的Epic遊戲商城資料庫伴侶 — 提供目錄項目、折扣、贈送、建置版本等資訊。",
+      "searchPlaceholder": "搜尋資料庫...",
+      "justReleased": "剛剛發布",
+      "priceDrops72h": "價格降幅 (72h)",
+      "hasAchievements": "包含成就",
+      "upcoming": "即將發布",
+      "topSellers": "暢銷產品"
+    },
+    "pulse": {
+      "recentActivity": "近期活動",
+      "badge": {
+        "new": "新增",
+        "gone": "移除",
+        "offer": "目錄項目",
+        "build": "建置版本",
+        "item": "物品",
+        "asset": "資源",
+        "xp": "經驗值",
+        "sandbox": "沙盒",
+        "change": "變更"
+      },
+      "title": {
+        "buildVersion": "建置版本 {{version}}",
+        "buildId": "建置ID {{id}}",
+        "achievementsId": "成就 {{id}}"
+      },
+      "detail": {
+        "newBuildIndexed": "已索引新建置版本",
+        "buildManifestRefreshed": "建置清單已重新整理",
+        "achievementChanges_one": "{{count}} 個成就 {{entry}} {{verb}}",
+        "achievementChanges_other": "{{count}} 個成就 {{entry}} {{verb}}",
+        "offerMetadataRefreshed": "目錄項目中繼資料已重新整理",
+        "fieldsChanged_one": "{{count}} 個欄位 {{verb}}",
+        "fieldsChanged_other": "{{count}} 個欄位 {{verb}}",
+        "fieldChanged": "{{field}} {{verb}}"
+      },
+      "actionVerb": {
+        "added": "已新增",
+        "removed": "已移除",
+        "updated": "已更新",
+        "changed": "已變更"
+      },
+      "entry_one": "條目",
+      "entry_other": "條目"
+    }
+  },
+  "offerDetail": {
+    "common": {
+      "offerNotFound": "目錄項目未找到",
+      "notAvailable": "無法使用",
+      "na": "N/A",
+      "loading": "載入中...",
+      "somethingWentWrong": "發生錯誤",
+      "noChangesFound": "此目錄項目無變更記錄"
+    },
+    "tabs": {
+      "overview": "概覽",
+      "price": "價格",
+      "items": "物品",
+      "builds": "建置版本",
+      "achievements": "成就",
+      "related": "相關內容",
+      "metadata": "中繼資料",
+      "changelog": "更新日誌",
+      "media": "媒體",
+      "reviews": "評論"
+    },
+    "table": {
+      "offerId": "目錄項目ID",
+      "namespace": "命名空間",
+      "offerType": "目錄項目類型",
+      "seller": "銷售商",
+      "developer": "開發商",
+      "supportedPlatforms": "支援平台",
+      "releaseDate": "發布日期",
+      "lastUpdate": "最後更新",
+      "creationDate": "建立日期",
+      "technologies": "技術棧",
+      "type": "類型",
+      "value": "數值",
+      "countriesBlacklist": "國家/地區黑名單",
+      "countriesWhitelist": "國家/地區白名單",
+      "categories": "分類",
+      "refundType": "退款類型",
+      "tags": "標籤",
+      "ageRatings": "年齡分級",
+      "assets": "資源"
+    },
+    "badges": {
+      "prePurchase": "預購",
+      "earlyAccess": "搶先體驗"
+    },
+    "hero": {
+      "offeredBy": "由 {{seller}} 提供"
+    },
+    "tooltip": {
+      "internalNamespace": "Epic遊戲內部命名空間",
+      "techDescription": "用於追蹤遊戲檔案中使用的引擎及相關技術棧的技術清單。",
+      "techSource": "我們使用",
+      "techSourceSteamDb": "SteamDB",
+      "source": "來源"
+    },
+    "actions": {
+      "compare": "對比"
+    },
+    "releaseDate": {
+      "releasedOnPc": "PC發布日期",
+      "theEgs": " Epic遊戲商城",
+      "releasedSameDay": "與PC同日於Epic發布"
+    },
+    "notifications": {
+      "title": "通知設定",
+      "description": "選擇您希望接收此目錄項目的哪些通知。",
+      "all": "全部",
+      "price": "價格",
+      "achievements": "成就",
+      "builds": "建置版本",
+      "items": "物品",
+      "requirements": "系統需求",
+      "metadata": "中繼資料",
+      "media": "媒體",
+      "enablePushDescription": "您需要開啟推播通知以接收此目錄項目的相關更新。",
+      "enablePushAction": "啟用推播通知"
+    },
+    "overview": {
+      "genres": "類型",
+      "ageRating": "年齡分級",
+      "noAgeRatings": "未找到年齡分級",
+      "giveaways": "免費贈送",
+      "noGiveaways": "未找到贈送活動",
+      "achievements": "成就",
+      "igdbTimeToBeat": "IGDB通關時間",
+      "hastily": "速通",
+      "normally": "正常流程",
+      "completely": "完美通關",
+      "hltbSubmissions_one": "基於 {{count}} 條提交",
+      "hltbSubmissions_other": "基於 {{count}} 條提交",
+      "price": "價格",
+      "priceCurrent": "目前：",
+      "priceLowest": "歷史最低：",
+      "priceLastDiscount": "上次折扣：",
+      "hltbTitle": "通關時間 (How Long To Beat)",
+      "noGameTimes": "未找到遊戲時間資料",
+      "epicRating": "Epic玩家評分",
+      "epicRatingDescription": "來自Epic遊戲生態系統內玩家的評分",
+      "igdbRating": "IGDB評分",
+      "igdbReviews_one": "{{count}} 條評論",
+      "igdbReviews_other": "{{count}} 條評論"
+    },
+    "achievements": {
+      "title": "成就",
+      "sortBy": "排序方式",
+      "defaultSort": "預設排序",
+      "sortByRarity": "按稀有度排序",
+      "sortByCompleted": "按完成百分比排序",
+      "search": "搜尋",
+      "flipAll": "全部翻轉",
+      "noAchievements": "未找到成就",
+      "noAchievementsSet": "此集合中未找到成就。",
+      "noAchievementsSetDescription": "這可能表示成就目前不可用，但在未來會新增。",
+      "baseGame": "基礎遊戲",
+      "dlc": "DLC",
+      "achievementsLabel": "成就",
+      "baseGameDescription": "此成就清單屬於基礎遊戲。",
+      "dlcDescription": "此成就清單屬於其中一個DLC。",
+      "lastUpdated": "最後更新：",
+      "lastUpdatedTooltip": "此成就集合最後更新於 {{date}}。",
+      "lastUpdatedTooltipDescription": "這是建立日期或最後更新日期。"
+    },
+    "builds": {
+      "title": "建置版本"
+    },
+    "items": {
+      "title": "物品"
+    },
+    "price": {
+      "title": "價格"
+    },
+    "related": {
+      "title": "相關目錄項目"
+    },
+    "media": {
+      "images": "圖像",
+      "videos": "影片",
+      "covers": "封面",
+      "noImages": "未找到圖像",
+      "noVideos": "未找到影片",
+      "noCovers": "未找到封面",
+      "download": "下載",
+      "close": "關閉",
+      "downloadCoverAria": "下載 {{type}} 封面"
+    },
+    "metadata": {
+      "title": "中繼資料",
+      "download": "下載：",
+      "install": "安裝："
+    },
+    "changelog": {
+      "title": "更新日誌",
+      "tooltip": "此清單顯示了對此特定目錄項目或相關物品、資源或建置版本所做的變更。",
+      "sandboxChangelog": "沙盒更新日誌",
+      "sandboxChangelogPrefix": "您可以在以下頁面檢視整個產品的更新日誌：",
+      "noChangelog": "無可用更新日誌",
+      "allTypes": "所有類型",
+      "selectField": "選擇一個欄位",
+      "allFields": "所有欄位",
+      "search": "搜尋",
+      "previous": "上一頁",
+      "next": "下一頁",
+      "pageOf": "第 {{page}} 頁，共 {{totalPages}} 頁",
+      "typeUpdate": "更新",
+      "typeDelete": "刪除",
+      "typeInsert": "插入"
+    },
+    "reviews": {
+      "epicRating": "Epic玩家評分",
+      "epicRatingDescription": "來自Epic遊戲生態系統內玩家的評分",
+      "egdataRating": "EGDATA評分",
+      "overallScore": "總分",
+      "scoreOutOf10": "{{score}} / 10",
+      "basedOnReviews": "基於 {{count}} 條評論",
+      "allReviews": "所有評論",
+      "onlyVerified": "僅限已驗證",
+      "notVerified": "未驗證",
+      "leaveReview": "發表評論",
+      "alreadyReviewed": "已發表評論",
+      "loginToReview": "登入以發表評論",
+      "noReviews": "暫無評論",
+      "notReleased": "該產品尚未發布",
+      "beFirst": "成為第一個為該產品發表評論的人！",
+      "checkBack": "請在產品發布後再回來發表評論！",
+      "verifiedOwner": "已驗證擁有者",
+      "recommended": "推薦",
+      "notRecommended": "不推薦",
+      "readMore": "閱讀更多",
+      "reviewedOn": "發表於",
+      "lastUpdatedOn": "最後更新於",
+      "editedTimes": "已編輯 {{count}} 次",
+      "edit": "編輯",
+      "close": "關閉",
+      "reviewCount_one": "{{count}} 條評論",
+      "reviewCount_other": "{{count}} 條評論",
+      "ownershipVerification": "擁有權驗證",
+      "ownershipVerificationDescription": "基於玩家是否至少完成了一個成就。",
+      "ownershipVerificationTooltip": "我們使用Epic遊戲成就來驗證產品的擁有權。要將玩家標記為已驗證擁有者，他們必須為所選產品在Epic遊戲商城中至少完成一個成就。要將您的帳戶連結到您的egdata個人資料，您需要前往",
+      "yourDashboard": "您的儀表板",
+      "criticReviews": "媒體評分",
+      "basedOnCriticReviews": "基於 {{count}} 條媒體評分",
+      "opencriticRating": "OpenCritic評分",
+      "topCriticAverage": "頂級媒體平均分",
+      "criticsRecommend": "媒體推薦度",
+      "opencriticRatingAlt": "OpenCritic評分"
+    }
+  },
+  "search": {
+    "meta": {
+      "title": "搜尋 | egdata.app",
+      "description": "搜尋Epic遊戲商城的目錄項目。"
+    },
+    "defaultTitle": "搜尋",
+    "filters": "篩選器",
+    "filtersPlaceholder": "搜尋遊戲",
+    "pills": {
+      "onSale": "促銷中",
+      "codeRedemptionOnly": "僅限兌換碼",
+      "excludeBlockchain": "排除區塊鏈/NFT",
+      "pastGiveaways": "往期贈送"
+    },
+    "accordion": {
+      "offerType": "目錄項目類型",
+      "developer": "開發商",
+      "publisher": "發行商",
+      "noTags": "未找到標籤"
+    },
+    "checkboxes": {
+      "pastGiveaways": "往期贈送",
+      "onSale": "促銷中",
+      "codeRedemptionOnly": "僅限兌換碼",
+      "excludeBlockchain": "排除區塊鏈/NFT",
+      "onlyHistoricalLows": "僅限歷史最低價",
+      "onlyLowestPriceEver": "僅限史上最低價"
+    },
+    "tagGroups": {
+      "event": "活動",
+      "genre": "類型",
+      "epicfeature": "Epic功能",
+      "accessibility": "無障礙",
+      "feature": "功能",
+      "usersay": "使用者評價",
+      "subscription": "訂閱",
+      "platform": "平台"
+    },
+    "sort": {
+      "sortBy": "排序方式",
+      "sortAriaLabel": "排序目錄項目",
+      "sortDirectionAriaLabel": "切換排序方向",
+      "showListView": "顯示清單檢視",
+      "showGridView": "顯示網格檢視",
+      "releaseDate": "發布日期",
+      "lastModifiedDate": "修改日期",
+      "effectiveDate": "生效日期",
+      "creationDate": "建立日期",
+      "viewableDate": "可見日期",
+      "pcReleaseDate": "PC發布日期",
+      "upcoming": "即將發布",
+      "price": "價格",
+      "discount": "折扣",
+      "discountPercent": "折扣百分比",
+      "giveawayDate": "贈送日期"
+    },
+    "results": {
+      "noResults": "未找到結果"
+    }
+  },
+  "freebies": {
+    "meta": {
+      "title": "免費遊戲 | egdata.app",
+      "description": "瀏覽來自Epic遊戲商城的免費遊戲。"
+    },
+    "headings": {
+      "current": "目前免費遊戲",
+      "past": "往期免費遊戲",
+      "sellers": "免費遊戲發行商"
+    },
+    "buttons": {
+      "redeem": "立即領取",
+      "downloadJson": "下載為JSON",
+      "downloadCsv": "下載為CSV",
+      "downloadTxt": "下載為TXT"
+    },
+    "placeholders": {
+      "searchSellers": "搜尋發行商..."
+    },
+    "aria": {
+      "downloadList": "下載清單"
+    },
+    "errors": {
+      "loadSellers": "載入發行商資料出錯。請稍後再試。"
+    },
+    "table": {
+      "sellerName": "發行商名稱",
+      "totalGames": "單機遊戲總數"
+    }
+  },
+  "sales": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "檢視來自Epic遊戲商城的 {{title}}。"
+    },
+    "metaIndex": {
+      "title": "進行中的促銷 | egdata.app",
+      "description": "瀏覽egdata.app上進行中的促銷活動"
+    },
+    "status": {
+      "loading": "載入中...",
+      "noData": "無資料"
+    },
+    "headings": {
+      "active": "正在進行的促銷",
+      "pastUpcoming": "往期 / 即將到來的促銷",
+      "offersList": "{{title}} 促銷目錄項目"
+    },
+    "errors": {
+      "notFound": "促銷活動未找到"
+    },
+    "labels": {
+      "offersCount": "此活動包含 {{count}} 個目錄項目"
+    }
+  },
+  "collections": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "檢視來自Epic遊戲商城的 {{title}}。"
+    },
+    "metaIndex": {
+      "title": "合集 | egdata.app",
+      "description": "egdata.app上的合集"
+    },
+    "headings": {
+      "main": "合集"
+    },
+    "description": {
+      "overview": "Epic遊戲商城中最暢銷、遊玩人數最多以及最受歡迎的遊戲"
+    },
+    "status": {
+      "loading": "載入中..."
+    },
+    "errors": {
+      "notFound": "合集未找到"
+    },
+    "table": {
+      "position": "排名",
+      "variance": "變動",
+      "weeks": "週數"
+    },
+    "tooltips": {
+      "variance": "目前排名與上一排名的差值。通常每天更新一次。",
+      "weeks": "該遊戲進入 {{title}} 前100名的週數。"
+    },
+    "buttons": {
+      "loadMore": "載入更多"
+    }
+  },
+  "sandboxes": {
+    "notFoundTitle": "沙盒未找到",
+    "notFoundDescription": "沙盒未找到",
+    "unrealEngineTitle": "虛幻引擎",
+    "unavailableTitle": "沙盒無法使用",
+    "unavailableDescription": "無法載入產品中心。",
+    "noProductDataDescription": "此沙盒不存在產品資料。",
+    "hubEyebrow": "沙盒",
+    "hubOverviewTitle": "概覽",
+    "hubOverviewDescription": "該命名空間的商店、擁有權、交付及更新記錄的焦點檢視。",
+    "latestChangesButton": "最新變更",
+    "entityOffersLabel": "目錄項目",
+    "entityOffersDescription": "商店條目",
+    "entityItemsLabel": "物品",
+    "entityItemsDescription": "可擁有權記錄",
+    "entityAssetsLabel": "資源",
+    "entityAssetsDescription": "製品與媒體",
+    "entityBuildsLabel": "建置版本",
+    "entityBuildsDescription": "二進位制捆綁包",
+    "entityAchievementsLabel": "成就",
+    "entityAchievementsDescription": "進度資料",
+    "entityChangelogLabel": "更新日誌",
+    "entityChangelogDescription": "已追蹤的更新",
+    "viewButton": "檢視",
+    "storefrontOffersTitle": "商店目錄項目",
+    "storefrontOffersDescription": "此沙盒中代表性的商店條目。",
+    "recentBuildsTitle": "最近建置版本",
+    "recentBuildsDescription": "最新的二進位制記錄。",
+    "latestBadge": "最新",
+    "unknownBuildLabel": "未知建置版本",
+    "recentChangesTitle": "最近變更",
+    "recentChangesDescription": "最新的目錄變更。",
+    "updateBadge": "更新",
+    "changeDefaultLabel": "變更",
+    "metaOffersTitle": "目錄項目",
+    "offersEyebrow": "電子商務",
+    "offersTitle": "目錄項目",
+    "offersDescription": "此沙盒中的商店條目，包括基礎遊戲、版本、DLC、附加內容、捆綁包以及任何可以授予目錄項目的目錄項目。",
+    "totalOffersLabel": "目錄項目總數",
+    "metaAchievementsTitle": "成就",
+    "achievementsEyebrow": "進度",
+    "achievementsTitle": "成就",
+    "achievementsDescription": "附加到此沙盒的成就集合、隱藏狀態、稀有度分佈和經驗值總計。",
+    "achievementsSetsLabel": "集合",
+    "achievementsLabel": "成就",
+    "achievementsXpLabel": "經驗值",
+    "searchAchievementsPlaceholder": "搜尋成就",
+    "flipAllButton": "全部翻轉",
+    "revealHiddenAchievementAria": "顯示隱藏成就文字",
+    "hideHiddenAchievementAria": "隱藏隱藏成就文字",
+    "achievementsBaseGameLabel": "基礎遊戲",
+    "achievementsDlcLabel": "DLC",
+    "achievementsBaseGameTooltip": "此清單顯示的是基礎遊戲成就。",
+    "achievementsDlcTooltip": "此清單顯示的是其中一個DLC的成就。",
+    "lastUpdatedLabel": "最後更新：",
+    "achievementsLastUpdatedTooltip": "此成就集合最後更新於",
+    "achievementsLastUpdatedTooltipExtra": "這是建立日期或最後更新日期。",
+    "noAchievementsForSet": "此集合未找到成就。",
+    "noAchievementsForSetExtra": "這可能表示成就目前不可用，但在未來會新增。",
+    "noAchievementsFound": "未找到成就",
+    "metaItemsTitle": "物品",
+    "itemsEyebrow": "目錄擁有權",
+    "itemsTitle": "物品",
+    "itemsDescription": "包含在目錄項目中的可擁有目錄物品。這些是玩家在購買或兌換後獲得授權的記錄。",
+    "totalItemsLabel": "物品總數",
+    "metaChangelogTitle": "更新日誌",
+    "changelogEyebrow": "稽核追蹤",
+    "changelogTitle": "更新日誌",
+    "changelogDescription": "觀察到的此沙盒目錄項目、物品、資源、建置版本及相關中繼資料的變更。",
+    "totalChangesLabel": "變更記錄",
+    "queryTimeLabel": "查詢耗時",
+    "noChangelogFound": "未找到更新日誌",
+    "metaBuildsTitle": "建置版本",
+    "buildsEyebrow": "二進位制檔案",
+    "buildsTitle": "建置版本",
+    "buildsDescription": "為沙盒上傳的版本化檔案捆綁包。建置版本被分配給製品，並驅動玩家透過啟動器下載的內容。",
+    "totalBuildsLabel": "建置版本總數",
+    "metaAssetsTitle": "資源",
+    "assetsEyebrow": "資源與製品",
+    "assetsTitle": "資源",
+    "assetsDescription": "附加到沙盒物品的發布與媒體記錄，包括將商店目錄內容連線到可下載建置版本的製品。",
+    "totalAssetsLabel": "資源總數"
+  },
+  "items": {
+    "notFound": "物品未找到",
+    "badge": "物品",
+    "table": {
+      "itemId": "物品ID",
+      "namespace": "命名空間",
+      "developer": "開發商",
+      "entitlementType": "授權類型",
+      "entitlementName": "授權名稱",
+      "status": "狀態",
+      "creationDate": "建立日期",
+      "lastModified": "最後修改",
+      "platforms": "平台"
+    },
+    "tooltip": {
+      "internalNamespace": "Epic遊戲內部命名空間"
+    },
+    "tabs": {
+      "item": "物品",
+      "assets": "資源",
+      "images": "圖像",
+      "builds": "建置版本",
+      "changelog": "更新日誌"
+    },
+    "metadata": {
+      "title": "中繼資料",
+      "key": "鍵",
+      "value": "值"
+    },
+    "assets": {
+      "title": "資源"
+    },
+    "builds": {
+      "title": "建置版本"
+    },
+    "changelog": {
+      "title": "更新日誌",
+      "noChangelog": "無可用更新日誌"
+    },
+    "images": {
+      "title": "圖像"
+    }
+  },
+  "builds": {
+    "notFound": "建置版本未找到",
+    "build": "建置版本",
+    "for": "用於",
+    "compressed": "({{percent}}% 已壓縮)",
+    "table": {
+      "buildId": "建置ID",
+      "buildName": "建置名稱",
+      "appName": "應用程式名稱",
+      "hash": "雜湊值",
+      "installedSize": "安裝大小",
+      "downloadSize": "下載大小",
+      "createdAt": "建立日期",
+      "updatedAt": "更新日期",
+      "technologies": "技術棧"
+    },
+    "tooltip": {
+      "techSource": "我們使用",
+      "techSourceSteamDb": "SteamDB",
+      "techDescription": "用於追蹤遊戲檔案中使用的引擎及相關技術棧的技術清單。",
+      "source": "來源"
+    },
+    "tabs": {
+      "files": "檔案",
+      "items": "物品",
+      "installOptions": "安裝選項"
+    },
+    "files": {
+      "title": "檔案"
+    },
+    "items": {
+      "title": "物品"
+    },
+    "installOptions": {
+      "title": "安裝選項",
+      "file_one": "檔案",
+      "file_other": "檔案"
+    },
+    "meta": {
+      "title": "{{title}} ({{version}}) | egdata.app",
+      "description": "{{title}} 的 {{version}} 建置版本，來自Epic遊戲商城。"
+    }
+  },
+  "profile": {
+    "meta": {
+      "notFoundTitle": "個人資料未找到",
+      "notFoundDescription": "個人資料未找到",
+      "title": "{{name}} | egdata.app",
+      "description": "檢視 {{name}} 在 egdata.app 上的成就和遊戲庫",
+      "defaultName": "個人資料",
+      "defaultDescriptionName": "這位玩家的"
+    },
+    "errors": {
+      "notFoundTitle": "個人資料未找到",
+      "notFoundDescription": "此個人資料無法使用或尚未被索引。",
+      "unavailableTitle": "個人資料無法使用",
+      "unavailableDescription": "目前無法載入此個人資料。",
+      "invalidImageFormat": "無效的圖像格式",
+      "failedToUpload": "上傳失敗",
+      "uploadFailed": "上傳失敗",
+      "failedToRefresh": "重新整理個人資料失敗",
+      "refreshQueued": "個人資料已加入重新整理佇列，即將更新。"
+    },
+    "fallbackName": "未知個人資料",
+    "avatar": {
+      "changeAvatar": "變更大頭貼",
+      "dialogDescription": "上傳新的個人資料圖片。",
+      "previewAlt": "大頭貼預覽",
+      "fallback": "大頭貼",
+      "description": "上傳新的大頭貼圖片，最大5MB。",
+      "uploadingWithProgress": "正在上傳... {{progress}}%",
+      "uploading": "正在上傳...",
+      "updateAvatar": "更新大頭貼",
+      "errorTitle": "錯誤"
+    },
+    "hero": {
+      "joined": "加入時間",
+      "epicGamesStore": "Epic遊戲商城",
+      "linkDiscord": "連結Discord",
+      "refreshProfile": "重新整理個人資料",
+      "refreshAvailableIn": "下次重新整理時間",
+      "level": "等級",
+      "achievements": "成就",
+      "unlocked": "已解鎖",
+      "platinum": "白金成就",
+      "perfectGames": "完美遊戲",
+      "library": "遊戲庫",
+      "achievementGames": "有成就的遊戲",
+      "reviews": "評論",
+      "contributed": "貢獻",
+      "xpToNextLevel": "距離 {{level}} 級還差 {{xp}} XP",
+      "heroGame": "代表遊戲",
+      "complete": "完成"
+    },
+    "donor": {
+      "donated_one": "{{name}} 已向 egdata.app 捐贈了 {{count}} 個Key",
+      "donated_other": "{{name}} 已向 egdata.app 捐贈了 {{count}} 個Key",
+      "goTo": "前往",
+      "thisLink": "此連結",
+      "toDonateKey": "捐贈Key。"
+    },
+    "countdown": {
+      "minutesSeconds_one": "{{minutes}} 分 {{seconds}} 秒",
+      "minutesSeconds_other": "{{minutes}} 分 {{seconds}} 秒",
+      "seconds_one": "{{seconds}} 秒",
+      "seconds_other": "{{seconds}} 秒"
+    },
+    "tabs": {
+      "showcase": "展示櫃",
+      "library": "遊戲庫",
+      "activity": "動態"
+    },
+    "stats": {
+      "games": "{{count}} 款遊戲",
+      "achievements": "{{count}} 項成就",
+      "platinum": "{{count}} 項白金"
+    },
+    "showcase": {
+      "ariaLabel": "個人資料展示櫃",
+      "featuredGamesTitle": "精選遊戲",
+      "featuredGamesDetail": "{{count}} 款根據檔案表現挑選的遊戲",
+      "rareAchievementsTitle": "稀有成就",
+      "rareAchievementsDetail": "檔案中難以解鎖的成就",
+      "recentUnlocksTitle": "最近解鎖",
+      "recentUnlocksDetail": "最新的可見動態",
+      "noDataTitle": "暫無展示櫃資料",
+      "noDataDescription": "只有已執行且有公開成就進度的遊戲才會顯示在檔案中。",
+      "rarestUnlock": "最稀有解鎖",
+      "definingGame": "代表遊戲",
+      "latestActivity": "最近動態",
+      "achievementsCount": "{{unlocked}} / {{total}} 項成就",
+      "platinum": "白金"
+    },
+    "library": {
+      "filterAriaLabel": "遊戲庫篩選",
+      "sortAriaLabel": "排序遊戲庫",
+      "sortByPlaceholder": "排序方式",
+      "noGamesTitle": "未找到遊戲",
+      "noGamesDescription": "只有已執行且有成就的遊戲才會顯示在此遊戲庫中。",
+      "gameAlt": "遊戲",
+      "complete": "完成",
+      "featured": "精選",
+      "rareUnlocks": "稀有解鎖",
+      "filters": {
+        "all": "全部",
+        "completed": "已完成",
+        "nearPlatinum": "即將白金",
+        "inProgress": "進行中",
+        "platinum": "白金"
+      },
+      "sorts": {
+        "completion": "完成度",
+        "alphabetical": "按字母排序",
+        "xp": "經驗值",
+        "achievements": "成就數"
+      }
+    },
+    "activity": {
+      "title": "動態",
+      "detail": "{{count}} 項成就解鎖",
+      "noActivityTitle": "暫無動態",
+      "noActivityDescription": "成就解鎖動態將在該檔案擁有公開進度後出現在這裡。",
+      "achievementAlt": "成就",
+      "platinumEarned": "獲得白金成就",
+      "achievementUnlocked": "解鎖成就",
+      "unknownRarity": "未知稀有度",
+      "rarity": "稀有度 {{value}}%",
+      "unknownDate": "日期未知"
+    },
+    "achievements": {
+      "loading": "載入中...",
+      "notFound": "個人資料未找到",
+      "myAchievements": "我的成就"
+    }
+  },
+  "tags": {
+    "meta": {
+      "notFoundTitle": "促銷活動未找到",
+      "notFoundDescription": "促銷活動未找到",
+      "title": "{{title}} | egdata.app",
+      "description": "檢視 {{title}} 下的 {{count}} 個可用目錄項目，盡在 egdata.app。",
+      "socialTitle": "{{title}} - egdata.app"
+    },
+    "loading": "載入中...",
+    "offersCount": "此活動包含 {{count}} 個目錄項目",
+    "results": "結果",
+    "resultsCount": "({{count}} 個結果)",
+    "searchPlaceholder": "搜尋...",
+    "loadMore": "載入更多",
+    "sortBy": {
+      "releaseDate": "發布日期",
+      "lastModifiedDate": "修改日期",
+      "effectiveDate": "生效日期",
+      "creationDate": "建立日期",
+      "viewableDate": "可見日期",
+      "pcReleaseDate": "PC發布日期",
+      "upcoming": "即將發布",
+      "price": "價格"
+    }
+  },
+  "genres": {
+    "meta": {
+      "title": "類型 - egdata.app",
+      "description": "egdata.app上的遊戲類型"
+    },
+    "heading": "類型"
+  },
+  "sellers": {
+    "meta": {
+      "notFoundTitle": "發行商未找到",
+      "notFoundDescription": "發行商未找到",
+      "title": "{{name}} | egdata.app"
+    },
+    "notFound": "發行商未找到",
+    "logoAlt": "{{name}} Logo",
+    "bannerAlt": "{{name}}",
+    "offersTitle": "{{name}} 的目錄項目",
+    "stats": {
+      "offers": "目錄項目",
+      "games": "遊戲",
+      "items": "物品",
+      "freeGames": "免費遊戲"
+    }
+  },
+  "franchises": {
+    "meta": {
+      "notFoundTitle": "系列未找到",
+      "notFoundDescription": "系列未找到",
+      "title": "{{name}} 系列 | egdata.app",
+      "description": "在Epic遊戲商城瀏覽 {{name}} 系列的所有遊戲。"
+    },
+    "loading": "載入中...",
+    "gamesCount_one": "{{count}} 款遊戲",
+    "gamesCount_other": "{{count}} 款遊戲",
+    "timeToBeat": "通關時間",
+    "achievements": "成就",
+    "loadMore": "載入更多",
+    "free": "免費"
+  },
+  "stats": {
+    "creations": {
+      "meta": {
+        "title": "創作統計 - egdata.app",
+        "description": "Epic遊戲商城每月和每年的新內容發布頻率。"
+      },
+      "viewReleases": "檢視發布",
+      "heading": "Epic遊戲商城創作統計",
+      "description": "每月和每年的新內容發布頻率。",
+      "monthlyTitle": "每月創作",
+      "yearlyTitle": "每年創作"
+    },
+    "releases": {
+      "meta": {
+        "title": "發布統計 - egdata.app",
+        "description": "Epic遊戲商城每月和每年的新遊戲發布頻率。"
+      },
+      "viewCreations": "檢視創作",
+      "heading": "Epic遊戲商城發布統計",
+      "description": "每月和每年的新遊戲發布頻率。",
+      "monthlyTitle": "每月發布",
+      "yearlyTitle": "每年發布"
+    }
+  },
+  "store": {
+    "creatorCode": {
+      "title": "支援 egdata.app",
+      "description": "您願意在購買遊戲時使用我們的創作者代碼來支援 egdata.app 嗎？此選擇將在未來造訪時被記住。",
+      "body": "使用我們的創作者代碼有助於支援 egdata.app 及其功能的開發，且不會影響您支付的價格。",
+      "noThanks": "不用了",
+      "yesUseCode": "是的，使用代碼"
+    }
+  },
+  "dashboard": {
+    "placeholder": "您好 /dashboard！"
+  },
+  "auth": {
+    "login": {
+      "placeholder": "您好 /auth/login！"
+    },
+    "callback": {
+      "placeholder": "您好 /auth/callback！"
+    },
+    "logout": {
+      "placeholder": "您好 /auth/logout！"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "關於 - egdata.app",
+      "description": "關於 egdata.app"
+    },
+    "title": "關於",
+    "intro": "egdata.app 是一個社群驅動的網站，致力於追蹤並提供Epic遊戲商城的相關資訊。類似於SteamDB之於Steam，我們的目標是為使用者提供一個全面的資源庫，用於探索變更、發現新遊戲，並及時掌握該平台的最新動態。",
+    "missionTitle": "我們的使命",
+    "missionBody": "我們的使命是為Epic遊戲商城生態系統提供透明度和深入見解。我們堅信，透過以易於存取的方式彙總和呈現資料，我們可以使用者在做出遊戲購買決策時更具依據，並有助於更好地了解該平台。",
+    "featuresTitle": "功能特點",
+    "features": {
+      "trackPrices": "追蹤遊戲價格變動和歷史資料",
+      "upcomingReleases": "檢視即將發布的遊戲和免費遊戲贈送活動",
+      "gameDetails": "探索遊戲詳情、評分和使用者評論",
+      "analyzeTrends": "分析Epic遊戲商城的發展趨勢和模式"
+    },
+    "communityTitle": "社群驅動",
+    "communityBody": "egdata.app 由一群熱情的玩家和開發者建置並維護。我們歡迎任何想要幫助改進網站、使其成為更有價值資源的人做出貢獻。如果您有任何回饋、建議或想要參與其中，請隨時聯絡我們。",
+    "sourceCodeIntro": "egdata.app 的所有原始碼均可在以下位置找到：",
+    "github": "GitHub",
+    "notTitle": "egdata.app 不是什麼",
+    "notIntro": "需要明確的是，egdata.app 不是：",
+    "notList": {
+      "affiliated": "與Epic Games有關聯：我們是一個獨立的、社群驅動的專案，未以任何方式得到Epic Games的官方認可或關聯。",
+      "storefront": "商店或市場：我們不銷售遊戲，也不提供任何購買途徑。我們的重點是提供關於Epic遊戲商城的各種資訊和資料。",
+      "piracy": "盜版或非法活動的平台：我們強烈譴責盜版行為，不提供任何存取或散布受版權保護內容的途徑。"
+    },
+    "fairUseTitle": "合理使用政策",
+    "fairUseBody": "egdata.app 致力於遵守版權法下的合理使用原則。我們僅為提供資訊之目的提供內容和資料，旨在普及並向公眾告知Epic遊戲商城上架的遊戲。",
+    "fairUseFactorsTitle": "支援合理使用的關鍵因素：",
+    "fairUseFactors": {
+      "nonCommercial": "非商業性、教育目的：",
+      "nonCommercialBody": "我們的網站是非商業性的，旨在增強大眾對Epic遊戲商城遊戲的知識。",
+      "factual": "事實性資訊：",
+      "factualBody": "我們主要展示事實性資料，如遊戲名稱、發布日期和開發商，這些內容受版權保護程度較低。",
+      "limited": "有限使用：",
+      "limitedBody": "我們僅使用提供有意義資訊所需的必要資料量，而不會取代原作。",
+      "noMarketHarm": "無市場損害：",
+      "noMarketHarmBody": "我們的使用不會對原遊戲市場產生負面影響；相反，透過提高使用者興趣，可能還會起到推廣作用。"
+    },
+    "autoTrackBody": "我們自動追蹤並更新來自包括Epic遊戲商城在內的公開可用來源的遊戲資料。我們直接從其伺服器載入圖形資源，而不進行本機儲存。",
+    "leakedDataTitle": "洩漏資料免責宣告：",
+    "leakedDataBody": "網站上任何看似洩漏的資料均源自Epic遊戲商城公開可用的資訊。我們不會存取機密或專有資料。發行商有責任在以下平台內保護其敏感資訊：",
+    "epicDevPortal": "Epic遊戲開發者入口",
+    "euDirectivesIntro": "在制定我們的合理使用政策時，我們考慮了以下歐盟版權指令中概述的原則：",
+    "euDirective1": "第 (EU) 2019/790 號指令：數位單一市場版權和相關權指令",
+    "euDirective2": "問題與解答 – 新的歐盟版權規則",
+    "fairUseContact": "如果您對我們的合理使用政策有疑問，或認為任何內容侵犯了您的版權，請透過以下方式聯絡我們：",
+    "contactTitle": "聯絡我們",
+    "contactBody": "您可以透過以下方式聯絡我們"
+  },
+  "changelog": {
+    "index": {
+      "meta": {
+        "title": "更新日誌 | egdata.app"
+      },
+      "searchPlaceholder": "搜尋更新日誌...",
+      "searchButton": "搜尋",
+      "loading": "載入中...",
+      "error": "取得資料錯誤"
+    },
+    "detail": {
+      "meta": {
+        "title": "更新詳情 | egdata.app"
+      },
+      "loading": "載入中...",
+      "error": "載入更新詳情出錯",
+      "notFound": "未找到相關變更"
+    }
+  },
+  "privacy": {
+    "title": "關於",
+    "intro": "egdata.app 是一個社群驅動的網站，致力於追蹤並提供Epic遊戲商城的相關資訊。類似於SteamDB之於Steam，我們的目標是為使用者提供一個全面的資源庫，用於探索變更、發現新遊戲，並及時掌握該平台的最新動態。",
+    "missionTitle": "我們的使命",
+    "missionBody": "我們的使命是為Epic遊戲商城生態系統提供透明度和深入見解。我們堅信，透過以易於存取的方式彙總和呈現資料，我們可以使用者在做出遊戲購買決策時更具依據，並有助於更好地了解該平台。",
+    "featuresTitle": "功能特點",
+    "features": {
+      "trackPrices": "追蹤遊戲價格變動和歷史資料",
+      "upcomingReleases": "檢視即將發布的遊戲和免費遊戲贈送活動",
+      "gameDetails": "探索遊戲詳情、評分和使用者評論",
+      "analyzeTrends": "分析Epic遊戲商城的發展趨勢和模式"
+    },
+    "communityTitle": "社群驅動",
+    "communityBody": "egdata.app 由一群熱情的玩家和開發者建置並維護。我們歡迎任何想要幫助改進網站、使其成為更有價值資源的人做出貢獻。如果您有任何回饋、建議或想要參與其中，請隨時聯絡我們。",
+    "sourceCodeIntro": "egdata.app 的所有原始碼均可在以下位置找到：",
+    "github": "GitHub",
+    "notTitle": "egdata.app 不是什麼",
+    "notIntro": "需要明確的是，egdata.app 不是：",
+    "notList": {
+      "affiliated": "與Epic Games有關聯：我們是一個獨立的、社群驅動的專案，未以任何方式得到Epic Games的官方認可或關聯。",
+      "storefront": "商店或市場：我們不銷售遊戲，也不提供任何購買途徑。我們的重點是提供關於Epic遊戲商城的各種資訊和資料。",
+      "piracy": "盜版或非法活動的平台：我們強烈譴責盜版行為，不提供任何存取或散布受版權保護內容的途徑。"
+    },
+    "fairUseTitle": "合理使用政策",
+    "fairUseBody": "egdata.app 致力於遵守版權法下的合理使用原則。我們僅為提供資訊之目的提供內容和資料，旨在普及並向公眾告知Epic遊戲商城上架的遊戲。",
+    "fairUseFactorsTitle": "支援合理使用的關鍵因素：",
+    "fairUseFactors": {
+      "nonCommercial": "非商業性、教育目的：",
+      "nonCommercialBody": "我們的網站是非商業性的，旨在增強大眾對Epic遊戲商城遊戲的知識。",
+      "factual": "事實性資訊：",
+      "factualBody": "我們主要展示事實性資料，如遊戲名稱、發布日期和開發商，這些內容受版權保護程度較低。",
+      "limited": "有限使用：",
+      "limitedBody": "我們僅使用提供有意義資訊所需的必要資料量，而不會取代原作。",
+      "noMarketHarm": "無市場損害：",
+      "noMarketHarmBody": "我們的使用不會對原遊戲市場產生負面影響；相反，透過提高使用者興趣，可能還會起到推廣作用。"
+    },
+    "autoTrackBody": "我們自動追蹤並更新來自包括Epic遊戲商城在內的公開可用來源的遊戲資料。我們直接從其伺服器載入圖形資源，而不進行本機儲存。",
+    "leakedDataTitle": "洩漏資料免責宣告：",
+    "leakedDataBody": "網站上任何看似洩漏的資料均源自Epic遊戲商城公開可用的資訊。我們不會存取機密或專有資料。發行商有責任在以下平台內保護其敏感資訊：",
+    "epicDevPortal": "Epic遊戲開發者入口",
+    "euDirectivesIntro": "在制定我們的合理使用政策時，我們考慮了以下歐盟版權指令中概述的原則：",
+    "euDirective1": "第 (EU) 2019/790 號指令：數位單一市場版權和相關權指令",
+    "euDirective2": "問題與解答 – 新的歐盟版權規則",
+    "fairUseContact": "如果您對我們的合理使用政策有疑問，或認為任何內容侵犯了您的版權，請透過以下方式聯絡我們：",
+    "contactTitle": "聯絡我們",
+    "contactBody": "您可以透過以下方式聯絡我們"
+  },
+  "notifications": {
+    "meta": {
+      "title": "通知 - egdata.app",
+      "description": "設定並管理Epic遊戲商城的推播通知，包括遊戲發布、更新等。"
+    },
+    "title": "通知",
+    "description": "設定並管理關於Epic遊戲商城更新、遊戲發布及個人化提醒的推播通知。",
+    "tabs": {
+      "notifications": "通知",
+      "mySubscriptions": "我的訂閱"
+    },
+    "aboutPushTitle": "關於推播通知",
+    "aboutPushDescription": "了解更多關於EGData推播通知的運作原理。",
+    "whatYoullReceive": "您將收到：",
+    "receiveList": {
+      "freeGames": "新免費遊戲公告",
+      "releases": "遊戲發布通知",
+      "priceDrops": "願望清單遊戲降價提醒",
+      "news": "Epic遊戲商城新聞和更新",
+      "custom": "基於主題的自訂通知"
+    },
+    "privacySecurity": "隱私與安全：",
+    "privacyList": {
+      "apiKey": "您的API金鑰安全儲存在瀏覽器Cookie中",
+      "onlySubscribed": "我們僅傳送您已訂閱的通知",
+      "unsubscribe": "您可以隨時取消訂閱",
+      "noPersonalData": "除API金鑰外，無需任何個人資料"
+    },
+    "browserSupport": "瀏覽器支援：",
+    "browserSupportBody": "現代瀏覽器（包括Chrome、Firefox、Safari和Edge）均支援推播通知。請確保在瀏覽器提示時允許通知。",
+    "subscriptionOverview": "訂閱概覽",
+    "totalSubscribed": "已訂閱主題總數：{{count}}",
+    "notSubscribedApi": "API金鑰未訂閱推播通知",
+    "notSubscribedTitle": "未訂閱",
+    "notSubscribedBody": "您的API金鑰未訂閱推播通知。請先使用「設定與訂閱」索引標籤進行訂閱。",
+    "subscriptionId": "訂閱 {{id}}",
+    "created": "建立於：",
+    "subscribedTopics": "已訂閱主題：",
+    "noTopics": "無訂閱主題",
+    "lastUpdated": "最後更新：",
+    "noSubscriptionsTitle": "未找到訂閱",
+    "noSubscriptionsBody": "您已訂閱但尚未建立任何裝置訂閱。請使用「設定與訂閱」索引標籤建立您的第一個訂閱。",
+    "fetchError": "取得訂閱失敗。請稍後再試。"
+  },
+  "promotions": {
+    "placeholder": "你好 /promotions/$id！"
+  },
+  "misc": {
+    "gameAwards": {
+      "meta": {
+        "title": "The Game Awards 報導 | egdata.app",
+        "description": "即將登陸 Epic Games Store 的 The Game Awards 最新公布和提名遊戲。"
+      },
+      "logoAlt": "The Game Awards 2025",
+      "subtitle": "The Game Awards 公布或提名、即將登陸 Epic Games Store 的遊戲",
+      "videoTitle": "The Game Awards 2024 - 直播",
+      "expandPlayer": "展開播放器",
+      "closeMiniPlayer": "關閉迷你播放器",
+      "noGamesTitle": "尚未公布遊戲",
+      "noGamesBody": "請在 The Game Awards 結束後回來檢視！"
+    },
+    "downloads": {
+      "title": "egdata.app 用戶端版本",
+      "description": "下載最新版本。我們已為你的作業系統突顯顯示推薦選項。",
+      "errorPrefix": "錯誤：",
+      "noPublicReleases": "未找到公開版本。",
+      "recommended": "推薦",
+      "downloadsSuffix": "下載",
+      "versionPublished": "版本 {{version}} - 發布於 {{date}}",
+      "assetInfo": {
+        "appleSilicon": "適用於搭載 Apple 晶片（M1、M2、M3 等）的較新 Mac。",
+        "intel": "適用於搭載 Intel 處理器的較舊 Mac。",
+        "universal": "同時相容 Apple Silicon 和 Intel Mac。",
+        "msi": "標準安裝精靈。建議大多數使用者使用。",
+        "exe": "獨立應用程式檔案。可能無需安裝。",
+        "linux": "適用於基於 Linux 的作業系統。",
+        "generic": "通用檔案或原始碼。"
+      }
+    },
+    "discordLinked": {
+      "title": "帳號關聯成功！",
+      "body": "你的 Discord 帳號已成功關聯到 egdata.app",
+      "footer": "現在可以關閉此視窗並返回 Discord。你的帳號已可用於 egdata.app"
+    },
+    "posts": {
+      "coverAlt": "LEGO Star Wars: The Skywalker Saga 封面圖",
+      "title": "在 Epic Games Store 免費領取 LEGO® Star Wars™: The Skywalker Saga",
+      "freeGameBadge": "免費遊戲",
+      "published": "發布於 2023年11月30日",
+      "intro": "星際大戰粉絲們，記好日期！從 {{dateRange}}，你可以在 Epic Games Store 免費領取廣受好評的 {{game}}。這款通常售價 {{price}} 的遊戲，讓你用有趣的 LEGO 風格重溫 {{saga}} 的經典時刻。",
+      "dateRange": "2024年12月5日至12月12日",
+      "game": "LEGO® Star Wars™: The Skywalker Saga",
+      "price": "$49.99",
+      "saga": "天行者傳奇",
+      "gameplayAlt": "樂高星際大戰遊戲畫面",
+      "charactersAlt": "樂高星際大戰角色",
+      "whatToExpect": "有什麼期待？",
+      "whatToExpectBody": "本作由 {{developer}} 開發，{{publisher}} 發行，提供無與倫比的星際大戰遊戲體驗。以下是它成為必玩之作的原因：",
+      "developer": "TT Games",
+      "publisher": "華納兄弟",
+      "expectList": {
+        "allMovies": "{{strong}}：重溫全部九部星際大戰電影的故事情節，並配有經典的樂高式幽默。",
+        "allMoviesStrong": "全部9部電影",
+        "characters": "{{strong}}：控制來自遙遠銀河系中您最喜愛的英雄和反派。",
+        "charactersStrong": "300+ 可控角色",
+        "vehicles": "{{strong}}：駕駛千年鷹號和TIE戰機等經典飛船。",
+        "vehiclesStrong": "100+ 載具",
+        "planets": "{{strong}}：前往塔圖因星到恩多星等熟悉的世界進行探索。",
+        "planetsStrong": "23顆星球待探索"
+      },
+      "specialTitle": "是什麼讓這款遊戲特別？",
+      "specialBody": "自 {{releaseDate}} 發布以來，《樂高星際大戰：天行者傳奇》因其引人入勝的遊戲玩法對星際大戰宇宙的忠實改編而受到讚譽。憑藉 Metacritic 上的 {{metascore}}，影評人和粉絲們都強調了其：",
+      "releaseDate": "2022年4月",
+      "metascore": "82分",
+      "specialList": {
+        "combat": "光劍對決、爆能槍激戰和太空纏鬥。",
+        "combatStrong": "動態戰鬥",
+        "charm": "經典的星際大戰幽默，以樂高獨特風格重新演繹。",
+        "charmStrong": "樂高魅力",
+        "replayability": "海量的收集要素、支線任務和隱藏祕密。",
+        "replayabilityStrong": "重玩價值"
+      },
+      "howToClaim": "如何領取？",
+      "howToClaimBody": "領取免費副本非常簡單！",
+      "step1": "在 {{dec5}} 至 {{dec12}} 期間造訪 {{storeLink}}。",
+      "storeLink": "Epic遊戲商城",
+      "dec5": "12月5日",
+      "dec12": "2024年12月12日",
+      "step2": "將遊戲新增到您的遊戲庫。",
+      "step3": "它將永久屬於您！",
+      "cardTitle": "千萬不要錯過這次踏上穿越銀河系的樂高之旅的機會！",
+      "cardBody": "無論您是星際大戰的忠實粉絲還是新手，這款遊戲都能為您帶來無限樂趣。",
+      "footer": "願原力（和樂高積木）與您同在！🧱✨"
+    },
+    "fairUse": {
+      "meta": {
+        "title": "合理使用政策 - egdata.app",
+        "description": "egdata.app 的合理使用政策"
+      },
+      "title": "EGData App 合理使用政策",
+      "section1Title": "1. 簡介",
+      "section1Body": "歡迎使用 EGData App（「我們」、「我們的」）。本合理使用政策概述了您使用我們網站 {{siteLink}}（「本網站」）上提供的內容和資料的條款。",
+      "section2Title": "2. 合理使用目的",
+      "section2Body": "EGData App 上的內容和資料僅供參考。我們的目標是為社群提供一個全面的Epic遊戲商城遊戲（或遊戲相關資料）資料庫，用於教育和參考用途。",
+      "section3Title": "3. 合理使用合規性",
+      "section3Body": "EGData App 透過以有益於大眾且不侵犯內容所有者權利的方式提供資訊和資料，遵守版權法下的合理使用原則。以下是支撐我們「合理使用」的關鍵因素：",
+      "section3List": {
+        "purpose": "使用的目的和性質：",
+        "purposeBody": "我們的網站是非商業性的，旨在普及並向公眾告知Epic遊戲商城上架的遊戲。我們提供關鍵資訊、評論和更新，增強大眾對這些遊戲的知識和了解。",
+        "nature": "受版權作品的性質：",
+        "natureBody": "我們收集和呈現的資料包含事實資訊，如遊戲名稱、發布日期、開發商和更新。事實資訊受版權保護程度低於創造性作品。",
+        "amount": "使用的數量和實質性：",
+        "amountBody": "我們僅使用為使用者提供有意義且相關的資訊所需的必要資料量。我們不會複製全部作品，也不會提供可能取代原產品的廣泛摘錄。",
+        "effect": "對市場的影響：",
+        "effectBody": "我們對遊戲資料的使用不會對原遊戲市場產生負面影響。相反，它透過提供即時更新的資訊和推動使用者參與度與興趣，起到促進這些遊戲發展的作用。"
+      },
+      "section4Title": "4. 資料收集與更新",
+      "section4Body1": "我們的網站會自動追蹤並更新遊戲資料，以確保我們提供的資訊是最新的且準確的。這一自動化流程涉及從Epic遊戲商城和其他可靠來源收集公開可用的資訊。",
+      "section4Body2": "透過保持資料庫的更新，我們確保使用者能夠獲得關於其喜愛遊戲的最新資訊，包括新發布、更新和可用性變更。",
+      "section4Body3": "在圖形資源方面，我們直接從Epic遊戲商城的伺服器載入圖片，不會在我們的伺服器上儲存任何圖片。",
+      "section5Title": "5. 洩漏資料免責宣告",
+      "section5Body1": "網站上看似洩漏的任何資料均來自Epic遊戲商城提供的公開資訊。我們無法存取未公開的機密或專有資料。因此，發行商有責任在Epic遊戲開發者入口內保護其即將發布的智慧財產權（IP）、遊戲、下載內容（DLC）及其他敏感資訊。",
+      "section5Body2": "我們鼓勵發行商確保敏感資訊已得到妥善保護，而非無意中公開。對於從公開來源取得的任何洩漏資訊，EGData App 概不負責。",
+      "section5Body3": "有關歐盟資料保護和合理使用的更多資訊，請參閱以下資源：",
+      "euDirective1": "第 (EU) 2019/790 號指令：數位單一市場版權和相關權指令",
+      "euDirective2": "問題與解答 – 新的歐盟版權規則",
+      "section6Title": "6. 聯絡我們",
+      "section6Body": "如果您對本合理使用政策有任何疑問，或認為我們網站上的任何內容或資料侵犯了您的版權，請透過以下方式聯絡我們：",
+      "email": "電子郵件："
+    },
+    "donateKey": {
+      "title": "捐贈Key",
+      "body": "如果您有想要捐贈給該專案的Key，請填寫下表。"
+    },
+    "androidBeta": {
+      "meta": {
+        "title": "Android內測版 - egdata.app",
+        "description": "加入 egdata.app Android應用內測計畫"
+      },
+      "title": "Android內測計畫",
+      "description": "加入我們的封閉測試，在公開發布之前試用 egdata.app Android應用程式。",
+      "whatHappensNext": "接下來會發生什麼？",
+      "steps": {
+        "signIn": "使用您的Google帳戶登入",
+        "added": "您將在幾小時內被手動新增到封閉測試軌道",
+        "download": "新增成功後，您可以透過提供的連結下載應用"
+      }
+    }
+  }
+}

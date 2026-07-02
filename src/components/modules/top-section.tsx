@@ -11,6 +11,7 @@ import { getTopSection } from "@/queries/top-section";
 import { calculatePrice } from "@/lib/calculate-price";
 import { Link } from "@tanstack/react-router";
 import { useLocale } from "@/hooks/use-locale";
+import { useTranslation } from "react-i18next";
 
 const platforms: Record<string, string> = {
   "9547": "Windows",
@@ -26,6 +27,7 @@ export function TopSection({
   title: string;
   side: "left" | "right";
 }) {
+  const { t } = useTranslation();
   const { genres } = useGenres();
   const { country } = useCountry();
   const { locale } = useLocale();
@@ -51,7 +53,7 @@ export function TopSection({
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>{t("common.loading")}</div>;
   }
 
   if (!offer) {
@@ -91,10 +93,10 @@ export function TopSection({
             <div className="grid gap-4">
               <div className="flex items-center gap-2">
                 <CalendarIcon className="h-5 w-5 text-muted-foreground" />
-                <span className="font-medium">Release Date:</span>
+                <span className="font-medium">{t("components.topSection.releaseDate")}</span>
                 <span>
                   {offer.releaseDate.includes("2099") ? (
-                    <span>TBA</span>
+                    <span>{t("components.topSection.tba")}</span>
                   ) : (
                     new Date(offer.releaseDate).toLocaleDateString("en-UK", {
                       year: "numeric",
@@ -106,7 +108,7 @@ export function TopSection({
               </div>
               <div className="flex items-center gap-2">
                 <GamepadIcon className="h-5 w-5 text-muted-foreground" />
-                <span className="font-medium">Platforms:</span>
+                <span className="font-medium">{t("components.topSection.platforms")}</span>
                 <span>
                   {offer.tags
                     .map((tag) => platforms[tag.id])
@@ -116,7 +118,7 @@ export function TopSection({
               </div>
               <div className="flex items-center gap-2">
                 <UsersIcon className="h-5 w-5 text-muted-foreground" />
-                <span className="font-medium">Tags:</span>
+                <span className="font-medium">{t("components.topSection.tags")}</span>
                 <span>
                   {offer.tags
                     .filter((tag) => !platforms[tag.id])
@@ -138,7 +140,7 @@ export function TopSection({
                   <div className="inline-flex items-center gap-2">
                     <span className="text-2xl font-bold">
                       {price.price.discountPrice === 0 ? (
-                        <span>Free</span>
+                        <span>{t("components.topSection.free")}</span>
                       ) : (
                         new Intl.NumberFormat(locale, {
                           style: "currency",
@@ -151,7 +153,7 @@ export function TopSection({
                     {price.price.discountPrice < price.price.originalPrice ? (
                       <span className="text-sm line-through text-muted-foreground">
                         {price.price.originalPrice === 0 ? (
-                          <span>Free</span>
+                          <span>{t("components.topSection.free")}</span>
                         ) : (
                           new Intl.NumberFormat(locale, {
                             style: "currency",
@@ -166,13 +168,13 @@ export function TopSection({
                 ) : null}
                 {price?.price?.discountPrice === 0 ? (
                   <div className="inline-flex items-center gap-2">
-                    <span className="text-2xl font-bold">Free</span>
+                    <span className="text-2xl font-bold">{t("components.topSection.free")}</span>
                   </div>
                 ) : null}
               </div>
               <Button asChild size="lg" className="w-full md:w-auto">
                 <Link to="/offers/$id" params={{ id: offer.id }}>
-                  Check Offer
+                  {t("components.topSection.checkOffer")}
                 </Link>
               </Button>
             </div>

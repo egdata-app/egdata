@@ -25,6 +25,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getImage } from "@/lib/get-image";
 import { getTopSection } from "@/queries/top-section";
 import { CountriesSelector } from "./countries-selector";
+import { LocaleSelector } from "./locale-selector";
 import { useSearch } from "@/hooks/use-search";
 import { getRouteApi } from "@tanstack/react-router";
 import { getUserInformation } from "@/queries/profiles";
@@ -51,6 +52,7 @@ import {
   CalendarCheck2Icon,
 } from "lucide-react";
 import { httpClient } from "@/lib/http-client";
+import { useTranslation } from "react-i18next";
 import type { GenreResponse } from "@/routes/genres";
 import { Separator } from "../ui/separator";
 
@@ -101,14 +103,17 @@ function MobileMenuItem({ title, children, href, backgroundImage }: ListItemProp
   );
 }
 
+type NavRouteKey = "nav.explore" | "nav.browse" | "nav.sales" | "nav.changelog" | "nav.about";
+
 type Route = {
-  name: string;
+  nameKey: NavRouteKey;
   href?: string;
   icon?: string;
   component?: () => React.ReactNode;
 };
 
 const ExploreMenu = () => {
+  const { t } = useTranslation();
   const { data: genres, isLoading } = useQuery({
     queryKey: ["genres-list"],
     queryFn: () => httpClient.get<GenreResponse[]>("/offers/genres"),
@@ -119,7 +124,7 @@ const ExploreMenu = () => {
       {/* Rankings + Others Column */}
       <div className="border-r pr-8">
         <h4 className="text-xs font-semibold text-muted-foreground mb-4 tracking-wider uppercase">
-          Rankings
+          {t("nav.rankings")}
         </h4>
         <ul className="space-y-1 list-none">
           {/* Rankings */}
@@ -130,7 +135,7 @@ const ExploreMenu = () => {
               className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-sm font-medium outline-none"
             >
               <TrendingUpIcon className="w-4 h-4 text-muted-foreground" />
-              Top Sellers
+              {t("nav.topSellers")}
             </Link>
           </li>
           <li>
@@ -140,7 +145,7 @@ const ExploreMenu = () => {
               className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-sm font-medium outline-none"
             >
               <UsersIcon className="w-4 h-4 text-muted-foreground" />
-              Most Played
+              {t("nav.mostPlayed")}
             </Link>
           </li>
           <li>
@@ -150,7 +155,7 @@ const ExploreMenu = () => {
               className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-sm font-medium outline-none"
             >
               <StarIcon className="w-4 h-4 text-muted-foreground" />
-              Top Wishlisted
+              {t("nav.topWishlisted")}
             </Link>
           </li>
           <li>
@@ -160,7 +165,7 @@ const ExploreMenu = () => {
               className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-sm font-medium outline-none"
             >
               <CalendarCheck2Icon className="w-4 h-4 text-muted-foreground" />
-              Top New Releases
+              {t("nav.topNewReleases")}
             </Link>
           </li>
           {/* Link to rest of the collections */}
@@ -169,13 +174,13 @@ const ExploreMenu = () => {
               to="/collections"
               className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-xs font-medium outline-none text-primary underline"
             >
-              See all collections
+              {t("nav.seeAllCollections")}
             </Link>
           </li>
         </ul>
         <Separator className="my-4" />
         <h4 className="text-xs font-semibold text-muted-foreground mb-4 tracking-wider uppercase">
-          Others
+          {t("nav.others")}
         </h4>
         <ul className="space-y-1 list-none">
           <li>
@@ -184,7 +189,7 @@ const ExploreMenu = () => {
               className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-sm font-medium outline-none"
             >
               <BarChart3Icon className="w-4 h-4 text-muted-foreground" />
-              Release Stats
+              {t("nav.releaseStats")}
             </Link>
           </li>
         </ul>
@@ -192,10 +197,10 @@ const ExploreMenu = () => {
       {/* Genres Column */}
       <div className="pl-8">
         <h4 className="text-xs font-semibold text-muted-foreground mb-4 tracking-wider uppercase">
-          Genres
+          {t("nav.genres")}
         </h4>
         <ul className="space-y-1 list-none">
-          {isLoading && <li className="text-muted-foreground text-sm">Loading...</li>}
+          {isLoading && <li className="text-muted-foreground text-sm">{t("common.loading")}</li>}
           {genres?.slice(0, 6).map((genre) => (
             <li key={genre.genre.id}>
               <Link
@@ -215,7 +220,7 @@ const ExploreMenu = () => {
             to="/genres"
             className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-xs text-primary underline font-medium outline-none"
           >
-            See all genres
+            {t("nav.seeAllGenres")}
           </Link>
         </div>
       </div>
@@ -225,13 +230,14 @@ const ExploreMenu = () => {
 
 const routes: Route[] = [
   {
-    name: "Explore",
+    nameKey: "nav.explore",
     component: ExploreMenu,
   },
   {
-    name: "Browse",
+    nameKey: "nav.browse",
     href: "/search",
     component: () => {
+      const { t } = useTranslation();
       const { data } = useQuery({
         queryKey: ["top-section", { slug: "top-sellers" }],
         queryFn: () => getTopSection("top-sellers"),
@@ -241,14 +247,14 @@ const routes: Route[] = [
 
       return (
         <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[1fr_.75fr] lg:grid-rows-[repeat(3, auto)]">
-          <ListItem href="/search" title="Search">
-            Find what you're looking for on the Epic Games Store.
+          <ListItem href="/search" title={t("nav.searchItemTitle")}>
+            {t("nav.searchItemDesc")}
           </ListItem>
-          <ListItem href="/freebies" title="Free Games">
-            Explore the latest free game offerings on the Epic Games Store.
+          <ListItem href="/freebies" title={t("nav.freeGamesItemTitle")}>
+            {t("nav.freeGamesItemDesc")}
           </ListItem>
-          <ListItem href="/search?onSale=true" title="With Discounts">
-            Check out games currently on sale with great discounts.
+          <ListItem href="/search?onSale=true" title={t("nav.withDiscountsItemTitle")}>
+            {t("nav.withDiscountsItemDesc")}
           </ListItem>
           <li className="col-start-2 row-start-1 row-end-4">
             {offer && (
@@ -265,7 +271,7 @@ const routes: Route[] = [
                   <span className="absolute inset-0 bg-gradient-to-b from-transparent via-card/75 to-card z-0 rounded-md" />
                   <div className="mb-2 mt-4 text-base font-bold z-10">{offer.title}</div>
                   <p className="text-sm leading-tight text-muted-foreground z-10">
-                    Top Seller on the Epic Games Store
+                    {t("nav.topSellerOnEpic")}
                   </p>
                 </a>
               </NavigationMenuLink>
@@ -276,15 +282,15 @@ const routes: Route[] = [
     },
   },
   {
-    name: "Sales",
+    nameKey: "nav.sales",
     href: "/sales",
   },
   {
-    name: "Changelog",
+    nameKey: "nav.changelog",
     href: "/changelog",
   },
   {
-    name: "About",
+    nameKey: "nav.about",
     href: "/about",
   },
 ];
@@ -292,6 +298,7 @@ const routes: Route[] = [
 const routeApi = getRouteApi("__root__");
 
 export default function Navbar() {
+  const { t } = useTranslation();
   const { session } = routeApi.useRouteContext();
   const navigate = useNavigate();
   const { setFocus, toggleFocus } = useSearch();
@@ -327,7 +334,7 @@ export default function Navbar() {
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="lg:hidden">
             <MenuIcon className="h-5 w-5" />
-            <span className="sr-only">Toggle navigation menu</span>
+            <span className="sr-only">{t("nav.toggleMenu")}</span>
           </Button>
         </SheetTrigger>
         <SheetContent side="left" className="w-[300px] sm:w-[400px] p-0">
@@ -335,12 +342,12 @@ export default function Navbar() {
             <Link to="/" className="flex items-center gap-2">
               <img
                 src="https://cdn.egdata.app/logo_simple_white_clean.png"
-                alt="EGDATA Logo"
+                alt={t("nav.logoAlt")}
                 width={32}
                 height={32}
               />
               <span className="text-lg text-foreground font-display font-bold tracking-tight">
-                EGDATA
+                {t("common.appName")}
               </span>
             </Link>
           </SheetHeader>
@@ -357,96 +364,105 @@ export default function Navbar() {
               <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input
                 type="search"
-                placeholder="Search games..."
+                placeholder={t("common.searchPlaceholder")}
                 className="pl-8 w-full cursor-text"
                 readOnly
               />
             </div>
             <Accordion type="single" collapsible className="w-full">
               {routes.map((route) => (
-                <AccordionItem key={route.name} value={route.name}>
+                <AccordionItem key={route.nameKey} value={route.nameKey}>
                   <AccordionTrigger className="text-base font-medium">
-                    {route.name}
+                    {t(route.nameKey)}
                   </AccordionTrigger>
                   <AccordionContent>
                     {route.component ? (
                       <div className="pt-2">
-                        {route.name === "Explore" && (
+                        {route.nameKey === "nav.explore" && (
                           <>
                             <div className="mb-4">
                               <div className="text-xs font-semibold text-muted-foreground mb-2 tracking-wider uppercase">
-                                Genres
+                                {t("nav.genres")}
                               </div>
-                              <MobileMenuItem href="/genres/action" title="Action">
+                              <MobileMenuItem href="/genres/action" title={t("nav.action")}>
                                 <SwordIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
-                                Action
+                                {t("nav.action")}
                               </MobileMenuItem>
-                              <MobileMenuItem href="/genres/rpg" title="RPG">
+                              <MobileMenuItem href="/genres/rpg" title={t("nav.rpg")}>
                                 <Gamepad2Icon className="w-4 h-4 mr-2 text-muted-foreground inline" />
-                                RPG
+                                {t("nav.rpg")}
                               </MobileMenuItem>
-                              <MobileMenuItem href="/genres/indie" title="Indie">
+                              <MobileMenuItem href="/genres/indie" title={t("nav.indie")}>
                                 <JoystickIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
-                                Indie
+                                {t("nav.indie")}
                               </MobileMenuItem>
-                              <MobileMenuItem href="/genres/strategy" title="Strategy">
+                              <MobileMenuItem href="/genres/strategy" title={t("nav.strategy")}>
                                 <BrainIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
-                                Strategy
+                                {t("nav.strategy")}
                               </MobileMenuItem>
                               {/* Add more genres as needed */}
                             </div>
                             <div>
                               <div className="text-xs font-semibold text-muted-foreground mb-2 tracking-wider uppercase">
-                                Other
+                                {t("nav.other")}
                               </div>
-                              <MobileMenuItem href="/collections/top-sellers" title="Top Sellers">
+                              <MobileMenuItem
+                                href="/collections/top-sellers"
+                                title={t("nav.topSellers")}
+                              >
                                 <TrendingUpIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
-                                Top Sellers
+                                {t("nav.topSellers")}
                               </MobileMenuItem>
-                              <MobileMenuItem href="/collections/most-played" title="Most Played">
+                              <MobileMenuItem
+                                href="/collections/most-played"
+                                title={t("nav.mostPlayed")}
+                              >
                                 <UsersIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
-                                Most Played
+                                {t("nav.mostPlayed")}
                               </MobileMenuItem>
                               <MobileMenuItem
                                 href="/collections/top-wishlisted"
-                                title="Top Wishlisted"
+                                title={t("nav.topWishlisted")}
                               >
                                 <StarIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
-                                Top Wishlisted
+                                {t("nav.topWishlisted")}
                               </MobileMenuItem>
                               <MobileMenuItem
                                 href="/collections/top-new-releases"
-                                title="Top New Releases"
+                                title={t("nav.topNewReleases")}
                               >
                                 <CalendarCheck2Icon className="w-4 h-4 mr-2 text-muted-foreground inline" />
-                                Top New Releases
+                                {t("nav.topNewReleases")}
                               </MobileMenuItem>
-                              <MobileMenuItem href="/stats/releases" title="Release Stats">
+                              <MobileMenuItem href="/stats/releases" title={t("nav.releaseStats")}>
                                 <BarChart3Icon className="w-4 h-4 mr-2 text-muted-foreground inline" />
-                                Release Stats
+                                {t("nav.releaseStats")}
                               </MobileMenuItem>
-                              <MobileMenuItem href="/sales" title="Sales">
+                              <MobileMenuItem href="/sales" title={t("nav.sales")}>
                                 <TagIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
-                                Sales
+                                {t("nav.sales")}
                               </MobileMenuItem>
-                              <MobileMenuItem href="/freebies" title="Free Games">
+                              <MobileMenuItem href="/freebies" title={t("nav.freeGamesItemTitle")}>
                                 <GiftIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
-                                Free Games
+                                {t("nav.freeGamesItemTitle")}
                               </MobileMenuItem>
                               {/* Add more links as needed */}
                             </div>
                           </>
                         )}
-                        {route.name === "Browse" && (
+                        {route.nameKey === "nav.browse" && (
                           <>
-                            <MobileMenuItem href="/search" title="Search">
-                              Find what you're looking for on the Epic Games Store.
+                            <MobileMenuItem href="/search" title={t("nav.searchItemTitle")}>
+                              {t("nav.searchItemDesc")}
                             </MobileMenuItem>
-                            <MobileMenuItem href="/freebies" title="Free Games">
-                              Explore the latest free game offerings on the Epic Games Store.
+                            <MobileMenuItem href="/freebies" title={t("nav.freeGamesItemTitle")}>
+                              {t("nav.freeGamesItemDesc")}
                             </MobileMenuItem>
-                            <MobileMenuItem href="/search?onSale=true" title="With Discounts">
-                              Check out games currently on sale with great discounts.
+                            <MobileMenuItem
+                              href="/search?onSale=true"
+                              title={t("nav.withDiscountsItemTitle")}
+                            >
+                              {t("nav.withDiscountsItemDesc")}
                             </MobileMenuItem>
                           </>
                         )}
@@ -456,7 +472,7 @@ export default function Navbar() {
                         to={route.href}
                         className="block py-2 text-muted-foreground hover:text-foreground transition-colors"
                       >
-                        {route.name}
+                        {t(route.nameKey)}
                       </Link>
                     )}
                   </AccordionContent>
@@ -472,12 +488,12 @@ export default function Navbar() {
       <Link to="/" className="hidden lg:flex justify-center items-center" preload="viewport">
         <img
           src="https://cdn.egdata.app/logo_simple_white_clean.png"
-          alt="EGDATA Logo"
+          alt={t("nav.logoAlt")}
           width={32}
           height={32}
         />
         <span className="text-lg text-foreground font-display font-bold tracking-tight ml-2">
-          EGDATA
+          {t("common.appName")}
         </span>
       </Link>
       <NavigationMenu className="hidden lg:flex">
@@ -485,7 +501,7 @@ export default function Navbar() {
           {routes.map((route) => {
             if (route.component) {
               return (
-                <NavigationMenuItem key={route.name} className="bg-transparent">
+                <NavigationMenuItem key={route.nameKey} className="bg-transparent">
                   <NavigationMenuTrigger
                     onClick={() => {
                       if (route.href) {
@@ -500,7 +516,7 @@ export default function Navbar() {
                       "active:text-primary data-[active]:text-primary data-[state=open]:text-primary",
                     )}
                   >
-                    {route.name}
+                    {t(route.nameKey)}
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>{route.component()}</NavigationMenuContent>
                 </NavigationMenuItem>
@@ -508,14 +524,14 @@ export default function Navbar() {
             }
 
             return (
-              <NavigationMenuLink key={route.name} asChild>
+              <NavigationMenuLink key={route.nameKey} asChild>
                 <Link
-                  key={route.name}
+                  key={route.nameKey}
                   to={route.href}
                   className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors"
                 >
                   {route.icon && <img src={route.icon} alt="" className="w-4 h-4" />}
-                  {route.name}
+                  {t(route.nameKey)}
                 </Link>
               </NavigationMenuLink>
             );
@@ -530,12 +546,13 @@ export default function Navbar() {
           onClick={handleSearchClick}
         >
           <SearchIcon className="h-4 w-4 shrink-0" />
-          <span className="min-w-0 truncate">Search games...</span>
+          <span className="min-w-0 truncate">{t("common.searchPlaceholder")}</span>
           <kbd className="ml-1 hidden h-5 shrink-0 items-center gap-0.5 rounded border border-border/60 bg-background/60 px-1.5 font-mono text-[0.7rem] text-muted-foreground xl:inline-flex">
             ⌘K
           </kbd>
         </button>
         <CountriesSelector />
+        <LocaleSelector />
         {user && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -554,15 +571,17 @@ export default function Navbar() {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>
-                <span className="text-muted-foreground">Hello, {user.displayName}!</span>
+                <span className="text-muted-foreground">
+                  {t("nav.helloUser", { name: user.displayName })}
+                </span>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild className="cursor-pointer">
-                <a href="/dashboard">Dashboard</a>
+                <a href="/dashboard">{t("nav.dashboard")}</a>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild className="cursor-pointer">
-                <a href="/auth/logout">Logout</a>
+                <a href="/auth/logout">{t("nav.logout")}</a>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

@@ -13,6 +13,8 @@ import { useState } from "react";
 import type { ColumnFiltersState } from "@tanstack/react-table";
 import type { DehydratedState } from "@tanstack/react-query";
 import { StoreIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 interface PaginatedResponse<T> {
   elements: T[];
@@ -63,8 +65,8 @@ export const Route = createFileRoute("/sandboxes/$id/offers")({
       return {
         meta: [
           {
-            title: "Sandbox not found",
-            description: "Sandbox not found",
+            title: i18n.t("sandboxes.notFoundTitle"),
+            description: i18n.t("sandboxes.notFoundDescription"),
           },
         ],
       };
@@ -86,19 +88,20 @@ export const Route = createFileRoute("/sandboxes/$id/offers")({
       return {
         meta: [
           {
-            title: "Sandbox not found",
-            description: "Sandbox not found",
+            title: i18n.t("sandboxes.notFoundTitle"),
+            description: i18n.t("sandboxes.notFoundDescription"),
           },
         ],
       };
 
     return {
-      meta: generateSandboxMeta(sandbox, offer, "Offers"),
+      meta: generateSandboxMeta(sandbox, offer, i18n.t("sandboxes.metaOffersTitle")),
     };
   },
 });
 
 function SandboxOffersPage() {
+  const { t } = useTranslation();
   const { id } = Route.useParams();
   const [page, setPage] = useState({ pageIndex: 0, pageSize: 20 });
   const [filters, setFilters] = useState<ColumnFiltersState>([]);
@@ -126,10 +129,12 @@ function SandboxOffersPage() {
     <div className="flex flex-col gap-6 w-full">
       <SandboxPageHeader
         icon={StoreIcon}
-        eyebrow="E-commerce"
-        title="Offers"
-        description="Storefront entries in this sandbox, including base games, editions, DLC, add-ons, bundles, and any offer that can grant catalog items."
-        stats={[{ label: "Total offers", value: formatSandboxCount(offersData?.count) }]}
+        eyebrow={t("sandboxes.offersEyebrow")}
+        title={t("sandboxes.offersTitle")}
+        description={t("sandboxes.offersDescription")}
+        stats={[
+          { label: t("sandboxes.totalOffersLabel"), value: formatSandboxCount(offersData?.count) },
+        ]}
       />
       <DataTable
         columns={columns}

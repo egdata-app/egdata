@@ -18,6 +18,7 @@ import { EGSIcon } from "../icons/egs";
 import { Link } from "@tanstack/react-router";
 import { useLocale } from "@/hooks/use-locale";
 import { getBuyLink } from "@/lib/get-build-link";
+import { useTranslation } from "react-i18next";
 
 const trackEvent = (offers: { id: string; namespace: string }[], type: "bundle" | "single") => {
   window.umami?.track(`bundle-${type}`, {
@@ -31,6 +32,7 @@ const trackEvent = (offers: { id: string; namespace: string }[], type: "bundle" 
 };
 
 export function Bundle({ id, offer }: { id: string; offer: SingleOffer }) {
+  const { t } = useTranslation();
   const { country } = useCountry();
   const { locale } = useLocale();
   const [api, setApi] = useState<CarouselApi>();
@@ -64,7 +66,7 @@ export function Bundle({ id, offer }: { id: string; offer: SingleOffer }) {
         <hr className="my-4" />
         <div className="flex justify-between items-center">
           <h4 className="text-xl font-bold text-left inline-flex group items-center gap-2">
-            Collection Offers
+            {t("components.bundle.collectionOffers")}
           </h4>
           <div className="flex gap-2">
             <button
@@ -132,8 +134,10 @@ export function Bundle({ id, offer }: { id: string; offer: SingleOffer }) {
       <div className="w-full flex flex-col gap-4">
         <div className="flex justify-between items-center">
           <h4 className="text-xl font-bold text-left inline-flex group items-center gap-2">
-            Bundle Offers
-            <span className="text-xs opacity-50">- {collection?.offers.length} Offers</span>
+            {t("components.bundle.bundleOffers")}
+            <span className="text-xs opacity-50">
+              {t("components.bundle.offersCount", { count: collection?.offers.length })}
+            </span>
           </h4>
           <div className="flex gap-2">
             <button
@@ -174,18 +178,22 @@ export function Bundle({ id, offer }: { id: string; offer: SingleOffer }) {
         <EqualIcon className="size-10 inline-block" />
         <Card className="w-full min-w-[200px] max-w-[400px]">
           <CardContent className="p-6">
-            <h3 className="text-2xl font-bold mb-4">Bundle Price</h3>
+            <h3 className="text-2xl font-bold mb-4">{t("components.bundle.bundlePriceTitle")}</h3>
             <div className="space-y-4">
               <div className="flex justify-between items-center">
-                <span>Total Value:</span>
+                <span>{t("components.bundle.totalValueLabel")}</span>
                 <span className="font-semibold">{priceFmtr.format(totalPrice)}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span>Bundle Price:</span>
+                <span>{t("components.bundle.bundlePriceLabel")}</span>
                 <span className="font-semibold">{priceFmtr.format(bundlePrice)}</span>
               </div>
               <div className="flex justify-between items-center">
-                <span>You {bundleIsBetter ? "save" : "pay more"}:</span>
+                <span>
+                  {bundleIsBetter
+                    ? t("components.bundle.youSave")
+                    : t("components.bundle.youPayMore")}
+                </span>
                 <Badge
                   className={cn(
                     "text-lg py-1 ease-in-out duration-300 transition-colors",
@@ -215,7 +223,11 @@ export function Bundle({ id, offer }: { id: string; offer: SingleOffer }) {
                     }}
                   >
                     <EGSIcon className="w-5 h-5" />
-                    <span>{bundleIsBetter ? "Buy Bundle" : "Buy Items Individually"}</span>
+                    <span>
+                      {bundleIsBetter
+                        ? t("components.bundle.buyBundle")
+                        : t("components.bundle.buyIndividually")}
+                    </span>
                   </Link>
                 </Button>
               </div>

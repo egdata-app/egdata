@@ -12,11 +12,13 @@ import { useNavigate } from "@tanstack/react-router";
 import type { IsPrepurchase } from "@/types/prepurchase";
 import { getImage } from "@/lib/get-image";
 import { useLocalStorage } from "@uidotdev/usehooks";
+import { useLocale } from "@/hooks/use-locale";
 
 const normalizeDate = (dateString: string) => new Date(dateString).getTime();
 
 export function PrepurchasePopup({ id }: { id: string }) {
   const navigate = useNavigate();
+  const { locale } = useLocale();
   const [isOpen, setIsOpen] = useState(false);
   const [isDismissed, saveDismissed] = useLocalStorage<string | null>(
     `prepurchase-popup-${id}`,
@@ -25,8 +27,8 @@ export function PrepurchasePopup({ id }: { id: string }) {
   const [offerQuery, prepurchaseOfferQuery] = useQueries({
     queries: [
       {
-        queryKey: ["offer", { id }],
-        queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`),
+        queryKey: ["offer", { id, locale }],
+        queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`, { params: { locale } }),
       },
       {
         queryKey: ["offer", "prepurchase-offers", { id }],

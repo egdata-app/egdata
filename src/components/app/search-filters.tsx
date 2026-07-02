@@ -22,19 +22,20 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { useTranslation } from "react-i18next";
 
-const tagTypes: {
+const tagTypeKeys: {
   name: string | null;
   type: "single" | "multiple";
-  label: string;
+  labelKey: string;
 }[] = [
-  { name: "event", type: "single", label: "Events" },
-  { name: "genre", type: "multiple", label: "Genres" },
-  { name: "usersay", type: "multiple", label: "User Say" },
-  { name: "feature", type: "multiple", label: "Features" },
-  { name: "epicfeature", type: "multiple", label: "Epic Features" },
-  { name: "accessibility", type: "multiple", label: "Accessibility" },
-  { name: null, type: "multiple", label: "All Tags" },
+  { name: "event", type: "single", labelKey: "search.tagGroups.event" },
+  { name: "genre", type: "multiple", labelKey: "search.tagGroups.genre" },
+  { name: "usersay", type: "multiple", labelKey: "search.tagGroups.usersay" },
+  { name: "feature", type: "multiple", labelKey: "search.tagGroups.feature" },
+  { name: "epicfeature", type: "multiple", labelKey: "search.tagGroups.epicfeature" },
+  { name: "accessibility", type: "multiple", labelKey: "search.tagGroups.accessibility" },
+  { name: null, type: "multiple", labelKey: "search.tagGroups.all" },
 ];
 
 export type SearchFiltersProps = {
@@ -71,6 +72,7 @@ export function SearchFilters({
 }: SearchFiltersProps) {
   const { tagCounts, offerTypeCounts, developerCounts, publisherCounts, priceRange } =
     useSearchState();
+  const { t } = useTranslation();
 
   const { data: tags } = useQuery({
     queryKey: ["tags"],
@@ -85,7 +87,7 @@ export function SearchFilters({
           {({ name, handleChange, handleBlur, state }: any) => (
             <Input
               type="search"
-              placeholder="Search for games"
+              placeholder={t("search.filtersPlaceholder")}
               className=""
               name={name}
               onChange={(e) => handleChange(e.target.value)}
@@ -138,17 +140,20 @@ export function SearchFilters({
               />
             )}
             {showOnSale && values.onSale && (
-              <QuickPill label="On Sale" onRemove={() => form.setFieldValue("onSale", undefined)} />
+              <QuickPill
+                label={t("search.pills.onSale")}
+                onRemove={() => form.setFieldValue("onSale", undefined)}
+              />
             )}
             {showCodeRedemption && values.isCodeRedemptionOnly && (
               <QuickPill
-                label="Code Redemption Only"
+                label={t("search.pills.codeRedemptionOnly")}
                 onRemove={() => form.setFieldValue("isCodeRedemptionOnly", undefined)}
               />
             )}
             {showBlockchain && values.excludeBlockchain && (
               <QuickPill
-                label="Exclude Blockchain/NFT"
+                label={t("search.pills.excludeBlockchain")}
                 onRemove={() => form.setFieldValue("excludeBlockchain", undefined)}
               />
             )}
@@ -164,7 +169,7 @@ export function SearchFilters({
             )}
             {showPastGiveaways && values.pastGiveaways && (
               <QuickPill
-                label="Past Giveaways"
+                label={t("search.pills.pastGiveaways")}
                 onRemove={() => form.setFieldValue("pastGiveaways", undefined)}
               />
             )}
@@ -200,7 +205,7 @@ export function SearchFilters({
       <Accordion type="single" collapsible className="w-full">
         {showOfferType && (
           <AccordionItem value="offerType">
-            <AccordionTrigger>Offer Type</AccordionTrigger>
+            <AccordionTrigger>{t("search.accordion.offerType")}</AccordionTrigger>
             <AccordionContent className="flex flex-col gap-2 w-full mt-2">
               <form.Field name="offerType">
                 {({ handleChange, state }: any) =>
@@ -224,12 +229,12 @@ export function SearchFilters({
         )}
 
         {showTags &&
-          tagTypes.map((tagType) => {
+          tagTypeKeys.map((tagType) => {
             const tagTypeTags = tags?.filter((tag) => tag.groupName === tagType.name);
 
             return (
               <AccordionItem key={tagType.name} value={tagType.name ?? "alltags"}>
-                <AccordionTrigger>{tagType.label}</AccordionTrigger>
+                <AccordionTrigger>{t(tagType.labelKey as never)}</AccordionTrigger>
                 <AccordionContent className="flex flex-col gap-2 mt-2">
                   <ScrollArea>
                     <div className="max-h-[400px] flex flex-col gap-1">
@@ -255,7 +260,9 @@ export function SearchFilters({
                         }
                       </form.Field>
                       {tagTypeTags?.filter((tag) => tagCounts[tag.id] > 0).length === 0 && (
-                        <span className="text-muted-foreground px-4">No tags found</span>
+                        <span className="text-muted-foreground px-4">
+                          {t("search.accordion.noTags")}
+                        </span>
                       )}
                     </div>
                   </ScrollArea>
@@ -266,7 +273,7 @@ export function SearchFilters({
 
         {showDeveloper && (
           <AccordionItem value="developer">
-            <AccordionTrigger>Developer</AccordionTrigger>
+            <AccordionTrigger>{t("search.accordion.developer")}</AccordionTrigger>
             <AccordionContent>
               <form.Field name="developerDisplayName">
                 {({ handleChange, state }: any) => (
@@ -292,7 +299,7 @@ export function SearchFilters({
 
         {showPublisher && (
           <AccordionItem value="publisher">
-            <AccordionTrigger>Publisher</AccordionTrigger>
+            <AccordionTrigger>{t("search.accordion.publisher")}</AccordionTrigger>
             <AccordionContent>
               <form.Field name="publisherDisplayName">
                 {({ handleChange, state }: any) => (
@@ -318,7 +325,7 @@ export function SearchFilters({
 
         {showSeller && (
           <AccordionItem value="seller">
-            <AccordionTrigger>Seller</AccordionTrigger>
+            <AccordionTrigger>{t("search.accordion.seller")}</AccordionTrigger>
             <AccordionContent>
               <form.Field name="seller">
                 {({ handleChange, state }: any) => (
@@ -351,7 +358,7 @@ export function SearchFilters({
                           })),
                         );
                     }}
-                    name="Sellers"
+                    name={t("components.search.sellers")}
                     value={state.value}
                     setValue={handleChange}
                     initialItems={[]}
@@ -376,7 +383,7 @@ export function SearchFilters({
                 htmlFor="pastGiveaways"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
-                Past Giveaways
+                {t("search.checkboxes.pastGiveaways")}
               </label>
             </div>
           )}
@@ -396,7 +403,7 @@ export function SearchFilters({
                 htmlFor="onSale"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
-                On Sale
+                {t("search.checkboxes.onSale")}
               </label>
             </div>
           )}
@@ -416,7 +423,7 @@ export function SearchFilters({
                 htmlFor="isCodeRedemptionOnly"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
-                Code Redemption Only
+                {t("search.checkboxes.codeRedemptionOnly")}
               </label>
             </div>
           )}
@@ -436,7 +443,7 @@ export function SearchFilters({
                 htmlFor="excludeBlockchain"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
-                Exclude Blockchain/NFT
+                {t("search.checkboxes.excludeBlockchain")}
               </label>
             </div>
           )}

@@ -13,6 +13,8 @@ import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { FileClock } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 interface ChangelogResponse {
   hits: (OfferHit | ItemHit | AssetHit | Hit)[];
@@ -105,8 +107,8 @@ export const Route = createFileRoute("/sandboxes/$id/changelog")({
       return {
         meta: [
           {
-            title: "Sandbox not found",
-            description: "Sandbox not found",
+            title: i18n.t("sandboxes.notFoundTitle"),
+            description: i18n.t("sandboxes.notFoundDescription"),
           },
         ],
       };
@@ -128,19 +130,20 @@ export const Route = createFileRoute("/sandboxes/$id/changelog")({
       return {
         meta: [
           {
-            title: "Sandbox not found",
-            description: "Sandbox not found",
+            title: i18n.t("sandboxes.notFoundTitle"),
+            description: i18n.t("sandboxes.notFoundDescription"),
           },
         ],
       };
 
     return {
-      meta: generateSandboxMeta(sandbox, offer, "Changelog"),
+      meta: generateSandboxMeta(sandbox, offer, i18n.t("sandboxes.metaChangelogTitle")),
     };
   },
 });
 
 function RouteComponent() {
+  const { t } = useTranslation();
   const { id } = Route.useParams();
   const [page, setPage] = useState(1);
   const { data, isLoading } = useQuery({
@@ -158,12 +161,12 @@ function RouteComponent() {
       <div className="flex flex-col gap-6 w-full">
         <SandboxPageHeader
           icon={FileClock}
-          eyebrow="Audit trail"
-          title="Changelog"
-          description="Observed changes across this sandbox's offers, items, assets, builds, and related catalog metadata."
+          eyebrow={t("sandboxes.changelogEyebrow")}
+          title={t("sandboxes.changelogTitle")}
+          description={t("sandboxes.changelogDescription")}
           stats={[
-            { label: "Changes", value: "Loading" },
-            { label: "Query time", value: "Loading" },
+            { label: t("sandboxes.totalChangesLabel"), value: "Loading" },
+            { label: t("sandboxes.queryTimeLabel"), value: "Loading" },
           ]}
         />
         <div className="grid grid-cols-1 gap-4 w-full">
@@ -179,12 +182,15 @@ function RouteComponent() {
     <div className="flex flex-col gap-6 w-full">
       <SandboxPageHeader
         icon={FileClock}
-        eyebrow="Audit trail"
-        title="Changelog"
-        description="Observed changes across this sandbox's offers, items, assets, builds, and related catalog metadata."
+        eyebrow={t("sandboxes.changelogEyebrow")}
+        title={t("sandboxes.changelogTitle")}
+        description={t("sandboxes.changelogDescription")}
         stats={[
-          { label: "Changes", value: formatSandboxCount(data?.estimatedTotalHits) },
-          { label: "Query time", value: `${data?.processingTimeMs ?? 0} ms` },
+          {
+            label: t("sandboxes.totalChangesLabel"),
+            value: formatSandboxCount(data?.estimatedTotalHits),
+          },
+          { label: t("sandboxes.queryTimeLabel"), value: `${data?.processingTimeMs ?? 0} ms` },
         ]}
       />
       <div className="grid grid-cols-1 gap-4 w-full">
@@ -203,7 +209,9 @@ function RouteComponent() {
             />
           ))}
       </div>
-      {data?.hits?.length === 0 && <div className="text-center">No changelog found</div>}
+      {data?.hits?.length === 0 && (
+        <div className="text-center">{t("sandboxes.noChangelogFound")}</div>
+      )}
       {(data?.hits?.length ?? 0) > 0 && (
         <DynamicPagination
           totalPages={data ? Math.ceil(data.estimatedTotalHits / data.limit) : 0}

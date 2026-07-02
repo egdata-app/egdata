@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { getReleasesByMonth, ReleasesByMonth } from "@/components/charts/releases/monthly";
 import { getReleasesByYear, ReleasesByYear } from "@/components/charts/releases/yearly";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 export const Route = createFileRoute("/stats/releases")({
   component: RouteComponent,
@@ -28,11 +30,11 @@ export const Route = createFileRoute("/stats/releases")({
     return {
       meta: [
         {
-          title: "Releases stats - egdata.app",
+          title: i18n.t("stats.releases.meta.title"),
         },
         {
           name: "description",
-          content: "Monthly and yearly cadence of new titles landing on the Epic Games Store.",
+          content: i18n.t("stats.releases.meta.description"),
         },
       ],
     };
@@ -40,25 +42,24 @@ export const Route = createFileRoute("/stats/releases")({
 });
 
 function RouteComponent() {
+  const { t } = useTranslation();
   return (
     <div className="flex flex-col gap-8 min-h-[80vh] relative">
       <Link to="/stats/creations" className="absolute top-0 right-0 z-10">
         <Button variant="outline" size="sm">
-          View Creations
+          {t("stats.releases.viewCreations")}
           <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
       </Link>
 
       <header className="flex flex-col gap-2">
-        <h2 className="text-2xl font-bold">Epic Games Store release stats</h2>
-        <p className="text-sm text-muted-foreground">
-          Monthly and yearly cadence of new titles landing on the store.
-        </p>
+        <h2 className="text-2xl font-bold">{t("stats.releases.heading")}</h2>
+        <p className="text-sm text-muted-foreground">{t("stats.releases.description")}</p>
       </header>
 
       <Card>
         <CardHeader>
-          <CardTitle>Monthly releases</CardTitle>
+          <CardTitle>{t("stats.releases.monthlyTitle")}</CardTitle>
         </CardHeader>
         <CardContent>
           <ReleasesByMonth />
@@ -67,7 +68,7 @@ function RouteComponent() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Yearly releases</CardTitle>
+          <CardTitle>{t("stats.releases.yearlyTitle")}</CardTitle>
         </CardHeader>
         <CardContent>
           <ReleasesByYear />

@@ -1,0 +1,1763 @@
+{
+  "common": {
+    "appName": "EGDATA",
+    "search": "Ara",
+    "searchPlaceholder": "Oyun ara...",
+    "loading": "Yükleniyor...",
+    "free": "Ücretsiz",
+    "notAvailable": "Kullanılamıyor",
+    "cancel": "İptal",
+    "save": "Kaydet",
+    "close": "Kapat"
+  },
+  "nav": {
+    "toggleMenu": "Gezinme menüsünü aç/kapa",
+    "logoAlt": "EGDATA Logosu",
+    "explore": "Keşfet",
+    "browse": "Gözat",
+    "sales": "İndirimler",
+    "changelog": "Değişiklik Günlüğü",
+    "about": "Hakkında",
+    "rankings": "Sıralamalar",
+    "topSellers": "En Çok Satanlar",
+    "mostPlayed": "En Çok Oynananlar",
+    "topWishlisted": "En Çok İstenenler",
+    "topNewReleases": "En İyi Yeni Çıkanlar",
+    "seeAllCollections": "Tüm koleksiyonları gör",
+    "others": "Diğer",
+    "releaseStats": "Çıkış İstatistikleri",
+    "genres": "Türler",
+    "seeAllGenres": "Tüm türleri gör",
+    "other": "Diğer",
+    "action": "Aksiyon",
+    "rpg": "RPG",
+    "indie": "Bağımsız",
+    "strategy": "Strateji",
+    "topSellerOnEpic": "Epic Games Store'da En Çok Satan",
+    "searchItemTitle": "Ara",
+    "searchItemDesc": "Epic Games Store'da aradığınızı bulun.",
+    "freeGamesItemTitle": "Ücretsiz Oyunlar",
+    "freeGamesItemDesc": "Epic Games Store'daki en son ücretsiz oyun tekliflerini keşfedin.",
+    "withDiscountsItemTitle": "İndirimli Olanlar",
+    "withDiscountsItemDesc": "Büyük indirimlerle satışta olan oyunlara göz atın.",
+    "helloUser": "Merhaba, {{name}}!",
+    "dashboard": "Panel",
+    "logout": "Çıkış Yap",
+    "searchLanguages": "Dilleri ara...",
+    "noLanguagesFound": "Dil bulunamadı"
+  },
+  "footer": {
+    "logoAlt": "EGDATA Logosu",
+    "disclaimer": "Hayran yapımı bir Epic Games Store veritabanı. Epic Games, Inc. ile bağlantılı değildir. Tüm logolar, görseller ve ticari markalar ilgili sahiplerine aittir.",
+    "legal": "Yasal",
+    "privacyPolicy": "Gizlilik Politikası",
+    "notifications": "Bildirimler",
+    "resources": "Kaynaklar",
+    "apiDocs": "API Dokümanları",
+    "changelog": "Değişiklik Günlüğü",
+    "community": "Topluluk",
+    "flagsByFlagpedia": "Flagpedia'dan Bayraklar",
+    "madeIn": "Yapım yeri"
+  },
+  "meta": {
+    "title": "Epic Games Veritabanı - egdata.app",
+    "description": "Kapsamlı Epic Games Store veritabanı: oyun bilgisi, fiyatlar, satış geçmişi, dosya listeleri ve daha fazlası. Ücretsiz oyunları, yakında çıkacak sürümleri ve topluluk içgörülerini keşfedin.",
+    "twitterTitle": "Epic Games Veritabanı",
+    "twitterDescription": "Kapsamlı oyun bilgileri, satış takibi ve daha fazlasıyla ücretsiz ve açık kaynaklı bir Epic Games Store veritabanı. Topluluk odaklı ve sürekli güncellenir.",
+    "twitterImageAlt": "Epic Games Veritabanı",
+    "ogTitle": "Epic Games Veritabanı",
+    "ogDescription": "Kapsamlı oyun bilgileri, satış takibi ve daha fazlasıyla ücretsiz ve açık kaynaklı bir Epic Games Store veritabanı. Topluluk odaklı ve sürekli güncellenir.",
+    "ogImageAlt": "Epic Games Veritabanı"
+  },
+  "notFound": {
+    "title": "Sayfa bulunamadı"
+  },
+  "home": {
+    "statsBar": {
+      "offersTracked": "İzlenen Teklifler",
+      "priceChanges72h": "Fiyat Değişiklikleri / 72s",
+      "activeDiscounts": "Aktif İndirimler",
+      "giveawaysToDate": "Bugüne Kadarki Bedava Oyunlar"
+    },
+    "sections": {
+      "giveawayStats": "Bedava Oyun İstatistikleri",
+      "giveawayOffers": "Bedava Oyun Teklifleri",
+      "upcomingOffers": "Yaklaşan Teklifler",
+      "latestOffers": "Son Teklifler",
+      "latestReleased": "Son Çıkanlar",
+      "latestOffersWithAchievements": "Başarımlı Son Teklifler",
+      "topSellingOffers": "En Çok Satan Teklifler",
+      "latestBuilds": "Son Yapılar"
+    },
+    "tableHeaders": {
+      "hash": "#",
+      "pos": "Sıra",
+      "dash": "-",
+      "title": "Başlık",
+      "starts": "Başlangıç",
+      "ends": "Bitiş",
+      "releaseDate": "Çıkış Tarihi",
+      "createdAt": "Oluşturulma",
+      "date": "Tarih",
+      "price": "Fiyat",
+      "size": "Boyut",
+      "creationDate": "Oluşturulma Tarihi"
+    },
+    "offerHover": {
+      "seller": "Satıcı:",
+      "developer": "Geliştirici:",
+      "publisher": "Yayıncı:",
+      "releaseDate": "Çıkış Tarihi:",
+      "ageRating": "Yaş Sınırı:",
+      "moreGenres_one": "+{{count}} tür daha",
+      "moreGenres_other": "+{{count}} tür daha",
+      "communityRating": "Topluluk Puanı:",
+      "igdbScore": "IGDB Puanı",
+      "reviews": "• {{count}} yorum",
+      "timeToBeat": "Bitirme Süresi:",
+      "features": "Özellikler:",
+      "moreFeatures": " +{{count}} daha"
+    },
+    "buildHover": {
+      "unknownBuild": "Bilinmeyen Yapı",
+      "unknownDeveloper": "Bilinmeyen Geliştirici",
+      "size": "Boyut",
+      "version": "Sürüm",
+      "created": "Oluşturulma",
+      "id": "ID: {{id}}"
+    },
+    "multipleOffers": "{{title}} - Birden Fazla Teklif",
+    "hero": {
+      "subtitle": "Fiyatları takip edin, fırsatları keşfedin ve hiçbir ücretsiz oyunu kaçırmayın. Epic Games Store veritabanı için yol arkadaşınız — teklifler, indirimler, bedava oyunlar, yapılar ve daha fazlası.",
+      "searchPlaceholder": "Veritabanında ara…",
+      "justReleased": "Yeni çıktı",
+      "priceDrops72h": "Fiyat düşüşleri (72s)",
+      "hasAchievements": "Başarımları var",
+      "upcoming": "Yaklaşan",
+      "topSellers": "En çok satanlar"
+    },
+    "pulse": {
+      "recentActivity": "Son aktivite",
+      "badge": {
+        "new": "Yeni",
+        "gone": "Gitmiş",
+        "offer": "Teklif",
+        "build": "Yapı",
+        "item": "Öğe",
+        "asset": "Asset",
+        "xp": "XP",
+        "sandbox": "Sandbox",
+        "change": "Değişiklik"
+      },
+      "title": {
+        "buildVersion": "Yapı {{version}}",
+        "buildId": "Yapı {{id}}",
+        "achievementsId": "Başarımlar {{id}}"
+      },
+      "detail": {
+        "newBuildIndexed": "Yeni yapı dizine eklendi",
+        "buildManifestRefreshed": "Yapı manifestosu yenilendi",
+        "achievementChanges_one": "{{count}} başarım {{entry}} {{verb}}",
+        "achievementChanges_other": "{{count}} başarım {{entry}} {{verb}}",
+        "offerMetadataRefreshed": "Teklif meta verileri yenilendi",
+        "fieldsChanged_one": "{{count}} alan {{verb}}",
+        "fieldsChanged_other": "{{count}} alan {{verb}}",
+        "fieldChanged": "{{field}} {{verb}}"
+      },
+      "actionVerb": {
+        "added": "eklendi",
+        "removed": "kaldırıldı",
+        "updated": "güncellendi",
+        "changed": "değiştirildi"
+      },
+      "entry_one": "girdi",
+      "entry_other": "girdi"
+    }
+  },
+  "offerDetail": {
+    "common": {
+      "offerNotFound": "Teklif bulunamadı",
+      "notAvailable": "Kullanılamıyor",
+      "na": "Yok",
+      "loading": "Yükleniyor...",
+      "somethingWentWrong": "Bir şeyler ters gitti",
+      "noChangesFound": "Bu teklif için değişiklik bulunamadı"
+    },
+    "tabs": {
+      "overview": "Genel Bakış",
+      "price": "Fiyat",
+      "items": "Öğeler",
+      "builds": "Yapılar",
+      "achievements": "Başarımlar",
+      "related": "İlgili",
+      "metadata": "Meta Veriler",
+      "changelog": "Değişiklik Günlüğü",
+      "media": "Medya",
+      "reviews": "Yorumlar"
+    },
+    "table": {
+      "offerId": "Teklif ID",
+      "namespace": "Namespace",
+      "offerType": "Teklif Türü",
+      "seller": "Satıcı",
+      "developer": "Geliştirici",
+      "supportedPlatforms": "Desteklenen Platformlar",
+      "releaseDate": "Çıkış Tarihi",
+      "lastUpdate": "Son Güncelleme",
+      "creationDate": "Oluşturulma Tarihi",
+      "technologies": "Teknolojiler",
+      "type": "Tür",
+      "value": "Değer",
+      "countriesBlacklist": "Ülke Kara Listesi",
+      "countriesWhitelist": "Ülke Beyaz Listesi",
+      "categories": "Kategoriler",
+      "refundType": "İade Türü",
+      "tags": "Etiketler",
+      "ageRatings": "Yaş Sınırları",
+      "assets": "Assetler"
+    },
+    "badges": {
+      "prePurchase": "Ön Satın Alma",
+      "earlyAccess": "Erken Erişim"
+    },
+    "hero": {
+      "offeredBy": "{{seller}} tarafından sunuldu"
+    },
+    "tooltip": {
+      "internalNamespace": "Epic Games dahili ad alanı",
+      "techDescription": "oyun dosyalarından kullanılan motorları ve farklı teknolojileri izlemek için teknoloji listesi.",
+      "techSource": "Şunu kullanıyoruz:",
+      "techSourceSteamDb": "SteamDB",
+      "source": "Kaynak"
+    },
+    "actions": {
+      "compare": "Karşılaştır"
+    },
+    "releaseDate": {
+      "releasedOnPc": "PC'de yayınlandı",
+      "theEgs": "EGS",
+      "releasedSameDay": "PC ile aynı gün Epic'te yayınlandı"
+    },
+    "notifications": {
+      "title": "Bildirim Ayarları",
+      "description": "Bu teklif için almak istediğiniz bildirimleri seçin.",
+      "all": "Tümü",
+      "price": "Fiyat",
+      "achievements": "Başarımlar",
+      "builds": "Yapılar",
+      "items": "Öğeler",
+      "requirements": "Gereksinimler",
+      "metadata": "Meta Veriler",
+      "media": "Medya",
+      "enablePushDescription": "Bu teklif için bildirim almak üzere push bildirimlerini etkinleştirmeniz gerekiyor.",
+      "enablePushAction": "Push Bildirimlerini Etkinleştir"
+    },
+    "overview": {
+      "genres": "Türler",
+      "ageRating": "Yaş Sınırı",
+      "noAgeRatings": "Yaş sınırı bulunamadı",
+      "giveaways": "Bedava Oyunlar",
+      "noGiveaways": "Bedava oyun bulunamadı",
+      "achievements": "Başarımlar",
+      "igdbTimeToBeat": "IGDB Bitirme Süresi",
+      "hastily": "Aceleyle",
+      "normally": "Normal",
+      "completely": "Tamamen",
+      "hltbSubmissions_one": "{{count}} gönderiye dayanarak",
+      "hltbSubmissions_other": "{{count}} gönderiye dayanarak",
+      "price": "Fiyat",
+      "priceCurrent": "Güncel:",
+      "priceLowest": "En Düşük:",
+      "priceLastDiscount": "Son İndirim:",
+      "hltbTitle": "How Long To Beat",
+      "noGameTimes": "Oyun süresi bulunamadı",
+      "epicRating": "Epic Oyuncu Puanı",
+      "epicRatingDescription": "Epic Games ekosistemindeki oyunculardan alınmıştır",
+      "igdbRating": "IGDB Puanı",
+      "igdbReviews_one": "{{count}} yorum",
+      "igdbReviews_other": "{{count}} yorum"
+    },
+    "achievements": {
+      "title": "Başarımlar",
+      "sortBy": "Sırala",
+      "defaultSort": "Varsayılan Sıralama",
+      "sortByRarity": "Nadirliğe Göre Sırala",
+      "sortByCompleted": "Tamamlanma %'sine Göre Sırala",
+      "search": "Ara",
+      "flipAll": "Tümünü Çevir",
+      "noAchievements": "Başarım bulunamadı",
+      "noAchievementsSet": "Bu set için başarım bulunamadı.",
+      "noAchievementsSetDescription": "Bu, başarımların şu anda mevcut olmadığı ancak gelecekte ekleneceği anlamına gelebilir.",
+      "baseGame": "Temel Oyun",
+      "dlc": "DLC",
+      "achievementsLabel": "Başarımlar",
+      "baseGameDescription": "Bu başarım listesi temel oyun içindir.",
+      "dlcDescription": "Bu başarım listesi DLC'lerden biri içindir.",
+      "lastUpdated": "Son Güncelleme:",
+      "lastUpdatedTooltip": "Bu başarım seti en son {{date}} tarihinde güncellendi.",
+      "lastUpdatedTooltipDescription": "Bu, oluşturulma tarihi veya son güncelleme tarihidir."
+    },
+    "builds": {
+      "title": "Yapılar"
+    },
+    "items": {
+      "title": "Öğeler"
+    },
+    "price": {
+      "title": "Fiyat"
+    },
+    "related": {
+      "title": "İlgili Teklifler"
+    },
+    "media": {
+      "images": "Görseller",
+      "videos": "Videolar",
+      "covers": "Kapaklar",
+      "noImages": "Görsel bulunamadı",
+      "noVideos": "Video bulunamadı",
+      "noCovers": "Kapak bulunamadı",
+      "download": "İndir",
+      "close": "Kapat",
+      "downloadCoverAria": "{{type}} kapağını indir"
+    },
+    "metadata": {
+      "title": "Meta Veriler",
+      "download": "İndir:",
+      "install": "Kurulum:"
+    },
+    "changelog": {
+      "title": "Değişiklik Günlüğü",
+      "tooltip": "Bu liste, bu belirli teklifte veya ilgili öğelerde, assetlerde veya yapılarda yapılan değişikliklerdir.",
+      "sandboxChangelog": "sandbox değişiklik günlüğü",
+      "sandboxChangelogPrefix": "Tüm ürünün değişiklik günlüğünü şurada görebilirsiniz:",
+      "noChangelog": "Değişiklik günlüğü mevcut değil",
+      "allTypes": "Tüm türler",
+      "selectField": "Bir alan seçin",
+      "allFields": "Tüm alanlar",
+      "search": "Ara",
+      "previous": "Önceki",
+      "next": "Sonraki",
+      "pageOf": "Sayfa {{page}} / {{totalPages}}",
+      "typeUpdate": "Güncelle",
+      "typeDelete": "Sil",
+      "typeInsert": "Ekle"
+    },
+    "reviews": {
+      "epicRating": "Epic Oyuncu Puanı",
+      "epicRatingDescription": "Epic Games ekosistemindeki oyunculardan alınmıştır",
+      "egdataRating": "EGDATA Puanı",
+      "overallScore": "Genel Puan",
+      "scoreOutOf10": "{{score}} / 10",
+      "basedOnReviews": "{{count}} yoruma dayanarak",
+      "allReviews": "Tüm Yorumlar",
+      "onlyVerified": "Yalnızca Doğrulanmış",
+      "notVerified": "Doğrulanmamış",
+      "leaveReview": "Yorum bırak",
+      "alreadyReviewed": "Zaten yorum yapıldı",
+      "loginToReview": "Yorum yapmak için giriş yapın",
+      "noReviews": "Henüz yorum yok",
+      "notReleased": "Bu ürün henüz yayınlanmadı",
+      "beFirst": "Bu ürün için ilk yorumu bırakan siz olun!",
+      "checkBack": "Yorum bırakmak için çıkış tarihinden sonra tekrar gelin!",
+      "verifiedOwner": "Doğrulanmış Sahip",
+      "recommended": "Önerilen",
+      "notRecommended": "Önerilmeyen",
+      "readMore": "Devamını oku",
+      "reviewedOn": "Yorum tarihi",
+      "lastUpdatedOn": "Son güncelleme",
+      "editedTimes": "{{count}} kez düzenlendi",
+      "edit": "Düzenle",
+      "close": "Kapat",
+      "reviewCount_one": "{{count}} yorum",
+      "reviewCount_other": "{{count}} yorum",
+      "ownershipVerification": "Sahiplik doğrulaması",
+      "ownershipVerificationDescription": "oyuncunun en az bir başarımı tamamlamasına dayanır.",
+      "ownershipVerificationTooltip": "Ürünün sahipliğini doğrulamak için Epic Games başarımlarını kullanıyoruz. Bir oyuncuyu doğrulanmış sahip olarak işaretlemek için, Epic Games Store'da seçilen ürün için en az bir başarımı tamamlamış olmaları gerekir. Hesabınızı egdata profilinize bağlamak için şuraya gitmelisiniz:",
+      "yourDashboard": "paneliniz",
+      "criticReviews": "Eleştirmen Yorumları",
+      "basedOnCriticReviews": "{{count}} eleştirmen yorumuna dayanarak",
+      "opencriticRating": "OpenCritic Puanı",
+      "topCriticAverage": "En İyi Eleştirmen Ortalaması",
+      "criticsRecommend": "Eleştirmenler Öneriyor",
+      "opencriticRatingAlt": "OpenCritic Puanı"
+    }
+  },
+  "search": {
+    "meta": {
+      "title": "Ara | egdata.app",
+      "description": "Epic Games Store'daki tekliflerde arama yapın."
+    },
+    "defaultTitle": "Ara",
+    "filters": "Filtreler",
+    "filtersPlaceholder": "Oyun ara",
+    "pills": {
+      "onSale": "İndirimde",
+      "codeRedemptionOnly": "Yalnızca Kod Kullanımı",
+      "excludeBlockchain": "Blockchain/NFT'yi Hariç Tut",
+      "pastGiveaways": "Geçmiş Bedava Oyunlar"
+    },
+    "accordion": {
+      "offerType": "Teklif Türü",
+      "developer": "Geliştirici",
+      "publisher": "Yayıncı",
+      "noTags": "Etiket bulunamadı",
+      "seller": "Satıcı"
+    },
+    "checkboxes": {
+      "pastGiveaways": "Geçmiş Bedava Oyunlar",
+      "onSale": "İndirimde",
+      "codeRedemptionOnly": "Yalnızca Kod Kullanımı",
+      "excludeBlockchain": "Blockchain/NFT'yi Hariç Tut",
+      "onlyHistoricalLows": "Yalnızca tarihi düşükler",
+      "onlyLowestPriceEver": "Yalnızca en düşük fiyat"
+    },
+    "tagGroups": {
+      "event": "Etkinlik",
+      "genre": "Tür",
+      "epicfeature": "Epic Özelliği",
+      "accessibility": "Erişilebilirlik",
+      "feature": "Özellik",
+      "usersay": "Kullanıcı Yorumu",
+      "subscription": "Abonelik",
+      "platform": "Platform",
+      "all": "Tüm Etiketler"
+    },
+    "sort": {
+      "sortBy": "Sırala",
+      "sortAriaLabel": "Teklifleri sırala",
+      "sortDirectionAriaLabel": "Sıralama yönünü değiştir",
+      "showListView": "Liste görünümünü göster",
+      "showGridView": "Izgara görünümünü göster",
+      "releaseDate": "Çıkış Tarihi",
+      "lastModifiedDate": "Değiştirilme Tarihi",
+      "effectiveDate": "Yürürlük Tarihi",
+      "creationDate": "Oluşturulma Tarihi",
+      "viewableDate": "Görüntülenme Tarihi",
+      "pcReleaseDate": "PC Çıkış Tarihi",
+      "upcoming": "Yaklaşan",
+      "price": "Fiyat",
+      "discount": "İndirim",
+      "discountPercent": "İndirim %",
+      "giveawayDate": "Bedava Oyun Tarihi"
+    },
+    "results": {
+      "noResults": "Sonuç bulunamadı"
+    }
+  },
+  "freebies": {
+    "meta": {
+      "title": "Ücretsiz Oyunlar | egdata.app",
+      "description": "Epic Games Store'daki ücretsiz oyunlara göz atın."
+    },
+    "headings": {
+      "current": "Mevcut Ücretsiz Oyunlar",
+      "past": "Geçmiş Ücretsiz Oyunlar",
+      "sellers": "Ücretsiz Oyun Satıcıları"
+    },
+    "buttons": {
+      "redeem": "Şimdi Kullan",
+      "downloadJson": "JSON Olarak İndir",
+      "downloadCsv": "CSV Olarak İndir",
+      "downloadTxt": "Metin Olarak İndir"
+    },
+    "placeholders": {
+      "searchSellers": "Satıcıları ara..."
+    },
+    "aria": {
+      "downloadList": "Listeyi indir"
+    },
+    "errors": {
+      "loadSellers": "Satıcı verileri yüklenirken hata oluştu. Lütfen daha sonra tekrar deneyin."
+    },
+    "table": {
+      "sellerName": "Satıcı Adı",
+      "totalGames": "Toplam Tekil Oyun"
+    }
+  },
+  "sales": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Epic Games Store'daki {{title}} inceleyin."
+    },
+    "metaIndex": {
+      "title": "Aktif İndirimler | egdata.app",
+      "description": "egdata.app'teki aktif indirimlere göz atın"
+    },
+    "status": {
+      "loading": "Yükleniyor...",
+      "noData": "Veri yok"
+    },
+    "headings": {
+      "active": "Aktif İndirimler",
+      "pastUpcoming": "Geçmiş / Yaklaşan İndirimler",
+      "offersList": "{{title}} Teklifleri"
+    },
+    "errors": {
+      "notFound": "Promosyon bulunamadı"
+    },
+    "labels": {
+      "offersCount": "Bu etkinlikte {{count}} teklif mevcut"
+    }
+  },
+  "collections": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Epic Games Store'daki {{title}} inceleyin."
+    },
+    "metaIndex": {
+      "title": "Koleksiyonlar | egdata.app",
+      "description": "egdata.app'teki koleksiyonlar"
+    },
+    "headings": {
+      "main": "Koleksiyonlar"
+    },
+    "description": {
+      "overview": "Epic Games Store'daki en çok satanlar, en çok oynananlar ve en popüler oyunlar"
+    },
+    "status": {
+      "loading": "Yükleniyor..."
+    },
+    "errors": {
+      "notFound": "Koleksiyon bulunamadı"
+    },
+    "table": {
+      "position": "Pozisyon",
+      "variance": "Değişim",
+      "weeks": "Hafta"
+    },
+    "tooltips": {
+      "variance": "Mevcut pozisyon ile önceki pozisyon arasındaki fark. Genellikle her gün değişir.",
+      "weeks": "Oyunun {{title}} için ilk 100'de olduğu hafta sayısı."
+    },
+    "buttons": {
+      "loadMore": "Daha fazla yükle"
+    }
+  },
+  "sandboxes": {
+    "notFoundTitle": "Sandbox bulunamadı",
+    "notFoundDescription": "Sandbox bulunamadı",
+    "unrealEngineTitle": "Unreal Engine",
+    "unavailableTitle": "Sandbox kullanılamıyor",
+    "unavailableDescription": "Ürün merkezi yüklenemedi.",
+    "noProductDataDescription": "Bu sandbox için ürün verisi bulunmuyor.",
+    "hubEyebrow": "Sandbox",
+    "hubOverviewTitle": "Genel Bakış",
+    "hubOverviewDescription": "Bu Namespace için mağaza ön yüzü, sahiplik, teslimat ve güncelleme kayıtlarının odaklanmış bir haritası.",
+    "latestChangesButton": "Son değişiklikler",
+    "entityOffersLabel": "Teklifler",
+    "entityOffersDescription": "Mağaza girişleri",
+    "entityItemsLabel": "Öğeler",
+    "entityItemsDescription": "Sahip olunabilir kayıtlar",
+    "entityAssetsLabel": "Assetler",
+    "entityAssetsDescription": "Yapıtlar ve medya",
+    "entityBuildsLabel": "Yapılar",
+    "entityBuildsDescription": "İkili paketler",
+    "entityAchievementsLabel": "Başarımlar",
+    "entityAchievementsDescription": "İlerleme verileri",
+    "entityChangelogLabel": "Değişiklik Günlüğü",
+    "entityChangelogDescription": "İzlenen güncellemeler",
+    "viewButton": "Görüntüle",
+    "storefrontOffersTitle": "Mağaza teklifleri",
+    "storefrontOffersDescription": "Bu sandbox'ta bulunan temsili mağaza girişleri.",
+    "recentBuildsTitle": "Son yapılar",
+    "recentBuildsDescription": "En yeni ikili kayıtlar.",
+    "latestBadge": "en yeni",
+    "unknownBuildLabel": "Bilinmeyen yapı",
+    "recentChangesTitle": "Son değişiklikler",
+    "recentChangesDescription": "En son katalog değişiklikleri.",
+    "updateBadge": "güncelle",
+    "changeDefaultLabel": "Değişiklik",
+    "metaOffersTitle": "Teklifler",
+    "offersEyebrow": "E-ticaret",
+    "offersTitle": "Teklifler",
+    "offersDescription": "Bu sandbox'taki mağaza girişleri; temel oyunlar, sürümler, DLC, eklentiler, paketler ve katalog öğeleri sağlayabilen herhangi bir teklif.",
+    "totalOffersLabel": "Toplam teklif",
+    "metaAchievementsTitle": "Başarımlar",
+    "achievementsEyebrow": "İlerleme",
+    "achievementsTitle": "Başarımlar",
+    "achievementsDescription": "Bu sandbox'a bağlı başarım setleri, gizli durumlar, nadirlik dağılımı ve XP toplamları.",
+    "achievementsSetsLabel": "Setler",
+    "achievementsLabel": "Başarımlar",
+    "achievementsXpLabel": "XP",
+    "searchAchievementsPlaceholder": "Başarımları ara",
+    "flipAllButton": "Tümünü çevir",
+    "revealHiddenAchievementAria": "Gizli başarım metnini göster",
+    "hideHiddenAchievementAria": "Gizli başarım metnini gizle",
+    "achievementsBaseGameLabel": "Temel Oyun",
+    "achievementsDlcLabel": "DLC",
+    "achievementsBaseGameTooltip": "Bu başarım listesi temel oyun içindir.",
+    "achievementsDlcTooltip": "Bu başarım listesi DLC'lerden biri içindir.",
+    "lastUpdatedLabel": "Son Güncelleme:",
+    "achievementsLastUpdatedTooltip": "Bu başarım seti en son şu tarihte güncellendi:",
+    "achievementsLastUpdatedTooltipExtra": "Bu, oluşturulma tarihi veya son güncelleme tarihidir.",
+    "noAchievementsForSet": "Bu set için başarım bulunamadı.",
+    "noAchievementsForSetExtra": "Bu, başarımların şu anda mevcut olmadığı ancak gelecekte ekleneceği anlamına gelebilir.",
+    "noAchievementsFound": "Başarım bulunamadı",
+    "metaItemsTitle": "Öğeler",
+    "itemsEyebrow": "Katalog sahipliği",
+    "itemsTitle": "Öğeler",
+    "itemsDescription": "Teklifler tarafından içerilen sahip olunabilir katalog öğeleri. Bunlar, bir satın alma veya kullanım sonrasında oyuncu haklarına dönüşen kayıtlardır.",
+    "totalItemsLabel": "Toplam öğe",
+    "metaChangelogTitle": "Değişiklik Günlüğü",
+    "changelogEyebrow": "Denetim izi",
+    "changelogTitle": "Değişiklik Günlüğü",
+    "changelogDescription": "Bu sandbox'ın teklifleri, öğeleri, assetleri, yapıları ve ilgili katalog meta verilerinde gözlemlenen değişiklikler.",
+    "totalChangesLabel": "Değişiklikler",
+    "queryTimeLabel": "Sorgulama süresi",
+    "noChangelogFound": "Değişiklik günlüğü bulunamadı",
+    "metaBuildsTitle": "Yapılar",
+    "buildsEyebrow": "İkililer",
+    "buildsTitle": "Yapılar",
+    "buildsDescription": "Sandbox için yüklenen sürümlendirilmiş dosya paketleri. Yapılar, yapıtlara atanır ve oyuncuların başlatıcı aracılığıyla indirdiklerini belirler.",
+    "totalBuildsLabel": "Toplam yapı",
+    "metaAssetsTitle": "Assetler",
+    "assetsEyebrow": "Assetler ve yapıtlar",
+    "assetsTitle": "Assetler",
+    "assetsDescription": "Sandbox öğelerine bağlı dağıtım ve medya kayıtları; mağaza katalog içeriğini indirilebilir yapılara bağlayan yapıtlar dahil.",
+    "totalAssetsLabel": "Toplam asset"
+  },
+  "items": {
+    "notFound": "Öğe bulunamadı",
+    "badge": "Öğe",
+    "table": {
+      "itemId": "Öğe ID",
+      "namespace": "Namespace",
+      "developer": "Geliştirici",
+      "entitlementType": "Yetki Türü",
+      "entitlementName": "Yetki Adı",
+      "status": "Durum",
+      "creationDate": "Oluşturulma Tarihi",
+      "lastModified": "Son Değiştirilme",
+      "platforms": "Platformlar"
+    },
+    "tooltip": {
+      "internalNamespace": "Epic Games dahili ad alanı"
+    },
+    "tabs": {
+      "item": "Öğe",
+      "assets": "Assetler",
+      "images": "Görseller",
+      "builds": "Yapılar",
+      "changelog": "Değişiklik Günlüğü"
+    },
+    "metadata": {
+      "title": "Meta Veriler",
+      "key": "Anahtar",
+      "value": "Değer"
+    },
+    "assets": {
+      "title": "Assetler"
+    },
+    "builds": {
+      "title": "Yapılar"
+    },
+    "changelog": {
+      "title": "Değişiklik Günlüğü",
+      "noChangelog": "Değişiklik günlüğü mevcut değil"
+    },
+    "images": {
+      "title": "Görseller"
+    }
+  },
+  "builds": {
+    "notFound": "Yapı bulunamadı",
+    "build": "Yapı",
+    "for": "için",
+    "compressed": "(%{{percent}} sıkıştırılmış)",
+    "table": {
+      "buildId": "Yapı ID",
+      "buildName": "Yapı Adı",
+      "appName": "Uygulama Adı",
+      "hash": "Hash",
+      "installedSize": "Kurulu Boyut",
+      "downloadSize": "İndirme Boyutu",
+      "createdAt": "Oluşturulma",
+      "updatedAt": "Güncellenme",
+      "technologies": "Teknolojiler"
+    },
+    "tooltip": {
+      "techSource": "Şunu kullanıyoruz:",
+      "techSourceSteamDb": "SteamDB",
+      "techDescription": "oyun dosyalarından kullanılan motorları ve farklı teknolojileri izlemek için teknoloji listesi.",
+      "source": "Kaynak"
+    },
+    "tabs": {
+      "files": "Dosyalar",
+      "items": "Öğeler",
+      "installOptions": "Kurulum Seçenekleri"
+    },
+    "files": {
+      "title": "Dosyalar"
+    },
+    "items": {
+      "title": "Öğeler"
+    },
+    "installOptions": {
+      "title": "Kurulum Seçenekleri",
+      "file_one": "dosya",
+      "file_other": "dosya"
+    },
+    "meta": {
+      "title": "{{title}} ({{version}}) | egdata.app",
+      "description": "Epic Games Store'dan {{title}} için {{version}} Yapısı."
+    }
+  },
+  "profile": {
+    "meta": {
+      "notFoundTitle": "Profil bulunamadı",
+      "notFoundDescription": "Profil bulunamadı",
+      "title": "{{name}} | egdata.app",
+      "description": "egdata.app'te {{name}} başarımlarını ve oyunlarını inceleyin",
+      "defaultName": "Profil",
+      "defaultDescriptionName": "bu oyuncunun"
+    },
+    "errors": {
+      "notFoundTitle": "Profil bulunamadı",
+      "notFoundDescription": "Bu profil kullanılamıyor veya henüz dizine eklenmedi.",
+      "unavailableTitle": "Profil kullanılamıyor",
+      "unavailableDescription": "Bu profil şu anda yüklenemedi.",
+      "invalidImageFormat": "Geçersiz görsel formatı",
+      "failedToUpload": "Yükleme başarısız",
+      "uploadFailed": "Yükleme başarısız",
+      "failedToRefresh": "Profil yenilenemedi",
+      "refreshQueued": "Profil yenileme kuyruğuna eklendi, yakında güncellenecek."
+    },
+    "fallbackName": "Bilinmeyen profil",
+    "avatar": {
+      "changeAvatar": "Avatarı Değiştir",
+      "dialogDescription": "Yeni bir profil görseli yükleyin.",
+      "previewAlt": "Avatar önizleme",
+      "fallback": "Avatar",
+      "description": "Yeni bir avatar görseli yükleyin, maksimum 5MB.",
+      "uploadingWithProgress": "Yükleniyor... {{progress}}%",
+      "uploading": "Yükleniyor...",
+      "updateAvatar": "Avatarı Güncelle",
+      "errorTitle": "Hata"
+    },
+    "hero": {
+      "joined": "Katılma",
+      "epicGamesStore": "Epic Games Store",
+      "linkDiscord": "Discord'u Bağla",
+      "refreshProfile": "Profili yenile",
+      "refreshAvailableIn": "Yenileme kullanılabilir",
+      "level": "Seviye",
+      "achievements": "Başarımlar",
+      "unlocked": "Açılan",
+      "platinum": "Platin",
+      "perfectGames": "Mükemmel oyunlar",
+      "library": "Kütüphane",
+      "achievementGames": "Başarımlı oyunlar",
+      "reviews": "Yorumlar",
+      "contributed": "Katkıda bulunulan",
+      "xpToNextLevel": "{{level}}. seviye için {{xp}} XP",
+      "heroGame": "Öne çıkan oyun",
+      "complete": "tamamlandı"
+    },
+    "donor": {
+      "donated_one": "{{name}}, egdata.app'a {{count}} anahtar bağışladı",
+      "donated_other": "{{name}}, egdata.app'a {{count}} anahtar bağışladı",
+      "goTo": "Şuraya git",
+      "thisLink": "bu bağlantı",
+      "toDonateKey": "anahtar bağışlamak için."
+    },
+    "countdown": {
+      "minutesSeconds_one": "{{minutes}} dakika {{seconds}} saniye",
+      "minutesSeconds_other": "{{minutes}} dakika {{seconds}} saniye",
+      "seconds_one": "{{seconds}} saniye",
+      "seconds_other": "{{seconds}} saniye"
+    },
+    "tabs": {
+      "showcase": "Vitrin",
+      "library": "Kütüphane",
+      "activity": "Aktivite"
+    },
+    "stats": {
+      "games": "{{count}} oyun",
+      "achievements": "{{count}} başarım",
+      "platinum": "{{count}} platin"
+    },
+    "showcase": {
+      "ariaLabel": "Profil vitrin öne çıkanları",
+      "featuredGamesTitle": "Öne Çıkan Oyunlar",
+      "featuredGamesDetail": "Profil performansına göre {{count}} seçildi",
+      "rareAchievementsTitle": "Nadir Başarımlar",
+      "rareAchievementsDetail": "Profilde bulunması zor açılımlar",
+      "recentUnlocksTitle": "Son Açılımlar",
+      "recentUnlocksDetail": "Son görünür aktivite",
+      "noDataTitle": "Henüz vitrin verisi yok",
+      "noDataDescription": "Profillerde yalnızca halka açık başarım ilerlemesi olan yayınlanmış oyunlar görünür.",
+      "rarestUnlock": "En nadir açılım",
+      "definingGame": "Tanımlayıcı oyun",
+      "latestActivity": "Son aktivite",
+      "achievementsCount": "{{unlocked}} / {{total}} başarım",
+      "platinum": "Platin"
+    },
+    "library": {
+      "filterAriaLabel": "Kütüphane filtresi",
+      "sortAriaLabel": "Kütüphaneyi sırala",
+      "sortByPlaceholder": "Sırala",
+      "noGamesTitle": "Oyun bulunamadı",
+      "noGamesDescription": "Bu kütüphanede yalnızca başarımları olan yayınlanmış oyunlar görünür.",
+      "gameAlt": "Oyun",
+      "complete": "tamamlandı",
+      "featured": "Öne Çıkan",
+      "rareUnlocks": "Nadir açılımlar",
+      "filters": {
+        "all": "Tümü",
+        "completed": "Tamamlanan",
+        "nearPlatinum": "Platine Yakın",
+        "inProgress": "Devam Eden",
+        "platinum": "Platin"
+      },
+      "sorts": {
+        "completion": "Tamamlanma",
+        "alphabetical": "Alfabetik",
+        "xp": "XP",
+        "achievements": "Başarımlar"
+      }
+    },
+    "activity": {
+      "title": "Aktivite",
+      "detail": "{{count}} başarım açılımı",
+      "noActivityTitle": "Henüz aktivite yok",
+      "noActivityDescription": "Bu profilde halka açık ilerleme olduğunda başarım açılımları burada görünecektir.",
+      "achievementAlt": "Başarım",
+      "platinumEarned": "Platin kazanıldı",
+      "achievementUnlocked": "Başarım açıldı",
+      "unknownRarity": "Bilinmeyen nadirlik",
+      "rarity": "%{{value}} nadirlik",
+      "unknownDate": "Bilinmeyen tarih"
+    },
+    "achievements": {
+      "loading": "Yükleniyor...",
+      "notFound": "Profil bulunamadı",
+      "myAchievements": "Başarımlarım"
+    }
+  },
+  "tags": {
+    "meta": {
+      "notFoundTitle": "Promosyon bulunamadı",
+      "notFoundDescription": "Promosyon bulunamadı",
+      "title": "{{title}} | egdata.app",
+      "description": "egdata.app'te {{title}} için {{count}} teklifi inceleyin.",
+      "socialTitle": "{{title}} - egdata.app"
+    },
+    "loading": "Yükleniyor...",
+    "offersCount": "Bu etkinlikte {{count}} teklif mevcut",
+    "results": "Sonuçlar",
+    "resultsCount": "({{count}} sonuç)",
+    "searchPlaceholder": "Ara...",
+    "loadMore": "Daha Fazla Yükle",
+    "sortBy": {
+      "releaseDate": "Çıkış Tarihi",
+      "lastModifiedDate": "Değiştirilme Tarihi",
+      "effectiveDate": "Yürürlük Tarihi",
+      "creationDate": "Oluşturulma Tarihi",
+      "viewableDate": "Görüntülenme Tarihi",
+      "pcReleaseDate": "PC Çıkış Tarihi",
+      "upcoming": "Yaklaşan",
+      "price": "Fiyat"
+    }
+  },
+  "genres": {
+    "meta": {
+      "title": "Türler - egdata.app",
+      "description": "egdata.app'teki türler"
+    },
+    "heading": "Türler"
+  },
+  "sellers": {
+    "meta": {
+      "notFoundTitle": "Satıcı bulunamadı",
+      "notFoundDescription": "Satıcı bulunamadı",
+      "title": "{{name}} | egdata.app"
+    },
+    "notFound": "Satıcı bulunamadı",
+    "logoAlt": "{{name}} logosu",
+    "bannerAlt": "{{name}}",
+    "offersTitle": "{{name}} Teklifleri",
+    "stats": {
+      "offers": "Teklifler",
+      "games": "Oyunlar",
+      "items": "Öğeler",
+      "freeGames": "Ücretsiz Oyunlar"
+    }
+  },
+  "franchises": {
+    "meta": {
+      "notFoundTitle": "Seri bulunamadı",
+      "notFoundDescription": "Seri bulunamadı",
+      "title": "{{name}} Serisi | egdata.app",
+      "description": "Epic Games Store'daki {{name}} serisindeki tüm oyunlara göz atın."
+    },
+    "loading": "Yükleniyor...",
+    "gamesCount_one": "{{count}} oyun",
+    "gamesCount_other": "{{count}} oyun",
+    "timeToBeat": "Bitirme süresi",
+    "achievements": "Başarımlar",
+    "loadMore": "Daha fazla yükle",
+    "free": "Ücretsiz"
+  },
+  "stats": {
+    "creations": {
+      "meta": {
+        "title": "Oluşturma istatistikleri - egdata.app",
+        "description": "Epic Games Store'a gelen yeni oluşturmaların aylık ve yıllık temposu."
+      },
+      "viewReleases": "Çıkışları Görüntüle",
+      "heading": "Epic Games Store oluşturma istatistikleri",
+      "description": "Mağazaya gelen yeni oluşturmaların aylık ve yıllık temposu.",
+      "monthlyTitle": "Aylık oluşturmalar",
+      "yearlyTitle": "Yıllık oluşturmalar"
+    },
+    "releases": {
+      "meta": {
+        "title": "Çıkış istatistikleri - egdata.app",
+        "description": "Epic Games Store'a gelen yeni oyunların aylık ve yıllık temposu."
+      },
+      "viewCreations": "Oluşturmaları Görüntüle",
+      "heading": "Epic Games Store çıkış istatistikleri",
+      "description": "Mağazaya gelen yeni oyunların aylık ve yıllık temposu.",
+      "monthlyTitle": "Aylık çıkışlar",
+      "yearlyTitle": "Yıllık çıkışlar"
+    }
+  },
+  "store": {
+    "creatorCode": {
+      "title": "egdata.app'i Destekleyin",
+      "description": "Oyun satın alırken oluşturucu kodumuzu kullanarak egdata.app'i desteklemek ister misiniz? Bu seçim gelecek ziyaretleriniz için hatırlanacaktır.",
+      "body": "Oluşturucu kodumuzu kullanmak, egdata.app'in ve özelliklerinin geliştirilmesine destek olur. Ödediğiniz fiyatı etkilemez.",
+      "noThanks": "Hayır, teşekkürler",
+      "yesUseCode": "Evet, kodu kullan"
+    }
+  },
+  "dashboard": {
+    "placeholder": "Merhaba /dashboard!"
+  },
+  "auth": {
+    "login": {
+      "placeholder": "Merhaba /auth/login!"
+    },
+    "callback": {
+      "placeholder": "Merhaba /auth/callback!"
+    },
+    "logout": {
+      "placeholder": "Merhaba /auth/logout!"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "Hakkında - egdata.app",
+      "description": "egdata.app hakkında"
+    },
+    "title": "Hakkında",
+    "intro": "egdata.app, Epic Games Store hakkında bilgi sağlamaya ve takip etmeye adanmış, topluluk odaklı bir web sitesidir. Steam için SteamDB'ye benzer şekilde, kullanıcıların değişiklikleri keşfetmesi, yeni oyunlar bulması ve platformdaki en son gelişmelerden haberdar olması için kapsamlı bir kaynak sunmayı hedefliyoruz.",
+    "missionTitle": "Misyonumuz",
+    "missionBody": "Misyonumuz, Epic Games Store ekosistemine şeffaflık ve içgörü sağlamaktır. Verileri erişilebilir bir şekilde toplayıp sunarak, kullanıcıların oyun satın alımları hakkında bilinçli kararlar almasını sağlayabileceğimize ve platformun daha iyi anlaşılmasına katkıda bulunabileceğimize inanıyoruz.",
+    "featuresTitle": "Özellikler",
+    "features": {
+      "trackPrices": "Oyun fiyat değişikliklerini ve geçmiş verileri takip edin",
+      "upcomingReleases": "Yaklaşan çıkışları ve ücretsiz oyun promosyonlarını görüntüleyin",
+      "gameDetails": "Oyun detaylarını, derecelendirmeleri ve kullanıcı yorumlarını keşfedin",
+      "analyzeTrends": "Epic Games Store'daki trendleri ve kalıpları analiz edin"
+    },
+    "communityTitle": "Topluluk Odaklı",
+    "communityBody": "egdata.app, tutkulu bir oyuncu ve geliştirici topluluğu tarafından oluşturulmakta ve sürdürülmektedir. Web sitesini iyileştirmeye ve herkes için değerli bir kaynak haline getirmeye yardımcı olmak isteyen herkesin katkılarını memnuniyetle karşılıyoruz. Herhangi bir geri bildiriminiz, öneriniz varsa veya katılmak isterseniz bizimle iletişime geçmekten çekinmeyin.",
+    "sourceCodeIntro": "egdata.app için tüm kaynak kodu şurada mevcuttur:",
+    "github": "GitHub",
+    "notTitle": "egdata.app NE DEĞİLDİR",
+    "notIntro": "egdata.app'in şunlar olmadığını açıklığa kavuşturmak önemlidir:",
+    "notList": {
+      "affiliated": "Epic Games ile bağlantılı: Biz bağımsız, topluluk odaklı bir projeyiz ve Epic Games ile hiçbir şekilde resmi olarak onaylanmış veya ilişkilendirilmiş değiliz.",
+      "storefront": "Bir mağaza veya pazar yeri: Oyun satmıyoruz veya herhangi bir satın alma seçeneği sunmuyoruz. Odağımız, Epic Games Store hakkında bilgi ve veri sağlamaktır.",
+      "piracy": "Korsanlık veya yasa dışı faaliyetler için bir platform: Korsanlığı şiddetle kınıyor ve telif hakkıyla korunan içeriğe yasa dışı olarak erişmek veya dağıtmak için herhangi bir araç sağlamıyoruz."
+    },
+    "fairUseTitle": "Adil Kullanım Politikası",
+    "fairUseBody": "egdata.app, telif hakkı yasası kapsamında adil kullanım ilkelerine uymayı taahhüt eder. Bilgi ve verileri yalnızca bilgilendirme amaçlı sağlıyor, Epic Games Store'da bulunan oyunlar hakkında halkı eğitmeyi ve bilgilendirmeyi hedefliyoruz.",
+    "fairUseFactorsTitle": "Adil Kullanımı Haklı Çıkaran Temel Faktörler:",
+    "fairUseFactors": {
+      "nonCommercial": "Ticari Olmayan, Eğitim Amaçlı:",
+      "nonCommercialBody": "Web sitemiz ticari değildir ve Epic Games Store oyunları hakkında kamu bilgisini artırmayı amaçlar.",
+      "factual": "Gerçek Bilgiler:",
+      "factualBody": "Öncelikle oyun başlıkları, çıkış tarihleri ve geliştiriciler gibi telif hakkı kapsamında daha az korunan olgusal verileri sunuyoruz.",
+      "limited": "Sınırlı Kullanım:",
+      "limitedBody": "Orijinal çalışmaların yerini almadan anlamlı bilgi sağlamak için yalnızca gerekli miktarda veri kullanıyoruz.",
+      "noMarketHarm": "Pazara Zarar Vermeme:",
+      "noMarketHarmBody": "Kullanımımız, orijinal oyunların pazarını olumsuz etkilemez; aksine, artan kullanıcı ilgisi yoluyla onları tanıtabilir."
+    },
+    "autoTrackBody": "Epic Games Store dahil olmak üzere herkese açık kaynaklardan oyun verilerini otomatik olarak izler ve güncelleriz. Grafik varlıkları doğrudan sunucularından yükleriz ve bunları depolamayız.",
+    "leakedDataTitle": "Sızdırılan Veri Sorumluluk Reddi:",
+    "leakedDataBody": "Sitemizde görünen sızdırılmış gibi görünen tüm veriler, Epic Games Store'daki herkese açık bilgilerden kaynaklanır. Gizli veya özel verilere erişimimiz yoktur. Yayıncılar, hassas bilgilerini şurada korumaktan sorumludur:",
+    "epicDevPortal": "Epic Games Geliştirici portalı",
+    "euDirectivesIntro": "Adil Kullanım Politikamızı geliştirirken, aşağıdaki AB telif hakkı direktiflerinde belirtilen ilkeleri dikkate aldık:",
+    "euDirective1": "Dijital Tek Pazarda telif hakkı ve ilgili haklar hakkında Direktif (AB) 2019/790",
+    "euDirective2": "Sorular ve Cevaplar – Yeni AB telif hakkı kuralları",
+    "fairUseContact": "Adil Kullanım Politikamız hakkında sorularınız varsa veya herhangi bir içeriğin telif hakkınızı ihlal ettiğini düşünüyorsanız, lütfen bizimle şu adresten iletişime geçin:",
+    "contactTitle": "Bizimle İletişime Geçin",
+    "contactBody": "Bizimle şu yolla iletişime geçebilirsiniz"
+  },
+  "changelog": {
+    "index": {
+      "meta": {
+        "title": "Değişiklik Günlüğü | egdata.app"
+      },
+      "searchPlaceholder": "Değişiklik günlüklerini ara...",
+      "searchButton": "Ara",
+      "loading": "Yükleniyor...",
+      "error": "Veri getirilirken hata oluştu"
+    },
+    "detail": {
+      "meta": {
+        "title": "Değişiklik Detayı | egdata.app"
+      },
+      "loading": "Yükleniyor...",
+      "error": "Değişiklik detayları yüklenirken hata oluştu",
+      "notFound": "Değişiklik bulunamadı"
+    }
+  },
+  "privacy": {
+    "title": "Hakkında",
+    "intro": "egdata.app, Epic Games Store hakkında bilgi sağlamaya ve takip etmeye adanmış, topluluk odaklı bir web sitesidir. Steam için SteamDB'ye benzer şekilde, kullanıcıların değişiklikleri keşfetmesi, yeni oyunlar bulması ve platformdaki en son gelişmelerden haberdar olması için kapsamlı bir kaynak sunmayı hedefliyoruz.",
+    "missionTitle": "Misyonumuz",
+    "missionBody": "Misyonumuz, Epic Games Store ekosistemine şeffaflık ve içgörü sağlamaktır. Verileri erişilebilir bir şekilde toplayıp sunarak, kullanıcıların oyun satın alımları hakkında bilinçli kararlar almasını sağlayabileceğimize ve platformun daha iyi anlaşılmasına katkıda bulunabileceğimize inanıyoruz.",
+    "featuresTitle": "Özellikler",
+    "features": {
+      "trackPrices": "Oyun fiyat değişikliklerini ve geçmiş verileri takip edin",
+      "upcomingReleases": "Yaklaşan çıkışları ve ücretsiz oyun promosyonlarını görüntüleyin",
+      "gameDetails": "Oyun detaylarını, derecelendirmeleri ve kullanıcı yorumlarını keşfedin",
+      "analyzeTrends": "Epic Games Store'daki trendleri ve kalıpları analiz edin"
+    },
+    "communityTitle": "Topluluk Odaklı",
+    "communityBody": "egdata.app, tutkulu bir oyuncu ve geliştirici topluluğu tarafından oluşturulmakta ve sürdürülmektedir. Web sitesini iyileştirmeye ve herkes için değerli bir kaynak haline getirmeye yardımcı olmak isteyen herkesin katkılarını memnuniyetle karşılıyoruz. Herhangi bir geri bildiriminiz, öneriniz varsa veya katılmak isterseniz bizimle iletişime geçmekten çekinmeyin.",
+    "sourceCodeIntro": "egdata.app için tüm kaynak kodu şurada mevcuttur:",
+    "github": "GitHub",
+    "notTitle": "egdata.app NE DEĞİLDİR",
+    "notIntro": "egdata.app'in şunlar olmadığını açıklığa kavuşturmak önemlidir:",
+    "notList": {
+      "affiliated": "Epic Games ile bağlantılı: Biz bağımsız, topluluk odaklı bir projeyiz ve Epic Games ile hiçbir şekilde resmi olarak onaylanmış veya ilişkilendirilmiş değiliz.",
+      "storefront": "Bir mağaza veya pazar yeri: Oyun satmıyoruz veya herhangi bir satın alma seçeneği sunmuyoruz. Odağımız, Epic Games Store hakkında bilgi ve veri sağlamaktır.",
+      "piracy": "Korsanlık veya yasa dışı faaliyetler için bir platform: Korsanlığı şiddetle kınıyor ve telif hakkıyla korunan içeriğe yasa dışı olarak erişmek veya dağıtmak için herhangi bir araç sağlamıyoruz."
+    },
+    "fairUseTitle": "Adil Kullanım Politikası",
+    "fairUseBody": "egdata.app, telif hakkı yasası kapsamında adil kullanım ilkelerine uymayı taahhüt eder. Bilgi ve verileri yalnızca bilgilendirme amaçlı sağlıyor, Epic Games Store'da bulunan oyunlar hakkında halkı eğitmeyi ve bilgilendirmeyi hedefliyoruz.",
+    "fairUseFactorsTitle": "Adil Kullanımı Haklı Çıkaran Temel Faktörler:",
+    "fairUseFactors": {
+      "nonCommercial": "Ticari Olmayan, Eğitim Amaçlı:",
+      "nonCommercialBody": "Web sitemiz ticari değildir ve Epic Games Store oyunları hakkında kamu bilgisini artırmayı amaçlar.",
+      "factual": "Gerçek Bilgiler:",
+      "factualBody": "Öncelikle oyun başlıkları, çıkış tarihleri ve geliştiriciler gibi telif hakkı kapsamında daha az korunan olgusal verileri sunuyoruz.",
+      "limited": "Sınırlı Kullanım:",
+      "limitedBody": "Orijinal çalışmaların yerini almadan anlamlı bilgi sağlamak için yalnızca gerekli miktarda veri kullanıyoruz.",
+      "noMarketHarm": "Pazara Zarar Vermeme:",
+      "noMarketHarmBody": "Kullanımımız, orijinal oyunların pazarını olumsuz etkilemez; aksine, artan kullanıcı ilgisi yoluyla onları tanıtabilir."
+    },
+    "autoTrackBody": "Epic Games Store dahil olmak üzere herkese açık kaynaklardan oyun verilerini otomatik olarak izler ve güncelleriz. Grafik varlıkları doğrudan sunucularından yükleriz ve bunları depolamayız.",
+    "leakedDataTitle": "Sızdırılan Veri Sorumluluk Reddi:",
+    "leakedDataBody": "Sitemizde görünen sızdırılmış gibi görünen tüm veriler, Epic Games Store'daki herkese açık bilgilerden kaynaklanır. Gizli veya özel verilere erişimimiz yoktur. Yayıncılar, hassas bilgilerini şurada korumaktan sorumludur:",
+    "epicDevPortal": "Epic Games Geliştirici portalı",
+    "euDirectivesIntro": "Adil Kullanım Politikamızı geliştirirken, aşağıdaki AB telif hakkı direktiflerinde belirtilen ilkeleri dikkate aldık:",
+    "euDirective1": "Dijital Tek Pazarda telif hakkı ve ilgili haklar hakkında Direktif (AB) 2019/790",
+    "euDirective2": "Sorular ve Cevaplar – Yeni AB telif hakkı kuralları",
+    "fairUseContact": "Adil Kullanım Politikamız hakkında sorularınız varsa veya herhangi bir içeriğin telif hakkınızı ihlal ettiğini düşünüyorsanız, lütfen bizimle şu adresten iletişime geçin:",
+    "contactTitle": "Bizimle İletişime Geçin",
+    "contactBody": "Bizimle şu yolla iletişime geçebilirsiniz"
+  },
+  "notifications": {
+    "meta": {
+      "title": "Bildirimler - egdata.app",
+      "description": "Epic Games Store güncellemeleri, oyun çıkışları ve daha fazlası için push bildirimlerini yapılandırın ve yönetin."
+    },
+    "title": "Bildirimler",
+    "description": "Epic Games Store güncellemeleri, oyun çıkışları ve kişiselleştirilmiş uyarılar için push bildirimlerini yapılandırın ve yönetin.",
+    "tabs": {
+      "notifications": "Bildirimler",
+      "mySubscriptions": "Aboneliklerim"
+    },
+    "aboutPushTitle": "Push Bildirimleri Hakkında",
+    "aboutPushDescription": "EGData'da push bildirimlerinin nasıl çalıştığı hakkında daha fazla bilgi edinin.",
+    "whatYoullReceive": "Alacaklarınız:",
+    "receiveList": {
+      "freeGames": "Yeni ücretsiz oyun duyuruları",
+      "releases": "Oyun çıkış bildirimleri",
+      "priceDrops": "İstek listenizdeki oyunlar için fiyat düşüş uyarıları",
+      "news": "Epic Games Store haberleri ve güncellemeleri",
+      "custom": "Özel konu tabanlı bildirimler"
+    },
+    "privacySecurity": "Gizlilik ve Güvenlik:",
+    "privacyList": {
+      "apiKey": "API anahtarınız tarayıcı çerezlerinde güvenle saklanır",
+      "onlySubscribed": "Yalnızca abone olduğunuz bildirimleri göndeririz",
+      "unsubscribe": "İstediğiniz zaman aboneliğinizi iptal edebilirsiniz",
+      "noPersonalData": "API anahtarınız dışında kişisel veri gerekmez"
+    },
+    "browserSupport": "Tarayıcı Desteği:",
+    "browserSupportBody": "Push bildirimleri Chrome, Firefox, Safari ve Edge dahil modern tarayıcılarda desteklenir. Tarayıcınız tarafından istendiğinde bildirimlere izin verdiğinizden emin olun.",
+    "subscriptionOverview": "Abonelik Genel Bakış",
+    "totalSubscribed": "Abone olunan toplam konu: {{count}}",
+    "notSubscribedApi": "API anahtarı push bildirimlerine abone değil",
+    "notSubscribedTitle": "Abone Değil",
+    "notSubscribedBody": "API anahtarınız push bildirimlerine abone değil. Önce abone olmak için \"Kurulum ve Abone Ol\" sekmesini kullanın.",
+    "subscriptionId": "Abonelik {{id}}",
+    "created": "Oluşturulma:",
+    "subscribedTopics": "Abone Olunan Konular:",
+    "noTopics": "Abone olunan konu yok",
+    "lastUpdated": "Son güncelleme:",
+    "noSubscriptionsTitle": "Abonelik Bulunamadı",
+    "noSubscriptionsBody": "Abonesiniz ancak henüz herhangi bir cihaz aboneliği oluşturmadınız. İlk aboneliğinizi oluşturmak için \"Kurulum ve Abone Ol\" sekmesini kullanın.",
+    "fetchError": "Abonelikler alınamadı. Lütfen tekrar deneyin.",
+    "push": {
+      "title": "Push Bildirimleri",
+      "notSupported": "Push bildirimleri bu tarayıcıda desteklenmiyor.",
+      "setApiKey": "Push bildirimlerini etkinleştirmek için lütfen API anahtarınızı ayarlayın.",
+      "manage": "Push bildirim tercihlerinizi yönetin.",
+      "unsubscribe": "Abonelikten çık",
+      "subscribe": "Abone ol",
+      "subscribed": "Abone olundu",
+      "notSubscribed": "Abone değil",
+      "subscribeToTopic": "Konuya Abone Ol",
+      "topicPlaceholder": "Konu adını girin (örn. oyun-guncellemeleri)",
+      "subscribedTopics": "Abone Olunan Konular",
+      "clickToUnsubscribe": "Abonelikten çıkmak için bir konuya tıklayın"
+    },
+    "simple": {
+      "title": "Push Bildirimleri",
+      "notSupported": "Push bildirimleri bu tarayıcıda desteklenmiyor.",
+      "subscribedDesc": "{{count}} bildirim konusuna abonesiniz",
+      "notSubscribedDesc": "Epic Games Store güncellemeleri, ücretsiz oyunlar ve daha fazlası hakkında bildirim alın",
+      "subscribeToNotifications": "Bildirimlere Abone Ol",
+      "unsubscribe": "Abonelikten çık",
+      "chooseWhat": "Ne hakkında bildirim almak istediğinizi seçin:",
+      "freeGames": "Ücretsiz Oyunlar",
+      "freeGamesDesc": "Yeni ücretsiz oyunlar mevcut olduğunda bildirim alın",
+      "newReleases": "Yeni Çıkanlar",
+      "newReleasesDesc": "Yeni oyun çıkışları için bildirimler",
+      "priceDrops": "Fiyat Düşüşleri",
+      "priceDropsDesc": "Oyunlar indirime girdiğinde uyarı alın",
+      "youWillReceive": "Şunlar için bildirim alacaksınız:",
+      "subscribedTo": "{{name}} aboneliği yapıldı",
+      "unsubscribedFrom": "{{name}} aboneliği iptal edildi",
+      "failedSubscribe": "Bildirimlere abone olunamadı",
+      "failedUnsubscribe": "Bildirim aboneliği iptal edilemedi",
+      "failedTopicSubscribe": "Konuya abone olunamadı",
+      "failedTopicUnsubscribe": "Konu aboneliği iptal edilemedi",
+      "successSubscribe": "Bildirimlere başarıyla abone olundu!",
+      "successUnsubscribe": "Bildirim aboneliği başarıyla iptal edildi"
+    },
+    "apiKey": {
+      "title": "API Anahtar Yönetimi",
+      "label": "API Anahtarı",
+      "placeholderGenerated": "API anahtarı oluşturuldu",
+      "placeholderNone": "API anahtarı oluşturulmadı",
+      "regenerate": "Anahtarı Yeniden Oluştur",
+      "generate": "Anahtar Oluştur",
+      "clear": "Anahtarı Temizle",
+      "generated": "Yeni API anahtarı başarıyla oluşturuldu!",
+      "copied": "API anahtarı panoya kopyalandı!",
+      "cleared": "API anahtarı başarıyla temizlendi!",
+      "failedGenerate": "API anahtarı oluşturulamadı",
+      "failedCopy": "API anahtarı kopyalanamadı",
+      "failedClear": "API anahtarı temizlenemedi",
+      "noneToCopy": "Kopyalanacak API anahtarı yok",
+      "description": "API anahtarınız, tarayıcınızda yerel olarak depolanan bir UUID'dir ve push bildirim isteklerinin kimliğini doğrulamak için kullanılır. Gerekirse yeni bir anahtar oluşturmak için yeniden oluştur düğmesini kullanın."
+    }
+  },
+  "promotions": {
+    "placeholder": "Merhaba /promotions/$id!"
+  },
+  "misc": {
+    "gameAwards": {
+      "meta": {
+        "title": "The Game Awards Kapsamı | egdata.app",
+        "description": "The Game Awards'ta duyurulan ve aday gösterilen, Epic Games Store'a gelecek en son oyunlar."
+      },
+      "logoAlt": "The Game Awards 2025",
+      "subtitle": "The Game Awards'ta duyurulan veya aday gösterilen ve Epic Games Store'a gelecek oyunlar",
+      "videoTitle": "The Game Awards 2024 - Canlı Yayın",
+      "expandPlayer": "Oynatıcıyı genişlet",
+      "closeMiniPlayer": "Mini oynatıcıyı kapat",
+      "noGamesTitle": "Henüz oyun duyurulmadı",
+      "noGamesBody": "The Game Awards'tan sonra tekrar gelin!"
+    },
+    "downloads": {
+      "title": "egdata.app İstemci Sürümleri",
+      "description": "En son sürümü indirin. İşletim sisteminiz için önerilen bölümü vurguladık.",
+      "errorPrefix": "Hata:",
+      "noPublicReleases": "Herkese açık sürüm bulunamadı.",
+      "recommended": "Önerilen",
+      "downloadsSuffix": "İndirme",
+      "versionPublished": "Sürüm {{version}} - {{date}} tarihinde yayınlandı",
+      "assetInfo": {
+        "appleSilicon": "Apple çipli (M1, M2, M3, vb.) daha yeni Mac bilgisayarlar için.",
+        "intel": "Intel işlemcili daha eski Mac bilgisayarlar için.",
+        "universal": "Hem Apple Silicon hem de Intel Mac'lerle uyumlu.",
+        "msi": "Standart bir kurulum sihirbazı. Çoğu kullanıcı için önerilir.",
+        "exe": "Bağımsız bir uygulama dosyası. Kurulum gerektirmeyebilir.",
+        "linux": "Linux tabanlı işletim sistemleri için.",
+        "generic": "Genel bir dosya veya kaynak kodu."
+      }
+    },
+    "discordLinked": {
+      "title": "Hesap Başarıyla Bağlandı!",
+      "body": "Discord hesabınız egdata.app'a başarıyla bağlandı",
+      "footer": "Artık bu pencereyi kapatabilir ve Discord'a dönebilirsiniz. Hesabınız egdata.app ile kullanıma hazır."
+    },
+    "posts": {
+      "coverAlt": "LEGO Star Wars: The Skywalker Saga Kapak Görseli",
+      "title": "LEGO® Star Wars™: The Skywalker Saga'yı Epic Games Store'da ÜCRETSİZ Edinin",
+      "freeGameBadge": "Ücretsiz Oyun",
+      "published": "30 Kasım 2023'te yayınlandı",
+      "intro": "Takvimlerinizi işaretleyin, Star Wars hayranları! {{dateRange}} tarihleri arasında, beğenilen {{game}} oyununu Epic Games Store'da ÜCRETSİZ olarak alabilirsiniz. Genellikle {{price}} olan bu oyun, {{saga}} hikayesinin ikonik anlarını eğlenceli bir LEGO dokunuşuyla yeniden yaşamanızı sağlar.",
+      "dateRange": "5 Aralık - 12 Aralık 2024",
+      "game": "LEGO® Star Wars™: The Skywalker Saga",
+      "price": "$49.99",
+      "saga": "Skywalker saga",
+      "gameplayAlt": "LEGO Star Wars Oynanış",
+      "charactersAlt": "LEGO Star Wars Karakterleri",
+      "whatToExpect": "🧩 Ne Beklemeli?",
+      "whatToExpectBody": "{{developer}} tarafından geliştirilen ve {{publisher}} tarafından yayınlanan bu oyun, benzersiz bir Star Wars deneyimi sunuyor. İşte onu oynanması gereken bir oyun yapan özellikler:",
+      "developer": "TT Games",
+      "publisher": "Warner Bros.",
+      "expectList": {
+        "allMovies": "🌌 {{strong}}: Klasik LEGO mizahıyla dolu dokuz Skywalker saga filminin hikayelerini yeniden yaşayın.",
+        "allMoviesStrong": "9 Filmin Tamamı",
+        "characters": "🛸 {{strong}}: Uzak bir galaksiden en sevdiğiniz kahramanları ve kötü adamları kontrol edin.",
+        "charactersStrong": "300+ Oynanabilir Karakter",
+        "vehicles": "🚀 {{strong}}: Millennium Falcon ve TIE Fighters gibi ikonik gemileri uçurun.",
+        "vehiclesStrong": "100+ Araç",
+        "planets": "🌍 {{strong}}: Tatooine'den Endor'a ve ötesine kadar tanıdık dünyalara seyahat edin.",
+        "planetsStrong": "Keşfedilecek 23 Gezegen"
+      },
+      "specialTitle": "🌟 Bu Oyunu Özel Yapan Nedir?",
+      "specialBody": "{{releaseDate}} tarihinde piyasaya sürülmesinden bu yana, LEGO Star Wars: The Skywalker Saga, ilgi çekici oynanışı ve Star Wars evrenine sadık uyarlamasıyla övüldü. Metacritic'te {{metascore}} ile eleştirmenler ve hayranlar şunları vurguladı:",
+      "releaseDate": "Nisan 2022",
+      "metascore": "82 Metascore",
+      "specialList": {
+        "combat": "🕹️ {{strong}}: Işın kılıcı dövüşleri, blaster çatışmaları ve uzay savaşları.",
+        "combatStrong": "Dinamik Savaş",
+        "charm": "🏗️ {{strong}}: LEGO'nun benzersiz tarzıyla yeniden tasarlanan klasik Star Wars mizahı.",
+        "charmStrong": "LEGO Cazibesi",
+        "replayability": "🤯 {{strong}}: Bir sürü koleksiyon öğesi, yan görev ve gizli sır.",
+        "replayabilityStrong": "Tekrar Oynanabilirlik"
+      },
+      "howToClaim": "🎁 Nasıl Alınır?",
+      "howToClaimBody": "Ücretsiz kopyanızı almak çok kolay!",
+      "step1": "{{dec5}} ile {{dec12}} tarihleri arasında {{storeLink}} adresini ziyaret edin.",
+      "storeLink": "Epic Games Store",
+      "dec5": "5 Aralık",
+      "dec12": "12 Aralık 2024",
+      "step2": "Oyunu kütüphanenize ekleyin.",
+      "step3": "Sonsuza kadar sizin!",
+      "cardTitle": "Galakside LEGO temalı bir yolculuğa çıkmak için bu fırsatı kaçırmayın!",
+      "cardBody": "İster tutkulu bir Star Wars hayranı olun ister yeni başlayan biri, bu oyun herkes için sonsuz eğlence sunar.",
+      "footer": "Güç (ve LEGO tuğlaları) sizinle olsun! 🧱✨"
+    },
+    "fairUse": {
+      "meta": {
+        "title": "Adil Kullanım Politikası - egdata.app",
+        "description": "egdata.app için Adil Kullanım Politikası"
+      },
+      "title": "EGData App Adil Kullanım Politikası",
+      "section1Title": "1. Giriş",
+      "section1Body": "EGData App'e (\"biz\", \"bize\", \"bizim\") hoş geldiniz. Bu Adil Kullanım Politikası, {{siteLink}} web sitemizde (\"Site\") sağlanan içerik ve verileri kullanma koşullarınızı belirtir.",
+      "section2Title": "2. Adil Kullanımın Amacı",
+      "section2Body": "EGData App'teki içerik ve veriler yalnızca bilgilendirme amaçlıdır. Amacımız, topluluğun eğitim ve referans kullanımı için Epic Games Store'da bulunan oyunların (veya oyunla ilgili verilerin) kapsamlı bir veritabanını sunmaktır.",
+      "section3Title": "3. Adil Kullanıma Uygunluk",
+      "section3Body": "EGData App, içerik sahiplerinin haklarını ihlal etmeden kamuya fayda sağlayacak şekilde bilgi ve veri sağlayarak telif hakkı yasası kapsamında adil kullanım ilkelerine uyar. Kullanımımızı adil kullanım olarak haklı çıkaran temel faktörler şunlardır:",
+      "section3List": {
+        "purpose": "Kullanımın Amacı ve Niteliği:",
+        "purposeBody": "Web sitemiz ticari değildir ve Epic Games Store'da bulunan oyunlar hakkında halkı eğitmeyi ve bilgilendirmeyi amaçlar. Kamunun bu oyunlar hakkındaki bilgi ve takdirini artıran kritik bilgiler, yorumlar ve güncellemeler sağlıyoruz.",
+        "nature": "Telif Hakkıyla Korunan Çalışmanın Niteliği:",
+        "natureBody": "Toplayıp sunduğumuz veriler, oyun başlıkları, çıkış tarihleri, geliştiriciler ve güncellemeler gibi olgusal bilgilerden oluşur. Olgusal bilgiler, telif hakkı yasası kapsamında yaratıcı çalışmalara göre daha az korunur.",
+        "amount": "Miktar ve Önem:",
+        "amountBody": "Kullanıcılarımıza anlamlı ve ilgili bilgi sağlamak için yalnızca gerekli miktarda veri kullanıyoruz. Orijinal ürünlerin yerini alabilecek tüm çalışmaları veya kapsamlı alıntıları çoğaltmıyoruz.",
+        "effect": "Pazar Üzerindeki Etki:",
+        "effectBody": "Oyun verilerini kullanımımız, orijinal oyunların pazarını olumsuz etkilemez. Bunun yerine, güncel bilgiler sağlayarak ve kullanıcı etkileşimini ve ilgisini artırarak bu oyunları tanıtır."
+      },
+      "section4Title": "4. Veri Toplama ve Güncellemeler",
+      "section4Body1": "Sitemiz, sağladığımız bilgilerin güncel ve doğru olmasını sağlamak için oyun verilerini otomatik olarak izler ve günceller. Bu otomatik süreç, Epic Games Store ve diğer güvenilir kaynaklardan herkese açık bilgilerin toplanmasını içerir.",
+      "section4Body2": "Veritabanımızı güncel tutarak, kullanıcıların en sevdikleri oyunlar hakkında yeni çıkışlar, güncellemeler ve bulunabilirlik değişiklikleri dahil en son bilgilere erişmesini sağlıyoruz.",
+      "section4Body3": "Grafik varlıkları açısından, görselleri doğrudan Epic Games Store sunucularından yüklüyoruz. Sunucularımızda hiçbir görsel depolamıyoruz.",
+      "section5Title": "5. Sızdırılan Veri Sorumluluk Reddi",
+      "section5Body1": "Sitemizde sızdırılmış gibi görünen tüm veriler, Epic Games Store tarafından sağlanan herkese açık bilgilerden gelir. Herkese açık olmayan gizli veya özel verilere erişimimiz yoktur. Bu nedenle, yayıncıların yaklaşan fikri mülkiyetlerini (IP'ler), oyunlarını, indirilebilir içeriklerini (DLC'ler) ve diğer hassas bilgilerini Epic Games Geliştirici portalı içinde korumaları yayıncıların sorumluluğundadır.",
+      "section5Body2": "Yayıncıların, hassas bilgilerin uygun şekilde korunduğundan ve yanlışlıkla kamuya açıklanmadığından emin olmaları önerilir. EGData App, herkese açık kaynaklardan elde edilen sızdırılmış bilgilerden sorumlu tutulamaz.",
+      "section5Body3": "Avrupa Birliği'nde veri koruma ve adil kullanım hakkında daha fazla bilgi için lütfen aşağıdaki kaynaklara bakın:",
+      "euDirective1": "Dijital Tek Pazarda telif hakkı ve ilgili haklar hakkında Direktif (AB) 2019/790",
+      "euDirective2": "Sorular ve Cevaplar – Yeni AB telif hakkı kuralları",
+      "section6Title": "6. Bizimle İletişime Geçin",
+      "section6Body": "Bu Adil Kullanım Politikası hakkında herhangi bir sorunuz varsa veya Sitemizdeki herhangi bir içerik veya verinin telif hakkınızı ihlal ettiğini düşünüyorsanız, lütfen bizimle şu adresten iletişime geçin:",
+      "email": "E-posta:"
+    },
+    "donateKey": {
+      "title": "Anahtar Bağışla",
+      "body": "Projeye bağışlamak istediğiniz bir anahtarınız varsa, lütfen aşağıdaki formu doldurun."
+    },
+    "androidBeta": {
+      "meta": {
+        "title": "Android Beta - egdata.app",
+        "description": "egdata.app Android uygulaması kapalı beta test programına katılın"
+      },
+      "title": "Android Beta Programı",
+      "description": "Herkese açık sürümden önce egdata.app Android uygulamasını test etmek için kapalı betamıza katılın.",
+      "whatHappensNext": "Sırada ne var?",
+      "steps": {
+        "signIn": "Google hesabınızla oturum açın",
+        "added": "Birkaç saat içinde kapalı test parkuruna manuel olarak ekleneceksiniz",
+        "download": "Eklendikten sonra, sağlanan bağlantıdan uygulamayı indirebilirsiniz"
+      }
+    }
+  },
+  "components": {
+    "stats": {
+      "title": "İstatistikler",
+      "description": "Platform hakkında istatistikler",
+      "offers": "Teklifler",
+      "offersTooltip": "Teklif, mağazadan satın alınabilir bir öğedir",
+      "items": "Öğeler",
+      "itemsTooltip": "Öğe, başlatıcı için yetkilendirmedir",
+      "tags": "Etiketler",
+      "offersYear": "Teklifler (Yıl)",
+      "itemsYear": "Öğeler (Yıl)",
+      "assets": "Assetler",
+      "assetsTooltip": "Asset, oyun dosyalarıdır",
+      "regPrices": "Normal Fiyatlar",
+      "changes": "Değişiklikler",
+      "sandboxes": "Sandbox'lar",
+      "sandboxesTooltip": "Sandbox, teklifler grubudur"
+    },
+    "sandboxShell": {
+      "overview": "Genel Bakış",
+      "offers": "Teklifler",
+      "items": "Öğeler",
+      "assets": "Assetler",
+      "builds": "Yapılar",
+      "achievements": "Başarımlar",
+      "changelog": "Değişiklik Günlüğü",
+      "sandbox": "Sandbox",
+      "internalNamespace": "Dahili ad alanı",
+      "storePage": "Mağaza Sayfası",
+      "updated": "{{date}} güncellendi",
+      "unrealEngine": "Unreal Engine",
+      "internalSandbox": "Dahili Sandbox",
+      "releaseStatus": {
+        "prePurchase": "Ön satın alma",
+        "datePending": "Tarih bekleniyor",
+        "comingSoon": "Çok yakında",
+        "released": "Yayınlandı"
+      }
+    },
+    "comparison": {
+      "openCompareTray": "Karşılaştırma tepsisini aç, {{count}} seçildi",
+      "compareSelected": "Seçilen teklifleri karşılaştır",
+      "error": "Hata",
+      "type": "Tür",
+      "seller": "Satıcı",
+      "developer": "Geliştirici",
+      "releaseDate": "Çıkış Tarihi",
+      "pcReleaseDate": "PC Çıkış Tarihi",
+      "genres": "Türler",
+      "platforms": "Platformlar",
+      "remove": "Kaldır",
+      "current": "Güncel",
+      "lowest": "En Düşük",
+      "noPriceFound": "Fiyat bulunamadı",
+      "noAgeRatingsFound": "Yaş sınırı bulunamadı",
+      "achievements": "Başarımlar:",
+      "ageRating": "Yaş Sınırı:",
+      "price": "Fiyat:",
+      "unknown": "Bilinmeyen"
+    },
+    "search": {
+      "sellers": "Satıcılar",
+      "noResults": "Sonuç bulunamadı",
+      "noResultsShort": "Sonuç bulunamadı.",
+      "allOfferTypes": "Tüm Teklif Türleri",
+      "tags": "Etiketler"
+    },
+    "changelist": {
+      "title": "Değişiklik Listesi",
+      "loading": "Yükleniyor...",
+      "error": "Hata: {{message}}",
+      "id": "ID",
+      "type": "Tür",
+      "titleOrId": "Başlık/ID",
+      "date": "Tarih",
+      "new": "yeni",
+      "update": "güncelle"
+    },
+    "upcoming": {
+      "caption": "Yaklaşan Teklifler",
+      "loading": "Yükleniyor...",
+      "title": "Başlık",
+      "price": "Fiyat",
+      "releaseDate": "Çıkış Tarihi",
+      "unknown": "Bilinmeyen",
+      "prePurchase": "Ön Satın Alma"
+    },
+    "giveaways": {
+      "title": "Bedava Oyunlar",
+      "free": "Ücretsiz",
+      "freeNow": "Şimdi Ücretsiz",
+      "startsIn": "Başlangıç",
+      "repeated": "Tekrarlanan:",
+      "yes": "Evet",
+      "no": "Hayır",
+      "repeatedTooltip": "Bu teklif {{count}} kez verildi."
+    },
+    "giveawayStats": {
+      "title": "Sayılarla Bedava Oyunlar",
+      "loading": "Yükleniyor...",
+      "totalValue": "Toplam Değer",
+      "totalValueTooltip": "Aktif indirimler dahil toplam değer",
+      "giveaways": "Bedava Oyunlar",
+      "giveawaysTooltip": "Veritabanında görünen toplam bedava oyun sayısı",
+      "offers": "Teklifler",
+      "offersTooltip": "Bedava oyunlarda görünen benzersiz teklif sayısı",
+      "repeated": "Tekrarlanan",
+      "repeatedTooltip": "Bedava oyunlarda birden çok kez görünen benzersiz teklif sayısı",
+      "sellers": "Satıcılar",
+      "sellersTooltip": "Teklif sağlayan benzersiz satıcı sayısı"
+    },
+    "offerCard": {
+      "openOffer": "{{title}} teklifini aç",
+      "free": "Ücretsiz",
+      "comingSoon": "Çok Yakında",
+      "earlyAccess": "Erken Erişim",
+      "prePurchase": "Ön Satın Alma",
+      "owned": "sahip olunan"
+    },
+    "baseGame": {
+      "checkBaseGame": "Temel oyunu kontrol et",
+      "partOfBundle": "Bu teklif şunun parçasıdır:"
+    },
+    "notFound": {
+      "message": "Aradığınız sayfa mevcut değil."
+    },
+    "sellerOffers": {
+      "error": "Teklifler yüklenirken hata oluştu. Lütfen tekrar deneyin.",
+      "moreFrom": "{{name}} adlı satıcıdan daha fazlası"
+    },
+    "achievementsBlade": {
+      "noData": "Veri yok",
+      "game": "Oyun",
+      "achievements": "Başarımlar",
+      "xp": "XP",
+      "bronze": "Bronz",
+      "silver": "Gümüş",
+      "gold": "Altın",
+      "gamesWithAchievements": "Epic Başarımlı Oyunlar"
+    },
+    "topSection": {
+      "free": "Ücretsiz",
+      "releaseDate": "Çıkış Tarihi:",
+      "tba": "Belirtilecek",
+      "platforms": "Platformlar:",
+      "tags": "Etiketler:",
+      "checkOffer": "Teklifi İncele"
+    },
+    "featuredDiscounts": {
+      "free": "Ücretsiz",
+      "title": "Öne Çıkan İndirimler",
+      "countMore": "+{{count}} daha",
+      "checkOffer": "Teklifi İncele",
+      "until": "kadar"
+    },
+    "performanceTable": {
+      "title": "Performans",
+      "noPriorData": "Önceki veri yok",
+      "cardsView": "Kart görünümü",
+      "chartView": "Grafik görünümü"
+    },
+    "priceChart": {
+      "selectValue": "Bir değer seçin",
+      "last3Months": "Son 3 ay",
+      "fetchingData": "En son veriler getiriliyor"
+    },
+    "dateRangePicker": {
+      "from": "Başlangıç",
+      "to": "Bitiş",
+      "maxRange": "Maksimum aralık 30 gündür",
+      "invalidRange": "Geçersiz tarih aralığı"
+    },
+    "regionalPricing": {
+      "region": "Bölge",
+      "price": "Fiyat"
+    },
+    "regionalPricingBadge": {
+      "analysis": "Bölgesel fiyatlandırma analizi",
+      "currentPrice": "Güncel fiyat",
+      "suggestedPrice": "Önerilen fiyat",
+      "belowSuggested": "Bu fırsat aslında bunun da altında — her açıdan harika bir anlaşma.",
+      "closeToSuggested": "Bu fırsat buna yakın ve tipik {{region}} fiyatlandırmasının oldukça altında."
+    },
+    "countrySelector": {
+      "searchCountries": "Ülkeleri ara...",
+      "noCountries": "Ülke bulunamadı"
+    },
+    "countriesSelector": {
+      "searchCountries": "Ülkeleri ara...",
+      "noCountries": "Ülke bulunamadı"
+    },
+    "querySearch": {
+      "searchItems": "Öğeleri ara..."
+    },
+    "extendedSearch": {
+      "searchItems": "Öğeleri ara...",
+      "noItems": "Öğe bulunamadı."
+    },
+    "searchForm": {
+      "noResults": "Sonuç bulunamadı",
+      "error": "Hata: {{message}}",
+      "loadingLong": "Bu sorgu normalden daha uzun sürüyor..."
+    },
+    "searchFormV2": {
+      "noResults": "Sonuç bulunamadı."
+    },
+    "androidBetaBanner": {
+      "dismiss": "Banner'ı kapat"
+    },
+    "videoPlayer": {
+      "title": "{{title}}"
+    },
+    "mediaSlider": {
+      "previousSlide": "Önceki slayt",
+      "nextSlide": "Sonraki slayt",
+      "image": "Görsel {{index}}",
+      "thumbnail": "Küçük resim {{index}}",
+      "downloading": "İndiriliyor...",
+      "download": "İndir"
+    },
+    "changelogItem": {
+      "action": "İşlem",
+      "type": "Tür",
+      "oldValue": "Eski değer",
+      "newValue": "Yeni değer",
+      "previousValue": "Önceki değer:",
+      "newValueLabel": "Yeni değer:"
+    },
+    "changelogCharts": {
+      "byWeekday": "Hafta Gününe Göre Değişiklikler",
+      "byWeekdayDesc": "Hafta gününe göre birikmiş değişiklikler",
+      "typesOfChanges": "Değişiklik Türleri",
+      "typesOfChangesDesc": "Türe göre değişiklik sayısı",
+      "byField": "Alana Göre Değişiklikler",
+      "byFieldDesc": "Değiştirilen alana göre gruplandırılmış değişiklikler",
+      "dailyDesc": "Son bir yılın günlük değişiklikleri gösteriliyor",
+      "noData": "Görüntülenecek veri yok."
+    },
+    "openEgl": {
+      "open": "Aç"
+    },
+    "openEgs": {
+      "store": "Mağaza"
+    },
+    "openLauncher": {
+      "play": "Oyna"
+    },
+    "storeDropdown": {
+      "launcher": "Başlatıcı",
+      "viewStorePage": "Mağaza Sayfasını Görüntüle",
+      "webBrowser": "Web Tarayıcı"
+    },
+    "prepurchasePopup": {
+      "title": "{{title}}"
+    },
+    "apiKeyManager": {
+      "title": "API Anahtar Yönetimi",
+      "label": "API Anahtarı",
+      "placeholder": {
+        "generated": "API anahtarı oluşturuldu",
+        "none": "API anahtarı oluşturulmadı"
+      },
+      "button": {
+        "regenerate": "Anahtarı Yeniden Oluştur",
+        "generate": "Anahtar Oluştur",
+        "clear": "Anahtarı Temizle"
+      },
+      "notification": {
+        "generated": "Yeni API anahtarı başarıyla oluşturuldu!",
+        "generateFailed": "API anahtarı oluşturulamadı",
+        "copied": "API anahtarı panoya kopyalandı!",
+        "copyFailed": "API anahtarı kopyalanamadı",
+        "noneToCopy": "Kopyalanacak API anahtarı yok",
+        "cleared": "API anahtarı başarıyla temizlendi!",
+        "clearFailed": "API anahtarı temizlenemedi"
+      },
+      "description": "API anahtarınız, tarayıcınızda yerel olarak depolanan bir UUID'dir ve push bildirim isteklerinin kimliğini doğrulamak için kullanılır. Gerekirse yeni bir anahtar oluşturmak için yeniden oluştur düğmesini kullanın."
+    },
+    "cookieBanner": {
+      "title": "Çerez Bildirimi",
+      "description": "Bu web sitesi, gezinme deneyiminizi geliştirmek için çerezler kullanır. Çerezleri kabul ederek, {{privacyPolicyLink}} kabul etmiş olursunuz.",
+      "accept": "Kabul Et",
+      "decline": "Reddet"
+    },
+    "searchHeader": {
+      "results": "{{count}} sonuç",
+      "showingResultsFor": "Şunun için sonuçlar gösteriliyor:"
+    },
+    "bundle": {
+      "collectionOffers": "Koleksiyon Teklifleri",
+      "bundleOffers": "Paket Teklifleri",
+      "offersCount": "- {{count}} Teklif",
+      "bundlePriceTitle": "Paket Fiyatı",
+      "totalValueLabel": "Toplam Değer:",
+      "bundlePriceLabel": "Paket Fiyatı:",
+      "youSave": "Kazancınız:",
+      "youPayMore": "Fazla ödeme:",
+      "buyBundle": "Paketi Satın Al",
+      "buyIndividually": "Öğeleri Tek Tek Satın Al"
+    },
+    "clientBanner": {
+      "heading": "{{appName}} yapı veritabanına güç verin",
+      "subheading": "Her Epic Games Store yapısını haritalamaya yardımcı olun",
+      "description": "Hafif Windows ve macOS istemcimiz, Epic Games Launcher kurulumlarınızı tarar ve yalnızca bildirim dosyalarını — yığın listeleri ve meta verileri — güvenli bir şekilde açık veritabanımıza yükler. Her yükleme topluluğu zenginleştirir ve değişiklikleri zaman içinde izlememize yardımcı olur.",
+      "cta": "Windows ve macOS için İndir"
+    },
+    "collectionOffers": {
+      "title": "Koleksiyon Teklifleri"
+    },
+    "lastModifiedOffers": {
+      "title": "Son Değiştirilen Teklifler"
+    },
+    "latestOffers": {
+      "title": "Son Eklenenler"
+    },
+    "latestReleased": {
+      "title": "Son Çıkanlar"
+    },
+    "mobileFreebies": {
+      "title": "Mobil Ücretsiz Oyunlar",
+      "collapse": "Mobil ücretsiz oyunları daralt",
+      "expand": "Mobil ücretsiz oyunları genişlet"
+    },
+    "sectionHeader": {
+      "seeAll": "Tümünü gör"
+    },
+    "suggestedOffers": {
+      "title": "Bunlar da ilginizi çekebilir"
+    }
+  },
+  "table": {
+    "pagination": {
+      "rowsPerPage": "Sayfa başına satır",
+      "pageOf": "Sayfa {{page}} / {{total}}",
+      "goToFirst": "İlk sayfaya git",
+      "goToPrevious": "Önceki sayfaya git",
+      "goToNext": "Sonraki sayfaya git",
+      "goToLast": "Son sayfaya git",
+      "previous": "Önceki",
+      "next": "Sonraki",
+      "morePages": "Daha fazla sayfa"
+    },
+    "toolbar": {
+      "platform": "Platform",
+      "status": "Durum",
+      "type": "Tür",
+      "platforms": "Platformlar",
+      "fileExtensions": "Dosya Uzantıları",
+      "filterOffers": "Teklifleri filtrele...",
+      "filterItems": "Öğeleri filtrele...",
+      "filterFiles": "Dosyaları filtrele...",
+      "reset": "Sıfırla"
+    },
+    "viewOptions": {
+      "view": "Görünüm",
+      "toggleColumns": "Sütunları aç/kapa"
+    },
+    "facetedFilter": {
+      "noResults": "Sonuç bulunamadı.",
+      "selected": "seçildi",
+      "clearFilters": "Filtreleri temizle"
+    },
+    "builds": {
+      "noResults": "Sonuç yok.",
+      "donateKey": "Anahtar Bağışla"
+    }
+  },
+  "forms": {
+    "review": {
+      "submitTitle": "Yorum Gönder",
+      "editTitle": "Yorumu Düzenle",
+      "description": "{{title}} hakkındaki düşüncelerinizi paylaşın",
+      "rating": "Puan",
+      "ratingError": "Puan 1 ile 10 arasında olmalıdır",
+      "recommend": "Bu ürünü önerir misiniz?",
+      "recommendError": "Lütfen evet veya hayır seçin",
+      "yes": "Evet",
+      "no": "Hayır",
+      "title": "Başlık",
+      "titlePlaceholder": "Yorumunuz için bir başlık girin",
+      "titleRequired": "Başlık zorunludur",
+      "titleMinLength": "Başlık en az 3 karakter olmalıdır",
+      "titleMinLengthLong": "Başlık en az 3 karakter uzunluğunda olmalıdır",
+      "titleMaxLength": "Başlık 75 karakterden az olmalıdır",
+      "reviewContent": "Yorum İçeriği",
+      "contentMinLength": "İçerik en az 3 karakter uzunluğunda olmalıdır",
+      "tags": "Etiketler (virgülle ayrılmış)",
+      "tagsPlaceholder": "örn. kalite, tasarım, performans",
+      "previous": "Önceki",
+      "next": "Sonraki",
+      "submit": "Yorumu Gönder",
+      "deleteReview": "Yorumu sil",
+      "confirmDelete": "Bu yorumu silmek istediğinizden emin misiniz?",
+      "deleteDescription": "Bu işlem geri alınamaz. Bu, yorumu sunucularımızdan kalıcı olarak silecektir.",
+      "cancel": "İptal",
+      "delete": "Sil",
+      "deleting": "Siliniyor...",
+      "errorSubmitting": "Yorum gönderilirken hata oluştu",
+      "errorDeleting": "Yorum silinirken hata oluştu",
+      "spamDetected": "Spam tespit edildi",
+      "defaultContent": "Lütfen yorumunuzu buraya girin",
+      "theProduct": "ürün"
+    },
+    "androidBeta": {
+      "title": "Beta'ya Katıl",
+      "description": "Kapalı beta için kaydolmak üzere Google ile oturum açın. Yalnızca e-posta adresinize ihtiyacımız var.",
+      "spotsRemaining": "<strong>{{remaining}}</strong> / {{max}} kontenjan kaldı",
+      "betaFull": "Beta Dolu",
+      "betaFullDesc": "{{max}} kontenjanın tamamı doldu. Daha sonra tekrar gelin veya daha fazla kontenjan açıldığında haber almak için bizi takip edin.",
+      "registering": "Beta için kaydediliyor...",
+      "registered": "Kaydoldunuz!",
+      "registeredDesc": "Kapalı beta için <strong>{{email}}</strong> kaydettik.",
+      "registeredDesc2": "Test uzmanları listesine manuel olarak eklenmeniz birkaç saat sürebilir. Eklendikten sonra beta'ya buradan katılabilirsiniz:",
+      "joinBeta": "Google Play'de Beta'ya Katıl",
+      "alreadyRegistered": "Zaten Kayıtlı",
+      "alreadyRegisteredDesc": "<strong>{{email}}</strong> beta için zaten kayıtlı.",
+      "alreadyRegisteredDesc2": "Test uzmanları listesine zaten eklendiyseniz, beta'ya buradan katılabilirsiniz:",
+      "error": "Hata",
+      "tryAgain": "Tekrar Dene",
+      "noCredential": "Google'dan kimlik bilgisi alınamadı",
+      "somethingWrong": "Bir şeyler ters gitti. Lütfen tekrar deneyin.",
+      "googleFailed": "Google Oturum Açma başarısız oldu. Lütfen tekrar deneyin."
+    },
+    "donateKey": {
+      "donate": "Bağışla",
+      "error": "Hata",
+      "success": "Başarılı",
+      "successDesc": "Bağışınız için teşekkürler! Öğe başarıyla kullanıldı ve verileri yakında kullanılabilir olacak.",
+      "offerPage": "Teklif sayfası",
+      "somethingWrong": "Bir şeyler ters gitti. Lütfen tekrar deneyin."
+    }
+  },
+  "ui": {
+    "dialog": {
+      "close": "Kapat"
+    },
+    "sheet": {
+      "close": "Kapat"
+    },
+    "carousel": {
+      "previous": "Önceki slayt",
+      "next": "Sonraki slayt"
+    },
+    "pagination": {
+      "previous": "Önceki",
+      "next": "Sonraki",
+      "morePages": "Daha fazla sayfa"
+    },
+    "priceRangeSlider": {
+      "priceRange": "Fiyat Aralığı",
+      "minPrice": "Min. fiyat",
+      "maxPrice": "Maks. fiyat"
+    }
+  }
+}

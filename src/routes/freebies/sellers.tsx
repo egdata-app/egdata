@@ -1,3 +1,4 @@
+import i18n from "@/lib/i18n";
 import { Input } from "@/components/ui/input";
 import { httpClient } from "@/lib/http-client";
 import { queryOptions, useQuery } from "@tanstack/react-query";
@@ -5,6 +6,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowDown, ArrowUp, Download, Search } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import { useTranslation } from "react-i18next";
 
 const freebiesSellersQuery = queryOptions({
   queryKey: ["freebies-sellers"],
@@ -55,6 +57,7 @@ function sellersToText(sellers: { sellerName: string; totalSingleGames: number }
 }
 
 function RouteComponent() {
+  const { t } = useTranslation();
   const { data, isLoading, error } = useQuery(freebiesSellersQuery);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortDirection, setSortDirection] = useState<SortDirection>("desc");
@@ -103,23 +106,19 @@ function RouteComponent() {
   }
 
   if (error) {
-    return (
-      <div className="p-4 text-destructive">
-        Error loading sellers data. Please try again later.
-      </div>
-    );
+    return <div className="p-4 text-destructive">{t("freebies.errors.loadSellers")}</div>;
   }
 
   return (
     <div className="container mx-auto px-2 py-6 relative">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4 w-full max-w-2xl mx-auto">
-        <h1 className="text-xl font-bold text-foreground">Free Games Sellers</h1>
+        <h1 className="text-xl font-bold text-foreground">{t("freebies.headings.sellers")}</h1>
         <div className="inline-flex items-center gap-2">
           <div className="relative w-full sm:w-56">
             <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
             <Input
               type="text"
-              placeholder="Search sellers..."
+              placeholder={t("freebies.placeholders.searchSellers")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-8 pr-2 py-1.5 bg-muted border border-border rounded-md text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
@@ -129,7 +128,7 @@ function RouteComponent() {
             <PopoverTrigger asChild>
               <button
                 type="button"
-                aria-label="Download list"
+                aria-label={t("freebies.aria.downloadList")}
                 className="border border-border rounded-md p-2"
               >
                 <Download className="size-4" />
@@ -148,7 +147,7 @@ function RouteComponent() {
                     );
                   }}
                 >
-                  Download as JSON
+                  {t("freebies.buttons.downloadJson")}
                 </button>
                 <button
                   type="button"
@@ -157,7 +156,7 @@ function RouteComponent() {
                     downloadFile("sellers.csv", sellersToCSV(downloadData), "text/csv");
                   }}
                 >
-                  Download as CSV
+                  {t("freebies.buttons.downloadCsv")}
                 </button>
                 <button
                   type="button"
@@ -166,7 +165,7 @@ function RouteComponent() {
                     downloadFile("sellers.txt", sellersToText(downloadData), "text/plain");
                   }}
                 >
-                  Download as Text
+                  {t("freebies.buttons.downloadTxt")}
                 </button>
               </div>
             </PopoverContent>
@@ -178,7 +177,7 @@ function RouteComponent() {
           <thead className="bg-muted">
             <tr>
               <th className="px-3 py-2 text-left font-medium text-muted-foreground uppercase tracking-wider">
-                Seller Name
+                {t("freebies.table.sellerName")}
               </th>
               <th className="px-3 py-2 text-left font-medium text-muted-foreground uppercase tracking-wider">
                 <button
@@ -186,7 +185,7 @@ function RouteComponent() {
                   className="flex items-center gap-1 hover:text-foreground transition-colors"
                   onClick={toggleSort}
                 >
-                  Total Single Games
+                  {t("freebies.table.totalGames")}
                   {sortDirection === "desc" ? (
                     <ArrowDown className="h-3 w-3" />
                   ) : (

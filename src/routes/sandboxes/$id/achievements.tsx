@@ -25,6 +25,8 @@ import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { EyeClosedIcon, FileWarningIcon } from "lucide-react";
 import { useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 export const Route = createFileRoute("/sandboxes/$id/achievements")({
   component: () => {
@@ -63,8 +65,8 @@ export const Route = createFileRoute("/sandboxes/$id/achievements")({
       return {
         meta: [
           {
-            title: "Sandbox not found",
-            description: "Sandbox not found",
+            title: i18n.t("sandboxes.notFoundTitle"),
+            description: i18n.t("sandboxes.notFoundDescription"),
           },
         ],
       };
@@ -86,19 +88,20 @@ export const Route = createFileRoute("/sandboxes/$id/achievements")({
       return {
         meta: [
           {
-            title: "Sandbox not found",
-            description: "Sandbox not found",
+            title: i18n.t("sandboxes.notFoundTitle"),
+            description: i18n.t("sandboxes.notFoundDescription"),
           },
         ],
       };
 
     return {
-      meta: generateSandboxMeta(sandbox, offer, "Achievements"),
+      meta: generateSandboxMeta(sandbox, offer, i18n.t("sandboxes.metaAchievementsTitle")),
     };
   },
 });
 
 function SandboxAchievementsPage() {
+  const { t } = useTranslation();
   const { id } = Route.useParams();
   const { timezone } = useLocale();
   const [search, setSearch] = useState("");
@@ -156,13 +159,13 @@ function SandboxAchievementsPage() {
       <div className="flex flex-col gap-6 w-full">
         <SandboxPageHeader
           icon={EpicTrophyIcon}
-          eyebrow="Progression"
-          title="Achievements"
-          description="Achievement sets, hidden states, rarity distribution, and XP totals attached to this sandbox."
+          eyebrow={t("sandboxes.achievementsEyebrow")}
+          title={t("sandboxes.achievementsTitle")}
+          description={t("sandboxes.achievementsDescription")}
           stats={[
-            { label: "Sets", value: "Loading" },
-            { label: "Achievements", value: "Loading" },
-            { label: "XP", value: "Loading" },
+            { label: t("sandboxes.achievementsSetsLabel"), value: "Loading" },
+            { label: t("sandboxes.achievementsLabel"), value: "Loading" },
+            { label: t("sandboxes.achievementsXpLabel"), value: "Loading" },
           ]}
         />
         <div className="h-64 animate-pulse rounded-md bg-muted" />
@@ -174,18 +177,21 @@ function SandboxAchievementsPage() {
     <div className="flex flex-col gap-6 w-full">
       <SandboxPageHeader
         icon={EpicTrophyIcon}
-        eyebrow="Progression"
-        title="Achievements"
-        description="Achievement sets, hidden states, rarity distribution, and XP totals attached to this sandbox."
+        eyebrow={t("sandboxes.achievementsEyebrow")}
+        title={t("sandboxes.achievementsTitle")}
+        description={t("sandboxes.achievementsDescription")}
         stats={[
-          { label: "Achievements", value: formatSandboxCount(totalAchievements) },
-          { label: "Sets", value: formatSandboxCount(achievements.length) },
-          { label: "XP", value: formatSandboxCount(totalXp) },
+          { label: t("sandboxes.achievementsLabel"), value: formatSandboxCount(totalAchievements) },
+          {
+            label: t("sandboxes.achievementsSetsLabel"),
+            value: formatSandboxCount(achievements.length),
+          },
+          { label: t("sandboxes.achievementsXpLabel"), value: formatSandboxCount(totalXp) },
         ]}
       >
         <Input
           className="h-8 w-full min-w-44 sm:w-64"
-          placeholder="Search achievements"
+          placeholder={t("sandboxes.searchAchievementsPlaceholder")}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -196,14 +202,18 @@ function SandboxAchievementsPage() {
           disabled={achievements.length === 0}
         >
           <CardStackIcon className="size-4" />
-          <span>Flip all</span>
+          <span>{t("sandboxes.flipAllButton")}</span>
         </Button>
         <Button
           variant="outline"
           size="icon"
           onClick={() => setBlur(!blur)}
           disabled={achievements.length === 0}
-          aria-label={blur ? "Reveal hidden achievement text" : "Hide hidden achievement text"}
+          aria-label={
+            blur
+              ? t("sandboxes.revealHiddenAchievementAria")
+              : t("sandboxes.hideHiddenAchievementAria")
+          }
         >
           {blur ? <EyeOpenIcon className="size-4" /> : <EyeClosedIcon className="size-4" />}
         </Button>
@@ -246,15 +256,16 @@ function SandboxAchievementsPage() {
                   <Tooltip>
                     <TooltipTrigger>
                       <h4 className="text-xl font-thin underline decoration-dotted decoration-border/60 underline-offset-4">
-                        {achievementSet.isBase ? "Base Game" : "DLC"} Achievements
+                        {achievementSet.isBase
+                          ? t("sandboxes.achievementsBaseGameLabel")
+                          : t("sandboxes.achievementsDlcLabel")}{" "}
+                        {t("sandboxes.achievementsLabel")}
                       </h4>
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>
-                        {achievementSet.isBase &&
-                          "This list of achievements are for the base game."}
-                        {!achievementSet.isBase &&
-                          "This list of achievements are for one of the DLCs."}
+                        {achievementSet.isBase && t("sandboxes.achievementsBaseGameTooltip")}
+                        {!achievementSet.isBase && t("sandboxes.achievementsDlcTooltip")}
                       </p>
                     </TooltipContent>
                   </Tooltip>
@@ -263,7 +274,7 @@ function SandboxAchievementsPage() {
                       <Tooltip>
                         <TooltipTrigger>
                           <span className="text-sm underline decoration-dotted decoration-border/60 underline-offset-4">
-                            Last Updated:{" "}
+                            {t("sandboxes.lastUpdatedLabel")}{" "}
                             {new Date(achievementSet.lastUpdated).toLocaleString("en-GB", {
                               timeZone: timezone,
                               year: "numeric",
@@ -274,7 +285,7 @@ function SandboxAchievementsPage() {
                         </TooltipTrigger>
                         <TooltipContent>
                           <p>
-                            This achievement set was last updated on{" "}
+                            {t("sandboxes.achievementsLastUpdatedTooltip")}{" "}
                             {new Date(achievementSet.lastUpdated).toLocaleString("en-GB", {
                               timeZone: timezone,
                               timeStyle: "short",
@@ -282,7 +293,7 @@ function SandboxAchievementsPage() {
                             })}
                             .
                             <br />
-                            This is either it's date of creation or the date of the last update.
+                            {t("sandboxes.achievementsLastUpdatedTooltipExtra")}
                           </p>
                         </TooltipContent>
                       </Tooltip>
@@ -323,10 +334,9 @@ function SandboxAchievementsPage() {
                 <div className="w-full flex flex-col items-center justify-center h-52 mt-10 gap-2">
                   <FileWarningIcon className="size-10 opacity-75" />
                   <p className="text-center font-thin">
-                    No achievements found for this set.
+                    {t("sandboxes.noAchievementsForSet")}
                     <br />
-                    This could mean that the achievements are not currently available but will be
-                    added in the future.
+                    {t("sandboxes.noAchievementsForSetExtra")}
                   </p>
                 </div>
               )}
@@ -335,7 +345,7 @@ function SandboxAchievementsPage() {
           ))}
         {achievements.length === 0 && (
           <div className="flex justify-center items-center h-96">
-            <p className="text-muted-foreground">No achievements found</p>
+            <p className="text-muted-foreground">{t("sandboxes.noAchievementsFound")}</p>
           </div>
         )}
       </div>

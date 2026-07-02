@@ -1,10 +1,10 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { captureMessage } from "@/lib/pulse-telemetry";
+import { useTranslation } from "react-i18next";
 
 export const saveStateFile = createServerFn({ method: "GET" }).handler(async (ctx) => {
   console.log("Saving state", ctx);
-  // Replace with an API call to save the state on the server
   const response = await fetch("https://api.egdata.app/auth/v2/save-state", {
     method: "POST",
   });
@@ -49,7 +49,10 @@ export const getEpicEnv = createServerFn({ method: "GET" }).handler(async () => 
 });
 
 export const Route = createFileRoute("/auth/login")({
-  component: () => <div>Hello /auth/login!</div>,
+  component: () => {
+    const { t } = useTranslation();
+    return <div>{t("auth.login.placeholder")}</div>;
+  },
 
   beforeLoad: async () => {
     const state = await saveStateFile({ data: undefined });

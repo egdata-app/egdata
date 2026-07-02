@@ -1,8 +1,8 @@
 import handler, { createServerEntry } from "@tanstack/react-start/server-entry";
 import { resolve } from "node:path";
-import { serveStatic } from "srvx/static";
 import type { ServerMiddleware } from "srvx";
 import { SECURITY_HEADERS } from "@/lib/security-headers";
+import { serveStaticAssets } from "@/lib/static-assets";
 import {
   captureError,
   flushPulseTelemetry,
@@ -56,5 +56,5 @@ const entry = createServerEntry({
 
 export default {
   ...entry,
-  middleware: [securityHeadersMiddleware, serveStatic({ dir: clientDist })],
+  middleware: [securityHeadersMiddleware, serveStaticAssets({ dir: clientDist })],
 };

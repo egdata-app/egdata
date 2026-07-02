@@ -3,6 +3,7 @@ import { captureError, captureMessage } from "@/lib/pulse-telemetry";
 import type { EpicToken } from "@/types/epic";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
+import { useTranslation } from "react-i18next";
 
 export const validateState = createServerFn({ method: "GET" })
   .inputValidator((state: string) => state)
@@ -77,7 +78,10 @@ export const getTokens = createServerFn({ method: "GET" })
   });
 
 export const Route = createFileRoute("/auth/callback")({
-  component: () => <div>Hello /auth/callback!</div>,
+  component: () => {
+    const { t } = useTranslation();
+    return <div>{t("auth.callback.placeholder")}</div>;
+  },
 
   beforeLoad: async ({ location }) => {
     let crypto: Crypto;

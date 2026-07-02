@@ -1,4 +1,5 @@
 import type { TypeOf } from "zod";
+import { useTranslation } from "react-i18next";
 import type { formSchema } from "@/stores/searchStore";
 import type { SearchV2Response } from "@/types/search-v2";
 import { usePreferences } from "@/hooks/use-preferences";
@@ -20,6 +21,7 @@ export interface SearchResultsProps {
 }
 
 export function SearchResults(props: SearchResultsProps) {
+  const { t } = useTranslation();
   const { view } = usePreferences();
   const { query, setField, loading, results } = props;
   const offers = Array.isArray(results?.offers) ? results.offers : [];
@@ -49,7 +51,7 @@ export function SearchResults(props: SearchResultsProps) {
   if (!results || offers.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center h-full">
-        <span className="text-muted-foreground">No results found</span>
+        <span className="text-muted-foreground">{t("search.results.noResults")}</span>
       </div>
     );
   }

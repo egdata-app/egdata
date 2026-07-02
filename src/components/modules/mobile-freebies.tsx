@@ -15,10 +15,12 @@ import type { GiveawayOffer } from "@/types/giveaways";
 import { createFileRoute } from "@tanstack/react-router";
 import { platformIcons } from "@/components/app/platform-icons";
 import { DateTime } from "luxon";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/offers/$id")({});
 
 export function MobileFreebiesCarousel() {
+  const { t } = useTranslation();
   const [isExpanded, setIsExpanded] = useState(false);
   const { data, isLoading, isError } = useQuery(mobileFreebiesQuery);
 
@@ -42,12 +44,16 @@ export function MobileFreebiesCarousel() {
       className="flex flex-col items-start justify-start w-full gap-4"
     >
       <div className="flex flex-row justify-between items-center gap-4 w-full">
-        <h2 className="text-xl font-semibold">Mobile Free Games</h2>
+        <h2 className="text-xl font-semibold">{t("components.mobileFreebies.title")}</h2>
         <Button
           variant="outline"
           className="h-9 w-9 p-0"
           onClick={() => setIsExpanded(!isExpanded)}
-          aria-label={isExpanded ? "Collapse mobile free games" : "Expand mobile free games"}
+          aria-label={
+            isExpanded
+              ? t("components.mobileFreebies.collapse")
+              : t("components.mobileFreebies.expand")
+          }
         >
           <ArrowDown
             className={cn("h-5 w-5 m-2 transition-transform ease-in-out duration-300", {
@@ -71,6 +77,7 @@ export function MobileFreebiesCarousel() {
 }
 
 function MobileGiveawayCard({ offer }: { offer: GiveawayOffer }) {
+  const { t } = useTranslation();
   const { locale } = useLocale();
   const startDate = new Date(offer.giveaway.startDate);
   const endDate = new Date(offer.giveaway.endDate);
@@ -125,7 +132,7 @@ function MobileGiveawayCard({ offer }: { offer: GiveawayOffer }) {
               <>
                 <span className="text-xl font-bold">
                   {isOnGoing
-                    ? "Free"
+                    ? t("common.free")
                     : priceFmtr.format(
                         calculatePrice(
                           offer.price?.price.originalPrice,
@@ -153,6 +160,7 @@ function MobileGiveawayCard({ offer }: { offer: GiveawayOffer }) {
 }
 
 function Countdown({ targetDate }: { targetDate: Date }) {
+  const { t } = useTranslation();
   const { timezone } = useLocale();
   const [timeLeft, setTimeLeft] = useState<{
     days: number;
@@ -206,13 +214,13 @@ function Countdown({ targetDate }: { targetDate: Date }) {
     >
       {!isFinised ? (
         <span className="font-semibold">
-          Starts in {timeLeft.days > 0 && `${timeLeft.days}d `}
+          {t("components.giveaways.startsIn")} {timeLeft.days > 0 && `${timeLeft.days}d `}
           {timeLeft.hours.toString().padStart(2, "0")}:
           {timeLeft.minutes.toString().padStart(2, "0")}:
           {timeLeft.seconds.toString().padStart(2, "0")}
         </span>
       ) : (
-        <span className="font-semibold">Free Now</span>
+        <span className="font-semibold">{t("components.giveaways.freeNow")}</span>
       )}
     </div>
   );

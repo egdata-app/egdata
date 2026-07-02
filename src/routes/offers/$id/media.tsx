@@ -30,12 +30,16 @@ import {
 } from "@/components/ui/carousel";
 import { getQueryClient } from "@/lib/client";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
+import { useLocale } from "@/hooks/use-locale";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 type LoaderData = {
   dehydratedState: DehydratedState;
   id: string;
   offer: SingleOffer | undefined;
+  locale: string | undefined;
 };
 
 export const Route = createFileRoute("/offers/$id/media")({
@@ -50,7 +54,7 @@ export const Route = createFileRoute("/offers/$id/media")({
   },
 
   loader: async ({ context, params }) => {
-    const { queryClient } = context;
+    const { queryClient, locale } = context;
     const { id } = params;
 
     await queryClient.prefetchQuery({
@@ -60,13 +64,14 @@ export const Route = createFileRoute("/offers/$id/media")({
 
     const offer = getFetchedQuery<SingleOffer>(queryClient, dehydrate(queryClient), [
       "offer",
-      { id: params.id },
+      { id: params.id, locale },
     ]);
 
     return {
       dehydratedState: dehydrate(queryClient),
       id,
       offer,
+      locale,
     };
   },
 
@@ -78,8 +83,8 @@ export const Route = createFileRoute("/offers/$id/media")({
       return {
         meta: [
           {
-            title: "Offer not found",
-            description: "Offer not found",
+            title: i18n.t("offerDetail.common.offerNotFound"),
+            description: i18n.t("offerDetail.common.offerNotFound"),
           },
         ],
       };
@@ -87,15 +92,15 @@ export const Route = createFileRoute("/offers/$id/media")({
 
     const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
       "offer",
-      { id: params.id },
+      { id: params.id, locale: ctx.loaderData?.locale },
     ]);
 
     if (!offer) {
       return {
         meta: [
           {
-            title: "Offer not found",
-            description: "Offer not found",
+            title: i18n.t("offerDetail.common.offerNotFound"),
+            description: i18n.t("offerDetail.common.offerNotFound"),
           },
         ],
       };
@@ -108,15 +113,17 @@ export const Route = createFileRoute("/offers/$id/media")({
 });
 
 function MediaPage() {
+  const { t } = useTranslation();
   const params = Route.useParams();
+  const { locale } = useLocale();
   const { data: media, isLoading } = useQuery({
     queryKey: ["media", { id: params.id }],
     queryFn: () => httpClient.get<Media>(`/offers/${params.id}/media`),
     retry: false,
   });
   const { data: offer, isLoading: isOfferLoading } = useQuery({
-    queryKey: ["offer", { id: params.id }],
-    queryFn: () => httpClient.get<SingleOffer>(`/offers/${params.id}`),
+    queryKey: ["offer", { id: params.id, locale }],
+    queryFn: () => httpClient.get<SingleOffer>(`/offers/${params.id}`, { params: { locale } }),
     retry: false,
   });
 
@@ -141,7 +148,7 @@ function MediaPage() {
   if (isLoading && !media && isOfferLoading) {
     return (
       <div className="flex flex-col gap-4 mt-6 max-w-4xl w-full mx-auto">
-        <h4 className="text-xl">Images</h4>
+        <h4 className="text-xl">{t("offerDetail.media.images")}</h4>
         <div className="grid grid-cols-2 gap-4">
           {Array.from({ length: 4 }).map((_, index) => (
             /* biome-ignore lint/suspicious/noArrayIndexKey: This is a static list for a skeleton loader */
@@ -161,11 +168,11 @@ function MediaPage() {
         defaultValue={media ? "images" : "covers"}
       >
         <AccordionItem value="images">
-          <AccordionTrigger className="text-xl">Images</AccordionTrigger>
+          <AccordionTrigger className="text-xl">{t("offerDetail.media.images")}</AccordionTrigger>
           <AccordionContent>
             {!media?.images.length && (
               <div className="text-center">
-                <h2 className="text-2xl font-bold">No images found</h2>
+                <h2 className="text-2xl font-bold">{t("offerDetail.media.noImages")}</h2>
               </div>
             )}
             {media?.images && media.images.length > 0 && (
@@ -191,18 +198,21 @@ function MediaPage() {
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="videos">
-          <AccordionTrigger className="text-xl">Videos</AccordionTrigger>
+          <AccordionTrigger className="text-xl">{t("offerDetail.media.videos")}</AccordionTrigger>
           <AccordionContent>
             {!media?.videos.length && (
               <div className="text-center">
-                <h2 className="text-2xl font-bold">No videos found</h2>
+                <h2 className="text-2xl font-bold">{t("offerDetail.media.noVideos")}</h2>
               </div>
             )}
             {(media?.videos.length ?? 0) > 0 && (
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 {media?.videos.map((video) => (
-                  <ClientOnly key={video._id} fallback={<div>Loading...</div>}>
-                    <Suspense fallback={<div>Loading...</div>}>
+                  <ClientOnly
+                    key={video._id}
+                    fallback={<div>{t("offerDetail.common.loading")}</div>}
+                  >
+                    <Suspense fallback={<div>{t("offerDetail.common.loading")}</div>}>
                       <Player video={video} offer={offer as SingleOffer} />
                     </Suspense>
                   </ClientOnly>
@@ -212,11 +222,11 @@ function MediaPage() {
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="covers">
-          <AccordionTrigger className="text-xl">Covers</AccordionTrigger>
+          <AccordionTrigger className="text-xl">{t("offerDetail.media.covers")}</AccordionTrigger>
           <AccordionContent>
             {!offer?.keyImages?.length && (
               <div className="text-center">
-                <h2 className="text-2xl font-bold">No covers found</h2>
+                <h2 className="text-2xl font-bold">{t("offerDetail.media.noCovers")}</h2>
               </div>
             )}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -229,7 +239,7 @@ function MediaPage() {
                       download={`${offer.title}-${cover.type}`}
                       target="_blank"
                       rel="noreferrer"
-                      aria-label={`Download ${cover.type} cover`}
+                      aria-label={t("offerDetail.media.downloadCoverAria", { type: cover.type })}
                     >
                       <DownloadIcon className="w-4 h-4" />
                     </a>
@@ -262,7 +272,7 @@ function MediaPage() {
                 setActive(false);
               }}
               className="absolute top-4 right-4 text-foreground z-[51] rounded-full bg-black/50 p-2"
-              aria-label="Close"
+              aria-label={t("offerDetail.media.close")}
             >
               <XIcon className="w-6 h-6" />
             </button>

@@ -15,6 +15,8 @@ import {
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import type { ColumnFiltersState } from "@tanstack/react-table";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 export const Route = createFileRoute("/items/$id/builds")({
   component: () => {
@@ -52,8 +54,8 @@ export const Route = createFileRoute("/items/$id/builds")({
       return {
         meta: [
           {
-            title: "Item not found",
-            description: "Item not found",
+            title: i18n.t("items.notFound"),
+            description: i18n.t("items.notFound"),
           },
         ],
       };
@@ -68,20 +70,21 @@ export const Route = createFileRoute("/items/$id/builds")({
       return {
         meta: [
           {
-            title: "item not found",
-            description: "item not found",
+            title: i18n.t("items.notFound"),
+            description: i18n.t("items.notFound"),
           },
         ],
       };
     }
 
     return {
-      meta: generateItemMeta(item, "Builds"),
+      meta: generateItemMeta(item, i18n.t("items.builds.title")),
     };
   },
 });
 
 function ItemBuildsPage() {
+  const { t } = useTranslation();
   const { id } = Route.useParams();
   const [page, setPage] = useState({ pageIndex: 0, pageSize: 20 });
   const [filters, setFilters] = useState<ColumnFiltersState>([]);
@@ -96,7 +99,7 @@ function ItemBuildsPage() {
 
   return (
     <div className="flex flex-col items-start justify-start h-full gap-4 w-full">
-      <h2 className="text-xl font-bold">Builds</h2>
+      <h2 className="text-xl font-bold">{t("items.builds.title")}</h2>
       <DataTable<Build, unknown>
         columns={columns}
         data={builds}

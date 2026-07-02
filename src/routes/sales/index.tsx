@@ -1,7 +1,9 @@
+import i18n from "@/lib/i18n";
 import { Separator } from "@/components/ui/separator";
 import buildImageUrl from "@/lib/build-image-url";
 import { getImage } from "@/lib/get-image";
 import { httpClient } from "@/lib/http-client";
+import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 import type { SingleOffer } from "@/types/single-offer";
 import {
@@ -52,27 +54,27 @@ export const Route = createFileRoute("/sales/")({
     return {
       meta: [
         {
-          title: "Active Sales | egdata.app",
+          title: i18n.t("sales.metaIndex.title"),
         },
         {
           name: "description",
-          content: "Browse active sales on egdata.app",
+          content: i18n.t("sales.metaIndex.description"),
         },
         {
           name: "og:title",
-          content: "Active Sales | egdata.app",
+          content: i18n.t("sales.metaIndex.title"),
         },
         {
           name: "og:description",
-          content: "Browse active sales on egdata.app",
+          content: i18n.t("sales.metaIndex.description"),
         },
         {
           property: "twitter:title",
-          content: "Active Sales | egdata.app",
+          content: i18n.t("sales.metaIndex.title"),
         },
         {
           property: "twitter:description",
-          content: "Browse active sales on egdata.app",
+          content: i18n.t("sales.metaIndex.description"),
         },
       ],
     };
@@ -80,6 +82,7 @@ export const Route = createFileRoute("/sales/")({
 });
 
 function SalesPageIndex() {
+  const { t } = useTranslation();
   const { data, isLoading } = useQuery({
     queryKey: ["active-sales"],
     queryFn: () =>
@@ -94,16 +97,16 @@ function SalesPageIndex() {
   });
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <p>{t("sales.status.loading")}</p>;
   }
 
   if (!data) {
-    return <p>No data</p>;
+    return <p>{t("sales.status.noData")}</p>;
   }
 
   return (
     <main className="flex flex-col items-start justify-start min-h-screen py-2">
-      <h1 className="text-2xl font-bold">Active Sales</h1>
+      <h1 className="text-2xl font-bold">{t("sales.headings.active")}</h1>
       <Separator className="my-2" />
       <div className="flex flex-wrap justify-center w-full">
         {data
@@ -112,7 +115,7 @@ function SalesPageIndex() {
             <SaleCard key={sale.id} sale={sale} />
           ))}
       </div>
-      <h1 className="text-2xl font-bold mt-10">Past / Upcoming Sales</h1>
+      <h1 className="text-2xl font-bold mt-10">{t("sales.headings.pastUpcoming")}</h1>
       <Separator className="my-2" />
       <div className="flex flex-wrap justify-center">
         {data

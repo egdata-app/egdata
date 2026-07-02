@@ -1,0 +1,1763 @@
+{
+  "common": {
+    "appName": "EGDATA",
+    "search": "Tìm kiếm",
+    "searchPlaceholder": "Tìm kiếm game...",
+    "loading": "Đang tải...",
+    "free": "Miễn phí",
+    "notAvailable": "Không khả dụng",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "close": "Đóng"
+  },
+  "nav": {
+    "toggleMenu": "Chuyển đổi menu điều hướng",
+    "logoAlt": "Logo EGDATA",
+    "explore": "Khám phá",
+    "browse": "Duyệt",
+    "sales": "Giảm giá",
+    "changelog": "Nhật ký thay đổi",
+    "about": "Giới thiệu",
+    "rankings": "Bảng xếp hạng",
+    "topSellers": "Bán chạy nhất",
+    "mostPlayed": "Chơi nhiều nhất",
+    "topWishlisted": "Ưa thích nhất",
+    "topNewReleases": "Bản phát hành mới hàng đầu",
+    "seeAllCollections": "Xem tất cả bộ sưu tập",
+    "others": "Khác",
+    "releaseStats": "Thống kê phát hành",
+    "genres": "Thể loại",
+    "seeAllGenres": "Xem tất cả thể loại",
+    "other": "Khác",
+    "action": "Hành động",
+    "rpg": "RPG",
+    "indie": "Indie",
+    "strategy": "Chiến thuật",
+    "topSellerOnEpic": "Bán chạy nhất trên Epic Games Store",
+    "searchItemTitle": "Tìm kiếm",
+    "searchItemDesc": "Tìm thấy những gì bạn đang tìm kiếm trên Epic Games Store.",
+    "freeGamesItemTitle": "Game miễn phí",
+    "freeGamesItemDesc": "Khám phá các game miễn phí mới nhất trên Epic Games Store.",
+    "withDiscountsItemTitle": "Đang giảm giá",
+    "withDiscountsItemDesc": "Xem các game đang được giảm giá hấp dẫn.",
+    "helloUser": "Xin chào, {{name}}!",
+    "dashboard": "Bảng điều khiển",
+    "logout": "Đăng xuất",
+    "searchLanguages": "Tìm kiếm ngôn ngữ...",
+    "noLanguagesFound": "Không tìm thấy ngôn ngữ"
+  },
+  "footer": {
+    "logoAlt": "Logo EGDATA",
+    "disclaimer": "Cơ sở dữ liệu Epic Games Store do người hâm mộ tạo ra. Không liên kết với Epic Games, Inc. Mọi logo, hình ảnh và nhãn hiệu đều thuộc về chủ sở hữu tương ứng.",
+    "legal": "Pháp lý",
+    "privacyPolicy": "Chính sách bảo mật",
+    "notifications": "Thông báo",
+    "resources": "Tài nguyên",
+    "apiDocs": "Tài liệu API",
+    "changelog": "Nhật ký thay đổi",
+    "community": "Cộng đồng",
+    "flagsByFlagpedia": "Cờ bởi Flagpedia",
+    "madeIn": "Được tạo tại"
+  },
+  "meta": {
+    "title": "Cơ sở dữ liệu Epic Games - egdata.app",
+    "description": "Cơ sở dữ liệu Epic Games Store toàn diện: thông tin game, giá cả, lịch sử giảm giá, danh sách tệp và hơn thế nữa. Khám phá game miễn phí, bản phát hành sắp tới và thông tin chi tiết từ cộng đồng.",
+    "twitterTitle": "Cơ sở dữ liệu Epic Games",
+    "twitterDescription": "Cơ sở dữ liệu Epic Games Store miễn phí và mã nguồn mở với thông tin game toàn diện, theo dõi doanh số và hơn thế nữa. Được cộng đồng điều hành và cập nhật liên tục.",
+    "twitterImageAlt": "Cơ sở dữ liệu Epic Games",
+    "ogTitle": "Cơ sở dữ liệu Epic Games",
+    "ogDescription": "Cơ sở dữ liệu Epic Games Store miễn phí và mã nguồn mở với thông tin game toàn diện, theo dõi doanh số và hơn thế nữa. Được cộng đồng điều hành và cập nhật liên tục.",
+    "ogImageAlt": "Cơ sở dữ liệu Epic Games"
+  },
+  "notFound": {
+    "title": "Không tìm thấy trang"
+  },
+  "home": {
+    "statsBar": {
+      "offersTracked": "Ưu đãi được theo dõi",
+      "priceChanges72h": "Thay đổi giá / 72h",
+      "activeDiscounts": "Giảm giá đang hoạt động",
+      "giveawaysToDate": "Tặng miễn phí đến nay"
+    },
+    "sections": {
+      "giveawayStats": "Thống kê tặng miễn phí",
+      "giveawayOffers": "Ưu đãi tặng miễn phí",
+      "upcomingOffers": "Ưu đãi sắp tới",
+      "latestOffers": "Ưu đãi mới nhất",
+      "latestReleased": "Phát hành mới nhất",
+      "latestOffersWithAchievements": "Ưu đãi mới có thành tích",
+      "topSellingOffers": "Ưu đãi bán chạy nhất",
+      "latestBuilds": "Bản dựng mới nhất"
+    },
+    "tableHeaders": {
+      "hash": "#",
+      "pos": "Vị trí",
+      "dash": "-",
+      "title": "Tiêu đề",
+      "starts": "Bắt đầu",
+      "ends": "Kết thúc",
+      "releaseDate": "Ngày phát hành",
+      "createdAt": "Ngày tạo",
+      "date": "Ngày",
+      "price": "Giá",
+      "size": "Kích thước",
+      "creationDate": "Ngày tạo"
+    },
+    "offerHover": {
+      "seller": "Người bán:",
+      "developer": "Nhà phát triển:",
+      "publisher": "Nhà xuất bản:",
+      "releaseDate": "Ngày phát hành:",
+      "ageRating": "Xếp hạng độ tuổi:",
+      "moreGenres_one": "+{{count}} thể loại khác",
+      "moreGenres_other": "+{{count}} thể loại khác",
+      "communityRating": "Đánh giá cộng đồng:",
+      "igdbScore": "Điểm IGDB",
+      "reviews": "• {{count}} đánh giá",
+      "timeToBeat": "Thời gian hoàn thành:",
+      "features": "Tính năng:",
+      "moreFeatures": " +{{count}} tính năng khác"
+    },
+    "buildHover": {
+      "unknownBuild": "Bản dựng không xác định",
+      "unknownDeveloper": "Nhà phát triển không xác định",
+      "size": "Kích thước",
+      "version": "Phiên bản",
+      "created": "Đã tạo",
+      "id": "ID: {{id}}"
+    },
+    "multipleOffers": "{{title}} - Nhiều ưu đãi",
+    "hero": {
+      "subtitle": "Theo dõi giá cả, khám phá ưu đãi và không bao giờ bỏ lỡ game miễn phí. Người bạn đồng hành của bạn cho cơ sở dữ liệu Epic Games Store — ưu đãi, giảm giá, tặng miễn phí, bản dựng và hơn thế nữa.",
+      "searchPlaceholder": "Tìm kiếm trong cơ sở dữ liệu…",
+      "justReleased": "Vừa phát hành",
+      "priceDrops72h": "Giảm giá (72h)",
+      "hasAchievements": "Có thành tích",
+      "upcoming": "Sắp tới",
+      "topSellers": "Bán chạy nhất"
+    },
+    "pulse": {
+      "recentActivity": "Hoạt động gần đây",
+      "badge": {
+        "new": "Mới",
+        "gone": "Đã biến mất",
+        "offer": "Ưu đãi",
+        "build": "Bản dựng",
+        "item": "Mục",
+        "asset": "Asset",
+        "xp": "XP",
+        "sandbox": "Sandbox",
+        "change": "Thay đổi"
+      },
+      "title": {
+        "buildVersion": "Bản dựng {{version}}",
+        "buildId": "Bản dựng {{id}}",
+        "achievementsId": "Thành tích {{id}}"
+      },
+      "detail": {
+        "newBuildIndexed": "Bản dựng mới được lập chỉ mục",
+        "buildManifestRefreshed": "Bản kê khai bản dựng đã làm mới",
+        "achievementChanges_one": "{{count}} thành tích {{entry}} {{verb}}",
+        "achievementChanges_other": "{{count}} thành tích {{entry}} {{verb}}",
+        "offerMetadataRefreshed": "Siêu dữ liệu ưu đãi đã làm mới",
+        "fieldsChanged_one": "{{count}} trường {{verb}}",
+        "fieldsChanged_other": "{{count}} trường {{verb}}",
+        "fieldChanged": "{{field}} {{verb}}"
+      },
+      "actionVerb": {
+        "added": "đã thêm",
+        "removed": "đã xóa",
+        "updated": "đã cập nhật",
+        "changed": "đã thay đổi"
+      },
+      "entry_one": "mục",
+      "entry_other": "mục"
+    }
+  },
+  "offerDetail": {
+    "common": {
+      "offerNotFound": "Không tìm thấy ưu đãi",
+      "notAvailable": "Không khả dụng",
+      "na": "N/A",
+      "loading": "Đang tải...",
+      "somethingWentWrong": "Đã xảy ra lỗi",
+      "noChangesFound": "Không tìm thấy thay đổi nào cho ưu đãi này"
+    },
+    "tabs": {
+      "overview": "Tổng quan",
+      "price": "Giá",
+      "items": "Mục",
+      "builds": "Bản dựng",
+      "achievements": "Thành tích",
+      "related": "Liên quan",
+      "metadata": "Siêu dữ liệu",
+      "changelog": "Nhật ký thay đổi",
+      "media": "Phương tiện",
+      "reviews": "Đánh giá"
+    },
+    "table": {
+      "offerId": "ID Ưu đãi",
+      "namespace": "Namespace",
+      "offerType": "Loại ưu đãi",
+      "seller": "Người bán",
+      "developer": "Nhà phát triển",
+      "supportedPlatforms": "Nền tảng hỗ trợ",
+      "releaseDate": "Ngày phát hành",
+      "lastUpdate": "Cập nhật cuối",
+      "creationDate": "Ngày tạo",
+      "technologies": "Công nghệ",
+      "type": "Loại",
+      "value": "Giá trị",
+      "countriesBlacklist": "Danh sách đen quốc gia",
+      "countriesWhitelist": "Danh sách trắng quốc gia",
+      "categories": "Danh mục",
+      "refundType": "Loại hoàn tiền",
+      "tags": "Thẻ",
+      "ageRatings": "Xếp hạng độ tuổi",
+      "assets": "Assets"
+    },
+    "badges": {
+      "prePurchase": "Đặt trước",
+      "earlyAccess": "Truy cập sớm"
+    },
+    "hero": {
+      "offeredBy": "Được cung cấp bởi {{seller}}"
+    },
+    "tooltip": {
+      "internalNamespace": "Namespace nội bộ của Epic Games",
+      "techDescription": "danh sách công nghệ để theo dõi các engine và công nghệ khác nhau từ tệp game.",
+      "techSource": "Chúng tôi sử dụng",
+      "techSourceSteamDb": "SteamDB",
+      "source": "Nguồn"
+    },
+    "actions": {
+      "compare": "So sánh"
+    },
+    "releaseDate": {
+      "releasedOnPc": "Đã phát hành trên PC",
+      "theEgs": "EGS",
+      "releasedSameDay": "Đã phát hành trên Epic cùng ngày với PC"
+    },
+    "notifications": {
+      "title": "Cài đặt thông báo",
+      "description": "Chọn thông báo bạn muốn nhận cho ưu đãi này.",
+      "all": "Tất cả",
+      "price": "Giá",
+      "achievements": "Thành tích",
+      "builds": "Bản dựng",
+      "items": "Mục",
+      "requirements": "Yêu cầu",
+      "metadata": "Siêu dữ liệu",
+      "media": "Phương tiện",
+      "enablePushDescription": "Bạn cần bật thông báo đẩy để nhận thông báo cho ưu đãi này.",
+      "enablePushAction": "Bật thông báo đẩy"
+    },
+    "overview": {
+      "genres": "Thể loại",
+      "ageRating": "Xếp hạng độ tuổi",
+      "noAgeRatings": "Không tìm thấy xếp hạng độ tuổi",
+      "giveaways": "Tặng miễn phí",
+      "noGiveaways": "Không tìm thấy tặng miễn phí",
+      "achievements": "Thành tích",
+      "igdbTimeToBeat": "IGDB Thời gian hoàn thành",
+      "hastily": "Nhanh",
+      "normally": "Bình thường",
+      "completely": "Hoàn toàn",
+      "hltbSubmissions_one": "Dựa trên {{count}} bài gửi",
+      "hltbSubmissions_other": "Dựa trên {{count}} bài gửi",
+      "price": "Giá",
+      "priceCurrent": "Hiện tại:",
+      "priceLowest": "Thấp nhất:",
+      "priceLastDiscount": "Giảm giá lần cuối:",
+      "hltbTitle": "How Long To Beat",
+      "noGameTimes": "Không tìm thấy thời gian chơi game",
+      "epicRating": "Xếp hạng người chơi Epic",
+      "epicRatingDescription": "Được thu thập từ người chơi trong hệ sinh thái Epic Games",
+      "igdbRating": "Xếp hạng IGDB",
+      "igdbReviews_one": "{{count}} đánh giá",
+      "igdbReviews_other": "{{count}} đánh giá"
+    },
+    "achievements": {
+      "title": "Thành tích",
+      "sortBy": "Sắp xếp theo",
+      "defaultSort": "Sắp xếp mặc định",
+      "sortByRarity": "Sắp xếp theo độ hiếm",
+      "sortByCompleted": "Sắp xếp theo % hoàn thành",
+      "search": "Tìm kiếm",
+      "flipAll": "Lật tất cả",
+      "noAchievements": "Không tìm thấy thành tích",
+      "noAchievementsSet": "Không tìm thấy thành tích cho bộ này.",
+      "noAchievementsSetDescription": "Điều này có thể có nghĩa là các thành tích hiện chưa khả dụng nhưng sẽ được thêm vào trong tương lai.",
+      "baseGame": "Game cơ bản",
+      "dlc": "DLC",
+      "achievementsLabel": "Thành tích",
+      "baseGameDescription": "Danh sách thành tích này dành cho game cơ bản.",
+      "dlcDescription": "Danh sách thành tích này dành cho một trong các DLC.",
+      "lastUpdated": "Cập nhật lần cuối:",
+      "lastUpdatedTooltip": "Bộ thành tích này được cập nhật lần cuối vào {{date}}.",
+      "lastUpdatedTooltipDescription": "Đây là ngày tạo hoặc ngày cập nhật lần cuối."
+    },
+    "builds": {
+      "title": "Bản dựng"
+    },
+    "items": {
+      "title": "Mục"
+    },
+    "price": {
+      "title": "Giá"
+    },
+    "related": {
+      "title": "Ưu đãi liên quan"
+    },
+    "media": {
+      "images": "Hình ảnh",
+      "videos": "Video",
+      "covers": "Bìa",
+      "noImages": "Không tìm thấy hình ảnh",
+      "noVideos": "Không tìm thấy video",
+      "noCovers": "Không tìm thấy bìa",
+      "download": "Tải xuống",
+      "close": "Đóng",
+      "downloadCoverAria": "Tải xuống bìa {{type}}"
+    },
+    "metadata": {
+      "title": "Siêu dữ liệu",
+      "download": "Tải xuống:",
+      "install": "Cài đặt:"
+    },
+    "changelog": {
+      "title": "Nhật ký thay đổi",
+      "tooltip": "Danh sách này là các thay đổi được thực hiện đối với ưu đãi cụ thể này hoặc các mục, asset hoặc bản dựng liên quan.",
+      "sandboxChangelog": "nhật ký thay đổi sandbox",
+      "sandboxChangelogPrefix": "Bạn có thể xem nhật ký thay đổi cho toàn bộ sản phẩm trong",
+      "noChangelog": "Không có nhật ký thay đổi",
+      "allTypes": "Tất cả loại",
+      "selectField": "Chọn một trường",
+      "allFields": "Tất cả trường",
+      "search": "Tìm kiếm",
+      "previous": "Trước",
+      "next": "Tiếp",
+      "pageOf": "Trang {{page}} / {{totalPages}}",
+      "typeUpdate": "Cập nhật",
+      "typeDelete": "Xóa",
+      "typeInsert": "Chèn"
+    },
+    "reviews": {
+      "epicRating": "Xếp hạng người chơi Epic",
+      "epicRatingDescription": "Được thu thập từ người chơi trong hệ sinh thái Epic Games",
+      "egdataRating": "Xếp hạng EGDATA",
+      "overallScore": "Điểm tổng thể",
+      "scoreOutOf10": "{{score}} / 10",
+      "basedOnReviews": "Dựa trên {{count}} đánh giá",
+      "allReviews": "Tất cả đánh giá",
+      "onlyVerified": "Chỉ đã xác minh",
+      "notVerified": "Chưa xác minh",
+      "leaveReview": "Để lại đánh giá",
+      "alreadyReviewed": "Đã đánh giá",
+      "loginToReview": "Đăng nhập để đánh giá",
+      "noReviews": "Chưa có đánh giá",
+      "notReleased": "Sản phẩm này chưa được phát hành",
+      "beFirst": "Hãy là người đầu tiên để lại đánh giá cho sản phẩm này!",
+      "checkBack": "Quay lại sau ngày phát hành để để lại đánh giá!",
+      "verifiedOwner": "Chủ sở hữu đã xác minh",
+      "recommended": "Được đề xuất",
+      "notRecommended": "Không được đề xuất",
+      "readMore": "Đọc thêm",
+      "reviewedOn": "Đã đánh giá vào",
+      "lastUpdatedOn": "Cập nhật lần cuối vào",
+      "editedTimes": "Đã chỉnh sửa {{count}} lần",
+      "edit": "Chỉnh sửa",
+      "close": "Đóng",
+      "reviewCount_one": "{{count}} đánh giá",
+      "reviewCount_other": "{{count}} đánh giá",
+      "ownershipVerification": "Xác minh quyền sở hữu",
+      "ownershipVerificationDescription": "dựa trên việc hoàn thành ít nhất một thành tích của người chơi.",
+      "ownershipVerificationTooltip": "Chúng tôi sử dụng thành tích Epic Games để xác minh quyền sở hữu sản phẩm. Để đánh dấu người chơi là chủ sở hữu đã xác minh, họ phải hoàn thành ít nhất một thành tích cho sản phẩm đã chọn trong Epic Games Store. Để liên kết tài khoản của bạn với hồ sơ egdata, bạn cần truy cập",
+      "yourDashboard": "bảng điều khiển của bạn",
+      "criticReviews": "Đánh giá từ nhà phê bình",
+      "basedOnCriticReviews": "Dựa trên {{count}} đánh giá từ nhà phê bình",
+      "opencriticRating": "Xếp hạng OpenCritic",
+      "topCriticAverage": "Điểm trung bình nhà phê bình",
+      "criticsRecommend": "Nhà phê bình đề xuất",
+      "opencriticRatingAlt": "Xếp hạng OpenCritic"
+    }
+  },
+  "search": {
+    "meta": {
+      "title": "Tìm kiếm | egdata.app",
+      "description": "Tìm kiếm ưu đãi từ Epic Games Store."
+    },
+    "defaultTitle": "Tìm kiếm",
+    "filters": "Bộ lọc",
+    "filtersPlaceholder": "Tìm kiếm game",
+    "pills": {
+      "onSale": "Đang giảm giá",
+      "codeRedemptionOnly": "Chỉ đổi mã",
+      "excludeBlockchain": "Loại trừ Blockchain/NFT",
+      "pastGiveaways": "Đã tặng miễn phí"
+    },
+    "accordion": {
+      "offerType": "Loại ưu đãi",
+      "developer": "Nhà phát triển",
+      "publisher": "Nhà xuất bản",
+      "noTags": "Không tìm thấy thẻ",
+      "seller": "Người bán"
+    },
+    "checkboxes": {
+      "pastGiveaways": "Đã tặng miễn phí",
+      "onSale": "Đang giảm giá",
+      "codeRedemptionOnly": "Chỉ đổi mã",
+      "excludeBlockchain": "Loại trừ Blockchain/NFT",
+      "onlyHistoricalLows": "Chỉ mức thấp lịch sử",
+      "onlyLowestPriceEver": "Chỉ giá thấp nhất từ trước đến nay"
+    },
+    "tagGroups": {
+      "event": "Sự kiện",
+      "genre": "Thể loại",
+      "epicfeature": "Tính năng Epic",
+      "accessibility": "Trợ năng",
+      "feature": "Tính năng",
+      "usersay": "Người dùng nói",
+      "subscription": "Đăng ký",
+      "platform": "Nền tảng",
+      "all": "Tất cả thẻ"
+    },
+    "sort": {
+      "sortBy": "Sắp xếp theo",
+      "sortAriaLabel": "Sắp xếp ưu đãi",
+      "sortDirectionAriaLabel": "Chuyển đổi hướng sắp xếp",
+      "showListView": "Hiển thị dạng danh sách",
+      "showGridView": "Hiển thị dạng lưới",
+      "releaseDate": "Ngày phát hành",
+      "lastModifiedDate": "Ngày sửa đổi",
+      "effectiveDate": "Ngày hiệu lực",
+      "creationDate": "Ngày tạo",
+      "viewableDate": "Ngày hiển thị",
+      "pcReleaseDate": "Ngày phát hành PC",
+      "upcoming": "Sắp tới",
+      "price": "Giá",
+      "discount": "Giảm giá",
+      "discountPercent": "Giảm %",
+      "giveawayDate": "Ngày tặng miễn phí"
+    },
+    "results": {
+      "noResults": "Không tìm thấy kết quả"
+    }
+  },
+  "freebies": {
+    "meta": {
+      "title": "Game miễn phí | egdata.app",
+      "description": "Duyệt game miễn phí từ Epic Games Store."
+    },
+    "headings": {
+      "current": "Game miễn phí hiện tại",
+      "past": "Game miễn phí trước đây",
+      "sellers": "Người bán game miễn phí"
+    },
+    "buttons": {
+      "redeem": "Đổi ngay",
+      "downloadJson": "Tải xuống dạng JSON",
+      "downloadCsv": "Tải xuống dạng CSV",
+      "downloadTxt": "Tải xuống dạng Văn bản"
+    },
+    "placeholders": {
+      "searchSellers": "Tìm kiếm người bán..."
+    },
+    "aria": {
+      "downloadList": "Tải xuống danh sách"
+    },
+    "errors": {
+      "loadSellers": "Lỗi tải dữ liệu người bán. Vui lòng thử lại sau."
+    },
+    "table": {
+      "sellerName": "Tên người bán",
+      "totalGames": "Tổng số game riêng lẻ"
+    }
+  },
+  "sales": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Xem {{title}} từ Epic Games Store."
+    },
+    "metaIndex": {
+      "title": "Giảm giá đang hoạt động | egdata.app",
+      "description": "Duyệt các đợt giảm giá đang hoạt động trên egdata.app"
+    },
+    "status": {
+      "loading": "Đang tải...",
+      "noData": "Không có dữ liệu"
+    },
+    "headings": {
+      "active": "Giảm giá đang hoạt động",
+      "pastUpcoming": "Giảm giá trước đây / Sắp tới",
+      "offersList": "Ưu đãi {{title}}"
+    },
+    "errors": {
+      "notFound": "Không tìm thấy khuyến mãi"
+    },
+    "labels": {
+      "offersCount": "{{count}} ưu đãi có sẵn trong sự kiện này"
+    }
+  },
+  "collections": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Xem {{title}} từ Epic Games Store."
+    },
+    "metaIndex": {
+      "title": "Bộ sưu tập | egdata.app",
+      "description": "Bộ sưu tập trên egdata.app"
+    },
+    "headings": {
+      "main": "Bộ sưu tập"
+    },
+    "description": {
+      "overview": "Các game bán chạy nhất, chơi nhiều nhất và phổ biến nhất trên Epic Games Store"
+    },
+    "status": {
+      "loading": "Đang tải..."
+    },
+    "errors": {
+      "notFound": "Không tìm thấy bộ sưu tập"
+    },
+    "table": {
+      "position": "Vị trí",
+      "variance": "Chênh lệch",
+      "weeks": "Tuần"
+    },
+    "tooltips": {
+      "variance": "Sự khác biệt giữa vị trí hiện tại và vị trí trước đó. Thường thay đổi mỗi ngày.",
+      "weeks": "Số tuần game có mặt trong top 100 của {{title}}."
+    },
+    "buttons": {
+      "loadMore": "Tải thêm"
+    }
+  },
+  "sandboxes": {
+    "notFoundTitle": "Không tìm thấy Sandbox",
+    "notFoundDescription": "Không tìm thấy Sandbox",
+    "unrealEngineTitle": "Unreal Engine",
+    "unavailableTitle": "Sandbox không khả dụng",
+    "unavailableDescription": "Không thể tải trung tâm sản phẩm.",
+    "noProductDataDescription": "Không có dữ liệu sản phẩm cho sandbox này.",
+    "hubEyebrow": "Sandbox",
+    "hubOverviewTitle": "Tổng quan",
+    "hubOverviewDescription": "Bản đồ tập trung về hồ sơ cửa hàng, quyền sở hữu, phân phối và cập nhật cho Namespace này.",
+    "latestChangesButton": "Thay đổi mới nhất",
+    "entityOffersLabel": "Ưu đãi",
+    "entityOffersDescription": "Mục cửa hàng",
+    "entityItemsLabel": "Mục",
+    "entityItemsDescription": "Hồ sơ có thể sở hữu",
+    "entityAssetsLabel": "Assets",
+    "entityAssetsDescription": "Artefact và phương tiện",
+    "entityBuildsLabel": "Bản dựng",
+    "entityBuildsDescription": "Gói nhị phân",
+    "entityAchievementsLabel": "Thành tích",
+    "entityAchievementsDescription": "Dữ liệu tiến trình",
+    "entityChangelogLabel": "Nhật ký thay đổi",
+    "entityChangelogDescription": "Cập nhật được theo dõi",
+    "viewButton": "Xem",
+    "storefrontOffersTitle": "Ưu đãi cửa hàng",
+    "storefrontOffersDescription": "Các mục cửa hàng đại diện được tìm thấy trong sandbox này.",
+    "recentBuildsTitle": "Bản dựng gần đây",
+    "recentBuildsDescription": "Hồ sơ nhị phân mới nhất.",
+    "latestBadge": "mới nhất",
+    "unknownBuildLabel": "Bản dựng không xác định",
+    "recentChangesTitle": "Thay đổi gần đây",
+    "recentChangesDescription": "Các biến đổi danh mục mới nhất.",
+    "updateBadge": "cập nhật",
+    "changeDefaultLabel": "Thay đổi",
+    "metaOffersTitle": "Ưu đãi",
+    "offersEyebrow": "Thương mại điện tử",
+    "offersTitle": "Ưu đãi",
+    "offersDescription": "Các mục cửa hàng trong sandbox này, bao gồm game cơ bản, phiên bản, DLC, tiện ích mở rộng, gói và bất kỳ ưu đãi nào có thể cấp mục danh mục.",
+    "totalOffersLabel": "Tổng số ưu đãi",
+    "metaAchievementsTitle": "Thành tích",
+    "achievementsEyebrow": "Tiến trình",
+    "achievementsTitle": "Thành tích",
+    "achievementsDescription": "Bộ thành tích, trạng thái ẩn, phân bố độ hiếm và tổng XP gắn liền với sandbox này.",
+    "achievementsSetsLabel": "Bộ",
+    "achievementsLabel": "Thành tích",
+    "achievementsXpLabel": "XP",
+    "searchAchievementsPlaceholder": "Tìm kiếm thành tích",
+    "flipAllButton": "Lật tất cả",
+    "revealHiddenAchievementAria": "Hiện nội dung thành tích ẩn",
+    "hideHiddenAchievementAria": "Ẩn nội dung thành tích ẩn",
+    "achievementsBaseGameLabel": "Game cơ bản",
+    "achievementsDlcLabel": "DLC",
+    "achievementsBaseGameTooltip": "Danh sách thành tích này dành cho game cơ bản.",
+    "achievementsDlcTooltip": "Danh sách thành tích này dành cho một trong các DLC.",
+    "lastUpdatedLabel": "Cập nhật lần cuối:",
+    "achievementsLastUpdatedTooltip": "Bộ thành tích này được cập nhật lần cuối vào",
+    "achievementsLastUpdatedTooltipExtra": "Đây là ngày tạo hoặc ngày cập nhật lần cuối.",
+    "noAchievementsForSet": "Không tìm thấy thành tích cho bộ này.",
+    "noAchievementsForSetExtra": "Điều này có thể có nghĩa là các thành tích hiện chưa khả dụng nhưng sẽ được thêm vào trong tương lai.",
+    "noAchievementsFound": "Không tìm thấy thành tích",
+    "metaItemsTitle": "Mục",
+    "itemsEyebrow": "Quyền sở hữu danh mục",
+    "itemsTitle": "Mục",
+    "itemsDescription": "Các mục danh mục có thể sở hữu được chứa trong ưu đãi. Đây là các hồ sơ trở thành quyền của người chơi sau khi mua hoặc đổi.",
+    "totalItemsLabel": "Tổng số mục",
+    "metaChangelogTitle": "Nhật ký thay đổi",
+    "changelogEyebrow": "Dấu vết kiểm toán",
+    "changelogTitle": "Nhật ký thay đổi",
+    "changelogDescription": "Các thay đổi được quan sát trên các ưu đãi, mục, asset, bản dựng và siêu dữ liệu danh mục liên quan của sandbox này.",
+    "totalChangesLabel": "Thay đổi",
+    "queryTimeLabel": "Thời gian truy vấn",
+    "noChangelogFound": "Không tìm thấy nhật ký thay đổi",
+    "metaBuildsTitle": "Bản dựng",
+    "buildsEyebrow": "Nhị phân",
+    "buildsTitle": "Bản dựng",
+    "buildsDescription": "Các gói tệp phiên bản được tải lên cho sandbox. Bản dựng được gán cho artefact và điều khiển những gì người chơi tải xuống qua launcher.",
+    "totalBuildsLabel": "Tổng số bản dựng",
+    "metaAssetsTitle": "Assets",
+    "assetsEyebrow": "Assets và artefact",
+    "assetsTitle": "Assets",
+    "assetsDescription": "Hồ sơ phân phối và phương tiện gắn với mục sandbox, bao gồm artefact kết nối nội dung danh mục cửa hàng với bản dựng có thể tải xuống.",
+    "totalAssetsLabel": "Tổng số assets"
+  },
+  "items": {
+    "notFound": "Không tìm thấy mục",
+    "badge": "Mục",
+    "table": {
+      "itemId": "ID Mục",
+      "namespace": "Namespace",
+      "developer": "Nhà phát triển",
+      "entitlementType": "Loại quyền",
+      "entitlementName": "Tên quyền",
+      "status": "Trạng thái",
+      "creationDate": "Ngày tạo",
+      "lastModified": "Sửa đổi lần cuối",
+      "platforms": "Nền tảng"
+    },
+    "tooltip": {
+      "internalNamespace": "Namespace nội bộ của Epic Games"
+    },
+    "tabs": {
+      "item": "Mục",
+      "assets": "Assets",
+      "images": "Hình ảnh",
+      "builds": "Bản dựng",
+      "changelog": "Nhật ký thay đổi"
+    },
+    "metadata": {
+      "title": "Siêu dữ liệu",
+      "key": "Khóa",
+      "value": "Giá trị"
+    },
+    "assets": {
+      "title": "Assets"
+    },
+    "builds": {
+      "title": "Bản dựng"
+    },
+    "changelog": {
+      "title": "Nhật ký thay đổi",
+      "noChangelog": "Không có nhật ký thay đổi"
+    },
+    "images": {
+      "title": "Hình ảnh"
+    }
+  },
+  "builds": {
+    "notFound": "Không tìm thấy bản dựng",
+    "build": "Bản dựng",
+    "for": "cho",
+    "compressed": "(nén {{percent}}%)",
+    "table": {
+      "buildId": "ID Bản dựng",
+      "buildName": "Tên bản dựng",
+      "appName": "Tên ứng dụng",
+      "hash": "Hash",
+      "installedSize": "Kích thước cài đặt",
+      "downloadSize": "Kích thước tải xuống",
+      "createdAt": "Đã tạo lúc",
+      "updatedAt": "Đã cập nhật lúc",
+      "technologies": "Công nghệ"
+    },
+    "tooltip": {
+      "techSource": "Chúng tôi sử dụng",
+      "techSourceSteamDb": "SteamDB",
+      "techDescription": "danh sách công nghệ để theo dõi các engine và công nghệ khác nhau từ tệp game.",
+      "source": "Nguồn"
+    },
+    "tabs": {
+      "files": "Tệp",
+      "items": "Mục",
+      "installOptions": "Tùy chọn cài đặt"
+    },
+    "files": {
+      "title": "Tệp"
+    },
+    "items": {
+      "title": "Mục"
+    },
+    "installOptions": {
+      "title": "Tùy chọn cài đặt",
+      "file_one": "tệp",
+      "file_other": "tệp"
+    },
+    "meta": {
+      "title": "{{title}} ({{version}}) | egdata.app",
+      "description": "Bản dựng {{version}} cho {{title}} từ Epic Games Store."
+    }
+  },
+  "profile": {
+    "meta": {
+      "notFoundTitle": "Không tìm thấy hồ sơ",
+      "notFoundDescription": "Không tìm thấy hồ sơ",
+      "title": "{{name}} | egdata.app",
+      "description": "Xem thành tích và game của {{name}} trên egdata.app",
+      "defaultName": "Hồ sơ",
+      "defaultDescriptionName": "người chơi này"
+    },
+    "errors": {
+      "notFoundTitle": "Không tìm thấy hồ sơ",
+      "notFoundDescription": "Hồ sơ này không khả dụng hoặc chưa được lập chỉ mục.",
+      "unavailableTitle": "Hồ sơ không khả dụng",
+      "unavailableDescription": "Không thể tải hồ sơ này ngay bây giờ.",
+      "invalidImageFormat": "Định dạng hình ảnh không hợp lệ",
+      "failedToUpload": "Tải lên thất bại",
+      "uploadFailed": "Tải lên thất bại",
+      "failedToRefresh": "Làm mới hồ sơ thất bại",
+      "refreshQueued": "Hồ sơ đã được thêm vào hàng đợi làm mới, sẽ được cập nhật sớm."
+    },
+    "fallbackName": "Hồ sơ không xác định",
+    "avatar": {
+      "changeAvatar": "Đổi ảnh đại diện",
+      "dialogDescription": "Tải lên hình ảnh hồ sơ mới.",
+      "previewAlt": "Xem trước ảnh đại diện",
+      "fallback": "Ảnh đại diện",
+      "description": "Tải lên ảnh đại diện mới, tối đa 5MB.",
+      "uploadingWithProgress": "Đang tải lên... {{progress}}%",
+      "uploading": "Đang tải lên...",
+      "updateAvatar": "Cập nhật ảnh đại diện",
+      "errorTitle": "Lỗi"
+    },
+    "hero": {
+      "joined": "Đã tham gia",
+      "epicGamesStore": "Epic Games Store",
+      "linkDiscord": "Liên kết Discord",
+      "refreshProfile": "Làm mới hồ sơ",
+      "refreshAvailableIn": "Có thể làm mới trong",
+      "level": "Cấp độ",
+      "achievements": "Thành tích",
+      "unlocked": "Đã mở khóa",
+      "platinum": "Bạch kim",
+      "perfectGames": "Game hoàn hảo",
+      "library": "Thư viện",
+      "achievementGames": "Game có thành tích",
+      "reviews": "Đánh giá",
+      "contributed": "Đã đóng góp",
+      "xpToNextLevel": "{{xp}} XP để lên cấp {{level}}",
+      "heroGame": "Game nổi bật",
+      "complete": "hoàn thành"
+    },
+    "donor": {
+      "donated_one": "{{name}} đã quyên góp {{count}} key cho egdata.app",
+      "donated_other": "{{name}} đã quyên góp {{count}} key cho egdata.app",
+      "goTo": "Đi đến",
+      "thisLink": "liên kết này",
+      "toDonateKey": "để quyên góp key."
+    },
+    "countdown": {
+      "minutesSeconds_one": "{{minutes}} phút {{seconds}} giây",
+      "minutesSeconds_other": "{{minutes}} phút {{seconds}} giây",
+      "seconds_one": "{{seconds}} giây",
+      "seconds_other": "{{seconds}} giây"
+    },
+    "tabs": {
+      "showcase": "Trưng bày",
+      "library": "Thư viện",
+      "activity": "Hoạt động"
+    },
+    "stats": {
+      "games": "{{count}} game",
+      "achievements": "{{count}} thành tích",
+      "platinum": "{{count}} bạch kim"
+    },
+    "showcase": {
+      "ariaLabel": "Điểm nổi bật của hồ sơ",
+      "featuredGamesTitle": "Game nổi bật",
+      "featuredGamesDetail": "{{count}} được chọn theo hiệu suất hồ sơ",
+      "rareAchievementsTitle": "Thành tích hiếm",
+      "rareAchievementsDetail": "Những mở khóa khó tìm trong hồ sơ",
+      "recentUnlocksTitle": "Mở khóa gần đây",
+      "recentUnlocksDetail": "Hoạt động hiển thị gần đây nhất",
+      "noDataTitle": "Chưa có dữ liệu trưng bày",
+      "noDataDescription": "Chỉ các game đã phát hành với tiến trình thành tích công khai mới xuất hiện trên hồ sơ.",
+      "rarestUnlock": "Mở khóa hiếm nhất",
+      "definingGame": "Game định hình",
+      "latestActivity": "Hoạt động mới nhất",
+      "achievementsCount": "{{unlocked}} / {{total}} thành tích",
+      "platinum": "Bạch kim"
+    },
+    "library": {
+      "filterAriaLabel": "Bộ lọc thư viện",
+      "sortAriaLabel": "Sắp xếp thư viện",
+      "sortByPlaceholder": "Sắp xếp theo",
+      "noGamesTitle": "Không tìm thấy game",
+      "noGamesDescription": "Chỉ các game đã phát hành có thành tích mới xuất hiện trong thư viện này.",
+      "gameAlt": "Game",
+      "complete": "hoàn thành",
+      "featured": "Nổi bật",
+      "rareUnlocks": "Mở khóa hiếm",
+      "filters": {
+        "all": "Tất cả",
+        "completed": "Đã hoàn thành",
+        "nearPlatinum": "Gần Bạch kim",
+        "inProgress": "Đang tiến hành",
+        "platinum": "Bạch kim"
+      },
+      "sorts": {
+        "completion": "Hoàn thành",
+        "alphabetical": "Bảng chữ cái",
+        "xp": "XP",
+        "achievements": "Thành tích"
+      }
+    },
+    "activity": {
+      "title": "Hoạt động",
+      "detail": "{{count}} thành tích đã mở khóa",
+      "noActivityTitle": "Chưa có hoạt động",
+      "noActivityDescription": "Các thành tích đã mở khóa sẽ xuất hiện ở đây khi hồ sơ này có tiến trình công khai.",
+      "achievementAlt": "Thành tích",
+      "platinumEarned": "Đã đạt Bạch kim",
+      "achievementUnlocked": "Đã mở khóa thành tích",
+      "unknownRarity": "Độ hiếm không xác định",
+      "rarity": "{{value}}% độ hiếm",
+      "unknownDate": "Ngày không xác định"
+    },
+    "achievements": {
+      "loading": "Đang tải...",
+      "notFound": "Không tìm thấy hồ sơ",
+      "myAchievements": "Thành tích của tôi"
+    }
+  },
+  "tags": {
+    "meta": {
+      "notFoundTitle": "Không tìm thấy khuyến mãi",
+      "notFoundDescription": "Không tìm thấy khuyến mãi",
+      "title": "{{title}} | egdata.app",
+      "description": "Xem {{count}} ưu đãi có sẵn cho {{title}} trên egdata.app.",
+      "socialTitle": "{{title}} - egdata.app"
+    },
+    "loading": "Đang tải...",
+    "offersCount": "{{count}} ưu đãi có sẵn trong sự kiện này",
+    "results": "Kết quả",
+    "resultsCount": "({{count}} kết quả)",
+    "searchPlaceholder": "Tìm kiếm...",
+    "loadMore": "Tải thêm",
+    "sortBy": {
+      "releaseDate": "Ngày phát hành",
+      "lastModifiedDate": "Ngày sửa đổi",
+      "effectiveDate": "Ngày hiệu lực",
+      "creationDate": "Ngày tạo",
+      "viewableDate": "Ngày hiển thị",
+      "pcReleaseDate": "Ngày phát hành PC",
+      "upcoming": "Sắp tới",
+      "price": "Giá"
+    }
+  },
+  "genres": {
+    "meta": {
+      "title": "Thể loại - egdata.app",
+      "description": "Thể loại trên egdata.app"
+    },
+    "heading": "Thể loại"
+  },
+  "sellers": {
+    "meta": {
+      "notFoundTitle": "Không tìm thấy người bán",
+      "notFoundDescription": "Không tìm thấy người bán",
+      "title": "{{name}} | egdata.app"
+    },
+    "notFound": "Không tìm thấy người bán",
+    "logoAlt": "Logo {{name}}",
+    "bannerAlt": "{{name}}",
+    "offersTitle": "Ưu đãi {{name}}",
+    "stats": {
+      "offers": "Ưu đãi",
+      "games": "Game",
+      "items": "Mục",
+      "freeGames": "Game miễn phí"
+    }
+  },
+  "franchises": {
+    "meta": {
+      "notFoundTitle": "Không tìm thấy thương hiệu",
+      "notFoundDescription": "Không tìm thấy thương hiệu",
+      "title": "Thương hiệu {{name}} | egdata.app",
+      "description": "Duyệt tất cả game trong thương hiệu {{name}} trên Epic Games Store."
+    },
+    "loading": "Đang tải...",
+    "gamesCount_one": "{{count}} game",
+    "gamesCount_other": "{{count}} game",
+    "timeToBeat": "Thời gian hoàn thành",
+    "achievements": "Thành tích",
+    "loadMore": "Tải thêm",
+    "free": "Miễn phí"
+  },
+  "stats": {
+    "creations": {
+      "meta": {
+        "title": "Thống kê sáng tạo - egdata.app",
+        "description": "Nhịp hàng tháng và hàng năm của các sáng tạo mới trên Epic Games Store."
+      },
+      "viewReleases": "Xem bản phát hành",
+      "heading": "Thống kê sáng tạo Epic Games Store",
+      "description": "Nhịp hàng tháng và hàng năm của các sáng tạo mới trên cửa hàng.",
+      "monthlyTitle": "Sáng tạo hàng tháng",
+      "yearlyTitle": "Sáng tạo hàng năm"
+    },
+    "releases": {
+      "meta": {
+        "title": "Thống kê phát hành - egdata.app",
+        "description": "Nhịp hàng tháng và hàng năm của các tựa game mới trên Epic Games Store."
+      },
+      "viewCreations": "Xem sáng tạo",
+      "heading": "Thống kê phát hành Epic Games Store",
+      "description": "Nhịp hàng tháng và hàng năm của các tựa game mới trên cửa hàng.",
+      "monthlyTitle": "Phát hành hàng tháng",
+      "yearlyTitle": "Phát hành hàng năm"
+    }
+  },
+  "store": {
+    "creatorCode": {
+      "title": "Hỗ trợ egdata.app",
+      "description": "Bạn có muốn hỗ trợ egdata.app bằng cách sử dụng mã sáng tạo của chúng tôi khi mua game không? Lựa chọn này sẽ được ghi nhớ cho các lần truy cập sau.",
+      "body": "Sử dụng mã sáng tạo của chúng tôi giúp hỗ trợ phát triển egdata.app và các tính năng của nó. Nó không ảnh hưởng đến giá bạn phải trả.",
+      "noThanks": "Không, cảm ơn",
+      "yesUseCode": "Có, sử dụng mã"
+    }
+  },
+  "dashboard": {
+    "placeholder": "Xin chào /dashboard!"
+  },
+  "auth": {
+    "login": {
+      "placeholder": "Xin chào /auth/login!"
+    },
+    "callback": {
+      "placeholder": "Xin chào /auth/callback!"
+    },
+    "logout": {
+      "placeholder": "Xin chào /auth/logout!"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "Giới thiệu - egdata.app",
+      "description": "Giới thiệu về egdata.app"
+    },
+    "title": "Giới thiệu",
+    "intro": "egdata.app là một trang web do cộng đồng điều hành, chuyên theo dõi và cung cấp thông tin về Epic Games Store. Tương tự như SteamDB cho Steam, chúng tôi mong muốn cung cấp một nguồn tài nguyên toàn diện để người dùng khám phá các thay đổi, tìm game mới và cập nhật những diễn biến mới nhất trên nền tảng.",
+    "missionTitle": "Sứ mệnh của chúng tôi",
+    "missionBody": "Sứ mệnh của chúng tôi là cung cấp sự minh bạch và thông tin chi tiết về hệ sinh thái Epic Games Store. Chúng tôi tin rằng bằng cách tổng hợp và trình bày dữ liệu một cách dễ tiếp cận, chúng tôi có thể giúp người dùng đưa ra quyết định sáng suốt về việc mua game của họ và đóng góp vào sự hiểu biết tốt hơn về nền tảng.",
+    "featuresTitle": "Tính năng",
+    "features": {
+      "trackPrices": "Theo dõi thay đổi giá game và dữ liệu lịch sử",
+      "upcomingReleases": "Xem các bản phát hành sắp tới và khuyến mãi game miễn phí",
+      "gameDetails": "Khám phá chi tiết game, xếp hạng và đánh giá người dùng",
+      "analyzeTrends": "Phân tích xu hướng và mô hình trong Epic Games Store"
+    },
+    "communityTitle": "Điều hành bởi cộng đồng",
+    "communityBody": "egdata.app được xây dựng và duy trì bởi một cộng đồng đam mê game thủ và nhà phát triển. Chúng tôi hoan nghênh mọi đóng góp từ bất kỳ ai muốn giúp cải thiện trang web và biến nó thành một nguồn tài nguyên quý giá cho mọi người. Đừng ngần ngại liên hệ với chúng tôi nếu bạn có phản hồi, gợi ý hoặc muốn tham gia.",
+    "sourceCodeIntro": "Toàn bộ mã nguồn của egdata.app có sẵn trên",
+    "github": "GitHub",
+    "notTitle": "egdata.app KHÔNG phải là gì",
+    "notIntro": "Điều quan trọng cần làm rõ rằng egdata.app không phải là:",
+    "notList": {
+      "affiliated": "Liên kết với Epic Games: Chúng tôi là một dự án độc lập do cộng đồng điều hành và không được Epic Games xác nhận hoặc liên kết chính thức dưới bất kỳ hình thức nào.",
+      "storefront": "Một cửa hàng hoặc chợ: Chúng tôi không bán game hoặc cung cấp bất kỳ tùy chọn mua hàng nào. Trọng tâm của chúng tôi là cung cấp thông tin và dữ liệu về Epic Games Store.",
+      "piracy": "Một nền tảng vi phạm bản quyền hoặc hoạt động bất hợp pháp: Chúng tôi lên án mạnh mẽ việc vi phạm bản quyền và không cung cấp bất kỳ phương tiện nào để truy cập hoặc phân phối nội dung có bản quyền một cách bất hợp pháp."
+    },
+    "fairUseTitle": "Chính sách sử dụng hợp lý",
+    "fairUseBody": "egdata.app cam kết tuân thủ các nguyên tắc sử dụng hợp lý theo luật bản quyền. Chúng tôi cung cấp thông tin và dữ liệu chỉ cho mục đích thông tin, nhằm giáo dục và thông báo cho công chúng về các game có sẵn trên Epic Games Store.",
+    "fairUseFactorsTitle": "Các yếu tố chính biện minh cho sử dụng hợp lý:",
+    "fairUseFactors": {
+      "nonCommercial": "Mục đích phi thương mại, giáo dục:",
+      "nonCommercialBody": "Trang web của chúng tôi phi thương mại và tìm cách nâng cao kiến thức công chúng về các game trên Epic Games Store.",
+      "factual": "Thông tin thực tế:",
+      "factualBody": "Chúng tôi chủ yếu trình bày dữ liệu thực tế như tên game, ngày phát hành và nhà phát triển, những thông tin ít được bảo vệ hơn theo luật bản quyền.",
+      "limited": "Sử dụng hạn chế:",
+      "limitedBody": "Chúng tôi chỉ sử dụng lượng dữ liệu cần thiết để cung cấp thông tin hữu ích mà không thay thế các tác phẩm gốc.",
+      "noMarketHarm": "Không gây hại cho thị trường:",
+      "noMarketHarmBody": "Việc sử dụng của chúng tôi không ảnh hưởng tiêu cực đến thị trường của các game gốc; thay vào đó, nó có thể quảng bá chúng thông qua sự quan tâm ngày càng tăng của người dùng."
+    },
+    "autoTrackBody": "Chúng tôi tự động theo dõi và cập nhật dữ liệu game từ các nguồn công khai, bao gồm Epic Games Store. Chúng tôi tải tài nguyên đồ họa trực tiếp từ máy chủ của họ và không lưu trữ chúng.",
+    "leakedDataTitle": "Tuyên bố miễn trừ về dữ liệu bị rò rỉ:",
+    "leakedDataBody": "Mọi dữ liệu có vẻ bị rò rỉ trên trang web của chúng tôi đều bắt nguồn từ thông tin công khai trên Epic Games Store. Chúng tôi không truy cập dữ liệu bảo mật hoặc độc quyền. Các nhà xuất bản chịu trách nhiệm bảo vệ thông tin nhạy cảm của họ trong",
+    "epicDevPortal": "cổng thông tin nhà phát triển Epic Games",
+    "euDirectivesIntro": "Khi xây dựng Chính sách Sử dụng Hợp lý của mình, chúng tôi đã xem xét các nguyên tắc được nêu trong các chỉ thị bản quyền EU sau:",
+    "euDirective1": "Chỉ thị (EU) 2019/790 về bản quyền và các quyền liên quan trong Thị trường Kỹ thuật số Duy nhất",
+    "euDirective2": "Hỏi và Đáp – Các quy tắc bản quyền mới của EU",
+    "fairUseContact": "Nếu bạn có câu hỏi về Chính sách Sử dụng Hợp lý của chúng tôi hoặc tin rằng bất kỳ nội dung nào vi phạm bản quyền của bạn, vui lòng liên hệ với chúng tôi tại:",
+    "contactTitle": "Liên hệ với chúng tôi",
+    "contactBody": "Bạn có thể liên hệ với chúng tôi qua"
+  },
+  "changelog": {
+    "index": {
+      "meta": {
+        "title": "Nhật ký thay đổi | egdata.app"
+      },
+      "searchPlaceholder": "Tìm kiếm nhật ký thay đổi...",
+      "searchButton": "Tìm kiếm",
+      "loading": "Đang tải...",
+      "error": "Lỗi khi tải dữ liệu"
+    },
+    "detail": {
+      "meta": {
+        "title": "Chi tiết thay đổi | egdata.app"
+      },
+      "loading": "Đang tải...",
+      "error": "Lỗi khi tải chi tiết thay đổi",
+      "notFound": "Không tìm thấy thay đổi"
+    }
+  },
+  "privacy": {
+    "title": "Giới thiệu",
+    "intro": "egdata.app là một trang web do cộng đồng điều hành, chuyên theo dõi và cung cấp thông tin về Epic Games Store. Tương tự như SteamDB cho Steam, chúng tôi mong muốn cung cấp một nguồn tài nguyên toàn diện để người dùng khám phá các thay đổi, tìm game mới và cập nhật những diễn biến mới nhất trên nền tảng.",
+    "missionTitle": "Sứ mệnh của chúng tôi",
+    "missionBody": "Sứ mệnh của chúng tôi là cung cấp sự minh bạch và thông tin chi tiết về hệ sinh thái Epic Games Store. Chúng tôi tin rằng bằng cách tổng hợp và trình bày dữ liệu một cách dễ tiếp cận, chúng tôi có thể giúp người dùng đưa ra quyết định sáng suốt về việc mua game của họ và đóng góp vào sự hiểu biết tốt hơn về nền tảng.",
+    "featuresTitle": "Tính năng",
+    "features": {
+      "trackPrices": "Theo dõi thay đổi giá game và dữ liệu lịch sử",
+      "upcomingReleases": "Xem các bản phát hành sắp tới và khuyến mãi game miễn phí",
+      "gameDetails": "Khám phá chi tiết game, xếp hạng và đánh giá người dùng",
+      "analyzeTrends": "Phân tích xu hướng và mô hình trong Epic Games Store"
+    },
+    "communityTitle": "Điều hành bởi cộng đồng",
+    "communityBody": "egdata.app được xây dựng và duy trì bởi một cộng đồng đam mê game thủ và nhà phát triển. Chúng tôi hoan nghênh mọi đóng góp từ bất kỳ ai muốn giúp cải thiện trang web và biến nó thành một nguồn tài nguyên quý giá cho mọi người. Đừng ngần ngại liên hệ với chúng tôi nếu bạn có phản hồi, gợi ý hoặc muốn tham gia.",
+    "sourceCodeIntro": "Toàn bộ mã nguồn của egdata.app có sẵn trên",
+    "github": "GitHub",
+    "notTitle": "egdata.app KHÔNG phải là gì",
+    "notIntro": "Điều quan trọng cần làm rõ rằng egdata.app không phải là:",
+    "notList": {
+      "affiliated": "Liên kết với Epic Games: Chúng tôi là một dự án độc lập do cộng đồng điều hành và không được Epic Games xác nhận hoặc liên kết chính thức dưới bất kỳ hình thức nào.",
+      "storefront": "Một cửa hàng hoặc chợ: Chúng tôi không bán game hoặc cung cấp bất kỳ tùy chọn mua hàng nào. Trọng tâm của chúng tôi là cung cấp thông tin và dữ liệu về Epic Games Store.",
+      "piracy": "Một nền tảng vi phạm bản quyền hoặc hoạt động bất hợp pháp: Chúng tôi lên án mạnh mẽ việc vi phạm bản quyền và không cung cấp bất kỳ phương tiện nào để truy cập hoặc phân phối nội dung có bản quyền một cách bất hợp pháp."
+    },
+    "fairUseTitle": "Chính sách sử dụng hợp lý",
+    "fairUseBody": "egdata.app cam kết tuân thủ các nguyên tắc sử dụng hợp lý theo luật bản quyền. Chúng tôi cung cấp thông tin và dữ liệu chỉ cho mục đích thông tin, nhằm giáo dục và thông báo cho công chúng về các game có sẵn trên Epic Games Store.",
+    "fairUseFactorsTitle": "Các yếu tố chính biện minh cho sử dụng hợp lý:",
+    "fairUseFactors": {
+      "nonCommercial": "Mục đích phi thương mại, giáo dục:",
+      "nonCommercialBody": "Trang web của chúng tôi phi thương mại và tìm cách nâng cao kiến thức công chúng về các game trên Epic Games Store.",
+      "factual": "Thông tin thực tế:",
+      "factualBody": "Chúng tôi chủ yếu trình bày dữ liệu thực tế như tên game, ngày phát hành và nhà phát triển, những thông tin ít được bảo vệ hơn theo luật bản quyền.",
+      "limited": "Sử dụng hạn chế:",
+      "limitedBody": "Chúng tôi chỉ sử dụng lượng dữ liệu cần thiết để cung cấp thông tin hữu ích mà không thay thế các tác phẩm gốc.",
+      "noMarketHarm": "Không gây hại cho thị trường:",
+      "noMarketHarmBody": "Việc sử dụng của chúng tôi không ảnh hưởng tiêu cực đến thị trường của các game gốc; thay vào đó, nó có thể quảng bá chúng thông qua sự quan tâm ngày càng tăng của người dùng."
+    },
+    "autoTrackBody": "Chúng tôi tự động theo dõi và cập nhật dữ liệu game từ các nguồn công khai, bao gồm Epic Games Store. Chúng tôi tải tài nguyên đồ họa trực tiếp từ máy chủ của họ và không lưu trữ chúng.",
+    "leakedDataTitle": "Tuyên bố miễn trừ về dữ liệu bị rò rỉ:",
+    "leakedDataBody": "Mọi dữ liệu có vẻ bị rò rỉ trên trang web của chúng tôi đều bắt nguồn từ thông tin công khai trên Epic Games Store. Chúng tôi không truy cập dữ liệu bảo mật hoặc độc quyền. Các nhà xuất bản chịu trách nhiệm bảo vệ thông tin nhạy cảm của họ trong",
+    "epicDevPortal": "cổng thông tin nhà phát triển Epic Games",
+    "euDirectivesIntro": "Khi xây dựng Chính sách Sử dụng Hợp lý của mình, chúng tôi đã xem xét các nguyên tắc được nêu trong các chỉ thị bản quyền EU sau:",
+    "euDirective1": "Chỉ thị (EU) 2019/790 về bản quyền và các quyền liên quan trong Thị trường Kỹ thuật số Duy nhất",
+    "euDirective2": "Hỏi và Đáp – Các quy tắc bản quyền mới của EU",
+    "fairUseContact": "Nếu bạn có câu hỏi về Chính sách Sử dụng Hợp lý của chúng tôi hoặc tin rằng bất kỳ nội dung nào vi phạm bản quyền của bạn, vui lòng liên hệ với chúng tôi tại:",
+    "contactTitle": "Liên hệ với chúng tôi",
+    "contactBody": "Bạn có thể liên hệ với chúng tôi qua"
+  },
+  "notifications": {
+    "meta": {
+      "title": "Thông báo - egdata.app",
+      "description": "Cấu hình và quản lý thông báo đẩy cho các cập nhật Epic Games Store, bản phát hành game và hơn thế nữa."
+    },
+    "title": "Thông báo",
+    "description": "Cấu hình và quản lý thông báo đẩy cho các cập nhật Epic Games Store, bản phát hành game và cảnh báo cá nhân hóa.",
+    "tabs": {
+      "notifications": "Thông báo",
+      "mySubscriptions": "Đăng ký của tôi"
+    },
+    "aboutPushTitle": "Về thông báo đẩy",
+    "aboutPushDescription": "Tìm hiểu thêm về cách thông báo đẩy hoạt động trên EGData.",
+    "whatYoullReceive": "Bạn sẽ nhận được:",
+    "receiveList": {
+      "freeGames": "Thông báo game miễn phí mới",
+      "releases": "Thông báo phát hành game",
+      "priceDrops": "Cảnh báo giảm giá cho game trong danh sách yêu thích",
+      "news": "Tin tức và cập nhật Epic Games Store",
+      "custom": "Thông báo tùy chỉnh theo chủ đề"
+    },
+    "privacySecurity": "Quyền riêng tư & Bảo mật:",
+    "privacyList": {
+      "apiKey": "Khóa API của bạn được lưu trữ an toàn trong cookie trình duyệt",
+      "onlySubscribed": "Chúng tôi chỉ gửi thông báo bạn đã đăng ký",
+      "unsubscribe": "Bạn có thể hủy đăng ký bất kỳ lúc nào",
+      "noPersonalData": "Không yêu cầu dữ liệu cá nhân ngoài khóa API của bạn"
+    },
+    "browserSupport": "Hỗ trợ trình duyệt:",
+    "browserSupportBody": "Thông báo đẩy được hỗ trợ trên các trình duyệt hiện đại bao gồm Chrome, Firefox, Safari và Edge. Hãy đảm bảo cho phép thông báo khi được trình duyệt yêu cầu.",
+    "subscriptionOverview": "Tổng quan đăng ký",
+    "totalSubscribed": "Tổng số chủ đề đã đăng ký: {{count}}",
+    "notSubscribedApi": "Khóa API chưa đăng ký thông báo đẩy",
+    "notSubscribedTitle": "Chưa đăng ký",
+    "notSubscribedBody": "Khóa API của bạn chưa đăng ký thông báo đẩy. Sử dụng tab \"Thiết lập & Đăng ký\" để đăng ký trước.",
+    "subscriptionId": "Đăng ký {{id}}",
+    "created": "Đã tạo:",
+    "subscribedTopics": "Chủ đề đã đăng ký:",
+    "noTopics": "Không có chủ đề nào đã đăng ký",
+    "lastUpdated": "Cập nhật lần cuối:",
+    "noSubscriptionsTitle": "Không tìm thấy đăng ký",
+    "noSubscriptionsBody": "Bạn đã đăng ký nhưng chưa tạo đăng ký thiết bị nào. Sử dụng tab \"Thiết lập & Đăng ký\" để tạo đăng ký đầu tiên.",
+    "fetchError": "Không thể tải đăng ký. Vui lòng thử lại.",
+    "push": {
+      "title": "Thông báo đẩy",
+      "notSupported": "Trình duyệt này không hỗ trợ thông báo đẩy.",
+      "setApiKey": "Vui lòng đặt khóa API của bạn để bật thông báo đẩy.",
+      "manage": "Quản lý tùy chọn thông báo đẩy của bạn.",
+      "unsubscribe": "Hủy đăng ký",
+      "subscribe": "Đăng ký",
+      "subscribed": "Đã đăng ký",
+      "notSubscribed": "Chưa đăng ký",
+      "subscribeToTopic": "Đăng ký chủ đề",
+      "topicPlaceholder": "Nhập tên chủ đề (ví dụ: game-updates)",
+      "subscribedTopics": "Chủ đề đã đăng ký",
+      "clickToUnsubscribe": "Nhấp vào chủ đề để hủy đăng ký"
+    },
+    "simple": {
+      "title": "Thông báo đẩy",
+      "notSupported": "Trình duyệt này không hỗ trợ thông báo đẩy.",
+      "subscribedDesc": "Bạn đã đăng ký {{count}} chủ đề thông báo",
+      "notSubscribedDesc": "Nhận thông báo về cập nhật Epic Games Store, game miễn phí và hơn thế nữa",
+      "subscribeToNotifications": "Đăng ký nhận thông báo",
+      "unsubscribe": "Hủy đăng ký",
+      "chooseWhat": "Chọn những gì bạn muốn được thông báo:",
+      "freeGames": "Game miễn phí",
+      "freeGamesDesc": "Nhận thông báo khi có game miễn phí mới",
+      "newReleases": "Bản phát hành mới",
+      "newReleasesDesc": "Thông báo về bản phát hành game mới",
+      "priceDrops": "Giảm giá",
+      "priceDropsDesc": "Nhận cảnh báo khi game được giảm giá",
+      "youWillReceive": "Bạn sẽ nhận thông báo cho:",
+      "subscribedTo": "Đã đăng ký {{name}}",
+      "unsubscribedFrom": "Đã hủy đăng ký {{name}}",
+      "failedSubscribe": "Đăng ký nhận thông báo thất bại",
+      "failedUnsubscribe": "Hủy đăng ký thông báo thất bại",
+      "failedTopicSubscribe": "Đăng ký chủ đề thất bại",
+      "failedTopicUnsubscribe": "Hủy đăng ký chủ đề thất bại",
+      "successSubscribe": "Đã đăng ký nhận thông báo thành công!",
+      "successUnsubscribe": "Đã hủy đăng ký thông báo thành công"
+    },
+    "apiKey": {
+      "title": "Quản lý khóa API",
+      "label": "Khóa API",
+      "placeholderGenerated": "Đã tạo khóa API",
+      "placeholderNone": "Chưa tạo khóa API",
+      "regenerate": "Tạo lại khóa",
+      "generate": "Tạo khóa",
+      "clear": "Xóa khóa",
+      "generated": "Đã tạo khóa API mới thành công!",
+      "copied": "Đã sao chép khóa API vào clipboard!",
+      "cleared": "Đã xóa khóa API thành công!",
+      "failedGenerate": "Không thể tạo khóa API",
+      "failedCopy": "Không thể sao chép khóa API",
+      "failedClear": "Không thể xóa khóa API",
+      "noneToCopy": "Không có khóa API để sao chép",
+      "description": "Khóa API của bạn là một UUID được lưu trữ cục bộ trong trình duyệt của bạn và được sử dụng để xác thực các yêu cầu thông báo đẩy. Sử dụng nút tạo lại để tạo khóa mới nếu cần."
+    }
+  },
+  "promotions": {
+    "placeholder": "Xin chào /promotions/$id!"
+  },
+  "misc": {
+    "gameAwards": {
+      "meta": {
+        "title": "Tin tức The Game Awards | egdata.app",
+        "description": "Các game mới nhất được công bố và đề cử tại The Game Awards sắp có mặt trên Epic Games Store."
+      },
+      "logoAlt": "The Game Awards 2025",
+      "subtitle": "Các game được công bố hoặc đề cử tại The Game Awards sắp có mặt trên Epic Games Store",
+      "videoTitle": "The Game Awards 2024 - Phát trực tiếp",
+      "expandPlayer": "Mở rộng trình phát",
+      "closeMiniPlayer": "Đóng trình phát thu nhỏ",
+      "noGamesTitle": "Chưa có game nào được công bố",
+      "noGamesBody": "Quay lại sau The Game Awards!"
+    },
+    "downloads": {
+      "title": "Bản phát hành ứng dụng egdata.app",
+      "description": "Tải xuống phiên bản mới nhất. Chúng tôi đã làm nổi bật phần được đề xuất cho hệ điều hành của bạn.",
+      "errorPrefix": "Lỗi:",
+      "noPublicReleases": "Không tìm thấy bản phát hành công khai.",
+      "recommended": "Được đề xuất",
+      "downloadsSuffix": "Lượt tải",
+      "versionPublished": "Phiên bản {{version}} - Đã phát hành vào {{date}}",
+      "assetInfo": {
+        "appleSilicon": "Dành cho máy Mac mới hơn với chip Apple (M1, M2, M3, v.v.).",
+        "intel": "Dành cho máy Mac cũ hơn với bộ xử lý Intel.",
+        "universal": "Tương thích với cả Apple Silicon và Mac Intel.",
+        "msi": "Trình hướng dẫn cài đặt tiêu chuẩn. Được đề xuất cho hầu hết người dùng.",
+        "exe": "Tệp ứng dụng độc lập. Có thể không yêu cầu cài đặt.",
+        "linux": "Dành cho hệ điều hành dựa trên Linux.",
+        "generic": "Tệp chung hoặc mã nguồn."
+      }
+    },
+    "discordLinked": {
+      "title": "Liên kết tài khoản thành công!",
+      "body": "Tài khoản Discord của bạn đã được liên kết thành công với egdata.app",
+      "footer": "Bạn có thể đóng cửa sổ này và quay lại Discord. Tài khoản của bạn đã sẵn sàng để sử dụng với egdata.app"
+    },
+    "posts": {
+      "coverAlt": "Ảnh bìa LEGO Star Wars: The Skywalker Saga",
+      "title": "Nhận LEGO® Star Wars™: The Skywalker Saga MIỄN PHÍ trên Epic Games Store",
+      "freeGameBadge": "Game miễn phí",
+      "published": "Đã đăng vào ngày 30 tháng 11 năm 2023",
+      "intro": "Hãy đánh dấu lịch của bạn, người hâm mộ Star Wars! Từ {{dateRange}}, bạn có thể nhận {{game}} được giới phê bình đánh giá cao MIỄN PHÍ trên Epic Games Store. Game này, thường có giá {{price}}, cho phép bạn sống lại những khoảnh khắc mang tính biểu tượng của {{saga}} với phong cách LEGO vui nhộn.",
+      "dateRange": "5 tháng 12 đến 12 tháng 12, 2024",
+      "game": "LEGO® Star Wars™: The Skywalker Saga",
+      "price": "$49.99",
+      "saga": "saga Skywalker",
+      "gameplayAlt": "Gameplay LEGO Star Wars",
+      "charactersAlt": "Nhân vật LEGO Star Wars",
+      "whatToExpect": "🧩 Bạn mong đợi điều gì?",
+      "whatToExpectBody": "Được phát triển bởi {{developer}} và phát hành bởi {{publisher}}, tựa game này mang đến trải nghiệm Star Wars toàn diện như không có tựa game nào khác. Đây là những gì làm cho nó trở nên không thể bỏ qua:",
+      "developer": "TT Games",
+      "publisher": "Warner Bros.",
+      "expectList": {
+        "allMovies": "🌌 {{strong}}: Sống lại cốt truyện của tất cả chín bộ phim saga Skywalker, đầy ắp hài hước LEGO cổ điển.",
+        "allMoviesStrong": "Tất cả 9 bộ phim",
+        "characters": "🛸 {{strong}}: Điều khiển các anh hùng và nhân vật phản diện yêu thích của bạn từ thiên hà xa xôi.",
+        "charactersStrong": "Hơn 300 nhân vật có thể chơi",
+        "vehicles": "🚀 {{strong}}: Lái những con tàu mang tính biểu tượng như Millennium Falcon và TIE Fighters.",
+        "vehiclesStrong": "Hơn 100 phương tiện",
+        "planets": "🌍 {{strong}}: Du hành đến các thế giới quen thuộc, từ Tatooine đến Endor và xa hơn nữa.",
+        "planetsStrong": "23 hành tinh để khám phá"
+      },
+      "specialTitle": "🌟 Điều gì làm cho game này đặc biệt?",
+      "specialBody": "Kể từ khi phát hành vào {{releaseDate}}, LEGO Star Wars: The Skywalker Saga đã được ca ngợi vì lối chơi hấp dẫn và sự chuyển thể trung thành với vũ trụ Star Wars. Với {{metascore}} trên Metacritic, các nhà phê bình và người hâm mộ đã đánh giá cao:",
+      "releaseDate": "tháng 4 năm 2022",
+      "metascore": "82 Metascore",
+      "specialList": {
+        "combat": "🕹️ {{strong}}: Đấu kiếm ánh sáng, đấu súng blaster và không chiến.",
+        "combatStrong": "Chiến đấu năng động",
+        "charm": "🏗️ {{strong}}: Hài hước Star Wars cổ điển, được tái hiện theo phong cách LEGO độc đáo.",
+        "charmStrong": "Sự quyến rũ của LEGO",
+        "replayability": "🤯 {{strong}}: Vô số đồ sưu tầm, nhiệm vụ phụ và bí mật ẩn giấu.",
+        "replayabilityStrong": "Khả năng chơi lại"
+      },
+      "howToClaim": "🎁 Làm thế nào để nhận?",
+      "howToClaimBody": "Nhận bản sao miễn phí của bạn thật dễ dàng!",
+      "step1": "Truy cập {{storeLink}} từ {{dec5}} đến {{dec12}}.",
+      "storeLink": "Epic Games Store",
+      "dec5": "5 tháng 12",
+      "dec12": "12 tháng 12, 2024",
+      "step2": "Thêm game vào thư viện của bạn.",
+      "step3": "Nó là của bạn mãi mãi!",
+      "cardTitle": "Đừng bỏ lỡ cơ hội bắt đầu một cuộc hành trình thấm đẫm LEGO qua thiên hà!",
+      "cardBody": "Dù bạn là người hâm mộ Star Wars cuồng nhiệt hay người mới, game này mang đến niềm vui bất tận cho mọi người.",
+      "footer": "Cầu mong Thần lực (và gạch LEGO) ở bên bạn! 🧱✨"
+    },
+    "fairUse": {
+      "meta": {
+        "title": "Chính sách sử dụng hợp lý - egdata.app",
+        "description": "Chính sách sử dụng hợp lý cho egdata.app"
+      },
+      "title": "Chính sách sử dụng hợp lý cho EGData App",
+      "section1Title": "1. Giới thiệu",
+      "section1Body": "Chào mừng bạn đến với EGData App (\"chúng tôi\"). Chính sách Sử dụng Hợp lý này nêu rõ các điều khoản mà bạn có thể sử dụng nội dung và dữ liệu được cung cấp trên trang web của chúng tôi {{siteLink}} (\"Trang web\").",
+      "section2Title": "2. Mục đích của sử dụng hợp lý",
+      "section2Body": "Nội dung và dữ liệu trên EGData App được cung cấp chỉ cho mục đích thông tin. Mục tiêu của chúng tôi là cung cấp cơ sở dữ liệu toàn diện về game (hoặc dữ liệu liên quan đến game) có sẵn trong Epic Games Store cho mục đích giáo dục và tham khảo của cộng đồng.",
+      "section3Title": "3. Tuân thủ sử dụng hợp lý",
+      "section3Body": "EGData App tuân thủ các nguyên tắc sử dụng hợp lý theo luật bản quyền bằng cách cung cấp thông tin và dữ liệu theo cách có lợi cho công chúng mà không vi phạm quyền của chủ sở hữu nội dung. Dưới đây là các yếu tố chính biện minh cho việc sử dụng của chúng tôi là sử dụng hợp lý:",
+      "section3List": {
+        "purpose": "Mục đích và tính chất sử dụng:",
+        "purposeBody": "Trang web của chúng tôi phi thương mại và nhằm mục đích giáo dục và thông báo cho công chúng về các game có sẵn trong Epic Games Store. Chúng tôi cung cấp thông tin quan trọng, đánh giá và cập nhật, nâng cao kiến thức và sự đánh giá cao của công chúng về các game này.",
+        "nature": "Bản chất của tác phẩm có bản quyền:",
+        "natureBody": "Dữ liệu chúng tôi thu thập và trình bày bao gồm thông tin thực tế như tên game, ngày phát hành, nhà phát triển và cập nhật. Thông tin thực tế ít được bảo vệ hơn theo luật bản quyền so với các tác phẩm sáng tạo.",
+        "amount": "Số lượng và tính trọng yếu:",
+        "amountBody": "Chúng tôi chỉ sử dụng lượng dữ liệu cần thiết để cung cấp thông tin có ý nghĩa và phù hợp cho người dùng. Chúng tôi không sao chép toàn bộ tác phẩm hoặc cung cấp các trích đoạn mở rộng có thể thay thế các sản phẩm gốc.",
+        "effect": "Ảnh hưởng đến thị trường:",
+        "effectBody": "Việc sử dụng dữ liệu game của chúng tôi không ảnh hưởng tiêu cực đến thị trường của các game gốc. Thay vào đó, nó quảng bá các game này bằng cách cung cấp thông tin cập nhật và thúc đẩy sự tương tác và quan tâm của người dùng."
+      },
+      "section4Title": "4. Thu thập và cập nhật dữ liệu",
+      "section4Body1": "Trang web của chúng tôi tự động theo dõi và cập nhật dữ liệu game để đảm bảo thông tin chúng tôi cung cấp là hiện tại và chính xác. Quy trình tự động này bao gồm việc thu thập thông tin công khai từ Epic Games Store và các nguồn đáng tin cậy khác.",
+      "section4Body2": "Bằng cách giữ cho cơ sở dữ liệu của chúng tôi được cập nhật, chúng tôi đảm bảo rằng người dùng có quyền truy cập vào thông tin mới nhất về các game yêu thích của họ, bao gồm các bản phát hành mới, cập nhật và thay đổi về tính khả dụng.",
+      "section4Body3": "Về tài nguyên đồ họa, chúng tôi tải hình ảnh trực tiếp từ máy chủ của Epic Games Store. Chúng tôi không lưu trữ bất kỳ hình ảnh nào trên máy chủ của mình.",
+      "section5Title": "5. Tuyên bố miễn trừ về dữ liệu bị rò rỉ",
+      "section5Body1": "Mọi dữ liệu có vẻ bị rò rỉ trên Trang web của chúng tôi đều đến từ thông tin công khai do Epic Games Store cung cấp. Chúng tôi không có quyền truy cập vào dữ liệu bảo mật hoặc độc quyền không công khai. Do đó, trách nhiệm của các nhà xuất bản là bảo vệ tài sản trí tuệ (IP), game, nội dung có thể tải xuống (DLC) và thông tin nhạy cảm khác trong cổng thông tin nhà phát triển Epic Games.",
+      "section5Body2": "Các nhà xuất bản được khuyến khích đảm bảo rằng thông tin nhạy cảm được bảo vệ đúng cách và không vô tình bị công khai. EGData App không chịu trách nhiệm về bất kỳ thông tin bị rò rỉ nào được thu thập từ các nguồn công khai.",
+      "section5Body3": "Để biết thêm thông tin về bảo vệ dữ liệu và sử dụng hợp lý tại Liên minh Châu Âu, vui lòng tham khảo các nguồn sau:",
+      "euDirective1": "Chỉ thị (EU) 2019/790 về bản quyền và các quyền liên quan trong Thị trường Kỹ thuật số Duy nhất",
+      "euDirective2": "Hỏi và Đáp – Các quy tắc bản quyền mới của EU",
+      "section6Title": "6. Liên hệ với chúng tôi",
+      "section6Body": "Nếu bạn có bất kỳ câu hỏi nào về Chính sách Sử dụng Hợp lý này hoặc nếu bạn cho rằng bất kỳ nội dung hoặc dữ liệu nào trên Trang web của chúng tôi vi phạm bản quyền của bạn, vui lòng liên hệ với chúng tôi tại:",
+      "email": "Email:"
+    },
+    "donateKey": {
+      "title": "Quyên góp Key",
+      "body": "Nếu bạn có key muốn quyên góp cho dự án, vui lòng điền vào biểu mẫu bên dưới."
+    },
+    "androidBeta": {
+      "meta": {
+        "title": "Beta Android - egdata.app",
+        "description": "Tham gia chương trình thử nghiệm beta kín ứng dụng Android egdata.app"
+      },
+      "title": "Chương trình Beta Android",
+      "description": "Tham gia beta kín của chúng tôi để thử nghiệm ứng dụng Android egdata.app trước khi phát hành công khai.",
+      "whatHappensNext": "Điều gì tiếp theo?",
+      "steps": {
+        "signIn": "Đăng nhập bằng tài khoản Google của bạn",
+        "added": "Bạn sẽ được thêm thủ công vào danh sách thử nghiệm kín trong vòng vài giờ",
+        "download": "Sau khi được thêm, bạn có thể tải ứng dụng từ liên kết được cung cấp"
+      }
+    }
+  },
+  "components": {
+    "stats": {
+      "title": "Thống kê",
+      "description": "Thống kê về nền tảng",
+      "offers": "Ưu đãi",
+      "offersTooltip": "Một ưu đãi là một mục có thể mua được từ cửa hàng",
+      "items": "Mục",
+      "itemsTooltip": "Một mục là quyền cho launcher",
+      "tags": "Thẻ",
+      "offersYear": "Ưu đãi (Năm)",
+      "itemsYear": "Mục (Năm)",
+      "assets": "Assets",
+      "assetsTooltip": "Một asset là tệp game",
+      "regPrices": "Giá thường",
+      "changes": "Thay đổi",
+      "sandboxes": "Sandbox",
+      "sandboxesTooltip": "Một Sandbox là nhóm các ưu đãi"
+    },
+    "sandboxShell": {
+      "overview": "Tổng quan",
+      "offers": "Ưu đãi",
+      "items": "Mục",
+      "assets": "Assets",
+      "builds": "Bản dựng",
+      "achievements": "Thành tích",
+      "changelog": "Nhật ký thay đổi",
+      "sandbox": "Sandbox",
+      "internalNamespace": "Namespace nội bộ",
+      "storePage": "Trang cửa hàng",
+      "updated": "Đã cập nhật {{date}}",
+      "unrealEngine": "Unreal Engine",
+      "internalSandbox": "Sandbox nội bộ",
+      "releaseStatus": {
+        "prePurchase": "Đặt trước",
+        "datePending": "Ngày đang chờ",
+        "comingSoon": "Sắp ra mắt",
+        "released": "Đã phát hành"
+      }
+    },
+    "comparison": {
+      "openCompareTray": "Mở khay so sánh, {{count}} đã chọn",
+      "compareSelected": "So sánh các ưu đãi đã chọn",
+      "error": "Lỗi",
+      "type": "Loại",
+      "seller": "Người bán",
+      "developer": "Nhà phát triển",
+      "releaseDate": "Ngày phát hành",
+      "pcReleaseDate": "Ngày phát hành PC",
+      "genres": "Thể loại",
+      "platforms": "Nền tảng",
+      "remove": "Xóa",
+      "current": "Hiện tại",
+      "lowest": "Thấp nhất",
+      "noPriceFound": "Không tìm thấy giá",
+      "noAgeRatingsFound": "Không tìm thấy xếp hạng độ tuổi",
+      "achievements": "Thành tích:",
+      "ageRating": "Xếp hạng độ tuổi:",
+      "price": "Giá:",
+      "unknown": "Không xác định"
+    },
+    "search": {
+      "sellers": "Người bán",
+      "noResults": "Không tìm thấy kết quả",
+      "noResultsShort": "Không tìm thấy kết quả.",
+      "allOfferTypes": "Tất cả loại ưu đãi",
+      "tags": "Thẻ"
+    },
+    "changelist": {
+      "title": "Danh sách thay đổi",
+      "loading": "Đang tải...",
+      "error": "Lỗi: {{message}}",
+      "id": "ID",
+      "type": "Loại",
+      "titleOrId": "Tiêu đề/ID",
+      "date": "Ngày",
+      "new": "mới",
+      "update": "cập nhật"
+    },
+    "upcoming": {
+      "caption": "Ưu đãi sắp tới",
+      "loading": "Đang tải...",
+      "title": "Tiêu đề",
+      "price": "Giá",
+      "releaseDate": "Ngày phát hành",
+      "unknown": "Không xác định",
+      "prePurchase": "Đặt trước"
+    },
+    "giveaways": {
+      "title": "Tặng miễn phí",
+      "free": "Miễn phí",
+      "freeNow": "Miễn phí ngay",
+      "startsIn": "Bắt đầu trong",
+      "repeated": "Đã lặp lại:",
+      "yes": "Có",
+      "no": "Không",
+      "repeatedTooltip": "Ưu đãi này đã được tặng {{count}} lần."
+    },
+    "giveawayStats": {
+      "title": "Tặng miễn phí qua số liệu",
+      "loading": "Đang tải...",
+      "totalValue": "Tổng giá trị",
+      "totalValueTooltip": "Tổng giá trị bao gồm bất kỳ giảm giá đang hoạt động nào",
+      "giveaways": "Lượt tặng",
+      "giveawaysTooltip": "Tổng số lượt tặng miễn phí xuất hiện trong cơ sở dữ liệu",
+      "offers": "Ưu đãi",
+      "offersTooltip": "Tổng số ưu đãi độc nhất đã xuất hiện trong các đợt tặng miễn phí",
+      "repeated": "Đã lặp lại",
+      "repeatedTooltip": "Số lượng ưu đãi độc nhất xuất hiện nhiều lần trong các đợt tặng miễn phí",
+      "sellers": "Người bán",
+      "sellersTooltip": "Tổng số người bán độc nhất cung cấp ưu đãi"
+    },
+    "offerCard": {
+      "openOffer": "Mở ưu đãi {{title}}",
+      "free": "Miễn phí",
+      "comingSoon": "Sắp ra mắt",
+      "earlyAccess": "Truy cập sớm",
+      "prePurchase": "Đặt trước",
+      "owned": "đã sở hữu"
+    },
+    "baseGame": {
+      "checkBaseGame": "Xem game cơ bản",
+      "partOfBundle": "Ưu đãi này là một phần của"
+    },
+    "notFound": {
+      "message": "Trang bạn đang tìm kiếm không tồn tại."
+    },
+    "sellerOffers": {
+      "error": "Lỗi tải ưu đãi. Vui lòng thử lại.",
+      "moreFrom": "Thêm từ {{name}}"
+    },
+    "achievementsBlade": {
+      "noData": "Không có dữ liệu",
+      "game": "Game",
+      "achievements": "Thành tích",
+      "xp": "XP",
+      "bronze": "Đồng",
+      "silver": "Bạc",
+      "gold": "Vàng",
+      "gamesWithAchievements": "Game có thành tích Epic"
+    },
+    "topSection": {
+      "free": "Miễn phí",
+      "releaseDate": "Ngày phát hành:",
+      "tba": "Sẽ công bố",
+      "platforms": "Nền tảng:",
+      "tags": "Thẻ:",
+      "checkOffer": "Xem ưu đãi"
+    },
+    "featuredDiscounts": {
+      "free": "Miễn phí",
+      "title": "Giảm giá nổi bật",
+      "countMore": "+{{count}} khác",
+      "checkOffer": "Xem ưu đãi",
+      "until": "cho đến"
+    },
+    "performanceTable": {
+      "title": "Hiệu suất",
+      "noPriorData": "Không có dữ liệu trước",
+      "cardsView": "Xem dạng thẻ",
+      "chartView": "Xem dạng biểu đồ"
+    },
+    "priceChart": {
+      "selectValue": "Chọn một giá trị",
+      "last3Months": "3 tháng qua",
+      "fetchingData": "Đang tải dữ liệu mới nhất"
+    },
+    "dateRangePicker": {
+      "from": "Từ",
+      "to": "Đến",
+      "maxRange": "Phạm vi tối đa là 30 ngày",
+      "invalidRange": "Phạm vi ngày không hợp lệ"
+    },
+    "regionalPricing": {
+      "region": "Khu vực",
+      "price": "Giá"
+    },
+    "regionalPricingBadge": {
+      "analysis": "Phân tích giá theo khu vực",
+      "currentPrice": "Giá hiện tại",
+      "suggestedPrice": "Giá đề xuất",
+      "belowSuggested": "Ưu đãi này thực sự thấp hơn mức đó nữa — một ưu đãi tuyệt vời toàn diện.",
+      "closeToSuggested": "Ưu đãi này gần với mức đó và thấp hơn nhiều so với giá điển hình của {{region}}."
+    },
+    "countrySelector": {
+      "searchCountries": "Tìm kiếm quốc gia...",
+      "noCountries": "Không tìm thấy quốc gia"
+    },
+    "countriesSelector": {
+      "searchCountries": "Tìm kiếm quốc gia...",
+      "noCountries": "Không tìm thấy quốc gia"
+    },
+    "querySearch": {
+      "searchItems": "Tìm kiếm mục..."
+    },
+    "extendedSearch": {
+      "searchItems": "Tìm kiếm mục...",
+      "noItems": "Không tìm thấy mục."
+    },
+    "searchForm": {
+      "noResults": "Không tìm thấy kết quả",
+      "error": "Lỗi: {{message}}",
+      "loadingLong": "Truy vấn này đang mất nhiều thời gian hơn bình thường..."
+    },
+    "searchFormV2": {
+      "noResults": "Không tìm thấy kết quả."
+    },
+    "androidBetaBanner": {
+      "dismiss": "Bỏ qua banner"
+    },
+    "videoPlayer": {
+      "title": "{{title}}"
+    },
+    "mediaSlider": {
+      "previousSlide": "Trang trình chiếu trước",
+      "nextSlide": "Trang trình chiếu tiếp",
+      "image": "Hình ảnh {{index}}",
+      "thumbnail": "Hình nhỏ {{index}}",
+      "downloading": "Đang tải xuống...",
+      "download": "Tải xuống"
+    },
+    "changelogItem": {
+      "action": "Hành động",
+      "type": "Loại",
+      "oldValue": "Giá trị cũ",
+      "newValue": "Giá trị mới",
+      "previousValue": "Giá trị trước đó:",
+      "newValueLabel": "Giá trị mới:"
+    },
+    "changelogCharts": {
+      "byWeekday": "Thay đổi theo ngày trong tuần",
+      "byWeekdayDesc": "Thay đổi tích lũy theo ngày trong tuần",
+      "typesOfChanges": "Loại thay đổi",
+      "typesOfChangesDesc": "Số lượng thay đổi theo loại",
+      "byField": "Thay đổi theo trường",
+      "byFieldDesc": "Thay đổi được nhóm theo trường đã thay đổi",
+      "dailyDesc": "Hiển thị thay đổi hàng ngày trong năm qua",
+      "noData": "Không có dữ liệu để hiển thị."
+    },
+    "openEgl": {
+      "open": "Mở"
+    },
+    "openEgs": {
+      "store": "Cửa hàng"
+    },
+    "openLauncher": {
+      "play": "Chơi"
+    },
+    "storeDropdown": {
+      "launcher": "Trình khởi chạy",
+      "viewStorePage": "Xem trang cửa hàng",
+      "webBrowser": "Trình duyệt web"
+    },
+    "prepurchasePopup": {
+      "title": "{{title}}"
+    },
+    "apiKeyManager": {
+      "title": "Quản lý khóa API",
+      "label": "Khóa API",
+      "placeholder": {
+        "generated": "Đã tạo khóa API",
+        "none": "Chưa tạo khóa API"
+      },
+      "button": {
+        "regenerate": "Tạo lại khóa",
+        "generate": "Tạo khóa",
+        "clear": "Xóa khóa"
+      },
+      "notification": {
+        "generated": "Đã tạo khóa API mới thành công!",
+        "generateFailed": "Không thể tạo khóa API",
+        "copied": "Đã sao chép khóa API vào clipboard!",
+        "copyFailed": "Không thể sao chép khóa API",
+        "noneToCopy": "Không có khóa API để sao chép",
+        "cleared": "Đã xóa khóa API thành công!",
+        "clearFailed": "Không thể xóa khóa API"
+      },
+      "description": "Khóa API của bạn là một UUID được lưu trữ cục bộ trong trình duyệt của bạn và được sử dụng để xác thực các yêu cầu thông báo đẩy. Sử dụng nút tạo lại để tạo khóa mới nếu cần."
+    },
+    "cookieBanner": {
+      "title": "Thông báo Cookie",
+      "description": "Trang web này sử dụng cookie để nâng cao trải nghiệm duyệt web của bạn. Bằng cách chấp nhận cookie, bạn chấp nhận {{privacyPolicyLink}} của chúng tôi.",
+      "accept": "Chấp nhận",
+      "decline": "Từ chối"
+    },
+    "searchHeader": {
+      "results": "{{count}} kết quả",
+      "showingResultsFor": "Hiển thị kết quả cho"
+    },
+    "bundle": {
+      "collectionOffers": "Ưu đãi bộ sưu tập",
+      "bundleOffers": "Ưu đãi gói",
+      "offersCount": "- {{count}} Ưu đãi",
+      "bundlePriceTitle": "Giá gói",
+      "totalValueLabel": "Tổng giá trị:",
+      "bundlePriceLabel": "Giá gói:",
+      "youSave": "Bạn tiết kiệm:",
+      "youPayMore": "Bạn trả thêm:",
+      "buyBundle": "Mua gói",
+      "buyIndividually": "Mua riêng lẻ"
+    },
+    "clientBanner": {
+      "heading": "Cung cấp sức mạnh cho cơ sở dữ liệu bản dựng {{appName}}",
+      "subheading": "Giúp lập bản đồ mọi bản dựng Epic Games Store",
+      "description": "Ứng dụng Windows & macOS nhẹ của chúng tôi quét các bản cài đặt Epic Games Launcher của bạn và tải lên an toàn chỉ các tệp kê khai—danh sách khối và siêu dữ liệu—vào cơ sở dữ liệu mở của chúng tôi. Mỗi lần tải lên làm phong phú thêm cộng đồng và giúp chúng tôi theo dõi các thay đổi theo thời gian.",
+      "cta": "Tải xuống cho Windows & macOS"
+    },
+    "collectionOffers": {
+      "title": "Ưu đãi bộ sưu tập"
+    },
+    "lastModifiedOffers": {
+      "title": "Ưu đãi sửa đổi lần cuối"
+    },
+    "latestOffers": {
+      "title": "Đã thêm gần đây"
+    },
+    "latestReleased": {
+      "title": "Phát hành mới nhất"
+    },
+    "mobileFreebies": {
+      "title": "Game miễn phí di động",
+      "collapse": "Thu gọn game miễn phí di động",
+      "expand": "Mở rộng game miễn phí di động"
+    },
+    "sectionHeader": {
+      "seeAll": "Xem tất cả"
+    },
+    "suggestedOffers": {
+      "title": "Bạn cũng có thể thích"
+    }
+  },
+  "table": {
+    "pagination": {
+      "rowsPerPage": "Số hàng mỗi trang",
+      "pageOf": "Trang {{page}} / {{total}}",
+      "goToFirst": "Đến trang đầu",
+      "goToPrevious": "Đến trang trước",
+      "goToNext": "Đến trang tiếp",
+      "goToLast": "Đến trang cuối",
+      "previous": "Trước",
+      "next": "Tiếp",
+      "morePages": "Thêm trang"
+    },
+    "toolbar": {
+      "platform": "Nền tảng",
+      "status": "Trạng thái",
+      "type": "Loại",
+      "platforms": "Nền tảng",
+      "fileExtensions": "Phần mở rộng tệp",
+      "filterOffers": "Lọc ưu đãi...",
+      "filterItems": "Lọc mục...",
+      "filterFiles": "Lọc tệp...",
+      "reset": "Đặt lại"
+    },
+    "viewOptions": {
+      "view": "Xem",
+      "toggleColumns": "Chuyển đổi cột"
+    },
+    "facetedFilter": {
+      "noResults": "Không tìm thấy kết quả.",
+      "selected": "đã chọn",
+      "clearFilters": "Xóa bộ lọc"
+    },
+    "builds": {
+      "noResults": "Không có kết quả.",
+      "donateKey": "Quyên góp Key"
+    }
+  },
+  "forms": {
+    "review": {
+      "submitTitle": "Gửi đánh giá",
+      "editTitle": "Chỉnh sửa đánh giá",
+      "description": "Chia sẻ suy nghĩ của bạn về {{title}}",
+      "rating": "Xếp hạng",
+      "ratingError": "Xếp hạng phải từ 1 đến 10",
+      "recommend": "Bạn có đề xuất sản phẩm này không?",
+      "recommendError": "Vui lòng chọn có hoặc không",
+      "yes": "Có",
+      "no": "Không",
+      "title": "Tiêu đề",
+      "titlePlaceholder": "Nhập tiêu đề cho đánh giá của bạn",
+      "titleRequired": "Tiêu đề là bắt buộc",
+      "titleMinLength": "Tiêu đề phải có ít nhất 3 ký tự",
+      "titleMinLengthLong": "Tiêu đề phải có ít nhất 3 ký tự",
+      "titleMaxLength": "Tiêu đề phải ít hơn 75 ký tự",
+      "reviewContent": "Nội dung đánh giá",
+      "contentMinLength": "Nội dung phải có ít nhất 3 ký tự",
+      "tags": "Thẻ (phân cách bằng dấu phẩy)",
+      "tagsPlaceholder": "ví dụ: chất lượng, thiết kế, hiệu suất",
+      "previous": "Trước",
+      "next": "Tiếp",
+      "submit": "Gửi đánh giá",
+      "deleteReview": "Xóa đánh giá",
+      "confirmDelete": "Bạn có chắc chắn muốn xóa đánh giá này không?",
+      "deleteDescription": "Hành động này không thể hoàn tác. Điều này sẽ xóa vĩnh viễn đánh giá khỏi máy chủ của chúng tôi.",
+      "cancel": "Hủy",
+      "delete": "Xóa",
+      "deleting": "Đang xóa...",
+      "errorSubmitting": "Lỗi khi gửi đánh giá",
+      "errorDeleting": "Lỗi khi xóa đánh giá",
+      "spamDetected": "Đã phát hiện spam",
+      "defaultContent": "Vui lòng nhập đánh giá của bạn tại đây",
+      "theProduct": "sản phẩm"
+    },
+    "androidBeta": {
+      "title": "Tham gia Beta",
+      "description": "Đăng nhập bằng Google để đăng ký beta kín. Chúng tôi chỉ cần địa chỉ email của bạn.",
+      "spotsRemaining": "<strong>{{remaining}}</strong> / {{max}} chỗ trống còn lại",
+      "betaFull": "Beta đã đầy",
+      "betaFullDesc": "Tất cả {{max}} chỗ đã được lấy. Quay lại sau hoặc theo dõi chúng tôi để biết khi nào có thêm chỗ.",
+      "registering": "Đang đăng ký bạn vào beta...",
+      "registered": "Bạn đã đăng ký!",
+      "registeredDesc": "Chúng tôi đã đăng ký <strong>{{email}}</strong> cho beta kín.",
+      "registeredDesc2": "Có thể mất vài giờ cho đến khi bạn được thêm thủ công vào danh sách người thử nghiệm. Sau khi được thêm, bạn có thể tham gia beta tại đây:",
+      "joinBeta": "Tham gia Beta trên Google Play",
+      "alreadyRegistered": "Đã đăng ký",
+      "alreadyRegisteredDesc": "<strong>{{email}}</strong> đã được đăng ký cho beta.",
+      "alreadyRegisteredDesc2": "Nếu bạn đã được thêm vào danh sách người thử nghiệm, bạn có thể tham gia beta tại đây:",
+      "error": "Lỗi",
+      "tryAgain": "Thử lại",
+      "noCredential": "Không nhận được thông tin xác thực từ Google",
+      "somethingWrong": "Đã xảy ra lỗi. Vui lòng thử lại.",
+      "googleFailed": "Đăng nhập Google thất bại. Vui lòng thử lại."
+    },
+    "donateKey": {
+      "donate": "Quyên góp",
+      "error": "Lỗi",
+      "success": "Thành công",
+      "successDesc": "Cảm ơn bạn đã quyên góp! Mục đã được đổi thành công và dữ liệu của nó sẽ sớm có sẵn.",
+      "offerPage": "Trang ưu đãi",
+      "somethingWrong": "Đã xảy ra lỗi. Vui lòng thử lại."
+    }
+  },
+  "ui": {
+    "dialog": {
+      "close": "Đóng"
+    },
+    "sheet": {
+      "close": "Đóng"
+    },
+    "carousel": {
+      "previous": "Trang trình chiếu trước",
+      "next": "Trang trình chiếu tiếp"
+    },
+    "pagination": {
+      "previous": "Trước",
+      "next": "Tiếp",
+      "morePages": "Thêm trang"
+    },
+    "priceRangeSlider": {
+      "priceRange": "Phạm vi giá",
+      "minPrice": "Giá tối thiểu",
+      "maxPrice": "Giá tối đa"
+    }
+  }
+}

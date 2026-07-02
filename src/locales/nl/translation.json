@@ -1,0 +1,1763 @@
+{
+  "common": {
+    "appName": "EGDATA",
+    "search": "Zoeken",
+    "searchPlaceholder": "Games zoeken...",
+    "loading": "Laden...",
+    "free": "Gratis",
+    "notAvailable": "Niet beschikbaar",
+    "cancel": "Annuleren",
+    "save": "Opslaan",
+    "close": "Sluiten"
+  },
+  "nav": {
+    "toggleMenu": "Navigatiemenu in-/uitschakelen",
+    "logoAlt": "EGDATA Logo",
+    "explore": "Ontdekken",
+    "browse": "Bladeren",
+    "sales": "Aanbiedingen",
+    "changelog": "Wijzigingslogboek",
+    "about": "Over",
+    "rankings": "Ranglijsten",
+    "topSellers": "Best verkopend",
+    "mostPlayed": "Meest gespeeld",
+    "topWishlisted": "Meest gewenst",
+    "topNewReleases": "Top nieuwe releases",
+    "seeAllCollections": "Bekijk alle collecties",
+    "others": "Anderen",
+    "releaseStats": "Releasestatistieken",
+    "genres": "Genres",
+    "seeAllGenres": "Bekijk alle genres",
+    "other": "Anders",
+    "action": "Actie",
+    "rpg": "RPG",
+    "indie": "Indie",
+    "strategy": "Strategie",
+    "topSellerOnEpic": "Best verkopend in de Epic Games Store",
+    "searchItemTitle": "Zoeken",
+    "searchItemDesc": "Vind wat je zoekt in de Epic Games Store.",
+    "freeGamesItemTitle": "Gratis Games",
+    "freeGamesItemDesc": "Ontdek de nieuwste gratis game-aanbiedingen in de Epic Games Store.",
+    "withDiscountsItemTitle": "Met Korting",
+    "withDiscountsItemDesc": "Bekijk games die momenteel in de aanbieding zijn met grote kortingen.",
+    "helloUser": "Hallo, {{name}}!",
+    "dashboard": "Dashboard",
+    "logout": "Uitloggen",
+    "searchLanguages": "Talen zoeken...",
+    "noLanguagesFound": "Geen talen gevonden"
+  },
+  "footer": {
+    "logoAlt": "EGDATA Logo",
+    "disclaimer": "Een fan-gemaakte Epic Games Store database. Niet gelieerd aan Epic Games, Inc. Alle logo's, afbeeldingen en handelsmerken zijn eigendom van hun respectieve eigenaren.",
+    "legal": "Juridisch",
+    "privacyPolicy": "Privacybeleid",
+    "notifications": "Meldingen",
+    "resources": "Bronnen",
+    "apiDocs": "API-documentatie",
+    "changelog": "Wijzigingslogboek",
+    "community": "Community",
+    "flagsByFlagpedia": "Vlaggen van Flagpedia",
+    "madeIn": "Gemaakt in"
+  },
+  "meta": {
+    "title": "Epic Games Database - egdata.app",
+    "description": "Uitgebreide Epic Games Store database: game-informatie, prijzen, verkoopgeschiedenis, bestandslijsten en meer. Ontdek gratis games, aankomende releases en community-inzichten.",
+    "twitterTitle": "Epic Games Database",
+    "twitterDescription": "Een gratis en open-source Epic Games Store database met uitgebreide game-informatie, verkoopregistratie en meer. Community-gestuurd en voortdurend bijgewerkt.",
+    "twitterImageAlt": "Epic Games Database",
+    "ogTitle": "Epic Games Database",
+    "ogDescription": "Een gratis en open-source Epic Games Store database met uitgebreide game-informatie, verkoopregistratie en meer. Community-gestuurd en voortdurend bijgewerkt.",
+    "ogImageAlt": "Epic Games Database"
+  },
+  "notFound": {
+    "title": "Pagina niet gevonden"
+  },
+  "home": {
+    "statsBar": {
+      "offersTracked": "Aanbiedingen gevolgd",
+      "priceChanges72h": "Prijsveranderingen / 72u",
+      "activeDiscounts": "Actieve kortingen",
+      "giveawaysToDate": "Giveaways tot nu toe"
+    },
+    "sections": {
+      "giveawayStats": "Giveaway-statistieken",
+      "giveawayOffers": "Giveaway-aanbiedingen",
+      "upcomingOffers": "Aankomende aanbiedingen",
+      "latestOffers": "Nieuwste aanbiedingen",
+      "latestReleased": "Recent uitgebracht",
+      "latestOffersWithAchievements": "Nieuwste aanbiedingen met prestaties",
+      "topSellingOffers": "Best verkopende aanbiedingen",
+      "latestBuilds": "Nieuwste builds"
+    },
+    "tableHeaders": {
+      "hash": "#",
+      "pos": "Pos",
+      "dash": "-",
+      "title": "Titel",
+      "starts": "Start",
+      "ends": "Eindigt",
+      "releaseDate": "Releasedatum",
+      "createdAt": "Aangemaakt op",
+      "date": "Datum",
+      "price": "Prijs",
+      "size": "Grootte",
+      "creationDate": "Aanmaakdatum"
+    },
+    "offerHover": {
+      "seller": "Verkoper:",
+      "developer": "Ontwikkelaar:",
+      "publisher": "Uitgever:",
+      "releaseDate": "Releasedatum:",
+      "ageRating": "Leeftijdsclassificatie:",
+      "moreGenres_one": "+{{count}} meer",
+      "moreGenres_other": "+{{count}} meer",
+      "communityRating": "Community-beoordeling:",
+      "igdbScore": "IGDB-score",
+      "reviews": "• {{count}} reviews",
+      "timeToBeat": "Speelduur:",
+      "features": "Kenmerken:",
+      "moreFeatures": " +{{count}} meer"
+    },
+    "buildHover": {
+      "unknownBuild": "Onbekende build",
+      "unknownDeveloper": "Onbekende ontwikkelaar",
+      "size": "Grootte",
+      "version": "Versie",
+      "created": "Aangemaakt",
+      "id": "ID: {{id}}"
+    },
+    "multipleOffers": "{{title}} - Meerdere aanbiedingen",
+    "hero": {
+      "subtitle": "Volg prijzen, ontdek deals en mis nooit een gratis game. Jouw metgezel voor de Epic Games Store database — aanbiedingen, kortingen, giveaways, builds en meer.",
+      "searchPlaceholder": "Doorzoek de database…",
+      "justReleased": "Net uitgebracht",
+      "priceDrops72h": "Prijsdalingen (72u)",
+      "hasAchievements": "Heeft prestaties",
+      "upcoming": "Aankomend",
+      "topSellers": "Best verkopend"
+    },
+    "pulse": {
+      "recentActivity": "Recente activiteit",
+      "badge": {
+        "new": "Nieuw",
+        "gone": "Verdwenen",
+        "offer": "Aanbod",
+        "build": "Build",
+        "item": "Item",
+        "asset": "Asset",
+        "xp": "XP",
+        "sandbox": "Sandbox",
+        "change": "Wijziging"
+      },
+      "title": {
+        "buildVersion": "Build {{version}}",
+        "buildId": "Build {{id}}",
+        "achievementsId": "Prestaties {{id}}"
+      },
+      "detail": {
+        "newBuildIndexed": "Nieuwe build geïndexeerd",
+        "buildManifestRefreshed": "Build-manifest vernieuwd",
+        "achievementChanges_one": "{{count}} prestatie {{entry}} {{verb}}",
+        "achievementChanges_other": "{{count}} prestaties {{entry}} {{verb}}",
+        "offerMetadataRefreshed": "Metadata van aanbod vernieuwd",
+        "fieldsChanged_one": "{{count}} veld {{verb}}",
+        "fieldsChanged_other": "{{count}} velden {{verb}}",
+        "fieldChanged": "{{field}} {{verb}}"
+      },
+      "actionVerb": {
+        "added": "toegevoegd",
+        "removed": "verwijderd",
+        "updated": "bijgewerkt",
+        "changed": "gewijzigd"
+      },
+      "entry_one": "vermelding",
+      "entry_other": "vermeldingen"
+    }
+  },
+  "offerDetail": {
+    "common": {
+      "offerNotFound": "Aanbod niet gevonden",
+      "notAvailable": "Niet beschikbaar",
+      "na": "N.V.T.",
+      "loading": "Laden...",
+      "somethingWentWrong": "Er is iets misgegaan",
+      "noChangesFound": "Geen wijzigingen gevonden voor dit aanbod"
+    },
+    "tabs": {
+      "overview": "Overzicht",
+      "price": "Prijs",
+      "items": "Items",
+      "builds": "Builds",
+      "achievements": "Prestaties",
+      "related": "Gerelateerd",
+      "metadata": "Metadata",
+      "changelog": "Wijzigingslogboek",
+      "media": "Media",
+      "reviews": "Reviews"
+    },
+    "table": {
+      "offerId": "Aanbod-ID",
+      "namespace": "Namespace",
+      "offerType": "Aanbodtype",
+      "seller": "Verkoper",
+      "developer": "Ontwikkelaar",
+      "supportedPlatforms": "Ondersteunde platforms",
+      "releaseDate": "Releasedatum",
+      "lastUpdate": "Laatste update",
+      "creationDate": "Aanmaakdatum",
+      "technologies": "Technologieën",
+      "type": "Type",
+      "value": "Waarde",
+      "countriesBlacklist": "Landen zwarte lijst",
+      "countriesWhitelist": "Landen witte lijst",
+      "categories": "Categorieën",
+      "refundType": "Terugbetalingstype",
+      "tags": "Tags",
+      "ageRatings": "Leeftijdsclassificaties",
+      "assets": "Assets"
+    },
+    "badges": {
+      "prePurchase": "Vooraankoop",
+      "earlyAccess": "Vroege toegang"
+    },
+    "hero": {
+      "offeredBy": "Aangeboden door {{seller}}"
+    },
+    "tooltip": {
+      "internalNamespace": "Interne namespace van Epic Games",
+      "techDescription": "technologieënlijst om de gebruikte engines en verschillende technologieën uit de gamebestanden te volgen.",
+      "techSource": "We gebruiken",
+      "techSourceSteamDb": "SteamDB",
+      "source": "Bron"
+    },
+    "actions": {
+      "compare": "Vergelijken"
+    },
+    "releaseDate": {
+      "releasedOnPc": "Uitgebracht op pc",
+      "theEgs": " op de EGS",
+      "releasedSameDay": "Op dezelfde dag als pc uitgebracht op Epic"
+    },
+    "notifications": {
+      "title": "Meldingen instellingen",
+      "description": "Kies welke meldingen je wilt ontvangen voor dit aanbod.",
+      "all": "Alle",
+      "price": "Prijs",
+      "achievements": "Prestaties",
+      "builds": "Builds",
+      "items": "Items",
+      "requirements": "Vereisten",
+      "metadata": "Metadata",
+      "media": "Media",
+      "enablePushDescription": "Je moet pushmeldingen inschakelen om meldingen voor dit aanbod te ontvangen.",
+      "enablePushAction": "Pushmeldingen inschakelen"
+    },
+    "overview": {
+      "genres": "Genres",
+      "ageRating": "Leeftijdsclassificatie",
+      "noAgeRatings": "Geen leeftijdsclassificaties gevonden",
+      "giveaways": "Giveaways",
+      "noGiveaways": "Geen giveaways gevonden",
+      "achievements": "Prestaties",
+      "igdbTimeToBeat": "IGDB Speelduur",
+      "hastily": "Snel",
+      "normally": "Normaal",
+      "completely": "Volledig",
+      "hltbSubmissions_one": "Gebaseerd op {{count}} inzending",
+      "hltbSubmissions_other": "Gebaseerd op {{count}} inzendingen",
+      "price": "Prijs",
+      "priceCurrent": "Huidig:",
+      "priceLowest": "Laagste:",
+      "priceLastDiscount": "Laatste korting:",
+      "hltbTitle": "Hoe lang te spelen",
+      "noGameTimes": "Geen speeltijden gevonden",
+      "epicRating": "Epic Spelersbeoordeling",
+      "epicRatingDescription": "Vastgelegd van spelers in het Epic Games-ecosysteem",
+      "igdbRating": "IGDB-beoordeling",
+      "igdbReviews_one": "{{count}} review",
+      "igdbReviews_other": "{{count}} reviews"
+    },
+    "achievements": {
+      "title": "Prestaties",
+      "sortBy": "Sorteren op",
+      "defaultSort": "Standaard sortering",
+      "sortByRarity": "Sorteren op zeldzaamheid",
+      "sortByCompleted": "Sorteren op voltooiings %",
+      "search": "Zoeken",
+      "flipAll": "Alles omdraaien",
+      "noAchievements": "Geen prestaties gevonden",
+      "noAchievementsSet": "Geen prestaties gevonden voor deze set.",
+      "noAchievementsSetDescription": "Dit kan betekenen dat de prestaties momenteel niet beschikbaar zijn maar in de toekomst worden toegevoegd.",
+      "baseGame": "Basespel",
+      "dlc": "DLC",
+      "achievementsLabel": "Prestaties",
+      "baseGameDescription": "Deze lijst met prestaties is voor het basisspel.",
+      "dlcDescription": "Deze lijst met prestaties is voor een van de DLC's.",
+      "lastUpdated": "Laatst bijgewerkt:",
+      "lastUpdatedTooltip": "Deze prestatieset is voor het laatst bijgewerkt op {{date}}.",
+      "lastUpdatedTooltipDescription": "Dit is de aanmaakdatum of de datum van de laatste update."
+    },
+    "builds": {
+      "title": "Builds"
+    },
+    "items": {
+      "title": "Items"
+    },
+    "price": {
+      "title": "Prijs"
+    },
+    "related": {
+      "title": "Gerelateerde aanbiedingen"
+    },
+    "media": {
+      "images": "Afbeeldingen",
+      "videos": "Video's",
+      "covers": "Omslagen",
+      "noImages": "Geen afbeeldingen gevonden",
+      "noVideos": "Geen video's gevonden",
+      "noCovers": "Geen omslagen gevonden",
+      "download": "Downloaden",
+      "close": "Sluiten",
+      "downloadCoverAria": "{{type}} omslag downloaden"
+    },
+    "metadata": {
+      "title": "Metadata",
+      "download": "Download:",
+      "install": "Installatie:"
+    },
+    "changelog": {
+      "title": "Wijzigingslogboek",
+      "tooltip": "Deze lijst bevat de wijzigingen die zijn aangebracht aan dit specifieke aanbod of gerelateerde items, assets of builds.",
+      "sandboxChangelog": "sandbox-wijzigingslogboek",
+      "sandboxChangelogPrefix": "Je kunt het wijzigingslogboek voor het hele product zien in het",
+      "noChangelog": "Geen wijzigingslogboek beschikbaar",
+      "allTypes": "Alle types",
+      "selectField": "Selecteer een veld",
+      "allFields": "Alle velden",
+      "search": "Zoeken",
+      "previous": "Vorige",
+      "next": "Volgende",
+      "pageOf": "Pagina {{page}} van {{totalPages}}",
+      "typeUpdate": "Update",
+      "typeDelete": "Verwijderen",
+      "typeInsert": "Invoegen"
+    },
+    "reviews": {
+      "epicRating": "Epic Spelersbeoordeling",
+      "epicRatingDescription": "Vastgelegd van spelers in het Epic Games-ecosysteem",
+      "egdataRating": "EGDATA-beoordeling",
+      "overallScore": "Algemene score",
+      "scoreOutOf10": "{{score}} / 10",
+      "basedOnReviews": "Gebaseerd op {{count}} reviews",
+      "allReviews": "Alle reviews",
+      "onlyVerified": "Alleen geverifieerd",
+      "notVerified": "Niet geverifieerd",
+      "leaveReview": "Een review achterlaten",
+      "alreadyReviewed": "Al beoordeeld",
+      "loginToReview": "Inloggen om te reviewen",
+      "noReviews": "Nog geen reviews",
+      "notReleased": "Dit product is nog niet uitgebracht",
+      "beFirst": "Wees de eerste die een review achterlaat voor dit product!",
+      "checkBack": "Kom terug na de releasedatum om een review achter te laten!",
+      "verifiedOwner": "Geverifieerde eigenaar",
+      "recommended": "Aanbevolen",
+      "notRecommended": "Niet aanbevolen",
+      "readMore": "Lees meer",
+      "reviewedOn": "Beoordeeld op",
+      "lastUpdatedOn": "Laatst bijgewerkt op",
+      "editedTimes": "{{count}} keer bewerkt",
+      "edit": "Bewerken",
+      "close": "Sluiten",
+      "reviewCount_one": "{{count}} review",
+      "reviewCount_other": "{{count}} reviews",
+      "ownershipVerification": "Eigendomsverificatie",
+      "ownershipVerificationDescription": "is gebaseerd op het voltooien van ten minste één prestatie door de speler.",
+      "ownershipVerificationTooltip": "We gebruiken de Epic Games-prestaties om het eigendom van het product te verifiëren. Om een speler als geverifieerde eigenaar te markeren, moeten ze ten minste één prestatie voor het geselecteerde product in de Epic Games Store hebben voltooid. Om je account aan je egdata-profiel te koppelen, moet je naar",
+      "yourDashboard": "je dashboard",
+      "criticReviews": "Criticusreviews",
+      "basedOnCriticReviews": "Gebaseerd op {{count}} critici",
+      "opencriticRating": "OpenCritic-beoordeling",
+      "topCriticAverage": "Topcriticus gemiddelde",
+      "criticsRecommend": "Critici bevelen aan",
+      "opencriticRatingAlt": "OpenCritic-beoordeling"
+    }
+  },
+  "search": {
+    "meta": {
+      "title": "Zoeken | egdata.app",
+      "description": "Zoek naar aanbiedingen van de Epic Games Store."
+    },
+    "defaultTitle": "Zoeken",
+    "filters": "Filters",
+    "filtersPlaceholder": "Zoek games",
+    "pills": {
+      "onSale": "In de aanbieding",
+      "codeRedemptionOnly": "Alleen code-inwisseling",
+      "excludeBlockchain": "Blockchain/NFT uitsluiten",
+      "pastGiveaways": "Eerdere giveaways"
+    },
+    "accordion": {
+      "offerType": "Aanbodtype",
+      "developer": "Ontwikkelaar",
+      "publisher": "Uitgever",
+      "noTags": "Geen tags gevonden",
+      "seller": "Verkoper"
+    },
+    "checkboxes": {
+      "pastGiveaways": "Eerdere giveaways",
+      "onSale": "In de aanbieding",
+      "codeRedemptionOnly": "Alleen code-inwisseling",
+      "excludeBlockchain": "Blockchain/NFT uitsluiten",
+      "onlyHistoricalLows": "Alleen historische dieptepunten",
+      "onlyLowestPriceEver": "Alleen laagste prijs ooit"
+    },
+    "tagGroups": {
+      "event": "Evenement",
+      "genre": "Genre",
+      "epicfeature": "Epic-functie",
+      "accessibility": "Toegankelijkheid",
+      "feature": "Functie",
+      "usersay": "Usersay",
+      "subscription": "Abonnement",
+      "platform": "Platform",
+      "all": "Alle tags"
+    },
+    "sort": {
+      "sortBy": "Sorteren op",
+      "sortAriaLabel": "Aanbiedingen sorteren",
+      "sortDirectionAriaLabel": "Sorteervolgorde omkeren",
+      "showListView": "Lijstweergave tonen",
+      "showGridView": "Rasterweergave tonen",
+      "releaseDate": "Releasedatum",
+      "lastModifiedDate": "Wijzigingsdatum",
+      "effectiveDate": "Ingangsdatum",
+      "creationDate": "Aanmaakdatum",
+      "viewableDate": "Zichtbare datum",
+      "pcReleaseDate": "Pc-releasedatum",
+      "upcoming": "Aankomend",
+      "price": "Prijs",
+      "discount": "Korting",
+      "discountPercent": "Korting %",
+      "giveawayDate": "Giveawaydatum"
+    },
+    "results": {
+      "noResults": "Geen resultaten gevonden"
+    }
+  },
+  "freebies": {
+    "meta": {
+      "title": "Gratis Games | egdata.app",
+      "description": "Blader door gratis games van de Epic Games Store."
+    },
+    "headings": {
+      "current": "Huidige gratis games",
+      "past": "Eerdere gratis games",
+      "sellers": "Verkopers van gratis games"
+    },
+    "buttons": {
+      "redeem": "Nu inwisselen",
+      "downloadJson": "Downloaden als JSON",
+      "downloadCsv": "Downloaden als CSV",
+      "downloadTxt": "Downloaden als tekst"
+    },
+    "placeholders": {
+      "searchSellers": "Verkopers zoeken..."
+    },
+    "aria": {
+      "downloadList": "Lijst downloaden"
+    },
+    "errors": {
+      "loadSellers": "Fout bij laden van verkopersgegevens. Probeer het later opnieuw."
+    },
+    "table": {
+      "sellerName": "Verkopersnaam",
+      "totalGames": "Totaal enkele spellen"
+    }
+  },
+  "sales": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Bekijk {{title}} van de Epic Games Store."
+    },
+    "metaIndex": {
+      "title": "Actieve aanbiedingen | egdata.app",
+      "description": "Blader door actieve aanbiedingen op egdata.app"
+    },
+    "status": {
+      "loading": "Laden...",
+      "noData": "Geen gegevens"
+    },
+    "headings": {
+      "active": "Actieve aanbiedingen",
+      "pastUpcoming": "Eerdere / aankomende aanbiedingen",
+      "offersList": "{{title}} aanbiedingen"
+    },
+    "errors": {
+      "notFound": "Promotie niet gevonden"
+    },
+    "labels": {
+      "offersCount": "{{count}} aanbiedingen beschikbaar in dit evenement"
+    }
+  },
+  "collections": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Bekijk {{title}} van de Epic Games Store."
+    },
+    "metaIndex": {
+      "title": "Collecties | egdata.app",
+      "description": "Collecties op egdata.app"
+    },
+    "headings": {
+      "main": "Collecties"
+    },
+    "description": {
+      "overview": "De best verkopende, meest gespeelde en populairste games in de Epic Games Store"
+    },
+    "status": {
+      "loading": "Laden..."
+    },
+    "errors": {
+      "notFound": "Collectie niet gevonden"
+    },
+    "table": {
+      "position": "Positie",
+      "variance": "Verschil",
+      "weeks": "Weken"
+    },
+    "tooltips": {
+      "variance": "Het verschil tussen de huidige positie en de vorige positie. Verandert meestal elke dag.",
+      "weeks": "Het aantal weken dat de game in de top 100 staat voor {{title}}."
+    },
+    "buttons": {
+      "loadMore": "Meer laden"
+    }
+  },
+  "sandboxes": {
+    "notFoundTitle": "Sandbox niet gevonden",
+    "notFoundDescription": "Sandbox niet gevonden",
+    "unrealEngineTitle": "Unreal Engine",
+    "unavailableTitle": "Sandbox niet beschikbaar",
+    "unavailableDescription": "De producthub kon niet worden geladen.",
+    "noProductDataDescription": "Er bestaan geen productgegevens voor deze sandbox.",
+    "hubEyebrow": "Sandbox",
+    "hubOverviewTitle": "Overzicht",
+    "hubOverviewDescription": "Een gerichte kaart van de winkel, eigendom, levering en updaterecords voor deze Namespace.",
+    "latestChangesButton": "Laatste wijzigingen",
+    "entityOffersLabel": "Aanbiedingen",
+    "entityOffersDescription": "Winkelvermeldingen",
+    "entityItemsLabel": "Items",
+    "entityItemsDescription": "Eigendomsrecords",
+    "entityAssetsLabel": "Assets",
+    "entityAssetsDescription": "Artefacten en media",
+    "entityBuildsLabel": "Builds",
+    "entityBuildsDescription": "Binaire bundels",
+    "entityAchievementsLabel": "Prestaties",
+    "entityAchievementsDescription": "Voortgangsgegevens",
+    "entityChangelogLabel": "Wijzigingslogboek",
+    "entityChangelogDescription": "Gevolgde updates",
+    "viewButton": "Bekijken",
+    "storefrontOffersTitle": "Winkelaanbiedingen",
+    "storefrontOffersDescription": "Representatieve winkelvermeldingen gevonden in deze sandbox.",
+    "recentBuildsTitle": "Recente builds",
+    "recentBuildsDescription": "Nieuwste binaire records.",
+    "latestBadge": "meest recent",
+    "unknownBuildLabel": "Onbekende build",
+    "recentChangesTitle": "Recente wijzigingen",
+    "recentChangesDescription": "Laatste catalogusmutaties.",
+    "updateBadge": "update",
+    "changeDefaultLabel": "Wijziging",
+    "metaOffersTitle": "Aanbiedingen",
+    "offersEyebrow": "E-commerce",
+    "offersTitle": "Aanbiedingen",
+    "offersDescription": "Winkelvermeldingen in deze sandbox, inclusief basisspellen, edities, DLC, add-ons, bundels en elk aanbod dat catalogusitems kan verlenen.",
+    "totalOffersLabel": "Totaal aanbiedingen",
+    "metaAchievementsTitle": "Prestaties",
+    "achievementsEyebrow": "Voortgang",
+    "achievementsTitle": "Prestaties",
+    "achievementsDescription": "Prestatiesets, verborgen statussen, zeldzaamheidsverdeling en XP-totalen die aan deze sandbox zijn gekoppeld.",
+    "achievementsSetsLabel": "Sets",
+    "achievementsLabel": "Prestaties",
+    "achievementsXpLabel": "XP",
+    "searchAchievementsPlaceholder": "Zoek prestaties",
+    "flipAllButton": "Alles omdraaien",
+    "revealHiddenAchievementAria": "Verborgen prestatietekst onthullen",
+    "hideHiddenAchievementAria": "Verborgen prestatietekst verbergen",
+    "achievementsBaseGameLabel": "Basespel",
+    "achievementsDlcLabel": "DLC",
+    "achievementsBaseGameTooltip": "Deze lijst met prestaties is voor het basisspel.",
+    "achievementsDlcTooltip": "Deze lijst met prestaties is voor een van de DLC's.",
+    "lastUpdatedLabel": "Laatst bijgewerkt:",
+    "achievementsLastUpdatedTooltip": "Deze prestatieset is voor het laatst bijgewerkt op",
+    "achievementsLastUpdatedTooltipExtra": "Dit is de aanmaakdatum of de datum van de laatste update.",
+    "noAchievementsForSet": "Geen prestaties gevonden voor deze set.",
+    "noAchievementsForSetExtra": "Dit kan betekenen dat de prestaties momenteel niet beschikbaar zijn maar in de toekomst worden toegevoegd.",
+    "noAchievementsFound": "Geen prestaties gevonden",
+    "metaItemsTitle": "Items",
+    "itemsEyebrow": "Catalogus eigendom",
+    "itemsTitle": "Items",
+    "itemsDescription": "Eigendomsbare catalogusitems in aanbiedingen. Dit zijn de records die spelersrechten worden na een aankoop of inwisseling.",
+    "totalItemsLabel": "Totaal items",
+    "metaChangelogTitle": "Wijzigingslogboek",
+    "changelogEyebrow": "Audittrail",
+    "changelogTitle": "Wijzigingslogboek",
+    "changelogDescription": "Waargenomen wijzigingen in de aanbiedingen, items, assets, builds en gerelateerde catalogusmetadata van deze sandbox.",
+    "totalChangesLabel": "Wijzigingen",
+    "queryTimeLabel": "Querytijd",
+    "noChangelogFound": "Geen wijzigingslogboek gevonden",
+    "metaBuildsTitle": "Builds",
+    "buildsEyebrow": "Binaries",
+    "buildsTitle": "Builds",
+    "buildsDescription": "Versie bestandsbundels geüpload voor de sandbox. Builds worden toegewezen aan artefacten en bepalen wat spelers downloaden via de launcher.",
+    "totalBuildsLabel": "Totaal builds",
+    "metaAssetsTitle": "Assets",
+    "assetsEyebrow": "Assets en artefacten",
+    "assetsTitle": "Assets",
+    "assetsDescription": "Distributie- en mediarecords gekoppeld aan sandbox-items, inclusief artefacten die winkelcatalogusinhoud verbinden met downloadbare builds.",
+    "totalAssetsLabel": "Totaal assets"
+  },
+  "items": {
+    "notFound": "Item niet gevonden",
+    "badge": "Item",
+    "table": {
+      "itemId": "Item-ID",
+      "namespace": "Namespace",
+      "developer": "Ontwikkelaar",
+      "entitlementType": "Rechttype",
+      "entitlementName": "Rechtnaam",
+      "status": "Status",
+      "creationDate": "Aanmaakdatum",
+      "lastModified": "Laatst gewijzigd",
+      "platforms": "Platforms"
+    },
+    "tooltip": {
+      "internalNamespace": "Interne namespace van Epic Games"
+    },
+    "tabs": {
+      "item": "Item",
+      "assets": "Assets",
+      "images": "Afbeeldingen",
+      "builds": "Builds",
+      "changelog": "Wijzigingslogboek"
+    },
+    "metadata": {
+      "title": "Metadata",
+      "key": "Sleutel",
+      "value": "Waarde"
+    },
+    "assets": {
+      "title": "Assets"
+    },
+    "builds": {
+      "title": "Builds"
+    },
+    "changelog": {
+      "title": "Wijzigingslogboek",
+      "noChangelog": "Geen wijzigingslogboek beschikbaar"
+    },
+    "images": {
+      "title": "Afbeeldingen"
+    }
+  },
+  "builds": {
+    "notFound": "Build niet gevonden",
+    "build": "Build",
+    "for": "voor",
+    "compressed": "({{percent}}% gecomprimeerd)",
+    "table": {
+      "buildId": "Build-ID",
+      "buildName": "Buildnaam",
+      "appName": "App-naam",
+      "hash": "Hash",
+      "installedSize": "Geïnstalleerde grootte",
+      "downloadSize": "Downloadgrootte",
+      "createdAt": "Aangemaakt op",
+      "updatedAt": "Bijgewerkt op",
+      "technologies": "Technologieën"
+    },
+    "tooltip": {
+      "techSource": "We gebruiken",
+      "techSourceSteamDb": "SteamDB",
+      "techDescription": "technologieënlijst om de gebruikte engines en verschillende technologieën uit de gamebestanden te volgen.",
+      "source": "Bron"
+    },
+    "tabs": {
+      "files": "Bestanden",
+      "items": "Items",
+      "installOptions": "Installatieopties"
+    },
+    "files": {
+      "title": "Bestanden"
+    },
+    "items": {
+      "title": "Items"
+    },
+    "installOptions": {
+      "title": "Installatieopties",
+      "file_one": "bestand",
+      "file_other": "bestanden"
+    },
+    "meta": {
+      "title": "{{title}} ({{version}}) | egdata.app",
+      "description": "{{version}} Build voor {{title}} van de Epic Games Store."
+    }
+  },
+  "profile": {
+    "meta": {
+      "notFoundTitle": "Profiel niet gevonden",
+      "notFoundDescription": "Profiel niet gevonden",
+      "title": "{{name}} | egdata.app",
+      "description": "Bekijk de prestaties en games van {{name}} op egdata.app",
+      "defaultName": "Profiel",
+      "defaultDescriptionName": "deze speler"
+    },
+    "errors": {
+      "notFoundTitle": "Profiel niet gevonden",
+      "notFoundDescription": "Dit profiel is niet beschikbaar of is nog niet geïndexeerd.",
+      "unavailableTitle": "Profiel niet beschikbaar",
+      "unavailableDescription": "Dit profiel kan op dit moment niet worden geladen.",
+      "invalidImageFormat": "Ongeldig afbeeldingsformaat",
+      "failedToUpload": "Uploaden mislukt",
+      "uploadFailed": "Uploaden mislukt",
+      "failedToRefresh": "Profiel vernieuwen mislukt",
+      "refreshQueued": "Profiel toegevoegd aan wachtrij voor vernieuwing, het wordt binnenkort bijgewerkt."
+    },
+    "fallbackName": "Onbekend profiel",
+    "avatar": {
+      "changeAvatar": "Avatar wijzigen",
+      "dialogDescription": "Upload een nieuwe profielfoto.",
+      "previewAlt": "Avatar-voorbeeld",
+      "fallback": "Avatar",
+      "description": "Upload een nieuwe avatarafbeelding, max 5MB.",
+      "uploadingWithProgress": "Bezig met uploaden... {{progress}}%",
+      "uploading": "Bezig met uploaden...",
+      "updateAvatar": "Avatar bijwerken",
+      "errorTitle": "Fout"
+    },
+    "hero": {
+      "joined": "Lid geworden",
+      "epicGamesStore": "Epic Games Store",
+      "linkDiscord": "Discord koppelen",
+      "refreshProfile": "Profiel vernieuwen",
+      "refreshAvailableIn": "Vernieuwen beschikbaar over",
+      "level": "Niveau",
+      "achievements": "Prestaties",
+      "unlocked": "Ontgrendeld",
+      "platinum": "Platina",
+      "perfectGames": "Perfecte games",
+      "library": "Bibliotheek",
+      "achievementGames": "Prestatiegames",
+      "reviews": "Reviews",
+      "contributed": "Bijgedragen",
+      "xpToNextLevel": "{{xp}} XP naar niveau {{level}}",
+      "heroGame": "Helden game",
+      "complete": "voltooid"
+    },
+    "donor": {
+      "donated_one": "{{name}} heeft {{count}} sleutel gedoneerd aan egdata.app",
+      "donated_other": "{{name}} heeft {{count}} sleutels gedoneerd aan egdata.app",
+      "goTo": "Ga naar",
+      "thisLink": "deze link",
+      "toDonateKey": "om een sleutel te doneren."
+    },
+    "countdown": {
+      "minutesSeconds_one": "{{minutes}} minuut {{seconds}} seconde",
+      "minutesSeconds_other": "{{minutes}} minuten {{seconds}} seconden",
+      "seconds_one": "{{seconds}} seconde",
+      "seconds_other": "{{seconds}} seconden"
+    },
+    "tabs": {
+      "showcase": "Vitrine",
+      "library": "Bibliotheek",
+      "activity": "Activiteit"
+    },
+    "stats": {
+      "games": "{{count}} games",
+      "achievements": "{{count}} prestaties",
+      "platinum": "{{count}} platina"
+    },
+    "showcase": {
+      "ariaLabel": "Profiel vitrine hoogtepunten",
+      "featuredGamesTitle": "Uitgelichte games",
+      "featuredGamesDetail": "{{count}} geselecteerd op basis van profielprestaties",
+      "rareAchievementsTitle": "Zeldzame prestaties",
+      "rareAchievementsDetail": "Moeilijk te vinden ontgrendelingen in het profiel",
+      "recentUnlocksTitle": "Recente ontgrendelingen",
+      "recentUnlocksDetail": "Laatste zichtbare activiteit",
+      "noDataTitle": "Nog geen vitrinegegevens",
+      "noDataDescription": "Alleen uitgebrachte games met openbare prestatievoortgang verschijnen op profielen.",
+      "rarestUnlock": "Zeldzaamste ontgrendeling",
+      "definingGame": "Bepalende game",
+      "latestActivity": "Laatste activiteit",
+      "achievementsCount": "{{unlocked}} / {{total}} prestaties",
+      "platinum": "Platina"
+    },
+    "library": {
+      "filterAriaLabel": "Bibliotheekfilter",
+      "sortAriaLabel": "Bibliotheek sorteren",
+      "sortByPlaceholder": "Sorteren op",
+      "noGamesTitle": "Geen games gevonden",
+      "noGamesDescription": "Alleen uitgebrachte games met prestaties verschijnen in deze bibliotheek.",
+      "gameAlt": "Game",
+      "complete": "voltooid",
+      "featured": "Uitgelicht",
+      "rareUnlocks": "Zeldzame ontgrendelingen",
+      "filters": {
+        "all": "Alle",
+        "completed": "Voltooid",
+        "nearPlatinum": "Bijna platina",
+        "inProgress": "Bezig",
+        "platinum": "Platina"
+      },
+      "sorts": {
+        "completion": "Voltooiing",
+        "alphabetical": "Alfabetisch",
+        "xp": "XP",
+        "achievements": "Prestaties"
+      }
+    },
+    "activity": {
+      "title": "Activiteit",
+      "detail": "{{count}} prestaties ontgrendeld",
+      "noActivityTitle": "Nog geen activiteit",
+      "noActivityDescription": "Prestatie-ontgrendelingen verschijnen hier wanneer dit profiel openbare voortgang heeft.",
+      "achievementAlt": "Prestatie",
+      "platinumEarned": "Platina verdiend",
+      "achievementUnlocked": "Prestatie ontgrendeld",
+      "unknownRarity": "Onbekende zeldzaamheid",
+      "rarity": "{{value}}% zeldzaamheid",
+      "unknownDate": "Onbekende datum"
+    },
+    "achievements": {
+      "loading": "Laden...",
+      "notFound": "Profiel niet gevonden",
+      "myAchievements": "Mijn prestaties"
+    }
+  },
+  "tags": {
+    "meta": {
+      "notFoundTitle": "Promotie niet gevonden",
+      "notFoundDescription": "Promotie niet gevonden",
+      "title": "{{title}} | egdata.app",
+      "description": "Bekijk {{count}} beschikbare aanbiedingen voor {{title}} op egdata.app.",
+      "socialTitle": "{{title}} - egdata.app"
+    },
+    "loading": "Laden...",
+    "offersCount": "{{count}} aanbiedingen beschikbaar in dit evenement",
+    "results": "Resultaten",
+    "resultsCount": "({{count}} resultaten)",
+    "searchPlaceholder": "Zoeken...",
+    "loadMore": "Meer laden",
+    "sortBy": {
+      "releaseDate": "Releasedatum",
+      "lastModifiedDate": "Wijzigingsdatum",
+      "effectiveDate": "Ingangsdatum",
+      "creationDate": "Aanmaakdatum",
+      "viewableDate": "Zichtbare datum",
+      "pcReleaseDate": "Pc-releasedatum",
+      "upcoming": "Aankomend",
+      "price": "Prijs"
+    }
+  },
+  "genres": {
+    "meta": {
+      "title": "Genres - egdata.app",
+      "description": "Genres op egdata.app"
+    },
+    "heading": "Genres"
+  },
+  "sellers": {
+    "meta": {
+      "notFoundTitle": "Verkoper niet gevonden",
+      "notFoundDescription": "Verkoper niet gevonden",
+      "title": "{{name}} | egdata.app"
+    },
+    "notFound": "Verkoper niet gevonden",
+    "logoAlt": "{{name}} logo",
+    "bannerAlt": "{{name}}",
+    "offersTitle": "{{name}} aanbiedingen",
+    "stats": {
+      "offers": "Aanbiedingen",
+      "games": "Games",
+      "items": "Items",
+      "freeGames": "Gratis games"
+    }
+  },
+  "franchises": {
+    "meta": {
+      "notFoundTitle": "Franchise niet gevonden",
+      "notFoundDescription": "Franchise niet gevonden",
+      "title": "{{name}} Franchise | egdata.app",
+      "description": "Blader door alle games in de {{name}}-franchise in de Epic Games Store."
+    },
+    "loading": "Laden...",
+    "gamesCount_one": "{{count}} game",
+    "gamesCount_other": "{{count}} games",
+    "timeToBeat": "Speelduur",
+    "achievements": "Prestaties",
+    "loadMore": "Meer laden",
+    "free": "Gratis"
+  },
+  "stats": {
+    "creations": {
+      "meta": {
+        "title": "Creatiestatistieken - egdata.app",
+        "description": "Maandelijkse en jaarlijkse cadans van nieuwe creaties die in de Epic Games Store verschijnen."
+      },
+      "viewReleases": "Releases bekijken",
+      "heading": "Epic Games Store creatiestatistieken",
+      "description": "Maandelijkse en jaarlijkse cadans van nieuwe creaties die in de winkel verschijnen.",
+      "monthlyTitle": "Maandelijkse creaties",
+      "yearlyTitle": "Jaarlijkse creaties"
+    },
+    "releases": {
+      "meta": {
+        "title": "Releasestatistieken - egdata.app",
+        "description": "Maandelijkse en jaarlijkse cadans van nieuwe titels die in de Epic Games Store verschijnen."
+      },
+      "viewCreations": "Creaties bekijken",
+      "heading": "Epic Games Store releasestatistieken",
+      "description": "Maandelijkse en jaarlijkse cadans van nieuwe titels die in de winkel verschijnen.",
+      "monthlyTitle": "Maandelijkse releases",
+      "yearlyTitle": "Jaarlijkse releases"
+    }
+  },
+  "store": {
+    "creatorCode": {
+      "title": "Steun egdata.app",
+      "description": "Wil je egdata.app steunen door onze creatorcode te gebruiken bij het kopen van games? Deze keuze wordt onthouden voor toekomstige bezoeken.",
+      "body": "Het gebruik van onze creatorcode helpt de ontwikkeling van egdata.app en zijn functies te ondersteunen. Het heeft geen invloed op de prijs die je betaalt.",
+      "noThanks": "Nee, bedankt",
+      "yesUseCode": "Ja, gebruik code"
+    }
+  },
+  "dashboard": {
+    "placeholder": "Hallo /dashboard!"
+  },
+  "auth": {
+    "login": {
+      "placeholder": "Hallo /auth/login!"
+    },
+    "callback": {
+      "placeholder": "Hallo /auth/callback!"
+    },
+    "logout": {
+      "placeholder": "Hallo /auth/logout!"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "Over - egdata.app",
+      "description": "Over egdata.app"
+    },
+    "title": "Over",
+    "intro": "egdata.app is een community-gestuurde website die zich toelegt op het volgen en verstrekken van informatie over de Epic Games Store. Vergelijkbaar met SteamDB voor Steam, streven we ernaar een uitgebreide bron te bieden voor gebruikers om veranderingen te ontdekken, nieuwe games te vinden en op de hoogte te blijven van de laatste gebeurtenissen op het platform.",
+    "missionTitle": "Onze missie",
+    "missionBody": "Onze missie is om transparantie en inzichten te bieden in het Epic Games Store-ecosysteem. We geloven dat door het verzamelen en presenteren van gegevens op een toegankelijke manier, we gebruikers in staat kunnen stellen om weloverwogen beslissingen te nemen over hun game-aankopen en bij te dragen aan een beter begrip van het platform.",
+    "featuresTitle": "Functies",
+    "features": {
+      "trackPrices": "Volg prijswijzigingen van games en historische gegevens",
+      "upcomingReleases": "Bekijk aankomende releases en gratis game-promoties",
+      "gameDetails": "Ontdek game-details, beoordelingen en gebruikersreviews",
+      "analyzeTrends": "Analyseer trends en patronen in de Epic Games Store"
+    },
+    "communityTitle": "Community-gestuurd",
+    "communityBody": "egdata.app wordt gebouwd en onderhouden door een gepassioneerde community van gamers en ontwikkelaars. We verwelkomen bijdragen van iedereen die wil helpen de website te verbeteren en het een waardevolle bron te maken voor iedereen. Neem gerust contact met ons op als je feedback, suggesties hebt of wilt meedoen.",
+    "sourceCodeIntro": "Alle broncode voor egdata.app is beschikbaar op",
+    "github": "GitHub",
+    "notTitle": "Wat egdata.app NIET is",
+    "notIntro": "Het is belangrijk om te verduidelijken dat egdata.app niet is:",
+    "notList": {
+      "affiliated": "Gelieerd aan Epic Games: We zijn een onafhankelijk, community-gestuurd project en niet officieel onderschreven of geassocieerd met Epic Games op enigerlei wijze.",
+      "storefront": "Een winkel of marktplaats: We verkopen geen games of bieden geen aankoopopties. Onze focus ligt op het verstrekken van informatie en gegevens over de Epic Games Store.",
+      "piracy": "Een platform voor piraterij of illegale activiteiten: We veroordelen piraterij ten zeerste en bieden geen middelen om illegaal toegang te krijgen tot auteursrechtelijk beschermd materiaal of dit te verspreiden."
+    },
+    "fairUseTitle": "Fair Use-beleid",
+    "fairUseBody": "egdata.app zet zich in om te voldoen aan de principes van fair use onder het auteursrecht. We verstrekken informatie en gegevens alleen voor informatieve doeleinden, met als doel het publiek te informeren over games die beschikbaar zijn in de Epic Games Store.",
+    "fairUseFactorsTitle": "Belangrijkste factoren die fair use rechtvaardigen:",
+    "fairUseFactors": {
+      "nonCommercial": "Niet-commercieel, educatief doel:",
+      "nonCommercialBody": "Onze website is niet-commercieel en streeft ernaar de publieke kennis over Epic Games Store-games te vergroten.",
+      "factual": "Feitelijke informatie:",
+      "factualBody": "We presenteren voornamelijk feitelijke gegevens zoals gametitels, releasedata en ontwikkelaars, die minder beschermd zijn onder auteursrecht.",
+      "limited": "Beperkt gebruik:",
+      "limitedBody": "We gebruiken alleen de benodigde hoeveelheid gegevens om zinvolle informatie te verstrekken zonder de originele werken te vervangen.",
+      "noMarketHarm": "Geen marktschade:",
+      "noMarketHarmBody": "Ons gebruik heeft geen negatieve invloed op de markt voor de originele games; het kan ze juist promoten door meer gebruikersinteresse."
+    },
+    "autoTrackBody": "We volgen en updaten automatisch gamegegevens uit openbaar beschikbare bronnen, waaronder de Epic Games Store. We laden grafische assets rechtstreeks van hun servers en slaan ze niet op.",
+    "leakedDataTitle": "Vrijwaring gelekt gegevens:",
+    "leakedDataBody": "Eventueel gelekte gegevens op onze site zijn afkomstig van openbaar beschikbare informatie op de Epic Games Store. We hebben geen toegang tot vertrouwelijke of propriëtaire gegevens. Uitgevers zijn verantwoordelijk voor het beschermen van hun gevoelige informatie binnen de",
+    "epicDevPortal": "Epic Games Developer-portal",
+    "euDirectivesIntro": "Bij het ontwikkelen van ons Fair Use-beleid hebben we rekening gehouden met de principes in de volgende EU-auteursrechtrichtlijnen:",
+    "euDirective1": "Richtlijn (EU) 2019/790 betreffende auteursrechten en naburige rechten in de digitale eengemaakte markt",
+    "euDirective2": "Vragen en antwoorden – Nieuwe EU-auteursrechtregels",
+    "fairUseContact": "Als je vragen hebt over ons Fair Use-beleid of van mening bent dat inhoud je auteursrecht schendt, neem dan contact met ons op via:",
+    "contactTitle": "Neem contact op",
+    "contactBody": "Je kunt ons bereiken via"
+  },
+  "changelog": {
+    "index": {
+      "meta": {
+        "title": "Wijzigingslogboek | egdata.app"
+      },
+      "searchPlaceholder": "Wijzigingslogboeken doorzoeken...",
+      "searchButton": "Zoeken",
+      "loading": "Laden...",
+      "error": "Fout bij ophalen van gegevens"
+    },
+    "detail": {
+      "meta": {
+        "title": "Wijzigingsdetail | egdata.app"
+      },
+      "loading": "Laden...",
+      "error": "Fout bij laden van wijzigingsdetails",
+      "notFound": "Wijziging niet gevonden"
+    }
+  },
+  "privacy": {
+    "title": "Over",
+    "intro": "egdata.app is een community-gestuurde website die zich toelegt op het volgen en verstrekken van informatie over de Epic Games Store. Vergelijkbaar met SteamDB voor Steam, streven we ernaar een uitgebreide bron te bieden voor gebruikers om veranderingen te ontdekken, nieuwe games te vinden en op de hoogte te blijven van de laatste gebeurtenissen op het platform.",
+    "missionTitle": "Onze missie",
+    "missionBody": "Onze missie is om transparantie en inzichten te bieden in het Epic Games Store-ecosysteem. We geloven dat door het verzamelen en presenteren van gegevens op een toegankelijke manier, we gebruikers in staat kunnen stellen om weloverwogen beslissingen te nemen over hun game-aankopen en bij te dragen aan een beter begrip van het platform.",
+    "featuresTitle": "Functies",
+    "features": {
+      "trackPrices": "Volg prijswijzigingen van games en historische gegevens",
+      "upcomingReleases": "Bekijk aankomende releases en gratis game-promoties",
+      "gameDetails": "Ontdek game-details, beoordelingen en gebruikersreviews",
+      "analyzeTrends": "Analyseer trends en patronen in de Epic Games Store"
+    },
+    "communityTitle": "Community-gestuurd",
+    "communityBody": "egdata.app wordt gebouwd en onderhouden door een gepassioneerde community van gamers en ontwikkelaars. We verwelkomen bijdragen van iedereen die wil helpen de website te verbeteren en het een waardevolle bron te maken voor iedereen. Neem gerust contact met ons op als je feedback, suggesties hebt of wilt meedoen.",
+    "sourceCodeIntro": "Alle broncode voor egdata.app is beschikbaar op",
+    "github": "GitHub",
+    "notTitle": "Wat egdata.app NIET is",
+    "notIntro": "Het is belangrijk om te verduidelijken dat egdata.app niet is:",
+    "notList": {
+      "affiliated": "Gelieerd aan Epic Games: We zijn een onafhankelijk, community-gestuurd project en niet officieel onderschreven of geassocieerd met Epic Games op enigerlei wijze.",
+      "storefront": "Een winkel of marktplaats: We verkopen geen games of bieden geen aankoopopties. Onze focus ligt op het verstrekken van informatie en gegevens over de Epic Games Store.",
+      "piracy": "Een platform voor piraterij of illegale activiteiten: We veroordelen piraterij ten zeerste en bieden geen middelen om illegaal toegang te krijgen tot auteursrechtelijk beschermd materiaal of dit te verspreiden."
+    },
+    "fairUseTitle": "Fair Use-beleid",
+    "fairUseBody": "egdata.app zet zich in om te voldoen aan de principes van fair use onder het auteursrecht. We verstrekken informatie en gegevens alleen voor informatieve doeleinden, met als doel het publiek te informeren over games die beschikbaar zijn in de Epic Games Store.",
+    "fairUseFactorsTitle": "Belangrijkste factoren die fair use rechtvaardigen:",
+    "fairUseFactors": {
+      "nonCommercial": "Niet-commercieel, educatief doel:",
+      "nonCommercialBody": "Onze website is niet-commercieel en streeft ernaar de publieke kennis over Epic Games Store-games te vergroten.",
+      "factual": "Feitelijke informatie:",
+      "factualBody": "We presenteren voornamelijk feitelijke gegevens zoals gametitels, releasedata en ontwikkelaars, die minder beschermd zijn onder auteursrecht.",
+      "limited": "Beperkt gebruik:",
+      "limitedBody": "We gebruiken alleen de benodigde hoeveelheid gegevens om zinvolle informatie te verstrekken zonder de originele werken te vervangen.",
+      "noMarketHarm": "Geen marktschade:",
+      "noMarketHarmBody": "Ons gebruik heeft geen negatieve invloed op de markt voor de originele games; het kan ze juist promoten door meer gebruikersinteresse."
+    },
+    "autoTrackBody": "We volgen en updaten automatisch gamegegevens uit openbaar beschikbare bronnen, waaronder de Epic Games Store. We laden grafische assets rechtstreeks van hun servers en slaan ze niet op.",
+    "leakedDataTitle": "Vrijwaring gelekt gegevens:",
+    "leakedDataBody": "Eventueel gelekte gegevens op onze site zijn afkomstig van openbaar beschikbare informatie op de Epic Games Store. We hebben geen toegang tot vertrouwelijke of propriëtaire gegevens. Uitgevers zijn verantwoordelijk voor het beschermen van hun gevoelige informatie binnen de",
+    "epicDevPortal": "Epic Games Developer-portal",
+    "euDirectivesIntro": "Bij het ontwikkelen van ons Fair Use-beleid hebben we rekening gehouden met de principes in de volgende EU-auteursrechtrichtlijnen:",
+    "euDirective1": "Richtlijn (EU) 2019/790 betreffende auteursrechten en naburige rechten in de digitale eengemaakte markt",
+    "euDirective2": "Vragen en antwoorden – Nieuwe EU-auteursrechtregels",
+    "fairUseContact": "Als je vragen hebt over ons Fair Use-beleid of van mening bent dat inhoud je auteursrecht schendt, neem dan contact met ons op via:",
+    "contactTitle": "Neem contact op",
+    "contactBody": "Je kunt ons bereiken via"
+  },
+  "notifications": {
+    "meta": {
+      "title": "Meldingen - egdata.app",
+      "description": "Pushmeldingen configureren en beheren voor Epic Games Store-updates, gamereleases en meer."
+    },
+    "title": "Meldingen",
+    "description": "Pushmeldingen configureren en beheren voor Epic Games Store-updates, gamereleases en gepersonaliseerde waarschuwingen.",
+    "tabs": {
+      "notifications": "Meldingen",
+      "mySubscriptions": "Mijn abonnementen"
+    },
+    "aboutPushTitle": "Over pushmeldingen",
+    "aboutPushDescription": "Lees meer over hoe pushmeldingen werken op EGData.",
+    "whatYoullReceive": "Wat je ontvangt:",
+    "receiveList": {
+      "freeGames": "Aankondigingen van nieuwe gratis games",
+      "releases": "Meldingen van gamereleases",
+      "priceDrops": "Prijsdalingmeldingen voor gewenste games",
+      "news": "Epic Games Store nieuws en updates",
+      "custom": "Aangepaste onderwerpgebaseerde meldingen"
+    },
+    "privacySecurity": "Privacy en beveiliging:",
+    "privacyList": {
+      "apiKey": "Je API-sleutel wordt veilig opgeslagen in browsercookies",
+      "onlySubscribed": "We sturen alleen meldingen waarop je je hebt geabonneerd",
+      "unsubscribe": "Je kunt op elk moment uitschrijven",
+      "noPersonalData": "Er zijn geen persoonlijke gegevens nodig naast je API-sleutel"
+    },
+    "browserSupport": "Browserondersteuning:",
+    "browserSupportBody": "Pushmeldingen worden ondersteund in moderne browsers waaronder Chrome, Firefox, Safari en Edge. Zorg dat je meldingen toestaat wanneer je browser hierom vraagt.",
+    "subscriptionOverview": "Abonnementsoverzicht",
+    "totalSubscribed": "Totaal geabonneerde onderwerpen: {{count}}",
+    "notSubscribedApi": "API-sleutel is niet geabonneerd op pushmeldingen",
+    "notSubscribedTitle": "Niet geabonneerd",
+    "notSubscribedBody": "Je API-sleutel is niet geabonneerd op pushmeldingen. Gebruik het tabblad \"Instellen en abonneren\" om je eerst te abonneren.",
+    "subscriptionId": "Abonnement {{id}}",
+    "created": "Aangemaakt:",
+    "subscribedTopics": "Geabonneerde onderwerpen:",
+    "noTopics": "Geen onderwerpen geabonneerd",
+    "lastUpdated": "Laatst bijgewerkt:",
+    "noSubscriptionsTitle": "Geen abonnementen gevonden",
+    "noSubscriptionsBody": "Je bent geabonneerd maar hebt nog geen apparaatabonnementen aangemaakt. Gebruik het tabblad \"Instellen en abonneren\" om je eerste abonnement aan te maken.",
+    "fetchError": "Abonnementen ophalen mislukt. Probeer het opnieuw.",
+    "push": {
+      "title": "Pushmeldingen",
+      "notSupported": "Pushmeldingen worden niet ondersteund in deze browser.",
+      "setApiKey": "Stel je API-sleutel in om pushmeldingen in te schakelen.",
+      "manage": "Beheer je pushmeldingvoorkeuren.",
+      "unsubscribe": "Uitschrijven",
+      "subscribe": "Abonneren",
+      "subscribed": "Geabonneerd",
+      "notSubscribed": "Niet geabonneerd",
+      "subscribeToTopic": "Abonneren op onderwerp",
+      "topicPlaceholder": "Voer onderwerpnaam in (bijv. game-updates)",
+      "subscribedTopics": "Geabonneerde onderwerpen",
+      "clickToUnsubscribe": "Klik op een onderwerp om uit te schrijven"
+    },
+    "simple": {
+      "title": "Pushmeldingen",
+      "notSupported": "Pushmeldingen worden niet ondersteund in deze browser.",
+      "subscribedDesc": "Je bent geabonneerd op {{count}} meldingonderwerpen",
+      "notSubscribedDesc": "Ontvang meldingen over Epic Games Store-updates, gratis games en meer",
+      "subscribeToNotifications": "Abonneren op meldingen",
+      "unsubscribe": "Uitschrijven",
+      "chooseWhat": "Kies waarover je meldingen wilt ontvangen:",
+      "freeGames": "Gratis Games",
+      "freeGamesDesc": "Ontvang een melding wanneer er nieuwe gratis games beschikbaar zijn",
+      "newReleases": "Nieuwe Releases",
+      "newReleasesDesc": "Meldingen voor nieuwe gamereleases",
+      "priceDrops": "Prijsdalingen",
+      "priceDropsDesc": "Ontvang waarschuwingen wanneer games in de aanbieding zijn",
+      "youWillReceive": "Je ontvangt meldingen voor:",
+      "subscribedTo": "Geabonneerd op {{name}}",
+      "unsubscribedFrom": "Uitgeschreven van {{name}}",
+      "failedSubscribe": "Abonneren op meldingen mislukt",
+      "failedUnsubscribe": "Uitschrijven van meldingen mislukt",
+      "failedTopicSubscribe": "Abonneren op onderwerp mislukt",
+      "failedTopicUnsubscribe": "Uitschrijven van onderwerp mislukt",
+      "successSubscribe": "Succesvol geabonneerd op meldingen!",
+      "successUnsubscribe": "Succesvol uitgeschreven van meldingen"
+    },
+    "apiKey": {
+      "title": "API-sleutelbeheer",
+      "label": "API-sleutel",
+      "placeholderGenerated": "API-sleutel gegenereerd",
+      "placeholderNone": "Geen API-sleutel gegenereerd",
+      "regenerate": "Sleutel regenereren",
+      "generate": "Sleutel genereren",
+      "clear": "Sleutel wissen",
+      "generated": "Nieuwe API-sleutel succesvol gegenereerd!",
+      "copied": "API-sleutel gekopieerd naar klembord!",
+      "cleared": "API-sleutel succesvol gewist!",
+      "failedGenerate": "API-sleutel genereren mislukt",
+      "failedCopy": "API-sleutel kopiëren mislukt",
+      "failedClear": "API-sleutel wissen mislukt",
+      "noneToCopy": "Geen API-sleutel om te kopiëren",
+      "description": "Je API-sleutel is een UUID die lokaal in je browser wordt opgeslagen en wordt gebruikt om pushmeldingaanvragen te authenticeren. Gebruik de regeneratieknop om indien nodig een nieuwe sleutel aan te maken."
+    }
+  },
+  "promotions": {
+    "placeholder": "Hallo /promotions/$id!"
+  },
+  "misc": {
+    "gameAwards": {
+      "meta": {
+        "title": "The Game Awards Verslaggeving | egdata.app",
+        "description": "Laatste games aangekondigd en genomineerd bij The Game Awards die naar de Epic Games Store komen."
+      },
+      "logoAlt": "The Game Awards 2025",
+      "subtitle": "Games aangekondigd of genomineerd bij The Game Awards die naar de Epic Games Store komen",
+      "videoTitle": "The Game Awards 2024 - Live Stream",
+      "expandPlayer": "Speler uitvouwen",
+      "closeMiniPlayer": "Mini-speler sluiten",
+      "noGamesTitle": "Nog geen games aangekondigd",
+      "noGamesBody": "Kom terug na The Game Awards!"
+    },
+    "downloads": {
+      "title": "egdata.app Client Releases",
+      "description": "Download de nieuwste versie. We hebben de aanbevolen sectie voor uw besturingssysteem gemarkeerd.",
+      "errorPrefix": "Fout:",
+      "noPublicReleases": "Geen openbare releases gevonden.",
+      "recommended": "Aanbevolen",
+      "downloadsSuffix": "Downloads",
+      "versionPublished": "Versie {{version}} - Gepubliceerd op {{date}}",
+      "assetInfo": {
+        "appleSilicon": "Voor nieuwere Mac-computers met Apple-chips (M1, M2, M3, etc.).",
+        "intel": "Voor oudere Mac-computers met Intel-processors.",
+        "universal": "Compatibel met zowel Apple Silicon als Intel Macs.",
+        "msi": "Een standaard installatiewizard. Aanbevolen voor de meeste gebruikers.",
+        "exe": "Een standalone applicatiebestand. Vereist mogelijk geen installatie.",
+        "linux": "Voor Linux-gebaseerde besturingssystemen.",
+        "generic": "Een generiek bestand of broncode."
+      }
+    },
+    "discordLinked": {
+      "title": "Account succesvol gekoppeld!",
+      "body": "Je Discord-account is succesvol gekoppeld aan egdata.app",
+      "footer": "Je kunt dit venster nu sluiten en terugkeren naar Discord. Je account is klaar voor gebruik met egdata.app"
+    },
+    "posts": {
+      "coverAlt": "LEGO Star Wars: The Skywalker Saga Omslagkunst",
+      "title": "Krijg LEGO® Star Wars™: The Skywalker Saga GRATIS in de Epic Games Store",
+      "freeGameBadge": "Gratis Game",
+      "published": "Gepubliceerd op 30 november 2023",
+      "intro": "Zet het in je agenda, Star Wars-fans! Van {{dateRange}} kun je de geprezen {{game}} GRATIS krijgen in de Epic Games Store. Deze game, die normaal {{price}} kost, laat je de iconische momenten van de {{saga}} herbeleven met een leuke LEGO-twist.",
+      "dateRange": "5 december tot 12 december 2024",
+      "game": "LEGO® Star Wars™: The Skywalker Saga",
+      "price": "$49.99",
+      "saga": "Skywalker-saga",
+      "gameplayAlt": "LEGO Star Wars Gameplay",
+      "charactersAlt": "LEGO Star Wars Personages",
+      "whatToExpect": "Wat kun je verwachten?",
+      "whatToExpectBody": "Ontwikkeld door {{developer}} en uitgegeven door {{publisher}}, biedt deze titel een uitgebreide Star Wars-ervaring als geen ander. Dit is waarom het een must-play is:",
+      "developer": "TT Games",
+      "publisher": "Warner Bros.",
+      "expectList": {
+        "allMovies": "{{strong}}: Beleef de verhaallijnen van alle negen Skywalker-saga films opnieuw, boordevol klassieke LEGO-humor.",
+        "allMoviesStrong": "Alle 9 films",
+        "characters": "{{strong}}: Bestuur je favoriete helden en schurken uit het verre, verre sterrenstelsel.",
+        "charactersStrong": "300+ speelbare personages",
+        "vehicles": "{{strong}}: Vlieg iconische schepen zoals de Millennium Falcon en TIE Fighters.",
+        "vehiclesStrong": "100+ voertuigen",
+        "planets": "{{strong}}: Reis naar bekende werelden, van Tatooine tot Endor en verder.",
+        "planetsStrong": "23 planeten om te verkennen"
+      },
+      "specialTitle": "Wat maakt deze game bijzonder?",
+      "specialBody": "Sinds de release in {{releaseDate}} wordt LEGO Star Wars: The Skywalker Saga geprezen om zijn boeiende gameplay en trouwe adaptatie van het Star Wars-universum. Met een {{metascore}} op Metacritic hebben critici en fans het volgende benadrukt:",
+      "releaseDate": "april 2022",
+      "metascore": "82 Metascore",
+      "specialList": {
+        "combat": "{{strong}}: Lightsaber-gevechten, blaster-schietpartijen en ruimtegevechten.",
+        "combatStrong": "Dynamische gevechten",
+        "charm": "{{strong}}: Klassieke Star Wars-humor, heruitgevonden in LEGO's unieke stijl.",
+        "charmStrong": "LEGO charme",
+        "replayability": "{{strong}}: Talloze verzamelobjecten, zijmissies en verborgen geheimen.",
+        "replayabilityStrong": "HerSpeelbaarheid"
+      },
+      "howToClaim": "Hoe claim je het?",
+      "howToClaimBody": "Je gratis exemplaar krijgen is eenvoudig!",
+      "step1": "Bezoek de {{storeLink}} tussen {{dec5}} en {{dec12}}.",
+      "storeLink": "Epic Games Store",
+      "dec5": "5 december",
+      "dec12": "12 december 2024",
+      "step2": "Voeg de game toe aan je bibliotheek.",
+      "step3": "Het is voor altijd van jou!",
+      "cardTitle": "Mis deze kans niet om aan een LEGO-doordrenkte reis door het sterrenstelsel te beginnen!",
+      "cardBody": "Of je nu een doorgewinterde Star Wars-fan bent of een nieuwkomer, deze game biedt eindeloos plezier voor iedereen.",
+      "footer": "Moge de Force (en LEGO-stenen) met je zijn! 🧱✨"
+    },
+    "fairUse": {
+      "meta": {
+        "title": "Fair Use-beleid - egdata.app",
+        "description": "Fair Use-beleid voor egdata.app"
+      },
+      "title": "Fair Use-beleid voor EGData App",
+      "section1Title": "1. Inleiding",
+      "section1Body": "Welkom bij EGData App (\"wij\", \"ons\"). Dit Fair Use-beleid beschrijft de voorwaarden waaronder u de inhoud en gegevens op onze website {{siteLink}} (de \"Site\") mag gebruiken.",
+      "section2Title": "2. Doel van Fair Use",
+      "section2Body": "De inhoud en gegevens op EGData App worden uitsluitend voor informatieve doeleinden verstrekt. Ons doel is een uitgebreide database van games (of game-gerelateerde gegevens) beschikbaar in de Epic Games Store te bieden voor educatief en referentiegebruik door de community.",
+      "section3Title": "3. Naleving van Fair Use",
+      "section3Body": "EGData App voldoet aan de principes van fair use onder het auteursrecht door informatie en gegevens te verstrekken op een manier die het publiek ten goede komt zonder de rechten van inhoudseigenaren te schenden. Hier zijn de belangrijkste factoren die ons gebruik als fair use rechtvaardigen:",
+      "section3List": {
+        "purpose": "Doel en karakter van het gebruik:",
+        "purposeBody": "Onze website is niet-commercieel en heeft als doel het publiek te informeren over games die beschikbaar zijn in de Epic Games Store. We verstrekken kritische informatie, reviews en updates, waardoor de kennis en waardering van het publiek voor deze games wordt vergroot.",
+        "nature": "Aard van het auteursrechtelijk beschermde werk:",
+        "natureBody": "De gegevens die we verzamelen en presenteren bestaan uit feitelijke informatie zoals gametitels, releasedata, ontwikkelaars en updates. Feitelijke informatie is minder beschermd onder het auteursrecht dan creatieve werken.",
+        "amount": "Hoeveelheid en substantie:",
+        "amountBody": "We gebruiken alleen de hoeveelheid gegevens die nodig is om zinvolle en relevante informatie aan onze gebruikers te verstrekken. We reproduceren geen volledige werken of verstrekken geen uitgebreide uittreksels die de originele producten zouden kunnen vervangen.",
+        "effect": "Effect op de markt:",
+        "effectBody": "Ons gebruik van spelgegevens heeft geen negatieve invloed op de markt voor de originele games. Het promoot deze games juist door actuele informatie te verstrekken en gebruikersbetrokkenheid en interesse te stimuleren."
+      },
+      "section4Title": "4. Gegevensverzameling en updates",
+      "section4Body1": "Onze Site volgt en werkt automatisch spelgegevens bij om ervoor te zorgen dat de informatie die we verstrekken actueel en nauwkeurig is. Dit geautomatiseerde proces omvat het verzamelen van openbaar beschikbare informatie van de Epic Games Store en andere betrouwbare bronnen.",
+      "section4Body2": "Door onze database up-to-date te houden, zorgen we ervoor dat gebruikers toegang hebben tot de laatste informatie over hun favoriete games, inclusief nieuwe releases, updates en wijzigingen in beschikbaarheid.",
+      "section4Body3": "Wat grafische assets betreft, laden we de afbeeldingen rechtstreeks van de servers van de Epic Games Store. We slaan geen afbeeldingen op onze servers op.",
+      "section5Title": "5. Vrijwaring gelekte gegevens",
+      "section5Body1": "Alle gegevens die op onze Site gelekt lijken te zijn, zijn afkomstig van openbaar beschikbare informatie verstrekt door de Epic Games Store. We hebben geen toegang tot vertrouwelijke of propriëtaire gegevens die niet openbaar toegankelijk zijn. Daarom is het de verantwoordelijkheid van uitgevers om hun aankomende intellectuele eigendommen, games, downloadbare inhoud en andere gevoelige informatie te beschermen binnen de Epic Games Developer-portal.",
+      "section5Body2": "Uitgevers worden aangemoedigd om ervoor te zorgen dat gevoelige informatie goed wordt beveiligd en niet per ongeluk openbaar wordt gemaakt. EGData App kan niet verantwoordelijk worden gehouden voor gelekte informatie die is verkregen uit openbaar beschikbare bronnen.",
+      "section5Body3": "Voor meer informatie over gegevensbescherming en fair use in de Europese Unie, raadpleeg de volgende bronnen:",
+      "euDirective1": "Richtlijn (EU) 2019/790 betreffende auteursrechten en naburige rechten in de digitale eengemaakte markt",
+      "euDirective2": "Vragen en antwoorden – Nieuwe EU-auteursrechtregels",
+      "section6Title": "6. Neem contact op",
+      "section6Body": "Als u vragen heeft over dit Fair Use-beleid of als u van mening bent dat inhoud of gegevens op onze Site uw auteursrecht schenden, neem dan contact met ons op via:",
+      "email": "E-mail:"
+    },
+    "donateKey": {
+      "title": "Doneer een sleutel",
+      "body": "Als je een sleutel hebt die je aan het project wilt doneren, vul dan het onderstaande formulier in."
+    },
+    "androidBeta": {
+      "meta": {
+        "title": "Android Bèta - egdata.app",
+        "description": "Neem deel aan het gesloten bètatestprogramma van de egdata.app Android-app"
+      },
+      "title": "Android Bètaprogramma",
+      "description": "Neem deel aan onze gesloten bèta om de egdata.app Android-applicatie te testen voor de openbare release.",
+      "whatHappensNext": "Wat gebeurt er hierna?",
+      "steps": {
+        "signIn": "Log in met je Google-account",
+        "added": "Je wordt binnen enkele uren handmatig toegevoegd aan het gesloten testspoor",
+        "download": "Zodra je bent toegevoegd, kun je de app downloaden via de verstrekte link"
+      }
+    }
+  },
+  "components": {
+    "stats": {
+      "title": "Statistieken",
+      "description": "Statistieken over het platform",
+      "offers": "Aanbiedingen",
+      "offersTooltip": "Een aanbod is een aankoopbaar item uit de winkel",
+      "items": "Items",
+      "itemsTooltip": "Een item is het recht voor de launcher",
+      "tags": "Tags",
+      "offersYear": "Aanbiedingen (Jaar)",
+      "itemsYear": "Items (Jaar)",
+      "assets": "Assets",
+      "assetsTooltip": "Een asset zijn de gamebestanden",
+      "regPrices": "Reguliere prijzen",
+      "changes": "Wijzigingen",
+      "sandboxes": "Sandboxes",
+      "sandboxesTooltip": "Een sandbox is de groep aanbiedingen"
+    },
+    "sandboxShell": {
+      "overview": "Overzicht",
+      "offers": "Aanbiedingen",
+      "items": "Items",
+      "assets": "Assets",
+      "builds": "Builds",
+      "achievements": "Prestaties",
+      "changelog": "Wijzigingslogboek",
+      "sandbox": "Sandbox",
+      "internalNamespace": "Interne namespace",
+      "storePage": "Winkelpagina",
+      "updated": "Bijgewerkt {{date}}",
+      "unrealEngine": "Unreal Engine",
+      "internalSandbox": "Interne Sandbox",
+      "releaseStatus": {
+        "prePurchase": "Vooraankoop",
+        "datePending": "Datum in behandeling",
+        "comingSoon": "Binnenkort",
+        "released": "Uitgebracht"
+      }
+    },
+    "comparison": {
+      "openCompareTray": "Open vergelijkingslade, {{count}} geselecteerd",
+      "compareSelected": "Vergelijk geselecteerde aanbiedingen",
+      "error": "Fout",
+      "type": "Type",
+      "seller": "Verkoper",
+      "developer": "Ontwikkelaar",
+      "releaseDate": "Releasedatum",
+      "pcReleaseDate": "Pc-releasedatum",
+      "genres": "Genres",
+      "platforms": "Platforms",
+      "remove": "Verwijderen",
+      "current": "Huidig",
+      "lowest": "Laagste",
+      "noPriceFound": "Geen prijs gevonden",
+      "noAgeRatingsFound": "Geen leeftijdsclassificaties gevonden",
+      "achievements": "Prestaties:",
+      "ageRating": "Leeftijdsclassificatie:",
+      "price": "Prijs:",
+      "unknown": "Onbekend"
+    },
+    "search": {
+      "sellers": "Verkopers",
+      "noResults": "Geen resultaten gevonden",
+      "noResultsShort": "Geen resultaten gevonden.",
+      "allOfferTypes": "Alle aanbodtypes",
+      "tags": "Tags"
+    },
+    "changelist": {
+      "title": "Wijzigingslijst",
+      "loading": "Laden...",
+      "error": "Fout: {{message}}",
+      "id": "ID",
+      "type": "Type",
+      "titleOrId": "Titel/ID",
+      "date": "Datum",
+      "new": "nieuw",
+      "update": "update"
+    },
+    "upcoming": {
+      "caption": "Aankomende aanbiedingen",
+      "loading": "Laden...",
+      "title": "Titel",
+      "price": "Prijs",
+      "releaseDate": "Releasedatum",
+      "unknown": "Onbekend",
+      "prePurchase": "Vooraankoop"
+    },
+    "giveaways": {
+      "title": "Giveaways",
+      "free": "Gratis",
+      "freeNow": "Nu gratis",
+      "startsIn": "Start over",
+      "repeated": "Herhaald:",
+      "yes": "Ja",
+      "no": "Nee",
+      "repeatedTooltip": "Dit aanbod is {{count}} keer weggegeven."
+    },
+    "giveawayStats": {
+      "title": "Giveaways in cijfers",
+      "loading": "Laden...",
+      "totalValue": "Totale waarde",
+      "totalValueTooltip": "Totale waarde inclusief eventuele actieve kortingen",
+      "giveaways": "Giveaways",
+      "giveawaysTooltip": "Totaal aantal giveaways dat in de database voorkomt",
+      "offers": "Aanbiedingen",
+      "offersTooltip": "Totaal aantal unieke aanbiedingen dat in giveaways is verschenen",
+      "repeated": "Herhaald",
+      "repeatedTooltip": "Aantal unieke aanbiedingen dat meerdere keren in giveaways voorkomt",
+      "sellers": "Verkopers",
+      "sellersTooltip": "Totaal aantal unieke verkopers die aanbiedingen leveren"
+    },
+    "offerCard": {
+      "openOffer": "Open aanbod {{title}}",
+      "free": "Gratis",
+      "comingSoon": "Binnenkort",
+      "earlyAccess": "Vroege toegang",
+      "prePurchase": "Vooraankoop",
+      "owned": "in bezit"
+    },
+    "baseGame": {
+      "checkBaseGame": "Bekijk het basisspel",
+      "partOfBundle": "Dit aanbod maakt deel uit van"
+    },
+    "notFound": {
+      "message": "De pagina die je zoekt bestaat niet."
+    },
+    "sellerOffers": {
+      "error": "Fout bij laden van aanbiedingen. Probeer het opnieuw.",
+      "moreFrom": "Meer van {{name}}"
+    },
+    "achievementsBlade": {
+      "noData": "Geen gegevens",
+      "game": "Game",
+      "achievements": "Prestaties",
+      "xp": "XP",
+      "bronze": "Brons",
+      "silver": "Zilver",
+      "gold": "Goud",
+      "gamesWithAchievements": "Games met Epic-prestaties"
+    },
+    "topSection": {
+      "free": "Gratis",
+      "releaseDate": "Releasedatum:",
+      "tba": "Nog te bepalen",
+      "platforms": "Platforms:",
+      "tags": "Tags:",
+      "checkOffer": "Bekijk aanbod"
+    },
+    "featuredDiscounts": {
+      "free": "Gratis",
+      "title": "Uitgelichte kortingen",
+      "countMore": "+{{count}} meer",
+      "checkOffer": "Bekijk aanbod",
+      "until": "tot"
+    },
+    "performanceTable": {
+      "title": "Prestaties",
+      "noPriorData": "Geen eerdere gegevens",
+      "cardsView": "Kaartweergave",
+      "chartView": "Grafiekweergave"
+    },
+    "priceChart": {
+      "selectValue": "Selecteer een waarde",
+      "last3Months": "Laatste 3 maanden",
+      "fetchingData": "Nieuwste gegevens ophalen"
+    },
+    "dateRangePicker": {
+      "from": "Van",
+      "to": "Tot",
+      "maxRange": "Maximum bereik is 30 dagen",
+      "invalidRange": "Ongeldig datumbereik"
+    },
+    "regionalPricing": {
+      "region": "Regio",
+      "price": "Prijs"
+    },
+    "regionalPricingBadge": {
+      "analysis": "Regionale prijsanalyse",
+      "currentPrice": "Huidige prijs",
+      "suggestedPrice": "Voorgestelde prijs",
+      "belowSuggested": "Deze deal zit daar zelfs onder — een geweldige deal in alle opzichten.",
+      "closeToSuggested": "Deze deal zit dicht bij dat, en ver onder de typische {{region}}-prijzen."
+    },
+    "countrySelector": {
+      "searchCountries": "Zoek landen...",
+      "noCountries": "Geen landen gevonden"
+    },
+    "countriesSelector": {
+      "searchCountries": "Zoek landen...",
+      "noCountries": "Geen landen gevonden"
+    },
+    "querySearch": {
+      "searchItems": "Zoek items..."
+    },
+    "extendedSearch": {
+      "searchItems": "Zoek items...",
+      "noItems": "Geen items gevonden."
+    },
+    "searchForm": {
+      "noResults": "Geen resultaten gevonden",
+      "error": "Fout: {{message}}",
+      "loadingLong": "Deze query duurt langer dan normaal..."
+    },
+    "searchFormV2": {
+      "noResults": "Geen resultaten gevonden."
+    },
+    "androidBetaBanner": {
+      "dismiss": "Banner sluiten"
+    },
+    "videoPlayer": {
+      "title": "{{title}}"
+    },
+    "mediaSlider": {
+      "previousSlide": "Vorige dia",
+      "nextSlide": "Volgende dia",
+      "image": "Afbeelding {{index}}",
+      "thumbnail": "Miniatuur {{index}}",
+      "downloading": "Bezig met downloaden...",
+      "download": "Downloaden"
+    },
+    "changelogItem": {
+      "action": "Actie",
+      "type": "Type",
+      "oldValue": "Oude waarde",
+      "newValue": "Nieuwe waarde",
+      "previousValue": "Vorige waarde:",
+      "newValueLabel": "Nieuwe waarde:"
+    },
+    "changelogCharts": {
+      "byWeekday": "Wijzigingen per weekdag",
+      "byWeekdayDesc": "Verzamelde wijzigingen per weekdag",
+      "typesOfChanges": "Soorten wijzigingen",
+      "typesOfChangesDesc": "Hoeveelheid wijzigingen per type",
+      "byField": "Wijzigingen per veld",
+      "byFieldDesc": "Wijzigingen gegroepeerd per gewijzigd veld",
+      "dailyDesc": "Toon dagelijkse wijzigingen voor het afgelopen jaar",
+      "noData": "Geen gegevens beschikbaar om weer te geven."
+    },
+    "openEgl": {
+      "open": "Openen"
+    },
+    "openEgs": {
+      "store": "Winkel"
+    },
+    "openLauncher": {
+      "play": "Spelen"
+    },
+    "storeDropdown": {
+      "launcher": "Launcher",
+      "viewStorePage": "Bekijk winkelpagina",
+      "webBrowser": "Webbrowser"
+    },
+    "prepurchasePopup": {
+      "title": "{{title}}"
+    },
+    "apiKeyManager": {
+      "title": "API-sleutelbeheer",
+      "label": "API-sleutel",
+      "placeholder": {
+        "generated": "API-sleutel gegenereerd",
+        "none": "Geen API-sleutel gegenereerd"
+      },
+      "button": {
+        "regenerate": "Sleutel regenereren",
+        "generate": "Sleutel genereren",
+        "clear": "Sleutel wissen"
+      },
+      "notification": {
+        "generated": "Nieuwe API-sleutel succesvol gegenereerd!",
+        "generateFailed": "API-sleutel genereren mislukt",
+        "copied": "API-sleutel gekopieerd naar klembord!",
+        "copyFailed": "API-sleutel kopiëren mislukt",
+        "noneToCopy": "Geen API-sleutel om te kopiëren",
+        "cleared": "API-sleutel succesvol gewist!",
+        "clearFailed": "API-sleutel wissen mislukt"
+      },
+      "description": "Je API-sleutel is een UUID die lokaal in je browser wordt opgeslagen en wordt gebruikt om pushmeldingaanvragen te authenticeren. Gebruik de regeneratieknop om indien nodig een nieuwe sleutel aan te maken."
+    },
+    "cookieBanner": {
+      "title": "Cookie melding",
+      "description": "Deze website gebruikt cookies om je browse-ervaring te verbeteren. Door cookies te accepteren, accepteer je onze {{privacyPolicyLink}}.",
+      "accept": "Accepteren",
+      "decline": "Weigeren"
+    },
+    "searchHeader": {
+      "results": "{{count}} resultaten",
+      "showingResultsFor": "Resultaten weergeven voor"
+    },
+    "bundle": {
+      "collectionOffers": "Collectieaanbiedingen",
+      "bundleOffers": "Bundelaanbiedingen",
+      "offersCount": "- {{count}} aanbiedingen",
+      "bundlePriceTitle": "Bundelprijs",
+      "totalValueLabel": "Totale waarde:",
+      "bundlePriceLabel": "Bundelprijs:",
+      "youSave": "Je bespaart:",
+      "youPayMore": "Je betaalt meer:",
+      "buyBundle": "Koop bundel",
+      "buyIndividually": "Koop items afzonderlijk"
+    },
+    "clientBanner": {
+      "heading": "Voed de {{appName}} builds-database",
+      "subheading": "Help elke Epic Games Store-build in kaart te brengen",
+      "description": "Onze lichtgewicht Windows & macOS-client scant je Epic Games Launcher-installaties en uploadt veilig alleen de manifestbestanden — chunklijsten en metadata — naar onze open database. Elke upload verrijkt de community en helpt ons veranderingen in de loop van de tijd te volgen.",
+      "cta": "Download voor Windows & macOS"
+    },
+    "collectionOffers": {
+      "title": "Collectieaanbiedingen"
+    },
+    "lastModifiedOffers": {
+      "title": "Laatst gewijzigde aanbiedingen"
+    },
+    "latestOffers": {
+      "title": "Recent toegevoegd"
+    },
+    "latestReleased": {
+      "title": "Recent uitgebracht"
+    },
+    "mobileFreebies": {
+      "title": "Mobiele gratis games",
+      "collapse": "Mobiele gratis games samenvouwen",
+      "expand": "Mobiele gratis games uitvouwen"
+    },
+    "sectionHeader": {
+      "seeAll": "Alles bekijken"
+    },
+    "suggestedOffers": {
+      "title": "Dit vind je misschien ook leuk"
+    }
+  },
+  "table": {
+    "pagination": {
+      "rowsPerPage": "Rijen per pagina",
+      "pageOf": "Pagina {{page}} van {{total}}",
+      "goToFirst": "Ga naar eerste pagina",
+      "goToPrevious": "Ga naar vorige pagina",
+      "goToNext": "Ga naar volgende pagina",
+      "goToLast": "Ga naar laatste pagina",
+      "previous": "Vorige",
+      "next": "Volgende",
+      "morePages": "Meer pagina's"
+    },
+    "toolbar": {
+      "platform": "Platform",
+      "status": "Status",
+      "type": "Type",
+      "platforms": "Platforms",
+      "fileExtensions": "Bestandsextensies",
+      "filterOffers": "Filter aanbiedingen...",
+      "filterItems": "Filter items...",
+      "filterFiles": "Filter bestanden...",
+      "reset": "Resetten"
+    },
+    "viewOptions": {
+      "view": "Weergave",
+      "toggleColumns": "Kolommen in-/uitschakelen"
+    },
+    "facetedFilter": {
+      "noResults": "Geen resultaten gevonden.",
+      "selected": "geselecteerd",
+      "clearFilters": "Filters wissen"
+    },
+    "builds": {
+      "noResults": "Geen resultaten.",
+      "donateKey": "Doneer een sleutel"
+    }
+  },
+  "forms": {
+    "review": {
+      "submitTitle": "Review indienen",
+      "editTitle": "Review bewerken",
+      "description": "Deel je gedachten over {{title}}",
+      "rating": "Beoordeling",
+      "ratingError": "Beoordeling moet tussen 1 en 10 liggen",
+      "recommend": "Zou je dit product aanbevelen?",
+      "recommendError": "Selecteer ja of nee",
+      "yes": "Ja",
+      "no": "Nee",
+      "title": "Titel",
+      "titlePlaceholder": "Voer een titel in voor je review",
+      "titleRequired": "Titel is verplicht",
+      "titleMinLength": "Titel moet ten minste 3 tekens bevatten",
+      "titleMinLengthLong": "Titel moet ten minste 3 tekens lang zijn",
+      "titleMaxLength": "Titel moet korter zijn dan 75 tekens",
+      "reviewContent": "Review-inhoud",
+      "contentMinLength": "Inhoud moet ten minste 3 tekens lang zijn",
+      "tags": "Tags (komma-gescheiden)",
+      "tagsPlaceholder": "bijv. kwaliteit, ontwerp, prestaties",
+      "previous": "Vorige",
+      "next": "Volgende",
+      "submit": "Review indienen",
+      "deleteReview": "Review verwijderen",
+      "confirmDelete": "Weet je zeker dat je deze review wilt verwijderen?",
+      "deleteDescription": "Deze actie kan niet ongedaan worden gemaakt. De review wordt permanent verwijderd van onze servers.",
+      "cancel": "Annuleren",
+      "delete": "Verwijderen",
+      "deleting": "Bezig met verwijderen...",
+      "errorSubmitting": "Fout bij indienen review",
+      "errorDeleting": "Fout bij verwijderen review",
+      "spamDetected": "Spam gedetecteerd",
+      "defaultContent": "Voer hier je review in",
+      "theProduct": "het product"
+    },
+    "androidBeta": {
+      "title": "Deelnemen aan de Bèta",
+      "description": "Log in met Google om je te registreren voor de gesloten bèta. We hebben alleen je e-mailadres nodig.",
+      "spotsRemaining": "<strong>{{remaining}}</strong> van {{max}} plaatsen over",
+      "betaFull": "Bèta is vol",
+      "betaFullDesc": "Alle {{max}} plaatsen zijn bezet. Kom later terug of volg ons voor updates over wanneer er weer plaatsen beschikbaar komen.",
+      "registering": "Je registreren voor de bèta...",
+      "registered": "Je bent geregistreerd!",
+      "registeredDesc": "We hebben <strong>{{email}}</strong> geregistreerd voor de gesloten bèta.",
+      "registeredDesc2": "Het kan een paar uur duren voordat je handmatig wordt toegevoegd aan de testerlijst. Zodra je bent toegevoegd, kun je hier deelnemen aan de bèta:",
+      "joinBeta": "Deelnemen aan de Bèta op Google Play",
+      "alreadyRegistered": "Al geregistreerd",
+      "alreadyRegisteredDesc": "<strong>{{email}}</strong> is al geregistreerd voor de bèta.",
+      "alreadyRegisteredDesc2": "Als je al bent toegevoegd aan de testerlijst, kun je hier deelnemen aan de bèta:",
+      "error": "Fout",
+      "tryAgain": "Opnieuw proberen",
+      "noCredential": "Geen referentie ontvangen van Google",
+      "somethingWrong": "Er is iets misgegaan. Probeer het opnieuw.",
+      "googleFailed": "Google-inloggen mislukt. Probeer het opnieuw."
+    },
+    "donateKey": {
+      "donate": "Doneren",
+      "error": "Fout",
+      "success": "Succes",
+      "successDesc": "Bedankt voor je donatie! Het item is correct ingewisseld en de gegevens zullen binnenkort beschikbaar zijn.",
+      "offerPage": "Aanbodpagina",
+      "somethingWrong": "Er is iets misgegaan. Probeer het opnieuw."
+    }
+  },
+  "ui": {
+    "dialog": {
+      "close": "Sluiten"
+    },
+    "sheet": {
+      "close": "Sluiten"
+    },
+    "carousel": {
+      "previous": "Vorige dia",
+      "next": "Volgende dia"
+    },
+    "pagination": {
+      "previous": "Vorige",
+      "next": "Volgende",
+      "morePages": "Meer pagina's"
+    },
+    "priceRangeSlider": {
+      "priceRange": "Prijsbereik",
+      "minPrice": "Min prijs",
+      "maxPrice": "Max prijs"
+    }
+  }
+}

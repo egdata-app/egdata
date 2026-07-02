@@ -13,6 +13,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown, X, Maximize2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 export const Route = createFileRoute("/the-game-awards")({
   component: GameAwardsPage,
@@ -27,9 +29,8 @@ export const Route = createFileRoute("/the-game-awards")({
   },
 
   head: () => {
-    const title = "The Game Awards Coverage | egdata.app";
-    const description =
-      "Latest games announced and nominated at The Game Awards coming to Epic Games Store.";
+    const title = i18n.t("misc.gameAwards.meta.title");
+    const description = i18n.t("misc.gameAwards.meta.description");
     const image = "https://api.egdata.app/game-awards/og";
 
     return {
@@ -75,6 +76,7 @@ export const Route = createFileRoute("/the-game-awards")({
 });
 
 function GameAwardsPage() {
+  const { t } = useTranslation();
   const { data: sections = [], isLoading } = useQuery({
     queryKey: ["game-awards"],
     queryFn: () => getGameAwardsData(),
@@ -156,12 +158,10 @@ function GameAwardsPage() {
       <header className="text-center space-y-4">
         <img
           src="https://cdn.egdata.app/images/logo-tga-gold.svg"
-          alt="The Game Awards 2025"
+          alt={t("misc.gameAwards.logoAlt")}
           className="h-16 sm:h-20 md:h-24 mx-auto"
         />
-        <p className="text-muted-foreground max-w-2xl mx-auto">
-          Games announced or nominated at The Game Awards coming to Epic Games Store
-        </p>
+        <p className="text-muted-foreground max-w-2xl mx-auto">{t("misc.gameAwards.subtitle")}</p>
       </header>
 
       {/* YouTube Embed Section - Single Instance */}
@@ -179,7 +179,7 @@ function GameAwardsPage() {
               <iframe
                 className="absolute inset-0 w-full h-full"
                 src={`https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?rel=0&enablejsapi=1`}
-                title="The Game Awards 2024 - Live Stream"
+                title={t("misc.gameAwards.videoTitle")}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
               />
@@ -191,7 +191,7 @@ function GameAwardsPage() {
                     type="button"
                     onClick={handleExpandMiniPlayer}
                     className="p-1.5 bg-black/70 hover:bg-black rounded-full transition-colors"
-                    aria-label="Expand player"
+                    aria-label={t("misc.gameAwards.expandPlayer")}
                   >
                     <Maximize2 className="w-3.5 h-3.5 text-foreground" />
                   </button>
@@ -199,7 +199,7 @@ function GameAwardsPage() {
                     type="button"
                     onClick={handleDismissMiniPlayer}
                     className="p-1.5 bg-black/70 hover:bg-black rounded-full transition-colors"
-                    aria-label="Close mini player"
+                    aria-label={t("misc.gameAwards.closeMiniPlayer")}
                   >
                     <X className="w-3.5 h-3.5 text-foreground" />
                   </button>
@@ -236,8 +236,8 @@ function GameAwardsPage() {
       {!isLoading && sections.length === 0 && (
         <Card className="p-12 text-center">
           <div className="text-5xl mb-4">🎯</div>
-          <h3 className="text-xl font-semibold mb-2">No games announced yet</h3>
-          <p className="text-muted-foreground">Check back after The Game Awards!</p>
+          <h3 className="text-xl font-semibold mb-2">{t("misc.gameAwards.noGamesTitle")}</h3>
+          <p className="text-muted-foreground">{t("misc.gameAwards.noGamesBody")}</p>
         </Card>
       )}
 

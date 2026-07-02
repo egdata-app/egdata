@@ -1,3 +1,4 @@
+import i18n from "@/lib/i18n";
 import { EGSIcon } from "@/components/icons/egs";
 import { GiveawaysCarousel } from "@/components/modules/giveaways";
 import { MobileFreebiesCarousel } from "@/components/modules/mobile-freebies";
@@ -12,6 +13,7 @@ import { mobileFreebiesQuery } from "@/queries/mobile-freebies";
 import { formSchema } from "@/stores/searchStore";
 import { getGiveawaysStats, GiveawaysStats } from "@/components/modules/giveaway-stats";
 import { mergeFreebies } from "@/utils/merge-freebies";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/freebies/")({
   component: () => {
@@ -77,27 +79,27 @@ export const Route = createFileRoute("/freebies/")({
     return {
       meta: [
         {
-          title: "Free Games | egdata.app",
+          title: i18n.t("freebies.meta.title"),
         },
         {
           name: "description",
-          content: "Browse free games from the Epic Games Store.",
+          content: i18n.t("freebies.meta.description"),
         },
         {
           name: "og:title",
-          content: "Free Games | egdata.app",
+          content: i18n.t("freebies.meta.title"),
         },
         {
           name: "og:description",
-          content: "Browse free games from the Epic Games Store.",
+          content: i18n.t("freebies.meta.description"),
         },
         {
           property: "twitter:title",
-          content: "Free Games | egdata.app",
+          content: i18n.t("freebies.meta.title"),
         },
         {
           property: "twitter:description",
-          content: "Browse free games from the Epic Games Store.",
+          content: i18n.t("freebies.meta.description"),
         },
         {
           property: "og:image",
@@ -105,7 +107,7 @@ export const Route = createFileRoute("/freebies/")({
         },
         {
           property: "og:image:alt",
-          content: "Free Games | egdata.app",
+          content: i18n.t("freebies.meta.title"),
         },
         {
           property: "og:type",
@@ -125,6 +127,7 @@ export const Route = createFileRoute("/freebies/")({
 });
 
 function FreeGames() {
+  const { t } = useTranslation();
   const search = Route.useSearch();
   const navigate = Route.useNavigate();
 
@@ -132,7 +135,7 @@ function FreeGames() {
     <div className="flex flex-col items-start justify-start h-full gap-4 p-4">
       <GiveawaysStats />
       <div className="flex w-full flex-col items-start justify-between gap-3 sm:flex-row sm:items-center sm:gap-4">
-        <h2 className="text-xl font-display font-semibold">Current Free Games</h2>
+        <h2 className="text-xl font-display font-semibold">{t("freebies.headings.current")}</h2>
         <Button
           className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center gap-2 w-fit"
           onClick={() => {
@@ -141,7 +144,7 @@ function FreeGames() {
           }}
         >
           <EGSIcon className="w-5 h-5" />
-          <span>Redeem Now</span>
+          <span>{t("freebies.buttons.redeem")}</span>
         </Button>
       </div>
       <GiveawaysCarousel hideTitle={true} />
@@ -158,7 +161,7 @@ function FreeGames() {
             resetScroll: false,
           });
         }}
-        title="Past Free Games"
+        title={t("freebies.headings.past")}
         controls={{
           showPastGiveaways: false,
         }}

@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Key, CheckCircle, AlertCircle, RefreshCw, Copy } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 interface ApiKeyManagerProps {
   onApiKeyChange: (apiKey: string) => void;
@@ -18,6 +19,7 @@ const generateUUID = (): string => {
 };
 
 export function ApiKeyManager({ onApiKeyChange }: ApiKeyManagerProps) {
+  const { t } = useTranslation();
   const [cookies, setCookie, removeCookie] = useCookies(["push-notifications-api-key"]);
   const [apiKey, setApiKey] = useState("");
   const [notification, setNotification] = useState<{
@@ -50,23 +52,23 @@ export function ApiKeyManager({ onApiKeyChange }: ApiKeyManagerProps) {
       });
       setApiKey(newApiKey);
       onApiKeyChange(newApiKey);
-      showNotification("success", "New API key generated successfully!");
+      showNotification("success", t("components.apiKeyManager.notification.generated"));
     } catch {
-      showNotification("error", "Failed to generate API key");
+      showNotification("error", t("components.apiKeyManager.notification.generateFailed"));
     }
   };
 
   const copyApiKey = async () => {
     if (!apiKey) {
-      showNotification("error", "No API key to copy");
+      showNotification("error", t("components.apiKeyManager.notification.noneToCopy"));
       return;
     }
 
     try {
       await navigator.clipboard.writeText(apiKey);
-      showNotification("success", "API key copied to clipboard!");
+      showNotification("success", t("components.apiKeyManager.notification.copied"));
     } catch {
-      showNotification("error", "Failed to copy API key");
+      showNotification("error", t("components.apiKeyManager.notification.copyFailed"));
     }
   };
 
@@ -78,9 +80,9 @@ export function ApiKeyManager({ onApiKeyChange }: ApiKeyManagerProps) {
       });
       setApiKey("");
       onApiKeyChange("");
-      showNotification("success", "API key cleared successfully!");
+      showNotification("success", t("components.apiKeyManager.notification.cleared"));
     } catch {
-      showNotification("error", "Failed to clear API key");
+      showNotification("error", t("components.apiKeyManager.notification.clearFailed"));
     }
   };
 
@@ -89,17 +91,21 @@ export function ApiKeyManager({ onApiKeyChange }: ApiKeyManagerProps) {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Key className="h-5 w-5" />
-          API Key Management
+          {t("components.apiKeyManager.title")}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="api-key">API Key</Label>
+          <Label htmlFor="api-key">{t("components.apiKeyManager.label")}</Label>
           <div className="flex gap-2">
             <Input
               id="api-key"
               type="text"
-              placeholder={apiKey ? "API key generated" : "No API key generated"}
+              placeholder={
+                apiKey
+                  ? t("components.apiKeyManager.placeholder.generated")
+                  : t("components.apiKeyManager.placeholder.none")
+              }
               value={apiKey}
               readOnly
               className={cn(
@@ -116,11 +122,13 @@ export function ApiKeyManager({ onApiKeyChange }: ApiKeyManagerProps) {
         <div className="flex gap-2">
           <Button onClick={generateApiKey} size="sm" className="flex items-center gap-2">
             <RefreshCw className="h-4 w-4" />
-            {apiKey ? "Regenerate Key" : "Generate Key"}
+            {apiKey
+              ? t("components.apiKeyManager.button.regenerate")
+              : t("components.apiKeyManager.button.generate")}
           </Button>
           {apiKey && (
             <Button onClick={handleClearApiKey} variant="destructive" size="sm">
-              Clear Key
+              {t("components.apiKeyManager.button.clear")}
             </Button>
           )}
         </div>
@@ -138,8 +146,7 @@ export function ApiKeyManager({ onApiKeyChange }: ApiKeyManagerProps) {
 
         {apiKey && (
           <div className="text-sm text-muted-foreground">
-            Your API key is a UUID stored locally in your browser and is used to authenticate push
-            notification requests. Use the regenerate button to create a new key if needed.
+            {t("components.apiKeyManager.description")}
           </div>
         )}
       </CardContent>

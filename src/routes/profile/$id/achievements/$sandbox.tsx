@@ -10,6 +10,7 @@ import {
 } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
 import { FlippableCard } from "@/components/app/achievement-card";
+import { useTranslation } from "react-i18next";
 
 interface Root {
   playerAchievements: PlayerAchievement[];
@@ -132,6 +133,7 @@ interface PlayerAchievementStatus extends Achievement {
 }
 
 function RouteComponent() {
+  const { t } = useTranslation();
   const { id, sandbox } = Route.useLoaderData() as {
     dehydratedState: DehydratedState;
     id: string;
@@ -152,11 +154,11 @@ function RouteComponent() {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>{t("profile.achievements.loading")}</div>;
   }
 
   if (!data) {
-    return <div>Profile not found</div>;
+    return <div>{t("profile.achievements.notFound")}</div>;
   }
 
   const sandboxAchievements = data.sandboxAchievements
@@ -193,7 +195,7 @@ function RouteComponent() {
           className="text-2xl font-light flex flex-row gap-2 items-center justify-start group"
         >
           <ArrowRight className="w-4 h-4 rotate-180 transform group-hover:-translate-x-1 transition-transform duration-300" />
-          My Achievements
+          {t("profile.achievements.myAchievements")}
         </Link>
         <span className="text-muted-foreground text-xl">|</span>
         {offer?.title && <h4 className="text-2xl font-bold">{offer.title}</h4>}

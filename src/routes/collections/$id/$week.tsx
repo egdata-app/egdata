@@ -1,5 +1,6 @@
 import { getQueryClient } from "@/lib/client";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
+import i18n from "@/lib/i18n";
 import { type Collections, getCollection } from "@/queries/collection";
 import { dehydrate } from "@tanstack/react-query";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
@@ -70,8 +71,8 @@ export const Route = createFileRoute("/collections/$id/$week")({
       return {
         meta: [
           {
-            title: "Collection not found",
-            description: "Collection not found",
+            title: i18n.t("collections.errors.notFound"),
+            description: i18n.t("collections.errors.notFound"),
           },
         ],
       };
@@ -80,27 +81,27 @@ export const Route = createFileRoute("/collections/$id/$week")({
     return {
       meta: [
         {
-          title: `${collection.title} | egdata.app`,
+          title: i18n.t("collections.meta.title", { title: collection.title }),
         },
         {
           name: "description",
-          content: `Check out the ${collection.title} from the Epic Games Store.`,
+          content: i18n.t("collections.meta.description", { title: collection.title }),
         },
         {
           name: "og:title",
-          content: `${collection.title} | egdata.app`,
+          content: i18n.t("collections.meta.title", { title: collection.title }),
         },
         {
           name: "og:description",
-          content: `Check out the ${collection.title} from the Epic Games Store.`,
+          content: i18n.t("collections.meta.description", { title: collection.title }),
         },
         {
           property: "twitter:title",
-          content: `${collection.title} | egdata.app`,
+          content: i18n.t("collections.meta.title", { title: collection.title }),
         },
         {
           property: "twitter:description",
-          content: `Check out the ${collection.title} from the Epic Games Store.`,
+          content: i18n.t("collections.meta.description", { title: collection.title }),
         },
         {
           name: "og:image",

@@ -1,5 +1,6 @@
 import { OfferCard } from "@/components/app/offer-card";
 import { useCountry } from "@/hooks/use-country";
+import { useLocale } from "@/hooks/use-locale";
 import { getQueryClient } from "@/lib/client";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
@@ -13,6 +14,8 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 type LoaderData = {
   dehydratedState: DehydratedState;
@@ -32,12 +35,13 @@ export const Route = createFileRoute("/offers/$id/related")({
   },
 
   loader: async ({ params, context }) => {
-    const { queryClient, country } = context;
+    const { queryClient, country, locale } = context;
     const { id } = params;
 
     const offer = await queryClient.ensureQueryData({
-      queryKey: ["offer", { id }],
-      queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`).catch(() => null),
+      queryKey: ["offer", { id, locale }],
+      queryFn: () =>
+        httpClient.get<SingleOffer>(`/offers/${id}`, { params: { locale } }).catch(() => null),
     });
 
     await queryClient.prefetchQuery({
@@ -68,8 +72,8 @@ export const Route = createFileRoute("/offers/$id/related")({
       return {
         meta: [
           {
-            title: "Offer not found",
-            description: "Offer not found",
+            title: i18n.t("offerDetail.common.offerNotFound"),
+            description: i18n.t("offerDetail.common.offerNotFound"),
           },
         ],
       };
@@ -84,22 +88,24 @@ export const Route = createFileRoute("/offers/$id/related")({
       return {
         meta: [
           {
-            title: "Offer not found",
-            description: "Offer not found",
+            title: i18n.t("offerDetail.common.offerNotFound"),
+            description: i18n.t("offerDetail.common.offerNotFound"),
           },
         ],
       };
     }
 
     return {
-      meta: generateOfferMeta(offer, "Related"),
+      meta: generateOfferMeta(offer, i18n.t("offerDetail.related.title")),
     };
   },
 });
 
 function RelatedOffersPage() {
+  const { t } = useTranslation();
   const { id } = Route.useLoaderData() as LoaderData;
   const { country } = useCountry();
+  const { locale } = useLocale();
   const {
     data: offers,
     isLoading,
@@ -115,14 +121,14 @@ function RelatedOffersPage() {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>{t("offerDetail.common.loading")}</div>;
   }
 
   if (isError) {
     return (
       <section id="offer-related-offers" className="w-full h-full">
-        <h2 className="text-2xl font-bold">Related Offers</h2>
-        <div>Something went wrong</div>
+        <h2 className="text-2xl font-bold">{t("offerDetail.related.title")}</h2>
+        <div>{t("offerDetail.common.somethingWentWrong")}</div>
       </section>
     );
   }
@@ -146,7 +152,7 @@ function RelatedOffersPage() {
       id="offer-related-offers"
       className="w-full h-full flex flex-col gap-4 max-w-7xl mx-auto px-4"
     >
-      <h2 className="text-xl md:text-2xl font-bold">Related Offers</h2>
+      <h2 className="text-xl md:text-2xl font-bold">{t("offerDetail.related.title")}</h2>
       <div className="flex flex-col gap-4">
         {Object.entries(offersGroupedByOfferType)
           .sort(([aType], [bType]) => {

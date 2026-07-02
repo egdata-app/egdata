@@ -16,6 +16,7 @@ import { getImage } from "@/lib/getImage";
 import { Badge } from "../ui/badge";
 import { useNavigate } from "@tanstack/react-router";
 import { useLocale } from "@/hooks/use-locale";
+import { useTranslation } from "react-i18next";
 
 type UpcomingOffer = Pick<
   SingleOffer,
@@ -41,6 +42,7 @@ type Res = {
 };
 
 export function UpcomingOffers() {
+  const { t } = useTranslation();
   const { country } = useCountry();
   const { timezone } = useLocale();
   const navigate = useNavigate();
@@ -53,7 +55,7 @@ export function UpcomingOffers() {
   if (isLoading) {
     return (
       <Table>
-        <TableCaption>Loading...</TableCaption>
+        <TableCaption>{t("components.upcoming.loading")}</TableCaption>
       </Table>
     );
   }
@@ -61,13 +63,13 @@ export function UpcomingOffers() {
   return (
     <section id="upcoming-offers" className="mb-8 w-full -mt-4">
       <Table className="mx-auto min-w-[640px] md:w-[73.5vw] md:max-w-full">
-        <TableCaption>Upcoming Offers</TableCaption>
+        <TableCaption>{t("components.upcoming.caption")}</TableCaption>
         <TableHeader className="hover:bg-accent/50 transition-colors duration-200">
           <TableRow>
             <TableHead className="w-[100px]" />
-            <TableHead>Title</TableHead>
-            <TableHead className="text-right w-[200px]">Price</TableHead>
-            <TableHead className="text-right">Release Date</TableHead>
+            <TableHead>{t("components.upcoming.title")}</TableHead>
+            <TableHead className="text-right w-[200px]">{t("components.upcoming.price")}</TableHead>
+            <TableHead className="text-right">{t("components.upcoming.releaseDate")}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -129,6 +131,7 @@ function TablePrice({
   price: UpcomingOffer["price"] | null;
   prePurchase: boolean | null;
 }) {
+  const { t } = useTranslation();
   const { locale } = useLocale();
   const fmt = Intl.NumberFormat(locale, {
     style: "currency",
@@ -136,12 +139,12 @@ function TablePrice({
   });
 
   if (!price) {
-    return "Unknown";
+    return t("components.upcoming.unknown");
   }
 
   return (
     <div className="inline-flex items-center gap-2">
-      {prePurchase && <Badge variant="default">Pre-Purchase</Badge>}
+      {prePurchase && <Badge variant="default">{t("components.upcoming.prePurchase")}</Badge>}
       <span className="text-primary font-bold">{fmt.format(price.price.discountPrice / 100)}</span>
     </div>
   );

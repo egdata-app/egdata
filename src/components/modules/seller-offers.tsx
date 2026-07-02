@@ -14,6 +14,7 @@ import { ArrowUpIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { internalNamespaces } from "@/lib/internal-namespaces";
+import { useTranslation } from "react-i18next";
 
 export function SellerOffers({
   id,
@@ -24,6 +25,7 @@ export function SellerOffers({
   name: string;
   currentOffer: SingleOffer;
 }) {
+  const { t } = useTranslation();
   const [api, setApi] = useState<CarouselApi>();
   const { country } = useCountry();
   const ignoredSandboxes = internalNamespaces
@@ -69,7 +71,7 @@ export function SellerOffers({
           to="/sellers/$id"
           params={{ id }}
         >
-          More from {name}
+          {t("components.sellerOffers.moreFrom", { name })}
           <ArrowUpIcon className="w-5 h-5 text-muted-foreground group-hover:text-muted-foreground rotate-90 transform group-hover:translate-x-1 transition-transform duration-200 ease-in-out" />
         </Link>
         <div className="flex gap-2">
@@ -92,7 +94,7 @@ export function SellerOffers({
 
       {isLoading && <Skeleton className="mt-2 h-[400px] p-4" />}
 
-      {isError && !isLoading && <p>Error loading offers. Please try again.</p>}
+      {isError && !isLoading && <p>{t("components.sellerOffers.error")}</p>}
 
       {!isLoading &&
         !isError &&

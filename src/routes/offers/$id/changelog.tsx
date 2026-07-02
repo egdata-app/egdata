@@ -36,6 +36,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useDebounce } from "@uidotdev/usehooks";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 type ChangelogWithPagination = {
   elements: Change[];
@@ -67,6 +69,7 @@ type LoaderData = {
   dehydratedState: DehydratedState;
   id: string;
   offer: SingleOffer;
+  locale: string | undefined;
 };
 
 export const Route = createFileRoute("/offers/$id/changelog")({
@@ -81,18 +84,22 @@ export const Route = createFileRoute("/offers/$id/changelog")({
   },
 
   loader: async ({ params, context }) => {
-    const { queryClient } = context;
+    const { queryClient, locale } = context;
     const { id } = params;
 
     const offer = await queryClient.ensureQueryData({
-      queryKey: ["offer", { id: params.id }],
-      queryFn: () => httpClient.get<SingleOffer>(`/offers/${params.id}`).catch(() => null),
+      queryKey: ["offer", { id: params.id, locale }],
+      queryFn: () =>
+        httpClient
+          .get<SingleOffer>(`/offers/${params.id}`, { params: { locale } })
+          .catch(() => null),
     });
 
     await queryClient.prefetchQuery(getChangelog(id, 1));
 
     return {
       id,
+      locale,
       offer,
       dehydratedState: dehydrate(queryClient),
     };
@@ -106,8 +113,8 @@ export const Route = createFileRoute("/offers/$id/changelog")({
       return {
         meta: [
           {
-            title: "Offer not found",
-            description: "Offer not found",
+            title: i18n.t("offerDetail.common.offerNotFound"),
+            description: i18n.t("offerDetail.common.offerNotFound"),
           },
         ],
       };
@@ -115,15 +122,15 @@ export const Route = createFileRoute("/offers/$id/changelog")({
 
     const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
       "offer",
-      { id: params.id },
+      { id: params.id, locale: ctx.loaderData?.locale },
     ]);
 
     if (!offer) {
       return {
         meta: [
           {
-            title: "Offer not found",
-            description: "Offer not found",
+            title: i18n.t("offerDetail.common.offerNotFound"),
+            description: i18n.t("offerDetail.common.offerNotFound"),
           },
         ],
       };
@@ -151,7 +158,8 @@ const changelogTypes = {
 };
 
 function ChangelogPage() {
-  const { id } = Route.useLoaderData() as LoaderData;
+  const { t } = useTranslation();
+  const { id, locale } = Route.useLoaderData() as LoaderData;
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState<string | undefined>(undefined);
   const debouncedQuery = useDebounce(query, 500);
@@ -173,14 +181,14 @@ function ChangelogPage() {
   });
 
   const { data: offer } = useQuery({
-    queryKey: ["offer", { id }],
-    queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`),
+    queryKey: ["offer", { id, locale }],
+    queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`, { params: { locale } }),
   });
 
   if (isLoading) {
     return (
       <div className="flex flex-col gap-4 mt-6">
-        <h2 className="text-2xl font-bold">Changelog</h2>
+        <h2 className="text-2xl font-bold">{t("offerDetail.changelog.title")}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {Array.from({ length: 8 }).map((_, index) => (
             // biome-ignore lint/suspicious/noArrayIndexKey: This is a fallback component
@@ -194,7 +202,9 @@ function ChangelogPage() {
   if (!data) {
     return (
       <div className="flex justify-center items-center h-96">
-        <p className="text-2xl font-bold text-muted-foreground">No changelog available</p>
+        <p className="text-2xl font-bold text-muted-foreground">
+          {t("offerDetail.changelog.noChangelog")}
+        </p>
       </div>
     );
   }
@@ -211,23 +221,22 @@ function ChangelogPage() {
                   className="text-2xl font-bold underline decoration-dotted underline-offset-4 decoration-border/60"
                   id="changelog-title"
                 >
-                  Changelog
+                  {t("offerDetail.changelog.title")}
                 </h2>
                 {isFetching && <Loader2 className="size-6 animate-spin" />}
               </TooltipTrigger>
               <TooltipContent align="start" className="bg-background">
                 <p className="text-sm text-muted-foreground">
-                  This list are the changes made to this specific offer or related items, assets or
-                  builds.
+                  {t("offerDetail.changelog.tooltip")}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  You can see the changelog for the whole product in the{" "}
+                  {t("offerDetail.changelog.sandboxChangelogPrefix")}{" "}
                   <Link
                     to="/sandboxes/$id/changelog"
                     params={{ id: offer?.namespace ?? "epic" }}
                     className="underline decoration-dotted underline-offset-4 decoration-border/60"
                   >
-                    sandbox changelog
+                    {t("offerDetail.changelog.sandboxChangelog")}
                   </Link>
                   .
                 </p>
@@ -241,10 +250,10 @@ function ChangelogPage() {
                 onValueChange={(value) => (value === "all" ? setType(undefined) : setType(value))}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="All types" />
+                  <SelectValue placeholder={t("offerDetail.changelog.allTypes")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All types</SelectItem>
+                  <SelectItem value="all">{t("offerDetail.changelog.allTypes")}</SelectItem>
                   <Separator className="my-2" />
                   <SelectItem value="insert">
                     <ChangeTypeBubble type="insert" />
@@ -262,10 +271,10 @@ function ChangelogPage() {
                 onValueChange={(value) => (value === "all" ? setField(undefined) : setField(value))}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select a field" />
+                  <SelectValue placeholder={t("offerDetail.changelog.selectField")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All fields</SelectItem>
+                  <SelectItem value="all">{t("offerDetail.changelog.allFields")}</SelectItem>
                   <Separator className="my-2" />
                   {offerChangeFields.map((field) => (
                     <SelectItem key={field} value={field}>
@@ -275,7 +284,7 @@ function ChangelogPage() {
                 </SelectContent>
               </Select>
               <Input
-                placeholder="Search"
+                placeholder={t("offerDetail.changelog.search")}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
@@ -288,11 +297,11 @@ function ChangelogPage() {
               }}
               disabled={page === 1}
             >
-              Previous
+              {t("offerDetail.changelog.previous")}
             </Button>
             <div className="flex items-center gap-2">
               <p className="text-sm text-muted-foreground">
-                Page {page} of {data.totalPages}
+                {t("offerDetail.changelog.pageOf", { page, totalPages: data.totalPages })}
               </p>
             </div>
             <Button
@@ -303,7 +312,7 @@ function ChangelogPage() {
               }}
               disabled={page === data.totalPages}
             >
-              Next
+              {t("offerDetail.changelog.next")}
             </Button>
           </div>
         </div>
@@ -322,7 +331,9 @@ function ChangelogPage() {
               />
             ))}
           {changelogItems.length === 0 && (
-            <p className="text-sm text-muted-foreground">No changes found for this offer</p>
+            <p className="text-sm text-muted-foreground">
+              {t("offerDetail.common.noChangesFound")}
+            </p>
           )}
         </div>
         <DynamicPagination
@@ -352,11 +363,17 @@ function ChangelogPage() {
 }
 
 function ChangeTypeBubble({ type }: { type: string }) {
+  const { t } = useTranslation();
   const entry = changelogTypes[type as keyof typeof changelogTypes];
+  const labelMap: Record<string, string> = {
+    update: t("offerDetail.changelog.typeUpdate"),
+    delete: t("offerDetail.changelog.typeDelete"),
+    insert: t("offerDetail.changelog.typeInsert"),
+  };
   return (
     <span className="inline-flex items-center gap-2">
       <span className="w-2 h-2 rounded-full" style={{ backgroundColor: entry?.color }} />
-      {entry?.label}
+      {labelMap[type] ?? entry?.label}
     </span>
   );
 }

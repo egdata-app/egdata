@@ -38,6 +38,8 @@ import {
   StarIcon,
   TrophyIcon,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 const profileTabs = ["showcase", "library", "activity"] as const;
 type ProfileTab = (typeof profileTabs)[number];
@@ -94,21 +96,6 @@ const sortToGraphQL: Record<SearchSort, ProfileGameSort> = {
   achievements: "ACHIEVEMENTS",
 };
 
-const filterLabels: Record<SearchFilter, string> = {
-  all: "All",
-  completed: "Completed",
-  "near-platinum": "Near Platinum",
-  "in-progress": "In Progress",
-  platinum: "Platinum",
-};
-
-const sortLabels: Record<SearchSort, string> = {
-  completion: "Completion",
-  alphabetical: "Alphabetical",
-  xp: "XP",
-  achievements: "Achievements",
-};
-
 export const Route = createFileRoute("/profile/$id/")({
   component: ProfileInformation,
   validateSearch: (search): ProfileSearch => {
@@ -130,6 +117,7 @@ export const Route = createFileRoute("/profile/$id/")({
 });
 
 function ProfileInformation() {
+  const { t } = useTranslation();
   const { id } = Route.useParams();
   const rawSearch = Route.useSearch();
   const search = getEffectiveSearch(rawSearch);
@@ -159,9 +147,9 @@ function ProfileInformation() {
   if (!profile || isError) {
     return (
       <div className="rounded-md border border-border bg-card p-6 text-center">
-        <h2 className="text-xl font-semibold">Profile unavailable</h2>
+        <h2 className="text-xl font-semibold">{t("profile.errors.unavailableTitle")}</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          This profile could not be loaded right now.
+          {t("profile.errors.unavailableDescription")}
         </p>
       </div>
     );
@@ -176,27 +164,29 @@ function ProfileInformation() {
       <div className="mb-6 flex flex-col gap-4 border-b border-border pb-4 lg:flex-row lg:items-center lg:justify-between">
         <TabsList className="w-fit rounded-md bg-card p-1">
           <TabsTrigger value="showcase" className="rounded">
-            Showcase
+            {t("profile.tabs.showcase")}
           </TabsTrigger>
           <TabsTrigger value="library" className="rounded">
-            Library
+            {t("profile.tabs.library")}
           </TabsTrigger>
           <TabsTrigger value="activity" className="rounded">
-            Activity
+            {t("profile.tabs.activity")}
           </TabsTrigger>
         </TabsList>
         <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
           <span className="inline-flex items-center gap-2">
             <Gamepad2Icon className="size-4" />
-            {profile.highlights?.totalGames ?? 0} games
+            {t("profile.stats.games", { count: profile.highlights?.totalGames ?? 0 })}
           </span>
           <span className="inline-flex items-center gap-2">
             <EpicTrophyIcon className="size-4" />
-            {profile.highlights?.totalAchievements ?? 0} achievements
+            {t("profile.stats.achievements", {
+              count: profile.highlights?.totalAchievements ?? 0,
+            })}
           </span>
           <span className="inline-flex items-center gap-2">
             <EpicPlatinumIcon className="size-4 text-[#8a7cff]" />
-            {profile.highlights?.totalPlatinums ?? 0} platinum
+            {t("profile.stats.platinum", { count: profile.highlights?.totalPlatinums ?? 0 })}
           </span>
         </div>
       </div>
@@ -230,6 +220,7 @@ function ProfileInformation() {
 }
 
 function ShowcaseView({ profile, profileId }: { profile: ProfilePageProfile; profileId: string }) {
+  const { t } = useTranslation();
   const featuredAchievements = compact(profile.featuredAchievements).slice(0, 8);
   const featuredGames = compact(profile.featuredGames).slice(0, 6);
   const recentActivity = compact(profile.recentActivity).slice(0, 6);
@@ -239,7 +230,7 @@ function ShowcaseView({ profile, profileId }: { profile: ProfilePageProfile; pro
 
   return (
     <div className="space-y-10">
-      <section className="grid gap-4 lg:grid-cols-3" aria-label="Profile showcase highlights">
+      <section className="grid gap-4 lg:grid-cols-3" aria-label={t("profile.showcase.ariaLabel")}>
         {rarestAchievement && (
           <AchievementSpotlight achievement={rarestAchievement} profileId={profileId} />
         )}
@@ -251,8 +242,8 @@ function ShowcaseView({ profile, profileId }: { profile: ProfilePageProfile; pro
         <section className="space-y-4">
           <SectionHeading
             icon={<StarIcon className="size-5" />}
-            title="Featured Games"
-            detail={`${featuredGames.length} selected by profile performance`}
+            title={t("profile.showcase.featuredGamesTitle")}
+            detail={t("profile.showcase.featuredGamesDetail", { count: featuredGames.length })}
           />
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {featuredGames.map((game) => (
@@ -271,8 +262,8 @@ function ShowcaseView({ profile, profileId }: { profile: ProfilePageProfile; pro
         <section className="space-y-4">
           <SectionHeading
             icon={<MedalIcon className="size-5" />}
-            title="Rare Achievements"
-            detail="Hard-to-find unlocks across the profile"
+            title={t("profile.showcase.rareAchievementsTitle")}
+            detail={t("profile.showcase.rareAchievementsDetail")}
           />
           <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
             {featuredAchievements.map((achievement) => (
@@ -290,8 +281,8 @@ function ShowcaseView({ profile, profileId }: { profile: ProfilePageProfile; pro
         <section className="space-y-4">
           <SectionHeading
             icon={<ClockIcon className="size-5" />}
-            title="Recent Unlocks"
-            detail="Latest visible activity"
+            title={t("profile.showcase.recentUnlocksTitle")}
+            detail={t("profile.showcase.recentUnlocksDetail")}
           />
           <ActivityList items={recentActivity} profileId={profileId} />
         </section>
@@ -301,8 +292,8 @@ function ShowcaseView({ profile, profileId }: { profile: ProfilePageProfile; pro
         featuredGames.length === 0 &&
         recentActivity.length === 0 && (
           <EmptyState
-            title="No showcase data yet"
-            description="Only launched games with public achievement progress appear on profiles."
+            title={t("profile.showcase.noDataTitle")}
+            description={t("profile.showcase.noDataDescription")}
           />
         )}
     </div>
@@ -346,6 +337,7 @@ function AchievementSpotlight({
   achievement: ProfileAchievement;
   profileId: string;
 }) {
+  const { t } = useTranslation();
   return (
     <ProfileSandboxLink
       profileId={profileId}
@@ -356,7 +348,7 @@ function AchievementSpotlight({
         <div>
           <p className="inline-flex items-center gap-2 text-xs uppercase text-muted-foreground">
             <FlameIcon className="size-4" />
-            Rarest unlock
+            {t("profile.showcase.rarestUnlock")}
           </p>
           <h2 className="mt-3 text-2xl font-semibold leading-tight">
             {achievement.displayName ?? achievement.name}
@@ -378,6 +370,7 @@ function AchievementSpotlight({
 }
 
 function GameSpotlight({ game, profileId }: { game: ProfileGame; profileId: string }) {
+  const { t } = useTranslation();
   return (
     <ProfileSandboxLink
       profileId={profileId}
@@ -396,7 +389,7 @@ function GameSpotlight({ game, profileId }: { game: ProfileGame; profileId: stri
       <div className="relative flex h-full min-h-48 flex-col justify-between">
         <p className="inline-flex items-center gap-2 text-xs uppercase text-muted-foreground">
           <Gamepad2Icon className="size-4" />
-          Defining game
+          {t("profile.showcase.definingGame")}
         </p>
         <div>
           <h2 className="text-2xl font-semibold leading-tight">{game.title}</h2>
@@ -404,13 +397,16 @@ function GameSpotlight({ game, profileId }: { game: ProfileGame; profileId: stri
             <div>
               <p className="text-4xl font-light">{Math.round(game.completionPercent ?? 0)}%</p>
               <p className="text-sm text-muted-foreground">
-                {game.unlocked ?? 0} / {game.total ?? 0} achievements
+                {t("profile.showcase.achievementsCount", {
+                  unlocked: game.unlocked ?? 0,
+                  total: game.total ?? 0,
+                })}
               </p>
             </div>
             {game.hasPlatinum && (
               <span className="inline-flex items-center gap-2 rounded-md bg-platinum-start/25 px-3 py-2 text-sm text-foreground">
                 <EpicPlatinumIcon className="size-4" />
-                Platinum
+                {t("profile.showcase.platinum")}
               </span>
             )}
           </div>
@@ -421,6 +417,7 @@ function GameSpotlight({ game, profileId }: { game: ProfileGame; profileId: stri
 }
 
 function ActivitySpotlight({ item, profileId }: { item: ProfileActivityItem; profileId: string }) {
+  const { t } = useTranslation();
   return (
     <ProfileSandboxLink
       profileId={profileId}
@@ -431,7 +428,7 @@ function ActivitySpotlight({ item, profileId }: { item: ProfileActivityItem; pro
         <div>
           <p className="inline-flex items-center gap-2 text-xs uppercase text-muted-foreground">
             <ActivityIcon className="size-4" />
-            Latest activity
+            {t("profile.showcase.latestActivity")}
           </p>
           <h2 className="mt-3 text-2xl font-semibold leading-tight">
             {item.achievementName ?? activityTypeLabel(item.type)}
@@ -441,7 +438,7 @@ function ActivitySpotlight({ item, profileId }: { item: ProfileActivityItem; pro
           <div className="size-20 shrink-0 overflow-hidden rounded-md bg-primary/10">
             <Image
               src={item.achievementIconUrl}
-              alt={item.achievementName ?? item.gameTitle ?? "Achievement"}
+              alt={item.achievementName ?? item.gameTitle ?? t("profile.activity.achievementAlt")}
               width={80}
               height={80}
               quality="original"
@@ -477,16 +474,36 @@ function LibraryView({
   onSortChange: (sort: SearchSort) => void;
   onPageChange: (page: number) => void;
 }) {
+  const { t } = useTranslation();
   const games = compact(profile.games?.elements);
   const totalPages = getTotalPages(
     profile.games?.total,
     profile.games?.limit ?? PROFILE_LIBRARY_LIMIT,
   );
 
+  const filterLabels: Record<SearchFilter, string> = {
+    all: t("profile.library.filters.all"),
+    completed: t("profile.library.filters.completed"),
+    "near-platinum": t("profile.library.filters.nearPlatinum"),
+    "in-progress": t("profile.library.filters.inProgress"),
+    platinum: t("profile.library.filters.platinum"),
+  };
+
+  const sortLabels: Record<SearchSort, string> = {
+    completion: t("profile.library.sorts.completion"),
+    alphabetical: t("profile.library.sorts.alphabetical"),
+    xp: t("profile.library.sorts.xp"),
+    achievements: t("profile.library.sorts.achievements"),
+  };
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-4 rounded-md border border-border bg-card/50 p-4 lg:flex-row lg:items-center lg:justify-between">
-        <div className="flex flex-wrap gap-2" role="group" aria-label="Library filter">
+        <div
+          className="flex flex-wrap gap-2"
+          role="group"
+          aria-label={t("profile.library.filterAriaLabel")}
+        >
           {searchFilters.map((filter) => (
             <button
               type="button"
@@ -506,8 +523,11 @@ function LibraryView({
         <div className="flex items-center gap-2">
           <FilterIcon className="size-4 text-muted-foreground" />
           <Select value={search.sort} onValueChange={(value) => onSortChange(value as SearchSort)}>
-            <SelectTrigger className="w-[180px] rounded-md" aria-label="Sort library">
-              <SelectValue placeholder="Sort by" />
+            <SelectTrigger
+              className="w-[180px] rounded-md"
+              aria-label={t("profile.library.sortAriaLabel")}
+            >
+              <SelectValue placeholder={t("profile.library.sortByPlaceholder")} />
             </SelectTrigger>
             <SelectContent>
               {searchSorts.map((sort) => (
@@ -539,8 +559,8 @@ function LibraryView({
         </>
       ) : (
         <EmptyState
-          title="No games found"
-          description="Only launched games with achievements appear in this library."
+          title={t("profile.library.noGamesTitle")}
+          description={t("profile.library.noGamesDescription")}
         />
       )}
     </div>
@@ -556,6 +576,7 @@ function ProfileGameCard({
   profileId: string;
   featured?: boolean;
 }) {
+  const { t } = useTranslation();
   const rarestAchievements = compact(game.rarestAchievements).slice(0, 3);
   const completion = Math.round(game.completionPercent ?? 0);
 
@@ -568,7 +589,7 @@ function ProfileGameCard({
       <div className="relative">
         <Image
           src={game.imageUrl ?? "/placeholder.webp"}
-          alt={game.title ?? game.sandboxId ?? "Game"}
+          alt={game.title ?? game.sandboxId ?? t("profile.library.gameAlt")}
           width={640}
           height={360}
           className="transition-transform duration-500 group-hover:scale-105"
@@ -577,7 +598,7 @@ function ProfileGameCard({
         {game.hasPlatinum && (
           <span className="absolute left-3 top-3 inline-flex items-center gap-2 rounded-md bg-platinum-start px-2.5 py-1.5 text-xs font-medium text-foreground">
             <EpicPlatinumIcon className="size-3.5" />
-            Platinum
+            {t("profile.showcase.platinum")}
           </span>
         )}
       </div>
@@ -591,7 +612,7 @@ function ProfileGameCard({
           </div>
           <div className="shrink-0 text-right">
             <p className="text-2xl font-light">{completion}%</p>
-            <p className="text-xs text-muted-foreground">complete</p>
+            <p className="text-xs text-muted-foreground">{t("profile.library.complete")}</p>
           </div>
         </div>
         <div className="space-y-2">
@@ -600,9 +621,12 @@ function ProfileGameCard({
           </div>
           <div className="flex items-center justify-between text-sm text-muted-foreground">
             <span>
-              {game.unlocked ?? 0} / {game.total ?? 0} achievements
+              {t("profile.showcase.achievementsCount", {
+                unlocked: game.unlocked ?? 0,
+                total: game.total ?? 0,
+              })}
             </span>
-            {featured && <span>Featured</span>}
+            {featured && <span>{t("profile.library.featured")}</span>}
           </div>
         </div>
         {rarestAchievements.length > 0 && (
@@ -614,7 +638,9 @@ function ProfileGameCard({
                 className="size-10"
               />
             ))}
-            <span className="text-xs text-muted-foreground">Rare unlocks</span>
+            <span className="text-xs text-muted-foreground">
+              {t("profile.library.rareUnlocks")}
+            </span>
           </div>
         )}
       </div>
@@ -656,6 +682,7 @@ function ActivityView({
   profileId: string;
   onPageChange: (page: number) => void;
 }) {
+  const { t } = useTranslation();
   const achievements = compact(profile.achievements?.elements);
   const totalPages = getTotalPages(
     profile.achievements?.total,
@@ -666,8 +693,10 @@ function ActivityView({
     <div className="space-y-6">
       <SectionHeading
         icon={<ActivityIcon className="size-5" />}
-        title="Activity"
-        detail={`${profile.achievements?.total ?? achievements.length} achievement unlocks`}
+        title={t("profile.activity.title")}
+        detail={t("profile.activity.detail", {
+          count: profile.achievements?.total ?? achievements.length,
+        })}
       />
       {achievements.length > 0 ? (
         <>
@@ -688,8 +717,8 @@ function ActivityView({
         </>
       ) : (
         <EmptyState
-          title="No activity yet"
-          description="Achievement unlocks will appear here when this profile has public progress."
+          title={t("profile.activity.noActivityTitle")}
+          description={t("profile.activity.noActivityDescription")}
         />
       )}
     </div>
@@ -730,6 +759,7 @@ function AchievementActivity({
 }
 
 function ActivityList({ items, profileId }: { items: ProfileActivityItem[]; profileId: string }) {
+  const { t } = useTranslation();
   return (
     <div className="grid gap-3 lg:grid-cols-2">
       {items.map((item) => (
@@ -743,7 +773,7 @@ function ActivityList({ items, profileId }: { items: ProfileActivityItem[]; prof
             <div className="size-[72px] shrink-0 overflow-hidden rounded-md bg-primary/10">
               <Image
                 src={item.achievementIconUrl}
-                alt={item.achievementName ?? item.gameTitle ?? "Achievement"}
+                alt={item.achievementName ?? item.gameTitle ?? t("profile.activity.achievementAlt")}
                 width={72}
                 height={72}
                 quality="original"
@@ -776,11 +806,12 @@ function AchievementIcon({
   achievement: ProfileAchievement;
   className?: string;
 }) {
+  const { t } = useTranslation();
   return (
     <div className={cn("shrink-0 overflow-hidden rounded-md bg-primary/10", className)}>
       <Image
         src={achievement.iconUrl ?? "/placeholder.webp"}
-        alt={achievement.displayName ?? achievement.name ?? "Achievement"}
+        alt={achievement.displayName ?? achievement.name ?? t("profile.activity.achievementAlt")}
         width={128}
         height={128}
         quality="original"
@@ -863,14 +894,16 @@ function getTotalPages(total: number | null | undefined, limit: number | null | 
 }
 
 function formatRarity(value: number | null | undefined) {
-  if (value == null) return "Unknown rarity";
-  return `${value.toLocaleString(undefined, { maximumFractionDigits: 2 })}% rarity`;
+  if (value == null) return i18n.t("profile.activity.unknownRarity");
+  return i18n.t("profile.activity.rarity", {
+    value: value.toLocaleString(undefined, { maximumFractionDigits: 2 }),
+  });
 }
 
 function formatDate(value: string | null | undefined) {
-  if (!value) return "Unknown date";
+  if (!value) return i18n.t("profile.activity.unknownDate");
   const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "Unknown date";
+  if (Number.isNaN(date.getTime())) return i18n.t("profile.activity.unknownDate");
 
   return new Intl.DateTimeFormat("en-US", {
     year: "numeric",
@@ -880,6 +913,6 @@ function formatDate(value: string | null | undefined) {
 }
 
 function activityTypeLabel(type: ProfileActivityItem["type"] | null | undefined) {
-  if (type === "PLATINUM_EARNED") return "Platinum earned";
-  return "Achievement unlocked";
+  if (type === "PLATINUM_EARNED") return i18n.t("profile.activity.platinumEarned");
+  return i18n.t("profile.activity.achievementUnlocked");
 }

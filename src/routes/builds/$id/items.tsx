@@ -7,6 +7,7 @@ import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanst
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import type { ColumnFiltersState } from "@tanstack/react-table";
+import { useTranslation } from "react-i18next";
 
 interface PaginatedResponse<T> {
   data: T[];
@@ -43,6 +44,7 @@ export const Route = createFileRoute("/builds/$id/items")({
 });
 
 function ItemsPage() {
+  const { t } = useTranslation();
   const { id } = Route.useLoaderData() as { dehydratedState: DehydratedState; id: string };
   const [page, setPage] = useState({ pageIndex: 0, pageSize: 25 });
   const [filters, setFilters] = useState<ColumnFiltersState>([]);
@@ -69,7 +71,7 @@ function ItemsPage() {
 
   return (
     <main className="flex flex-col items-start justify-start h-full gap-1 px-4 w-full">
-      <p className="text-lg font-semibold">Items</p>
+      <p className="text-lg font-semibold">{t("builds.items.title")}</p>
       <DataTable
         columns={columns}
         data={items?.data ?? []}

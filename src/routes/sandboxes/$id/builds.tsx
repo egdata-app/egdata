@@ -14,6 +14,8 @@ import { useState } from "react";
 import type { ColumnFiltersState } from "@tanstack/react-table";
 import type { DehydratedState } from "@tanstack/react-query";
 import { PackageIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 interface PaginatedResponse<T> {
   elements: T[];
@@ -64,8 +66,8 @@ export const Route = createFileRoute("/sandboxes/$id/builds")({
       return {
         meta: [
           {
-            title: "Sandbox not found",
-            description: "Sandbox not found",
+            title: i18n.t("sandboxes.notFoundTitle"),
+            description: i18n.t("sandboxes.notFoundDescription"),
           },
         ],
       };
@@ -87,19 +89,20 @@ export const Route = createFileRoute("/sandboxes/$id/builds")({
       return {
         meta: [
           {
-            title: "Sandbox not found",
-            description: "Sandbox not found",
+            title: i18n.t("sandboxes.notFoundTitle"),
+            description: i18n.t("sandboxes.notFoundDescription"),
           },
         ],
       };
 
     return {
-      meta: generateSandboxMeta(sandbox, offer, "Builds"),
+      meta: generateSandboxMeta(sandbox, offer, i18n.t("sandboxes.metaBuildsTitle")),
     };
   },
 });
 
 function SandboxBuildsPage() {
+  const { t } = useTranslation();
   const { id } = Route.useParams();
   const [page, setPage] = useState({ pageIndex: 0, pageSize: 20 });
   const [filters, setFilters] = useState<ColumnFiltersState>([]);
@@ -131,10 +134,12 @@ function SandboxBuildsPage() {
     <div className="flex flex-col gap-6 w-full">
       <SandboxPageHeader
         icon={PackageIcon}
-        eyebrow="Binaries"
-        title="Builds"
-        description="Versioned file bundles uploaded for the sandbox. Builds are assigned to artifacts and drive what players download through the launcher."
-        stats={[{ label: "Total builds", value: formatSandboxCount(buildsData?.count) }]}
+        eyebrow={t("sandboxes.buildsEyebrow")}
+        title={t("sandboxes.buildsTitle")}
+        description={t("sandboxes.buildsDescription")}
+        stats={[
+          { label: t("sandboxes.totalBuildsLabel"), value: formatSandboxCount(buildsData?.count) },
+        ]}
       />
       <DataTable
         columns={columns}

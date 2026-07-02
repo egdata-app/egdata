@@ -1,5 +1,6 @@
 import * as React from "react";
 import { createFileRoute, redirect } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/promotions/$id")({
   component: RouteComponent,
@@ -12,5 +13,6 @@ export const Route = createFileRoute("/promotions/$id")({
 });
 
 function RouteComponent() {
-  return "Hello /promotions/$id!";
+  const { t } = useTranslation();
+  return t("promotions.placeholder");
 }

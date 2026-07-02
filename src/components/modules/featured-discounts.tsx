@@ -24,10 +24,12 @@ import { httpClient } from "@/lib/http-client";
 import { calculatePrice } from "@/lib/calculate-price";
 import { Link } from "@tanstack/react-router";
 import { useLocale } from "@/hooks/use-locale";
+import { useTranslation } from "react-i18next";
 
 const SLIDE_DELAY = 15_000;
 
 export function FeaturedDiscounts() {
+  const { t } = useTranslation();
   const { country } = useCountry();
   const { data: featuredDiscounts } = useQuery({
     queryKey: ["featuredDiscounts", { country }],
@@ -123,7 +125,7 @@ export function FeaturedDiscounts() {
     <section id="featured-discounts" className="max-w-[95vw] h-full">
       <div className="flex justify-between items-center mb-4">
         <h4 className="text-xl font-bold text-left inline-flex group items-center gap-2">
-          Featured Discounts
+          {t("components.featuredDiscounts.title")}
         </h4>
         <div className="flex gap-2">
           <button
@@ -241,6 +243,7 @@ const ProgressIndicator = memo(function ProgressIndicator({
 
 // Memoize FeaturedOffer component to prevent unnecessary re-renders
 const FeaturedOffer = memo(function FeaturedOffer({ offer }: { offer: SingleOffer }) {
+  const { t } = useTranslation();
   const [image] = useState<string | null>(null);
   const { data: offerMedia } = useQuery({
     queryKey: ["media", { id: offer.id }],
@@ -344,7 +347,11 @@ const FeaturedOffer = memo(function FeaturedOffer({ offer }: { offer: SingleOffe
                   <Badge>{tag.name}</Badge>
                 </Link>
               ))}
-              {offer.tags.length > 4 && <Badge>+{offer.tags.length - 4} more</Badge>}
+              {offer.tags.length > 4 && (
+                <Badge>
+                  {t("components.featuredDiscounts.countMore", { count: offer.tags.length - 4 })}
+                </Badge>
+              )}
             </div>
           </div>
           <div className="mt-6">
@@ -357,7 +364,7 @@ const FeaturedOffer = memo(function FeaturedOffer({ offer }: { offer: SingleOffe
                 }}
                 preload="intent"
               >
-                Check Offer
+                {t("components.featuredDiscounts.checkOffer")}
               </Link>
             </Button>
           </div>
@@ -369,6 +376,7 @@ const FeaturedOffer = memo(function FeaturedOffer({ offer }: { offer: SingleOffe
 
 // Memoize Price component to prevent unnecessary re-renders
 const Price = memo(function Price({ offer }: { offer: SingleOffer }) {
+  const { t } = useTranslation();
   const { locale } = useLocale();
   const priceFmtd = new Intl.NumberFormat(locale, {
     style: "currency",
@@ -378,7 +386,9 @@ const Price = memo(function Price({ offer }: { offer: SingleOffer }) {
   const isFree = offer.price?.price.discountPrice === 0;
 
   if (!offer.price) {
-    return <span className="text-xl font-bold text-primary">Coming Soon</span>;
+    return (
+      <span className="text-xl font-bold text-primary">{t("components.offerCard.comingSoon")}</span>
+    );
   }
 
   return (
@@ -393,7 +403,9 @@ const Price = memo(function Price({ offer }: { offer: SingleOffer }) {
           </span>
         )}
         {isFree ? (
-          <span className="text-xl font-bold text-primary">Free</span>
+          <span className="text-xl font-bold text-primary">
+            {t("components.featuredDiscounts.free")}
+          </span>
         ) : (
           <span className="text-xl font-bold text-primary">
             {priceFmtd.format(
@@ -408,6 +420,7 @@ const Price = memo(function Price({ offer }: { offer: SingleOffer }) {
 
 // Memoize SaleModule component to prevent unnecessary re-renders
 const SaleModule = memo(function SaleModule({ price }: { price: OfferPrice }) {
+  const { t } = useTranslation();
   const selectedRule = price.appliedRules.sort(
     (a, b) => new Date(a.endDate).getTime() - new Date(b.endDate).getTime(),
   )[0];
@@ -415,7 +428,7 @@ const SaleModule = memo(function SaleModule({ price }: { price: OfferPrice }) {
   return (
     <div className="flex items-center gap-2">
       <span className="text-sm text-muted-foreground inline-flex items-center">
-        until{" "}
+        {t("components.featuredDiscounts.until")}{" "}
         {new Date(selectedRule.endDate).toLocaleDateString("en-UK", {
           year: undefined,
           month: "long",

@@ -12,6 +12,7 @@ import { ChevronLeft, ChevronRight, PlayIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "../ui/skeleton";
 import { DownloadIcon } from "@radix-ui/react-icons";
+import { useTranslation } from "react-i18next";
 
 interface SlideBase {
   id: string;
@@ -37,6 +38,7 @@ interface VideoSlide extends SlideBase {
 type Slide = ImageSlide | VideoSlide;
 
 export function OfferMediaSlider({ offer }: { offer: SingleOffer }) {
+  const { t } = useTranslation();
   const { data } = useQuery({
     queryKey: ["media", { id: offer.id }],
     queryFn: () => httpClient.get<Media>(`/offers/${offer.id}/media`),
@@ -202,7 +204,7 @@ export function OfferMediaSlider({ offer }: { offer: SingleOffer }) {
           onClick={handlePrevious}
         >
           <ChevronLeft className="h-4 w-4" />
-          <span className="sr-only">Previous slide</span>
+          <span className="sr-only">{t("components.mediaSlider.previousSlide")}</span>
         </Button>
         <Button
           variant="outline"
@@ -211,7 +213,7 @@ export function OfferMediaSlider({ offer }: { offer: SingleOffer }) {
           onClick={handleNext}
         >
           <ChevronRight className="h-4 w-4" />
-          <span className="sr-only">Next slide</span>
+          <span className="sr-only">{t("components.mediaSlider.nextSlide")}</span>
         </Button>
       </div>
       <div className="mt-4">
@@ -253,6 +255,7 @@ export function OfferMediaSlider({ offer }: { offer: SingleOffer }) {
 }
 
 function DownloadImage({ src }: { src: string }) {
+  const { t } = useTranslation();
   const [isDownloading, setIsDownloading] = useState(false);
 
   const download = useCallback(async () => {
@@ -276,7 +279,9 @@ function DownloadImage({ src }: { src: string }) {
       disabled={isDownloading}
     >
       <DownloadIcon className="size-3" />
-      {isDownloading ? "Downloading..." : "Download"}
+      {isDownloading
+        ? t("components.mediaSlider.downloading")
+        : t("components.mediaSlider.download")}
     </Button>
   );
 }

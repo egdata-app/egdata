@@ -13,19 +13,20 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import type { formSchema } from "./search-form";
+import { useTranslation } from "react-i18next";
 
-const sortByDisplay: Record<string, string> = {
-  releaseDate: "Release Date",
-  lastModifiedDate: "Modified Date",
-  effectiveDate: "Effective Date",
-  creationDate: "Creation Date",
-  viewableDate: "Viewable Date",
-  pcReleaseDate: "PC Release Date",
-  upcoming: "Upcoming",
-  price: "Price",
-  discount: "Discount",
-  discountPercent: "Discount %",
-};
+const sortByKeys = [
+  "releaseDate",
+  "lastModifiedDate",
+  "effectiveDate",
+  "creationDate",
+  "viewableDate",
+  "pcReleaseDate",
+  "upcoming",
+  "price",
+  "discount",
+  "discountPercent",
+] as const;
 
 export type SearchHeaderProps = {
   // @ts-expect-error
@@ -46,6 +47,7 @@ export function SearchHeader({
   isFetching = false,
 }: SearchHeaderProps) {
   const { view, setView } = usePreferences();
+  const { t } = useTranslation();
 
   return (
     <header className={cn("inline-flex items-center justify-between w-full gap-2", className)}>
@@ -81,18 +83,17 @@ export function SearchHeader({
               {({ handleChange, state }: any) => (
                 <Select
                   value={state.value}
-                  onValueChange={(value) => handleChange(value as keyof typeof sortByDisplay)}
+                  onValueChange={(value) => handleChange(value as (typeof sortByKeys)[number])}
                 >
                   <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Sort by" />
+                    <SelectValue placeholder={t("search.sort.sortBy")} />
                   </SelectTrigger>
                   <SelectContent>
-                    {sortByDisplay &&
-                      Object.entries(sortByDisplay).map(([key, value]) => (
-                        <SelectItem key={key} value={key}>
-                          {value}
-                        </SelectItem>
-                      ))}
+                    {sortByKeys.map((key) => (
+                      <SelectItem key={key} value={key}>
+                        {t(`search.sort.${key}`)}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               )}

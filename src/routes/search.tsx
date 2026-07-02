@@ -3,6 +3,7 @@ import { zodSearchValidator } from "@tanstack/router-zod-adapter";
 import { httpClient } from "@/lib/http-client";
 import { formSchema } from "@/stores/searchStore";
 import { SearchContainer } from "@/components/search/SearchContainer";
+import i18n from "@/lib/i18n";
 
 export const Route = createFileRoute("/search")({
   component: RouteComponent,
@@ -28,27 +29,27 @@ export const Route = createFileRoute("/search")({
     return {
       meta: [
         {
-          title: "Search | egdata.app",
+          title: i18n.t("search.meta.title"),
         },
         {
           name: "description",
-          content: "Search for offers from the Epic Games Store.",
+          content: i18n.t("search.meta.description"),
         },
         {
           name: "og:title",
-          content: "Search | egdata.app",
+          content: i18n.t("search.meta.title"),
         },
         {
           name: "og:description",
-          content: "Search for offers from the Epic Games Store.",
+          content: i18n.t("search.meta.description"),
         },
         {
           property: "twitter:title",
-          content: "Search | egdata.app",
+          content: i18n.t("search.meta.title"),
         },
         {
           property: "twitter:description",
-          content: "Search for offers from the Epic Games Store.",
+          content: i18n.t("search.meta.description"),
         },
       ],
     };

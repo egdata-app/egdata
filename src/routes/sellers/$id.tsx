@@ -11,6 +11,8 @@ import { getQueryClient } from "@/lib/client";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { SearchContainer } from "@/components/search/SearchContainer";
 import buildImageUrl, { buildSrcSet } from "@/lib/build-image-url";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 interface SellerStats {
   offers: number;
@@ -92,8 +94,8 @@ export const Route = createFileRoute("/sellers/$id")({
       return {
         meta: [
           {
-            title: "Seller not found",
-            description: "Seller not found",
+            title: i18n.t("sellers.meta.notFoundTitle"),
+            description: i18n.t("sellers.meta.notFoundDescription"),
           },
         ],
       };
@@ -115,8 +117,8 @@ export const Route = createFileRoute("/sellers/$id")({
       return {
         meta: [
           {
-            title: "Seller not found",
-            description: "Seller not found",
+            title: i18n.t("sellers.meta.notFoundTitle"),
+            description: i18n.t("sellers.meta.notFoundDescription"),
           },
         ],
       };
@@ -124,7 +126,7 @@ export const Route = createFileRoute("/sellers/$id")({
     return {
       meta: [
         {
-          title: `${sellerName} | egdata.app`,
+          title: i18n.t("sellers.meta.title", { name: sellerName }),
         },
       ],
     };
@@ -132,6 +134,7 @@ export const Route = createFileRoute("/sellers/$id")({
 });
 
 function RouteComponent() {
+  const { t } = useTranslation();
   const { id } = Route.useLoaderData() as {
     dehydratedState: DehydratedState;
     id: string;
@@ -174,7 +177,7 @@ function RouteComponent() {
   if (!sellerName) {
     return (
       <div className="min-h-[85vh] flex items-center justify-center">
-        <h1 className="text-4xl font-display font-bold">Seller not found</h1>
+        <h1 className="text-4xl font-display font-bold">{t("sellers.notFound")}</h1>
       </div>
     );
   }
@@ -195,10 +198,12 @@ function RouteComponent() {
     : null;
 
   const statsItems = [
-    stats ? { label: "Offers", value: stats.offers } : null,
-    stats ? { label: "Games", value: stats.games } : null,
-    stats ? { label: "Items", value: stats.items } : null,
-    stats && stats.freegames > 0 ? { label: "Free Games", value: stats.freegames } : null,
+    stats ? { label: t("sellers.stats.offers"), value: stats.offers } : null,
+    stats ? { label: t("sellers.stats.games"), value: stats.games } : null,
+    stats ? { label: t("sellers.stats.items"), value: stats.items } : null,
+    stats && stats.freegames > 0
+      ? { label: t("sellers.stats.freeGames"), value: stats.freegames }
+      : null,
   ].filter(Boolean) as { label: string; value: number }[];
 
   return (
@@ -210,7 +215,7 @@ function RouteComponent() {
             src={buildImageUrl(bannerImage, 1280, "high")}
             srcSet={buildSrcSet(bannerImage, 1280)}
             sizes="100vw"
-            alt={featuredCover?.title ?? sellerName}
+            alt={featuredCover?.title ?? t("sellers.bannerAlt", { name: sellerName })}
             className="w-full h-full object-cover"
             loading="eager"
             decoding="async"
@@ -230,7 +235,7 @@ function RouteComponent() {
             {logoUrl && (
               <img
                 src={logoUrl}
-                alt={`${sellerName} logo`}
+                alt={t("sellers.logoAlt", { name: sellerName })}
                 className="w-16 h-16 md:w-20 md:h-20 rounded-lg object-contain bg-background/60 backdrop-blur-sm p-2 border border-border/40 shrink-0"
                 loading="eager"
               />
@@ -265,7 +270,7 @@ function RouteComponent() {
           contextId={`seller-${id}`}
           fixedParams={{ seller: id }}
           controls={{ showSeller: false }}
-          title={`${sellerName} Offers`}
+          title={t("sellers.offersTitle", { name: sellerName })}
           initialSearch={search}
           onSearchChange={(search) => {
             navigate({

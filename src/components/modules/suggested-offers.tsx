@@ -12,8 +12,10 @@ import { shuffle } from "@/lib/shuffle";
 import { useCountry } from "@/hooks/use-country";
 import { ArrowUpIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export function SuggestedOffers({ id }: { id: string }) {
+  const { t } = useTranslation();
   const { country } = useCountry();
   const [api, setApi] = useState<CarouselApi>();
 
@@ -48,7 +50,7 @@ export function SuggestedOffers({ id }: { id: string }) {
     <section className="w-full h-full" id={`suggested-offers-${id}`}>
       <div className="flex justify-between items-center mb-4">
         <h4 className="text-xl font-bold text-left inline-flex group items-center gap-2">
-          You may also like
+          {t("components.suggestedOffers.title")}
         </h4>
         <div className="flex gap-2">
           <button

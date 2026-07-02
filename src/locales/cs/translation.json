@@ -1,0 +1,1763 @@
+{
+  "common": {
+    "appName": "EGDATA",
+    "search": "Hledat",
+    "searchPlaceholder": "Hledat hry...",
+    "loading": "Načítání...",
+    "free": "Zdarma",
+    "notAvailable": "Není k dispozici",
+    "cancel": "Zrušit",
+    "save": "Uložit",
+    "close": "Zavřít"
+  },
+  "nav": {
+    "toggleMenu": "Přepnout navigační menu",
+    "logoAlt": "Logo EGDATA",
+    "explore": "Prozkoumat",
+    "browse": "Procházet",
+    "sales": "Slevy",
+    "changelog": "Seznam změn",
+    "about": "O nás",
+    "rankings": "Žebříčky",
+    "topSellers": "Nejprodávanější",
+    "mostPlayed": "Nejhranější",
+    "topWishlisted": "Nejvíce přidané do seznamu přání",
+    "topNewReleases": "Nejlepší nové vydání",
+    "seeAllCollections": "Zobrazit všechny kolekce",
+    "others": "Ostatní",
+    "releaseStats": "Statistiky vydání",
+    "genres": "Žánry",
+    "seeAllGenres": "Zobrazit všechny žánry",
+    "other": "Ostatní",
+    "action": "Akční",
+    "rpg": "RPG",
+    "indie": "Indie",
+    "strategy": "Strategie",
+    "topSellerOnEpic": "Nejprodávanější na Epic Games Store",
+    "searchItemTitle": "Hledat",
+    "searchItemDesc": "Najděte, co hledáte na Epic Games Store.",
+    "freeGamesItemTitle": "Hry zdarma",
+    "freeGamesItemDesc": "Prozkoumejte nejnovější nabídky her zdarma na Epic Games Store.",
+    "withDiscountsItemTitle": "Se slevou",
+    "withDiscountsItemDesc": "Podívejte se na hry aktuálně ve slevě.",
+    "helloUser": "Ahoj, {{name}}!",
+    "dashboard": "Dashboard",
+    "logout": "Odhlásit se",
+    "searchLanguages": "Hledat jazyky...",
+    "noLanguagesFound": "Nenalezeny žádné jazyky"
+  },
+  "footer": {
+    "logoAlt": "Logo EGDATA",
+    "disclaimer": "Fanouškovská databáze Epic Games Store. Není přidružena k Epic Games, Inc. Všechna loga, obrázky a ochranné známky patří jejich příslušným vlastníkům.",
+    "legal": "Právní informace",
+    "privacyPolicy": "Zásady ochrany osobních údajů",
+    "notifications": "Oznámení",
+    "resources": "Zdroje",
+    "apiDocs": "Dokumentace API",
+    "changelog": "Seznam změn",
+    "community": "Komunita",
+    "flagsByFlagpedia": "Vlajky od Flagpedia",
+    "madeIn": "Vyrobeno v"
+  },
+  "meta": {
+    "title": "Databáze Epic Games - egdata.app",
+    "description": "Komplexní databáze Epic Games Store: informace o hrách, ceny, historie slev, seznamy souborů a další. Objevujte hry zdarma, nadcházející vydání a komunitní přehledy.",
+    "twitterTitle": "Databáze Epic Games",
+    "twitterDescription": "Bezplatná a otevřená databáze Epic Games Store s komplexními informacemi o hrách, sledováním prodejů a dalšími funkcemi. Řízeno komunitou a neustále aktualizováno.",
+    "twitterImageAlt": "Databáze Epic Games",
+    "ogTitle": "Databáze Epic Games",
+    "ogDescription": "Bezplatná a otevřená databáze Epic Games Store s komplexními informacemi o hrách, sledováním prodejů a dalšími funkcemi. Řízeno komunitou a neustále aktualizováno.",
+    "ogImageAlt": "Databáze Epic Games"
+  },
+  "notFound": {
+    "title": "Stránka nenalezena"
+  },
+  "home": {
+    "statsBar": {
+      "offersTracked": "Sledovaných nabídek",
+      "priceChanges72h": "Změny cen / 72h",
+      "activeDiscounts": "Aktivní slevy",
+      "giveawaysToDate": "Dosavadních výprodejů"
+    },
+    "sections": {
+      "giveawayStats": "Statistiky výprodejů",
+      "giveawayOffers": "Nabídky výprodejů",
+      "upcomingOffers": "Nadcházející nabídky",
+      "latestOffers": "Nejnovější nabídky",
+      "latestReleased": "Nejnověji vydané",
+      "latestOffersWithAchievements": "Nejnovější nabídky s úspěchy",
+      "topSellingOffers": "Nejprodávanější nabídky",
+      "latestBuilds": "Nejnovější sestavení"
+    },
+    "tableHeaders": {
+      "hash": "#",
+      "pos": "Poz",
+      "dash": "-",
+      "title": "Název",
+      "starts": "Začíná",
+      "ends": "Končí",
+      "releaseDate": "Datum vydání",
+      "createdAt": "Vytvořeno",
+      "date": "Datum",
+      "price": "Cena",
+      "size": "Velikost",
+      "creationDate": "Datum vytvoření"
+    },
+    "offerHover": {
+      "seller": "Prodejce:",
+      "developer": "Vývojář:",
+      "publisher": "Vydavatel:",
+      "releaseDate": "Datum vydání:",
+      "ageRating": "Věkové hodnocení:",
+      "moreGenres_one": "+{{count}} další",
+      "moreGenres_other": "+{{count}} dalších",
+      "communityRating": "Hodnocení komunity:",
+      "igdbScore": "Skóre IGDB",
+      "reviews": "• {{count}} recenzí",
+      "timeToBeat": "Doba dohrání:",
+      "features": "Funkce:",
+      "moreFeatures": " +{{count}} dalších"
+    },
+    "buildHover": {
+      "unknownBuild": "Neznámé sestavení",
+      "unknownDeveloper": "Neznámý vývojář",
+      "size": "Velikost",
+      "version": "Verze",
+      "created": "Vytvořeno",
+      "id": "ID: {{id}}"
+    },
+    "multipleOffers": "{{title}} - Více nabídek",
+    "hero": {
+      "subtitle": "Sledujte ceny, objevujte slevy a nikdy nezmeškejte hru zdarma. Váš průvodce databází Epic Games Store — nabídky, slevy, výprodeje, sestavení a další.",
+      "searchPlaceholder": "Hledat v databázi…",
+      "justReleased": "Právě vydáno",
+      "priceDrops72h": "Poklesy cen (72h)",
+      "hasAchievements": "Má úspěchy",
+      "upcoming": "Nadcházející",
+      "topSellers": "Nejprodávanější"
+    },
+    "pulse": {
+      "recentActivity": "Nedávná aktivita",
+      "badge": {
+        "new": "Nový",
+        "gone": "Pryč",
+        "offer": "Nabídka",
+        "build": "Sestavení",
+        "item": "Položka",
+        "asset": "Asset",
+        "xp": "XP",
+        "sandbox": "Sandbox",
+        "change": "Změna"
+      },
+      "title": {
+        "buildVersion": "Sestavení {{version}}",
+        "buildId": "Sestavení {{id}}",
+        "achievementsId": "Úspěchy {{id}}"
+      },
+      "detail": {
+        "newBuildIndexed": "Nové sestavení indexováno",
+        "buildManifestRefreshed": "Manifest sestavení obnoven",
+        "achievementChanges_one": "{{count}} úspěch {{entry}} {{verb}}",
+        "achievementChanges_other": "{{count}} úspěchů {{entry}} {{verb}}",
+        "offerMetadataRefreshed": "Metadata nabídky obnovena",
+        "fieldsChanged_one": "{{count}} pole {{verb}}",
+        "fieldsChanged_other": "{{count}} polí {{verb}}",
+        "fieldChanged": "{{field}} {{verb}}"
+      },
+      "actionVerb": {
+        "added": "přidáno",
+        "removed": "odebráno",
+        "updated": "aktualizováno",
+        "changed": "změněno"
+      },
+      "entry_one": "záznam",
+      "entry_other": "záznamů"
+    }
+  },
+  "offerDetail": {
+    "common": {
+      "offerNotFound": "Nabídka nenalezena",
+      "notAvailable": "Není k dispozici",
+      "na": "N/A",
+      "loading": "Načítání...",
+      "somethingWentWrong": "Něco se pokazilo",
+      "noChangesFound": "Pro tuto nabídku nebyly nalezeny žádné změny"
+    },
+    "tabs": {
+      "overview": "Přehled",
+      "price": "Cena",
+      "items": "Položky",
+      "builds": "Sestavení",
+      "achievements": "Úspěchy",
+      "related": "Související",
+      "metadata": "Metadata",
+      "changelog": "Seznam změn",
+      "media": "Média",
+      "reviews": "Recenze"
+    },
+    "table": {
+      "offerId": "ID nabídky",
+      "namespace": "Namespace",
+      "offerType": "Typ nabídky",
+      "seller": "Prodejce",
+      "developer": "Vývojář",
+      "supportedPlatforms": "Podporované platformy",
+      "releaseDate": "Datum vydání",
+      "lastUpdate": "Poslední aktualizace",
+      "creationDate": "Datum vytvoření",
+      "technologies": "Technologie",
+      "type": "Typ",
+      "value": "Hodnota",
+      "countriesBlacklist": "Černá listina zemí",
+      "countriesWhitelist": "Bílá listina zemí",
+      "categories": "Kategorie",
+      "refundType": "Typ vrácení",
+      "tags": "Štítky",
+      "ageRatings": "Věkové hodnocení",
+      "assets": "Assety"
+    },
+    "badges": {
+      "prePurchase": "Předobjednávka",
+      "earlyAccess": "Předběžný přístup"
+    },
+    "hero": {
+      "offeredBy": "Nabízí {{seller}}"
+    },
+    "tooltip": {
+      "internalNamespace": "Interní namespace Epic Games",
+      "techDescription": "seznam technologií pro sledování použitých enginů a různých technologií ze souborů hry.",
+      "techSource": "Používáme",
+      "techSourceSteamDb": "SteamDB",
+      "source": "Zdroj"
+    },
+    "actions": {
+      "compare": "Porovnat"
+    },
+    "releaseDate": {
+      "releasedOnPc": "Vydáno na PC",
+      "theEgs": "EGS",
+      "releasedSameDay": "Vydáno na Epic stejný den jako na PC"
+    },
+    "notifications": {
+      "title": "Nastavení oznámení",
+      "description": "Vyberte, jaká oznámení chcete pro tuto nabídku dostávat.",
+      "all": "Vše",
+      "price": "Cena",
+      "achievements": "Úspěchy",
+      "builds": "Sestavení",
+      "items": "Položky",
+      "requirements": "Požadavky",
+      "metadata": "Metadata",
+      "media": "Média",
+      "enablePushDescription": "Pro příjem oznámení k této nabídce musíte povolit push oznámení.",
+      "enablePushAction": "Povolit push oznámení"
+    },
+    "overview": {
+      "genres": "Žánry",
+      "ageRating": "Věkové hodnocení",
+      "noAgeRatings": "Nebyla nalezena žádná věková hodnocení",
+      "giveaways": "Výprodeje",
+      "noGiveaways": "Nebyly nalezeny žádné výprodeje",
+      "achievements": "Úspěchy",
+      "igdbTimeToBeat": "IGDB Doba dohrání",
+      "hastily": "Rychle",
+      "normally": "Normálně",
+      "completely": "Úplně",
+      "hltbSubmissions_one": "Na základě {{count}} příspěvku",
+      "hltbSubmissions_other": "Na základě {{count}} příspěvků",
+      "price": "Cena",
+      "priceCurrent": "Aktuální:",
+      "priceLowest": "Nejnižší:",
+      "priceLastDiscount": "Poslední sleva:",
+      "hltbTitle": "How Long To Beat",
+      "noGameTimes": "Nebyly nalezeny žádné herní časy",
+      "epicRating": "Hodnocení hráčů Epic",
+      "epicRatingDescription": "Zachyceno od hráčů v ekosystému Epic Games",
+      "igdbRating": "Hodnocení IGDB",
+      "igdbReviews_one": "{{count}} recenze",
+      "igdbReviews_other": "{{count}} recenzí"
+    },
+    "achievements": {
+      "title": "Úspěchy",
+      "sortBy": "Seřadit podle",
+      "defaultSort": "Výchozí řazení",
+      "sortByRarity": "Seřadit podle vzácnosti",
+      "sortByCompleted": "Seřadit podle % dokončení",
+      "search": "Hledat",
+      "flipAll": "Otočit vše",
+      "noAchievements": "Nebyly nalezeny žádné úspěchy",
+      "noAchievementsSet": "Pro tuto sadu nebyly nalezeny žádné úspěchy.",
+      "noAchievementsSetDescription": "To může znamenat, že úspěchy nejsou aktuálně k dispozici, ale budou přidány v budoucnu.",
+      "baseGame": "Základní hra",
+      "dlc": "DLC",
+      "achievementsLabel": "Úspěchy",
+      "baseGameDescription": "Tento seznam úspěchů je pro základní hru.",
+      "dlcDescription": "Tento seznam úspěchů je pro jedno z DLC.",
+      "lastUpdated": "Poslední aktualizace:",
+      "lastUpdatedTooltip": "Tato sada úspěchů byla naposledy aktualizována {{date}}.",
+      "lastUpdatedTooltipDescription": "Toto je datum vytvoření nebo datum poslední aktualizace."
+    },
+    "builds": {
+      "title": "Sestavení"
+    },
+    "items": {
+      "title": "Položky"
+    },
+    "price": {
+      "title": "Cena"
+    },
+    "related": {
+      "title": "Související nabídky"
+    },
+    "media": {
+      "images": "Obrázky",
+      "videos": "Videa",
+      "covers": "Obálky",
+      "noImages": "Nebyly nalezeny žádné obrázky",
+      "noVideos": "Nebyla nalezena žádná videa",
+      "noCovers": "Nebyly nalezeny žádné obálky",
+      "download": "Stáhnout",
+      "close": "Zavřít",
+      "downloadCoverAria": "Stáhnout obálku {{type}}"
+    },
+    "metadata": {
+      "title": "Metadata",
+      "download": "Stažení:",
+      "install": "Instalace:"
+    },
+    "changelog": {
+      "title": "Seznam změn",
+      "tooltip": "Tento seznam obsahuje změny provedené v této konkrétní nabídce nebo souvisejících položkách, assetech nebo sestaveních.",
+      "sandboxChangelog": "seznam změn sandboxu",
+      "sandboxChangelogPrefix": "Seznam změn pro celý produkt si můžete prohlédnout v",
+      "noChangelog": "Žádný seznam změn není k dispozici",
+      "allTypes": "Všechny typy",
+      "selectField": "Vyberte pole",
+      "allFields": "Všechna pole",
+      "search": "Hledat",
+      "previous": "Předchozí",
+      "next": "Další",
+      "pageOf": "Stránka {{page}} z {{totalPages}}",
+      "typeUpdate": "Aktualizace",
+      "typeDelete": "Smazání",
+      "typeInsert": "Vložení"
+    },
+    "reviews": {
+      "epicRating": "Hodnocení hráčů Epic",
+      "epicRatingDescription": "Zachyceno od hráčů v ekosystému Epic Games",
+      "egdataRating": "Hodnocení EGDATA",
+      "overallScore": "Celkové skóre",
+      "scoreOutOf10": "{{score}} / 10",
+      "basedOnReviews": "Na základě {{count}} recenzí",
+      "allReviews": "Všechny recenze",
+      "onlyVerified": "Pouze ověřené",
+      "notVerified": "Neověřené",
+      "leaveReview": "Napsat recenzi",
+      "alreadyReviewed": "Již recenzováno",
+      "loginToReview": "Pro napsání recenze se přihlaste",
+      "noReviews": "Zatím žádné recenze",
+      "notReleased": "Tento produkt ještě nebyl vydán",
+      "beFirst": "Buďte první, kdo napíše recenzi na tento produkt!",
+      "checkBack": "Vraťte se po datu vydání a napište recenzi!",
+      "verifiedOwner": "Ověřený vlastník",
+      "recommended": "Doporučeno",
+      "notRecommended": "Nedoporučeno",
+      "readMore": "Číst více",
+      "reviewedOn": "Recenzováno",
+      "lastUpdatedOn": "Poslední aktualizace",
+      "editedTimes": "Upraveno {{count}}krát",
+      "edit": "Upravit",
+      "close": "Zavřít",
+      "reviewCount_one": "{{count}} recenze",
+      "reviewCount_other": "{{count}} recenzí",
+      "ownershipVerification": "Ověření vlastnictví",
+      "ownershipVerificationDescription": "je založeno na dokončení alespoň jednoho úspěchu hráčem.",
+      "ownershipVerificationTooltip": "K ověření vlastnictví produktu používáme úspěchy Epic Games. Aby mohl být hráč označen jako ověřený vlastník, musí dokončit alespoň jeden úspěch pro vybraný produkt v Epic Games Store. Pro propojení vašeho účtu s egdata profilem musíte přejít na",
+      "yourDashboard": "svůj dashboard",
+      "criticReviews": "Kritické recenze",
+      "basedOnCriticReviews": "Na základě {{count}} kritických recenzí",
+      "opencriticRating": "Hodnocení OpenCritic",
+      "topCriticAverage": "Průměr top kritiků",
+      "criticsRecommend": "Kritici doporučují",
+      "opencriticRatingAlt": "Hodnocení OpenCritic"
+    }
+  },
+  "search": {
+    "meta": {
+      "title": "Hledat | egdata.app",
+      "description": "Hledejte nabídky z Epic Games Store."
+    },
+    "defaultTitle": "Hledat",
+    "filters": "Filtry",
+    "filtersPlaceholder": "Hledat hry",
+    "pills": {
+      "onSale": "Ve slevě",
+      "codeRedemptionOnly": "Pouze uplatnění kódu",
+      "excludeBlockchain": "Vyloučit Blockchain/NFT",
+      "pastGiveaways": "Minulé výprodeje"
+    },
+    "accordion": {
+      "offerType": "Typ nabídky",
+      "developer": "Vývojář",
+      "publisher": "Vydavatel",
+      "noTags": "Nebyly nalezeny žádné štítky",
+      "seller": "Prodejce"
+    },
+    "checkboxes": {
+      "pastGiveaways": "Minulé výprodeje",
+      "onSale": "Ve slevě",
+      "codeRedemptionOnly": "Pouze uplatnění kódu",
+      "excludeBlockchain": "Vyloučit Blockchain/NFT",
+      "onlyHistoricalLows": "Pouze historická minima",
+      "onlyLowestPriceEver": "Pouze nejnižší cena vůbec"
+    },
+    "tagGroups": {
+      "event": "Událost",
+      "genre": "Žánr",
+      "epicfeature": "Funkce Epic",
+      "accessibility": "Přístupnost",
+      "feature": "Funkce",
+      "usersay": "Uživatelé říkají",
+      "subscription": "Předplatné",
+      "platform": "Platforma",
+      "all": "Všechny štítky"
+    },
+    "sort": {
+      "sortBy": "Seřadit podle",
+      "sortAriaLabel": "Seřadit nabídky",
+      "sortDirectionAriaLabel": "Přepnout směr řazení",
+      "showListView": "Zobrazit jako seznam",
+      "showGridView": "Zobrazit jako mřížku",
+      "releaseDate": "Datum vydání",
+      "lastModifiedDate": "Datum změny",
+      "effectiveDate": "Datum účinnosti",
+      "creationDate": "Datum vytvoření",
+      "viewableDate": "Datum zobrazení",
+      "pcReleaseDate": "Datum vydání na PC",
+      "upcoming": "Nadcházející",
+      "price": "Cena",
+      "discount": "Sleva",
+      "discountPercent": "Sleva %",
+      "giveawayDate": "Datum výprodeje"
+    },
+    "results": {
+      "noResults": "Nebyly nalezeny žádné výsledky"
+    }
+  },
+  "freebies": {
+    "meta": {
+      "title": "Hry zdarma | egdata.app",
+      "description": "Procházejte hry zdarma z Epic Games Store."
+    },
+    "headings": {
+      "current": "Aktuální hry zdarma",
+      "past": "Dřívější hry zdarma",
+      "sellers": "Prodejci her zdarma"
+    },
+    "buttons": {
+      "redeem": "Uplatnit nyní",
+      "downloadJson": "Stáhnout jako JSON",
+      "downloadCsv": "Stáhnout jako CSV",
+      "downloadTxt": "Stáhnout jako text"
+    },
+    "placeholders": {
+      "searchSellers": "Hledat prodejce..."
+    },
+    "aria": {
+      "downloadList": "Stáhnout seznam"
+    },
+    "errors": {
+      "loadSellers": "Chyba při načítání dat prodejců. Zkuste to prosím později."
+    },
+    "table": {
+      "sellerName": "Jméno prodejce",
+      "totalGames": "Celkem jednotlivých her"
+    }
+  },
+  "sales": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Podívejte se na {{title}} z Epic Games Store."
+    },
+    "metaIndex": {
+      "title": "Aktivní slevy | egdata.app",
+      "description": "Procházejte aktivní slevy na egdata.app"
+    },
+    "status": {
+      "loading": "Načítání...",
+      "noData": "Žádná data"
+    },
+    "headings": {
+      "active": "Aktivní slevy",
+      "pastUpcoming": "Minulé / Nadcházející slevy",
+      "offersList": "Nabídky {{title}}"
+    },
+    "errors": {
+      "notFound": "Promo akce nenalezena"
+    },
+    "labels": {
+      "offersCount": "V této události je k dispozici {{count}} nabídek"
+    }
+  },
+  "collections": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Podívejte se na {{title}} z Epic Games Store."
+    },
+    "metaIndex": {
+      "title": "Kolekce | egdata.app",
+      "description": "Kolekce na egdata.app"
+    },
+    "headings": {
+      "main": "Kolekce"
+    },
+    "description": {
+      "overview": "Nejprodávanější, nejhranější a nejoblíbenější hry na Epic Games Store"
+    },
+    "status": {
+      "loading": "Načítání..."
+    },
+    "errors": {
+      "notFound": "Kolekce nenalezena"
+    },
+    "table": {
+      "position": "Pozice",
+      "variance": "Odchylka",
+      "weeks": "Týdny"
+    },
+    "tooltips": {
+      "variance": "Rozdíl mezi aktuální pozicí a předchozí pozicí. Obvykle se mění každý den.",
+      "weeks": "Počet týdnů, po které je hra v top 100 pro {{title}}."
+    },
+    "buttons": {
+      "loadMore": "Načíst více"
+    }
+  },
+  "sandboxes": {
+    "notFoundTitle": "Sandbox nenalezen",
+    "notFoundDescription": "Sandbox nenalezen",
+    "unrealEngineTitle": "Unreal Engine",
+    "unavailableTitle": "Sandbox není k dispozici",
+    "unavailableDescription": "Centrum produktu nelze načíst.",
+    "noProductDataDescription": "Pro tento sandbox neexistují žádná data produktu.",
+    "hubEyebrow": "Sandbox",
+    "hubOverviewTitle": "Přehled",
+    "hubOverviewDescription": "Zaměřená mapa záznamů obchodu, vlastnictví, doručení a aktualizací pro tento Namespace.",
+    "latestChangesButton": "Poslední změny",
+    "entityOffersLabel": "Nabídky",
+    "entityOffersDescription": "Položky obchodu",
+    "entityItemsLabel": "Položky",
+    "entityItemsDescription": "Vlastnitelné záznamy",
+    "entityAssetsLabel": "Assety",
+    "entityAssetsDescription": "Artefakty a média",
+    "entityBuildsLabel": "Sestavení",
+    "entityBuildsDescription": "Binární balíčky",
+    "entityAchievementsLabel": "Úspěchy",
+    "entityAchievementsDescription": "Data o postupu",
+    "entityChangelogLabel": "Seznam změn",
+    "entityChangelogDescription": "Sledované aktualizace",
+    "viewButton": "Zobrazit",
+    "storefrontOffersTitle": "Nabídky obchodu",
+    "storefrontOffersDescription": "Reprezentativní položky obchodu nalezené v tomto sandboxu.",
+    "recentBuildsTitle": "Nedávná sestavení",
+    "recentBuildsDescription": "Nejnovější binární záznamy.",
+    "latestBadge": "nejnovější",
+    "unknownBuildLabel": "Neznámé sestavení",
+    "recentChangesTitle": "Nedávné změny",
+    "recentChangesDescription": "Nejnovější mutace katalogu.",
+    "updateBadge": "aktualizace",
+    "changeDefaultLabel": "Změna",
+    "metaOffersTitle": "Nabídky",
+    "offersEyebrow": "E-commerce",
+    "offersTitle": "Nabídky",
+    "offersDescription": "Položky obchodu v tomto sandboxu, včetně základních her, edic, DLC, doplňků, balíčků a jakékoli nabídky, která může udělovat katalogové položky.",
+    "totalOffersLabel": "Celkem nabídek",
+    "metaAchievementsTitle": "Úspěchy",
+    "achievementsEyebrow": "Postup",
+    "achievementsTitle": "Úspěchy",
+    "achievementsDescription": "Sady úspěchů, skryté stavy, rozložení vzácnosti a celkové XP připojené k tomuto sandboxu.",
+    "achievementsSetsLabel": "Sady",
+    "achievementsLabel": "Úspěchy",
+    "achievementsXpLabel": "XP",
+    "searchAchievementsPlaceholder": "Hledat úspěchy",
+    "flipAllButton": "Otočit vše",
+    "revealHiddenAchievementAria": "Zobrazit text skrytého úspěchu",
+    "hideHiddenAchievementAria": "Skrýt text skrytého úspěchu",
+    "achievementsBaseGameLabel": "Základní hra",
+    "achievementsDlcLabel": "DLC",
+    "achievementsBaseGameTooltip": "Tento seznam úspěchů je pro základní hru.",
+    "achievementsDlcTooltip": "Tento seznam úspěchů je pro jedno z DLC.",
+    "lastUpdatedLabel": "Poslední aktualizace:",
+    "achievementsLastUpdatedTooltip": "Tato sada úspěchů byla naposledy aktualizována",
+    "achievementsLastUpdatedTooltipExtra": "Toto je datum vytvoření nebo datum poslední aktualizace.",
+    "noAchievementsForSet": "Pro tuto sadu nebyly nalezeny žádné úspěchy.",
+    "noAchievementsForSetExtra": "To může znamenat, že úspěchy nejsou aktuálně k dispozici, ale budou přidány v budoucnu.",
+    "noAchievementsFound": "Nebyly nalezeny žádné úspěchy",
+    "metaItemsTitle": "Položky",
+    "itemsEyebrow": "Vlastnictví katalogu",
+    "itemsTitle": "Položky",
+    "itemsDescription": "Vlastnitelné katalogové položky obsažené v nabídkách. To jsou záznamy, které se po nákupu nebo uplatnění stanou právy hráče.",
+    "totalItemsLabel": "Celkem položek",
+    "metaChangelogTitle": "Seznam změn",
+    "changelogEyebrow": "Auditní stopa",
+    "changelogTitle": "Seznam změn",
+    "changelogDescription": "Sledované změny napříč nabídkami, položkami, assety, sestaveními a souvisejícími katalogovými metadaty tohoto sandboxu.",
+    "totalChangesLabel": "Změny",
+    "queryTimeLabel": "Čas dotazu",
+    "noChangelogFound": "Nenalezen žádný seznam změn",
+    "metaBuildsTitle": "Sestavení",
+    "buildsEyebrow": "Binárky",
+    "buildsTitle": "Sestavení",
+    "buildsDescription": "Verzované balíčky souborů nahrané pro sandbox. Sestavení jsou přiřazena k artefaktům a určují, co hráči stahují přes launcher.",
+    "totalBuildsLabel": "Celkem sestavení",
+    "metaAssetsTitle": "Assety",
+    "assetsEyebrow": "Assety a artefakty",
+    "assetsTitle": "Assety",
+    "assetsDescription": "Distribuční a mediální záznamy připojené k položkám sandboxu, včetně artefaktů, které propojují obsah katalogu obchodu se stahovatelnými sestaveními.",
+    "totalAssetsLabel": "Celkem assetů"
+  },
+  "items": {
+    "notFound": "Položka nenalezena",
+    "badge": "Položka",
+    "table": {
+      "itemId": "ID položky",
+      "namespace": "Namespace",
+      "developer": "Vývojář",
+      "entitlementType": "Typ oprávnění",
+      "entitlementName": "Název oprávnění",
+      "status": "Stav",
+      "creationDate": "Datum vytvoření",
+      "lastModified": "Poslední změna",
+      "platforms": "Platformy"
+    },
+    "tooltip": {
+      "internalNamespace": "Interní namespace Epic Games"
+    },
+    "tabs": {
+      "item": "Položka",
+      "assets": "Assety",
+      "images": "Obrázky",
+      "builds": "Sestavení",
+      "changelog": "Seznam změn"
+    },
+    "metadata": {
+      "title": "Metadata",
+      "key": "Klíč",
+      "value": "Hodnota"
+    },
+    "assets": {
+      "title": "Assety"
+    },
+    "builds": {
+      "title": "Sestavení"
+    },
+    "changelog": {
+      "title": "Seznam změn",
+      "noChangelog": "Žádný seznam změn není k dispozici"
+    },
+    "images": {
+      "title": "Obrázky"
+    }
+  },
+  "builds": {
+    "notFound": "Sestavení nenalezeno",
+    "build": "Sestavení",
+    "for": "pro",
+    "compressed": "({{percent}}% komprimováno)",
+    "table": {
+      "buildId": "ID sestavení",
+      "buildName": "Název sestavení",
+      "appName": "Název aplikace",
+      "hash": "Hash",
+      "installedSize": "Instalovaná velikost",
+      "downloadSize": "Velikost stažení",
+      "createdAt": "Vytvořeno",
+      "updatedAt": "Aktualizováno",
+      "technologies": "Technologie"
+    },
+    "tooltip": {
+      "techSource": "Používáme",
+      "techSourceSteamDb": "SteamDB",
+      "techDescription": "seznam technologií pro sledování použitých enginů a různých technologií ze souborů hry.",
+      "source": "Zdroj"
+    },
+    "tabs": {
+      "files": "Soubory",
+      "items": "Položky",
+      "installOptions": "Možnosti instalace"
+    },
+    "files": {
+      "title": "Soubory"
+    },
+    "items": {
+      "title": "Položky"
+    },
+    "installOptions": {
+      "title": "Možnosti instalace",
+      "file_one": "soubor",
+      "file_other": "souborů"
+    },
+    "meta": {
+      "title": "{{title}} ({{version}}) | egdata.app",
+      "description": "Sestavení {{version}} pro {{title}} z Epic Games Store."
+    }
+  },
+  "profile": {
+    "meta": {
+      "notFoundTitle": "Profil nenalezen",
+      "notFoundDescription": "Profil nenalezen",
+      "title": "{{name}} | egdata.app",
+      "description": "Podívejte se na úspěchy a hry uživatele {{name}} na egdata.app",
+      "defaultName": "Profil",
+      "defaultDescriptionName": "tohoto hráče"
+    },
+    "errors": {
+      "notFoundTitle": "Profil nenalezen",
+      "notFoundDescription": "Tento profil není k dispozici nebo ještě nebyl indexován.",
+      "unavailableTitle": "Profil není k dispozici",
+      "unavailableDescription": "Tento profil nelze momentálně načíst.",
+      "invalidImageFormat": "Neplatný formát obrázku",
+      "failedToUpload": "Nahrání se nezdařilo",
+      "uploadFailed": "Nahrání se nezdařilo",
+      "failedToRefresh": "Obnovení profilu se nezdařilo",
+      "refreshQueued": "Profil přidán do fronty na obnovení, bude brzy aktualizován."
+    },
+    "fallbackName": "Neznámý profil",
+    "avatar": {
+      "changeAvatar": "Změnit avatar",
+      "dialogDescription": "Nahrajte nový profilový obrázek.",
+      "previewAlt": "Náhled avataru",
+      "fallback": "Avatar",
+      "description": "Nahrajte nový obrázek avataru, max 5 MB.",
+      "uploadingWithProgress": "Nahrávání... {{progress}}%",
+      "uploading": "Nahrávání...",
+      "updateAvatar": "Aktualizovat avatar",
+      "errorTitle": "Chyba"
+    },
+    "hero": {
+      "joined": "Připojil se",
+      "epicGamesStore": "Epic Games Store",
+      "linkDiscord": "Propojit Discord",
+      "refreshProfile": "Obnovit profil",
+      "refreshAvailableIn": "Obnovení dostupné za",
+      "level": "Úroveň",
+      "achievements": "Úspěchy",
+      "unlocked": "Odemčeno",
+      "platinum": "Platina",
+      "perfectGames": "Perfektní hry",
+      "library": "Knihovna",
+      "achievementGames": "Hry s úspěchy",
+      "reviews": "Recenze",
+      "contributed": "Přispěno",
+      "xpToNextLevel": "{{xp}} XP do úrovně {{level}}",
+      "heroGame": "Hlavní hra",
+      "complete": "dokončeno"
+    },
+    "donor": {
+      "donated_one": "{{name}} daroval {{count}} klíč egdata.app",
+      "donated_other": "{{name}} daroval {{count}} klíčů egdata.app",
+      "goTo": "Přejít na",
+      "thisLink": "tento odkaz",
+      "toDonateKey": "pro darování klíče."
+    },
+    "countdown": {
+      "minutesSeconds_one": "{{minutes}} minuta {{seconds}} sekunda",
+      "minutesSeconds_other": "{{minutes}} minut {{seconds}} sekund",
+      "seconds_one": "{{seconds}} sekunda",
+      "seconds_other": "{{seconds}} sekund"
+    },
+    "tabs": {
+      "showcase": "Vitrína",
+      "library": "Knihovna",
+      "activity": "Aktivita"
+    },
+    "stats": {
+      "games": "{{count}} her",
+      "achievements": "{{count}} úspěchů",
+      "platinum": "{{count}} platin"
+    },
+    "showcase": {
+      "ariaLabel": "Nejlepší položky profilové vitríny",
+      "featuredGamesTitle": "Nejlepší hry",
+      "featuredGamesDetail": "{{count}} vybráno podle výkonu profilu",
+      "rareAchievementsTitle": "Vzácné úspěchy",
+      "rareAchievementsDetail": "Těžko nalezitelné odemčení v profilu",
+      "recentUnlocksTitle": "Nedávná odemčení",
+      "recentUnlocksDetail": "Nejnovější viditelná aktivita",
+      "noDataTitle": "Zatím žádná data ve vitríně",
+      "noDataDescription": "Na profilech se zobrazují pouze vydané hry s veřejným postupem úspěchů.",
+      "rarestUnlock": "Nejvzácnější odemčení",
+      "definingGame": "Definující hra",
+      "latestActivity": "Nejnovější aktivita",
+      "achievementsCount": "{{unlocked}} / {{total}} úspěchů",
+      "platinum": "Platina"
+    },
+    "library": {
+      "filterAriaLabel": "Filtr knihovny",
+      "sortAriaLabel": "Seřadit knihovnu",
+      "sortByPlaceholder": "Seřadit podle",
+      "noGamesTitle": "Nebyly nalezeny žádné hry",
+      "noGamesDescription": "V této knihovně se zobrazují pouze vydané hry s úspěchy.",
+      "gameAlt": "Hra",
+      "complete": "dokončeno",
+      "featured": "Nejlepší",
+      "rareUnlocks": "Vzácná odemčení",
+      "filters": {
+        "all": "Vše",
+        "completed": "Dokončené",
+        "nearPlatinum": "Blízko platině",
+        "inProgress": "Rozpracované",
+        "platinum": "Platina"
+      },
+      "sorts": {
+        "completion": "Dokončení",
+        "alphabetical": "Abecedně",
+        "xp": "XP",
+        "achievements": "Úspěchy"
+      }
+    },
+    "activity": {
+      "title": "Aktivita",
+      "detail": "{{count}} odemčení úspěchů",
+      "noActivityTitle": "Zatím žádná aktivita",
+      "noActivityDescription": "Odemčení úspěchů se zde zobrazí, jakmile bude mít tento profil veřejný postup.",
+      "achievementAlt": "Úspěch",
+      "platinumEarned": "Získána platina",
+      "achievementUnlocked": "Úspěch odemčen",
+      "unknownRarity": "Neznámá vzácnost",
+      "rarity": "{{value}}% vzácnost",
+      "unknownDate": "Neznámé datum"
+    },
+    "achievements": {
+      "loading": "Načítání...",
+      "notFound": "Profil nenalezen",
+      "myAchievements": "Moje úspěchy"
+    }
+  },
+  "tags": {
+    "meta": {
+      "notFoundTitle": "Promo akce nenalezena",
+      "notFoundDescription": "Promo akce nenalezena",
+      "title": "{{title}} | egdata.app",
+      "description": "Podívejte se na {{count}} nabídek dostupných pro {{title}} na egdata.app.",
+      "socialTitle": "{{title}} - egdata.app"
+    },
+    "loading": "Načítání...",
+    "offersCount": "V této události je k dispozici {{count}} nabídek",
+    "results": "Výsledky",
+    "resultsCount": "({{count}} výsledků)",
+    "searchPlaceholder": "Hledat...",
+    "loadMore": "Načíst více",
+    "sortBy": {
+      "releaseDate": "Datum vydání",
+      "lastModifiedDate": "Datum změny",
+      "effectiveDate": "Datum účinnosti",
+      "creationDate": "Datum vytvoření",
+      "viewableDate": "Datum zobrazení",
+      "pcReleaseDate": "Datum vydání na PC",
+      "upcoming": "Nadcházející",
+      "price": "Cena"
+    }
+  },
+  "genres": {
+    "meta": {
+      "title": "Žánry - egdata.app",
+      "description": "Žánry na egdata.app"
+    },
+    "heading": "Žánry"
+  },
+  "sellers": {
+    "meta": {
+      "notFoundTitle": "Prodejce nenalezen",
+      "notFoundDescription": "Prodejce nenalezen",
+      "title": "{{name}} | egdata.app"
+    },
+    "notFound": "Prodejce nenalezen",
+    "logoAlt": "Logo {{name}}",
+    "bannerAlt": "{{name}}",
+    "offersTitle": "Nabídky {{name}}",
+    "stats": {
+      "offers": "Nabídky",
+      "games": "Hry",
+      "items": "Položky",
+      "freeGames": "Hry zdarma"
+    }
+  },
+  "franchises": {
+    "meta": {
+      "notFoundTitle": "Franšíza nenalezena",
+      "notFoundDescription": "Franšíza nenalezena",
+      "title": "Franšíza {{name}} | egdata.app",
+      "description": "Procházejte všechny hry ve franšíze {{name}} na Epic Games Store."
+    },
+    "loading": "Načítání...",
+    "gamesCount_one": "{{count}} hra",
+    "gamesCount_other": "{{count}} her",
+    "timeToBeat": "Doba dohrání",
+    "achievements": "Úspěchy",
+    "loadMore": "Načíst více",
+    "free": "Zdarma"
+  },
+  "stats": {
+    "creations": {
+      "meta": {
+        "title": "Statistiky vytvoření - egdata.app",
+        "description": "Měsíční a roční kadence nových vytvoření na Epic Games Store."
+      },
+      "viewReleases": "Zobrazit vydání",
+      "heading": "Statistiky vytvoření Epic Games Store",
+      "description": "Měsíční a roční kadence nových vytvoření na obchodě.",
+      "monthlyTitle": "Měsíční vytvoření",
+      "yearlyTitle": "Roční vytvoření"
+    },
+    "releases": {
+      "meta": {
+        "title": "Statistiky vydání - egdata.app",
+        "description": "Měsíční a roční kadence nových titulů na Epic Games Store."
+      },
+      "viewCreations": "Zobrazit vytvoření",
+      "heading": "Statistiky vydání Epic Games Store",
+      "description": "Měsíční a roční kadence nových titulů na obchodě.",
+      "monthlyTitle": "Měsíční vydání",
+      "yearlyTitle": "Roční vydání"
+    }
+  },
+  "store": {
+    "creatorCode": {
+      "title": "Podpořte egdata.app",
+      "description": "Chcete podpořit egdata.app použitím našeho tvůrčího kódu při nákupu her? Tato volba bude zapamatována pro budoucí návštěvy.",
+      "body": "Použití našeho tvůrčího kódu pomáhá podpořit vývoj egdata.app a jeho funkcí. Neovlivní to cenu, kterou zaplatíte.",
+      "noThanks": "Ne, děkuji",
+      "yesUseCode": "Ano, použít kód"
+    }
+  },
+  "dashboard": {
+    "placeholder": "Ahoj /dashboard!"
+  },
+  "auth": {
+    "login": {
+      "placeholder": "Ahoj /auth/login!"
+    },
+    "callback": {
+      "placeholder": "Ahoj /auth/callback!"
+    },
+    "logout": {
+      "placeholder": "Ahoj /auth/logout!"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "O nás - egdata.app",
+      "description": "O egdata.app"
+    },
+    "title": "O nás",
+    "intro": "egdata.app je komunitně řízená webová stránka věnovaná sledování a poskytování informací o Epic Games Store. Podobně jako SteamDB pro Steam, chceme nabídnout komplexní zdroj pro uživatele, aby mohli prozkoumávat změny, objevovat nové hry a zůstat v obraze s nejnovějšími událostmi na platformě.",
+    "missionTitle": "Naše mise",
+    "missionBody": "Naším posláním je poskytovat transparentnost a přehled o ekosystému Epic Games Store. Věříme, že agregací a prezentací dat přístupným způsobem můžeme uživatelům umožnit informovaná rozhodnutí o jejich nákupech her a přispět k lepšímu porozumění platformě.",
+    "featuresTitle": "Funkce",
+    "features": {
+      "trackPrices": "Sledujte změny cen her a historická data",
+      "upcomingReleases": "Prohlížejte nadcházející vydání a promoakce her zdarma",
+      "gameDetails": "Prozkoumávejte detaily her, hodnocení a uživatelské recenze",
+      "analyzeTrends": "Analyzujte trendy a vzory v Epic Games Store"
+    },
+    "communityTitle": "Řízeno komunitou",
+    "communityBody": "egdata.app je vytvářena a udržována vášnivou komunitou hráčů a vývojářů. Vítáme příspěvky od kohokoli, kdo chce pomoci vylepšit web a udělat z něj cenný zdroj pro všechny. Neváhejte nás kontaktovat, pokud máte zpětnou vazbu, návrhy nebo se chcete zapojit.",
+    "sourceCodeIntro": "Veškerý zdrojový kód egdata.app je k dispozici na",
+    "github": "GitHub",
+    "notTitle": "Co egdata.app NENÍ",
+    "notIntro": "Je důležité objasnit, že egdata.app není:",
+    "notList": {
+      "affiliated": "Přidružený k Epic Games: Jsme nezávislý, komunitně řízený projekt a nejsme nijak oficiálně podpořeni nebo spojeni s Epic Games.",
+      "storefront": "Obchod nebo tržiště: Neprodáváme hry ani neposkytujeme žádné možnosti nákupu. Naším zaměřením je poskytovat informace a data o Epic Games Store.",
+      "piracy": "Platforma pro pirátství nebo nelegální aktivity: Důrazně odsuzujeme pirátství a neposkytujeme žádné prostředky k přístupu nebo distribuci nelegálně chráněného obsahu."
+    },
+    "fairUseTitle": "Zásady spravedlivého použití",
+    "fairUseBody": "egdata.app se zavazuje dodržovat zásady spravedlivého použití podle autorského zákona. Poskytujeme informace a data pouze pro informační účely, s cílem vzdělávat a informovat veřejnost o hrách dostupných na Epic Games Store.",
+    "fairUseFactorsTitle": "Klíčové faktory ospravedlňující spravedlivé použití:",
+    "fairUseFactors": {
+      "nonCommercial": "Nekomerční, vzdělávací účel:",
+      "nonCommercialBody": "Naše webové stránky jsou nekomerční a snaží se zlepšit veřejné znalosti o hrách na Epic Games Store.",
+      "factual": "Faktické informace:",
+      "factualBody": "Prezentujeme především faktická data jako názvy her, data vydání a vývojáře, která jsou méně chráněna autorským zákonem.",
+      "limited": "Omezené použití:",
+      "limitedBody": "Používáme pouze nezbytné množství dat k poskytnutí smysluplných informací, aniž bychom nahrazovali původní díla.",
+      "noMarketHarm": "Bez poškození trhu:",
+      "noMarketHarmBody": "Naše použití negativně neovlivňuje trh původních her; naopak je může propagovat prostřednictvím zvýšeného zájmu uživatelů."
+    },
+    "autoTrackBody": "Automaticky sledujeme a aktualizujeme herní data z veřejně dostupných zdrojů, včetně Epic Games Store. Grafické assety načítáme přímo z jejich serverů a neukládáme je.",
+    "leakedDataTitle": "Prohlášení o uniklých datech:",
+    "leakedDataBody": "Všechna zdánlivě uniklá data na našem webu pocházejí z veřejně dostupných informací na Epic Games Store. Nemáme přístup k důvěrným nebo proprietárním datům. Vydavatelé jsou odpovědní za ochranu svých citlivých informací v rámci",
+    "epicDevPortal": "portálu pro vývojáře Epic Games",
+    "euDirectivesIntro": "Při vytváření našich Zásad spravedlivého použití jsme vzali v úvahu zásady uvedené v následujících směrnicích EU o autorském právu:",
+    "euDirective1": "Směrnice (EU) 2019/790 o autorském právu a právech s ním souvisejících na jednotném digitálním trhu",
+    "euDirective2": "Otázky a odpovědi – Nová pravidla EU pro autorská práva",
+    "fairUseContact": "Máte-li dotazy ohledně našich Zásad spravedlivého použití nebo se domníváte, že jakýkoli obsah porušuje vaše autorská práva, kontaktujte nás na:",
+    "contactTitle": "Kontaktujte nás",
+    "contactBody": "Můžete nás kontaktovat prostřednictvím"
+  },
+  "changelog": {
+    "index": {
+      "meta": {
+        "title": "Seznam změn | egdata.app"
+      },
+      "searchPlaceholder": "Hledat v seznamech změn...",
+      "searchButton": "Hledat",
+      "loading": "Načítání...",
+      "error": "Chyba při načítání dat"
+    },
+    "detail": {
+      "meta": {
+        "title": "Detail změny | egdata.app"
+      },
+      "loading": "Načítání...",
+      "error": "Chyba při načítání podrobností změny",
+      "notFound": "Změna nenalezena"
+    }
+  },
+  "privacy": {
+    "title": "O nás",
+    "intro": "egdata.app je komunitně řízená webová stránka věnovaná sledování a poskytování informací o Epic Games Store. Podobně jako SteamDB pro Steam, chceme nabídnout komplexní zdroj pro uživatele, aby mohli prozkoumávat změny, objevovat nové hry a zůstat v obraze s nejnovějšími událostmi na platformě.",
+    "missionTitle": "Naše mise",
+    "missionBody": "Naším posláním je poskytovat transparentnost a přehled o ekosystému Epic Games Store. Věříme, že agregací a prezentací dat přístupným způsobem můžeme uživatelům umožnit informovaná rozhodnutí o jejich nákupech her a přispět k lepšímu porozumění platformě.",
+    "featuresTitle": "Funkce",
+    "features": {
+      "trackPrices": "Sledujte změny cen her a historická data",
+      "upcomingReleases": "Prohlížejte nadcházející vydání a promoakce her zdarma",
+      "gameDetails": "Prozkoumávejte detaily her, hodnocení a uživatelské recenze",
+      "analyzeTrends": "Analyzujte trendy a vzory v Epic Games Store"
+    },
+    "communityTitle": "Řízeno komunitou",
+    "communityBody": "egdata.app je vytvářena a udržována vášnivou komunitou hráčů a vývojářů. Vítáme příspěvky od kohokoli, kdo chce pomoci vylepšit web a udělat z něj cenný zdroj pro všechny. Neváhejte nás kontaktovat, pokud máte zpětnou vazbu, návrhy nebo se chcete zapojit.",
+    "sourceCodeIntro": "Veškerý zdrojový kód egdata.app je k dispozici na",
+    "github": "GitHub",
+    "notTitle": "Co egdata.app NENÍ",
+    "notIntro": "Je důležité objasnit, že egdata.app není:",
+    "notList": {
+      "affiliated": "Přidružený k Epic Games: Jsme nezávislý, komunitně řízený projekt a nejsme nijak oficiálně podpořeni nebo spojeni s Epic Games.",
+      "storefront": "Obchod nebo tržiště: Neprodáváme hry ani neposkytujeme žádné možnosti nákupu. Naším zaměřením je poskytovat informace a data o Epic Games Store.",
+      "piracy": "Platforma pro pirátství nebo nelegální aktivity: Důrazně odsuzujeme pirátství a neposkytujeme žádné prostředky k přístupu nebo distribuci nelegálně chráněného obsahu."
+    },
+    "fairUseTitle": "Zásady spravedlivého použití",
+    "fairUseBody": "egdata.app se zavazuje dodržovat zásady spravedlivého použití podle autorského zákona. Poskytujeme informace a data pouze pro informační účely, s cílem vzdělávat a informovat veřejnost o hrách dostupných na Epic Games Store.",
+    "fairUseFactorsTitle": "Klíčové faktory ospravedlňující spravedlivé použití:",
+    "fairUseFactors": {
+      "nonCommercial": "Nekomerční, vzdělávací účel:",
+      "nonCommercialBody": "Naše webové stránky jsou nekomerční a snaží se zlepšit veřejné znalosti o hrách na Epic Games Store.",
+      "factual": "Faktické informace:",
+      "factualBody": "Prezentujeme především faktická data jako názvy her, data vydání a vývojáře, která jsou méně chráněna autorským zákonem.",
+      "limited": "Omezené použití:",
+      "limitedBody": "Používáme pouze nezbytné množství dat k poskytnutí smysluplných informací, aniž bychom nahrazovali původní díla.",
+      "noMarketHarm": "Bez poškození trhu:",
+      "noMarketHarmBody": "Naše použití negativně neovlivňuje trh původních her; naopak je může propagovat prostřednictvím zvýšeného zájmu uživatelů."
+    },
+    "autoTrackBody": "Automaticky sledujeme a aktualizujeme herní data z veřejně dostupných zdrojů, včetně Epic Games Store. Grafické assety načítáme přímo z jejich serverů a neukládáme je.",
+    "leakedDataTitle": "Prohlášení o uniklých datech:",
+    "leakedDataBody": "Všechna zdánlivě uniklá data na našem webu pocházejí z veřejně dostupných informací na Epic Games Store. Nemáme přístup k důvěrným nebo proprietárním datům. Vydavatelé jsou odpovědní za ochranu svých citlivých informací v rámci",
+    "epicDevPortal": "portálu pro vývojáře Epic Games",
+    "euDirectivesIntro": "Při vytváření našich Zásad spravedlivého použití jsme vzali v úvahu zásady uvedené v následujících směrnicích EU o autorském právu:",
+    "euDirective1": "Směrnice (EU) 2019/790 o autorském právu a právech s ním souvisejících na jednotném digitálním trhu",
+    "euDirective2": "Otázky a odpovědi – Nová pravidla EU pro autorská práva",
+    "fairUseContact": "Máte-li dotazy ohledně našich Zásad spravedlivého použití nebo se domníváte, že jakýkoli obsah porušuje vaše autorská práva, kontaktujte nás na:",
+    "contactTitle": "Kontaktujte nás",
+    "contactBody": "Můžete nás kontaktovat prostřednictvím"
+  },
+  "notifications": {
+    "meta": {
+      "title": "Oznámení - egdata.app",
+      "description": "Nakonfigurujte a spravujte push oznámení pro aktualizace Epic Games Store, vydání her a další."
+    },
+    "title": "Oznámení",
+    "description": "Nakonfigurujte a spravujte push oznámení pro aktualizace Epic Games Store, vydání her a personalizované výstrahy.",
+    "tabs": {
+      "notifications": "Oznámení",
+      "mySubscriptions": "Moje odběry"
+    },
+    "aboutPushTitle": "O push oznámeních",
+    "aboutPushDescription": "Zjistěte více o tom, jak push oznámení fungují na EGData.",
+    "whatYoullReceive": "Co budete dostávat:",
+    "receiveList": {
+      "freeGames": "Oznámení o nových hrách zdarma",
+      "releases": "Oznámení o vydáních her",
+      "priceDrops": "Výstrahy na pokles cen u her v seznamu přání",
+      "news": "Novinky a aktualizace Epic Games Store",
+      "custom": "Vlastní oznámení na základě témat"
+    },
+    "privacySecurity": "Soukromí a zabezpečení:",
+    "privacyList": {
+      "apiKey": "Váš API klíč je bezpečně uložen v cookies prohlížeče",
+      "onlySubscribed": "Posíláme pouze oznámení, která jste si předplatili",
+      "unsubscribe": "Odběr můžete kdykoli zrušit",
+      "noPersonalData": "Kromě vašeho API klíče nejsou vyžadována žádná osobní data"
+    },
+    "browserSupport": "Podpora prohlížečů:",
+    "browserSupportBody": "Push oznámení jsou podporována v moderních prohlížečích včetně Chrome, Firefox, Safari a Edge. Ujistěte se, že povolíte oznámení, když vás prohlížeč vyzve.",
+    "subscriptionOverview": "Přehled odběrů",
+    "totalSubscribed": "Celkem odebíraných témat: {{count}}",
+    "notSubscribedApi": "API klíč není přihlášen k odběru push oznámení",
+    "notSubscribedTitle": "Nepřihlášeno",
+    "notSubscribedBody": "Váš API klíč není přihlášen k odběru push oznámení. Nejprve použijte záložku \"Nastavení a přihlášení\".",
+    "subscriptionId": "Odběr {{id}}",
+    "created": "Vytvořeno:",
+    "subscribedTopics": "Odebíraná témata:",
+    "noTopics": "Žádná odebíraná témata",
+    "lastUpdated": "Poslední aktualizace:",
+    "noSubscriptionsTitle": "Nebyly nalezeny žádné odběry",
+    "noSubscriptionsBody": "Jste přihlášeni, ale dosud jste nevytvořili žádné odběry zařízení. Použijte záložku \"Nastavení a přihlášení\" k vytvoření prvního odběru.",
+    "fetchError": "Nepodařilo se načíst odběry. Zkuste to prosím znovu.",
+    "push": {
+      "title": "Push oznámení",
+      "notSupported": "Push oznámení nejsou v tomto prohlížeči podporována.",
+      "setApiKey": "Pro povolení push oznámení nastavte svůj API klíč.",
+      "manage": "Spravujte své předvolby push oznámení.",
+      "unsubscribe": "Odhlásit odběr",
+      "subscribe": "Přihlásit k odběru",
+      "subscribed": "Přihlášeno",
+      "notSubscribed": "Nepřihlášeno",
+      "subscribeToTopic": "Přihlásit se k tématu",
+      "topicPlaceholder": "Zadejte název tématu (např. herni-aktualizace)",
+      "subscribedTopics": "Odebíraná témata",
+      "clickToUnsubscribe": "Kliknutím na téma se odhlásíte"
+    },
+    "simple": {
+      "title": "Push oznámení",
+      "notSupported": "Push oznámení nejsou v tomto prohlížeči podporována.",
+      "subscribedDesc": "Máte předplaceno {{count}} témat oznámení",
+      "notSubscribedDesc": "Dostávejte upozornění na aktualizace Epic Games Store, hry zdarma a další",
+      "subscribeToNotifications": "Přihlásit se k oznámením",
+      "unsubscribe": "Odhlásit odběr",
+      "chooseWhat": "Vyberte, o čem chcete dostávat oznámení:",
+      "freeGames": "Hry zdarma",
+      "freeGamesDesc": "Dostávejte oznámení, když jsou k dispozici nové hry zdarma",
+      "newReleases": "Nová vydání",
+      "newReleasesDesc": "Oznámení o nových vydáních her",
+      "priceDrops": "Poklesy cen",
+      "priceDropsDesc": "Dostávejte výstrahy, když hry zlevní",
+      "youWillReceive": "Budete dostávat oznámení pro:",
+      "subscribedTo": "Přihlášeno k {{name}}",
+      "unsubscribedFrom": "Odhlášeno od {{name}}",
+      "failedSubscribe": "Nepodařilo se přihlásit k oznámením",
+      "failedUnsubscribe": "Nepodařilo se odhlásit od oznámení",
+      "failedTopicSubscribe": "Nepodařilo se přihlásit k tématu",
+      "failedTopicUnsubscribe": "Nepodařilo se odhlásit od tématu",
+      "successSubscribe": "Úspěšně přihlášeno k oznámením!",
+      "successUnsubscribe": "Úspěšně odhlášeno od oznámení"
+    },
+    "apiKey": {
+      "title": "Správa API klíče",
+      "label": "API klíč",
+      "placeholderGenerated": "API klíč vygenerován",
+      "placeholderNone": "Nebyl vygenerován žádný API klíč",
+      "regenerate": "Znovu vygenerovat klíč",
+      "generate": "Generovat klíč",
+      "clear": "Vymazat klíč",
+      "generated": "Nový API klíč úspěšně vygenerován!",
+      "copied": "API klíč zkopírován do schránky!",
+      "cleared": "API klíč úspěšně vymazán!",
+      "failedGenerate": "Nepodařilo se vygenerovat API klíč",
+      "failedCopy": "Nepodařilo se zkopírovat API klíč",
+      "failedClear": "Nepodařilo se vymazat API klíč",
+      "noneToCopy": "Žádný API klíč ke kopírování",
+      "description": "Váš API klíč je UUID uložené lokálně ve vašem prohlížeči a používá se k ověřování požadavků push oznámení. V případě potřeby použijte tlačítko regenerovat k vytvoření nového klíče."
+    }
+  },
+  "promotions": {
+    "placeholder": "Ahoj /promotions/$id!"
+  },
+  "misc": {
+    "gameAwards": {
+      "meta": {
+        "title": "Pokrytí The Game Awards | egdata.app",
+        "description": "Nejnovější hry oznámené a nominované na The Game Awards přicházející na Epic Games Store."
+      },
+      "logoAlt": "The Game Awards 2025",
+      "subtitle": "Hry oznámené nebo nominované na The Game Awards přicházející na Epic Games Store",
+      "videoTitle": "The Game Awards 2024 - Živý přenos",
+      "expandPlayer": "Rozbalit přehrávač",
+      "closeMiniPlayer": "Zavřít mini přehrávač",
+      "noGamesTitle": "Zatím nebyly oznámeny žádné hry",
+      "noGamesBody": "Vraťte se po The Game Awards!"
+    },
+    "downloads": {
+      "title": "Vydání klienta egdata.app",
+      "description": "Stáhněte si nejnovější verzi. Zvýraznili jsme doporučenou sekci pro váš operační systém.",
+      "errorPrefix": "Chyba:",
+      "noPublicReleases": "Nebyla nalezena žádná veřejná vydání.",
+      "recommended": "Doporučeno",
+      "downloadsSuffix": "Stažení",
+      "versionPublished": "Verze {{version}} - Vydáno {{date}}",
+      "assetInfo": {
+        "appleSilicon": "Pro novější Mac počítače s čipy Apple (M1, M2, M3 atd.).",
+        "intel": "Pro starší Mac počítače s procesory Intel.",
+        "universal": "Kompatibilní s Apple Silicon i Intel Mac.",
+        "msi": "Standardní instalační průvodce. Doporučeno pro většinu uživatelů.",
+        "exe": "Samostatný soubor aplikace. Nemusí vyžadovat instalaci.",
+        "linux": "Pro operační systémy založené na Linuxu.",
+        "generic": "Obecný soubor nebo zdrojový kód."
+      }
+    },
+    "discordLinked": {
+      "title": "Účet úspěšně propojen!",
+      "body": "Váš Discord účet byl úspěšně propojen s egdata.app",
+      "footer": "Nyní můžete zavřít toto okno a vrátit se do Discordu. Váš účet je připraven k použití s egdata.app"
+    },
+    "posts": {
+      "coverAlt": "Obálka LEGO Star Wars: The Skywalker Saga",
+      "title": "Získejte LEGO® Star Wars™: The Skywalker Saga ZDARMA na Epic Games Store",
+      "freeGameBadge": "Hra zdarma",
+      "published": "Publikováno 30. listopadu 2023",
+      "intro": "Označte si v kalendáři, fanoušci Star Wars! Od {{dateRange}} můžete získat uznávanou hru {{game}} ZDARMA na Epic Games Store. Tato hra, která obvykle stojí {{price}}, vám umožní znovu prožít ikonické momenty {{saga}} se zábavným LEGO twistem.",
+      "dateRange": "5. prosince až 12. prosince 2024",
+      "game": "LEGO® Star Wars™: The Skywalker Saga",
+      "price": "$49.99",
+      "saga": "ságy Skywalker",
+      "gameplayAlt": "LEGO Star Wars Hraní",
+      "charactersAlt": "LEGO Star Wars Postavy",
+      "whatToExpect": "🧩 Co očekávat?",
+      "whatToExpectBody": "Tento titul, vyvinutý společností {{developer}} a vydaný společností {{publisher}}, nabízí komplexní zážitek ze Star Wars jako žádný jiný. Zde je to, co z něj dělá povinnou hru:",
+      "developer": "TT Games",
+      "publisher": "Warner Bros.",
+      "expectList": {
+        "allMovies": "🌌 {{strong}}: Prožijte příběhy všech devíti filmů ságy Skywalker, plné klasického LEGO humoru.",
+        "allMoviesStrong": "Všech 9 filmů",
+        "characters": "🛸 {{strong}}: Ovládejte své oblíbené hrdiny a padouchy z daleké galaxie.",
+        "charactersStrong": "300+ hratelných postav",
+        "vehicles": "🚀 {{strong}}: Leťte s ikonickými loděmi jako Millennium Falcon a TIE Fighters.",
+        "vehiclesStrong": "100+ vozidel",
+        "planets": "🌍 {{strong}}: Cestujte do známých světů, od Tatooine po Endor a dále.",
+        "planetsStrong": "23 planet k prozkoumání"
+      },
+      "specialTitle": "🌟 Co dělá tuto hru výjimečnou?",
+      "specialBody": "Od svého vydání v {{releaseDate}} je LEGO Star Wars: The Skywalker Saga chválena za poutavou hratelnost a věrnou adaptaci vesmíru Star Wars. S {{metascore}} na Metacritic kritici i fanoušci vyzdvihují:",
+      "releaseDate": "dubnu 2022",
+      "metascore": "82 Metascore",
+      "specialList": {
+        "combat": "🕹️ {{strong}}: Souboje se světelnými meči, přestřelky s blastery a vesmírné bitvy.",
+        "combatStrong": "Dynamický boj",
+        "charm": "🏗️ {{strong}}: Klasický humor Star Wars, přepracovaný v jedinečném stylu LEGO.",
+        "charmStrong": "Kouzlo LEGO",
+        "replayability": "🤯 {{strong}}: Spousta sběratelských předmětů, vedlejších misí a skrytých tajemství.",
+        "replayabilityStrong": "Znovuhratelnost"
+      },
+      "howToClaim": "🎁 Jak ji získat?",
+      "howToClaimBody": "Získání vaší bezplatné kopie je snadné!",
+      "step1": "Navštivte {{storeLink}} mezi {{dec5}} a {{dec12}}.",
+      "storeLink": "Epic Games Store",
+      "dec5": "5. prosince",
+      "dec12": "12. prosince 2024",
+      "step2": "Přidejte hru do své knihovny.",
+      "step3": "Je vaše navždy!",
+      "cardTitle": "Nezmeškejte tuto šanci vydat se na LEGO-infused cestu galaxií!",
+      "cardBody": "Ať už jste zarytý fanoušek Star Wars nebo nováček, tato hra nabízí nekonečnou zábavu pro každého.",
+      "footer": "Ať je Síla (a LEGO kostky) s vámi! 🧱✨"
+    },
+    "fairUse": {
+      "meta": {
+        "title": "Zásady spravedlivého použití - egdata.app",
+        "description": "Zásady spravedlivého použití pro egdata.app"
+      },
+      "title": "Zásady spravedlivého použití pro EGData App",
+      "section1Title": "1. Úvod",
+      "section1Body": "Vítejte v EGData App (\"my\", \"nás\"). Tyto Zásady spravedlivého použití stanovují podmínky, za kterých můžete používat obsah a data poskytovaná na našem webu {{siteLink}} (\"Stránka\").",
+      "section2Title": "2. Účel spravedlivého použití",
+      "section2Body": "Obsah a data na EGData App jsou poskytovány pouze pro informační účely. Naším cílem je nabídnout komplexní databázi her (nebo dat souvisejících s hrami) dostupných v Epic Games Store pro vzdělávací a referenční použití komunitou.",
+      "section3Title": "3. Soulad se spravedlivým použitím",
+      "section3Body": "EGData App dodržuje zásady spravedlivého použití podle autorského zákona tím, že poskytuje informace a data způsobem, který prospívá veřejnosti, aniž by porušoval práva vlastníků obsahu. Zde jsou klíčové faktory, které ospravedlňují naše použití jako spravedlivé použití:",
+      "section3List": {
+        "purpose": "Účel a povaha použití:",
+        "purposeBody": "Naše webové stránky jsou nekomerční a zaměřují se na vzdělávání a informování veřejnosti o hrách dostupných v Epic Games Store. Poskytujeme kritické informace, recenze a aktualizace, čímž zvyšujeme znalosti a uznání veřejnosti o těchto hrách.",
+        "nature": "Povaha chráněného díla:",
+        "natureBody": "Data, která shromažďujeme a prezentujeme, se skládají z faktických informací, jako jsou názvy her, data vydání, vývojáři a aktualizace. Faktické informace jsou podle autorského zákona méně chráněny než tvůrčí díla.",
+        "amount": "Množství a podstatnost:",
+        "amountBody": "Používáme pouze množství dat nezbytné k poskytnutí smysluplných a relevantních informací našim uživatelům. Nereprodukujeme celá díla ani neposkytujeme rozsáhlé výňatky, které by mohly nahradit původní produkty.",
+        "effect": "Vliv na trh:",
+        "effectBody": "Naše používání herních dat negativně neovlivňuje trh původních her. Místo toho tyto hry propaguje poskytováním aktuálních informací a zvyšováním zapojení a zájmu uživatelů."
+      },
+      "section4Title": "4. Sběr dat a aktualizace",
+      "section4Body1": "Naše Stránka automaticky sleduje a aktualizuje herní data, aby byla zajištěna aktuálnost a přesnost poskytovaných informací. Tento automatický proces zahrnuje shromažďování veřejně dostupných informací z Epic Games Store a dalších spolehlivých zdrojů.",
+      "section4Body2": "Udržováním naší databáze v aktuálním stavu zajišťujeme, aby uživatelé měli přístup k nejnovějším informacím o svých oblíbených hrách, včetně nových vydání, aktualizací a změn v dostupnosti.",
+      "section4Body3": "Pokud jde o grafické assety, načítáme obrázky přímo ze serverů Epic Games Store. Na našich serverech neukládáme žádné obrázky.",
+      "section5Title": "5. Prohlášení o uniklých datech",
+      "section5Body1": "Všechna data, která se na naší Stránce jeví jako uniklá, pocházejí z veřejně dostupných informací poskytovaných Epic Games Store. Nemáme přístup k důvěrným nebo proprietárním datům, která nejsou veřejně přístupná. Proto je odpovědností vydavatelů chránit své připravované duševní vlastnictví (IP), hry, stahovatelný obsah (DLC) a další citlivé informace v rámci portálu pro vývojáře Epic Games.",
+      "section5Body2": "Vydavatelé by měli zajistit, aby citlivé informace byly řádně zabezpečeny a nebyly neúmyslně zveřejněny. EGData App nenese odpovědnost za žádné uniklé informace, které byly získány z veřejně dostupných zdrojů.",
+      "section5Body3": "Další informace o ochraně údajů a spravedlivém použití v Evropské unii naleznete v následujících zdrojích:",
+      "euDirective1": "Směrnice (EU) 2019/790 o autorském právu a právech s ním souvisejících na jednotném digitálním trhu",
+      "euDirective2": "Otázky a odpovědi – Nová pravidla EU pro autorská práva",
+      "section6Title": "6. Kontaktujte nás",
+      "section6Body": "Máte-li jakékoli dotazy týkající se těchto Zásad spravedlivého použití nebo se domníváte, že jakýkoli obsah nebo data na naší Stránce porušují vaše autorská práva, kontaktujte nás na:",
+      "email": "E-mail:"
+    },
+    "donateKey": {
+      "title": "Darovat klíč",
+      "body": "Pokud máte klíč, který byste chtěli darovat projektu, vyplňte prosím níže uvedený formulář."
+    },
+    "androidBeta": {
+      "meta": {
+        "title": "Android Beta - egdata.app",
+        "description": "Připojte se k programu uzavřeného beta testování Android aplikace egdata.app"
+      },
+      "title": "Program Android Beta",
+      "description": "Připojte se k naší uzavřené beta verzi a otestujte Android aplikaci egdata.app před veřejným vydáním.",
+      "whatHappensNext": "Co bude dál?",
+      "steps": {
+        "signIn": "Přihlaste se svým Google účtem",
+        "added": "Během několika hodin budete ručně přidáni do uzavřené testovací větve",
+        "download": "Po přidání si můžete stáhnout aplikaci z poskytnutého odkazu"
+      }
+    }
+  },
+  "components": {
+    "stats": {
+      "title": "Statistiky",
+      "description": "Statistiky o platformě",
+      "offers": "Nabídky",
+      "offersTooltip": "Nabídka je zakoupitelná položka z obchodu",
+      "items": "Položky",
+      "itemsTooltip": "Položka je oprávnění pro launcher",
+      "tags": "Štítky",
+      "offersYear": "Nabídky (rok)",
+      "itemsYear": "Položky (rok)",
+      "assets": "Assety",
+      "assetsTooltip": "Asset jsou herní soubory",
+      "regPrices": "Běžné ceny",
+      "changes": "Změny",
+      "sandboxes": "Sandboxy",
+      "sandboxesTooltip": "Sandbox je skupina nabídek"
+    },
+    "sandboxShell": {
+      "overview": "Přehled",
+      "offers": "Nabídky",
+      "items": "Položky",
+      "assets": "Assety",
+      "builds": "Sestavení",
+      "achievements": "Úspěchy",
+      "changelog": "Seznam změn",
+      "sandbox": "Sandbox",
+      "internalNamespace": "Interní namespace",
+      "storePage": "Stránka obchodu",
+      "updated": "Aktualizováno {{date}}",
+      "unrealEngine": "Unreal Engine",
+      "internalSandbox": "Interní Sandbox",
+      "releaseStatus": {
+        "prePurchase": "Předobjednávka",
+        "datePending": "Datum se očekává",
+        "comingSoon": "Již brzy",
+        "released": "Vydáno"
+      }
+    },
+    "comparison": {
+      "openCompareTray": "Otevřít porovnávací panel, {{count}} vybráno",
+      "compareSelected": "Porovnat vybrané nabídky",
+      "error": "Chyba",
+      "type": "Typ",
+      "seller": "Prodejce",
+      "developer": "Vývojář",
+      "releaseDate": "Datum vydání",
+      "pcReleaseDate": "Datum vydání na PC",
+      "genres": "Žánry",
+      "platforms": "Platformy",
+      "remove": "Odebrat",
+      "current": "Aktuální",
+      "lowest": "Nejnižší",
+      "noPriceFound": "Nenalezena žádná cena",
+      "noAgeRatingsFound": "Nenalezeno žádné věkové hodnocení",
+      "achievements": "Úspěchy:",
+      "ageRating": "Věkové hodnocení:",
+      "price": "Cena:",
+      "unknown": "Neznámé"
+    },
+    "search": {
+      "sellers": "Prodejci",
+      "noResults": "Nebyly nalezeny žádné výsledky",
+      "noResultsShort": "Nebyly nalezeny žádné výsledky.",
+      "allOfferTypes": "Všechny typy nabídek",
+      "tags": "Štítky"
+    },
+    "changelist": {
+      "title": "Seznam změn",
+      "loading": "Načítání...",
+      "error": "Chyba: {{message}}",
+      "id": "ID",
+      "type": "Typ",
+      "titleOrId": "Název/ID",
+      "date": "Datum",
+      "new": "nový",
+      "update": "aktualizace"
+    },
+    "upcoming": {
+      "caption": "Nadcházející nabídky",
+      "loading": "Načítání...",
+      "title": "Název",
+      "price": "Cena",
+      "releaseDate": "Datum vydání",
+      "unknown": "Neznámé",
+      "prePurchase": "Předobjednávka"
+    },
+    "giveaways": {
+      "title": "Výprodeje",
+      "free": "Zdarma",
+      "freeNow": "Nyní zdarma",
+      "startsIn": "Začíná za",
+      "repeated": "Opakováno:",
+      "yes": "Ano",
+      "no": "Ne",
+      "repeatedTooltip": "Tato nabídka byla darována {{count}}krát."
+    },
+    "giveawayStats": {
+      "title": "Výprodeje v číslech",
+      "loading": "Načítání...",
+      "totalValue": "Celková hodnota",
+      "totalValueTooltip": "Celková hodnota včetně aktivních slev",
+      "giveaways": "Výprodeje",
+      "giveawaysTooltip": "Celkový počet výprodejů v databázi",
+      "offers": "Nabídky",
+      "offersTooltip": "Celkový počet unikátních nabídek ve výprodejích",
+      "repeated": "Opakované",
+      "repeatedTooltip": "Počet unikátních nabídek, které se objevily vícekrát ve výprodejích",
+      "sellers": "Prodejci",
+      "sellersTooltip": "Celkový počet unikátních prodejců poskytujících nabídky"
+    },
+    "offerCard": {
+      "openOffer": "Otevřít nabídku {{title}}",
+      "free": "Zdarma",
+      "comingSoon": "Již brzy",
+      "earlyAccess": "Předběžný přístup",
+      "prePurchase": "Předobjednávka",
+      "owned": "vlastněno"
+    },
+    "baseGame": {
+      "checkBaseGame": "Zkontrolovat základní hru",
+      "partOfBundle": "Tato nabídka je součástí"
+    },
+    "notFound": {
+      "message": "Stránka, kterou hledáte, neexistuje."
+    },
+    "sellerOffers": {
+      "error": "Chyba při načítání nabídek. Zkuste to prosím znovu.",
+      "moreFrom": "Další od {{name}}"
+    },
+    "achievementsBlade": {
+      "noData": "Žádná data",
+      "game": "Hra",
+      "achievements": "Úspěchy",
+      "xp": "XP",
+      "bronze": "Bronz",
+      "silver": "Stříbro",
+      "gold": "Zlato",
+      "gamesWithAchievements": "Hry s Epic úspěchy"
+    },
+    "topSection": {
+      "free": "Zdarma",
+      "releaseDate": "Datum vydání:",
+      "tba": "Bude oznámeno",
+      "platforms": "Platformy:",
+      "tags": "Štítky:",
+      "checkOffer": "Zobrazit nabídku"
+    },
+    "featuredDiscounts": {
+      "free": "Zdarma",
+      "title": "Nejlepší slevy",
+      "countMore": "+{{count}} dalších",
+      "checkOffer": "Zobrazit nabídku",
+      "until": "do"
+    },
+    "performanceTable": {
+      "title": "Výkon",
+      "noPriorData": "Žádná předchozí data",
+      "cardsView": "Zobrazení karet",
+      "chartView": "Zobrazení grafu"
+    },
+    "priceChart": {
+      "selectValue": "Vyberte hodnotu",
+      "last3Months": "Poslední 3 měsíce",
+      "fetchingData": "Načítání nejnovějších dat"
+    },
+    "dateRangePicker": {
+      "from": "Od",
+      "to": "Do",
+      "maxRange": "Maximální rozsah je 30 dní",
+      "invalidRange": "Neplatný rozsah dat"
+    },
+    "regionalPricing": {
+      "region": "Region",
+      "price": "Cena"
+    },
+    "regionalPricingBadge": {
+      "analysis": "Analýza regionálního oceňování",
+      "currentPrice": "Aktuální cena",
+      "suggestedPrice": "Doporučená cena",
+      "belowSuggested": "Tato nabídka je ve skutečnosti ještě pod touto úrovní — skvělá nabídka ve všech směrech.",
+      "closeToSuggested": "Tato nabídka se blíží této úrovni a je výrazně pod typickou cenou {{region}}."
+    },
+    "countrySelector": {
+      "searchCountries": "Hledat země...",
+      "noCountries": "Nebyly nalezeny žádné země"
+    },
+    "countriesSelector": {
+      "searchCountries": "Hledat země...",
+      "noCountries": "Nebyly nalezeny žádné země"
+    },
+    "querySearch": {
+      "searchItems": "Hledat položky..."
+    },
+    "extendedSearch": {
+      "searchItems": "Hledat položky...",
+      "noItems": "Nebyly nalezeny žádné položky."
+    },
+    "searchForm": {
+      "noResults": "Nebyly nalezeny žádné výsledky",
+      "error": "Chyba: {{message}}",
+      "loadingLong": "Tento dotaz trvá déle než obvykle..."
+    },
+    "searchFormV2": {
+      "noResults": "Nebyly nalezeny žádné výsledky."
+    },
+    "androidBetaBanner": {
+      "dismiss": "Zavřít banner"
+    },
+    "videoPlayer": {
+      "title": "{{title}}"
+    },
+    "mediaSlider": {
+      "previousSlide": "Předchozí snímek",
+      "nextSlide": "Další snímek",
+      "image": "Obrázek {{index}}",
+      "thumbnail": "Náhled {{index}}",
+      "downloading": "Stahování...",
+      "download": "Stáhnout"
+    },
+    "changelogItem": {
+      "action": "Akce",
+      "type": "Typ",
+      "oldValue": "Staré hodnota",
+      "newValue": "Nová hodnota",
+      "previousValue": "Předchozí hodnota:",
+      "newValueLabel": "Nová hodnota:"
+    },
+    "changelogCharts": {
+      "byWeekday": "Změny podle dne v týdnu",
+      "byWeekdayDesc": "Kumulované změny podle dne v týdnu",
+      "typesOfChanges": "Typy změn",
+      "typesOfChangesDesc": "Počet změn podle typu",
+      "byField": "Změny podle pole",
+      "byFieldDesc": "Změny seskupené podle změněného pole",
+      "dailyDesc": "Zobrazení denních změn za poslední rok",
+      "noData": "Nejsou k dispozici žádná data k zobrazení."
+    },
+    "openEgl": {
+      "open": "Otevřít"
+    },
+    "openEgs": {
+      "store": "Obchod"
+    },
+    "openLauncher": {
+      "play": "Hrát"
+    },
+    "storeDropdown": {
+      "launcher": "Spouštěč",
+      "viewStorePage": "Zobrazit stránku obchodu",
+      "webBrowser": "Webový prohlížeč"
+    },
+    "prepurchasePopup": {
+      "title": "{{title}}"
+    },
+    "apiKeyManager": {
+      "title": "Správa API klíče",
+      "label": "API klíč",
+      "placeholder": {
+        "generated": "API klíč vygenerován",
+        "none": "Nebyl vygenerován žádný API klíč"
+      },
+      "button": {
+        "regenerate": "Znovu vygenerovat klíč",
+        "generate": "Generovat klíč",
+        "clear": "Vymazat klíč"
+      },
+      "notification": {
+        "generated": "Nový API klíč úspěšně vygenerován!",
+        "generateFailed": "Nepodařilo se vygenerovat API klíč",
+        "copied": "API klíč zkopírován do schránky!",
+        "copyFailed": "Nepodařilo se zkopírovat API klíč",
+        "noneToCopy": "Žádný API klíč ke kopírování",
+        "cleared": "API klíč úspěšně vymazán!",
+        "clearFailed": "Nepodařilo se vymazat API klíč"
+      },
+      "description": "Váš API klíč je UUID uložené lokálně ve vašem prohlížeči a používá se k ověřování požadavků push oznámení. V případě potřeby použijte tlačítko regenerovat k vytvoření nového klíče."
+    },
+    "cookieBanner": {
+      "title": "Oznámení o cookies",
+      "description": "Tato webová stránka používá cookies k vylepšení vašeho zážitku z prohlížení. Přijetím cookies přijímáte naše {{privacyPolicyLink}}.",
+      "accept": "Přijmout",
+      "decline": "Odmítnout"
+    },
+    "searchHeader": {
+      "results": "{{count}} výsledků",
+      "showingResultsFor": "Zobrazují se výsledky pro"
+    },
+    "bundle": {
+      "collectionOffers": "Nabídky kolekce",
+      "bundleOffers": "Nabídky balíčku",
+      "offersCount": "- {{count}} nabídek",
+      "bundlePriceTitle": "Cena balíčku",
+      "totalValueLabel": "Celková hodnota:",
+      "bundlePriceLabel": "Cena balíčku:",
+      "youSave": "Ušetříte:",
+      "youPayMore": "Připlatíte:",
+      "buyBundle": "Koupit balíček",
+      "buyIndividually": "Koupit jednotlivě"
+    },
+    "clientBanner": {
+      "heading": "Pohánějte databázi sestavení {{appName}}",
+      "subheading": "Pomozte zmapovat každé sestavení Epic Games Store",
+      "description": "Náš lehký klient pro Windows a macOS prohledá vaše instalace Epic Games Launcher a bezpečně nahraje pouze manifestové soubory — seznamy chunků a metadata — do naší otevřené databáze. Každé nahrání obohatí komunitu a pomůže nám sledovat změny v čase.",
+      "cta": "Stáhnout pro Windows a macOS"
+    },
+    "collectionOffers": {
+      "title": "Nabídky kolekce"
+    },
+    "lastModifiedOffers": {
+      "title": "Naposledy změněné nabídky"
+    },
+    "latestOffers": {
+      "title": "Naposledy přidané"
+    },
+    "latestReleased": {
+      "title": "Naposledy vydané"
+    },
+    "mobileFreebies": {
+      "title": "Mobilní hry zdarma",
+      "collapse": "Sbalit mobilní hry zdarma",
+      "expand": "Rozbalit mobilní hry zdarma"
+    },
+    "sectionHeader": {
+      "seeAll": "Zobrazit vše"
+    },
+    "suggestedOffers": {
+      "title": "Mohlo by se vám také líbit"
+    }
+  },
+  "table": {
+    "pagination": {
+      "rowsPerPage": "Řádků na stránku",
+      "pageOf": "Stránka {{page}} z {{total}}",
+      "goToFirst": "Přejít na první stránku",
+      "goToPrevious": "Přejít na předchozí stránku",
+      "goToNext": "Přejít na další stránku",
+      "goToLast": "Přejít na poslední stránku",
+      "previous": "Předchozí",
+      "next": "Další",
+      "morePages": "Další stránky"
+    },
+    "toolbar": {
+      "platform": "Platforma",
+      "status": "Stav",
+      "type": "Typ",
+      "platforms": "Platformy",
+      "fileExtensions": "Přípony souborů",
+      "filterOffers": "Filtrovat nabídky...",
+      "filterItems": "Filtrovat položky...",
+      "filterFiles": "Filtrovat soubory...",
+      "reset": "Reset"
+    },
+    "viewOptions": {
+      "view": "Zobrazení",
+      "toggleColumns": "Přepnout sloupce"
+    },
+    "facetedFilter": {
+      "noResults": "Nebyly nalezeny žádné výsledky.",
+      "selected": "vybráno",
+      "clearFilters": "Vymazat filtry"
+    },
+    "builds": {
+      "noResults": "Žádné výsledky.",
+      "donateKey": "Darovat klíč"
+    }
+  },
+  "forms": {
+    "review": {
+      "submitTitle": "Odeslat recenzi",
+      "editTitle": "Upravit recenzi",
+      "description": "Podělte se o své myšlenky o {{title}}",
+      "rating": "Hodnocení",
+      "ratingError": "Hodnocení musí být mezi 1 a 10",
+      "recommend": "Doporučili byste tento produkt?",
+      "recommendError": "Prosím vyberte ano nebo ne",
+      "yes": "Ano",
+      "no": "Ne",
+      "title": "Název",
+      "titlePlaceholder": "Zadejte název své recenze",
+      "titleRequired": "Název je povinný",
+      "titleMinLength": "Název musí mít alespoň 3 znaky",
+      "titleMinLengthLong": "Název musí mít alespoň 3 znaky",
+      "titleMaxLength": "Název musí mít méně než 75 znaků",
+      "reviewContent": "Obsah recenze",
+      "contentMinLength": "Obsah musí mít alespoň 3 znaky",
+      "tags": "Štítky (oddělené čárkou)",
+      "tagsPlaceholder": "např. kvalita, design, výkon",
+      "previous": "Předchozí",
+      "next": "Další",
+      "submit": "Odeslat recenzi",
+      "deleteReview": "Smazat recenzi",
+      "confirmDelete": "Opravdu chcete smazat tuto recenzi?",
+      "deleteDescription": "Tuto akci nelze vrátit zpět. Recenze bude trvale smazána z našich serverů.",
+      "cancel": "Zrušit",
+      "delete": "Smazat",
+      "deleting": "Mazání...",
+      "errorSubmitting": "Chyba při odesílání recenze",
+      "errorDeleting": "Chyba při mazání recenze",
+      "spamDetected": "Detekován spam",
+      "defaultContent": "Prosím napište svou recenzi zde",
+      "theProduct": "produkt"
+    },
+    "androidBeta": {
+      "title": "Připojit se k beta",
+      "description": "Přihlaste se přes Google k registraci do uzavřené beta verze. Potřebujeme pouze váš e-mail.",
+      "spotsRemaining": "<strong>{{remaining}}</strong> z {{max}} zbývajících míst",
+      "betaFull": "Beta je plná",
+      "betaFullDesc": "Všech {{max}} míst bylo obsazeno. Vraťte se později nebo nás sledujte pro informace o tom, kdy budou k dispozici další místa.",
+      "registering": "Registrace do beta verze...",
+      "registered": "Jste zaregistrováni!",
+      "registeredDesc": "Zaregistrovali jsme <strong>{{email}}</strong> do uzavřené beta verze.",
+      "registeredDesc2": "Může trvat několik hodin, než budete ručně přidáni do seznamu testerů. Po přidání se můžete připojit k beta verzi zde:",
+      "joinBeta": "Připojit se k beta na Google Play",
+      "alreadyRegistered": "Již zaregistrováno",
+      "alreadyRegisteredDesc": "<strong>{{email}}</strong> je již zaregistrován pro beta verzi.",
+      "alreadyRegisteredDesc2": "Pokud jste již byli přidáni do seznamu testerů, můžete se připojit k beta verzi zde:",
+      "error": "Chyba",
+      "tryAgain": "Zkusit znovu",
+      "noCredential": "Nebyl přijat žádný identifikátor od Google",
+      "somethingWrong": "Něco se pokazilo. Zkuste to prosím znovu.",
+      "googleFailed": "Přihlášení přes Google selhalo. Zkuste to prosím znovu."
+    },
+    "donateKey": {
+      "donate": "Darovat",
+      "error": "Chyba",
+      "success": "Úspěch",
+      "successDesc": "Děkujeme za váš dar! Položka byla úspěšně uplatněna a její data budou brzy k dispozici.",
+      "offerPage": "Stránka nabídky",
+      "somethingWrong": "Něco se pokazilo. Zkuste to prosím znovu."
+    }
+  },
+  "ui": {
+    "dialog": {
+      "close": "Zavřít"
+    },
+    "sheet": {
+      "close": "Zavřít"
+    },
+    "carousel": {
+      "previous": "Předchozí snímek",
+      "next": "Další snímek"
+    },
+    "pagination": {
+      "previous": "Předchozí",
+      "next": "Další",
+      "morePages": "Další stránky"
+    },
+    "priceRangeSlider": {
+      "priceRange": "Cenové rozpětí",
+      "minPrice": "Min. cena",
+      "maxPrice": "Max. cena"
+    }
+  }
+}

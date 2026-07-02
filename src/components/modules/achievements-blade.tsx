@@ -18,6 +18,7 @@ import { FaTrophy } from "react-icons/fa6";
 import { cn } from "@/lib/utils";
 import { httpClient } from "@/lib/http-client";
 import { Link, useNavigate } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 
 type OfferWithAchievements = SingleOffer & {
   achievements: AchievementSet;
@@ -30,6 +31,7 @@ const rarityColors = {
 };
 
 export function GamesWithAchievements() {
+  const { t } = useTranslation();
   const { country } = useCountry();
   const navigate = useNavigate();
   const { data, isLoading } = useQuery({
@@ -50,7 +52,7 @@ export function GamesWithAchievements() {
   if (isLoading) {
     return (
       <div className="w-full h-96 flex items-center justify-center">
-        <p>Loading...</p>
+        <p>{t("common.loading")}</p>
       </div>
     );
   }
@@ -58,7 +60,7 @@ export function GamesWithAchievements() {
   if (!data) {
     return (
       <div className="w-full h-96 flex items-center justify-center">
-        <p>No data</p>
+        <p>{t("components.achievementsBlade.noData")}</p>
       </div>
     );
   }
@@ -74,31 +76,33 @@ export function GamesWithAchievements() {
         }}
         className="text-xl font-bold text-left inline-flex gap-2 group items-center justify-start"
       >
-        Games with Epic Achievements 🏆
+        {t("components.achievementsBlade.gamesWithAchievements")} 🏆
         <ArrowRightIcon className="w-6 h-6 transform group-hover:translate-x-1 transition-transform" />
       </Link>
       <Table className="min-w-[720px]">
         <TableHeader>
           <TableRow>
-            <TableHead>Game</TableHead>
-            <TableHead className="text-center">Achievements</TableHead>
-            <TableHead className="text-center">XP</TableHead>
+            <TableHead>{t("components.achievementsBlade.game")}</TableHead>
+            <TableHead className="text-center">
+              {t("components.achievementsBlade.achievements")}
+            </TableHead>
+            <TableHead className="text-center">{t("components.achievementsBlade.xp")}</TableHead>
             <TableHead className="text-center">
               <span className="inline-flex items-center gap-2 justify-center">
                 <FaTrophy className="size-3 text-[#cd7f32]" />
-                <span>Bronze</span>
+                <span>{t("components.achievementsBlade.bronze")}</span>
               </span>
             </TableHead>
             <TableHead className="text-center">
               <span className="inline-flex items-center gap-2 justify-center">
                 <FaTrophy className="size-3 text-[#c0c0c0]" />
-                <span>Silver</span>
+                <span>{t("components.achievementsBlade.silver")}</span>
               </span>
             </TableHead>
             <TableHead className="text-center">
               <span className="inline-flex items-center gap-2 justify-center">
                 <FaTrophy className="size-3 text-[#ffd700]" />
-                <span>Gold</span>
+                <span>{t("components.achievementsBlade.gold")}</span>
               </span>
             </TableHead>
           </TableRow>

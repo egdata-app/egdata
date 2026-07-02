@@ -8,6 +8,7 @@ import { calculatePrice } from "@/lib/calculate-price";
 import { getQueryClient } from "@/lib/client";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { getImage } from "@/lib/get-image";
+import i18n from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { type Collections, getCollection, type OfferWithTops } from "@/queries/collection";
 import {
@@ -18,6 +19,7 @@ import {
 } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronDown } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/collections/$id/")({
   component: () => {
@@ -84,8 +86,8 @@ export const Route = createFileRoute("/collections/$id/")({
       return {
         meta: [
           {
-            title: "Collection not found",
-            description: "Collection not found",
+            title: i18n.t("collections.errors.notFound"),
+            description: i18n.t("collections.errors.notFound"),
           },
         ],
       };
@@ -104,8 +106,8 @@ export const Route = createFileRoute("/collections/$id/")({
       return {
         meta: [
           {
-            title: "Collection not found",
-            description: "Collection not found",
+            title: i18n.t("collections.errors.notFound"),
+            description: i18n.t("collections.errors.notFound"),
           },
         ],
       };
@@ -114,27 +116,27 @@ export const Route = createFileRoute("/collections/$id/")({
     return {
       meta: [
         {
-          title: `${collection.title} | egdata.app`,
+          title: i18n.t("collections.meta.title", { title: collection.title }),
         },
         {
           name: "description",
-          content: `Check out the ${collection.title} from the Epic Games Store.`,
+          content: i18n.t("collections.meta.description", { title: collection.title }),
         },
         {
           name: "og:title",
-          content: `${collection.title} | egdata.app`,
+          content: i18n.t("collections.meta.title", { title: collection.title }),
         },
         {
           name: "og:description",
-          content: `Check out the ${collection.title} from the Epic Games Store.`,
+          content: i18n.t("collections.meta.description", { title: collection.title }),
         },
         {
           property: "twitter:title",
-          content: `${collection.title} | egdata.app`,
+          content: i18n.t("collections.meta.title", { title: collection.title }),
         },
         {
           property: "twitter:description",
-          content: `Check out the ${collection.title} from the Epic Games Store.`,
+          content: i18n.t("collections.meta.description", { title: collection.title }),
         },
       ],
     };
@@ -142,6 +144,7 @@ export const Route = createFileRoute("/collections/$id/")({
 });
 
 function CollectionPage() {
+  const { t } = useTranslation();
   const { id } = Route.useParams();
   const { country } = useCountry();
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } = useInfiniteQuery({
@@ -168,7 +171,7 @@ function CollectionPage() {
       <main className="container mx-auto flex flex-col items-center justify-center gap-4 min-h-screen">
         <div className="relative h-96 overflow-hidden rounded-2xl flex items-center bg-cover bg-center w-full">
           <div className="h-full w-full flex flex-col justify-center items-start text-foreground p-8 bg-gradient-to-r from-black/80 to-black/30">
-            <span className="text-5xl font-bold">Loading...</span>
+            <span className="text-5xl font-bold">{t("collections.status.loading")}</span>
           </div>
         </div>
       </main>
@@ -181,32 +184,30 @@ function CollectionPage() {
         <h1 className="text-3xl font-semibold md:text-4xl">{data?.pages[0]?.title}</h1>
 
         <div className="hidden h-12 w-full flex-row items-center px-5 font-thin text-muted-foreground md:flex">
-          <span className="w-10">Position</span>
+          <span className="w-10">{t("collections.table.position")}</span>
           <span className="w-24" />
           <span className="flex-grow pl-4" />
           <span className="w-32 text-right" />
           <span className="w-16 text-center">
             <Tooltip>
               <TooltipTrigger className="underline decoration-dotted decoration-border/60 underline-offset-4 cursor-help">
-                Variance
+                {t("collections.table.variance")}
               </TooltipTrigger>
               <TooltipContent className="max-w-xs">
-                <p>
-                  The difference between the current position and the previous position. Usually
-                  changes every day.
-                </p>
+                <p>{t("collections.tooltips.variance")}</p>
               </TooltipContent>
             </Tooltip>
           </span>
           <span className="w-16 text-center">
             <Tooltip>
               <TooltipTrigger className="underline decoration-dotted decoration-border/60 underline-offset-4 cursor-help">
-                Weeks
+                {t("collections.table.weeks")}
               </TooltipTrigger>
               <TooltipContent className="max-w-xs">
                 <p>
-                  The number of weeks the game has been in the top 100 for{" "}
-                  {data?.pages[0]?.title?.toLowerCase()}.
+                  {t("collections.tooltips.weeks", {
+                    title: data?.pages[0]?.title?.toLowerCase(),
+                  })}
                 </p>
               </TooltipContent>
             </Tooltip>
@@ -251,10 +252,10 @@ function CollectionPage() {
                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                     />
                   </svg>
-                  Loading...
+                  {t("collections.status.loading")}
                 </>
               ) : (
-                "Load more"
+                t("collections.buttons.loadMore")
               )}
             </Button>
           </div>

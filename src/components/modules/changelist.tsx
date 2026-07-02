@@ -4,6 +4,7 @@ import { UpdateIcon } from "@radix-ui/react-icons";
 import { timeAgo } from "@/lib/time-ago";
 import { ScrollArea } from "../ui/scroll-area";
 import { httpClient } from "@/lib/http-client";
+import { useTranslation } from "react-i18next";
 
 export interface Change {
   timestamp: string;
@@ -58,6 +59,7 @@ const icons = {
 };
 
 export function ChangelistModule() {
+  const { t } = useTranslation();
   const {
     isPending,
     error,
@@ -70,25 +72,25 @@ export function ChangelistModule() {
   });
 
   if (isPending) {
-    return <p>Loading...</p>;
+    return <p>{t("components.changelist.loading")}</p>;
   }
 
   if (error) {
-    return <p>Error: {error.message}</p>;
+    return <p>{t("components.changelist.error", { message: error.message })}</p>;
   }
 
   return (
     <section id="changelist" className="w-full h-full pb-10">
-      <h2 className="text-2xl font-bold">Changelist</h2>
+      <h2 className="text-2xl font-bold">{t("components.changelist.title")}</h2>
       <ScrollArea className="w-full h-[400px]">
         <Table className="min-w-[640px]">
           <TableHeader>
             <TableRow>
               <TableHead />
-              <TableHead>ID</TableHead>
-              <TableHead className="w-[100px]">Type</TableHead>
-              <TableHead>Title/ID</TableHead>
-              <TableHead className="text-right">Date</TableHead>
+              <TableHead>{t("components.changelist.id")}</TableHead>
+              <TableHead className="w-[100px]">{t("components.changelist.type")}</TableHead>
+              <TableHead>{t("components.changelist.titleOrId")}</TableHead>
+              <TableHead className="text-right">{t("components.changelist.date")}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

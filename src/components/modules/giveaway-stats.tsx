@@ -7,6 +7,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/
 import { calculatePrice } from "@/lib/calculate-price";
 import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 export const getGiveawaysStats = async ({ country }: { country: string }) => {
   const res = await httpClient.get<{
@@ -30,6 +31,7 @@ interface GiveawayStatsProps {
 }
 
 export function GiveawaysStats({ showTitle = true, wrap = false }: GiveawayStatsProps) {
+  const { t } = useTranslation();
   const { country } = useCountry();
   const { locale } = useLocale();
   const { data, isLoading, isError } = useQuery({
@@ -40,7 +42,7 @@ export function GiveawaysStats({ showTitle = true, wrap = false }: GiveawayStats
   });
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <p>{t("components.giveawayStats.loading")}</p>;
   }
 
   if (isError || !data) {
@@ -49,7 +51,9 @@ export function GiveawaysStats({ showTitle = true, wrap = false }: GiveawayStats
 
   return (
     <div className="flex flex-col items-start justify-start gap-4 w-full">
-      {showTitle && <h2 className="text-xl font-semibold">Giveaways in numbers</h2>}
+      {showTitle && (
+        <h2 className="text-xl font-semibold">{t("components.giveawayStats.title")}</h2>
+      )}
       <div className="flex flex-row flex-wrap items-center justify-center gap-10 bg-card rounded-lg p-4 w-full">
         <TooltipProvider>
           <Tooltip>
@@ -71,7 +75,7 @@ export function GiveawaysStats({ showTitle = true, wrap = false }: GiveawayStats
               />
               <TooltipTrigger>
                 <span className="text-lg font-medium text-muted-foreground decoration-dotted decoration-gray-400/50 underline underline-offset-4">
-                  Total Value
+                  {t("components.giveawayStats.totalValue")}
                 </span>
               </TooltipTrigger>
               <TooltipContent>
@@ -86,7 +90,7 @@ export function GiveawaysStats({ showTitle = true, wrap = false }: GiveawayStats
                     })}
                   </span>
                   <span className="text-xs font-medium">
-                    Total value including any active discounts
+                    {t("components.giveawayStats.totalValueTooltip")}
                   </span>
                 </div>
               </TooltipContent>
@@ -101,12 +105,12 @@ export function GiveawaysStats({ showTitle = true, wrap = false }: GiveawayStats
               />
               <TooltipTrigger>
                 <span className="text-lg font-medium text-muted-foreground decoration-dotted decoration-gray-400/50 underline underline-offset-4">
-                  Giveaways
+                  {t("components.giveawayStats.giveaways")}
                 </span>
               </TooltipTrigger>
               <TooltipContent>
                 <span className="text-xs font-medium">
-                  Total number of giveaways that appear in the database
+                  {t("components.giveawayStats.giveawaysTooltip")}
                 </span>
               </TooltipContent>
             </div>
@@ -120,12 +124,12 @@ export function GiveawaysStats({ showTitle = true, wrap = false }: GiveawayStats
               />
               <TooltipTrigger>
                 <span className="text-lg font-medium text-muted-foreground decoration-dotted decoration-gray-400/50 underline underline-offset-4">
-                  Offers
+                  {t("components.giveawayStats.offers")}
                 </span>
               </TooltipTrigger>
               <TooltipContent>
                 <span className="text-xs font-medium">
-                  Total number of unique offers that have appeared in giveaways
+                  {t("components.giveawayStats.offersTooltip")}
                 </span>
               </TooltipContent>
             </div>
@@ -139,12 +143,12 @@ export function GiveawaysStats({ showTitle = true, wrap = false }: GiveawayStats
               />
               <TooltipTrigger>
                 <span className="text-lg font-medium text-muted-foreground decoration-dotted decoration-gray-400/50 underline underline-offset-4">
-                  Repeated
+                  {t("components.giveawayStats.repeated")}
                 </span>
               </TooltipTrigger>
               <TooltipContent>
                 <span className="text-xs font-medium">
-                  Number of unique offers that appear multiple times in giveaways
+                  {t("components.giveawayStats.repeatedTooltip")}
                 </span>
               </TooltipContent>
             </div>
@@ -161,12 +165,12 @@ export function GiveawaysStats({ showTitle = true, wrap = false }: GiveawayStats
               />
               <TooltipTrigger>
                 <span className="text-lg font-medium text-muted-foreground decoration-dotted decoration-gray-400/50 underline underline-offset-4">
-                  Sellers
+                  {t("components.giveawayStats.sellers")}
                 </span>
               </TooltipTrigger>
               <TooltipContent>
                 <span className="text-xs font-medium">
-                  Total number of unique sellers providing offers
+                  {t("components.giveawayStats.sellersTooltip")}
                 </span>
               </TooltipContent>
             </Link>

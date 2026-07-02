@@ -5,6 +5,7 @@ import { Command as CommandPrimitive } from "cmdk";
 
 import { cn } from "@/lib/utils";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 type DialogProps = React.ComponentProps<typeof DialogPrimitive.Root>;
 
@@ -61,12 +62,14 @@ CommandInput.displayName = CommandPrimitive.Input.displayName;
 const CommandList = React.forwardRef<
   React.ElementRef<typeof CommandPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof CommandPrimitive.List>
->(({ className, ...props }, ref) => (
+>(({ className, children, ...props }, ref) => (
   <CommandPrimitive.List
     ref={ref}
-    className={cn("max-h-[300px] overflow-y-auto overflow-x-hidden", className)}
+    className={cn("max-h-[300px] overflow-x-hidden", className)}
     {...props}
-  />
+  >
+    <ScrollArea className="h-[300px]">{children}</ScrollArea>
+  </CommandPrimitive.List>
 ));
 
 CommandList.displayName = CommandPrimitive.List.displayName;

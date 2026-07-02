@@ -1,4 +1,5 @@
 import type { TypeOf } from "zod";
+import { useTranslation } from "react-i18next";
 import type { formSchema } from "@/stores/searchStore";
 import type { FullTag } from "@/types/tags";
 import type { SearchV2Response } from "@/types/search-v2";
@@ -62,6 +63,7 @@ export function SearchFilters({
   publisherCounts,
   controls,
 }: SearchFiltersProps) {
+  const { t } = useTranslation();
   const {
     showTitle,
     showTags,
@@ -101,7 +103,7 @@ export function SearchFilters({
       {showTitle && (
         <Input
           type="search"
-          placeholder="Search for games"
+          placeholder={t("search.filtersPlaceholder")}
           name="title"
           value={query.title || ""}
           onChange={(e) =>
@@ -149,17 +151,20 @@ export function SearchFilters({
           />
         )}
         {showOnSale && query.onSale && (
-          <QuickPill label="On Sale" onRemove={() => handleFieldChange("onSale", undefined)} />
+          <QuickPill
+            label={t("search.pills.onSale")}
+            onRemove={() => handleFieldChange("onSale", undefined)}
+          />
         )}
         {showCodeRedemption && query.isCodeRedemptionOnly && (
           <QuickPill
-            label="Code Redemption Only"
+            label={t("search.pills.codeRedemptionOnly")}
             onRemove={() => handleFieldChange("isCodeRedemptionOnly", undefined)}
           />
         )}
         {showBlockchain && query.excludeBlockchain && (
           <QuickPill
-            label="Exclude Blockchain/NFT"
+            label={t("search.pills.excludeBlockchain")}
             onRemove={() => handleFieldChange("excludeBlockchain", undefined)}
           />
         )}
@@ -168,7 +173,7 @@ export function SearchFilters({
         )}
         {showPastGiveaways && query.pastGiveaways && (
           <QuickPill
-            label="Past Giveaways"
+            label={t("search.pills.pastGiveaways")}
             onRemove={() => handleFieldChange("pastGiveaways", undefined)}
           />
         )}
@@ -192,7 +197,7 @@ export function SearchFilters({
       <Accordion type="single" collapsible className="w-full">
         {showOfferType && (
           <AccordionItem value="offerType">
-            <AccordionTrigger>Offer Type</AccordionTrigger>
+            <AccordionTrigger>{t("search.accordion.offerType")}</AccordionTrigger>
             <AccordionContent className="flex flex-col gap-2 w-full mt-2">
               {offerTypeValues
                 .map((key) => [key, offersDictionary[key]] as const)
@@ -248,7 +253,9 @@ export function SearchFilters({
                           />
                         ))}
                       {tagTypeTags?.filter((tag) => tagCounts[tag.id] > 0).length === 0 && (
-                        <span className="text-muted-foreground px-4">No tags found</span>
+                        <span className="text-muted-foreground px-4">
+                          {t("search.accordion.noTags")}
+                        </span>
                       )}
                     </div>
                   </ScrollArea>
@@ -259,7 +266,7 @@ export function SearchFilters({
 
         {showDeveloper && (
           <AccordionItem value="developer">
-            <AccordionTrigger>Developer</AccordionTrigger>
+            <AccordionTrigger>{t("search.accordion.developer")}</AccordionTrigger>
             <AccordionContent>
               {(Object.keys(developerCounts).length > 0 || query.developerDisplayName) && (
                 <ExtendedSearch
@@ -279,7 +286,7 @@ export function SearchFilters({
 
         {showPublisher && (
           <AccordionItem value="publisher">
-            <AccordionTrigger>Publisher</AccordionTrigger>
+            <AccordionTrigger>{t("search.accordion.publisher")}</AccordionTrigger>
             <AccordionContent>
               {(Object.keys(publisherCounts).length > 0 || query.publisherDisplayName) && (
                 <ExtendedSearch
@@ -313,7 +320,7 @@ export function SearchFilters({
             htmlFor="pastGiveaways"
             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
-            Past Giveaways
+            {t("search.checkboxes.pastGiveaways")}
           </label>
         </div>
       )}
@@ -329,7 +336,7 @@ export function SearchFilters({
             htmlFor="onSale"
             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
-            On Sale
+            {t("search.checkboxes.onSale")}
           </label>
         </div>
       )}
@@ -347,7 +354,7 @@ export function SearchFilters({
             htmlFor="isCodeRedemptionOnly"
             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
-            Code Redemption Only
+            {t("search.checkboxes.codeRedemptionOnly")}
           </label>
         </div>
       )}
@@ -365,7 +372,7 @@ export function SearchFilters({
             htmlFor="excludeBlockchain"
             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
-            Exclude Blockchain/NFT
+            {t("search.checkboxes.excludeBlockchain")}
           </label>
         </div>
       )}
@@ -383,7 +390,7 @@ export function SearchFilters({
             htmlFor="isLowestPrice"
             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
-            Only historical lows
+            {t("search.checkboxes.onlyHistoricalLows")}
           </label>
         </div>
       )}
@@ -401,7 +408,7 @@ export function SearchFilters({
             htmlFor="isLowestPriceEver"
             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
-            Only lowest price ever
+            {t("search.checkboxes.onlyLowestPriceEver")}
           </label>
         </div>
       )}

@@ -1,7 +1,11 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/dashboard")({
-  component: () => <div>Hello /dashboard!</div>,
+  component: () => {
+    const { t } = useTranslation();
+    return <div>{t("dashboard.placeholder")}</div>;
+  },
 
   beforeLoad: async ({ context }) => {
     if (context.session) {

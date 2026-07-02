@@ -28,6 +28,7 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { AlertDialogHeader } from "../ui/alert-dialog";
+import { useTranslation } from "react-i18next";
 
 interface ReviewFormProps {
   setIsOpen: (isOpen: boolean) => void;
@@ -40,6 +41,7 @@ const routeApi = getRouteApi("__root__");
 export function EditReviewForm({ setIsOpen, offer, previousReview }: ReviewFormProps) {
   const { epicToken, session } = routeApi.useRouteContext();
   const [step, setStep] = useState(1);
+  const { t } = useTranslation();
 
   const postReviewMutation = useMutation({
     mutationKey: ["edit-review"],

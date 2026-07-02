@@ -14,6 +14,10 @@ import { getUserInformation } from "@/queries/profiles";
 import { PreferencesProvider } from "@/providers/preferences";
 import { CompareProvider } from "@/providers/compare";
 import { LocaleProvider } from "@/providers/locale";
+import { I18nextProvider } from "react-i18next";
+import i18n, { changeLanguage as changeI18nLanguage, getI18nHydrationScript } from "@/lib/i18n";
+import { isRTL } from "@/lib/supported-locales";
+import { useTranslation } from "react-i18next";
 import { CookiesProvider } from "@/providers/cookies";
 import { Base64Utils } from "@/lib/base-64";
 import type { EpicToken } from "@/types/epic";
@@ -120,6 +124,9 @@ export const Route = createRootRouteWithContext<Context>()({
       ? JSON.parse(Base64Utils.decode(cookies.EGDATA_COOKIES_2))
       : null;
 
+    // Sync i18n with the resolved locale before head() reads translated meta.
+    await changeI18nLanguage(locale);
+
     // warm user cache if we know the email
     if (session?.user?.email) {
       const id = session.user.email.split("@")[0];
@@ -185,11 +192,10 @@ export const Route = createRootRouteWithContext<Context>()({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Epic Games Database - egdata.app" },
+      { title: i18n.t("meta.title") },
       {
         name: "description",
-        content:
-          "Comprehensive Epic Games Store database: game info, prices, sales history, file lists, and more. Explore free games, upcoming releases, and community insights.",
+        content: i18n.t("meta.description"),
       },
       {
         name: "keywords",
@@ -223,29 +229,27 @@ export const Route = createRootRouteWithContext<Context>()({
       },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@egdataapp" },
-      { name: "twitter:title", content: "Epic Games Database" },
+      { name: "twitter:title", content: i18n.t("meta.twitterTitle") },
       {
         name: "twitter:description",
-        content:
-          "A free and open-source Epic Games Store database with comprehensive game information, sales tracking, and more. Community-driven and constantly updated.",
+        content: i18n.t("meta.twitterDescription"),
       },
       {
         name: "twitter:image",
         content: "https://cdn.egdata.app/placeholder-1080.webp",
       },
-      { name: "twitter:image:alt", content: "Epic Games Database" },
-      { name: "og:title", content: "Epic Games Database" },
+      { name: "twitter:image:alt", content: i18n.t("meta.twitterImageAlt") },
+      { name: "og:title", content: i18n.t("meta.ogTitle") },
       { name: "og:type", content: "website" },
       { name: "og:url", content: "https://egdata.app" },
       {
         name: "og:image",
         content: "https://cdn.egdata.app/placeholder-1080.webp",
       },
-      { name: "og:image:alt", content: "Epic Games Database" },
+      { name: "og:image:alt", content: i18n.t("meta.ogImageAlt") },
       {
         name: "og:description",
-        content:
-          "A free and open-source Epic Games Store database with comprehensive game information, sales tracking, and more. Community-driven and constantly updated.",
+        content: i18n.t("meta.ogDescription"),
       },
     ],
     scripts: import.meta.env.DEV
@@ -261,9 +265,10 @@ export const Route = createRootRouteWithContext<Context>()({
 });
 
 function NotFoundPage() {
+  const { t } = useTranslation();
   return (
     <div className="w-full h-full flex flex-col items-start justify-center">
-      <h2>Page not found</h2>
+      <h2>{t("notFound.title")}</h2>
     </div>
   );
 }
@@ -281,6 +286,9 @@ function RootComponent() {
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
   const { country, locale, timezone, analyticsCookies } = Route.useLoaderData() as Context;
+  const { t } = useTranslation();
+  const dir = isRTL(locale ?? "en-US") ? "rtl" : "ltr";
+  const i18nHydrationScript = getI18nHydrationScript(locale);
 
   useEffect(() => {
     void import("@/lib/pulse-telemetry/browser")
@@ -293,122 +301,122 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
   }, []);
 
   return (
-    <html lang="en">
+    <html lang={locale ?? "en"} dir={dir}>
       <head>
         <HeadContent />
       </head>
       <body className="antialiased">
         <GlobalBackground />
         <div className="md:container relative z-[1] mx-auto overflow-x-hidden">
-          <LocaleProvider initialLocale={locale} initialTimezone={timezone}>
-            <CountryProvider defaultCountry={country || "US"}>
-              <CompareProvider>
-                <SearchProvider>
-                  <Navbar />
-                  <div className="pt-6">
-                    <PreferencesProvider>
-                      <CookiesProvider
-                        initialSelection={analyticsCookies as unknown as CookiesSelection}
-                      >
-                        <ExtensionProvider>{children}</ExtensionProvider>
-                      </CookiesProvider>
-                    </PreferencesProvider>
-                  </div>
-                  <Toaster />
-                  <footer className="mt-12 border-t border-border/40">
-                    <div
-                      className="h-px w-full"
-                      style={{
-                        background:
-                          "linear-gradient(to right, transparent, hsl(199 100% 50% / 0.28), transparent)",
-                      }}
-                    />
-                    <div className="py-8 px-4 md:px-6">
-                      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 max-w-5xl mx-auto">
-                        <div className="space-y-2">
-                          <Link to="/" className="flex items-center gap-2">
-                            <img
-                              src="https://cdn.egdata.app/logo_simple_white_clean.png"
-                              alt="EGDATA Logo"
-                              width={28}
-                              height={28}
-                            />
-                            <span className="text-base font-display font-bold tracking-tight text-foreground">
-                              EGDATA
-                            </span>
-                          </Link>
-                          <p className="text-xs text-muted-foreground max-w-sm leading-relaxed">
-                            A fan-made Epic Games Store database. Not affiliated with Epic Games,
-                            Inc. All logos, images, and trademarks belong to their respective
-                            owners.
-                          </p>
-                        </div>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-10 gap-y-3 text-sm">
+          <I18nextProvider i18n={i18n}>
+            <LocaleProvider initialLocale={locale} initialTimezone={timezone}>
+              <CountryProvider defaultCountry={country || "US"}>
+                <CompareProvider>
+                  <SearchProvider>
+                    <Navbar />
+                    <div className="pt-6">
+                      <PreferencesProvider>
+                        <CookiesProvider
+                          initialSelection={analyticsCookies as unknown as CookiesSelection}
+                        >
+                          <ExtensionProvider>{children}</ExtensionProvider>
+                        </CookiesProvider>
+                      </PreferencesProvider>
+                    </div>
+                    <Toaster />
+                    <footer className="mt-12 border-t border-border/40">
+                      <div
+                        className="h-px w-full"
+                        style={{
+                          background:
+                            "linear-gradient(to right, transparent, hsl(199 100% 50% / 0.28), transparent)",
+                        }}
+                      />
+                      <div className="py-8 px-4 md:px-6">
+                        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 max-w-5xl mx-auto">
                           <div className="space-y-2">
-                            <h4 className="text-xs uppercase tracking-wider text-muted-foreground/70 font-display">
-                              Legal
-                            </h4>
-                            <Link
-                              to="/privacy"
-                              className="block text-muted-foreground hover:text-primary transition-colors"
-                            >
-                              Privacy Policy
-                            </Link>
-                            <Link
-                              to="/notifications"
-                              className="block text-muted-foreground hover:text-primary transition-colors"
-                            >
-                              Notifications
-                            </Link>
-                          </div>
-                          <div className="space-y-2">
-                            <h4 className="text-xs uppercase tracking-wider text-muted-foreground/70 font-display">
-                              Resources
-                            </h4>
-                            <a
-                              href="https://docs.egdata.app"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="block text-muted-foreground hover:text-primary transition-colors"
-                            >
-                              API Docs
-                            </a>
-                            <Link
-                              to="/changelog"
-                              className="block text-muted-foreground hover:text-primary transition-colors"
-                            >
-                              Changelog
-                            </Link>
-                          </div>
-                          <div className="space-y-2">
-                            <h4 className="text-xs uppercase tracking-wider text-muted-foreground/70 font-display">
-                              Community
-                            </h4>
-                            <a
-                              href="https://flagpedia.net"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="block text-muted-foreground hover:text-primary transition-colors"
-                            >
-                              Flags by Flagpedia
-                            </a>
-                            <span className="flex items-center gap-1 text-muted-foreground">
-                              Made in{" "}
+                            <Link to="/" className="flex items-center gap-2">
                               <img
-                                src="https://flagcdn.com/16x12/eu.webp"
-                                alt="EU Flag"
-                                className="inline"
+                                src="https://cdn.egdata.app/logo_simple_white_clean.png"
+                                alt={t("footer.logoAlt")}
+                                width={28}
+                                height={28}
                               />
-                            </span>
+                              <span className="text-base font-display font-bold tracking-tight text-foreground">
+                                {t("common.appName")}
+                              </span>
+                            </Link>
+                            <p className="text-xs text-muted-foreground max-w-sm leading-relaxed">
+                              {t("footer.disclaimer")}
+                            </p>
+                          </div>
+                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-10 gap-y-3 text-sm">
+                            <div className="space-y-2">
+                              <h4 className="text-xs uppercase tracking-wider text-muted-foreground/70 font-display">
+                                {t("footer.legal")}
+                              </h4>
+                              <Link
+                                to="/privacy"
+                                className="block text-muted-foreground hover:text-primary transition-colors"
+                              >
+                                {t("footer.privacyPolicy")}
+                              </Link>
+                              <Link
+                                to="/notifications"
+                                className="block text-muted-foreground hover:text-primary transition-colors"
+                              >
+                                {t("footer.notifications")}
+                              </Link>
+                            </div>
+                            <div className="space-y-2">
+                              <h4 className="text-xs uppercase tracking-wider text-muted-foreground/70 font-display">
+                                {t("footer.resources")}
+                              </h4>
+                              <a
+                                href="https://docs.egdata.app"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block text-muted-foreground hover:text-primary transition-colors"
+                              >
+                                {t("footer.apiDocs")}
+                              </a>
+                              <Link
+                                to="/changelog"
+                                className="block text-muted-foreground hover:text-primary transition-colors"
+                              >
+                                {t("footer.changelog")}
+                              </Link>
+                            </div>
+                            <div className="space-y-2">
+                              <h4 className="text-xs uppercase tracking-wider text-muted-foreground/70 font-display">
+                                {t("footer.community")}
+                              </h4>
+                              <a
+                                href="https://flagpedia.net"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block text-muted-foreground hover:text-primary transition-colors"
+                              >
+                                {t("footer.flagsByFlagpedia")}
+                              </a>
+                              <span className="flex items-center gap-1 text-muted-foreground">
+                                {t("footer.madeIn")}{" "}
+                                <img
+                                  src="https://flagcdn.com/16x12/eu.webp"
+                                  alt="EU Flag"
+                                  className="inline"
+                                />
+                              </span>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </footer>
-                </SearchProvider>
-              </CompareProvider>
-            </CountryProvider>
-          </LocaleProvider>
+                    </footer>
+                  </SearchProvider>
+                </CompareProvider>
+              </CountryProvider>
+            </LocaleProvider>
+          </I18nextProvider>
         </div>
 
         {import.meta.env.DEV ? (
@@ -424,6 +432,9 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
               },
             ]}
           />
+        ) : null}
+        {i18nHydrationScript ? (
+          <script id="egdata-i18n" dangerouslySetInnerHTML={{ __html: i18nHydrationScript }} />
         ) : null}
         <Scripts />
       </body>

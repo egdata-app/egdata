@@ -5,9 +5,12 @@ import { httpClient } from "@/lib/http-client";
 import type { SingleItem } from "@/types/single-item";
 import { dehydrate, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 export const Route = createFileRoute("/items/$id/images")({
   component: () => {
+    const { t } = useTranslation();
     const { id } = Route.useParams();
     const { data: item } = useQuery({
       queryKey: ["item", { id }],
@@ -20,7 +23,7 @@ export const Route = createFileRoute("/items/$id/images")({
 
     return (
       <div className="flex flex-col items-start justify-start h-full gap-4 w-full">
-        <h2 className="text-xl font-bold">Images</h2>
+        <h2 className="text-xl font-bold">{t("items.images.title")}</h2>
         <div className=" mt-2">
           <div className="flex flex-row items-start justify-start flex-wrap gap-2">
             {item.keyImages.map((image) => (
@@ -54,8 +57,8 @@ export const Route = createFileRoute("/items/$id/images")({
       return {
         meta: [
           {
-            title: "Item not found",
-            description: "Item not found",
+            title: i18n.t("items.notFound"),
+            description: i18n.t("items.notFound"),
           },
         ],
       };
@@ -70,15 +73,15 @@ export const Route = createFileRoute("/items/$id/images")({
       return {
         meta: [
           {
-            title: "item not found",
-            description: "item not found",
+            title: i18n.t("items.notFound"),
+            description: i18n.t("items.notFound"),
           },
         ],
       };
     }
 
     return {
-      meta: generateItemMeta(item, "Images"),
+      meta: generateItemMeta(item, i18n.t("items.images.title")),
     };
   },
 });

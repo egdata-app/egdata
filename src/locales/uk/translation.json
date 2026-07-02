@@ -1,0 +1,1763 @@
+{
+  "common": {
+    "appName": "EGDATA",
+    "search": "Пошук",
+    "searchPlaceholder": "Пошук ігор...",
+    "loading": "Завантаження...",
+    "free": "Безкоштовно",
+    "notAvailable": "Недоступно",
+    "cancel": "Скасувати",
+    "save": "Зберегти",
+    "close": "Закрити"
+  },
+  "nav": {
+    "toggleMenu": "Відкрити меню навігації",
+    "logoAlt": "Логотип EGDATA",
+    "explore": "Огляд",
+    "browse": "Перегляд",
+    "sales": "Розпродажі",
+    "changelog": "Журнал змін",
+    "about": "Про нас",
+    "rankings": "Рейтинги",
+    "topSellers": "Найпродаваніші",
+    "mostPlayed": "Найпопулярніші",
+    "topWishlisted": "Найбажаніші",
+    "topNewReleases": "Найкращі новинки",
+    "seeAllCollections": "Переглянути всі колекції",
+    "others": "Інше",
+    "releaseStats": "Статистика релізів",
+    "genres": "Жанри",
+    "seeAllGenres": "Переглянути всі жанри",
+    "other": "Інший",
+    "action": "Екшн",
+    "rpg": "RPG",
+    "indie": "Інді",
+    "strategy": "Стратегія",
+    "topSellerOnEpic": "Найпродаваніше в Epic Games Store",
+    "searchItemTitle": "Пошук",
+    "searchItemDesc": "Знайдіть те, що шукаєте, у Epic Games Store.",
+    "freeGamesItemTitle": "Безкоштовні ігри",
+    "freeGamesItemDesc": "Перегляньте останні безкоштовні ігри в Epic Games Store.",
+    "withDiscountsItemTitle": "Зі знижками",
+    "withDiscountsItemDesc": "Перегляньте ігри з великими знижками.",
+    "helloUser": "Привіт, {{name}}!",
+    "dashboard": "Панель",
+    "logout": "Вийти",
+    "searchLanguages": "Пошук мов...",
+    "noLanguagesFound": "Мов не знайдено"
+  },
+  "footer": {
+    "logoAlt": "Логотип EGDATA",
+    "disclaimer": "Фан-база даних Epic Games Store. Не пов'язана з Epic Games, Inc. Усі логотипи, зображення та торговельні марки належать їхнім власникам.",
+    "legal": "Юридична інформація",
+    "privacyPolicy": "Політика конфіденційності",
+    "notifications": "Сповіщення",
+    "resources": "Ресурси",
+    "apiDocs": "Документація API",
+    "changelog": "Журнал змін",
+    "community": "Спільнота",
+    "flagsByFlagpedia": "Прапори від Flagpedia",
+    "madeIn": "Зроблено в"
+  },
+  "meta": {
+    "title": "База даних Epic Games - egdata.app",
+    "description": "Повна база даних Epic Games Store: інформація про ігри, ціни, історія продажів, списки файлів тощо. Досліджуйте безкоштовні ігри, майбутні релізи та інсайти спільноти.",
+    "twitterTitle": "База даних Epic Games",
+    "twitterDescription": "Безкоштовна база даних Epic Games Store з відкритим кодом: повна інформація про ігри, відстеження продажів тощо. Створена спільнотою та постійно оновлюється.",
+    "twitterImageAlt": "База даних Epic Games",
+    "ogTitle": "База даних Epic Games",
+    "ogDescription": "Безкоштовна база даних Epic Games Store з відкритим кодом: повна інформація про ігри, відстеження продажів тощо. Створена спільнотою та постійно оновлюється.",
+    "ogImageAlt": "База даних Epic Games"
+  },
+  "notFound": {
+    "title": "Сторінку не знайдено"
+  },
+  "home": {
+    "statsBar": {
+      "offersTracked": "Відстежуваних пропозицій",
+      "priceChanges72h": "Змін цін / 72год",
+      "activeDiscounts": "Активних знижок",
+      "giveawaysToDate": "Роздач на сьогодні"
+    },
+    "sections": {
+      "giveawayStats": "Статистика роздач",
+      "giveawayOffers": "Безкоштовні пропозиції",
+      "upcomingOffers": "Майбутні пропозиції",
+      "latestOffers": "Останні пропозиції",
+      "latestReleased": "Останні релізи",
+      "latestOffersWithAchievements": "Нові пропозиції з досягненнями",
+      "topSellingOffers": "Найпродаваніші пропозиції",
+      "latestBuilds": "Останні збірки"
+    },
+    "tableHeaders": {
+      "hash": "#",
+      "pos": "Поз",
+      "dash": "-",
+      "title": "Назва",
+      "starts": "Початок",
+      "ends": "Кінець",
+      "releaseDate": "Дата виходу",
+      "createdAt": "Створено",
+      "date": "Дата",
+      "price": "Ціна",
+      "size": "Розмір",
+      "creationDate": "Дата створення"
+    },
+    "offerHover": {
+      "seller": "Продавець:",
+      "developer": "Розробник:",
+      "publisher": "Видавець:",
+      "releaseDate": "Дата виходу:",
+      "ageRating": "Віковий рейтинг:",
+      "moreGenres_one": "ще +{{count}}",
+      "moreGenres_other": "ще +{{count}}",
+      "communityRating": "Рейтинг спільноти:",
+      "igdbScore": "Оцінка IGDB",
+      "reviews": "• {{count}} відгуків",
+      "timeToBeat": "Час проходження:",
+      "features": "Особливості:",
+      "moreFeatures": " +{{count}} ще"
+    },
+    "buildHover": {
+      "unknownBuild": "Невідома збірка",
+      "unknownDeveloper": "Невідомий розробник",
+      "size": "Розмір",
+      "version": "Версія",
+      "created": "Створено",
+      "id": "ID: {{id}}"
+    },
+    "multipleOffers": "{{title}} - Кілька пропозицій",
+    "hero": {
+      "subtitle": "Відстежуйте ціни, знаходьте пропозиції та не пропускайте безкоштовні ігри. Ваш помічник для бази даних Epic Games Store — пропозиції, знижки, роздачі, збірки тощо.",
+      "searchPlaceholder": "Пошук у базі даних…",
+      "justReleased": "Щойно вийшли",
+      "priceDrops72h": "Зниження цін (72год)",
+      "hasAchievements": "Має досягнення",
+      "upcoming": "Майбутні",
+      "topSellers": "Найпродаваніші"
+    },
+    "pulse": {
+      "recentActivity": "Недавня активність",
+      "badge": {
+        "new": "Нове",
+        "gone": "Видалено",
+        "offer": "Пропозиція",
+        "build": "Збірка",
+        "item": "Елемент",
+        "asset": "Asset",
+        "xp": "XP",
+        "sandbox": "Sandbox",
+        "change": "Зміна"
+      },
+      "title": {
+        "buildVersion": "Збірка {{version}}",
+        "buildId": "Збірка {{id}}",
+        "achievementsId": "Досягнення {{id}}"
+      },
+      "detail": {
+        "newBuildIndexed": "Нову збірку індексовано",
+        "buildManifestRefreshed": "Маніфест збірки оновлено",
+        "achievementChanges_one": "{{count}} досягнення {{entry}} {{verb}}",
+        "achievementChanges_other": "{{count}} досягнень {{entry}} {{verb}}",
+        "offerMetadataRefreshed": "Метадані пропозиції оновлено",
+        "fieldsChanged_one": "{{count}} поле {{verb}}",
+        "fieldsChanged_other": "{{count}} полів {{verb}}",
+        "fieldChanged": "{{field}} {{verb}}"
+      },
+      "actionVerb": {
+        "added": "додано",
+        "removed": "видалено",
+        "updated": "оновлено",
+        "changed": "змінено"
+      },
+      "entry_one": "запис",
+      "entry_other": "записів"
+    }
+  },
+  "offerDetail": {
+    "common": {
+      "offerNotFound": "Пропозицію не знайдено",
+      "notAvailable": "Недоступно",
+      "na": "Н/Д",
+      "loading": "Завантаження...",
+      "somethingWentWrong": "Щось пішло не так",
+      "noChangesFound": "Для цієї пропозиції змін не знайдено"
+    },
+    "tabs": {
+      "overview": "Огляд",
+      "price": "Ціна",
+      "items": "Елементи",
+      "builds": "Збірки",
+      "achievements": "Досягнення",
+      "related": "Пов'язане",
+      "metadata": "Метадані",
+      "changelog": "Журнал змін",
+      "media": "Медіа",
+      "reviews": "Відгуки"
+    },
+    "table": {
+      "offerId": "ID пропозиції",
+      "namespace": "Namespace",
+      "offerType": "Тип пропозиції",
+      "seller": "Продавець",
+      "developer": "Розробник",
+      "supportedPlatforms": "Підтримувані платформи",
+      "releaseDate": "Дата виходу",
+      "lastUpdate": "Останнє оновлення",
+      "creationDate": "Дата створення",
+      "technologies": "Технології",
+      "type": "Тип",
+      "value": "Значення",
+      "countriesBlacklist": "Чорний список країн",
+      "countriesWhitelist": "Білий список країн",
+      "categories": "Категорії",
+      "refundType": "Тип повернення",
+      "tags": "Теги",
+      "ageRatings": "Вікові рейтинги",
+      "assets": "Assets"
+    },
+    "badges": {
+      "prePurchase": "Передзамовлення",
+      "earlyAccess": "Ранній доступ"
+    },
+    "hero": {
+      "offeredBy": "Пропонується {{seller}}"
+    },
+    "tooltip": {
+      "internalNamespace": "Внутрішній Namespace Epic Games",
+      "techDescription": "список технологій для відстеження використаних рушіїв та різних технологій з ігрових файлів.",
+      "techSource": "Ми використовуємо",
+      "techSourceSteamDb": "SteamDB",
+      "source": "Джерело"
+    },
+    "actions": {
+      "compare": "Порівняти"
+    },
+    "releaseDate": {
+      "releasedOnPc": "Випущено на ПК",
+      "theEgs": " в EGS",
+      "releasedSameDay": "Випущено в Epic того ж дня, що й на ПК"
+    },
+    "notifications": {
+      "title": "Налаштування сповіщень",
+      "description": "Виберіть, які сповіщення ви хочете отримувати для цієї пропозиції.",
+      "all": "Усі",
+      "price": "Ціна",
+      "achievements": "Досягнення",
+      "builds": "Збірки",
+      "items": "Елементи",
+      "requirements": "Вимоги",
+      "metadata": "Метадані",
+      "media": "Медіа",
+      "enablePushDescription": "Вам потрібно ввімкнути push-сповіщення, щоб отримувати сповіщення для цієї пропозиції.",
+      "enablePushAction": "Увімкнути Push-сповіщення"
+    },
+    "overview": {
+      "genres": "Жанри",
+      "ageRating": "Віковий рейтинг",
+      "noAgeRatings": "Вікових рейтингів не знайдено",
+      "giveaways": "Роздачі",
+      "noGiveaways": "Роздач не знайдено",
+      "achievements": "Досягнення",
+      "igdbTimeToBeat": "IGDB Час проходження",
+      "hastily": "Швидко",
+      "normally": "Зазвичай",
+      "completely": "Повністю",
+      "hltbSubmissions_one": "На основі {{count}} подання",
+      "hltbSubmissions_other": "На основі {{count}} подань",
+      "price": "Ціна",
+      "priceCurrent": "Поточна:",
+      "priceLowest": "Найнижча:",
+      "priceLastDiscount": "Остання знижка:",
+      "hltbTitle": "Час проходження",
+      "noGameTimes": "Часів проходження не знайдено",
+      "epicRating": "Рейтинг гравців Epic",
+      "epicRatingDescription": "Отримано від гравців в екосистемі Epic Games",
+      "igdbRating": "Рейтинг IGDB",
+      "igdbReviews_one": "{{count}} відгук",
+      "igdbReviews_other": "{{count}} відгуків"
+    },
+    "achievements": {
+      "title": "Досягнення",
+      "sortBy": "Сортувати за",
+      "defaultSort": "Сортування за замовчуванням",
+      "sortByRarity": "Сортувати за рідкістю",
+      "sortByCompleted": "Сортувати за % виконання",
+      "search": "Пошук",
+      "flipAll": "Перегорнути всі",
+      "noAchievements": "Досягнень не знайдено",
+      "noAchievementsSet": "Для цього набору досягнень не знайдено.",
+      "noAchievementsSetDescription": "Це може означати, що досягнення наразі недоступні, але будуть додані в майбутньому.",
+      "baseGame": "Базова гра",
+      "dlc": "DLC",
+      "achievementsLabel": "Досягнення",
+      "baseGameDescription": "Цей список досягнень для базової гри.",
+      "dlcDescription": "Цей список досягнень для одного з DLC.",
+      "lastUpdated": "Останнє оновлення:",
+      "lastUpdatedTooltip": "Цей набір досягнень востаннє оновлено {{date}}.",
+      "lastUpdatedTooltipDescription": "Це дата його створення або дата останнього оновлення."
+    },
+    "builds": {
+      "title": "Збірки"
+    },
+    "items": {
+      "title": "Елементи"
+    },
+    "price": {
+      "title": "Ціна"
+    },
+    "related": {
+      "title": "Пов'язані пропозиції"
+    },
+    "media": {
+      "images": "Зображення",
+      "videos": "Відео",
+      "covers": "Обкладинки",
+      "noImages": "Зображень не знайдено",
+      "noVideos": "Відео не знайдено",
+      "noCovers": "Обкладинок не знайдено",
+      "download": "Завантажити",
+      "close": "Закрити",
+      "downloadCoverAria": "Завантажити обкладинку {{type}}"
+    },
+    "metadata": {
+      "title": "Метадані",
+      "download": "Завантаження:",
+      "install": "Встановлення:"
+    },
+    "changelog": {
+      "title": "Журнал змін",
+      "tooltip": "Цей список містить зміни, внесені до цієї пропозиції або пов'язаних з нею елементів, асетів чи збірок.",
+      "sandboxChangelog": "журнал змін sandbox",
+      "sandboxChangelogPrefix": "Ви можете переглянути журнал змін для всього продукту в",
+      "noChangelog": "Журнал змін недоступний",
+      "allTypes": "Усі типи",
+      "selectField": "Виберіть поле",
+      "allFields": "Усі поля",
+      "search": "Пошук",
+      "previous": "Назад",
+      "next": "Далі",
+      "pageOf": "Сторінка {{page}} з {{totalPages}}",
+      "typeUpdate": "Оновлення",
+      "typeDelete": "Видалення",
+      "typeInsert": "Вставка"
+    },
+    "reviews": {
+      "epicRating": "Рейтинг гравців Epic",
+      "epicRatingDescription": "Отримано від гравців в екосистемі Epic Games",
+      "egdataRating": "Рейтинг EGDATA",
+      "overallScore": "Загальна оцінка",
+      "scoreOutOf10": "{{score}} / 10",
+      "basedOnReviews": "На основі {{count}} відгуків",
+      "allReviews": "Усі відгуки",
+      "onlyVerified": "Лише перевірені",
+      "notVerified": "Не перевірені",
+      "leaveReview": "Залишити відгук",
+      "alreadyReviewed": "Вже залишено відгук",
+      "loginToReview": "Увійдіть, щоб залишити відгук",
+      "noReviews": "Відгуків ще немає",
+      "notReleased": "Цей продукт ще не випущено",
+      "beFirst": "Будьте першим, хто залишить відгук для цього продукту!",
+      "checkBack": "Повертайтеся після дати виходу, щоб залишити відгук!",
+      "verifiedOwner": "Підтверджений власник",
+      "recommended": "Рекомендую",
+      "notRecommended": "Не рекомендую",
+      "readMore": "Читати далі",
+      "reviewedOn": "Відгук залишено",
+      "lastUpdatedOn": "Останнє оновлення",
+      "editedTimes": "Відредаговано {{count}} разів",
+      "edit": "Редагувати",
+      "close": "Закрити",
+      "reviewCount_one": "{{count}} відгук",
+      "reviewCount_other": "{{count}} відгуків",
+      "ownershipVerification": "Підтвердження власності",
+      "ownershipVerificationDescription": "базується на виконанні гравцем хоча б одного досягнення.",
+      "ownershipVerificationTooltip": "Ми використовуємо досягнення Epic Games для підтвердження власності продукту. Щоб позначити гравця як підтвердженого власника, він має виконати хоча б одне досягнення для вибраного продукту в Epic Games Store. Щоб прив'язати свій обліковий запис до профілю egdata, перейдіть до",
+      "yourDashboard": "вашої панелі",
+      "criticReviews": "Відгуки критиків",
+      "basedOnCriticReviews": "На основі {{count}} відгуків критиків",
+      "opencriticRating": "Рейтинг OpenCritic",
+      "topCriticAverage": "Середній бал критиків",
+      "criticsRecommend": "Критики рекомендують",
+      "opencriticRatingAlt": "Рейтинг OpenCritic"
+    }
+  },
+  "search": {
+    "meta": {
+      "title": "Пошук | egdata.app",
+      "description": "Пошук пропозицій з Epic Games Store."
+    },
+    "defaultTitle": "Пошук",
+    "filters": "Фільтри",
+    "filtersPlaceholder": "Пошук ігор",
+    "pills": {
+      "onSale": "Зі знижкою",
+      "codeRedemptionOnly": "Лише активація коду",
+      "excludeBlockchain": "Виключити Blockchain/NFT",
+      "pastGiveaways": "Минулі роздачі"
+    },
+    "accordion": {
+      "offerType": "Тип пропозиції",
+      "developer": "Розробник",
+      "publisher": "Видавець",
+      "noTags": "Тегів не знайдено",
+      "seller": "Продавець"
+    },
+    "checkboxes": {
+      "pastGiveaways": "Минулі роздачі",
+      "onSale": "Зі знижкою",
+      "codeRedemptionOnly": "Лише активація коду",
+      "excludeBlockchain": "Виключити Blockchain/NFT",
+      "onlyHistoricalLows": "Тільки історичні мінімуми",
+      "onlyLowestPriceEver": "Тільки найнижча ціна за весь час"
+    },
+    "tagGroups": {
+      "event": "Подія",
+      "genre": "Жанр",
+      "epicfeature": "Функція Epic",
+      "accessibility": "Доступність",
+      "feature": "Особливість",
+      "usersay": "Usersay",
+      "subscription": "Підписка",
+      "platform": "Платформа",
+      "all": "Усі теги"
+    },
+    "sort": {
+      "sortBy": "Сортувати за",
+      "sortAriaLabel": "Сортувати пропозиції",
+      "sortDirectionAriaLabel": "Змінити напрямок сортування",
+      "showListView": "Показати списком",
+      "showGridView": "Показати сіткою",
+      "releaseDate": "Дата виходу",
+      "lastModifiedDate": "Дата зміни",
+      "effectiveDate": "Дата набрання чинності",
+      "creationDate": "Дата створення",
+      "viewableDate": "Дата показу",
+      "pcReleaseDate": "Дата виходу на ПК",
+      "upcoming": "Майбутні",
+      "price": "Ціна",
+      "discount": "Знижка",
+      "discountPercent": "Знижка %",
+      "giveawayDate": "Дата роздачі"
+    },
+    "results": {
+      "noResults": "Результатів не знайдено"
+    }
+  },
+  "freebies": {
+    "meta": {
+      "title": "Безкоштовні ігри | egdata.app",
+      "description": "Перегляньте безкоштовні ігри з Epic Games Store."
+    },
+    "headings": {
+      "current": "Поточні безкоштовні ігри",
+      "past": "Минулі безкоштовні ігри",
+      "sellers": "Продавці безкоштовних ігор"
+    },
+    "buttons": {
+      "redeem": "Отримати зараз",
+      "downloadJson": "Завантажити як JSON",
+      "downloadCsv": "Завантажити як CSV",
+      "downloadTxt": "Завантажити як текст"
+    },
+    "placeholders": {
+      "searchSellers": "Пошук продавців..."
+    },
+    "aria": {
+      "downloadList": "Завантажити список"
+    },
+    "errors": {
+      "loadSellers": "Помилка завантаження даних продавців. Спробуйте пізніше."
+    },
+    "table": {
+      "sellerName": "Назва продавця",
+      "totalGames": "Усього окремих ігор"
+    }
+  },
+  "sales": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Перегляньте {{title}} з Epic Games Store."
+    },
+    "metaIndex": {
+      "title": "Активні розпродажі | egdata.app",
+      "description": "Перегляньте активні розпродажі на egdata.app"
+    },
+    "status": {
+      "loading": "Завантаження...",
+      "noData": "Немає даних"
+    },
+    "headings": {
+      "active": "Активні розпродажі",
+      "pastUpcoming": "Минулі / Майбутні розпродажі",
+      "offersList": "Пропозиції «{{title}}»"
+    },
+    "errors": {
+      "notFound": "Акцію не знайдено"
+    },
+    "labels": {
+      "offersCount": "{{count}} пропозицій доступно в цій події"
+    }
+  },
+  "collections": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Перегляньте {{title}} з Epic Games Store."
+    },
+    "metaIndex": {
+      "title": "Колекції | egdata.app",
+      "description": "Колекції на egdata.app"
+    },
+    "headings": {
+      "main": "Колекції"
+    },
+    "description": {
+      "overview": "Найпродаваніші, найпопулярніші та найулюбленіші ігри в Epic Games Store"
+    },
+    "status": {
+      "loading": "Завантаження..."
+    },
+    "errors": {
+      "notFound": "Колекцію не знайдено"
+    },
+    "table": {
+      "position": "Позиція",
+      "variance": "Відхилення",
+      "weeks": "Тижні"
+    },
+    "tooltips": {
+      "variance": "Різниця між поточною та попередньою позицією. Зазвичай змінюється щодня.",
+      "weeks": "Кількість тижнів, протягом яких гра була в топ-100 для {{title}}."
+    },
+    "buttons": {
+      "loadMore": "Завантажити ще"
+    }
+  },
+  "sandboxes": {
+    "notFoundTitle": "Sandbox не знайдено",
+    "notFoundDescription": "Sandbox не знайдено",
+    "unrealEngineTitle": "Unreal Engine",
+    "unavailableTitle": "Sandbox недоступний",
+    "unavailableDescription": "Не вдалося завантажити продукт.",
+    "noProductDataDescription": "Для цього Sandbox немає даних продукту.",
+    "hubEyebrow": "Sandbox",
+    "hubOverviewTitle": "Огляд",
+    "hubOverviewDescription": "Сфокусована карта записів магазину, власності, доставки та оновлень для цього Namespace.",
+    "latestChangesButton": "Останні зміни",
+    "entityOffersLabel": "Пропозиції",
+    "entityOffersDescription": "Записи магазину",
+    "entityItemsLabel": "Елементи",
+    "entityItemsDescription": "Права власності",
+    "entityAssetsLabel": "Assets",
+    "entityAssetsDescription": "Артефакти та медіа",
+    "entityBuildsLabel": "Збірки",
+    "entityBuildsDescription": "Бінарні пакунки",
+    "entityAchievementsLabel": "Досягнення",
+    "entityAchievementsDescription": "Дані прогресу",
+    "entityChangelogLabel": "Журнал змін",
+    "entityChangelogDescription": "Відстежувані оновлення",
+    "viewButton": "Переглянути",
+    "storefrontOffersTitle": "Пропозиції магазину",
+    "storefrontOffersDescription": "Типові записи магазину, знайдені в цьому Sandbox.",
+    "recentBuildsTitle": "Останні збірки",
+    "recentBuildsDescription": "Найновіші бінарні записи.",
+    "latestBadge": "найновіше",
+    "unknownBuildLabel": "Невідома збірка",
+    "recentChangesTitle": "Останні зміни",
+    "recentChangesDescription": "Останні мутації каталогу.",
+    "updateBadge": "оновлення",
+    "changeDefaultLabel": "Зміна",
+    "metaOffersTitle": "Пропозиції",
+    "offersEyebrow": "Електронна комерція",
+    "offersTitle": "Пропозиції",
+    "offersDescription": "Записи магазину в цьому Sandbox, включаючи базові ігри, видання, DLC, доповнення, набори та будь-які пропозиції, які можуть надавати елементи каталогу.",
+    "totalOffersLabel": "Усього пропозицій",
+    "metaAchievementsTitle": "Досягнення",
+    "achievementsEyebrow": "Прогрес",
+    "achievementsTitle": "Досягнення",
+    "achievementsDescription": "Набори досягнень, приховані стани, розподіл рідкості та суми XP, прив'язані до цього Sandbox.",
+    "achievementsSetsLabel": "Набори",
+    "achievementsLabel": "Досягнення",
+    "achievementsXpLabel": "XP",
+    "searchAchievementsPlaceholder": "Пошук досягнень",
+    "flipAllButton": "Перегорнути всі",
+    "revealHiddenAchievementAria": "Показати прихований текст досягнення",
+    "hideHiddenAchievementAria": "Приховати текст прихованого досягнення",
+    "achievementsBaseGameLabel": "Базова гра",
+    "achievementsDlcLabel": "DLC",
+    "achievementsBaseGameTooltip": "Цей список досягнень для базової гри.",
+    "achievementsDlcTooltip": "Цей список досягнень для одного з DLC.",
+    "lastUpdatedLabel": "Останнє оновлення:",
+    "achievementsLastUpdatedTooltip": "Цей набір досягнень востаннє оновлено",
+    "achievementsLastUpdatedTooltipExtra": "Це дата його створення або дата останнього оновлення.",
+    "noAchievementsForSet": "Для цього набору досягнень не знайдено.",
+    "noAchievementsForSetExtra": "Це може означати, що досягнення наразі недоступні, але будуть додані в майбутньому.",
+    "noAchievementsFound": "Досягнень не знайдено",
+    "metaItemsTitle": "Елементи",
+    "itemsEyebrow": "Власність каталогу",
+    "itemsTitle": "Елементи",
+    "itemsDescription": "Елементи каталогу, які можна придбати через пропозиції. Це записи, які стають правами гравця після покупки або активації.",
+    "totalItemsLabel": "Усього елементів",
+    "metaChangelogTitle": "Журнал змін",
+    "changelogEyebrow": "Аудиторський слід",
+    "changelogTitle": "Журнал змін",
+    "changelogDescription": "Спостережувані зміни пропозицій, елементів, асетів, збірок та пов'язаних метаданих у цьому Sandbox.",
+    "totalChangesLabel": "Зміни",
+    "queryTimeLabel": "Час запиту",
+    "noChangelogFound": "Журнал змін не знайдено",
+    "metaBuildsTitle": "Збірки",
+    "buildsEyebrow": "Бінарні файли",
+    "buildsTitle": "Збірки",
+    "buildsDescription": "Версійовані пакунки файлів, завантажені для Sandbox. Збірки призначаються артефактам і визначають, що гравці завантажують через лаунчер.",
+    "totalBuildsLabel": "Усього збірок",
+    "metaAssetsTitle": "Assets",
+    "assetsEyebrow": "Assets та артефакти",
+    "assetsTitle": "Assets",
+    "assetsDescription": "Записи розповсюдження та медіаресурсів, прив'язані до елементів Sandbox, включаючи артефакти, які з'єднують вміст каталогу магазину із завантажуваними збірками.",
+    "totalAssetsLabel": "Усього assets"
+  },
+  "items": {
+    "notFound": "Елемент не знайдено",
+    "badge": "Елемент",
+    "table": {
+      "itemId": "ID елемента",
+      "namespace": "Namespace",
+      "developer": "Розробник",
+      "entitlementType": "Тип права",
+      "entitlementName": "Назва права",
+      "status": "Статус",
+      "creationDate": "Дата створення",
+      "lastModified": "Остання зміна",
+      "platforms": "Платформи"
+    },
+    "tooltip": {
+      "internalNamespace": "Внутрішній Namespace Epic Games"
+    },
+    "tabs": {
+      "item": "Елемент",
+      "assets": "Assets",
+      "images": "Зображення",
+      "builds": "Збірки",
+      "changelog": "Журнал змін"
+    },
+    "metadata": {
+      "title": "Метадані",
+      "key": "Ключ",
+      "value": "Значення"
+    },
+    "assets": {
+      "title": "Assets"
+    },
+    "builds": {
+      "title": "Збірки"
+    },
+    "changelog": {
+      "title": "Журнал змін",
+      "noChangelog": "Журнал змін недоступний"
+    },
+    "images": {
+      "title": "Зображення"
+    }
+  },
+  "builds": {
+    "notFound": "Збірку не знайдено",
+    "build": "Збірка",
+    "for": "для",
+    "compressed": "({{percent}}% стиснення)",
+    "table": {
+      "buildId": "ID збірки",
+      "buildName": "Назва збірки",
+      "appName": "Назва застосунку",
+      "hash": "Хеш",
+      "installedSize": "Розмір після встановлення",
+      "downloadSize": "Розмір завантаження",
+      "createdAt": "Створено",
+      "updatedAt": "Оновлено",
+      "technologies": "Технології"
+    },
+    "tooltip": {
+      "techSource": "Ми використовуємо",
+      "techSourceSteamDb": "SteamDB",
+      "techDescription": "список технологій для відстеження використаних рушіїв та різних технологій з ігрових файлів.",
+      "source": "Джерело"
+    },
+    "tabs": {
+      "files": "Файли",
+      "items": "Елементи",
+      "installOptions": "Параметри встановлення"
+    },
+    "files": {
+      "title": "Файли"
+    },
+    "items": {
+      "title": "Елементи"
+    },
+    "installOptions": {
+      "title": "Параметри встановлення",
+      "file_one": "файл",
+      "file_other": "файли"
+    },
+    "meta": {
+      "title": "{{title}} ({{version}}) | egdata.app",
+      "description": "Збірка {{version}} для {{title}} з Epic Games Store."
+    }
+  },
+  "profile": {
+    "meta": {
+      "notFoundTitle": "Профіль не знайдено",
+      "notFoundDescription": "Профіль не знайдено",
+      "title": "{{name}} | egdata.app",
+      "description": "Перегляньте досягнення та ігри {{name}} на egdata.app",
+      "defaultName": "Профіль",
+      "defaultDescriptionName": "цього гравця"
+    },
+    "errors": {
+      "notFoundTitle": "Профіль не знайдено",
+      "notFoundDescription": "Цей профіль недоступний або ще не був проіндексований.",
+      "unavailableTitle": "Профіль недоступний",
+      "unavailableDescription": "Не вдалося завантажити цей профіль зараз.",
+      "invalidImageFormat": "Невірний формат зображення",
+      "failedToUpload": "Не вдалося завантажити",
+      "uploadFailed": "Завантаження не вдалося",
+      "failedToRefresh": "Не вдалося оновити профіль",
+      "refreshQueued": "Профіль додано до черги на оновлення — незабаром він буде оновлений."
+    },
+    "fallbackName": "Невідомий профіль",
+    "avatar": {
+      "changeAvatar": "Змінити аватар",
+      "dialogDescription": "Завантажте нове зображення профілю.",
+      "previewAlt": "Попередній перегляд аватара",
+      "fallback": "Аватар",
+      "description": "Завантажте нове зображення аватара, макс. 5 МБ.",
+      "uploadingWithProgress": "Завантаження... {{progress}}%",
+      "uploading": "Завантаження...",
+      "updateAvatar": "Оновити аватар",
+      "errorTitle": "Помилка"
+    },
+    "hero": {
+      "joined": "Приєднався",
+      "epicGamesStore": "Epic Games Store",
+      "linkDiscord": "Прив'язати Discord",
+      "refreshProfile": "Оновити профіль",
+      "refreshAvailableIn": "Оновлення доступне через",
+      "level": "Рівень",
+      "achievements": "Досягнення",
+      "unlocked": "Розблоковано",
+      "platinum": "Платина",
+      "perfectGames": "Ідеальні ігри",
+      "library": "Бібліотека",
+      "achievementGames": "Ігри з досягненнями",
+      "reviews": "Відгуки",
+      "contributed": "Залишено",
+      "xpToNextLevel": "{{xp}} XP до рівня {{level}}",
+      "heroGame": "Гра-герой",
+      "complete": "завершено"
+    },
+    "donor": {
+      "donated_one": "{{name}} пожертвував {{count}} ключ до egdata.app",
+      "donated_other": "{{name}} пожертвував {{count}} ключів до egdata.app",
+      "goTo": "Перейти за",
+      "thisLink": "цим посиланням",
+      "toDonateKey": "щоб пожертвувати ключ."
+    },
+    "countdown": {
+      "minutesSeconds_one": "{{minutes}} хвилина {{seconds}} секунда",
+      "minutesSeconds_other": "{{minutes}} хвилини {{seconds}} секунд",
+      "seconds_one": "{{seconds}} секунда",
+      "seconds_other": "{{seconds}} секунд"
+    },
+    "tabs": {
+      "showcase": "Вітрина",
+      "library": "Бібліотека",
+      "activity": "Активність"
+    },
+    "stats": {
+      "games": "{{count}} ігор",
+      "achievements": "{{count}} досягнень",
+      "platinum": "{{count}} платина"
+    },
+    "showcase": {
+      "ariaLabel": "Основні досягнення профілю",
+      "featuredGamesTitle": "Рекомендовані ігри",
+      "featuredGamesDetail": "{{count}} вибрано за продуктивністю профілю",
+      "rareAchievementsTitle": "Рідкісні досягнення",
+      "rareAchievementsDetail": "Важкодоступні розблокування в профілі",
+      "recentUnlocksTitle": "Останні розблокування",
+      "recentUnlocksDetail": "Остання видима активність",
+      "noDataTitle": "Даних вітрини ще немає",
+      "noDataDescription": "У профілях відображаються лише випущені ігри з публічним прогресом досягнень.",
+      "rarestUnlock": "Найрідкісніше розблокування",
+      "definingGame": "Визначальна гра",
+      "latestActivity": "Остання активність",
+      "achievementsCount": "{{unlocked}} / {{total}} досягнень",
+      "platinum": "Платина"
+    },
+    "library": {
+      "filterAriaLabel": "Фільтр бібліотеки",
+      "sortAriaLabel": "Сортувати бібліотеку",
+      "sortByPlaceholder": "Сортувати за",
+      "noGamesTitle": "Ігор не знайдено",
+      "noGamesDescription": "У цій бібліотеці відображаються лише випущені ігри з досягненнями.",
+      "gameAlt": "Гра",
+      "complete": "завершено",
+      "featured": "Рекомендована",
+      "rareUnlocks": "Рідкісні розблокування",
+      "filters": {
+        "all": "Усі",
+        "completed": "Завершені",
+        "nearPlatinum": "Майже платина",
+        "inProgress": "У процесі",
+        "platinum": "Платина"
+      },
+      "sorts": {
+        "completion": "Завершення",
+        "alphabetical": "За алфавітом",
+        "xp": "XP",
+        "achievements": "Досягнення"
+      }
+    },
+    "activity": {
+      "title": "Активність",
+      "detail": "{{count}} розблокованих досягнень",
+      "noActivityTitle": "Активності ще немає",
+      "noActivityDescription": "Розблокування досягнень з'являться тут, коли цей профіль матиме публічний прогрес.",
+      "achievementAlt": "Досягнення",
+      "platinumEarned": "Отримано платину",
+      "achievementUnlocked": "Досягнення розблоковано",
+      "unknownRarity": "Невідома рідкість",
+      "rarity": "{{value}}% рідкість",
+      "unknownDate": "Невідома дата"
+    },
+    "achievements": {
+      "loading": "Завантаження...",
+      "notFound": "Профіль не знайдено",
+      "myAchievements": "Мої досягнення"
+    }
+  },
+  "tags": {
+    "meta": {
+      "notFoundTitle": "Акцію не знайдено",
+      "notFoundDescription": "Акцію не знайдено",
+      "title": "{{title}} | egdata.app",
+      "description": "Перегляньте {{count}} доступних пропозицій для {{title}} на egdata.app.",
+      "socialTitle": "{{title}} - egdata.app"
+    },
+    "loading": "Завантаження...",
+    "offersCount": "{{count}} пропозицій доступно в цій події",
+    "results": "Результати",
+    "resultsCount": "({{count}} результатів)",
+    "searchPlaceholder": "Пошук...",
+    "loadMore": "Завантажити ще",
+    "sortBy": {
+      "releaseDate": "Дата виходу",
+      "lastModifiedDate": "Дата зміни",
+      "effectiveDate": "Дата набрання чинності",
+      "creationDate": "Дата створення",
+      "viewableDate": "Дата показу",
+      "pcReleaseDate": "Дата виходу на ПК",
+      "upcoming": "Майбутні",
+      "price": "Ціна"
+    }
+  },
+  "genres": {
+    "meta": {
+      "title": "Жанри - egdata.app",
+      "description": "Жанри на egdata.app"
+    },
+    "heading": "Жанри"
+  },
+  "sellers": {
+    "meta": {
+      "notFoundTitle": "Продавця не знайдено",
+      "notFoundDescription": "Продавця не знайдено",
+      "title": "{{name}} | egdata.app"
+    },
+    "notFound": "Продавця не знайдено",
+    "logoAlt": "Логотип {{name}}",
+    "bannerAlt": "{{name}}",
+    "offersTitle": "Пропозиції {{name}}",
+    "stats": {
+      "offers": "Пропозицій",
+      "games": "Ігор",
+      "items": "Елементів",
+      "freeGames": "Безкоштовних ігор"
+    }
+  },
+  "franchises": {
+    "meta": {
+      "notFoundTitle": "Франшизу не знайдено",
+      "notFoundDescription": "Франшизу не знайдено",
+      "title": "Франшиза {{name}} | egdata.app",
+      "description": "Перегляньте всі ігри франшизи {{name}} в Epic Games Store."
+    },
+    "loading": "Завантаження...",
+    "gamesCount_one": "{{count}} гра",
+    "gamesCount_other": "{{count}} ігор",
+    "timeToBeat": "Час проходження",
+    "achievements": "Досягнення",
+    "loadMore": "Завантажити ще",
+    "free": "Безкоштовно"
+  },
+  "stats": {
+    "creations": {
+      "meta": {
+        "title": "Статистика створень - egdata.app",
+        "description": "Щомісячна та щорічна динаміка нових створень у Epic Games Store."
+      },
+      "viewReleases": "Переглянути релізи",
+      "heading": "Статистика створень Epic Games Store",
+      "description": "Щомісячна та щорічна динаміка нових створень у магазині.",
+      "monthlyTitle": "Щомісячні створення",
+      "yearlyTitle": "Щорічні створення"
+    },
+    "releases": {
+      "meta": {
+        "title": "Статистика релізів - egdata.app",
+        "description": "Щомісячна та щорічна динаміка нових релізів у Epic Games Store."
+      },
+      "viewCreations": "Переглянути створення",
+      "heading": "Статистика релізів Epic Games Store",
+      "description": "Щомісячна та щорічна динаміка нових релізів у магазині.",
+      "monthlyTitle": "Щомісячні релізи",
+      "yearlyTitle": "Щорічні релізи"
+    }
+  },
+  "store": {
+    "creatorCode": {
+      "title": "Підтримайте egdata.app",
+      "description": "Бажаєте підтримати egdata.app, використовуючи наш код творця під час покупки ігор? Цей вибір запам'ятається для майбутніх візитів.",
+      "body": "Використання нашого коду творця допомагає підтримувати розробку egdata.app та його функцій. Це не впливає на ціну, яку ви платите.",
+      "noThanks": "Ні, дякую",
+      "yesUseCode": "Так, використати код"
+    }
+  },
+  "dashboard": {
+    "placeholder": "Привіт /dashboard!"
+  },
+  "auth": {
+    "login": {
+      "placeholder": "Привіт /auth/login!"
+    },
+    "callback": {
+      "placeholder": "Привіт /auth/callback!"
+    },
+    "logout": {
+      "placeholder": "Привіт /auth/logout!"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "Про нас - egdata.app",
+      "description": "Про egdata.app"
+    },
+    "title": "Про нас",
+    "intro": "egdata.app — це вебсайт, створений спільнотою, присвячений відстеженню та наданню інформації про Epic Games Store. Подібно до SteamDB для Steam, ми прагнемо запропонувати вичерпний ресурс для користувачів, щоб досліджувати зміни, відкривати нові ігри та бути в курсі останніх подій на платформі.",
+    "missionTitle": "Наша місія",
+    "missionBody": "Наша місія — забезпечити прозорість та розуміння екосистеми Epic Games Store. Ми віримо, що, збираючи та представляючи дані в доступний спосіб, ми можемо допомогти користувачам приймати обґрунтовані рішення щодо покупок ігор і сприяти кращому розумінню платформи.",
+    "featuresTitle": "Можливості",
+    "features": {
+      "trackPrices": "Відстежуйте зміни цін та історичні дані ігор",
+      "upcomingReleases": "Переглядайте майбутні релізи та безкоштовні акції",
+      "gameDetails": "Досліджуйте деталі ігор, рейтинги та відгуки користувачів",
+      "analyzeTrends": "Аналізуйте тенденції та закономірності в Epic Games Store"
+    },
+    "communityTitle": "Спільнота",
+    "communityBody": "egdata.app створено та підтримується активною спільнотою гравців і розробників. Ми вітаємо внесок усіх, хто хоче допомогти покращити вебсайт і зробити його цінним ресурсом для всіх. Зв'яжіться з нами, якщо у вас є відгуки, пропозиції або бажання долучитися.",
+    "sourceCodeIntro": "Весь вихідний код egdata.app доступний на",
+    "github": "GitHub",
+    "notTitle": "Чим egdata.app НЕ є",
+    "notIntro": "Важливо зазначити, що egdata.app не є:",
+    "notList": {
+      "affiliated": "Пов'язаний з Epic Games: Ми є незалежним проєктом спільноти, який не підтримується офіційно та не пов'язаний з Epic Games.",
+      "storefront": "Магазином: Ми не продаємо ігри та не надаємо можливостей покупки. Наша мета — надавати інформацію та дані про Epic Games Store.",
+      "piracy": "Платформою для піратства: Ми рішуче засуджуємо піратство та не надаємо жодних засобів для незаконного доступу або розповсюдження захищеного авторським правом контенту."
+    },
+    "fairUseTitle": "Політика добросовісного використання",
+    "fairUseBody": "egdata.app зобов'язується дотримуватися принципів добросовісного використання згідно із законодавством про авторське право. Ми надаємо інформацію та дані виключно в інформаційних цілях, прагнучи навчати та інформувати громадськість про ігри, доступні в Epic Games Store.",
+    "fairUseFactorsTitle": "Ключові фактори, що виправдовують добросовісне використання:",
+    "fairUseFactors": {
+      "nonCommercial": "Некомерційна, освітня мета:",
+      "nonCommercialBody": "Наш вебсайт є некомерційним і прагне підвищити обізнаність громадськості про ігри Epic Games Store.",
+      "factual": "Фактична інформація:",
+      "factualBody": "Ми переважно надаємо фактичні дані, такі як назви ігор, дати виходу та розробників, які менше захищені авторським правом.",
+      "limited": "Обмежене використання:",
+      "limitedBody": "Ми використовуємо лише необхідний обсяг даних для надання значущої інформації, не замінюючи оригінальні твори.",
+      "noMarketHarm": "Відсутність шкоди ринку:",
+      "noMarketHarmBody": "Наше використання не впливає негативно на ринок оригінальних ігор; навпаки, воно може сприяти їх просуванню через підвищення зацікавленості користувачів."
+    },
+    "autoTrackBody": "Ми автоматично відстежуємо та оновлюємо дані з загальнодоступних джерел, включаючи Epic Games Store. Ми завантажуємо графічні ресурси безпосередньо з їхніх серверів і не зберігаємо їх.",
+    "leakedDataTitle": "Застереження щодо витоку даних:",
+    "leakedDataBody": "Будь-які дані, які можуть здатися витіклими на нашому сайті, походять із загальнодоступної інформації Epic Games Store. Ми не маємо доступу до конфіденційних даних. Видавці відповідають за захист своєї конфіденційної інформації в",
+    "epicDevPortal": "порталі розробників Epic Games",
+    "euDirectivesIntro": "Розробляючи нашу Політику добросовісного використання, ми врахували принципи, викладені в наступних директивах ЄС щодо авторського права:",
+    "euDirective1": "Директива (ЄС) 2019/790 про авторське право та суміжні права на цифровому єдиному ринку",
+    "euDirective2": "Запитання та відповіді – Нові правила ЄС щодо авторського права",
+    "fairUseContact": "Якщо у вас є запитання щодо нашої Політики добросовісного використання або ви вважаєте, що якийсь вміст порушує ваші авторські права, зв'яжіться з нами:",
+    "contactTitle": "Зв'яжіться з нами",
+    "contactBody": "Ви можете зв'язатися з нами через"
+  },
+  "changelog": {
+    "index": {
+      "meta": {
+        "title": "Журнал змін | egdata.app"
+      },
+      "searchPlaceholder": "Пошук у журналі змін...",
+      "searchButton": "Пошук",
+      "loading": "Завантаження...",
+      "error": "Помилка отримання даних"
+    },
+    "detail": {
+      "meta": {
+        "title": "Деталі зміни | egdata.app"
+      },
+      "loading": "Завантаження...",
+      "error": "Помилка завантаження деталей зміни",
+      "notFound": "Зміну не знайдено"
+    }
+  },
+  "privacy": {
+    "title": "Про нас",
+    "intro": "egdata.app — це вебсайт, створений спільнотою, присвячений відстеженню та наданню інформації про Epic Games Store. Подібно до SteamDB для Steam, ми прагнемо запропонувати вичерпний ресурс для користувачів, щоб досліджувати зміни, відкривати нові ігри та бути в курсі останніх подій на платформі.",
+    "missionTitle": "Наша місія",
+    "missionBody": "Наша місія — забезпечити прозорість та розуміння екосистеми Epic Games Store. Ми віримо, що, збираючи та представляючи дані в доступний спосіб, ми можемо допомогти користувачам приймати обґрунтовані рішення щодо покупок ігор і сприяти кращому розумінню платформи.",
+    "featuresTitle": "Можливості",
+    "features": {
+      "trackPrices": "Відстежуйте зміни цін та історичні дані ігор",
+      "upcomingReleases": "Переглядайте майбутні релізи та безкоштовні акції",
+      "gameDetails": "Досліджуйте деталі ігор, рейтинги та відгуки користувачів",
+      "analyzeTrends": "Аналізуйте тенденції та закономірності в Epic Games Store"
+    },
+    "communityTitle": "Спільнота",
+    "communityBody": "egdata.app створено та підтримується активною спільнотою гравців і розробників. Ми вітаємо внесок усіх, хто хоче допомогти покращити вебсайт і зробити його цінним ресурсом для всіх. Зв'яжіться з нами, якщо у вас є відгуки, пропозиції або бажання долучитися.",
+    "sourceCodeIntro": "Весь вихідний код egdata.app доступний на",
+    "github": "GitHub",
+    "notTitle": "Чим egdata.app НЕ є",
+    "notIntro": "Важливо зазначити, що egdata.app не є:",
+    "notList": {
+      "affiliated": "Пов'язаний з Epic Games: Ми є незалежним проєктом спільноти, який не підтримується офіційно та не пов'язаний з Epic Games.",
+      "storefront": "Магазином: Ми не продаємо ігри та не надаємо можливостей покупки. Наша мета — надавати інформацію та дані про Epic Games Store.",
+      "piracy": "Платформою для піратства: Ми рішуче засуджуємо піратство та не надаємо жодних засобів для незаконного доступу або розповсюдження захищеного авторським правом контенту."
+    },
+    "fairUseTitle": "Політика добросовісного використання",
+    "fairUseBody": "egdata.app зобов'язується дотримуватися принципів добросовісного використання згідно із законодавством про авторське право. Ми надаємо інформацію та дані виключно в інформаційних цілях, прагнучи навчати та інформувати громадськість про ігри, доступні в Epic Games Store.",
+    "fairUseFactorsTitle": "Ключові фактори, що виправдовують добросовісне використання:",
+    "fairUseFactors": {
+      "nonCommercial": "Некомерційна, освітня мета:",
+      "nonCommercialBody": "Наш вебсайт є некомерційним і прагне підвищити обізнаність громадськості про ігри Epic Games Store.",
+      "factual": "Фактична інформація:",
+      "factualBody": "Ми переважно надаємо фактичні дані, такі як назви ігор, дати виходу та розробників, які менше захищені авторським правом.",
+      "limited": "Обмежене використання:",
+      "limitedBody": "Ми використовуємо лише необхідний обсяг даних для надання значущої інформації, не замінюючи оригінальні твори.",
+      "noMarketHarm": "Відсутність шкоди ринку:",
+      "noMarketHarmBody": "Наше використання не впливає негативно на ринок оригінальних ігор; навпаки, воно може сприяти їх просуванню через підвищення зацікавленості користувачів."
+    },
+    "autoTrackBody": "Ми автоматично відстежуємо та оновлюємо дані з загальнодоступних джерел, включаючи Epic Games Store. Ми завантажуємо графічні ресурси безпосередньо з їхніх серверів і не зберігаємо їх.",
+    "leakedDataTitle": "Застереження щодо витоку даних:",
+    "leakedDataBody": "Будь-які дані, які можуть здатися витіклими на нашому сайті, походять із загальнодоступної інформації Epic Games Store. Ми не маємо доступу до конфіденційних даних. Видавці відповідають за захист своєї конфіденційної інформації в",
+    "epicDevPortal": "порталі розробників Epic Games",
+    "euDirectivesIntro": "Розробляючи нашу Політику добросовісного використання, ми врахували принципи, викладені в наступних директивах ЄС щодо авторського права:",
+    "euDirective1": "Директива (ЄС) 2019/790 про авторське право та суміжні права на цифровому єдиному ринку",
+    "euDirective2": "Запитання та відповіді – Нові правила ЄС щодо авторського права",
+    "fairUseContact": "Якщо у вас є запитання щодо нашої Політики добросовісного використання або ви вважаєте, що якийсь вміст порушує ваші авторські права, зв'яжіться з нами:",
+    "contactTitle": "Зв'яжіться з нами",
+    "contactBody": "Ви можете зв'язатися з нами через"
+  },
+  "notifications": {
+    "meta": {
+      "title": "Сповіщення - egdata.app",
+      "description": "Налаштовуйте та керуйте push-сповіщеннями для оновлень Epic Games Store, релізів ігор тощо."
+    },
+    "title": "Сповіщення",
+    "description": "Налаштовуйте та керуйте push-сповіщеннями для оновлень Epic Games Store, релізів ігор та персоналізованих попереджень.",
+    "tabs": {
+      "notifications": "Сповіщення",
+      "mySubscriptions": "Мої підписки"
+    },
+    "aboutPushTitle": "Про Push-сповіщення",
+    "aboutPushDescription": "Дізнайтеся більше про те, як працюють push-сповіщення на EGData.",
+    "whatYoullReceive": "Що ви отримуватимете:",
+    "receiveList": {
+      "freeGames": "Анонси нових безкоштовних ігор",
+      "releases": "Сповіщення про вихід ігор",
+      "priceDrops": "Сповіщення про зниження цін для ігор зі списку бажань",
+      "news": "Новини та оновлення Epic Games Store",
+      "custom": "Сповіщення на основі користувацьких тем"
+    },
+    "privacySecurity": "Конфіденційність та безпека:",
+    "privacyList": {
+      "apiKey": "Ваш API-ключ безпечно зберігається в файлах cookie браузера",
+      "onlySubscribed": "Ми надсилаємо лише ті сповіщення, на які ви підписалися",
+      "unsubscribe": "Ви можете відписатися в будь-який час",
+      "noPersonalData": "Не потрібні персональні дані, окрім вашого API-ключа"
+    },
+    "browserSupport": "Підтримка браузерів:",
+    "browserSupportBody": "Push-сповіщення підтримуються в сучасних браузерах, включаючи Chrome, Firefox, Safari та Edge. Переконайтеся, що ви дозволили сповіщення, коли браузер запитає.",
+    "subscriptionOverview": "Огляд підписок",
+    "totalSubscribed": "Усього підписаних тем: {{count}}",
+    "notSubscribedApi": "API-ключ не підписаний на push-сповіщення",
+    "notSubscribedTitle": "Не підписано",
+    "notSubscribedBody": "Ваш API-ключ не підписаний на push-сповіщення. Спочатку скористайтеся вкладкою «Налаштувати та підписатися».",
+    "subscriptionId": "Підписка {{id}}",
+    "created": "Створено:",
+    "subscribedTopics": "Підписані теми:",
+    "noTopics": "Немає підписаних тем",
+    "lastUpdated": "Останнє оновлення:",
+    "noSubscriptionsTitle": "Підписок не знайдено",
+    "noSubscriptionsBody": "Ви підписані, але ще не створили жодної підписки пристрою. Скористайтеся вкладкою «Налаштувати та підписатися», щоб створити першу підписку.",
+    "fetchError": "Не вдалося отримати підписки. Спробуйте ще раз.",
+    "push": {
+      "title": "Push-сповіщення",
+      "notSupported": "Push-сповіщення не підтримуються в цьому браузері.",
+      "setApiKey": "Будь ласка, встановіть ваш API-ключ, щоб увімкнути push-сповіщення.",
+      "manage": "Керуйте налаштуваннями push-сповіщень.",
+      "unsubscribe": "Відписатися",
+      "subscribe": "Підписатися",
+      "subscribed": "Підписано",
+      "notSubscribed": "Не підписано",
+      "subscribeToTopic": "Підписатися на тему",
+      "topicPlaceholder": "Введіть назву теми (напр., game-updates)",
+      "subscribedTopics": "Підписані теми",
+      "clickToUnsubscribe": "Натисніть на тему, щоб відписатися"
+    },
+    "simple": {
+      "title": "Push-сповіщення",
+      "notSupported": "Push-сповіщення не підтримуються в цьому браузері.",
+      "subscribedDesc": "Ви підписані на {{count}} тем сповіщень",
+      "notSubscribedDesc": "Отримуйте сповіщення про оновлення Epic Games Store, безкоштовні ігри тощо",
+      "subscribeToNotifications": "Підписатися на сповіщення",
+      "unsubscribe": "Відписатися",
+      "chooseWhat": "Виберіть, про що ви хочете отримувати сповіщення:",
+      "freeGames": "Безкоштовні ігри",
+      "freeGamesDesc": "Отримуйте сповіщення про нові безкоштовні ігри",
+      "newReleases": "Нові релізи",
+      "newReleasesDesc": "Сповіщення про нові релізи ігор",
+      "priceDrops": "Зниження цін",
+      "priceDropsDesc": "Отримуйте сповіщення про знижки на ігри",
+      "youWillReceive": "Ви отримуватимете сповіщення для:",
+      "subscribedTo": "Підписано на {{name}}",
+      "unsubscribedFrom": "Відписано від {{name}}",
+      "failedSubscribe": "Не вдалося підписатися на сповіщення",
+      "failedUnsubscribe": "Не вдалося відписатися від сповіщень",
+      "failedTopicSubscribe": "Не вдалося підписатися на тему",
+      "failedTopicUnsubscribe": "Не вдалося відписатися від теми",
+      "successSubscribe": "Успішно підписано на сповіщення!",
+      "successUnsubscribe": "Успішно відписано від сповіщень"
+    },
+    "apiKey": {
+      "title": "Керування API-ключем",
+      "label": "API-ключ",
+      "placeholderGenerated": "API-ключ згенеровано",
+      "placeholderNone": "API-ключ не згенеровано",
+      "regenerate": "Перегенерувати ключ",
+      "generate": "Згенерувати ключ",
+      "clear": "Очистити ключ",
+      "generated": "Новий API-ключ успішно згенеровано!",
+      "copied": "API-ключ скопійовано в буфер обміну!",
+      "cleared": "API-ключ успішно очищено!",
+      "failedGenerate": "Не вдалося згенерувати API-ключ",
+      "failedCopy": "Не вдалося скопіювати API-ключ",
+      "failedClear": "Не вдалося очистити API-ключ",
+      "noneToCopy": "Немає API-ключа для копіювання",
+      "description": "Ваш API-ключ — це UUID, що зберігається локально у вашому браузері та використовується для автентифікації запитів push-сповіщень. Використовуйте кнопку перегенерації, щоб створити новий ключ, якщо потрібно."
+    }
+  },
+  "promotions": {
+    "placeholder": "Привіт /promotions/$id!"
+  },
+  "misc": {
+    "gameAwards": {
+      "meta": {
+        "title": "Висвітлення The Game Awards | egdata.app",
+        "description": "Останні ігри, анонсовані та номіновані на The Game Awards, що з'являться в Epic Games Store."
+      },
+      "logoAlt": "The Game Awards 2025",
+      "subtitle": "Ігри, анонсовані або номіновані на The Game Awards, що з'являться в Epic Games Store",
+      "videoTitle": "The Game Awards 2024 - Прямий ефір",
+      "expandPlayer": "Розгорнути плеєр",
+      "closeMiniPlayer": "Закрити мініплеєр",
+      "noGamesTitle": "Ігор ще не анонсовано",
+      "noGamesBody": "Повертайтеся після The Game Awards!"
+    },
+    "downloads": {
+      "title": "Релізи клієнта egdata.app",
+      "description": "Завантажте останню версію. Ми виділили рекомендований розділ для вашої операційної системи.",
+      "errorPrefix": "Помилка:",
+      "noPublicReleases": "Публічних релізів не знайдено.",
+      "recommended": "Рекомендовано",
+      "downloadsSuffix": "Завантаження",
+      "versionPublished": "Версія {{version}} — Опубліковано {{date}}",
+      "assetInfo": {
+        "appleSilicon": "Для новіших комп'ютерів Mac з чипами Apple (M1, M2, M3 тощо).",
+        "intel": "Для старіших комп'ютерів Mac з процесорами Intel.",
+        "universal": "Сумісно з Apple Silicon та Intel Mac.",
+        "msi": "Стандартний майстер встановлення. Рекомендовано для більшості користувачів.",
+        "exe": "Окремий файл застосунку. Може не вимагати встановлення.",
+        "linux": "Для операційних систем на базі Linux.",
+        "generic": "Загальний файл або вихідний код."
+      }
+    },
+    "discordLinked": {
+      "title": "Обліковий запис успішно прив'язано!",
+      "body": "Ваш обліковий запис Discord успішно прив'язано до egdata.app",
+      "footer": "Тепер ви можете закрити це вікно та повернутися до Discord. Ваш обліковий запис готовий до використання з egdata.app"
+    },
+    "posts": {
+      "coverAlt": "Обкладинка LEGO Star Wars: The Skywalker Saga",
+      "title": "Отримайте LEGO® Star Wars™: The Skywalker Saga БЕЗКОШТОВНО в Epic Games Store",
+      "freeGameBadge": "Безкоштовна гра",
+      "published": "Опубліковано 30 листопада 2023 р.",
+      "intro": "Позначте в календарі, фанати Star Wars! З {{dateRange}} ви можете отримати визнану критиками {{game}} БЕЗКОШТОВНО в Epic Games Store. Ця гра, яка зазвичай коштує {{price}}, дозволяє пережити знакові моменти {{saga}} з веселим LEGO-твістом.",
+      "dateRange": "5 грудня по 12 грудня 2024 р.",
+      "game": "LEGO® Star Wars™: The Skywalker Saga",
+      "price": "$49.99",
+      "saga": "Саги Скайвокерів",
+      "gameplayAlt": "Геймплей LEGO Star Wars",
+      "charactersAlt": "Персонажі LEGO Star Wars",
+      "whatToExpect": "🧩 Чого очікувати?",
+      "whatToExpectBody": "Розроблена {{developer}} і видана {{publisher}}, ця гра пропонує всеосяжний досвід Star Wars, як ніяка інша. Ось що робить її обов'язковою до проходження:",
+      "developer": "TT Games",
+      "publisher": "Warner Bros.",
+      "expectList": {
+        "allMovies": "🌌 {{strong}}: Переживіть сюжетні лінії всіх дев'яти фільмів саги Скайвокерів, наповнені класичним гумором LEGO.",
+        "allMoviesStrong": "Усі 9 фільмів",
+        "characters": "🛸 {{strong}}: Керуйте улюбленими героями та лиходіями з далекої-далекої галактики.",
+        "charactersStrong": "300+ ігрових персонажів",
+        "vehicles": "🚀 {{strong}}: Літайте на культових кораблях, як-от Тисячолітній Сокіл та TIE-винищувачі.",
+        "vehiclesStrong": "100+ транспортів",
+        "planets": "🌍 {{strong}}: Подорожуйте знайомими світами від Татуїна до Ендора та далі.",
+        "planetsStrong": "23 планети для дослідження"
+      },
+      "specialTitle": "🌟 Що робить цю гру особливою?",
+      "specialBody": "Від релізу в {{releaseDate}} LEGO Star Wars: The Skywalker Saga отримала похвалу за захопливий геймплей і вірну адаптацію всесвіту Star Wars. З {{metascore}} на Metacritic критики та фанати відзначили:",
+      "releaseDate": "квітень 2022 р.",
+      "metascore": "82 бали Metascore",
+      "specialList": {
+        "combat": "🎮 {{strong}}: Битви на світлових мечах, перестрілки з бластерів та космічні бої.",
+        "combatStrong": "Динамічний бій",
+        "charm": "🏗️ {{strong}}: Класичний гумор Star Wars, переосмислений в унікальному стилі LEGO.",
+        "charmStrong": "Чарівність LEGO",
+        "replayability": "🤯 {{strong}}: Безліч колекційних предметів, побічних місій та прихованих секретів.",
+        "replayabilityStrong": "Реплеябельність"
+      },
+      "howToClaim": "🎁 Як отримати?",
+      "howToClaimBody": "Отримати безкоштовну копію легко!",
+      "step1": "Відвідайте {{storeLink}} з {{dec5}} по {{dec12}}.",
+      "storeLink": "Epic Games Store",
+      "dec5": "5 грудня",
+      "dec12": "12 грудня 2024 р.",
+      "step2": "Додайте гру до бібліотеки.",
+      "step3": "Вона залишиться з вами назавжди!",
+      "cardTitle": "Не пропустіть нагоду вирушити в LEGO-подорож галактикою!",
+      "cardBody": "Чи ви затятий фанат Star Wars, чи новачок, ця гра пропонує безмежну радість для всіх.",
+      "footer": "Нехай Сила (і цеглинки LEGO) буде з вами! 🧱✨"
+    },
+    "fairUse": {
+      "meta": {
+        "title": "Політика добросовісного використання - egdata.app",
+        "description": "Політика добросовісного використання egdata.app"
+      },
+      "title": "Політика добросовісного використання EGData App",
+      "section1Title": "1. Вступ",
+      "section1Body": "Ласкаво просимо до EGData App (\"ми\", \"нас\"). Ця Політика добросовісного використання описує умови, на яких ви можете використовувати вміст і дані, надані на нашому вебсайті {{siteLink}} (\"Сайт\").",
+      "section2Title": "2. Мета добросовісного використання",
+      "section2Body": "Вміст і дані в EGData App надаються виключно в інформаційних цілях. Наша мета — запропонувати повну базу даних ігор (або пов'язаних з іграми даних), доступних в Epic Games Store, для освітнього та довідкового використання спільнотою.",
+      "section3Title": "3. Дотримання добросовісного використання",
+      "section3Body": "EGData App дотримується принципів добросовісного використання згідно із законодавством про авторське право, надаючи інформацію та дані таким чином, що приносить користь громадськості без порушення прав власників вмісту. Ось ключові фактори, що виправдовують наше використання як добросовісне:",
+      "section3List": {
+        "purpose": "Мета та характер використання:",
+        "purposeBody": "Наш вебсайт є некомерційним і має на меті навчати та інформувати громадськість про ігри, доступні в Epic Games Store. Ми надаємо критичну інформацію, огляди та оновлення, підвищуючи обізнаність та оцінку цих ігор.",
+        "nature": "Характер захищеної роботи:",
+        "natureBody": "Дані, які ми збираємо та представляємо, складаються з фактичної інформації, такої як назви ігор, дати виходу, розробники та оновлення. Фактична інформація менше захищена законом про авторське право, ніж творчі роботи.",
+        "amount": "Обсяг та суттєвість:",
+        "amountBody": "Ми використовуємо лише той обсяг даних, який необхідний для надання значущої та релевантної інформації нашим користувачам. Ми не відтворюємо цілі твори та не надаємо великих витягів, які могли б замінити оригінальні продукти.",
+        "effect": "Вплив на ринок:",
+        "effectBody": "Наше використання ігрових даних не впливає негативно на ринок оригінальних ігор. Навпаки, воно сприяє розвитку цих ігор, надаючи актуальну інформацію та стимулюючи залученість та інтерес користувачів."
+      },
+      "section4Title": "4. Збір та оновлення даних",
+      "section4Body1": "Наш Сайт автоматично відстежує та оновлює ігрові дані, щоб гарантувати, що інформація, яку ми надаємо, є актуальною та точною. Цей автоматизований процес передбачає збір загальнодоступної інформації з Epic Games Store та інших надійних джерел.",
+      "section4Body2": "Підтримуючи нашу базу даних актуальною, ми гарантуємо, що користувачі мають доступ до найновішої інформації про свої улюблені ігри, включаючи нові релізи, оновлення та зміни в доступності.",
+      "section4Body3": "Щодо графічних ресурсів, ми завантажуємо зображення безпосередньо з серверів Epic Games Store. Ми не зберігаємо жодних зображень на наших серверах.",
+      "section5Title": "5. Застереження щодо витоку даних",
+      "section5Body1": "Будь-які дані, які можуть здатися витіклими на нашому Сайті, походять із загальнодоступної інформації, наданої Epic Games Store. Ми не маємо доступу до конфіденційних даних, які не є загальнодоступними. Тому видавці несуть відповідальність за захист своїх майбутніх інтелектуальних власностей (ІВ), ігор, завантажуваного вмісту (DLC) та іншої конфіденційної інформації в порталі розробників Epic Games.",
+      "section5Body2": "Видавцям рекомендується забезпечити належний захист конфіденційної інформації та не допустити її ненавмисного оприлюднення. EGData App не несе відповідальності за будь-яку витіклу інформацію, отриману з загальнодоступних джерел.",
+      "section5Body3": "Для отримання додаткової інформації про захист даних та добросовісне використання в Європейському Союзі зверніться до наступних ресурсів:",
+      "euDirective1": "Директива (ЄС) 2019/790 про авторське право та суміжні права на цифровому єдиному ринку",
+      "euDirective2": "Запитання та відповіді – Нові правила ЄС щодо авторського права",
+      "section6Title": "6. Зв'яжіться з нами",
+      "section6Body": "Якщо у вас є запитання щодо цієї Політики добросовісного використання або ви вважаєте, що будь-який вміст чи дані на нашому Сайті порушують ваші авторські права, зв'яжіться з нами:",
+      "email": "Електронна пошта:"
+    },
+    "donateKey": {
+      "title": "Пожертвувати ключ",
+      "body": "Якщо у вас є ключ, який ви хотіли б пожертвувати проєкту, будь ласка, заповніть форму нижче."
+    },
+    "androidBeta": {
+      "meta": {
+        "title": "Android Beta - egdata.app",
+        "description": "Приєднуйтеся до програми закритого бета-тестування Android-застосунку egdata.app"
+      },
+      "title": "Програма Android Beta",
+      "description": "Приєднуйтеся до нашого закритого бета-тестування, щоб випробувати Android-застосунок egdata.app до публічного релізу.",
+      "whatHappensNext": "Що далі?",
+      "steps": {
+        "signIn": "Увійдіть за допомогою облікового запису Google",
+        "added": "Вас буде додано до закритого тестування протягом кількох годин",
+        "download": "Після додавання ви зможете завантажити застосунок за наданим посиланням"
+      }
+    }
+  },
+  "components": {
+    "stats": {
+      "title": "Статистика",
+      "description": "Статистика про платформу",
+      "offers": "Пропозицій",
+      "offersTooltip": "Пропозиція — це товар, який можна придбати в магазині",
+      "items": "Елементів",
+      "itemsTooltip": "Елемент — це право (entitlement) для лаунчера",
+      "tags": "Теги",
+      "offersYear": "Пропозицій (Рік)",
+      "itemsYear": "Елементів (Рік)",
+      "assets": "Assets",
+      "assetsTooltip": "Asset — це ігрові файли",
+      "regPrices": "Звич. ціни",
+      "changes": "Зміни",
+      "sandboxes": "Sandboxes",
+      "sandboxesTooltip": "Sandbox — це група пропозицій"
+    },
+    "sandboxShell": {
+      "overview": "Огляд",
+      "offers": "Пропозиції",
+      "items": "Елементи",
+      "assets": "Assets",
+      "builds": "Збірки",
+      "achievements": "Досягнення",
+      "changelog": "Журнал змін",
+      "sandbox": "Sandbox",
+      "internalNamespace": "Внутрішній Namespace",
+      "storePage": "Сторінка магазину",
+      "updated": "Оновлено {{date}}",
+      "unrealEngine": "Unreal Engine",
+      "internalSandbox": "Внутрішній Sandbox",
+      "releaseStatus": {
+        "prePurchase": "Передзамовлення",
+        "datePending": "Дата очікується",
+        "comingSoon": "Незабаром",
+        "released": "Випущено"
+      }
+    },
+    "comparison": {
+      "openCompareTray": "Відкрити панель порівняння, вибрано {{count}}",
+      "compareSelected": "Порівняти вибрані пропозиції",
+      "error": "Помилка",
+      "type": "Тип",
+      "seller": "Продавець",
+      "developer": "Розробник",
+      "releaseDate": "Дата виходу",
+      "pcReleaseDate": "Дата виходу на ПК",
+      "genres": "Жанри",
+      "platforms": "Платформи",
+      "remove": "Видалити",
+      "current": "Поточна",
+      "lowest": "Найнижча",
+      "noPriceFound": "Ціну не знайдено",
+      "noAgeRatingsFound": "Вікових рейтингів не знайдено",
+      "achievements": "Досягнення:",
+      "ageRating": "Віковий рейтинг:",
+      "price": "Ціна:",
+      "unknown": "Невідомо"
+    },
+    "search": {
+      "sellers": "Продавці",
+      "noResults": "Результатів не знайдено",
+      "noResultsShort": "Результатів не знайдено.",
+      "allOfferTypes": "Усі типи пропозицій",
+      "tags": "Теги"
+    },
+    "changelist": {
+      "title": "Список змін",
+      "loading": "Завантаження...",
+      "error": "Помилка: {{message}}",
+      "id": "ID",
+      "type": "Тип",
+      "titleOrId": "Назва/ID",
+      "date": "Дата",
+      "new": "нове",
+      "update": "оновлення"
+    },
+    "upcoming": {
+      "caption": "Майбутні пропозиції",
+      "loading": "Завантаження...",
+      "title": "Назва",
+      "price": "Ціна",
+      "releaseDate": "Дата виходу",
+      "unknown": "Невідомо",
+      "prePurchase": "Передзамовлення"
+    },
+    "giveaways": {
+      "title": "Роздачі",
+      "free": "Безкоштовно",
+      "freeNow": "Безкоштовно зараз",
+      "startsIn": "Починається через",
+      "repeated": "Повторюється:",
+      "yes": "Так",
+      "no": "Ні",
+      "repeatedTooltip": "Цю пропозицію дарували {{count}} разів."
+    },
+    "giveawayStats": {
+      "title": "Роздачі в цифрах",
+      "loading": "Завантаження...",
+      "totalValue": "Загальна вартість",
+      "totalValueTooltip": "Загальна вартість, включаючи активні знижки",
+      "giveaways": "Роздачі",
+      "giveawaysTooltip": "Загальна кількість роздач у базі даних",
+      "offers": "Пропозиції",
+      "offersTooltip": "Загальна кількість унікальних пропозицій у роздачах",
+      "repeated": "Повторювані",
+      "repeatedTooltip": "Кількість унікальних пропозицій, які з'являються кілька разів у роздачах",
+      "sellers": "Продавці",
+      "sellersTooltip": "Загальна кількість унікальних продавців пропозицій"
+    },
+    "offerCard": {
+      "openOffer": "Відкрити пропозицію {{title}}",
+      "free": "Безкоштовно",
+      "comingSoon": "Незабаром",
+      "earlyAccess": "Ранній доступ",
+      "prePurchase": "Передзамовлення",
+      "owned": "у власності"
+    },
+    "baseGame": {
+      "checkBaseGame": "Переглянути базову гру",
+      "partOfBundle": "Ця пропозиція є частиною"
+    },
+    "notFound": {
+      "message": "Сторінка, яку ви шукаєте, не існує."
+    },
+    "sellerOffers": {
+      "error": "Помилка завантаження пропозицій. Спробуйте ще раз.",
+      "moreFrom": "Більше від {{name}}"
+    },
+    "achievementsBlade": {
+      "noData": "Немає даних",
+      "game": "Гра",
+      "achievements": "Досягнення",
+      "xp": "XP",
+      "bronze": "Бронза",
+      "silver": "Срібло",
+      "gold": "Золото",
+      "gamesWithAchievements": "Ігри з досягненнями Epic"
+    },
+    "topSection": {
+      "free": "Безкоштовно",
+      "releaseDate": "Дата виходу:",
+      "tba": "Уточнюється",
+      "platforms": "Платформи:",
+      "tags": "Теги:",
+      "checkOffer": "Переглянути"
+    },
+    "featuredDiscounts": {
+      "free": "Безкоштовно",
+      "title": "Рекомендовані знижки",
+      "countMore": "+{{count}} ще",
+      "checkOffer": "Переглянути",
+      "until": "до"
+    },
+    "performanceTable": {
+      "title": "Продуктивність",
+      "noPriorData": "Немає попередніх даних",
+      "cardsView": "Вид картками",
+      "chartView": "Вид графіком"
+    },
+    "priceChart": {
+      "selectValue": "Виберіть значення",
+      "last3Months": "Останні 3 місяці",
+      "fetchingData": "Отримання останніх даних"
+    },
+    "dateRangePicker": {
+      "from": "Від",
+      "to": "До",
+      "maxRange": "Максимальний діапазон — 30 днів",
+      "invalidRange": "Невірний діапазон дат"
+    },
+    "regionalPricing": {
+      "region": "Регіон",
+      "price": "Ціна"
+    },
+    "regionalPricingBadge": {
+      "analysis": "Аналіз регіональних цін",
+      "currentPrice": "Поточна ціна",
+      "suggestedPrice": "Рекомендована ціна",
+      "belowSuggested": "Ця пропозиція навіть нижча за рекомендовану — чудова знижка.",
+      "closeToSuggested": "Ця пропозиція близька до рекомендованої і значно нижча за типову ціну в {{region}}."
+    },
+    "countrySelector": {
+      "searchCountries": "Пошук країн...",
+      "noCountries": "Країн не знайдено"
+    },
+    "countriesSelector": {
+      "searchCountries": "Пошук країн...",
+      "noCountries": "Країн не знайдено"
+    },
+    "querySearch": {
+      "searchItems": "Пошук елементів..."
+    },
+    "extendedSearch": {
+      "searchItems": "Пошук елементів...",
+      "noItems": "Елементів не знайдено."
+    },
+    "searchForm": {
+      "noResults": "Результатів не знайдено",
+      "error": "Помилка: {{message}}",
+      "loadingLong": "Цей запит виконується довше, ніж зазвичай..."
+    },
+    "searchFormV2": {
+      "noResults": "Результатів не знайдено."
+    },
+    "androidBetaBanner": {
+      "dismiss": "Приховати банер"
+    },
+    "videoPlayer": {
+      "title": "{{title}}"
+    },
+    "mediaSlider": {
+      "previousSlide": "Попередній слайд",
+      "nextSlide": "Наступний слайд",
+      "image": "Зображення {{index}}",
+      "thumbnail": "Мініатюра {{index}}",
+      "downloading": "Завантаження...",
+      "download": "Завантажити"
+    },
+    "changelogItem": {
+      "action": "Дія",
+      "type": "Тип",
+      "oldValue": "Старе значення",
+      "newValue": "Нове значення",
+      "previousValue": "Попереднє значення:",
+      "newValueLabel": "Нове значення:"
+    },
+    "changelogCharts": {
+      "byWeekday": "Зміни за днями тижня",
+      "byWeekdayDesc": "Накопичені зміни за днями тижня",
+      "typesOfChanges": "Типи змін",
+      "typesOfChangesDesc": "Кількість змін за типом",
+      "byField": "Зміни за полями",
+      "byFieldDesc": "Зміни, згруповані за полем зміни",
+      "dailyDesc": "Показано щоденні зміни за останній рік",
+      "noData": "Немає даних для відображення."
+    },
+    "openEgl": {
+      "open": "Відкрити"
+    },
+    "openEgs": {
+      "store": "Магазин"
+    },
+    "openLauncher": {
+      "play": "Грати"
+    },
+    "storeDropdown": {
+      "launcher": "Лаунчер",
+      "viewStorePage": "Переглянути сторінку магазину",
+      "webBrowser": "Веб-браузер"
+    },
+    "prepurchasePopup": {
+      "title": "{{title}}"
+    },
+    "apiKeyManager": {
+      "title": "Керування API-ключем",
+      "label": "API-ключ",
+      "placeholder": {
+        "generated": "API-ключ згенеровано",
+        "none": "API-ключ не згенеровано"
+      },
+      "button": {
+        "regenerate": "Перегенерувати ключ",
+        "generate": "Згенерувати ключ",
+        "clear": "Очистити ключ"
+      },
+      "notification": {
+        "generated": "Новий API-ключ успішно згенеровано",
+        "generateFailed": "Не вдалося згенерувати API-ключ",
+        "copied": "API-ключ скопійовано в буфер обміну!",
+        "copyFailed": "Не вдалося скопіювати API-ключ",
+        "noneToCopy": "Немає API-ключа для копіювання",
+        "cleared": "API-ключ успішно очищено!",
+        "clearFailed": "Не вдалося очистити API-ключ"
+      },
+      "description": "Ваш API-ключ — це UUID, що зберігається локально у вашому браузері та використовується для автентифікації запитів push-сповіщень. Використовуйте кнопку перегенерації, щоб створити новий ключ, якщо потрібно."
+    },
+    "cookieBanner": {
+      "title": "Повідомлення про файли cookie",
+      "description": "Цей вебсайт використовує файли cookie для покращення вашого досвіду. Приймаючи cookie, ви погоджуєтеся з нашою {{privacyPolicyLink}}.",
+      "accept": "Прийняти",
+      "decline": "Відхилити"
+    },
+    "searchHeader": {
+      "results": "{{count}} результатів",
+      "showingResultsFor": "Результати для"
+    },
+    "bundle": {
+      "collectionOffers": "Колекційні пропозиції",
+      "bundleOffers": "Пропозиції в наборі",
+      "offersCount": "- {{count}} пропозицій",
+      "bundlePriceTitle": "Ціна набору",
+      "totalValueLabel": "Загальна вартість:",
+      "bundlePriceLabel": "Ціна набору:",
+      "youSave": "Ви економите:",
+      "youPayMore": "Ви доплачуєте:",
+      "buyBundle": "Купити набір",
+      "buyIndividually": "Купити окремо"
+    },
+    "clientBanner": {
+      "heading": "Підтримуйте базу збірок {{appName}}",
+      "subheading": "Допоможіть зібрати всі збірки Epic Games Store",
+      "description": "Наш легкий клієнт для Windows та macOS сканує ваші встановлені ігри з Epic Games Launcher і безпечно завантажує лише файли маніфестів — списки частин і метадані — до нашої відкритої бази даних. Кожне завантаження збагачує спільноту та допомагає відстежувати зміни з часом.",
+      "cta": "Завантажити для Windows та macOS"
+    },
+    "collectionOffers": {
+      "title": "Колекційні пропозиції"
+    },
+    "lastModifiedOffers": {
+      "title": "Останні змінені пропозиції"
+    },
+    "latestOffers": {
+      "title": "Нещодавно додані"
+    },
+    "latestReleased": {
+      "title": "Останні релізи"
+    },
+    "mobileFreebies": {
+      "title": "Мобільні безкоштовні ігри",
+      "collapse": "Згорнути мобільні безкоштовні ігри",
+      "expand": "Розгорнути мобільні безкоштовні ігри"
+    },
+    "sectionHeader": {
+      "seeAll": "Переглянути всі"
+    },
+    "suggestedOffers": {
+      "title": "Вам також може сподобатися"
+    }
+  },
+  "table": {
+    "pagination": {
+      "rowsPerPage": "Рядків на сторінку",
+      "pageOf": "Сторінка {{page}} з {{total}}",
+      "goToFirst": "Перейти на першу сторінку",
+      "goToPrevious": "Перейти на попередню сторінку",
+      "goToNext": "Перейти на наступну сторінку",
+      "goToLast": "Перейти на останню сторінку",
+      "previous": "Назад",
+      "next": "Далі",
+      "morePages": "Більше сторінок"
+    },
+    "toolbar": {
+      "platform": "Платформа",
+      "status": "Статус",
+      "type": "Тип",
+      "platforms": "Платформи",
+      "fileExtensions": "Розширення файлів",
+      "filterOffers": "Фільтрувати пропозиції...",
+      "filterItems": "Фільтрувати елементи...",
+      "filterFiles": "Фільтрувати файли...",
+      "reset": "Скинути"
+    },
+    "viewOptions": {
+      "view": "Вид",
+      "toggleColumns": "Перемкнути колонки"
+    },
+    "facetedFilter": {
+      "noResults": "Результатів не знайдено.",
+      "selected": "вибрано",
+      "clearFilters": "Очистити фільтри"
+    },
+    "builds": {
+      "noResults": "Немає результатів.",
+      "donateKey": "Пожертвувати ключ"
+    }
+  },
+  "forms": {
+    "review": {
+      "submitTitle": "Надіслати відгук",
+      "editTitle": "Редагувати відгук",
+      "description": "Поділіться своїми враженнями про {{title}}",
+      "rating": "Оцінка",
+      "ratingError": "Оцінка має бути від 1 до 10",
+      "recommend": "Чи рекомендуєте ви цей продукт?",
+      "recommendError": "Будь ласка, оберіть так або ні",
+      "yes": "Так",
+      "no": "Ні",
+      "title": "Заголовок",
+      "titlePlaceholder": "Введіть заголовок для відгуку",
+      "titleRequired": "Заголовок обов'язковий",
+      "titleMinLength": "Заголовок має містити щонайменше 3 символи",
+      "titleMinLengthLong": "Заголовок має містити щонайменше 3 символи",
+      "titleMaxLength": "Заголовок має містити менше 75 символів",
+      "reviewContent": "Текст відгуку",
+      "contentMinLength": "Текст має містити щонайменше 3 символи",
+      "tags": "Теги (через кому)",
+      "tagsPlaceholder": "напр. якість, дизайн, продуктивність",
+      "previous": "Назад",
+      "next": "Далі",
+      "submit": "Надіслати відгук",
+      "deleteReview": "Видалити відгук",
+      "confirmDelete": "Ви впевнені, що хочете видалити цей відгук?",
+      "deleteDescription": "Цю дію не можна скасувати. Відгук буде назавжди видалено з наших серверів.",
+      "cancel": "Скасувати",
+      "delete": "Видалити",
+      "deleting": "Видалення...",
+      "errorSubmitting": "Помилка надсилання відгуку",
+      "errorDeleting": "Помилка видалення відгуку",
+      "spamDetected": "Виявлено спам",
+      "defaultContent": "Будь ласка, введіть ваш відгук тут",
+      "theProduct": "продукт"
+    },
+    "androidBeta": {
+      "title": "Приєднатися до Beta",
+      "description": "Увійдіть через Google, щоб зареєструватися в закритій бета-версії. Нам потрібна лише ваша електронна адреса.",
+      "spotsRemaining": "<strong>{{remaining}}</strong> з {{max}} місць залишилося",
+      "betaFull": "Бета-версія заповнена",
+      "betaFullDesc": "Усі {{max}} місць зайняті. Повертайтеся пізніше або слідкуйте за нами, щоб дізнатися про нові місця.",
+      "registering": "Реєстрація в бета-версії...",
+      "registered": "Ви зареєстровані!",
+      "registeredDesc": "Ми зареєстрували <strong>{{email}}</strong> для закритої бета-версії.",
+      "registeredDesc2": "Це може зайняти кілька годин, доки вас не додадуть до списку тестувальників. Після додавання ви зможете приєднатися до бета-версії тут:",
+      "joinBeta": "Приєднатися до Beta в Google Play",
+      "alreadyRegistered": "Вже зареєстровано",
+      "alreadyRegisteredDesc": "<strong>{{email}}</strong> вже зареєстрований у бета-версії.",
+      "alreadyRegisteredDesc2": "Якщо вас уже додали до списку тестувальників, ви можете приєднатися до бета-версії тут:",
+      "error": "Помилка",
+      "tryAgain": "Спробувати ще раз",
+      "noCredential": "Не отримано обліковних даних від Google",
+      "somethingWrong": "Щось пішло не так. Спробуйте ще раз.",
+      "googleFailed": "Вхід через Google не вдався. Спробуйте ще раз."
+    },
+    "donateKey": {
+      "donate": "Пожертвувати",
+      "error": "Помилка",
+      "success": "Успіх",
+      "successDesc": "Дякуємо за вашу пожертву! Елемент успішно активовано, його дані будуть доступні незабаром.",
+      "offerPage": "Сторінка пропозиції",
+      "somethingWrong": "Щось пішло не так. Спробуйте ще раз."
+    }
+  },
+  "ui": {
+    "dialog": {
+      "close": "Закрити"
+    },
+    "sheet": {
+      "close": "Закрити"
+    },
+    "carousel": {
+      "previous": "Попередній слайд",
+      "next": "Наступний слайд"
+    },
+    "pagination": {
+      "previous": "Назад",
+      "next": "Далі",
+      "morePages": "Більше сторінок"
+    },
+    "priceRangeSlider": {
+      "priceRange": "Діапазон цін",
+      "minPrice": "Мін. ціна",
+      "maxPrice": "Макс. ціна"
+    }
+  }
+}

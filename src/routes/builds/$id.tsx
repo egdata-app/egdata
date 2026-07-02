@@ -24,6 +24,8 @@ import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { createFileRoute, Outlet, redirect, useLocation } from "@tanstack/react-router";
 import { BoxIcon, FilesIcon, OptionIcon } from "lucide-react";
 import { DateTime } from "luxon";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 export const Route = createFileRoute("/builds/$id")({
   component: () => {
@@ -82,8 +84,8 @@ export const Route = createFileRoute("/builds/$id")({
       return {
         meta: [
           {
-            title: "Build not found",
-            description: "Build not found",
+            title: i18n.t("builds.notFound"),
+            description: i18n.t("builds.notFound"),
           },
         ],
       };
@@ -103,8 +105,8 @@ export const Route = createFileRoute("/builds/$id")({
       return {
         meta: [
           {
-            title: "Build not found",
-            description: "Build not found",
+            title: i18n.t("builds.notFound"),
+            description: i18n.t("builds.notFound"),
           },
         ],
       };
@@ -115,27 +117,45 @@ export const Route = createFileRoute("/builds/$id")({
     return {
       meta: [
         {
-          title: `${items?.data[0]?.title} (${build.buildVersion}) | egdata.app`,
+          title: i18n.t("builds.meta.title", {
+            title: items?.data[0]?.title,
+            version: build.buildVersion,
+          }),
         },
         {
           name: "description",
-          content: `${build.buildVersion} Build for ${items?.data[0]?.title} from the Epic Games Store.`,
+          content: i18n.t("builds.meta.description", {
+            version: build.buildVersion,
+            title: items?.data[0]?.title,
+          }),
         },
         {
           name: "og:title",
-          content: `${items?.data[0]?.title} (${build.buildVersion}) | egdata.app`,
+          content: i18n.t("builds.meta.title", {
+            title: items?.data[0]?.title,
+            version: build.buildVersion,
+          }),
         },
         {
           name: "og:description",
-          content: `${build.buildVersion} Build for ${items?.data[0]?.title} from the Epic Games Store.`,
+          content: i18n.t("builds.meta.description", {
+            version: build.buildVersion,
+            title: items?.data[0]?.title,
+          }),
         },
         {
           property: "twitter:title",
-          content: `${items?.data[0]?.title} (${build.buildVersion}) | egdata.app`,
+          content: i18n.t("builds.meta.title", {
+            title: items?.data[0]?.title,
+            version: build.buildVersion,
+          }),
         },
         {
           property: "twitter:description",
-          content: `${build.buildVersion} Build for ${items?.data[0]?.title} from the Epic Games Store.`,
+          content: i18n.t("builds.meta.description", {
+            version: build.buildVersion,
+            title: items?.data[0]?.title,
+          }),
         },
         {
           name: "og:image",
@@ -160,6 +180,7 @@ interface PaginatedResponse<T> {
 }
 
 function BuildPage() {
+  const { t } = useTranslation();
   const { id } = Route.useLoaderData() as { dehydratedState: DehydratedState; id: string };
   const navigate = Route.useNavigate();
   const { timezone } = useLocale();
@@ -175,16 +196,20 @@ function BuildPage() {
   });
 
   if (!build) {
-    return <div>Build not found</div>;
+    return <div>{t("builds.notFound")}</div>;
   }
 
   return (
     <main className="flex flex-col items-start justify-start h-full gap-4 p-4 w-full">
       <div className="flex flex-col gap-4 mx-auto w-full">
         <div className="flex h-auto w-full flex-wrap items-center justify-start gap-2 md:h-8">
-          <span className="text-lg text-muted-foreground inline-flex items-center">Build</span>
+          <span className="text-lg text-muted-foreground inline-flex items-center">
+            {t("builds.build")}
+          </span>
           <strong className="text-lg font-medium">{id.toUpperCase()}</strong>
-          <span className="text-lg text-muted-foreground inline-flex items-center">for</span>
+          <span className="text-lg text-muted-foreground inline-flex items-center">
+            {t("builds.for")}
+          </span>
           <strong className="text-lg font-medium">{items?.data[0].title}</strong>
           <span>{textPlatformIcons[build.labelName.split("-")[1]]}</span>
         </div>
@@ -192,7 +217,9 @@ function BuildPage() {
           <Table className="min-w-[680px]">
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[180px] md:w-[300px]">Build ID</TableHead>
+                <TableHead className="w-[180px] md:w-[300px]">
+                  {t("builds.table.buildId")}
+                </TableHead>
                 <TableHead className="text-left font-mono border-l-border/10 border-l">
                   {id.toUpperCase()}
                 </TableHead>
@@ -200,32 +227,32 @@ function BuildPage() {
             </TableHeader>
             <TableBody>
               <TableRow>
-                <TableCell className="font-medium">Build Name</TableCell>
+                <TableCell className="font-medium">{t("builds.table.buildName")}</TableCell>
                 <TableCell className="font-mono text-left inline-flex items-center gap-1 border-l-border/10 border-l">
                   {build.buildVersion}
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="font-medium">App Name</TableCell>
+                <TableCell className="font-medium">{t("builds.table.appName")}</TableCell>
                 <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
                   {build.appName}
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="font-medium">Hash</TableCell>
+                <TableCell className="font-medium">{t("builds.table.hash")}</TableCell>
                 <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
                   {build.hash}{" "}
                   <span className="text-xs text-muted-foreground">({getHashType(build.hash)})</span>
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="font-medium">Installed Size</TableCell>
+                <TableCell className="font-medium">{t("builds.table.installedSize")}</TableCell>
                 <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
                   {calculateSize(build.installedSizeBytes)}
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="font-medium">Download Size</TableCell>
+                <TableCell className="font-medium">{t("builds.table.downloadSize")}</TableCell>
                 <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
                   {calculateSize(build.downloadSizeBytes)}{" "}
                   <span
@@ -234,13 +261,17 @@ function BuildPage() {
                       !build.downloadSizeBytes ? "opacity-0" : "opacity-100",
                     )}
                   >
-                    ({(100 - (build.downloadSizeBytes / build.installedSizeBytes) * 100).toFixed(2)}
-                    % compressed)
+                    {t("builds.compressed", {
+                      percent: (
+                        100 -
+                        (build.downloadSizeBytes / build.installedSizeBytes) * 100
+                      ).toFixed(2),
+                    })}
                   </span>
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="font-medium">Created At</TableCell>
+                <TableCell className="font-medium">{t("builds.table.createdAt")}</TableCell>
                 <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
                   {DateTime.fromISO(build.createdAt)
                     .setZone(timezone || "UTC")
@@ -256,7 +287,7 @@ function BuildPage() {
                 </TableCell>
               </TableRow>
               <TableRow>
-                <TableCell className="font-medium">Updated At</TableCell>
+                <TableCell className="font-medium">{t("builds.table.updatedAt")}</TableCell>
                 <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
                   {DateTime.fromISO(build.updatedAt)
                     .setZone(timezone || "UTC")
@@ -277,22 +308,21 @@ function BuildPage() {
                     <Tooltip>
                       <TooltipTrigger>
                         <span className="underline decoration-dotted decoration-border/60 underline-offset-4 cursor-help">
-                          Technologies
+                          {t("builds.table.technologies")}
                         </span>
                       </TooltipTrigger>
                       <TooltipContent>
                         <p className="text-sm max-w-md">
-                          We use the{" "}
+                          {t("builds.tooltip.techSource")}{" "}
                           <a
                             href="https://steamdb.info/tech/"
                             className="text-blue-700 font-semibold"
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            SteamDB
+                            {t("builds.tooltip.techSourceSteamDb")}
                           </a>{" "}
-                          technologies list to track the used engines and different technologies
-                          from the game files.
+                          {t("builds.tooltip.techDescription")}
                           <br />
                           <a
                             href="https://github.com/SteamDatabase/FileDetectionRuleSets"
@@ -300,7 +330,7 @@ function BuildPage() {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            Source
+                            {t("builds.tooltip.source")}
                           </a>
                         </p>
                       </TooltipContent>
@@ -336,7 +366,7 @@ function BuildPage() {
               label: (
                 <span className="inline-flex items-center gap-2">
                   <FilesIcon className="size-3" />
-                  <span>Files</span>
+                  <span>{t("builds.tabs.files")}</span>
                 </span>
               ),
               href: `/builds/${id}/files`,
@@ -346,7 +376,7 @@ function BuildPage() {
               label: (
                 <span className="inline-flex items-center gap-2">
                   <BoxIcon className="size-3" />
-                  <span>Items</span>
+                  <span>{t("builds.tabs.items")}</span>
                 </span>
               ),
               href: `/builds/${id}/items`,
@@ -356,7 +386,7 @@ function BuildPage() {
               label: (
                 <span className="inline-flex items-center gap-2">
                   <OptionIcon className="size-3" />
-                  <span>Install Options</span>
+                  <span>{t("builds.tabs.installOptions")}</span>
                 </span>
               ),
               href: `/builds/${id}/install-options`,

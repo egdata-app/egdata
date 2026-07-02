@@ -11,8 +11,10 @@ import { useQuery } from "@tanstack/react-query";
 import { ArrowRightIcon } from "lucide-react";
 import { useCountry } from "@/hooks/use-country";
 import { getLatestOffers } from "@/queries/latest-offers";
+import { useTranslation } from "react-i18next";
 
 export function LatestOffers() {
+  const { t } = useTranslation();
   const { country } = useCountry();
   const { data: offers, isLoading: loading } = useQuery({
     queryKey: ["latest-games"],
@@ -30,7 +32,7 @@ export function LatestOffers() {
           sortBy: "creationDate",
         }}
       >
-        Latest Added{" "}
+        {t("components.latestOffers.title")}{" "}
         <ArrowRightIcon className="w-6 h-6 inline-block group-hover:translate-x-1 transition-transform duration-300 ease-in-out" />
       </Link>{" "}
       <Carousel className="mt-2 h-full p-4">

@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { EGSIcon } from "@/components/icons/egs";
 import { z } from "zod";
+import { useTranslation } from "react-i18next";
 
 const RedirectSchema = z.object({
   ns: z.string(),
@@ -26,7 +27,6 @@ export const Route = createFileRoute("/store/$namespace/$slug")({
     const { namespace, slug } = params;
     const creatorCodePref = context.cookies?.[CREATOR_CODE_COOKIE];
 
-    // If we have a preference, redirect immediately
     if (creatorCodePref !== undefined) {
       const url = new URL(`https://store.epicgames.com/${namespace}/${slug}`);
       url.searchParams.set("utm_source", "egdata.app");
@@ -48,11 +48,11 @@ export const Route = createFileRoute("/store/$namespace/$slug")({
 });
 
 function CreatorCodePage() {
+  const { t } = useTranslation();
   const { namespace, slug } = Route.useParams();
   const { ns } = Route.useSearch();
 
   const handleChoice = (useCode: boolean) => {
-    // Set cookie for 1 year if true, 30 days if false
     document.cookie = `${CREATOR_CODE_COOKIE}=${useCode}; max-age=${useCode ? 60 * 60 * 24 * 365 : 60 * 60 * 24 * 30}; path=/`;
 
     const url = new URL(`https://store.epicgames.com/${namespace}/${slug}`);
@@ -70,19 +70,15 @@ function CreatorCodePage() {
     <div className="container max-w-2xl py-12">
       <Card className="bg-card text-foreground border-border/60">
         <CardHeader>
-          <CardTitle className="text-2xl">Support egdata.app</CardTitle>
+          <CardTitle className="text-2xl">{t("store.creatorCode.title")}</CardTitle>
           <CardDescription className="text-muted-foreground">
-            Would you like to support egdata.app by using our creator code when purchasing games?
-            This choice will be remembered for future visits.
+            {t("store.creatorCode.description")}
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex items-center gap-4 text-muted-foreground">
             <EGSIcon className="size-8" />
-            <p>
-              Using our creator code helps support the development of egdata.app and its features.
-              It doesn't affect the price you pay.
-            </p>
+            <p>{t("store.creatorCode.body")}</p>
           </div>
         </CardContent>
         <CardFooter className="flex gap-4">
@@ -91,11 +87,9 @@ function CreatorCodePage() {
             className="bg-muted text-foreground hover:bg-muted/80 border-zinc-700"
             onClick={() => handleChoice(false)}
           >
-            No thanks
+            {t("store.creatorCode.noThanks")}
           </Button>
-          <Button onClick={() => handleChoice(true)}>
-            Yes, use code
-          </Button>
+          <Button onClick={() => handleChoice(true)}>{t("store.creatorCode.yesUseCode")}</Button>
         </CardFooter>
       </Card>
     </div>

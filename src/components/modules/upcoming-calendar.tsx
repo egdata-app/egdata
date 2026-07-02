@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { httpClient } from "@/lib/http-client";
 import { DateTime } from "luxon";
 import { useLocale } from "@/hooks/use-locale";
+import { useTranslation } from "react-i18next";
 
 interface UpcomingRes {
   elements: SingleOffer[];
@@ -19,6 +20,7 @@ interface UpcomingRes {
 }
 
 export function UpcomingCalendar() {
+  const { t } = useTranslation();
   const { country } = useCountry();
   const { data, isLoading } = useQuery({
     queryKey: [
@@ -40,7 +42,7 @@ export function UpcomingCalendar() {
   if (isLoading) {
     return (
       <div className="w-full h-96 flex items-center justify-center">
-        <p>Loading...</p>
+        <p>{t("common.loading")}</p>
       </div>
     );
   }
@@ -71,7 +73,7 @@ export function UpcomingCalendar() {
           sortBy: "upcoming",
         }}
       >
-        Upcoming Offers{" "}
+        {t("components.upcoming.caption")}{" "}
         <ArrowRightIcon className="w-6 h-6 inline-block group-hover:translate-x-1 transition-transform duration-300 ease-in-out" />
       </Link>
       <Carousel

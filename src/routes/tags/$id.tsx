@@ -29,6 +29,8 @@ import { cn } from "@/lib/utils";
 import { GridIcon, ListBulletIcon } from "@radix-ui/react-icons";
 import { OfferCard } from "@/components/app/offer-card";
 import { OfferListItem } from "@/components/app/game-card";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 type SortBy =
   | "releaseDate"
@@ -40,16 +42,16 @@ type SortBy =
   | "upcoming"
   | "price";
 
-const sortByDisplay: Record<SortBy, string> = {
-  releaseDate: "Release Date",
-  lastModifiedDate: "Modified Date",
-  effectiveDate: "Effective Date",
-  creationDate: "Creation Date",
-  viewableDate: "Viewable Date",
-  pcReleaseDate: "PC Release Date",
-  upcoming: "Upcoming",
-  price: "Price",
-};
+const sortByKeys: SortBy[] = [
+  "releaseDate",
+  "lastModifiedDate",
+  "effectiveDate",
+  "creationDate",
+  "viewableDate",
+  "pcReleaseDate",
+  "upcoming",
+  "price",
+];
 
 const fetchPromotionData = async ({
   id,
@@ -208,8 +210,8 @@ export const Route = createFileRoute("/tags/$id")({
       return {
         meta: [
           {
-            title: "Promotion not found",
-            description: "Promotion not found",
+            title: i18n.t("tags.meta.notFoundTitle"),
+            description: i18n.t("tags.meta.notFoundDescription"),
           },
         ],
       };
@@ -221,8 +223,8 @@ export const Route = createFileRoute("/tags/$id")({
       return {
         meta: [
           {
-            title: "Promotion not found",
-            description: "Promotion not found",
+            title: i18n.t("tags.meta.notFoundTitle"),
+            description: i18n.t("tags.meta.notFoundDescription"),
           },
         ],
       };
@@ -241,27 +243,27 @@ export const Route = createFileRoute("/tags/$id")({
     return {
       meta: [
         {
-          title: `${title} | egdata.app`,
+          title: i18n.t("tags.meta.title", { title }),
         },
         {
           name: "description",
-          content: `Checkout ${count} available offers for ${title} on egdata.app.`,
+          content: i18n.t("tags.meta.description", { count, title }),
         },
         {
           name: "og:title",
-          content: `${title} - egdata.app`,
+          content: i18n.t("tags.meta.socialTitle", { title }),
         },
         {
           name: "og:description",
-          content: `Checkout ${count} available offers for ${title} on egdata.app.`,
+          content: i18n.t("tags.meta.description", { count, title }),
         },
         {
           name: "twitter:title",
-          content: `${title} - egdata.app`,
+          content: i18n.t("tags.meta.socialTitle", { title }),
         },
         {
           name: "twitter:description",
-          content: `Checkout ${count} available offers for ${title} on egdata.app.`,
+          content: i18n.t("tags.meta.description", { count, title }),
         },
         {
           name: "og:image",
@@ -343,6 +345,7 @@ export const Route = createFileRoute("/tags/$id")({
 });
 
 function RouteComponent() {
+  const { t } = useTranslation();
   const { country } = useCountry();
   const { view, setView } = usePreferences();
   const [sortBy, setSortBy] = React.useState<SortBy>("lastModifiedDate");
@@ -350,6 +353,16 @@ function RouteComponent() {
   const [inputValue, setInputValue] = React.useState("");
   const [query, setQuery] = React.useState("");
   const debouncedSetQuery = debounce(setQuery, 500);
+  const sortByDisplay: Record<SortBy, string> = {
+    releaseDate: t("tags.sortBy.releaseDate"),
+    lastModifiedDate: t("tags.sortBy.lastModifiedDate"),
+    effectiveDate: t("tags.sortBy.effectiveDate"),
+    creationDate: t("tags.sortBy.creationDate"),
+    viewableDate: t("tags.sortBy.viewableDate"),
+    pcReleaseDate: t("tags.sortBy.pcReleaseDate"),
+    upcoming: t("tags.sortBy.upcoming"),
+    price: t("tags.sortBy.price"),
+  };
   const { cover, id } = Route.useLoaderData() as {
     dehydratedState: DehydratedState;
     id: string;
@@ -392,7 +405,7 @@ function RouteComponent() {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>{t("tags.loading")}</div>;
   }
 
   if (!promotion) {
@@ -432,15 +445,17 @@ function RouteComponent() {
           <h1 className="text-3xl font-bold leading-tight md:text-5xl">
             {firstPromotionPage.title}
           </h1>
-          <p className="mt-4 text-lg">{firstPromotionPage.count} offers available in this event</p>
+          <p className="mt-4 text-lg">
+            {t("tags.offersCount", { count: firstPromotionPage.count })}
+          </p>
         </div>
       </div>
 
       <header className="mt-5 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
         <div className="inline-flex flex-wrap items-center gap-2">
-          <h2 className="text-2xl">Results</h2>
+          <h2 className="text-2xl">{t("tags.results")}</h2>
           <span className="text-sm text-muted-foreground">
-            ({promotionOffers.length} results)
+            {t("tags.resultsCount", { count: promotionOffers.length })}
           </span>
           {isFetching && (
             <svg
@@ -468,7 +483,7 @@ function RouteComponent() {
         <div className="flex w-full flex-wrap gap-2 md:w-auto">
           <Input
             type="search"
-            placeholder="Search..."
+            placeholder={t("tags.searchPlaceholder")}
             className="w-full cursor-text sm:w-[200px]"
             onChange={handleInputChange}
             value={inputValue}
@@ -478,9 +493,9 @@ function RouteComponent() {
               <SelectValue className="text-sm">{sortByDisplay[sortBy]}</SelectValue>
             </SelectTrigger>
             <SelectContent>
-              {Object.entries(sortByDisplay).map(([key, value]) => (
+              {sortByKeys.map((key) => (
                 <SelectItem key={key} value={key}>
-                  {value}
+                  {sortByDisplay[key]}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -518,12 +533,12 @@ function RouteComponent() {
         )}
       >
         {promotionOffers.map((game) =>
-            view === "grid" ? (
-              <OfferCard offer={game} key={game.id} size="md" />
-            ) : (
-              <OfferListItem game={game} key={game.id} />
-            ),
-          )}
+          view === "grid" ? (
+            <OfferCard offer={game} key={game.id} size="md" />
+          ) : (
+            <OfferListItem game={game} key={game.id} />
+          ),
+        )}
       </div>
       <div className="flex justify-center mt-8">
         <Button disabled={!hasNextPage} onClick={() => fetchNextPage()}>
@@ -549,7 +564,7 @@ function RouteComponent() {
               />
             </svg>
           )}
-          Load More
+          {t("tags.loadMore")}
         </Button>
       </div>
     </main>

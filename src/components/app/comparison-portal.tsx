@@ -23,6 +23,7 @@ import { platformIcons } from "./platform-icons";
 import { GameFeatures } from "./features";
 import { calculatePrice } from "@/lib/calculate-price";
 import { useLocale } from "@/hooks/use-locale";
+import { useTranslation } from "react-i18next";
 
 const CompareIcon = (props: JSX.IntrinsicElements["svg"]) => (
   <svg
@@ -59,6 +60,7 @@ const normalizeCompareIds = (value: unknown): string[] => {
 
 export function ComparisonPortal() {
   const { compare } = useCompare();
+  const { t } = useTranslation();
   const compareIds = normalizeCompareIds(compare);
   const [open, setOpen] = useState<boolean>(false);
 
@@ -72,7 +74,7 @@ export function ComparisonPortal() {
     return null;
   }
 
-  const compareLabel = `Open compare tray, ${compareIds.length} selected`;
+  const compareLabel = t("components.comparison.openCompareTray", { count: compareIds.length });
 
   return (
     <>
@@ -93,7 +95,7 @@ export function ComparisonPortal() {
             <CompareIcon className="size-5 text-foreground" />
           </Button>
         </TooltipTrigger>
-        <TooltipContent>Compare selected offers</TooltipContent>
+        <TooltipContent>{t("components.comparison.compareSelected")}</TooltipContent>
       </Tooltip>
       {open && (
         <Portal.Root>
@@ -106,7 +108,7 @@ export function ComparisonPortal() {
             />
             <div className="pointer-events-none absolute inset-0 flex items-center justify-center p-4">
               <div
-                aria-label="Compare selected offers"
+                aria-label={t("components.comparison.compareSelected")}
                 aria-modal="true"
                 className="pointer-events-auto max-h-[calc(100vh-2rem)] w-full max-w-5xl overflow-hidden rounded-lg bg-card p-4"
                 role="dialog"
@@ -123,13 +125,14 @@ export function ComparisonPortal() {
 
 function CompareTable() {
   const { compare } = useCompare();
+  const { locale } = useLocale();
   const compareIds = normalizeCompareIds(compare);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const queries = useQueries({
     queries: compareIds.map((id) => ({
-      queryKey: ["offer", { id }],
-      queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`),
+      queryKey: ["offer", { id, locale }],
+      queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`, { params: { locale } }),
     })),
   });
 
@@ -159,13 +162,14 @@ function SingleGame({ query, id }: { query: UseQueryResult<SingleOffer, Error>; 
   const { removeFromCompare } = useCompare();
   const { genres } = useGenres();
   const { data, isLoading, isError } = query;
+  const { t } = useTranslation();
 
   if (isLoading || !data) {
     return <Skeleton className="w-48 h-48" />;
   }
 
   if (isError) {
-    return <div>Error</div>;
+    return <div>{t("components.comparison.error")}</div>;
   }
 
   return (
@@ -197,13 +201,13 @@ function SingleGame({ query, id }: { query: UseQueryResult<SingleOffer, Error>; 
         </Link>
         <div className="flex flex-col gap-2">
           <OfferMetadataRow
-            label="Type"
+            label={t("components.comparison.type")}
             value={
               offersDictionary[data.offerType as keyof typeof offersDictionary] ?? data.offerType
             }
           />
           <OfferMetadataRow
-            label="Seller"
+            label={t("components.comparison.seller")}
             value={
               <Link
                 to="/sellers/$id"
@@ -215,11 +219,11 @@ function SingleGame({ query, id }: { query: UseQueryResult<SingleOffer, Error>; 
             }
           />
           <OfferMetadataRow
-            label="Developer"
+            label={t("components.comparison.developer")}
             value={data.developerDisplayName ?? data.seller.name}
           />
           <OfferMetadataRow
-            label="Release Date"
+            label={t("components.comparison.releaseDate")}
             value={
               data.releaseDate
                 ? new Date(data.releaseDate).toLocaleDateString("en-UK", {
@@ -227,11 +231,11 @@ function SingleGame({ query, id }: { query: UseQueryResult<SingleOffer, Error>; 
                     month: "short",
                     day: "numeric",
                   })
-                : "Unknown"
+                : t("components.comparison.unknown")
             }
           />
           <OfferMetadataRow
-            label="PC Release Date"
+            label={t("components.comparison.pcReleaseDate")}
             value={
               data.pcReleaseDate
                 ? new Date(data.pcReleaseDate).toLocaleDateString("en-UK", {
@@ -239,12 +243,12 @@ function SingleGame({ query, id }: { query: UseQueryResult<SingleOffer, Error>; 
                     month: "short",
                     day: "numeric",
                   })
-                : "Unknown"
+                : t("components.comparison.unknown")
             }
           />
           {genres && (
             <OfferMetadataRow
-              label="Genres"
+              label={t("components.comparison.genres")}
               value={data.tags
                 .filter((tag) => {
                   const tagId = tag.id;
@@ -256,7 +260,7 @@ function SingleGame({ query, id }: { query: UseQueryResult<SingleOffer, Error>; 
             />
           )}
           <OfferMetadataRow
-            label="Platforms"
+            label={t("components.comparison.platforms")}
             value={
               <span className="inline-flex gap-2 items-center justify-start">
                 {data.tags
@@ -280,7 +284,7 @@ function SingleGame({ query, id }: { query: UseQueryResult<SingleOffer, Error>; 
           className="bg-card text-foreground hover:bg-destructive hover:text-foreground transition-all duration-300 ease-in-out"
           onClick={() => removeFromCompare(data.id)}
         >
-          Remove
+          {t("components.comparison.remove")}
         </Button>
       </div>
     </div>
@@ -361,11 +365,14 @@ function Achievements({ id }: { id: string }) {
     queryKey: ["achievements", { id }],
     queryFn: () => httpClient.get<AchievementsSets>(`/offers/${id}/achievements`),
   });
+  const { t } = useTranslation();
 
   if (isLoading) {
     return (
       <div className="flex flex-col gap-4 h-20">
-        <span className="text-sm text-muted-foreground">Achievements:</span>
+        <span className="text-sm text-muted-foreground">
+          {t("components.comparison.achievements")}
+        </span>
         <Skeleton className="w-full h-48" />
       </div>
     );
@@ -374,7 +381,9 @@ function Achievements({ id }: { id: string }) {
   if (isError || !data || data.length === 0) {
     return (
       <div className="flex flex-col gap-4 h-20">
-        <span className="text-sm text-muted-foreground">Achievements:</span>
+        <span className="text-sm text-muted-foreground">
+          {t("components.comparison.achievements")}
+        </span>
         <span className="w-full inline-flex justify-center items-center text-muted-foreground text-xl">
           -
         </span>
@@ -387,7 +396,9 @@ function Achievements({ id }: { id: string }) {
 
   return (
     <div className="flex flex-col gap-4 h-20">
-      <span className="text-sm text-muted-foreground">Achievements:</span>
+      <span className="text-sm text-muted-foreground">
+        {t("components.comparison.achievements")}
+      </span>
       <div className="flex flex-row gap-3 justify-center items-center">
         {Object.entries(rarityCount)
           .filter(([_, count]) => count > 0)
@@ -444,12 +455,15 @@ function AgeRatings({ id }: { id: string }) {
         },
       }),
   });
+  const { t } = useTranslation();
 
   if (isLoading) {
     return (
       <div className="flex flex-col gap-4 h-32">
         <div className="flex justify-between items-center">
-          <span className="text-sm text-muted-foreground">Age Rating:</span>
+          <span className="text-sm text-muted-foreground">
+            {t("components.comparison.ageRating")}
+          </span>
         </div>
         <Skeleton className="w-full h-48" />
       </div>
@@ -460,9 +474,13 @@ function AgeRatings({ id }: { id: string }) {
     return (
       <div className="flex flex-col gap-4 h-32">
         <div className="flex justify-between items-center">
-          <span className="text-sm text-muted-foreground">Age Rating:</span>
+          <span className="text-sm text-muted-foreground">
+            {t("components.comparison.ageRating")}
+          </span>
         </div>
-        <p className="text-sm text-muted-foreground">No age ratings found</p>
+        <p className="text-sm text-muted-foreground">
+          {t("components.comparison.noAgeRatingsFound")}
+        </p>
       </div>
     );
   }
@@ -470,7 +488,9 @@ function AgeRatings({ id }: { id: string }) {
   return (
     <div className="flex flex-col gap-4 h-32">
       <div className="flex justify-between items-center">
-        <span className="text-sm text-muted-foreground">Age Rating:</span>
+        <span className="text-sm text-muted-foreground">
+          {t("components.comparison.ageRating")}
+        </span>
       </div>
       <div className="flex flex-row gap-2 flex-wrap justify-center items-center">
         {Object.entries(data || {}).map(([key, rating]) => (
@@ -547,6 +567,7 @@ interface RegionalPrice {
 function Price({ id }: { id: string }) {
   const { country } = useCountry();
   const { locale } = useLocale();
+  const { t } = useTranslation();
   const { data, isLoading, isError } = useQuery({
     queryKey: ["regional-price", { id, country }],
     queryFn: () =>
@@ -559,7 +580,7 @@ function Price({ id }: { id: string }) {
     return (
       <div className="flex flex-col gap-4 h-28">
         <div className="flex justify-between items-center">
-          <span className="text-sm text-muted-foreground">Price:</span>
+          <span className="text-sm text-muted-foreground">{t("components.comparison.price")}</span>
         </div>
         <Skeleton className="w-full h-48" />
       </div>
@@ -570,9 +591,9 @@ function Price({ id }: { id: string }) {
     return (
       <div className="flex flex-col gap-4 h-28">
         <div className="flex justify-between items-center">
-          <span className="text-sm text-muted-foreground">Price:</span>
+          <span className="text-sm text-muted-foreground">{t("components.comparison.price")}</span>
         </div>
-        <p className="text-sm text-muted-foreground">No price found</p>
+        <p className="text-sm text-muted-foreground">{t("components.comparison.noPriceFound")}</p>
       </div>
     );
   }
@@ -584,11 +605,11 @@ function Price({ id }: { id: string }) {
 
   return (
     <div className="flex flex-col gap-4 h-28">
-      <span className="text-sm text-muted-foreground">Price:</span>
+      <span className="text-sm text-muted-foreground">{t("components.comparison.price")}</span>
       {data.currentPrice && (
         <div className="flex justify-evenly gap-4">
           <div className="text-center">
-            <div>Current</div>
+            <div>{t("components.comparison.current")}</div>
             <div className="inline-flex items-center justify-center">
               <span
                 className={cn(
@@ -618,7 +639,7 @@ function Price({ id }: { id: string }) {
             </div>
           </div>
           <div className="text-center">
-            <div>Lowest</div>
+            <div>{t("components.comparison.lowest")}</div>
             <div className="text-sm mt-3 font-bold">
               {priceFmtr.format(
                 calculatePrice(data.minPrice, data.currentPrice?.price.currencyCode),
@@ -635,7 +656,9 @@ function Price({ id }: { id: string }) {
         </div>
       )}
       {!data.currentPrice && (
-        <div className="text-sm text-muted-foreground text-center">No price found</div>
+        <div className="text-sm text-muted-foreground text-center">
+          {t("components.comparison.noPriceFound")}
+        </div>
       )}
     </div>
   );

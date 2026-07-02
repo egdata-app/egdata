@@ -6,6 +6,8 @@ import { httpClient } from "@/lib/http-client";
 import { ChangeTracker } from "@/components/app/changelog/item";
 import type { SingleOffer } from "@/types/single-offer";
 import type { SingleItem } from "@/types/single-item";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 type ChangeResponse = OfferHit | ItemHit | AssetHit | Hit;
 
@@ -94,7 +96,7 @@ export const Route = createFileRoute("/changelog/$id")({
     return {
       meta: [
         {
-          title: "Change Detail | egdata.app",
+          title: i18n.t("changelog.detail.meta.title"),
         },
       ],
     };
@@ -102,6 +104,7 @@ export const Route = createFileRoute("/changelog/$id")({
 });
 
 function ChangeDetailPage() {
+  const { t } = useTranslation();
   const { id } = Route.useLoaderData() as { dehydratedState: DehydratedState; id: string };
   const { data, isLoading, isError } = useQuery({
     queryKey: ["changelog", id],
@@ -115,7 +118,7 @@ function ChangeDetailPage() {
   if (isLoading) {
     return (
       <div className="flex flex-col gap-6 w-full max-w-6xl mx-auto px-4 py-8 sm:px-6">
-        <div>Loading...</div>
+        <div>{t("changelog.detail.loading")}</div>
       </div>
     );
   }
@@ -123,7 +126,7 @@ function ChangeDetailPage() {
   if (isError) {
     return (
       <div className="flex flex-col gap-6 w-full max-w-6xl mx-auto px-4 py-8 sm:px-6">
-        <div>Error loading change details</div>
+        <div>{t("changelog.detail.error")}</div>
       </div>
     );
   }
@@ -131,7 +134,7 @@ function ChangeDetailPage() {
   if (!data) {
     return (
       <div className="flex flex-col gap-6 w-full max-w-6xl mx-auto px-4 py-8 sm:px-6">
-        <div>Change not found</div>
+        <div>{t("changelog.detail.notFound")}</div>
       </div>
     );
   }

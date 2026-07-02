@@ -67,6 +67,8 @@ import { mergeFreebies } from "@/utils/merge-freebies";
 import { RenderTextPlatformIcon } from "@/components/app/platform-icons";
 import { TruncatedText } from "@/lib/truncate-text";
 import { timeAgo } from "@/lib/time-ago";
+import { useTranslation } from "react-i18next";
+import type { TFunction } from "i18next";
 
 type LiveChangeAction = "insert" | "update" | "delete" | string;
 
@@ -185,6 +187,7 @@ export const Route = createFileRoute("/")({
 });
 
 function OfferHoverCard({ id }: { id: string }) {
+  const { t } = useTranslation();
   const { country } = useCountry();
   const { locale } = useLocale();
   const { data, isLoading } = useQuery(getOfferOverview({ id, country }));
@@ -232,7 +235,7 @@ function OfferHoverCard({ id }: { id: string }) {
         {data.price && (
           <div className="text-right">
             {data.price.price.discountPrice === 0 ? (
-              <span className="text-primary font-bold">Free</span>
+              <span className="text-primary font-bold">{t("common.free")}</span>
             ) : (
               <div className="flex flex-col items-end">
                 <span className="text-foreground font-bold">
@@ -265,7 +268,7 @@ function OfferHoverCard({ id }: { id: string }) {
 
       <div className="text-sm space-y-1 text-muted-foreground">
         <p>
-          <span className="text-muted-foreground/70">Seller:</span>{" "}
+          <span className="text-muted-foreground/70">{t("home.offerHover.seller")}</span>{" "}
           <Link
             to="/sellers/$id"
             params={{
@@ -278,7 +281,7 @@ function OfferHoverCard({ id }: { id: string }) {
         </p>
         {data.offer.developerDisplayName && (
           <p>
-            <span className="text-muted-foreground/70">Developer:</span>{" "}
+            <span className="text-muted-foreground/70">{t("home.offerHover.developer")}</span>{" "}
             <Link
               to="/search"
               search={{
@@ -292,7 +295,7 @@ function OfferHoverCard({ id }: { id: string }) {
         )}
         {data.offer.publisherDisplayName && (
           <p>
-            <span className="text-muted-foreground/70">Publisher:</span>{" "}
+            <span className="text-muted-foreground/70">{t("home.offerHover.publisher")}</span>{" "}
             <Link
               to="/search"
               search={{
@@ -306,13 +309,14 @@ function OfferHoverCard({ id }: { id: string }) {
         )}
         {data.offer.releaseDate && (
           <p>
-            <span className="text-muted-foreground/70">Release Date:</span>{" "}
+            <span className="text-muted-foreground/70">{t("home.offerHover.releaseDate")}</span>{" "}
             {formatDate(data.offer.releaseDate)}
           </p>
         )}
         {getAgeRatingDisplay() && (
           <p>
-            <span className="text-muted-foreground/70">Age Rating:</span> {getAgeRatingDisplay()}
+            <span className="text-muted-foreground/70">{t("home.offerHover.ageRating")}</span>{" "}
+            {getAgeRatingDisplay()}
           </p>
         )}
       </div>
@@ -331,7 +335,7 @@ function OfferHoverCard({ id }: { id: string }) {
           ))}
           {data.genres.length > 4 && (
             <Badge variant="outline" className="border-border/50 bg-muted/20 text-muted-foreground">
-              +{data.genres.length - 4} more
+              {t("home.offerHover.moreGenres", { count: data.genres.length - 4 })}
             </Badge>
           )}
         </div>
@@ -341,7 +345,7 @@ function OfferHoverCard({ id }: { id: string }) {
         {data.polls?.averageRating && (
           <div className="flex items-center gap-2">
             <span>🤯</span>
-            <span className="text-muted-foreground">Community Rating:</span>
+            <span className="text-muted-foreground">{t("home.offerHover.communityRating")}</span>
             <span className="font-bold text-primary">
               {(data.polls.averageRating * 2 * 10).toFixed(1)}%
             </span>
@@ -354,10 +358,10 @@ function OfferHoverCard({ id }: { id: string }) {
                 <div className="w-5 h-5 bg-primary rounded-sm flex items-center justify-center text-sm font-bold text-primary-foreground">
                   {Math.round(data.igdb.total_rating)}
                 </div>
-                <span className="text-muted-foreground">IGDB Score</span>
+                <span className="text-muted-foreground">{t("home.offerHover.igdbScore")}</span>
                 {data.igdb.total_rating_count && (
                   <span className="text-muted-foreground/70 text-xs">
-                    • {data.igdb.total_rating_count} reviews
+                    {t("home.offerHover.reviews", { count: data.igdb.total_rating_count })}
                   </span>
                 )}
               </div>
@@ -365,11 +369,11 @@ function OfferHoverCard({ id }: { id: string }) {
             {data.igdb.timeToBeat && (
               <div className="flex items-center gap-2">
                 <span>⏱️</span>
-                <span className="text-muted-foreground">Time to Beat:</span>
+                <span className="text-muted-foreground">{t("home.offerHover.timeToBeat")}</span>
                 <span className="text-foreground/80">
                   {data.igdb.timeToBeat.normally
                     ? formatTimeToHumanReadable(data.igdb.timeToBeat.normally)
-                    : "N/A"}
+                    : t("common.notAvailable")}
                 </span>
               </div>
             )}
@@ -378,10 +382,11 @@ function OfferHoverCard({ id }: { id: string }) {
         {data.features.features.length > 0 && (
           <div className="flex items-center gap-2">
             <span>🎮</span>
-            <span className="text-muted-foreground">Features:</span>
+            <span className="text-muted-foreground">{t("home.offerHover.features")}</span>
             <span className="text-foreground/80">
               {data.features.features.slice(0, 2).join(", ")}
-              {data.features.features.length > 2 && ` +${data.features.features.length - 2} more`}
+              {data.features.features.length > 2 &&
+                t("home.offerHover.moreFeatures", { count: data.features.features.length - 2 })}
             </span>
           </div>
         )}
@@ -403,6 +408,7 @@ function BuildHoverCard({
     buildVersion?: string;
   }>;
 }) {
+  const { t } = useTranslation();
   const build = builds.find((b) => b._id === id);
 
   const gameImage =
@@ -428,7 +434,7 @@ function BuildHoverCard({
             src={buildImageUrl(displayUrl, 320)}
             srcSet={buildSrcSet(displayUrl, 320)}
             sizes="320px"
-            alt={build.item?.title ?? "Unknown Build"}
+            alt={build.item?.title ?? t("home.buildHover.unknownBuild")}
             className="w-full h-full object-cover"
             loading="lazy"
             decoding="async"
@@ -439,18 +445,18 @@ function BuildHoverCard({
       <div className="p-4 space-y-3">
         <div>
           <h3 className="text-lg font-display font-bold text-foreground leading-tight line-clamp-2">
-            {build.item?.title ?? "Unknown Build"}
+            {build.item?.title ?? t("home.buildHover.unknownBuild")}
           </h3>
           {build.item?.developer && (
             <p className="text-sm text-muted-foreground mt-1">
-              {build.item?.developer ?? "Unknown Developer"}
+              {build.item?.developer ?? t("home.buildHover.unknownDeveloper")}
             </p>
           )}
         </div>
 
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-muted-foreground">Size</span>
+            <span className="text-xs text-muted-foreground">{t("home.buildHover.size")}</span>
             <span className="text-sm font-medium text-foreground">
               {calculateSize(build.downloadSizeBytes)}
             </span>
@@ -458,13 +464,13 @@ function BuildHoverCard({
 
           {build.buildVersion && (
             <div className="flex items-center justify-between">
-              <span className="text-xs text-muted-foreground">Version</span>
+              <span className="text-xs text-muted-foreground">{t("home.buildHover.version")}</span>
               <span className="text-sm font-medium text-foreground">{build.buildVersion}</span>
             </div>
           )}
 
           <div className="flex items-center justify-between">
-            <span className="text-xs text-muted-foreground">Created</span>
+            <span className="text-xs text-muted-foreground">{t("home.buildHover.created")}</span>
             <span className="text-xs text-foreground/80">
               {DateTime.fromISO(build.createdAt).toLocaleString(DateTime.DATE_SHORT)}
             </span>
@@ -472,7 +478,9 @@ function BuildHoverCard({
         </div>
 
         <div className="pt-2 border-t border-border/50">
-          <p className="text-xs text-muted-foreground/70 font-mono truncate">ID: {build._id}</p>
+          <p className="text-xs text-muted-foreground/70 font-mono truncate">
+            {t("home.buildHover.id", { id: build._id })}
+          </p>
         </div>
       </div>
     </div>
@@ -494,6 +502,7 @@ function renderHoverCard(type: HoverCardType, id: string) {
 }
 
 function RouteComponent() {
+  const { t } = useTranslation();
   const { timezone, locale } = useLocale();
   const { country } = useCountry();
   const { setFocus } = useSearch();
@@ -747,31 +756,45 @@ function RouteComponent() {
 
       {/* Stats Bar */}
       <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 py-3 border-y border-border/40 rounded-md bg-card/30 px-4">
-        <StatItem label="Offers Tracked" value={stats.offers.toLocaleString("en-UK")} />
+        <StatItem
+          label={t("home.statsBar.offersTracked")}
+          value={stats.offers.toLocaleString("en-UK")}
+        />
         <StatDivider />
         <StatItem
-          label="Price Changes / 72h"
+          label={t("home.statsBar.priceChanges72h")}
           value={stats.trackedPriceChanges.toLocaleString("en-UK")}
         />
         <StatDivider />
-        <StatItem label="Active Discounts" value={stats.activeDiscounts.toLocaleString("en-UK")} />
+        <StatItem
+          label={t("home.statsBar.activeDiscounts")}
+          value={stats.activeDiscounts.toLocaleString("en-UK")}
+        />
         <StatDivider />
-        <StatItem label="Giveaways to Date" value={stats.giveaways.toLocaleString("en-UK")} />
+        <StatItem
+          label={t("home.statsBar.giveawaysToDate")}
+          value={stats.giveaways.toLocaleString("en-UK")}
+        />
       </div>
 
       {/* First row - shorter sections */}
       <div className="grid gap-6 grid-cols-1 lg:grid-cols-2">
         {/* Giveaways Stats Section */}
-        <Section title="Giveaway Stats" href="/freebies" className="h-[400px]">
+        <Section title={t("home.sections.giveawayStats")} href="/freebies" className="h-[400px]">
           <div className="flex flex-col items-center justify-center h-full">
             <div className="w-full flex items-center justify-center h-[300px]">
               <GiveawaysStats showTitle={false} wrap />
             </div>
           </div>
         </Section>
-        <Section title="Giveaway Offers" href="/freebies" className="h-[400px]">
+        <Section title={t("home.sections.giveawayOffers")} href="/freebies" className="h-[400px]">
           <SimpleTable
-            headers={["#", "Title", "Starts", "Ends"]}
+            headers={[
+              t("home.tableHeaders.hash"),
+              t("home.tableHeaders.title"),
+              t("home.tableHeaders.starts"),
+              t("home.tableHeaders.ends"),
+            ]}
             rows={giveawayOffers.slice(0, 5).map((g) => [
               g.offers.map((o) => o.id).join(":"),
               <Link
@@ -816,7 +839,7 @@ function RouteComponent() {
                   </DialogTrigger>
                   <DialogContent className="max-w-md z-[60]">
                     <DialogHeader>
-                      <DialogTitle>{g.title} - Multiple Offers</DialogTitle>
+                      <DialogTitle>{t("home.multipleOffers", { title: g.title })}</DialogTitle>
                     </DialogHeader>
 
                     <div className="space-y-3">
@@ -895,8 +918,8 @@ function RouteComponent() {
                   </p>
                 </Link>
               ),
-              g.giveaway.startDate ? formatDate(g.giveaway.startDate) : "N/A",
-              g.giveaway.endDate ? formatDate(g.giveaway.endDate) : "N/A",
+              g.giveaway.startDate ? formatDate(g.giveaway.startDate) : t("common.notAvailable"),
+              g.giveaway.endDate ? formatDate(g.giveaway.endDate) : t("common.notAvailable"),
             ])}
           />
         </Section>
@@ -904,14 +927,18 @@ function RouteComponent() {
 
       <div className="grid auto-rows-[1fr] gap-6 grid-cols-1 lg:grid-cols-2">
         <Section
-          title="Upcoming Offers"
+          title={t("home.sections.upcomingOffers")}
           href="/search"
           search={{
             sortBy: "upcoming",
           }}
         >
           <SimpleTable
-            headers={["#", "Title", "Release Date"]}
+            headers={[
+              t("home.tableHeaders.hash"),
+              t("home.tableHeaders.title"),
+              t("home.tableHeaders.releaseDate"),
+            ]}
             rows={upcomingOfferRows.slice(0, 10).map((o) => [
               o.id,
               <Link
@@ -942,7 +969,7 @@ function RouteComponent() {
                   id: o.id,
                 }}
               >
-                <TruncatedText text={o.title ?? "N/A"} maxLength={40} />
+                <TruncatedText text={o.title ?? t("common.notAvailable")} maxLength={40} />
               </Link>,
               o.releaseDate
                 ? (() => {
@@ -953,19 +980,24 @@ function RouteComponent() {
                     }
                     return formatDate(o.releaseDate);
                   })()
-                : "N/A",
+                : t("common.notAvailable"),
             ])}
           />
         </Section>
         <Section
-          title="Latest Offers"
+          title={t("home.sections.latestOffers")}
           href="/search"
           search={{
             sortBy: "creationDate",
           }}
         >
           <SimpleTable
-            headers={["#", "Title", "Created At", "Price"]}
+            headers={[
+              t("home.tableHeaders.hash"),
+              t("home.tableHeaders.title"),
+              t("home.tableHeaders.createdAt"),
+              t("home.tableHeaders.price"),
+            ]}
             rows={latestOffers.slice(0, 10).map((o) => [
               o.id,
               <Link
@@ -996,9 +1028,9 @@ function RouteComponent() {
                   id: o.id,
                 }}
               >
-                <TruncatedText text={o.title ?? "N/A"} maxLength={40} />
+                <TruncatedText text={o.title ?? t("common.notAvailable")} maxLength={40} />
               </Link>,
-              o.creationDate ? formatDate(o.creationDate) : "N/A",
+              o.creationDate ? formatDate(o.creationDate) : t("common.notAvailable"),
               Intl.NumberFormat(locale, {
                 style: "currency",
                 currency: o.price?.price.currencyCode ?? "USD",
@@ -1012,7 +1044,7 @@ function RouteComponent() {
           />
         </Section>
         <Section
-          title="Latest Released"
+          title={t("home.sections.latestReleased")}
           href="/search"
           search={{
             sortBy: "releaseDate",
@@ -1020,7 +1052,12 @@ function RouteComponent() {
           }}
         >
           <SimpleTable
-            headers={["#", "Date", "Title", "Price"]}
+            headers={[
+              t("home.tableHeaders.hash"),
+              t("home.tableHeaders.date"),
+              t("home.tableHeaders.title"),
+              t("home.tableHeaders.price"),
+            ]}
             rows={latestReleasedOfferRows.slice(0, 10).map((u) => [
               u.id,
               <Link
@@ -1053,7 +1090,7 @@ function RouteComponent() {
                     }
                     return formatDate(u.releaseDate);
                   })()
-                : "N/A",
+                : t("common.notAvailable"),
               <Link
                 key={`upcoming-title-${u.id}`}
                 to="/offers/$id"
@@ -1061,7 +1098,7 @@ function RouteComponent() {
                   id: u.id,
                 }}
               >
-                <TruncatedText text={u.title ?? "N/A"} maxLength={40} />
+                <TruncatedText text={u.title ?? t("common.notAvailable")} maxLength={40} />
               </Link>,
               Intl.NumberFormat(locale, {
                 style: "currency",
@@ -1076,7 +1113,7 @@ function RouteComponent() {
           />
         </Section>
         <Section
-          title="Latest Offers w/ Achievements"
+          title={t("home.sections.latestOffersWithAchievements")}
           href="/search"
           search={{
             tags: ["19847"],
@@ -1084,8 +1121,8 @@ function RouteComponent() {
         >
           <SimpleTable
             headers={[
-              "#",
-              "Title",
+              t("home.tableHeaders.hash"),
+              t("home.tableHeaders.title"),
               <span className="flex flex-col items-center justify-center" key="bronze-header">
                 <EpicTrophyIcon className={cn("size-4", raritiesTextColors.bronze)} />
               </span>,
@@ -1136,7 +1173,7 @@ function RouteComponent() {
                     id: a.id,
                   }}
                 >
-                  <TruncatedText text={a.title ?? "N/A"} maxLength={40} />
+                  <TruncatedText text={a.title ?? t("common.notAvailable")} maxLength={40} />
                 </Link>,
                 <p key={`achievement-bronze-${a.id}`} className="text-center">
                   {noOfAchievementsPerRarity.bronze || 0}
@@ -1152,7 +1189,7 @@ function RouteComponent() {
           />
         </Section>
         <Section
-          title="Top‑Selling Offers"
+          title={t("home.sections.topSellingOffers")}
           href="/collections/$id"
           params={{
             id: "top-sellers",
@@ -1160,9 +1197,9 @@ function RouteComponent() {
         >
           <SimpleTable
             headers={[
-              "Pos",
-              "-",
-              "Title",
+              t("home.tableHeaders.pos"),
+              t("home.tableHeaders.dash"),
+              t("home.tableHeaders.title"),
               <span
                 key="trend-up-top-sellers"
                 className="w-full flex flex-col items-center justify-center"
@@ -1209,9 +1246,14 @@ function RouteComponent() {
             ])}
           />
         </Section>
-        <Section title="Latest Builds">
+        <Section title={t("home.sections.latestBuilds")}>
           <SimpleTable
-            headers={["#", "Title", "Size", "Creation Date"]}
+            headers={[
+              t("home.tableHeaders.hash"),
+              t("home.tableHeaders.title"),
+              t("home.tableHeaders.size"),
+              t("home.tableHeaders.creationDate"),
+            ]}
             rows={latestBuilds.slice(0, 10).map((b) => [
               b._id,
               <Link
@@ -1229,7 +1271,7 @@ function RouteComponent() {
                     80,
                     "low",
                   )}
-                  alt={b.item?.title ?? "Unknown Build"}
+                  alt={b.item?.title ?? t("home.buildHover.unknownBuild")}
                   loading="lazy"
                   decoding="async"
                   className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
@@ -1238,7 +1280,7 @@ function RouteComponent() {
               <BuildTitle
                 key={b._id}
                 id={b._id}
-                title={b.item?.title ?? "Unknown Build"}
+                title={b.item?.title ?? t("home.buildHover.unknownBuild")}
                 buildVersion={b.buildVersion}
                 maxTitleLength={20}
               />,
@@ -1283,17 +1325,22 @@ function SearchPulseHero({
   isFetching: boolean;
   isError: boolean;
 }) {
+  const { t } = useTranslation();
   const chips: {
     label: string;
     to: LinkComponentProps["to"];
     search?: LinkComponentProps["search"];
     params?: LinkComponentProps["params"];
   }[] = [
-    { label: "Just released", to: "/search", search: { sortBy: "releaseDate", sortDir: "desc" } },
-    { label: "Price drops (72h)", to: "/sales" },
-    { label: "Has achievements", to: "/search", search: { tags: ["19847"] } },
-    { label: "Upcoming", to: "/search", search: { sortBy: "upcoming" } },
-    { label: "Top sellers", to: "/collections/$id", params: { id: "top-sellers" } },
+    {
+      label: t("home.hero.justReleased"),
+      to: "/search",
+      search: { sortBy: "releaseDate", sortDir: "desc" },
+    },
+    { label: t("home.hero.priceDrops72h"), to: "/sales" },
+    { label: t("home.hero.hasAchievements"), to: "/search", search: { tags: ["19847"] } },
+    { label: t("home.hero.upcoming"), to: "/search", search: { sortBy: "upcoming" } },
+    { label: t("home.hero.topSellers"), to: "/collections/$id", params: { id: "top-sellers" } },
   ];
 
   const events = useMemo(
@@ -1302,8 +1349,8 @@ function SearchPulseHero({
         .filter((change) => change.metadata?.changes?.length)
         .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
         .slice(0, 6)
-        .map(normalizePulseEvent),
-    [changes],
+        .map((change) => normalizePulseEvent(change, t)),
+    [changes, t],
   );
 
   return (
@@ -1321,10 +1368,7 @@ function SearchPulseHero({
         <h1 className="text-3xl md:text-4xl font-display font-bold tracking-tight text-foreground">
           egdata.app
         </h1>
-        <p className="mt-3 max-w-xl text-muted-foreground">
-          Track prices, discover deals, and never miss a free game. Your companion for the Epic
-          Games Store database — offers, discounts, giveaways, builds, and more.
-        </p>
+        <p className="mt-3 max-w-xl text-muted-foreground">{t("home.hero.subtitle")}</p>
 
         <button
           type="button"
@@ -1332,7 +1376,7 @@ function SearchPulseHero({
           className="mt-5 w-full max-w-xl inline-flex items-center gap-2 rounded-md border border-border/60 bg-background/70 px-4 py-2.5 text-left text-sm text-muted-foreground hover:border-primary/60 hover:text-primary transition-colors"
         >
           <Search className="size-4" />
-          Search the database…
+          {t("home.hero.searchPlaceholder")}
         </button>
 
         <div className="mt-4 flex max-w-xl flex-wrap gap-2" data-testid="hero-quick-links">
@@ -1365,6 +1409,7 @@ function AmbientPulsePanel({
   isError: boolean;
   density: "desktop" | "mobile";
 }) {
+  const { t } = useTranslation();
   return (
     <div
       className={cn(
@@ -1376,7 +1421,7 @@ function AmbientPulsePanel({
     >
       <div className="flex items-center justify-between gap-3">
         <span className="text-xs font-medium tracking-tight text-muted-foreground">
-          Recent activity
+          {t("home.pulse.recentActivity")}
         </span>
         {isFetching && !isLoading && (
           <RefreshCw className="size-3.5 animate-spin text-muted-foreground/60" />
@@ -1404,6 +1449,7 @@ function AmbientPulsePanel({
 }
 
 function PulseChangeRow({ event }: { event: PulseEvent }) {
+  const { t } = useTranslation();
   const tone = getPulseTone(event.contextType, event.action);
   const Icon = getPulseIcon(event.contextType, event.action);
 
@@ -1425,7 +1471,7 @@ function PulseChangeRow({ event }: { event: PulseEvent }) {
 
       <span className="min-w-0 flex-1 truncate text-sm text-foreground/85">{event.title}</span>
       <span className="shrink-0 text-xs tabular-nums text-muted-foreground/70">
-        {event.badge.toLowerCase()}
+        {t(`home.pulse.badge.${event.badge}`, { defaultValue: event.badge.toLowerCase() })}
       </span>
       <span
         suppressHydrationWarning
@@ -1437,7 +1483,7 @@ function PulseChangeRow({ event }: { event: PulseEvent }) {
   );
 }
 
-function normalizePulseEvent(change: LiveChangeEvent): PulseEvent {
+function normalizePulseEvent(change: LiveChangeEvent, t: TFunction): PulseEvent {
   const primaryChange = getPrimaryChange(change.metadata.changes);
   const contextType = change.metadata.contextType || "change";
   const action = primaryChange?.changeType ?? "update";
@@ -1448,8 +1494,8 @@ function normalizePulseEvent(change: LiveChangeEvent): PulseEvent {
     contextType,
     action,
     badge: getPulseBadge(contextType, action),
-    title: getPulseTitle(change),
-    detail: getPulseDetail(change, primaryChange),
+    title: getPulseTitle(change, t),
+    detail: getPulseDetail(change, primaryChange, t),
     changeCount: change.metadata.changes.length,
     imageUrl: getPulseImageUrl(change.metadata.context),
   };
@@ -1460,50 +1506,64 @@ function getPrimaryChange(changes: LiveChangeDelta[]) {
   return changes.find((change) => !lowSignalFields.has(change.field)) ?? changes[0];
 }
 
-function getPulseTitle(change: LiveChangeEvent) {
+function getPulseTitle(change: LiveChangeEvent, t: TFunction) {
   const { context, contextId, contextType } = change.metadata;
   const title = context?.title?.trim();
 
   if (title) return title;
 
   if (contextType === "build") {
-    if (context?.buildVersion) return `Build ${context.buildVersion}`;
-    if (context?.appName) return `Build ${shortId(context.appName)}`;
+    if (context?.buildVersion)
+      return t("home.pulse.title.buildVersion", { version: context.buildVersion });
+    if (context?.appName) return t("home.pulse.title.buildId", { id: shortId(context.appName) });
   }
 
   if (contextType === "achievements") {
-    return `Achievements ${shortId(contextId)}`;
+    return t("home.pulse.title.achievementsId", { id: shortId(contextId) });
   }
 
   return context?.name || context?.id || shortId(contextId);
 }
 
-function getPulseDetail(change: LiveChangeEvent, primaryChange: LiveChangeDelta | undefined) {
+function getPulseDetail(
+  change: LiveChangeEvent,
+  primaryChange: LiveChangeDelta | undefined,
+  t: TFunction,
+) {
   const { changes, contextType } = change.metadata;
   const action = primaryChange?.changeType ?? "update";
   const field = primaryChange?.field ?? "record";
+  const verb = t(`home.pulse.actionVerb.${getActionVerb(action)}`);
 
   if (contextType === "build") {
-    return action === "insert" ? "New build indexed" : "Build manifest refreshed";
+    return action === "insert"
+      ? t("home.pulse.detail.newBuildIndexed")
+      : t("home.pulse.detail.buildManifestRefreshed");
   }
 
   if (contextType === "achievements") {
-    return `${changes.length.toLocaleString("en-UK")} achievement ${pluralize(
-      changes.length,
-      "entry",
-      "entries",
-    )} ${getActionVerb(action)}`;
+    return t("home.pulse.detail.achievementChanges", {
+      count: changes.length,
+      entry: t(`home.pulse.entry`, { count: changes.length }),
+      verb,
+    });
   }
 
   if (contextType === "offer" && field === "lastModifiedDate") {
-    return "Offer metadata refreshed";
+    return t("home.pulse.detail.offerMetadataRefreshed");
   }
 
   if (changes.length > 1) {
-    return `${changes.length.toLocaleString("en-UK")} fields ${getActionVerb(action)}`;
+    return t("home.pulse.detail.fieldsChanged", {
+      count: changes.length,
+      verb,
+    });
   }
 
-  return `${formatChangeField(field)} ${getActionVerb(action)}`;
+  return t("home.pulse.detail.fieldChanged", {
+    field: formatChangeField(field),
+    verb,
+  });
 }
 
 function getPulseImageUrl(context: LiveChangeContext | null | undefined) {
@@ -1521,24 +1581,24 @@ function getPulseImageUrl(context: LiveChangeContext | null | undefined) {
 }
 
 function getPulseBadge(contextType: string, action: LiveChangeAction) {
-  if (action === "insert") return "New";
-  if (action === "delete") return "Gone";
+  if (action === "insert") return "new";
+  if (action === "delete") return "gone";
 
   switch (contextType) {
     case "offer":
-      return "Offer";
+      return "offer";
     case "build":
-      return "Build";
+      return "build";
     case "item":
-      return "Item";
+      return "item";
     case "asset":
-      return "Asset";
+      return "asset";
     case "achievements":
-      return "XP";
+      return "xp";
     case "sandbox":
-      return "Sandbox";
+      return "sandbox";
     default:
-      return "Change";
+      return "change";
   }
 }
 
@@ -1560,10 +1620,6 @@ function formatChangeField(field: string) {
     .replace(/([a-z])([A-Z])/g, "$1 $2")
     .replace(/[_-]+/g, " ")
     .replace(/\b\w/g, (letter) => letter.toUpperCase());
-}
-
-function pluralize(count: number, singular: string, plural: string) {
-  return count === 1 ? singular : plural;
 }
 
 function shortId(id: string) {

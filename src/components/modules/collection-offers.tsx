@@ -7,8 +7,10 @@ import type { SingleOffer } from "@/types/single-offer";
 import { useCountry } from "@/hooks/use-country";
 import { ArrowUpIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export function CollectionOffers({ id }: { id: string }) {
+  const { t } = useTranslation();
   const { country } = useCountry();
   const [api, setApi] = useState<CarouselApi>();
   const {
@@ -37,7 +39,7 @@ export function CollectionOffers({ id }: { id: string }) {
         <hr className="my-4" />
         <div className="flex justify-between items-center">
           <h4 className="text-xl font-bold text-left inline-flex group items-center gap-2">
-            Collection Offers
+            {t("components.collectionOffers.title")}
           </h4>
           <div className="flex gap-2">
             <button
@@ -89,7 +91,7 @@ export function CollectionOffers({ id }: { id: string }) {
       <hr className="my-4" />
       <div className="flex justify-between items-center">
         <h4 className="text-xl font-bold text-left inline-flex group items-center gap-2">
-          Collection Offers
+          {t("components.collectionOffers.title")}
         </h4>
         <div className="flex gap-2">
           <button

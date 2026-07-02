@@ -7,6 +7,8 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 export interface GenreResponse {
   genre: Genre;
@@ -48,8 +50,8 @@ export const Route = createFileRoute("/genres")({
     return {
       meta: [
         {
-          title: "Genres - egdata.app",
-          description: "Genres on egdata.app",
+          title: i18n.t("genres.meta.title"),
+          description: i18n.t("genres.meta.description"),
         },
       ],
     };
@@ -70,6 +72,7 @@ export const Route = createFileRoute("/genres")({
 });
 
 function GenresPage() {
+  const { t } = useTranslation();
   const { data: genres } = useQuery({
     queryKey: ["genres-list"],
     queryFn: () => httpClient.get<GenreResponse[]>("/offers/genres"),
@@ -81,7 +84,7 @@ function GenresPage() {
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen py-2">
-      <h1 className="text-2xl font-bold">Genres</h1>
+      <h1 className="text-2xl font-bold">{t("genres.heading")}</h1>
       <hr className="w-1/2 bg-muted my-4" />
       <div className="flex flex-wrap justify-center">
         {genres

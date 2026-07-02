@@ -11,6 +11,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { DynamicPagination } from "@/components/app/dynamic-pagination";
 import { ChangeTracker } from "@/components/app/changelog/item";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 export interface Root {
   hits: (OfferHit | ItemHit | AssetHit | Hit)[];
@@ -129,7 +131,7 @@ export const Route = createFileRoute("/changelog/")({
     return {
       meta: [
         {
-          title: "Changelog | egdata.app",
+          title: i18n.t("changelog.index.meta.title"),
         },
       ],
     };
@@ -137,6 +139,7 @@ export const Route = createFileRoute("/changelog/")({
 });
 
 function ChangelogPage() {
+  const { t } = useTranslation();
   const { page: initialPage, query: initialQuery } = Route.useLoaderData() as {
     dehydratedState: DehydratedState;
     page: number;
@@ -195,16 +198,16 @@ function ChangelogPage() {
       <div className="flex items-center gap-4">
         <Input
           type="search"
-          placeholder="Search changelogs..."
+          placeholder={t("changelog.index.searchPlaceholder")}
           className="flex-1 bg-background"
           value={query}
           onChange={(e) => handleQueryChange(e.target.value)}
         />
-        <Button>Search</Button>
+        <Button>{t("changelog.index.searchButton")}</Button>
       </div>
       <div className="grid gap-4">
-        {isLoading && <div>Loading...</div>}
-        {isError && <div>Error fetching data</div>}
+        {isLoading && <div>{t("changelog.index.loading")}</div>}
+        {isError && <div>{t("changelog.index.error")}</div>}
         {data?.hits
           // Filter out hits without metadata
           .filter((hit) => hit.metadata)

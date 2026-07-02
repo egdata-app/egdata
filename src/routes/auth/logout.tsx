@@ -1,7 +1,11 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/auth/logout")({
-  component: () => <div>Hello /auth/logout!</div>,
+  component: () => {
+    const { t } = useTranslation();
+    return <div>{t("auth.logout.placeholder")}</div>;
+  },
 
   beforeLoad: async () => {
     if (import.meta.env.SSR) {

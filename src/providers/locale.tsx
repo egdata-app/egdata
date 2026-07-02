@@ -1,6 +1,8 @@
-import { type ReactNode, useEffect, useState } from "react";
+import { type ReactNode, useCallback, useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { LocaleContext } from "@/contexts/locale";
+import { DEFAULT_LOCALE, isRTL } from "@/lib/supported-locales";
+import { changeLanguage as changeI18nLanguage } from "@/lib/i18n";
 
 interface LocaleProviderProps {
   children: ReactNode;
@@ -8,12 +10,19 @@ interface LocaleProviderProps {
   initialTimezone?: string | null;
 }
 
+function updateDocumentLocale(locale: string) {
+  if (typeof document === "undefined") return;
+
+  document.documentElement.lang = locale;
+  document.documentElement.dir = isRTL(locale) ? "rtl" : "ltr";
+}
+
 export const LocaleProvider: React.FC<LocaleProviderProps> = ({
   children,
   initialLocale,
   initialTimezone,
 }) => {
-  const [locale, setLocale] = useState<string | undefined>(
+  const [locale, setLocaleState] = useState<string | undefined>(
     () =>
       initialLocale ||
       Cookies.get("user_locale") ||
@@ -28,7 +37,33 @@ export const LocaleProvider: React.FC<LocaleProviderProps> = ({
         : undefined),
   );
 
-  const checkAndUpdateTimezone = () => {
+  const setLocale = (next: string) => {
+    setLocaleState(next);
+    updateDocumentLocale(next);
+  };
+
+  useEffect(() => {
+    const nextLocale = locale ?? DEFAULT_LOCALE;
+    let cancelled = false;
+
+    updateDocumentLocale(nextLocale);
+
+    void changeI18nLanguage(nextLocale)
+      .then((resolvedLocale) => {
+        if (cancelled) return;
+
+        updateDocumentLocale(locale ?? resolvedLocale);
+      })
+      .catch((error: unknown) => {
+        console.error("Failed to load locale", error);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [locale]);
+
+  const checkAndUpdateTimezone = useCallback(() => {
     if (typeof window === "undefined") return;
 
     const currentTimezone = window.Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -40,7 +75,7 @@ export const LocaleProvider: React.FC<LocaleProviderProps> = ({
       setTimezone(currentTimezone);
       Cookies.set("timezone_last_check", today);
     }
-  };
+  }, [timezone]);
 
   // Initial timezone check and cookie setup
   useEffect(() => {
@@ -68,7 +103,7 @@ export const LocaleProvider: React.FC<LocaleProviderProps> = ({
     return () => {
       window.removeEventListener("focus", handleFocus);
     };
-  }, [timezone]);
+  }, [checkAndUpdateTimezone]);
 
   return (
     <LocaleContext.Provider value={{ locale, setLocale, timezone, setTimezone }}>

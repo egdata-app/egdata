@@ -2,6 +2,8 @@ import * as React from "react";
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 import { DateTime } from "luxon";
 import { useLocale } from "@/hooks/use-locale";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 import {
   dehydrate,
   type DehydratedState,
@@ -110,8 +112,8 @@ export const Route = createFileRoute("/profile/$id")({
       return {
         meta: [
           {
-            title: "Profile not found",
-            description: "Profile not found",
+            title: i18n.t("profile.meta.notFoundTitle"),
+            description: i18n.t("profile.meta.notFoundDescription"),
           },
         ],
       };
@@ -127,8 +129,8 @@ export const Route = createFileRoute("/profile/$id")({
       return {
         meta: [
           {
-            title: "Profile not found",
-            description: "Profile not found",
+            title: i18n.t("profile.meta.notFoundTitle"),
+            description: i18n.t("profile.meta.notFoundDescription"),
           },
         ],
       };
@@ -137,11 +139,15 @@ export const Route = createFileRoute("/profile/$id")({
     return {
       meta: [
         {
-          title: `${profile.displayName ?? "Profile"} | egdata.app`,
+          title: i18n.t("profile.meta.title", {
+            name: profile.displayName ?? i18n.t("profile.meta.defaultName"),
+          }),
         },
         {
           name: "description",
-          content: `Check out ${profile.displayName ?? "this player's"} achievements and games on egdata.app`,
+          content: i18n.t("profile.meta.description", {
+            name: profile.displayName ?? i18n.t("profile.meta.defaultDescriptionName"),
+          }),
         },
       ],
     };
@@ -149,6 +155,7 @@ export const Route = createFileRoute("/profile/$id")({
 });
 
 function RouteComponent() {
+  const { t } = useTranslation();
   const { id, userId } = Route.useLoaderData() as {
     dehydratedState: DehydratedState;
     id: string;
@@ -184,7 +191,7 @@ function RouteComponent() {
     };
 
     image.onerror = () => {
-      setAvatarErrors(["Invalid image format"]);
+      setAvatarErrors([t("profile.errors.invalidImageFormat")]);
     };
 
     return () => URL.revokeObjectURL(objectUrl);
@@ -216,7 +223,7 @@ function RouteComponent() {
       );
 
       if (response.status !== 200) {
-        throw new Error("Failed to upload");
+        throw new Error(t("profile.errors.failedToUpload"));
       }
 
       window.location.reload();
@@ -229,7 +236,7 @@ function RouteComponent() {
         },
         source: "profile.avatar-upload",
       });
-      setAvatarErrors([error instanceof Error ? error.message : "Upload failed"]);
+      setAvatarErrors([error instanceof Error ? error.message : t("profile.errors.uploadFailed")]);
     } finally {
       setIsUploading(false);
     }
@@ -243,9 +250,9 @@ function RouteComponent() {
     return (
       <main className="flex min-h-[70vh] w-full items-center justify-center px-4">
         <div className="max-w-md rounded-md border border-border bg-card p-6 text-center">
-          <h1 className="text-2xl font-semibold">Profile not found</h1>
+          <h1 className="text-2xl font-semibold">{t("profile.errors.notFoundTitle")}</h1>
           <p className="mt-2 text-sm text-muted-foreground">
-            This profile is unavailable or has not been indexed yet.
+            {t("profile.errors.notFoundDescription")}
           </p>
         </div>
       </main>
@@ -253,7 +260,7 @@ function RouteComponent() {
   }
 
   const accountId = profile.accountId ?? id;
-  const displayName = profile.displayName ?? "Unknown profile";
+  const displayName = profile.displayName ?? t("profile.fallbackName");
   const avatarUrl = profile.avatar?.large ?? profile.avatar?.medium ?? profile.avatar?.small ?? "";
   const isOwner = userId === accountId;
   const linkedAccounts = getProfileLinkedAccounts(profile.linkedAccounts);
@@ -295,8 +302,10 @@ function RouteComponent() {
                     </DialogTrigger>
                     <DialogContent>
                       <DialogHeader>
-                        <DialogTitle>Change Avatar</DialogTitle>
-                        <DialogDescription>Upload a new profile image.</DialogDescription>
+                        <DialogTitle>{t("profile.avatar.changeAvatar")}</DialogTitle>
+                        <DialogDescription>
+                          {t("profile.avatar.dialogDescription")}
+                        </DialogDescription>
                       </DialogHeader>
                       <form
                         className="space-y-6"
@@ -310,12 +319,14 @@ function RouteComponent() {
                           <Avatar className="h-24 w-24">
                             <AvatarImage
                               src={selectedImagePreviewUrl ?? avatarUrl}
-                              alt="Avatar preview"
+                              alt={t("profile.avatar.previewAlt")}
                             />
-                            <AvatarFallback>Avatar</AvatarFallback>
+                            <AvatarFallback>{t("profile.avatar.fallback")}</AvatarFallback>
                           </Avatar>
                           <div className="space-y-2">
-                            <Label htmlFor="avatar-upload">Change Avatar</Label>
+                            <Label htmlFor="avatar-upload">
+                              {t("profile.avatar.changeAvatar")}
+                            </Label>
                             <Input
                               id="avatar-upload"
                               name="avatar"
@@ -332,7 +343,7 @@ function RouteComponent() {
                               id="avatar-upload-description"
                               className="text-sm text-muted-foreground"
                             >
-                              Upload a new avatar image, max 5MB.
+                              {t("profile.avatar.description")}
                             </p>
                           </div>
                         </div>
@@ -345,7 +356,9 @@ function RouteComponent() {
                               />
                             </div>
                             <p className="text-center text-sm text-muted-foreground">
-                              Uploading... {uploadProgress}%
+                              {t("profile.avatar.uploadingWithProgress", {
+                                progress: uploadProgress,
+                              })}
                             </p>
                           </div>
                         )}
@@ -357,16 +370,16 @@ function RouteComponent() {
                           {isUploading ? (
                             <>
                               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                              Uploading...
+                              {t("profile.avatar.uploading")}
                             </>
                           ) : (
-                            "Update Avatar"
+                            t("profile.avatar.updateAvatar")
                           )}
                         </Button>
                         {avatarErrors.length > 0 && (
                           <Alert variant="destructive">
                             <ExclamationTriangleIcon className="h-4 w-4" />
-                            <AlertTitle>Error</AlertTitle>
+                            <AlertTitle>{t("profile.avatar.errorTitle")}</AlertTitle>
                             <AlertDescription className="flex flex-col gap-1">
                               {avatarErrors.map((error, index) => (
                                 // biome-ignore lint/suspicious/noArrayIndexKey: unique key
@@ -414,7 +427,7 @@ function RouteComponent() {
                     {profile.creationDate && (
                       <span className="inline-flex items-center gap-2 text-foreground">
                         <CalendarIcon className="size-4" />
-                        Joined{" "}
+                        {t("profile.hero.joined")}{" "}
                         {new Date(profile.creationDate).toLocaleDateString("en-US", {
                           year: "numeric",
                           month: "long",
@@ -429,7 +442,7 @@ function RouteComponent() {
                       className="inline-flex items-center gap-2 text-foreground hover:text-primary"
                     >
                       <EGSIcon className="size-4" />
-                      <span>Epic Games Store</span>
+                      <span>{t("profile.hero.epicGamesStore")}</span>
                       <ExternalLinkIcon className="size-3" />
                     </a>
                   </div>
@@ -441,7 +454,7 @@ function RouteComponent() {
                   <Button asChild variant="outline" className="bg-[#5865f2] hover:bg-[#4752c4]">
                     <a href={`${httpClient.axiosInstance.defaults.baseURL}/auth/discord/link`}>
                       <DiscordIcon className="size-4" fill="white" />
-                      <span>Link Discord</span>
+                      <span>{t("profile.hero.linkDiscord")}</span>
                     </a>
                   </Button>
                 )}
@@ -451,21 +464,21 @@ function RouteComponent() {
 
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
               <HeroStat
-                label="Level"
+                label={t("profile.hero.level")}
                 value={highlights.level}
                 detail={`${highlights.totalXP.toLocaleString()} XP`}
                 icon={<LevelIcon className="size-5" />}
               />
               <HeroStat
-                label="Achievements"
+                label={t("profile.hero.achievements")}
                 value={highlights.totalAchievements}
-                detail="Unlocked"
+                detail={t("profile.hero.unlocked")}
                 icon={<EpicTrophyIcon className="size-5" />}
               />
               <HeroStat
-                label="Platinum"
+                label={t("profile.hero.platinum")}
                 value={highlights.totalPlatinums}
-                detail="Perfect games"
+                detail={t("profile.hero.perfectGames")}
                 icon={
                   <EpicPlatinumIcon
                     className={cn("size-5", highlights.totalPlatinums > 0 && "text-[#8a7cff]")}
@@ -473,15 +486,15 @@ function RouteComponent() {
                 }
               />
               <HeroStat
-                label="Library"
+                label={t("profile.hero.library")}
                 value={highlights.totalGames}
-                detail="Achievement games"
+                detail={t("profile.hero.achievementGames")}
                 icon={<Gamepad2Icon className="size-5" />}
               />
               <HeroStat
-                label="Reviews"
+                label={t("profile.hero.reviews")}
                 value={highlights.reviewsCount}
-                detail="Contributed"
+                detail={t("profile.hero.contributed")}
                 icon={<MessageSquareQuoteIcon className="size-5" />}
               />
             </div>
@@ -491,7 +504,10 @@ function RouteComponent() {
                 <div className="flex items-center justify-between text-sm text-foreground">
                   <span className="inline-flex items-center gap-2">
                     <SparklesIcon className="size-4" />
-                    {xpToNextLevel} XP to level {highlights.level + 1}
+                    {t("profile.hero.xpToNextLevel", {
+                      xp: xpToNextLevel,
+                      level: highlights.level + 1,
+                    })}
                   </span>
                   <span>{Math.round(percentToNextLevel)}%</span>
                 </div>
@@ -529,15 +545,16 @@ function RouteComponent() {
 }
 
 function HeroGameSummary({ game }: { game: NonNullable<ProfilePageProfile["heroGame"]> }) {
+  const { t } = useTranslation();
   return (
     <>
       <div className="min-w-0">
-        <p className="text-xs uppercase text-muted-foreground">Hero game</p>
+        <p className="text-xs uppercase text-muted-foreground">{t("profile.hero.heroGame")}</p>
         <p className="truncate text-lg font-semibold">{game.title}</p>
       </div>
       <div className="shrink-0 text-right">
         <p className="text-2xl font-light">{Math.round(game.completionPercent ?? 0)}%</p>
-        <p className="text-xs text-muted-foreground">complete</p>
+        <p className="text-xs text-muted-foreground">{t("profile.hero.complete")}</p>
       </div>
     </>
   );
@@ -727,6 +744,7 @@ function DonnorBadge({
   profile?: RestProfile | null;
   displayName: string;
 }) {
+  const { t } = useTranslation();
   const donations = profile?.donations.length ?? 0;
 
   if (donations === 0) return null;
@@ -746,15 +764,13 @@ function DonnorBadge({
         side="right"
         sideOffset={10}
       >
-        <p>
-          {displayName} has donated {donations} {donations === 1 ? "key" : "keys"} to egdata.app
-        </p>
+        <p>{t("profile.donor.donated", { count: donations, name: displayName })}</p>
         <p className="inline-flex items-center gap-1">
-          Go to{" "}
+          {t("profile.donor.goTo")}{" "}
           <Link to="/donate-key" className="text-blue-500 hover:text-blue-600">
-            this link
+            {t("profile.donor.thisLink")}
           </Link>
-          to donate a key.
+          {t("profile.donor.toDonateKey")}
         </p>
       </TooltipContent>
     </Tooltip>
@@ -762,16 +778,17 @@ function DonnorBadge({
 }
 
 function RefreshProfile({ id }: { id: string }) {
+  const { t } = useTranslation();
   const { data: refreshStatus, refetch } = useQuery(getRefreshStatus(id));
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
     await httpClient.put(`/profiles/${id}/refresh`).catch(() => {
-      toast.error("Failed to refresh profile");
+      toast.error(t("profile.errors.failedToRefresh"));
     });
     setIsRefreshing(false);
-    toast.success("Profile added to queue for refresh, it will be updated soon.");
+    toast.success(t("profile.errors.refreshQueued"));
     await refetch();
   };
 
@@ -785,12 +802,12 @@ function RefreshProfile({ id }: { id: string }) {
           className="inline-flex items-center justify-center gap-2 bg-black/25"
         >
           <ReloadIcon className={cn("size-4", isRefreshing && "animate-spin")} />
-          <span className="text-sm font-medium">Refresh profile</span>
+          <span className="text-sm font-medium">{t("profile.hero.refreshProfile")}</span>
         </Button>
       </TooltipTrigger>
       <TooltipContent sideOffset={5}>
         <p>
-          Refresh available in{" "}
+          {t("profile.hero.refreshAvailableIn")}{" "}
           <Countdown date={refreshStatus?.refreshAvailableAt ?? new Date()} refetch={refetch} />
         </p>
       </TooltipContent>
@@ -814,6 +831,7 @@ function Countdown({
     >
   >;
 }) {
+  const { t } = useTranslation();
   const { timezone } = useLocale();
   const target = DateTime.fromJSDate(date).setZone(timezone || "UTC");
   const [countdown, setCountdown] = useState(
@@ -846,14 +864,13 @@ function Countdown({
   if (minutes > 0) {
     return (
       <span>
-        {minutes} minute{minutes !== 1 ? "s" : ""} {seconds} second
-        {seconds !== 1 ? "s" : ""}
+        {t("profile.countdown.minutesSeconds", {
+          count: minutes,
+          minutes,
+          seconds,
+        })}
       </span>
     );
   }
-  return (
-    <span>
-      {seconds} second{seconds !== 1 ? "s" : ""}
-    </span>
-  );
+  return <span>{t("profile.countdown.seconds", { count: seconds, seconds })}</span>;
 }

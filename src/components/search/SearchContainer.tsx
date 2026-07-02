@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDebounce } from "@uidotdev/usehooks";
 import { useQuery } from "@tanstack/react-query";
 import { useStore } from "@tanstack/react-store";
@@ -79,8 +80,9 @@ export function SearchContainer({
   controls = {},
   fixedParams = {},
   onSearchChange,
-  title = "Search",
+  title,
 }: SearchContainerProps) {
+  const { t } = useTranslation();
   const [filtersOpen, setFiltersOpen] = useState(false);
   // Get the appropriate store for this context with initial state
   const store = getSearchStore(contextId, mergeSearchStates(initialSearch, fixedParams));
@@ -154,14 +156,14 @@ export function SearchContainer({
 
   // Compute tagTypes from tags
   const tagTypesDictionary = {
-    event: "Event",
-    genre: "Genre",
-    epicfeature: "Epic Feature",
-    accessibility: "Accessibility",
-    feature: "Feature",
-    usersay: "Usersay",
-    subscription: "Subscription",
-    platform: "Platform",
+    event: t("search.tagGroups.event"),
+    genre: t("search.tagGroups.genre"),
+    epicfeature: t("search.tagGroups.epicfeature"),
+    accessibility: t("search.tagGroups.accessibility"),
+    feature: t("search.tagGroups.feature"),
+    usersay: t("search.tagGroups.usersay"),
+    subscription: t("search.tagGroups.subscription"),
+    platform: t("search.tagGroups.platform"),
   };
   const tagTypes = Array.from(
     new Map(
@@ -311,7 +313,7 @@ export function SearchContainer({
             query={query as TypeOf<typeof formSchema>}
             setField={setField}
             loading={isFetching}
-            title={title}
+            title={title ?? t("search.defaultTitle")}
             showSort={true}
             showViewToggle={true}
             mobileFilterButton={
@@ -319,7 +321,7 @@ export function SearchContainer({
                 <SheetTrigger asChild>
                   <Button variant="outline" size="sm" className="gap-2 md:hidden">
                     <SlidersHorizontal className="size-4" />
-                    <span>Filters</span>
+                    <span>{t("search.filters")}</span>
                     {activeFilterCount > 0 && (
                       <span className="rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-semibold text-primary-foreground">
                         {activeFilterCount}
@@ -329,7 +331,7 @@ export function SearchContainer({
                 </SheetTrigger>
                 <SheetContent side="left" className="w-[min(92vw,24rem)] overflow-y-auto p-4">
                   <SheetHeader className="mb-4 border-b border-border/50 pb-4 text-left">
-                    <SheetTitle>Filters</SheetTitle>
+                    <SheetTitle>{t("search.filters")}</SheetTitle>
                   </SheetHeader>
                   {filtersPanel}
                 </SheetContent>

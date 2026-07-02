@@ -1,0 +1,1763 @@
+{
+  "common": {
+    "appName": "EGDATA",
+    "search": "खोज",
+    "searchPlaceholder": "गेम खोजें...",
+    "loading": "लोड हो रहा है...",
+    "free": "मुफ़्त",
+    "notAvailable": "उपलब्ध नहीं",
+    "cancel": "रद्द करें",
+    "save": "सहेजें",
+    "close": "बंद करें"
+  },
+  "nav": {
+    "toggleMenu": "नेविगेशन मेनू टॉगल करें",
+    "logoAlt": "EGDATA लोगो",
+    "explore": "एक्सप्लोर करें",
+    "browse": "ब्राउज़ करें",
+    "sales": "सेल",
+    "changelog": "बदलाव लॉग",
+    "about": "हमारे बारे में",
+    "rankings": "रैंकिंग",
+    "topSellers": "टॉप सेलर्स",
+    "mostPlayed": "सबसे ज़्यादा खेले गए",
+    "topWishlisted": "टॉप विशलिस्टेड",
+    "topNewReleases": "टॉप नए रिलीज़",
+    "seeAllCollections": "सभी कलेक्शन देखें",
+    "others": "अन्य",
+    "releaseStats": "रिलीज़ आँकड़े",
+    "genres": "शैलियाँ",
+    "seeAllGenres": "सभी शैलियाँ देखें",
+    "other": "अन्य",
+    "action": "एक्शन",
+    "rpg": "RPG",
+    "indie": "इंडी",
+    "strategy": "स्ट्रेटेजी",
+    "topSellerOnEpic": "Epic Games Store पर टॉप सेलर",
+    "searchItemTitle": "खोज",
+    "searchItemDesc": "Epic Games Store पर अपनी मनचाही चीज़ खोजें।",
+    "freeGamesItemTitle": "मुफ़्त गेम",
+    "freeGamesItemDesc": "Epic Games Store पर नवीनतम मुफ़्त गेम ऑफ़र देखें।",
+    "withDiscountsItemTitle": "छूट के साथ",
+    "withDiscountsItemDesc": "बड़ी छूट वाले गेम देखें।",
+    "helloUser": "नमस्ते, {{name}}!",
+    "dashboard": "डैशबोर्ड",
+    "logout": "लॉग आउट",
+    "searchLanguages": "भाषाएँ खोजें...",
+    "noLanguagesFound": "कोई भाषा नहीं मिली"
+  },
+  "footer": {
+    "logoAlt": "EGDATA लोगो",
+    "disclaimer": "एक फैन-निर्मित Epic Games Store डेटाबेस। Epic Games, Inc. से संबद्ध नहीं। सभी लोगो, छवियाँ और ट्रेडमार्क उनके संबंधित मालिकों के हैं।",
+    "legal": "कानूनी",
+    "privacyPolicy": "गोपनीयता नीति",
+    "notifications": "सूचनाएँ",
+    "resources": "संसाधन",
+    "apiDocs": "API दस्तावेज़",
+    "changelog": "बदलाव लॉग",
+    "community": "समुदाय",
+    "flagsByFlagpedia": "Flagpedia द्वारा झंडे",
+    "madeIn": "निर्मित"
+  },
+  "meta": {
+    "title": "Epic Games डेटाबेस - egdata.app",
+    "description": "व्यापक Epic Games Store डेटाबेस: गेम जानकारी, कीमतें, बिक्री इतिहास, फ़ाइल सूचियाँ, और बहुत कुछ। मुफ़्त गेम, आगामी रिलीज़ और सामुदायिक जानकारी।",
+    "twitterTitle": "Epic Games डेटाबेस",
+    "twitterDescription": "एक मुफ़्त और ओपन-सोर्स Epic Games Store डेटाबेस जिसमें व्यापक गेम जानकारी, बिक्री ट्रैकिंग और बहुत कुछ है। सामुदायिक संचालित और लगातार अपडेट किया जाता है।",
+    "twitterImageAlt": "Epic Games डेटाबेस",
+    "ogTitle": "Epic Games डेटाबेस",
+    "ogDescription": "एक मुफ़्त और ओपन-सोर्स Epic Games Store डेटाबेस जिसमें व्यापक गेम जानकारी, बिक्री ट्रैकिंग और बहुत कुछ है। सामुदायिक संचालित और लगातार अपडेट किया जाता है।",
+    "ogImageAlt": "Epic Games डेटाबेस"
+  },
+  "notFound": {
+    "title": "पेज नहीं मिला"
+  },
+  "home": {
+    "statsBar": {
+      "offersTracked": "ट्रैक किए गए ऑफ़र",
+      "priceChanges72h": "मूल्य परिवर्तन / 72 घंटे",
+      "activeDiscounts": "सक्रिय छूट",
+      "giveawaysToDate": "अब तक के गिवअवे"
+    },
+    "sections": {
+      "giveawayStats": "गिवअवे आँकड़े",
+      "giveawayOffers": "गिवअवे ऑफ़र",
+      "upcomingOffers": "आगामी ऑफ़र",
+      "latestOffers": "नवीनतम ऑफ़र",
+      "latestReleased": "नवीनतम रिलीज़",
+      "latestOffersWithAchievements": "उपलब्धियों वाले नवीनतम ऑफ़र",
+      "topSellingOffers": "टॉप-सेलिंग ऑफ़र",
+      "latestBuilds": "नवीनतम बिल्ड"
+    },
+    "tableHeaders": {
+      "hash": "#",
+      "pos": "स्था",
+      "dash": "-",
+      "title": "शीर्षक",
+      "starts": "शुरू",
+      "ends": "समाप्त",
+      "releaseDate": "रिलीज़ तारीख़",
+      "createdAt": "निर्माण तिथि",
+      "date": "तारीख़",
+      "price": "कीमत",
+      "size": "आकार",
+      "creationDate": "निर्माण तिथि"
+    },
+    "offerHover": {
+      "seller": "विक्रेता:",
+      "developer": "डेवलपर:",
+      "publisher": "प्रकाशक:",
+      "releaseDate": "रिलीज़ तारीख़:",
+      "ageRating": "आयु रेटिंग:",
+      "moreGenres_one": "+{{count}} और",
+      "moreGenres_other": "+{{count}} और",
+      "communityRating": "सामुदायिक रेटिंग:",
+      "igdbScore": "IGDB स्कोर",
+      "reviews": "• {{count}} समीक्षाएँ",
+      "timeToBeat": "पूरा करने का समय:",
+      "features": "विशेषताएँ:",
+      "moreFeatures": " +{{count}} और"
+    },
+    "buildHover": {
+      "unknownBuild": "अज्ञात बिल्ड",
+      "unknownDeveloper": "अज्ञात डेवलपर",
+      "size": "आकार",
+      "version": "संस्करण",
+      "created": "निर्मित",
+      "id": "ID: {{id}}"
+    },
+    "multipleOffers": "{{title}} - एकाधिक ऑफ़र",
+    "hero": {
+      "subtitle": "कीमतों पर नज़र रखें, सौदे खोजें, और कोई भी मुफ़्त गेम मिस न करें। Epic Games Store डेटाबेस के लिए आपका साथी — ऑफ़र, छूट, गिवअवे, बिल्ड, और बहुत कुछ।",
+      "searchPlaceholder": "डेटाबेस खोजें…",
+      "justReleased": "अभी रिलीज़ हुआ",
+      "priceDrops72h": "मूल्य में गिरावट (72 घंटे)",
+      "hasAchievements": "उपलब्धियाँ हैं",
+      "upcoming": "आगामी",
+      "topSellers": "टॉप सेलर्स"
+    },
+    "pulse": {
+      "recentActivity": "हाल की गतिविधि",
+      "badge": {
+        "new": "नया",
+        "gone": "गया",
+        "offer": "ऑफ़र",
+        "build": "बिल्ड",
+        "item": "आइटम",
+        "asset": "एसेट",
+        "xp": "XP",
+        "sandbox": "सैंडबॉक्स",
+        "change": "परिवर्तन"
+      },
+      "title": {
+        "buildVersion": "बिल्ड {{version}}",
+        "buildId": "बिल्ड {{id}}",
+        "achievementsId": "उपलब्धियाँ {{id}}"
+      },
+      "detail": {
+        "newBuildIndexed": "नया बिल्ड इंडेक्स किया गया",
+        "buildManifestRefreshed": "बिल्ड मैनिफ़ेस्ट रिफ्रेश किया गया",
+        "achievementChanges_one": "{{count}} उपलब्धि {{entry}} {{verb}}",
+        "achievementChanges_other": "{{count}} उपलब्धियाँ {{entry}} {{verb}}",
+        "offerMetadataRefreshed": "ऑफ़र मेटाडेटा रिफ्रेश किया गया",
+        "fieldsChanged_one": "{{count}} फ़ील्ड {{verb}}",
+        "fieldsChanged_other": "{{count}} फ़ील्ड {{verb}}",
+        "fieldChanged": "{{field}} {{verb}}"
+      },
+      "actionVerb": {
+        "added": "जोड़ा गया",
+        "removed": "हटाया गया",
+        "updated": "अपडेट किया गया",
+        "changed": "बदला गया"
+      },
+      "entry_one": "प्रविष्टि",
+      "entry_other": "प्रविष्टियाँ"
+    }
+  },
+  "offerDetail": {
+    "common": {
+      "offerNotFound": "ऑफ़र नहीं मिला",
+      "notAvailable": "उपलब्ध नहीं",
+      "na": "N/A",
+      "loading": "लोड हो रहा है...",
+      "somethingWentWrong": "कुछ गलत हो गया",
+      "noChangesFound": "इस ऑफ़र के लिए कोई बदलाव नहीं मिला"
+    },
+    "tabs": {
+      "overview": "अवलोकन",
+      "price": "कीमत",
+      "items": "आइटम",
+      "builds": "बिल्ड",
+      "achievements": "उपलब्धियाँ",
+      "related": "संबंधित",
+      "metadata": "मेटाडेटा",
+      "changelog": "बदलाव लॉग",
+      "media": "मीडिया",
+      "reviews": "समीक्षाएँ"
+    },
+    "table": {
+      "offerId": "ऑफ़र ID",
+      "namespace": "नेमस्पेस",
+      "offerType": "ऑफ़र प्रकार",
+      "seller": "विक्रेता",
+      "developer": "डेवलपर",
+      "supportedPlatforms": "समर्थित प्लेटफ़ॉर्म",
+      "releaseDate": "रिलीज़ तारीख़",
+      "lastUpdate": "अंतिम अपडेट",
+      "creationDate": "निर्माण तिथि",
+      "technologies": "प्रौद्योगिकियाँ",
+      "type": "प्रकार",
+      "value": "मान",
+      "countriesBlacklist": "देशों की ब्लैकलिस्ट",
+      "countriesWhitelist": "देशों की व्हाइटलिस्ट",
+      "categories": "श्रेणियाँ",
+      "refundType": "रिफ़ंड प्रकार",
+      "tags": "टैग",
+      "ageRatings": "आयु रेटिंग",
+      "assets": "एसेट्स"
+    },
+    "badges": {
+      "prePurchase": "प्री-परचेज़",
+      "earlyAccess": "अर्ली एक्सेस"
+    },
+    "hero": {
+      "offeredBy": "{{seller}} द्वारा प्रस्तुत"
+    },
+    "tooltip": {
+      "internalNamespace": "Epic Games आंतरिक नेमस्पेस",
+      "techDescription": "गेम फ़ाइलों से उपयोग किए गए इंजनों और विभिन्न तकनीकों को ट्रैक करने के लिए तकनीकों की सूची।",
+      "techSource": "हम उपयोग करते हैं",
+      "techSourceSteamDb": "SteamDB",
+      "source": "स्रोत"
+    },
+    "actions": {
+      "compare": "तुलना करें"
+    },
+    "releaseDate": {
+      "releasedOnPc": "PC पर रिलीज़ हुआ",
+      "theEgs": " EGS पर",
+      "releasedSameDay": "PC के उसी दिन Epic पर रिलीज़ हुआ"
+    },
+    "notifications": {
+      "title": "सूचना सेटिंग्स",
+      "description": "चुनें कि आप इस ऑफ़र के लिए कौन सी सूचनाएँ प्राप्त करना चाहते हैं।",
+      "all": "सभी",
+      "price": "कीमत",
+      "achievements": "उपलब्धियाँ",
+      "builds": "बिल्ड",
+      "items": "आइटम",
+      "requirements": "आवश्यकताएँ",
+      "metadata": "मेटाडेटा",
+      "media": "मीडिया",
+      "enablePushDescription": "इस ऑफ़र के लिए सूचनाएँ प्राप्त करने हेतु आपको पुश सूचनाएँ सक्षम करनी होंगी।",
+      "enablePushAction": "पुश सूचनाएँ सक्षम करें"
+    },
+    "overview": {
+      "genres": "शैलियाँ",
+      "ageRating": "आयु रेटिंग",
+      "noAgeRatings": "कोई आयु रेटिंग नहीं मिली",
+      "giveaways": "गिवअवे",
+      "noGiveaways": "कोई गिवअवे नहीं मिला",
+      "achievements": "उपलब्धियाँ",
+      "igdbTimeToBeat": "IGDB पूरा करने का समय",
+      "hastily": "जल्दी",
+      "normally": "सामान्य रूप से",
+      "completely": "पूरी तरह से",
+      "hltbSubmissions_one": "{{count}} सबमिशन पर आधारित",
+      "hltbSubmissions_other": "{{count}} सबमिशन पर आधारित",
+      "price": "कीमत",
+      "priceCurrent": "वर्तमान:",
+      "priceLowest": "न्यूनतम:",
+      "priceLastDiscount": "अंतिम छूट:",
+      "hltbTitle": "पूरा करने में कितना समय",
+      "noGameTimes": "कोई गेम समय नहीं मिला",
+      "epicRating": "Epic प्लेयर्स रेटिंग",
+      "epicRatingDescription": "Epic Games पारिस्थितिकी तंत्र के खिलाड़ियों से कैप्चर किया गया",
+      "igdbRating": "IGDB रेटिंग",
+      "igdbReviews_one": "{{count}} समीक्षा",
+      "igdbReviews_other": "{{count}} समीक्षाएँ"
+    },
+    "achievements": {
+      "title": "उपलब्धियाँ",
+      "sortBy": "इसके अनुसार क्रमबद्ध करें",
+      "defaultSort": "डिफ़ॉल्ट क्रम",
+      "sortByRarity": "दुर्लभता के अनुसार क्रमबद्ध करें",
+      "sortByCompleted": "पूर्ण % के अनुसार क्रमबद्ध करें",
+      "search": "खोज",
+      "flipAll": "सभी पलटें",
+      "noAchievements": "कोई उपलब्धियाँ नहीं मिलीं",
+      "noAchievementsSet": "इस सेट के लिए कोई उपलब्धियाँ नहीं मिलीं।",
+      "noAchievementsSetDescription": "इसका मतलब हो सकता है कि उपलब्धियाँ वर्तमान में उपलब्ध नहीं हैं लेकिन भविष्य में जोड़ी जाएँगी।",
+      "baseGame": "बेस गेम",
+      "dlc": "DLC",
+      "achievementsLabel": "उपलब्धियाँ",
+      "baseGameDescription": "उपलब्धियों की यह सूची बेस गेम के लिए है।",
+      "dlcDescription": "उपलब्धियों की यह सूची एक DLC के लिए है।",
+      "lastUpdated": "अंतिम अपडेट:",
+      "lastUpdatedTooltip": "यह उपलब्धि सेट अंतिम बार {{date}} को अपडेट किया गया था।",
+      "lastUpdatedTooltipDescription": "यह या तो इसकी निर्माण तिथि है या अंतिम अपडेट की तिथि है।"
+    },
+    "builds": {
+      "title": "बिल्ड"
+    },
+    "items": {
+      "title": "आइटम"
+    },
+    "price": {
+      "title": "कीमत"
+    },
+    "related": {
+      "title": "संबंधित ऑफ़र"
+    },
+    "media": {
+      "images": "छवियाँ",
+      "videos": "वीडियो",
+      "covers": "कवर",
+      "noImages": "कोई छवि नहीं मिली",
+      "noVideos": "कोई वीडियो नहीं मिला",
+      "noCovers": "कोई कवर नहीं मिला",
+      "download": "डाउनलोड",
+      "close": "बंद करें",
+      "downloadCoverAria": "{{type}} कवर डाउनलोड करें"
+    },
+    "metadata": {
+      "title": "मेटाडेटा",
+      "download": "डाउनलोड:",
+      "install": "इंस्टॉल:"
+    },
+    "changelog": {
+      "title": "बदलाव लॉग",
+      "tooltip": "यह सूची इस विशिष्ट ऑफ़र या संबंधित आइटम, एसेट या बिल्ड में किए गए परिवर्तन हैं।",
+      "sandboxChangelog": "सैंडबॉक्स बदलाव लॉग",
+      "sandboxChangelogPrefix": "आप पूरे उत्पाद का बदलाव लॉग इसमें देख सकते हैं",
+      "noChangelog": "कोई बदलाव लॉग उपलब्ध नहीं",
+      "allTypes": "सभी प्रकार",
+      "selectField": "एक फ़ील्ड चुनें",
+      "allFields": "सभी फ़ील्ड",
+      "search": "खोज",
+      "previous": "पिछला",
+      "next": "अगला",
+      "pageOf": "पृष्ठ {{page}} का {{totalPages}}",
+      "typeUpdate": "अपडेट",
+      "typeDelete": "हटाएँ",
+      "typeInsert": "डालें"
+    },
+    "reviews": {
+      "epicRating": "Epic प्लेयर्स रेटिंग",
+      "epicRatingDescription": "Epic Games पारिस्थितिकी तंत्र के खिलाड़ियों से कैप्चर किया गया",
+      "egdataRating": "EGDATA रेटिंग",
+      "overallScore": "कुल स्कोर",
+      "scoreOutOf10": "{{score}} / 10",
+      "basedOnReviews": "{{count}} समीक्षाओं पर आधारित",
+      "allReviews": "सभी समीक्षाएँ",
+      "onlyVerified": "केवल सत्यापित",
+      "notVerified": "सत्यापित नहीं",
+      "leaveReview": "समीक्षा लिखें",
+      "alreadyReviewed": "पहले ही समीक्षा की जा चुकी है",
+      "loginToReview": "समीक्षा करने के लिए लॉगिन करें",
+      "noReviews": "अभी तक कोई समीक्षा नहीं",
+      "notReleased": "यह उत्पाद अभी तक रिलीज़ नहीं हुआ है",
+      "beFirst": "इस उत्पाद के लिए समीक्षा लिखने वाले पहले व्यक्ति बनें!",
+      "checkBack": "समीक्षा लिखने के लिए रिलीज़ तिथि के बाद वापस आएँ!",
+      "verifiedOwner": "सत्यापित स्वामी",
+      "recommended": "अनुशंसित",
+      "notRecommended": "अनुशंसित नहीं",
+      "readMore": "और पढ़ें",
+      "reviewedOn": "समीक्षा की गई",
+      "lastUpdatedOn": "अंतिम अपडेट",
+      "editedTimes": "{{count}} बार संपादित",
+      "edit": "संपादित करें",
+      "close": "बंद करें",
+      "reviewCount_one": "{{count}} समीक्षा",
+      "reviewCount_other": "{{count}} समीक्षाएँ",
+      "ownershipVerification": "स्वामित्व सत्यापन",
+      "ownershipVerificationDescription": "खिलाड़ी द्वारा कम से कम एक उपलब्धि पूरी करने पर आधारित है।",
+      "ownershipVerificationTooltip": "हम उत्पाद के स्वामित्व को सत्यापित करने के लिए Epic Games उपलब्धियों का उपयोग करते हैं। किसी खिलाड़ी को सत्यापित स्वामी के रूप में चिह्नित करने के लिए, उन्हें Epic Games Store में चयनित उत्पाद के लिए कम से कम एक उपलब्धि पूरी करनी होगी। अपने खाते को अपने egdata प्रोफ़ाइल से लिंक करने के लिए, आपको जाना होगा",
+      "yourDashboard": "अपने डैशबोर्ड पर",
+      "criticReviews": "आलोचक समीक्षाएँ",
+      "basedOnCriticReviews": "{{count}} आलोचक समीक्षाओं पर आधारित",
+      "opencriticRating": "OpenCritic रेटिंग",
+      "topCriticAverage": "टॉप क्रिटिक औसत",
+      "criticsRecommend": "आलोचक अनुशंसा करते हैं",
+      "opencriticRatingAlt": "OpenCritic रेटिंग"
+    }
+  },
+  "search": {
+    "meta": {
+      "title": "खोज | egdata.app",
+      "description": "Epic Games Store से ऑफ़र खोजें।"
+    },
+    "defaultTitle": "खोज",
+    "filters": "फ़िल्टर",
+    "filtersPlaceholder": "गेम खोजें",
+    "pills": {
+      "onSale": "बिक्री पर",
+      "codeRedemptionOnly": "केवल कोड रिडेम्पशन",
+      "excludeBlockchain": "Blockchain/NFT को छोड़ें",
+      "pastGiveaways": "पिछले गिवअवे"
+    },
+    "accordion": {
+      "offerType": "ऑफ़र प्रकार",
+      "developer": "डेवलपर",
+      "publisher": "प्रकाशक",
+      "noTags": "कोई टैग नहीं मिला",
+      "seller": "विक्रेता"
+    },
+    "checkboxes": {
+      "pastGiveaways": "पिछले गिवअवे",
+      "onSale": "बिक्री पर",
+      "codeRedemptionOnly": "केवल कोड रिडेम्पशन",
+      "excludeBlockchain": "Blockchain/NFT को छोड़ें",
+      "onlyHistoricalLows": "केवल ऐतिहासिक निम्नतम",
+      "onlyLowestPriceEver": "केवल अब तक की सबसे कम कीमत"
+    },
+    "tagGroups": {
+      "event": "ईवेंट",
+      "genre": "शैली",
+      "epicfeature": "Epic फ़ीचर",
+      "accessibility": "एक्सेसिबिलिटी",
+      "feature": "फ़ीचर",
+      "usersay": "यूज़रसे",
+      "subscription": "सब्सक्रिप्शन",
+      "platform": "प्लेटफ़ॉर्म",
+      "all": "सभी टैग"
+    },
+    "sort": {
+      "sortBy": "इसके अनुसार क्रमबद्ध करें",
+      "sortAriaLabel": "ऑफ़र क्रमबद्ध करें",
+      "sortDirectionAriaLabel": "क्रमबद्ध दिशा टॉगल करें",
+      "showListView": "सूची दृश्य दिखाएँ",
+      "showGridView": "ग्रिड दृश्य दिखाएँ",
+      "releaseDate": "रिलीज़ तारीख़",
+      "lastModifiedDate": "संशोधित तारीख़",
+      "effectiveDate": "प्रभावी तारीख़",
+      "creationDate": "निर्माण तिथि",
+      "viewableDate": "दृश्य तारीख़",
+      "pcReleaseDate": "PC रिलीज़ तारीख़",
+      "upcoming": "आगामी",
+      "price": "कीमत",
+      "discount": "छूट",
+      "discountPercent": "छूट %",
+      "giveawayDate": "गिवअवे तारीख़"
+    },
+    "results": {
+      "noResults": "कोई परिणाम नहीं मिला"
+    }
+  },
+  "freebies": {
+    "meta": {
+      "title": "मुफ़्त गेम | egdata.app",
+      "description": "Epic Games Store से मुफ़्त गेम ब्राउज़ करें।"
+    },
+    "headings": {
+      "current": "वर्तमान मुफ़्त गेम",
+      "past": "पिछले मुफ़्त गेम",
+      "sellers": "मुफ़्त गेम विक्रेता"
+    },
+    "buttons": {
+      "redeem": "अभी प्राप्त करें",
+      "downloadJson": "JSON के रूप में डाउनलोड करें",
+      "downloadCsv": "CSV के रूप में डाउनलोड करें",
+      "downloadTxt": "टेक्स्ट के रूप में डाउनलोड करें"
+    },
+    "placeholders": {
+      "searchSellers": "विक्रेता खोजें..."
+    },
+    "aria": {
+      "downloadList": "सूची डाउनलोड करें"
+    },
+    "errors": {
+      "loadSellers": "विक्रेता डेटा लोड करने में त्रुटि। कृपया बाद में पुनः प्रयास करें।"
+    },
+    "table": {
+      "sellerName": "विक्रेता का नाम",
+      "totalGames": "कुल एकल गेम"
+    }
+  },
+  "sales": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Epic Games Store से {{title}} देखें।"
+    },
+    "metaIndex": {
+      "title": "सक्रिय सेल | egdata.app",
+      "description": "egdata.app पर सक्रिय सेल ब्राउज़ करें"
+    },
+    "status": {
+      "loading": "लोड हो रहा है...",
+      "noData": "कोई डेटा नहीं"
+    },
+    "headings": {
+      "active": "सक्रिय सेल",
+      "pastUpcoming": "पिछली / आगामी सेल",
+      "offersList": "{{title}} ऑफ़र"
+    },
+    "errors": {
+      "notFound": "प्रमोशन नहीं मिला"
+    },
+    "labels": {
+      "offersCount": "इस ईवेंट में {{count}} ऑफ़र उपलब्ध हैं"
+    }
+  },
+  "collections": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Epic Games Store से {{title}} देखें।"
+    },
+    "metaIndex": {
+      "title": "कलेक्शन | egdata.app",
+      "description": "egdata.app पर कलेक्शन"
+    },
+    "headings": {
+      "main": "कलेक्शन"
+    },
+    "description": {
+      "overview": "Epic Games Store पर टॉप सेलर, सबसे ज़्यादा खेले गए और सबसे लोकप्रिय गेम"
+    },
+    "status": {
+      "loading": "लोड हो रहा है..."
+    },
+    "errors": {
+      "notFound": "कलेक्शन नहीं मिला"
+    },
+    "table": {
+      "position": "स्थान",
+      "variance": "अंतर",
+      "weeks": "सप्ताह"
+    },
+    "tooltips": {
+      "variance": "वर्तमान स्थान और पिछले स्थान के बीच का अंतर। आमतौर पर हर दिन बदलता है।",
+      "weeks": "{{title}} के लिए गेम टॉप 100 में रहने के सप्ताहों की संख्या।"
+    },
+    "buttons": {
+      "loadMore": "और लोड करें"
+    }
+  },
+  "sandboxes": {
+    "notFoundTitle": "सैंडबॉक्स नहीं मिला",
+    "notFoundDescription": "सैंडबॉक्स नहीं मिला",
+    "unrealEngineTitle": "अनरियल इंजन",
+    "unavailableTitle": "सैंडबॉक्स अनुपलब्ध",
+    "unavailableDescription": "उत्पाद हब लोड नहीं किया जा सका।",
+    "noProductDataDescription": "इस सैंडबॉक्स के लिए कोई उत्पाद डेटा मौजूद नहीं है।",
+    "hubEyebrow": "सैंडबॉक्स",
+    "hubOverviewTitle": "अवलोकन",
+    "hubOverviewDescription": "इस नेमस्पेस के लिए स्टोरफ्रंट, स्वामित्व, डिलीवरी और अपडेट रिकॉर्ड का एक केंद्रित मानचित्र।",
+    "latestChangesButton": "नवीनतम परिवर्तन",
+    "entityOffersLabel": "ऑफ़र",
+    "entityOffersDescription": "स्टोर प्रविष्टियाँ",
+    "entityItemsLabel": "आइटम",
+    "entityItemsDescription": "स्वामित्व योग्य रिकॉर्ड",
+    "entityAssetsLabel": "एसेट्स",
+    "entityAssetsDescription": "कलाकृतियाँ और मीडिया",
+    "entityBuildsLabel": "बिल्ड",
+    "entityBuildsDescription": "बाइनरी बंडल",
+    "entityAchievementsLabel": "उपलब्धियाँ",
+    "entityAchievementsDescription": "प्रगति डेटा",
+    "entityChangelogLabel": "बदलाव लॉग",
+    "entityChangelogDescription": "ट्रैक किए गए अपडेट",
+    "viewButton": "देखें",
+    "storefrontOffersTitle": "स्टोरफ्रंट ऑफ़र",
+    "storefrontOffersDescription": "इस सैंडबॉक्स में पाए गए प्रतिनिधि स्टोर प्रविष्टियाँ।",
+    "recentBuildsTitle": "हाल के बिल्ड",
+    "recentBuildsDescription": "नवीनतम बाइनरी रिकॉर्ड।",
+    "latestBadge": "नवीनतम",
+    "unknownBuildLabel": "अज्ञात बिल्ड",
+    "recentChangesTitle": "हाल के परिवर्तन",
+    "recentChangesDescription": "नवीनतम कैटलॉग उत्परिवर्तन।",
+    "updateBadge": "अपडेट",
+    "changeDefaultLabel": "परिवर्तन",
+    "metaOffersTitle": "ऑफ़र",
+    "offersEyebrow": "ई-कॉमर्स",
+    "offersTitle": "ऑफ़र",
+    "offersDescription": "इस सैंडबॉक्स में स्टोरफ्रंट प्रविष्टियाँ, जिनमें बेस गेम, संस्करण, DLC, ऐड-ऑन, बंडल, और कोई भी ऑफ़र शामिल है जो कैटलॉग आइटम प्रदान कर सकता है।",
+    "totalOffersLabel": "कुल ऑफ़र",
+    "metaAchievementsTitle": "उपलब्धियाँ",
+    "achievementsEyebrow": "प्रगति",
+    "achievementsTitle": "उपलब्धियाँ",
+    "achievementsDescription": "इस सैंडबॉक्स से जुड़े उपलब्धि सेट, छिपी हुई अवस्थाएँ, दुर्लभता वितरण और XP कुल।",
+    "achievementsSetsLabel": "सेट",
+    "achievementsLabel": "उपलब्धियाँ",
+    "achievementsXpLabel": "XP",
+    "searchAchievementsPlaceholder": "उपलब्धियाँ खोजें",
+    "flipAllButton": "सभी पलटें",
+    "revealHiddenAchievementAria": "छिपी हुई उपलब्धि टेक्स्ट दिखाएँ",
+    "hideHiddenAchievementAria": "छिपी हुई उपलब्धि टेक्स्ट छिपाएँ",
+    "achievementsBaseGameLabel": "बेस गेम",
+    "achievementsDlcLabel": "DLC",
+    "achievementsBaseGameTooltip": "उपलब्धियों की यह सूची बेस गेम के लिए है।",
+    "achievementsDlcTooltip": "उपलब्धियों की यह सूची एक DLC के लिए है।",
+    "lastUpdatedLabel": "अंतिम अपडेट:",
+    "achievementsLastUpdatedTooltip": "यह उपलब्धि सेट अंतिम बार अपडेट किया गया था",
+    "achievementsLastUpdatedTooltipExtra": "यह या तो इसकी निर्माण तिथि है या अंतिम अपडेट की तिथि है।",
+    "noAchievementsForSet": "इस सेट के लिए कोई उपलब्धियाँ नहीं मिलीं।",
+    "noAchievementsForSetExtra": "इसका मतलब हो सकता है कि उपलब्धियाँ वर्तमान में उपलब्ध नहीं हैं लेकिन भविष्य में जोड़ी जाएँगी।",
+    "noAchievementsFound": "कोई उपलब्धियाँ नहीं मिलीं",
+    "metaItemsTitle": "आइटम",
+    "itemsEyebrow": "कैटलॉग स्वामित्व",
+    "itemsTitle": "आइटम",
+    "itemsDescription": "ऑफ़र में निहित स्वामित्व योग्य कैटलॉग आइटम। ये वे रिकॉर्ड हैं जो खरीद या रिडीम के बाद खिलाड़ी के अधिकार बन जाते हैं।",
+    "totalItemsLabel": "कुल आइटम",
+    "metaChangelogTitle": "बदलाव लॉग",
+    "changelogEyebrow": "ऑडिट ट्रेल",
+    "changelogTitle": "बदलाव लॉग",
+    "changelogDescription": "इस सैंडबॉक्स के ऑफ़र, आइटम, एसेट, बिल्ड और संबंधित कैटलॉग मेटाडेटा में देखे गए परिवर्तन।",
+    "totalChangesLabel": "परिवर्तन",
+    "queryTimeLabel": "क्वेरी समय",
+    "noChangelogFound": "कोई बदलाव लॉग नहीं मिला",
+    "metaBuildsTitle": "बिल्ड",
+    "buildsEyebrow": "बाइनरी",
+    "buildsTitle": "बिल्ड",
+    "buildsDescription": "सैंडबॉक्स के लिए अपलोड किए गए संस्करणित फ़ाइल बंडल। बिल्ड कलाकृतियों को सौंपे जाते हैं और यह निर्धारित करते हैं कि खिलाड़ी लॉन्चर के माध्यम से क्या डाउनलोड करते हैं।",
+    "totalBuildsLabel": "कुल बिल्ड",
+    "metaAssetsTitle": "एसेट्स",
+    "assetsEyebrow": "एसेट्स और कलाकृतियाँ",
+    "assetsTitle": "एसेट्स",
+    "assetsDescription": "सैंडबॉक्स आइटम से जुड़े वितरण और मीडिया रिकॉर्ड, जिनमें वे कलाकृतियाँ शामिल हैं जो स्टोर कैटलॉग सामग्री को डाउनलोड करने योग्य बिल्ड से जोड़ती हैं।",
+    "totalAssetsLabel": "कुल एसेट्स"
+  },
+  "items": {
+    "notFound": "आइटम नहीं मिला",
+    "badge": "आइटम",
+    "table": {
+      "itemId": "आइटम ID",
+      "namespace": "नेमस्पेस",
+      "developer": "डेवलपर",
+      "entitlementType": "एंटाइटलमेंट प्रकार",
+      "entitlementName": "एंटाइटलमेंट नाम",
+      "status": "स्थिति",
+      "creationDate": "निर्माण तिथि",
+      "lastModified": "अंतिम संशोधन",
+      "platforms": "प्लेटफ़ॉर्म"
+    },
+    "tooltip": {
+      "internalNamespace": "Epic Games आंतरिक नेमस्पेस"
+    },
+    "tabs": {
+      "item": "आइटम",
+      "assets": "एसेट्स",
+      "images": "छवियाँ",
+      "builds": "बिल्ड",
+      "changelog": "बदलाव लॉग"
+    },
+    "metadata": {
+      "title": "मेटाडेटा",
+      "key": "कुंजी",
+      "value": "मान"
+    },
+    "assets": {
+      "title": "एसेट्स"
+    },
+    "builds": {
+      "title": "बिल्ड"
+    },
+    "changelog": {
+      "title": "बदलाव लॉग",
+      "noChangelog": "कोई बदलाव लॉग उपलब्ध नहीं"
+    },
+    "images": {
+      "title": "छवियाँ"
+    }
+  },
+  "builds": {
+    "notFound": "बिल्ड नहीं मिला",
+    "build": "बिल्ड",
+    "for": "के लिए",
+    "compressed": "({{percent}}% संपीड़ित)",
+    "table": {
+      "buildId": "बिल्ड ID",
+      "buildName": "बिल्ड नाम",
+      "appName": "ऐप नाम",
+      "hash": "हैश",
+      "installedSize": "इंस्टॉल आकार",
+      "downloadSize": "डाउनलोड आकार",
+      "createdAt": "निर्माण तिथि",
+      "updatedAt": "अपडेट तिथि",
+      "technologies": "प्रौद्योगिकियाँ"
+    },
+    "tooltip": {
+      "techSource": "हम उपयोग करते हैं",
+      "techSourceSteamDb": "SteamDB",
+      "techDescription": "गेम फ़ाइलों से उपयोग किए गए इंजनों और विभिन्न तकनीकों को ट्रैक करने के लिए तकनीकों की सूची।",
+      "source": "स्रोत"
+    },
+    "tabs": {
+      "files": "फ़ाइलें",
+      "items": "आइटम",
+      "installOptions": "इंस्टॉल विकल्प"
+    },
+    "files": {
+      "title": "फ़ाइलें"
+    },
+    "items": {
+      "title": "आइटम"
+    },
+    "installOptions": {
+      "title": "इंस्टॉल विकल्प",
+      "file_one": "फ़ाइल",
+      "file_other": "फ़ाइलें"
+    },
+    "meta": {
+      "title": "{{title}} ({{version}}) | egdata.app",
+      "description": "Epic Games Store से {{title}} के लिए बिल्ड {{version}}।"
+    }
+  },
+  "profile": {
+    "meta": {
+      "notFoundTitle": "प्रोफ़ाइल नहीं मिली",
+      "notFoundDescription": "प्रोफ़ाइल नहीं मिली",
+      "title": "{{name}} | egdata.app",
+      "description": "egdata.app पर {{name}} की उपलब्धियाँ और गेम देखें",
+      "defaultName": "प्रोफ़ाइल",
+      "defaultDescriptionName": "इस खिलाड़ी का"
+    },
+    "errors": {
+      "notFoundTitle": "प्रोफ़ाइल नहीं मिली",
+      "notFoundDescription": "यह प्रोफ़ाइल अनुपलब्ध है या अभी तक इंडेक्स नहीं की गई है।",
+      "unavailableTitle": "प्रोफ़ाइल अनुपलब्ध",
+      "unavailableDescription": "यह प्रोफ़ाइल अभी लोड नहीं की जा सकी।",
+      "invalidImageFormat": "अमान्य छवि प्रारूप",
+      "failedToUpload": "अपलोड विफल",
+      "uploadFailed": "अपलोड विफल",
+      "failedToRefresh": "प्रोफ़ाइल रिफ्रेश करने में विफल",
+      "refreshQueued": "प्रोफ़ाइल रिफ्रेश के लिए कतार में जोड़ दी गई है, जल्द ही अपडेट हो जाएगी।"
+    },
+    "fallbackName": "अज्ञात प्रोफ़ाइल",
+    "avatar": {
+      "changeAvatar": "अवतार बदलें",
+      "dialogDescription": "एक नई प्रोफ़ाइल छवि अपलोड करें।",
+      "previewAlt": "अवतार पूर्वावलोकन",
+      "fallback": "अवतार",
+      "description": "एक नई अवतार छवि अपलोड करें, अधिकतम 5MB।",
+      "uploadingWithProgress": "अपलोड हो रहा है... {{progress}}%",
+      "uploading": "अपलोड हो रहा है...",
+      "updateAvatar": "अवतार अपडेट करें",
+      "errorTitle": "त्रुटि"
+    },
+    "hero": {
+      "joined": "शामिल हुए",
+      "epicGamesStore": "Epic Games Store",
+      "linkDiscord": "Discord लिंक करें",
+      "refreshProfile": "प्रोफ़ाइल रिफ्रेश करें",
+      "refreshAvailableIn": "रिफ्रेश उपलब्ध है",
+      "level": "स्तर",
+      "achievements": "उपलब्धियाँ",
+      "unlocked": "अनलॉक",
+      "platinum": "प्लैटिनम",
+      "perfectGames": "परफ़ेक्ट गेम",
+      "library": "लाइब्रेरी",
+      "achievementGames": "उपलब्धि गेम",
+      "reviews": "समीक्षाएँ",
+      "contributed": "योगदान दिया",
+      "xpToNextLevel": "स्तर {{level}} के लिए {{xp}} XP",
+      "heroGame": "हीरो गेम",
+      "complete": "पूर्ण"
+    },
+    "donor": {
+      "donated_one": "{{name}} ने egdata.app को {{count}} कुंजी दान की",
+      "donated_other": "{{name}} ने egdata.app को {{count}} कुंजियाँ दान कीं",
+      "goTo": "यहाँ जाएँ",
+      "thisLink": "इस लिंक पर",
+      "toDonateKey": "कुंजी दान करने के लिए।"
+    },
+    "countdown": {
+      "minutesSeconds_one": "{{minutes}} मिनट {{seconds}} सेकंड",
+      "minutesSeconds_other": "{{minutes}} मिनट {{seconds}} सेकंड",
+      "seconds_one": "{{seconds}} सेकंड",
+      "seconds_other": "{{seconds}} सेकंड"
+    },
+    "tabs": {
+      "showcase": "शोकेस",
+      "library": "लाइब्रेरी",
+      "activity": "गतिविधि"
+    },
+    "stats": {
+      "games": "{{count}} गेम",
+      "achievements": "{{count}} उपलब्धियाँ",
+      "platinum": "{{count}} प्लैटिनम"
+    },
+    "showcase": {
+      "ariaLabel": "प्रोफ़ाइल शोकेस हाइलाइट्स",
+      "featuredGamesTitle": "फ़ीचर्ड गेम",
+      "featuredGamesDetail": "प्रोफ़ाइल प्रदर्शन द्वारा {{count}} चयनित",
+      "rareAchievementsTitle": "दुर्लभ उपलब्धियाँ",
+      "rareAchievementsDetail": "प्रोफ़ाइल पर मिलने वाली दुर्लभ अनलॉक",
+      "recentUnlocksTitle": "हाल के अनलॉक",
+      "recentUnlocksDetail": "नवीनतम दृश्य गतिविधि",
+      "noDataTitle": "अभी तक कोई शोकेस डेटा नहीं",
+      "noDataDescription": "केवल लॉन्च किए गए गेम जिनमें सार्वजनिक उपलब्धि प्रगति है, प्रोफ़ाइल पर दिखाई देते हैं।",
+      "rarestUnlock": "सबसे दुर्लभ अनलॉक",
+      "definingGame": "परिभाषित गेम",
+      "latestActivity": "नवीनतम गतिविधि",
+      "achievementsCount": "{{unlocked}} / {{total}} उपलब्धियाँ",
+      "platinum": "प्लैटिनम"
+    },
+    "library": {
+      "filterAriaLabel": "लाइब्रेरी फ़िल्टर",
+      "sortAriaLabel": "लाइब्रेरी क्रमबद्ध करें",
+      "sortByPlaceholder": "इसके अनुसार क्रमबद्ध करें",
+      "noGamesTitle": "कोई गेम नहीं मिला",
+      "noGamesDescription": "केवल लॉन्च किए गए गेम जिनमें उपलब्धियाँ हैं, इस लाइब्रेरी में दिखाई देते हैं।",
+      "gameAlt": "गेम",
+      "complete": "पूर्ण",
+      "featured": "फ़ीचर्ड",
+      "rareUnlocks": "दुर्लभ अनलॉक",
+      "filters": {
+        "all": "सभी",
+        "completed": "पूर्ण",
+        "nearPlatinum": "प्लैटिनम के करीब",
+        "inProgress": "प्रगति पर",
+        "platinum": "प्लैटिनम"
+      },
+      "sorts": {
+        "completion": "पूर्णता",
+        "alphabetical": "वर्णमाला",
+        "xp": "XP",
+        "achievements": "उपलब्धियाँ"
+      }
+    },
+    "activity": {
+      "title": "गतिविधि",
+      "detail": "{{count}} उपलब्धि अनलॉक",
+      "noActivityTitle": "अभी तक कोई गतिविधि नहीं",
+      "noActivityDescription": "जब इस प्रोफ़ाइल की सार्वजनिक प्रगति होगी, तब यहाँ उपलब्धि अनलॉक दिखाई देंगे।",
+      "achievementAlt": "उपलब्धि",
+      "platinumEarned": "प्लैटिनम प्राप्त",
+      "achievementUnlocked": "उपलब्धि अनलॉक",
+      "unknownRarity": "अज्ञात दुर्लभता",
+      "rarity": "{{value}}% दुर्लभता",
+      "unknownDate": "अज्ञात तारीख़"
+    },
+    "achievements": {
+      "loading": "लोड हो रहा है...",
+      "notFound": "प्रोफ़ाइल नहीं मिली",
+      "myAchievements": "मेरी उपलब्धियाँ"
+    }
+  },
+  "tags": {
+    "meta": {
+      "notFoundTitle": "प्रमोशन नहीं मिला",
+      "notFoundDescription": "प्रमोशन नहीं मिला",
+      "title": "{{title}} | egdata.app",
+      "description": "egdata.app पर {{title}} के लिए {{count}} उपलब्ध ऑफ़र देखें।",
+      "socialTitle": "{{title}} - egdata.app"
+    },
+    "loading": "लोड हो रहा है...",
+    "offersCount": "इस ईवेंट में {{count}} ऑफ़र उपलब्ध हैं",
+    "results": "परिणाम",
+    "resultsCount": "({{count}} परिणाम)",
+    "searchPlaceholder": "खोज...",
+    "loadMore": "और लोड करें",
+    "sortBy": {
+      "releaseDate": "रिलीज़ तारीख़",
+      "lastModifiedDate": "संशोधित तारीख़",
+      "effectiveDate": "प्रभावी तारीख़",
+      "creationDate": "निर्माण तिथि",
+      "viewableDate": "दृश्य तारीख़",
+      "pcReleaseDate": "PC रिलीज़ तारीख़",
+      "upcoming": "आगामी",
+      "price": "कीमत"
+    }
+  },
+  "genres": {
+    "meta": {
+      "title": "शैलियाँ - egdata.app",
+      "description": "egdata.app पर शैलियाँ"
+    },
+    "heading": "शैलियाँ"
+  },
+  "sellers": {
+    "meta": {
+      "notFoundTitle": "विक्रेता नहीं मिला",
+      "notFoundDescription": "विक्रेता नहीं मिला",
+      "title": "{{name}} | egdata.app"
+    },
+    "notFound": "विक्रेता नहीं मिला",
+    "logoAlt": "{{name}} लोगो",
+    "bannerAlt": "{{name}}",
+    "offersTitle": "{{name}} ऑफ़र",
+    "stats": {
+      "offers": "ऑफ़र",
+      "games": "गेम",
+      "items": "आइटम",
+      "freeGames": "मुफ़्त गेम"
+    }
+  },
+  "franchises": {
+    "meta": {
+      "notFoundTitle": "फ़्रैंचाइज़ी नहीं मिली",
+      "notFoundDescription": "फ़्रैंचाइज़ी नहीं मिली",
+      "title": "{{name}} फ़्रैंचाइज़ी | egdata.app",
+      "description": "Epic Games Store पर {{name}} फ़्रैंचाइज़ी के सभी गेम ब्राउज़ करें।"
+    },
+    "loading": "लोड हो रहा है...",
+    "gamesCount_one": "{{count}} गेम",
+    "gamesCount_other": "{{count}} गेम",
+    "timeToBeat": "पूरा करने का समय",
+    "achievements": "उपलब्धियाँ",
+    "loadMore": "और लोड करें",
+    "free": "मुफ़्त"
+  },
+  "stats": {
+    "creations": {
+      "meta": {
+        "title": "निर्माण आँकड़े - egdata.app",
+        "description": "Epic Games Store पर नए निर्माणों की मासिक और वार्षिक दर।"
+      },
+      "viewReleases": "रिलीज़ देखें",
+      "heading": "Epic Games Store निर्माण आँकड़े",
+      "description": "स्टोर पर नए निर्माणों की मासिक और वार्षिक दर।",
+      "monthlyTitle": "मासिक निर्माण",
+      "yearlyTitle": "वार्षिक निर्माण"
+    },
+    "releases": {
+      "meta": {
+        "title": "रिलीज़ आँकड़े - egdata.app",
+        "description": "Epic Games Store पर नए शीर्षकों की मासिक और वार्षिक दर।"
+      },
+      "viewCreations": "निर्माण देखें",
+      "heading": "Epic Games Store रिलीज़ आँकड़े",
+      "description": "स्टोर पर नए शीर्षकों की मासिक और वार्षिक दर।",
+      "monthlyTitle": "मासिक रिलीज़",
+      "yearlyTitle": "वार्षिक रिलीज़"
+    }
+  },
+  "store": {
+    "creatorCode": {
+      "title": "egdata.app का समर्थन करें",
+      "description": "क्या आप गेम खरीदते समय हमारे क्रिएटर कोड का उपयोग करके egdata.app का समर्थन करना चाहेंगे? यह विकल्प भविष्य की विज़िट के लिए याद रखा जाएगा।",
+      "body": "हमारे क्रिएटर कोड का उपयोग करने से egdata.app और इसकी सुविधाओं के विकास में सहायता मिलती है। इससे आपके द्वारा भुगतान की जाने वाली कीमत प्रभावित नहीं होती है।",
+      "noThanks": "नहीं धन्यवाद",
+      "yesUseCode": "हाँ, कोड का उपयोग करें"
+    }
+  },
+  "dashboard": {
+    "placeholder": "नमस्ते /dashboard!"
+  },
+  "auth": {
+    "login": {
+      "placeholder": "नमस्ते /auth/login!"
+    },
+    "callback": {
+      "placeholder": "नमस्ते /auth/callback!"
+    },
+    "logout": {
+      "placeholder": "नमस्ते /auth/logout!"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "हमारे बारे में - egdata.app",
+      "description": "egdata.app के बारे में"
+    },
+    "title": "हमारे बारे में",
+    "intro": "egdata.app एक समुदाय-संचालित वेबसाइट है जो Epic Games Store के बारे में जानकारी ट्रैक करने और प्रदान करने के लिए समर्पित है। हम उपयोगकर्ताओं को परिवर्तनों का पता लगाने, नए गेम खोजने और प्लेटफ़ॉर्म पर नवीनतम जानकारी से अपडेट रहने के लिए एक व्यापक संसाधन प्रदान करने का लक्ष्य रखते हैं।",
+    "missionTitle": "हमारा मिशन",
+    "missionBody": "हमारा मिशन Epic Games Store पारिस्थितिकी तंत्र में पारदर्शिता और अंतर्दृष्टि प्रदान करना है। हम मानते हैं कि डेटा को सुलभ तरीके से एकत्रित और प्रस्तुत करके, हम उपयोगकर्ताओं को उनके गेमिंग खरीदारी के बारे में सूचित निर्णय लेने और प्लेटफ़ॉर्म की बेहतर समझ में योगदान करने में सक्षम बना सकते हैं।",
+    "featuresTitle": "विशेषताएँ",
+    "features": {
+      "trackPrices": "गेम की कीमतों में बदलाव और ऐतिहासिक डेटा ट्रैक करें",
+      "upcomingReleases": "आगामी रिलीज़ और मुफ़्त गेम प्रचार देखें",
+      "gameDetails": "गेम विवरण, रेटिंग और उपयोगकर्ता समीक्षाएँ देखें",
+      "analyzeTrends": "Epic Games Store में रुझानों और पैटर्न का विश्लेषण करें"
+    },
+    "communityTitle": "समुदाय संचालित",
+    "communityBody": "egdata.app गेमर्स और डेवलपर्स के एक भावुक समुदाय द्वारा बनाया और संचालित किया जाता है। हम उन सभी के योगदान का स्वागत करते हैं जो वेबसाइट को बेहतर बनाने और इसे सभी के लिए एक मूल्यवान संसाधन बनाने में मदद करना चाहते हैं।",
+    "sourceCodeIntro": "egdata.app का सभी स्रोत कोड उपलब्ध है",
+    "github": "GitHub पर",
+    "notTitle": "egdata.app क्या नहीं है",
+    "notIntro": "यह स्पष्ट करना महत्वपूर्ण है कि egdata.app नहीं है:",
+    "notList": {
+      "affiliated": "Epic Games से संबद्ध: हम एक स्वतंत्र, समुदाय-संचालित परियोजना हैं और किसी भी तरह से आधिकारिक रूप से समर्थित या Epic Games से संबद्ध नहीं हैं।",
+      "storefront": "स्टोरफ़्रंट या बाज़ार: हम गेम नहीं बेचते हैं या कोई खरीद विकल्प प्रदान नहीं करते हैं। हमारा ध्यान Epic Games Store के बारे में जानकारी और डेटा प्रदान करने पर है।",
+      "piracy": "पाइरेसी या अवैध गतिविधियों के लिए एक प्लेटफ़ॉर्म: हम पाइरेसी की कड़ी निंदा करते हैं और कॉपीराइट सामग्री तक अवैध रूप से पहुँचने या वितरित करने का कोई साधन प्रदान नहीं करते हैं।"
+    },
+    "fairUseTitle": "उचित उपयोग नीति",
+    "fairUseBody": "egdata.app कॉपीराइट कानून के तहत उचित उपयोग के सिद्धांतों का पालन करने के लिए प्रतिबद्ध है। हम केवल सूचनात्मक उद्देश्यों के लिए जानकारी और डेटा प्रदान करते हैं, जिसका उद्देश्य Epic Games Store पर उपलब्ध गेम के बारे में जनता को शिक्षित और सूचित करना है।",
+    "fairUseFactorsTitle": "उचित उपयोग को उचित ठहराने वाले प्रमुख कारक:",
+    "fairUseFactors": {
+      "nonCommercial": "गैर-वाणिज्यिक, शैक्षिक उद्देश्य:",
+      "nonCommercialBody": "हमारी वेबसाइट गैर-वाणिज्यिक है और Epic Games Store गेम के बारे में सार्वजनिक ज्ञान बढ़ाने का प्रयास करती है।",
+      "factual": "तथ्यात्मक जानकारी:",
+      "factualBody": "हम मुख्य रूप से तथ्यात्मक डेटा जैसे गेम शीर्षक, रिलीज़ तिथियाँ और डेवलपर प्रस्तुत करते हैं, जो कॉपीराइट के तहत कम संरक्षित हैं।",
+      "limited": "सीमित उपयोग:",
+      "limitedBody": "हम मूल कार्यों को प्रतिस्थापित किए बिना सार्थक जानकारी प्रदान करने के लिए केवल आवश्यक डेटा का उपयोग करते हैं।",
+      "noMarketHarm": "कोई बाज़ार हानि नहीं:",
+      "noMarketHarmBody": "हमारा उपयोग मूल गेम के बाज़ार को नकारात्मक रूप से प्रभावित नहीं करता है; बल्कि, यह उपयोगकर्ता की रुचि बढ़ाकर उन्हें बढ़ावा दे सकता है।"
+    },
+    "autoTrackBody": "हम सार्वजनिक रूप से उपलब्ध स्रोतों से गेम डेटा को स्वचालित रूप से ट्रैक और अपडेट करते हैं, जिसमें Epic Games Store भी शामिल है।",
+    "leakedDataTitle": "लीक डेटा अस्वीकरण:",
+    "leakedDataBody": "हमारी साइट पर कोई भी प्रतीत होने वाला लीक डेटा Epic Games Store पर सार्वजनिक रूप से उपलब्ध जानकारी से उत्पन्न होता है।",
+    "epicDevPortal": "Epic Games डेवलपर पोर्टल में",
+    "euDirectivesIntro": "अपनी उचित उपयोग नीति विकसित करने में, हमने निम्नलिखित EU कॉपीराइट निर्देशों में उल्लिखित सिद्धांतों पर विचार किया है:",
+    "euDirective1": "डिजिटल सिंगल मार्केट में कॉपीराइट और संबंधित अधिकारों पर निर्देश (EU) 2019/790",
+    "euDirective2": "प्रश्न और उत्तर – नए EU कॉपीराइट नियम",
+    "fairUseContact": "यदि आपके पास हमारी उचित उपयोग नीति के बारे में प्रश्न हैं या मानते हैं कि कोई सामग्री आपके कॉपीराइट का उल्लंघन करती है, तो कृपया हमसे यहाँ संपर्क करें:",
+    "contactTitle": "हमसे संपर्क करें",
+    "contactBody": "आप हमसे संपर्क कर सकते हैं"
+  },
+  "changelog": {
+    "index": {
+      "meta": {
+        "title": "बदलाव लॉग | egdata.app"
+      },
+      "searchPlaceholder": "बदलाव लॉग खोजें...",
+      "searchButton": "खोज",
+      "loading": "लोड हो रहा है...",
+      "error": "डेटा लाने में त्रुटि"
+    },
+    "detail": {
+      "meta": {
+        "title": "परिवर्तन विवरण | egdata.app"
+      },
+      "loading": "लोड हो रहा है...",
+      "error": "परिवर्तन विवरण लोड करने में त्रुटि",
+      "notFound": "परिवर्तन नहीं मिला"
+    }
+  },
+  "privacy": {
+    "title": "हमारे बारे में",
+    "intro": "egdata.app एक समुदाय-संचालित वेबसाइट है जो Epic Games Store के बारे में जानकारी ट्रैक करने और प्रदान करने के लिए समर्पित है।",
+    "missionTitle": "हमारा मिशन",
+    "missionBody": "हमारा मिशन Epic Games Store पारिस्थितिकी तंत्र में पारदर्शिता और अंतर्दृष्टि प्रदान करना है।",
+    "featuresTitle": "विशेषताएँ",
+    "features": {
+      "trackPrices": "गेम की कीमतों में बदलाव और ऐतिहासिक डेटा ट्रैक करें",
+      "upcomingReleases": "आगामी रिलीज़ और मुफ़्त गेम प्रचार देखें",
+      "gameDetails": "गेम विवरण, रेटिंग और उपयोगकर्ता समीक्षाएँ देखें",
+      "analyzeTrends": "Epic Games Store में रुझानों और पैटर्न का विश्लेषण करें"
+    },
+    "communityTitle": "समुदाय संचालित",
+    "communityBody": "egdata.app गेमर्स और डेवलपर्स के एक भावुक समुदाय द्वारा बनाया और संचालित किया जाता है।",
+    "sourceCodeIntro": "egdata.app का सभी स्रोत कोड उपलब्ध है",
+    "github": "GitHub पर",
+    "notTitle": "egdata.app क्या नहीं है",
+    "notIntro": "यह स्पष्ट करना महत्वपूर्ण है कि egdata.app नहीं है:",
+    "notList": {
+      "affiliated": "Epic Games से संबद्ध: हम एक स्वतंत्र, समुदाय-संचालित परियोजना हैं।",
+      "storefront": "स्टोरफ़्रंट या बाज़ार: हम गेम नहीं बेचते हैं।",
+      "piracy": "पाइरेसी या अवैध गतिविधियों के लिए एक प्लेटफ़ॉर्म।"
+    },
+    "fairUseTitle": "उचित उपयोग नीति",
+    "fairUseBody": "egdata.app कॉपीराइट कानून के तहत उचित उपयोग के सिद्धांतों का पालन करने के लिए प्रतिबद्ध है।",
+    "fairUseFactorsTitle": "उचित उपयोग को उचित ठहराने वाले प्रमुख कारक:",
+    "fairUseFactors": {
+      "nonCommercial": "गैर-वाणिज्यिक, शैक्षिक उद्देश्य:",
+      "nonCommercialBody": "हमारी वेबसाइट गैर-वाणिज्यिक है।",
+      "factual": "तथ्यात्मक जानकारी:",
+      "factualBody": "हम मुख्य रूप से तथ्यात्मक डेटा प्रस्तुत करते हैं।",
+      "limited": "सीमित उपयोग:",
+      "limitedBody": "हम केवल आवश्यक डेटा का उपयोग करते हैं।",
+      "noMarketHarm": "कोई बाज़ार हानि नहीं:",
+      "noMarketHarmBody": "हमारा उपयोग मूल गेम के बाज़ार को नकारात्मक रूप से प्रभावित नहीं करता है।"
+    },
+    "autoTrackBody": "हम सार्वजनिक रूप से उपलब्ध स्रोतों से गेम डेटा को स्वचालित रूप से ट्रैक और अपडेट करते हैं।",
+    "leakedDataTitle": "लीक डेटा अस्वीकरण:",
+    "leakedDataBody": "हमारी साइट पर कोई भी प्रतीत होने वाला लीक डेटा सार्वजनिक रूप से उपलब्ध जानकारी से उत्पन्न होता है।",
+    "epicDevPortal": "Epic Games डेवलपर पोर्टल",
+    "euDirectivesIntro": "हमने EU कॉपीराइट निर्देशों में उल्लिखित सिद्धांतों पर विचार किया है:",
+    "euDirective1": "डिजिटल सिंगल मार्केट में कॉपीराइट निर्देश (EU) 2019/790",
+    "euDirective2": "प्रश्न और उत्तर – नए EU कॉपीराइट नियम",
+    "fairUseContact": "यदि आपके पास प्रश्न हैं, तो कृपया हमसे संपर्क करें:",
+    "contactTitle": "हमसे संपर्क करें",
+    "contactBody": "आप हमसे संपर्क कर सकते हैं"
+  },
+  "notifications": {
+    "meta": {
+      "title": "सूचनाएँ - egdata.app",
+      "description": "Epic Games Store अपडेट, गेम रिलीज़ के लिए पुश सूचनाएँ कॉन्फ़िगर करें।"
+    },
+    "title": "सूचनाएँ",
+    "description": "Epic Games Store अपडेट, गेम रिलीज़ के लिए पुश सूचनाएँ कॉन्फ़िगर करें।",
+    "tabs": {
+      "notifications": "सूचनाएँ",
+      "mySubscriptions": "मेरी सब्सक्रिप्शन"
+    },
+    "aboutPushTitle": "पुश सूचनाओं के बारे में",
+    "aboutPushDescription": "EGData पर पुश सूचनाएँ कैसे काम करती हैं, इसके बारे में और जानें।",
+    "whatYoullReceive": "आपको क्या मिलेगा:",
+    "receiveList": {
+      "freeGames": "नए मुफ़्त गेम की घोषणाएँ",
+      "releases": "गेम रिलीज़ सूचनाएँ",
+      "priceDrops": "विशलिस्टेड गेम के लिए मूल्य गिरावट अलर्ट",
+      "news": "Epic Games Store समाचार और अपडेट",
+      "custom": "कस्टम विषय-आधारित सूचनाएँ"
+    },
+    "privacySecurity": "गोपनीयता और सुरक्षा:",
+    "privacyList": {
+      "apiKey": "आपकी API कुंजी ब्राउज़र कुकीज़ में सुरक्षित रूप से संग्रहीत की जाती है",
+      "onlySubscribed": "हम केवल वे सूचनाएँ भेजते हैं जिनकी आपने सदस्यता ली है",
+      "unsubscribe": "आप किसी भी समय सदस्यता रद्द कर सकते हैं",
+      "noPersonalData": "आपकी API कुंजी के अलावा कोई व्यक्तिगत डेटा आवश्यक नहीं है"
+    },
+    "browserSupport": "ब्राउज़र समर्थन:",
+    "browserSupportBody": "पुश सूचनाएँ Chrome, Firefox, Safari और Edge में समर्थित हैं।",
+    "subscriptionOverview": "सब्सक्रिप्शन अवलोकन",
+    "totalSubscribed": "कुल सब्सक्राइब किए गए विषय: {{count}}",
+    "notSubscribedApi": "API कुंजी पुश सूचनाओं के लिए सब्सक्राइब नहीं है",
+    "notSubscribedTitle": "सब्सक्राइब नहीं",
+    "notSubscribedBody": "आपकी API कुंजी पुश सूचनाओं के लिए सब्सक्राइब नहीं है।",
+    "subscriptionId": "सब्सक्रिप्शन {{id}}",
+    "created": "निर्मित:",
+    "subscribedTopics": "सब्सक्राइब किए गए विषय:",
+    "noTopics": "कोई विषय सब्सक्राइब नहीं",
+    "lastUpdated": "अंतिम अपडेट:",
+    "noSubscriptionsTitle": "कोई सब्सक्रिप्शन नहीं मिला",
+    "noSubscriptionsBody": "आप सब्सक्राइब हैं लेकिन अभी तक कोई डिवाइस सब्सक्रिप्शन नहीं बनाया है।",
+    "fetchError": "सब्सक्रिप्शन लाने में विफल। कृपया पुनः प्रयास करें।",
+    "push": {
+      "title": "पुश सूचनाएँ",
+      "notSupported": "पुश सूचनाएँ इस ब्राउज़र में समर्थित नहीं हैं।",
+      "setApiKey": "कृपया अपनी API कुंजी सेट करें।",
+      "manage": "अपनी पुश सूचना प्राथमिकताएँ प्रबंधित करें।",
+      "unsubscribe": "सब्सक्रिप्शन रद्द करें",
+      "subscribe": "सब्सक्राइब करें",
+      "subscribed": "सब्सक्राइब किया",
+      "notSubscribed": "सब्सक्राइब नहीं",
+      "subscribeToTopic": "विषय की सदस्यता लें",
+      "topicPlaceholder": "विषय नाम दर्ज करें",
+      "subscribedTopics": "सब्सक्राइब किए गए विषय",
+      "clickToUnsubscribe": "सब्सक्रिप्शन रद्द करने के लिए क्लिक करें"
+    },
+    "simple": {
+      "title": "पुश सूचनाएँ",
+      "notSupported": "पुश सूचनाएँ इस ब्राउज़र में समर्थित नहीं हैं।",
+      "subscribedDesc": "आप {{count}} सूचना विषयों की सदस्यता ले चुके हैं",
+      "notSubscribedDesc": "Epic Games Store अपडेट, मुफ़्त गेम के बारे में सूचनाएँ प्राप्त करें",
+      "subscribeToNotifications": "सूचनाओं की सदस्यता लें",
+      "unsubscribe": "सब्सक्रिप्शन रद्द करें",
+      "chooseWhat": "चुनें कि आप किस बारे में सूचित होना चाहते हैं:",
+      "freeGames": "मुफ़्त गेम",
+      "freeGamesDesc": "जब नए मुफ़्त गेम उपलब्ध हों तो सूचित करें",
+      "newReleases": "नए रिलीज़",
+      "newReleasesDesc": "नए गेम रिलीज़ की सूचनाएँ",
+      "priceDrops": "मूल्य में गिरावट",
+      "priceDropsDesc": "जब गेम बिक्री पर हों तो अलर्ट प्राप्त करें",
+      "youWillReceive": "आपको इसके लिए सूचनाएँ मिलेंगी:",
+      "subscribedTo": "{{name}} की सदस्यता ली",
+      "unsubscribedFrom": "{{name}} से सब्सक्रिप्शन रद्द किया",
+      "failedSubscribe": "सूचनाओं की सदस्यता लेने में विफल",
+      "failedUnsubscribe": "सूचनाओं से सब्सक्रिप्शन रद्द करने में विफल",
+      "failedTopicSubscribe": "विषय की सदस्यता लेने में विफल",
+      "failedTopicUnsubscribe": "विषय से सब्सक्रिप्शन रद्द करने में विफल",
+      "successSubscribe": "सफलतापूर्वक सूचनाओं की सदस्यता ली!",
+      "successUnsubscribe": "सफलतापूर्वक सूचनाओं से सब्सक्रिप्शन रद्द किया"
+    },
+    "apiKey": {
+      "title": "API कुंजी प्रबंधन",
+      "label": "API कुंजी",
+      "placeholderGenerated": "API कुंजी उत्पन्न",
+      "placeholderNone": "कोई API कुंजी उत्पन्न नहीं",
+      "regenerate": "कुंजी पुनः उत्पन्न करें",
+      "generate": "कुंजी उत्पन्न करें",
+      "clear": "कुंजी साफ़ करें",
+      "generated": "नई API कुंजी सफलतापूर्वक उत्पन्न!",
+      "copied": "API कुंजी क्लिपबोर्ड पर कॉपी की गई!",
+      "cleared": "API कुंजी सफलतापूर्वक साफ़ की गई!",
+      "failedGenerate": "API कुंजी उत्पन्न करने में विफल",
+      "failedCopy": "API कुंजी कॉपी करने में विफल",
+      "failedClear": "API कुंजी साफ़ करने में विफल",
+      "noneToCopy": "कॉपी करने के लिए कोई API कुंजी नहीं",
+      "description": "आपकी API कुंजी एक UUID है जो आपके ब्राउज़र में स्थानीय रूप से संग्रहीत है।"
+    }
+  },
+  "promotions": {
+    "placeholder": "नमस्ते /promotions/$id!"
+  },
+  "misc": {
+    "gameAwards": {
+      "meta": {
+        "title": "द गेम अवार्ड्स कवरेज | egdata.app",
+        "description": "द गेम अवार्ड्स में घोषित नवीनतम गेम।"
+      },
+      "logoAlt": "द गेम अवार्ड्स 2025",
+      "subtitle": "द गेम अवार्ड्स में घोषित गेम जो Epic Games Store पर आ रहे हैं",
+      "videoTitle": "द गेम अवार्ड्स 2024 - लाइव स्ट्रीम",
+      "expandPlayer": "प्लेयर बढ़ाएँ",
+      "closeMiniPlayer": "मिनी प्लेयर बंद करें",
+      "noGamesTitle": "अभी तक कोई गेम घोषित नहीं",
+      "noGamesBody": "द गेम अवार्ड्स के बाद वापस आएँ!"
+    },
+    "downloads": {
+      "title": "egdata.app क्लाइंट रिलीज़",
+      "description": "नवीनतम संस्करण डाउनलोड करें।",
+      "errorPrefix": "त्रुटि:",
+      "noPublicReleases": "कोई सार्वजनिक रिलीज़ नहीं मिली।",
+      "recommended": "अनुशंसित",
+      "downloadsSuffix": "डाउनलोड",
+      "versionPublished": "संस्करण {{version}} - {{date}} को प्रकाशित",
+      "assetInfo": {
+        "appleSilicon": "Apple चिप वाले नए Mac के लिए।",
+        "intel": "Intel प्रोसेसर वाले पुराने Mac के लिए।",
+        "universal": "Apple Silicon और Intel Mac दोनों के साथ संगत।",
+        "msi": "मानक इंस्टॉलर। अधिकांश उपयोगकर्ताओं के लिए अनुशंसित।",
+        "exe": "स्टैंडअलोन एप्लिकेशन फ़ाइल।",
+        "linux": "Linux-आधारित OS के लिए।",
+        "generic": "सामान्य फ़ाइल या स्रोत कोड।"
+      }
+    },
+    "discordLinked": {
+      "title": "खाता सफलतापूर्वक लिंक किया गया!",
+      "body": "आपका Discord खाता egdata.app से लिंक कर दिया गया है",
+      "footer": "अब आप इस विंडो को बंद कर सकते हैं।"
+    },
+    "posts": {
+      "coverAlt": "LEGO Star Wars: The Skywalker Saga कवर",
+      "title": "LEGO® Star Wars™: The Skywalker Saga मुफ़्त पाएँ",
+      "freeGameBadge": "मुफ़्त गेम",
+      "published": "30 नवंबर 2023 को प्रकाशित",
+      "intro": "{{dateRange}} से, आप {{game}} को मुफ़्त प्राप्त कर सकते हैं। इसकी सामान्य कीमत {{price}} है। {{saga}} का अनुभव लें।",
+      "dateRange": "5 दिसंबर से 12 दिसंबर 2024",
+      "game": "LEGO® Star Wars™: The Skywalker Saga",
+      "price": "$49.99",
+      "saga": "स्काईवॉकर गाथा",
+      "gameplayAlt": "LEGO Star Wars गेमप्ले",
+      "charactersAlt": "LEGO Star Wars पात्र",
+      "whatToExpect": "क्या उम्मीद करें?",
+      "whatToExpectBody": "{{developer}} द्वारा विकसित और {{publisher}} द्वारा प्रकाशित।",
+      "developer": "TT Games",
+      "publisher": "Warner Bros.",
+      "expectList": {
+        "allMovies": "🌌 {{strong}}: सभी नौ फिल्मों की कहानियों को फिर से जिएँ।",
+        "allMoviesStrong": "सभी 9 फ़िल्में",
+        "characters": "🛸 {{strong}}: अपने पसंदीदा नायकों को नियंत्रित करें।",
+        "charactersStrong": "300+ पात्र",
+        "vehicles": "🚀 {{strong}}: प्रतिष्ठित जहाजों को उड़ाएँ।",
+        "vehiclesStrong": "100+ वाहन",
+        "planets": "🌍 {{strong}}: परिचित दुनिया की यात्रा करें।",
+        "planetsStrong": "23 ग्रह"
+      },
+      "specialTitle": "🌟 इस गेम को क्या खास बनाता है?",
+      "specialBody": "{{releaseDate}} में रिलीज़, Metacritic पर {{metascore}} के साथ प्रशंसित।",
+      "releaseDate": "अप्रैल 2022",
+      "metascore": "82 Metascore",
+      "specialList": {
+        "combat": "🎮 {{strong}}: गतिशील युद्ध।",
+        "combatStrong": "गतिशील युद्ध",
+        "charm": "🏗️ {{strong}}: LEGO आकर्षण।",
+        "charmStrong": "LEGO आकर्षण",
+        "replayability": "🤯 {{strong}}: पुनः खेलने की क्षमता।",
+        "replayabilityStrong": "पुनः खेलने की क्षमता"
+      },
+      "howToClaim": "🎁 कैसे प्राप्त करें?",
+      "howToClaimBody": "अपनी मुफ़्त कॉपी प्राप्त करना आसान है!",
+      "step1": "{{storeLink}} पर {{dec5}} और {{dec12}} के बीच जाएँ।",
+      "storeLink": "Epic Games Store",
+      "dec5": "5 दिसंबर",
+      "dec12": "12 दिसंबर 2024",
+      "step2": "गेम को अपनी लाइब्रेरी में जोड़ें।",
+      "step3": "यह हमेशा के लिए आपका है!",
+      "cardTitle": "यह अवसर न चूकें!",
+      "cardBody": "यह गेम सभी के लिए अंतहीन मज़ा प्रदान करता है।",
+      "footer": "फ़ोर्स आपके साथ हो! 🧱✨"
+    },
+    "fairUse": {
+      "meta": {
+        "title": "उचित उपयोग नीति - egdata.app",
+        "description": "egdata.app के लिए उचित उपयोग नीति"
+      },
+      "title": "EGData ऐप के लिए उचित उपयोग नीति",
+      "section1Title": "1. परिचय",
+      "section1Body": "EGData ऐप (\"हम\", \"हमें\") में आपका स्वागत है। यह नीति वेबसाइट {{siteLink}} (\"साइट\") पर प्रदान की गई सामग्री के उपयोग की शर्तों को रेखांकित करती है।",
+      "section2Title": "2. उद्देश्य",
+      "section2Body": "सामग्री और डेटा केवल सूचनात्मक उद्देश्यों के लिए प्रदान किया जाता है।",
+      "section3Title": "3. अनुपालन",
+      "section3Body": "EGData ऐप कॉपीराइट कानून के तहत उचित उपयोग के सिद्धांतों का पालन करता है।",
+      "section3List": {
+        "purpose": "उद्देश्य और चरित्र:",
+        "purposeBody": "हमारी वेबसाइट गैर-वाणिज्यिक है।",
+        "nature": "प्रकृति:",
+        "natureBody": "हम तथ्यात्मक जानकारी प्रस्तुत करते हैं।",
+        "amount": "मात्रा:",
+        "amountBody": "हम केवल आवश्यक डेटा का उपयोग करते हैं।",
+        "effect": "प्रभाव:",
+        "effectBody": "हमारा उपयोग बाज़ार को नकारात्मक रूप से प्रभावित नहीं करता है।"
+      },
+      "section4Title": "4. डेटा संग्रह",
+      "section4Body1": "हमारी साइट स्वचालित रूप से डेटा को ट्रैक और अपडेट करती है।",
+      "section4Body2": "हम सुनिश्चित करते हैं कि जानकारी वर्तमान और सटीक है।",
+      "section4Body3": "हम छवियों को सीधे सर्वर से लोड करते हैं।",
+      "section5Title": "5. अस्वीकरण",
+      "section5Body1": "कोई भी लीक डेटा सार्वजनिक जानकारी से आता है।",
+      "section5Body2": "EGData App उत्तरदायी नहीं है।",
+      "section5Body3": "अधिक जानकारी के लिए:",
+      "euDirective1": "निर्देश (EU) 2019/790",
+      "euDirective2": "प्रश्न और उत्तर",
+      "section6Title": "6. संपर्क",
+      "section6Body": "यदि प्रश्न हैं तो संपर्क करें:",
+      "email": "ईमेल:"
+    },
+    "donateKey": {
+      "title": "कुंजी दान करें",
+      "body": "यदि आपके पास दान करने के लिए कुंजी है, तो फ़ॉर्म भरें।"
+    },
+    "androidBeta": {
+      "meta": {
+        "title": "Android बीटा - egdata.app",
+        "description": "Android ऐप क्लोज्ड बीटा में शामिल हों"
+      },
+      "title": "Android बीटा प्रोग्राम",
+      "description": "हमारे क्लोज्ड बीटा में शामिल हों।",
+      "whatHappensNext": "आगे क्या?",
+      "steps": {
+        "signIn": "Google खाते से साइन इन करें",
+        "added": "कुछ घंटों में जोड़ दिया जाएगा",
+        "download": "लिंक से ऐप डाउनलोड करें"
+      }
+    }
+  },
+  "components": {
+    "stats": {
+      "title": "आँकड़े",
+      "description": "प्लेटफ़ॉर्म के बारे में आँकड़े",
+      "offers": "ऑफ़र",
+      "offersTooltip": "ऑफ़र स्टोर से खरीदी जा सकने वाली वस्तु है",
+      "items": "आइटम",
+      "itemsTooltip": "आइटम लॉन्चर के लिए एंटाइटलमेंट है",
+      "tags": "टैग",
+      "offersYear": "ऑफ़र (वर्ष)",
+      "itemsYear": "आइटम (वर्ष)",
+      "assets": "एसेट्स",
+      "assetsTooltip": "एसेट गेम फ़ाइलें हैं",
+      "regPrices": "सामान्य मूल्य",
+      "changes": "परिवर्तन",
+      "sandboxes": "सैंडबॉक्स",
+      "sandboxesTooltip": "सैंडबॉक्स ऑफ़र का समूह है"
+    },
+    "sandboxShell": {
+      "overview": "अवलोकन",
+      "offers": "ऑफ़र",
+      "items": "आइटम",
+      "assets": "एसेट्स",
+      "builds": "बिल्ड",
+      "achievements": "उपलब्धियाँ",
+      "changelog": "बदलाव लॉग",
+      "sandbox": "सैंडबॉक्स",
+      "internalNamespace": "आंतरिक नेमस्पेस",
+      "storePage": "स्टोर पेज",
+      "updated": "{{date}} को अपडेट किया गया",
+      "unrealEngine": "अनरियल इंजन",
+      "internalSandbox": "आंतरिक सैंडबॉक्स",
+      "releaseStatus": {
+        "prePurchase": "प्री-परचेज़",
+        "datePending": "तारीख़ लंबित",
+        "comingSoon": "जल्द आ रहा है",
+        "released": "रिलीज़ हो गया"
+      }
+    },
+    "comparison": {
+      "openCompareTray": "तुलना ट्रे खोलें, {{count}} चयनित",
+      "compareSelected": "चयनित ऑफ़र की तुलना करें",
+      "error": "त्रुटि",
+      "type": "प्रकार",
+      "seller": "विक्रेता",
+      "developer": "डेवलपर",
+      "releaseDate": "रिलीज़ तारीख़",
+      "pcReleaseDate": "PC रिलीज़ तारीख़",
+      "genres": "शैलियाँ",
+      "platforms": "प्लेटफ़ॉर्म",
+      "remove": "हटाएँ",
+      "current": "वर्तमान",
+      "lowest": "न्यूनतम",
+      "noPriceFound": "कोई कीमत नहीं मिली",
+      "noAgeRatingsFound": "कोई आयु रेटिंग नहीं मिली",
+      "achievements": "उपलब्धियाँ:",
+      "ageRating": "आयु रेटिंग:",
+      "price": "कीमत:",
+      "unknown": "अज्ञात"
+    },
+    "search": {
+      "sellers": "विक्रेता",
+      "noResults": "कोई परिणाम नहीं मिला",
+      "noResultsShort": "कोई परिणाम नहीं मिला।",
+      "allOfferTypes": "सभी ऑफ़र प्रकार",
+      "tags": "टैग"
+    },
+    "changelist": {
+      "title": "परिवर्तन सूची",
+      "loading": "लोड हो रहा है...",
+      "error": "त्रुटि: {{message}}",
+      "id": "ID",
+      "type": "प्रकार",
+      "titleOrId": "शीर्षक/ID",
+      "date": "तारीख़",
+      "new": "नया",
+      "update": "अपडेट"
+    },
+    "upcoming": {
+      "caption": "आगामी ऑफ़र",
+      "loading": "लोड हो रहा है...",
+      "title": "शीर्षक",
+      "price": "कीमत",
+      "releaseDate": "रिलीज़ तारीख़",
+      "unknown": "अज्ञात",
+      "prePurchase": "प्री-परचेज़"
+    },
+    "giveaways": {
+      "title": "गिवअवे",
+      "free": "मुफ़्त",
+      "freeNow": "अभी मुफ़्त",
+      "startsIn": "शुरू होने में",
+      "repeated": "दोहराया गया:",
+      "yes": "हाँ",
+      "no": "नहीं",
+      "repeatedTooltip": "यह ऑफ़र {{count}} बार उपहार में दिया गया है।"
+    },
+    "giveawayStats": {
+      "title": "गिवअवे आँकड़े",
+      "loading": "लोड हो रहा है...",
+      "totalValue": "कुल मूल्य",
+      "totalValueTooltip": "सक्रिय छूट सहित कुल मूल्य",
+      "giveaways": "गिवअवे",
+      "giveawaysTooltip": "डेटाबेस में गिवअवे की कुल संख्या",
+      "offers": "ऑफ़र",
+      "offersTooltip": "गिवअवे में अद्वितीय ऑफ़र की कुल संख्या",
+      "repeated": "दोहराया गया",
+      "repeatedTooltip": "कई बार दिखाई देने वाले ऑफ़र की संख्या",
+      "sellers": "विक्रेता",
+      "sellersTooltip": "अद्वितीय विक्रेताओं की कुल संख्या"
+    },
+    "offerCard": {
+      "openOffer": "ऑफ़र खोलें {{title}}",
+      "free": "मुफ़्त",
+      "comingSoon": "जल्द आ रहा है",
+      "earlyAccess": "अर्ली एक्सेस",
+      "prePurchase": "प्री-परचेज़",
+      "owned": "स्वामित्व में"
+    },
+    "baseGame": {
+      "checkBaseGame": "बेस गेम देखें",
+      "partOfBundle": "यह ऑफ़र इसका हिस्सा है"
+    },
+    "notFound": {
+      "message": "पेज मौजूद नहीं है।"
+    },
+    "sellerOffers": {
+      "error": "ऑफ़र लोड करने में त्रुटि।",
+      "moreFrom": "{{name}} से और अधिक"
+    },
+    "achievementsBlade": {
+      "noData": "कोई डेटा नहीं",
+      "game": "गेम",
+      "achievements": "उपलब्धियाँ",
+      "xp": "XP",
+      "bronze": "कांस्य",
+      "silver": "रजत",
+      "gold": "स्वर्ण",
+      "gamesWithAchievements": "Epic उपलब्धियों वाले गेम"
+    },
+    "topSection": {
+      "free": "मुफ़्त",
+      "releaseDate": "रिलीज़ तारीख़:",
+      "tba": "घोषित होना बाकी",
+      "platforms": "प्लेटफ़ॉर्म:",
+      "tags": "टैग:",
+      "checkOffer": "ऑफ़र देखें"
+    },
+    "featuredDiscounts": {
+      "free": "मुफ़्त",
+      "title": "फ़ीचर्ड छूट",
+      "countMore": "+{{count}} और",
+      "checkOffer": "ऑफ़र देखें",
+      "until": "तक"
+    },
+    "performanceTable": {
+      "title": "प्रदर्शन",
+      "noPriorData": "कोई पूर्व डेटा नहीं",
+      "cardsView": "कार्ड दृश्य",
+      "chartView": "चार्ट दृश्य"
+    },
+    "priceChart": {
+      "selectValue": "एक मान चुनें",
+      "last3Months": "पिछले 3 महीने",
+      "fetchingData": "नवीनतम डेटा लाया जा रहा है"
+    },
+    "dateRangePicker": {
+      "from": "से",
+      "to": "तक",
+      "maxRange": "अधिकतम सीमा 30 दिन",
+      "invalidRange": "अमान्य तारीख़ सीमा"
+    },
+    "regionalPricing": {
+      "region": "क्षेत्र",
+      "price": "कीमत"
+    },
+    "regionalPricingBadge": {
+      "analysis": "क्षेत्रीय मूल्य विश्लेषण",
+      "currentPrice": "वर्तमान कीमत",
+      "suggestedPrice": "सुझाई गई कीमत",
+      "belowSuggested": "शानदार डील!",
+      "closeToSuggested": "यह डील उसके करीब है, और सामान्य {{region}} मूल्य निर्धारण से काफी नीचे है।"
+    },
+    "countrySelector": {
+      "searchCountries": "देश खोजें...",
+      "noCountries": "कोई देश नहीं मिला"
+    },
+    "countriesSelector": {
+      "searchCountries": "देश खोजें...",
+      "noCountries": "कोई देश नहीं मिला"
+    },
+    "querySearch": {
+      "searchItems": "आइटम खोजें..."
+    },
+    "extendedSearch": {
+      "searchItems": "आइटम खोजें...",
+      "noItems": "कोई आइटम नहीं मिला।"
+    },
+    "searchForm": {
+      "noResults": "कोई परिणाम नहीं मिला",
+      "error": "त्रुटि: {{message}}",
+      "loadingLong": "यह क्वेरी अधिक समय ले रही है..."
+    },
+    "searchFormV2": {
+      "noResults": "कोई परिणाम नहीं मिला।"
+    },
+    "androidBetaBanner": {
+      "dismiss": "बैनर हटाएँ"
+    },
+    "videoPlayer": {
+      "title": "{{title}}"
+    },
+    "mediaSlider": {
+      "previousSlide": "पिछली स्लाइड",
+      "nextSlide": "अगली स्लाइड",
+      "image": "चित्र {{index}}",
+      "thumbnail": "थंबनेल {{index}}",
+      "downloading": "डाउनलोड हो रहा है...",
+      "download": "डाउनलोड"
+    },
+    "changelogItem": {
+      "action": "कार्रवाई",
+      "type": "प्रकार",
+      "oldValue": "पुराना मान",
+      "newValue": "नया मान",
+      "previousValue": "पिछला मान:",
+      "newValueLabel": "नया मान:"
+    },
+    "changelogCharts": {
+      "byWeekday": "सप्ताह के दिन के अनुसार परिवर्तन",
+      "byWeekdayDesc": "सप्ताह के दिन के अनुसार संचित परिवर्तन",
+      "typesOfChanges": "परिवर्तनों के प्रकार",
+      "typesOfChangesDesc": "प्रकार के अनुसार परिवर्तन",
+      "byField": "फ़ील्ड के अनुसार परिवर्तन",
+      "byFieldDesc": "फ़ील्ड द्वारा समूहित परिवर्तन",
+      "dailyDesc": "पिछले वर्ष के दैनिक परिवर्तन",
+      "noData": "कोई डेटा उपलब्ध नहीं।"
+    },
+    "openEgl": {
+      "open": "खोलें"
+    },
+    "openEgs": {
+      "store": "स्टोर"
+    },
+    "openLauncher": {
+      "play": "खेलें"
+    },
+    "storeDropdown": {
+      "launcher": "लॉन्चर",
+      "viewStorePage": "स्टोर पेज देखें",
+      "webBrowser": "वेब ब्राउज़र"
+    },
+    "prepurchasePopup": {
+      "title": "{{title}}"
+    },
+    "apiKeyManager": {
+      "title": "API कुंजी प्रबंधन",
+      "label": "API कुंजी",
+      "placeholder": {
+        "generated": "API कुंजी उत्पन्न",
+        "none": "कोई API कुंजी नहीं"
+      },
+      "button": {
+        "regenerate": "पुनः उत्पन्न",
+        "generate": "उत्पन्न",
+        "clear": "साफ़"
+      },
+      "notification": {
+        "generated": "API कुंजी उत्पन्न!",
+        "generateFailed": "उत्पन्न करने में विफल",
+        "copied": "कॉपी की गई!",
+        "copyFailed": "कॉपी करने में विफल",
+        "noneToCopy": "कॉपी करने के लिए कुछ नहीं",
+        "cleared": "साफ़ की गई!",
+        "clearFailed": "साफ़ करने में विफल"
+      },
+      "description": "API कुंजी आपके ब्राउज़र में स्थानीय रूप से संग्रहीत UUID है।"
+    },
+    "cookieBanner": {
+      "title": "कुकी सूचना",
+      "description": "यह वेबसाइट आपके अनुभव को बढ़ाने के लिए कुकीज़ का उपयोग करती है। कुकीज़ स्वीकार करके, आप {{privacyPolicyLink}} स्वीकार करते हैं।",
+      "accept": "स्वीकार करें",
+      "decline": "अस्वीकार करें"
+    },
+    "searchHeader": {
+      "results": "{{count}} परिणाम",
+      "showingResultsFor": "परिणाम दिखा रहा है"
+    },
+    "bundle": {
+      "collectionOffers": "कलेक्शन ऑफ़र",
+      "bundleOffers": "बंडल ऑफ़र",
+      "offersCount": "- {{count}} ऑफ़र",
+      "bundlePriceTitle": "बंडल मूल्य",
+      "totalValueLabel": "कुल मूल्य:",
+      "bundlePriceLabel": "बंडल मूल्य:",
+      "youSave": "आप बचाते हैं:",
+      "youPayMore": "आप अधिक भुगतान करते हैं:",
+      "buyBundle": "बंडल खरीदें",
+      "buyIndividually": "अलग-अलग खरीदें"
+    },
+    "clientBanner": {
+      "heading": "{{appName}} बिल्ड डेटाबेस को शक्ति दें",
+      "subheading": "हर बिल्ड को मैप करने में मदद करें",
+      "description": "हमारा क्लाइंट मेनिफ़ेस्ट फ़ाइलें सुरक्षित रूप से अपलोड करता है।",
+      "cta": "डाउनलोड करें"
+    },
+    "collectionOffers": {
+      "title": "कलेक्शन ऑफ़र"
+    },
+    "lastModifiedOffers": {
+      "title": "अंतिम संशोधित ऑफ़र"
+    },
+    "latestOffers": {
+      "title": "नवीनतम जोड़े गए"
+    },
+    "latestReleased": {
+      "title": "नवीनतम रिलीज़"
+    },
+    "mobileFreebies": {
+      "title": "मोबाइल मुफ़्त गेम",
+      "collapse": "संक्षिप्त करें",
+      "expand": "विस्तृत करें"
+    },
+    "sectionHeader": {
+      "seeAll": "सभी देखें"
+    },
+    "suggestedOffers": {
+      "title": "आपको ये भी पसंद आ सकते हैं"
+    }
+  },
+  "table": {
+    "pagination": {
+      "rowsPerPage": "प्रति पृष्ठ पंक्तियाँ",
+      "pageOf": "पृष्ठ {{page}} का {{total}}",
+      "goToFirst": "पहले पृष्ठ पर जाएँ",
+      "goToPrevious": "पिछले पृष्ठ पर जाएँ",
+      "goToNext": "अगले पृष्ठ पर जाएँ",
+      "goToLast": "अंतिम पृष्ठ पर जाएँ",
+      "previous": "पिछला",
+      "next": "अगला",
+      "morePages": "और पृष्ठ"
+    },
+    "toolbar": {
+      "platform": "प्लेटफ़ॉर्म",
+      "status": "स्थिति",
+      "type": "प्रकार",
+      "platforms": "प्लेटफ़ॉर्म",
+      "fileExtensions": "फ़ाइल एक्सटेंशन",
+      "filterOffers": "ऑफ़र फ़िल्टर करें...",
+      "filterItems": "आइटम फ़िल्टर करें...",
+      "filterFiles": "फ़ाइलें फ़िल्टर करें...",
+      "reset": "रीसेट"
+    },
+    "viewOptions": {
+      "view": "दृश्य",
+      "toggleColumns": "कॉलम टॉगल करें"
+    },
+    "facetedFilter": {
+      "noResults": "कोई परिणाम नहीं मिला।",
+      "selected": "चयनित",
+      "clearFilters": "फ़िल्टर साफ़ करें"
+    },
+    "builds": {
+      "noResults": "कोई परिणाम नहीं।",
+      "donateKey": "कुंजी दान करें"
+    }
+  },
+  "forms": {
+    "review": {
+      "submitTitle": "समीक्षा सबमिट करें",
+      "editTitle": "समीक्षा संपादित करें",
+      "description": "{{title}} के बारे में अपने विचार साझा करें",
+      "rating": "रेटिंग",
+      "ratingError": "रेटिंग 1-10 के बीच होनी चाहिए",
+      "recommend": "क्या आप अनुशंसा करेंगे?",
+      "recommendError": "हाँ या नहीं चुनें",
+      "yes": "हाँ",
+      "no": "नहीं",
+      "title": "शीर्षक",
+      "titlePlaceholder": "शीर्षक दर्ज करें",
+      "titleRequired": "शीर्षक आवश्यक",
+      "titleMinLength": "शीर्षक कम से कम 3 अक्षर",
+      "titleMinLengthLong": "शीर्षक कम से कम 3 अक्षर",
+      "titleMaxLength": "शीर्षक 75 अक्षर से कम",
+      "reviewContent": "समीक्षा सामग्री",
+      "contentMinLength": "सामग्री कम से कम 3 अक्षर",
+      "tags": "टैग (अल्पविराम से अलग)",
+      "tagsPlaceholder": "जैसे गुणवत्ता, डिज़ाइन",
+      "previous": "पिछला",
+      "next": "अगला",
+      "submit": "समीक्षा सबमिट करें",
+      "deleteReview": "समीक्षा हटाएँ",
+      "confirmDelete": "क्या आप वाकई हटाना चाहते हैं?",
+      "deleteDescription": "यह क्रिया पूर्ववत नहीं की जा सकती।",
+      "cancel": "रद्द करें",
+      "delete": "हटाएँ",
+      "deleting": "हटाया जा रहा है...",
+      "errorSubmitting": "सबमिट करने में त्रुटि",
+      "errorDeleting": "हटाने में त्रुटि",
+      "spamDetected": "स्पैम का पता चला",
+      "defaultContent": "अपनी समीक्षा दर्ज करें",
+      "theProduct": "उत्पाद"
+    },
+    "androidBeta": {
+      "title": "बीटा में शामिल हों",
+      "description": "Google से साइन इन करें।",
+      "spotsRemaining": "<strong>{{remaining}}</strong> / {{max}} स्थान शेष",
+      "betaFull": "बीटा भर गया",
+      "betaFullDesc": "सभी {{max}} स्थान भर गए। बाद में वापस आएँ या अपडेट के लिए हमें फॉलो करें।",
+      "registering": "पंजीकरण हो रहा है...",
+      "registered": "पंजीकृत!",
+      "registeredDesc": "<strong>{{email}}</strong> पंजीकृत किया गया।",
+      "registeredDesc2": "कुछ घंटे लग सकते हैं।",
+      "joinBeta": "Google Play पर शामिल हों",
+      "alreadyRegistered": "पहले से पंजीकृत",
+      "alreadyRegisteredDesc": "<strong>{{email}}</strong> पहले से पंजीकृत है।",
+      "alreadyRegisteredDesc2": "यदि जोड़ा गया है, तो यहाँ शामिल हों:",
+      "error": "त्रुटि",
+      "tryAgain": "पुनः प्रयास करें",
+      "noCredential": "कोई क्रेडेंशियल नहीं मिला",
+      "somethingWrong": "कुछ गलत हुआ।",
+      "googleFailed": "Google साइन-इन विफल।"
+    },
+    "donateKey": {
+      "donate": "दान करें",
+      "error": "त्रुटि",
+      "success": "सफल",
+      "successDesc": "दान के लिए धन्यवाद!",
+      "offerPage": "ऑफ़र पेज",
+      "somethingWrong": "कुछ गलत हुआ।"
+    }
+  },
+  "ui": {
+    "dialog": {
+      "close": "बंद करें"
+    },
+    "sheet": {
+      "close": "बंद करें"
+    },
+    "carousel": {
+      "previous": "पिछली स्लाइड",
+      "next": "अगली स्लाइड"
+    },
+    "pagination": {
+      "previous": "पिछला",
+      "next": "अगला",
+      "morePages": "और पृष्ठ"
+    },
+    "priceRangeSlider": {
+      "priceRange": "मूल्य सीमा",
+      "minPrice": "न्यूनतम मूल्य",
+      "maxPrice": "अधिकतम मूल्य"
+    }
+  }
+}

@@ -12,6 +12,8 @@ import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { httpClient } from "@/lib/http-client";
 import { captureError } from "@/lib/pulse-telemetry";
+import i18n from "@/lib/i18n";
+import { useLocale } from "@/hooks/use-locale";
 import type { Asset } from "@/types/asset";
 import type { SingleOffer } from "@/types/single-offer";
 import type { SingleSandbox } from "@/types/single-sandbox";
@@ -23,6 +25,7 @@ import {
 } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 type LoaderData = {
   dehydratedState: DehydratedState;
@@ -42,12 +45,13 @@ export const Route = createFileRoute("/offers/$id/metadata")({
   },
 
   loader: async ({ params, context }) => {
-    const { queryClient } = context;
+    const { queryClient, locale } = context;
     const { id } = params;
 
     const offer = await queryClient.ensureQueryData({
-      queryKey: ["offer", { id }],
-      queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`).catch(() => null),
+      queryKey: ["offer", { id, locale }],
+      queryFn: () =>
+        httpClient.get<SingleOffer>(`/offers/${id}`, { params: { locale } }).catch(() => null),
     });
 
     await Promise.allSettled([
@@ -94,8 +98,8 @@ export const Route = createFileRoute("/offers/$id/metadata")({
       return {
         meta: [
           {
-            title: "Offer not found",
-            description: "Offer not found",
+            title: i18n.t("offerDetail.common.offerNotFound"),
+            description: i18n.t("offerDetail.common.offerNotFound"),
           },
         ],
       };
@@ -110,8 +114,8 @@ export const Route = createFileRoute("/offers/$id/metadata")({
       return {
         meta: [
           {
-            title: "Offer not found",
-            description: "Offer not found",
+            title: i18n.t("offerDetail.common.offerNotFound"),
+            description: i18n.t("offerDetail.common.offerNotFound"),
           },
         ],
       };
@@ -125,11 +129,13 @@ export const Route = createFileRoute("/offers/$id/metadata")({
 
 function MetadataPage() {
   const { id, offer: serverOffer } = Route.useLoaderData() as LoaderData;
+  const { locale } = useLocale();
+  const { t } = useTranslation();
   const [offerQuery, sandboxQuery, assetsQuery] = useQueries({
     queries: [
       {
-        queryKey: ["offer", { id }],
-        queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`),
+        queryKey: ["offer", { id, locale }],
+        queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`, { params: { locale } }),
       },
       {
         queryKey: ["sandbox", { id: serverOffer?.namespace }],
@@ -157,12 +163,12 @@ function MetadataPage() {
 
   return (
     <main className="flex flex-col gap-2 w-full">
-      <h2 className="text-2xl font-bold">Metadata</h2>
+      <h2 className="text-2xl font-bold">{t("offerDetail.metadata.title")}</h2>
       <Table className="min-w-[620px]">
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[180px] md:w-[300px]">Type</TableHead>
-            <TableHead>Value</TableHead>
+            <TableHead className="w-[180px] md:w-[300px]">{t("offerDetail.table.type")}</TableHead>
+            <TableHead>{t("offerDetail.table.value")}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -175,27 +181,27 @@ function MetadataPage() {
               </TableRow>
             ))}
           <TableRow>
-            <TableCell>Countries Blacklist</TableCell>
+            <TableCell>{t("offerDetail.table.countriesBlacklist")}</TableCell>
             <TableCell>
               <Countries countries={offer.countriesBlacklist} />
             </TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>Countries Whitelist</TableCell>
+            <TableCell>{t("offerDetail.table.countriesWhitelist")}</TableCell>
             <TableCell>
               <Countries countries={offer.countriesWhitelist} />
             </TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>Categories</TableCell>
+            <TableCell>{t("offerDetail.table.categories")}</TableCell>
             <TableCell>{offer.categories.join(", ")}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>Refund Type</TableCell>
+            <TableCell>{t("offerDetail.table.refundType")}</TableCell>
             <TableCell>{offer.refundType}</TableCell>
           </TableRow>
           <TableRow>
-            <TableCell>Tags</TableCell>
+            <TableCell>{t("offerDetail.table.tags")}</TableCell>
             <TableCell>
               {offer.tags
                 .filter((tag) => tag !== null)
@@ -205,14 +211,14 @@ function MetadataPage() {
           </TableRow>
 
           <TableRow>
-            <TableCell>Age Ratings</TableCell>
+            <TableCell>{t("offerDetail.table.ageRatings")}</TableCell>
             <TableCell>
               <AgeRatings ageRatings={sandbox?.ageGatings ?? {}} />
             </TableCell>
           </TableRow>
           {assets && assets?.length > 0 ? (
             <TableRow>
-              <TableCell>Assets</TableCell>
+              <TableCell>{t("offerDetail.table.assets")}</TableCell>
               <TableCell>
                 <Assets assets={assets} />
               </TableCell>
@@ -303,6 +309,7 @@ function AgeRatings({ ageRatings }: { ageRatings: SingleSandbox["ageGatings"] })
 }
 
 function Assets({ assets }: { assets: { assets: Asset }[] }) {
+  const { t } = useTranslation();
   try {
     return (
       <div className="flex flex-col gap-2 items-start justify-start">
@@ -314,10 +321,10 @@ function Assets({ assets }: { assets: { assets: Asset }[] }) {
               {textPlatformIcons[asset.platform]}
               <span className="text-xs text-left">{asset.artifactId}</span>
               <span className="text-xs text-left">
-                Download: {bytesToSize(asset.downloadSizeBytes)}
+                {t("offerDetail.metadata.download")} {bytesToSize(asset.downloadSizeBytes)}
               </span>
               <span className="text-xs text-left">
-                Install: {bytesToSize(asset.installedSizeBytes)}
+                {t("offerDetail.metadata.install")} {bytesToSize(asset.installedSizeBytes)}
               </span>
             </div>
           ))}

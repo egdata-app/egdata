@@ -1,0 +1,1763 @@
+{
+  "common": {
+    "appName": "EGDATA",
+    "search": "بحث",
+    "searchPlaceholder": "البحث عن ألعاب...",
+    "loading": "جارٍ التحميل...",
+    "free": "مجاني",
+    "notAvailable": "غير متوفر",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "close": "إغلاق"
+  },
+  "nav": {
+    "toggleMenu": "تبديل قائمة التنقل",
+    "logoAlt": "شعار EGDATA",
+    "explore": "استكشاف",
+    "browse": "تصفح",
+    "sales": "التخفيضات",
+    "changelog": "سجل التغييرات",
+    "about": "حول",
+    "rankings": "التصنيفات",
+    "topSellers": "الأكثر مبيعًا",
+    "mostPlayed": "الأكثر لعبًا",
+    "topWishlisted": "الأكثر رغبة",
+    "topNewReleases": "أفضل الإصدارات الجديدة",
+    "seeAllCollections": "عرض جميع المجموعات",
+    "others": "أخرى",
+    "releaseStats": "إحصائيات الإصدارات",
+    "genres": "الأنواع",
+    "seeAllGenres": "عرض جميع الأنواع",
+    "other": "أخرى",
+    "action": "أكشن",
+    "rpg": "RPG",
+    "indie": "مستقل",
+    "strategy": "استراتيجية",
+    "topSellerOnEpic": "الأكثر مبيعًا في Epic Games Store",
+    "searchItemTitle": "بحث",
+    "searchItemDesc": "ابحث عما تبحث عنه في Epic Games Store.",
+    "freeGamesItemTitle": "ألعاب مجانية",
+    "freeGamesItemDesc": "استعرض أحدث العروض المجانية في Epic Games Store.",
+    "withDiscountsItemTitle": "مع خصومات",
+    "withDiscountsItemDesc": "تصفح الألعاب المخفضة حاليًا بخصومات رائعة.",
+    "helloUser": "مرحبًا، {{name}}!",
+    "dashboard": "لوحة التحكم",
+    "logout": "تسجيل الخروج",
+    "searchLanguages": "البحث عن لغات...",
+    "noLanguagesFound": "لم يتم العثور على لغات"
+  },
+  "footer": {
+    "logoAlt": "شعار EGDATA",
+    "disclaimer": "قاعدة بيانات Epic Games Store من صنع المعجبين. غير تابعة لشركة Epic Games, Inc. جميع الشعارات والصور والعلامات التجارية مملوكة لأصحابها.",
+    "legal": "قانوني",
+    "privacyPolicy": "سياسة الخصوصية",
+    "notifications": "الإشعارات",
+    "resources": "الموارد",
+    "apiDocs": "وثائق API",
+    "changelog": "سجل التغييرات",
+    "community": "المجتمع",
+    "flagsByFlagpedia": "الأعلام من Flagpedia",
+    "madeIn": "صُنع في"
+  },
+  "meta": {
+    "title": "قاعدة بيانات Epic Games - egdata.app",
+    "description": "قاعدة بيانات شاملة لـ Epic Games Store: معلومات الألعاب، الأسعار، تاريخ المبيعات، قوائم الملفات، والمزيد. استكشف الألعاب المجانية والإصدارات القادمة ورؤى المجتمع.",
+    "twitterTitle": "قاعدة بيانات Epic Games",
+    "twitterDescription": "قاعدة بيانات مجانية ومفتوحة المصدر لـ Epic Games Store تحتوي على معلومات شاملة عن الألعاب وتتبع المبيعات والمزيد. مدفوعة من المجتمع ويتم تحديثها باستمرار.",
+    "twitterImageAlt": "قاعدة بيانات Epic Games",
+    "ogTitle": "قاعدة بيانات Epic Games",
+    "ogDescription": "قاعدة بيانات مجانية ومفتوحة المصدر لـ Epic Games Store تحتوي على معلومات شاملة عن الألعاب وتتبع المبيعات والمزيد. مدفوعة من المجتمع ويتم تحديثها باستمرار.",
+    "ogImageAlt": "قاعدة بيانات Epic Games"
+  },
+  "notFound": {
+    "title": "الصفحة غير موجودة"
+  },
+  "home": {
+    "statsBar": {
+      "offersTracked": "العروض المتعقبة",
+      "priceChanges72h": "تغيرات الأسعار / 72 ساعة",
+      "activeDiscounts": "الخصومات النشطة",
+      "giveawaysToDate": "الهدايا حتى الآن"
+    },
+    "sections": {
+      "giveawayStats": "إحصائيات الهدايا",
+      "giveawayOffers": "عروض الهدايا",
+      "upcomingOffers": "العروض القادمة",
+      "latestOffers": "أحدث العروض",
+      "latestReleased": "أحدث الإصدارات",
+      "latestOffersWithAchievements": "أحدث العروض مع الإنجازات",
+      "topSellingOffers": "العروض الأكثر مبيعًا",
+      "latestBuilds": "أحدث البنيات"
+    },
+    "tableHeaders": {
+      "hash": "#",
+      "pos": "م",
+      "dash": "-",
+      "title": "العنوان",
+      "starts": "البدء",
+      "ends": "الانتهاء",
+      "releaseDate": "تاريخ الإصدار",
+      "createdAt": "تاريخ الإنشاء",
+      "date": "التاريخ",
+      "price": "السعر",
+      "size": "الحجم",
+      "creationDate": "تاريخ الإنشاء"
+    },
+    "offerHover": {
+      "seller": "البائع:",
+      "developer": "المطور:",
+      "publisher": "الناشر:",
+      "releaseDate": "تاريخ الإصدار:",
+      "ageRating": "التصنيف العمري:",
+      "moreGenres_one": "+{{count}} المزيد",
+      "moreGenres_other": "+{{count}} المزيد",
+      "communityRating": "تقييم المجتمع:",
+      "igdbScore": "نتيجة IGDB",
+      "reviews": "• {{count}} مراجعة",
+      "timeToBeat": "وقت الإكمال:",
+      "features": "الميزات:",
+      "moreFeatures": " +{{count}} المزيد"
+    },
+    "buildHover": {
+      "unknownBuild": "بنية غير معروفة",
+      "unknownDeveloper": "مطور غير معروف",
+      "size": "الحجم",
+      "version": "الإصدار",
+      "created": "تاريخ الإنشاء",
+      "id": "المعرف: {{id}}"
+    },
+    "multipleOffers": "{{title}} - عروض متعددة",
+    "hero": {
+      "subtitle": "تتبع الأسعار، واكتشف الصفقات، ولا تفوت أي لعبة مجانية. رفيقك لقاعدة بيانات Epic Games Store — العروض، الخصومات، الهدايا، البنيات، والمزيد.",
+      "searchPlaceholder": "ابحث في قاعدة البيانات...",
+      "justReleased": "صدر للتو",
+      "priceDrops72h": "انخفاضات الأسعار (72 ساعة)",
+      "hasAchievements": "لديه إنجازات",
+      "upcoming": "قادمة",
+      "topSellers": "الأكثر مبيعًا"
+    },
+    "pulse": {
+      "recentActivity": "النشاط الأخير",
+      "badge": {
+        "new": "جديد",
+        "gone": "مختفي",
+        "offer": "عرض",
+        "build": "بنية",
+        "item": "عنصر",
+        "asset": "أصل",
+        "xp": "XP",
+        "sandbox": "Sandbox",
+        "change": "تغيير"
+      },
+      "title": {
+        "buildVersion": "البنية {{version}}",
+        "buildId": "البنية {{id}}",
+        "achievementsId": "الإنجازات {{id}}"
+      },
+      "detail": {
+        "newBuildIndexed": "تم فهرسة بنية جديدة",
+        "buildManifestRefreshed": "تم تحديث بيان البنية",
+        "achievementChanges_one": "{{count}} إنجاز {{entry}} {{verb}}",
+        "achievementChanges_other": "{{count}} إنجاز {{entry}} {{verb}}",
+        "offerMetadataRefreshed": "تم تحديث بيانات العرض الوصفية",
+        "fieldsChanged_one": "{{count}} حقل {{verb}}",
+        "fieldsChanged_other": "{{count}} حقول {{verb}}",
+        "fieldChanged": "{{field}} {{verb}}"
+      },
+      "actionVerb": {
+        "added": "تمت الإضافة",
+        "removed": "تمت الإزالة",
+        "updated": "تم التحديث",
+        "changed": "تم التغيير"
+      },
+      "entry_one": "مدخل",
+      "entry_other": "مدخلات"
+    }
+  },
+  "offerDetail": {
+    "common": {
+      "offerNotFound": "العرض غير موجود",
+      "notAvailable": "غير متوفر",
+      "na": "غير متاح",
+      "loading": "جارٍ التحميل...",
+      "somethingWentWrong": "حدث خطأ ما",
+      "noChangesFound": "لم يتم العثور على تغييرات لهذا العرض"
+    },
+    "tabs": {
+      "overview": "نظرة عامة",
+      "price": "السعر",
+      "items": "العناصر",
+      "builds": "البنيات",
+      "achievements": "الإنجازات",
+      "related": "ذات صلة",
+      "metadata": "البيانات الوصفية",
+      "changelog": "سجل التغييرات",
+      "media": "الوسائط",
+      "reviews": "المراجعات"
+    },
+    "table": {
+      "offerId": "معرف العرض",
+      "namespace": "Namespace",
+      "offerType": "نوع العرض",
+      "seller": "البائع",
+      "developer": "المطور",
+      "supportedPlatforms": "المنصات المدعومة",
+      "releaseDate": "تاريخ الإصدار",
+      "lastUpdate": "آخر تحديث",
+      "creationDate": "تاريخ الإنشاء",
+      "technologies": "التقنيات",
+      "type": "النوع",
+      "value": "القيمة",
+      "countriesBlacklist": "القائمة السوداء للدول",
+      "countriesWhitelist": "القائمة البيضاء للدول",
+      "categories": "الفئات",
+      "refundType": "نوع الاسترداد",
+      "tags": "الوسوم",
+      "ageRatings": "التصنيفات العمرية",
+      "assets": "الأصول"
+    },
+    "badges": {
+      "prePurchase": "الطلب المسبق",
+      "earlyAccess": "الوصول المبكر"
+    },
+    "hero": {
+      "offeredBy": "مقدم من {{seller}}"
+    },
+    "tooltip": {
+      "internalNamespace": "Namespace داخلي لـ Epic Games",
+      "techDescription": "قائمة التقنيات لتتبع المحركات المستخدمة والتقنيات المختلفة من ملفات اللعبة.",
+      "techSource": "نستخدم",
+      "techSourceSteamDb": "SteamDB",
+      "source": "المصدر"
+    },
+    "actions": {
+      "compare": "مقارنة"
+    },
+    "releaseDate": {
+      "releasedOnPc": "صدر على PC",
+      "theEgs": " على EGS",
+      "releasedSameDay": "صدر على Epic في نفس يوم إصدار PC"
+    },
+    "notifications": {
+      "title": "إعدادات الإشعارات",
+      "description": "اختر الإشعارات التي تريد تلقيها لهذا العرض.",
+      "all": "الكل",
+      "price": "السعر",
+      "achievements": "الإنجازات",
+      "builds": "البنيات",
+      "items": "العناصر",
+      "requirements": "المتطلبات",
+      "metadata": "البيانات الوصفية",
+      "media": "الوسائط",
+      "enablePushDescription": "تحتاج إلى تمكين الإشعارات الفورية لتلقي إشعارات لهذا العرض.",
+      "enablePushAction": "تمكين الإشعارات الفورية"
+    },
+    "overview": {
+      "genres": "الأنواع",
+      "ageRating": "التصنيف العمري",
+      "noAgeRatings": "لم يتم العثور على تصنيفات عمرية",
+      "giveaways": "الهدايا",
+      "noGiveaways": "لم يتم العثور على هدايا",
+      "achievements": "الإنجازات",
+      "igdbTimeToBeat": "IGDB وقت الإكمال",
+      "hastily": "بسرعة",
+      "normally": "بشكل طبيعي",
+      "completely": "بالكامل",
+      "hltbSubmissions_one": "بناءً على {{count}} إرسال",
+      "hltbSubmissions_other": "بناءً على {{count}} إرسال",
+      "price": "السعر",
+      "priceCurrent": "الحالي:",
+      "priceLowest": "الأدنى:",
+      "priceLastDiscount": "آخر خصم:",
+      "hltbTitle": "كم من الوقت للإنهاء",
+      "noGameTimes": "لم يتم العثور على أوقات للعبة",
+      "epicRating": "تقييم لاعبي Epic",
+      "epicRatingDescription": "مأخوذ من اللاعبين في نظام Epic Games البيئي",
+      "igdbRating": "تقييم IGDB",
+      "igdbReviews_one": "{{count}} مراجعة",
+      "igdbReviews_other": "{{count}} مراجعة"
+    },
+    "achievements": {
+      "title": "الإنجازات",
+      "sortBy": "ترتيب حسب",
+      "defaultSort": "الترتيب الافتراضي",
+      "sortByRarity": "ترتيب حسب الندرة",
+      "sortByCompleted": "ترتيب حسب نسبة الإنجاز",
+      "search": "بحث",
+      "flipAll": "قلب الكل",
+      "noAchievements": "لم يتم العثور على إنجازات",
+      "noAchievementsSet": "لم يتم العثور على إنجازات لهذه المجموعة.",
+      "noAchievementsSetDescription": "قد يعني هذا أن الإنجازات غير متوفرة حاليًا ولكنها ستُضاف في المستقبل.",
+      "baseGame": "اللعبة الأساسية",
+      "dlc": "DLC",
+      "achievementsLabel": "الإنجازات",
+      "baseGameDescription": "قائمة الإنجازات هذه للعبة الأساسية.",
+      "dlcDescription": "قائمة الإنجازات هذه لأحد DLC.",
+      "lastUpdated": "آخر تحديث:",
+      "lastUpdatedTooltip": "آخر تحديث لمجموعة الإنجازات هذه كان في {{date}}.",
+      "lastUpdatedTooltipDescription": "هذا إما تاريخ الإنشاء أو تاريخ آخر تحديث."
+    },
+    "builds": {
+      "title": "البنيات"
+    },
+    "items": {
+      "title": "العناصر"
+    },
+    "price": {
+      "title": "السعر"
+    },
+    "related": {
+      "title": "العروض ذات الصلة"
+    },
+    "media": {
+      "images": "الصور",
+      "videos": "الفيديو",
+      "covers": "الأغلفة",
+      "noImages": "لم يتم العثور على صور",
+      "noVideos": "لم يتم العثور على فيديو",
+      "noCovers": "لم يتم العثور على أغلفة",
+      "download": "تنزيل",
+      "close": "إغلاق",
+      "downloadCoverAria": "تنزيل غلاف {{type}}"
+    },
+    "metadata": {
+      "title": "البيانات الوصفية",
+      "download": "التنزيل:",
+      "install": "التثبيت:"
+    },
+    "changelog": {
+      "title": "سجل التغييرات",
+      "tooltip": "هذه القائمة هي التغييرات التي تم إجراؤها على هذا العرض أو العناصر أو الأصول أو البنيات ذات الصلة.",
+      "sandboxChangelog": "سجل تغييرات Sandbox",
+      "sandboxChangelogPrefix": "يمكنك رؤية سجل التغييرات للمنتج بأكمله في",
+      "noChangelog": "لا يوجد سجل تغييرات متاح",
+      "allTypes": "جميع الأنواع",
+      "selectField": "اختر حقلاً",
+      "allFields": "جميع الحقول",
+      "search": "بحث",
+      "previous": "السابق",
+      "next": "التالي",
+      "pageOf": "صفحة {{page}} من {{totalPages}}",
+      "typeUpdate": "تحديث",
+      "typeDelete": "حذف",
+      "typeInsert": "إدراج"
+    },
+    "reviews": {
+      "epicRating": "تقييم لاعبي Epic",
+      "epicRatingDescription": "مأخوذ من اللاعبين في نظام Epic Games البيئي",
+      "egdataRating": "تقييم EGDATA",
+      "overallScore": "النتيجة الإجمالية",
+      "scoreOutOf10": "{{score}} / 10",
+      "basedOnReviews": "بناءً على {{count}} مراجعة",
+      "allReviews": "جميع المراجعات",
+      "onlyVerified": "الموثقة فقط",
+      "notVerified": "غير موثقة",
+      "leaveReview": "اترك مراجعة",
+      "alreadyReviewed": "تمت المراجعة بالفعل",
+      "loginToReview": "سجل الدخول للمراجعة",
+      "noReviews": "لا توجد مراجعات بعد",
+      "notReleased": "لم يتم إصدار هذا المنتج بعد",
+      "beFirst": "كن أول من يترك مراجعة لهذا المنتج!",
+      "checkBack": "عد بعد تاريخ الإصدار لترك مراجعة!",
+      "verifiedOwner": "مالك موثق",
+      "recommended": "موصى به",
+      "notRecommended": "غير موصى به",
+      "readMore": "اقرأ المزيد",
+      "reviewedOn": "تمت المراجعة في",
+      "lastUpdatedOn": "آخر تحديث في",
+      "editedTimes": "تم التحرير {{count}} مرة",
+      "edit": "تحرير",
+      "close": "إغلاق",
+      "reviewCount_one": "{{count}} مراجعة",
+      "reviewCount_other": "{{count}} مراجعة",
+      "ownershipVerification": "التحقق من الملكية",
+      "ownershipVerificationDescription": "يعتمد على إكمال اللاعب إنجازًا واحدًا على الأقل.",
+      "ownershipVerificationTooltip": "نستخدم إنجازات Epic Games للتحقق من ملكية المنتج. لوضع علامة على اللاعب كمالك موثق، يجب أن يكون قد أكمل إنجازًا واحدًا على الأقل للمنتج المحدد في Epic Games Store. لربط حسابك بملف egdata الخاص بك، يجب أن تذهب إلى",
+      "yourDashboard": "لوحة التحكم الخاصة بك",
+      "criticReviews": "مراجعات النقاد",
+      "basedOnCriticReviews": "بناءً على {{count}} مراجعة نقدية",
+      "opencriticRating": "تقييم OpenCritic",
+      "topCriticAverage": "متوسط تقييم النقاد",
+      "criticsRecommend": "يوصي به النقاد",
+      "opencriticRatingAlt": "تقييم OpenCritic"
+    }
+  },
+  "search": {
+    "meta": {
+      "title": "بحث | egdata.app",
+      "description": "ابحث عن العروض من Epic Games Store."
+    },
+    "defaultTitle": "بحث",
+    "filters": "عوامل التصفية",
+    "filtersPlaceholder": "البحث عن ألعاب",
+    "pills": {
+      "onSale": "مخفض",
+      "codeRedemptionOnly": "استلام رمز فقط",
+      "excludeBlockchain": "استبعاد Blockchain/NFT",
+      "pastGiveaways": "الهدايا السابقة"
+    },
+    "accordion": {
+      "offerType": "نوع العرض",
+      "developer": "المطور",
+      "publisher": "الناشر",
+      "noTags": "لم يتم العثور على وسوم",
+      "seller": "البائع"
+    },
+    "checkboxes": {
+      "pastGiveaways": "الهدايا السابقة",
+      "onSale": "مخفض",
+      "codeRedemptionOnly": "استلام رمز فقط",
+      "excludeBlockchain": "استبعاد Blockchain/NFT",
+      "onlyHistoricalLows": "أدنى الأسعار التاريخية فقط",
+      "onlyLowestPriceEver": "أقل سعر على الإطلاق فقط"
+    },
+    "tagGroups": {
+      "event": "حدث",
+      "genre": "النوع",
+      "epicfeature": "ميزة Epic",
+      "accessibility": "إمكانية الوصول",
+      "feature": "ميزة",
+      "usersay": "Usersay",
+      "subscription": "اشتراك",
+      "platform": "منصة",
+      "all": "جميع الوسوم"
+    },
+    "sort": {
+      "sortBy": "ترتيب حسب",
+      "sortAriaLabel": "ترتيب العروض",
+      "sortDirectionAriaLabel": "تبديل اتجاه الترتيب",
+      "showListView": "عرض القائمة",
+      "showGridView": "عرض الشبكة",
+      "releaseDate": "تاريخ الإصدار",
+      "lastModifiedDate": "تاريخ التعديل",
+      "effectiveDate": "تاريخ السريان",
+      "creationDate": "تاريخ الإنشاء",
+      "viewableDate": "تاريخ الظهور",
+      "pcReleaseDate": "تاريخ إصدار PC",
+      "upcoming": "قادمة",
+      "price": "السعر",
+      "discount": "الخصم",
+      "discountPercent": "نسبة الخصم",
+      "giveawayDate": "تاريخ الهدية"
+    },
+    "results": {
+      "noResults": "لم يتم العثور على نتائج"
+    }
+  },
+  "freebies": {
+    "meta": {
+      "title": "الألعاب المجانية | egdata.app",
+      "description": "تصفح الألعاب المجانية من Epic Games Store."
+    },
+    "headings": {
+      "current": "الألعاب المجانية الحالية",
+      "past": "الألعاب المجانية السابقة",
+      "sellers": "بائعي الألعاب المجانية"
+    },
+    "buttons": {
+      "redeem": "استلم الآن",
+      "downloadJson": "تنزيل بصيغة JSON",
+      "downloadCsv": "تنزيل بصيغة CSV",
+      "downloadTxt": "تنزيل كنص"
+    },
+    "placeholders": {
+      "searchSellers": "البحث عن بائعين..."
+    },
+    "aria": {
+      "downloadList": "تنزيل القائمة"
+    },
+    "errors": {
+      "loadSellers": "خطأ في تحميل بيانات البائعين. حاول مرة أخرى لاحقًا."
+    },
+    "table": {
+      "sellerName": "اسم البائع",
+      "totalGames": "إجمالي الألعاب الفردية"
+    }
+  },
+  "sales": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "تصفح {{title}} من Epic Games Store."
+    },
+    "metaIndex": {
+      "title": "التخفيضات النشطة | egdata.app",
+      "description": "تصفح التخفيضات النشطة على egdata.app"
+    },
+    "status": {
+      "loading": "جارٍ التحميل...",
+      "noData": "لا توجد بيانات"
+    },
+    "headings": {
+      "active": "التخفيضات النشطة",
+      "pastUpcoming": "التخفيضات السابقة / القادمة",
+      "offersList": "عروض {{title}}"
+    },
+    "errors": {
+      "notFound": "الترقية غير موجودة"
+    },
+    "labels": {
+      "offersCount": "{{count}} عرض متاح في هذا الحدث"
+    }
+  },
+  "collections": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "تصفح {{title}} من Epic Games Store."
+    },
+    "metaIndex": {
+      "title": "المجموعات | egdata.app",
+      "description": "المجموعات على egdata.app"
+    },
+    "headings": {
+      "main": "المجموعات"
+    },
+    "description": {
+      "overview": "الأكثر مبيعًا والأكثر لعبًا والأكثر شعبية في Epic Games Store"
+    },
+    "status": {
+      "loading": "جارٍ التحميل..."
+    },
+    "errors": {
+      "notFound": "المجموعة غير موجودة"
+    },
+    "table": {
+      "position": "المركز",
+      "variance": "الفرق",
+      "weeks": "الأسابيع"
+    },
+    "tooltips": {
+      "variance": "الفرق بين المركز الحالي والمركز السابق. عادةً ما يتغير يوميًا.",
+      "weeks": "عدد الأسابيع التي كانت فيها اللعبة ضمن أفضل 100 لـ {{title}}."
+    },
+    "buttons": {
+      "loadMore": "تحميل المزيد"
+    }
+  },
+  "sandboxes": {
+    "notFoundTitle": "لم يتم العثور على Sandbox",
+    "notFoundDescription": "لم يتم العثور على Sandbox",
+    "unrealEngineTitle": "Unreal Engine",
+    "unavailableTitle": "Sandbox غير متاح",
+    "unavailableDescription": "تعذر تحميل مركز المنتج.",
+    "noProductDataDescription": "لا توجد بيانات منتج لـ Sandbox هذا.",
+    "hubEyebrow": "Sandbox",
+    "hubOverviewTitle": "نظرة عامة",
+    "hubOverviewDescription": "خريطة مركزة لسجلات المتجر والملكية والتسليم والتحديثات لـ Namespace هذا.",
+    "latestChangesButton": "أحدث التغييرات",
+    "entityOffersLabel": "العروض",
+    "entityOffersDescription": "سجلات المتجر",
+    "entityItemsLabel": "العناصر",
+    "entityItemsDescription": "سجلات قابلة للامتلاك",
+    "entityAssetsLabel": "الأصول",
+    "entityAssetsDescription": "التحف والوسائط",
+    "entityBuildsLabel": "البنيات",
+    "entityBuildsDescription": "حزم البرامج الثنائية",
+    "entityAchievementsLabel": "الإنجازات",
+    "entityAchievementsDescription": "بيانات التقدم",
+    "entityChangelogLabel": "سجل التغييرات",
+    "entityChangelogDescription": "التحديثات المتعقبة",
+    "viewButton": "عرض",
+    "storefrontOffersTitle": "عروض المتجر",
+    "storefrontOffersDescription": "سجلات المتجر التمثيلية الموجودة في Sandbox هذا.",
+    "recentBuildsTitle": "البنيات الأخيرة",
+    "recentBuildsDescription": "أحدث السجلات الثنائية.",
+    "latestBadge": "الأحدث",
+    "unknownBuildLabel": "بنية غير معروفة",
+    "recentChangesTitle": "التغييرات الأخيرة",
+    "recentChangesDescription": "آخر تغييرات الكتالوج.",
+    "updateBadge": "تحديث",
+    "changeDefaultLabel": "تغيير",
+    "metaOffersTitle": "العروض",
+    "offersEyebrow": "التجارة الإلكترونية",
+    "offersTitle": "العروض",
+    "offersDescription": "سجلات المتجر في Sandbox هذا، بما في ذلك الألعاب الأساسية والإصدارات و DLC والإضافات والحزم وأي عرض يمكنه منح عناصر الكتالوج.",
+    "totalOffersLabel": "إجمالي العروض",
+    "metaAchievementsTitle": "الإنجازات",
+    "achievementsEyebrow": "التقدم",
+    "achievementsTitle": "الإنجازات",
+    "achievementsDescription": "مجموعات الإنجازات والحالات المخفية وتوزيع الندرة وإجماليات XP المرتبطة بـ Sandbox هذا.",
+    "achievementsSetsLabel": "المجموعات",
+    "achievementsLabel": "الإنجازات",
+    "achievementsXpLabel": "XP",
+    "searchAchievementsPlaceholder": "البحث عن إنجازات",
+    "flipAllButton": "قلب الكل",
+    "revealHiddenAchievementAria": "الكشف عن نص الإنجاز المخفي",
+    "hideHiddenAchievementAria": "إخفاء نص الإنجاز المخفي",
+    "achievementsBaseGameLabel": "اللعبة الأساسية",
+    "achievementsDlcLabel": "DLC",
+    "achievementsBaseGameTooltip": "قائمة الإنجازات هذه للعبة الأساسية.",
+    "achievementsDlcTooltip": "قائمة الإنجازات هذه لأحد DLC.",
+    "lastUpdatedLabel": "آخر تحديث:",
+    "achievementsLastUpdatedTooltip": "آخر تحديث لمجموعة الإنجازات هذه كان في",
+    "achievementsLastUpdatedTooltipExtra": "هذا إما تاريخ الإنشاء أو تاريخ آخر تحديث.",
+    "noAchievementsForSet": "لم يتم العثور على إنجازات لهذه المجموعة.",
+    "noAchievementsForSetExtra": "قد يعني هذا أن الإنجازات غير متوفرة حاليًا ولكنها ستُضاف في المستقبل.",
+    "noAchievementsFound": "لم يتم العثور على إنجازات",
+    "metaItemsTitle": "العناصر",
+    "itemsEyebrow": "ملكية الكتالوج",
+    "itemsTitle": "العناصر",
+    "itemsDescription": "عناصر الكتالوج القابلة للامتلاك الموجودة في العروض. هذه هي السجلات التي تصبح حقوقًا للاعب بعد الشراء أو الاستلام.",
+    "totalItemsLabel": "إجمالي العناصر",
+    "metaChangelogTitle": "سجل التغييرات",
+    "changelogEyebrow": "مسار المراجعة",
+    "changelogTitle": "سجل التغييرات",
+    "changelogDescription": "التغييرات المرصودة عبر عروض وعناصر وأصول وبُنيات وبيانات تعريف الكتالوج ذات الصلة في Sandbox هذا.",
+    "totalChangesLabel": "التغييرات",
+    "queryTimeLabel": "وقت الاستعلام",
+    "noChangelogFound": "لم يتم العثور على سجل تغييرات",
+    "metaBuildsTitle": "البنيات",
+    "buildsEyebrow": "البرامج الثنائية",
+    "buildsTitle": "البنيات",
+    "buildsDescription": "حزم ملفات مُرقمة تم تحميلها لـ Sandbox. تُخصص البنيات للتحف وتحدد ما يقوم اللاعبون بتنزيله من خلال المشغل.",
+    "totalBuildsLabel": "إجمالي البنيات",
+    "metaAssetsTitle": "الأصول",
+    "assetsEyebrow": "الأصول والتحف",
+    "assetsTitle": "الأصول",
+    "assetsDescription": "سجلات التوزيع والوسائط المرتبطة بعناصر Sandbox، بما في ذلك التحف التي تربط محتوى كتالوج المتجر بالبنيات القابلة للتنزيل.",
+    "totalAssetsLabel": "إجمالي الأصول"
+  },
+  "items": {
+    "notFound": "العنصر غير موجود",
+    "badge": "عنصر",
+    "table": {
+      "itemId": "معرف العنصر",
+      "namespace": "Namespace",
+      "developer": "المطور",
+      "entitlementType": "نوع الحق",
+      "entitlementName": "اسم الحق",
+      "status": "الحالة",
+      "creationDate": "تاريخ الإنشاء",
+      "lastModified": "آخر تعديل",
+      "platforms": "المنصات"
+    },
+    "tooltip": {
+      "internalNamespace": "Namespace داخلي لـ Epic Games"
+    },
+    "tabs": {
+      "item": "عنصر",
+      "assets": "الأصول",
+      "images": "الصور",
+      "builds": "البنيات",
+      "changelog": "سجل التغييرات"
+    },
+    "metadata": {
+      "title": "البيانات الوصفية",
+      "key": "المفتاح",
+      "value": "القيمة"
+    },
+    "assets": {
+      "title": "الأصول"
+    },
+    "builds": {
+      "title": "البنيات"
+    },
+    "changelog": {
+      "title": "سجل التغييرات",
+      "noChangelog": "لا يوجد سجل تغييرات متاح"
+    },
+    "images": {
+      "title": "الصور"
+    }
+  },
+  "builds": {
+    "notFound": "البنية غير موجودة",
+    "build": "بنية",
+    "for": "لـ",
+    "compressed": "({{percent}}% مضغوط)",
+    "table": {
+      "buildId": "معرف البنية",
+      "buildName": "اسم البنية",
+      "appName": "اسم التطبيق",
+      "hash": "التجزئة",
+      "installedSize": "الحجم بعد التثبيت",
+      "downloadSize": "حجم التنزيل",
+      "createdAt": "تاريخ الإنشاء",
+      "updatedAt": "تاريخ التحديث",
+      "technologies": "التقنيات"
+    },
+    "tooltip": {
+      "techSource": "نستخدم",
+      "techSourceSteamDb": "SteamDB",
+      "techDescription": "قائمة التقنيات لتتبع المحركات المستخدمة والتقنيات المختلفة من ملفات اللعبة.",
+      "source": "المصدر"
+    },
+    "tabs": {
+      "files": "الملفات",
+      "items": "العناصر",
+      "installOptions": "خيارات التثبيت"
+    },
+    "files": {
+      "title": "الملفات"
+    },
+    "items": {
+      "title": "العناصر"
+    },
+    "installOptions": {
+      "title": "خيارات التثبيت",
+      "file_one": "ملف",
+      "file_other": "ملفات"
+    },
+    "meta": {
+      "title": "{{title}} ({{version}}) | egdata.app",
+      "description": "البنية {{version}} لـ {{title}} من Epic Games Store."
+    }
+  },
+  "profile": {
+    "meta": {
+      "notFoundTitle": "الملف الشخصي غير موجود",
+      "notFoundDescription": "الملف الشخصي غير موجود",
+      "title": "{{name}} | egdata.app",
+      "description": "تصفح إنجازات وألعاب {{name}} على egdata.app",
+      "defaultName": "ملف شخصي",
+      "defaultDescriptionName": "هذا اللاعب"
+    },
+    "errors": {
+      "notFoundTitle": "الملف الشخصي غير موجود",
+      "notFoundDescription": "هذا الملف الشخصي غير متاح أو لم يتم فهرسته بعد.",
+      "unavailableTitle": "الملف الشخصي غير متاح",
+      "unavailableDescription": "تعذر تحميل هذا الملف الشخصي الآن.",
+      "invalidImageFormat": "تنسيق صورة غير صالح",
+      "failedToUpload": "فشل التحميل",
+      "uploadFailed": "فشل التحميل",
+      "failedToRefresh": "فشل تحديث الملف الشخصي",
+      "refreshQueued": "تمت إضافة الملف الشخصي إلى قائمة الانتظار للتحديث، وسيتم تحديثه قريبًا."
+    },
+    "fallbackName": "ملف شخصي غير معروف",
+    "avatar": {
+      "changeAvatar": "تغيير الصورة الرمزية",
+      "dialogDescription": "تحميل صورة ملف شخصي جديدة.",
+      "previewAlt": "معاينة الصورة الرمزية",
+      "fallback": "صورة رمزية",
+      "description": "تحميل صورة رمزية جديدة، الحد الأقصى 5 ميجابايت.",
+      "uploadingWithProgress": "جارٍ التحميل... {{progress}}%",
+      "uploading": "جارٍ التحميل...",
+      "updateAvatar": "تحديث الصورة الرمزية",
+      "errorTitle": "خطأ"
+    },
+    "hero": {
+      "joined": "انضم",
+      "epicGamesStore": "Epic Games Store",
+      "linkDiscord": "ربط Discord",
+      "refreshProfile": "تحديث الملف الشخصي",
+      "refreshAvailableIn": "التحديث متاح بعد",
+      "level": "المستوى",
+      "achievements": "الإنجازات",
+      "unlocked": "تم الفتح",
+      "platinum": "بلاتين",
+      "perfectGames": "ألعاب مثالية",
+      "library": "المكتبة",
+      "achievementGames": "ألعاب ذات إنجازات",
+      "reviews": "المراجعات",
+      "contributed": "ساهم بها",
+      "xpToNextLevel": "{{xp}} XP للمستوى {{level}}",
+      "heroGame": "اللعبة المميزة",
+      "complete": "مكتمل"
+    },
+    "donor": {
+      "donated_one": "تبرع {{name}} بمفتاح {{count}} إلى egdata.app",
+      "donated_other": "تبرع {{name}} بـ {{count}} مفتاح إلى egdata.app",
+      "goTo": "اذهب إلى",
+      "thisLink": "هذا الرابط",
+      "toDonateKey": "للتبرع بمفتاح."
+    },
+    "countdown": {
+      "minutesSeconds_one": "{{minutes}} دقيقة و{{seconds}} ثانية",
+      "minutesSeconds_other": "{{minutes}} دقيقة و{{seconds}} ثانية",
+      "seconds_one": "{{seconds}} ثانية",
+      "seconds_other": "{{seconds}} ثانية"
+    },
+    "tabs": {
+      "showcase": "عرض",
+      "library": "المكتبة",
+      "activity": "النشاط"
+    },
+    "stats": {
+      "games": "{{count}} لعبة",
+      "achievements": "{{count}} إنجاز",
+      "platinum": "{{count}} بلاتين"
+    },
+    "showcase": {
+      "ariaLabel": "أبرز ما في الملف الشخصي",
+      "featuredGamesTitle": "الألعاب المميزة",
+      "featuredGamesDetail": "{{count}} تم اختيارها حسب أداء الملف الشخصي",
+      "rareAchievementsTitle": "الإنجازات النادرة",
+      "rareAchievementsDetail": "عمليات فتح يصعب العثور عليها عبر الملف الشخصي",
+      "recentUnlocksTitle": "آخر عمليات الفتح",
+      "recentUnlocksDetail": "آخر نشاط مرئي",
+      "noDataTitle": "لا توجد بيانات عرض بعد",
+      "noDataDescription": "فقط الألعاب التي تم إصدارها مع تقدم إنجازات عام يظهر في الملفات الشخصية.",
+      "rarestUnlock": "أندر عملية فتح",
+      "definingGame": "اللعبة المميزة",
+      "latestActivity": "آخر نشاط",
+      "achievementsCount": "{{unlocked}} / {{total}} إنجاز",
+      "platinum": "بلاتين"
+    },
+    "library": {
+      "filterAriaLabel": "فلتر المكتبة",
+      "sortAriaLabel": "ترتيب المكتبة",
+      "sortByPlaceholder": "ترتيب حسب",
+      "noGamesTitle": "لم يتم العثور على ألعاب",
+      "noGamesDescription": "فقط الألعاب التي تم إصدارها مع إنجازات تظهر في هذه المكتبة.",
+      "gameAlt": "لعبة",
+      "complete": "مكتمل",
+      "featured": "مميز",
+      "rareUnlocks": "عمليات فتح نادرة",
+      "filters": {
+        "all": "الكل",
+        "completed": "مكتملة",
+        "nearPlatinum": "قرب البلاتين",
+        "inProgress": "قيد التقدم",
+        "platinum": "بلاتين"
+      },
+      "sorts": {
+        "completion": "الإكمال",
+        "alphabetical": "أبجدي",
+        "xp": "XP",
+        "achievements": "الإنجازات"
+      }
+    },
+    "activity": {
+      "title": "النشاط",
+      "detail": "{{count}} إنجاز تم فتحه",
+      "noActivityTitle": "لا يوجد نشاط بعد",
+      "noActivityDescription": "ستظهر عمليات فتح الإنجازات هنا عندما يكون لهذا الملف الشخصي تقدم عام.",
+      "achievementAlt": "إنجاز",
+      "platinumEarned": "تم الحصول على بلاتين",
+      "achievementUnlocked": "تم فتح الإنجاز",
+      "unknownRarity": "ندرة غير معروفة",
+      "rarity": "ندرة {{value}}%",
+      "unknownDate": "تاريخ غير معروف"
+    },
+    "achievements": {
+      "loading": "جارٍ التحميل...",
+      "notFound": "الملف الشخصي غير موجود",
+      "myAchievements": "إنجازاتي"
+    }
+  },
+  "tags": {
+    "meta": {
+      "notFoundTitle": "الترقية غير موجودة",
+      "notFoundDescription": "الترقية غير موجودة",
+      "title": "{{title}} | egdata.app",
+      "description": "تصفح {{count}} عرض متاح لـ {{title}} على egdata.app.",
+      "socialTitle": "{{title}} - egdata.app"
+    },
+    "loading": "جارٍ التحميل...",
+    "offersCount": "{{count}} عرض متاح في هذا الحدث",
+    "results": "النتائج",
+    "resultsCount": "({{count}} نتيجة)",
+    "searchPlaceholder": "بحث...",
+    "loadMore": "تحميل المزيد",
+    "sortBy": {
+      "releaseDate": "تاريخ الإصدار",
+      "lastModifiedDate": "تاريخ التعديل",
+      "effectiveDate": "تاريخ السريان",
+      "creationDate": "تاريخ الإنشاء",
+      "viewableDate": "تاريخ الظهور",
+      "pcReleaseDate": "تاريخ إصدار PC",
+      "upcoming": "قادمة",
+      "price": "السعر"
+    }
+  },
+  "genres": {
+    "meta": {
+      "title": "الأنواع - egdata.app",
+      "description": "الأنواع على egdata.app"
+    },
+    "heading": "الأنواع"
+  },
+  "sellers": {
+    "meta": {
+      "notFoundTitle": "البائع غير موجود",
+      "notFoundDescription": "البائع غير موجود",
+      "title": "{{name}} | egdata.app"
+    },
+    "notFound": "البائع غير موجود",
+    "logoAlt": "شعار {{name}}",
+    "bannerAlt": "{{name}}",
+    "offersTitle": "عروض {{name}}",
+    "stats": {
+      "offers": "العروض",
+      "games": "الألعاب",
+      "items": "العناصر",
+      "freeGames": "الألعاب المجانية"
+    }
+  },
+  "franchises": {
+    "meta": {
+      "notFoundTitle": "السلسلة غير موجودة",
+      "notFoundDescription": "السلسلة غير موجودة",
+      "title": "سلسلة {{name}} | egdata.app",
+      "description": "تصفح جميع ألعاب سلسلة {{name}} في Epic Games Store."
+    },
+    "loading": "جارٍ التحميل...",
+    "gamesCount_one": "{{count}} لعبة",
+    "gamesCount_other": "{{count}} لعبة",
+    "timeToBeat": "وقت الإكمال",
+    "achievements": "الإنجازات",
+    "loadMore": "تحميل المزيد",
+    "free": "مجاني"
+  },
+  "stats": {
+    "creations": {
+      "meta": {
+        "title": "إحصائيات الإنشاءات - egdata.app",
+        "description": "الإيقاع الشهري والسنوي للإنشاءات الجديدة على Epic Games Store."
+      },
+      "viewReleases": "عرض الإصدارات",
+      "heading": "إحصائيات إنشاءات Epic Games Store",
+      "description": "الإيقاع الشهري والسنوي للإنشاءات الجديدة على المتجر.",
+      "monthlyTitle": "الإنشاءات الشهرية",
+      "yearlyTitle": "الإنشاءات السنوية"
+    },
+    "releases": {
+      "meta": {
+        "title": "إحصائيات الإصدارات - egdata.app",
+        "description": "الإيقاع الشهري والسنوي للإصدارات الجديدة على Epic Games Store."
+      },
+      "viewCreations": "عرض الإنشاءات",
+      "heading": "إحصائيات إصدارات Epic Games Store",
+      "description": "الإيقاع الشهري والسنوي للإصدارات الجديدة على المتجر.",
+      "monthlyTitle": "الإصدارات الشهرية",
+      "yearlyTitle": "الإصدارات السنوية"
+    }
+  },
+  "store": {
+    "creatorCode": {
+      "title": "ادعم egdata.app",
+      "description": "هل ترغب في دعم egdata.app باستخدام رمز المنشئ الخاص بنا عند شراء الألعاب؟ سيتم تذكر هذا الخيار للزيارات المستقبلية.",
+      "body": "استخدام رمز المنشئ الخاص بنا يساعد في دعم تطوير egdata.app وميزاته. لا يؤثر على السعر الذي تدفعه.",
+      "noThanks": "لا شكرًا",
+      "yesUseCode": "نعم، استخدم الرمز"
+    }
+  },
+  "dashboard": {
+    "placeholder": "مرحبًا /dashboard!"
+  },
+  "auth": {
+    "login": {
+      "placeholder": "مرحبًا /auth/login!"
+    },
+    "callback": {
+      "placeholder": "مرحبًا /auth/callback!"
+    },
+    "logout": {
+      "placeholder": "مرحبًا /auth/logout!"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "حول - egdata.app",
+      "description": "حول egdata.app"
+    },
+    "title": "حول",
+    "intro": "egdata.app هو موقع إلكتروني مدفوع من المجتمع ومخصص لتتبع وتوفير المعلومات حول Epic Games Store. على غرار SteamDB لـ Steam، نهدف إلى تقديم مورد شامل للمستخدمين لاستكشاف التغييرات واكتشاف ألعاب جديدة والبقاء على اطلاع بأحدث التطورات على المنصة.",
+    "missionTitle": "مهمتنا",
+    "missionBody": "مهمتنا هي توفير الشفافية والرؤى حول نظام Epic Games Store البيئي. نؤمن أنه من خلال تجميع البيانات وتقديمها بطريقة سهلة الوصول، يمكننا تمكين المستخدمين من اتخاذ قرارات مستنيرة بشأن مشترياتهم من الألعاب والمساهمة في فهم أفضل للمنصة.",
+    "featuresTitle": "الميزات",
+    "features": {
+      "trackPrices": "تتبع تغييرات أسعار الألعاب والبيانات التاريخية",
+      "upcomingReleases": "عرض الإصدارات القادمة وعروض الألعاب المجانية",
+      "gameDetails": "استكشاف تفاصيل الألعاب والتقييمات ومراجعات المستخدمين",
+      "analyzeTrends": "تحليل الاتجاهات والأنماط في Epic Games Store"
+    },
+    "communityTitle": "مدفوع من المجتمع",
+    "communityBody": "يتم بناء وصيانة egdata.app من قبل مجتمع شغوف من اللاعبين والمطورين. نرحب بمساهمات أي شخص يريد المساعدة في تحسين الموقع وجعله موردًا قيمًا للجميع. لا تتردد في التواصل معنا إذا كان لديك أي ملاحظات أو اقتراحات أو ترغب في المشاركة.",
+    "sourceCodeIntro": "جميع كود مصدر egdata.app متاح على",
+    "github": "GitHub",
+    "notTitle": "ما ليس egdata.app",
+    "notIntro": "من المهم توضيح أن egdata.app ليس:",
+    "notList": {
+      "affiliated": "تابعًا لـ Epic Games: نحن مشروع مستقل مدفوع من المجتمع وغير معتمد رسميًا أو مرتبط بـ Epic Games بأي شكل.",
+      "storefront": "متجرًا أو سوقًا: لا نبيع الألعاب أو نقدم خيارات شراء. تركيزنا هو توفير المعلومات والبيانات حول Epic Games Store.",
+      "piracy": "منصة للقرصنة أو الأنشطة غير القانونية: ندين بشدة القرصنة ولا نقدم أي وسيلة للوصول إلى المحتوى المحمي بحقوق الطبع والنشر أو توزيعه بشكل غير قانوني."
+    },
+    "fairUseTitle": "سياسة الاستخدام العادل",
+    "fairUseBody": "يلتزم egdata.app بالامتثال لمبادئ الاستخدام العادل بموجب قانون حقوق الطبع والنشر. نقدم المعلومات والبيانات للأغراض الإعلامية فقط، بهدف تثقيف وإعلام الجمهور حول الألعاب المتاحة في Epic Games Store.",
+    "fairUseFactorsTitle": "العوامل الرئيسية التي تبرر الاستخدام العادل:",
+    "fairUseFactors": {
+      "nonCommercial": "غرض غير تجاري وتعليمي:",
+      "nonCommercialBody": "موقعنا غير تجاري ويسعى إلى تعزيز المعرفة العامة حول ألعاب Epic Games Store.",
+      "factual": "معلومات واقعية:",
+      "factualBody": "نقدم بشكل أساسي بيانات واقعية مثل عناوين الألعاب وتواريخ الإصدار والمطورين، وهي أقل حماية بموجب حقوق الطبع والنشر.",
+      "limited": "استخدام محدود:",
+      "limitedBody": "نستخدم فقط الكمية الضرورية من البيانات لتوفير معلومات مفيدة دون استبدال الأعمال الأصلية.",
+      "noMarketHarm": "لا ضرر على السوق:",
+      "noMarketHarmBody": "لا يؤثر استخدامنا سلبًا على سوق الألعاب الأصلية؛ بل قد يعززها من خلال زيادة اهتمام المستخدمين."
+    },
+    "autoTrackBody": "نتتبع ونحدث بيانات الألعاب تلقائيًا من المصادر المتاحة للجمهور، بما في ذلك Epic Games Store. نقوم بتحميل الأصول الرسومية مباشرة من خوادمهم ولا نخزنها.",
+    "leakedDataTitle": "إخلاء مسؤولية البيانات المسربة:",
+    "leakedDataBody": "أي بيانات تبدو مسربة على موقعنا تنشأ من معلومات متاحة للجمهور على Epic Games Store. لا نصل إلى بيانات سرية أو خاصة. يتحمل الناشرون مسؤولية حماية معلوماتهم الحساسة داخل",
+    "epicDevPortal": "بوابة مطوري Epic Games",
+    "euDirectivesIntro": "عند تطوير سياسة الاستخدام العادل لدينا، أخذنا في الاعتبار المبادئ الموضحة في توجيهات حقوق الطبع والنشر التالية للاتحاد الأوروبي:",
+    "euDirective1": "التوجيه (EU) 2019/790 بشأن حقوق الطبع والنشر والحقوق المجاورة في السوق الرقمية الموحدة",
+    "euDirective2": "أسئلة وأجوبة – قواعد حقوق الطبع والنشر الجديدة للاتحاد الأوروبي",
+    "fairUseContact": "إذا كانت لديك أسئلة حول سياسة الاستخدام العادل لدينا أو تعتقد أن أي محتوى ينتهك حقوق الطبع والنشر الخاصة بك، يرجى الاتصال بنا على:",
+    "contactTitle": "اتصل بنا",
+    "contactBody": "يمكنك الاتصال بنا عبر"
+  },
+  "changelog": {
+    "index": {
+      "meta": {
+        "title": "سجل التغييرات | egdata.app"
+      },
+      "searchPlaceholder": "البحث في سجلات التغييرات...",
+      "searchButton": "بحث",
+      "loading": "جارٍ التحميل...",
+      "error": "خطأ في جلب البيانات"
+    },
+    "detail": {
+      "meta": {
+        "title": "تفاصيل التغيير | egdata.app"
+      },
+      "loading": "جارٍ التحميل...",
+      "error": "خطأ في تحميل تفاصيل التغيير",
+      "notFound": "التغيير غير موجود"
+    }
+  },
+  "privacy": {
+    "title": "حول",
+    "intro": "egdata.app هو موقع إلكتروني مدفوع من المجتمع ومخصص لتتبع وتوفير المعلومات حول Epic Games Store. على غرار SteamDB لـ Steam، نهدف إلى تقديم مورد شامل للمستخدمين لاستكشاف التغييرات واكتشاف ألعاب جديدة والبقاء على اطلاع بأحدث التطورات على المنصة.",
+    "missionTitle": "مهمتنا",
+    "missionBody": "مهمتنا هي توفير الشفافية والرؤى حول نظام Epic Games Store البيئي. نؤمن أنه من خلال تجميع البيانات وتقديمها بطريقة سهلة الوصول، يمكننا تمكين المستخدمين من اتخاذ قرارات مستنيرة بشأن مشترياتهم من الألعاب والمساهمة في فهم أفضل للمنصة.",
+    "featuresTitle": "الميزات",
+    "features": {
+      "trackPrices": "تتبع تغييرات أسعار الألعاب والبيانات التاريخية",
+      "upcomingReleases": "عرض الإصدارات القادمة وعروض الألعاب المجانية",
+      "gameDetails": "استكشاف تفاصيل الألعاب والتقييمات ومراجعات المستخدمين",
+      "analyzeTrends": "تحليل الاتجاهات والأنماط في Epic Games Store"
+    },
+    "communityTitle": "مدفوع من المجتمع",
+    "communityBody": "يتم بناء وصيانة egdata.app من قبل مجتمع شغوف من اللاعبين والمطورين. نرحب بمساهمات أي شخص يريد المساعدة في تحسين الموقع وجعله موردًا قيمًا للجميع. لا تتردد في التواصل معنا إذا كان لديك أي ملاحظات أو اقتراحات أو ترغب في المشاركة.",
+    "sourceCodeIntro": "جميع كود مصدر egdata.app متاح على",
+    "github": "GitHub",
+    "notTitle": "ما ليس egdata.app",
+    "notIntro": "من المهم توضيح أن egdata.app ليس:",
+    "notList": {
+      "affiliated": "تابعًا لـ Epic Games: نحن مشروع مستقل مدفوع من المجتمع وغير معتمد رسميًا أو مرتبط بـ Epic Games بأي شكل.",
+      "storefront": "متجرًا أو سوقًا: لا نبيع الألعاب أو نقدم خيارات شراء. تركيزنا هو توفير المعلومات والبيانات حول Epic Games Store.",
+      "piracy": "منصة للقرصنة أو الأنشطة غير القانونية: ندين بشدة القرصنة ولا نقدم أي وسيلة للوصول إلى المحتوى المحمي بحقوق الطبع والنشر أو توزيعه بشكل غير قانوني."
+    },
+    "fairUseTitle": "سياسة الاستخدام العادل",
+    "fairUseBody": "يلتزم egdata.app بالامتثال لمبادئ الاستخدام العادل بموجب قانون حقوق الطبع والنشر. نقدم المعلومات والبيانات للأغراض الإعلامية فقط، بهدف تثقيف وإعلام الجمهور حول الألعاب المتاحة في Epic Games Store.",
+    "fairUseFactorsTitle": "العوامل الرئيسية التي تبرر الاستخدام العادل:",
+    "fairUseFactors": {
+      "nonCommercial": "غرض غير تجاري وتعليمي:",
+      "nonCommercialBody": "موقعنا غير تجاري ويسعى إلى تعزيز المعرفة العامة حول ألعاب Epic Games Store.",
+      "factual": "معلومات واقعية:",
+      "factualBody": "نقدم بشكل أساسي بيانات واقعية مثل عناوين الألعاب وتواريخ الإصدار والمطورين، وهي أقل حماية بموجب حقوق الطبع والنشر.",
+      "limited": "استخدام محدود:",
+      "limitedBody": "نستخدم فقط الكمية الضرورية من البيانات لتوفير معلومات مفيدة دون استبدال الأعمال الأصلية.",
+      "noMarketHarm": "لا ضرر على السوق:",
+      "noMarketHarmBody": "لا يؤثر استخدامنا سلبًا على سوق الألعاب الأصلية؛ بل قد يعززها من خلال زيادة اهتمام المستخدمين."
+    },
+    "autoTrackBody": "نتتبع ونحدث بيانات الألعاب تلقائيًا من المصادر المتاحة للجمهور، بما في ذلك Epic Games Store. نقوم بتحميل الأصول الرسومية مباشرة من خوادمهم ولا نخزنها.",
+    "leakedDataTitle": "إخلاء مسؤولية البيانات المسربة:",
+    "leakedDataBody": "أي بيانات تبدو مسربة على موقعنا تنشأ من معلومات متاحة للجمهور على Epic Games Store. لا نصل إلى بيانات سرية أو خاصة. يتحمل الناشرون مسؤولية حماية معلوماتهم الحساسة داخل",
+    "epicDevPortal": "بوابة مطوري Epic Games",
+    "euDirectivesIntro": "عند تطوير سياسة الاستخدام العادل لدينا، أخذنا في الاعتبار المبادئ الموضحة في توجيهات حقوق الطبع والنشر التالية للاتحاد الأوروبي:",
+    "euDirective1": "التوجيه (EU) 2019/790 بشأن حقوق الطبع والنشر والحقوق المجاورة في السوق الرقمية الموحدة",
+    "euDirective2": "أسئلة وأجوبة – قواعد حقوق الطبع والنشر الجديدة للاتحاد الأوروبي",
+    "fairUseContact": "إذا كانت لديك أسئلة حول سياسة الاستخدام العادل لدينا أو تعتقد أن أي محتوى ينتهك حقوق الطبع والنشر الخاصة بك، يرجى الاتصال بنا على:",
+    "contactTitle": "اتصل بنا",
+    "contactBody": "يمكنك الاتصال بنا عبر"
+  },
+  "notifications": {
+    "meta": {
+      "title": "الإشعارات - egdata.app",
+      "description": "تكوين وإدارة الإشعارات الفورية لتحديثات Epic Games Store وإصدارات الألعاب والمزيد."
+    },
+    "title": "الإشعارات",
+    "description": "تكوين وإدارة الإشعارات الفورية لتحديثات Epic Games Store وإصدارات الألعاب والتنبيهات المخصصة.",
+    "tabs": {
+      "notifications": "الإشعارات",
+      "mySubscriptions": "اشتراكاتي"
+    },
+    "aboutPushTitle": "حول الإشعارات الفورية",
+    "aboutPushDescription": "تعرف على المزيد حول كيفية عمل الإشعارات الفورية على EGData.",
+    "whatYoullReceive": "ما ستتلقاه:",
+    "receiveList": {
+      "freeGames": "إعلانات الألعاب المجانية الجديدة",
+      "releases": "إشعارات إصدارات الألعاب",
+      "priceDrops": "تنبيهات انخفاض الأسعار للألعاب في قائمة الرغبات",
+      "news": "أخبار وتحديثات Epic Games Store",
+      "custom": "إشعارات مخصصة قائمة على الموضوعات"
+    },
+    "privacySecurity": "الخصوصية والأمان:",
+    "privacyList": {
+      "apiKey": "يتم تخزين مفتاح API الخاص بك بشكل آمن في ملفات تعريف الارتباط للمتصفح",
+      "onlySubscribed": "نرسل فقط الإشعارات التي اشتركت فيها",
+      "unsubscribe": "يمكنك إلغاء الاشتراك في أي وقت",
+      "noPersonalData": "لا حاجة لبيانات شخصية تتجاوز مفتاح API الخاص بك"
+    },
+    "browserSupport": "دعم المتصفح:",
+    "browserSupportBody": "الإشعارات الفورية مدعومة في المتصفحات الحديثة بما في ذلك Chrome وFirefox وSafari وEdge. تأكد من السماح بالإشعارات عندما يطلبها متصفحك.",
+    "subscriptionOverview": "نظرة عامة على الاشتراكات",
+    "totalSubscribed": "إجمالي الموضوعات المشترك فيها: {{count}}",
+    "notSubscribedApi": "مفتاح API غير مشترك في الإشعارات الفورية",
+    "notSubscribedTitle": "غير مشترك",
+    "notSubscribedBody": "مفتاح API الخاص بك غير مشترك في الإشعارات الفورية. استخدم علامة التبويب \"الإعداد والاشتراك\" للاشتراك أولاً.",
+    "subscriptionId": "الاشتراك {{id}}",
+    "created": "تاريخ الإنشاء:",
+    "subscribedTopics": "الموضوعات المشترك فيها:",
+    "noTopics": "لا توجد موضوعات مشترك فيها",
+    "lastUpdated": "آخر تحديث:",
+    "noSubscriptionsTitle": "لم يتم العثور على اشتراكات",
+    "noSubscriptionsBody": "أنت مشترك ولكن لم تقم بإنشاء أي اشتراكات جهاز بعد. استخدم علامة التبويب \"الإعداد والاشتراك\" لإنشاء اشتراكك الأول.",
+    "fetchError": "فشل في جلب الاشتراكات. حاول مرة أخرى.",
+    "push": {
+      "title": "الإشعارات الفورية",
+      "notSupported": "الإشعارات الفورية غير مدعومة في هذا المتصفح.",
+      "setApiKey": "يرجى تعيين مفتاح API الخاص بك لتمكين الإشعارات الفورية.",
+      "manage": "إدارة تفضيلات الإشعارات الفورية الخاصة بك.",
+      "unsubscribe": "إلغاء الاشتراك",
+      "subscribe": "اشتراك",
+      "subscribed": "مشترك",
+      "notSubscribed": "غير مشترك",
+      "subscribeToTopic": "اشتراك في موضوع",
+      "topicPlaceholder": "أدخل اسم الموضوع (مثال: game-updates)",
+      "subscribedTopics": "الموضوعات المشترك فيها",
+      "clickToUnsubscribe": "انقر على موضوع لإلغاء الاشتراك"
+    },
+    "simple": {
+      "title": "الإشعارات الفورية",
+      "notSupported": "الإشعارات الفورية غير مدعومة في هذا المتصفح.",
+      "subscribedDesc": "أنت مشترك في {{count}} موضوع إشعار",
+      "notSubscribedDesc": "احصل على إشعارات حول تحديثات Epic Games Store والألعاب المجانية والمزيد",
+      "subscribeToNotifications": "اشتراك في الإشعارات",
+      "unsubscribe": "إلغاء الاشتراك",
+      "chooseWhat": "اختر ما تريد الإشعار به:",
+      "freeGames": "الألعاب المجانية",
+      "freeGamesDesc": "احصل على إشعار عند توفر ألعاب مجانية جديدة",
+      "newReleases": "الإصدارات الجديدة",
+      "newReleasesDesc": "إشعارات بإصدارات الألعاب الجديدة",
+      "priceDrops": "انخفاضات الأسعار",
+      "priceDropsDesc": "احصل على تنبيهات عند تخفيض الألعاب",
+      "youWillReceive": "ستتلقى إشعارات لـ:",
+      "subscribedTo": "مشترك في {{name}}",
+      "unsubscribedFrom": "ألغيت الاشتراك من {{name}}",
+      "failedSubscribe": "فشل الاشتراك في الإشعارات",
+      "failedUnsubscribe": "فشل إلغاء الاشتراك من الإشعارات",
+      "failedTopicSubscribe": "فشل الاشتراك في الموضوع",
+      "failedTopicUnsubscribe": "فشل إلغاء الاشتراك من الموضوع",
+      "successSubscribe": "تم الاشتراك في الإشعارات بنجاح!",
+      "successUnsubscribe": "تم إلغاء الاشتراك من الإشعارات بنجاح"
+    },
+    "apiKey": {
+      "title": "إدارة مفتاح API",
+      "label": "مفتاح API",
+      "placeholderGenerated": "تم إنشاء مفتاح API",
+      "placeholderNone": "لم يتم إنشاء مفتاح API",
+      "regenerate": "إعادة إنشاء المفتاح",
+      "generate": "إنشاء مفتاح",
+      "clear": "مسح المفتاح",
+      "generated": "تم إنشاء مفتاح API جديد بنجاح!",
+      "copied": "تم نسخ مفتاح API إلى الحافظة!",
+      "cleared": "تم مسح مفتاح API بنجاح!",
+      "failedGenerate": "فشل إنشاء مفتاح API",
+      "failedCopy": "فشل نسخ مفتاح API",
+      "failedClear": "فشل مسح مفتاح API",
+      "noneToCopy": "لا يوجد مفتاح API للنسخ",
+      "description": "مفتاح API الخاص بك هو UUID مخزن محليًا في متصفحك ويستخدم للتحقق من طلبات الإشعارات الفورية. استخدم زر إعادة الإنشاء لإنشاء مفتاح جديد إذا لزم الأمر."
+    }
+  },
+  "promotions": {
+    "placeholder": "مرحبًا /promotions/$id!"
+  },
+  "misc": {
+    "gameAwards": {
+      "meta": {
+        "title": "تغطية The Game Awards | egdata.app",
+        "description": "أحدث الألعاب التي تم الإعلان عنها وترشيحها في The Game Awards والقادمة إلى Epic Games Store."
+      },
+      "logoAlt": "The Game Awards 2025",
+      "subtitle": "الألعاب المعلنة أو المرشحة في The Game Awards القادمة إلى Epic Games Store",
+      "videoTitle": "The Game Awards 2024 - البث المباشر",
+      "expandPlayer": "توسيع المشغل",
+      "closeMiniPlayer": "إغلاق المشغل المصغر",
+      "noGamesTitle": "لم يتم الإعلان عن ألعاب بعد",
+      "noGamesBody": "عد بعد The Game Awards!"
+    },
+    "downloads": {
+      "title": "إصدارات عميل egdata.app",
+      "description": "قم بتنزيل أحدث إصدار. لقد سلطنا الضوء على القسم الموصى به لنظام التشغيل الخاص بك.",
+      "errorPrefix": "خطأ:",
+      "noPublicReleases": "لم يتم العثور على إصدارات عامة.",
+      "recommended": "موصى به",
+      "downloadsSuffix": "التنزيلات",
+      "versionPublished": "الإصدار {{version}} - نُشر في {{date}}",
+      "assetInfo": {
+        "appleSilicon": "لأجهزة Mac الأحدث بشرائح Apple (M1 وM2 وM3 إلخ).",
+        "intel": "لأجهزة Mac الأقدم بمعالجات Intel.",
+        "universal": "متوافق مع Apple Silicon و Intel Mac.",
+        "msi": "معالج تثبيت قياسي. موصى به لمعظم المستخدمين.",
+        "exe": "ملف تطبيق مستقل. قد لا يتطلب تثبيتًا.",
+        "linux": "لأنظمة التشغيل القائمة على Linux.",
+        "generic": "ملف عام أو كود مصدري."
+      }
+    },
+    "discordLinked": {
+      "title": "تم ربط الحساب بنجاح!",
+      "body": "تم ربط حساب Discord الخاص بك بـ egdata.app بنجاح",
+      "footer": "يمكنك الآن إغلاق هذه النافذة والعودة إلى Discord. حسابك جاهز للاستخدام مع egdata.app"
+    },
+    "posts": {
+      "coverAlt": "غلاف LEGO Star Wars: The Skywalker Saga",
+      "title": "احصل على LEGO® Star Wars™: The Skywalker Saga مجانًا في Epic Games Store",
+      "freeGameBadge": "لعبة مجانية",
+      "published": "نُشر في 30 نوفمبر 2023",
+      "intro": "ضع علامة في تقويمك يا عشاق Star Wars! من {{dateRange}}، يمكنك الحصول على {{game}} الحائزة على إعجاب النقاد مجانًا في Epic Games Store. هذه اللعبة، التي عادةً ما تكلف {{price}}، تتيح لك إعادة عيش اللحظات المميزة لـ {{saga}} بلمسة LEGO المرحة.",
+      "dateRange": "5 ديسمبر إلى 12 ديسمبر 2024",
+      "game": "LEGO® Star Wars™: The Skywalker Saga",
+      "price": "$49.99",
+      "saga": "ملحمة Skywalker",
+      "gameplayAlt": "لعب LEGO Star Wars",
+      "charactersAlt": "شخصيات LEGO Star Wars",
+      "whatToExpect": "🧩 ماذا تتوقع؟",
+      "whatToExpectBody": "طورته {{developer}} ونشرته {{publisher}}، تقدم هذه اللعبة تجربة Star Wars شاملة لا مثيل لها. إليك ما يجعلها لعبة لا تُفوّت:",
+      "developer": "TT Games",
+      "publisher": "Warner Bros.",
+      "expectList": {
+        "allMovies": "🌌 {{strong}}: عِش قصص أفلام ملحمة Skywalker التسعة، المليئة بفكاهة LEGO الكلاسيكية.",
+        "allMoviesStrong": "جميع الأفلام التسعة",
+        "characters": "🛸 {{strong}}: تحكم بأبطالك وأشرارك المفضلين من مجرة بعيدة جدًا.",
+        "charactersStrong": "أكثر من 300 شخصية قابلة للعب",
+        "vehicles": "🚀 {{strong}}: حلق بسفن أيقونية مثل Millennium Falcon و TIE Fighters.",
+        "vehiclesStrong": "أكثر من 100 مركبة",
+        "planets": "🌍 {{strong}}: سافر إلى عوالم مألوفة، من Tatooine إلى Endor وما وراء ذلك.",
+        "planetsStrong": "23 كوكبًا لاستكشافها"
+      },
+      "specialTitle": "🌟 ما الذي يميز هذه اللعبة؟",
+      "specialBody": "منذ إصدارها في {{releaseDate}}، حازت LEGO Star Wars: The Skywalker Saga على الثناء بسبب أسلوب لعبها الجذاب وتكييفها الأمين لعالم Star Wars. مع {{metascore}} على Metacritic، أبرز النقاد والمعجبون على حد سواء:",
+      "releaseDate": "أبريل 2022",
+      "metascore": "82 Metascore",
+      "specialList": {
+        "combat": "🎮 {{strong}}: معارك السيوف الضوئية، واشتباكات البلازما، ومعارك الفضاء.",
+        "combatStrong": "قتال ديناميكي",
+        "charm": "🏗️ {{strong}}: فكاهة Star Wars الكلاسيكية، معاد تصورها بأسلوب LEGO الفريد.",
+        "charmStrong": "سحر LEGO",
+        "replayability": "🤯 {{strong}}: الكثير من المواد القابلة للتحصيل والمهام الجانبية والأسرار المخفية.",
+        "replayabilityStrong": "قابلية إعادة اللعب"
+      },
+      "howToClaim": "🎁 كيف تستلمها؟",
+      "howToClaimBody": "الحصول على نسختك المجانية سهل!",
+      "step1": "قم بزيارة {{storeLink}} بين {{dec5}} و{{dec12}}.",
+      "storeLink": "Epic Games Store",
+      "dec5": "5 ديسمبر",
+      "dec12": "12 ديسمبر 2024",
+      "step2": "أضف اللعبة إلى مكتبتك.",
+      "step3": "إنها ملكك إلى الأبد!",
+      "cardTitle": "لا تفوت هذه الفرصة لخوض رحلة مليئة بـ LEGO عبر المجرة!",
+      "cardBody": "سواء كنت من محبي Star Wars المتعصبين أو وافدًا جديدًا، هذه اللعبة تقدم متعة لا نهاية لها للجميع.",
+      "footer": "لتكن القوة (ومكعبات LEGO) معك! 🧱✨"
+    },
+    "fairUse": {
+      "meta": {
+        "title": "سياسة الاستخدام العادل - egdata.app",
+        "description": "سياسة الاستخدام العادل لـ egdata.app"
+      },
+      "title": "سياسة الاستخدام العادل لتطبيق EGData",
+      "section1Title": "1. المقدمة",
+      "section1Body": "مرحبًا بك في تطبيق EGData (\"نحن\"، \"لنا\"). تحدد سياسة الاستخدام العادل هذه الشروط التي بموجبها يمكنك استخدام المحتوى والبيانات المقدمة على موقعنا {{siteLink}} (\"الموقع\").",
+      "section2Title": "2. الغرض من الاستخدام العادل",
+      "section2Body": "يتم تقديم المحتوى والبيانات في تطبيق EGData للأغراض الإعلامية فقط. هدفنا هو تقديم قاعدة بيانات شاملة للألعاب (أو البيانات المتعلقة بالألعاب) المتاحة في Epic Games Store للاستخدام التعليمي والمرجعي من قبل المجتمع.",
+      "section3Title": "3. الامتثال للاستخدام العادل",
+      "section3Body": "يتوافق تطبيق EGData مع مبادئ الاستخدام العادل بموجب قانون حقوق الطبع والنشر من خلال توفير المعلومات والبيانات بطريقة تفيد الجمهور دون انتهاك حقوق مالكي المحتوى. فيما يلي العوامل الرئيسية التي تبرر استخدامنا كاستخدام عادل:",
+      "section3List": {
+        "purpose": "الغرض وطبيعة الاستخدام:",
+        "purposeBody": "موقعنا غير تجاري ويهدف إلى تثقيف وإعلام الجمهور حول الألعاب المتاحة في Epic Games Store. نقدم معلومات نقدية ومراجعات وتحديثات، مما يعزز معرفة الجمهور وتقديره لهذه الألعاب.",
+        "nature": "طبيعة العمل المحمي بحقوق الطبع والنشر:",
+        "natureBody": "البيانات التي نجمعها ونقدمها تتكون من معلومات واقعية مثل عناوين الألعاب وتواريخ الإصدار والمطورين والتحديثات. المعلومات الواقعية أقل حماية بموجب قانون حقوق الطبع والنشر من الأعمال الإبداعية.",
+        "amount": "الكمية والجوهرية:",
+        "amountBody": "نحن نستخدم فقط كمية البيانات اللازمة لتوفير معلومات مفيدة وذات صلة لمستخدمينا. لا نقوم بإعادة إنتاج الأعمال بأكملها أو تقديم مقتطفات واسعة يمكن أن تحل محل المنتجات الأصلية.",
+        "effect": "التأثير على السوق:",
+        "effectBody": "لا يؤثر استخدامنا لبيانات اللعبة سلبًا على سوق الألعاب الأصلية. بدلاً من ذلك، إنه يروج لهذه الألعاب من خلال توفير معلومات محدثة وزيادة تفاعل المستخدمين واهتمامهم."
+      },
+      "section4Title": "4. جمع البيانات وتحديثها",
+      "section4Body1": "يتتبع موقعنا ويحدث بيانات اللعبة تلقائيًا لضمان أن المعلومات التي نقدمها حالية ودقيقة. تتضمن هذه العملية الآلية جمع المعلومات المتاحة للجمهور من Epic Games Store ومصادر موثوقة أخرى.",
+      "section4Body2": "من خلال الحفاظ على تحديث قاعدة بياناتنا، نضمن وصول المستخدمين إلى أحدث المعلومات حول ألعابهم المفضلة، بما في ذلك الإصدارات الجديدة والتحديثات والتغييرات في التوفر.",
+      "section4Body3": "فيما يتعلق بالأصول الرسومية، نقوم بتحميل الصور مباشرة من خوادم Epic Games Store. لا نخزن أي صور على خوادمنا.",
+      "section5Title": "5. إخلاء مسؤولية البيانات المسربة",
+      "section5Body1": "أي بيانات تبدو مسربة على موقعنا تأتي من معلومات متاحة للجمهور مقدمة من Epic Games Store. ليس لدينا إمكانية الوصول إلى بيانات سرية أو خاصة غير متاحة للجمهور. لذلك، تقع على عاتق الناشرين مسؤولية حماية ملكياتهم الفكرية المستقبلية (IPs) وألعابهم ومحتوى قابل للتنزيل (DLC) وغيرها من المعلومات الحساسة داخل بوابة مطوري Epic Games.",
+      "section5Body2": "يُشجع الناشرون على ضمان أن المعلومات الحساسة مؤمنة بشكل صحيح وليست عامة عن غير قصد. لا يمكن تحميل تطبيق EGData المسؤولية عن أي معلومات مسربة تم الحصول عليها من مصادر متاحة للجمهور.",
+      "section5Body3": "لمزيد من المعلومات حول حماية البيانات والاستخدام العادل في الاتحاد الأوروبي، يرجى الرجوع إلى الموارد التالية:",
+      "euDirective1": "التوجيه (EU) 2019/790 بشأن حقوق الطبع والنشر والحقوق المجاورة في السوق الرقمية الموحدة",
+      "euDirective2": "أسئلة وأجوبة – قواعد حقوق الطبع والنشر الجديدة للاتحاد الأوروبي",
+      "section6Title": "6. اتصل بنا",
+      "section6Body": "إذا كانت لديك أي أسئلة حول سياسة الاستخدام العادل هذه أو إذا كنت تعتقد أن أي محتوى أو بيانات على موقعنا تنتهك حقوق الطبع والنشر الخاصة بك، يرجى الاتصال بنا على:",
+      "email": "البريد الإلكتروني:"
+    },
+    "donateKey": {
+      "title": "التبرع بمفتاح",
+      "body": "إذا كان لديك مفتاح ترغب في التبرع به للمشروع، يرجى ملء النموذج أدناه."
+    },
+    "androidBeta": {
+      "meta": {
+        "title": "إصدار Android التجريبي - egdata.app",
+        "description": "انضم إلى برنامج الاختبار التجريبي المغلق لتطبيق Android egdata.app"
+      },
+      "title": "برنامج Android التجريبي",
+      "description": "انضم إلى إصدارنا التجريبي المغلق لاختبار تطبيق Android egdata.app قبل الإصدار العام.",
+      "whatHappensNext": "ماذا بعد؟",
+      "steps": {
+        "signIn": "سجل الدخول بحساب Google الخاص بك",
+        "added": "ستتم إضافتك يدويًا إلى مسار الاختبار المغلق في غضون ساعات قليلة",
+        "download": "بمجرد الإضافة، يمكنك تنزيل التطبيق من الرابط المقدم"
+      }
+    }
+  },
+  "components": {
+    "stats": {
+      "title": "الإحصائيات",
+      "description": "إحصائيات حول المنصة",
+      "offers": "العروض",
+      "offersTooltip": "العرض هو عنصر قابل للشراء من المتجر",
+      "items": "العناصر",
+      "itemsTooltip": "العنصر هو الحق (entitlement) للمشغل",
+      "tags": "الوسوم",
+      "offersYear": "العروض (سنة)",
+      "itemsYear": "العناصر (سنة)",
+      "assets": "الأصول",
+      "assetsTooltip": "الأصل هو ملفات اللعبة",
+      "regPrices": "الأسعار العادية",
+      "changes": "التغييرات",
+      "sandboxes": "Sandboxes",
+      "sandboxesTooltip": "Sandbox هو مجموعة العروض"
+    },
+    "sandboxShell": {
+      "overview": "نظرة عامة",
+      "offers": "العروض",
+      "items": "العناصر",
+      "assets": "الأصول",
+      "builds": "البنيات",
+      "achievements": "الإنجازات",
+      "changelog": "سجل التغييرات",
+      "sandbox": "Sandbox",
+      "internalNamespace": "Namespace داخلي",
+      "storePage": "صفحة المتجر",
+      "updated": "آخر تحديث {{date}}",
+      "unrealEngine": "Unreal Engine",
+      "internalSandbox": "Sandbox داخلي",
+      "releaseStatus": {
+        "prePurchase": "الطلب المسبق",
+        "datePending": "تاريخ معلق",
+        "comingSoon": "قريبًا",
+        "released": "تم الإصدار"
+      }
+    },
+    "comparison": {
+      "openCompareTray": "فتح درج المقارنة، {{count}} محدد",
+      "compareSelected": "مقارنة العروض المحددة",
+      "error": "خطأ",
+      "type": "النوع",
+      "seller": "البائع",
+      "developer": "المطور",
+      "releaseDate": "تاريخ الإصدار",
+      "pcReleaseDate": "تاريخ إصدار PC",
+      "genres": "الأنواع",
+      "platforms": "المنصات",
+      "remove": "إزالة",
+      "current": "الحالي",
+      "lowest": "الأدنى",
+      "noPriceFound": "لم يتم العثور على سعر",
+      "noAgeRatingsFound": "لم يتم العثور على تصنيفات عمرية",
+      "achievements": "الإنجازات:",
+      "ageRating": "التصنيف العمري:",
+      "price": "السعر:",
+      "unknown": "غير معروف"
+    },
+    "search": {
+      "sellers": "البائعون",
+      "noResults": "لم يتم العثور على نتائج",
+      "noResultsShort": "لم يتم العثور على نتائج.",
+      "allOfferTypes": "جميع أنواع العروض",
+      "tags": "الوسوم"
+    },
+    "changelist": {
+      "title": "قائمة التغييرات",
+      "loading": "جارٍ التحميل...",
+      "error": "خطأ: {{message}}",
+      "id": "المعرف",
+      "type": "النوع",
+      "titleOrId": "العنوان/المعرف",
+      "date": "التاريخ",
+      "new": "جديد",
+      "update": "تحديث"
+    },
+    "upcoming": {
+      "caption": "العروض القادمة",
+      "loading": "جارٍ التحميل...",
+      "title": "العنوان",
+      "price": "السعر",
+      "releaseDate": "تاريخ الإصدار",
+      "unknown": "غير معروف",
+      "prePurchase": "الطلب المسبق"
+    },
+    "giveaways": {
+      "title": "الهدايا",
+      "free": "مجاني",
+      "freeNow": "مجاني الآن",
+      "startsIn": "يبدأ بعد",
+      "repeated": "مكرر:",
+      "yes": "نعم",
+      "no": "لا",
+      "repeatedTooltip": "تم إهداء هذا العرض {{count}} مرة."
+    },
+    "giveawayStats": {
+      "title": "الهدايا بالأرقام",
+      "loading": "جارٍ التحميل...",
+      "totalValue": "القيمة الإجمالية",
+      "totalValueTooltip": "القيمة الإجمالية بما في ذلك أي خصومات نشطة",
+      "giveaways": "الهدايا",
+      "giveawaysTooltip": "إجمالي عدد الهدايا التي تظهر في قاعدة البيانات",
+      "offers": "العروض",
+      "offersTooltip": "إجمالي عدد العروض الفريدة التي ظهرت في الهدايا",
+      "repeated": "المكررة",
+      "repeatedTooltip": "عدد العروض الفريدة التي تظهر عدة مرات في الهدايا",
+      "sellers": "البائعون",
+      "sellersTooltip": "إجمالي عدد البائعين الفريدين الذين يقدمون عروضًا"
+    },
+    "offerCard": {
+      "openOffer": "فتح العرض {{title}}",
+      "free": "مجاني",
+      "comingSoon": "قريبًا",
+      "earlyAccess": "الوصول المبكر",
+      "prePurchase": "الطلب المسبق",
+      "owned": "مملوكة"
+    },
+    "baseGame": {
+      "checkBaseGame": "تصفح اللعبة الأساسية",
+      "partOfBundle": "هذا العرض جزء من"
+    },
+    "notFound": {
+      "message": "الصفحة التي تبحث عنها غير موجودة."
+    },
+    "sellerOffers": {
+      "error": "خطأ في تحميل العروض. حاول مرة أخرى.",
+      "moreFrom": "المزيد من {{name}}"
+    },
+    "achievementsBlade": {
+      "noData": "لا توجد بيانات",
+      "game": "اللعبة",
+      "achievements": "الإنجازات",
+      "xp": "XP",
+      "bronze": "برونز",
+      "silver": "فضة",
+      "gold": "ذهب",
+      "gamesWithAchievements": "ألعاب بها إنجازات Epic"
+    },
+    "topSection": {
+      "free": "مجاني",
+      "releaseDate": "تاريخ الإصدار:",
+      "tba": "سيُحدد لاحقًا",
+      "platforms": "المنصات:",
+      "tags": "الوسوم:",
+      "checkOffer": "تصفح العرض"
+    },
+    "featuredDiscounts": {
+      "free": "مجاني",
+      "title": "الخصومات المميزة",
+      "countMore": "+{{count}} المزيد",
+      "checkOffer": "تصفح العرض",
+      "until": "حتى"
+    },
+    "performanceTable": {
+      "title": "الأداء",
+      "noPriorData": "لا توجد بيانات سابقة",
+      "cardsView": "عرض البطاقات",
+      "chartView": "عرض الرسم البياني"
+    },
+    "priceChart": {
+      "selectValue": "اختر قيمة",
+      "last3Months": "آخر 3 أشهر",
+      "fetchingData": "جلب أحدث البيانات"
+    },
+    "dateRangePicker": {
+      "from": "من",
+      "to": "إلى",
+      "maxRange": "الحد الأقصى 30 يومًا",
+      "invalidRange": "نطاق تواريخ غير صالح"
+    },
+    "regionalPricing": {
+      "region": "المنطقة",
+      "price": "السعر"
+    },
+    "regionalPricingBadge": {
+      "analysis": "تحليل التسعير الإقليمي",
+      "currentPrice": "السعر الحالي",
+      "suggestedPrice": "السعر المقترح",
+      "belowSuggested": "هذا العرض أقل من ذلك أيضًا — صفقة رائعة من جميع النواحي.",
+      "closeToSuggested": "هذا العرض قريب من ذلك، وأقل بكثير من أسعار {{region}} النموذجية."
+    },
+    "countrySelector": {
+      "searchCountries": "البحث عن دول...",
+      "noCountries": "لم يتم العثور على دول"
+    },
+    "countriesSelector": {
+      "searchCountries": "البحث عن دول...",
+      "noCountries": "لم يتم العثور على دول"
+    },
+    "querySearch": {
+      "searchItems": "البحث عن عناصر..."
+    },
+    "extendedSearch": {
+      "searchItems": "البحث عن عناصر...",
+      "noItems": "لم يتم العثور على عناصر."
+    },
+    "searchForm": {
+      "noResults": "لم يتم العثور على نتائج",
+      "error": "خطأ: {{message}}",
+      "loadingLong": "هذا الاستعلام يستغرق وقتًا أطول من المعتاد..."
+    },
+    "searchFormV2": {
+      "noResults": "لم يتم العثور على نتائج."
+    },
+    "androidBetaBanner": {
+      "dismiss": "إخفاء اللافتة"
+    },
+    "videoPlayer": {
+      "title": "{{title}}"
+    },
+    "mediaSlider": {
+      "previousSlide": "الشريحة السابقة",
+      "nextSlide": "الشريحة التالية",
+      "image": "صورة {{index}}",
+      "thumbnail": "صورة مصغرة {{index}}",
+      "downloading": "جارٍ التنزيل...",
+      "download": "تنزيل"
+    },
+    "changelogItem": {
+      "action": "الإجراء",
+      "type": "النوع",
+      "oldValue": "القيمة القديمة",
+      "newValue": "القيمة الجديدة",
+      "previousValue": "القيمة السابقة:",
+      "newValueLabel": "القيمة الجديدة:"
+    },
+    "changelogCharts": {
+      "byWeekday": "التغييرات حسب يوم الأسبوع",
+      "byWeekdayDesc": "التغييرات المتراكمة حسب يوم الأسبوع",
+      "typesOfChanges": "أنواع التغييرات",
+      "typesOfChangesDesc": "عدد التغييرات حسب النوع",
+      "byField": "التغييرات حسب الحقل",
+      "byFieldDesc": "التغييرات مجمعة حسب الحقل المتغير",
+      "dailyDesc": "عرض التغييرات اليومية للسنة الماضية",
+      "noData": "لا توجد بيانات متاحة للعرض."
+    },
+    "openEgl": {
+      "open": "فتح"
+    },
+    "openEgs": {
+      "store": "المتجر"
+    },
+    "openLauncher": {
+      "play": "لعب"
+    },
+    "storeDropdown": {
+      "launcher": "المشغل",
+      "viewStorePage": "عرض صفحة المتجر",
+      "webBrowser": "متصفح الويب"
+    },
+    "prepurchasePopup": {
+      "title": "{{title}}"
+    },
+    "apiKeyManager": {
+      "title": "إدارة مفتاح API",
+      "label": "مفتاح API",
+      "placeholder": {
+        "generated": "تم إنشاء مفتاح API",
+        "none": "لم يتم إنشاء مفتاح API"
+      },
+      "button": {
+        "regenerate": "إعادة إنشاء المفتاح",
+        "generate": "إنشاء مفتاح",
+        "clear": "مسح المفتاح"
+      },
+      "notification": {
+        "generated": "تم إنشاء مفتاح API جديد بنجاح",
+        "generateFailed": "فشل إنشاء مفتاح API",
+        "copied": "تم نسخ مفتاح API إلى الحافظة!",
+        "copyFailed": "فشل نسخ مفتاح API",
+        "noneToCopy": "لا يوجد مفتاح API للنسخ",
+        "cleared": "تم مسح مفتاح API بنجاح!",
+        "clearFailed": "فشل مسح مفتاح API"
+      },
+      "description": "مفتاح API الخاص بك هو UUID مخزن محليًا في متصفحك ويستخدم للتحقق من طلبات الإشعارات الفورية. استخدم زر إعادة الإنشاء لإنشاء مفتاح جديد إذا لزم الأمر."
+    },
+    "cookieBanner": {
+      "title": "إشعار ملفات تعريف الارتباط",
+      "description": "يستخدم هذا الموقع ملفات تعريف الارتباط لتحسين تجربة التصفح الخاصة بك. بقبول ملفات تعريف الارتباط، فإنك تقبل {{privacyPolicyLink}}.",
+      "accept": "قبول",
+      "decline": "رفض"
+    },
+    "searchHeader": {
+      "results": "{{count}} نتيجة",
+      "showingResultsFor": "عرض نتائج"
+    },
+    "bundle": {
+      "collectionOffers": "عروض المجموعة",
+      "bundleOffers": "عروض الحزمة",
+      "offersCount": "- {{count}} عرض",
+      "bundlePriceTitle": "سعر الحزمة",
+      "totalValueLabel": "القيمة الإجمالية:",
+      "bundlePriceLabel": "سعر الحزمة:",
+      "youSave": "توفير:",
+      "youPayMore": "تدفع أكثر:",
+      "buyBundle": "شراء الحزمة",
+      "buyIndividually": "شراء العناصر بشكل فردي"
+    },
+    "clientBanner": {
+      "heading": "دعم قاعدة بيانات بنيات {{appName}}",
+      "subheading": "ساعد في رسم خريطة كل بنية Epic Games Store",
+      "description": "عميلنا الخفيف لنظامي Windows و macOS يفحص تثبيتات مشغل Epic Games لديك ويقوم بتحميل ملفات البيان فقط — قوائم الأجزاء والبيانات الوصفية — بشكل آمن إلى قاعدة البيانات المفتوحة لدينا. كل تحميل يُثري المجتمع ويساعدنا في تتبع التغييرات بمرور الوقت.",
+      "cta": "تنزيل لنظامي Windows و macOS"
+    },
+    "collectionOffers": {
+      "title": "عروض المجموعة"
+    },
+    "lastModifiedOffers": {
+      "title": "آخر العروض المعدلة"
+    },
+    "latestOffers": {
+      "title": "آخر ما تمت إضافته"
+    },
+    "latestReleased": {
+      "title": "آخر الإصدارات"
+    },
+    "mobileFreebies": {
+      "title": "الألعاب المجانية للجوال",
+      "collapse": "طي الألعاب المجانية للجوال",
+      "expand": "توسيع الألعاب المجانية للجوال"
+    },
+    "sectionHeader": {
+      "seeAll": "عرض الكل"
+    },
+    "suggestedOffers": {
+      "title": "قد يعجبك أيضًا"
+    }
+  },
+  "table": {
+    "pagination": {
+      "rowsPerPage": "صف لكل صفحة",
+      "pageOf": "صفحة {{page}} من {{total}}",
+      "goToFirst": "انتقل إلى الصفحة الأولى",
+      "goToPrevious": "انتقل إلى الصفحة السابقة",
+      "goToNext": "انتقل إلى الصفحة التالية",
+      "goToLast": "انتقل إلى الصفحة الأخيرة",
+      "previous": "السابق",
+      "next": "التالي",
+      "morePages": "المزيد من الصفحات"
+    },
+    "toolbar": {
+      "platform": "المنصة",
+      "status": "الحالة",
+      "type": "النوع",
+      "platforms": "المنصات",
+      "fileExtensions": "امتدادات الملفات",
+      "filterOffers": "تصفية العروض...",
+      "filterItems": "تصفية العناصر...",
+      "filterFiles": "تصفية الملفات...",
+      "reset": "إعادة تعيين"
+    },
+    "viewOptions": {
+      "view": "عرض",
+      "toggleColumns": "تبديل الأعمدة"
+    },
+    "facetedFilter": {
+      "noResults": "لم يتم العثور على نتائج.",
+      "selected": "محدد",
+      "clearFilters": "مسح عوامل التصفية"
+    },
+    "builds": {
+      "noResults": "لا توجد نتائج.",
+      "donateKey": "التبرع بمفتاح"
+    }
+  },
+  "forms": {
+    "review": {
+      "submitTitle": "إرسال مراجعة",
+      "editTitle": "تحرير المراجعة",
+      "description": "شارك أفكارك حول {{title}}",
+      "rating": "التقييم",
+      "ratingError": "يجب أن يكون التقييم بين 1 و 10",
+      "recommend": "هل توصي بهذا المنتج؟",
+      "recommendError": "يرجى اختيار نعم أو لا",
+      "yes": "نعم",
+      "no": "لا",
+      "title": "العنوان",
+      "titlePlaceholder": "أدخل عنوانًا لمراجعتك",
+      "titleRequired": "العنوان مطلوب",
+      "titleMinLength": "يجب أن يحتوي العنوان على 3 أحرف على الأقل",
+      "titleMinLengthLong": "يجب أن يحتوي العنوان على 3 أحرف على الأقل",
+      "titleMaxLength": "يجب أن يكون العنوان أقل من 75 حرفًا",
+      "reviewContent": "محتوى المراجعة",
+      "contentMinLength": "يجب أن يحتوي المحتوى على 3 أحرف على الأقل",
+      "tags": "الوسوم (مفصولة بفواصل)",
+      "tagsPlaceholder": "مثال: جودة، تصميم، أداء",
+      "previous": "السابق",
+      "next": "التالي",
+      "submit": "إرسال المراجعة",
+      "deleteReview": "حذف المراجعة",
+      "confirmDelete": "هل أنت متأكد أنك تريد حذف هذه المراجعة؟",
+      "deleteDescription": "لا يمكن التراجع عن هذا الإجراء. سيتم حذف المراجعة بشكل دائم من خوادمنا.",
+      "cancel": "إلغاء",
+      "delete": "حذف",
+      "deleting": "جارٍ الحذف...",
+      "errorSubmitting": "خطأ في إرسال المراجعة",
+      "errorDeleting": "خطأ في حذف المراجعة",
+      "spamDetected": "تم اكتشاف بريد عشوائي",
+      "defaultContent": "يرجى إدخال مراجعتك هنا",
+      "theProduct": "المنتج"
+    },
+    "androidBeta": {
+      "title": "انضم إلى الإصدار التجريبي",
+      "description": "سجل الدخول باستخدام Google للتسجيل في الإصدار التجريبي المغلق. نحتاج فقط إلى بريدك الإلكتروني.",
+      "spotsRemaining": "<strong>{{remaining}}</strong> من {{max}} مقعدًا متبقيًا",
+      "betaFull": "الإصدار التجريبي ممتلئ",
+      "betaFullDesc": "تم أخذ جميع المقاعد {{max}}. عد لاحقًا أو تابعنا لمعرفة متى تتوفر مقاعد إضافية.",
+      "registering": "جارٍ تسجيلك في الإصدار التجريبي...",
+      "registered": "أنت مسجل!",
+      "registeredDesc": "لقد سجلنا <strong>{{email}}</strong> للإصدار التجريبي المغلق.",
+      "registeredDesc2": "قد يستغرق الأمر بضع ساعات حتى تتم إضافتك يدويًا إلى قائمة المختبرين. بمجرد الإضافة، يمكنك الانضمام إلى الإصدار التجريبي هنا:",
+      "joinBeta": "انضم إلى الإصدار التجريبي على Google Play",
+      "alreadyRegistered": "مسجل بالفعل",
+      "alreadyRegisteredDesc": "<strong>{{email}}</strong> مسجل بالفعل في الإصدار التجريبي.",
+      "alreadyRegisteredDesc2": "إذا تمت إضافتك بالفعل إلى قائمة المختبرين، يمكنك الانضمام إلى الإصدار التجريبي هنا:",
+      "error": "خطأ",
+      "tryAgain": "حاول مرة أخرى",
+      "noCredential": "لم يتم استلام بيانات اعتماد من Google",
+      "somethingWrong": "حدث خطأ ما. حاول مرة أخرى.",
+      "googleFailed": "فشل تسجيل الدخول باستخدام Google. حاول مرة أخرى."
+    },
+    "donateKey": {
+      "donate": "تبرع",
+      "error": "خطأ",
+      "success": "نجاح",
+      "successDesc": "شكرًا لك على تبرعك! تم استلام العنصر بنجاح وستكون بياناته متاحة قريبًا.",
+      "offerPage": "صفحة العرض",
+      "somethingWrong": "حدث خطأ ما. حاول مرة أخرى."
+    }
+  },
+  "ui": {
+    "dialog": {
+      "close": "إغلاق"
+    },
+    "sheet": {
+      "close": "إغلاق"
+    },
+    "carousel": {
+      "previous": "الشريحة السابقة",
+      "next": "الشريحة التالية"
+    },
+    "pagination": {
+      "previous": "السابق",
+      "next": "التالي",
+      "morePages": "المزيد من الصفحات"
+    },
+    "priceRangeSlider": {
+      "priceRange": "نطاق السعر",
+      "minPrice": "الحد الأدنى",
+      "maxPrice": "الحد الأقصى"
+    }
+  }
+}

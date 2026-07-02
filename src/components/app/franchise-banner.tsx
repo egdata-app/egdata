@@ -5,20 +5,22 @@ import { httpClient } from "@/lib/http-client";
 import type { SingleOffer } from "@/types/single-offer";
 import { getImage } from "@/lib/getImage";
 import { useCountry } from "@/hooks/use-country";
+import { useLocale } from "@/hooks/use-locale";
 import { cn } from "@/lib/utils";
 
 export const FranchiseBanner = ({ franchise }: { franchise: Franchise }) => {
   const { country } = useCountry();
+  const { locale } = useLocale();
 
   // Try to find an offer with an image to show as background
   // we pick the first one that has a DieselStoreFrontWide or OfferImageWide
   const offerToFetchId = franchise.offers[0];
 
   const { data: offer } = useQuery({
-    queryKey: ["offer", { id: offerToFetchId, country }],
+    queryKey: ["offer", { id: offerToFetchId, country, locale }],
     queryFn: () =>
       httpClient.get<SingleOffer>(`/offers/${offerToFetchId}`, {
-        params: { country },
+        params: { country, locale },
       }),
     enabled: !!offerToFetchId,
   });

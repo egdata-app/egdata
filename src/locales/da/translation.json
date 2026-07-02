@@ -1,0 +1,1763 @@
+{
+  "common": {
+    "appName": "EGDATA",
+    "search": "Søg",
+    "searchPlaceholder": "Søg efter spil...",
+    "loading": "Indlæser...",
+    "free": "Gratis",
+    "notAvailable": "Ikke tilgængelig",
+    "cancel": "Annuller",
+    "save": "Gem",
+    "close": "Luk"
+  },
+  "nav": {
+    "toggleMenu": "Skift navigationsmenu",
+    "logoAlt": "EGDATA Logo",
+    "explore": "Udforsk",
+    "browse": "Gennemse",
+    "sales": "Udsalg",
+    "changelog": "Ændringslog",
+    "about": "Om",
+    "rankings": "Rangeringer",
+    "topSellers": "Bedst sælgende",
+    "mostPlayed": "Mest spillede",
+    "topWishlisted": "Mest ønskede",
+    "topNewReleases": "Top nye udgivelser",
+    "seeAllCollections": "Se alle samlinger",
+    "others": "Andre",
+    "releaseStats": "Udgivelsesstatistik",
+    "genres": "Genrer",
+    "seeAllGenres": "Se alle genrer",
+    "other": "Andet",
+    "action": "Action",
+    "rpg": "RPG",
+    "indie": "Indie",
+    "strategy": "Strategi",
+    "topSellerOnEpic": "Bedst sælgende på Epic Games Store",
+    "searchItemTitle": "Søg",
+    "searchItemDesc": "Find hvad du leder efter på Epic Games Store.",
+    "freeGamesItemTitle": "Gratis Spil",
+    "freeGamesItemDesc": "Udforsk de seneste gratis spil på Epic Games Store.",
+    "withDiscountsItemTitle": "Med Rabat",
+    "withDiscountsItemDesc": "Se spil der er på tilbud med store rabatter.",
+    "helloUser": "Hej, {{name}}!",
+    "dashboard": "Dashboard",
+    "logout": "Log ud",
+    "searchLanguages": "Søg efter sprog...",
+    "noLanguagesFound": "Ingen sprog fundet"
+  },
+  "footer": {
+    "logoAlt": "EGDATA Logo",
+    "disclaimer": "En fan-lavet Epic Games Store database. Ikke tilknyttet Epic Games, Inc. Alle logoer, billeder og varemærker tilhører deres respektive ejere.",
+    "legal": "Juridisk",
+    "privacyPolicy": "Privatlivspolitik",
+    "notifications": "Notifikationer",
+    "resources": "Ressourcer",
+    "apiDocs": "API Dokumentation",
+    "changelog": "Ændringslog",
+    "community": "Fællesskab",
+    "flagsByFlagpedia": "Flag fra Flagpedia",
+    "madeIn": "Lavet i"
+  },
+  "meta": {
+    "title": "Epic Games Database - egdata.app",
+    "description": "Omfattende Epic Games Store database: spilinformation, priser, salgshistorik, fillister og mere. Udforsk gratis spil, kommende udgivelser og fællesskabsindsigt.",
+    "twitterTitle": "Epic Games Database",
+    "twitterDescription": "En gratis og open-source Epic Games Store database med omfattende spilinformation, salgssporing og mere. Fællesskabsdrevet og konstant opdateret.",
+    "twitterImageAlt": "Epic Games Database",
+    "ogTitle": "Epic Games Database",
+    "ogDescription": "En gratis og open-source Epic Games Store database med omfattende spilinformation, salgssporing og mere. Fællesskabsdrevet og konstant opdateret.",
+    "ogImageAlt": "Epic Games Database"
+  },
+  "notFound": {
+    "title": "Siden blev ikke fundet"
+  },
+  "home": {
+    "statsBar": {
+      "offersTracked": "Tilbud spores",
+      "priceChanges72h": "Prisændringer / 72t",
+      "activeDiscounts": "Aktive rabatter",
+      "giveawaysToDate": "Giveaways til dato"
+    },
+    "sections": {
+      "giveawayStats": "Giveaway Statistik",
+      "giveawayOffers": "Giveaway Tilbud",
+      "upcomingOffers": "Kommende Tilbud",
+      "latestOffers": "Seneste Tilbud",
+      "latestReleased": "Senest Udgivet",
+      "latestOffersWithAchievements": "Seneste Tilbud m/ Achievements",
+      "topSellingOffers": "Bedst Sælgende Tilbud",
+      "latestBuilds": "Seneste Builds"
+    },
+    "tableHeaders": {
+      "hash": "#",
+      "pos": "Pos",
+      "dash": "-",
+      "title": "Titel",
+      "starts": "Starter",
+      "ends": "Slutter",
+      "releaseDate": "Udgivelsesdato",
+      "createdAt": "Oprettet",
+      "date": "Dato",
+      "price": "Pris",
+      "size": "Størrelse",
+      "creationDate": "Oprettelsesdato"
+    },
+    "offerHover": {
+      "seller": "Sælger:",
+      "developer": "Udvikler:",
+      "publisher": "Forlægger:",
+      "releaseDate": "Udgivelsesdato:",
+      "ageRating": "Aldersvurdering:",
+      "moreGenres_one": "+{{count}} mere",
+      "moreGenres_other": "+{{count}} mere",
+      "communityRating": "Fællesskabsvurdering:",
+      "igdbScore": "IGDB Score",
+      "reviews": "• {{count}} anmeldelser",
+      "timeToBeat": "Tid at gennemføre:",
+      "features": "Funktioner:",
+      "moreFeatures": " +{{count}} mere"
+    },
+    "buildHover": {
+      "unknownBuild": "Ukendt Build",
+      "unknownDeveloper": "Ukendt Udvikler",
+      "size": "Størrelse",
+      "version": "Version",
+      "created": "Oprettet",
+      "id": "ID: {{id}}"
+    },
+    "multipleOffers": "{{title}} - Flere Tilbud",
+    "hero": {
+      "subtitle": "Spor priser, opdag tilbud, og gå aldrig glip af et gratis spil. Din følgesvend til Epic Games Store databasen — tilbud, rabatter, giveaways, builds og mere.",
+      "searchPlaceholder": "Søg i databasen…",
+      "justReleased": "Lige udgivet",
+      "priceDrops72h": "Prisfald (72t)",
+      "hasAchievements": "Har achievements",
+      "upcoming": "Kommende",
+      "topSellers": "Bedst sælgende"
+    },
+    "pulse": {
+      "recentActivity": "Seneste aktivitet",
+      "badge": {
+        "new": "Ny",
+        "gone": "Væk",
+        "offer": "Tilbud",
+        "build": "Build",
+        "item": "Item",
+        "asset": "Asset",
+        "xp": "XP",
+        "sandbox": "Sandbox",
+        "change": "Ændring"
+      },
+      "title": {
+        "buildVersion": "Build {{version}}",
+        "buildId": "Build {{id}}",
+        "achievementsId": "Achievements {{id}}"
+      },
+      "detail": {
+        "newBuildIndexed": "Nyt build indekseret",
+        "buildManifestRefreshed": "Build-manifest opdateret",
+        "achievementChanges_one": "{{count}} achievement {{entry}} {{verb}}",
+        "achievementChanges_other": "{{count}} achievements {{entry}} {{verb}}",
+        "offerMetadataRefreshed": "Tilbudsmetadata opdateret",
+        "fieldsChanged_one": "{{count}} felt {{verb}}",
+        "fieldsChanged_other": "{{count}} felter {{verb}}",
+        "fieldChanged": "{{field}} {{verb}}"
+      },
+      "actionVerb": {
+        "added": "tilføjet",
+        "removed": "fjernet",
+        "updated": "opdateret",
+        "changed": "ændret"
+      },
+      "entry_one": "post",
+      "entry_other": "poster"
+    }
+  },
+  "offerDetail": {
+    "common": {
+      "offerNotFound": "Tilbud ikke fundet",
+      "notAvailable": "Ikke tilgængelig",
+      "na": "N/A",
+      "loading": "Indlæser...",
+      "somethingWentWrong": "Noget gik galt",
+      "noChangesFound": "Ingen ændringer fundet for dette tilbud"
+    },
+    "tabs": {
+      "overview": "Oversigt",
+      "price": "Pris",
+      "items": "Items",
+      "builds": "Builds",
+      "achievements": "Achievements",
+      "related": "Relateret",
+      "metadata": "Metadata",
+      "changelog": "Ændringslog",
+      "media": "Medier",
+      "reviews": "Anmeldelser"
+    },
+    "table": {
+      "offerId": "Tilbuds-ID",
+      "namespace": "Namespace",
+      "offerType": "Tilbudstype",
+      "seller": "Sælger",
+      "developer": "Udvikler",
+      "supportedPlatforms": "Understøttede Platforme",
+      "releaseDate": "Udgivelsesdato",
+      "lastUpdate": "Sidste Opdatering",
+      "creationDate": "Oprettelsesdato",
+      "technologies": "Teknologier",
+      "type": "Type",
+      "value": "Værdi",
+      "countriesBlacklist": "Landesortliste",
+      "countriesWhitelist": "Landehvidliste",
+      "categories": "Kategorier",
+      "refundType": "Refunderingstype",
+      "tags": "Tags",
+      "ageRatings": "Aldersvurderinger",
+      "assets": "Assets"
+    },
+    "badges": {
+      "prePurchase": "Forudbestilling",
+      "earlyAccess": "Early Access"
+    },
+    "hero": {
+      "offeredBy": "Tilbydes af {{seller}}"
+    },
+    "tooltip": {
+      "internalNamespace": "Epic Games internt namespace",
+      "techDescription": "teknologiliste til at spore de anvendte spilmotorer og forskellige teknologier fra spilfilerne.",
+      "techSource": "Vi bruger",
+      "techSourceSteamDb": "SteamDB",
+      "source": "Kilde"
+    },
+    "actions": {
+      "compare": "Sammenlign"
+    },
+    "releaseDate": {
+      "releasedOnPc": "Udgivet på PC",
+      "theEgs": " EGS",
+      "releasedSameDay": "Udgivet på Epic samme dag som på PC"
+    },
+    "notifications": {
+      "title": "Notifikationsindstillinger",
+      "description": "Vælg hvilke notifikationer du vil modtage for dette tilbud.",
+      "all": "Alle",
+      "price": "Pris",
+      "achievements": "Achievements",
+      "builds": "Builds",
+      "items": "Items",
+      "requirements": "Krav",
+      "metadata": "Metadata",
+      "media": "Medier",
+      "enablePushDescription": "Du skal aktivere push-notifikationer for at modtage notifikationer for dette tilbud.",
+      "enablePushAction": "Aktiver Push Notifikationer"
+    },
+    "overview": {
+      "genres": "Genrer",
+      "ageRating": "Aldersvurdering",
+      "noAgeRatings": "Ingen aldersvurderinger fundet",
+      "giveaways": "Giveaways",
+      "noGiveaways": "Ingen giveaways fundet",
+      "achievements": "Achievements",
+      "igdbTimeToBeat": "IGDB Tid at gennemføre",
+      "hastily": "Hurtigt",
+      "normally": "Normalt",
+      "completely": "Fuldført",
+      "hltbSubmissions_one": "Baseret på {{count}} indsendelse",
+      "hltbSubmissions_other": "Baseret på {{count}} indsendelser",
+      "price": "Pris",
+      "priceCurrent": "Nuværende:",
+      "priceLowest": "Laveste:",
+      "priceLastDiscount": "Sidste Rabat:",
+      "hltbTitle": "How Long To Beat",
+      "noGameTimes": "Ingen spiltider fundet",
+      "epicRating": "Epic Spillerbedømmelse",
+      "epicRatingDescription": "Indsamlet fra spillere i Epic Games økosystemet",
+      "igdbRating": "IGDB Bedømmelse",
+      "igdbReviews_one": "{{count}} anmeldelse",
+      "igdbReviews_other": "{{count}} anmeldelser"
+    },
+    "achievements": {
+      "title": "Achievements",
+      "sortBy": "Sorter efter",
+      "defaultSort": "Standardsortering",
+      "sortByRarity": "Sorter efter Sjældenhed",
+      "sortByCompleted": "Sorter efter Fuldført %",
+      "search": "Søg",
+      "flipAll": "Vend Alle",
+      "noAchievements": "Ingen achievements fundet",
+      "noAchievementsSet": "Ingen achievements fundet for dette sæt.",
+      "noAchievementsSetDescription": "Dette kan betyde at achievements ikke er tilgængelige i øjeblikket, men vil blive tilføjet i fremtiden.",
+      "baseGame": "Basespil",
+      "dlc": "DLC",
+      "achievementsLabel": "Achievements",
+      "baseGameDescription": "Denne liste af achievements er for basespillet.",
+      "dlcDescription": "Denne liste af achievements er for en af DLC'erne.",
+      "lastUpdated": "Sidst Opdateret:",
+      "lastUpdatedTooltip": "Dette achievement-sæt blev sidst opdateret den {{date}}.",
+      "lastUpdatedTooltipDescription": "Dette er enten oprettelsesdatoen eller datoen for sidste opdatering."
+    },
+    "builds": {
+      "title": "Builds"
+    },
+    "items": {
+      "title": "Items"
+    },
+    "price": {
+      "title": "Pris"
+    },
+    "related": {
+      "title": "Relaterede Tilbud"
+    },
+    "media": {
+      "images": "Billeder",
+      "videos": "Videoer",
+      "covers": "Covere",
+      "noImages": "Ingen billeder fundet",
+      "noVideos": "Ingen videoer fundet",
+      "noCovers": "Ingen covere fundet",
+      "download": "Download",
+      "close": "Luk",
+      "downloadCoverAria": "Download {{type}} cover"
+    },
+    "metadata": {
+      "title": "Metadata",
+      "download": "Download:",
+      "install": "Installér:"
+    },
+    "changelog": {
+      "title": "Ændringslog",
+      "tooltip": "Denne liste viser ændringerne foretaget til dette specifikke tilbud eller relaterede items, assets eller builds.",
+      "sandboxChangelog": "sandbox ændringslog",
+      "sandboxChangelogPrefix": "Du kan se ændringsloggen for hele produktet i",
+      "noChangelog": "Ingen ændringslog tilgængelig",
+      "allTypes": "Alle typer",
+      "selectField": "Vælg et felt",
+      "allFields": "Alle felter",
+      "search": "Søg",
+      "previous": "Forrige",
+      "next": "Næste",
+      "pageOf": "Side {{page}} af {{totalPages}}",
+      "typeUpdate": "Opdater",
+      "typeDelete": "Slet",
+      "typeInsert": "Indsæt"
+    },
+    "reviews": {
+      "epicRating": "Epic Spillerbedømmelse",
+      "epicRatingDescription": "Indsamlet fra spillere i Epic Games økosystemet",
+      "egdataRating": "EGDATA Bedømmelse",
+      "overallScore": "Samlet Score",
+      "scoreOutOf10": "{{score}} / 10",
+      "basedOnReviews": "Baseret på {{count}} anmeldelser",
+      "allReviews": "Alle Anmeldelser",
+      "onlyVerified": "Kun Bekræftede",
+      "notVerified": "Ikke Bekræftede",
+      "leaveReview": "Skriv en anmeldelse",
+      "alreadyReviewed": "Allerede anmeldt",
+      "loginToReview": "Log ind for at anmelde",
+      "noReviews": "Ingen anmeldelser endnu",
+      "notReleased": "Dette produkt er ikke udgivet endnu",
+      "beFirst": "Vær den første til at skrive en anmeldelse for dette produkt!",
+      "checkBack": "Kig tilbage efter udgivelsesdatoen for at skrive en anmeldelse!",
+      "verifiedOwner": "Bekræftet Ejer",
+      "recommended": "Anbefalet",
+      "notRecommended": "Ikke Anbefalet",
+      "readMore": "Læs mere",
+      "reviewedOn": "Anmeldt den",
+      "lastUpdatedOn": "Sidst opdateret den",
+      "editedTimes": "Redigeret {{count}} gange",
+      "edit": "Rediger",
+      "close": "Luk",
+      "reviewCount_one": "{{count}} anmeldelse",
+      "reviewCount_other": "{{count}} anmeldelser",
+      "ownershipVerification": "Ejerskabsbekræftelse",
+      "ownershipVerificationDescription": "er baseret på gennemførelse af mindst én achievement af spilleren.",
+      "ownershipVerificationTooltip": "Vi bruger Epic Games achievements til at bekræfte ejerskab af produktet. For at markere en spiller som bekræftet ejer, skal de have gennemført mindst én achievement for det valgte produkt i Epic Games Store. For at linke din konto til din egdata-profil, skal du gå til",
+      "yourDashboard": "dit dashboard",
+      "criticReviews": "Kritikeranmeldelser",
+      "basedOnCriticReviews": "Baseret på {{count}} kritikeranmeldelser",
+      "opencriticRating": "OpenCritic Bedømmelse",
+      "topCriticAverage": "Top Kritiker Gennemsnit",
+      "criticsRecommend": "Kritikere Anbefaler",
+      "opencriticRatingAlt": "OpenCritic Bedømmelse"
+    }
+  },
+  "search": {
+    "meta": {
+      "title": "Søg | egdata.app",
+      "description": "Søg efter tilbud fra Epic Games Store."
+    },
+    "defaultTitle": "Søg",
+    "filters": "Filtre",
+    "filtersPlaceholder": "Søg efter spil",
+    "pills": {
+      "onSale": "På Tilbud",
+      "codeRedemptionOnly": "Kun Kodeindløsning",
+      "excludeBlockchain": "Udeluk Blockchain/NFT",
+      "pastGiveaways": "Tidligere Giveaways"
+    },
+    "accordion": {
+      "offerType": "Tilbudstype",
+      "developer": "Udvikler",
+      "publisher": "Forlægger",
+      "noTags": "Ingen tags fundet",
+      "seller": "Sælger"
+    },
+    "checkboxes": {
+      "pastGiveaways": "Tidligere Giveaways",
+      "onSale": "På Tilbud",
+      "codeRedemptionOnly": "Kun Kodeindløsning",
+      "excludeBlockchain": "Udeluk Blockchain/NFT",
+      "onlyHistoricalLows": "Kun historiske lavpunkter",
+      "onlyLowestPriceEver": "Kun laveste pris nogensinde"
+    },
+    "tagGroups": {
+      "event": "Begivenhed",
+      "genre": "Genre",
+      "epicfeature": "Epic Funktion",
+      "accessibility": "Tilgængelighed",
+      "feature": "Funktion",
+      "usersay": "Brugersig",
+      "subscription": "Abonnement",
+      "platform": "Platform",
+      "all": "Alle Tags"
+    },
+    "sort": {
+      "sortBy": "Sorter efter",
+      "sortAriaLabel": "Sorter tilbud",
+      "sortDirectionAriaLabel": "Skift sorteringsretning",
+      "showListView": "Vis listevisning",
+      "showGridView": "Vis gittervisning",
+      "releaseDate": "Udgivelsesdato",
+      "lastModifiedDate": "Ændringsdato",
+      "effectiveDate": "Ikrafttrædelsesdato",
+      "creationDate": "Oprettelsesdato",
+      "viewableDate": "Synlighedsdato",
+      "pcReleaseDate": "PC Udgivelsesdato",
+      "upcoming": "Kommende",
+      "price": "Pris",
+      "discount": "Rabat",
+      "discountPercent": "Rabat %",
+      "giveawayDate": "Giveaway Dato"
+    },
+    "results": {
+      "noResults": "Ingen resultater fundet"
+    }
+  },
+  "freebies": {
+    "meta": {
+      "title": "Gratis Spil | egdata.app",
+      "description": "Gennemse gratis spil fra Epic Games Store."
+    },
+    "headings": {
+      "current": "Nuværende Gratis Spil",
+      "past": "Tidligere Gratis Spil",
+      "sellers": "Sælgere af Gratis Spil"
+    },
+    "buttons": {
+      "redeem": "Indløs Nu",
+      "downloadJson": "Download som JSON",
+      "downloadCsv": "Download som CSV",
+      "downloadTxt": "Download som Tekst"
+    },
+    "placeholders": {
+      "searchSellers": "Søg efter sælgere..."
+    },
+    "aria": {
+      "downloadList": "Download liste"
+    },
+    "errors": {
+      "loadSellers": "Fejl ved indlæsning af sælgerdata. Prøv venligst igen senere."
+    },
+    "table": {
+      "sellerName": "Sælgernavn",
+      "totalGames": "Samlede Enkeltspil"
+    }
+  },
+  "sales": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Se {{title}} fra Epic Games Store."
+    },
+    "metaIndex": {
+      "title": "Aktive Udsalg | egdata.app",
+      "description": "Gennemse aktive udsalg på egdata.app"
+    },
+    "status": {
+      "loading": "Indlæser...",
+      "noData": "Ingen data"
+    },
+    "headings": {
+      "active": "Aktive Udsalg",
+      "pastUpcoming": "Tidligere / Kommende Udsalg",
+      "offersList": "{{title}} Tilbud"
+    },
+    "errors": {
+      "notFound": "Promotion ikke fundet"
+    },
+    "labels": {
+      "offersCount": "{{count}} tilbud tilgængelige i denne begivenhed"
+    }
+  },
+  "collections": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Se {{title}} fra Epic Games Store."
+    },
+    "metaIndex": {
+      "title": "Samlinger | egdata.app",
+      "description": "Samlinger på egdata.app"
+    },
+    "headings": {
+      "main": "Samlinger"
+    },
+    "description": {
+      "overview": "De bedst sælgende, mest spillede og mest populære spil på Epic Games Store"
+    },
+    "status": {
+      "loading": "Indlæser..."
+    },
+    "errors": {
+      "notFound": "Samling ikke fundet"
+    },
+    "table": {
+      "position": "Position",
+      "variance": "Varians",
+      "weeks": "Uger"
+    },
+    "tooltips": {
+      "variance": "Forskellen mellem den nuværende position og den forrige position. Ændrer sig normalt hver dag.",
+      "weeks": "Antallet af uger spillet har været i top 100 for {{title}}."
+    },
+    "buttons": {
+      "loadMore": "Indlæs mere"
+    }
+  },
+  "sandboxes": {
+    "notFoundTitle": "Sandbox ikke fundet",
+    "notFoundDescription": "Sandbox ikke fundet",
+    "unrealEngineTitle": "Unreal Engine",
+    "unavailableTitle": "Sandbox utilgængelig",
+    "unavailableDescription": "Produkt-hub'en kunne ikke indlæses.",
+    "noProductDataDescription": "Ingen produktdata findes for denne sandbox.",
+    "hubEyebrow": "Sandbox",
+    "hubOverviewTitle": "Oversigt",
+    "hubOverviewDescription": "Et fokuseret kort over butiksfacade, ejerskab, levering og opdateringsposter for dette Namespace.",
+    "latestChangesButton": "Seneste ændringer",
+    "entityOffersLabel": "Tilbud",
+    "entityOffersDescription": "Butiksposter",
+    "entityItemsLabel": "Items",
+    "entityItemsDescription": "Ejerskabsposter",
+    "entityAssetsLabel": "Assets",
+    "entityAssetsDescription": "Artefakter og medier",
+    "entityBuildsLabel": "Builds",
+    "entityBuildsDescription": "Binære bundter",
+    "entityAchievementsLabel": "Achievements",
+    "entityAchievementsDescription": "Fremskridtsdata",
+    "entityChangelogLabel": "Ændringslog",
+    "entityChangelogDescription": "Sporede opdateringer",
+    "viewButton": "Se",
+    "storefrontOffersTitle": "Butikstilbud",
+    "storefrontOffersDescription": "Repræsentative butiksposter fundet i denne sandbox.",
+    "recentBuildsTitle": "Seneste builds",
+    "recentBuildsDescription": "Nyeste binære poster.",
+    "latestBadge": "seneste",
+    "unknownBuildLabel": "Ukendt build",
+    "recentChangesTitle": "Seneste ændringer",
+    "recentChangesDescription": "Seneste katalog-mutationer.",
+    "updateBadge": "opdater",
+    "changeDefaultLabel": "Ændring",
+    "metaOffersTitle": "Tilbud",
+    "offersEyebrow": "E-handel",
+    "offersTitle": "Tilbud",
+    "offersDescription": "Butiksposter i denne sandbox, inklusive basisspil, udgaver, DLC, add-ons, bundter og ethvert tilbud der kan tildele katalog-items.",
+    "totalOffersLabel": "Samlede tilbud",
+    "metaAchievementsTitle": "Achievements",
+    "achievementsEyebrow": "Fremskridt",
+    "achievementsTitle": "Achievements",
+    "achievementsDescription": "Achievement-sæt, skjulte statusser, sjældenhedsfordeling og XP-totaler tilknyttet denne sandbox.",
+    "achievementsSetsLabel": "Sæt",
+    "achievementsLabel": "Achievements",
+    "achievementsXpLabel": "XP",
+    "searchAchievementsPlaceholder": "Søg achievements",
+    "flipAllButton": "Vend alle",
+    "revealHiddenAchievementAria": "Vis skjult achievement-tekst",
+    "hideHiddenAchievementAria": "Skjul skjult achievement-tekst",
+    "achievementsBaseGameLabel": "Basespil",
+    "achievementsDlcLabel": "DLC",
+    "achievementsBaseGameTooltip": "Denne liste af achievements er for basespillet.",
+    "achievementsDlcTooltip": "Denne liste af achievements er for en af DLC'erne.",
+    "lastUpdatedLabel": "Sidst Opdateret:",
+    "achievementsLastUpdatedTooltip": "Dette achievement-sæt blev sidst opdateret den",
+    "achievementsLastUpdatedTooltipExtra": "Dette er enten oprettelsesdatoen eller datoen for sidste opdatering.",
+    "noAchievementsForSet": "Ingen achievements fundet for dette sæt.",
+    "noAchievementsForSetExtra": "Dette kan betyde at achievements ikke er tilgængelige i øjeblikket, men vil blive tilføjet i fremtiden.",
+    "noAchievementsFound": "Ingen achievements fundet",
+    "metaItemsTitle": "Items",
+    "itemsEyebrow": "Katalog-ejerskab",
+    "itemsTitle": "Items",
+    "itemsDescription": "Ejbare katalog-items indeholdt i tilbud. Disse er posterne der bliver til spillerrettigheder efter et køb eller indløsning.",
+    "totalItemsLabel": "Samlede items",
+    "metaChangelogTitle": "Ændringslog",
+    "changelogEyebrow": "Revisionsspor",
+    "changelogTitle": "Ændringslog",
+    "changelogDescription": "Observerede ændringer på tværs af denne sandbox's tilbud, items, assets, builds og relateret katalogmetadata.",
+    "totalChangesLabel": "Ændringer",
+    "queryTimeLabel": "Forespørgselstid",
+    "noChangelogFound": "Ingen ændringslog fundet",
+    "metaBuildsTitle": "Builds",
+    "buildsEyebrow": "Binære",
+    "buildsTitle": "Builds",
+    "buildsDescription": "Versionerede filbundter uploadet til sandboxen. Builds tildeles artefakter og styrer hvad spillere downloader gennem launcher'en.",
+    "totalBuildsLabel": "Samlede builds",
+    "metaAssetsTitle": "Assets",
+    "assetsEyebrow": "Assets og artefakter",
+    "assetsTitle": "Assets",
+    "assetsDescription": "Distributions- og medieposter tilknyttet sandbox-items, inklusive artefakter der forbinder butikkatalogindhold til downloadbare builds.",
+    "totalAssetsLabel": "Samlede assets"
+  },
+  "items": {
+    "notFound": "Item ikke fundet",
+    "badge": "Item",
+    "table": {
+      "itemId": "Item ID",
+      "namespace": "Namespace",
+      "developer": "Udvikler",
+      "entitlementType": "Rettighedstype",
+      "entitlementName": "Rettighedsnavn",
+      "status": "Status",
+      "creationDate": "Oprettelsesdato",
+      "lastModified": "Sidst Ændret",
+      "platforms": "Platforme"
+    },
+    "tooltip": {
+      "internalNamespace": "Epic Games internt namespace"
+    },
+    "tabs": {
+      "item": "Item",
+      "assets": "Assets",
+      "images": "Billeder",
+      "builds": "Builds",
+      "changelog": "Ændringslog"
+    },
+    "metadata": {
+      "title": "Metadata",
+      "key": "Nøgle",
+      "value": "Værdi"
+    },
+    "assets": {
+      "title": "Assets"
+    },
+    "builds": {
+      "title": "Builds"
+    },
+    "changelog": {
+      "title": "Ændringslog",
+      "noChangelog": "Ingen ændringslog tilgængelig"
+    },
+    "images": {
+      "title": "Billeder"
+    }
+  },
+  "builds": {
+    "notFound": "Build ikke fundet",
+    "build": "Build",
+    "for": "til",
+    "compressed": "({{percent}}% komprimeret)",
+    "table": {
+      "buildId": "Build ID",
+      "buildName": "Build navn",
+      "appName": "App navn",
+      "hash": "Hash",
+      "installedSize": "Installeret Størrelse",
+      "downloadSize": "Download Størrelse",
+      "createdAt": "Oprettet",
+      "updatedAt": "Opdateret",
+      "technologies": "Teknologier"
+    },
+    "tooltip": {
+      "techSource": "Vi bruger",
+      "techSourceSteamDb": "SteamDB",
+      "techDescription": "teknologiliste til at spore de anvendte spilmotorer og forskellige teknologier fra spilfilerne.",
+      "source": "Kilde"
+    },
+    "tabs": {
+      "files": "Filer",
+      "items": "Items",
+      "installOptions": "Installationsmuligheder"
+    },
+    "files": {
+      "title": "Filer"
+    },
+    "items": {
+      "title": "Items"
+    },
+    "installOptions": {
+      "title": "Installationsmuligheder",
+      "file_one": "fil",
+      "file_other": "filer"
+    },
+    "meta": {
+      "title": "{{title}} ({{version}}) | egdata.app",
+      "description": "{{version}} Build til {{title}} fra Epic Games Store."
+    }
+  },
+  "profile": {
+    "meta": {
+      "notFoundTitle": "Profil ikke fundet",
+      "notFoundDescription": "Profil ikke fundet",
+      "title": "{{name}} | egdata.app",
+      "description": "Se {{name}}'s achievements og spil på egdata.app",
+      "defaultName": "Profil",
+      "defaultDescriptionName": "denne spillers"
+    },
+    "errors": {
+      "notFoundTitle": "Profil ikke fundet",
+      "notFoundDescription": "Denne profil er utilgængelig eller er ikke blevet indekseret endnu.",
+      "unavailableTitle": "Profil utilgængelig",
+      "unavailableDescription": "Denne profil kunne ikke indlæses lige nu.",
+      "invalidImageFormat": "Ugyldigt billedformat",
+      "failedToUpload": "Upload mislykkedes",
+      "uploadFailed": "Upload mislykkedes",
+      "failedToRefresh": "Opdatering af profil mislykkedes",
+      "refreshQueued": "Profil tilføjet til opdateringskø, den vil blive opdateret snart."
+    },
+    "fallbackName": "Ukendt profil",
+    "avatar": {
+      "changeAvatar": "Skift Avatar",
+      "dialogDescription": "Upload et nyt profilbillede.",
+      "previewAlt": "Avatar forhåndsvisning",
+      "fallback": "Avatar",
+      "description": "Upload et nyt avatar-billede, max 5MB.",
+      "uploadingWithProgress": "Uploader... {{progress}}%",
+      "uploading": "Uploader...",
+      "updateAvatar": "Opdater Avatar",
+      "errorTitle": "Fejl"
+    },
+    "hero": {
+      "joined": "Deltog",
+      "epicGamesStore": "Epic Games Store",
+      "linkDiscord": "Link Discord",
+      "refreshProfile": "Opdater profil",
+      "refreshAvailableIn": "Opdatering tilgængelig om",
+      "level": "Niveau",
+      "achievements": "Achievements",
+      "unlocked": "Låst op",
+      "platinum": "Platinum",
+      "perfectGames": "Perfekte spil",
+      "library": "Bibliotek",
+      "achievementGames": "Achievement-spil",
+      "reviews": "Anmeldelser",
+      "contributed": "Bidraget",
+      "xpToNextLevel": "{{xp}} XP til niveau {{level}}",
+      "heroGame": "Helte-spil",
+      "complete": "fuldført"
+    },
+    "donor": {
+      "donated_one": "{{name}} har doneret {{count}} nøgle til egdata.app",
+      "donated_other": "{{name}} har doneret {{count}} nøgler til egdata.app",
+      "goTo": "Gå til",
+      "thisLink": "dette link",
+      "toDonateKey": "for at donere en nøgle."
+    },
+    "countdown": {
+      "minutesSeconds_one": "{{minutes}} minut {{seconds}} sekund",
+      "minutesSeconds_other": "{{minutes}} minutter {{seconds}} sekunder",
+      "seconds_one": "{{seconds}} sekund",
+      "seconds_other": "{{seconds}} sekunder"
+    },
+    "tabs": {
+      "showcase": "Showcase",
+      "library": "Bibliotek",
+      "activity": "Aktivitet"
+    },
+    "stats": {
+      "games": "{{count}} spil",
+      "achievements": "{{count}} achievements",
+      "platinum": "{{count}} platinum"
+    },
+    "showcase": {
+      "ariaLabel": "Profil showcase højdepunkter",
+      "featuredGamesTitle": "Fremhævede Spil",
+      "featuredGamesDetail": "{{count}} udvalgt efter profilydelse",
+      "rareAchievementsTitle": "Sjældne Achievements",
+      "rareAchievementsDetail": "Svære at finde oplåsninger på tværs af profilen",
+      "recentUnlocksTitle": "Seneste Oplåsninger",
+      "recentUnlocksDetail": "Seneste synlige aktivitet",
+      "noDataTitle": "Ingen showcase-data endnu",
+      "noDataDescription": "Kun udgivne spil med offentlig achievement-fremskridt vises på profiler.",
+      "rarestUnlock": "Sjældneste oplåsning",
+      "definingGame": "Definerende spil",
+      "latestActivity": "Seneste aktivitet",
+      "achievementsCount": "{{unlocked}} / {{total}} achievements",
+      "platinum": "Platinum"
+    },
+    "library": {
+      "filterAriaLabel": "Biblioteksfilter",
+      "sortAriaLabel": "Sorter bibliotek",
+      "sortByPlaceholder": "Sorter efter",
+      "noGamesTitle": "Ingen spil fundet",
+      "noGamesDescription": "Kun udgivne spil med achievements vises i dette bibliotek.",
+      "gameAlt": "Spil",
+      "complete": "fuldført",
+      "featured": "Fremhævet",
+      "rareUnlocks": "Sjældne oplåsninger",
+      "filters": {
+        "all": "Alle",
+        "completed": "Fuldførte",
+        "nearPlatinum": "Tæt på Platinum",
+        "inProgress": "I Gang",
+        "platinum": "Platinum"
+      },
+      "sorts": {
+        "completion": "Fuldførelse",
+        "alphabetical": "Alfabetisk",
+        "xp": "XP",
+        "achievements": "Achievements"
+      }
+    },
+    "activity": {
+      "title": "Aktivitet",
+      "detail": "{{count}} achievement-oplåsninger",
+      "noActivityTitle": "Ingen aktivitet endnu",
+      "noActivityDescription": "Achievement-oplåsninger vil vises her når denne profil har offentlig fremgang.",
+      "achievementAlt": "Achievement",
+      "platinumEarned": "Platinum optjent",
+      "achievementUnlocked": "Achievement låst op",
+      "unknownRarity": "Ukendt sjældenhed",
+      "rarity": "{{value}}% sjældenhed",
+      "unknownDate": "Ukendt dato"
+    },
+    "achievements": {
+      "loading": "Indlæser...",
+      "notFound": "Profil ikke fundet",
+      "myAchievements": "Mine Achievements"
+    }
+  },
+  "tags": {
+    "meta": {
+      "notFoundTitle": "Promotion ikke fundet",
+      "notFoundDescription": "Promotion ikke fundet",
+      "title": "{{title}} | egdata.app",
+      "description": "Se {{count}} tilgængelige tilbud for {{title}} på egdata.app.",
+      "socialTitle": "{{title}} - egdata.app"
+    },
+    "loading": "Indlæser...",
+    "offersCount": "{{count}} tilbud tilgængelige i denne begivenhed",
+    "results": "Resultater",
+    "resultsCount": "({{count}} resultater)",
+    "searchPlaceholder": "Søg...",
+    "loadMore": "Indlæs Mere",
+    "sortBy": {
+      "releaseDate": "Udgivelsesdato",
+      "lastModifiedDate": "Ændringsdato",
+      "effectiveDate": "Ikrafttrædelsesdato",
+      "creationDate": "Oprettelsesdato",
+      "viewableDate": "Synlighedsdato",
+      "pcReleaseDate": "PC Udgivelsesdato",
+      "upcoming": "Kommende",
+      "price": "Pris"
+    }
+  },
+  "genres": {
+    "meta": {
+      "title": "Genrer - egdata.app",
+      "description": "Genrer på egdata.app"
+    },
+    "heading": "Genrer"
+  },
+  "sellers": {
+    "meta": {
+      "notFoundTitle": "Sælger ikke fundet",
+      "notFoundDescription": "Sælger ikke fundet",
+      "title": "{{name}} | egdata.app"
+    },
+    "notFound": "Sælger ikke fundet",
+    "logoAlt": "{{name}} logo",
+    "bannerAlt": "{{name}}",
+    "offersTitle": "{{name}} Tilbud",
+    "stats": {
+      "offers": "Tilbud",
+      "games": "Spil",
+      "items": "Items",
+      "freeGames": "Gratis Spil"
+    }
+  },
+  "franchises": {
+    "meta": {
+      "notFoundTitle": "Franchise ikke fundet",
+      "notFoundDescription": "Franchise ikke fundet",
+      "title": "{{name}} Franchise | egdata.app",
+      "description": "Gennemse alle spil i {{name}} franchisen på Epic Games Store."
+    },
+    "loading": "Indlæser...",
+    "gamesCount_one": "{{count}} spil",
+    "gamesCount_other": "{{count}} spil",
+    "timeToBeat": "Tid at gennemføre",
+    "achievements": "Achievements",
+    "loadMore": "Indlæs mere",
+    "free": "Gratis"
+  },
+  "stats": {
+    "creations": {
+      "meta": {
+        "title": "Oprettelsesstatistik - egdata.app",
+        "description": "Månedlig og årlig kadence af nye oprettelser der lander på Epic Games Store."
+      },
+      "viewReleases": "Se Udgivelser",
+      "heading": "Epic Games Store oprettelsesstatistik",
+      "description": "Månedlig og årlig kadence af nye oprettelser der lander på butikken.",
+      "monthlyTitle": "Månedlige oprettelser",
+      "yearlyTitle": "Årlige oprettelser"
+    },
+    "releases": {
+      "meta": {
+        "title": "Udgivelsesstatistik - egdata.app",
+        "description": "Månedlig og årlig kadence af nye titler der lander på Epic Games Store."
+      },
+      "viewCreations": "Se Oprettelser",
+      "heading": "Epic Games Store udgivelsesstatistik",
+      "description": "Månedlig og årlig kadence af nye titler der lander på butikken.",
+      "monthlyTitle": "Månedlige udgivelser",
+      "yearlyTitle": "Årlige udgivelser"
+    }
+  },
+  "store": {
+    "creatorCode": {
+      "title": "Støt egdata.app",
+      "description": "Vil du gerne støtte egdata.app ved at bruge vores creator-kode når du køber spil? Dette valg vil blive husket til fremtidige besøg.",
+      "body": "At bruge vores creator-kode hjælper med at støtte udviklingen af egdata.app og dets funktioner. Det påvirker ikke den pris du betaler.",
+      "noThanks": "Nej tak",
+      "yesUseCode": "Ja, brug kode"
+    }
+  },
+  "dashboard": {
+    "placeholder": "Hej /dashboard!"
+  },
+  "auth": {
+    "login": {
+      "placeholder": "Hej /auth/login!"
+    },
+    "callback": {
+      "placeholder": "Hej /auth/callback!"
+    },
+    "logout": {
+      "placeholder": "Hej /auth/logout!"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "Om - egdata.app",
+      "description": "Om egdata.app"
+    },
+    "title": "Om",
+    "intro": "egdata.app er en fællesskabsdrevet hjemmeside dedikeret til at spore og give information om Epic Games Store. Ligesom SteamDB for Steam, sigter vi mod at tilbyde en omfattende ressource for brugere til at udforske ændringer, opdage nye spil og holde sig opdateret med de seneste begivenheder på platformen.",
+    "missionTitle": "Vores Mission",
+    "missionBody": "Vores mission er at give gennemsigtighed og indsigt i Epic Games Store økosystemet. Vi tror på, at ved at aggregere og præsentere data på en tilgængelig måde, kan vi give brugerne mulighed for at træffe informerede beslutninger om deres spilkøb og bidrage til en bedre forståelse af platformen.",
+    "featuresTitle": "Funktioner",
+    "features": {
+      "trackPrices": "Spor spilprisændringer og historiske data",
+      "upcomingReleases": "Se kommende udgivelser og gratis spil-kampagner",
+      "gameDetails": "Udforsk spildetaljer, bedømmelser og brugeranmeldelser",
+      "analyzeTrends": "Analyser trends og mønstre i Epic Games Store"
+    },
+    "communityTitle": "Fællesskabsdrevet",
+    "communityBody": "egdata.app er bygget og vedligeholdt af et passioneret fællesskab af gamere og udviklere. Vi byder bidrag velkommen fra alle der ønsker at hjælpe med at forbedre hjemmesiden og gøre den til en værdifuld ressource for alle. Du er velkommen til at kontakte os hvis du har feedback, forslag eller ønsker at involvere dig.",
+    "sourceCodeIntro": "Al kildekoden til egdata.app er tilgængelig på",
+    "github": "GitHub",
+    "notTitle": "Hvad egdata.app IKKE er",
+    "notIntro": "Det er vigtigt at præcisere at egdata.app ikke er:",
+    "notList": {
+      "affiliated": "Tilknyttet Epic Games: Vi er et uafhængigt, fællesskabsdrevet projekt og er ikke officielt godkendt eller associeret med Epic Games på nogen måde.",
+      "storefront": "En butik eller markedsplads: Vi sælger ikke spil eller giver nogen købsmuligheder. Vores fokus er at give information og data om Epic Games Store.",
+      "piracy": "En platform for piratkopiering eller ulovlige aktiviteter: Vi fordømmer kraftigt piratkopiering og giver ikke nogen midler til at få adgang til eller distribuere ophavsretligt beskyttet indhold ulovligt."
+    },
+    "fairUseTitle": "Fair Use Politik",
+    "fairUseBody": "egdata.app er forpligtet til at overholde fair use-principper under ophavsretsloven. Vi giver information og data kun til informationsformål, med det formål at uddanne og informere offentligheden om spil tilgængelige på Epic Games Store.",
+    "fairUseFactorsTitle": "Nøglefaktorer der Berettiger Fair Use:",
+    "fairUseFactors": {
+      "nonCommercial": "Ikke-kommercielt, Uddannelsesformål:",
+      "nonCommercialBody": "Vores hjemmeside er ikke-kommerciel og søger at forbedre offentlighedens viden om Epic Games Store spil.",
+      "factual": "Faktuel Information:",
+      "factualBody": "Vi præsenterer primært faktuelle data som spiltitler, udgivelsesdatoer og udviklere, som er mindre beskyttet under ophavsret.",
+      "limited": "Begrænset Brug:",
+      "limitedBody": "Vi bruger kun den nødvendige mængde data til at give meningsfuld information uden at erstatte de originale værker.",
+      "noMarketHarm": "Ingen Markedsskade:",
+      "noMarketHarmBody": "Vores brug påvirker ikke negativt markedet for de originale spil; snarere kan det fremme dem gennem øget brugerinteresse."
+    },
+    "autoTrackBody": "Vi sporer og opdaterer automatisk spildata fra offentligt tilgængelige kilder, inklusive Epic Games Store. Vi indlæser grafiske aktiver direkte fra deres servere og gemmer dem ikke.",
+    "leakedDataTitle": "Ansvarsfraskrivelse for Lækkede Data:",
+    "leakedDataBody": "Eventuelle tilsyneladende lækkede data på vores side stammer fra offentligt tilgængelig information på Epic Games Store. Vi har ikke adgang til fortrolige eller proprietære data. Udgivere er ansvarlige for at beskytte deres følsomme oplysninger inden for",
+    "epicDevPortal": "Epic Games Developer portalen",
+    "euDirectivesIntro": "I udviklingen af vores Fair Use Politik har vi taget hensyn til principperne i følgende EU-ophavsretsdirektiver:",
+    "euDirective1": "Direktiv (EU) 2019/790 om ophavsret og beslægtede rettigheder på det digitale indre marked",
+    "euDirective2": "Spørgsmål og svar – Nye EU-ophavsretsregler",
+    "fairUseContact": "Hvis du har spørgsmål om vores Fair Use Politik eller mener at noget indhold krænker din ophavsret, bedes du kontakte os på:",
+    "contactTitle": "Kontakt Os",
+    "contactBody": "Du kan kontakte os via"
+  },
+  "changelog": {
+    "index": {
+      "meta": {
+        "title": "Ændringslog | egdata.app"
+      },
+      "searchPlaceholder": "Søg i ændringslog...",
+      "searchButton": "Søg",
+      "loading": "Indlæser...",
+      "error": "Fejl ved hentning af data"
+    },
+    "detail": {
+      "meta": {
+        "title": "Ændringsdetalje | egdata.app"
+      },
+      "loading": "Indlæser...",
+      "error": "Fejl ved indlæsning af ændringsdetaljer",
+      "notFound": "Ændring ikke fundet"
+    }
+  },
+  "privacy": {
+    "title": "Om",
+    "intro": "egdata.app er en fællesskabsdrevet hjemmeside dedikeret til at spore og give information om Epic Games Store. Ligesom SteamDB for Steam, sigter vi mod at tilbyde en omfattende ressource for brugere til at udforske ændringer, opdage nye spil og holde sig opdateret med de seneste begivenheder på platformen.",
+    "missionTitle": "Vores Mission",
+    "missionBody": "Vores mission er at give gennemsigtighed og indsigt i Epic Games Store økosystemet. Vi tror på, at ved at aggregere og præsentere data på en tilgængelig måde, kan vi give brugerne mulighed for at træffe informerede beslutninger om deres spilkøb og bidrage til en bedre forståelse af platformen.",
+    "featuresTitle": "Funktioner",
+    "features": {
+      "trackPrices": "Spor spilprisændringer og historiske data",
+      "upcomingReleases": "Se kommende udgivelser og gratis spil-kampagner",
+      "gameDetails": "Udforsk spildetaljer, bedømmelser og brugeranmeldelser",
+      "analyzeTrends": "Analyser trends og mønstre i Epic Games Store"
+    },
+    "communityTitle": "Fællesskabsdrevet",
+    "communityBody": "egdata.app er bygget og vedligeholdt af et passioneret fællesskab af gamere og udviklere. Vi byder bidrag velkommen fra alle der ønsker at hjælpe med at forbedre hjemmesiden og gøre den til en værdifuld ressource for alle. Du er velkommen til at kontakte os hvis du har feedback, forslag eller ønsker at involvere dig.",
+    "sourceCodeIntro": "Al kildekoden til egdata.app er tilgængelig på",
+    "github": "GitHub",
+    "notTitle": "Hvad egdata.app IKKE er",
+    "notIntro": "Det er vigtigt at præcisere at egdata.app ikke er:",
+    "notList": {
+      "affiliated": "Tilknyttet Epic Games: Vi er et uafhængigt, fællesskabsdrevet projekt og er ikke officielt godkendt eller associeret med Epic Games på nogen måde.",
+      "storefront": "En butik eller markedsplads: Vi sælger ikke spil eller giver nogen købsmuligheder. Vores fokus er at give information og data om Epic Games Store.",
+      "piracy": "En platform for piratkopiering eller ulovlige aktiviteter: Vi fordømmer kraftigt piratkopiering og giver ikke nogen midler til at få adgang til eller distribuere ophavsretligt beskyttet indhold ulovligt."
+    },
+    "fairUseTitle": "Fair Use Politik",
+    "fairUseBody": "egdata.app er forpligtet til at overholde fair use-principper under ophavsretsloven. Vi giver information og data kun til informationsformål, med det formål at uddanne og informere offentligheden om spil tilgængelige på Epic Games Store.",
+    "fairUseFactorsTitle": "Nøglefaktorer der Berettiger Fair Use:",
+    "fairUseFactors": {
+      "nonCommercial": "Ikke-kommercielt, Uddannelsesformål:",
+      "nonCommercialBody": "Vores hjemmeside er ikke-kommerciel og søger at forbedre offentlighedens viden om Epic Games Store spil.",
+      "factual": "Faktuel Information:",
+      "factualBody": "Vi præsenterer primært faktuelle data som spiltitler, udgivelsesdatoer og udviklere, som er mindre beskyttet under ophavsret.",
+      "limited": "Begrænset Brug:",
+      "limitedBody": "Vi bruger kun den nødvendige mængde data til at give meningsfuld information uden at erstatte de originale værker.",
+      "noMarketHarm": "Ingen Markedsskade:",
+      "noMarketHarmBody": "Vores brug påvirker ikke negativt markedet for de originale spil; snarere kan det fremme dem gennem øget brugerinteresse."
+    },
+    "autoTrackBody": "Vi sporer og opdaterer automatisk spildata fra offentligt tilgængelige kilder, inklusive Epic Games Store. Vi indlæser grafiske aktiver direkte fra deres servere og gemmer dem ikke.",
+    "leakedDataTitle": "Ansvarsfraskrivelse for Lækkede Data:",
+    "leakedDataBody": "Eventuelle tilsyneladende lækkede data på vores side stammer fra offentligt tilgængelig information på Epic Games Store. Vi har ikke adgang til fortrolige eller proprietære data. Udgivere er ansvarlige for at beskytte deres følsomme oplysninger inden for",
+    "epicDevPortal": "Epic Games Developer portalen",
+    "euDirectivesIntro": "I udviklingen af vores Fair Use Politik har vi taget hensyn til principperne i følgende EU-ophavsretsdirektiver:",
+    "euDirective1": "Direktiv (EU) 2019/790 om ophavsret og beslægtede rettigheder på det digitale indre marked",
+    "euDirective2": "Spørgsmål og svar – Nye EU-ophavsretsregler",
+    "fairUseContact": "Hvis du har spørgsmål om vores Fair Use Politik eller mener at noget indhold krænker din ophavsret, bedes du kontakte os på:",
+    "contactTitle": "Kontakt Os",
+    "contactBody": "Du kan kontakte os via"
+  },
+  "notifications": {
+    "meta": {
+      "title": "Notifikationer - egdata.app",
+      "description": "Konfigurér og administrér push-notifikationer for Epic Games Store opdateringer, spiludgivelser og mere."
+    },
+    "title": "Notifikationer",
+    "description": "Konfigurér og administrér push-notifikationer for Epic Games Store opdateringer, spiludgivelser og personlige alarmer.",
+    "tabs": {
+      "notifications": "Notifikationer",
+      "mySubscriptions": "Mine Abonnementer"
+    },
+    "aboutPushTitle": "Om Push Notifikationer",
+    "aboutPushDescription": "Lær mere om hvordan push-notifikationer fungerer på EGData.",
+    "whatYoullReceive": "Hvad du vil modtage:",
+    "receiveList": {
+      "freeGames": "Nye gratis spil-annonceringer",
+      "releases": "Spiludgivelsesnotifikationer",
+      "priceDrops": "Prisfaldsalarmer for ønskede spil",
+      "news": "Epic Games Store nyheder og opdateringer",
+      "custom": "Brugerdefinerede emnebaserede notifikationer"
+    },
+    "privacySecurity": "Privatliv & Sikkerhed:",
+    "privacyList": {
+      "apiKey": "Din API-nøgle opbevares sikkert i browser-cookies",
+      "onlySubscribed": "Vi sender kun notifikationer du har abonneret på",
+      "unsubscribe": "Du kan afmelde til enhver tid",
+      "noPersonalData": "Ingen personlige data er påkrævet ud over din API-nøgle"
+    },
+    "browserSupport": "Browser Support:",
+    "browserSupportBody": "Push-notifikationer understøttes i moderne browsere inklusive Chrome, Firefox, Safari og Edge. Sørg for at tillade notifikationer når din browser beder om det.",
+    "subscriptionOverview": "Abonnementsoversigt",
+    "totalSubscribed": "Samlede abonnerede emner: {{count}}",
+    "notSubscribedApi": "API-nøglen er ikke abonneret på push-notifikationer",
+    "notSubscribedTitle": "Ikke Abonneret",
+    "notSubscribedBody": "Din API-nøgle er ikke abonneret på push-notifikationer. Brug fanen \"Opsæt & Abonner\" for at abonnere først.",
+    "subscriptionId": "Abonnement {{id}}",
+    "created": "Oprettet:",
+    "subscribedTopics": "Abonnerede Emner:",
+    "noTopics": "Ingen emner abonneret",
+    "lastUpdated": "Sidst opdateret:",
+    "noSubscriptionsTitle": "Ingen Abonnementer Fundet",
+    "noSubscriptionsBody": "Du er abonneret men har ikke oprettet nogen enhedsabonnementer endnu. Brug fanen \"Opsæt & Abonner\" for at oprette dit første abonnement.",
+    "fetchError": "Kunne ikke hente abonnementer. Prøv venligst igen.",
+    "push": {
+      "title": "Push Notifikationer",
+      "notSupported": "Push-notifikationer understøttes ikke i denne browser.",
+      "setApiKey": "Indstil venligst din API-nøgle for at aktivere push-notifikationer.",
+      "manage": "Administrér dine push-notifikationspræferencer.",
+      "unsubscribe": "Afmeld",
+      "subscribe": "Abonner",
+      "subscribed": "Abonneret",
+      "notSubscribed": "Ikke abonneret",
+      "subscribeToTopic": "Abonner på Emne",
+      "topicPlaceholder": "Indtast emnenavn (f.eks. game-updates)",
+      "subscribedTopics": "Abonnerede Emner",
+      "clickToUnsubscribe": "Klik på et emne for at afmelde"
+    },
+    "simple": {
+      "title": "Push Notifikationer",
+      "notSupported": "Push-notifikationer understøttes ikke i denne browser.",
+      "subscribedDesc": "Du abonnerer på {{count}} notifikationsemner",
+      "notSubscribedDesc": "Få besked om Epic Games Store opdateringer, gratis spil og mere",
+      "subscribeToNotifications": "Abonner på Notifikationer",
+      "unsubscribe": "Afmeld",
+      "chooseWhat": "Vælg hvad du vil have besked om:",
+      "freeGames": "Gratis Spil",
+      "freeGamesDesc": "Få besked når nye gratis spil er tilgængelige",
+      "newReleases": "Nye Udgivelser",
+      "newReleasesDesc": "Notifikationer for nye spiludgivelser",
+      "priceDrops": "Prisfald",
+      "priceDropsDesc": "Få alarmer når spil er på tilbud",
+      "youWillReceive": "Du vil modtage notifikationer for:",
+      "subscribedTo": "Abonneret på {{name}}",
+      "unsubscribedFrom": "Afmeldt fra {{name}}",
+      "failedSubscribe": "Kunne ikke abonnere på notifikationer",
+      "failedUnsubscribe": "Kunne ikke afmelde notifikationer",
+      "failedTopicSubscribe": "Kunne ikke abonnere på emne",
+      "failedTopicUnsubscribe": "Kunne ikke afmelde emne",
+      "successSubscribe": "Abonnement på notifikationer lykkedes!",
+      "successUnsubscribe": "Afmelding af notifikationer lykkedes"
+    },
+    "apiKey": {
+      "title": "API Nøgleadministration",
+      "label": "API Nøgle",
+      "placeholderGenerated": "API nøgle genereret",
+      "placeholderNone": "Ingen API nøgle genereret",
+      "regenerate": "Regenerér Nøgle",
+      "generate": "Generér Nøgle",
+      "clear": "Ryd Nøgle",
+      "generated": "Ny API nøgle genereret succesfuldt!",
+      "copied": "API nøgle kopieret til udklipsholder!",
+      "cleared": "API nøgle ryddet succesfuldt!",
+      "failedGenerate": "Kunne ikke generere API nøgle",
+      "failedCopy": "Kunne ikke kopiere API nøgle",
+      "failedClear": "Kunne ikke rydde API nøgle",
+      "noneToCopy": "Ingen API nøgle at kopiere",
+      "description": "Din API-nøgle er et UUID gemt lokalt i din browser og bruges til at autentificere push-notifikationsforespørgsler. Brug regenerér-knappen til at oprette en ny nøgle hvis nødvendigt."
+    }
+  },
+  "promotions": {
+    "placeholder": "Hej /promotions/$id!"
+  },
+  "misc": {
+    "gameAwards": {
+      "meta": {
+        "title": "The Game Awards Dækning | egdata.app",
+        "description": "Seneste spil annonceret og nomineret ved The Game Awards der kommer til Epic Games Store."
+      },
+      "logoAlt": "The Game Awards 2025",
+      "subtitle": "Spil annonceret eller nomineret ved The Game Awards der kommer til Epic Games Store",
+      "videoTitle": "The Game Awards 2024 - Live Stream",
+      "expandPlayer": "Udvid afspiller",
+      "closeMiniPlayer": "Luk mini-afspiller",
+      "noGamesTitle": "Ingen spil annonceret endnu",
+      "noGamesBody": "Kig tilbage efter The Game Awards!"
+    },
+    "downloads": {
+      "title": "egdata.app Klientudgivelser",
+      "description": "Download den seneste version. Vi har fremhævet den anbefalede sektion til dit operativsystem.",
+      "errorPrefix": "Fejl:",
+      "noPublicReleases": "Ingen offentlige udgivelser fundet.",
+      "recommended": "Anbefalet",
+      "downloadsSuffix": "Downloads",
+      "versionPublished": "Version {{version}} - Udgivet den {{date}}",
+      "assetInfo": {
+        "appleSilicon": "Til nyere Mac-computere med Apple-chips (M1, M2, M3, etc.).",
+        "intel": "Til ældre Mac-computere med Intel-processorer.",
+        "universal": "Kompatibel med både Apple Silicon og Intel Macs.",
+        "msi": "En standard installationsguide. Anbefalet til de fleste brugere.",
+        "exe": "En selvstændig applikationsfil. Kræver muligvis ikke installation.",
+        "linux": "Til Linux-baserede operativsystemer.",
+        "generic": "En generisk fil eller kildekode."
+      }
+    },
+    "discordLinked": {
+      "title": "Konto Linket Succesfuldt!",
+      "body": "Din Discord-konto er blevet succesfuldt linket til egdata.app",
+      "footer": "Du kan nu lukke dette vindue og vende tilbage til Discord. Din konto er klar til brug med egdata.app"
+    },
+    "posts": {
+      "coverAlt": "LEGO Star Wars: The Skywalker Saga Cover Art",
+      "title": "Få LEGO® Star Wars™: The Skywalker Saga GRATIS på Epic Games Store",
+      "freeGameBadge": "Gratis Spil",
+      "published": "Udgivet den 30. november 2023",
+      "intro": "Sæt kryds i kalenderen, Star Wars-fans! Fra {{dateRange}} kan du få det anmelderroste {{game}} GRATIS på Epic Games Store. Dette spil, som normalt koster {{price}}, lader dig genopleve de ikoniske øjeblikke fra {{saga}} med et sjovt LEGO-twist.",
+      "dateRange": "5. december til 12. december 2024",
+      "game": "LEGO® Star Wars™: The Skywalker Saga",
+      "price": "$49.99",
+      "saga": "Skywalker-sagaen",
+      "gameplayAlt": "LEGO Star Wars Gameplay",
+      "charactersAlt": "LEGO Star Wars Figurer",
+      "whatToExpect": "🧩 Hvad kan du forvente?",
+      "whatToExpectBody": "Udviklet af {{developer}} og udgivet af {{publisher}}, tilbyder dette spil en omfattende Star Wars-oplevelse som ingen anden. Her er hvad der gør det til et must-play:",
+      "developer": "TT Games",
+      "publisher": "Warner Bros.",
+      "expectList": {
+        "allMovies": "🌌 {{strong}}: Genoplev historierne fra alle ni Skywalker-saga-film, fyldt med klassisk LEGO-humor.",
+        "allMoviesStrong": "Alle 9 Film",
+        "characters": "🚀 {{strong}}: Kontrollér dine yndlingshelte og -skurke fra galaksen langt, langt væk.",
+        "charactersStrong": "300+ Spilbare Figurer",
+        "vehicles": "🚀 {{strong}}: Flyv ikoniske skibe som Millennium Falcon og TIE Fighters.",
+        "vehiclesStrong": "100+ Køretøjer",
+        "planets": "🌍 {{strong}}: Rejs til velkendte verdener, fra Tatooine til Endor og videre.",
+        "planetsStrong": "23 Planeter at Udforske"
+      },
+      "specialTitle": "🌟 Hvad Gør Dette Spil Specielt?",
+      "specialBody": "Siden udgivelsen i {{releaseDate}} har LEGO Star Wars: The Skywalker Saga modtaget ros for sit engagerende gameplay og trofaste tilpasning af Star Wars-universet. Med en {{metascore}} på Metacritic har både kritikere og fans fremhævet dets:",
+      "releaseDate": "April 2022",
+      "metascore": "82 Metascore",
+      "specialList": {
+        "combat": "🎮 {{strong}}: Lyssværdskampe, blaster-skudvekslinger og rumkampe.",
+        "combatStrong": "Dynamisk Kamp",
+        "charm": "🏗️ {{strong}}: Klassisk Star Wars-humor, genopfundet i LEGO's unikke stil.",
+        "charmStrong": "LEGO Charme",
+        "replayability": "🤯 {{strong}}: Masser af samleobjekter, side-missioner og skjulte hemmeligheder.",
+        "replayabilityStrong": "Genafspilningsværdi"
+      },
+      "howToClaim": "🎁 Hvordan Indløser Man Det?",
+      "howToClaimBody": "At få din gratis kopi er nemt!",
+      "step1": "Besøg {{storeLink}} mellem {{dec5}} og {{dec12}}.",
+      "storeLink": "Epic Games Store",
+      "dec5": "5. december",
+      "dec12": "12. december 2024",
+      "step2": "Tilføj spillet til dit bibliotek.",
+      "step3": "Det er dit for evigt!",
+      "cardTitle": "Gå ikke glip af denne chance for at begive dig ud på en LEGO-infunderet rejse gennem galaksen!",
+      "cardBody": "Uanset om du er en dedikeret Star Wars-fan eller nybegynder, tilbyder dette spil uendelig sjov for alle.",
+      "footer": "Må Kraften (og LEGO-klodserne) være med dig! 🧱✨"
+    },
+    "fairUse": {
+      "meta": {
+        "title": "Fair Use Politik - egdata.app",
+        "description": "Fair Use Politik for egdata.app"
+      },
+      "title": "Fair Use Politik for EGData App",
+      "section1Title": "1. Introduktion",
+      "section1Body": "Velkommen til EGData App (\"vi\", \"os\", \"vores\"). Denne Fair Use Politik beskriver vilkårene for hvordan du må bruge indholdet og dataene på vores hjemmeside {{siteLink}} (\"Siden\").",
+      "section2Title": "2. Formål med Fair Use",
+      "section2Body": "Indholdet og dataene på EGData App er kun til informationsformål. Vores mål er at tilbyde en omfattende database over spil (eller spilrelaterede data) tilgængelige i Epic Games Store til uddannelsesmæssig brug og reference af fællesskabet.",
+      "section3Title": "3. Overholdelse af Fair Use",
+      "section3Body": "EGData App overholder principperne for fair use under ophavsretsloven ved at give information og data på en måde der gavner offentligheden uden at krænke rettighederne for indholdsejere. Her er nøglefaktorerne der berettiger vores brug som fair use:",
+      "section3List": {
+        "purpose": "Formål og Karakter af Brug:",
+        "purposeBody": "Vores hjemmeside er ikke-kommerciel og sigter mod at uddanne og informere offentligheden om spil tilgængelige i Epic Games Store. Vi giver kritisk information, anmeldelser og opdateringer, hvilket forbedrer offentlighedens viden og påskønnelse af disse spil.",
+        "nature": "Naturen af det Ophavsretlige Værk:",
+        "natureBody": "De data vi indsamler og præsenterer består af faktuelle oplysninger som spiltitler, udgivelsesdatoer, udviklere og opdateringer. Faktuelle oplysninger er mindre beskyttet under ophavsretsloven end kreative værker.",
+        "amount": "Mængde og Væsentlighed:",
+        "amountBody": "Vi bruger kun den mængde data der er nødvendig for at give meningsfuld og relevant information til vores brugere. Vi reproducerer ikke hele værker eller giver omfattende uddrag der kunne erstatte de originale produkter.",
+        "effect": "Effekt på Markedet:",
+        "effectBody": "Vores brug af spildata påvirker ikke negativt markedet for de originale spil. I stedet fremmer det disse spil ved at give opdateret information og drive brugerengagement og interesse."
+      },
+      "section4Title": "4. Dataindsamling og Opdateringer",
+      "section4Body1": "Vores Side sporer og opdaterer automatisk spildata for at sikre at informationen vi giver er aktuel og præcis. Denne automatiserede proces involverer indsamling af offentligt tilgængelig information fra Epic Games Store og andre pålidelige kilder.",
+      "section4Body2": "Ved at holde vores database opdateret sikrer vi at brugere har adgang til den nyeste information om deres yndlingsspil, inklusive nye udgivelser, opdateringer og ændringer i tilgængelighed.",
+      "section4Body3": "Hvad angår grafiske aktiver, indlæser vi billederne direkte fra Epic Games Stores servere. Vi gemmer ingen billeder på vores servere.",
+      "section5Title": "5. Ansvarsfraskrivelse for Lækkede Data",
+      "section5Body1": "Eventuelle data der ser ud til at være lækket på vores Side stammer fra offentligt tilgængelig information leveret af Epic Games Store. Vi har ikke adgang til fortrolige eller proprietære data der ikke er offentligt tilgængelige. Derfor er det udgivernes ansvar at beskytte deres kommende intellektuelle ejendomme (IP'er), spil, downloadbart indhold (DLC) og anden følsom information inden for Epic Games Developer portalen.",
+      "section5Body2": "Udgivere opfordres til at sikre at følsomme oplysninger er ordentligt beskyttet og ikke utilsigtet bliver offentlige. EGData App kan ikke holdes ansvarlig for lækket information der er indhentet fra offentligt tilgængelige kilder.",
+      "section5Body3": "For mere information om databeskyttelse og fair use i Den Europæiske Union, henvises til følgende ressourcer:",
+      "euDirective1": "Direktiv (EU) 2019/790 om ophavsret og beslægtede rettigheder på det digitale indre marked",
+      "euDirective2": "Spørgsmål og svar – Nye EU-ophavsretsregler",
+      "section6Title": "6. Kontakt Os",
+      "section6Body": "Hvis du har spørgsmål til denne Fair Use Politik eller mener at noget indhold eller data på vores Side krænker din ophavsret, bedes du kontakte os på:",
+      "email": "Email:"
+    },
+    "donateKey": {
+      "title": "Donér en Nøgle",
+      "body": "Hvis du har en nøgle du gerne vil donere til projektet, bedes du udfylde formularen nedenfor."
+    },
+    "androidBeta": {
+      "meta": {
+        "title": "Android Beta - egdata.app",
+        "description": "Deltag i egdata.app Android app lukket beta-testprogram"
+      },
+      "title": "Android Beta Program",
+      "description": "Deltag i vores lukkede beta for at teste egdata.app Android-appen før offentlig udgivelse.",
+      "whatHappensNext": "Hvad sker der så?",
+      "steps": {
+        "signIn": "Log ind med din Google-konto",
+        "added": "Du vil blive manuelt tilføjet til det lukkede testspor inden for et par timer",
+        "download": "Når du er tilføjet, kan du downloade appen fra det angivne link"
+      }
+    }
+  },
+  "components": {
+    "stats": {
+      "title": "Statistik",
+      "description": "Statistik om platformen",
+      "offers": "Tilbud",
+      "offersTooltip": "Et tilbud er en køb vare fra butikken",
+      "items": "Items",
+      "itemsTooltip": "Et item er rettigheden til launcher'en",
+      "tags": "Tags",
+      "offersYear": "Tilbud (År)",
+      "itemsYear": "Items (År)",
+      "assets": "Assets",
+      "assetsTooltip": "Et asset er spilfilerne",
+      "regPrices": "Reg. Priser",
+      "changes": "Ændringer",
+      "sandboxes": "Sandboxes",
+      "sandboxesTooltip": "En sandbox er gruppen af tilbud"
+    },
+    "sandboxShell": {
+      "overview": "Oversigt",
+      "offers": "Tilbud",
+      "items": "Items",
+      "assets": "Assets",
+      "builds": "Builds",
+      "achievements": "Achievements",
+      "changelog": "Ændringslog",
+      "sandbox": "Sandbox",
+      "internalNamespace": "Internt namespace",
+      "storePage": "Butiksside",
+      "updated": "Opdateret {{date}}",
+      "unrealEngine": "Unreal Engine",
+      "internalSandbox": "Intern Sandbox",
+      "releaseStatus": {
+        "prePurchase": "Forudbestilling",
+        "datePending": "Dato ventende",
+        "comingSoon": "Kommer snart",
+        "released": "Udgivet"
+      }
+    },
+    "comparison": {
+      "openCompareTray": "Åbn sammenligningsbakke, {{count}} valgt",
+      "compareSelected": "Sammenlign valgte tilbud",
+      "error": "Fejl",
+      "type": "Type",
+      "seller": "Sælger",
+      "developer": "Udvikler",
+      "releaseDate": "Udgivelsesdato",
+      "pcReleaseDate": "PC Udgivelsesdato",
+      "genres": "Genrer",
+      "platforms": "Platforme",
+      "remove": "Fjern",
+      "current": "Nuværende",
+      "lowest": "Laveste",
+      "noPriceFound": "Ingen pris fundet",
+      "noAgeRatingsFound": "Ingen aldersvurderinger fundet",
+      "achievements": "Achievements:",
+      "ageRating": "Aldersvurdering:",
+      "price": "Pris:",
+      "unknown": "Ukendt"
+    },
+    "search": {
+      "sellers": "Sælgere",
+      "noResults": "Ingen resultater fundet",
+      "noResultsShort": "Ingen resultater fundet.",
+      "allOfferTypes": "Alle Tilbudstyper",
+      "tags": "Tags"
+    },
+    "changelist": {
+      "title": "Ændringsliste",
+      "loading": "Indlæser...",
+      "error": "Fejl: {{message}}",
+      "id": "ID",
+      "type": "Type",
+      "titleOrId": "Titel/ID",
+      "date": "Dato",
+      "new": "ny",
+      "update": "opdater"
+    },
+    "upcoming": {
+      "caption": "Kommende Tilbud",
+      "loading": "Indlæser...",
+      "title": "Titel",
+      "price": "Pris",
+      "releaseDate": "Udgivelsesdato",
+      "unknown": "Ukendt",
+      "prePurchase": "Forudbestilling"
+    },
+    "giveaways": {
+      "title": "Giveaways",
+      "free": "Gratis",
+      "freeNow": "Gratis Nu",
+      "startsIn": "Starter om",
+      "repeated": "Gentaget:",
+      "yes": "Ja",
+      "no": "Nej",
+      "repeatedTooltip": "Dette tilbud er blevet givet væk {{count}} gange."
+    },
+    "giveawayStats": {
+      "title": "Giveaways i tal",
+      "loading": "Indlæser...",
+      "totalValue": "Samlet Værdi",
+      "totalValueTooltip": "Samlet værdi inklusive eventuelle aktive rabatter",
+      "giveaways": "Giveaways",
+      "giveawaysTooltip": "Samlet antal giveaways der findes i databasen",
+      "offers": "Tilbud",
+      "offersTooltip": "Samlet antal unikke tilbud der har været i giveaways",
+      "repeated": "Gentaget",
+      "repeatedTooltip": "Antal unikke tilbud der optræder flere gange i giveaways",
+      "sellers": "Sælgere",
+      "sellersTooltip": "Samlet antal unikke sælgere der leverer tilbud"
+    },
+    "offerCard": {
+      "openOffer": "Åbn tilbud {{title}}",
+      "free": "Gratis",
+      "comingSoon": "Kommer Snart",
+      "earlyAccess": "Early Access",
+      "prePurchase": "Forudbestilling",
+      "owned": "ejet"
+    },
+    "baseGame": {
+      "checkBaseGame": "Se basespillet",
+      "partOfBundle": "Dette tilbud er en del af"
+    },
+    "notFound": {
+      "message": "Siden du leder efter findes ikke."
+    },
+    "sellerOffers": {
+      "error": "Fejl ved indlæsning af tilbud. Prøv venligst igen.",
+      "moreFrom": "Mere fra {{name}}"
+    },
+    "achievementsBlade": {
+      "noData": "Ingen data",
+      "game": "Spil",
+      "achievements": "Achievements",
+      "xp": "XP",
+      "bronze": "Bronze",
+      "silver": "Sølv",
+      "gold": "Guld",
+      "gamesWithAchievements": "Spil med Epic Achievements"
+    },
+    "topSection": {
+      "free": "Gratis",
+      "releaseDate": "Udgivelsesdato:",
+      "tba": "TBA",
+      "platforms": "Platforme:",
+      "tags": "Tags:",
+      "checkOffer": "Se Tilbud"
+    },
+    "featuredDiscounts": {
+      "free": "Gratis",
+      "title": "Fremhævede Rabatter",
+      "countMore": "+{{count}} mere",
+      "checkOffer": "Se Tilbud",
+      "until": "indtil"
+    },
+    "performanceTable": {
+      "title": "Ydelse",
+      "noPriorData": "Ingen tidligere data",
+      "cardsView": "Kortvisning",
+      "chartView": "Diagramvisning"
+    },
+    "priceChart": {
+      "selectValue": "Vælg en værdi",
+      "last3Months": "Sidste 3 måneder",
+      "fetchingData": "Henter seneste data"
+    },
+    "dateRangePicker": {
+      "from": "Fra",
+      "to": "Til",
+      "maxRange": "Maksimal rækkevidde er 30 dage",
+      "invalidRange": "Ugyldig datointerval"
+    },
+    "regionalPricing": {
+      "region": "Region",
+      "price": "Pris"
+    },
+    "regionalPricingBadge": {
+      "analysis": "Regional prisanalyse",
+      "currentPrice": "Nuværende pris",
+      "suggestedPrice": "Foreslået pris",
+      "belowSuggested": "Dette tilbud er faktisk også under det — et fantastisk tilbud hele vejen rundt.",
+      "closeToSuggested": "Dette tilbud er tæt på det, og langt under typisk {{region}} prissætning."
+    },
+    "countrySelector": {
+      "searchCountries": "Søg efter lande...",
+      "noCountries": "Ingen lande fundet"
+    },
+    "countriesSelector": {
+      "searchCountries": "Søg efter lande...",
+      "noCountries": "Ingen lande fundet"
+    },
+    "querySearch": {
+      "searchItems": "Søg efter items..."
+    },
+    "extendedSearch": {
+      "searchItems": "Søg efter items...",
+      "noItems": "Ingen items fundet."
+    },
+    "searchForm": {
+      "noResults": "Ingen resultater fundet",
+      "error": "Fejl: {{message}}",
+      "loadingLong": "Denne forespørgsel tager længere tid end normalt..."
+    },
+    "searchFormV2": {
+      "noResults": "Ingen resultater fundet."
+    },
+    "androidBetaBanner": {
+      "dismiss": "Afvis banner"
+    },
+    "videoPlayer": {
+      "title": "{{title}}"
+    },
+    "mediaSlider": {
+      "previousSlide": "Forrige slide",
+      "nextSlide": "Næste slide",
+      "image": "Billede {{index}}",
+      "thumbnail": "Miniature {{index}}",
+      "downloading": "Downloader...",
+      "download": "Download"
+    },
+    "changelogItem": {
+      "action": "Handling",
+      "type": "Type",
+      "oldValue": "Gammel værdi",
+      "newValue": "Ny værdi",
+      "previousValue": "Forrige værdi:",
+      "newValueLabel": "Ny værdi:"
+    },
+    "changelogCharts": {
+      "byWeekday": "Ændringer efter Ugedag",
+      "byWeekdayDesc": "Akkumulerede ændringer efter ugedag",
+      "typesOfChanges": "Typer af Ændringer",
+      "typesOfChangesDesc": "Antal ændringer efter type",
+      "byField": "Ændringer efter Felt",
+      "byFieldDesc": "Ændringer grupperet efter ændret felt",
+      "dailyDesc": "Viser daglige ændringer for det seneste år",
+      "noData": "Ingen data tilgængelige til visning."
+    },
+    "openEgl": {
+      "open": "Åbn"
+    },
+    "openEgs": {
+      "store": "Butik"
+    },
+    "openLauncher": {
+      "play": "Spil"
+    },
+    "storeDropdown": {
+      "launcher": "Launcher",
+      "viewStorePage": "Se Butiksside",
+      "webBrowser": "Webbrowser"
+    },
+    "prepurchasePopup": {
+      "title": "{{title}}"
+    },
+    "apiKeyManager": {
+      "title": "API Nøgleadministration",
+      "label": "API Nøgle",
+      "placeholder": {
+        "generated": "API nøgle genereret",
+        "none": "Ingen API nøgle genereret"
+      },
+      "button": {
+        "regenerate": "Regenerér Nøgle",
+        "generate": "Generér Nøgle",
+        "clear": "Ryd Nøgle"
+      },
+      "notification": {
+        "generated": "Ny API nøgle genereret succesfuldt!",
+        "generateFailed": "Kunne ikke generere API nøgle",
+        "copied": "API nøgle kopieret til udklipsholder!",
+        "copyFailed": "Kunne ikke kopiere API nøgle",
+        "noneToCopy": "Ingen API nøgle at kopiere",
+        "cleared": "API nøgle ryddet succesfuldt!",
+        "clearFailed": "Kunne ikke rydde API nøgle"
+      },
+      "description": "Din API-nøgle er et UUID gemt lokalt i din browser og bruges til at autentificere push-notifikationsforespørgsler. Brug regenerér-knappen til at oprette en ny nøgle hvis nødvendigt."
+    },
+    "cookieBanner": {
+      "title": "Cookie Meddelelse",
+      "description": "Denne hjemmeside bruger cookies til at forbedre din browsing-oplevelse. Ved at acceptere cookies accepterer du {{privacyPolicyLink}}.",
+      "accept": "Acceptér",
+      "decline": "Afvis"
+    },
+    "searchHeader": {
+      "results": "{{count}} resultater",
+      "showingResultsFor": "Viser resultater for"
+    },
+    "bundle": {
+      "collectionOffers": "Samlingstilbud",
+      "bundleOffers": "Bundle-tilbud",
+      "offersCount": "- {{count}} Tilbud",
+      "bundlePriceTitle": "Bundle Pris",
+      "totalValueLabel": "Samlet Værdi:",
+      "bundlePriceLabel": "Bundle Pris:",
+      "youSave": "Du sparer:",
+      "youPayMore": "Du betaler mere:",
+      "buyBundle": "Køb Bundle",
+      "buyIndividually": "Køb Items Enkeltvis"
+    },
+    "clientBanner": {
+      "heading": "Støt {{appName}} builds-databasen",
+      "subheading": "Hjælp med at kortlægge alle Epic Games Store builds",
+      "description": "Vores letvægts Windows & macOS-klient scanner dine Epic Games Launcher-installationer og uploader sikkert kun manifest-filerne—chunk-lister og metadata—til vores åbne database. Hver upload beriger fællesskabet og hjælper os med at spore ændringer over tid.",
+      "cta": "Download til Windows & macOS"
+    },
+    "collectionOffers": {
+      "title": "Samlingstilbud"
+    },
+    "lastModifiedOffers": {
+      "title": "Sidst Ændrede Tilbud"
+    },
+    "latestOffers": {
+      "title": "Senest Tilføjede"
+    },
+    "latestReleased": {
+      "title": "Senest Udgivet"
+    },
+    "mobileFreebies": {
+      "title": "Mobile Gratis Spil",
+      "collapse": "Skjul mobile gratis spil",
+      "expand": "Udvid mobile gratis spil"
+    },
+    "sectionHeader": {
+      "seeAll": "Se alle"
+    },
+    "suggestedOffers": {
+      "title": "Du vil måske også kunne lide"
+    }
+  },
+  "table": {
+    "pagination": {
+      "rowsPerPage": "Rækker pr. side",
+      "pageOf": "Side {{page}} af {{total}}",
+      "goToFirst": "Gå til første side",
+      "goToPrevious": "Gå til forrige side",
+      "goToNext": "Gå til næste side",
+      "goToLast": "Gå til sidste side",
+      "previous": "Forrige",
+      "next": "Næste",
+      "morePages": "Flere sider"
+    },
+    "toolbar": {
+      "platform": "Platform",
+      "status": "Status",
+      "type": "Type",
+      "platforms": "Platforme",
+      "fileExtensions": "Filudvidelser",
+      "filterOffers": "Filtrér tilbud...",
+      "filterItems": "Filtrér items...",
+      "filterFiles": "Filtrér filer...",
+      "reset": "Nulstil"
+    },
+    "viewOptions": {
+      "view": "Vis",
+      "toggleColumns": "Skift kolonner"
+    },
+    "facetedFilter": {
+      "noResults": "Ingen resultater fundet.",
+      "selected": "valgt",
+      "clearFilters": "Ryd filtre"
+    },
+    "builds": {
+      "noResults": "Ingen resultater.",
+      "donateKey": "Donér en Nøgle"
+    }
+  },
+  "forms": {
+    "review": {
+      "submitTitle": "Indsend en Anmeldelse",
+      "editTitle": "Rediger Anmeldelse",
+      "description": "Del dine tanker om {{title}}",
+      "rating": "Bedømmelse",
+      "ratingError": "Bedømmelse skal være mellem 1 og 10",
+      "recommend": "Vil du anbefale dette produkt?",
+      "recommendError": "Vælg venligst ja eller nej",
+      "yes": "Ja",
+      "no": "Nej",
+      "title": "Titel",
+      "titlePlaceholder": "Indtast en titel til din anmeldelse",
+      "titleRequired": "Titel er påkrævet",
+      "titleMinLength": "Titel skal være mindst 3 tegn",
+      "titleMinLengthLong": "Titel skal være mindst 3 tegn lang",
+      "titleMaxLength": "Titel skal være mindre end 75 tegn",
+      "reviewContent": "Anmeldelsesindhold",
+      "contentMinLength": "Indhold skal være mindst 3 tegn langt",
+      "tags": "Tags (komma-separeret)",
+      "tagsPlaceholder": "f.eks. kvalitet, design, ydelse",
+      "previous": "Forrige",
+      "next": "Næste",
+      "submit": "Indsend Anmeldelse",
+      "deleteReview": "Slet anmeldelse",
+      "confirmDelete": "Er du sikker på at du vil slette denne anmeldelse?",
+      "deleteDescription": "Denne handling kan ikke fortrydes. Dette vil permanent slette anmeldelsen fra vores servere.",
+      "cancel": "Annuller",
+      "delete": "Slet",
+      "deleting": "Sletter...",
+      "errorSubmitting": "Fejl ved indsendelse af anmeldelse",
+      "errorDeleting": "Fejl ved sletning af anmeldelse",
+      "spamDetected": "Spam opdaget",
+      "defaultContent": "Indtast venligst din anmeldelse her",
+      "theProduct": "produktet"
+    },
+    "androidBeta": {
+      "title": "Deltag i Beta",
+      "description": "Log ind med Google for at registrere dig til den lukkede beta. Vi har kun brug for din e-mailadresse.",
+      "spotsRemaining": "<strong>{{remaining}}</strong> af {{max}} pladser tilbage",
+      "betaFull": "Beta er Fuld",
+      "betaFullDesc": "Alle {{max}} pladser er optaget. Kig tilbage senere eller følg os for opdateringer om hvornår flere pladser bliver tilgængelige.",
+      "registering": "Registrerer dig til betaen...",
+      "registered": "Du er registreret!",
+      "registeredDesc": "Vi har registreret <strong>{{email}}</strong> til den lukkede beta.",
+      "registeredDesc2": "Det kan tage et par timer før du bliver manuelt tilføjet til testerlisten. Når du er tilføjet, kan du deltage i betaen her:",
+      "joinBeta": "Deltag i Beta på Google Play",
+      "alreadyRegistered": "Allerede Registreret",
+      "alreadyRegisteredDesc": "<strong>{{email}}</strong> er allerede registreret til betaen.",
+      "alreadyRegisteredDesc2": "Hvis du allerede er blevet tilføjet til testerlisten, kan du deltage i betaen her:",
+      "error": "Fejl",
+      "tryAgain": "Prøv Igen",
+      "noCredential": "Ingen legitimationsoplysninger modtaget fra Google",
+      "somethingWrong": "Noget gik galt. Prøv venligst igen.",
+      "googleFailed": "Google Log Ind mislykkedes. Prøv venligst igen."
+    },
+    "donateKey": {
+      "donate": "Donér",
+      "error": "Fejl",
+      "success": "Succes",
+      "successDesc": "Tak for din donation! Varen er blevet indløst korrekt og dens data vil være tilgængelig snart.",
+      "offerPage": "Tilbudsside",
+      "somethingWrong": "Noget gik galt. Prøv venligst igen."
+    }
+  },
+  "ui": {
+    "dialog": {
+      "close": "Luk"
+    },
+    "sheet": {
+      "close": "Luk"
+    },
+    "carousel": {
+      "previous": "Forrige slide",
+      "next": "Næste slide"
+    },
+    "pagination": {
+      "previous": "Forrige",
+      "next": "Næste",
+      "morePages": "Flere sider"
+    },
+    "priceRangeSlider": {
+      "priceRange": "Prisinterval",
+      "minPrice": "Min. pris",
+      "maxPrice": "Maks. pris"
+    }
+  }
+}

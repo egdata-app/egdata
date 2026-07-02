@@ -4,7 +4,7 @@ import { getImage } from "@/lib/getImage";
 import { Skeleton } from "../ui/skeleton";
 import type { SingleOffer } from "@/types/single-offer";
 import { offersDictionary } from "@/lib/offers-dictionary";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { useGenres } from "@/hooks/use-genres";
 import { cn } from "@/lib/utils";
 import { Badge } from "../ui/badge";
@@ -101,79 +101,6 @@ export function GameCardSkeleton() {
   );
 }
 
-const GRADIENT_TRANSITION_POINT = 0.1;
-const NUM_STEPS = 10;
-const GRADIENT_END_POINT = 0.8;
-
-// Cubic easing function
-const easeInOutCubic = (t: number): number => {
-  return t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2;
-};
-
-const gradientCache: Record<string, string> = {};
-
-const extractGradient = async (imageSrc: string): Promise<string> => {
-  if (gradientCache[imageSrc]) {
-    return gradientCache[imageSrc];
-  }
-
-  return new Promise((resolve) => {
-    if (imageSrc[0] === "/") {
-      imageSrc = `https://egdata.app${imageSrc}`;
-    }
-    const imgUrl = new URL(imageSrc);
-    imgUrl.searchParams.set("w", "1");
-    imgUrl.searchParams.set("h", "1");
-    imgUrl.searchParams.set("resize", "1");
-    const img = new window.Image();
-    img.crossOrigin = "Anonymous";
-    img.src = imgUrl.toString();
-    img.onload = () => {
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-      canvas.width = img.width;
-      canvas.height = img.height;
-      ctx?.drawImage(img, 0, 0, img.width, img.height);
-      const imageData = ctx.getImageData(0, 0, img.width, img.height).data;
-
-      let r = 0,
-        g = 0,
-        b = 0;
-      const pixelCount = img.width * img.height;
-
-      for (let i = 0; i < pixelCount * 4; i += 4) {
-        r += imageData[i];
-        g += imageData[i + 1];
-        b += imageData[i + 2];
-      }
-
-      r = Math.floor(r / pixelCount);
-      g = Math.floor(g / pixelCount);
-      b = Math.floor(b / pixelCount);
-
-      const color = { r, g, b };
-      const startColor = `rgba(${color.r}, ${color.g}, ${color.b}, 1)`;
-      const endColor = "rgba(0, 0, 0, 0)";
-
-      let gradientSteps = `${startColor} 0%, `;
-      for (let i = 1; i <= NUM_STEPS; i++) {
-        const t = i / NUM_STEPS;
-        const easedT = easeInOutCubic(t);
-        const opacity = 1 - easedT;
-        gradientSteps += `rgba(${color.r}, ${color.g}, ${color.b}, ${opacity}) ${
-          GRADIENT_TRANSITION_POINT * 100 +
-          (i * ((GRADIENT_END_POINT - GRADIENT_TRANSITION_POINT) * 100)) / NUM_STEPS
-        }%, `;
-      }
-      gradientSteps += `${endColor} ${GRADIENT_END_POINT * 100}%, ${endColor} 100%`;
-
-      const gradient = `radial-gradient(ellipse at center top, ${gradientSteps})`;
-      gradientCache[imageSrc] = gradient;
-      resolve(gradient);
-    };
-  });
-};
-
 const textSizes = {
   xs: "text-xs",
   sm: "text-sm",
@@ -193,7 +120,6 @@ export function OfferCard({
 }) {
   const { addId, removeId, ownedStatus } = useExtension();
   const { genres } = useGenres();
-  const [gradient, setGradient] = useState<string | null>(null);
 
   const offerGenres = useMemo(() => {
     if (!genres) return [];
@@ -214,14 +140,6 @@ export function OfferCard({
       ])?.url ?? "/placeholder.webp",
     [offer.keyImages],
   );
-
-  useEffect(() => {
-    if (import.meta.env.DEV) {
-      setGradient(null);
-      return;
-    }
-    extractGradient(gradientImage).then(setGradient);
-  }, [gradientImage]);
 
   useEffect(() => {
     addId(offer.id, offer.namespace);
@@ -250,15 +168,6 @@ export function OfferCard({
           quality="high"
           loading="lazy"
           className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
-        />
-        <div
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-          style={{
-            backgroundImage: gradient ?? "linear-gradient(0deg, #000, #000)",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            mixBlendMode: "screen",
-          }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/30 to-transparent" />
         {offer.offerType && (

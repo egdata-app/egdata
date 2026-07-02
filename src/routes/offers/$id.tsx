@@ -52,6 +52,8 @@ import { DateTime } from "luxon";
 import { Bell } from "lucide-react";
 import { useCookies } from "react-cookie";
 import { OffersHomeSkeleton } from "@/components/skeletons/offers-home";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 export const Route = createFileRoute("/offers/$id")({
   component: () => {
@@ -63,11 +65,11 @@ export const Route = createFileRoute("/offers/$id")({
   }),
 
   beforeLoad: async ({ params, context }) => {
-    const { queryClient } = context;
+    const { queryClient, locale } = context;
     const { id } = params;
 
     const offer = await queryClient
-      .ensureQueryData(offerOnlyQueryOptions(params.id))
+      .ensureQueryData(offerOnlyQueryOptions(params.id, locale))
       .catch(() => null);
 
     return {
@@ -77,7 +79,7 @@ export const Route = createFileRoute("/offers/$id")({
   },
 
   loader: async ({ params, context }) => {
-    const { country, queryClient, offer } = context;
+    const { country, locale, queryClient, offer } = context;
     const { id } = params;
 
     await Promise.allSettled([
@@ -88,7 +90,9 @@ export const Route = createFileRoute("/offers/$id")({
             .get<Price>(`/offers/${params.id}/price?country=${country || "US"}`)
             .catch(() => null),
       }),
-      queryClient.prefetchQuery(offerGqlQueryOptions({ id: params.id, country: country || "US" })),
+      queryClient.prefetchQuery(
+        offerGqlQueryOptions({ id: params.id, country: country || "US", locale }),
+      ),
       queryClient.prefetchQuery({
         queryKey: ["offer-assets", { id }],
         queryFn: () => httpClient.get<Asset[]>(`/offers/${id}/assets`).catch(() => []),
@@ -98,6 +102,7 @@ export const Route = createFileRoute("/offers/$id")({
     return {
       id,
       country,
+      locale,
       offer,
     };
   },
@@ -109,8 +114,8 @@ export const Route = createFileRoute("/offers/$id")({
       return {
         meta: [
           {
-            title: "Offer not found",
-            description: "Offer not found",
+            title: i18n.t("offerDetail.common.offerNotFound"),
+            description: i18n.t("offerDetail.common.offerNotFound"),
           },
         ],
       };
@@ -121,8 +126,8 @@ export const Route = createFileRoute("/offers/$id")({
       return {
         meta: [
           {
-            title: "Offer not found",
-            description: "Offer not found",
+            title: i18n.t("offerDetail.common.offerNotFound"),
+            description: i18n.t("offerDetail.common.offerNotFound"),
           },
         ],
       };
@@ -165,8 +170,9 @@ export const Route = createFileRoute("/offers/$id")({
 });
 
 function OfferPage() {
+  const { t } = useTranslation();
   const { id } = Route.useParams();
-  const { timezone } = useLocale();
+  const { locale, timezone } = useLocale();
   const { country } = useCountry();
   const { addToCompare, removeFromCompare, compare } = useCompare();
   const navigate = useNavigate();
@@ -251,7 +257,7 @@ function OfferPage() {
   };
 
   const { data, isLoading: offerLoading } = useSuspenseQuery(
-    offerGqlQueryOptions({ id, country: country || "US" }),
+    offerGqlQueryOptions({ id, country: country || "US", locale }),
   );
 
   const offer = data?.offer;
@@ -265,7 +271,7 @@ function OfferPage() {
   }
 
   if (!offer) {
-    return <main>Offer not found</main>;
+    return <main>{t("offerDetail.common.offerNotFound")}</main>;
   }
 
   if (offer.title === "Error") {
@@ -290,7 +296,7 @@ function OfferPage() {
           </div>
           <h4
             className="inline-flex flex-wrap items-center gap-2 text-base font-semibold opacity-50 md:text-lg"
-            aria-label={`Offered by ${offer.seller.name}`}
+            aria-label={t("offerDetail.hero.offeredBy", { seller: offer.seller.name })}
           >
             <Seller
               developerDisplayName={offer.developerDisplayName as string}
@@ -298,9 +304,11 @@ function OfferPage() {
               seller={offer.seller.name}
               customAttributes={offer.customAttributes}
             />
-            {offer.prePurchase && <Badge variant="outline">Pre-Purchase</Badge>}
+            {offer.prePurchase && (
+              <Badge variant="outline">{t("offerDetail.badges.prePurchase")}</Badge>
+            )}
             {offer.tags.find((tag) => tag.id === "1310") && (
-              <Badge variant="outline">Early Access</Badge>
+              <Badge variant="outline">{t("offerDetail.badges.earlyAccess")}</Badge>
             )}
           </h4>
 
@@ -308,7 +316,9 @@ function OfferPage() {
             <Table className="min-w-[640px]">
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[180px] md:w-[300px]">Offer ID</TableHead>
+                  <TableHead className="w-[180px] md:w-[300px]">
+                    {t("offerDetail.table.offerId")}
+                  </TableHead>
                   <TableHead className="text-left font-mono border-l-border/10 border-l">
                     {offer.id}
                   </TableHead>
@@ -316,7 +326,7 @@ function OfferPage() {
               </TableHeader>
               <TableBody>
                 <TableRow>
-                  <TableCell className="font-medium">Namespace</TableCell>
+                  <TableCell className="font-medium">{t("offerDetail.table.namespace")}</TableCell>
                   <TableCell
                     className={
                       "text-left font-mono border-l-border/10 border-l underline decoration-dotted decoration-border underline-offset-4"
@@ -333,7 +343,7 @@ function OfferPage() {
                           <Tooltip>
                             <TooltipTrigger>{offer.namespace}</TooltipTrigger>
                             <TooltipContent>
-                              <p>Epic Games internal namespace</p>
+                              <p>{t("offerDetail.tooltip.internalNamespace")}</p>
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
@@ -344,14 +354,14 @@ function OfferPage() {
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell className="font-medium">Offer Type</TableCell>
+                  <TableCell className="font-medium">{t("offerDetail.table.offerType")}</TableCell>
                   <TableCell className="text-left border-l-border/10 border-l">
                     {offersDictionary[offer.offerType as keyof typeof offersDictionary] ||
                       offer.offerType}
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell className="font-medium">Seller</TableCell>
+                  <TableCell className="font-medium">{t("offerDetail.table.seller")}</TableCell>
                   <TableCell className="text-left border-l-border/10 border-l">
                     <Link
                       to="/sellers/$id"
@@ -363,7 +373,7 @@ function OfferPage() {
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell className="font-medium">Developer</TableCell>
+                  <TableCell className="font-medium">{t("offerDetail.table.developer")}</TableCell>
                   <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
                     <Seller
                       developerDisplayName={offer.developerDisplayName as string}
@@ -374,7 +384,9 @@ function OfferPage() {
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell className="font-medium">Supported Platforms</TableCell>
+                  <TableCell className="font-medium">
+                    {t("offerDetail.table.supportedPlatforms")}
+                  </TableCell>
                   <TableCell className="text-left border-l-border/10 border-l inline-flex items-center justify-start gap-1">
                     {platformTags.map((tag) => (
                       <span key={tag.id} className="text-sm">
@@ -382,11 +394,13 @@ function OfferPage() {
                       </span>
                     ))}
 
-                    {!platformTags.length && <div>N/A</div>}
+                    {!platformTags.length && <div>{t("offerDetail.common.na")}</div>}
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell className="font-medium">Release Date</TableCell>
+                  <TableCell className="font-medium">
+                    {t("offerDetail.table.releaseDate")}
+                  </TableCell>
                   <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
                     <ReleaseDate
                       releaseDate={offer.releaseDate}
@@ -396,7 +410,7 @@ function OfferPage() {
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell className="font-medium">Last Update</TableCell>
+                  <TableCell className="font-medium">{t("offerDetail.table.lastUpdate")}</TableCell>
                   <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
                     {offer.lastModifiedDate
                       ? DateTime.fromISO(offer.lastModifiedDate, {
@@ -411,12 +425,14 @@ function OfferPage() {
                             minute: "numeric",
                             timeZoneName: "short",
                           })
-                      : "Not available"}
+                      : t("offerDetail.common.notAvailable")}
                     <TimeAgo targetDate={offer.lastModifiedDate} />
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell className="font-medium">Creation Date</TableCell>
+                  <TableCell className="font-medium">
+                    {t("offerDetail.table.creationDate")}
+                  </TableCell>
                   <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
                     {offer.creationDate
                       ? DateTime.fromISO(offer.creationDate, {
@@ -431,7 +447,7 @@ function OfferPage() {
                             minute: "numeric",
                             timeZoneName: "short",
                           })
-                      : "Not available"}
+                      : t("offerDetail.common.notAvailable")}
                     <TimeAgo targetDate={offer.creationDate} />
                   </TableCell>
                 </TableRow>
@@ -442,22 +458,21 @@ function OfferPage() {
                         <Tooltip>
                           <TooltipTrigger>
                             <span className="underline decoration-dotted decoration-border/60 underline-offset-4 cursor-help">
-                              Technologies
+                              {t("offerDetail.table.technologies")}
                             </span>
                           </TooltipTrigger>
                           <TooltipContent>
                             <p className="text-sm max-w-md">
-                              We use the{" "}
+                              {t("offerDetail.tooltip.techSource")}{" "}
                               <a
                                 href="https://steamdb.info/tech/"
                                 className="text-blue-700 font-semibold"
                                 target="_blank"
                                 rel="noopener noreferrer"
                               >
-                                SteamDB
+                                {t("offerDetail.tooltip.techSourceSteamDb")}
                               </a>{" "}
-                              technologies list to track the used engines and different technologies
-                              from the game files.
+                              {t("offerDetail.tooltip.techDescription")}
                               <br />
                               <a
                                 href="https://github.com/SteamDatabase/FileDetectionRuleSets"
@@ -465,7 +480,7 @@ function OfferPage() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                               >
-                                Source
+                                {t("offerDetail.tooltip.source")}
                               </a>
                             </p>
                           </TooltipContent>
@@ -551,7 +566,7 @@ function OfferPage() {
               className="inline-flex items-center gap-1 bg-card text-card-foreground hover:bg-accent border border-border/60"
             >
               {compare.includes(offer.id) ? <RemoveIcon /> : <AddIcon />}
-              <span>Compare</span>
+              <span>{t("offerDetail.actions.compare")}</span>
             </Button>
             <Popover>
               <PopoverTrigger asChild>
@@ -564,11 +579,13 @@ function OfferPage() {
               </PopoverTrigger>
               <PopoverContent className="w-80">
                 <div className="space-y-4">
-                  <h4 className="font-medium leading-none">Notification Settings</h4>
+                  <h4 className="font-medium leading-none">
+                    {t("offerDetail.notifications.title")}
+                  </h4>
                   {canPerformTopicOperations ? (
                     <>
                       <p className="text-sm text-muted-foreground">
-                        Choose what notifications you want to receive for this offer.
+                        {t("offerDetail.notifications.description")}
                       </p>
                       <div className="space-y-3">
                         <div className="flex items-center space-x-2">
@@ -592,7 +609,7 @@ function OfferPage() {
                             htmlFor="all"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                           >
-                            All
+                            {t("offerDetail.notifications.all")}
                           </label>
                         </div>
                         <div className="flex items-center space-x-2">
@@ -608,7 +625,7 @@ function OfferPage() {
                             htmlFor="price"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                           >
-                            Price
+                            {t("offerDetail.notifications.price")}
                           </label>
                         </div>
                         <div className="flex items-center space-x-2">
@@ -624,7 +641,7 @@ function OfferPage() {
                             htmlFor="achievements"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                           >
-                            Achievements
+                            {t("offerDetail.notifications.achievements")}
                           </label>
                         </div>
                         <div className="flex items-center space-x-2">
@@ -640,7 +657,7 @@ function OfferPage() {
                             htmlFor="builds"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                           >
-                            Builds
+                            {t("offerDetail.notifications.builds")}
                           </label>
                         </div>
                         <div className="flex items-center space-x-2">
@@ -656,7 +673,7 @@ function OfferPage() {
                             htmlFor="items"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                           >
-                            Items
+                            {t("offerDetail.notifications.items")}
                           </label>
                         </div>
                         <div className="flex items-center space-x-2">
@@ -672,7 +689,7 @@ function OfferPage() {
                             htmlFor="requirements"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                           >
-                            Requirements
+                            {t("offerDetail.notifications.requirements")}
                           </label>
                         </div>
                         <div className="flex items-center space-x-2">
@@ -688,7 +705,7 @@ function OfferPage() {
                             htmlFor="metadata"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                           >
-                            Metadata
+                            {t("offerDetail.notifications.metadata")}
                           </label>
                         </div>
                         <div className="flex items-center space-x-2">
@@ -704,7 +721,7 @@ function OfferPage() {
                             htmlFor="media"
                             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                           >
-                            Media
+                            {t("offerDetail.notifications.media")}
                           </label>
                         </div>
                       </div>
@@ -712,11 +729,12 @@ function OfferPage() {
                   ) : (
                     <>
                       <p className="text-sm text-muted-foreground">
-                        You need to enable push notifications to receive notifications for this
-                        offer.
+                        {t("offerDetail.notifications.enablePushDescription")}
                       </p>
                       <Button asChild className="w-full">
-                        <Link to="/notifications">Enable Push Notifications</Link>
+                        <Link to="/notifications">
+                          {t("offerDetail.notifications.enablePushAction")}
+                        </Link>
                       </Button>
                     </>
                   )}
@@ -751,52 +769,52 @@ function OfferPage() {
           links={[
             {
               id: "",
-              label: "Overview",
+              label: t("offerDetail.tabs.overview"),
               href: `/offers/${offer.id}`,
             },
             {
               id: "price",
-              label: "Price",
+              label: t("offerDetail.tabs.price"),
               href: `/offers/${offer.id}/price`,
             },
             {
               id: "items",
-              label: "Items",
+              label: t("offerDetail.tabs.items"),
               href: `/offers/${offer.id}/items`,
             },
             {
               id: "builds",
-              label: "Builds",
+              label: t("offerDetail.tabs.builds"),
               href: `/offers/${offer.id}/builds`,
             },
             {
               id: "achievements",
-              label: "Achievements",
+              label: t("offerDetail.tabs.achievements"),
               href: `/offers/${offer.id}/achievements`,
             },
             {
               id: "related",
-              label: "Related",
+              label: t("offerDetail.tabs.related"),
               href: `/offers/${offer.id}/related`,
             },
             {
               id: "metadata",
-              label: "Metadata",
+              label: t("offerDetail.tabs.metadata"),
               href: `/offers/${offer.id}/metadata`,
             },
             {
               id: "changelog",
-              label: "Changelog",
+              label: t("offerDetail.tabs.changelog"),
               href: `/offers/${offer.id}/changelog`,
             },
             {
               id: "media",
-              label: "Media",
+              label: t("offerDetail.tabs.media"),
               href: `/offers/${offer.id}/media`,
             },
             {
               id: "reviews",
-              label: "Reviews",
+              label: t("offerDetail.tabs.reviews"),
               href: `/offers/${offer.id}/reviews`,
             },
           ]}
@@ -825,9 +843,10 @@ function OfferPage() {
 const TimeAgo: React.FC<{
   targetDate: string;
 }> = ({ targetDate }) => {
+  const { t } = useTranslation();
   return (
     <span className="opacity-50">
-      ({targetDate ? timeAgo(new Date(targetDate)) : "Not available"})
+      ({targetDate ? timeAgo(new Date(targetDate)) : t("offerDetail.common.notAvailable")})
     </span>
   );
 };
@@ -837,8 +856,9 @@ const ReleaseDate: React.FC<{
   pcReleaseDate: string | null;
   timezone: string | undefined;
 }> = ({ releaseDate, pcReleaseDate, timezone }) => {
+  const { t } = useTranslation();
   if (!releaseDate || releaseDate.includes("2099")) {
-    return <span>Not available</span>;
+    return <span>{t("offerDetail.common.notAvailable")}</span>;
   }
 
   return (
@@ -868,12 +888,12 @@ const ReleaseDate: React.FC<{
           </TooltipTrigger>
           <TooltipContent>
             {!pcReleaseDate || releaseDate === pcReleaseDate ? (
-              "Released on Epic the same day as PC"
+              t("offerDetail.releaseDate.releasedSameDay")
             ) : (
               <span>
-                <span>Released on PC </span>
+                <span>{t("offerDetail.releaseDate.releasedOnPc")} </span>
                 <span>{compareDates(new Date(pcReleaseDate), new Date(releaseDate))}</span>
-                <span> the EGS</span>
+                <span>{t("offerDetail.releaseDate.theEgs")}</span>
               </span>
             )}
           </TooltipContent>

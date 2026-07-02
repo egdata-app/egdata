@@ -38,6 +38,8 @@ import { getQueryClient } from "@/lib/client";
 import { useLocale } from "@/hooks/use-locale";
 import { Viewer } from "@/components/app/viewer";
 import { DateTime } from "luxon";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 const ReviewForm = lazy(() =>
   import("@/components/forms/add-review").then((mod) => {
@@ -164,8 +166,8 @@ export const Route = createFileRoute("/offers/$id/reviews")({
       return {
         meta: [
           {
-            title: "Offer not found",
-            description: "Offer not found",
+            title: i18n.t("offerDetail.common.offerNotFound"),
+            description: i18n.t("offerDetail.common.offerNotFound"),
           },
         ],
       };
@@ -180,8 +182,8 @@ export const Route = createFileRoute("/offers/$id/reviews")({
       return {
         meta: [
           {
-            title: "Offer not found",
-            description: "Offer not found",
+            title: i18n.t("offerDetail.common.offerNotFound"),
+            description: i18n.t("offerDetail.common.offerNotFound"),
           },
         ],
       };
@@ -193,6 +195,7 @@ export const Route = createFileRoute("/offers/$id/reviews")({
 });
 
 function Reviews() {
+  const { t } = useTranslation();
   const { epicToken } = routeApi.useRouteContext();
   const { locale } = useLocale();
   const { offer, id } = Route.useLoaderData() as {
@@ -279,11 +282,11 @@ function Reviews() {
   const userCanReview = permissions
     ? {
         status: permissions.canReview,
-        label: "Already reviewed",
+        label: t("offerDetail.reviews.alreadyReviewed"),
       }
     : {
         status: false,
-        label: "Login to review",
+        label: t("offerDetail.reviews.loginToReview"),
       };
 
   const isReleased = offer
@@ -297,9 +300,11 @@ function Reviews() {
           {poll?.averageRating && (
             <section className="flex flex-col items-start justify-center text-left w-full">
               <div className="flex flex-col items-start justify-center text-center mb-4">
-                <h3 className="text-2xl font-semibold mb-1 text-left">Epic Players Rating</h3>
+                <h3 className="text-2xl font-semibold mb-1 text-left">
+                  {t("offerDetail.reviews.epicRating")}
+                </h3>
                 <p className="text-sm text-muted-foreground">
-                  Captured from players in the Epic Games ecosystem
+                  {t("offerDetail.reviews.epicRatingDescription")}
                 </p>
               </div>
               <Card className="w-full bg-card text-foreground p-4">
@@ -351,25 +356,29 @@ function Reviews() {
           )}
           <hr className="border-t border-border/30 my-2 w-full" />
           <div className="flex flex-col items-start justify-center text-center w-full">
-            <h3 className="text-2xl font-semibold mb-1 text-left">EGDATA Rating</h3>
+            <h3 className="text-2xl font-semibold mb-1 text-left">
+              {t("offerDetail.reviews.egdataRating")}
+            </h3>
           </div>
           <div className="flex items-center justify-between flex-row w-full h-32 gap-4">
             <Card className="w-full bg-card text-foreground h-32">
               <CardContent className="p-6">
                 <div className="flex flex-col sm:flex-row items-center justify-evenly gap-4">
                   <div className="flex flex-col items-center justify-center text-center">
-                    <h2 className="text-lg font-semibold mb-1">Overall Score</h2>
+                    <h2 className="text-lg font-semibold mb-1">
+                      {t("offerDetail.reviews.overallScore")}
+                    </h2>
                     <p className="text-4xl font-bold text-center">
-                      {summary?.overallScore ?? "-"} / 10
+                      {t("offerDetail.reviews.scoreOutOf10", {
+                        score: summary?.overallScore ?? "-",
+                      })}
                     </p>
                   </div>
                   <div className="flex flex-col items-center justify-between gap-4">
                     <span className="text-sm">
-                      Based on{" "}
-                      {summary?.totalReviews.toLocaleString(locale, {
-                        maximumFractionDigits: 0,
-                      })}{" "}
-                      reviews
+                      {t("offerDetail.reviews.basedOnReviews", {
+                        count: summary?.totalReviews ?? 0,
+                      })}
                     </span>
                     <RecommendationBar
                       recommendedPercentage={summary?.recommendedPercentage ?? 0}
@@ -383,12 +392,14 @@ function Reviews() {
             <Card className="w-fit flex flex-col items-start justify-center p-4 h-full gap-2 text-left">
               <Select value={filter} onValueChange={(value) => setFilter(value as ReviewsFilter)}>
                 <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="All Reviews" />
+                  <SelectValue placeholder={t("offerDetail.reviews.allReviews")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All Reviews</SelectItem>
-                  <SelectItem value="verified">Only Verified</SelectItem>
-                  <SelectItem value="not-verified">Not Verified</SelectItem>
+                  <SelectItem value="all">{t("offerDetail.reviews.allReviews")}</SelectItem>
+                  <SelectItem value="verified">{t("offerDetail.reviews.onlyVerified")}</SelectItem>
+                  <SelectItem value="not-verified">
+                    {t("offerDetail.reviews.notVerified")}
+                  </SelectItem>
                 </SelectContent>
               </Select>
               <Button
@@ -397,7 +408,7 @@ function Reviews() {
                 onClick={() => setShowReviewForm((prev) => !prev)}
                 disabled={!isReleased || !userCanReview.status}
               >
-                {userCanReview.status ? "Leave a review" : userCanReview.label}
+                {userCanReview.status ? t("offerDetail.reviews.leaveReview") : userCanReview.label}
               </Button>
             </Card>
           </div>
@@ -409,19 +420,14 @@ function Reviews() {
                 <InfoCircledIcon className="size-4" fill="currentColor" />
               </TooltipTrigger>
               <p className="text-muted-foreground inline-flex items-center gap-1">
-                <strong>Ownership verification</strong> is based on the completion of at least one
-                achievement by the player.
+                <strong>{t("offerDetail.reviews.ownershipVerification")}</strong>{" "}
+                {t("offerDetail.reviews.ownershipVerificationDescription")}
               </p>
               <TooltipContent>
                 <p className="text-xs max-w-sm">
-                  We use the Epic Games achievements to verify the ownership of the product.
-                  <br />
-                  To mark a player as verified owner, they must have completed at least one
-                  achievement for the selected product in the Epic Games Store.
-                  <br />
-                  To link your account to your egdata profile, you need to go to{" "}
+                  {t("offerDetail.reviews.ownershipVerificationTooltip")}{" "}
                   <Link to="/dashboard" className="text-blue-600">
-                    your dashboard
+                    {t("offerDetail.reviews.yourDashboard")}
                   </Link>
                 </p>
               </TooltipContent>
@@ -438,12 +444,10 @@ function Reviews() {
       ) : (
         <div className="w-full text-center min-h-[400px] max-w-4xl mx-auto px-4">
           <h6 className="text-lg font-semibold">
-            {isReleased ? "No reviews yet" : "This product has not been released yet"}
+            {isReleased ? t("offerDetail.reviews.noReviews") : t("offerDetail.reviews.notReleased")}
           </h6>
           <p className="text-muted-foreground">
-            {isReleased
-              ? "Be the first to leave a review for this product!"
-              : "Check back after the release date to leave a review!"}
+            {isReleased ? t("offerDetail.reviews.beFirst") : t("offerDetail.reviews.checkBack")}
           </p>
           <Button
             variant="outline"
@@ -451,7 +455,7 @@ function Reviews() {
             onClick={() => setShowReviewForm((prev) => !prev)}
             disabled={!isReleased || !userCanReview.status}
           >
-            Leave a review
+            {t("offerDetail.reviews.leaveReview")}
           </Button>
         </div>
       )}
@@ -463,30 +467,30 @@ function Reviews() {
         <div className="flex items-center flex-col gap-4 w-full">
           <section className="flex flex-col items-start justify-center text-left w-full">
             <div className="flex flex-col items-start justify-center text-center mb-4">
-              <h3 className="text-2xl font-semibold mb-1 text-left">Critic Reviews</h3>
+              <h3 className="text-2xl font-semibold mb-1 text-left">
+                {t("offerDetail.reviews.criticReviews")}
+              </h3>
               <p className="text-sm text-muted-foreground">
-                Based on {ratings?.reviews.length ?? 0} critic reviews
+                {t("offerDetail.reviews.basedOnCriticReviews", {
+                  count: ratings?.reviews.length ?? 0,
+                })}
               </p>
             </div>
             <Card className="w-full bg-card text-foreground p-4">
               <div className="flex flex-row items-center justify-evenly gap-4">
                 <div className="flex flex-row items-center justify-center gap-4">
                   <span className="text-xl text-center">
-                    OpenCritic
-                    <br />
-                    Rating
+                    {t("offerDetail.reviews.opencriticRating")}
                   </span>
                   <img
                     src={`https://img.opencritic.com/mighty-man/${ratings.criticRating.toLowerCase()}-man.png`}
-                    alt="OpenCritic Rating"
+                    alt={t("offerDetail.reviews.opencriticRatingAlt")}
                     className="size-20"
                   />
                 </div>
                 <div className="flex flex-row items-center justify-center gap-4">
                   <span className="text-xl text-center">
-                    Top Critic
-                    <br />
-                    Average
+                    {t("offerDetail.reviews.topCriticAverage")}
                   </span>
                   <CircularRating
                     rating={ratings?.criticAverage ?? 0}
@@ -497,9 +501,7 @@ function Reviews() {
                 </div>
                 <div className="flex flex-row items-center justify-center gap-4">
                   <span className="text-xl text-center">
-                    Critics
-                    <br />
-                    Recommend
+                    {t("offerDetail.reviews.criticsRecommend")}
                   </span>
                   <CircularRating
                     rating={ratings?.recommendPercentage ?? 0}
@@ -519,6 +521,7 @@ function Reviews() {
 }
 
 function Review({ review, full }: { review: SingleReview; full?: boolean }) {
+  const { t } = useTranslation();
   const [showEditForm, setShowEditForm] = useState(false);
   const [showFull, setShowFull] = useState(full);
   const { userId } = Route.useLoaderData() as {
@@ -545,14 +548,20 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
           search={{}}
         >
           <div className="font-bold">{review.user.displayName}</div>
-          {review.verified && <Badge variant="secondary">Verified Owner</Badge>}
+          {review.verified && (
+            <Badge variant="secondary">{t("offerDetail.reviews.verifiedOwner")}</Badge>
+          )}
         </Link>
         <div className="ml-auto flex items-end space-x-2 bg-muted px-2 py-1 rounded-lg">
           <div className=" text-foreground px-2 py-1 rounded-lg font-bold">
             {review.rating} / 10
           </div>
           <div className="flex items-center space-x-1 font-bold">
-            <span>{review.recommended ? "Recommended" : "Not Recommended"}</span>
+            <span>
+              {review.recommended
+                ? t("offerDetail.reviews.recommended")
+                : t("offerDetail.reviews.notRecommended")}
+            </span>
             <ThumbsUpIcon
               className={cn(
                 "p-[4px] size-8",
@@ -585,7 +594,7 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
                 onClick={() => setShowFull(true)}
               >
                 <ChevronDown className="size-4" />
-                Read more
+                {t("offerDetail.reviews.readMore")}
                 <ChevronDown className="size-4" />
               </Button>
             </div>
@@ -597,7 +606,7 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
           <TooltipProvider>
             <div className="flex items-center">
               <span className="text-muted-foreground">
-                Reviewed on{" "}
+                {t("offerDetail.reviews.reviewedOn")}{" "}
                 {DateTime.fromISO(review.createdAt).setLocale("en-GB").toLocaleString({
                   year: "numeric",
                   month: "short",
@@ -612,7 +621,7 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
                   <TooltipContent>
                     <span className="text-xs flex flex-col gap-1">
                       <span>
-                        Last updated on{" "}
+                        {t("offerDetail.reviews.lastUpdatedOn")}{" "}
                         {DateTime.fromISO(review.updatedAt).setLocale("en-GB").toLocaleString({
                           year: "numeric",
                           month: "short",
@@ -621,7 +630,13 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
                           minute: "numeric",
                         })}
                       </span>
-                      {review.editions && <span>Edited {review.editions?.length ?? 0} times</span>}
+                      {review.editions && (
+                        <span>
+                          {t("offerDetail.reviews.editedTimes", {
+                            count: review.editions?.length ?? 0,
+                          })}
+                        </span>
+                      )}
                     </span>
                   </TooltipContent>
                 </Tooltip>
@@ -634,7 +649,7 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
               className="text-sm"
               onClick={() => setShowEditForm((prev) => !prev)}
             >
-              Edit
+              {t("offerDetail.reviews.edit")}
             </Button>
           )}
         </div>
@@ -664,6 +679,7 @@ function FullReview({
   review: SingleReview;
   setIsOpen: (isOpen: boolean) => void;
 }) {
+  const { t } = useTranslation();
   const userAvatar =
     review.user.avatarUrl?.variants[0] ??
     `https://shared-static-prod.epicgames.com/epic-profile-icon/D8033C/${review.user.displayName[0].toUpperCase()}/icon.png?size=512`;
@@ -688,14 +704,20 @@ function FullReview({
             </Avatar>
             <div className="ml-4 inline-flex items-center space-x-2">
               <div className="font-bold">{review.user.displayName}</div>
-              {review.verified && <Badge variant="secondary">Verified Owner</Badge>}
+              {review.verified && (
+                <Badge variant="secondary">{t("offerDetail.reviews.verifiedOwner")}</Badge>
+              )}
             </div>
             <div className="ml-auto flex items-end space-x-2 bg-muted px-2 py-1 rounded-lg">
               <div className=" text-foreground px-2 py-1 rounded-lg font-bold">
                 {review.rating} / 10
               </div>
               <div className="flex items-center space-x-1 font-bold">
-                <span>{review.recommended ? "Recommended" : "Not Recommended"}</span>
+                <span>
+                  {review.recommended
+                    ? t("offerDetail.reviews.recommended")
+                    : t("offerDetail.reviews.notRecommended")}
+                </span>
                 <ThumbsUpIcon
                   className={cn(
                     "p-[4px] size-8",
@@ -723,7 +745,7 @@ function FullReview({
           </div>
           <div className="mt-4 inline-flex justify-between items-center w-full">
             <span className="text-muted-foreground">
-              Reviewed on{" "}
+              {t("offerDetail.reviews.reviewedOn")}{" "}
               {DateTime.fromISO(review.createdAt).setLocale("en-GB").toLocaleString({
                 year: "numeric",
                 month: "short",
@@ -731,7 +753,7 @@ function FullReview({
               })}
             </span>
             <Button variant="outline" className="text-sm" onClick={() => setIsOpen(false)}>
-              Close
+              {t("offerDetail.reviews.close")}
             </Button>
           </div>
         </div>
@@ -749,6 +771,7 @@ function RecommendationBar({
   notRecommendedPercentage: number;
   totalReviews: number;
 }) {
+  const { t } = useTranslation();
   const [hovered, setHovered] = useState<"recommended" | "notRecommended" | null>(null);
 
   return (
@@ -775,22 +798,18 @@ function RecommendationBar({
           )}
           {hovered === "recommended" && (
             <span className="text-sm">
-              {(recommendedPercentage * totalReviews).toLocaleString(undefined, {
-                maximumFractionDigits: 0,
-              })}{" "}
-              review
-              {totalReviews === 1 ? "" : "s"}
+              {t("offerDetail.reviews.reviewCount", {
+                count: recommendedPercentage * totalReviews,
+              })}
             </span>
           )}
         </div>
         <div className="flex items-center gap-1 font-bold">
           {hovered === "notRecommended" && (
             <span className="text-sm">
-              {(notRecommendedPercentage * totalReviews).toLocaleString(undefined, {
-                maximumFractionDigits: 0,
-              })}{" "}
-              review
-              {totalReviews === 1 ? "" : "s"}
+              {t("offerDetail.reviews.reviewCount", {
+                count: notRecommendedPercentage * totalReviews,
+              })}
             </span>
           )}
           {(hovered === "recommended" || hovered === null) && (

@@ -9,8 +9,8 @@ import type { Technology } from "@/types/builds";
 const GRAPHQL_URL = "/graphql";
 
 const offerPageQuery = graphql(`
-  query OfferPage($id: ID!, $country: String!) {
-    offer(id: $id) {
+  query OfferPage($id: ID!, $country: String!, $locale: String) {
+    offer(id: $id, locale: $locale) {
       _id
       id
       namespace
@@ -212,13 +212,21 @@ function toFranchises(gql: NonNullable<OfferPageResult["offer"]>): Franchise[] {
     })) as Franchise[];
 }
 
-export const offerGqlQueryOptions = ({ id, country }: { id: string; country: string }) =>
+export const offerGqlQueryOptions = ({
+  id,
+  country,
+  locale,
+}: {
+  id: string;
+  country: string;
+  locale?: string;
+}) =>
   queryOptions({
-    queryKey: ["offer-gql", { id, country }],
+    queryKey: ["offer-gql", { id, country, locale }],
     queryFn: async () => {
       const res = await httpClient.post<{ data: OfferPageResult }>(GRAPHQL_URL, {
         query: print(offerPageQuery),
-        variables: { id, country },
+        variables: { id, country, locale },
       });
       const offer = res.data.offer;
       if (!offer) return null;
@@ -232,8 +240,8 @@ export const offerGqlQueryOptions = ({ id, country }: { id: string; country: str
   });
 
 const offerOnlyQuery = graphql(`
-  query OfferOnly($id: ID!) {
-    offer(id: $id) {
+  query OfferOnly($id: ID!, $locale: String) {
+    offer(id: $id, locale: $locale) {
       _id
       id
       namespace
@@ -299,13 +307,13 @@ const offerOnlyQuery = graphql(`
 
 type OfferOnlyResult = ResultOf<typeof offerOnlyQuery>;
 
-export const offerOnlyQueryOptions = (id: string) =>
+export const offerOnlyQueryOptions = (id: string, locale?: string) =>
   queryOptions({
-    queryKey: ["offer", { id }],
+    queryKey: ["offer", { id, locale }],
     queryFn: async () => {
       const res = await httpClient.post<{ data: OfferOnlyResult }>(GRAPHQL_URL, {
         query: print(offerOnlyQuery),
-        variables: { id },
+        variables: { id, locale },
       });
       const offer = res.data.offer;
       if (!offer) return null;

@@ -15,6 +15,8 @@ import {
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import type { ColumnFiltersState } from "@tanstack/react-table";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 type LoaderData = {
   dehydratedState: DehydratedState;
@@ -59,8 +61,8 @@ export const Route = createFileRoute("/offers/$id/items")({
       return {
         meta: [
           {
-            title: "Offer not found",
-            description: "Offer not found",
+            title: i18n.t("offerDetail.common.offerNotFound"),
+            description: i18n.t("offerDetail.common.offerNotFound"),
           },
         ],
       };
@@ -75,20 +77,21 @@ export const Route = createFileRoute("/offers/$id/items")({
       return {
         meta: [
           {
-            title: "Offer not found",
-            description: "Offer not found",
+            title: i18n.t("offerDetail.common.offerNotFound"),
+            description: i18n.t("offerDetail.common.offerNotFound"),
           },
         ],
       };
     }
 
     return {
-      meta: generateOfferMeta(offer, "Items"),
+      meta: generateOfferMeta(offer, i18n.t("offerDetail.items.title")),
     };
   },
 });
 
 function ItemsPage() {
+  const { t } = useTranslation();
   const { id } = Route.useLoaderData() as LoaderData;
   const [page, setPage] = useState({ pageIndex: 0, pageSize: 20 });
   const [filters, setFilters] = useState<ColumnFiltersState>([]);
@@ -102,21 +105,21 @@ function ItemsPage() {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>{t("offerDetail.common.loading")}</div>;
   }
 
   if (isError) {
     return (
       <section id="offer-items" className="w-full h-full">
-        <h2 className="text-2xl font-bold">Items</h2>
-        <div>Something went wrong</div>
+        <h2 className="text-2xl font-bold">{t("offerDetail.items.title")}</h2>
+        <div>{t("offerDetail.common.somethingWentWrong")}</div>
       </section>
     );
   }
 
   return (
     <section id="offer-items" className="w-full h-full max-w-7xl mx-auto px-4">
-      <h2 className="text-xl md:text-2xl font-bold mb-4">Items</h2>
+      <h2 className="text-xl md:text-2xl font-bold mb-4">{t("offerDetail.items.title")}</h2>
       <DataTable<SingleItem, unknown>
         columns={columns}
         data={items ?? []}

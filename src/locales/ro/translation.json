@@ -1,0 +1,1763 @@
+{
+  "common": {
+    "appName": "EGDATA",
+    "search": "Căutare",
+    "searchPlaceholder": "Caută jocuri...",
+    "loading": "Se încarcă...",
+    "free": "Gratuit",
+    "notAvailable": "Indisponibil",
+    "cancel": "Anulare",
+    "save": "Salvare",
+    "close": "Închidere"
+  },
+  "nav": {
+    "toggleMenu": "Comutare meniu de navigare",
+    "logoAlt": "Logo EGDATA",
+    "explore": "Explorare",
+    "browse": "Navigare",
+    "sales": "Reducerile",
+    "changelog": "Jurnal modificări",
+    "about": "Despre",
+    "rankings": "Clasamente",
+    "topSellers": "Best-seller",
+    "mostPlayed": "Cel mai jucate",
+    "topWishlisted": "Cele mai dorite",
+    "topNewReleases": "Cele mai bune lansări noi",
+    "seeAllCollections": "Vezi toate colecțiile",
+    "others": "Altele",
+    "releaseStats": "Statistici lansări",
+    "genres": "Genuri",
+    "seeAllGenres": "Vezi toate genurile",
+    "other": "Altul",
+    "action": "Acțiune",
+    "rpg": "RPG",
+    "indie": "Indie",
+    "strategy": "Strategie",
+    "topSellerOnEpic": "Cel mai vândut pe Epic Games Store",
+    "searchItemTitle": "Căutare",
+    "searchItemDesc": "Găsește ce cauți pe Epic Games Store.",
+    "freeGamesItemTitle": "Jocuri gratuite",
+    "freeGamesItemDesc": "Explorează cele mai recente jocuri gratuite pe Epic Games Store.",
+    "withDiscountsItemTitle": "Cu reduceri",
+    "withDiscountsItemDesc": "Vezi jocurile aflate acum la reducere.",
+    "helloUser": "Bună, {{name}}!",
+    "dashboard": "Panou de bord",
+    "logout": "Deconectare",
+    "searchLanguages": "Caută limbi...",
+    "noLanguagesFound": "Nicio limbă găsită"
+  },
+  "footer": {
+    "logoAlt": "Logo EGDATA",
+    "disclaimer": "O bază de date a Epic Games Store creată de fani. Nu este afiliată cu Epic Games, Inc. Toate logo-urile, imaginile și mărcile comerciale aparțin proprietarilor lor respectivi.",
+    "legal": "Legal",
+    "privacyPolicy": "Politica de confidențialitate",
+    "notifications": "Notificări",
+    "resources": "Resurse",
+    "apiDocs": "Documentația API",
+    "changelog": "Jurnal modificări",
+    "community": "Comunitate",
+    "flagsByFlagpedia": "Steaguri de la Flagpedia",
+    "madeIn": "Realizat în"
+  },
+  "meta": {
+    "title": "Baza de date Epic Games - egdata.app",
+    "description": "Bază de date cuprinzătoare a Epic Games Store: informații despre jocuri, prețuri, istoric vânzări, liste de fișiere și multe altele. Explorează jocuri gratuite, lansări viitoare și informații din comunitate.",
+    "twitterTitle": "Baza de date Epic Games",
+    "twitterDescription": "O bază de date gratuită și open-source a Epic Games Store cu informații complete despre jocuri, urmărirea vânzărilor și multe altele. Condusă de comunitate și actualizată constant.",
+    "twitterImageAlt": "Baza de date Epic Games",
+    "ogTitle": "Baza de date Epic Games",
+    "ogDescription": "O bază de date gratuită și open-source a Epic Games Store cu informații complete despre jocuri, urmărirea vânzărilor și multe altele. Condusă de comunitate și actualizată constant.",
+    "ogImageAlt": "Baza de date Epic Games"
+  },
+  "notFound": {
+    "title": "Pagină negăsită"
+  },
+  "home": {
+    "statsBar": {
+      "offersTracked": "Oferte urmărite",
+      "priceChanges72h": "Modificări preț / 72h",
+      "activeDiscounts": "Reduceri active",
+      "giveawaysToDate": "Oferte gratuite până acum"
+    },
+    "sections": {
+      "giveawayStats": "Statistici oferte gratuite",
+      "giveawayOffers": "Oferte gratuite",
+      "upcomingOffers": "Oferte viitoare",
+      "latestOffers": "Oferte recente",
+      "latestReleased": "Lansate recent",
+      "latestOffersWithAchievements": "Oferte recente cu realizări",
+      "topSellingOffers": "Oferte best-seller",
+      "latestBuilds": "Cele mai recente compilări"
+    },
+    "tableHeaders": {
+      "hash": "#",
+      "pos": "Poz",
+      "dash": "-",
+      "title": "Titlu",
+      "starts": "Începe",
+      "ends": "Se termină",
+      "releaseDate": "Data lansării",
+      "createdAt": "Creat la",
+      "date": "Data",
+      "price": "Preț",
+      "size": "Dimensiune",
+      "creationDate": "Data creării"
+    },
+    "offerHover": {
+      "seller": "Vânzător:",
+      "developer": "Dezvoltator:",
+      "publisher": "Editor:",
+      "releaseDate": "Data lansării:",
+      "ageRating": "Clasificare de vârstă:",
+      "moreGenres_one": "+{{count}} mai mult",
+      "moreGenres_other": "+{{count}} mai multe",
+      "communityRating": "Evaluare comunitate:",
+      "igdbScore": "Scor IGDB",
+      "reviews": "• {{count}} recenzii",
+      "timeToBeat": "Timp de finalizare:",
+      "features": "Caracteristici:",
+      "moreFeatures": " +{{count}} mai multe"
+    },
+    "buildHover": {
+      "unknownBuild": "Compilare necunoscută",
+      "unknownDeveloper": "Dezvoltator necunoscut",
+      "size": "Dimensiune",
+      "version": "Versiune",
+      "created": "Creat",
+      "id": "ID: {{id}}"
+    },
+    "multipleOffers": "{{title}} - Oferte multiple",
+    "hero": {
+      "subtitle": "Urmărește prețurile, descoperă oferte și nu rata niciodată un joc gratuit. Însoțitorul tău pentru baza de date Epic Games Store — oferte, reduceri, cadouri, compilări și multe altele.",
+      "searchPlaceholder": "Caută în baza de date…",
+      "justReleased": "Tocmai lansat",
+      "priceDrops72h": "Scăderi de preț (72h)",
+      "hasAchievements": "Are realizări",
+      "upcoming": "Viitoare",
+      "topSellers": "Best-seller"
+    },
+    "pulse": {
+      "recentActivity": "Activitate recentă",
+      "badge": {
+        "new": "Nou",
+        "gone": "Eliminat",
+        "offer": "Ofertă",
+        "build": "Compilare",
+        "item": "Element",
+        "asset": "Asset",
+        "xp": "XP",
+        "sandbox": "Sandbox",
+        "change": "Schimbare"
+      },
+      "title": {
+        "buildVersion": "Compilare {{version}}",
+        "buildId": "Compilare {{id}}",
+        "achievementsId": "Realizări {{id}}"
+      },
+      "detail": {
+        "newBuildIndexed": "Compilare nouă indexată",
+        "buildManifestRefreshed": "Manifest de compilare reîmprospătat",
+        "achievementChanges_one": "{{count}} realizare {{entry}} {{verb}}",
+        "achievementChanges_other": "{{count}} realizări {{entry}} {{verb}}",
+        "offerMetadataRefreshed": "Metadatele ofertei reîmprospătate",
+        "fieldsChanged_one": "{{count}} câmp {{verb}}",
+        "fieldsChanged_other": "{{count}} câmpuri {{verb}}",
+        "fieldChanged": "{{field}} {{verb}}"
+      },
+      "actionVerb": {
+        "added": "adăugat",
+        "removed": "eliminat",
+        "updated": "actualizat",
+        "changed": "modificat"
+      },
+      "entry_one": "intrare",
+      "entry_other": "intrări"
+    }
+  },
+  "offerDetail": {
+    "common": {
+      "offerNotFound": "Oferta nu a fost găsită",
+      "notAvailable": "Indisponibil",
+      "na": "N/A",
+      "loading": "Se încarcă...",
+      "somethingWentWrong": "Ceva nu a mers bine",
+      "noChangesFound": "Nu s-au găsit modificări pentru această ofertă"
+    },
+    "tabs": {
+      "overview": "Prezentare generală",
+      "price": "Preț",
+      "items": "Elemente",
+      "builds": "Compilări",
+      "achievements": "Realizări",
+      "related": "Înrudite",
+      "metadata": "Metadate",
+      "changelog": "Jurnal modificări",
+      "media": "Media",
+      "reviews": "Recenzii"
+    },
+    "table": {
+      "offerId": "ID ofertă",
+      "namespace": "Namespace",
+      "offerType": "Tip ofertă",
+      "seller": "Vânzător",
+      "developer": "Dezvoltator",
+      "supportedPlatforms": "Platforme suportate",
+      "releaseDate": "Data lansării",
+      "lastUpdate": "Ultima actualizare",
+      "creationDate": "Data creării",
+      "technologies": "Tehnologii",
+      "type": "Tip",
+      "value": "Valoare",
+      "countriesBlacklist": "Listă neagră țări",
+      "countriesWhitelist": "Listă albă țări",
+      "categories": "Categorii",
+      "refundType": "Tip rambursare",
+      "tags": "Etichete",
+      "ageRatings": "Clasificări de vârstă",
+      "assets": "Asset-uri"
+    },
+    "badges": {
+      "prePurchase": "Precomandă",
+      "earlyAccess": "Acces timpuriu"
+    },
+    "hero": {
+      "offeredBy": "Oferit de {{seller}}"
+    },
+    "tooltip": {
+      "internalNamespace": "Namespace intern Epic Games",
+      "techDescription": "lista de tehnologii pentru urmărirea motoarelor utilizate și a diferitelor tehnologii din fișierele jocului.",
+      "techSource": "Folosim",
+      "techSourceSteamDb": "SteamDB",
+      "source": "Sursă"
+    },
+    "actions": {
+      "compare": "Compară"
+    },
+    "releaseDate": {
+      "releasedOnPc": "Lansat pe PC",
+      "theEgs": " pe EGS",
+      "releasedSameDay": "Lansat pe Epic în aceeași zi ca pe PC"
+    },
+    "notifications": {
+      "title": "Setări notificări",
+      "description": "Alege ce notificări dorești să primești pentru această ofertă.",
+      "all": "Toate",
+      "price": "Preț",
+      "achievements": "Realizări",
+      "builds": "Compilări",
+      "items": "Elemente",
+      "requirements": "Cerințe",
+      "metadata": "Metadate",
+      "media": "Media",
+      "enablePushDescription": "Trebuie să activezi notificările push pentru a primi notificări pentru această ofertă.",
+      "enablePushAction": "Activează notificările push"
+    },
+    "overview": {
+      "genres": "Genuri",
+      "ageRating": "Clasificare de vârstă",
+      "noAgeRatings": "Nu s-au găsit clasificări de vârstă",
+      "giveaways": "Oferte gratuite",
+      "noGiveaways": "Nu s-au găsit oferte gratuite",
+      "achievements": "Realizări",
+      "igdbTimeToBeat": "IGDB Timp de finalizare",
+      "hastily": "Grăbit",
+      "normally": "Normal",
+      "completely": "Complet",
+      "hltbSubmissions_one": "Bazat pe {{count}} trimitere",
+      "hltbSubmissions_other": "Bazat pe {{count}} trimiteri",
+      "price": "Preț",
+      "priceCurrent": "Actual:",
+      "priceLowest": "Cel mai mic:",
+      "priceLastDiscount": "Ultima reducere:",
+      "hltbTitle": "Cât timp de finalizare",
+      "noGameTimes": "Nu s-au găsit timpi de joc",
+      "epicRating": "Evaluare jucători Epic",
+      "epicRatingDescription": "Capturat de la jucători în ecosistemul Epic Games",
+      "igdbRating": "Evaluare IGDB",
+      "igdbReviews_one": "{{count}} recenzie",
+      "igdbReviews_other": "{{count}} recenzii"
+    },
+    "achievements": {
+      "title": "Realizări",
+      "sortBy": "Sortează după",
+      "defaultSort": "Sortare implicită",
+      "sortByRarity": "Sortează după raritate",
+      "sortByCompleted": "Sortează după % finalizat",
+      "search": "Căutare",
+      "flipAll": "Inversează toate",
+      "noAchievements": "Nu s-au găsit realizări",
+      "noAchievementsSet": "Nu s-au găsit realizări pentru acest set.",
+      "noAchievementsSetDescription": "Aceasta poate însemna că realizările nu sunt disponibile momentan, dar vor fi adăugate în viitor.",
+      "baseGame": "Joc de bază",
+      "dlc": "DLC",
+      "achievementsLabel": "Realizări",
+      "baseGameDescription": "Această listă de realizări este pentru jocul de bază.",
+      "dlcDescription": "Această listă de realizări este pentru unul dintre DLC-uri.",
+      "lastUpdated": "Ultima actualizare:",
+      "lastUpdatedTooltip": "Acest set de realizări a fost actualizat ultima dată pe {{date}}.",
+      "lastUpdatedTooltipDescription": "Aceasta este data creării sau data ultimei actualizări."
+    },
+    "builds": {
+      "title": "Compilări"
+    },
+    "items": {
+      "title": "Elemente"
+    },
+    "price": {
+      "title": "Preț"
+    },
+    "related": {
+      "title": "Oferte înrudite"
+    },
+    "media": {
+      "images": "Imagini",
+      "videos": "Videoclipuri",
+      "covers": "Coperți",
+      "noImages": "Nu s-au găsit imagini",
+      "noVideos": "Nu s-au găsit videoclipuri",
+      "noCovers": "Nu s-au găsit coperți",
+      "download": "Descărcare",
+      "close": "Închidere",
+      "downloadCoverAria": "Descarcă copertă {{type}}"
+    },
+    "metadata": {
+      "title": "Metadate",
+      "download": "Descărcare:",
+      "install": "Instalare:"
+    },
+    "changelog": {
+      "title": "Jurnal modificări",
+      "tooltip": "Această listă prezintă modificările făcute acestei oferte specifice sau elementelor, asset-urilor sau compilărilor conexe.",
+      "sandboxChangelog": "jurnal modificări sandbox",
+      "sandboxChangelogPrefix": "Poți vedea jurnalul de modificări pentru întregul produs în",
+      "noChangelog": "Niciun jurnal de modificări disponibil",
+      "allTypes": "Toate tipurile",
+      "selectField": "Selectează un câmp",
+      "allFields": "Toate câmpurile",
+      "search": "Căutare",
+      "previous": "Anterior",
+      "next": "Următor",
+      "pageOf": "Pagina {{page}} din {{totalPages}}",
+      "typeUpdate": "Actualizare",
+      "typeDelete": "Ștergere",
+      "typeInsert": "Inserare"
+    },
+    "reviews": {
+      "epicRating": "Evaluare jucători Epic",
+      "epicRatingDescription": "Capturat de la jucători în ecosistemul Epic Games",
+      "egdataRating": "Evaluare EGDATA",
+      "overallScore": "Scor general",
+      "scoreOutOf10": "{{score}} / 10",
+      "basedOnReviews": "Bazat pe {{count}} recenzii",
+      "allReviews": "Toate recenziile",
+      "onlyVerified": "Doar verificate",
+      "notVerified": "Neverificate",
+      "leaveReview": "Lasă o recenzie",
+      "alreadyReviewed": "Deja recenzat",
+      "loginToReview": "Autentifică-te pentru a recenza",
+      "noReviews": "Încă nu există recenzii",
+      "notReleased": "Acest produs nu a fost încă lansat",
+      "beFirst": "Fii primul care lasă o recenzie pentru acest produs!",
+      "checkBack": "Reveniți după data lansării pentru a lăsa o recenzie!",
+      "verifiedOwner": "Proprietar verificat",
+      "recommended": "Recomandat",
+      "notRecommended": "Nerecomandat",
+      "readMore": "Citește mai mult",
+      "reviewedOn": "Recenzat pe",
+      "lastUpdatedOn": "Ultima actualizare pe",
+      "editedTimes": "Editat de {{count}} ori",
+      "edit": "Editează",
+      "close": "Închidere",
+      "reviewCount_one": "{{count}} recenzie",
+      "reviewCount_other": "{{count}} recenzii",
+      "ownershipVerification": "Verificare proprietate",
+      "ownershipVerificationDescription": "se bazează pe finalizarea a cel puțin unei realizări de către jucător.",
+      "ownershipVerificationTooltip": "Folosim realizările Epic Games pentru a verifica proprietatea produsului. Pentru a marca un jucător ca proprietar verificat, acesta trebuie să fi finalizat cel puțin o realizare pentru produsul selectat în Epic Games Store. Pentru a lega contul tău de profilul tău egdata, trebuie să mergi la",
+      "yourDashboard": "panoul tău de bord",
+      "criticReviews": "Recenzii ale criticilor",
+      "basedOnCriticReviews": "Bazat pe {{count}} recenzii ale criticilor",
+      "opencriticRating": "Evaluare OpenCritic",
+      "topCriticAverage": "Medie critici de top",
+      "criticsRecommend": "Criticii recomandă",
+      "opencriticRatingAlt": "Evaluare OpenCritic"
+    }
+  },
+  "search": {
+    "meta": {
+      "title": "Căutare | egdata.app",
+      "description": "Caută oferte din Epic Games Store."
+    },
+    "defaultTitle": "Căutare",
+    "filters": "Filtre",
+    "filtersPlaceholder": "Caută jocuri",
+    "pills": {
+      "onSale": "La reducere",
+      "codeRedemptionOnly": "Doar răscumpărare cod",
+      "excludeBlockchain": "Exclude Blockchain/NFT",
+      "pastGiveaways": "Oferte gratuite anterioare"
+    },
+    "accordion": {
+      "offerType": "Tip ofertă",
+      "developer": "Dezvoltator",
+      "publisher": "Editor",
+      "noTags": "Nu s-au găsit etichete",
+      "seller": "Vânzător"
+    },
+    "checkboxes": {
+      "pastGiveaways": "Oferte gratuite anterioare",
+      "onSale": "La reducere",
+      "codeRedemptionOnly": "Doar răscumpărare cod",
+      "excludeBlockchain": "Exclude Blockchain/NFT",
+      "onlyHistoricalLows": "Doar minime istorice",
+      "onlyLowestPriceEver": "Doar cel mai mic preț vreodată"
+    },
+    "tagGroups": {
+      "event": "Eveniment",
+      "genre": "Gen",
+      "epicfeature": "Caracteristică Epic",
+      "accessibility": "Accesibilitate",
+      "feature": "Caracteristică",
+      "usersay": "Usersay",
+      "subscription": "Abonament",
+      "platform": "Platformă",
+      "all": "Toate etichetele"
+    },
+    "sort": {
+      "sortBy": "Sortează după",
+      "sortAriaLabel": "Sortează ofertele",
+      "sortDirectionAriaLabel": "Comută direcția de sortare",
+      "showListView": "Afișare listă",
+      "showGridView": "Afișare grilă",
+      "releaseDate": "Data lansării",
+      "lastModifiedDate": "Data modificării",
+      "effectiveDate": "Data efectivă",
+      "creationDate": "Data creării",
+      "viewableDate": "Data vizibilă",
+      "pcReleaseDate": "Data lansării pe PC",
+      "upcoming": "Viitoare",
+      "price": "Preț",
+      "discount": "Reducere",
+      "discountPercent": "Reducere %",
+      "giveawayDate": "Data ofertei gratuite"
+    },
+    "results": {
+      "noResults": "Nu s-au găsit rezultate"
+    }
+  },
+  "freebies": {
+    "meta": {
+      "title": "Jocuri gratuite | egdata.app",
+      "description": "Explorează jocurile gratuite din Epic Games Store."
+    },
+    "headings": {
+      "current": "Jocuri gratuite curente",
+      "past": "Jocuri gratuite anterioare",
+      "sellers": "Vânzători de jocuri gratuite"
+    },
+    "buttons": {
+      "redeem": "Redecă acum",
+      "downloadJson": "Descarcă ca JSON",
+      "downloadCsv": "Descarcă ca CSV",
+      "downloadTxt": "Descarcă ca text"
+    },
+    "placeholders": {
+      "searchSellers": "Caută vânzători..."
+    },
+    "aria": {
+      "downloadList": "Descarcă lista"
+    },
+    "errors": {
+      "loadSellers": "Eroare la încărcarea datelor vânzătorilor. Încearcă din nou mai târziu."
+    },
+    "table": {
+      "sellerName": "Nume vânzător",
+      "totalGames": "Total jocuri individuale"
+    }
+  },
+  "sales": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Vezi {{title}} din Epic Games Store."
+    },
+    "metaIndex": {
+      "title": "Reduceri active | egdata.app",
+      "description": "Explorează reducerile active pe egdata.app"
+    },
+    "status": {
+      "loading": "Se încarcă...",
+      "noData": "Fără date"
+    },
+    "headings": {
+      "active": "Reduceri active",
+      "pastUpcoming": "Reduceri anterioare / viitoare",
+      "offersList": "Oferte {{title}}"
+    },
+    "errors": {
+      "notFound": "Promoție negăsită"
+    },
+    "labels": {
+      "offersCount": "{{count}} oferte disponibile în acest eveniment"
+    }
+  },
+  "collections": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Vezi {{title}} din Epic Games Store."
+    },
+    "metaIndex": {
+      "title": "Colecții | egdata.app",
+      "description": "Colecții pe egdata.app"
+    },
+    "headings": {
+      "main": "Colecții"
+    },
+    "description": {
+      "overview": "Cele mai vândute, cele mai jucate și cele mai populare jocuri pe Epic Games Store"
+    },
+    "status": {
+      "loading": "Se încarcă..."
+    },
+    "errors": {
+      "notFound": "Colecție negăsită"
+    },
+    "table": {
+      "position": "Poziție",
+      "variance": "Variație",
+      "weeks": "Săptămâni"
+    },
+    "tooltips": {
+      "variance": "Diferența dintre poziția curentă și poziția anterioară. De obicei se schimbă zilnic.",
+      "weeks": "Numărul de săptămâni în care jocul a fost în top 100 pentru {{title}}."
+    },
+    "buttons": {
+      "loadMore": "Încarcă mai mult"
+    }
+  },
+  "sandboxes": {
+    "notFoundTitle": "Sandbox negăsit",
+    "notFoundDescription": "Sandbox negăsit",
+    "unrealEngineTitle": "Unreal Engine",
+    "unavailableTitle": "Sandbox indisponibil",
+    "unavailableDescription": "Hub-ul produsului nu a putut fi încărcat.",
+    "noProductDataDescription": "Nu există date de produs pentru acest sandbox.",
+    "hubEyebrow": "Sandbox",
+    "hubOverviewTitle": "Prezentare generală",
+    "hubOverviewDescription": "O hartă focalizată a înregistrărilor din magazin, proprietate, livrare și actualizări pentru acest Namespace.",
+    "latestChangesButton": "Ultimele modificări",
+    "entityOffersLabel": "Oferte",
+    "entityOffersDescription": "Înregistrări din magazin",
+    "entityItemsLabel": "Elemente",
+    "entityItemsDescription": "Înregistrări de proprietate",
+    "entityAssetsLabel": "Asset-uri",
+    "entityAssetsDescription": "Artefacte și media",
+    "entityBuildsLabel": "Compilări",
+    "entityBuildsDescription": "Pachete binare",
+    "entityAchievementsLabel": "Realizări",
+    "entityAchievementsDescription": "Date de progresie",
+    "entityChangelogLabel": "Jurnal modificări",
+    "entityChangelogDescription": "Actualizări urmărite",
+    "viewButton": "Vezi",
+    "storefrontOffersTitle": "Oferte din magazin",
+    "storefrontOffersDescription": "Înregistrări reprezentative din magazin găsite în acest sandbox.",
+    "recentBuildsTitle": "Compilări recente",
+    "recentBuildsDescription": "Cele mai noi înregistrări binare.",
+    "latestBadge": "cele mai recente",
+    "unknownBuildLabel": "Compilare necunoscută",
+    "recentChangesTitle": "Modificări recente",
+    "recentChangesDescription": "Ultimele mutații ale catalogului.",
+    "updateBadge": "actualizare",
+    "changeDefaultLabel": "Modificare",
+    "metaOffersTitle": "Oferte",
+    "offersEyebrow": "Comerț electronic",
+    "offersTitle": "Oferte",
+    "offersDescription": "Înregistrări din magazin în acest sandbox, inclusiv jocuri de bază, ediții, DLC-uri, add-on-uri, pachete și orice ofertă care poate acorda elemente de catalog.",
+    "totalOffersLabel": "Total oferte",
+    "metaAchievementsTitle": "Realizări",
+    "achievementsEyebrow": "Progresie",
+    "achievementsTitle": "Realizări",
+    "achievementsDescription": "Seturi de realizări, stări ascunse, distribuție raritate și totaluri XP atașate acestui sandbox.",
+    "achievementsSetsLabel": "Seturi",
+    "achievementsLabel": "Realizări",
+    "achievementsXpLabel": "XP",
+    "searchAchievementsPlaceholder": "Caută realizări",
+    "flipAllButton": "Inversează toate",
+    "revealHiddenAchievementAria": "Dezvăluie textul realizării ascunse",
+    "hideHiddenAchievementAria": "Ascunde textul realizării ascunse",
+    "achievementsBaseGameLabel": "Joc de bază",
+    "achievementsDlcLabel": "DLC",
+    "achievementsBaseGameTooltip": "Această listă de realizări este pentru jocul de bază.",
+    "achievementsDlcTooltip": "Această listă de realizări este pentru unul dintre DLC-uri.",
+    "lastUpdatedLabel": "Ultima actualizare:",
+    "achievementsLastUpdatedTooltip": "Acest set de realizări a fost actualizat ultima dată pe",
+    "achievementsLastUpdatedTooltipExtra": "Aceasta este data creării sau data ultimei actualizări.",
+    "noAchievementsForSet": "Nu s-au găsit realizări pentru acest set.",
+    "noAchievementsForSetExtra": "Aceasta poate însemna că realizările nu sunt disponibile momentan, dar vor fi adăugate în viitor.",
+    "noAchievementsFound": "Nu s-au găsit realizări",
+    "metaItemsTitle": "Elemente",
+    "itemsEyebrow": "Proprietate catalog",
+    "itemsTitle": "Elemente",
+    "itemsDescription": "Elemente de catalog care pot fi deținute, conținute în oferte. Acestea sunt înregistrările care devin drepturi ale jucătorului după o achiziție sau răscumpărare.",
+    "totalItemsLabel": "Total elemente",
+    "metaChangelogTitle": "Jurnal modificări",
+    "changelogEyebrow": "Jurnal de audit",
+    "changelogTitle": "Jurnal modificări",
+    "changelogDescription": "Modificări observate în ofertele, elementele, asset-urile, compilările și metadatele de catalog conexe ale acestui sandbox.",
+    "totalChangesLabel": "Modificări",
+    "queryTimeLabel": "Timp interogare",
+    "noChangelogFound": "Nu s-a găsit niciun jurnal de modificări",
+    "metaBuildsTitle": "Compilări",
+    "buildsEyebrow": "Binare",
+    "buildsTitle": "Compilări",
+    "buildsDescription": "Pachete de fișiere versionate încărcate pentru sandbox. Compilările sunt atribuite artefactelor și determină ceea ce jucătorii descarcă prin launcher.",
+    "totalBuildsLabel": "Total compilări",
+    "metaAssetsTitle": "Asset-uri",
+    "assetsEyebrow": "Asset-uri și artefacte",
+    "assetsTitle": "Asset-uri",
+    "assetsDescription": "Înregistrări de distribuție și media atașate elementelor sandbox-ului, inclusiv artefacte care conectează conținutul catalogului din magazin cu compilări descărcabile.",
+    "totalAssetsLabel": "Total asset-uri"
+  },
+  "items": {
+    "notFound": "Element negăsit",
+    "badge": "Element",
+    "table": {
+      "itemId": "ID element",
+      "namespace": "Namespace",
+      "developer": "Dezvoltator",
+      "entitlementType": "Tip drept",
+      "entitlementName": "Nume drept",
+      "status": "Stare",
+      "creationDate": "Data creării",
+      "lastModified": "Ultima modificare",
+      "platforms": "Platforme"
+    },
+    "tooltip": {
+      "internalNamespace": "Namespace intern Epic Games"
+    },
+    "tabs": {
+      "item": "Element",
+      "assets": "Asset-uri",
+      "images": "Imagini",
+      "builds": "Compilări",
+      "changelog": "Jurnal modificări"
+    },
+    "metadata": {
+      "title": "Metadate",
+      "key": "Cheie",
+      "value": "Valoare"
+    },
+    "assets": {
+      "title": "Asset-uri"
+    },
+    "builds": {
+      "title": "Compilări"
+    },
+    "changelog": {
+      "title": "Jurnal modificări",
+      "noChangelog": "Niciun jurnal de modificări disponibil"
+    },
+    "images": {
+      "title": "Imagini"
+    }
+  },
+  "builds": {
+    "notFound": "Compilare negăsită",
+    "build": "Compilare",
+    "for": "pentru",
+    "compressed": "({{percent}}% comprimat)",
+    "table": {
+      "buildId": "ID compilare",
+      "buildName": "Nume compilare",
+      "appName": "Nume aplicație",
+      "hash": "Hash",
+      "installedSize": "Dimensiune instalată",
+      "downloadSize": "Dimensiune descărcare",
+      "createdAt": "Creată la",
+      "updatedAt": "Actualizată la",
+      "technologies": "Tehnologii"
+    },
+    "tooltip": {
+      "techSource": "Folosim",
+      "techSourceSteamDb": "SteamDB",
+      "techDescription": "lista de tehnologii pentru urmărirea motoarelor utilizate și a diferitelor tehnologii din fișierele jocului.",
+      "source": "Sursă"
+    },
+    "tabs": {
+      "files": "Fișiere",
+      "items": "Elemente",
+      "installOptions": "Opțiuni de instalare"
+    },
+    "files": {
+      "title": "Fișiere"
+    },
+    "items": {
+      "title": "Elemente"
+    },
+    "installOptions": {
+      "title": "Opțiuni de instalare",
+      "file_one": "fișier",
+      "file_other": "fișiere"
+    },
+    "meta": {
+      "title": "{{title}} ({{version}}) | egdata.app",
+      "description": "Compilare {{version}} pentru {{title}} din Epic Games Store."
+    }
+  },
+  "profile": {
+    "meta": {
+      "notFoundTitle": "Profil negăsit",
+      "notFoundDescription": "Profil negăsit",
+      "title": "{{name}} | egdata.app",
+      "description": "Vezi realizările și jocurile lui {{name}} pe egdata.app",
+      "defaultName": "Profil",
+      "defaultDescriptionName": "acestui jucător"
+    },
+    "errors": {
+      "notFoundTitle": "Profil negăsit",
+      "notFoundDescription": "Acest profil este indisponibil sau nu a fost încă indexat.",
+      "unavailableTitle": "Profil indisponibil",
+      "unavailableDescription": "Acest profil nu a putut fi încărcat momentan.",
+      "invalidImageFormat": "Format imagine invalid",
+      "failedToUpload": "Încărcare eșuată",
+      "uploadFailed": "Încărcarea a eșuat",
+      "failedToRefresh": "Reîmprospătarea profilului a eșuat",
+      "refreshQueued": "Profil adăugat în coadă pentru reîmprospătare, va fi actualizat în curând."
+    },
+    "fallbackName": "Profil necunoscut",
+    "avatar": {
+      "changeAvatar": "Schimbă avatarul",
+      "dialogDescription": "Încarcă o nouă imagine de profil.",
+      "previewAlt": "Previzualizare avatar",
+      "fallback": "Avatar",
+      "description": "Încarcă o nouă imagine de avatar, max 5MB.",
+      "uploadingWithProgress": "Se încarcă... {{progress}}%",
+      "uploading": "Se încarcă...",
+      "updateAvatar": "Actualizează avatarul",
+      "errorTitle": "Eroare"
+    },
+    "hero": {
+      "joined": "S-a alăturat",
+      "epicGamesStore": "Epic Games Store",
+      "linkDiscord": "Leagă Discord",
+      "refreshProfile": "Reîmprospătează profilul",
+      "refreshAvailableIn": "Reîmprospătare disponibilă în",
+      "level": "Nivel",
+      "achievements": "Realizări",
+      "unlocked": "Deblocate",
+      "platinum": "Platină",
+      "perfectGames": "Jocuri perfecte",
+      "library": "Bibliotecă",
+      "achievementGames": "Jocuri cu realizări",
+      "reviews": "Recenzii",
+      "contributed": "Contribuite",
+      "xpToNextLevel": "{{xp}} XP până la nivelul {{level}}",
+      "heroGame": "Jocul erou",
+      "complete": "complet"
+    },
+    "donor": {
+      "donated_one": "{{name}} a donat {{count}} cheie către egdata.app",
+      "donated_other": "{{name}} a donat {{count}} chei către egdata.app",
+      "goTo": "Mergi la",
+      "thisLink": "acest link",
+      "toDonateKey": "pentru a dona o cheie."
+    },
+    "countdown": {
+      "minutesSeconds_one": "{{minutes}} minut {{seconds}} secundă",
+      "minutesSeconds_other": "{{minutes}} minute {{seconds}} secunde",
+      "seconds_one": "{{seconds}} secundă",
+      "seconds_other": "{{seconds}} secunde"
+    },
+    "tabs": {
+      "showcase": "Vitrină",
+      "library": "Bibliotecă",
+      "activity": "Activitate"
+    },
+    "stats": {
+      "games": "{{count}} jocuri",
+      "achievements": "{{count}} realizări",
+      "platinum": "{{count}} platină"
+    },
+    "showcase": {
+      "ariaLabel": "Evidențieri vitrină profil",
+      "featuredGamesTitle": "Jocuri prezentate",
+      "featuredGamesDetail": "{{count}} selectate după performanța profilului",
+      "rareAchievementsTitle": "Realizări rare",
+      "rareAchievementsDetail": "Deblocări greu de găsit în profil",
+      "recentUnlocksTitle": "Deblocări recente",
+      "recentUnlocksDetail": "Ultima activitate vizibilă",
+      "noDataTitle": "Încă nu există date în vitrină",
+      "noDataDescription": "Doar jocurile lansate cu progres public al realizărilor apar în profiluri.",
+      "rarestUnlock": "Cea mai rară deblocare",
+      "definingGame": "Joc definitoriu",
+      "latestActivity": "Ultima activitate",
+      "achievementsCount": "{{unlocked}} / {{total}} realizări",
+      "platinum": "Platină"
+    },
+    "library": {
+      "filterAriaLabel": "Filtru bibliotecă",
+      "sortAriaLabel": "Sortează biblioteca",
+      "sortByPlaceholder": "Sortează după",
+      "noGamesTitle": "Nu s-au găsit jocuri",
+      "noGamesDescription": "Doar jocurile lansate cu realizări apar în această bibliotecă.",
+      "gameAlt": "Joc",
+      "complete": "complet",
+      "featured": "Prezentat",
+      "rareUnlocks": "Deblocări rare",
+      "filters": {
+        "all": "Toate",
+        "completed": "Finalizate",
+        "nearPlatinum": "Aproape de Platină",
+        "inProgress": "În progres",
+        "platinum": "Platină"
+      },
+      "sorts": {
+        "completion": "Finalizare",
+        "alphabetical": "Alfabetic",
+        "xp": "XP",
+        "achievements": "Realizări"
+      }
+    },
+    "activity": {
+      "title": "Activitate",
+      "detail": "{{count}} realizări deblocate",
+      "noActivityTitle": "Încă nicio activitate",
+      "noActivityDescription": "Deblocările de realizări vor apărea aici când acest profil va avea progres public.",
+      "achievementAlt": "Realizare",
+      "platinumEarned": "Platină obținută",
+      "achievementUnlocked": "Realizare deblocată",
+      "unknownRarity": "Raritate necunoscută",
+      "rarity": "{{value}}% raritate",
+      "unknownDate": "Dată necunoscută"
+    },
+    "achievements": {
+      "loading": "Se încarcă...",
+      "notFound": "Profil negăsit",
+      "myAchievements": "Realizările mele"
+    }
+  },
+  "tags": {
+    "meta": {
+      "notFoundTitle": "Promoție negăsită",
+      "notFoundDescription": "Promoție negăsită",
+      "title": "{{title}} | egdata.app",
+      "description": "Vezi {{count}} oferte disponibile pentru {{title}} pe egdata.app.",
+      "socialTitle": "{{title}} - egdata.app"
+    },
+    "loading": "Se încarcă...",
+    "offersCount": "{{count}} oferte disponibile în acest eveniment",
+    "results": "Rezultate",
+    "resultsCount": "({{count}} rezultate)",
+    "searchPlaceholder": "Căutare...",
+    "loadMore": "Încarcă mai mult",
+    "sortBy": {
+      "releaseDate": "Data lansării",
+      "lastModifiedDate": "Data modificării",
+      "effectiveDate": "Data efectivă",
+      "creationDate": "Data creării",
+      "viewableDate": "Data vizibilă",
+      "pcReleaseDate": "Data lansării pe PC",
+      "upcoming": "Viitoare",
+      "price": "Preț"
+    }
+  },
+  "genres": {
+    "meta": {
+      "title": "Genuri - egdata.app",
+      "description": "Genuri pe egdata.app"
+    },
+    "heading": "Genuri"
+  },
+  "sellers": {
+    "meta": {
+      "notFoundTitle": "Vânzător negăsit",
+      "notFoundDescription": "Vânzător negăsit",
+      "title": "{{name}} | egdata.app"
+    },
+    "notFound": "Vânzător negăsit",
+    "logoAlt": "Logo {{name}}",
+    "bannerAlt": "{{name}}",
+    "offersTitle": "Oferte {{name}}",
+    "stats": {
+      "offers": "Oferte",
+      "games": "Jocuri",
+      "items": "Elemente",
+      "freeGames": "Jocuri gratuite"
+    }
+  },
+  "franchises": {
+    "meta": {
+      "notFoundTitle": "Franciză negăsită",
+      "notFoundDescription": "Franciză negăsită",
+      "title": "Franciza {{name}} | egdata.app",
+      "description": "Explorează toate jocurile din franciza {{name}} pe Epic Games Store."
+    },
+    "loading": "Se încarcă...",
+    "gamesCount_one": "{{count}} joc",
+    "gamesCount_other": "{{count}} jocuri",
+    "timeToBeat": "Timp de finalizare",
+    "achievements": "Realizări",
+    "loadMore": "Încarcă mai mult",
+    "free": "Gratuit"
+  },
+  "stats": {
+    "creations": {
+      "meta": {
+        "title": "Statistici creații - egdata.app",
+        "description": "Cadența lunară și anuală a noilor creații care ajung pe Epic Games Store."
+      },
+      "viewReleases": "Vezi lansări",
+      "heading": "Statistici creații Epic Games Store",
+      "description": "Cadența lunară și anuală a noilor creații care ajung în magazin.",
+      "monthlyTitle": "Creații lunare",
+      "yearlyTitle": "Creații anuale"
+    },
+    "releases": {
+      "meta": {
+        "title": "Statistici lansări - egdata.app",
+        "description": "Cadența lunară și anuală a noilor titluri care ajung pe Epic Games Store."
+      },
+      "viewCreations": "Vezi creații",
+      "heading": "Statistici lansări Epic Games Store",
+      "description": "Cadența lunară și anuală a noilor titluri care ajung în magazin.",
+      "monthlyTitle": "Lansări lunare",
+      "yearlyTitle": "Lansări anuale"
+    }
+  },
+  "store": {
+    "creatorCode": {
+      "title": "Sprijină egdata.app",
+      "description": "Dorești să sprijini egdata.app folosind codul nostru de creator atunci când achiziționezi jocuri? Această alegere va fi reținută pentru vizite viitoare.",
+      "body": "Folosind codul nostru de creator ajuți la susținerea dezvoltării egdata.app și a funcțiilor sale. Nu afectează prețul pe care îl plătești.",
+      "noThanks": "Nu, mulțumesc",
+      "yesUseCode": "Da, folosește codul"
+    }
+  },
+  "dashboard": {
+    "placeholder": "Salut /dashboard!"
+  },
+  "auth": {
+    "login": {
+      "placeholder": "Salut /auth/login!"
+    },
+    "callback": {
+      "placeholder": "Salut /auth/callback!"
+    },
+    "logout": {
+      "placeholder": "Salut /auth/logout!"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "Despre - egdata.app",
+      "description": "Despre egdata.app"
+    },
+    "title": "Despre",
+    "intro": "egdata.app este un site web condus de comunitate, dedicat urmăririi și furnizării de informații despre Epic Games Store. Similar cu SteamDB pentru Steam, ne propunem să oferim o resursă cuprinzătoare pentru ca utilizatorii să exploreze modificări, să descopere jocuri noi și să rămână la curent cu cele mai recente noutăți de pe platformă.",
+    "missionTitle": "Misiunea noastră",
+    "missionBody": "Misiunea noastră este să oferim transparență și perspective asupra ecosistemului Epic Games Store. Credem că prin agregarea și prezentarea datelor într-un mod accesibil, putem împuternici utilizatorii să ia decizii informate cu privire la achizițiile lor de jocuri și să contribuie la o mai bună înțelegere a platformei.",
+    "featuresTitle": "Caracteristici",
+    "features": {
+      "trackPrices": "Urmărește modificările de preț și datele istorice",
+      "upcomingReleases": "Vezi lansările viitoare și promoțiile cu jocuri gratuite",
+      "gameDetails": "Explorează detaliile jocurilor, evaluările și recenziile utilizatorilor",
+      "analyzeTrends": "Analizează tendințele și modelele din Epic Games Store"
+    },
+    "communityTitle": "Condus de comunitate",
+    "communityBody": "egdata.app este construit și întreținut de o comunitate pasionată de gameri și dezvoltatori. Întâmpinăm contribuții de la oricine dorește să ajute la îmbunătățirea site-ului și să îl facă o resursă valoroasă pentru toată lumea. Nu ezita să ne contactezi dacă ai feedback, sugestii sau vrei să te implici.",
+    "sourceCodeIntro": "Tot codul sursă pentru egdata.app este disponibil pe",
+    "github": "GitHub",
+    "notTitle": "Ce NU este egdata.app",
+    "notIntro": "Este important să clarificăm că egdata.app nu este:",
+    "notList": {
+      "affiliated": "Afiliat cu Epic Games: Suntem un proiect independent, condus de comunitate, fără susținere sau asociere oficială cu Epic Games.",
+      "storefront": "Un magazin sau marketplace: Nu vindem jocuri și nu oferim opțiuni de cumpărare. Ne concentrăm pe furnizarea de informații și date despre Epic Games Store.",
+      "piracy": "O platformă pentru piraterie sau activități ilegale: Condamnăm cu fermitate pirateria și nu oferim niciun mijloc de a accesa sau distribui conținut protejat prin drepturi de autor în mod ilegal."
+    },
+    "fairUseTitle": "Politica de utilizare corectă",
+    "fairUseBody": "egdata.app se angajează să respecte principiile de utilizare corectă conform legii drepturilor de autor. Oferim informații și date doar în scop informativ, urmărind să educăm și să informăm publicul despre jocurile disponibile pe Epic Games Store.",
+    "fairUseFactorsTitle": "Factori cheie care justifică utilizarea corectă:",
+    "fairUseFactors": {
+      "nonCommercial": "Scop necomercial, educațional:",
+      "nonCommercialBody": "Site-ul nostru este necomercial și urmărește să îmbunătățească cunoștințele publice despre jocurile din Epic Games Store.",
+      "factual": "Informații faptice:",
+      "factualBody": "Prezentăm în principal date faptice, cum ar fi titluri de jocuri, date de lansare și dezvoltatori, care sunt mai puțin protejate de drepturile de autor.",
+      "limited": "Utilizare limitată:",
+      "limitedBody": "Folosim doar cantitatea necesară de date pentru a oferi informații semnificative fără a înlocui operele originale.",
+      "noMarketHarm": "Fără prejudiciu pe piață:",
+      "noMarketHarmBody": "Utilizarea noastră nu afectează negativ piața jocurilor originale; dimpotrivă, le poate promova prin creșterea interesului utilizatorilor."
+    },
+    "autoTrackBody": "Urmărim și actualizăm automat datele jocurilor din surse disponibile public, inclusiv Epic Games Store. Încărcăm activele grafice direct de pe serverele lor și nu le stocăm.",
+    "leakedDataTitle": "Declinarea responsabilității pentru date scurse:",
+    "leakedDataBody": "Orice date aparent scurse pe site-ul nostru provin din informații disponibile public pe Epic Games Store. Nu avem acces la date confidențiale sau proprietare. Editorii sunt responsabili pentru protejarea informațiilor lor sensibile în",
+    "epicDevPortal": "portalul de dezvoltatori Epic Games",
+    "euDirectivesIntro": "În elaborarea Politicii noastre de utilizare corectă, am luat în considerare principiile descrise în următoarele directive UE privind drepturile de autor:",
+    "euDirective1": "Directiva (UE) 2019/790 privind drepturile de autor și drepturile conexe pe piața unică digitală",
+    "euDirective2": "Întrebări și răspunsuri – Noile norme UE privind drepturile de autor",
+    "fairUseContact": "Dacă aveți întrebări despre Politica noastră de utilizare corectă sau considerați că orice conținut vă încalcă drepturile de autor, contactați-ne la:",
+    "contactTitle": "Contactați-ne",
+    "contactBody": "Ne puteți contacta prin"
+  },
+  "changelog": {
+    "index": {
+      "meta": {
+        "title": "Jurnal modificări | egdata.app"
+      },
+      "searchPlaceholder": "Caută în jurnalele de modificări...",
+      "searchButton": "Căutare",
+      "loading": "Se încarcă...",
+      "error": "Eroare la preluarea datelor"
+    },
+    "detail": {
+      "meta": {
+        "title": "Detalii modificare | egdata.app"
+      },
+      "loading": "Se încarcă...",
+      "error": "Eroare la încărcarea detaliilor modificării",
+      "notFound": "Modificare negăsită"
+    }
+  },
+  "privacy": {
+    "title": "Despre",
+    "intro": "egdata.app este un site web condus de comunitate, dedicat urmăririi și furnizării de informații despre Epic Games Store. Similar cu SteamDB pentru Steam, ne propunem să oferim o resursă cuprinzătoare pentru ca utilizatorii să exploreze modificări, să descopere jocuri noi și să rămână la curent cu cele mai recente noutăți de pe platformă.",
+    "missionTitle": "Misiunea noastră",
+    "missionBody": "Misiunea noastră este să oferim transparență și perspective asupra ecosistemului Epic Games Store. Credem că prin agregarea și prezentarea datelor într-un mod accesibil, putem împuternici utilizatorii să ia decizii informate cu privire la achizițiile lor de jocuri și să contribuie la o mai bună înțelegere a platformei.",
+    "featuresTitle": "Caracteristici",
+    "features": {
+      "trackPrices": "Urmărește modificările de preț și datele istorice",
+      "upcomingReleases": "Vezi lansările viitoare și promoțiile cu jocuri gratuite",
+      "gameDetails": "Explorează detaliile jocurilor, evaluările și recenziile utilizatorilor",
+      "analyzeTrends": "Analizează tendințele și modelele din Epic Games Store"
+    },
+    "communityTitle": "Condus de comunitate",
+    "communityBody": "egdata.app este construit și întreținut de o comunitate pasionată de gameri și dezvoltatori. Întâmpinăm contribuții de la oricine dorește să ajute la îmbunătățirea site-ului și să îl facă o resursă valoroasă pentru toată lumea. Nu ezita să ne contactezi dacă ai feedback, sugestii sau vrei să te implici.",
+    "sourceCodeIntro": "Tot codul sursă pentru egdata.app este disponibil pe",
+    "github": "GitHub",
+    "notTitle": "Ce NU este egdata.app",
+    "notIntro": "Este important să clarificăm că egdata.app nu este:",
+    "notList": {
+      "affiliated": "Afiliat cu Epic Games: Suntem un proiect independent, condus de comunitate, fără susținere sau asociere oficială cu Epic Games.",
+      "storefront": "Un magazin sau marketplace: Nu vindem jocuri și nu oferim opțiuni de cumpărare. Ne concentrăm pe furnizarea de informații și date despre Epic Games Store.",
+      "piracy": "O platformă pentru piraterie sau activități ilegale: Condamnăm cu fermitate pirateria și nu oferim niciun mijloc de a accesa sau distribui conținut protejat prin drepturi de autor în mod ilegal."
+    },
+    "fairUseTitle": "Politica de utilizare corectă",
+    "fairUseBody": "egdata.app se angajează să respecte principiile de utilizare corectă conform legii drepturilor de autor. Oferim informații și date doar în scop informativ, urmărind să educăm și să informăm publicul despre jocurile disponibile pe Epic Games Store.",
+    "fairUseFactorsTitle": "Factori cheie care justifică utilizarea corectă:",
+    "fairUseFactors": {
+      "nonCommercial": "Scop necomercial, educațional:",
+      "nonCommercialBody": "Site-ul nostru este necomercial și urmărește să îmbunătățească cunoștințele publice despre jocurile din Epic Games Store.",
+      "factual": "Informații faptice:",
+      "factualBody": "Prezentăm în principal date faptice, cum ar fi titluri de jocuri, date de lansare și dezvoltatori, care sunt mai puțin protejate de drepturile de autor.",
+      "limited": "Utilizare limitată:",
+      "limitedBody": "Folosim doar cantitatea necesară de date pentru a oferi informații semnificative fără a înlocui operele originale.",
+      "noMarketHarm": "Fără prejudiciu pe piață:",
+      "noMarketHarmBody": "Utilizarea noastră nu afectează negativ piața jocurilor originale; dimpotrivă, le poate promova prin creșterea interesului utilizatorilor."
+    },
+    "autoTrackBody": "Urmărim și actualizăm automat datele jocurilor din surse disponibile public, inclusiv Epic Games Store. Încărcăm activele grafice direct de pe serverele lor și nu le stocăm.",
+    "leakedDataTitle": "Declinarea responsabilității pentru date scurse:",
+    "leakedDataBody": "Orice date aparent scurse pe site-ul nostru provin din informații disponibile public pe Epic Games Store. Nu avem acces la date confidențiale sau proprietare. Editorii sunt responsabili pentru protejarea informațiilor lor sensibile în",
+    "epicDevPortal": "portalul de dezvoltatori Epic Games",
+    "euDirectivesIntro": "În elaborarea Politicii noastre de utilizare corectă, am luat în considerare principiile descrise în următoarele directive UE privind drepturile de autor:",
+    "euDirective1": "Directiva (UE) 2019/790 privind drepturile de autor și drepturile conexe pe piața unică digitală",
+    "euDirective2": "Întrebări și răspunsuri – Noile norme UE privind drepturile de autor",
+    "fairUseContact": "Dacă aveți întrebări despre Politica noastră de utilizare corectă sau considerați că orice conținut vă încalcă drepturile de autor, contactați-ne la:",
+    "contactTitle": "Contactați-ne",
+    "contactBody": "Ne puteți contacta prin"
+  },
+  "notifications": {
+    "meta": {
+      "title": "Notificări - egdata.app",
+      "description": "Configurează și gestionează notificările push pentru actualizări Epic Games Store, lansări de jocuri și multe altele."
+    },
+    "title": "Notificări",
+    "description": "Configurează și gestionează notificările push pentru actualizări Epic Games Store, lansări de jocuri și alerte personalizate.",
+    "tabs": {
+      "notifications": "Notificări",
+      "mySubscriptions": "Abonamentele mele"
+    },
+    "aboutPushTitle": "Despre notificările push",
+    "aboutPushDescription": "Află mai multe despre cum funcționează notificările push pe EGData.",
+    "whatYoullReceive": "Ce vei primi:",
+    "receiveList": {
+      "freeGames": "Anunțuri noi despre jocuri gratuite",
+      "releases": "Notificări lansări jocuri",
+      "priceDrops": "Alerte de scădere a prețului pentru jocurile dorite",
+      "news": "Știri și actualizări Epic Games Store",
+      "custom": "Notificări personalizate pe bază de subiecte"
+    },
+    "privacySecurity": "Confidențialitate și securitate:",
+    "privacyList": {
+      "apiKey": "Cheia ta API este stocată în siguranță în cookie-urile browserului",
+      "onlySubscribed": "Trimitem doar notificările la care te-ai abonat",
+      "unsubscribe": "Te poți dezabona oricând",
+      "noPersonalData": "Nu sunt necesare date personale dincolo de cheia API"
+    },
+    "browserSupport": "Suport browser:",
+    "browserSupportBody": "Notificările push sunt suportate în browsere moderne, inclusiv Chrome, Firefox, Safari și Edge. Asigură-te că permiți notificările când browserul te solicită.",
+    "subscriptionOverview": "Prezentare generală abonament",
+    "totalSubscribed": "Total subiecte abonate: {{count}}",
+    "notSubscribedApi": "Cheia API nu este abonată la notificări push",
+    "notSubscribedTitle": "Neabonat",
+    "notSubscribedBody": "Cheia ta API nu este abonată la notificări push. Folosește fila \"Configurare și Abonare\" pentru a te abona mai întâi.",
+    "subscriptionId": "Abonament {{id}}",
+    "created": "Creat:",
+    "subscribedTopics": "Subiecte abonate:",
+    "noTopics": "Niciun subiect abonat",
+    "lastUpdated": "Ultima actualizare:",
+    "noSubscriptionsTitle": "Nu s-au găsit abonamente",
+    "noSubscriptionsBody": "Ești abonat dar nu ai creat încă niciun abonament de dispozitiv. Folosește fila \"Configurare și Abonare\" pentru a crea primul abonament.",
+    "fetchError": "Nu s-au putut prelua abonamentele. Încearcă din nou.",
+    "push": {
+      "title": "Notificări Push",
+      "notSupported": "Notificările push nu sunt suportate în acest browser.",
+      "setApiKey": "Te rugăm să setezi cheia API pentru a activa notificările push.",
+      "manage": "Gestionează preferințele tale pentru notificări push.",
+      "unsubscribe": "Dezabonare",
+      "subscribe": "Abonare",
+      "subscribed": "Abonat",
+      "notSubscribed": "Neabonat",
+      "subscribeToTopic": "Abonează-te la subiect",
+      "topicPlaceholder": "Introdu numele subiectului (ex., actualizări-jocuri)",
+      "subscribedTopics": "Subiecte abonate",
+      "clickToUnsubscribe": "Fă clic pe un subiect pentru a te dezabona"
+    },
+    "simple": {
+      "title": "Notificări Push",
+      "notSupported": "Notificările push nu sunt suportate în acest browser.",
+      "subscribedDesc": "Ești abonat la {{count}} subiecte de notificare",
+      "notSubscribedDesc": "Primește notificări despre actualizări Epic Games Store, jocuri gratuite și multe altele",
+      "subscribeToNotifications": "Abonează-te la notificări",
+      "unsubscribe": "Dezabonare",
+      "chooseWhat": "Alege despre ce dorești să fii notificat:",
+      "freeGames": "Jocuri gratuite",
+      "freeGamesDesc": "Primește notificări când sunt disponibile noi jocuri gratuite",
+      "newReleases": "Lansări noi",
+      "newReleasesDesc": "Notificări pentru lansări noi de jocuri",
+      "priceDrops": "Scăderi de preț",
+      "priceDropsDesc": "Primește alerte când jocurile sunt la reducere",
+      "youWillReceive": "Vei primi notificări pentru:",
+      "subscribedTo": "Abonat la {{name}}",
+      "unsubscribedFrom": "Dezabonat de la {{name}}",
+      "failedSubscribe": "Abonarea la notificări a eșuat",
+      "failedUnsubscribe": "Dezabonarea de la notificări a eșuat",
+      "failedTopicSubscribe": "Abonarea la subiect a eșuat",
+      "failedTopicUnsubscribe": "Dezabonarea de la subiect a eșuat",
+      "successSubscribe": "Te-ai abonat cu succes la notificări!",
+      "successUnsubscribe": "Te-ai dezabonat cu succes de la notificări"
+    },
+    "apiKey": {
+      "title": "Gestionare cheie API",
+      "label": "Cheie API",
+      "placeholderGenerated": "Cheie API generată",
+      "placeholderNone": "Nicio cheie API generată",
+      "regenerate": "Regenerează cheia",
+      "generate": "Generează cheia",
+      "clear": "Șterge cheia",
+      "generated": "Noua cheie API a fost generată cu succes!",
+      "copied": "Cheia API a fost copiată în clipboard!",
+      "cleared": "Cheia API a fost ștearsă cu succes!",
+      "failedGenerate": "Generarea cheii API a eșuat",
+      "failedCopy": "Copierea cheii API a eșuat",
+      "failedClear": "Ștergerea cheii API a eșuat",
+      "noneToCopy": "Nicio cheie API de copiat",
+      "description": "Cheia ta API este un UUID stocat local în browserul tău și este folosită pentru a autentifica cererile de notificări push. Folosește butonul de regenerare pentru a crea o cheie nouă dacă este necesar."
+    }
+  },
+  "promotions": {
+    "placeholder": "Salut /promotions/$id!"
+  },
+  "misc": {
+    "gameAwards": {
+      "meta": {
+        "title": "Acoperire The Game Awards | egdata.app",
+        "description": "Cele mai recente jocuri anunțate și nominalizate la The Game Awards care ajung pe Epic Games Store."
+      },
+      "logoAlt": "The Game Awards 2025",
+      "subtitle": "Jocuri anunțate sau nominalizate la The Game Awards care ajung pe Epic Games Store",
+      "videoTitle": "The Game Awards 2024 - Transmisiune în direct",
+      "expandPlayer": "Extinde playerul",
+      "closeMiniPlayer": "Închide mini-playerul",
+      "noGamesTitle": "Încă nu s-au anunțat jocuri",
+      "noGamesBody": "Revino după The Game Awards!"
+    },
+    "downloads": {
+      "title": "Lansări client egdata.app",
+      "description": "Descarcă cea mai recentă versiune. Am evidențiat secțiunea recomandată pentru sistemul tău de operare.",
+      "errorPrefix": "Eroare:",
+      "noPublicReleases": "Nu s-au găsit lansări publice.",
+      "recommended": "Recomandat",
+      "downloadsSuffix": "Descărcări",
+      "versionPublished": "Versiunea {{version}} - Publicată pe {{date}}",
+      "assetInfo": {
+        "appleSilicon": "Pentru Mac-uri mai noi cu cipuri Apple (M1, M2, M3, etc.).",
+        "intel": "Pentru Mac-uri mai vechi cu procesoare Intel.",
+        "universal": "Compatibil atât cu Apple Silicon cât și cu Intel Mac.",
+        "msi": "Un asistent de instalare standard. Recomandat pentru majoritatea utilizatorilor.",
+        "exe": "Un fișier de aplicație autonom. Poate nu necesită instalare.",
+        "linux": "Pentru sisteme de operare bazate pe Linux.",
+        "generic": "Un fișier generic sau cod sursă."
+      }
+    },
+    "discordLinked": {
+      "title": "Cont asociat cu succes!",
+      "body": "Contul tău Discord a fost asociat cu succes cu egdata.app",
+      "footer": "Poți închide acum această fereastră și reveni la Discord. Contul tău este gata de utilizare cu egdata.app"
+    },
+    "posts": {
+      "coverAlt": "Opera de copertă LEGO Star Wars: The Skywalker Saga",
+      "title": "Obține LEGO® Star Wars™: The Skywalker Saga GRATUIT pe Epic Games Store",
+      "freeGameBadge": "Joc gratuit",
+      "published": "Publicat pe 30 noiembrie 2023",
+      "intro": "Marcați în calendare, fanilor Star Wars! Din {{dateRange}}, puteți obține aclamatul {{game}} GRATUIT pe Epic Games Store. Acest joc, care costă de obicei {{price}}, vă permite să retrăiți momentele iconice ale {{saga}} cu o abordare LEGO distractivă.",
+      "dateRange": "5 până pe 12 decembrie 2024",
+      "game": "LEGO® Star Wars™: The Skywalker Saga",
+      "price": "$49.99",
+      "saga": "saga Skywalker",
+      "gameplayAlt": "Gameplay LEGO Star Wars",
+      "charactersAlt": "Personaje LEGO Star Wars",
+      "whatToExpect": "🧩 La ce să te aștepți?",
+      "whatToExpectBody": "Dezvoltat de {{developer}} și publicat de {{publisher}}, acest titlu oferă o experiență cuprinzătoare Star Wars ca niciuna alta. Iată ce îl face de neratat:",
+      "developer": "TT Games",
+      "publisher": "Warner Bros.",
+      "expectList": {
+        "allMovies": "🌌 {{strong}}: Retrăiește poveștile tuturor celor nouă filme ale saga Skywalker, pline de umorul clasic LEGO.",
+        "allMoviesStrong": "Toate cele 9 filme",
+        "characters": "🛸 {{strong}}: Controlează-ți eroii și răufăcătorii preferați din galaxia îndepărtată.",
+        "charactersStrong": "Peste 300 de personaje jucabile",
+        "vehicles": "🚀 {{strong}}: Zboară cu nave iconice precum Millennium Falcon și TIE Fighters.",
+        "vehiclesStrong": "Peste 100 de vehicule",
+        "planets": "🌍 {{strong}}: Călătorește în lumi familiare, de la Tatooine la Endor și dincolo.",
+        "planetsStrong": "23 de planete de explorat"
+      },
+      "specialTitle": "🌟 Ce face acest joc special?",
+      "specialBody": "De la lansarea sa în {{releaseDate}}, LEGO Star Wars: The Skywalker Saga a fost lăudată pentru gameplay-ul său captivant și adaptarea fidelă a universului Star Wars. Cu un {{metascore}} pe Metacritic, criticii și fanii au evidențiat:",
+      "releaseDate": "aprilie 2022",
+      "metascore": "82 Metascore",
+      "specialList": {
+        "combat": "🕹️ {{strong}}: Lupte cu săbii laser, împușcături cu blastere și lupte spațiale.",
+        "combatStrong": "Luptă dinamică",
+        "charm": "🏗️ {{strong}}: Umorul clasic Star Wars, reimaginat în stilul unic LEGO.",
+        "charmStrong": "Farmec LEGO",
+        "replayability": "🤯 {{strong}}: O mulțime de colectibile, misiuni secundare și secrete ascunse.",
+        "replayabilityStrong": "Rejucabilitate"
+      },
+      "howToClaim": "🎁 Cum să îl revendici?",
+      "howToClaimBody": "Obținerea copiei gratuite este ușoară!",
+      "step1": "Vizitează {{storeLink}} între {{dec5}} și {{dec12}}.",
+      "storeLink": "Epic Games Store",
+      "dec5": "5 decembrie",
+      "dec12": "12 decembrie 2024",
+      "step2": "Adaugă jocul în biblioteca ta.",
+      "step3": "Este al tău pentru totdeauna!",
+      "cardTitle": "Nu rata această șansă de a porni într-o călătorie LEGO prin galaxie!",
+      "cardBody": "Fie că ești un fan înrăit Star Wars sau un începător, acest joc oferă distracție nesfârșită pentru toată lumea.",
+      "footer": "Fie ca Forța (și cărămizile LEGO) să fie cu tine! 🧱✨"
+    },
+    "fairUse": {
+      "meta": {
+        "title": "Politica de utilizare corectă - egdata.app",
+        "description": "Politica de utilizare corectă pentru egdata.app"
+      },
+      "title": "Politica de utilizare corectă a EGData App",
+      "section1Title": "1. Introducere",
+      "section1Body": "Bine ați venit la EGData App („noi\", „nostru\"). Această Politică de utilizare corectă stabilește termenii în care puteți utiliza conținutul și datele furnizate pe site-ul nostru web {{siteLink}} („Site-ul\").",
+      "section2Title": "2. Scopul utilizării corecte",
+      "section2Body": "Conținutul și datele de pe EGData App sunt furnizate doar în scop informativ. Scopul nostru este să oferim o bază de date cuprinzătoare a jocurilor (sau datelor legate de jocuri) disponibile în Epic Games Store pentru uz educațional și de referință de către comunitate.",
+      "section3Title": "3. Conformitatea cu utilizarea corectă",
+      "section3Body": "EGData App respectă principiile de utilizare corectă conform legii drepturilor de autor, oferind informații și date într-un mod care beneficiază publicul fără a încălca drepturile deținătorilor de conținut. Iată factorii cheie care justifică utilizarea noastră ca utilizare corectă:",
+      "section3List": {
+        "purpose": "Scopul și caracterul utilizării:",
+        "purposeBody": "Site-ul nostru este necomercial și își propune să educe și să informeze publicul despre jocurile disponibile în Epic Games Store. Oferim informații critice, recenzii și actualizări, îmbunătățind cunoștințele și aprecierea publicului pentru aceste jocuri.",
+        "nature": "Natura operei protejate:",
+        "natureBody": "Datele pe care le colectăm și prezentăm constau în informații faptice, cum ar fi titlurile jocurilor, datele de lansare, dezvoltatorii și actualizările. Informațiile faptice sunt mai puțin protejate de legea drepturilor de autor decât operele creative.",
+        "amount": "Cantitatea și substanțialitatea:",
+        "amountBody": "Folosim doar cantitatea de date necesară pentru a oferi informații relevante utilizatorilor noștri. Nu reproducem opere întregi și nu oferim extrase extinse care ar putea înlocui produsele originale.",
+        "effect": "Efectul asupra pieței:",
+        "effectBody": "Utilizarea noastră a datelor despre jocuri nu afectează negativ piața jocurilor originale. Dimpotrivă, le promovează oferind informații actualizate și stimulând implicarea și interesul utilizatorilor."
+      },
+      "section4Title": "4. Colectarea și actualizarea datelor",
+      "section4Body1": "Site-ul nostru urmărește și actualizează automat datele jocurilor pentru a ne asigura că informațiile pe care le oferim sunt actuale și precise. Acest proces automatizat implică colectarea de informații disponibile public din Epic Games Store și alte surse de încredere.",
+      "section4Body2": "Prin menținerea bazei noastre de date la zi, ne asigurăm că utilizatorii au acces la cele mai recente informații despre jocurile lor preferate, inclusiv lansări noi, actualizări și modificări ale disponibilității.",
+      "section4Body3": "În ceea ce privește activele grafice, încărcăm imaginile direct de pe serverele Epic Games Store. Nu stocăm nicio imagine pe serverele noastre.",
+      "section5Title": "5. Declinarea responsabilității pentru date scurse",
+      "section5Body1": "Orice date care par a fi scurse pe Site-ul nostru provin din informații disponibile public furnizate de Epic Games Store. Nu avem acces la date confidențiale sau proprietare care nu sunt accesibile public. Prin urmare, este responsabilitatea editorilor să își protejeze viitoarele proprietăți intelectuale (IP-uri), jocuri, conținut descărcabil (DLC-uri) și alte informații sensibile în portalul de dezvoltatori Epic Games.",
+      "section5Body2": "Editorii sunt încurajați să se asigure că informațiile sensibile sunt protejate corespunzător și nu sunt făcute publice din neatenție. EGData App nu poate fi considerată responsabilă pentru nicio informație scursă care a fost obținută din surse disponibile public.",
+      "section5Body3": "Pentru mai multe informații despre protecția datelor și utilizarea corectă în Uniunea Europeană, consultați următoarele resurse:",
+      "euDirective1": "Directiva (UE) 2019/790 privind drepturile de autor și drepturile conexe pe piața unică digitală",
+      "euDirective2": "Întrebări și răspunsuri – Noile norme UE privind drepturile de autor",
+      "section6Title": "6. Contactați-ne",
+      "section6Body": "Dacă aveți întrebări despre această Politică de utilizare corectă sau considerați că orice conținut sau date de pe Site-ul nostru vă încalcă drepturile de autor, contactați-ne la:",
+      "email": "Email:"
+    },
+    "donateKey": {
+      "title": "Donează o cheie",
+      "body": "Dacă ai o cheie pe care dorești să o donezi proiectului, te rugăm să completezi formularul de mai jos."
+    },
+    "androidBeta": {
+      "meta": {
+        "title": "Beta Android - egdata.app",
+        "description": "Alătură-te programului de testare beta închisă a aplicației Android egdata.app"
+      },
+      "title": "Programul Beta Android",
+      "description": "Alătură-te betei noastre închise pentru a testa aplicația Android egdata.app înainte de lansarea publică.",
+      "whatHappensNext": "Ce urmează?",
+      "steps": {
+        "signIn": "Autentifică-te cu contul tău Google",
+        "added": "Vei fi adăugat manual la circuitul de testare închis în câteva ore",
+        "download": "Odată adăugat, poți descărca aplicația de la linkul furnizat"
+      }
+    }
+  },
+  "components": {
+    "stats": {
+      "title": "Statistici",
+      "description": "Statistici despre platformă",
+      "offers": "Oferte",
+      "offersTooltip": "O ofertă este un element de catalog cumpărabil din magazin",
+      "items": "Elemente",
+      "itemsTooltip": "Un element este dreptul pentru launcher",
+      "tags": "Etichete",
+      "offersYear": "Oferte (An)",
+      "itemsYear": "Elemente (An)",
+      "assets": "Asset-uri",
+      "assetsTooltip": "Un asset sunt fișierele jocului",
+      "regPrices": "Prețuri normale",
+      "changes": "Modificări",
+      "sandboxes": "Sandbox-uri",
+      "sandboxesTooltip": "Un sandbox este grupul de oferte"
+    },
+    "sandboxShell": {
+      "overview": "Prezentare generală",
+      "offers": "Oferte",
+      "items": "Elemente",
+      "assets": "Asset-uri",
+      "builds": "Compilări",
+      "achievements": "Realizări",
+      "changelog": "Jurnal modificări",
+      "sandbox": "Sandbox",
+      "internalNamespace": "Namespace intern",
+      "storePage": "Pagina magazin",
+      "updated": "Actualizat {{date}}",
+      "unrealEngine": "Unreal Engine",
+      "internalSandbox": "Sandbox intern",
+      "releaseStatus": {
+        "prePurchase": "Precomandă",
+        "datePending": "Dată în așteptare",
+        "comingSoon": "În curând",
+        "released": "Lansat"
+      }
+    },
+    "comparison": {
+      "openCompareTray": "Deschide tava de comparare, {{count}} selectate",
+      "compareSelected": "Compară ofertele selectate",
+      "error": "Eroare",
+      "type": "Tip",
+      "seller": "Vânzător",
+      "developer": "Dezvoltator",
+      "releaseDate": "Data lansării",
+      "pcReleaseDate": "Data lansării pe PC",
+      "genres": "Genuri",
+      "platforms": "Platforme",
+      "remove": "Elimină",
+      "current": "Actual",
+      "lowest": "Cel mai mic",
+      "noPriceFound": "Nu s-a găsit preț",
+      "noAgeRatingsFound": "Nu s-au găsit clasificări de vârstă",
+      "achievements": "Realizări:",
+      "ageRating": "Clasificare de vârstă:",
+      "price": "Preț:",
+      "unknown": "Necunoscut"
+    },
+    "search": {
+      "sellers": "Vânzători",
+      "noResults": "Nu s-au găsit rezultate",
+      "noResultsShort": "Nu s-au găsit rezultate.",
+      "allOfferTypes": "Toate tipurile de oferte",
+      "tags": "Etichete"
+    },
+    "changelist": {
+      "title": "Listă modificări",
+      "loading": "Se încarcă...",
+      "error": "Eroare: {{message}}",
+      "id": "ID",
+      "type": "Tip",
+      "titleOrId": "Titlu/ID",
+      "date": "Data",
+      "new": "nou",
+      "update": "actualizare"
+    },
+    "upcoming": {
+      "caption": "Oferte viitoare",
+      "loading": "Se încarcă...",
+      "title": "Titlu",
+      "price": "Preț",
+      "releaseDate": "Data lansării",
+      "unknown": "Necunoscut",
+      "prePurchase": "Precomandă"
+    },
+    "giveaways": {
+      "title": "Oferte gratuite",
+      "free": "Gratuit",
+      "freeNow": "Gratuit acum",
+      "startsIn": "Începe în",
+      "repeated": "Repetat:",
+      "yes": "Da",
+      "no": "Nu",
+      "repeatedTooltip": "Această ofertă a fost oferită gratuit de {{count}} ori."
+    },
+    "giveawayStats": {
+      "title": "Oferte gratuite în cifre",
+      "loading": "Se încarcă...",
+      "totalValue": "Valoare totală",
+      "totalValueTooltip": "Valoarea totală incluzând orice reduceri active",
+      "giveaways": "Oferte gratuite",
+      "giveawaysTooltip": "Numărul total de oferte gratuite care apar în baza de date",
+      "offers": "Oferte",
+      "offersTooltip": "Numărul total de oferte unice care au apărut în ofertele gratuite",
+      "repeated": "Repetate",
+      "repeatedTooltip": "Numărul de oferte unice care apar de mai multe ori în ofertele gratuite",
+      "sellers": "Vânzători",
+      "sellersTooltip": "Numărul total de vânzători unici care furnizează oferte"
+    },
+    "offerCard": {
+      "openOffer": "Deschide oferta {{title}}",
+      "free": "Gratuit",
+      "comingSoon": "În curând",
+      "earlyAccess": "Acces timpuriu",
+      "prePurchase": "Precomandă",
+      "owned": "deținut"
+    },
+    "baseGame": {
+      "checkBaseGame": "Vezi jocul de bază",
+      "partOfBundle": "Această ofertă face parte din"
+    },
+    "notFound": {
+      "message": "Pagina pe care o cauți nu există."
+    },
+    "sellerOffers": {
+      "error": "Eroare la încărcarea ofertelor. Încearcă din nou.",
+      "moreFrom": "Mai multe de la {{name}}"
+    },
+    "achievementsBlade": {
+      "noData": "Fără date",
+      "game": "Joc",
+      "achievements": "Realizări",
+      "xp": "XP",
+      "bronze": "Bronz",
+      "silver": "Argint",
+      "gold": "Aur",
+      "gamesWithAchievements": "Jocuri cu realizări Epic"
+    },
+    "topSection": {
+      "free": "Gratuit",
+      "releaseDate": "Data lansării:",
+      "tba": "TBA",
+      "platforms": "Platforme:",
+      "tags": "Etichete:",
+      "checkOffer": "Vezi oferta"
+    },
+    "featuredDiscounts": {
+      "free": "Gratuit",
+      "title": "Reduceri recomandate",
+      "countMore": "+{{count}} mai multe",
+      "checkOffer": "Vezi oferta",
+      "until": "până"
+    },
+    "performanceTable": {
+      "title": "Performanță",
+      "noPriorData": "Fără date anterioare",
+      "cardsView": "Vizualizare carduri",
+      "chartView": "Vizualizare grafic"
+    },
+    "priceChart": {
+      "selectValue": "Selectează o valoare",
+      "last3Months": "Ultimele 3 luni",
+      "fetchingData": "Se preiau cele mai recente date"
+    },
+    "dateRangePicker": {
+      "from": "De la",
+      "to": "Până la",
+      "maxRange": "Intervalul maxim este de 30 de zile",
+      "invalidRange": "Interval de date invalid"
+    },
+    "regionalPricing": {
+      "region": "Regiune",
+      "price": "Preț"
+    },
+    "regionalPricingBadge": {
+      "analysis": "Analiză prețuri regionale",
+      "currentPrice": "Preț curent",
+      "suggestedPrice": "Preț sugerat",
+      "belowSuggested": "Această ofertă este chiar sub aceasta — o ofertă excelentă.",
+      "closeToSuggested": "Această ofertă este aproape de cea sugerată și mult sub prețul tipic pentru {{region}}."
+    },
+    "countrySelector": {
+      "searchCountries": "Caută țări...",
+      "noCountries": "Nu s-au găsit țări"
+    },
+    "countriesSelector": {
+      "searchCountries": "Caută țări...",
+      "noCountries": "Nu s-au găsit țări"
+    },
+    "querySearch": {
+      "searchItems": "Caută elemente..."
+    },
+    "extendedSearch": {
+      "searchItems": "Caută elemente...",
+      "noItems": "Nu s-au găsit elemente."
+    },
+    "searchForm": {
+      "noResults": "Nu s-au găsit rezultate",
+      "error": "Eroare: {{message}}",
+      "loadingLong": "Această interogare durează mai mult decât de obicei..."
+    },
+    "searchFormV2": {
+      "noResults": "Nu s-au găsit rezultate."
+    },
+    "androidBetaBanner": {
+      "dismiss": "Respinge bannerul"
+    },
+    "videoPlayer": {
+      "title": "{{title}}"
+    },
+    "mediaSlider": {
+      "previousSlide": "Slide anterior",
+      "nextSlide": "Slide următor",
+      "image": "Imagine {{index}}",
+      "thumbnail": "Miniatură {{index}}",
+      "downloading": "Se descarcă...",
+      "download": "Descărcare"
+    },
+    "changelogItem": {
+      "action": "Acțiune",
+      "type": "Tip",
+      "oldValue": "Valoare veche",
+      "newValue": "Valoare nouă",
+      "previousValue": "Valoare anterioară:",
+      "newValueLabel": "Valoare nouă:"
+    },
+    "changelogCharts": {
+      "byWeekday": "Modificări după ziua săptămânii",
+      "byWeekdayDesc": "Modificări acumulate după ziua săptămânii",
+      "typesOfChanges": "Tipuri de modificări",
+      "typesOfChangesDesc": "Cantitatea de modificări după tip",
+      "byField": "Modificări după câmp",
+      "byFieldDesc": "Modificări grupate după câmpul modificat",
+      "dailyDesc": "Se afișează modificările zilnice pentru ultimul an",
+      "noData": "Nu sunt date disponibile de afișat."
+    },
+    "openEgl": {
+      "open": "Deschide"
+    },
+    "openEgs": {
+      "store": "Magazin"
+    },
+    "openLauncher": {
+      "play": "Joacă"
+    },
+    "storeDropdown": {
+      "launcher": "Launcher",
+      "viewStorePage": "Vezi pagina magazinului",
+      "webBrowser": "Browser web"
+    },
+    "prepurchasePopup": {
+      "title": "{{title}}"
+    },
+    "apiKeyManager": {
+      "title": "Gestionare cheie API",
+      "label": "Cheie API",
+      "placeholder": {
+        "generated": "Cheie API generată",
+        "none": "Nicio cheie API generată"
+      },
+      "button": {
+        "regenerate": "Regenerează cheia",
+        "generate": "Generează cheia",
+        "clear": "Șterge cheia"
+      },
+      "notification": {
+        "generated": "Noua cheie API a fost generată cu succes!",
+        "generateFailed": "Generarea cheii API a eșuat",
+        "copied": "Cheia API a fost copiată în clipboard!",
+        "copyFailed": "Copierea cheii API a eșuat",
+        "noneToCopy": "Nicio cheie API de copiat",
+        "cleared": "Cheia API a fost ștearsă cu succes!",
+        "clearFailed": "Ștergerea cheii API a eșuat"
+      },
+      "description": "Cheia ta API este un UUID stocat local în browserul tău și este folosită pentru a autentifica cererile de notificări push. Folosește butonul de regenerare pentru a crea o cheie nouă dacă este necesar."
+    },
+    "cookieBanner": {
+      "title": "Notificare cookie-uri",
+      "description": "Acest site web utilizează cookie-uri pentru a îmbunătăți experiența de navigare. Prin acceptarea cookie-urilor, acceptați {{privacyPolicyLink}}.",
+      "accept": "Accept",
+      "decline": "Refuz"
+    },
+    "searchHeader": {
+      "results": "{{count}} rezultate",
+      "showingResultsFor": "Se afișează rezultate pentru"
+    },
+    "bundle": {
+      "collectionOffers": "Oferte de colecție",
+      "bundleOffers": "Oferte pachet",
+      "offersCount": "- {{count}} oferte",
+      "bundlePriceTitle": "Preț pachet",
+      "totalValueLabel": "Valoare totală:",
+      "bundlePriceLabel": "Preț pachet:",
+      "youSave": "Economisești:",
+      "youPayMore": "Plătești mai mult:",
+      "buyBundle": "Cumpără pachetul",
+      "buyIndividually": "Cumpără elemente individual"
+    },
+    "clientBanner": {
+      "heading": "Alimentează baza de date de compilări {{appName}}",
+      "subheading": "Ajută la maparea fiecărei compilări Epic Games Store",
+      "description": "Clientul nostru ușor pentru Windows și macOS scanează instalările Epic Games Launcher și încarcă în siguranță doar fișierele de manifest — liste de fragmente și metadate — în baza noastră de date deschisă. Fiecare încărcare îmbogățește comunitatea și ne ajută să urmărim modificările în timp.",
+      "cta": "Descarcă pentru Windows și macOS"
+    },
+    "collectionOffers": {
+      "title": "Oferte de colecție"
+    },
+    "lastModifiedOffers": {
+      "title": "Oferte modificate recent"
+    },
+    "latestOffers": {
+      "title": "Adăugate recent"
+    },
+    "latestReleased": {
+      "title": "Lansate recent"
+    },
+    "mobileFreebies": {
+      "title": "Jocuri gratuite mobile",
+      "collapse": "Restrânge jocurile gratuite mobile",
+      "expand": "Extinde jocurile gratuite mobile"
+    },
+    "sectionHeader": {
+      "seeAll": "Vezi toate"
+    },
+    "suggestedOffers": {
+      "title": "Ți-ar putea plăcea și"
+    }
+  },
+  "table": {
+    "pagination": {
+      "rowsPerPage": "Rânduri pe pagină",
+      "pageOf": "Pagina {{page}} din {{total}}",
+      "goToFirst": "Mergi la prima pagină",
+      "goToPrevious": "Mergi la pagina anterioară",
+      "goToNext": "Mergi la pagina următoare",
+      "goToLast": "Mergi la ultima pagină",
+      "previous": "Anterior",
+      "next": "Următor",
+      "morePages": "Mai multe pagini"
+    },
+    "toolbar": {
+      "platform": "Platformă",
+      "status": "Stare",
+      "type": "Tip",
+      "platforms": "Platforme",
+      "fileExtensions": "Extensii fișiere",
+      "filterOffers": "Filtrează ofertele...",
+      "filterItems": "Filtrează elementele...",
+      "filterFiles": "Filtrează fișierele...",
+      "reset": "Resetează"
+    },
+    "viewOptions": {
+      "view": "Vizualizare",
+      "toggleColumns": "Comută coloanele"
+    },
+    "facetedFilter": {
+      "noResults": "Nu s-au găsit rezultate.",
+      "selected": "selectat",
+      "clearFilters": "Șterge filtrele"
+    },
+    "builds": {
+      "noResults": "Niciun rezultat.",
+      "donateKey": "Donează o cheie"
+    }
+  },
+  "forms": {
+    "review": {
+      "submitTitle": "Trimite o recenzie",
+      "editTitle": "Editează recenzia",
+      "description": "Împărtășește-ți gândurile despre {{title}}",
+      "rating": "Evaluare",
+      "ratingError": "Evaluarea trebuie să fie între 1 și 10",
+      "recommend": "Ai recomanda acest produs?",
+      "recommendError": "Te rugăm să selectezi da sau nu",
+      "yes": "Da",
+      "no": "Nu",
+      "title": "Titlu",
+      "titlePlaceholder": "Introdu un titlu pentru recenzia ta",
+      "titleRequired": "Titlul este obligatoriu",
+      "titleMinLength": "Titlul trebuie să aibă cel puțin 3 caractere",
+      "titleMinLengthLong": "Titlul trebuie să aibă cel puțin 3 caractere",
+      "titleMaxLength": "Titlul trebuie să aibă mai puțin de 75 de caractere",
+      "reviewContent": "Conținutul recenziei",
+      "contentMinLength": "Conținutul trebuie să aibă cel puțin 3 caractere",
+      "tags": "Etichete (separate prin virgulă)",
+      "tagsPlaceholder": "de ex. calitate, design, performanță",
+      "previous": "Anterior",
+      "next": "Următor",
+      "submit": "Trimite recenzia",
+      "deleteReview": "Șterge recenzia",
+      "confirmDelete": "Ești sigur că dorești să ștergi această recenzie?",
+      "deleteDescription": "Această acțiune nu poate fi anulată. Recenzia va fi ștearsă permanent de pe serverele noastre.",
+      "cancel": "Anulare",
+      "delete": "Șterge",
+      "deleting": "Se șterge...",
+      "errorSubmitting": "Eroare la trimiterea recenziei",
+      "errorDeleting": "Eroare la ștergerea recenziei",
+      "spamDetected": "Spam detectat",
+      "defaultContent": "Te rugăm să introduci recenzia aici",
+      "theProduct": "produsul"
+    },
+    "androidBeta": {
+      "title": "Alătură-te Betai",
+      "description": "Autentifică-te cu Google pentru a te înregistra pentru beta închisă. Avem nevoie doar de adresa ta de email.",
+      "spotsRemaining": "<strong>{{remaining}}</strong> din {{max}} locuri rămase",
+      "betaFull": "Beta este plină",
+      "betaFullDesc": "Toate cele {{max}} locuri au fost ocupate. Revino mai târziu sau urmărește-ne pentru actualizări despre când vor fi disponibile mai multe locuri.",
+      "registering": "Te înregistrăm pentru beta...",
+      "registered": "Ești înregistrat!",
+      "registeredDesc": "Am înregistrat <strong>{{email}}</strong> pentru beta închisă.",
+      "registeredDesc2": "Este posibil să dureze câteva ore până când vei fi adăugat manual pe lista de testeri. Odată adăugat, te poți alătura betai aici:",
+      "joinBeta": "Alătură-te Betai pe Google Play",
+      "alreadyRegistered": "Deja înregistrat",
+      "alreadyRegisteredDesc": "<strong>{{email}}</strong> este deja înregistrat pentru beta.",
+      "alreadyRegisteredDesc2": "Dacă ai fost deja adăugat pe lista de testeri, te poți alătura betai aici:",
+      "error": "Eroare",
+      "tryAgain": "Încearcă din nou",
+      "noCredential": "Nu s-a primit nicio acreditare de la Google",
+      "somethingWrong": "Ceva nu a mers bine. Încearcă din nou.",
+      "googleFailed": "Autentificarea Google a eșuat. Încearcă din nou."
+    },
+    "donateKey": {
+      "donate": "Donează",
+      "error": "Eroare",
+      "success": "Succes",
+      "successDesc": "Mulțumim pentru donație! Elementul a fost răscumpărat corect și datele sale vor fi disponibile în curând.",
+      "offerPage": "Pagina ofertei",
+      "somethingWrong": "Ceva nu a mers bine. Încearcă din nou."
+    }
+  },
+  "ui": {
+    "dialog": {
+      "close": "Închidere"
+    },
+    "sheet": {
+      "close": "Închidere"
+    },
+    "carousel": {
+      "previous": "Slide anterior",
+      "next": "Slide următor"
+    },
+    "pagination": {
+      "previous": "Anterior",
+      "next": "Următor",
+      "morePages": "Mai multe pagini"
+    },
+    "priceRangeSlider": {
+      "priceRange": "Interval de preț",
+      "minPrice": "Preț min",
+      "maxPrice": "Preț max"
+    }
+  }
+}

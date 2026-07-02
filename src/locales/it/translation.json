@@ -1,0 +1,1763 @@
+{
+  "common": {
+    "appName": "EGDATA",
+    "search": "Cerca",
+    "searchPlaceholder": "Cerca giochi...",
+    "loading": "Caricamento...",
+    "free": "Gratis",
+    "notAvailable": "Non disponibile",
+    "cancel": "Annulla",
+    "save": "Salva",
+    "close": "Chiudi"
+  },
+  "nav": {
+    "toggleMenu": "Attiva/disattiva menu di navigazione",
+    "logoAlt": "Logo EGDATA",
+    "explore": "Esplora",
+    "browse": "Sfoglia",
+    "sales": "Sconti",
+    "changelog": "Registro modifiche",
+    "about": "Informazioni",
+    "rankings": "Classifiche",
+    "topSellers": "Più venduti",
+    "mostPlayed": "Più giocati",
+    "topWishlisted": "Più desiderati",
+    "topNewReleases": "Nuove uscite migliori",
+    "seeAllCollections": "Vedi tutte le collezioni",
+    "others": "Altri",
+    "releaseStats": "Statistiche uscite",
+    "genres": "Generi",
+    "seeAllGenres": "Vedi tutti i generi",
+    "other": "Altro",
+    "action": "Azione",
+    "rpg": "RPG",
+    "indie": "Indie",
+    "strategy": "Strategia",
+    "topSellerOnEpic": "Più venduto sull'Epic Games Store",
+    "searchItemTitle": "Cerca",
+    "searchItemDesc": "Trova quello che cerchi sull'Epic Games Store.",
+    "freeGamesItemTitle": "Giochi Gratis",
+    "freeGamesItemDesc": "Esplora le ultime offerte di giochi gratuiti sull'Epic Games Store.",
+    "withDiscountsItemTitle": "Con Sconti",
+    "withDiscountsItemDesc": "Scopri i giochi attualmente in offerta con grandi sconti.",
+    "helloUser": "Ciao, {{name}}!",
+    "dashboard": "Dashboard",
+    "logout": "Esci",
+    "searchLanguages": "Cerca lingue...",
+    "noLanguagesFound": "Nessuna lingua trovata"
+  },
+  "footer": {
+    "logoAlt": "Logo EGDATA",
+    "disclaimer": "Un database dell'Epic Games Store creato da fan. Non affiliato con Epic Games, Inc. Tutti i loghi, le immagini e i marchi appartengono ai rispettivi proprietari.",
+    "legal": "Note legali",
+    "privacyPolicy": "Informativa sulla privacy",
+    "notifications": "Notifiche",
+    "resources": "Risorse",
+    "apiDocs": "Documentazione API",
+    "changelog": "Registro modifiche",
+    "community": "Community",
+    "flagsByFlagpedia": "Bandiere di Flagpedia",
+    "madeIn": "Realizzato in"
+  },
+  "meta": {
+    "title": "Database Epic Games - egdata.app",
+    "description": "Database completo dell'Epic Games Store: informazioni sui giochi, prezzi, storico vendite, elenchi file e altro ancora. Esplora giochi gratuiti, prossime uscite e approfondimenti della community.",
+    "twitterTitle": "Database Epic Games",
+    "twitterDescription": "Un database gratuito e open source dell'Epic Games Store con informazioni complete sui giochi, monitoraggio delle vendite e altro ancora. Guidato dalla community e costantemente aggiornato.",
+    "twitterImageAlt": "Database Epic Games",
+    "ogTitle": "Database Epic Games",
+    "ogDescription": "Un database gratuito e open source dell'Epic Games Store con informazioni complete sui giochi, monitoraggio delle vendite e altro ancora. Guidato dalla community e costantemente aggiornato.",
+    "ogImageAlt": "Database Epic Games"
+  },
+  "notFound": {
+    "title": "Pagina non trovata"
+  },
+  "home": {
+    "statsBar": {
+      "offersTracked": "Offerte tracciate",
+      "priceChanges72h": "Cambiamenti prezzo / 72h",
+      "activeDiscounts": "Sconti attivi",
+      "giveawaysToDate": "Giveaway fino ad oggi"
+    },
+    "sections": {
+      "giveawayStats": "Statistiche giveaway",
+      "giveawayOffers": "Offerte giveaway",
+      "upcomingOffers": "Prossime offerte",
+      "latestOffers": "Ultime offerte",
+      "latestReleased": "Ultime uscite",
+      "latestOffersWithAchievements": "Ultime offerte con risultati",
+      "topSellingOffers": "Offerte più vendute",
+      "latestBuilds": "Ultime build"
+    },
+    "tableHeaders": {
+      "hash": "#",
+      "pos": "Pos",
+      "dash": "-",
+      "title": "Titolo",
+      "starts": "Inizio",
+      "ends": "Fine",
+      "releaseDate": "Data di uscita",
+      "createdAt": "Data creazione",
+      "date": "Data",
+      "price": "Prezzo",
+      "size": "Dimensione",
+      "creationDate": "Data di creazione"
+    },
+    "offerHover": {
+      "seller": "Venditore:",
+      "developer": "Sviluppatore:",
+      "publisher": "Editore:",
+      "releaseDate": "Data di uscita:",
+      "ageRating": "Classificazione età:",
+      "moreGenres_one": "+{{count}} altro",
+      "moreGenres_other": "+{{count}} altri",
+      "communityRating": "Valutazione community:",
+      "igdbScore": "Punteggio IGDB",
+      "reviews": "• {{count}} recensioni",
+      "timeToBeat": "Tempo per completare:",
+      "features": "Caratteristiche:",
+      "moreFeatures": " +{{count}} altro"
+    },
+    "buildHover": {
+      "unknownBuild": "Build sconosciuta",
+      "unknownDeveloper": "Sviluppatore sconosciuto",
+      "size": "Dimensione",
+      "version": "Versione",
+      "created": "Creata",
+      "id": "ID: {{id}}"
+    },
+    "multipleOffers": "{{title}} - Offerte multiple",
+    "hero": {
+      "subtitle": "Traccia i prezzi, scopri le offerte e non perdere mai un gioco gratuito. Il tuo compagno per il database dell'Epic Games Store — offerte, sconti, giveaway, build e altro ancora.",
+      "searchPlaceholder": "Cerca nel database…",
+      "justReleased": "Appena uscito",
+      "priceDrops72h": "Calo prezzi (72h)",
+      "hasAchievements": "Ha risultati",
+      "upcoming": "Prossimi",
+      "topSellers": "Più venduti"
+    },
+    "pulse": {
+      "recentActivity": "Attività recente",
+      "badge": {
+        "new": "Nuovo",
+        "gone": "Rimosso",
+        "offer": "Offerta",
+        "build": "Build",
+        "item": "Articolo",
+        "asset": "Asset",
+        "xp": "XP",
+        "sandbox": "Sandbox",
+        "change": "Modifica"
+      },
+      "title": {
+        "buildVersion": "Build {{version}}",
+        "buildId": "Build {{id}}",
+        "achievementsId": "Risultati {{id}}"
+      },
+      "detail": {
+        "newBuildIndexed": "Nuova build indicizzata",
+        "buildManifestRefreshed": "Manifest della build aggiornato",
+        "achievementChanges_one": "{{count}} risultato {{entry}} {{verb}}",
+        "achievementChanges_other": "{{count}} risultati {{entry}} {{verb}}",
+        "offerMetadataRefreshed": "Metadati dell'offerta aggiornati",
+        "fieldsChanged_one": "{{count}} campo {{verb}}",
+        "fieldsChanged_other": "{{count}} campi {{verb}}",
+        "fieldChanged": "{{field}} {{verb}}"
+      },
+      "actionVerb": {
+        "added": "aggiunto",
+        "removed": "rimosso",
+        "updated": "aggiornato",
+        "changed": "modificato"
+      },
+      "entry_one": "inserimento",
+      "entry_other": "inserimenti"
+    }
+  },
+  "offerDetail": {
+    "common": {
+      "offerNotFound": "Offerta non trovata",
+      "notAvailable": "Non disponibile",
+      "na": "N/D",
+      "loading": "Caricamento...",
+      "somethingWentWrong": "Qualcosa è andato storto",
+      "noChangesFound": "Nessuna modifica trovata per questa offerta"
+    },
+    "tabs": {
+      "overview": "Panoramica",
+      "price": "Prezzo",
+      "items": "Articoli",
+      "builds": "Build",
+      "achievements": "Risultati",
+      "related": "Correlati",
+      "metadata": "Metadati",
+      "changelog": "Registro modifiche",
+      "media": "Media",
+      "reviews": "Recensioni"
+    },
+    "table": {
+      "offerId": "ID offerta",
+      "namespace": "Namespace",
+      "offerType": "Tipo offerta",
+      "seller": "Venditore",
+      "developer": "Sviluppatore",
+      "supportedPlatforms": "Piattaforme supportate",
+      "releaseDate": "Data di uscita",
+      "lastUpdate": "Ultimo aggiornamento",
+      "creationDate": "Data di creazione",
+      "technologies": "Tecnologie",
+      "type": "Tipo",
+      "value": "Valore",
+      "countriesBlacklist": "Paesi in blacklist",
+      "countriesWhitelist": "Paesi in whitelist",
+      "categories": "Categorie",
+      "refundType": "Tipo di rimborso",
+      "tags": "Tag",
+      "ageRatings": "Classificazioni età",
+      "assets": "Asset"
+    },
+    "badges": {
+      "prePurchase": "Pre-acquisto",
+      "earlyAccess": "Accesso anticipato"
+    },
+    "hero": {
+      "offeredBy": "Offerto da {{seller}}"
+    },
+    "tooltip": {
+      "internalNamespace": "Namespace interno Epic Games",
+      "techDescription": "elenco delle tecnologie per tracciare i motori utilizzati e le diverse tecnologie dai file di gioco.",
+      "techSource": "Usiamo",
+      "techSourceSteamDb": "SteamDB",
+      "source": "Fonte"
+    },
+    "actions": {
+      "compare": "Confronta"
+    },
+    "releaseDate": {
+      "releasedOnPc": "Uscito su PC",
+      "theEgs": " su EGS",
+      "releasedSameDay": "Uscito su Epic lo stesso giorno del PC"
+    },
+    "notifications": {
+      "title": "Impostazioni notifiche",
+      "description": "Scegli quali notifiche ricevere per questa offerta.",
+      "all": "Tutte",
+      "price": "Prezzo",
+      "achievements": "Risultati",
+      "builds": "Build",
+      "items": "Articoli",
+      "requirements": "Requisiti",
+      "metadata": "Metadati",
+      "media": "Media",
+      "enablePushDescription": "Devi abilitare le notifiche push per ricevere notifiche per questa offerta.",
+      "enablePushAction": "Abilita notifiche push"
+    },
+    "overview": {
+      "genres": "Generi",
+      "ageRating": "Classificazione età",
+      "noAgeRatings": "Nessuna classificazione età trovata",
+      "giveaways": "Giveaway",
+      "noGiveaways": "Nessun giveaway trovato",
+      "achievements": "Risultati",
+      "igdbTimeToBeat": "IGDB Tempo per completare",
+      "hastily": "Velocemente",
+      "normally": "Normalmente",
+      "completely": "Completamente",
+      "hltbSubmissions_one": "Basato su {{count}} invio",
+      "hltbSubmissions_other": "Basato su {{count}} invii",
+      "price": "Prezzo",
+      "priceCurrent": "Corrente:",
+      "priceLowest": "Minimo:",
+      "priceLastDiscount": "Ultimo sconto:",
+      "hltbTitle": "Quanto tempo per completare",
+      "noGameTimes": "Nessun tempo di gioco trovato",
+      "epicRating": "Valutazione giocatori Epic",
+      "epicRatingDescription": "Catturata dai giocatori nell'ecosistema Epic Games",
+      "igdbRating": "Valutazione IGDB",
+      "igdbReviews_one": "{{count}} recensione",
+      "igdbReviews_other": "{{count}} recensioni"
+    },
+    "achievements": {
+      "title": "Risultati",
+      "sortBy": "Ordina per",
+      "defaultSort": "Ordinamento predefinito",
+      "sortByRarity": "Ordina per rarità",
+      "sortByCompleted": "Ordina per % completamento",
+      "search": "Cerca",
+      "flipAll": "Capovolgi tutto",
+      "noAchievements": "Nessun risultato trovato",
+      "noAchievementsSet": "Nessun risultato trovato per questo set.",
+      "noAchievementsSetDescription": "Potrebbe significare che i risultati non sono attualmente disponibili ma verranno aggiunti in futuro.",
+      "baseGame": "Gioco base",
+      "dlc": "DLC",
+      "achievementsLabel": "Risultati",
+      "baseGameDescription": "Questo elenco di risultati è per il gioco base.",
+      "dlcDescription": "Questo elenco di risultati è per uno dei DLC.",
+      "lastUpdated": "Ultimo aggiornamento:",
+      "lastUpdatedTooltip": "Questo set di risultati è stato aggiornato l'{{date}}.",
+      "lastUpdatedTooltipDescription": "Questa è la data di creazione o la data dell'ultimo aggiornamento."
+    },
+    "builds": {
+      "title": "Build"
+    },
+    "items": {
+      "title": "Articoli"
+    },
+    "price": {
+      "title": "Prezzo"
+    },
+    "related": {
+      "title": "Offerte correlate"
+    },
+    "media": {
+      "images": "Immagini",
+      "videos": "Video",
+      "covers": "Copertine",
+      "noImages": "Nessuna immagine trovata",
+      "noVideos": "Nessun video trovato",
+      "noCovers": "Nessuna copertina trovata",
+      "download": "Scarica",
+      "close": "Chiudi",
+      "downloadCoverAria": "Scarica copertina {{type}}"
+    },
+    "metadata": {
+      "title": "Metadati",
+      "download": "Download:",
+      "install": "Installazione:"
+    },
+    "changelog": {
+      "title": "Registro modifiche",
+      "tooltip": "Questo elenco mostra le modifiche apportate a questa specifica offerta o agli articoli, asset o build correlati.",
+      "sandboxChangelog": "registro modifiche sandbox",
+      "sandboxChangelogPrefix": "Puoi vedere il registro modifiche per l'intero prodotto nel",
+      "noChangelog": "Nessun registro modifiche disponibile",
+      "allTypes": "Tutti i tipi",
+      "selectField": "Seleziona un campo",
+      "allFields": "Tutti i campi",
+      "search": "Cerca",
+      "previous": "Precedente",
+      "next": "Successivo",
+      "pageOf": "Pagina {{page}} di {{totalPages}}",
+      "typeUpdate": "Aggiorna",
+      "typeDelete": "Elimina",
+      "typeInsert": "Inserisci"
+    },
+    "reviews": {
+      "epicRating": "Valutazione giocatori Epic",
+      "epicRatingDescription": "Catturata dai giocatori nell'ecosistema Epic Games",
+      "egdataRating": "Valutazione EGDATA",
+      "overallScore": "Punteggio complessivo",
+      "scoreOutOf10": "{{score}} / 10",
+      "basedOnReviews": "Basato su {{count}} recensioni",
+      "allReviews": "Tutte le recensioni",
+      "onlyVerified": "Solo verificate",
+      "notVerified": "Non verificate",
+      "leaveReview": "Lascia una recensione",
+      "alreadyReviewed": "Già recensito",
+      "loginToReview": "Accedi per recensire",
+      "noReviews": "Ancora nessuna recensione",
+      "notReleased": "Questo prodotto non è ancora stato rilasciato",
+      "beFirst": "Sii il primo a lasciare una recensione per questo prodotto!",
+      "checkBack": "Torna dopo la data di uscita per lasciare una recensione!",
+      "verifiedOwner": "Proprietario verificato",
+      "recommended": "Consigliato",
+      "notRecommended": "Non consigliato",
+      "readMore": "Leggi tutto",
+      "reviewedOn": "Recensito il",
+      "lastUpdatedOn": "Ultimo aggiornamento il",
+      "editedTimes": "Modificato {{count}} volte",
+      "edit": "Modifica",
+      "close": "Chiudi",
+      "reviewCount_one": "{{count}} recensione",
+      "reviewCount_other": "{{count}} recensioni",
+      "ownershipVerification": "Verifica di proprietà",
+      "ownershipVerificationDescription": "si basa sul completamento di almeno un risultato da parte del giocatore.",
+      "ownershipVerificationTooltip": "Utilizziamo i risultati di Epic Games per verificare la proprietà del prodotto. Per contrassegnare un giocatore come proprietario verificato, deve aver completato almeno un risultato per il prodotto selezionato sull'Epic Games Store. Per collegare il tuo account al tuo profilo egdata, devi andare su",
+      "yourDashboard": "la tua dashboard",
+      "criticReviews": "Recensioni della critica",
+      "basedOnCriticReviews": "Basato su {{count}} recensioni della critica",
+      "opencriticRating": "Valutazione OpenCritic",
+      "topCriticAverage": "Media critici principali",
+      "criticsRecommend": "I critici raccomandano",
+      "opencriticRatingAlt": "Valutazione OpenCritic"
+    }
+  },
+  "search": {
+    "meta": {
+      "title": "Cerca | egdata.app",
+      "description": "Cerca offerte dall'Epic Games Store."
+    },
+    "defaultTitle": "Cerca",
+    "filters": "Filtri",
+    "filtersPlaceholder": "Cerca giochi",
+    "pills": {
+      "onSale": "In sconto",
+      "codeRedemptionOnly": "Solo riscatto codice",
+      "excludeBlockchain": "Escludi Blockchain/NFT",
+      "pastGiveaways": "Giveaway passati"
+    },
+    "accordion": {
+      "offerType": "Tipo offerta",
+      "developer": "Sviluppatore",
+      "publisher": "Editore",
+      "noTags": "Nessun tag trovato",
+      "seller": "Venditore"
+    },
+    "checkboxes": {
+      "pastGiveaways": "Giveaway passati",
+      "onSale": "In sconto",
+      "codeRedemptionOnly": "Solo riscatto codice",
+      "excludeBlockchain": "Escludi Blockchain/NFT",
+      "onlyHistoricalLows": "Solo minimi storici",
+      "onlyLowestPriceEver": "Solo prezzo più basso di sempre"
+    },
+    "tagGroups": {
+      "event": "Evento",
+      "genre": "Genere",
+      "epicfeature": "Caratteristica Epic",
+      "accessibility": "Accessibilità",
+      "feature": "Caratteristica",
+      "usersay": "Usersay",
+      "subscription": "Abbonamento",
+      "platform": "Piattaforma",
+      "all": "Tutti i tag"
+    },
+    "sort": {
+      "sortBy": "Ordina per",
+      "sortAriaLabel": "Ordina offerte",
+      "sortDirectionAriaLabel": "Inverti direzione ordinamento",
+      "showListView": "Mostra vista elenco",
+      "showGridView": "Mostra vista griglia",
+      "releaseDate": "Data di uscita",
+      "lastModifiedDate": "Data modifica",
+      "effectiveDate": "Data effettiva",
+      "creationDate": "Data di creazione",
+      "viewableDate": "Data visualizzabile",
+      "pcReleaseDate": "Data uscita PC",
+      "upcoming": "Prossimi",
+      "price": "Prezzo",
+      "discount": "Sconto",
+      "discountPercent": "Sconto %",
+      "giveawayDate": "Data giveaway"
+    },
+    "results": {
+      "noResults": "Nessun risultato trovato"
+    }
+  },
+  "freebies": {
+    "meta": {
+      "title": "Giochi Gratis | egdata.app",
+      "description": "Sfoglia i giochi gratuiti dell'Epic Games Store."
+    },
+    "headings": {
+      "current": "Giochi gratuiti attuali",
+      "past": "Giochi gratuiti passati",
+      "sellers": "Venditori di giochi gratuiti"
+    },
+    "buttons": {
+      "redeem": "Riscatta ora",
+      "downloadJson": "Scarica come JSON",
+      "downloadCsv": "Scarica come CSV",
+      "downloadTxt": "Scarica come testo"
+    },
+    "placeholders": {
+      "searchSellers": "Cerca venditori..."
+    },
+    "aria": {
+      "downloadList": "Scarica elenco"
+    },
+    "errors": {
+      "loadSellers": "Errore durante il caricamento dei dati dei venditori. Riprova più tardi."
+    },
+    "table": {
+      "sellerName": "Nome venditore",
+      "totalGames": "Totale giochi singoli"
+    }
+  },
+  "sales": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Scopri {{title}} dall'Epic Games Store."
+    },
+    "metaIndex": {
+      "title": "Sconti attivi | egdata.app",
+      "description": "Sfoglia gli sconti attivi su egdata.app"
+    },
+    "status": {
+      "loading": "Caricamento...",
+      "noData": "Nessun dato"
+    },
+    "headings": {
+      "active": "Sconti attivi",
+      "pastUpcoming": "Sconti passati / futuri",
+      "offersList": "Offerte {{title}}"
+    },
+    "errors": {
+      "notFound": "Promozione non trovata"
+    },
+    "labels": {
+      "offersCount": "{{count}} offerte disponibili in questo evento"
+    }
+  },
+  "collections": {
+    "meta": {
+      "title": "{{title}} | egdata.app",
+      "description": "Scopri {{title}} dall'Epic Games Store."
+    },
+    "metaIndex": {
+      "title": "Collezioni | egdata.app",
+      "description": "Collezioni su egdata.app"
+    },
+    "headings": {
+      "main": "Collezioni"
+    },
+    "description": {
+      "overview": "I giochi più venduti, più giocati e più popolari sull'Epic Games Store"
+    },
+    "status": {
+      "loading": "Caricamento..."
+    },
+    "errors": {
+      "notFound": "Collezione non trovata"
+    },
+    "table": {
+      "position": "Posizione",
+      "variance": "Variazione",
+      "weeks": "Settimane"
+    },
+    "tooltips": {
+      "variance": "La differenza tra la posizione attuale e quella precedente. Di solito cambia ogni giorno.",
+      "weeks": "Il numero di settimane in cui il gioco è stato nella top 100 per {{title}}."
+    },
+    "buttons": {
+      "loadMore": "Carica altro"
+    }
+  },
+  "sandboxes": {
+    "notFoundTitle": "Sandbox non trovato",
+    "notFoundDescription": "Sandbox non trovato",
+    "unrealEngineTitle": "Unreal Engine",
+    "unavailableTitle": "Sandbox non disponibile",
+    "unavailableDescription": "L'hub del prodotto non può essere caricato.",
+    "noProductDataDescription": "Nessun dato di prodotto esiste per questo sandbox.",
+    "hubEyebrow": "Sandbox",
+    "hubOverviewTitle": "Panoramica",
+    "hubOverviewDescription": "Una mappa concentrata del storefront, proprietà, consegna e registri di aggiornamento per questo Namespace.",
+    "latestChangesButton": "Ultime modifiche",
+    "entityOffersLabel": "Offerte",
+    "entityOffersDescription": "Voci del negozio",
+    "entityItemsLabel": "Articoli",
+    "entityItemsDescription": "Registri di proprietà",
+    "entityAssetsLabel": "Asset",
+    "entityAssetsDescription": "Artefatti e media",
+    "entityBuildsLabel": "Build",
+    "entityBuildsDescription": "Pacchetti binari",
+    "entityAchievementsLabel": "Risultati",
+    "entityAchievementsDescription": "Dati di progressione",
+    "entityChangelogLabel": "Registro modifiche",
+    "entityChangelogDescription": "Aggiornamenti tracciati",
+    "viewButton": "Visualizza",
+    "storefrontOffersTitle": "Offerte del negozio",
+    "storefrontOffersDescription": "Voci rappresentative del negozio trovate in questo sandbox.",
+    "recentBuildsTitle": "Build recenti",
+    "recentBuildsDescription": "Registri binari più recenti.",
+    "latestBadge": "più recente",
+    "unknownBuildLabel": "Build sconosciuta",
+    "recentChangesTitle": "Modifiche recenti",
+    "recentChangesDescription": "Ultime mutazioni del catalogo.",
+    "updateBadge": "aggiorna",
+    "changeDefaultLabel": "Modifica",
+    "metaOffersTitle": "Offerte",
+    "offersEyebrow": "E-commerce",
+    "offersTitle": "Offerte",
+    "offersDescription": "Voci del negozio in questo sandbox, inclusi giochi base, edizioni, DLC, aggiunte, bundle e qualsiasi offerta che possa concedere articoli del catalogo.",
+    "totalOffersLabel": "Totale offerte",
+    "metaAchievementsTitle": "Risultati",
+    "achievementsEyebrow": "Progressione",
+    "achievementsTitle": "Risultati",
+    "achievementsDescription": "Set di risultati, stati nascosti, distribuzione della rarità e totali XP allegati a questo sandbox.",
+    "achievementsSetsLabel": "Set",
+    "achievementsLabel": "Risultati",
+    "achievementsXpLabel": "XP",
+    "searchAchievementsPlaceholder": "Cerca risultati",
+    "flipAllButton": "Capovolgi tutto",
+    "revealHiddenAchievementAria": "Rivela testo risultato nascosto",
+    "hideHiddenAchievementAria": "Nascondi testo risultato nascosto",
+    "achievementsBaseGameLabel": "Gioco base",
+    "achievementsDlcLabel": "DLC",
+    "achievementsBaseGameTooltip": "Questo elenco di risultati è per il gioco base.",
+    "achievementsDlcTooltip": "Questo elenco di risultati è per uno dei DLC.",
+    "lastUpdatedLabel": "Ultimo aggiornamento:",
+    "achievementsLastUpdatedTooltip": "Questo set di risultati è stato aggiornato l'ultima volta il",
+    "achievementsLastUpdatedTooltipExtra": "Questa è la data di creazione o la data dell'ultimo aggiornamento.",
+    "noAchievementsForSet": "Nessun risultato trovato per questo set.",
+    "noAchievementsForSetExtra": "Potrebbe significare che i risultati non sono attualmente disponibili ma verranno aggiunti in futuro.",
+    "noAchievementsFound": "Nessun risultato trovato",
+    "metaItemsTitle": "Articoli",
+    "itemsEyebrow": "Proprietà catalogo",
+    "itemsTitle": "Articoli",
+    "itemsDescription": "Articoli del catalogo possedibili contenuti nelle offerte. Questi sono i registri che diventano diritti del giocatore dopo un acquisto o riscatto.",
+    "totalItemsLabel": "Totale articoli",
+    "metaChangelogTitle": "Registro modifiche",
+    "changelogEyebrow": "Traccia di controllo",
+    "changelogTitle": "Registro modifiche",
+    "changelogDescription": "Modifiche osservate tra offerte, articoli, asset, build e metadati di catalogo correlati di questo sandbox.",
+    "totalChangesLabel": "Modifiche",
+    "queryTimeLabel": "Tempo di query",
+    "noChangelogFound": "Nessun registro modifiche trovato",
+    "metaBuildsTitle": "Build",
+    "buildsEyebrow": "Binari",
+    "buildsTitle": "Build",
+    "buildsDescription": "Pacchetti di file versionati caricati per il sandbox. Le build sono assegnate agli artefatti e determinano ciò che i giocatori scaricano tramite il launcher.",
+    "totalBuildsLabel": "Totale build",
+    "metaAssetsTitle": "Asset",
+    "assetsEyebrow": "Asset e artefatti",
+    "assetsTitle": "Asset",
+    "assetsDescription": "Registri di distribuzione e media allegati agli articoli del sandbox, inclusi artefatti che collegano il contenuto del catalogo del negozio alle build scaricabili.",
+    "totalAssetsLabel": "Totale asset"
+  },
+  "items": {
+    "notFound": "Articolo non trovato",
+    "badge": "Articolo",
+    "table": {
+      "itemId": "ID articolo",
+      "namespace": "Namespace",
+      "developer": "Sviluppatore",
+      "entitlementType": "Tipo diritto",
+      "entitlementName": "Nome diritto",
+      "status": "Stato",
+      "creationDate": "Data di creazione",
+      "lastModified": "Ultima modifica",
+      "platforms": "Piattaforme"
+    },
+    "tooltip": {
+      "internalNamespace": "Namespace interno Epic Games"
+    },
+    "tabs": {
+      "item": "Articolo",
+      "assets": "Asset",
+      "images": "Immagini",
+      "builds": "Build",
+      "changelog": "Registro modifiche"
+    },
+    "metadata": {
+      "title": "Metadati",
+      "key": "Chiave",
+      "value": "Valore"
+    },
+    "assets": {
+      "title": "Asset"
+    },
+    "builds": {
+      "title": "Build"
+    },
+    "changelog": {
+      "title": "Registro modifiche",
+      "noChangelog": "Nessun registro modifiche disponibile"
+    },
+    "images": {
+      "title": "Immagini"
+    }
+  },
+  "builds": {
+    "notFound": "Build non trovata",
+    "build": "Build",
+    "for": "per",
+    "compressed": "({{percent}}% compresso)",
+    "table": {
+      "buildId": "ID build",
+      "buildName": "Nome build",
+      "appName": "Nome app",
+      "hash": "Hash",
+      "installedSize": "Dimensione installata",
+      "downloadSize": "Dimensione download",
+      "createdAt": "Creata il",
+      "updatedAt": "Aggiornata il",
+      "technologies": "Tecnologie"
+    },
+    "tooltip": {
+      "techSource": "Usiamo",
+      "techSourceSteamDb": "SteamDB",
+      "techDescription": "elenco delle tecnologie per tracciare i motori utilizzati e le diverse tecnologie dai file di gioco.",
+      "source": "Fonte"
+    },
+    "tabs": {
+      "files": "File",
+      "items": "Articoli",
+      "installOptions": "Opzioni di installazione"
+    },
+    "files": {
+      "title": "File"
+    },
+    "items": {
+      "title": "Articoli"
+    },
+    "installOptions": {
+      "title": "Opzioni di installazione",
+      "file_one": "file",
+      "file_other": "file"
+    },
+    "meta": {
+      "title": "{{title}} ({{version}}) | egdata.app",
+      "description": "Build {{version}} per {{title}} dall'Epic Games Store."
+    }
+  },
+  "profile": {
+    "meta": {
+      "notFoundTitle": "Profilo non trovato",
+      "notFoundDescription": "Profilo non trovato",
+      "title": "{{name}} | egdata.app",
+      "description": "Scopri i risultati e i giochi di {{name}} su egdata.app",
+      "defaultName": "Profilo",
+      "defaultDescriptionName": "questo giocatore"
+    },
+    "errors": {
+      "notFoundTitle": "Profilo non trovato",
+      "notFoundDescription": "Questo profilo non è disponibile o non è stato ancora indicizzato.",
+      "unavailableTitle": "Profilo non disponibile",
+      "unavailableDescription": "Questo profilo non può essere caricato al momento.",
+      "invalidImageFormat": "Formato immagine non valido",
+      "failedToUpload": "Caricamento fallito",
+      "uploadFailed": "Caricamento fallito",
+      "failedToRefresh": "Aggiornamento profilo fallito",
+      "refreshQueued": "Profilo aggiunto alla coda per l'aggiornamento, verrà aggiornato a breve."
+    },
+    "fallbackName": "Profilo sconosciuto",
+    "avatar": {
+      "changeAvatar": "Cambia avatar",
+      "dialogDescription": "Carica una nuova immagine del profilo.",
+      "previewAlt": "Anteprima avatar",
+      "fallback": "Avatar",
+      "description": "Carica una nuova immagine avatar, max 5MB.",
+      "uploadingWithProgress": "Caricamento... {{progress}}%",
+      "uploading": "Caricamento...",
+      "updateAvatar": "Aggiorna avatar",
+      "errorTitle": "Errore"
+    },
+    "hero": {
+      "joined": "Iscritto",
+      "epicGamesStore": "Epic Games Store",
+      "linkDiscord": "Collega Discord",
+      "refreshProfile": "Aggiorna profilo",
+      "refreshAvailableIn": "Aggiornamento disponibile tra",
+      "level": "Livello",
+      "achievements": "Risultati",
+      "unlocked": "Sbloccati",
+      "platinum": "Platino",
+      "perfectGames": "Giochi perfetti",
+      "library": "Libreria",
+      "achievementGames": "Giochi con risultati",
+      "reviews": "Recensioni",
+      "contributed": "Contribuite",
+      "xpToNextLevel": "{{xp}} XP al livello {{level}}",
+      "heroGame": "Gioco eroe",
+      "complete": "completato"
+    },
+    "donor": {
+      "donated_one": "{{name}} ha donato {{count}} chiave a egdata.app",
+      "donated_other": "{{name}} ha donato {{count}} chiavi a egdata.app",
+      "goTo": "Vai a",
+      "thisLink": "questo link",
+      "toDonateKey": "per donare una chiave."
+    },
+    "countdown": {
+      "minutesSeconds_one": "{{minutes}} minuto {{seconds}} secondo",
+      "minutesSeconds_other": "{{minutes}} minuti {{seconds}} secondi",
+      "seconds_one": "{{seconds}} secondo",
+      "seconds_other": "{{seconds}} secondi"
+    },
+    "tabs": {
+      "showcase": "Vetrina",
+      "library": "Libreria",
+      "activity": "Attività"
+    },
+    "stats": {
+      "games": "{{count}} giochi",
+      "achievements": "{{count}} risultati",
+      "platinum": "{{count}} platino"
+    },
+    "showcase": {
+      "ariaLabel": "Punti salienti della vetrina del profilo",
+      "featuredGamesTitle": "Giochi in evidenza",
+      "featuredGamesDetail": "{{count}} selezionati in base alle prestazioni del profilo",
+      "rareAchievementsTitle": "Risultati rari",
+      "rareAchievementsDetail": "Sblocchi difficili da trovare in tutto il profilo",
+      "recentUnlocksTitle": "Sblocchi recenti",
+      "recentUnlocksDetail": "Ultima attività visibile",
+      "noDataTitle": "Ancora nessun dato in vetrina",
+      "noDataDescription": "Solo i giochi pubblicati con progressi pubblici dei risultati appaiono sui profili.",
+      "rarestUnlock": "Sblocco più raro",
+      "definingGame": "Gioco distintivo",
+      "latestActivity": "Ultima attività",
+      "achievementsCount": "{{unlocked}} / {{total}} risultati",
+      "platinum": "Platino"
+    },
+    "library": {
+      "filterAriaLabel": "Filtro libreria",
+      "sortAriaLabel": "Ordina libreria",
+      "sortByPlaceholder": "Ordina per",
+      "noGamesTitle": "Nessun gioco trovato",
+      "noGamesDescription": "Solo i giochi pubblicati con risultati appaiono in questa libreria.",
+      "gameAlt": "Gioco",
+      "complete": "completato",
+      "featured": "In evidenza",
+      "rareUnlocks": "Sblocchi rari",
+      "filters": {
+        "all": "Tutti",
+        "completed": "Completati",
+        "nearPlatinum": "Vicino al Platino",
+        "inProgress": "In corso",
+        "platinum": "Platino"
+      },
+      "sorts": {
+        "completion": "Completamento",
+        "alphabetical": "Alfabetico",
+        "xp": "XP",
+        "achievements": "Risultati"
+      }
+    },
+    "activity": {
+      "title": "Attività",
+      "detail": "{{count}} risultati sbloccati",
+      "noActivityTitle": "Ancora nessuna attività",
+      "noActivityDescription": "Gli sblocchi dei risultati appariranno qui quando questo profilo avrà progressi pubblici.",
+      "achievementAlt": "Risultato",
+      "platinumEarned": "Platino ottenuto",
+      "achievementUnlocked": "Risultato sbloccato",
+      "unknownRarity": "Rarità sconosciuta",
+      "rarity": "{{value}}% rarità",
+      "unknownDate": "Data sconosciuta"
+    },
+    "achievements": {
+      "loading": "Caricamento...",
+      "notFound": "Profilo non trovato",
+      "myAchievements": "I miei risultati"
+    }
+  },
+  "tags": {
+    "meta": {
+      "notFoundTitle": "Promozione non trovata",
+      "notFoundDescription": "Promozione non trovata",
+      "title": "{{title}} | egdata.app",
+      "description": "Scopri {{count}} offerte disponibili per {{title}} su egdata.app.",
+      "socialTitle": "{{title}} - egdata.app"
+    },
+    "loading": "Caricamento...",
+    "offersCount": "{{count}} offerte disponibili in questo evento",
+    "results": "Risultati",
+    "resultsCount": "({{count}} risultati)",
+    "searchPlaceholder": "Cerca...",
+    "loadMore": "Carica altro",
+    "sortBy": {
+      "releaseDate": "Data di uscita",
+      "lastModifiedDate": "Data modifica",
+      "effectiveDate": "Data effettiva",
+      "creationDate": "Data di creazione",
+      "viewableDate": "Data visualizzabile",
+      "pcReleaseDate": "Data uscita PC",
+      "upcoming": "Prossimi",
+      "price": "Prezzo"
+    }
+  },
+  "genres": {
+    "meta": {
+      "title": "Generi - egdata.app",
+      "description": "Generi su egdata.app"
+    },
+    "heading": "Generi"
+  },
+  "sellers": {
+    "meta": {
+      "notFoundTitle": "Venditore non trovato",
+      "notFoundDescription": "Venditore non trovato",
+      "title": "{{name}} | egdata.app"
+    },
+    "notFound": "Venditore non trovato",
+    "logoAlt": "Logo {{name}}",
+    "bannerAlt": "{{name}}",
+    "offersTitle": "Offerte di {{name}}",
+    "stats": {
+      "offers": "Offerte",
+      "games": "Giochi",
+      "items": "Articoli",
+      "freeGames": "Giochi gratuiti"
+    }
+  },
+  "franchises": {
+    "meta": {
+      "notFoundTitle": "Franchise non trovato",
+      "notFoundDescription": "Franchise non trovato",
+      "title": "Franchise {{name}} | egdata.app",
+      "description": "Sfoglia tutti i giochi del franchise {{name}} sull'Epic Games Store."
+    },
+    "loading": "Caricamento...",
+    "gamesCount_one": "{{count}} gioco",
+    "gamesCount_other": "{{count}} giochi",
+    "timeToBeat": "Tempo per completare",
+    "achievements": "Risultati",
+    "loadMore": "Carica altro",
+    "free": "Gratis"
+  },
+  "stats": {
+    "creations": {
+      "meta": {
+        "title": "Statistiche creazioni - egdata.app",
+        "description": "Cadenza mensile e annuale delle nuove creazioni che arrivano sull'Epic Games Store."
+      },
+      "viewReleases": "Vedi uscite",
+      "heading": "Statistiche creazioni Epic Games Store",
+      "description": "Cadenza mensile e annuale delle nuove creazioni che arrivano sul negozio.",
+      "monthlyTitle": "Creazioni mensili",
+      "yearlyTitle": "Creazioni annuali"
+    },
+    "releases": {
+      "meta": {
+        "title": "Statistiche uscite - egdata.app",
+        "description": "Cadenza mensile e annuale dei nuovi titoli che arrivano sull'Epic Games Store."
+      },
+      "viewCreations": "Vedi creazioni",
+      "heading": "Statistiche uscite Epic Games Store",
+      "description": "Cadenza mensile e annuale dei nuovi titoli che arrivano sul negozio.",
+      "monthlyTitle": "Uscite mensili",
+      "yearlyTitle": "Uscite annuali"
+    }
+  },
+  "store": {
+    "creatorCode": {
+      "title": "Supporta egdata.app",
+      "description": "Vuoi supportare egdata.app usando il nostro codice creatore quando acquisti giochi? Questa scelta verrà ricordata per le visite future.",
+      "body": "Usare il nostro codice creatore aiuta a supportare lo sviluppo di egdata.app e delle sue funzionalità. Non influisce sul prezzo che paghi.",
+      "noThanks": "No grazie",
+      "yesUseCode": "Sì, usa il codice"
+    }
+  },
+  "dashboard": {
+    "placeholder": "Ciao /dashboard!"
+  },
+  "auth": {
+    "login": {
+      "placeholder": "Ciao /auth/login!"
+    },
+    "callback": {
+      "placeholder": "Ciao /auth/callback!"
+    },
+    "logout": {
+      "placeholder": "Ciao /auth/logout!"
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "Informazioni - egdata.app",
+      "description": "Informazioni su egdata.app"
+    },
+    "title": "Informazioni",
+    "intro": "egdata.app è un sito web guidato dalla community dedicato al monitoraggio e alla fornitura di informazioni sull'Epic Games Store. Simile a SteamDB per Steam, miriamo a offrire una risorsa completa per gli utenti per esplorare i cambiamenti, scoprire nuovi giochi e rimanere aggiornati sulle ultime novità della piattaforma.",
+    "missionTitle": "La nostra missione",
+    "missionBody": "La nostra missione è fornire trasparenza e approfondimenti sull'ecosistema dell'Epic Games Store. Crediamo che aggregando e presentando i dati in modo accessibile, possiamo consentire agli utenti di prendere decisioni informate sui loro acquisti di giochi e contribuire a una migliore comprensione della piattaforma.",
+    "featuresTitle": "Funzionalità",
+    "features": {
+      "trackPrices": "Traccia le variazioni di prezzo dei giochi e i dati storici",
+      "upcomingReleases": "Visualizza le prossime uscite e le promozioni di giochi gratuiti",
+      "gameDetails": "Esplora i dettagli dei giochi, le valutazioni e le recensioni degli utenti",
+      "analyzeTrends": "Analizza tendenze e modelli nell'Epic Games Store"
+    },
+    "communityTitle": "Guidato dalla community",
+    "communityBody": "egdata.app è costruito e mantenuto da una community appassionata di giocatori e sviluppatori. Accogliamo con favore i contributi di chiunque voglia aiutare a migliorare il sito web e renderlo una risorsa preziosa per tutti. Non esitare a contattarci se hai feedback, suggerimenti o vuoi partecipare.",
+    "sourceCodeIntro": "Tutto il codice sorgente di egdata.app è disponibile su",
+    "github": "GitHub",
+    "notTitle": "Cosa egdata.app NON è",
+    "notIntro": "È importante chiarire che egdata.app non è:",
+    "notList": {
+      "affiliated": "Affiliato con Epic Games: Siamo un progetto indipendente guidato dalla community e non ufficialmente approvato o associato con Epic Games in alcun modo.",
+      "storefront": "Un negozio o mercato: Non vendiamo giochi né forniamo opzioni di acquisto. Il nostro obiettivo è fornire informazioni e dati sull'Epic Games Store.",
+      "piracy": "Una piattaforma per pirateria o attività illegali: Condanniamo fermamente la pirateria e non forniamo alcun mezzo per accedere o distribuire illegalmente contenuti protetti da copyright."
+    },
+    "fairUseTitle": "Politica di fair use",
+    "fairUseBody": "egdata.app si impegna a rispettare i principi di fair use ai sensi della legge sul copyright. Forniamo informazioni e dati solo a scopo informativo, con l'obiettivo di educare e informare il pubblico sui giochi disponibili sull'Epic Games Store.",
+    "fairUseFactorsTitle": "Fattori chiave che giustificano il fair use:",
+    "fairUseFactors": {
+      "nonCommercial": "Scopo non commerciale, educativo:",
+      "nonCommercialBody": "Il nostro sito web è non commerciale e cerca di migliorare la conoscenza pubblica sui giochi dell'Epic Games Store.",
+      "factual": "Informazioni fattuali:",
+      "factualBody": "Presentiamo principalmente dati fattuali come titoli di giochi, date di uscita e sviluppatori, che sono meno protetti dal diritto d'autore.",
+      "limited": "Uso limitato:",
+      "limitedBody": "Utilizziamo solo la quantità necessaria di dati per fornire informazioni significative senza sostituire le opere originali.",
+      "noMarketHarm": "Nessun danno al mercato:",
+      "noMarketHarmBody": "Il nostro uso non ha un impatto negativo sul mercato dei giochi originali; piuttosto, può promuoverli attraverso un maggiore interesse degli utenti."
+    },
+    "autoTrackBody": "Tracciamo e aggiorniamo automaticamente i dati dei giochi da fonti pubblicamente disponibili, inclusa l'Epic Games Store. Carichiamo le risorse grafiche direttamente dai loro server e non le memorizziamo.",
+    "leakedDataTitle": "Disclaimer sui dati trapelati:",
+    "leakedDataBody": "Eventuali dati apparentemente trapelati sul nostro sito provengono da informazioni pubblicamente disponibili sull'Epic Games Store. Non accediamo a dati riservati o proprietari. Gli editori sono responsabili della protezione delle loro informazioni sensibili all'interno del",
+    "epicDevPortal": "portale per sviluppatori di Epic Games",
+    "euDirectivesIntro": "Nello sviluppo della nostra Politica di Fair Use, abbiamo preso in considerazione i principi delineati nelle seguenti direttive sul copyright dell'UE:",
+    "euDirective1": "Direttiva (UE) 2019/790 sul diritto d'autore e sui diritti connessi nel mercato unico digitale",
+    "euDirective2": "Domande e risposte – Nuove norme UE sul copyright",
+    "fairUseContact": "Se hai domande sulla nostra Politica di Fair Use o ritieni che qualsiasi contenuto violi il tuo copyright, contattaci all'indirizzo:",
+    "contactTitle": "Contattaci",
+    "contactBody": "Puoi contattarci tramite"
+  },
+  "changelog": {
+    "index": {
+      "meta": {
+        "title": "Registro modifiche | egdata.app"
+      },
+      "searchPlaceholder": "Cerca nei registri modifiche...",
+      "searchButton": "Cerca",
+      "loading": "Caricamento...",
+      "error": "Errore nel recupero dei dati"
+    },
+    "detail": {
+      "meta": {
+        "title": "Dettaglio modifica | egdata.app"
+      },
+      "loading": "Caricamento...",
+      "error": "Errore nel caricamento dei dettagli della modifica",
+      "notFound": "Modifica non trovata"
+    }
+  },
+  "privacy": {
+    "title": "Informazioni",
+    "intro": "egdata.app è un sito web guidato dalla community dedicato al monitoraggio e alla fornitura di informazioni sull'Epic Games Store. Simile a SteamDB per Steam, miriamo a offrire una risorsa completa per gli utenti per esplorare i cambiamenti, scoprire nuovi giochi e rimanere aggiornati sulle ultime novità della piattaforma.",
+    "missionTitle": "La nostra missione",
+    "missionBody": "La nostra missione è fornire trasparenza e approfondimenti sull'ecosistema dell'Epic Games Store. Crediamo che aggregando e presentando i dati in modo accessibile, possiamo consentire agli utenti di prendere decisioni informate sui loro acquisti di giochi e contribuire a una migliore comprensione della piattaforma.",
+    "featuresTitle": "Funzionalità",
+    "features": {
+      "trackPrices": "Traccia le variazioni di prezzo dei giochi e i dati storici",
+      "upcomingReleases": "Visualizza le prossime uscite e le promozioni di giochi gratuiti",
+      "gameDetails": "Esplora i dettagli dei giochi, le valutazioni e le recensioni degli utenti",
+      "analyzeTrends": "Analizza tendenze e modelli nell'Epic Games Store"
+    },
+    "communityTitle": "Guidato dalla community",
+    "communityBody": "egdata.app è costruito e mantenuto da una community appassionata di giocatori e sviluppatori. Accogliamo con favore i contributi di chiunque voglia aiutare a migliorare il sito web e renderlo una risorsa preziosa per tutti. Non esitare a contattarci se hai feedback, suggerimenti o vuoi partecipare.",
+    "sourceCodeIntro": "Tutto il codice sorgente di egdata.app è disponibile su",
+    "github": "GitHub",
+    "notTitle": "Cosa egdata.app NON è",
+    "notIntro": "È importante chiarire che egdata.app non è:",
+    "notList": {
+      "affiliated": "Affiliato con Epic Games: Siamo un progetto indipendente guidato dalla community e non ufficialmente approvato o associato con Epic Games in alcun modo.",
+      "storefront": "Un negozio o mercato: Non vendiamo giochi né forniamo opzioni di acquisto. Il nostro obiettivo è fornire informazioni e dati sull'Epic Games Store.",
+      "piracy": "Una piattaforma per pirateria o attività illegali: Condanniamo fermamente la pirateria e non forniamo alcun mezzo per accedere o distribuire illegalmente contenuti protetti da copyright."
+    },
+    "fairUseTitle": "Politica di fair use",
+    "fairUseBody": "egdata.app si impegna a rispettare i principi di fair use ai sensi della legge sul copyright. Forniamo informazioni e dati solo a scopo informativo, con l'obiettivo di educare e informare il pubblico sui giochi disponibili sull'Epic Games Store.",
+    "fairUseFactorsTitle": "Fattori chiave che giustificano il fair use:",
+    "fairUseFactors": {
+      "nonCommercial": "Scopo non commerciale, educativo:",
+      "nonCommercialBody": "Il nostro sito web è non commerciale e cerca di migliorare la conoscenza pubblica sui giochi dell'Epic Games Store.",
+      "factual": "Informazioni fattuali:",
+      "factualBody": "Presentiamo principalmente dati fattuali come titoli di giochi, date di uscita e sviluppatori, che sono meno protetti dal diritto d'autore.",
+      "limited": "Uso limitato:",
+      "limitedBody": "Utilizziamo solo la quantità necessaria di dati per fornire informazioni significative senza sostituire le opere originali.",
+      "noMarketHarm": "Nessun danno al mercato:",
+      "noMarketHarmBody": "Il nostro uso non ha un impatto negativo sul mercato dei giochi originali; piuttosto, può promuoverli attraverso un maggiore interesse degli utenti."
+    },
+    "autoTrackBody": "Tracciamo e aggiorniamo automaticamente i dati dei giochi da fonti pubblicamente disponibili, inclusa l'Epic Games Store. Carichiamo le risorse grafiche direttamente dai loro server e non le memorizziamo.",
+    "leakedDataTitle": "Disclaimer sui dati trapelati:",
+    "leakedDataBody": "Eventuali dati apparentemente trapelati sul nostro sito provengono da informazioni pubblicamente disponibili sull'Epic Games Store. Non accediamo a dati riservati o proprietari. Gli editori sono responsabili della protezione delle loro informazioni sensibili all'interno del",
+    "epicDevPortal": "portale per sviluppatori di Epic Games",
+    "euDirectivesIntro": "Nello sviluppo della nostra Politica di Fair Use, abbiamo preso in considerazione i principi delineati nelle seguenti direttive sul copyright dell'UE:",
+    "euDirective1": "Direttiva (UE) 2019/790 sul diritto d'autore e sui diritti connessi nel mercato unico digitale",
+    "euDirective2": "Domande e risposte – Nuove norme UE sul copyright",
+    "fairUseContact": "Se hai domande sulla nostra Politica di Fair Use o ritieni che qualsiasi contenuto violi il tuo copyright, contattaci all'indirizzo:",
+    "contactTitle": "Contattaci",
+    "contactBody": "Puoi contattarci tramite"
+  },
+  "notifications": {
+    "meta": {
+      "title": "Notifiche - egdata.app",
+      "description": "Configura e gestisci le notifiche push per gli aggiornamenti dell'Epic Games Store, le uscite di giochi e altro ancora."
+    },
+    "title": "Notifiche",
+    "description": "Configura e gestisci le notifiche push per gli aggiornamenti dell'Epic Games Store, le uscite di giochi e gli avvisi personalizzati.",
+    "tabs": {
+      "notifications": "Notifiche",
+      "mySubscriptions": "Le mie sottoscrizioni"
+    },
+    "aboutPushTitle": "Informazioni sulle notifiche push",
+    "aboutPushDescription": "Scopri di più su come funzionano le notifiche push su EGData.",
+    "whatYoullReceive": "Cosa riceverai:",
+    "receiveList": {
+      "freeGames": "Annunci di nuovi giochi gratuiti",
+      "releases": "Notifiche di uscita giochi",
+      "priceDrops": "Avvisi di calo prezzo per i giochi desiderati",
+      "news": "Notizie e aggiornamenti dell'Epic Games Store",
+      "custom": "Notifiche personalizzate basate su argomenti"
+    },
+    "privacySecurity": "Privacy e sicurezza:",
+    "privacyList": {
+      "apiKey": "La tua chiave API è memorizzata in modo sicuro nei cookie del browser",
+      "onlySubscribed": "Inviiamo solo le notifiche a cui ti sei iscritto",
+      "unsubscribe": "Puoi annullare l'iscrizione in qualsiasi momento",
+      "noPersonalData": "Nessun dato personale è richiesto oltre alla tua chiave API"
+    },
+    "browserSupport": "Supporto browser:",
+    "browserSupportBody": "Le notifiche push sono supportate nei browser moderni tra cui Chrome, Firefox, Safari e Edge. Assicurati di consentire le notifiche quando richiesto dal browser.",
+    "subscriptionOverview": "Panoramica sottoscrizioni",
+    "totalSubscribed": "Argomenti totali sottoscritti: {{count}}",
+    "notSubscribedApi": "La chiave API non è iscritta alle notifiche push",
+    "notSubscribedTitle": "Non iscritto",
+    "notSubscribedBody": "La tua chiave API non è iscritta alle notifiche push. Usa la scheda \"Setup e iscrizione\" per iscriverti prima.",
+    "subscriptionId": "Sottoscrizione {{id}}",
+    "created": "Creata:",
+    "subscribedTopics": "Argomenti sottoscritti:",
+    "noTopics": "Nessun argomento sottoscritto",
+    "lastUpdated": "Ultimo aggiornamento:",
+    "noSubscriptionsTitle": "Nessuna sottoscrizione trovata",
+    "noSubscriptionsBody": "Sei iscritto ma non hai ancora creato alcuna sottoscrizione dispositivo. Usa la scheda \"Setup e iscrizione\" per creare la tua prima sottoscrizione.",
+    "fetchError": "Impossibile recuperare le sottoscrizioni. Riprova.",
+    "push": {
+      "title": "Notifiche Push",
+      "notSupported": "Le notifiche push non sono supportate in questo browser.",
+      "setApiKey": "Imposta la tua chiave API per abilitare le notifiche push.",
+      "manage": "Gestisci le tue preferenze per le notifiche push.",
+      "unsubscribe": "Annulla iscrizione",
+      "subscribe": "Iscriviti",
+      "subscribed": "Iscritto",
+      "notSubscribed": "Non iscritto",
+      "subscribeToTopic": "Iscriviti all'argomento",
+      "topicPlaceholder": "Inserisci il nome dell'argomento (es., game-updates)",
+      "subscribedTopics": "Argomenti sottoscritti",
+      "clickToUnsubscribe": "Clicca su un argomento per annullare l'iscrizione"
+    },
+    "simple": {
+      "title": "Notifiche Push",
+      "notSupported": "Le notifiche push non sono supportate in questo browser.",
+      "subscribedDesc": "Sei iscritto a {{count}} argomenti di notifica",
+      "notSubscribedDesc": "Ricevi notifiche sugli aggiornamenti dell'Epic Games Store, giochi gratuiti e altro",
+      "subscribeToNotifications": "Iscriviti alle notifiche",
+      "unsubscribe": "Annulla iscrizione",
+      "chooseWhat": "Scegli di cosa vuoi essere notificato:",
+      "freeGames": "Giochi Gratis",
+      "freeGamesDesc": "Ricevi notifiche quando nuovi giochi gratuiti sono disponibili",
+      "newReleases": "Nuove Uscite",
+      "newReleasesDesc": "Notifiche per le nuove uscite di giochi",
+      "priceDrops": "Calo Prezzi",
+      "priceDropsDesc": "Ricevi avvisi quando i giochi sono in offerta",
+      "youWillReceive": "Riceverai notifiche per:",
+      "subscribedTo": "Iscritto a {{name}}",
+      "unsubscribedFrom": "Annullata iscrizione da {{name}}",
+      "failedSubscribe": "Impossibile iscriversi alle notifiche",
+      "failedUnsubscribe": "Impossibile annullare l'iscrizione alle notifiche",
+      "failedTopicSubscribe": "Impossibile iscriversi all'argomento",
+      "failedTopicUnsubscribe": "Impossibile annullare l'iscrizione all'argomento",
+      "successSubscribe": "Iscrizione alle notifiche riuscita!",
+      "successUnsubscribe": "Annullamento iscrizione alle notifiche riuscito"
+    },
+    "apiKey": {
+      "title": "Gestione chiave API",
+      "label": "Chiave API",
+      "placeholderGenerated": "Chiave API generata",
+      "placeholderNone": "Nessuna chiave API generata",
+      "regenerate": "Rigenera chiave",
+      "generate": "Genera chiave",
+      "clear": "Cancella chiave",
+      "generated": "Nuova chiave API generata con successo!",
+      "copied": "Chiave API copiata negli appunti!",
+      "cleared": "Chiave API cancellata con successo!",
+      "failedGenerate": "Impossibile generare la chiave API",
+      "failedCopy": "Impossibile copiare la chiave API",
+      "failedClear": "Impossibile cancellare la chiave API",
+      "noneToCopy": "Nessuna chiave API da copiare",
+      "description": "La tua chiave API è un UUID memorizzato localmente nel tuo browser e viene utilizzato per autenticare le richieste di notifica push. Usa il pulsante rigenera per creare una nuova chiave se necessario."
+    }
+  },
+  "promotions": {
+    "placeholder": "Ciao /promotions/$id!"
+  },
+  "misc": {
+    "gameAwards": {
+      "meta": {
+        "title": "Copertura The Game Awards | egdata.app",
+        "description": "Ultimi giochi annunciati e nominati ai The Game Awards in arrivo sull'Epic Games Store."
+      },
+      "logoAlt": "The Game Awards 2025",
+      "subtitle": "Giochi annunciati o nominati ai The Game Awards in arrivo sull'Epic Games Store",
+      "videoTitle": "The Game Awards 2024 - Live Stream",
+      "expandPlayer": "Espandi lettore",
+      "closeMiniPlayer": "Chiudi mini lettore",
+      "noGamesTitle": "Ancora nessun gioco annunciato",
+      "noGamesBody": "Torna dopo i The Game Awards!"
+    },
+    "downloads": {
+      "title": "Versioni client egdata.app",
+      "description": "Scarica l'ultima versione. Abbiamo evidenziato la sezione consigliata per il tuo sistema operativo.",
+      "errorPrefix": "Errore:",
+      "noPublicReleases": "Nessuna versione pubblica trovata.",
+      "recommended": "Consigliato",
+      "downloadsSuffix": "Download",
+      "versionPublished": "Versione {{version}} - Pubblicata il {{date}}",
+      "assetInfo": {
+        "appleSilicon": "Per computer Mac più recenti con chip Apple (M1, M2, M3, ecc.).",
+        "intel": "Per computer Mac meno recenti con processori Intel.",
+        "universal": "Compatibile sia con Apple Silicon che con Mac Intel.",
+        "msi": "Un'installazione guidata standard. Consigliata per la maggior parte degli utenti.",
+        "exe": "Un file applicativo standalone. Potrebbe non richiedere installazione.",
+        "linux": "Per sistemi operativi basati su Linux.",
+        "generic": "Un file generico o codice sorgente."
+      }
+    },
+    "discordLinked": {
+      "title": "Account collegato con successo!",
+      "body": "Il tuo account Discord è stato collegato con successo a egdata.app",
+      "footer": "Ora puoi chiudere questa finestra e tornare su Discord. Il tuo account è pronto per essere utilizzato con egdata.app"
+    },
+    "posts": {
+      "coverAlt": "Copertina LEGO Star Wars: The Skywalker Saga",
+      "title": "Ottieni LEGO® Star Wars™: The Skywalker Saga GRATIS sull'Epic Games Store",
+      "freeGameBadge": "Gioco Gratuito",
+      "published": "Pubblicato il 30 novembre 2023",
+      "intro": "Segna sul calendario, fan di Star Wars! Dal {{dateRange}}, puoi ottenere l'acclamato {{game}} GRATIS sull'Epic Games Store. Questo gioco, che di solito costa {{price}}, ti permette di rivivere i momenti iconici della {{saga}} con un divertente tocco LEGO.",
+      "dateRange": "5 al 12 dicembre 2024",
+      "game": "LEGO® Star Wars™: The Skywalker Saga",
+      "price": "$49.99",
+      "saga": "saga Skywalker",
+      "gameplayAlt": "Gameplay LEGO Star Wars",
+      "charactersAlt": "Personaggi LEGO Star Wars",
+      "whatToExpect": "Cosa aspettarsi?",
+      "whatToExpectBody": "Sviluppato da {{developer}} e pubblicato da {{publisher}}, questo titolo offre un'esperienza completa di Star Wars come nessun'altra. Ecco cosa lo rende imperdibile:",
+      "developer": "TT Games",
+      "publisher": "Warner Bros.",
+      "expectList": {
+        "allMovies": "{{strong}}: Rivivi le storie di tutti e nove i film della saga Skywalker, piene del classico umorismo LEGO.",
+        "allMoviesStrong": "Tutti e 9 i film",
+        "characters": "{{strong}}: Controlla i tuoi eroi e cattivi preferiti della galassia lontana lontana.",
+        "charactersStrong": "Oltre 300 personaggi giocabili",
+        "vehicles": "{{strong}}: Vola su navi iconiche come il Millennium Falcon e i caccia TIE.",
+        "vehiclesStrong": "Oltre 100 veicoli",
+        "planets": "{{strong}}: Viaggia verso mondi familiari, da Tatooine a Endor e oltre.",
+        "planetsStrong": "23 pianeti da esplorare"
+      },
+      "specialTitle": "Cosa rende speciale questo gioco?",
+      "specialBody": "Dal suo rilascio nel {{releaseDate}}, LEGO Star Wars: The Skywalker Saga è stato elogiato per il suo gameplay coinvolgente e la fedele adattamento dell'universo di Star Wars. Con un {{metascore}} su Metacritic, critici e fan hanno evidenziato:",
+      "releaseDate": "aprile 2022",
+      "metascore": "82 Metascore",
+      "specialList": {
+        "combat": "{{strong}}: Duelli con spade laser, scontri con blaster e combattimenti spaziali.",
+        "combatStrong": "Combattimento dinamico",
+        "charm": "{{strong}}: Umorismo classico di Star Wars, reimmaginato nello stile unico di LEGO.",
+        "charmStrong": "Fascino LEGO",
+        "replayability": "{{strong}}: Tonnellate di collezionabili, missioni secondarie e segreti nascosti.",
+        "replayabilityStrong": "Rigiocabilità"
+      },
+      "howToClaim": "Come richiederlo?",
+      "howToClaimBody": "Ottenere la tua copia gratuita è facile!",
+      "step1": "Visita {{storeLink}} tra il {{dec5}} e il {{dec12}}.",
+      "storeLink": "Epic Games Store",
+      "dec5": "5 dicembre",
+      "dec12": "12 dicembre 2024",
+      "step2": "Aggiungi il gioco alla tua libreria.",
+      "step3": "È tuo per sempre!",
+      "cardTitle": "Non perdere questa occasione di imbarcarti in un viaggio LEGO attraverso la galassia!",
+      "cardBody": "Che tu sia un fan accanito di Star Wars o un nuovo arrivato, questo gioco offre infinito divertimento per tutti.",
+      "footer": "Che la Forza (e i mattoncini LEGO) siano con te! 🧱✨"
+    },
+    "fairUse": {
+      "meta": {
+        "title": "Politica di Fair Use - egdata.app",
+        "description": "Politica di Fair Use per egdata.app"
+      },
+      "title": "Politica di Fair Use per EGData App",
+      "section1Title": "1. Introduzione",
+      "section1Body": "Benvenuto su EGData App (\"noi\", \"nostro\"). Questa Politica di Fair Use delinea i termini in base ai quali puoi utilizzare i contenuti e i dati forniti sul nostro sito web {{siteLink}} (il \"Sito\").",
+      "section2Title": "2. Scopo del Fair Use",
+      "section2Body": "I contenuti e i dati su EGData App sono forniti solo a scopo informativo. Il nostro obiettivo è offrire un database completo di giochi (o dati relativi ai giochi) disponibili nell'Epic Games Store per uso educativo e di riferimento da parte della community.",
+      "section3Title": "3. Conformità al Fair Use",
+      "section3Body": "EGData App si conforma ai principi del fair use ai sensi della legge sul copyright fornendo informazioni e dati in modo da avvantaggiare il pubblico senza violare i diritti dei proprietari dei contenuti. Ecco i fattori chiave che giustificano il nostro uso come fair use:",
+      "section3List": {
+        "purpose": "Scopo e carattere dell'uso:",
+        "purposeBody": "Il nostro sito web è non commerciale e mira a educare e informare il pubblico sui giochi disponibili nell'Epic Games Store. Forniamo informazioni critiche, recensioni e aggiornamenti, migliorando la conoscenza e l'apprezzamento del pubblico di questi giochi.",
+        "nature": "Natura dell'opera protetta da copyright:",
+        "natureBody": "I dati che raccogliamo e presentiamo consistono in informazioni fattuali come titoli di giochi, date di uscita, sviluppatori e aggiornamenti. Le informazioni fattuali sono meno protette dalla legge sul copyright rispetto alle opere creative.",
+        "amount": "Quantità e sostanzialità:",
+        "amountBody": "Utilizziamo solo la quantità di dati necessaria per fornire informazioni significative e pertinenti ai nostri utenti. Non riproduciamo opere complete né forniamo estratti estesi che potrebbero sostituire i prodotti originali.",
+        "effect": "Effetto sul mercato:",
+        "effectBody": "Il nostro uso dei dati dei giochi non ha un impatto negativo sul mercato dei giochi originali. Invece, promuove questi giochi fornendo informazioni aggiornate e stimolando l'interesse e il coinvolgimento degli utenti."
+      },
+      "section4Title": "4. Raccolta e aggiornamento dei dati",
+      "section4Body1": "Il nostro Sito traccia e aggiorna automaticamente i dati dei giochi per garantire che le informazioni che forniamo siano aggiornate e accurate. Questo processo automatizzato comporta la raccolta di informazioni pubblicamente disponibili dall'Epic Games Store e da altre fonti affidabili.",
+      "section4Body2": "Mantenendo aggiornato il nostro database, garantiamo che gli utenti abbiano accesso alle ultime informazioni sui loro giochi preferiti, incluse nuove uscite, aggiornamenti e cambiamenti nella disponibilità.",
+      "section4Body3": "Per quanto riguarda le risorse grafiche, carichiamo le immagini direttamente dai server dell'Epic Games Store. Non memorizziamo alcuna immagine sui nostri server.",
+      "section5Title": "5. Disclaimer sui dati trapelati",
+      "section5Body1": "Eventuali dati che appaiono trapelati sul nostro Sito provengono da informazioni pubblicamente disponibili fornite dall'Epic Games Store. Non abbiamo accesso a dati riservati o proprietari che non siano pubblicamente accessibili. Pertanto, è responsabilità degli editori proteggere le loro prossime proprietà intellettuali (IP), giochi, contenuti scaricabili (DLC) e altre informazioni sensibili all'interno del portale per sviluppatori di Epic Games.",
+      "section5Body2": "Gli editori sono incoraggiati a garantire che le informazioni sensibili siano adeguatamente protette e non rese pubbliche involontariamente. EGData App non può essere ritenuta responsabile per eventuali informazioni trapelate ottenute da fonti pubblicamente disponibili.",
+      "section5Body3": "Per maggiori informazioni sulla protezione dei dati e sul fair use nell'Unione Europea, consulta le seguenti risorse:",
+      "euDirective1": "Direttiva (UE) 2019/790 sul diritto d'autore e sui diritti connessi nel mercato unico digitale",
+      "euDirective2": "Domande e risposte – Nuove norme UE sul copyright",
+      "section6Title": "6. Contattaci",
+      "section6Body": "Se hai domande su questa Politica di Fair Use o se ritieni che qualsiasi contenuto o dato sul nostro Sito violi il tuo copyright, contattaci all'indirizzo:",
+      "email": "Email:"
+    },
+    "donateKey": {
+      "title": "Dona una chiave",
+      "body": "Se hai una chiave che desideri donare al progetto, compila il modulo qui sotto."
+    },
+    "androidBeta": {
+      "meta": {
+        "title": "Beta Android - egdata.app",
+        "description": "Partecipa al programma di beta testing chiuso dell'app Android egdata.app"
+      },
+      "title": "Programma Beta Android",
+      "description": "Partecipa alla nostra beta chiusa per testare l'applicazione Android egdata.app prima del rilascio pubblico.",
+      "whatHappensNext": "Cosa succede dopo?",
+      "steps": {
+        "signIn": "Accedi con il tuo account Google",
+        "added": "Verrai aggiunto manualmente al tracciato di test chiuso entro poche ore",
+        "download": "Una volta aggiunto, puoi scaricare l'app dal link fornito"
+      }
+    }
+  },
+  "components": {
+    "stats": {
+      "title": "Statistiche",
+      "description": "Statistiche sulla piattaforma",
+      "offers": "Offerte",
+      "offersTooltip": "Un'offerta è un articolo acquistabile dal negozio",
+      "items": "Articoli",
+      "itemsTooltip": "Un articolo è il diritto per il launcher",
+      "tags": "Tag",
+      "offersYear": "Offerte (Anno)",
+      "itemsYear": "Articoli (Anno)",
+      "assets": "Asset",
+      "assetsTooltip": "Un asset sono i file di gioco",
+      "regPrices": "Prezzi regolari",
+      "changes": "Modifiche",
+      "sandboxes": "Sandbox",
+      "sandboxesTooltip": "Un sandbox è il gruppo di offerte"
+    },
+    "sandboxShell": {
+      "overview": "Panoramica",
+      "offers": "Offerte",
+      "items": "Articoli",
+      "assets": "Asset",
+      "builds": "Build",
+      "achievements": "Risultati",
+      "changelog": "Registro modifiche",
+      "sandbox": "Sandbox",
+      "internalNamespace": "Namespace interno",
+      "storePage": "Pagina negozio",
+      "updated": "Aggiornato {{date}}",
+      "unrealEngine": "Unreal Engine",
+      "internalSandbox": "Sandbox interno",
+      "releaseStatus": {
+        "prePurchase": "Pre-acquisto",
+        "datePending": "Data in sospeso",
+        "comingSoon": "Prossimamente",
+        "released": "Rilasciato"
+      }
+    },
+    "comparison": {
+      "openCompareTray": "Apri pannello confronto, {{count}} selezionati",
+      "compareSelected": "Confronta offerte selezionate",
+      "error": "Errore",
+      "type": "Tipo",
+      "seller": "Venditore",
+      "developer": "Sviluppatore",
+      "releaseDate": "Data di uscita",
+      "pcReleaseDate": "Data uscita PC",
+      "genres": "Generi",
+      "platforms": "Piattaforme",
+      "remove": "Rimuovi",
+      "current": "Corrente",
+      "lowest": "Minimo",
+      "noPriceFound": "Nessun prezzo trovato",
+      "noAgeRatingsFound": "Nessuna classificazione età trovata",
+      "achievements": "Risultati:",
+      "ageRating": "Classificazione età:",
+      "price": "Prezzo:",
+      "unknown": "Sconosciuto"
+    },
+    "search": {
+      "sellers": "Venditori",
+      "noResults": "Nessun risultato trovato",
+      "noResultsShort": "Nessun risultato trovato.",
+      "allOfferTypes": "Tutti i tipi di offerta",
+      "tags": "Tag"
+    },
+    "changelist": {
+      "title": "Elenco modifiche",
+      "loading": "Caricamento...",
+      "error": "Errore: {{message}}",
+      "id": "ID",
+      "type": "Tipo",
+      "titleOrId": "Titolo/ID",
+      "date": "Data",
+      "new": "nuovo",
+      "update": "aggiornamento"
+    },
+    "upcoming": {
+      "caption": "Prossime offerte",
+      "loading": "Caricamento...",
+      "title": "Titolo",
+      "price": "Prezzo",
+      "releaseDate": "Data di uscita",
+      "unknown": "Sconosciuto",
+      "prePurchase": "Pre-acquisto"
+    },
+    "giveaways": {
+      "title": "Giveaway",
+      "free": "Gratis",
+      "freeNow": "Gratis ora",
+      "startsIn": "Inizia tra",
+      "repeated": "Ripetuto:",
+      "yes": "Sì",
+      "no": "No",
+      "repeatedTooltip": "Questa offerta è stata regalata {{count}} volte."
+    },
+    "giveawayStats": {
+      "title": "Giveaway in numeri",
+      "loading": "Caricamento...",
+      "totalValue": "Valore totale",
+      "totalValueTooltip": "Valore totale inclusi eventuali sconti attivi",
+      "giveaways": "Giveaway",
+      "giveawaysTooltip": "Numero totale di giveaway che appaiono nel database",
+      "offers": "Offerte",
+      "offersTooltip": "Numero totale di offerte uniche apparse nei giveaway",
+      "repeated": "Ripetuti",
+      "repeatedTooltip": "Numero di offerte uniche che appaiono più volte nei giveaway",
+      "sellers": "Venditori",
+      "sellersTooltip": "Numero totale di venditori unici che forniscono offerte"
+    },
+    "offerCard": {
+      "openOffer": "Apri offerta {{title}}",
+      "free": "Gratis",
+      "comingSoon": "Prossimamente",
+      "earlyAccess": "Accesso anticipato",
+      "prePurchase": "Pre-acquisto",
+      "owned": "posseduto"
+    },
+    "baseGame": {
+      "checkBaseGame": "Controlla il gioco base",
+      "partOfBundle": "Questa offerta fa parte di"
+    },
+    "notFound": {
+      "message": "La pagina che stai cercando non esiste."
+    },
+    "sellerOffers": {
+      "error": "Errore nel caricamento delle offerte. Riprova.",
+      "moreFrom": "Altro da {{name}}"
+    },
+    "achievementsBlade": {
+      "noData": "Nessun dato",
+      "game": "Gioco",
+      "achievements": "Risultati",
+      "xp": "XP",
+      "bronze": "Bronzo",
+      "silver": "Argento",
+      "gold": "Oro",
+      "gamesWithAchievements": "Giochi con risultati Epic"
+    },
+    "topSection": {
+      "free": "Gratis",
+      "releaseDate": "Data di uscita:",
+      "tba": "Da annunciare",
+      "platforms": "Piattaforme:",
+      "tags": "Tag:",
+      "checkOffer": "Vedi offerta"
+    },
+    "featuredDiscounts": {
+      "free": "Gratis",
+      "title": "Sconti in evidenza",
+      "countMore": "+{{count}} altro",
+      "checkOffer": "Vedi offerta",
+      "until": "fino al"
+    },
+    "performanceTable": {
+      "title": "Prestazioni",
+      "noPriorData": "Nessun dato precedente",
+      "cardsView": "Vista schede",
+      "chartView": "Vista grafico"
+    },
+    "priceChart": {
+      "selectValue": "Seleziona un valore",
+      "last3Months": "Ultimi 3 mesi",
+      "fetchingData": "Recupero ultimi dati"
+    },
+    "dateRangePicker": {
+      "from": "Da",
+      "to": "A",
+      "maxRange": "L'intervallo massimo è di 30 giorni",
+      "invalidRange": "Intervallo date non valido"
+    },
+    "regionalPricing": {
+      "region": "Regione",
+      "price": "Prezzo"
+    },
+    "regionalPricingBadge": {
+      "analysis": "Analisi prezzi regionali",
+      "currentPrice": "Prezzo corrente",
+      "suggestedPrice": "Prezzo suggerito",
+      "belowSuggested": "Questa offerta è addirittura inferiore — un ottimo affare a tutto tondo.",
+      "closeToSuggested": "Questa offerta è vicina a quello, e ben al di sotto dei prezzi tipici di {{region}}."
+    },
+    "countrySelector": {
+      "searchCountries": "Cerca paesi...",
+      "noCountries": "Nessun paese trovato"
+    },
+    "countriesSelector": {
+      "searchCountries": "Cerca paesi...",
+      "noCountries": "Nessun paese trovato"
+    },
+    "querySearch": {
+      "searchItems": "Cerca articoli..."
+    },
+    "extendedSearch": {
+      "searchItems": "Cerca articoli...",
+      "noItems": "Nessun articolo trovato."
+    },
+    "searchForm": {
+      "noResults": "Nessun risultato trovato",
+      "error": "Errore: {{message}}",
+      "loadingLong": "Questa query sta impiegando più tempo del solito..."
+    },
+    "searchFormV2": {
+      "noResults": "Nessun risultato trovato."
+    },
+    "androidBetaBanner": {
+      "dismiss": "Chiudi banner"
+    },
+    "videoPlayer": {
+      "title": "{{title}}"
+    },
+    "mediaSlider": {
+      "previousSlide": "Slide precedente",
+      "nextSlide": "Slide successiva",
+      "image": "Immagine {{index}}",
+      "thumbnail": "Miniatura {{index}}",
+      "downloading": "Download in corso...",
+      "download": "Scarica"
+    },
+    "changelogItem": {
+      "action": "Azione",
+      "type": "Tipo",
+      "oldValue": "Vecchio valore",
+      "newValue": "Nuovo valore",
+      "previousValue": "Valore precedente:",
+      "newValueLabel": "Nuovo valore:"
+    },
+    "changelogCharts": {
+      "byWeekday": "Modifiche per giorno della settimana",
+      "byWeekdayDesc": "Modifiche accumulate per giorno della settimana",
+      "typesOfChanges": "Tipi di modifiche",
+      "typesOfChangesDesc": "Quantità di modifiche per tipo",
+      "byField": "Modifiche per campo",
+      "byFieldDesc": "Modifiche raggruppate per campo modificato",
+      "dailyDesc": "Mostra le modifiche giornaliere dell'ultimo anno",
+      "noData": "Nessun dato disponibile da visualizzare."
+    },
+    "openEgl": {
+      "open": "Apri"
+    },
+    "openEgs": {
+      "store": "Negozio"
+    },
+    "openLauncher": {
+      "play": "Gioca"
+    },
+    "storeDropdown": {
+      "launcher": "Launcher",
+      "viewStorePage": "Vedi pagina del negozio",
+      "webBrowser": "Browser web"
+    },
+    "prepurchasePopup": {
+      "title": "{{title}}"
+    },
+    "apiKeyManager": {
+      "title": "Gestione chiave API",
+      "label": "Chiave API",
+      "placeholder": {
+        "generated": "Chiave API generata",
+        "none": "Nessuna chiave API generata"
+      },
+      "button": {
+        "regenerate": "Rigenera chiave",
+        "generate": "Genera chiave",
+        "clear": "Cancella chiave"
+      },
+      "notification": {
+        "generated": "Nuova chiave API generata con successo!",
+        "generateFailed": "Impossibile generare la chiave API",
+        "copied": "Chiave API copiata negli appunti!",
+        "copyFailed": "Impossibile copiare la chiave API",
+        "noneToCopy": "Nessuna chiave API da copiare",
+        "cleared": "Chiave API cancellata con successo!",
+        "clearFailed": "Impossibile cancellare la chiave API"
+      },
+      "description": "La tua chiave API è un UUID memorizzato localmente nel tuo browser e viene utilizzato per autenticare le richieste di notifica push. Usa il pulsante rigenera per creare una nuova chiave se necessario."
+    },
+    "cookieBanner": {
+      "title": "Avviso sui cookie",
+      "description": "Questo sito web utilizza i cookie per migliorare la tua esperienza di navigazione. Accettando i cookie, accetti la nostra {{privacyPolicyLink}}.",
+      "accept": "Accetta",
+      "decline": "Rifiuta"
+    },
+    "searchHeader": {
+      "results": "{{count}} risultati",
+      "showingResultsFor": "Mostra risultati per"
+    },
+    "bundle": {
+      "collectionOffers": "Offerte collezione",
+      "bundleOffers": "Offerte bundle",
+      "offersCount": "- {{count}} offerte",
+      "bundlePriceTitle": "Prezzo bundle",
+      "totalValueLabel": "Valore totale:",
+      "bundlePriceLabel": "Prezzo bundle:",
+      "youSave": "Risparmi:",
+      "youPayMore": "Paghi di più:",
+      "buyBundle": "Acquista bundle",
+      "buyIndividually": "Acquista articoli singolarmente"
+    },
+    "clientBanner": {
+      "heading": "Alimenta il database build di {{appName}}",
+      "subheading": "Aiuta a mappare ogni build dell'Epic Games Store",
+      "description": "Il nostro client leggero per Windows e macOS scansiona le tue installazioni dell'Epic Games Launcher e carica in modo sicuro solo i file manifest—elenchi di chunk e metadati—nel nostro database aperto. Ogni upload arricchisce la community e ci aiuta a tracciare i cambiamenti nel tempo.",
+      "cta": "Scarica per Windows e macOS"
+    },
+    "collectionOffers": {
+      "title": "Offerte collezione"
+    },
+    "lastModifiedOffers": {
+      "title": "Ultime offerte modificate"
+    },
+    "latestOffers": {
+      "title": "Ultimi aggiunti"
+    },
+    "latestReleased": {
+      "title": "Ultimi rilasciati"
+    },
+    "mobileFreebies": {
+      "title": "Giochi gratuiti mobile",
+      "collapse": "Comprimi giochi gratuiti mobile",
+      "expand": "Espandi giochi gratuiti mobile"
+    },
+    "sectionHeader": {
+      "seeAll": "Vedi tutto"
+    },
+    "suggestedOffers": {
+      "title": "Potrebbe piacerti anche"
+    }
+  },
+  "table": {
+    "pagination": {
+      "rowsPerPage": "Righe per pagina",
+      "pageOf": "Pagina {{page}} di {{total}}",
+      "goToFirst": "Vai alla prima pagina",
+      "goToPrevious": "Vai alla pagina precedente",
+      "goToNext": "Vai alla pagina successiva",
+      "goToLast": "Vai all'ultima pagina",
+      "previous": "Precedente",
+      "next": "Successivo",
+      "morePages": "Altre pagine"
+    },
+    "toolbar": {
+      "platform": "Piattaforma",
+      "status": "Stato",
+      "type": "Tipo",
+      "platforms": "Piattaforme",
+      "fileExtensions": "Estensioni file",
+      "filterOffers": "Filtra offerte...",
+      "filterItems": "Filtra articoli...",
+      "filterFiles": "Filtra file...",
+      "reset": "Reimposta"
+    },
+    "viewOptions": {
+      "view": "Vista",
+      "toggleColumns": "Attiva/disattiva colonne"
+    },
+    "facetedFilter": {
+      "noResults": "Nessun risultato trovato.",
+      "selected": "selezionati",
+      "clearFilters": "Cancella filtri"
+    },
+    "builds": {
+      "noResults": "Nessun risultato.",
+      "donateKey": "Dona una chiave"
+    }
+  },
+  "forms": {
+    "review": {
+      "submitTitle": "Invia una recensione",
+      "editTitle": "Modifica recensione",
+      "description": "Condividi le tue opinioni su {{title}}",
+      "rating": "Valutazione",
+      "ratingError": "La valutazione deve essere compresa tra 1 e 10",
+      "recommend": "Raccomanderesti questo prodotto?",
+      "recommendError": "Seleziona sì o no",
+      "yes": "Sì",
+      "no": "No",
+      "title": "Titolo",
+      "titlePlaceholder": "Inserisci un titolo per la tua recensione",
+      "titleRequired": "Il titolo è obbligatorio",
+      "titleMinLength": "Il titolo deve avere almeno 3 caratteri",
+      "titleMinLengthLong": "Il titolo deve avere almeno 3 caratteri",
+      "titleMaxLength": "Il titolo deve avere meno di 75 caratteri",
+      "reviewContent": "Contenuto recensione",
+      "contentMinLength": "Il contenuto deve avere almeno 3 caratteri",
+      "tags": "Tag (separati da virgole)",
+      "tagsPlaceholder": "es. qualità, design, prestazioni",
+      "previous": "Precedente",
+      "next": "Successivo",
+      "submit": "Invia recensione",
+      "deleteReview": "Elimina recensione",
+      "confirmDelete": "Sei sicuro di voler eliminare questa recensione?",
+      "deleteDescription": "Questa azione non può essere annullata. Eliminerà permanentemente la recensione dai nostri server.",
+      "cancel": "Annulla",
+      "delete": "Elimina",
+      "deleting": "Eliminazione in corso...",
+      "errorSubmitting": "Errore nell'invio della recensione",
+      "errorDeleting": "Errore nell'eliminazione della recensione",
+      "spamDetected": "Rilevato spam",
+      "defaultContent": "Inserisci la tua recensione qui",
+      "theProduct": "il prodotto"
+    },
+    "androidBeta": {
+      "title": "Partecipa alla Beta",
+      "description": "Accedi con Google per registrarti alla beta chiusa. Abbiamo bisogno solo del tuo indirizzo email.",
+      "spotsRemaining": "<strong>{{remaining}}</strong> di {{max}} posti rimasti",
+      "betaFull": "Beta al completo",
+      "betaFullDesc": "Tutti i {{max}} posti sono occupati. Ripassa più tardi o seguici per sapere quando saranno disponibili nuovi posti.",
+      "registering": "Registrazione in corso per la beta...",
+      "registered": "Registrazione completata!",
+      "registeredDesc": "Abbiamo registrato <strong>{{email}}</strong> per la beta chiusa.",
+      "registeredDesc2": "Potrebbero volerci alcune ore prima che tu venga aggiunto manualmente all'elenco dei tester. Una volta aggiunto, puoi partecipare alla beta qui:",
+      "joinBeta": "Partecipa alla Beta su Google Play",
+      "alreadyRegistered": "Già registrato",
+      "alreadyRegisteredDesc": "<strong>{{email}}</strong> è già registrato per la beta.",
+      "alreadyRegisteredDesc2": "Se sei già stato aggiunto all'elenco dei tester, puoi partecipare alla beta qui:",
+      "error": "Errore",
+      "tryAgain": "Riprova",
+      "noCredential": "Nessuna credenziale ricevuta da Google",
+      "somethingWrong": "Qualcosa è andato storto. Riprova.",
+      "googleFailed": "Accesso Google fallito. Riprova."
+    },
+    "donateKey": {
+      "donate": "Dona",
+      "error": "Errore",
+      "success": "Successo",
+      "successDesc": "Grazie per la tua donazione! L'articolo è stato riscattato correttamente e i suoi dati saranno presto disponibili.",
+      "offerPage": "Pagina offerta",
+      "somethingWrong": "Qualcosa è andato storto. Riprova."
+    }
+  },
+  "ui": {
+    "dialog": {
+      "close": "Chiudi"
+    },
+    "sheet": {
+      "close": "Chiudi"
+    },
+    "carousel": {
+      "previous": "Slide precedente",
+      "next": "Slide successiva"
+    },
+    "pagination": {
+      "previous": "Precedente",
+      "next": "Successivo",
+      "morePages": "Altre pagine"
+    },
+    "priceRangeSlider": {
+      "priceRange": "Intervallo di prezzo",
+      "minPrice": "Prezzo min",
+      "maxPrice": "Prezzo max"
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import { SandboxShell } from "@/components/app/sandbox-shell";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
+import i18n from "@/lib/i18n";
 import { getQueryClient } from "@/lib/client";
 import { generateSandboxMeta } from "@/lib/generate-sandbox-meta";
 import { sandboxBaseGameQueryOptions, sandboxQueryOptions } from "@/queries/sandbox";
@@ -67,8 +68,8 @@ export const Route = createFileRoute("/sandboxes/$id")({
       return {
         meta: [
           {
-            title: "Sandbox not found",
-            description: "Sandbox not found",
+            title: i18n.t("sandboxes.notFoundTitle"),
+            description: i18n.t("sandboxes.notFoundDescription"),
           },
         ],
       };
@@ -91,7 +92,7 @@ export const Route = createFileRoute("/sandboxes/$id")({
       if (offer) {
         offer = {
           ...offer,
-          title: "Unreal Engine",
+          title: i18n.t("sandboxes.unrealEngineTitle"),
         };
       }
     }
@@ -100,8 +101,8 @@ export const Route = createFileRoute("/sandboxes/$id")({
       return {
         meta: [
           {
-            title: "Sandbox not found",
-            description: "Sandbox not found",
+            title: i18n.t("sandboxes.notFoundTitle"),
+            description: i18n.t("sandboxes.notFoundDescription"),
           },
         ],
       };

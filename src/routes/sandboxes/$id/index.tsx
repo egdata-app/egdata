@@ -8,6 +8,7 @@ import { EpicTrophyIcon } from "@/components/icons/epic-trophy";
 import { Button } from "@/components/ui/button";
 import { useCountry } from "@/hooks/use-country";
 import { calculateSize } from "@/lib/calculate-size";
+import i18n from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { sandboxHubQueryOptions, type SandboxHubData } from "@/queries/sandbox-hub";
 import type { SingleOffer } from "@/types/single-offer";
@@ -24,6 +25,7 @@ import {
   StoreIcon,
   Workflow,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/sandboxes/$id/")({
   component: () => {
@@ -62,6 +64,7 @@ export const Route = createFileRoute("/sandboxes/$id/")({
 });
 
 function SandboxHubPage() {
+  const { t } = useTranslation();
   const { id } = Route.useParams();
   const { country } = useCountry();
   const {
@@ -85,8 +88,10 @@ function SandboxHubPage() {
     return (
       <div className="flex min-h-[40vh] items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-semibold">Sandbox unavailable</h2>
-          <p className="mt-2 text-sm text-muted-foreground">The product hub could not be loaded.</p>
+          <h2 className="text-2xl font-semibold">{t("sandboxes.unavailableTitle")}</h2>
+          <p className="mt-2 text-sm text-muted-foreground">
+            {t("sandboxes.unavailableDescription")}
+          </p>
         </div>
       </div>
     );
@@ -96,9 +101,9 @@ function SandboxHubPage() {
     return (
       <div className="flex min-h-[40vh] items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-semibold">Sandbox not found</h2>
+          <h2 className="text-2xl font-semibold">{t("sandboxes.notFoundTitle")}</h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            No product data exists for this sandbox.
+            {t("sandboxes.noProductDataDescription")}
           </p>
         </div>
       </div>
@@ -109,14 +114,14 @@ function SandboxHubPage() {
     <div className="flex flex-col gap-8">
       <SandboxPageHeader
         icon={Workflow}
-        eyebrow="Sandbox"
-        title="Overview"
-        description="A focused map of the storefront, ownership, delivery, and update records for this namespace."
+        eyebrow={t("sandboxes.hubEyebrow")}
+        title={t("sandboxes.hubOverviewTitle")}
+        description={t("sandboxes.hubOverviewDescription")}
       >
         <Button asChild variant="outline" size="sm">
           <Link to="/sandboxes/$id/changelog" params={{ id: hub.id ?? "" }}>
             <FileClock className="size-4" />
-            Latest changes
+            {t("sandboxes.latestChangesButton")}
           </Link>
         </Button>
       </SandboxPageHeader>
@@ -129,46 +134,47 @@ function SandboxHubPage() {
 }
 
 function EntityMap({ hub }: { hub: SandboxHubData }) {
+  const { t } = useTranslation();
   const entities = [
     {
-      label: "Offers",
+      label: t("sandboxes.entityOffersLabel"),
       value: hub.stats?.offers,
-      description: "Store entries",
+      description: t("sandboxes.entityOffersDescription"),
       icon: StoreIcon,
       to: "/sandboxes/$id/offers",
     },
     {
-      label: "Items",
+      label: t("sandboxes.entityItemsLabel"),
       value: hub.stats?.items,
-      description: "Ownable records",
+      description: t("sandboxes.entityItemsDescription"),
       icon: LibrarySquareIcon,
       to: "/sandboxes/$id/items",
     },
     {
-      label: "Assets",
+      label: t("sandboxes.entityAssetsLabel"),
       value: hub.stats?.assets,
-      description: "Artifacts and media",
+      description: t("sandboxes.entityAssetsDescription"),
       icon: Archive,
       to: "/sandboxes/$id/assets",
     },
     {
-      label: "Builds",
+      label: t("sandboxes.entityBuildsLabel"),
       value: hub.stats?.builds,
-      description: "Binary bundles",
+      description: t("sandboxes.entityBuildsDescription"),
       icon: PackageIcon,
       to: "/sandboxes/$id/builds",
     },
     {
-      label: "Achievements",
+      label: t("sandboxes.entityAchievementsLabel"),
       value: hub.stats?.achievements,
-      description: "Progression data",
+      description: t("sandboxes.entityAchievementsDescription"),
       icon: EpicTrophyIcon,
       to: "/sandboxes/$id/achievements",
     },
     {
-      label: "Changelog",
+      label: t("sandboxes.entityChangelogLabel"),
       value: null,
-      description: "Tracked updates",
+      description: t("sandboxes.entityChangelogDescription"),
       icon: FileClock,
       to: "/sandboxes/$id/changelog",
     },
@@ -194,7 +200,9 @@ function EntityMap({ hub }: { hub: SandboxHubData }) {
             <ArrowRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-primary" />
           </div>
           <div className="mt-5 text-2xl font-semibold">
-            {typeof entity.value === "number" ? formatSandboxCount(entity.value) : "View"}
+            {typeof entity.value === "number"
+              ? formatSandboxCount(entity.value)
+              : t("sandboxes.viewButton")}
           </div>
         </Link>
       ))}
@@ -203,14 +211,15 @@ function EntityMap({ hub }: { hub: SandboxHubData }) {
 }
 
 function FeaturedOffers({ offers }: { offers: SingleOffer[] }) {
+  const { t } = useTranslation();
   if (!offers.length) {
     return null;
   }
 
   return (
     <SandboxDataSurface
-      title="Storefront offers"
-      description="Representative store entries found in this sandbox."
+      title={t("sandboxes.storefrontOffersTitle")}
+      description={t("sandboxes.storefrontOffersDescription")}
       badge={`${formatSandboxCount(offers.length)} shown`}
     >
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -223,6 +232,7 @@ function FeaturedOffers({ offers }: { offers: SingleOffer[] }) {
 }
 
 function RecentActivity({ hub }: { hub: SandboxHubData }) {
+  const { t } = useTranslation();
   const recentBuilds = (hub.recentBuilds ?? []).filter((build) => build?._id).slice(0, 3);
   const recentChanges = (hub.recentChanges ?? []).filter((change) => change?._id).slice(0, 3);
   const hasBuilds = recentBuilds.length > 0;
@@ -236,9 +246,9 @@ function RecentActivity({ hub }: { hub: SandboxHubData }) {
     <section className="grid grid-cols-1 gap-6 lg:grid-cols-2">
       {hasBuilds && (
         <SandboxDataSurface
-          title="Recent builds"
-          description="Newest binary records."
-          badge={`${recentBuilds.length} latest`}
+          title={t("sandboxes.recentBuildsTitle")}
+          description={t("sandboxes.recentBuildsDescription")}
+          badge={`${recentBuilds.length} ${t("sandboxes.latestBadge")}`}
         >
           <div className="flex flex-col gap-2">
             {recentBuilds.map((build) => {
@@ -255,7 +265,7 @@ function RecentActivity({ hub }: { hub: SandboxHubData }) {
                 >
                   <div className="min-w-0">
                     <div className="truncate font-medium">
-                      {build?.labelName || build?.appName || "Unknown build"}
+                      {build?.labelName || build?.appName || t("sandboxes.unknownBuildLabel")}
                     </div>
                     <div className="mt-1 truncate text-sm text-muted-foreground">
                       {build?.buildVersion || build?.appName}
@@ -274,9 +284,9 @@ function RecentActivity({ hub }: { hub: SandboxHubData }) {
 
       {hasChanges && (
         <SandboxDataSurface
-          title="Recent changes"
-          description="Latest catalog mutations."
-          badge={`${recentChanges.length} latest`}
+          title={t("sandboxes.recentChangesTitle")}
+          description={t("sandboxes.recentChangesDescription")}
+          badge={`${recentChanges.length} ${t("sandboxes.latestBadge")}`}
         >
           <div className="flex flex-col gap-2">
             {recentChanges.map((change) => {
@@ -319,6 +329,7 @@ function RecentActivity({ hub }: { hub: SandboxHubData }) {
 }
 
 function ChangeTypeBadge({ value }: { value: string | null | undefined }) {
+  const { t } = useTranslation();
   return (
     <span
       className={cn(
@@ -328,7 +339,7 @@ function ChangeTypeBadge({ value }: { value: string | null | undefined }) {
         value !== "insert" && value !== "delete" && "bg-primary/15 text-primary",
       )}
     >
-      {value ?? "update"}
+      {value ?? t("sandboxes.updateBadge")}
     </span>
   );
 }
@@ -348,7 +359,7 @@ function SandboxHubSkeleton() {
 
 function formatContextType(value: string | null | undefined) {
   if (!value) {
-    return "Change";
+    return i18n.t("sandboxes.changeDefaultLabel");
   }
 
   return value.charAt(0).toUpperCase() + value.slice(1);
@@ -356,12 +367,12 @@ function formatContextType(value: string | null | undefined) {
 
 function formatDate(value: string | null | undefined) {
   if (!value) {
-    return "N/A";
+    return i18n.t("common.notAvailable");
   }
 
   const date = DateTime.fromISO(value);
   if (!date.isValid) {
-    return "N/A";
+    return i18n.t("common.notAvailable");
   }
 
   return date.setLocale("en-GB").toLocaleString({

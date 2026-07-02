@@ -71,6 +71,13 @@
     transparent 80%
   );
   --card-hover-glow: hsl(199 100% 50% / 0.09);
+  --font-cjk-sans: "Noto Sans SC", "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC",
+    "Hiragino Sans GB", "Source Han Sans SC", "WenQuanYi Micro Hei", sans-serif;
+  --font-cjk-traditional: "Noto Sans TC", "Microsoft JhengHei UI", "Microsoft JhengHei",
+    "PingFang TC", "Source Han Sans TC", sans-serif;
+  --font-cjk-japanese: "Noto Sans JP", "Yu Gothic UI", "Yu Gothic", "Hiragino Sans",
+    "Meiryo", sans-serif;
+  --font-cjk-korean: "Noto Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
 }
 
 @theme inline {
@@ -128,6 +135,7 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-sans);
   }
   h1,
   h2,
@@ -137,6 +145,53 @@
   h6 {
     font-family: var(--font-display);
     letter-spacing: -0.02em;
+  }
+
+  html:lang(zh-CN) {
+    --font-sans: var(--font-cjk-sans);
+    --font-display: var(--font-cjk-sans);
+  }
+
+  html:lang(zh-Hant) {
+    --font-sans: var(--font-cjk-traditional);
+    --font-display: var(--font-cjk-traditional);
+  }
+
+  html:lang(ja) {
+    --font-sans: var(--font-cjk-japanese);
+    --font-display: var(--font-cjk-japanese);
+  }
+
+  html:lang(ko) {
+    --font-sans: var(--font-cjk-korean);
+    --font-display: var(--font-cjk-korean);
+  }
+
+  html:lang(zh-CN) h1,
+  html:lang(zh-CN) h2,
+  html:lang(zh-CN) h3,
+  html:lang(zh-CN) h4,
+  html:lang(zh-CN) h5,
+  html:lang(zh-CN) h6,
+  html:lang(zh-Hant) h1,
+  html:lang(zh-Hant) h2,
+  html:lang(zh-Hant) h3,
+  html:lang(zh-Hant) h4,
+  html:lang(zh-Hant) h5,
+  html:lang(zh-Hant) h6,
+  html:lang(ja) h1,
+  html:lang(ja) h2,
+  html:lang(ja) h3,
+  html:lang(ja) h4,
+  html:lang(ja) h5,
+  html:lang(ja) h6,
+  html:lang(ko) h1,
+  html:lang(ko) h2,
+  html:lang(ko) h3,
+  html:lang(ko) h4,
+  html:lang(ko) h5,
+  html:lang(ko) h6 {
+    letter-spacing: 0;
   }
 }
 

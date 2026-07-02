@@ -12,8 +12,10 @@ import {
 import { Skeleton } from "../ui/skeleton";
 import { getLastModified } from "@/queries/last-modified";
 import { Link } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 
 export function LastModifiedGames() {
+  const { t } = useTranslation();
   const { country } = useCountry();
   const { data: games, isLoading: loading } = useQuery({
     queryKey: ["last-modified-offers", { country }],
@@ -29,7 +31,7 @@ export function LastModifiedGames() {
         }}
         className="text-xl font-bold text-left inline-flex group items-center gap-2"
       >
-        Last Modified Offers
+        {t("components.lastModifiedOffers.title")}
         <ArrowRightIcon className="w-6 h-6 inline-block group-hover:translate-x-1 transition-transform duration-300 ease-in-out" />
       </Link>
       <Carousel className="mt-2 p-4">

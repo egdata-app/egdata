@@ -2,6 +2,7 @@ import { Link, type LinkComponentProps } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 
 interface SectionHeaderProps {
   title: string;
@@ -20,6 +21,7 @@ export function SectionHeader({
   params,
   className,
 }: SectionHeaderProps) {
+  const { t } = useTranslation();
   return (
     <div className={cn("flex items-center justify-between gap-4 mb-4", className)}>
       <h2 className="text-lg font-display font-semibold tracking-tight text-foreground">{title}</h2>
@@ -32,7 +34,7 @@ export function SectionHeader({
             params={params}
             className="inline-flex items-center gap-1 text-sm text-primary font-medium hover:text-primary/80 transition-colors"
           >
-            See all
+            {t("components.sectionHeader.seeAll")}
             <ArrowRight className="size-3.5" />
           </Link>
         )}

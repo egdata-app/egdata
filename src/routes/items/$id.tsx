@@ -28,6 +28,8 @@ import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { getQueryClient } from "@/lib/client";
 import { useLocale } from "@/hooks/use-locale";
 import { DateTime } from "luxon";
+import { useTranslation } from "react-i18next";
+import i18n from "@/lib/i18n";
 
 export const Route = createFileRoute("/items/$id")({
   component: () => {
@@ -66,8 +68,8 @@ export const Route = createFileRoute("/items/$id")({
       return {
         meta: [
           {
-            title: "Item not found",
-            description: "Item not found",
+            title: i18n.t("items.notFound"),
+            description: i18n.t("items.notFound"),
           },
         ],
       };
@@ -82,8 +84,8 @@ export const Route = createFileRoute("/items/$id")({
       return {
         meta: [
           {
-            title: "item not found",
-            description: "item not found",
+            title: i18n.t("items.notFound"),
+            description: i18n.t("items.notFound"),
           },
         ],
       };
@@ -96,6 +98,7 @@ export const Route = createFileRoute("/items/$id")({
 });
 
 function ItemPage() {
+  const { t } = useTranslation();
   const { id } = Route.useParams();
   const navigate = Route.useNavigate();
   const { timezone } = useLocale();
@@ -115,19 +118,21 @@ function ItemPage() {
         <div className="flex flex-col gap-4 w-full">
           <div className="flex min-w-0 flex-wrap items-center gap-3 md:gap-4">
             <h1 className="min-w-0 text-2xl font-bold leading-tight">{item.title}</h1>
-            <Badge>Item</Badge>
+            <Badge>{t("items.badge")}</Badge>
           </div>
           <div className="mt-2 overflow-hidden rounded-xl border border-border/10">
             <Table className="min-w-[620px]">
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[180px] md:w-[300px]">Item ID</TableHead>
+                  <TableHead className="w-[180px] md:w-[300px]">
+                    {t("items.table.itemId")}
+                  </TableHead>
                   <TableHead className="border-l-border/10 border-l">{item.id}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 <TableRow>
-                  <TableCell className="font-medium">Namespace</TableCell>
+                  <TableCell className="font-medium">{t("items.table.namespace")}</TableCell>
                   <TableCell
                     className={
                       "text-left font-mono border-l-border/10 border-l underline decoration-dotted decoration-border underline-offset-4"
@@ -139,7 +144,7 @@ function ItemPage() {
                           <Tooltip>
                             <TooltipTrigger>{item.namespace}</TooltipTrigger>
                             <TooltipContent>
-                              <p>Epic Games internal namespace</p>
+                              <p>{t("items.tooltip.internalNamespace")}</p>
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
@@ -150,11 +155,11 @@ function ItemPage() {
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell className="font-medium">Developer</TableCell>
+                  <TableCell className="font-medium">{t("items.table.developer")}</TableCell>
                   <TableCell className="border-l-border/10 border-l">{item.developer}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell className="font-medium">Entitlement Type</TableCell>
+                  <TableCell className="font-medium">{t("items.table.entitlementType")}</TableCell>
                   <TableCell className="border-l-border/10 border-l">
                     {item.entitlementType}
                   </TableCell>
@@ -163,18 +168,20 @@ function ItemPage() {
                   item.entitlementName !== item.id &&
                   item.entitlementName !== item.title && (
                     <TableRow>
-                      <TableCell className="font-medium">Entitlement Name</TableCell>
+                      <TableCell className="font-medium">
+                        {t("items.table.entitlementName")}
+                      </TableCell>
                       <TableCell className="border-l-border/10 border-l">
                         {item.entitlementName}
                       </TableCell>
                     </TableRow>
                   )}
                 <TableRow>
-                  <TableCell className="font-medium">Status</TableCell>
+                  <TableCell className="font-medium">{t("items.table.status")}</TableCell>
                   <TableCell className="border-l-border/10 border-l">{item.status}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell className="font-medium">Creation Date</TableCell>
+                  <TableCell className="font-medium">{t("items.table.creationDate")}</TableCell>
                   <TableCell className="border-l-border/10 border-l">
                     {DateTime.fromISO(item.creationDate)
                       .setZone(timezone || "UTC")
@@ -190,7 +197,7 @@ function ItemPage() {
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell className="font-medium">Last Modified</TableCell>
+                  <TableCell className="font-medium">{t("items.table.lastModified")}</TableCell>
                   <TableCell className="border-l-border/10 border-l">
                     {new Date(item.lastModifiedDate).toLocaleString("en-UK", {
                       year: "numeric",
@@ -204,7 +211,7 @@ function ItemPage() {
                   </TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell className="font-medium">Platforms</TableCell>
+                  <TableCell className="font-medium">{t("items.table.platforms")}</TableCell>
                   <TableCell className="border-l-border/10 border-l inline-flex items-center justify-start gap-1">
                     {getPlatformsArray(item.releaseInfo)
                       .filter((platform) => textPlatformIcons[platform])
@@ -241,7 +248,7 @@ function ItemPage() {
                 id: "",
                 label: (
                   <span className="inline-flex items-center gap-2">
-                    <span>Item</span>
+                    <span>{t("items.tabs.item")}</span>
                   </span>
                 ),
                 href: `/items/${id}`,
@@ -250,7 +257,7 @@ function ItemPage() {
                 id: "assets",
                 label: (
                   <span className="inline-flex items-center gap-2">
-                    <span>Assets</span>
+                    <span>{t("items.tabs.assets")}</span>
                   </span>
                 ),
                 href: `/items/${id}/assets`,
@@ -259,7 +266,7 @@ function ItemPage() {
                 id: "images",
                 label: (
                   <span className="inline-flex items-center gap-2">
-                    <span>Images</span>
+                    <span>{t("items.tabs.images")}</span>
                   </span>
                 ),
                 href: `/items/${id}/images`,
@@ -268,7 +275,7 @@ function ItemPage() {
                 id: "builds",
                 label: (
                   <span className="inline-flex items-center gap-2">
-                    <span>Builds</span>
+                    <span>{t("items.tabs.builds")}</span>
                   </span>
                 ),
                 href: `/items/${id}/builds`,
@@ -277,7 +284,7 @@ function ItemPage() {
                 id: "changelog",
                 label: (
                   <span className="inline-flex items-center gap-2">
-                    <span>Changelog</span>
+                    <span>{t("items.tabs.changelog")}</span>
                   </span>
                 ),
                 href: `/items/${id}/changelog`,

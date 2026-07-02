@@ -7,6 +7,7 @@ import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanst
 import { createFileRoute } from "@tanstack/react-router";
 import type { ColumnFiltersState } from "@tanstack/react-table";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/builds/$id/files")({
   component: () => {
@@ -45,6 +46,7 @@ export const Route = createFileRoute("/builds/$id/files")({
 });
 
 function FilesPage() {
+  const { t } = useTranslation();
   const { id } = Route.useLoaderData() as { dehydratedState: DehydratedState; id: string };
   const [page, setPage] = useState<{
     pageIndex: number;
@@ -74,7 +76,7 @@ function FilesPage() {
 
   return (
     <main className="flex flex-col items-start justify-start h-full gap-1 px-4 w-full">
-      <p className="text-lg font-semibold">Files</p>
+      <p className="text-lg font-semibold">{t("builds.files.title")}</p>
       <DataTable
         columns={columns}
         data={files?.files ?? []}

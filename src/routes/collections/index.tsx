@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useCountry } from "@/hooks/use-country";
+import i18n from "@/lib/i18n";
 import { getImage } from "@/lib/get-image";
 import { cn } from "@/lib/utils";
 import { getCollection } from "@/queries/collection";
@@ -12,6 +13,7 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 
 const collections: {
   slug: string;
@@ -105,16 +107,16 @@ export const Route = createFileRoute("/collections/")({
     return {
       meta: [
         {
-          title: "Collections | egdata.app",
-          description: "Collections on egdata.app",
+          title: i18n.t("collections.metaIndex.title"),
+          description: i18n.t("collections.metaIndex.description"),
         },
         {
           name: "og:title",
-          content: "Collections | egdata.app",
+          content: i18n.t("collections.metaIndex.title"),
         },
         {
           name: "og:description",
-          content: "Collections on egdata.app",
+          content: i18n.t("collections.metaIndex.description"),
         },
         {
           name: "og:image",
@@ -126,11 +128,11 @@ export const Route = createFileRoute("/collections/")({
         },
         {
           name: "twitter:title",
-          content: "Collections | egdata.app",
+          content: i18n.t("collections.metaIndex.title"),
         },
         {
           name: "twitter:description",
-          content: "Collections on egdata.app",
+          content: i18n.t("collections.metaIndex.description"),
         },
         {
           name: "twitter:image",
@@ -142,12 +144,11 @@ export const Route = createFileRoute("/collections/")({
 });
 
 function CollectionsOverview() {
+  const { t } = useTranslation();
   return (
     <main className="flex flex-col items-start justify-start h-full gap-1 px-4 w-full">
-      <h1 className="text-4xl font-semibold">Collections</h1>
-      <h2 className="text-xl font-thin">
-        The top sellers, most played, and most popular games on the Epic Games Store
-      </h2>
+      <h1 className="text-4xl font-semibold">{t("collections.headings.main")}</h1>
+      <h2 className="text-xl font-thin">{t("collections.description.overview")}</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4 w-full">
         {collections.map((collection) => (
           <CollectionCard key={collection.slug} collection={collection} />

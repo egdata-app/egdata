@@ -16,8 +16,10 @@ import { Link } from "@tanstack/react-router";
 import { useLocale } from "@/hooks/use-locale";
 import { mergeFreebies } from "@/utils/merge-freebies";
 import { DateTime } from "luxon";
+import { useTranslation } from "react-i18next";
 
 export function GiveawaysCarousel({ hideTitle }: { hideTitle?: boolean }) {
+  const { t } = useTranslation();
   const { country } = useCountry();
   const { data, isLoading, isError } = useQuery({
     queryKey: ["giveaways"],
@@ -58,7 +60,7 @@ export function GiveawaysCarousel({ hideTitle }: { hideTitle?: boolean }) {
           to="/freebies"
           search={{ developerDisplayName: undefined, publisherDisplayName: undefined }}
         >
-          <h2 className="text-xl font-display font-semibold">Giveaways</h2>
+          <h2 className="text-xl font-display font-semibold">{t("components.giveaways.title")}</h2>
           <ArrowRightIcon className="w-5 h-5 inline-block group-hover:translate-x-1 transition-transform duration-300 ease-in-out text-primary" />
         </Link>
       )}
@@ -77,6 +79,7 @@ export function GiveawaysCarousel({ hideTitle }: { hideTitle?: boolean }) {
 }
 
 function GiveawayCard({ offer }: { offer: GiveawayOffer }) {
+  const { t } = useTranslation();
   const { locale } = useLocale();
   const startDate = new Date(offer.giveaway.startDate);
   const endDate = new Date(offer.giveaway.endDate);
@@ -129,7 +132,7 @@ function GiveawayCard({ offer }: { offer: GiveawayOffer }) {
                   )}
                 >
                   {isOnGoing
-                    ? "Free"
+                    ? t("components.giveaways.free")
                     : priceFmtr.format(
                         calculatePrice(
                           offer.price?.price.originalPrice,
@@ -152,16 +155,18 @@ function GiveawayCard({ offer }: { offer: GiveawayOffer }) {
           </div>
           <span className="text-xs font-semibold flex items-center gap-1 text-muted-foreground">
             <TooltipProvider>
-              Repeated:{" "}
+              {t("components.giveaways.repeated")}{" "}
               {offer.giveaway?.historical?.length > 1 ? (
                 <Tooltip>
                   <TooltipTrigger className="flex items-center gap-1">
-                    Yes
+                    {t("components.giveaways.yes")}
                     <InfoCircledIcon className="w-4 h-4" />
                   </TooltipTrigger>
                   <TooltipContent className="flex flex-col gap-1">
                     <i className="text-xs font-normal">
-                      This offer has been gifted {offer.giveaway?.historical?.length} times.
+                      {t("components.giveaways.repeatedTooltip", {
+                        count: offer.giveaway?.historical?.length,
+                      })}
                     </i>
                     <div className="flex flex-col gap-1">
                       {offer.giveaway?.historical?.map((historical) => (
@@ -183,7 +188,7 @@ function GiveawayCard({ offer }: { offer: GiveawayOffer }) {
                   </TooltipContent>
                 </Tooltip>
               ) : (
-                "No"
+                t("components.giveaways.no")
               )}
             </TooltipProvider>
           </span>
@@ -194,6 +199,7 @@ function GiveawayCard({ offer }: { offer: GiveawayOffer }) {
 }
 
 function Countdown({ targetDate }: { targetDate: Date }) {
+  const { t } = useTranslation();
   const { timezone } = useLocale();
   const [timeLeft, setTimeLeft] = useState<{
     days: number;
@@ -247,13 +253,13 @@ function Countdown({ targetDate }: { targetDate: Date }) {
     >
       {!isFinised ? (
         <span className="font-semibold">
-          Starts in {timeLeft.days > 0 && `${timeLeft.days}d `}
+          {t("components.giveaways.startsIn")} {timeLeft.days > 0 && `${timeLeft.days}d `}
           {timeLeft.hours.toString().padStart(2, "0")}:
           {timeLeft.minutes.toString().padStart(2, "0")}:
           {timeLeft.seconds.toString().padStart(2, "0")}
         </span>
       ) : (
-        <span className="font-semibold">Free Now</span>
+        <span className="font-semibold">{t("components.giveaways.freeNow")}</span>
       )}
     </div>
   );

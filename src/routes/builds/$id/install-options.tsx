@@ -5,6 +5,7 @@ import type { BuildInstallOptions } from "@/types/builds";
 import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
+import { useTranslation } from "react-i18next";
 
 export const Route = createFileRoute("/builds/$id/install-options")({
   component: () => {
@@ -38,6 +39,7 @@ export const Route = createFileRoute("/builds/$id/install-options")({
 });
 
 function InstallOptions() {
+  const { t } = useTranslation();
   const { id } = Route.useLoaderData() as { dehydratedState: DehydratedState; id: string };
   const { data: installOptions } = useQuery({
     queryKey: ["builds", "install-options", { id }],
@@ -47,7 +49,7 @@ function InstallOptions() {
 
   return (
     <main className="flex flex-col items-start justify-start h-full gap-1 px-4 w-full">
-      <p className="text-lg font-semibold">Install Options</p>
+      <p className="text-lg font-semibold">{t("builds.installOptions.title")}</p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
         {installOptions &&
           Object.entries(installOptions).map(([key, { files, size }]) => (
@@ -58,7 +60,7 @@ function InstallOptions() {
               <CardContent>
                 <div className="text-2xl font-bold">{calculateSize(size)}</div>
                 <p className="text-xs text-muted-foreground">
-                  {files} {files === 1 ? "file" : "files"}
+                  {files} {t("builds.installOptions.file", { count: files })}
                 </p>
               </CardContent>
             </Card>
