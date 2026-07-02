@@ -6,6 +6,7 @@ ARG PNPM_VERSION
 ENV PNPM_HOME="/pnpm"
 ENV PNPM_STORE_PATH="/pnpm-store"
 ENV PATH="$PNPM_HOME/bin:$PATH"
+ENV CI=true
 RUN apk add --no-cache ca-certificates wget
 RUN wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.shrc" SHELL="$(which sh)" PNPM_VERSION="${PNPM_VERSION}" sh -
 RUN pnpm --version
