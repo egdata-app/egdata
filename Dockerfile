@@ -4,9 +4,10 @@ ARG PNPM_VERSION=11.8.0
 FROM node:${NODE_VERSION}-alpine AS base
 ARG PNPM_VERSION
 ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
+ENV PATH="$PNPM_HOME/bin:$PATH"
 RUN apk add --no-cache ca-certificates wget
 RUN wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.shrc" SHELL="$(which sh)" PNPM_VERSION="${PNPM_VERSION}" sh -
+RUN pnpm --version
 WORKDIR /app
 
 FROM base AS deps
