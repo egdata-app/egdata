@@ -1,4 +1,6 @@
-FROM node:22.16.0-alpine AS base
+ARG NODE_VERSION=26.3.1
+
+FROM node:${NODE_VERSION}-alpine AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
@@ -15,7 +17,7 @@ RUN pnpm run build
 RUN pnpm prune --prod --ignore-scripts
 RUN apk del .build-deps
 
-FROM node:22.16.0-alpine
+FROM node:${NODE_VERSION}-alpine
 WORKDIR /app
 ENV NODE_ENV=production
 ENV TZ=UTC
@@ -23,5 +25,7 @@ RUN apk add --no-cache ca-certificates wget
 COPY --from=build /app/dist /app/dist
 COPY --from=build /app/node_modules /app/node_modules
 COPY --from=build /app/package.json /app/package.json
+COPY --from=build /app/scripts/start-prod.mjs /app/scripts/start-prod.mjs
+COPY --from=build /app/scripts/prod-logger-worker.mjs /app/scripts/prod-logger-worker.mjs
 EXPOSE 3000
-CMD [ "node", "--enable-source-maps", "node_modules/srvx/bin/srvx.mjs", "--prod", "dist/server/index.js" ]
+CMD [ "node", "--enable-source-maps", "scripts/start-prod.mjs" ]
