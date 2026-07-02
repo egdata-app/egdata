@@ -4,6 +4,7 @@ ARG PNPM_VERSION=11.8.0
 FROM node:${NODE_VERSION}-alpine AS base
 ARG PNPM_VERSION
 ENV PNPM_HOME="/pnpm"
+ENV PNPM_STORE_PATH="/pnpm-store"
 ENV PATH="$PNPM_HOME/bin:$PATH"
 RUN apk add --no-cache ca-certificates wget
 RUN wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.shrc" SHELL="$(which sh)" PNPM_VERSION="${PNPM_VERSION}" sh -
@@ -13,7 +14,7 @@ WORKDIR /app
 FROM base AS deps
 RUN apk add --no-cache --virtual .build-deps gcc g++ make python3
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN --mount=type=cache,id=pnpm,target=/pnpm-store pnpm install --frozen-lockfile --store-dir "$PNPM_STORE_PATH"
 COPY . .
 
 FROM deps AS build
