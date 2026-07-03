@@ -1465,7 +1465,50 @@
       "title": "Performance",
       "noPriorData": "Aucune donnée antérieure",
       "cardsView": "Vue en cartes",
-      "chartView": "Vue en graphique"
+      "chartView": "Vue en graphique",
+      "noChange": "Aucun changement",
+      "movedUp_one": "Monté de {{count}} place",
+      "movedUp_other": "Monté de {{count}} places",
+      "movedDown_one": "Descendu de {{count}} place",
+      "movedDown_other": "Descendu de {{count}} places",
+      "offChart": "Hors classement",
+      "topPosition": "Top {{position}}",
+      "topRank": "Top {{rank}}",
+      "days_one": "jour",
+      "days_other": "jours",
+      "best": "Meilleur :",
+      "tracked": "Suivi :",
+      "trackedDays_one": "{{count}}j",
+      "trackedDays_other": "{{count}}j",
+      "collections": {
+        "topSellers": "Meilleures ventes",
+        "mostPlayed": "Les plus joués",
+        "topWishlisted": "Les plus souhaités",
+        "topNewReleases": "Meilleures nouvelles sorties",
+        "mostPopular": "Les plus populaires",
+        "topPlayerReviewed": "Mieux notés par les joueurs",
+        "topDemos": "Meilleures démos",
+        "topFreeToPlay": "Meilleurs free-to-play",
+        "topAddOns": "Meilleurs add-ons"
+      },
+      "empty": {
+        "noData": {
+          "title": "Aucune donnée de performance",
+          "description": "Cette offre de catalogue n'est encore apparue dans aucun classement."
+        },
+        "noRange": {
+          "title": "Aucune donnée dans cette plage",
+          "description": "Essayez de sélectionner une autre plage de dates ci-dessus."
+        },
+        "noCollection": {
+          "title": "Aucune collection sélectionnée",
+          "description": "Choisissez un classement ci-dessus pour voir les positions."
+        }
+      },
+      "chart": {
+        "position": "Position",
+        "positionValue": "Position #{{position}}"
+      }
     },
     "priceChart": {
       "selectValue": "Sélectionner une valeur",
@@ -1476,7 +1519,16 @@
       "from": "Du",
       "to": "Au",
       "maxRange": "La durée maximale est de 30 jours",
-      "invalidRange": "Plage de dates non valide"
+      "invalidRange": "Plage de dates non valide",
+      "last7Days": "7 derniers jours",
+      "last30Days": "30 derniers jours",
+      "selectDateRange": "Sélectionner une plage de dates",
+      "selectDate": "Sélectionner une date",
+      "rangeLabel_one": "{{from}} - {{to}} ({{count}} jour)",
+      "rangeLabel_other": "{{from}} - {{to}} ({{count}} jours)",
+      "selectedDays_one": "Sélectionné : {{count}} jour",
+      "selectedDays_other": "Sélectionnés : {{count}} jours",
+      "apply": "Appliquer"
     },
     "regionalPricing": {
       "region": "Région",

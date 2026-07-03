@@ -6,10 +6,6 @@ export function toPositionValue(position: number): number {
   return position === 0 ? OUT_OF_TOP : position;
 }
 
-export function positionLabel(position: number): string {
-  return position === 0 ? "Off chart" : `Top ${position}`;
-}
-
 export function computeChange(current: number, previous: number): number {
   return toPositionValue(current) - toPositionValue(previous);
 }
@@ -20,13 +16,6 @@ export function changeDirection(change: number): ChangeDirection {
   if (change < 0) return "up";
   if (change > 0) return "down";
   return "none";
-}
-
-export function changeAriaLabel(change: number): string {
-  const direction = changeDirection(change);
-  if (direction === "none") return "No change";
-  const places = Math.abs(change);
-  return direction === "up" ? `Moved up ${places} places` : `Moved down ${places} places`;
 }
 
 export interface PerformanceSummary {

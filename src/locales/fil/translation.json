@@ -1465,7 +1465,50 @@
       "title": "Pagganap",
       "noPriorData": "Walang naunang data",
       "cardsView": "Cards view",
-      "chartView": "Chart view"
+      "chartView": "Chart view",
+      "noChange": "Walang pagbabago",
+      "movedUp_one": "Umakyat ng {{count}} puwesto",
+      "movedUp_other": "Umakyat ng {{count}} puwesto",
+      "movedDown_one": "Bumaba ng {{count}} puwesto",
+      "movedDown_other": "Bumaba ng {{count}} puwesto",
+      "offChart": "Wala sa chart",
+      "topPosition": "Nangungunang {{position}}",
+      "topRank": "Nangungunang {{rank}}",
+      "days_one": "araw",
+      "days_other": "araw",
+      "best": "Pinakamahusay:",
+      "tracked": "Na-track:",
+      "trackedDays_one": "{{count}} araw",
+      "trackedDays_other": "{{count}} araw",
+      "collections": {
+        "topSellers": "Pinakamabenta",
+        "mostPlayed": "Pinakamalaro",
+        "topWishlisted": "Pinakawishlist",
+        "topNewReleases": "Mga Pinakabagong Release",
+        "mostPopular": "Pinakasikat",
+        "topPlayerReviewed": "Pinakamataas na Rating ng Manlalaro",
+        "topDemos": "Mga Nangungunang Demo",
+        "topFreeToPlay": "Mga Nangungunang Free-to-Play",
+        "topAddOns": "Mga Nangungunang Add-on"
+      },
+      "empty": {
+        "noData": {
+          "title": "Walang data ng pagganap",
+          "description": "Ang offer na ito ay hindi pa lumalabas sa anumang na-track na chart."
+        },
+        "noRange": {
+          "title": "Walang data sa saklaw na ito",
+          "description": "Subukang pumili ng ibang date range sa itaas."
+        },
+        "noCollection": {
+          "title": "Walang napiling koleksyon",
+          "description": "Pumili ng isa sa mga chart sa itaas upang makita ang mga posisyon."
+        }
+      },
+      "chart": {
+        "position": "Posisyon",
+        "positionValue": "Posisyon #{{position}}"
+      }
     },
     "priceChart": {
       "selectValue": "Pumili ng halaga",
@@ -1476,7 +1519,16 @@
       "from": "Mula",
       "to": "Hanggang",
       "maxRange": "Ang maximum range ay 30 araw",
-      "invalidRange": "Hindi valid na date range"
+      "invalidRange": "Hindi valid na date range",
+      "last7Days": "Huling 7 araw",
+      "last30Days": "Huling 30 araw",
+      "selectDateRange": "Pumili ng date range",
+      "selectDate": "Pumili ng petsa",
+      "rangeLabel_one": "{{from}} - {{to}} ({{count}} araw)",
+      "rangeLabel_other": "{{from}} - {{to}} ({{count}} araw)",
+      "selectedDays_one": "Napili: {{count}} araw",
+      "selectedDays_other": "Napili: {{count}} araw",
+      "apply": "Ilapat"
     },
     "regionalPricing": {
       "region": "Rehiyon",

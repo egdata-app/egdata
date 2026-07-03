@@ -1465,7 +1465,50 @@
       "title": "Wydajność",
       "noPriorData": "Brak poprzednich danych",
       "cardsView": "Widok kart",
-      "chartView": "Widok wykresu"
+      "chartView": "Widok wykresu",
+      "noChange": "Bez zmian",
+      "movedUp_one": "Przesunięcie w górę o {{count}} miejsce",
+      "movedUp_other": "Przesunięcie w górę o {{count}} miejsc",
+      "movedDown_one": "Przesunięcie w dół o {{count}} miejsce",
+      "movedDown_other": "Przesunięcie w dół o {{count}} miejsc",
+      "offChart": "Poza wykresem",
+      "topPosition": "Pozycja {{position}}",
+      "topRank": "Ranga {{rank}}",
+      "days_one": "dzień",
+      "days_other": "dni",
+      "best": "Najlepsze:",
+      "tracked": "Śledzone:",
+      "trackedDays_one": "{{count}}d",
+      "trackedDays_other": "{{count}}d",
+      "collections": {
+        "topSellers": "Najlepiej sprzedawane",
+        "mostPlayed": "Najczęściej grane",
+        "topWishlisted": "Najczęściej dodawane do życzeń",
+        "topNewReleases": "Najlepsze nowości",
+        "mostPopular": "Najpopularniejsze",
+        "topPlayerReviewed": "Najlepiej oceniane przez graczy",
+        "topDemos": "Najlepsze dema",
+        "topFreeToPlay": "Najlepsze darmowe",
+        "topAddOns": "Najlepsze dodatki"
+      },
+      "empty": {
+        "noData": {
+          "title": "Brak danych o wydajności",
+          "description": "Ta oferta nie pojawiła się jeszcze na żadnym śledzonym wykresie."
+        },
+        "noRange": {
+          "title": "Brak danych w tym zakresie",
+          "description": "Spróbuj wybrać inny zakres dat powyżej."
+        },
+        "noCollection": {
+          "title": "Nie wybrano kolekcji",
+          "description": "Wybierz jeden z wykresów powyżej, aby zobaczyć pozycje."
+        }
+      },
+      "chart": {
+        "position": "Pozycja",
+        "positionValue": "Pozycja #{{position}}"
+      }
     },
     "priceChart": {
       "selectValue": "Wybierz wartość",
@@ -1476,7 +1519,16 @@
       "from": "Od",
       "to": "Do",
       "maxRange": "Maksymalny zakres to 30 dni",
-      "invalidRange": "Nieprawidłowy zakres dat"
+      "invalidRange": "Nieprawidłowy zakres dat",
+      "last7Days": "Ostatnie 7 dni",
+      "last30Days": "Ostatnie 30 dni",
+      "selectDateRange": "Wybierz zakres dat",
+      "selectDate": "Wybierz datę",
+      "rangeLabel_one": "{{from}} - {{to}} ({{count}} dzień)",
+      "rangeLabel_other": "{{from}} - {{to}} ({{count}} dni)",
+      "selectedDays_one": "Wybrano: {{count}} dzień",
+      "selectedDays_other": "Wybrano: {{count}} dni",
+      "apply": "Zastosuj"
     },
     "regionalPricing": {
       "region": "Region",

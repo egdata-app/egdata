@@ -1465,7 +1465,50 @@
       "title": "Rendimiento",
       "noPriorData": "Sin datos previos",
       "cardsView": "Vista de tarjetas",
-      "chartView": "Vista de gráfico"
+      "chartView": "Vista de gráfico",
+      "noChange": "Sin cambios",
+      "movedUp_one": "Subió {{count}} posición",
+      "movedUp_other": "Subió {{count}} posiciones",
+      "movedDown_one": "Bajó {{count}} posición",
+      "movedDown_other": "Bajó {{count}} posiciones",
+      "offChart": "Fuera de la lista",
+      "topPosition": "Top {{position}}",
+      "topRank": "Top {{rank}}",
+      "days_one": "día",
+      "days_other": "días",
+      "best": "Mejor",
+      "tracked": "Rastreado",
+      "trackedDays_one": "Rastreado por {{count}} día",
+      "trackedDays_other": "Rastreado por {{count}} días",
+      "collections": {
+        "topSellers": "Más vendidos",
+        "mostPlayed": "Más jugados",
+        "topWishlisted": "Más deseados",
+        "topNewReleases": "Nuevos lanzamientos",
+        "mostPopular": "Más populares",
+        "topPlayerReviewed": "Mejor calificados por jugadores",
+        "topDemos": "Mejores demos",
+        "topFreeToPlay": "Mejores juegos gratis",
+        "topAddOns": "Mejores complementos"
+      },
+      "empty": {
+        "noData": {
+          "title": "Sin datos",
+          "description": "No hay datos de rendimiento disponibles para esta colección."
+        },
+        "noRange": {
+          "title": "Sin datos en este rango",
+          "description": "Intenta seleccionar un rango de fechas diferente arriba."
+        },
+        "noCollection": {
+          "title": "Sin colección seleccionada",
+          "description": "Elige uno de los gráficos de arriba para ver posiciones."
+        }
+      },
+      "chart": {
+        "position": "Posición",
+        "positionValue": "Posición #{{position}}"
+      }
     },
     "priceChart": {
       "selectValue": "Selecciona un valor",
@@ -1476,7 +1519,16 @@
       "from": "Desde",
       "to": "Hasta",
       "maxRange": "El rango máximo es de 30 días",
-      "invalidRange": "Rango de fechas no válido"
+      "invalidRange": "Rango de fechas no válido",
+      "last7Days": "Últimos 7 días",
+      "last30Days": "Últimos 30 días",
+      "selectDateRange": "Seleccionar rango de fechas",
+      "selectDate": "Seleccionar fecha",
+      "rangeLabel_one": "{{from}} - {{to}} ({{count}} día)",
+      "rangeLabel_other": "{{from}} - {{to}} ({{count}} días)",
+      "selectedDays_one": "{{count}} día seleccionado",
+      "selectedDays_other": "{{count}} días seleccionados",
+      "apply": "Aplicar"
     },
     "regionalPricing": {
       "region": "Región",

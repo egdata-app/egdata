@@ -1465,7 +1465,50 @@
       "title": "Продуктивність",
       "noPriorData": "Немає попередніх даних",
       "cardsView": "Вид картками",
-      "chartView": "Вид графіком"
+      "chartView": "Вид графіком",
+      "noChange": "Без змін",
+      "movedUp_one": "Піднявся на {{count}} місце",
+      "movedUp_other": "Піднявся на {{count}} місць",
+      "movedDown_one": "Опустився на {{count}} місце",
+      "movedDown_other": "Опустився на {{count}} місць",
+      "offChart": "Поза чартом",
+      "topPosition": "Топ {{position}}",
+      "topRank": "Топ {{rank}}",
+      "days_one": "день",
+      "days_other": "днів",
+      "best": "Найкраще:",
+      "tracked": "Відстежується:",
+      "trackedDays_one": "{{count}}д",
+      "trackedDays_other": "{{count}}д",
+      "collections": {
+        "topSellers": "Найпродаваніші",
+        "mostPlayed": "Найпопулярніші",
+        "topWishlisted": "Найбажаніші",
+        "topNewReleases": "Найкращі новинки",
+        "mostPopular": "Найпопулярніше",
+        "topPlayerReviewed": "Найкращі за оцінками гравців",
+        "topDemos": "Найкращі демо",
+        "topFreeToPlay": "Найкращі Free-to-Play",
+        "topAddOns": "Найкращі доповнення"
+      },
+      "empty": {
+        "noData": {
+          "title": "Немає даних продуктивності",
+          "description": "Ця пропозиція ще не з'являлася в жодному відстежуваному чарті."
+        },
+        "noRange": {
+          "title": "Немає даних у цьому діапазоні",
+          "description": "Спробуйте вибрати інший діапазон дат вище."
+        },
+        "noCollection": {
+          "title": "Колекцію не вибрано",
+          "description": "Виберіть один із чартів вище, щоб побачити позиції."
+        }
+      },
+      "chart": {
+        "position": "Позиція",
+        "positionValue": "Позиція #{{position}}"
+      }
     },
     "priceChart": {
       "selectValue": "Виберіть значення",
@@ -1476,7 +1519,16 @@
       "from": "Від",
       "to": "До",
       "maxRange": "Максимальний діапазон — 30 днів",
-      "invalidRange": "Невірний діапазон дат"
+      "invalidRange": "Невірний діапазон дат",
+      "last7Days": "Останні 7 днів",
+      "last30Days": "Останні 30 днів",
+      "selectDateRange": "Вибрати діапазон дат",
+      "selectDate": "Вибрати дату",
+      "rangeLabel_one": "{{from}} - {{to}} ({{count}} день)",
+      "rangeLabel_other": "{{from}} - {{to}} ({{count}} днів)",
+      "selectedDays_one": "Вибрано: {{count}} день",
+      "selectedDays_other": "Вибрано: {{count}} днів",
+      "apply": "Застосувати"
     },
     "regionalPricing": {
       "region": "Регіон",

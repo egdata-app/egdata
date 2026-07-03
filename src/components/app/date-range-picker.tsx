@@ -7,13 +7,15 @@ import { CalendarIcon } from "lucide-react";
 import type { DateRange } from "react-day-picker";
 import { DateTime } from "luxon";
 import { useLocale } from "@/hooks/use-locale";
+import { useTranslation } from "react-i18next";
 
 export function DateRangePicker({
   handleChange,
 }: {
   handleChange: (dates: { from: Date; to: Date | undefined }) => void;
 }) {
-  const { timezone } = useLocale();
+  const { locale, timezone } = useLocale();
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = React.useState(false);
 
   // Initialize with last 7 days (6 days ago to today = 7 days total)
@@ -29,8 +31,8 @@ export function DateRangePicker({
   });
 
   const quickSelections = [
-    { label: "Last 7 days", days: 7 },
-    { label: "Last 30 days", days: 30 },
+    { label: t("components.dateRangePicker.last7Days"), days: 7 },
+    { label: t("components.dateRangePicker.last30Days"), days: 30 },
   ];
 
   const handleQuickSelection = (days: number) => {
@@ -87,14 +89,20 @@ export function DateRangePicker({
     if (dateRange.from && dateRange.to) {
       const fromFormatted = DateTime.fromJSDate(dateRange.from)
         .setZone(timezone || "UTC")
-        .toFormat("MMM dd, yyyy");
+        .setLocale(locale || "en-US")
+        .toLocaleString(DateTime.DATE_MED);
       const toFormatted = DateTime.fromJSDate(dateRange.to)
         .setZone(timezone || "UTC")
-        .toFormat("MMM dd, yyyy");
+        .setLocale(locale || "en-US")
+        .toLocaleString(DateTime.DATE_MED);
       const days = getDaysDifference(dateRange.from, dateRange.to);
-      return `${fromFormatted} - ${toFormatted} (${days} days)`;
+      return t("components.dateRangePicker.rangeLabel", {
+        count: days,
+        from: fromFormatted,
+        to: toFormatted,
+      });
     }
-    return "Select Date Range";
+    return t("components.dateRangePicker.selectDateRange");
   };
 
   const handleApply = () => {
@@ -126,23 +134,29 @@ export function DateRangePicker({
           <div className="grid gap-4 w-full">
             <div className="flex justify-between">
               <div className="w-[calc(50%-0.5rem)]">
-                <div className="mb-2 text-sm text-foreground">From</div>
+                <div className="mb-2 text-sm text-foreground">
+                  {t("components.dateRangePicker.from")}
+                </div>
                 <div className="rounded-md border px-3 py-2 w-full">
                   {dateRange.from
                     ? DateTime.fromJSDate(dateRange.from)
                         .setZone(timezone || "UTC")
-                        .toFormat("dd/MM/yyyy")
-                    : "Select Date"}
+                        .setLocale(locale || "en-US")
+                        .toLocaleString(DateTime.DATE_SHORT)
+                    : t("components.dateRangePicker.selectDate")}
                 </div>
               </div>
               <div className="w-[calc(50%-0.5rem)]">
-                <div className="mb-2 text-sm text-foreground">To</div>
+                <div className="mb-2 text-sm text-foreground">
+                  {t("components.dateRangePicker.to")}
+                </div>
                 <div className="rounded-md border px-3 py-2 w-full">
                   {dateRange.to
                     ? DateTime.fromJSDate(dateRange.to)
                         .setZone(timezone || "UTC")
-                        .toFormat("dd/MM/yyyy")
-                    : "Select Date"}
+                        .setLocale(locale || "en-US")
+                        .toLocaleString(DateTime.DATE_SHORT)
+                    : t("components.dateRangePicker.selectDate")}
                 </div>
               </div>
             </div>
@@ -175,21 +189,25 @@ export function DateRangePicker({
                 {/* Show current selection info */}
                 {dateRange.from && dateRange.to && (
                   <div className="text-xs text-muted-foreground p-2 border rounded">
-                    Selected: {dayCount} days
+                    {t("components.dateRangePicker.selectedDays", { count: dayCount })}
                   </div>
                 )}
 
                 <Button className="mt-auto" onClick={handleApply} disabled={!canApply}>
-                  Apply
+                  {t("components.dateRangePicker.apply")}
                 </Button>
 
                 {/* Error message */}
                 {dateRange.from && dateRange.to && dayCount > 30 && (
-                  <p className="text-xs text-red-500 mt-1">Maximum range is 30 days</p>
+                  <p className="text-xs text-red-500 mt-1">
+                    {t("components.dateRangePicker.maxRange")}
+                  </p>
                 )}
 
                 {dateRange.from && dateRange.to && dayCount <= 0 && (
-                  <p className="text-xs text-red-500 mt-1">Invalid date range</p>
+                  <p className="text-xs text-red-500 mt-1">
+                    {t("components.dateRangePicker.invalidRange")}
+                  </p>
                 )}
               </div>
             </div>

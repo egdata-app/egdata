@@ -13,35 +13,22 @@ import { CardStackIcon } from "@radix-ui/react-icons";
 import { DateTime } from "luxon";
 import { useLocale } from "@/hooks/use-locale";
 import {
-  changeAriaLabel,
   changeDirection,
   computeChange,
-  positionLabel,
   summarizePositions,
   toPositionValue,
 } from "@/lib/performance";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Skeleton } from "@/components/ui/skeleton";
-
-const topsDictionary: Record<string, string> = {
-  "top-sellers": "Top Sellers",
-  "most-played": "Most Played",
-  "top-wishlisted": "Top Wishlisted",
-  "top-new-releases": "Top New Releases",
-  "most-popular": "Most Popular",
-  "top-player-reviewed": "Top Player Rated",
-  "top-demos": "Top Demos",
-  "top-free-to-play": "Top Free-to-Play",
-  "top-add-ons": "Top Add-ons",
-};
+import { useTranslation } from "react-i18next";
 
 const tierConfig = [
-  { key: "timesInTop1" as const, label: "Top 1", tier: 1 },
-  { key: "timesInTop5" as const, label: "Top 5", tier: 5 },
-  { key: "timesInTop10" as const, label: "Top 10", tier: 10 },
-  { key: "timesInTop50" as const, label: "Top 50", tier: 50 },
-  { key: "timesInTop100" as const, label: "Top 100", tier: 100 },
+  { key: "timesInTop1" as const, tier: 1 },
+  { key: "timesInTop5" as const, tier: 5 },
+  { key: "timesInTop10" as const, tier: 10 },
+  { key: "timesInTop50" as const, tier: 50 },
+  { key: "timesInTop100" as const, tier: 100 },
 ];
 
 interface PerformanceCardProps {
@@ -52,10 +39,21 @@ interface PerformanceCardProps {
 }
 
 function PerformanceCard({ position, change, date, hasPrevious }: PerformanceCardProps) {
-  const { timezone } = useLocale();
+  const { locale, timezone } = useLocale();
+  const { t } = useTranslation();
   const direction = changeDirection(change);
   const normalized = toPositionValue(position);
   const isOut = position === 0;
+  const places = Math.abs(change);
+  const changeLabel =
+    direction === "none"
+      ? t("components.performanceTable.noChange")
+      : direction === "up"
+        ? t("components.performanceTable.movedUp", { count: places })
+        : t("components.performanceTable.movedDown", { count: places });
+  const positionText = isOut
+    ? t("components.performanceTable.offChart")
+    : t("components.performanceTable.topPosition", { position });
 
   const changeIcon =
     direction === "up" ? (
@@ -83,7 +81,7 @@ function PerformanceCard({ position, change, date, hasPrevious }: PerformanceCar
 
   const dateLabel = DateTime.fromISO(date)
     .setZone(timezone || "UTC")
-    .setLocale("en-GB")
+    .setLocale(locale || "en-US")
     .toLocaleString({ day: "numeric", month: "short" });
 
   const changeBadge = hasPrevious ? (
@@ -92,7 +90,7 @@ function PerformanceCard({ position, change, date, hasPrevious }: PerformanceCar
         <span
           tabIndex={0}
           role="status"
-          aria-label={changeAriaLabel(change)}
+          aria-label={changeLabel}
           className={cn(
             "inline-flex w-fit items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium tabular-nums",
             changeTone,
@@ -102,7 +100,7 @@ function PerformanceCard({ position, change, date, hasPrevious }: PerformanceCar
           {direction === "none" ? "—" : Math.abs(change)}
         </span>
       </TooltipTrigger>
-      <TooltipContent>{changeAriaLabel(change)}</TooltipContent>
+      <TooltipContent>{changeLabel}</TooltipContent>
     </Tooltip>
   ) : (
     <Tooltip>
@@ -110,13 +108,13 @@ function PerformanceCard({ position, change, date, hasPrevious }: PerformanceCar
         <span
           tabIndex={0}
           role="status"
-          aria-label="No prior data"
+          aria-label={t("components.performanceTable.noPriorData")}
           className="inline-flex w-fit items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground"
         >
           <Minus className="size-3.5" />
         </span>
       </TooltipTrigger>
-      <TooltipContent>No prior data</TooltipContent>
+      <TooltipContent>{t("components.performanceTable.noPriorData")}</TooltipContent>
     </Tooltip>
   );
 
@@ -139,7 +137,7 @@ function PerformanceCard({ position, change, date, hasPrevious }: PerformanceCar
             isOut && "text-muted-foreground",
           )}
         >
-          {positionLabel(position)}
+          {positionText}
         </div>
         {isOut ? null : normalized <= 3 ? <Crown className="size-3.5 text-amber-500" /> : null}
       </div>
@@ -148,16 +146,22 @@ function PerformanceCard({ position, change, date, hasPrevious }: PerformanceCar
 }
 
 function StatGrid({ data, loading }: { data: OfferPosition | undefined; loading?: boolean }) {
+  const { t } = useTranslation();
+
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-      {tierConfig.map(({ key, label, tier }) => {
+      {tierConfig.map(({ key, tier }) => {
         if (loading || !data) {
           return (
             <Card key={key} className="flex flex-col gap-1 p-3">
-              <span className="text-sm text-muted-foreground">{label}</span>
+              <span className="text-sm text-muted-foreground">
+                {t("components.performanceTable.topRank", { rank: tier })}
+              </span>
               <div className="flex items-baseline gap-1">
                 <Skeleton className="h-5 w-8" />
-                <span className="text-sm text-muted-foreground">days</span>
+                <span className="text-sm text-muted-foreground">
+                  {t("components.performanceTable.days", { count: 0 })}
+                </span>
               </div>
             </Card>
           );
@@ -166,10 +170,14 @@ function StatGrid({ data, loading }: { data: OfferPosition | undefined; loading?
         const isZero = value === 0;
         return (
           <Card key={key} className={cn("flex flex-col gap-1 p-3", isZero && "opacity-50")}>
-            <span className="text-sm text-muted-foreground">{label}</span>
+            <span className="text-sm text-muted-foreground">
+              {t("components.performanceTable.topRank", { rank: tier })}
+            </span>
             <div className="flex items-baseline gap-1">
               <span className="text-xl font-bold tabular-nums text-foreground">{value}</span>
-              <span className="text-sm text-muted-foreground">days</span>
+              <span className="text-sm text-muted-foreground">
+                {t("components.performanceTable.days", { count: value })}
+              </span>
             </div>
             {tier <= 10 && value > 0 ? <Crown className="mt-0.5 size-3.5 text-amber-500" /> : null}
           </Card>
@@ -180,7 +188,8 @@ function StatGrid({ data, loading }: { data: OfferPosition | undefined; loading?
 }
 
 function SummaryLine({ data, loading }: { data: OfferPosition | undefined; loading?: boolean }) {
-  const { timezone } = useLocale();
+  const { locale, timezone } = useLocale();
+  const { t } = useTranslation();
   const summary = useMemo(() => summarizePositions(data?.positions), [data?.positions]);
 
   if (loading || !data || summary.tracked === 0) {
@@ -199,7 +208,7 @@ function SummaryLine({ data, loading }: { data: OfferPosition | undefined; loadi
   const bestDateLabel = summary.bestDate
     ? DateTime.fromISO(summary.bestDate)
         .setZone(timezone || "UTC")
-        .setLocale("en-GB")
+        .setLocale(locale || "en-US")
         .toLocaleString({ day: "numeric", month: "short" })
     : null;
 
@@ -207,14 +216,17 @@ function SummaryLine({ data, loading }: { data: OfferPosition | undefined; loadi
     <div className="flex min-h-5 flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
       <span className="inline-flex items-center gap-1">
         <Crown className="size-3.5 text-amber-500" />
-        Best:
+        {t("components.performanceTable.best")}
         <span className="font-medium text-foreground">
           {summary.best === 0 ? "—" : `#${summary.best}`}
         </span>
         {bestDateLabel ? <span className="text-muted-foreground">· {bestDateLabel}</span> : null}
       </span>
       <span className="inline-flex items-center gap-1">
-        Tracked: <span className="font-medium text-foreground">{summary.tracked}d</span>
+        {t("components.performanceTable.tracked")}
+        <span className="font-medium text-foreground">
+          {t("components.performanceTable.trackedDays", { count: summary.tracked })}
+        </span>
       </span>
     </div>
   );
@@ -246,6 +258,7 @@ export function PerformanceTable({
   isLoading?: boolean;
 }) {
   const { timezone } = useLocale();
+  const { t } = useTranslation();
   const [timeframe, setTimeframe] = useState<{ from: Date; to: Date | undefined }>({
     from: DateTime.now()
       .setZone(timezone || "UTC")
@@ -287,7 +300,19 @@ export function PerformanceTable({
       .sort((a, b) => DateTime.fromISO(b.date).toMillis() - DateTime.fromISO(a.date).toMillis());
   }, [data?.positions, timeframe, timezone]);
 
-  const activeCollectionLabel = topsDictionary[defaultCollection] ?? "Performance";
+  const collectionLabels: Record<string, string> = {
+    "top-sellers": t("components.performanceTable.collections.topSellers"),
+    "most-played": t("components.performanceTable.collections.mostPlayed"),
+    "top-wishlisted": t("components.performanceTable.collections.topWishlisted"),
+    "top-new-releases": t("components.performanceTable.collections.topNewReleases"),
+    "most-popular": t("components.performanceTable.collections.mostPopular"),
+    "top-player-reviewed": t("components.performanceTable.collections.topPlayerReviewed"),
+    "top-demos": t("components.performanceTable.collections.topDemos"),
+    "top-free-to-play": t("components.performanceTable.collections.topFreeToPlay"),
+    "top-add-ons": t("components.performanceTable.collections.topAddOns"),
+  };
+  const activeCollectionLabel =
+    collectionLabels[defaultCollection] ?? t("components.performanceTable.title");
   const hasData = !!data;
   const hasInRange = filteredPositions.length > 0;
 
@@ -296,7 +321,9 @@ export function PerformanceTable({
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
           <div className="space-y-1">
-            <h2 className="text-xl font-bold text-foreground">Performance</h2>
+            <h2 className="text-xl font-bold text-foreground">
+              {t("components.performanceTable.title")}
+            </h2>
             <p className="text-sm text-muted-foreground">{activeCollectionLabel}</p>
             <SummaryLine data={data} loading={isLoading} />
           </div>
@@ -318,10 +345,16 @@ export function PerformanceTable({
               size="sm"
               className="rounded-md border bg-muted/40 p-0.5"
             >
-              <ToggleGroupItem value="cards" aria-label="Cards view">
+              <ToggleGroupItem
+                value="cards"
+                aria-label={t("components.performanceTable.cardsView")}
+              >
                 <CardStackIcon className="size-4" />
               </ToggleGroupItem>
-              <ToggleGroupItem value="chart" aria-label="Chart view">
+              <ToggleGroupItem
+                value="chart"
+                aria-label={t("components.performanceTable.chartView")}
+              >
                 <ChartBar className="size-4" />
               </ToggleGroupItem>
             </ToggleGroup>
@@ -333,7 +366,7 @@ export function PerformanceTable({
             <TabsList className="bg-muted text-muted-foreground">
               {Object.entries(tops).map(([key]) => (
                 <TabsTrigger key={key} value={key}>
-                  {topsDictionary[key]}
+                  {collectionLabels[key] ?? key}
                 </TabsTrigger>
               ))}
             </TabsList>

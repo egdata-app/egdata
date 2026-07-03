@@ -1465,7 +1465,50 @@
       "title": "Performance",
       "noPriorData": "No prior data",
       "cardsView": "Cards view",
-      "chartView": "Chart view"
+      "chartView": "Chart view",
+      "noChange": "No change",
+      "movedUp_one": "Moved up {{count}} place",
+      "movedUp_other": "Moved up {{count}} places",
+      "movedDown_one": "Moved down {{count}} place",
+      "movedDown_other": "Moved down {{count}} places",
+      "offChart": "Off chart",
+      "topPosition": "Top {{position}}",
+      "topRank": "Top {{rank}}",
+      "days_one": "day",
+      "days_other": "days",
+      "best": "Best:",
+      "tracked": "Tracked:",
+      "trackedDays_one": "{{count}}d",
+      "trackedDays_other": "{{count}}d",
+      "collections": {
+        "topSellers": "Top Sellers",
+        "mostPlayed": "Most Played",
+        "topWishlisted": "Top Wishlisted",
+        "topNewReleases": "Top New Releases",
+        "mostPopular": "Most Popular",
+        "topPlayerReviewed": "Top Player Rated",
+        "topDemos": "Top Demos",
+        "topFreeToPlay": "Top Free-to-Play",
+        "topAddOns": "Top Add-ons"
+      },
+      "empty": {
+        "noData": {
+          "title": "No performance data",
+          "description": "This offer hasn't appeared in any tracked charts yet."
+        },
+        "noRange": {
+          "title": "No data in this range",
+          "description": "Try selecting a different date range above."
+        },
+        "noCollection": {
+          "title": "No collection selected",
+          "description": "Pick one of the charts above to see positions."
+        }
+      },
+      "chart": {
+        "position": "Position",
+        "positionValue": "Position #{{position}}"
+      }
     },
     "priceChart": {
       "selectValue": "Select a value",
@@ -1476,7 +1519,16 @@
       "from": "From",
       "to": "To",
       "maxRange": "Maximum range is 30 days",
-      "invalidRange": "Invalid date range"
+      "invalidRange": "Invalid date range",
+      "last7Days": "Last 7 days",
+      "last30Days": "Last 30 days",
+      "selectDateRange": "Select date range",
+      "selectDate": "Select date",
+      "rangeLabel_one": "{{from}} - {{to}} ({{count}} day)",
+      "rangeLabel_other": "{{from}} - {{to}} ({{count}} days)",
+      "selectedDays_one": "Selected: {{count}} day",
+      "selectedDays_other": "Selected: {{count}} days",
+      "apply": "Apply"
     },
     "regionalPricing": {
       "region": "Region",

@@ -1354,8 +1354,11 @@ function SearchPulseHero({
   );
 
   return (
-    <section className="relative isolate overflow-hidden rounded-md border border-border/60 bg-card/40 p-5 backdrop-blur-sm md:p-6">
-      <div className="pointer-events-none absolute inset-y-5 right-5 z-0 hidden w-[35%] lg:block">
+    <section className="relative isolate overflow-hidden rounded-md border border-border/60 bg-card/40 p-5 text-start backdrop-blur-sm md:p-6">
+      <div
+        className="pointer-events-none absolute inset-y-5 end-5 z-0 hidden w-[35%] lg:block"
+        data-testid="hero-pulse-panel"
+      >
         <AmbientPulsePanel
           events={events}
           isLoading={isLoading}
@@ -1364,7 +1367,10 @@ function SearchPulseHero({
           density="desktop"
         />
       </div>
-      <div className="relative z-10 flex min-h-[260px] max-w-2xl flex-col justify-center lg:min-h-[252px]">
+      <div
+        className="relative z-10 flex min-h-[260px] max-w-2xl flex-col justify-center lg:me-[40%] lg:min-h-[252px]"
+        data-testid="hero-content"
+      >
         <h1 className="text-3xl md:text-4xl font-display font-bold tracking-tight text-foreground">
           egdata.app
         </h1>
@@ -1373,7 +1379,7 @@ function SearchPulseHero({
         <button
           type="button"
           onClick={onSearch}
-          className="mt-5 w-full max-w-xl inline-flex items-center gap-2 rounded-md border border-border/60 bg-background/70 px-4 py-2.5 text-left text-sm text-muted-foreground hover:border-primary/60 hover:text-primary transition-colors"
+          className="mt-5 w-full max-w-xl inline-flex items-center gap-2 rounded-md border border-border/60 bg-background/70 px-4 py-2.5 text-start text-sm text-muted-foreground hover:border-primary/60 hover:text-primary transition-colors"
         >
           <Search className="size-4" />
           {t("home.hero.searchPlaceholder")}
@@ -1475,7 +1481,7 @@ function PulseChangeRow({ event }: { event: PulseEvent }) {
       </span>
       <span
         suppressHydrationWarning
-        className="ml-auto shrink-0 text-xs tabular-nums text-muted-foreground/60"
+        className="ms-auto shrink-0 text-xs tabular-nums text-muted-foreground/60"
       >
         {timeAgo(new Date(event.timestamp))}
       </span>

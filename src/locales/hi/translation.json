@@ -1465,7 +1465,50 @@
       "title": "प्रदर्शन",
       "noPriorData": "कोई पूर्व डेटा नहीं",
       "cardsView": "कार्ड दृश्य",
-      "chartView": "चार्ट दृश्य"
+      "chartView": "चार्ट दृश्य",
+      "noChange": "कोई बदलाव नहीं",
+      "movedUp_one": "{{count}} स्थान ऊपर चला गया",
+      "movedUp_other": "{{count}} स्थान ऊपर चले गए",
+      "movedDown_one": "{{count}} स्थान नीचे चला गया",
+      "movedDown_other": "{{count}} स्थान नीचे चले गए",
+      "offChart": "चार्ट से बाहर",
+      "topPosition": "शीर्ष {{position}}",
+      "topRank": "शीर्ष {{rank}}",
+      "days_one": "दिन",
+      "days_other": "दिन",
+      "best": "सर्वश्रेष्ठ:",
+      "tracked": "ट्रैक किया गया:",
+      "trackedDays_one": "{{count}}दि",
+      "trackedDays_other": "{{count}}दि",
+      "collections": {
+        "topSellers": "टॉप सेलर्स",
+        "mostPlayed": "सबसे ज़्यादा खेले गए",
+        "topWishlisted": "टॉप विशलिस्टेड",
+        "topNewReleases": "टॉप नए रिलीज़",
+        "mostPopular": "सबसे लोकप्रिय",
+        "topPlayerReviewed": "टॉप प्लेयर रेटेड",
+        "topDemos": "टॉप डेमो",
+        "topFreeToPlay": "टॉप मुफ़्त-खेलें",
+        "topAddOns": "टॉप ऐड-ऑन"
+      },
+      "empty": {
+        "noData": {
+          "title": "कोई प्रदर्शन डेटा नहीं",
+          "description": "यह ऑफ़र अभी तक किसी ट्रैक किए गए चार्ट में नहीं दिखा है।"
+        },
+        "noRange": {
+          "title": "इस सीमा में कोई डेटा नहीं",
+          "description": "ऊपर कोई भिन्न तारीख़ सीमा चुनने का प्रयास करें।"
+        },
+        "noCollection": {
+          "title": "कोई कलेक्शन चयनित नहीं",
+          "description": "स्थान देखने के लिए ऊपर कोई चार्ट चुनें।"
+        }
+      },
+      "chart": {
+        "position": "स्थान",
+        "positionValue": "स्थान #{{position}}"
+      }
     },
     "priceChart": {
       "selectValue": "एक मान चुनें",
@@ -1476,7 +1519,16 @@
       "from": "से",
       "to": "तक",
       "maxRange": "अधिकतम सीमा 30 दिन",
-      "invalidRange": "अमान्य तारीख़ सीमा"
+      "invalidRange": "अमान्य तारीख़ सीमा",
+      "last7Days": "पिछले 7 दिन",
+      "last30Days": "पिछले 30 दिन",
+      "selectDateRange": "तारीख़ सीमा चुनें",
+      "selectDate": "तारीख़ चुनें",
+      "rangeLabel_one": "{{from}} - {{to}} ({{count}} दिन)",
+      "rangeLabel_other": "{{from}} - {{to}} ({{count}} दिन)",
+      "selectedDays_one": "चयनित: {{count}} दिन",
+      "selectedDays_other": "चयनित: {{count}} दिन",
+      "apply": "लागू करें"
     },
     "regionalPricing": {
       "region": "क्षेत्र",

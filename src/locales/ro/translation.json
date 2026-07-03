@@ -1465,7 +1465,50 @@
       "title": "Performanță",
       "noPriorData": "Fără date anterioare",
       "cardsView": "Vizualizare carduri",
-      "chartView": "Vizualizare grafic"
+      "chartView": "Vizualizare grafic",
+      "noChange": "Fără modificare",
+      "movedUp_one": "Urcat {{count}} poziție",
+      "movedUp_other": "Urcat {{count}} poziții",
+      "movedDown_one": "Coborât {{count}} poziție",
+      "movedDown_other": "Coborât {{count}} poziții",
+      "offChart": "În afara clasamentului",
+      "topPosition": "Top {{position}}",
+      "topRank": "Top {{rank}}",
+      "days_one": "zi",
+      "days_other": "zile",
+      "best": "Cel mai bun:",
+      "tracked": "Urmărit:",
+      "trackedDays_one": "{{count}}z",
+      "trackedDays_other": "{{count}}z",
+      "collections": {
+        "topSellers": "Cele mai vândute",
+        "mostPlayed": "Cele mai jucate",
+        "topWishlisted": "Cele mai dorite",
+        "topNewReleases": "Cele mai bune lansări noi",
+        "mostPopular": "Cele mai populare",
+        "topPlayerReviewed": "Cele mai bine cotate de jucători",
+        "topDemos": "Top Demo-uri",
+        "topFreeToPlay": "Top Free-to-Play",
+        "topAddOns": "Top Add-on-uri"
+      },
+      "empty": {
+        "noData": {
+          "title": "Fără date de performanță",
+          "description": "Această ofertă nu a apărut încă în niciun clasament urmărit."
+        },
+        "noRange": {
+          "title": "Fără date în acest interval",
+          "description": "Încearcă să selectezi un interval de date diferit mai sus."
+        },
+        "noCollection": {
+          "title": "Nicio colecție selectată",
+          "description": "Alege unul dintre clasamentele de mai sus pentru a vedea pozițiile."
+        }
+      },
+      "chart": {
+        "position": "Poziție",
+        "positionValue": "Poziția #{{position}}"
+      }
     },
     "priceChart": {
       "selectValue": "Selectează o valoare",
@@ -1476,7 +1519,16 @@
       "from": "De la",
       "to": "Până la",
       "maxRange": "Intervalul maxim este de 30 de zile",
-      "invalidRange": "Interval de date invalid"
+      "invalidRange": "Interval de date invalid",
+      "last7Days": "Ultimele 7 zile",
+      "last30Days": "Ultimele 30 de zile",
+      "selectDateRange": "Selectează intervalul de date",
+      "selectDate": "Selectează data",
+      "rangeLabel_one": "{{from}} - {{to}} ({{count}} zi)",
+      "rangeLabel_other": "{{from}} - {{to}} ({{count}} zile)",
+      "selectedDays_one": "Selectat: {{count}} zi",
+      "selectedDays_other": "Selectat: {{count}} zile",
+      "apply": "Aplică"
     },
     "regionalPricing": {
       "region": "Regiune",

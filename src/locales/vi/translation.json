@@ -1465,7 +1465,50 @@
       "title": "Hiệu suất",
       "noPriorData": "Không có dữ liệu trước",
       "cardsView": "Xem dạng thẻ",
-      "chartView": "Xem dạng biểu đồ"
+      "chartView": "Xem dạng biểu đồ",
+      "noChange": "Không thay đổi",
+      "movedUp_one": "Tăng {{count}} bậc",
+      "movedUp_other": "Tăng {{count}} bậc",
+      "movedDown_one": "Tụt {{count}} bậc",
+      "movedDown_other": "Tụt {{count}} bậc",
+      "offChart": "Ngoài bảng xếp hạng",
+      "topPosition": "Top {{position}}",
+      "topRank": "Hạng {{rank}}",
+      "days_one": "ngày",
+      "days_other": "ngày",
+      "best": "Tốt nhất:",
+      "tracked": "Đã theo dõi:",
+      "trackedDays_one": "{{count}}n",
+      "trackedDays_other": "{{count}}n",
+      "collections": {
+        "topSellers": "Bán chạy nhất",
+        "mostPlayed": "Chơi nhiều nhất",
+        "topWishlisted": "Ưa thích nhất",
+        "topNewReleases": "Bản phát hành mới hàng đầu",
+        "mostPopular": "Phổ biến nhất",
+        "topPlayerReviewed": "Đánh giá cao nhất",
+        "topDemos": "Bản dùng thử hàng đầu",
+        "topFreeToPlay": "Chơi miễn phí hàng đầu",
+        "topAddOns": "Tiện ích bổ sung hàng đầu"
+      },
+      "empty": {
+        "noData": {
+          "title": "Không có dữ liệu hiệu suất",
+          "description": "Ưu đãi này chưa xuất hiện trong bất kỳ bảng xếp hạng nào được theo dõi."
+        },
+        "noRange": {
+          "title": "Không có dữ liệu trong phạm vi này",
+          "description": "Hãy thử chọn một phạm vi ngày khác ở trên."
+        },
+        "noCollection": {
+          "title": "Chưa chọn bộ sưu tập",
+          "description": "Chọn một trong các biểu đồ ở trên để xem vị trí."
+        }
+      },
+      "chart": {
+        "position": "Vị trí",
+        "positionValue": "Vị trí #{{position}}"
+      }
     },
     "priceChart": {
       "selectValue": "Chọn một giá trị",
@@ -1476,7 +1519,16 @@
       "from": "Từ",
       "to": "Đến",
       "maxRange": "Phạm vi tối đa là 30 ngày",
-      "invalidRange": "Phạm vi ngày không hợp lệ"
+      "invalidRange": "Phạm vi ngày không hợp lệ",
+      "last7Days": "7 ngày qua",
+      "last30Days": "30 ngày qua",
+      "selectDateRange": "Chọn phạm vi ngày",
+      "selectDate": "Chọn ngày",
+      "rangeLabel_one": "{{from}} - {{to}} ({{count}} ngày)",
+      "rangeLabel_other": "{{from}} - {{to}} ({{count}} ngày)",
+      "selectedDays_one": "Đã chọn: {{count}} ngày",
+      "selectedDays_other": "Đã chọn: {{count}} ngày",
+      "apply": "Áp dụng"
     },
     "regionalPricing": {
       "region": "Khu vực",

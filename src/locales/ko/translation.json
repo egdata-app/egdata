@@ -400,7 +400,8 @@
       "offerType": "오퍼 유형",
       "developer": "개발자",
       "publisher": "배급사",
-      "noTags": "태그를 찾을 수 없음"
+      "noTags": "태그를 찾을 수 없음",
+      "seller": "판매자"
     },
     "checkboxes": {
       "pastGiveaways": "지난 무료 배포",
@@ -418,7 +419,8 @@
       "feature": "기능",
       "usersay": "사용자 평가",
       "subscription": "구독",
-      "platform": "플랫폼"
+      "platform": "플랫폼",
+      "all": "모든 태그"
     },
     "sort": {
       "sortBy": "정렬 기준",
@@ -1102,7 +1104,62 @@
     "lastUpdated": "마지막 업데이트:",
     "noSubscriptionsTitle": "구독을 찾을 수 없음",
     "noSubscriptionsBody": "구독은 되어 있지만 아직 기기 구독을 생성하지 않았습니다. \"설정 및 구독\" 탭을 사용하여 첫 번째 구독을 생성하세요.",
-    "fetchError": "구독을 불러오지 못했습니다. 다시 시도해 주세요."
+    "fetchError": "구독을 불러오지 못했습니다. 다시 시도해 주세요.",
+    "push": {
+      "title": "푸시 알림",
+      "notSupported": "이 브라우저에서는 푸시 알림이 지원되지 않습니다.",
+      "setApiKey": "푸시 알림을 활성화하려면 API 키를 설정하세요.",
+      "manage": "푸시 알림 기본 설정을 관리하세요.",
+      "unsubscribe": "구독 취소",
+      "subscribe": "구독",
+      "subscribed": "구독됨",
+      "notSubscribed": "구독되지 않음",
+      "subscribeToTopic": "주제 구독",
+      "topicPlaceholder": "주제 이름 입력 (예: game-updates)",
+      "subscribedTopics": "구독한 주제",
+      "clickToUnsubscribe": "클릭하여 구독 취소"
+    },
+    "simple": {
+      "title": "푸시 알림",
+      "notSupported": "이 브라우저에서는 푸시 알림이 지원되지 않습니다.",
+      "subscribedDesc": "알림 주제 {{count}}개를 구독 중입니다",
+      "notSubscribedDesc": "Epic Games Store 업데이트, 무료 게임 등에 대한 알림을 받으세요",
+      "subscribeToNotifications": "알림 구독",
+      "unsubscribe": "구독 취소",
+      "chooseWhat": "알림을 받을 항목을 선택하세요:",
+      "freeGames": "무료 게임",
+      "freeGamesDesc": "새 무료 게임을 이용할 수 있을 때 알림 받기",
+      "newReleases": "신규 출시",
+      "newReleasesDesc": "신규 게임 출시 알림",
+      "priceDrops": "가격 인하",
+      "priceDropsDesc": "게임 할인 시 알림 받기",
+      "youWillReceive": "You'll receive notifications for:",
+      "subscribedTo": "Subscribed to {{name}}",
+      "unsubscribedFrom": "Unsubscribed from {{name}}",
+      "failedSubscribe": "Failed to subscribe to notifications",
+      "failedUnsubscribe": "Failed to unsubscribe from notifications",
+      "failedTopicSubscribe": "Failed to subscribe to topic",
+      "failedTopicUnsubscribe": "Failed to unsubscribe from topic",
+      "successSubscribe": "Successfully subscribed to notifications!",
+      "successUnsubscribe": "Successfully unsubscribed from notifications"
+    },
+    "apiKey": {
+      "title": "API Key Management",
+      "label": "API Key",
+      "placeholderGenerated": "API key generated",
+      "placeholderNone": "No API key generated",
+      "regenerate": "Regenerate Key",
+      "generate": "Generate Key",
+      "clear": "Clear Key",
+      "generated": "New API key generated successfully!",
+      "copied": "API key copied to clipboard!",
+      "cleared": "API key cleared successfully!",
+      "failedGenerate": "Failed to generate API key",
+      "failedCopy": "Failed to copy API key",
+      "failedClear": "Failed to clear API key",
+      "noneToCopy": "No API key to copy",
+      "description": "Your API key is a UUID stored locally in your browser and is used to authenticate push notification requests. Use the regenerate button to create a new key if needed."
+    }
   },
   "promotions": {
     "placeholder": "/promotions/$id에 오신 것을 환영합니다!"
@@ -1175,11 +1232,11 @@
       "releaseDate": "2022년 4월",
       "metascore": "82 Metascore",
       "specialList": {
-        "combat": "라이트세이버 전투, 블래스터 총격전, 우주 공중전.",
+        "combat": "🕹️ {{strong}}: 라이트세이버 전투, 블래스터 총격전, 우주 공중전.",
         "combatStrong": "다이나믹 전투",
-        "charm": "LEGO만의 독특한 스타일로 재해석된 클래식 스타워즈 유머.",
+        "charm": "🏗️ {{strong}}: 클래식 스타워즈 유머, LEGO만의 독특한 스타일로 재해석.",
         "charmStrong": "LEGO의 매력",
-        "replayability": "수많은 수집품, 사이드 미션 및 숨겨진 비밀.",
+        "replayability": "🤯 {{strong}}: 수많은 수집품, 사이드 미션 및 숨겨진 비밀.",
         "replayabilityStrong": "재플레이성"
       },
       "howToClaim": "받는 방법:",
@@ -1247,6 +1304,512 @@
         "added": "몇 시간 내에 클로즈드 테스트 트랙에 수동으로 추가됩니다",
         "download": "추가되면 제공된 링크에서 앱을 다운로드할 수 있습니다"
       }
+    }
+  },
+  "components": {
+    "stats": {
+      "title": "Stats",
+      "description": "Statistics",
+      "offers": "Offers",
+      "offersTooltip": "Offers tooltip",
+      "items": "Items",
+      "itemsTooltip": "Items tooltip",
+      "tags": "Tags",
+      "offersYear": "Offers per year",
+      "itemsYear": "Items per year",
+      "assets": "Assets",
+      "assetsTooltip": "Assets tooltip",
+      "regPrices": "Regular prices",
+      "changes": "Changes",
+      "sandboxes": "Sandboxes",
+      "sandboxesTooltip": "Sandboxes tooltip"
+    },
+    "sandboxShell": {
+      "overview": "Overview",
+      "offers": "Offers",
+      "items": "Items",
+      "assets": "Assets",
+      "builds": "Builds",
+      "achievements": "Achievements",
+      "changelog": "Changelog",
+      "sandbox": "Sandbox",
+      "internalNamespace": "Internal Namespace",
+      "storePage": "Store Page",
+      "updated": "Updated {{date}}",
+      "unrealEngine": "Unreal Engine",
+      "internalSandbox": "Internal Sandbox",
+      "releaseStatus": {
+        "prePurchase": "Pre-Purchase",
+        "datePending": "Date Pending",
+        "comingSoon": "Coming Soon",
+        "released": "Released"
+      }
+    },
+    "comparison": {
+      "openCompareTray": "Open Compare Tray ({{count}})",
+      "compareSelected": "Compare Selected",
+      "error": "Error",
+      "type": "Type",
+      "seller": "Seller",
+      "developer": "Developer",
+      "releaseDate": "Release Date",
+      "pcReleaseDate": "PC Release Date",
+      "genres": "Genres",
+      "platforms": "Platforms",
+      "remove": "Remove",
+      "current": "Current",
+      "lowest": "Lowest",
+      "noPriceFound": "No price found",
+      "noAgeRatingsFound": "No age ratings found",
+      "achievements": "Achievements",
+      "ageRating": "Age Rating",
+      "price": "Price",
+      "unknown": "Unknown"
+    },
+    "search": {
+      "sellers": "Sellers",
+      "noResults": "No results found",
+      "noResultsShort": "No results",
+      "allOfferTypes": "All offer types",
+      "tags": "Tags"
+    },
+    "changelist": {
+      "title": "Changelist",
+      "loading": "Loading...",
+      "error": "Error: {{message}}",
+      "id": "ID",
+      "type": "Type",
+      "titleOrId": "Title or ID",
+      "date": "Date",
+      "new": "New",
+      "update": "Update"
+    },
+    "upcoming": {
+      "caption": "Upcoming",
+      "loading": "Loading...",
+      "title": "Upcoming",
+      "price": "Price",
+      "releaseDate": "Release Date",
+      "unknown": "Unknown",
+      "prePurchase": "Pre-Purchase"
+    },
+    "giveaways": {
+      "title": "Giveaways",
+      "free": "Free",
+      "freeNow": "Free Now",
+      "startsIn": "Starts in",
+      "repeated": "Repeated:",
+      "yes": "Yes",
+      "no": "No",
+      "repeatedTooltip": "This offer has been gifted {{count}} times."
+    },
+    "giveawayStats": {
+      "title": "Giveaways in numbers",
+      "loading": "Loading...",
+      "totalValue": "Total Value",
+      "totalValueTooltip": "Total value including any active discounts",
+      "giveaways": "Giveaways",
+      "giveawaysTooltip": "Total number of giveaways that appear in the database",
+      "offers": "Offers",
+      "offersTooltip": "Total number of unique offers that have appeared in giveaways",
+      "repeated": "Repeated",
+      "repeatedTooltip": "Number of unique offers that appear multiple times in giveaways",
+      "sellers": "Sellers",
+      "sellersTooltip": "Total number of unique sellers providing offers"
+    },
+    "offerCard": {
+      "openOffer": "Open offer {{title}}",
+      "free": "Free",
+      "comingSoon": "Coming Soon",
+      "earlyAccess": "Early Access",
+      "prePurchase": "Pre-Purchase",
+      "owned": "owned"
+    },
+    "baseGame": {
+      "checkBaseGame": "Check the base game",
+      "partOfBundle": "This offer is part of"
+    },
+    "notFound": {
+      "message": "The page you are looking for does not exist."
+    },
+    "sellerOffers": {
+      "error": "Error loading offers. Please try again.",
+      "moreFrom": "More from {{name}}"
+    },
+    "achievementsBlade": {
+      "noData": "No data",
+      "game": "Game",
+      "achievements": "Achievements",
+      "xp": "XP",
+      "bronze": "Bronze",
+      "silver": "Silver",
+      "gold": "Gold",
+      "gamesWithAchievements": "Games with Epic Achievements"
+    },
+    "topSection": {
+      "free": "Free",
+      "releaseDate": "Release Date:",
+      "tba": "TBA",
+      "platforms": "Platforms:",
+      "tags": "Tags:",
+      "checkOffer": "Check Offer"
+    },
+    "featuredDiscounts": {
+      "free": "Free",
+      "title": "Featured Discounts",
+      "countMore": "+{{count}} more",
+      "checkOffer": "Check Offer",
+      "until": "until"
+    },
+    "performanceTable": {
+      "title": "성과",
+      "noPriorData": "이전 데이터 없음",
+      "cardsView": "카드 보기",
+      "chartView": "차트 보기",
+      "noChange": "변동 없음",
+      "movedUp_one": "{{count}}계단 상승",
+      "movedUp_other": "{{count}}계단 상승",
+      "movedDown_one": "{{count}}계단 하락",
+      "movedDown_other": "{{count}}계단 하락",
+      "offChart": "차트 밖",
+      "topPosition": "{{position}}위",
+      "topRank": "상위 {{rank}}위",
+      "days_one": "일",
+      "days_other": "일",
+      "best": "최고:",
+      "tracked": "추적:",
+      "trackedDays_one": "{{count}}일",
+      "trackedDays_other": "{{count}}일",
+      "collections": {
+        "topSellers": "판매 상위",
+        "mostPlayed": "가장 많이 플레이됨",
+        "topWishlisted": "위시리스트 상위",
+        "topNewReleases": "신규 출시 상위",
+        "mostPopular": "가장 인기 있음",
+        "topPlayerReviewed": "플레이어 평점 상위",
+        "topDemos": "데모 상위",
+        "topFreeToPlay": "무료 플레이 상위",
+        "topAddOns": "애드온 상위"
+      },
+      "empty": {
+        "noData": {
+          "title": "성과 데이터 없음",
+          "description": "이 오퍼는 아직 추적 중인 차트에 나타난 적이 없습니다."
+        },
+        "noRange": {
+          "title": "이 기간에 데이터 없음",
+          "description": "위에서 다른 날짜 범위를 선택해 보세요."
+        },
+        "noCollection": {
+          "title": "선택된 차트 없음",
+          "description": "위 차트 중 하나를 선택해 순위를 확인하세요."
+        }
+      },
+      "chart": {
+        "position": "순위",
+        "positionValue": "{{position}}위"
+      }
+    },
+    "priceChart": {
+      "selectValue": "Select a value",
+      "last3Months": "Last 3 months",
+      "fetchingData": "Fetching latest data"
+    },
+    "dateRangePicker": {
+      "from": "시작",
+      "to": "종료",
+      "maxRange": "최대 범위는 30일입니다",
+      "invalidRange": "잘못된 날짜 범위입니다",
+      "last7Days": "지난 7일",
+      "last30Days": "지난 30일",
+      "selectDateRange": "날짜 범위 선택",
+      "selectDate": "날짜 선택",
+      "rangeLabel_one": "{{from}} - {{to}} ({{count}}일)",
+      "rangeLabel_other": "{{from}} - {{to}} ({{count}}일)",
+      "selectedDays_one": "선택됨: {{count}}일",
+      "selectedDays_other": "선택됨: {{count}}일",
+      "apply": "적용"
+    },
+    "regionalPricing": {
+      "region": "Region",
+      "price": "Price"
+    },
+    "regionalPricingBadge": {
+      "analysis": "Regional pricing analysis",
+      "currentPrice": "Current price",
+      "suggestedPrice": "Suggested price",
+      "belowSuggested": "This deal is actually below that too — a great deal all around.",
+      "closeToSuggested": "This deal is close to that, and well below typical {{region}} pricing."
+    },
+    "countrySelector": {
+      "searchCountries": "Search countries...",
+      "noCountries": "No countries found"
+    },
+    "countriesSelector": {
+      "searchCountries": "Search countries...",
+      "noCountries": "No countries found"
+    },
+    "querySearch": {
+      "searchItems": "Search items..."
+    },
+    "extendedSearch": {
+      "searchItems": "Search items...",
+      "noItems": "No items found."
+    },
+    "searchForm": {
+      "noResults": "No results found",
+      "error": "Error: {{message}}",
+      "loadingLong": "This query is taking more than usual..."
+    },
+    "searchFormV2": {
+      "noResults": "No results found."
+    },
+    "androidBetaBanner": {
+      "dismiss": "Dismiss banner"
+    },
+    "videoPlayer": {
+      "title": "{{title}}"
+    },
+    "mediaSlider": {
+      "previousSlide": "Previous slide",
+      "nextSlide": "Next slide",
+      "image": "Image {{index}}",
+      "thumbnail": "Thumbnail {{index}}",
+      "downloading": "Downloading...",
+      "download": "Download"
+    },
+    "changelogItem": {
+      "action": "Action",
+      "type": "Type",
+      "oldValue": "Old value",
+      "newValue": "New value",
+      "previousValue": "Previous value:",
+      "newValueLabel": "New value:"
+    },
+    "changelogCharts": {
+      "byWeekday": "Changes by Weekday",
+      "byWeekdayDesc": "Accumulated changes by weekday",
+      "typesOfChanges": "Types of Changes",
+      "typesOfChangesDesc": "Quantity of changes by type",
+      "byField": "Changes by Field",
+      "byFieldDesc": "Changes grouped by it's changed field",
+      "dailyDesc": "Showing daily changes for the last year",
+      "noData": "No data available to display."
+    },
+    "openEgl": {
+      "open": "Open"
+    },
+    "openEgs": {
+      "store": "Store"
+    },
+    "openLauncher": {
+      "play": "Play"
+    },
+    "storeDropdown": {
+      "launcher": "Launcher",
+      "viewStorePage": "View Store Page",
+      "webBrowser": "Web Browser"
+    },
+    "prepurchasePopup": {
+      "title": "{{title}}"
+    },
+    "apiKeyManager": {
+      "title": "API Key Management",
+      "label": "API Key",
+      "placeholder": {
+        "generated": "API key generated",
+        "none": "No API key generated"
+      },
+      "button": {
+        "regenerate": "Regenerate Key",
+        "generate": "Generate Key",
+        "clear": "Clear Key"
+      },
+      "notification": {
+        "generated": "New API key generated successfully!",
+        "generateFailed": "Failed to generate API key",
+        "copied": "API key copied to clipboard!",
+        "copyFailed": "Failed to copy API key",
+        "noneToCopy": "No API key to copy",
+        "cleared": "API key cleared successfully!",
+        "clearFailed": "Failed to clear API key"
+      },
+      "description": "Your API key is a UUID stored locally in your browser and is used to authenticate push notification requests. Use the regenerate button to create a new key if needed."
+    },
+    "cookieBanner": {
+      "title": "Cookie Notice",
+      "description": "This website uses cookies to enhance your browsing experience. By accepting cookies, you accept our {{privacyPolicyLink}}.",
+      "accept": "Accept",
+      "decline": "Decline"
+    },
+    "searchHeader": {
+      "results": "{{count}} results",
+      "showingResultsFor": "Showing results for"
+    },
+    "bundle": {
+      "collectionOffers": "Collection Offers",
+      "bundleOffers": "Bundle Offers",
+      "offersCount": "- {{count}} Offers",
+      "bundlePriceTitle": "Bundle Price",
+      "totalValueLabel": "Total Value:",
+      "bundlePriceLabel": "Bundle Price:",
+      "youSave": "You save:",
+      "youPayMore": "You pay more:",
+      "buyBundle": "Buy Bundle",
+      "buyIndividually": "Buy Items Individually"
+    },
+    "clientBanner": {
+      "heading": "Power the {{appName}} builds database",
+      "subheading": "Help map every Epic Games Store build",
+      "description": "Our lightweight Windows & macOS client scans your Epic Games Launcher installs and securely uploads only the manifest files—chunk lists and metadata—to our open database. Every upload enriches the community and helps us track changes over time.",
+      "cta": "Download for Windows & macOS"
+    },
+    "collectionOffers": {
+      "title": "Collection Offers"
+    },
+    "lastModifiedOffers": {
+      "title": "Last Modified Offers"
+    },
+    "latestOffers": {
+      "title": "Latest Added"
+    },
+    "latestReleased": {
+      "title": "Latest Released"
+    },
+    "mobileFreebies": {
+      "title": "Mobile Free Games",
+      "collapse": "Collapse mobile free games",
+      "expand": "Expand mobile free games"
+    },
+    "sectionHeader": {
+      "seeAll": "See all"
+    },
+    "suggestedOffers": {
+      "title": "You may also like"
+    }
+  },
+  "table": {
+    "pagination": {
+      "rowsPerPage": "Rows per page",
+      "pageOf": "Page {{page}} of {{total}}",
+      "goToFirst": "Go to first page",
+      "goToPrevious": "Go to previous page",
+      "goToNext": "Go to next page",
+      "goToLast": "Go to last page",
+      "previous": "Previous",
+      "next": "Next",
+      "morePages": "More pages"
+    },
+    "toolbar": {
+      "platform": "Platform",
+      "status": "Status",
+      "type": "Type",
+      "platforms": "Platforms",
+      "fileExtensions": "File Extensions",
+      "filterOffers": "Filter offers...",
+      "filterItems": "Filter items...",
+      "filterFiles": "Filter files...",
+      "reset": "Reset"
+    },
+    "viewOptions": {
+      "view": "View",
+      "toggleColumns": "Toggle columns"
+    },
+    "facetedFilter": {
+      "noResults": "No results found.",
+      "selected": "selected",
+      "clearFilters": "Clear filters"
+    },
+    "builds": {
+      "noResults": "No results.",
+      "donateKey": "Donate a Key"
+    }
+  },
+  "forms": {
+    "review": {
+      "submitTitle": "Submit a Review",
+      "editTitle": "Edit Review",
+      "description": "Share your thoughts about {{title}}",
+      "rating": "Rating",
+      "ratingError": "Rating must be between 1 and 10",
+      "recommend": "Would you recommend this product?",
+      "recommendError": "Please select yes or no",
+      "yes": "Yes",
+      "no": "No",
+      "title": "Title",
+      "titlePlaceholder": "Enter a title for your review",
+      "titleRequired": "Title is required",
+      "titleMinLength": "Title must be at least 3 characters",
+      "titleMinLengthLong": "Title must be at least 3 characters long",
+      "titleMaxLength": "Title must be less than 75 characters",
+      "reviewContent": "Review Content",
+      "contentMinLength": "Content must be at least 3 characters long",
+      "tags": "Tags (comma-separated)",
+      "tagsPlaceholder": "e.g. quality, design, performance",
+      "previous": "Previous",
+      "next": "Next",
+      "submit": "Submit Review",
+      "deleteReview": "Delete review",
+      "confirmDelete": "Are you sure you want to delete this review?",
+      "deleteDescription": "This action cannot be undone. This will permanently delete the review from our servers.",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "deleting": "Deleting...",
+      "errorSubmitting": "Error submitting review",
+      "errorDeleting": "Error deleting review",
+      "spamDetected": "Spam detected",
+      "defaultContent": "Please enter your review here",
+      "theProduct": "the product"
+    },
+    "androidBeta": {
+      "title": "Join the Beta",
+      "description": "Sign in with Google to register for the closed beta. We only need your email address.",
+      "spotsRemaining": "<strong>{{remaining}}</strong> of {{max}} spots remaining",
+      "betaFull": "Beta is Full",
+      "betaFullDesc": "All {{max}} spots have been taken. Check back later or follow us for updates on when more spots become available.",
+      "registering": "Registering you for the beta...",
+      "registered": "You are registered!",
+      "registeredDesc": "We have registered <strong>{{email}}</strong> for the closed beta.",
+      "registeredDesc2": "It may take a few hours until you are manually added to the testers list. Once added, you can join the beta here:",
+      "joinBeta": "Join the Beta on Google Play",
+      "alreadyRegistered": "Already Registered",
+      "alreadyRegisteredDesc": "<strong>{{email}}</strong> is already registered for the beta.",
+      "alreadyRegisteredDesc2": "If you have already been added to the testers list, you can join the beta here:",
+      "error": "Error",
+      "tryAgain": "Try Again",
+      "noCredential": "No credential received from Google",
+      "somethingWrong": "Something went wrong. Please try again.",
+      "googleFailed": "Google Sign-In failed. Please try again."
+    },
+    "donateKey": {
+      "donate": "Donate",
+      "error": "Error",
+      "success": "Success",
+      "successDesc": "Thank you for your donation! The item has been redeemed correctly and it's data will be available soon.",
+      "offerPage": "Offer page",
+      "somethingWrong": "Something went wrong. Please try again."
+    }
+  },
+  "ui": {
+    "dialog": {
+      "close": "Close"
+    },
+    "sheet": {
+      "close": "Close"
+    },
+    "carousel": {
+      "previous": "Previous slide",
+      "next": "Next slide"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next",
+      "morePages": "More pages"
+    },
+    "priceRangeSlider": {
+      "priceRange": "Price Range",
+      "minPrice": "Min price",
+      "maxPrice": "Max price"
     }
   }
 }

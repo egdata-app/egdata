@@ -16,6 +16,41 @@ test.describe("Homepage smoke", () => {
     expect(overflow).toBeLessThanOrEqual(2);
   });
 
+  test("keeps the desktop hero panel from overlapping RTL content", async ({ page, context }) => {
+    await context.addCookies([{ name: "user_locale", value: "ar", url: "http://localhost:3000" }]);
+    await page.setViewportSize({ width: 1280, height: 720 });
+    await page.goto("/");
+    await expectMainReady(page);
+
+    await expect(page.locator("html")).toHaveAttribute("dir", "rtl");
+
+    const panel = page.getByTestId("hero-pulse-panel");
+    const content = page.getByTestId("hero-content");
+
+    await expect(panel).toBeVisible();
+    await expect(content).toBeVisible();
+
+    await expect
+      .poll(async () =>
+        page.evaluate(() => {
+          const panel = document.querySelector('[data-testid="hero-pulse-panel"]');
+          const content = document.querySelector('[data-testid="hero-content"]');
+
+          if (!panel || !content) return Number.POSITIVE_INFINITY;
+
+          const panelRect = panel.getBoundingClientRect();
+          const contentRect = content.getBoundingClientRect();
+
+          if (panelRect.width === 0 || contentRect.width === 0) {
+            return Number.POSITIVE_INFINITY;
+          }
+
+          return panelRect.right - contentRect.left;
+        }),
+      )
+      .toBeLessThanOrEqual(0);
+  });
+
   test("renders homepage content and key sections", async ({ page }) => {
     await page.goto("/");
     await expectMainReady(page);

@@ -10,6 +10,7 @@ import { DateTime } from "luxon";
 import { useLocale } from "@/hooks/use-locale";
 import { computeChange } from "@/lib/performance";
 import { PerformanceEmptyState } from "@/components/app/performance-empty-state";
+import { useTranslation } from "react-i18next";
 
 interface Position {
   date: string;
@@ -21,10 +22,6 @@ interface PerformancePositionsChartProps {
   positions: Position[];
   timeframe: { from: Date; to: Date };
 }
-
-const chartConfig: ChartConfig = {
-  position: { label: "Position", color: "hsl(var(--chart-1))" },
-};
 
 const referenceTiers = [1, 5, 10, 50, 100];
 
@@ -41,7 +38,14 @@ export function PerformancePositionsChart({
   positions,
   timeframe,
 }: PerformancePositionsChartProps) {
-  const { timezone } = useLocale();
+  const { locale, timezone } = useLocale();
+  const { t } = useTranslation();
+  const chartConfig: ChartConfig = {
+    position: {
+      label: t("components.performanceTable.chart.position"),
+      color: "hsl(var(--chart-1))",
+    },
+  };
 
   const chartData = useMemo(() => {
     if (!positions?.length) return [];
@@ -66,11 +70,11 @@ export function PerformancePositionsChart({
         change,
         dateLabel: DateTime.fromISO(pos.date)
           .setZone(timezone || "UTC")
-          .setLocale("en-GB")
+          .setLocale(locale || "en-US")
           .toLocaleString({ day: "numeric", month: "short" }),
       };
     });
-  }, [positions, timeframe, timezone]);
+  }, [positions, timeframe, timezone, locale]);
 
   if (!chartData.length) {
     return <PerformanceEmptyState variant="no-range" />;
@@ -116,7 +120,9 @@ export function PerformancePositionsChart({
               labelFormatter={(label: string) => label}
               formatter={(value, _name, item) => {
                 const change = (item.payload as { change?: number }).change;
-                const posLabel = `Position #${value}`;
+                const posLabel = t("components.performanceTable.chart.positionValue", {
+                  position: value,
+                });
                 if (!change || change === 0) return posLabel;
                 const direction = change < 0 ? "up" : "down";
                 const arrow = direction === "up" ? "↑" : "↓";

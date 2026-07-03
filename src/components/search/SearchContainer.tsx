@@ -112,24 +112,6 @@ export function SearchContainer({
   // Track previous search state to avoid infinite loops
   const prevSearchRef = useRef<TypeOf<typeof formSchema> | undefined>(undefined);
 
-  // Track if component has been initialized to avoid overriding user changes
-  const isInitializedRef = useRef(false);
-
-  // Track if we should block onSearchChange during initial setup
-  const blockOnSearchChangeRef = useRef(true);
-
-  // On mount, mark as initialized and allow onSearchChange to run
-  useEffect(() => {
-    if (!isInitializedRef.current) {
-      isInitializedRef.current = true;
-
-      // Allow onSearchChange to run after initialization is complete
-      setTimeout(() => {
-        blockOnSearchChangeRef.current = false;
-      }, 0);
-    }
-  }, []); // Empty dependency array - only run once on mount
-
   // Debounce query for search
   const mergedQuery = useMemo(() => mergeSearchStates(query, fixedParams), [query, fixedParams]);
   const debouncedQuery = useDebounce(mergedQuery, 300);
@@ -283,13 +265,18 @@ export function SearchContainer({
 
   // Notify parent of search changes - only when search actually changes and after initialization
   useEffect(() => {
-    if (!onSearchChange || !isInitializedRef.current || blockOnSearchChangeRef.current) return;
+    if (!onSearchChange) return;
 
     const currentSearch = { ...query, ...fixedParams };
     const prevSearch = prevSearchRef.current;
 
+    if (!prevSearch) {
+      prevSearchRef.current = currentSearch;
+      return;
+    }
+
     // Only call onSearchChange if the search has actually changed
-    if (!prevSearch || JSON.stringify(currentSearch) !== JSON.stringify(prevSearch)) {
+    if (JSON.stringify(currentSearch) !== JSON.stringify(prevSearch)) {
       prevSearchRef.current = currentSearch;
       onSearchChange(currentSearch);
     }

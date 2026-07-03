@@ -1132,33 +1132,33 @@
       "newReleases": "Nuevos Lanzamientos",
       "newReleasesDesc": "Notificaciones de nuevos lanzamientos de juegos",
       "priceDrops": "Bajadas de Precio",
-      "priceDropsDesc": "Recibe alertas cuando los juegos estén de oferta",
-      "youWillReceive": "Recibirás notificaciones para:",
+      "priceDropsDesc": "Recibe alertas cuando los juegos tengan descuento",
+      "youWillReceive": "Recibirás notificaciones de:",
       "subscribedTo": "Suscrito a {{name}}",
       "unsubscribedFrom": "Desuscrito de {{name}}",
       "failedSubscribe": "Error al suscribirse a las notificaciones",
       "failedUnsubscribe": "Error al desuscribirse de las notificaciones",
       "failedTopicSubscribe": "Error al suscribirse al tema",
       "failedTopicUnsubscribe": "Error al desuscribirse del tema",
-      "successSubscribe": "¡Suscrito a las notificaciones con éxito!",
-      "successUnsubscribe": "Desuscrito de las notificaciones con éxito"
+      "successSubscribe": "¡Suscrito correctamente a las notificaciones!",
+      "successUnsubscribe": "Desuscrito correctamente de las notificaciones"
     },
     "apiKey": {
-      "title": "Gestión de API Key",
-      "label": "API Key",
-      "placeholderGenerated": "API key generada",
-      "placeholderNone": "No se ha generado API key",
-      "regenerate": "Regenerar Key",
-      "generate": "Generar Key",
-      "clear": "Borrar Key",
-      "generated": "¡Nueva API key generada con éxito!",
-      "copied": "¡API key copiada al portapapeles!",
-      "cleared": "¡API key borrada con éxito!",
-      "failedGenerate": "Error al generar la API key",
-      "failedCopy": "Error al copiar la API key",
-      "failedClear": "Error al borrar la API key",
-      "noneToCopy": "No hay API key para copiar",
-      "description": "Tu API key es un UUID almacenado localmente en tu navegador y se usa para autenticar las solicitudes de notificaciones push. Usa el botón regenerar para crear una nueva key si es necesario."
+      "title": "Administración de clave de API",
+      "label": "Clave de API",
+      "placeholderGenerated": "Clave de API generada",
+      "placeholderNone": "No se ha generado ninguna clave de API",
+      "regenerate": "Regenerar clave",
+      "generate": "Generar clave",
+      "clear": "Borrar clave",
+      "generated": "¡Nueva clave de API generada correctamente!",
+      "copied": "¡Clave de API copiada al portapapeles!",
+      "cleared": "¡Clave de API borrada correctamente!",
+      "failedGenerate": "Error al generar la clave de API",
+      "failedCopy": "Error al copiar la clave de API",
+      "failedClear": "Error al borrar la clave de API",
+      "noneToCopy": "No hay clave de API para copiar",
+      "description": "Tu clave de API es un UUID almacenado localmente en tu navegador y se utiliza para autenticar las solicitudes de notificaciones push. Usa el botón de regenerar para crear una nueva clave si es necesario."
     }
   },
   "promotions": {
@@ -1433,27 +1433,82 @@
       "message": "La página que buscas no existe."
     },
     "sellerOffers": {
-      "error": "Error al cargar las ofertas. Por favor, inténtalo de nuevo."
+      "error": "Error al cargar las ofertas. Por favor, inténtalo de nuevo.",
+      "moreFrom": "Más de {{name}}"
     },
     "achievementsBlade": {
       "noData": "Sin datos",
       "game": "Juego",
       "achievements": "Logros",
+      "xp": "XP",
       "bronze": "Bronce",
       "silver": "Plata",
-      "gold": "Oro"
+      "gold": "Oro",
+      "gamesWithAchievements": "Juegos con logros de Epic"
     },
     "topSection": {
-      "free": "Gratis"
+      "free": "Gratis",
+      "releaseDate": "Fecha de lanzamiento:",
+      "tba": "TBA",
+      "platforms": "Plataformas:",
+      "tags": "Etiquetas:",
+      "checkOffer": "Ver oferta"
     },
     "featuredDiscounts": {
-      "free": "Gratis"
+      "free": "Gratis",
+      "title": "Descuentos destacados",
+      "countMore": "+{{count}} más",
+      "checkOffer": "Ver oferta",
+      "until": "hasta"
     },
     "performanceTable": {
       "title": "Rendimiento",
       "noPriorData": "Sin datos previos",
       "cardsView": "Vista de tarjetas",
-      "chartView": "Vista de gráfico"
+      "chartView": "Vista de gráfico",
+      "noChange": "Sin cambios",
+      "movedUp_one": "Subió {{count}} puesto",
+      "movedUp_other": "Subió {{count}} puestos",
+      "movedDown_one": "Bajó {{count}} puesto",
+      "movedDown_other": "Bajó {{count}} puestos",
+      "offChart": "Fuera del ranking",
+      "topPosition": "Top {{position}}",
+      "topRank": "Top {{rank}}",
+      "days_one": "día",
+      "days_other": "días",
+      "best": "Mejor:",
+      "tracked": "Seguimiento:",
+      "trackedDays_one": "{{count}} d",
+      "trackedDays_other": "{{count}} d",
+      "collections": {
+        "topSellers": "Más vendidos",
+        "mostPlayed": "Más jugados",
+        "topWishlisted": "Más deseados",
+        "topNewReleases": "Novedades destacadas",
+        "mostPopular": "Más populares",
+        "topPlayerReviewed": "Mejor valorados por jugadores",
+        "topDemos": "Demos destacadas",
+        "topFreeToPlay": "Free-to-play destacados",
+        "topAddOns": "Complementos destacados"
+      },
+      "empty": {
+        "noData": {
+          "title": "Sin datos de rendimiento",
+          "description": "Esta oferta no ha aparecido todavía en ningún ranking registrado."
+        },
+        "noRange": {
+          "title": "Sin datos en este rango",
+          "description": "Prueba a seleccionar otro rango de fechas arriba."
+        },
+        "noCollection": {
+          "title": "No se ha seleccionado ningún ranking",
+          "description": "Elige uno de los rankings de arriba para ver posiciones."
+        }
+      },
+      "chart": {
+        "position": "Posición",
+        "positionValue": "Posición #{{position}}"
+      }
     },
     "priceChart": {
       "selectValue": "Selecciona un valor",
@@ -1464,7 +1519,16 @@
       "from": "Desde",
       "to": "Hasta",
       "maxRange": "El rango máximo es de 30 días",
-      "invalidRange": "Rango de fechas inválido"
+      "invalidRange": "Rango de fechas inválido",
+      "last7Days": "Últimos 7 días",
+      "last30Days": "Últimos 30 días",
+      "selectDateRange": "Selecciona un rango de fechas",
+      "selectDate": "Selecciona una fecha",
+      "rangeLabel_one": "{{from}} - {{to}} ({{count}} día)",
+      "rangeLabel_other": "{{from}} - {{to}} ({{count}} días)",
+      "selectedDays_one": "Seleccionado: {{count}} día",
+      "selectedDays_other": "Seleccionados: {{count}} días",
+      "apply": "Aplicar"
     },
     "regionalPricing": {
       "region": "Región",
@@ -1493,7 +1557,9 @@
       "noItems": "No se encontraron items."
     },
     "searchForm": {
-      "noResults": "No se encontraron resultados"
+      "noResults": "No se encontraron resultados",
+      "error": "Error: {{message}}",
+      "loadingLong": "Esta consulta está tardando más de lo habitual..."
     },
     "searchFormV2": {
       "noResults": "No se encontraron resultados."
@@ -1508,7 +1574,9 @@
       "previousSlide": "Diapositiva anterior",
       "nextSlide": "Diapositiva siguiente",
       "image": "Imagen {{index}}",
-      "thumbnail": "Miniatura {{index}}"
+      "thumbnail": "Miniatura {{index}}",
+      "downloading": "Descargando...",
+      "download": "Descargar"
     },
     "changelogItem": {
       "action": "Acción",
@@ -1538,10 +1606,86 @@
       "play": "Jugar"
     },
     "storeDropdown": {
-      "launcher": "Launcher"
+      "launcher": "Launcher",
+      "viewStorePage": "Ver página de la tienda",
+      "webBrowser": "Navegador web"
     },
     "prepurchasePopup": {
       "title": "{{title}}"
+    },
+    "apiKeyManager": {
+      "title": "Administración de clave de API",
+      "label": "Clave de API",
+      "placeholder": {
+        "generated": "Clave de API generada",
+        "none": "No se ha generado ninguna clave de API"
+      },
+      "button": {
+        "regenerate": "Regenerar clave",
+        "generate": "Generar clave",
+        "clear": "Borrar clave"
+      },
+      "notification": {
+        "generated": "¡Nueva clave de API generada correctamente!",
+        "generateFailed": "Error al generar la clave de API",
+        "copied": "¡Clave de API copiada al portapapeles!",
+        "copyFailed": "Error al copiar la clave de API",
+        "noneToCopy": "No hay clave de API para copiar",
+        "cleared": "¡Clave de API borrada correctamente!",
+        "clearFailed": "Error al borrar la clave de API"
+      },
+      "description": "Tu clave de API es un UUID almacenado localmente en tu navegador y se utiliza para autenticar las solicitudes de notificaciones push. Usa el botón de regenerar para crear una nueva clave si es necesario."
+    },
+    "cookieBanner": {
+      "title": "Aviso de cookies",
+      "description": "Este sitio web utiliza cookies para mejorar tu experiencia de navegación. Al aceptar las cookies, aceptas nuestra {{privacyPolicyLink}}.",
+      "accept": "Aceptar",
+      "decline": "Rechazar"
+    },
+    "searchHeader": {
+      "results": "{{count}} resultados",
+      "showingResultsFor": "Mostrando resultados para"
+    },
+    "bundle": {
+      "collectionOffers": "Ofertas de colección",
+      "bundleOffers": "Ofertas de bundle",
+      "offersCount": "- {{count}} ofertas",
+      "bundlePriceTitle": "Precio del bundle",
+      "totalValueLabel": "Valor total:",
+      "bundlePriceLabel": "Precio del bundle:",
+      "youSave": "Ahorras:",
+      "youPayMore": "Pagas más:",
+      "buyBundle": "Comprar bundle",
+      "buyIndividually": "Comprar ítems individualmente"
+    },
+    "clientBanner": {
+      "heading": "Potencia la base de datos de compilaciones de {{appName}}",
+      "subheading": "Ayuda a mapear cada compilación de la Epic Games Store",
+      "description": "Nuestro cliente ligero para Windows y macOS escanea tus instalaciones del Epic Games Launcher y sube de forma segura solo los archivos de manifiesto (listas de fragmentos y metadatos) a nuestra base de datos abierta. Cada subida enriquece a la comunidad y nos ayuda a rastrear los cambios a lo largo del tiempo.",
+      "cta": "Descargar para Windows y macOS"
+    },
+    "collectionOffers": {
+      "title": "Ofertas de colección"
+    },
+    "lastModifiedOffers": {
+      "title": "Últimas ofertas modificadas"
+    },
+    "latestOffers": {
+      "title": "Últimas añadidas"
+    },
+    "latestReleased": {
+      "title": "Últimos lanzamientos"
+    },
+    "mobileFreebies": {
+      "title": "Juegos gratis móviles",
+      "collapse": "Colapsar juegos gratis móviles",
+      "expand": "Expandir juegos gratis móviles"
+    },
+    "sectionHeader": {
+      "seeAll": "Ver todos"
+    },
+    "suggestedOffers": {
+      "title": "También te puede gustar"
     }
   },
   "table": {

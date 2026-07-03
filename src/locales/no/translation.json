@@ -1465,7 +1465,50 @@
       "title": "Ytelse",
       "noPriorData": "Ingen tidligere data",
       "cardsView": "Kortvisning",
-      "chartView": "Diagramvisning"
+      "chartView": "Diagramvisning",
+      "noChange": "Ingen endring",
+      "movedUp_one": "Flyttet opp {{count}} plass",
+      "movedUp_other": "Flyttet opp {{count}} plasser",
+      "movedDown_one": "Flyttet ned {{count}} plass",
+      "movedDown_other": "Flyttet ned {{count}} plasser",
+      "offChart": "Utenfor listen",
+      "topPosition": "Topp {{position}}",
+      "topRank": "Topp {{rank}}",
+      "days_one": "dag",
+      "days_other": "dager",
+      "best": "Best:",
+      "tracked": "Sporet:",
+      "trackedDays_one": "{{count}}d",
+      "trackedDays_other": "{{count}}d",
+      "collections": {
+        "topSellers": "Mest solgte",
+        "mostPlayed": "Mest spilte",
+        "topWishlisted": "Mest ønsket",
+        "topNewReleases": "Topp nye utgivelser",
+        "mostPopular": "Mest populære",
+        "topPlayerReviewed": "Best vurdert av spillere",
+        "topDemos": "Topp demoer",
+        "topFreeToPlay": "Topp gratis-å-spille",
+        "topAddOns": "Topp tillegg"
+      },
+      "empty": {
+        "noData": {
+          "title": "Ingen ytelsesdata",
+          "description": "Dette tilbudet har ikke dukket opp i noen sporede lister ennå."
+        },
+        "noRange": {
+          "title": "Ingen data i dette området",
+          "description": "Prøv å velge et annet datoområde over."
+        },
+        "noCollection": {
+          "title": "Ingen samling valgt",
+          "description": "Velg et av diagrammene over for å se posisjoner."
+        }
+      },
+      "chart": {
+        "position": "Posisjon",
+        "positionValue": "Posisjon #{{position}}"
+      }
     },
     "priceChart": {
       "selectValue": "Velg en verdi",
@@ -1476,7 +1519,16 @@
       "from": "Fra",
       "to": "Til",
       "maxRange": "Maksimalt område er 30 dager",
-      "invalidRange": "Ugyldig datoområde"
+      "invalidRange": "Ugyldig datoområde",
+      "last7Days": "Siste 7 dager",
+      "last30Days": "Siste 30 dager",
+      "selectDateRange": "Velg datoområde",
+      "selectDate": "Velg dato",
+      "rangeLabel_one": "{{from}} - {{to}} ({{count}} dag)",
+      "rangeLabel_other": "{{from}} - {{to}} ({{count}} dager)",
+      "selectedDays_one": "Valgt: {{count}} dag",
+      "selectedDays_other": "Valgt: {{count}} dager",
+      "apply": "Bruk"
     },
     "regionalPricing": {
       "region": "Region",

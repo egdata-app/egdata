@@ -1465,7 +1465,50 @@
       "title": "Prestaties",
       "noPriorData": "Geen eerdere gegevens",
       "cardsView": "Kaartweergave",
-      "chartView": "Grafiekweergave"
+      "chartView": "Grafiekweergave",
+      "noChange": "Geen verandering",
+      "movedUp_one": "{{count}} plaats gestegen",
+      "movedUp_other": "{{count}} plaatsen gestegen",
+      "movedDown_one": "{{count}} plaats gedaald",
+      "movedDown_other": "{{count}} plaatsen gedaald",
+      "offChart": "Buiten grafiek",
+      "topPosition": "Top {{position}}",
+      "topRank": "Top {{rank}}",
+      "days_one": "dag",
+      "days_other": "dagen",
+      "best": "Beste:",
+      "tracked": "Gevolgd:",
+      "trackedDays_one": "{{count}}d",
+      "trackedDays_other": "{{count}}d",
+      "collections": {
+        "topSellers": "Best verkopend",
+        "mostPlayed": "Meest gespeeld",
+        "topWishlisted": "Meest gewenst",
+        "topNewReleases": "Top nieuwe releases",
+        "mostPopular": "Meest populair",
+        "topPlayerReviewed": "Best beoordeeld",
+        "topDemos": "Top demo's",
+        "topFreeToPlay": "Top free-to-play",
+        "topAddOns": "Top add-ons"
+      },
+      "empty": {
+        "noData": {
+          "title": "Geen prestatiegegevens",
+          "description": "Dit aanbod is nog niet verschenen in bijgehouden grafieken."
+        },
+        "noRange": {
+          "title": "Geen gegevens in dit bereik",
+          "description": "Probeer een ander datumbereik hierboven te selecteren."
+        },
+        "noCollection": {
+          "title": "Geen collectie geselecteerd",
+          "description": "Kies een van de grafieken hierboven om posities te zien."
+        }
+      },
+      "chart": {
+        "position": "Positie",
+        "positionValue": "Positie #{{position}}"
+      }
     },
     "priceChart": {
       "selectValue": "Selecteer een waarde",
@@ -1476,7 +1519,16 @@
       "from": "Van",
       "to": "Tot",
       "maxRange": "Maximum bereik is 30 dagen",
-      "invalidRange": "Ongeldig datumbereik"
+      "invalidRange": "Ongeldig datumbereik",
+      "last7Days": "Laatste 7 dagen",
+      "last30Days": "Laatste 30 dagen",
+      "selectDateRange": "Selecteer datumbereik",
+      "selectDate": "Selecteer datum",
+      "rangeLabel_one": "{{from}} - {{to}} ({{count}} dag)",
+      "rangeLabel_other": "{{from}} - {{to}} ({{count}} dagen)",
+      "selectedDays_one": "Geselecteerd: {{count}} dag",
+      "selectedDays_other": "Geselecteerd: {{count}} dagen",
+      "apply": "Toepassen"
     },
     "regionalPricing": {
       "region": "Regio",

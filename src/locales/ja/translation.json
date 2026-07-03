@@ -1465,7 +1465,50 @@
       "title": "パフォーマンス",
       "noPriorData": "以前のデータなし",
       "cardsView": "カード表示",
-      "chartView": "チャート表示"
+      "chartView": "チャート表示",
+      "noChange": "変化なし",
+      "movedUp_one": "{{count}} 位上昇",
+      "movedUp_other": "{{count}} 位上昇",
+      "movedDown_one": "{{count}} 位下降",
+      "movedDown_other": "{{count}} 位下降",
+      "offChart": "チャート圏外",
+      "topPosition": "トップ{{position}}",
+      "topRank": "トップ{{rank}}",
+      "days_one": "日",
+      "days_other": "日",
+      "best": "最高：",
+      "tracked": "追跡中：",
+      "trackedDays_one": "{{count}}日",
+      "trackedDays_other": "{{count}}日",
+      "collections": {
+        "topSellers": "トップセラー",
+        "mostPlayed": "最もプレイされた",
+        "topWishlisted": "ウィッシュリスト上位",
+        "topNewReleases": "注目の新作",
+        "mostPopular": "最も人気",
+        "topPlayerReviewed": "プレイヤー評価上位",
+        "topDemos": "トップデモ",
+        "topFreeToPlay": "トップ無料プレイ",
+        "topAddOns": "トップアドオン"
+      },
+      "empty": {
+        "noData": {
+          "title": "パフォーマンスデータなし",
+          "description": "このオファーはまだ追跡チャートに登場していません。"
+        },
+        "noRange": {
+          "title": "この範囲のデータなし",
+          "description": "上の日付範囲を変更してみてください。"
+        },
+        "noCollection": {
+          "title": "コレクションが選択されていません",
+          "description": "上のチャートから1つ選んで順位を確認してください。"
+        }
+      },
+      "chart": {
+        "position": "順位",
+        "positionValue": "#{{position}} 位"
+      }
     },
     "priceChart": {
       "selectValue": "値を選択",
@@ -1476,7 +1519,16 @@
       "from": "開始",
       "to": "終了",
       "maxRange": "最大範囲は30日間です",
-      "invalidRange": "無効な日付範囲"
+      "invalidRange": "無効な日付範囲",
+      "last7Days": "過去7日間",
+      "last30Days": "過去30日間",
+      "selectDateRange": "日付範囲を選択",
+      "selectDate": "日付を選択",
+      "rangeLabel_one": "{{from}} ～ {{to}}（{{count}} 日）",
+      "rangeLabel_other": "{{from}} ～ {{to}}（{{count}} 日間）",
+      "selectedDays_one": "選択：{{count}} 日",
+      "selectedDays_other": "選択：{{count}} 日間",
+      "apply": "適用"
     },
     "regionalPricing": {
       "region": "地域",

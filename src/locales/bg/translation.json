@@ -1465,7 +1465,50 @@
       "title": "Производителност",
       "noPriorData": "Няма предишни данни",
       "cardsView": "Изглед на картички",
-      "chartView": "Изглед на диаграма"
+      "chartView": "Изглед на диаграма",
+      "noChange": "Без промяна",
+      "movedUp_one": "Качена с {{count}} позиция",
+      "movedUp_other": "Качена с {{count}} позиции",
+      "movedDown_one": "Спусната с {{count}} позиция",
+      "movedDown_other": "Спусната с {{count}} позиции",
+      "offChart": "Извън класацията",
+      "topPosition": "Топ {{position}}",
+      "topRank": "Топ {{rank}}",
+      "days_one": "ден",
+      "days_other": "дни",
+      "best": "Най-добро:",
+      "tracked": "Проследено:",
+      "trackedDays_one": "{{count}}д",
+      "trackedDays_other": "{{count}}д",
+      "collections": {
+        "topSellers": "Най-продавани",
+        "mostPlayed": "Най-играни",
+        "topWishlisted": "Най-желани",
+        "topNewReleases": "Топ нови издания",
+        "mostPopular": "Най-популярни",
+        "topPlayerReviewed": "Най-добре оценени от играчи",
+        "topDemos": "Топ демота",
+        "topFreeToPlay": "Топ безплатни за игра",
+        "topAddOns": "Топ добавки"
+      },
+      "empty": {
+        "noData": {
+          "title": "Няма данни за производителност",
+          "description": "Тази оферта не се е появявала в никоя проследявана класация."
+        },
+        "noRange": {
+          "title": "Няма данни в този диапазон",
+          "description": "Опитайте да изберете друг диапазон от дати по-горе."
+        },
+        "noCollection": {
+          "title": "Няма избрана колекция",
+          "description": "Изберете някоя от класациите по-горе, за да видите позиции."
+        }
+      },
+      "chart": {
+        "position": "Позиция",
+        "positionValue": "Позиция #{{position}}"
+      }
     },
     "priceChart": {
       "selectValue": "Изберете стойност",
@@ -1476,7 +1519,16 @@
       "from": "От",
       "to": "До",
       "maxRange": "Максималният обхват е 30 дни",
-      "invalidRange": "Невалиден диапазон от дати"
+      "invalidRange": "Невалиден диапазон от дати",
+      "last7Days": "Последни 7 дни",
+      "last30Days": "Последни 30 дни",
+      "selectDateRange": "Изберете диапазон от дати",
+      "selectDate": "Изберете дата",
+      "rangeLabel_one": "{{from}} - {{to}} ({{count}} ден)",
+      "rangeLabel_other": "{{from}} - {{to}} ({{count}} дни)",
+      "selectedDays_one": "Избрано: {{count}} ден",
+      "selectedDays_other": "Избрано: {{count}} дни",
+      "apply": "Приложи"
     },
     "regionalPricing": {
       "region": "Регион",

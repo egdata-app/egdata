@@ -1465,7 +1465,50 @@
       "title": "Prestanda",
       "noPriorData": "Ingen tidigare data",
       "cardsView": "Kortvy",
-      "chartView": "Diagramvy"
+      "chartView": "Diagramvy",
+      "noChange": "Ingen förändring",
+      "movedUp_one": "Flyttades upp {{count}} plats",
+      "movedUp_other": "Flyttades upp {{count}} platser",
+      "movedDown_one": "Flyttades ner {{count}} plats",
+      "movedDown_other": "Flyttades ner {{count}} platser",
+      "offChart": "Utanför listan",
+      "topPosition": "Topp {{position}}",
+      "topRank": "Topp {{rank}}",
+      "days_one": "dag",
+      "days_other": "dagar",
+      "best": "Bäst:",
+      "tracked": "Spårad:",
+      "trackedDays_one": "{{count}}d",
+      "trackedDays_other": "{{count}}d",
+      "collections": {
+        "topSellers": "Bästsäljare",
+        "mostPlayed": "Mest spelade",
+        "topWishlisted": "Mest önskade",
+        "topNewReleases": "Topp nya släpp",
+        "mostPopular": "Mest populära",
+        "topPlayerReviewed": "Högst spelarbetyg",
+        "topDemos": "Topp demos",
+        "topFreeToPlay": "Topp gratis-att-spela",
+        "topAddOns": "Topp tillägg"
+      },
+      "empty": {
+        "noData": {
+          "title": "Inga prestandadata",
+          "description": "Detta erbjudande har inte förekommit i några spårade listor än."
+        },
+        "noRange": {
+          "title": "Ingen data i detta intervall",
+          "description": "Försök välja ett annat datumintervall ovan."
+        },
+        "noCollection": {
+          "title": "Ingen samling vald",
+          "description": "Välj en av listorna ovan för att se positioner."
+        }
+      },
+      "chart": {
+        "position": "Position",
+        "positionValue": "Position #{{position}}"
+      }
     },
     "priceChart": {
       "selectValue": "Välj ett värde",
@@ -1476,7 +1519,16 @@
       "from": "Från",
       "to": "Till",
       "maxRange": "Maximalt intervall är 30 dagar",
-      "invalidRange": "Ogiltigt datumintervall"
+      "invalidRange": "Ogiltigt datumintervall",
+      "last7Days": "Senaste 7 dagarna",
+      "last30Days": "Senaste 30 dagarna",
+      "selectDateRange": "Välj datumintervall",
+      "selectDate": "Välj datum",
+      "rangeLabel_one": "{{from}} - {{to}} ({{count}} dag)",
+      "rangeLabel_other": "{{from}} - {{to}} ({{count}} dagar)",
+      "selectedDays_one": "Valda: {{count}} dag",
+      "selectedDays_other": "Valda: {{count}} dagar",
+      "apply": "Verkställ"
     },
     "regionalPricing": {
       "region": "Region",

@@ -4,6 +4,8 @@ import { LocaleContext } from "@/contexts/locale";
 import { DEFAULT_LOCALE, isRTL } from "@/lib/supported-locales";
 import { changeLanguage as changeI18nLanguage } from "@/lib/i18n";
 
+const DEFAULT_TIMEZONE = "UTC";
+
 interface LocaleProviderProps {
   children: ReactNode;
   initialLocale?: string | null;
@@ -23,18 +25,10 @@ export const LocaleProvider: React.FC<LocaleProviderProps> = ({
   initialTimezone,
 }) => {
   const [locale, setLocaleState] = useState<string | undefined>(
-    () =>
-      initialLocale ||
-      Cookies.get("user_locale") ||
-      (typeof window !== "undefined" ? window.navigator.language : undefined),
+    () => initialLocale || Cookies.get("user_locale") || DEFAULT_LOCALE,
   );
   const [timezone, setTimezone] = useState<string | undefined>(
-    () =>
-      initialTimezone ||
-      Cookies.get("user_timezone") ||
-      (typeof window !== "undefined"
-        ? window.Intl.DateTimeFormat().resolvedOptions().timeZone
-        : undefined),
+    () => initialTimezone || Cookies.get("user_timezone") || DEFAULT_TIMEZONE,
   );
 
   const setLocale = (next: string) => {
@@ -62,6 +56,16 @@ export const LocaleProvider: React.FC<LocaleProviderProps> = ({
       cancelled = true;
     };
   }, [locale]);
+
+  useEffect(() => {
+    if (initialLocale || Cookies.get("user_locale")) return;
+
+    const browserLocale = window.navigator.language;
+    if (browserLocale && browserLocale !== locale) {
+      setLocaleState(browserLocale);
+      updateDocumentLocale(browserLocale);
+    }
+  }, [initialLocale, locale]);
 
   const checkAndUpdateTimezone = useCallback(() => {
     if (typeof window === "undefined") return;

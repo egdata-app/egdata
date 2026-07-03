@@ -1465,7 +1465,50 @@
       "title": "Desempenho",
       "noPriorData": "Sem dados anteriores",
       "cardsView": "Vista de cartões",
-      "chartView": "Vista de gráfico"
+      "chartView": "Vista de gráfico",
+      "noChange": "Sem alteração",
+      "movedUp_one": "Subiu {{count}} lugar",
+      "movedUp_other": "Subiu {{count}} lugares",
+      "movedDown_one": "Desceu {{count}} lugar",
+      "movedDown_other": "Desceu {{count}} lugares",
+      "offChart": "Fora do gráfico",
+      "topPosition": "Top {{position}}",
+      "topRank": "Top {{rank}}",
+      "days_one": "dia",
+      "days_other": "dias",
+      "best": "Melhor:",
+      "tracked": "Registado:",
+      "trackedDays_one": "{{count}}d",
+      "trackedDays_other": "{{count}}d",
+      "collections": {
+        "topSellers": "Mais vendidos",
+        "mostPlayed": "Mais jogados",
+        "topWishlisted": "Mais desejados",
+        "topNewReleases": "Melhores novos lançamentos",
+        "mostPopular": "Mais populares",
+        "topPlayerReviewed": "Melhor avaliados por jogadores",
+        "topDemos": "Melhores demonstrações",
+        "topFreeToPlay": "Melhores free-to-play",
+        "topAddOns": "Melhores complementos"
+      },
+      "empty": {
+        "noData": {
+          "title": "Sem dados de desempenho",
+          "description": "Esta oferta ainda não apareceu em nenhum gráfico registado."
+        },
+        "noRange": {
+          "title": "Sem dados neste intervalo",
+          "description": "Tente selecionar um intervalo de datas diferente acima."
+        },
+        "noCollection": {
+          "title": "Nenhuma coleção selecionada",
+          "description": "Escolha um dos gráficos acima para ver posições."
+        }
+      },
+      "chart": {
+        "position": "Posição",
+        "positionValue": "Posição #{{position}}"
+      }
     },
     "priceChart": {
       "selectValue": "Selecionar um valor",
@@ -1476,7 +1519,16 @@
       "from": "De",
       "to": "Até",
       "maxRange": "O intervalo máximo é de 30 dias",
-      "invalidRange": "Intervalo de datas inválido"
+      "invalidRange": "Intervalo de datas inválido",
+      "last7Days": "Últimos 7 dias",
+      "last30Days": "Últimos 30 dias",
+      "selectDateRange": "Selecionar intervalo de datas",
+      "selectDate": "Selecionar data",
+      "rangeLabel_one": "{{from}} - {{to}} ({{count}} dia)",
+      "rangeLabel_other": "{{from}} - {{to}} ({{count}} dias)",
+      "selectedDays_one": "Selecionado: {{count}} dia",
+      "selectedDays_other": "Selecionados: {{count}} dias",
+      "apply": "Aplicar"
     },
     "regionalPricing": {
       "region": "Região",

@@ -1465,7 +1465,50 @@
       "title": "Производительность",
       "noPriorData": "Нет предыдущих данных",
       "cardsView": "Вид карточками",
-      "chartView": "Вид графиком"
+      "chartView": "Вид графиком",
+      "noChange": "Без изменений",
+      "movedUp_one": "Поднялся на {{count}} место",
+      "movedUp_other": "Поднялся на {{count}} мест",
+      "movedDown_one": "Опустился на {{count}} место",
+      "movedDown_other": "Опустился на {{count}} мест",
+      "offChart": "Вне чарта",
+      "topPosition": "Топ {{position}}",
+      "topRank": "Топ {{rank}}",
+      "days_one": "день",
+      "days_other": "дней",
+      "best": "Лучший:",
+      "tracked": "Отслеживается:",
+      "trackedDays_one": "{{count}}д",
+      "trackedDays_other": "{{count}}д",
+      "collections": {
+        "topSellers": "Лидеры продаж",
+        "mostPlayed": "Самые популярные",
+        "topWishlisted": "Самое желаемое",
+        "topNewReleases": "Лучшие новинки",
+        "mostPopular": "Самые популярные",
+        "topPlayerReviewed": "Лучшие по оценкам",
+        "topDemos": "Лучшие демо",
+        "topFreeToPlay": "Лучшие бесплатные",
+        "topAddOns": "Лучшие дополнения"
+      },
+      "empty": {
+        "noData": {
+          "title": "Нет данных о производительности",
+          "description": "Это предложение ещё не появлялось в отслеживаемых чартах."
+        },
+        "noRange": {
+          "title": "Нет данных в этом диапазоне",
+          "description": "Попробуйте выбрать другой диапазон дат выше."
+        },
+        "noCollection": {
+          "title": "Подборка не выбрана",
+          "description": "Выберите один из чартов выше, чтобы увидеть позиции."
+        }
+      },
+      "chart": {
+        "position": "Позиция",
+        "positionValue": "Позиция #{{position}}"
+      }
     },
     "priceChart": {
       "selectValue": "Выберите значение",
@@ -1476,7 +1519,16 @@
       "from": "От",
       "to": "До",
       "maxRange": "Максимальный диапазон — 30 дней",
-      "invalidRange": "Неверный диапазон дат"
+      "invalidRange": "Неверный диапазон дат",
+      "last7Days": "Последние 7 дней",
+      "last30Days": "Последние 30 дней",
+      "selectDateRange": "Выбрать диапазон дат",
+      "selectDate": "Выбрать дату",
+      "rangeLabel_one": "{{from}} — {{to}} ({{count}} день)",
+      "rangeLabel_other": "{{from}} — {{to}} ({{count}} дней)",
+      "selectedDays_one": "Выбрано: {{count}} день",
+      "selectedDays_other": "Выбрано: {{count}} дней",
+      "apply": "Применить"
     },
     "regionalPricing": {
       "region": "Регион",

@@ -1465,7 +1465,50 @@
       "title": "Suorituskyky",
       "noPriorData": "Ei aiempia tietoja",
       "cardsView": "Korttinäkymä",
-      "chartView": "Kaavionäkymä"
+      "chartView": "Kaavionäkymä",
+      "noChange": "Ei muutosta",
+      "movedUp_one": "Nousi {{count}} sijan",
+      "movedUp_other": "Nousi {{count}} sijaa",
+      "movedDown_one": "Laski {{count}} sijan",
+      "movedDown_other": "Laski {{count}} sijaa",
+      "offChart": "Pois listalta",
+      "topPosition": "Top {{position}}",
+      "topRank": "Top {{rank}}",
+      "days_one": "päivä",
+      "days_other": "päivää",
+      "best": "Paras:",
+      "tracked": "Seurattu:",
+      "trackedDays_one": "{{count}}pv",
+      "trackedDays_other": "{{count}}pv",
+      "collections": {
+        "topSellers": "Myydyimmät",
+        "mostPlayed": "Pelatuimmat",
+        "topWishlisted": "Toivotuimmat",
+        "topNewReleases": "Parhaat uudet julkaisut",
+        "mostPopular": "Suosituimmat",
+        "topPlayerReviewed": "Parhaiten arvioidut",
+        "topDemos": "Parhaat demot",
+        "topFreeToPlay": "Parhaat ilmaispelit",
+        "topAddOns": "Parhaat lisäosat"
+      },
+      "empty": {
+        "noData": {
+          "title": "Ei suorituskykytietoja",
+          "description": "Tämä tarjous ei ole vielä esiintynyt missään seuratuissa listoissa."
+        },
+        "noRange": {
+          "title": "Ei tietoja tällä aikavälillä",
+          "description": "Kokeile valita toinen päivämääräväli yllä."
+        },
+        "noCollection": {
+          "title": "Kokoelmaa ei valittu",
+          "description": "Valitse jokin yllä olevista listoista nähdäksesi sijoitukset."
+        }
+      },
+      "chart": {
+        "position": "Sijoitus",
+        "positionValue": "Sijoitus #{{position}}"
+      }
     },
     "priceChart": {
       "selectValue": "Valitse arvo",
@@ -1476,7 +1519,16 @@
       "from": "Alkaen",
       "to": "Päättyen",
       "maxRange": "Enimmäisväli on 30 päivää",
-      "invalidRange": "Virheellinen päivämääräväli"
+      "invalidRange": "Virheellinen päivämääräväli",
+      "last7Days": "Viimeiset 7 päivää",
+      "last30Days": "Viimeiset 30 päivää",
+      "selectDateRange": "Valitse päivämääräväli",
+      "selectDate": "Valitse päivämäärä",
+      "rangeLabel_one": "{{from}} - {{to}} ({{count}} päivä)",
+      "rangeLabel_other": "{{from}} - {{to}} ({{count}} päivää)",
+      "selectedDays_one": "Valittu: {{count}} päivä",
+      "selectedDays_other": "Valittu: {{count}} päivää",
+      "apply": "Käytä"
     },
     "regionalPricing": {
       "region": "Alue",

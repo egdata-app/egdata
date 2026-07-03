@@ -1465,7 +1465,50 @@
       "title": "Výkon",
       "noPriorData": "Žádná předchozí data",
       "cardsView": "Zobrazení karet",
-      "chartView": "Zobrazení grafu"
+      "chartView": "Zobrazení grafu",
+      "noChange": "Bez změny",
+      "movedUp_one": "Posunuto nahoru o {{count}} místo",
+      "movedUp_other": "Posunuto nahoru o {{count}} míst",
+      "movedDown_one": "Posunuto dolů o {{count}} místo",
+      "movedDown_other": "Posunuto dolů o {{count}} míst",
+      "offChart": "Mimo žebříček",
+      "topPosition": "Nejlepší {{position}}",
+      "topRank": "Top {{rank}}",
+      "days_one": "den",
+      "days_other": "dní",
+      "best": "Nejlepší:",
+      "tracked": "Sledováno:",
+      "trackedDays_one": "{{count}}d",
+      "trackedDays_other": "{{count}}d",
+      "collections": {
+        "topSellers": "Nejprodávanější",
+        "mostPlayed": "Nejhranější",
+        "topWishlisted": "Nejvíce přidané do seznamu přání",
+        "topNewReleases": "Nejlepší nové vydání",
+        "mostPopular": "Nejoblíbenější",
+        "topPlayerReviewed": "Nejlépe hodnocené hráči",
+        "topDemos": "Nejlepší dema",
+        "topFreeToPlay": "Nejlepší hry zdarma",
+        "topAddOns": "Nejlepší doplňky"
+      },
+      "empty": {
+        "noData": {
+          "title": "Žádná data o výkonu",
+          "description": "Tato nabídka se dosud neobjevila v žádném sledovaném žebříčku."
+        },
+        "noRange": {
+          "title": "Žádná data v tomto rozsahu",
+          "description": "Zkuste vybrat jiný rozsah dat výše."
+        },
+        "noCollection": {
+          "title": "Není vybrána žádná kolekce",
+          "description": "Vyberte jeden z grafů výše pro zobrazení pozic."
+        }
+      },
+      "chart": {
+        "position": "Pozice",
+        "positionValue": "Pozice #{{position}}"
+      }
     },
     "priceChart": {
       "selectValue": "Vyberte hodnotu",
@@ -1476,7 +1519,16 @@
       "from": "Od",
       "to": "Do",
       "maxRange": "Maximální rozsah je 30 dní",
-      "invalidRange": "Neplatný rozsah dat"
+      "invalidRange": "Neplatný rozsah dat",
+      "last7Days": "Posledních 7 dní",
+      "last30Days": "Posledních 30 dní",
+      "selectDateRange": "Vybrat rozsah dat",
+      "selectDate": "Vybrat datum",
+      "rangeLabel_one": "{{from}} - {{to}} ({{count}} den)",
+      "rangeLabel_other": "{{from}} - {{to}} ({{count}} dní)",
+      "selectedDays_one": "Vybráno: {{count}} den",
+      "selectedDays_other": "Vybráno: {{count}} dní",
+      "apply": "Použít"
     },
     "regionalPricing": {
       "region": "Region",

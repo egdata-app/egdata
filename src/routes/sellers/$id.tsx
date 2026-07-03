@@ -13,6 +13,8 @@ import { SearchContainer } from "@/components/search/SearchContainer";
 import buildImageUrl, { buildSrcSet } from "@/lib/build-image-url";
 import { useTranslation } from "react-i18next";
 import i18n from "@/lib/i18n";
+import { formSchema } from "@/stores/searchStore";
+import { zodSearchValidator } from "@tanstack/router-zod-adapter";
 
 interface SellerStats {
   offers: number;
@@ -85,6 +87,8 @@ export const Route = createFileRoute("/sellers/$id")({
       country,
     };
   },
+
+  validateSearch: zodSearchValidator(formSchema),
 
   head: (ctx) => {
     const { params, loaderData } = ctx;
@@ -274,10 +278,13 @@ function RouteComponent() {
           initialSearch={search}
           onSearchChange={(search) => {
             navigate({
+              to: "/sellers/$id",
+              params: { id },
               search: {
                 ...search,
                 seller: undefined,
               },
+              resetScroll: false,
             });
           }}
         />

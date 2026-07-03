@@ -1465,7 +1465,50 @@
       "title": "Teljesítmény",
       "noPriorData": "Nincs korábbi adat",
       "cardsView": "Kártya nézet",
-      "chartView": "Diagram nézet"
+      "chartView": "Diagram nézet",
+      "noChange": "Nincs változás",
+      "movedUp_one": "{{count}} helyet lépett előre",
+      "movedUp_other": "{{count}} helyet lépett előre",
+      "movedDown_one": "{{count}} helyet esett vissza",
+      "movedDown_other": "{{count}} helyet esett vissza",
+      "offChart": "Nincs a listán",
+      "topPosition": "Top {{position}}",
+      "topRank": "Top {{rank}}",
+      "days_one": "nap",
+      "days_other": "nap",
+      "best": "Legjobb:",
+      "tracked": "Követett:",
+      "trackedDays_one": "{{count}}n",
+      "trackedDays_other": "{{count}}n",
+      "collections": {
+        "topSellers": "Legkelendőbbek",
+        "mostPlayed": "Legtöbbet játszottak",
+        "topWishlisted": "Legtöbbet kívántak",
+        "topNewReleases": "Legjobb új megjelenések",
+        "mostPopular": "Legnépszerűbb",
+        "topPlayerReviewed": "Legjobb játékos értékelés",
+        "topDemos": "Legjobb demók",
+        "topFreeToPlay": "Legjobb ingyenesen játszhatók",
+        "topAddOns": "Legjobb kiegészítők"
+      },
+      "empty": {
+        "noData": {
+          "title": "Nincs teljesítmény adat",
+          "description": "Ez az ajánlat még nem jelent meg egyetlen követett listán sem."
+        },
+        "noRange": {
+          "title": "Nincs adat ebben a tartományban",
+          "description": "Próbálj más dátumtartományt választani fent."
+        },
+        "noCollection": {
+          "title": "Nincs gyűjtemény kiválasztva",
+          "description": "Válassz egy listát fent a pozíciók megtekintéséhez."
+        }
+      },
+      "chart": {
+        "position": "Pozíció",
+        "positionValue": "#{{position}}. pozíció"
+      }
     },
     "priceChart": {
       "selectValue": "Válassz értéket",
@@ -1476,7 +1519,16 @@
       "from": "Tól",
       "to": "Ig",
       "maxRange": "Maximum 30 napos intervallum",
-      "invalidRange": "Érvénytelen dátumintervallum"
+      "invalidRange": "Érvénytelen dátumintervallum",
+      "last7Days": "Utolsó 7 nap",
+      "last30Days": "Utolsó 30 nap",
+      "selectDateRange": "Dátumtartomány kiválasztása",
+      "selectDate": "Dátum kiválasztása",
+      "rangeLabel_one": "{{from}} - {{to}} ({{count}} nap)",
+      "rangeLabel_other": "{{from}} - {{to}} ({{count}} nap)",
+      "selectedDays_one": "Kiválasztva: {{count}} nap",
+      "selectedDays_other": "Kiválasztva: {{count}} nap",
+      "apply": "Alkalmaz"
     },
     "regionalPricing": {
       "region": "Régió",

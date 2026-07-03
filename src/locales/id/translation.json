@@ -1465,7 +1465,50 @@
       "title": "Performa",
       "noPriorData": "Tidak ada data sebelumnya",
       "cardsView": "Tampilan kartu",
-      "chartView": "Tampilan grafik"
+      "chartView": "Tampilan grafik",
+      "noChange": "Tidak ada perubahan",
+      "movedUp_one": "Naik {{count}} posisi",
+      "movedUp_other": "Naik {{count}} posisi",
+      "movedDown_one": "Turun {{count}} posisi",
+      "movedDown_other": "Turun {{count}} posisi",
+      "offChart": "Di luar bagan",
+      "topPosition": "Top {{position}}",
+      "topRank": "Peringkat {{rank}}",
+      "days_one": "hari",
+      "days_other": "hari",
+      "best": "Terbaik:",
+      "tracked": "Dilacak:",
+      "trackedDays_one": "{{count}}h",
+      "trackedDays_other": "{{count}}h",
+      "collections": {
+        "topSellers": "Terlaris",
+        "mostPlayed": "Paling Banyak Dimainkan",
+        "topWishlisted": "Paling Diinginkan",
+        "topNewReleases": "Rilis Baru Teratas",
+        "mostPopular": "Terpopuler",
+        "topPlayerReviewed": "Nilai Pemain Teratas",
+        "topDemos": "Demo Teratas",
+        "topFreeToPlay": "Free-to-Play Teratas",
+        "topAddOns": "Add-on Teratas"
+      },
+      "empty": {
+        "noData": {
+          "title": "Tidak ada data performa",
+          "description": "Penawaran ini belum muncul di bagan yang dilacak."
+        },
+        "noRange": {
+          "title": "Tidak ada data dalam rentang ini",
+          "description": "Coba pilih rentang tanggal yang berbeda di atas."
+        },
+        "noCollection": {
+          "title": "Tidak ada koleksi yang dipilih",
+          "description": "Pilih salah satu bagan di atas untuk melihat posisi."
+        }
+      },
+      "chart": {
+        "position": "Posisi",
+        "positionValue": "Posisi #{{position}}"
+      }
     },
     "priceChart": {
       "selectValue": "Pilih nilai",
@@ -1476,7 +1519,16 @@
       "from": "Dari",
       "to": "Ke",
       "maxRange": "Rentang maksimum adalah 30 hari",
-      "invalidRange": "Rentang tanggal tidak valid"
+      "invalidRange": "Rentang tanggal tidak valid",
+      "last7Days": "7 hari terakhir",
+      "last30Days": "30 hari terakhir",
+      "selectDateRange": "Pilih rentang tanggal",
+      "selectDate": "Pilih tanggal",
+      "rangeLabel_one": "{{from}} - {{to}} ({{count}} hari)",
+      "rangeLabel_other": "{{from}} - {{to}} ({{count}} hari)",
+      "selectedDays_one": "Dipilih: {{count}} hari",
+      "selectedDays_other": "Dipilih: {{count}} hari",
+      "apply": "Terapkan"
     },
     "regionalPricing": {
       "region": "Wilayah",

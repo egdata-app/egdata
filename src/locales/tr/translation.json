@@ -1465,7 +1465,50 @@
       "title": "Performans",
       "noPriorData": "Önceki veri yok",
       "cardsView": "Kart görünümü",
-      "chartView": "Grafik görünümü"
+      "chartView": "Grafik görünümü",
+      "noChange": "Değişiklik yok",
+      "movedUp_one": "{{count}} sıra yükseldi",
+      "movedUp_other": "{{count}} sıra yükseldi",
+      "movedDown_one": "{{count}} sıra düştü",
+      "movedDown_other": "{{count}} sıra düştü",
+      "offChart": "Liste dışı",
+      "topPosition": "İlk {{position}}",
+      "topRank": "İlk {{rank}}",
+      "days_one": "gün",
+      "days_other": "gün",
+      "best": "En iyi:",
+      "tracked": "İzlenen:",
+      "trackedDays_one": "{{count}}g",
+      "trackedDays_other": "{{count}}g",
+      "collections": {
+        "topSellers": "En Çok Satanlar",
+        "mostPlayed": "En Çok Oynananlar",
+        "topWishlisted": "En Çok İstenenler",
+        "topNewReleases": "En İyi Yeni Çıkanlar",
+        "mostPopular": "En Popüler",
+        "topPlayerReviewed": "En İyi Oyuncu Puanlı",
+        "topDemos": "En İyi Demolar",
+        "topFreeToPlay": "En İyi Ücretsiz Oynanabilir",
+        "topAddOns": "En İyi Eklentiler"
+      },
+      "empty": {
+        "noData": {
+          "title": "Performans verisi yok",
+          "description": "Bu teklif henüz izlenen hiçbir listede görünmedi."
+        },
+        "noRange": {
+          "title": "Bu aralıkta veri yok",
+          "description": "Yukarıdan farklı bir tarih aralığı seçmeyi deneyin."
+        },
+        "noCollection": {
+          "title": "Koleksiyon seçilmedi",
+          "description": "Pozisyonları görmek için yukarıdaki listelerden birini seçin."
+        }
+      },
+      "chart": {
+        "position": "Pozisyon",
+        "positionValue": "Pozisyon #{{position}}"
+      }
     },
     "priceChart": {
       "selectValue": "Bir değer seçin",
@@ -1476,7 +1519,16 @@
       "from": "Başlangıç",
       "to": "Bitiş",
       "maxRange": "Maksimum aralık 30 gündür",
-      "invalidRange": "Geçersiz tarih aralığı"
+      "invalidRange": "Geçersiz tarih aralığı",
+      "last7Days": "Son 7 gün",
+      "last30Days": "Son 30 gün",
+      "selectDateRange": "Tarih aralığı seç",
+      "selectDate": "Tarih seç",
+      "rangeLabel_one": "{{from}} - {{to}} ({{count}} gün)",
+      "rangeLabel_other": "{{from}} - {{to}} ({{count}} gün)",
+      "selectedDays_one": "Seçilen: {{count}} gün",
+      "selectedDays_other": "Seçilen: {{count}} gün",
+      "apply": "Uygula"
     },
     "regionalPricing": {
       "region": "Bölge",

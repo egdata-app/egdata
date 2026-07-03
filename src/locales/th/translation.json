@@ -1465,7 +1465,50 @@
       "title": "ประสิทธิภาพ",
       "noPriorData": "ไม่มีข้อมูลก่อนหน้านี้",
       "cardsView": "มุมมองการ์ด",
-      "chartView": "มุมมองแผนภูมิ"
+      "chartView": "มุมมองแผนภูมิ",
+      "noChange": "ไม่เปลี่ยนแปลง",
+      "movedUp_one": "ขยับขึ้น {{count}} อันดับ",
+      "movedUp_other": "ขยับขึ้น {{count}} อันดับ",
+      "movedDown_one": "ขยับลง {{count}} อันดับ",
+      "movedDown_other": "ขยับลง {{count}} อันดับ",
+      "offChart": "นอกแผนภูมิ",
+      "topPosition": "อันดับ {{position}}",
+      "topRank": "อันดับ {{rank}}",
+      "days_one": "วัน",
+      "days_other": "วัน",
+      "best": "ดีที่สุด:",
+      "tracked": "ที่ติดตาม:",
+      "trackedDays_one": "{{count}}วัน",
+      "trackedDays_other": "{{count}}วัน",
+      "collections": {
+        "topSellers": "ขายดีที่สุด",
+        "mostPlayed": "เล่นมากที่สุด",
+        "topWishlisted": "ถูกใจมากที่สุด",
+        "topNewReleases": "เกมใหม่ยอดนิยม",
+        "mostPopular": "ได้รับความนิยมมากที่สุด",
+        "topPlayerReviewed": "คะแนนผู้เล่นสูงสุด",
+        "topDemos": "เดโม่ยอดนิยม",
+        "topFreeToPlay": "เล่นฟรียอดนิยม",
+        "topAddOns": "ส่วนเสริมยอดนิยม"
+      },
+      "empty": {
+        "noData": {
+          "title": "ไม่มีข้อมูลประสิทธิภาพ",
+          "description": "ข้อเสนอนี้ยังไม่ปรากฏในแผนภูมิที่ติดตามใด ๆ"
+        },
+        "noRange": {
+          "title": "ไม่มีข้อมูลในช่วงนี้",
+          "description": "ลองเลือกช่วงวันที่อื่นด้านบน"
+        },
+        "noCollection": {
+          "title": "ไม่ได้เลือกคอลเล็กชัน",
+          "description": "เลือกหนึ่งในแผนภูมิด้านบนเพื่อดูตำแหน่ง"
+        }
+      },
+      "chart": {
+        "position": "ตำแหน่ง",
+        "positionValue": "ตำแหน่ง #{{position}}"
+      }
     },
     "priceChart": {
       "selectValue": "เลือกค่า",
@@ -1476,7 +1519,16 @@
       "from": "จาก",
       "to": "ถึง",
       "maxRange": "ช่วงสูงสุดคือ 30 วัน",
-      "invalidRange": "ช่วงวันที่ไม่ถูกต้อง"
+      "invalidRange": "ช่วงวันที่ไม่ถูกต้อง",
+      "last7Days": "7 วันที่ผ่านมา",
+      "last30Days": "30 วันที่ผ่านมา",
+      "selectDateRange": "เลือกช่วงวันที่",
+      "selectDate": "เลือกวันที่",
+      "rangeLabel_one": "{{from}} - {{to}} ({{count}} วัน)",
+      "rangeLabel_other": "{{from}} - {{to}} ({{count}} วัน)",
+      "selectedDays_one": "ที่เลือก: {{count}} วัน",
+      "selectedDays_other": "ที่เลือก: {{count}} วัน",
+      "apply": "นำไปใช้"
     },
     "regionalPricing": {
       "region": "ภูมิภาค",

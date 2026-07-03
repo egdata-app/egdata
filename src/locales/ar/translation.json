@@ -1465,7 +1465,50 @@
       "title": "الأداء",
       "noPriorData": "لا توجد بيانات سابقة",
       "cardsView": "عرض البطاقات",
-      "chartView": "عرض الرسم البياني"
+      "chartView": "عرض الرسم البياني",
+      "noChange": "لا يوجد تغيير",
+      "movedUp_one": "ارتفع {{count}} مركز",
+      "movedUp_other": "ارتفع {{count}} مركز",
+      "movedDown_one": "انخفض {{count}} مركز",
+      "movedDown_other": "انخفض {{count}} مركز",
+      "offChart": "خارج الرسم البياني",
+      "topPosition": "أعلى {{position}}",
+      "topRank": "أعلى {{rank}}",
+      "days_one": "يوم",
+      "days_other": "أيام",
+      "best": "الأفضل:",
+      "tracked": "متعقب:",
+      "trackedDays_one": "{{count}} يوم",
+      "trackedDays_other": "{{count}} يوم",
+      "collections": {
+        "topSellers": "الأكثر مبيعًا",
+        "mostPlayed": "الأكثر لعبًا",
+        "topWishlisted": "الأكثر رغبة",
+        "topNewReleases": "أفضل الإصدارات الجديدة",
+        "mostPopular": "الأكثر شعبية",
+        "topPlayerReviewed": "الأعلى تقييمًا من اللاعبين",
+        "topDemos": "أفضل العروض التجريبية",
+        "topFreeToPlay": "أفضل الألعاب المجانية",
+        "topAddOns": "أفضل الإضافات"
+      },
+      "empty": {
+        "noData": {
+          "title": "لا توجد بيانات أداء",
+          "description": "لم يظهر هذا العرض في أي مخططات متعقبة بعد."
+        },
+        "noRange": {
+          "title": "لا توجد بيانات في هذا النطاق",
+          "description": "حاول اختيار نطاق تاريخ مختلف أعلاه."
+        },
+        "noCollection": {
+          "title": "لم يتم اختيار مجموعة",
+          "description": "اختر أحد المخططات أعلاه لرؤية المراكز."
+        }
+      },
+      "chart": {
+        "position": "المركز",
+        "positionValue": "المركز #{{position}}"
+      }
     },
     "priceChart": {
       "selectValue": "اختر قيمة",
@@ -1476,7 +1519,16 @@
       "from": "من",
       "to": "إلى",
       "maxRange": "الحد الأقصى 30 يومًا",
-      "invalidRange": "نطاق تواريخ غير صالح"
+      "invalidRange": "نطاق تواريخ غير صالح",
+      "last7Days": "آخر 7 أيام",
+      "last30Days": "آخر 30 يومًا",
+      "selectDateRange": "اختر نطاق التاريخ",
+      "selectDate": "اختر التاريخ",
+      "rangeLabel_one": "{{from}} - {{to}} ({{count}} يوم)",
+      "rangeLabel_other": "{{from}} - {{to}} ({{count}} يوم)",
+      "selectedDays_one": "محدد: {{count}} يوم",
+      "selectedDays_other": "محدد: {{count}} يوم",
+      "apply": "تطبيق"
     },
     "regionalPricing": {
       "region": "المنطقة",

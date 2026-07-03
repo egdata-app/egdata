@@ -1465,7 +1465,50 @@
       "title": "Prestasi",
       "noPriorData": "Tiada data sebelumnya",
       "cardsView": "Paparan kad",
-      "chartView": "Paparan carta"
+      "chartView": "Paparan carta",
+      "noChange": "Tiada perubahan",
+      "movedUp_one": "Naik {{count}} tempat",
+      "movedUp_other": "Naik {{count}} tempat",
+      "movedDown_one": "Turun {{count}} tempat",
+      "movedDown_other": "Turun {{count}} tempat",
+      "offChart": "Di luar carta",
+      "topPosition": "Atas {{position}}",
+      "topRank": "Atas {{rank}}",
+      "days_one": "hari",
+      "days_other": "hari",
+      "best": "Terbaik:",
+      "tracked": "Dikesan:",
+      "trackedDays_one": "{{count}}h",
+      "trackedDays_other": "{{count}}h",
+      "collections": {
+        "topSellers": "Terlaris",
+        "mostPlayed": "Paling Banyak Dimainkan",
+        "topWishlisted": "Paling Diingini",
+        "topNewReleases": "Keluaran Baharu Teratas",
+        "mostPopular": "Paling Popular",
+        "topPlayerReviewed": "Penilaian Pemain Teratas",
+        "topDemos": "Demo Teratas",
+        "topFreeToPlay": "Percuma Dimain Teratas",
+        "topAddOns": "Add-on Teratas"
+      },
+      "empty": {
+        "noData": {
+          "title": "Tiada data prestasi",
+          "description": "Tawaran ini belum muncul dalam mana-mana carta yang dikesan."
+        },
+        "noRange": {
+          "title": "Tiada data dalam julat ini",
+          "description": "Cuba pilih julat tarikh yang berbeza di atas."
+        },
+        "noCollection": {
+          "title": "Tiada koleksi dipilih",
+          "description": "Pilih salah satu carta di atas untuk melihat kedudukan."
+        }
+      },
+      "chart": {
+        "position": "Kedudukan",
+        "positionValue": "Kedudukan #{{position}}"
+      }
     },
     "priceChart": {
       "selectValue": "Pilih nilai",
@@ -1476,7 +1519,16 @@
       "from": "Dari",
       "to": "Ke",
       "maxRange": "Julat maksimum ialah 30 hari",
-      "invalidRange": "Julat tarikh tidak sah"
+      "invalidRange": "Julat tarikh tidak sah",
+      "last7Days": "7 hari lepas",
+      "last30Days": "30 hari lepas",
+      "selectDateRange": "Pilih julat tarikh",
+      "selectDate": "Pilih tarikh",
+      "rangeLabel_one": "{{from}} - {{to}} ({{count}} hari)",
+      "rangeLabel_other": "{{from}} - {{to}} ({{count}} hari)",
+      "selectedDays_one": "Dipilih: {{count}} hari",
+      "selectedDays_other": "Dipilih: {{count}} hari",
+      "apply": "Guna"
     },
     "regionalPricing": {
       "region": "Wilayah",
