@@ -14,13 +14,14 @@ import type { SingleOffer } from "@/types/single-offer";
 import type { SingleItem } from "@/types/single-item";
 import type { SingleBuild } from "@/types/builds";
 import type { Asset } from "@/types/asset";
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import { type JsonValue, JsonVisualizer } from "../json-tree";
 import { calculateSize } from "@/lib/calculate-size";
 import { cn } from "@/lib/utils";
 import { useLocale } from "@/hooks/use-locale";
 import { Separator } from "@/components/ui/separator";
 import { DateTime } from "luxon";
+import { localizeHref } from "@/lib/paraglide-strategy";
 
 interface Metadata {
   contextType: "offer" | "item" | "asset" | "build" | "sandbox";
@@ -208,14 +209,14 @@ export function ChangeTracker({
           >
             {metadata.contextType}
           </div>
-          <Link
+          <a
             className="text-lg font-medium truncate max-w-[300px] underline decoration-dotted decoration-muted-foreground/40 underline-offset-4"
-            to={`/${metadata.contextType}s/${metadata.contextId}` as string}
+            href={localizeHref(`/${metadata.contextType}s/${metadata.contextId}`)}
           >
             {document && "title" in document ? document?.title : metadata.contextId}
-          </Link>
+          </a>
           <Link
-            to="/changelog/$id"
+            to="/{-$locale}/changelog/$id"
             params={{ id: _id }}
             className="text-sm text-primary hover:underline font-mono"
           >

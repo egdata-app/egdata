@@ -9,9 +9,9 @@ import { useGenres } from "@/hooks/use-genres";
 import { useCountry } from "@/hooks/use-country";
 import { getTopSection } from "@/queries/top-section";
 import { calculatePrice } from "@/lib/calculate-price";
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import { useLocale } from "@/hooks/use-locale";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 const platforms: Record<string, string> = {
   "9547": "Windows",
@@ -173,7 +173,7 @@ export function TopSection({
                 ) : null}
               </div>
               <Button asChild size="lg" className="w-full md:w-auto">
-                <Link to="/offers/$id" params={{ id: offer.id }}>
+                <Link to="/{-$locale}/offers/$id" params={{ id: offer.id }}>
                   {t("components.topSection.checkOffer")}
                 </Link>
               </Button>

@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { offersDictionary } from "@/lib/offers-dictionary";
 import type { SingleOffer } from "@/types/single-offer";
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import type { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 
@@ -23,7 +23,7 @@ export const columns: ColumnDef<SingleOffer>[] = [
       return (
         <Link
           className="text-badge font-mono"
-          to="/offers/$id"
+          to="/{-$locale}/offers/$id"
           params={{ id: info.getValue() as string }}
         >
           {(info.getValue() as string).slice(0, 4)}...
@@ -77,7 +77,7 @@ export const columns: ColumnDef<SingleOffer>[] = [
     cell: (info) => {
       const seller = info.getValue() as SingleOffer["seller"];
       return (
-        <Link to="/sellers/$id" params={{ id: seller.id }} className="text-badge">
+        <Link to="/{-$locale}/sellers/$id" params={{ id: seller.id }} className="text-badge">
           {seller.name as string}
         </Link>
       );

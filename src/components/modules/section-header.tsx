@@ -1,15 +1,15 @@
-import { Link, type LinkComponentProps } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { ReactNode } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 interface SectionHeaderProps {
   title: string;
   children?: ReactNode;
-  href?: LinkComponentProps["to"];
-  search?: LinkComponentProps["search"];
-  params?: LinkComponentProps["params"];
+  href?: string;
+  search?: unknown;
+  params?: Record<string, unknown>;
   className?: string;
 }
 

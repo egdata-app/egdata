@@ -12,9 +12,9 @@ import { useCountry } from "@/hooks/use-country";
 import { Skeleton } from "../ui/skeleton";
 import { ArrowUpIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import { internalNamespaces } from "@/lib/internal-namespaces";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 export function SellerOffers({
   id,
@@ -68,7 +68,7 @@ export function SellerOffers({
       <div className="flex justify-between items-center mb-4">
         <Link
           className="text-xl font-bold text-left inline-flex group items-center gap-2"
-          to="/sellers/$id"
+          to="/{-$locale}/sellers/$id"
           params={{ id }}
         >
           {t("components.sellerOffers.moreFrom", { name })}

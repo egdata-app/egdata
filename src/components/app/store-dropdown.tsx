@@ -10,7 +10,7 @@ import { EpicGamesIcon } from "../icons/epic";
 import { EGSIcon } from "../icons/egs";
 import consola from "consola";
 import { FabIcon } from "../icons/fab";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 function trackEvent(offer: SingleOffer) {
   try {

@@ -14,7 +14,7 @@ import { OfferListItem } from "@/components/app/game-card";
 import { DynamicPagination } from "@/components/app/dynamic-pagination";
 import { offerTypeValues } from "@/lib/offers-dictionary";
 import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 export const formSchema = z.object({
   title: z.string().optional(),

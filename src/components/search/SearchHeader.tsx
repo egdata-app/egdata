@@ -1,6 +1,6 @@
 import type { TypeOf } from "zod";
 import type * as React from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 import type { formSchema } from "@/stores/searchStore";
 import { usePreferences } from "@/hooks/use-preferences";
 import { cn } from "@/lib/utils";

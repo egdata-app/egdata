@@ -1,6 +1,6 @@
 import type { SingleOffer } from "@/types/single-offer";
 import { CarouselItem } from "../ui/carousel";
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import { Card } from "../ui/card";
 import { Image } from "./image";
 import { getImage } from "@/lib/getImage";
@@ -22,7 +22,7 @@ export function GameCard({
   return (
     <CarouselItem key={game.id} className="basis-1/1 lg:basis-1/4">
       <Link
-        to="/offers/$id"
+        to="/{-$locale}/offers/$id"
         params={{ id: game.id }}
         className="w-full relative select-none group"
         preload="viewport"
@@ -86,7 +86,7 @@ export function OfferListItem({
 
   return (
     <Link
-      to="/offers/$id"
+      to="/{-$locale}/offers/$id"
       params={{ id: game.id }}
       className="w-full"
       preload="viewport"

@@ -25,7 +25,7 @@ import { DataTableToolbar } from "./toolbar";
 import { DataTablePagination } from "./pagination";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -123,7 +123,7 @@ export function DataTable<TData, TValue>({
                   <TableCell colSpan={columns.length} className="h-24 text-center w-full gap-2">
                     <p className="mb-4">No results.</p>
                     <Button variant="outline" asChild>
-                      <Link to="/donate-key">Donate a Key</Link>
+                      <Link to="/{-$locale}/donate-key">Donate a Key</Link>
                     </Button>
                   </TableCell>
                 </TableRow>

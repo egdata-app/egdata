@@ -4,7 +4,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useCookies } from "@/hooks/use-cookies";
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import type { ConsentSettings } from "./google-analytics";
 import { Separator } from "../ui/separator";
 
@@ -85,7 +85,7 @@ export function CookieBanner() {
           your preferences below.
           <Link
             className="text-sm text-muted-foreground ml-2 mt-2 underline decoration-dotted decoration-muted-foreground"
-            to="/privacy"
+            to="/{-$locale}/privacy"
           >
             Learn more
           </Link>

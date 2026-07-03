@@ -1,4 +1,5 @@
-import { createRootRouteWithContext, Link } from "@tanstack/react-router";
+import { createRootRouteWithContext } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import { Outlet, HeadContent, Scripts } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 import Navbar from "@/components/app/navbar";
@@ -14,10 +15,12 @@ import { getUserInformation } from "@/queries/profiles";
 import { PreferencesProvider } from "@/providers/preferences";
 import { CompareProvider } from "@/providers/compare";
 import { LocaleProvider } from "@/providers/locale";
-import { I18nextProvider } from "react-i18next";
-import i18n, { changeLanguage as changeI18nLanguage, getI18nHydrationScript } from "@/lib/i18n";
+import "@/lib/paraglide-strategy";
+import i18n from "@/lib/i18n";
+import { getLocale } from "@/paraglide/runtime.js";
+import { localeFromPathname } from "@/lib/paraglide-strategy";
 import { isRTL } from "@/lib/supported-locales";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 import { CookiesProvider } from "@/providers/cookies";
 import { Base64Utils } from "@/lib/base-64";
 import type { EpicToken } from "@/types/epic";
@@ -118,14 +121,11 @@ export const Route = createRootRouteWithContext<Context>()({
 
     // derived values from cookies/url
     const country = getCountryCode(url, cookies);
-    const locale = cookies.user_locale;
+    const locale = localeFromPathname(url.pathname) ?? getLocale();
     const timezone = cookies.user_timezone;
     const analyticsCookies = cookies.EGDATA_COOKIES_2
       ? JSON.parse(Base64Utils.decode(cookies.EGDATA_COOKIES_2))
       : null;
-
-    // Sync i18n with the resolved locale before head() reads translated meta.
-    await changeI18nLanguage(locale);
 
     // warm user cache if we know the email
     if (session?.user?.email) {
@@ -288,7 +288,6 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
   const { country, locale, timezone, analyticsCookies } = Route.useLoaderData() as Context;
   const { t } = useTranslation();
   const dir = isRTL(locale ?? "en-US") ? "rtl" : "ltr";
-  const i18nHydrationScript = getI18nHydrationScript(locale);
 
   useEffect(() => {
     void import("@/lib/pulse-telemetry/browser")
@@ -308,115 +307,111 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
       <body className="antialiased">
         <GlobalBackground />
         <div className="md:container relative z-[1] mx-auto overflow-x-hidden">
-          <I18nextProvider i18n={i18n}>
-            <LocaleProvider initialLocale={locale} initialTimezone={timezone}>
-              <CountryProvider defaultCountry={country || "US"}>
-                <CompareProvider>
-                  <SearchProvider>
-                    <Navbar />
-                    <div className="pt-6">
-                      <PreferencesProvider>
-                        <CookiesProvider
-                          initialSelection={analyticsCookies as unknown as CookiesSelection}
-                        >
-                          <ExtensionProvider>{children}</ExtensionProvider>
-                        </CookiesProvider>
-                      </PreferencesProvider>
-                    </div>
-                    <Toaster />
-                    <footer className="mt-12 border-t border-border/40">
-                      <div
-                        className="h-px w-full"
-                        style={{
-                          background:
-                            "linear-gradient(to right, transparent, hsl(199 100% 50% / 0.28), transparent)",
-                        }}
-                      />
-                      <div className="py-8 px-4 md:px-6">
-                        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 max-w-5xl mx-auto">
+          <LocaleProvider initialLocale={locale} initialTimezone={timezone}>
+            <CountryProvider defaultCountry={country || "US"}>
+              <CompareProvider>
+                <SearchProvider>
+                  <Navbar />
+                  <div className="pt-6">
+                    <PreferencesProvider>
+                      <CookiesProvider initialSelection={analyticsCookies as unknown as CookiesSelection}>
+                        <ExtensionProvider>{children}</ExtensionProvider>
+                      </CookiesProvider>
+                    </PreferencesProvider>
+                  </div>
+                  <Toaster />
+                  <footer className="mt-12 border-t border-border/40">
+                    <div
+                      className="h-px w-full"
+                      style={{
+                        background:
+                          "linear-gradient(to right, transparent, hsl(199 100% 50% / 0.28), transparent)",
+                      }}
+                    />
+                    <div className="py-8 px-4 md:px-6">
+                      <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6 max-w-5xl mx-auto">
+                        <div className="space-y-2">
+                          <Link to="/{-$locale}" className="flex items-center gap-2">
+                            <img
+                              src="https://cdn.egdata.app/logo_simple_white_clean.png"
+                              alt={t("footer.logoAlt")}
+                              width={28}
+                              height={28}
+                            />
+                            <span className="text-base font-display font-bold tracking-tight text-foreground">
+                              {t("common.appName")}
+                            </span>
+                          </Link>
+                          <p className="text-xs text-muted-foreground max-w-sm leading-relaxed">
+                            {t("footer.disclaimer")}
+                          </p>
+                        </div>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-10 gap-y-3 text-sm">
                           <div className="space-y-2">
-                            <Link to="/" className="flex items-center gap-2">
-                              <img
-                                src="https://cdn.egdata.app/logo_simple_white_clean.png"
-                                alt={t("footer.logoAlt")}
-                                width={28}
-                                height={28}
-                              />
-                              <span className="text-base font-display font-bold tracking-tight text-foreground">
-                                {t("common.appName")}
-                              </span>
+                            <h4 className="text-xs uppercase tracking-wider text-muted-foreground/70 font-display">
+                              {t("footer.legal")}
+                            </h4>
+                            <Link
+                              to="/{-$locale}/privacy"
+                              className="block text-muted-foreground hover:text-primary transition-colors"
+                            >
+                              {t("footer.privacyPolicy")}
                             </Link>
-                            <p className="text-xs text-muted-foreground max-w-sm leading-relaxed">
-                              {t("footer.disclaimer")}
-                            </p>
+                            <Link
+                              to="/{-$locale}/notifications"
+                              className="block text-muted-foreground hover:text-primary transition-colors"
+                            >
+                              {t("footer.notifications")}
+                            </Link>
                           </div>
-                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-10 gap-y-3 text-sm">
-                            <div className="space-y-2">
-                              <h4 className="text-xs uppercase tracking-wider text-muted-foreground/70 font-display">
-                                {t("footer.legal")}
-                              </h4>
-                              <Link
-                                to="/privacy"
-                                className="block text-muted-foreground hover:text-primary transition-colors"
-                              >
-                                {t("footer.privacyPolicy")}
-                              </Link>
-                              <Link
-                                to="/notifications"
-                                className="block text-muted-foreground hover:text-primary transition-colors"
-                              >
-                                {t("footer.notifications")}
-                              </Link>
-                            </div>
-                            <div className="space-y-2">
-                              <h4 className="text-xs uppercase tracking-wider text-muted-foreground/70 font-display">
-                                {t("footer.resources")}
-                              </h4>
-                              <a
-                                href="https://docs.egdata.app"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="block text-muted-foreground hover:text-primary transition-colors"
-                              >
-                                {t("footer.apiDocs")}
-                              </a>
-                              <Link
-                                to="/changelog"
-                                className="block text-muted-foreground hover:text-primary transition-colors"
-                              >
-                                {t("footer.changelog")}
-                              </Link>
-                            </div>
-                            <div className="space-y-2">
-                              <h4 className="text-xs uppercase tracking-wider text-muted-foreground/70 font-display">
-                                {t("footer.community")}
-                              </h4>
-                              <a
-                                href="https://flagpedia.net"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="block text-muted-foreground hover:text-primary transition-colors"
-                              >
-                                {t("footer.flagsByFlagpedia")}
-                              </a>
-                              <span className="flex items-center gap-1 text-muted-foreground">
-                                {t("footer.madeIn")}{" "}
-                                <img
-                                  src="https://flagcdn.com/16x12/eu.webp"
-                                  alt="EU Flag"
-                                  className="inline"
-                                />
-                              </span>
-                            </div>
+                          <div className="space-y-2">
+                            <h4 className="text-xs uppercase tracking-wider text-muted-foreground/70 font-display">
+                              {t("footer.resources")}
+                            </h4>
+                            <a
+                              href="https://docs.egdata.app"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block text-muted-foreground hover:text-primary transition-colors"
+                            >
+                              {t("footer.apiDocs")}
+                            </a>
+                            <Link
+                              to="/{-$locale}/changelog"
+                              className="block text-muted-foreground hover:text-primary transition-colors"
+                            >
+                              {t("footer.changelog")}
+                            </Link>
+                          </div>
+                          <div className="space-y-2">
+                            <h4 className="text-xs uppercase tracking-wider text-muted-foreground/70 font-display">
+                              {t("footer.community")}
+                            </h4>
+                            <a
+                              href="https://flagpedia.net"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block text-muted-foreground hover:text-primary transition-colors"
+                            >
+                              {t("footer.flagsByFlagpedia")}
+                            </a>
+                            <span className="flex items-center gap-1 text-muted-foreground">
+                              {t("footer.madeIn")}{" "}
+                              <img
+                                src="https://flagcdn.com/16x12/eu.webp"
+                                alt="EU Flag"
+                                className="inline"
+                              />
+                            </span>
                           </div>
                         </div>
                       </div>
-                    </footer>
-                  </SearchProvider>
-                </CompareProvider>
-              </CountryProvider>
-            </LocaleProvider>
-          </I18nextProvider>
+                    </div>
+                  </footer>
+                </SearchProvider>
+              </CompareProvider>
+            </CountryProvider>
+          </LocaleProvider>
         </div>
 
         {import.meta.env.DEV ? (
@@ -432,9 +427,6 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
               },
             ]}
           />
-        ) : null}
-        {i18nHydrationScript ? (
-          <script id="egdata-i18n" dangerouslySetInnerHTML={{ __html: i18nHydrationScript }} />
         ) : null}
         <Scripts />
       </body>

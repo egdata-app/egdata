@@ -1,8 +1,8 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardTitle, CardDescription } from "../ui/card";
 import { useCookiesContext } from "@/hooks/use-app-cookies";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 export function CookieBanner() {
   const { t } = useTranslation();

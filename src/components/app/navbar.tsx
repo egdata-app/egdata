@@ -1,4 +1,5 @@
-import { Link, useNavigate } from "@tanstack/react-router";
+import { useNavigate } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import {
   NavigationMenuContent,
   NavigationMenuItem,
@@ -52,8 +53,8 @@ import {
   CalendarCheck2Icon,
 } from "lucide-react";
 import { httpClient } from "@/lib/http-client";
-import { useTranslation } from "react-i18next";
-import type { GenreResponse } from "@/routes/genres";
+import { useTranslation } from "@/lib/paraglide-react";
+import type { GenreResponse } from "@/routes/{-$locale}/genres";
 import { Separator } from "../ui/separator";
 
 interface ListItemProps extends React.ComponentPropsWithoutRef<"a"> {
@@ -130,7 +131,7 @@ const ExploreMenu = () => {
           {/* Rankings */}
           <li>
             <Link
-              to="/collections/$id"
+              to="/{-$locale}/collections/$id"
               params={{ id: "top-sellers" }}
               className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-sm font-medium outline-none"
             >
@@ -140,7 +141,7 @@ const ExploreMenu = () => {
           </li>
           <li>
             <Link
-              to="/collections/$id"
+              to="/{-$locale}/collections/$id"
               params={{ id: "most-played" }}
               className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-sm font-medium outline-none"
             >
@@ -150,7 +151,7 @@ const ExploreMenu = () => {
           </li>
           <li>
             <Link
-              to="/collections/$id"
+              to="/{-$locale}/collections/$id"
               params={{ id: "top-wishlisted" }}
               className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-sm font-medium outline-none"
             >
@@ -160,7 +161,7 @@ const ExploreMenu = () => {
           </li>
           <li>
             <Link
-              to="/collections/$id"
+              to="/{-$locale}/collections/$id"
               params={{ id: "top-new-releases" }}
               className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-sm font-medium outline-none"
             >
@@ -171,7 +172,7 @@ const ExploreMenu = () => {
           {/* Link to rest of the collections */}
           <li>
             <Link
-              to="/collections"
+              to="/{-$locale}/collections"
               className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-xs font-medium outline-none text-primary underline"
             >
               {t("nav.seeAllCollections")}
@@ -185,7 +186,7 @@ const ExploreMenu = () => {
         <ul className="space-y-1 list-none">
           <li>
             <Link
-              to="/stats/releases"
+              to="/{-$locale}/stats/releases"
               className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-sm font-medium outline-none"
             >
               <BarChart3Icon className="w-4 h-4 text-muted-foreground" />
@@ -204,7 +205,7 @@ const ExploreMenu = () => {
           {genres?.slice(0, 6).map((genre) => (
             <li key={genre.genre.id}>
               <Link
-                to="/search"
+                to="/{-$locale}/search"
                 search={{
                   tags: [genre.genre.id],
                 }}
@@ -217,7 +218,7 @@ const ExploreMenu = () => {
         </ul>
         <div className="mt-4">
           <Link
-            to="/genres"
+            to="/{-$locale}/genres"
             className="flex items-center gap-2 px-2 py-2 rounded hover:bg-accent/30 focus:bg-accent/40 transition text-xs text-primary underline font-medium outline-none"
           >
             {t("nav.seeAllGenres")}
@@ -339,7 +340,7 @@ export default function Navbar() {
         </SheetTrigger>
         <SheetContent side="left" className="w-[300px] sm:w-[400px] p-0">
           <SheetHeader className="p-4 border-b border-border/50">
-            <Link to="/" className="flex items-center gap-2">
+            <Link to="/{-$locale}" className="flex items-center gap-2">
               <img
                 src="https://cdn.egdata.app/logo_simple_white_clean.png"
                 alt={t("nav.logoAlt")}
@@ -485,7 +486,7 @@ export default function Navbar() {
           </div>
         </SheetContent>
       </Sheet>
-      <Link to="/" className="hidden lg:flex justify-center items-center" preload="viewport">
+      <Link to="/{-$locale}" className="hidden lg:flex justify-center items-center" preload="viewport">
         <img
           src="https://cdn.egdata.app/logo_simple_white_clean.png"
           alt={t("nav.logoAlt")}

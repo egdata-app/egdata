@@ -1,7 +1,7 @@
 import { textPlatformIcons } from "@/components/app/platform-icons";
 import { calculateSize } from "@/lib/calculate-size";
 import type { Asset } from "@/types/asset";
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import type { ColumnDef } from "@tanstack/react-table";
 
 export const platforms: {
@@ -91,7 +91,7 @@ export const columns: ColumnDef<Asset, unknown>[] = [
     cell: (info) => {
       return (
         <Link
-          to="/items/$id"
+          to="/{-$locale}/items/$id"
           params={{ id: info.getValue() as string }}
           className="text-badge font-mono"
         >

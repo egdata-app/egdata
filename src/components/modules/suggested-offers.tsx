@@ -12,7 +12,7 @@ import { shuffle } from "@/lib/shuffle";
 import { useCountry } from "@/hooks/use-country";
 import { ArrowUpIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 export function SuggestedOffers({ id }: { id: string }) {
   const { t } = useTranslation();

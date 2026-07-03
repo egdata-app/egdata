@@ -1,7 +1,7 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { captureMessage } from "@/lib/pulse-telemetry";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 export const saveStateFile = createServerFn({ method: "GET" }).handler(async (ctx) => {
   console.log("Saving state", ctx);

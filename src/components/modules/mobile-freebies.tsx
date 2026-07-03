@@ -8,16 +8,13 @@ import { cn } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import { Image } from "@/components/app/image";
 import { getImage } from "@/lib/getImage";
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import { useLocale } from "@/hooks/use-locale";
 import { calculatePrice } from "@/lib/calculate-price";
 import type { GiveawayOffer } from "@/types/giveaways";
-import { createFileRoute } from "@tanstack/react-router";
 import { platformIcons } from "@/components/app/platform-icons";
 import { DateTime } from "luxon";
-import { useTranslation } from "react-i18next";
-
-export const Route = createFileRoute("/offers/$id")({});
+import { useTranslation } from "@/lib/paraglide-react";
 
 export function MobileFreebiesCarousel() {
   const { t } = useTranslation();
@@ -93,7 +90,7 @@ function MobileGiveawayCard({ offer }: { offer: GiveawayOffer }) {
 
   return (
     <Link
-      to="/offers/$id"
+      to="/{-$locale}/offers/$id"
       params={{ id: offer.id }}
       className="flex w-[300px] shrink-0 flex-col overflow-hidden rounded-lg shadow-md"
     >

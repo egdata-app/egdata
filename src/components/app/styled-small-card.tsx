@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import buildImageUrl from "@/lib/build-image-url";
 import { calculatePrice } from "@/lib/calculate-price";
 import { getImage } from "@/lib/getImage";
@@ -19,7 +19,7 @@ export const StyledSmallCard: React.FC<{
   return (
     <Link
       className="flex items-center justify-between bg-muted rounded-lg shadow-lg w-full h-16 relative overflow-hidden group"
-      to="/offers/$id"
+      to="/{-$locale}/offers/$id"
       params={{ id: offer.id }}
       preload="viewport"
     >

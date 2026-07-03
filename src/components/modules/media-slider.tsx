@@ -12,7 +12,7 @@ import { ChevronLeft, ChevronRight, PlayIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "../ui/skeleton";
 import { DownloadIcon } from "@radix-ui/react-icons";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 interface SlideBase {
   id: string;

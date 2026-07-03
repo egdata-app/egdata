@@ -1,5 +1,5 @@
 import type { TypeOf } from "zod";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 import type { formSchema } from "@/stores/searchStore";
 import type { SearchV2Response } from "@/types/search-v2";
 import { usePreferences } from "@/hooks/use-preferences";

@@ -16,10 +16,11 @@ import type { SingleItem } from "@/types/single-item";
 import type { SingleOffer } from "@/types/single-offer";
 import type { SingleSandbox } from "@/types/single-sandbox";
 import { useQuery } from "@tanstack/react-query";
-import { Link, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
+import { Outlet, useLocation, useNavigate } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import { DateTime } from "luxon";
-import { useTranslation } from "react-i18next";
-import type { TFunction } from "i18next";
+import { useTranslation } from "@/lib/paraglide-react";
+import type { TFunction } from "@/lib/paraglide-i18next";
 import {
   Archive,
   BoxIcon,
@@ -42,6 +43,7 @@ export interface SandboxShellProps {
 
 export function SandboxShell({ id, hub }: SandboxShellProps) {
   const { country } = useCountry();
+  const { locale } = useLocale();
   const { t } = useTranslation();
   const { data: sandbox } = useQuery(sandboxQueryOptions(id));
   const { data: baseGame } = useQuery(sandboxBaseGameQueryOptions(id));
@@ -109,8 +111,20 @@ export function SandboxShell({ id, hub }: SandboxShellProps) {
           ]}
           activeSection={subPath}
           onSectionChange={(section) => {
+            const sandboxRoutes = {
+              "": "/{-$locale}/sandboxes/$id",
+              offers: "/{-$locale}/sandboxes/$id/offers",
+              items: "/{-$locale}/sandboxes/$id/items",
+              assets: "/{-$locale}/sandboxes/$id/assets",
+              builds: "/{-$locale}/sandboxes/$id/builds",
+              achievements: "/{-$locale}/sandboxes/$id/achievements",
+              changelog: "/{-$locale}/sandboxes/$id/changelog",
+            } as const;
+            const to = sandboxRoutes[section as keyof typeof sandboxRoutes] ?? sandboxRoutes[""];
+
             navigate({
-              to: section ? `/sandboxes/${id}/${section}` : `/sandboxes/${id}`,
+              to,
+              params: { id, locale },
               replace: false,
               resetScroll: false,
             });
@@ -225,7 +239,7 @@ function SandboxHero({
               <>
                 <span>/</span>
                 <Link
-                  to="/sellers/$id"
+                  to="/{-$locale}/sellers/$id"
                   params={{ id: seller.id }}
                   className="underline decoration-dotted underline-offset-4"
                 >

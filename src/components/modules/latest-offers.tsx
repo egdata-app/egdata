@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import { OfferCard } from "@/components/app/offer-card";
 import {
   Carousel,
@@ -11,7 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ArrowRightIcon } from "lucide-react";
 import { useCountry } from "@/hooks/use-country";
 import { getLatestOffers } from "@/queries/latest-offers";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 export function LatestOffers() {
   const { t } = useTranslation();
@@ -27,7 +27,7 @@ export function LatestOffers() {
     <section className="w-full pt-4" id="latest-games">
       <Link
         className="text-xl font-bold text-left inline-flex group items-center gap-2"
-        to="/search"
+        to="/{-$locale}/search"
         search={{
           sortBy: "creationDate",
         }}

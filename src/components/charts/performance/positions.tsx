@@ -10,7 +10,7 @@ import { DateTime } from "luxon";
 import { useLocale } from "@/hooks/use-locale";
 import { computeChange } from "@/lib/performance";
 import { PerformanceEmptyState } from "@/components/app/performance-empty-state";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 interface Position {
   date: string;

@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import { Button } from "../ui/button";
 
 export function NotFound({ children }: { children?: any }) {
@@ -15,7 +15,7 @@ export function NotFound({ children }: { children?: any }) {
           Go back
         </Button>
         <Link
-          to="/"
+          to="/{-$locale}"
           className="bg-cyan-600 text-foreground px-2 py-1 rounded uppercase font-black text-sm"
         >
           Start Over

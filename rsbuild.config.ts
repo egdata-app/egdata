@@ -83,8 +83,6 @@ export default defineConfig({
             "@tanstack/devtools",
             "@tanstack/react-start",
             "graphql",
-            "i18next",
-            "react-i18next",
           ],
         },
       },

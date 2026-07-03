@@ -1,6 +1,6 @@
 import type { SearchV2Response } from "@/types/search-v2";
 import React from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 export interface SearchHeaderV2Props {
   query: Record<string, unknown>;

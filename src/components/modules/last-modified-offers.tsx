@@ -11,8 +11,8 @@ import {
 } from "../ui/carousel";
 import { Skeleton } from "../ui/skeleton";
 import { getLastModified } from "@/queries/last-modified";
-import { Link } from "@tanstack/react-router";
-import { useTranslation } from "react-i18next";
+import { Link } from "@/components/app/localized-link";
+import { useTranslation } from "@/lib/paraglide-react";
 
 export function LastModifiedGames() {
   const { t } = useTranslation();
@@ -25,7 +25,7 @@ export function LastModifiedGames() {
   return (
     <section className="w-full" id="last-modified-offers">
       <Link
-        to="/search"
+        to="/{-$locale}/search"
         search={{
           sortBy: "lastModifiedDate",
         }}

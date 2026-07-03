@@ -15,10 +15,10 @@ import { calculatePrice } from "@/lib/calculate-price";
 import { cn } from "@/lib/utils";
 import { EqualIcon } from "lucide-react";
 import { EGSIcon } from "../icons/egs";
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import { useLocale } from "@/hooks/use-locale";
 import { getBuyLink } from "@/lib/get-build-link";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 const trackEvent = (offers: { id: string; namespace: string }[], type: "bundle" | "single") => {
   window.umami?.track(`bundle-${type}`, {

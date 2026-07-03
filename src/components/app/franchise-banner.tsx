@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import type { Franchise } from "@/types/franchise";
 import { useQuery } from "@tanstack/react-query";
 import { httpClient } from "@/lib/http-client";
@@ -31,7 +31,7 @@ export const FranchiseBanner = ({ franchise }: { franchise: Franchise }) => {
 
   return (
     <Link
-      to="/franchises/$id"
+      to="/{-$locale}/franchises/$id"
       params={{ id: franchise._id }}
       className="block w-full mt-2 group overflow-hidden rounded-lg relative min-h-[60px] bg-secondary/20 border border-secondary/30"
     >

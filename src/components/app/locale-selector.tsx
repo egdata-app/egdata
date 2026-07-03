@@ -1,6 +1,6 @@
 import * as React from "react";
 import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -13,6 +13,8 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useLocale } from "@/hooks/use-locale";
 import { SUPPORTED_LOCALES, getLocaleName } from "@/lib/supported-locales";
+import { stripLocalePrefix } from "@/lib/paraglide-strategy";
+import { isLocale, setLocale as setParaglideLocale } from "@/paraglide/runtime.js";
 
 function LocaleSelectorImpl() {
   const [open, setOpen] = React.useState(false);
@@ -24,9 +26,19 @@ function LocaleSelectorImpl() {
   const onSelect = React.useCallback(
     (currentName: string) => {
       const match = SUPPORTED_LOCALES.find((l) => l.name === currentName);
-      if (match) {
-        setLocale(match.code);
-        setOpen(false);
+      if (!match || !isLocale(match.code)) return;
+
+      void setParaglideLocale(match.code, { reload: false });
+      setLocale(match.code);
+      setOpen(false);
+
+      if (typeof window === "undefined") return;
+
+      const nextPathname = stripLocalePrefix(window.location.pathname);
+      const nextUrl = `${nextPathname}${window.location.search}${window.location.hash}`;
+
+      if (nextUrl !== `${window.location.pathname}${window.location.search}${window.location.hash}`) {
+        window.location.assign(nextUrl);
       }
     },
     [setLocale],

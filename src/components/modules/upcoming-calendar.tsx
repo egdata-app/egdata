@@ -3,13 +3,13 @@ import type { SingleOffer } from "@/types/single-offer";
 import { OfferCard } from "@/components/app/offer-card";
 import { Carousel, CarouselContent } from "../ui/carousel";
 import { useCountry } from "@/hooks/use-country";
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { useEffect, useState } from "react";
 import { httpClient } from "@/lib/http-client";
 import { DateTime } from "luxon";
 import { useLocale } from "@/hooks/use-locale";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 interface UpcomingRes {
   elements: SingleOffer[];
@@ -68,7 +68,7 @@ export function UpcomingCalendar() {
     <section id="upcoming-calendar" className="mb-2 w-full">
       <Link
         className="text-xl font-bold text-left inline-flex group items-center gap-2"
-        to="/search"
+        to="/{-$locale}/search"
         search={{
           sortBy: "upcoming",
         }}

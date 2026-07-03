@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import { useState, useEffect } from "react";
 import buildImageUrl from "@/lib/build-image-url";
 import { httpClient } from "@/lib/http-client";
@@ -31,7 +31,7 @@ export const BaseGame: React.FC<{ offer: SingleOffer }> = ({ offer }) => {
   return (
     <Link
       className="flex items-center bg-muted rounded-lg shadow-lg w-full h-16 relative mt-2 overflow-hidden group"
-      to="/offers/$id"
+      to="/{-$locale}/offers/$id"
       params={{ id: game.id }}
       preload="viewport"
     >

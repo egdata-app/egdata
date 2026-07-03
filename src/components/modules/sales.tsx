@@ -12,7 +12,7 @@ import { useCountry } from "@/hooks/use-country";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { OfferCard } from "@/components/app/offer-card";
 import type { SingleOffer } from "@/types/single-offer";
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 
 export function SalesModule({ eventId, event }: { eventId: string; event: string }) {
   const { country } = useCountry();
@@ -34,7 +34,7 @@ export function SalesModule({ eventId, event }: { eventId: string; event: string
     <section className="w-full h-full my-4" id={`promotion-${eventId}`}>
       <Link
         className="text-xl font-bold text-left inline-flex group items-center gap-2"
-        to="/promotions/$id"
+        to="/{-$locale}/promotions/$id"
         params={{ id: eventId }}
         preload="viewport"
       >

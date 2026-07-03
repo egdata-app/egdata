@@ -3,7 +3,7 @@ import { captureError, captureMessage } from "@/lib/pulse-telemetry";
 import type { EpicToken } from "@/types/epic";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 export const validateState = createServerFn({ method: "GET" })
   .inputValidator((state: string) => state)
@@ -99,7 +99,7 @@ export const Route = createFileRoute("/auth/callback")({
 
     if (!code || !state) {
       throw redirect({
-        to: "/",
+        to: "/{-$locale}",
         search: { error: "invalid_request" },
       });
     }
@@ -108,7 +108,7 @@ export const Route = createFileRoute("/auth/callback")({
 
     if (!stateValid) {
       throw redirect({
-        to: "/",
+        to: "/{-$locale}",
         search: { error: "invalid_state" },
       });
     }
@@ -119,7 +119,7 @@ export const Route = createFileRoute("/auth/callback")({
         source: "auth.callback.tokens",
       });
       throw redirect({
-        to: "/",
+        to: "/{-$locale}",
         search: { error: "invalid_request" },
       });
     });
@@ -154,13 +154,13 @@ export const Route = createFileRoute("/auth/callback")({
         source: "auth.callback.persist",
       });
       throw redirect({
-        to: "/",
+        to: "/{-$locale}",
         search: { error: "persist_error" },
       });
     }
 
     throw redirect({
-      to: "/",
+      to: "/{-$locale}",
     });
   },
 });

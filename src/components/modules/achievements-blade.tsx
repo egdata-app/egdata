@@ -17,8 +17,10 @@ import { ArrowRightIcon } from "@radix-ui/react-icons";
 import { FaTrophy } from "react-icons/fa6";
 import { cn } from "@/lib/utils";
 import { httpClient } from "@/lib/http-client";
-import { Link, useNavigate } from "@tanstack/react-router";
-import { useTranslation } from "react-i18next";
+import { useNavigate } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
+import { useTranslation } from "@/lib/paraglide-react";
+import { localizeHref } from "@/lib/paraglide-strategy";
 
 type OfferWithAchievements = SingleOffer & {
   achievements: AchievementSet;
@@ -68,7 +70,7 @@ export function GamesWithAchievements() {
   return (
     <section className="w-full flex flex-col gap-4 my-4">
       <Link
-        to={"/search"}
+        to={"/{-$locale}/search"}
         search={{
           tags: ["19847"],
           sortBy: "creationDate",
@@ -113,9 +115,9 @@ export function GamesWithAchievements() {
               key={game.id}
               onClick={(event) => {
                 if (event.ctrlKey || event.button === 1) {
-                  window.open(`/offers/${game.id}`, "_blank");
+                  window.open(localizeHref(`/offers/${game.id}`), "_blank");
                 } else {
-                  navigate({ to: `/offers/${game.id}` });
+                  navigate({ to: "/{-$locale}/offers/$id", params: { id: game.id } });
                 }
               }}
               className="cursor-pointer hover:bg-accent/50 transition-colors duration-200"

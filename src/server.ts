@@ -1,6 +1,8 @@
 import handler, { createServerEntry } from "@tanstack/react-start/server-entry";
 import { resolve } from "node:path";
 import type { ServerMiddleware } from "srvx";
+import "@/lib/paraglide-strategy";
+import { paraglideMiddleware } from "@/paraglide/server.js";
 import { SECURITY_HEADERS } from "@/lib/security-headers";
 import { serveStaticAssets } from "@/lib/static-assets";
 import {
@@ -38,7 +40,7 @@ const clientDist = resolve(process.cwd(), "dist/client");
 const entry = createServerEntry({
   async fetch(request) {
     try {
-      return await handler.fetch(request);
+      return await paraglideMiddleware(request, () => handler.fetch(request));
     } catch (error) {
       captureError(error, {
         request,

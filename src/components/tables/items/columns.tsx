@@ -1,7 +1,7 @@
 import { textPlatformIcons } from "@/components/app/platform-icons";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import type { SingleItem } from "@/types/single-item";
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import type { ColumnDef } from "@tanstack/react-table";
 import {
   AtomIcon,
@@ -132,7 +132,7 @@ export const columns: ColumnDef<SingleItem>[] = [
       return (
         <Link
           className="text-badge font-mono"
-          to="/items/$id"
+          to="/{-$locale}/items/$id"
           params={{ id: info.getValue() as string }}
         >
           {(info.getValue() as string).slice(0, 4)}...
@@ -182,7 +182,7 @@ export const columns: ColumnDef<SingleItem>[] = [
       const developer = info.getValue();
       const id = info.row.original.developerId;
       return (
-        <Link to="/sellers/$id" params={{ id: id as string }} className="text-badge">
+        <Link to="/{-$locale}/sellers/$id" params={{ id: id as string }} className="text-badge">
           {developer as string}
         </Link>
       );

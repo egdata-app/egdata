@@ -12,11 +12,11 @@ import { calculatePrice } from "@/lib/calculate-price";
 import { ArrowRightIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { httpClient } from "@/lib/http-client";
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import { useLocale } from "@/hooks/use-locale";
 import { mergeFreebies } from "@/utils/merge-freebies";
 import { DateTime } from "luxon";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 export function GiveawaysCarousel({ hideTitle }: { hideTitle?: boolean }) {
   const { t } = useTranslation();
@@ -57,7 +57,7 @@ export function GiveawaysCarousel({ hideTitle }: { hideTitle?: boolean }) {
       {!hideTitle && (
         <Link
           className="text-xl font-display font-semibold text-left inline-flex group items-center gap-2"
-          to="/freebies"
+          to="/{-$locale}/freebies"
           search={{ developerDisplayName: undefined, publisherDisplayName: undefined }}
         >
           <h2 className="text-xl font-display font-semibold">{t("components.giveaways.title")}</h2>
@@ -95,7 +95,7 @@ function GiveawayCard({ offer }: { offer: GiveawayOffer }) {
 
   return (
     <Link
-      to="/offers/$id"
+      to="/{-$locale}/offers/$id"
       params={{
         id: offer.id,
       }}

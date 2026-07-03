@@ -1,8 +1,8 @@
 import type { JSX } from "react";
 import type * as React from "react";
-import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { localizeHref } from "@/lib/paraglide-strategy";
 
 type LinkItem = {
   id: string;
@@ -55,8 +55,8 @@ export function SectionsNav({
                 "items-center justify-center rounded-md p-0 text-muted-foreground",
               )}
             >
-              <Link
-                to={link.href}
+              <a
+                href={localizeHref(link.href)}
                 className={cn(
                   activeSection === link.id
                     ? "bg-primary text-primary-foreground w-full"
@@ -68,10 +68,9 @@ export function SectionsNav({
                   e.preventDefault();
                   onSectionChange(link.id);
                 }}
-                preload="render"
               >
                 {link.label}
-              </Link>
+              </a>
             </li>
           ))}
         </ul>

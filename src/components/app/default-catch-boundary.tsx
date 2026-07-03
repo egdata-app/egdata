@@ -38,14 +38,14 @@ export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
         </Button>
         {isRoot ? (
           <Link
-            to="/"
+            to="/{-$locale}"
             className={"px-2 py-1 bg-muted rounded text-foreground uppercase font-extrabold"}
           >
             Home
           </Link>
         ) : (
           <Link
-            to="/"
+            to="/{-$locale}"
             className={"px-2 py-1 bg-muted rounded text-foreground uppercase font-extrabold"}
             onClick={(e) => {
               e.preventDefault();

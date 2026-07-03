@@ -102,7 +102,8 @@ export function PrepurchasePopup({ id }: { id: string }) {
               saveDismissed(new Date().toISOString());
               setIsOpen(false);
               navigate({
-                to: `/offers/${prepurchaseOffer?.offer.id}`,
+                to: "/{-$locale}/offers/$id",
+                params: { id: prepurchaseOffer?.offer.id ?? "" },
               });
             }}
           >

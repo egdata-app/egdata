@@ -1,7 +1,7 @@
 import React from "react";
 import { offersDictionary, offerTypeValues } from "@/lib/offers-dictionary";
 import type { SearchV2Response } from "@/types/search-v2";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 export interface SearchFiltersV2Props {
   query: Record<string, unknown>;

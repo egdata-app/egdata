@@ -5,8 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "TZ=UTC rsbuild dev",
-    "build": "rsbuild build && node scripts/build-sw.mjs && node scripts/precompress-assets.mjs",
+    "dev": "pnpm paraglide:compile && TZ=UTC rsbuild dev",
+    "build": "pnpm paraglide:compile && rsbuild build && node scripts/build-sw.mjs && node scripts/precompress-assets.mjs",
     "start": "node --enable-source-maps scripts/start-prod.mjs",
     "start:srvx": "TZ=UTC NODE_OPTIONS=--enable-source-maps srvx --prod dist/server/index.js",
     "precompress": "node scripts/precompress-assets.mjs",
@@ -19,8 +19,9 @@
     "test:e2e:debug": "playwright test --debug",
     "test:e2e:report": "playwright show-report",
     "locales:validate": "node scripts/validate-locales.mjs",
+    "paraglide:compile": "node scripts/compile-paraglide.mjs",
     "translation:add": "node scripts/add-translation.mjs",
-    "typecheck": "tsgo",
+    "typecheck": "pnpm paraglide:compile && tsgo",
     "generate": "gql-tada generate-output",
     "prepare": "simple-git-hooks"
   },
@@ -108,7 +109,6 @@
     "graphql": "^16.14.0",
     "graphql-request": "^7.4.0",
     "h3": "^1.15.11",
-    "i18next": "^26.3.4",
     "idb": "^8.0.3",
     "input-otp": "^1.4.2",
     "jose": "^5.10.0",
@@ -126,7 +126,6 @@
     "react-cookie": "^7.2.2",
     "react-day-picker": "9.7.0",
     "react-dom": "^19.2.5",
-    "react-i18next": "^17.0.8",
     "react-icons": "^5.6.0",
     "react-markdown": "^9.1.0",
     "recharts": "^2.15.4",
@@ -139,6 +138,7 @@
     "zod": "^4.4.0"
   },
   "devDependencies": {
+    "@inlang/paraglide-js": "^2.20.2",
     "@playwright/test": "^1.59.1",
     "@rsbuild/core": "^2.0.15",
     "@rsbuild/plugin-react": "^2.1.0",

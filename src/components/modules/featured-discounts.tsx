@@ -22,9 +22,9 @@ import { ArrowUpIcon } from "@radix-ui/react-icons";
 import type { Price as OfferPrice } from "@/types/price";
 import { httpClient } from "@/lib/http-client";
 import { calculatePrice } from "@/lib/calculate-price";
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import { useLocale } from "@/hooks/use-locale";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 const SLIDE_DELAY = 15_000;
 
@@ -339,7 +339,7 @@ const FeaturedOffer = memo(function FeaturedOffer({ offer }: { offer: SingleOffe
               {offer.tags.slice(0, 4).map((tag) => (
                 <Link
                   key={tag.id}
-                  to="/search"
+                  to="/{-$locale}/search"
                   search={{
                     tags: [tag.id],
                   }}
@@ -358,7 +358,7 @@ const FeaturedOffer = memo(function FeaturedOffer({ offer }: { offer: SingleOffe
             <Price offer={offer} />
             <Button asChild size="lg" className="w-full mt-4">
               <Link
-                to="/offers/$id"
+                to="/{-$locale}/offers/$id"
                 params={{
                   id: offer.id,
                 }}

@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import { LocaleContext } from "@/contexts/locale";
 import { DEFAULT_LOCALE, isRTL } from "@/lib/supported-locales";
 import { changeLanguage as changeI18nLanguage } from "@/lib/i18n";
+import { extractLocaleFromNavigator } from "@/paraglide/runtime.js";
 
 const DEFAULT_TIMEZONE = "UTC";
 
@@ -46,7 +47,10 @@ export const LocaleProvider: React.FC<LocaleProviderProps> = ({
       .then((resolvedLocale) => {
         if (cancelled) return;
 
-        updateDocumentLocale(locale ?? resolvedLocale);
+        if (locale !== resolvedLocale) {
+          setLocaleState(resolvedLocale);
+        }
+        updateDocumentLocale(resolvedLocale);
       })
       .catch((error: unknown) => {
         console.error("Failed to load locale", error);
@@ -60,7 +64,7 @@ export const LocaleProvider: React.FC<LocaleProviderProps> = ({
   useEffect(() => {
     if (initialLocale || Cookies.get("user_locale")) return;
 
-    const browserLocale = window.navigator.language;
+    const browserLocale = extractLocaleFromNavigator();
     if (browserLocale && browserLocale !== locale) {
       setLocaleState(browserLocale);
       updateDocumentLocale(browserLocale);

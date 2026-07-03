@@ -16,7 +16,8 @@ import { getImage } from "@/lib/getImage";
 import { Badge } from "../ui/badge";
 import { useNavigate } from "@tanstack/react-router";
 import { useLocale } from "@/hooks/use-locale";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
+import { localizeHref } from "@/lib/paraglide-strategy";
 
 type UpcomingOffer = Pick<
   SingleOffer,
@@ -79,9 +80,9 @@ export function UpcomingOffers() {
               className="cursor-pointer hover:bg-accent/50 transition-colors duration-200"
               onClick={(event) => {
                 if (event.ctrlKey || event.button === 1) {
-                  window.open(`/offers/${offer.id}`, "_blank");
+                  window.open(localizeHref(`/offers/${offer.id}`), "_blank");
                 } else {
-                  navigate({ to: `/offers/${offer.id}` });
+                  navigate({ to: "/{-$locale}/offers/$id", params: { id: offer.id } });
                 }
               }}
             >

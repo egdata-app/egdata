@@ -1,5 +1,5 @@
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import { httpClient } from "@/lib/http-client";
 import { internalNamespaces } from "@/lib/internal-namespaces";
 import { Alert, AlertTitle, AlertDescription } from "../ui/alert";
@@ -83,7 +83,7 @@ export const InternalBanner: React.FC<{
         public.
       </AlertDescription>
       {results.length > 0 && (
-        <Link to="/offers/$id" params={{ id: results[0].id }} className="underline">
+        <Link to="/{-$locale}/offers/$id" params={{ id: results[0].id }} className="underline">
           Go to public offer
         </Link>
       )}

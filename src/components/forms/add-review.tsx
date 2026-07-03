@@ -18,7 +18,7 @@ import { captureError } from "@/lib/pulse-telemetry";
 import consola from "consola";
 import { Viewer } from "../app/viewer";
 import { Loader } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 interface ReviewFormProps {
   setIsOpen: (isOpen: boolean) => void;

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://inlang.com/schema/project-settings",
+  "baseLocale": "en-US",
+  "locales": [
+    "id",
+    "ms",
+    "da",
+    "de",
+    "en-US",
+    "es-ES",
+    "es-MX",
+    "fil",
+    "fr",
+    "it",
+    "hu",
+    "nl",
+    "no",
+    "pl",
+    "pt-BR",
+    "pt",
+    "ro",
+    "fi",
+    "sv",
+    "vi",
+    "tr",
+    "cs",
+    "bg",
+    "ru",
+    "uk",
+    "ar",
+    "hi",
+    "th",
+    "ja",
+    "zh-CN",
+    "zh-Hant",
+    "ko"
+  ],
+  "modules": ["https://cdn.jsdelivr.net/npm/@inlang/plugin-i18next@latest/dist/index.js"],
+  "plugin.inlang.i18next": {
+    "pathPattern": "./src/locales/{locale}/translation.json",
+    "variableReferencePattern": ["{{", "}}"]
+  }
+}

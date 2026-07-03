@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Key, CheckCircle, AlertCircle, RefreshCw, Copy } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { cn } from "@/lib/utils";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 interface ApiKeyManagerProps {
   onApiKeyChange: (apiKey: string) => void;

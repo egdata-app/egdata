@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import { Image } from "./image";
 import { getImage } from "@/lib/getImage";
 import { Skeleton } from "../ui/skeleton";
@@ -33,7 +33,7 @@ export function GameCard({ offer }: { offer: SingleOffer }) {
 
   return (
     <Link
-      to="/offers/$id"
+      to="/{-$locale}/offers/$id"
       params={{ id: offer.id }}
       preload="viewport"
       aria-label={`Open offer ${offer.title}`}
@@ -150,7 +150,7 @@ export function OfferCard({
 
   return (
     <Link
-      to="/offers/$id"
+      to="/{-$locale}/offers/$id"
       params={{
         id: offer.id,
       }}

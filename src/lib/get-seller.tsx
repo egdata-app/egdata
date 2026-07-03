@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 
 export function getSeller({
   developerDisplayName,
@@ -72,7 +72,7 @@ export function Seller({
   if (developer === publisherDisplayName) {
     return (
       <Link
-        to={"/search"}
+        to={"/{-$locale}/search"}
         search={{
           developerDisplayName: developer ?? undefined,
         }}
@@ -87,7 +87,7 @@ export function Seller({
   if (publisherDisplayName === null || publisherDisplayName === undefined) {
     return (
       <Link
-        to={"/search"}
+        to={"/{-$locale}/search"}
         search={{
           developerDisplayName: developer ?? undefined,
         }}
@@ -101,7 +101,7 @@ export function Seller({
   return (
     <div className="flex flex-row items-center gap-1">
       <Link
-        to={"/search"}
+        to={"/{-$locale}/search"}
         search={{
           developerDisplayName: developer ?? undefined,
         }}
@@ -111,7 +111,7 @@ export function Seller({
       </Link>
       <span className="text-muted-foreground">-</span>
       <Link
-        to={"/search"}
+        to={"/{-$locale}/search"}
         search={{
           publisherDisplayName: publisherDisplayName ?? undefined,
         }}

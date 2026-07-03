@@ -14,7 +14,7 @@ import { offersDictionary } from "@/lib/offers-dictionary";
 import { useGenres } from "@/hooks/use-genres";
 import type { AchievementsSets } from "@/queries/offer-achievements";
 import { getRarity } from "@/lib/get-rarity";
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import type { SingleSandbox } from "@/types/single-sandbox";
 import { useCountry } from "@/hooks/use-country";
 import { Button } from "../ui/button";
@@ -23,7 +23,7 @@ import { platformIcons } from "./platform-icons";
 import { GameFeatures } from "./features";
 import { calculatePrice } from "@/lib/calculate-price";
 import { useLocale } from "@/hooks/use-locale";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 const CompareIcon = (props: JSX.IntrinsicElements["svg"]) => (
   <svg
@@ -192,7 +192,7 @@ function SingleGame({ query, id }: { query: UseQueryResult<SingleOffer, Error>; 
         className="flex flex-col h-[20rem] max-h-[20rem] min-h-[20rem] justify-between"
       >
         <Link
-          to="/offers/$id"
+          to="/{-$locale}/offers/$id"
           params={{ id: data.id }}
           className="font-bold underline underline-offset-4 decoration-slate-100/20 overflow-ellipsis mb-2"
         >
@@ -210,7 +210,7 @@ function SingleGame({ query, id }: { query: UseQueryResult<SingleOffer, Error>; 
             label={t("components.comparison.seller")}
             value={
               <Link
-                to="/sellers/$id"
+                to="/{-$locale}/sellers/$id"
                 params={{ id: data.seller.id }}
                 className="underline underline-offset-4 decoration-slate-100/20"
               >

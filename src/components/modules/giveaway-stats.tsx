@@ -5,9 +5,9 @@ import type { Price } from "@/types/price";
 import { useQuery } from "@tanstack/react-query";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { calculatePrice } from "@/lib/calculate-price";
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import { cn } from "@/lib/utils";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 export const getGiveawaysStats = async ({ country }: { country: string }) => {
   const res = await httpClient.get<{
@@ -157,7 +157,7 @@ export function GiveawaysStats({ showTitle = true, wrap = false }: GiveawayStats
           <Tooltip>
             <Link
               className="flex flex-col items-center justify-center gap-2"
-              to="/freebies/sellers"
+              to="/{-$locale}/freebies/sellers"
             >
               <BigText
                 value={data.sellers.toLocaleString(locale)}

@@ -28,7 +28,7 @@ import {
   DialogTrigger,
 } from "../ui/dialog";
 import { AlertDialogHeader } from "../ui/alert-dialog";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 interface ReviewFormProps {
   setIsOpen: (isOpen: boolean) => void;

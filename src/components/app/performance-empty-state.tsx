@@ -2,7 +2,7 @@ import type { LucideIcon } from "lucide-react";
 import { BarChart3, CalendarX2, Inbox } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 type PerformanceEmptyStateProps = {
   variant: "no-data" | "no-range" | "no-collection";

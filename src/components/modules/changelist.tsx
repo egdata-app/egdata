@@ -4,7 +4,7 @@ import { UpdateIcon } from "@radix-ui/react-icons";
 import { timeAgo } from "@/lib/time-ago";
 import { ScrollArea } from "../ui/scroll-area";
 import { httpClient } from "@/lib/http-client";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 export interface Change {
   timestamp: string;

@@ -10,8 +10,8 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { useCountry } from "@/hooks/use-country";
 import { ArrowRightIcon } from "lucide-react";
-import { Link } from "@tanstack/react-router";
-import { useTranslation } from "react-i18next";
+import { Link } from "@/components/app/localized-link";
+import { useTranslation } from "@/lib/paraglide-react";
 
 export function LatestReleased() {
   const { t } = useTranslation();
@@ -29,7 +29,7 @@ export function LatestReleased() {
     <section className="w-full pt-4" id="latest-games">
       <Link
         className="text-xl font-bold text-left inline-flex group items-center gap-2"
-        to="/search"
+        to="/{-$locale}/search"
         search={{
           sortBy: "releaseDate",
         }}

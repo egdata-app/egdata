@@ -1,0 +1,420 @@
+import { SectionsNav } from "@/components/app/offer-sections";
+import { textPlatformIcons } from "@/components/app/platform-icons";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { useLocale } from "@/hooks/use-locale";
+import { calculateSize } from "@/lib/calculate-size";
+import { getQueryClient } from "@/lib/client";
+import { getFetchedQuery } from "@/lib/get-fetched-query";
+import { getHashType } from "@/lib/get-hash-type";
+import { getImage } from "@/lib/get-image";
+import { httpClient } from "@/lib/http-client";
+import { cn } from "@/lib/utils";
+import type { SingleBuild } from "@/types/builds";
+import type { SingleItem } from "@/types/single-item";
+import type { DehydratedState } from "@tanstack/react-query";
+import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { createFileRoute, Outlet, redirect, useLocation } from "@tanstack/react-router";
+import { BoxIcon, FilesIcon, OptionIcon } from "lucide-react";
+import { DateTime } from "luxon";
+import { useTranslation } from "@/lib/paraglide-react";
+import i18n from "@/lib/i18n";
+
+export const Route = createFileRoute("/{-$locale}/builds/$id")({
+  component: () => {
+    const { dehydratedState } = Route.useLoaderData() as {
+      dehydratedState: DehydratedState;
+      id: string;
+    };
+    return (
+      <HydrationBoundary state={dehydratedState}>
+        <BuildPage />
+      </HydrationBoundary>
+    );
+  },
+  loader: async ({ params, context }) => {
+    const { queryClient } = context;
+    const { id } = params;
+
+    await Promise.all([
+      queryClient.prefetchQuery({
+        queryKey: ["build", { id }],
+        queryFn: () => httpClient.get<SingleBuild>(`/builds/${id}`).catch(() => null),
+      }),
+      queryClient.prefetchQuery({
+        queryKey: ["build-items", { id }],
+        queryFn: () => httpClient.get<SingleItem[]>(`/builds/${id}/items`).catch(() => null),
+      }),
+    ]);
+
+    return {
+      id,
+      dehydratedState: dehydrate(queryClient),
+    };
+  },
+  // @ts-expect-error - loader return type
+  beforeLoad: async (ctx) => {
+    const { params } = ctx;
+    const subPath = ctx.location.pathname.toString().split(`/${params.id}/`)[1] as
+      | string
+      | undefined;
+
+    if (!subPath) {
+      throw redirect({
+        to: "/{-$locale}/builds/$id/files",
+        params: { id: params.id },
+        replace: true,
+        resetScroll: true,
+      });
+    }
+  },
+
+  head: (ctx) => {
+    const { params } = ctx;
+    const queryClient = getQueryClient();
+
+    if (!ctx.loaderData) {
+      return {
+        meta: [
+          {
+            title: i18n.t("builds.notFound"),
+            description: i18n.t("builds.notFound"),
+          },
+        ],
+      };
+    }
+
+    const build = getFetchedQuery<SingleBuild>(queryClient, ctx.loaderData?.dehydratedState, [
+      "build",
+      { id: params.id },
+    ]);
+    const items = getFetchedQuery<PaginatedResponse<SingleItem>>(
+      queryClient,
+      ctx.loaderData?.dehydratedState,
+      ["build-items", { id: params.id }],
+    );
+
+    if (!build) {
+      return {
+        meta: [
+          {
+            title: i18n.t("builds.notFound"),
+            description: i18n.t("builds.notFound"),
+          },
+        ],
+      };
+    }
+
+    const image = getImage(items?.data[0]?.keyImages ?? [], ["DieselGameBoxWide", "DieselGameBox"]);
+
+    return {
+      meta: [
+        {
+          title: i18n.t("builds.meta.title", {
+            title: items?.data[0]?.title,
+            version: build.buildVersion,
+          }),
+        },
+        {
+          name: "description",
+          content: i18n.t("builds.meta.description", {
+            version: build.buildVersion,
+            title: items?.data[0]?.title,
+          }),
+        },
+        {
+          name: "og:title",
+          content: i18n.t("builds.meta.title", {
+            title: items?.data[0]?.title,
+            version: build.buildVersion,
+          }),
+        },
+        {
+          name: "og:description",
+          content: i18n.t("builds.meta.description", {
+            version: build.buildVersion,
+            title: items?.data[0]?.title,
+          }),
+        },
+        {
+          property: "twitter:title",
+          content: i18n.t("builds.meta.title", {
+            title: items?.data[0]?.title,
+            version: build.buildVersion,
+          }),
+        },
+        {
+          property: "twitter:description",
+          content: i18n.t("builds.meta.description", {
+            version: build.buildVersion,
+            title: items?.data[0]?.title,
+          }),
+        },
+        {
+          name: "og:image",
+          content: image?.url ?? "https://cdn.egdata.app/placeholder-1080.webp",
+        },
+        {
+          name: "og:type",
+          content: "website",
+        },
+        {
+          name: "twitter:image",
+          content: image?.url ?? "https://cdn.egdata.app/placeholder-1080.webp",
+        },
+      ],
+    };
+  },
+});
+
+interface PaginatedResponse<T> {
+  data: T[];
+  total: number;
+}
+
+function BuildPage() {
+  const { t } = useTranslation();
+  const { id } = Route.useLoaderData() as { dehydratedState: DehydratedState; id: string };
+  const { locale } = Route.useParams();
+  const navigate = Route.useNavigate();
+  const { timezone } = useLocale();
+  const subPath = useLocation().pathname.split(`/${id}/`)[1];
+  const { data: items } = useQuery({
+    queryKey: ["build-items", { id }],
+    queryFn: () =>
+      httpClient.get<PaginatedResponse<SingleItem>>(`/builds/${id}/items`).catch(() => null),
+  });
+  const { data: build } = useQuery({
+    queryKey: ["build", { id }],
+    queryFn: () => httpClient.get<SingleBuild>(`/builds/${id}`).catch(() => null),
+  });
+
+  if (!build) {
+    return <div>{t("builds.notFound")}</div>;
+  }
+
+  return (
+    <main className="flex flex-col items-start justify-start h-full gap-4 p-4 w-full">
+      <div className="flex flex-col gap-4 mx-auto w-full">
+        <div className="flex h-auto w-full flex-wrap items-center justify-start gap-2 md:h-8">
+          <span className="text-lg text-muted-foreground inline-flex items-center">
+            {t("builds.build")}
+          </span>
+          <strong className="text-lg font-medium">{id.toUpperCase()}</strong>
+          <span className="text-lg text-muted-foreground inline-flex items-center">
+            {t("builds.for")}
+          </span>
+          <strong className="text-lg font-medium">{items?.data[0].title}</strong>
+          <span>{textPlatformIcons[build.labelName.split("-")[1]]}</span>
+        </div>
+        <div className="w-full overflow-hidden rounded-xl border border-border/10">
+          <Table className="min-w-[680px]">
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[180px] md:w-[300px]">
+                  {t("builds.table.buildId")}
+                </TableHead>
+                <TableHead className="text-left font-mono border-l-border/10 border-l">
+                  {id.toUpperCase()}
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell className="font-medium">{t("builds.table.buildName")}</TableCell>
+                <TableCell className="font-mono text-left inline-flex items-center gap-1 border-l-border/10 border-l">
+                  {build.buildVersion}
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium">{t("builds.table.appName")}</TableCell>
+                <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
+                  {build.appName}
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium">{t("builds.table.hash")}</TableCell>
+                <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
+                  {build.hash}{" "}
+                  <span className="text-xs text-muted-foreground">({getHashType(build.hash)})</span>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium">{t("builds.table.installedSize")}</TableCell>
+                <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
+                  {calculateSize(build.installedSizeBytes)}
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium">{t("builds.table.downloadSize")}</TableCell>
+                <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
+                  {calculateSize(build.downloadSizeBytes)}{" "}
+                  <span
+                    className={cn(
+                      "text-xs text-muted-foreground",
+                      !build.downloadSizeBytes ? "opacity-0" : "opacity-100",
+                    )}
+                  >
+                    {t("builds.compressed", {
+                      percent: (
+                        100 -
+                        (build.downloadSizeBytes / build.installedSizeBytes) * 100
+                      ).toFixed(2),
+                    })}
+                  </span>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium">{t("builds.table.createdAt")}</TableCell>
+                <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
+                  {DateTime.fromISO(build.createdAt)
+                    .setZone(timezone || "UTC")
+                    .setLocale("en-GB")
+                    .toLocaleString({
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      timeZoneName: "short",
+                      hour: "numeric",
+                      minute: "numeric",
+                    })}
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium">{t("builds.table.updatedAt")}</TableCell>
+                <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
+                  {DateTime.fromISO(build.updatedAt)
+                    .setZone(timezone || "UTC")
+                    .setLocale("en-GB")
+                    .toLocaleString({
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                      timeZoneName: "short",
+                      hour: "numeric",
+                      minute: "numeric",
+                    })}
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell className="font-medium">
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <span className="underline decoration-dotted decoration-border/60 underline-offset-4 cursor-help">
+                          {t("builds.table.technologies")}
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p className="text-sm max-w-md">
+                          {t("builds.tooltip.techSource")}{" "}
+                          <a
+                            href="https://steamdb.info/tech/"
+                            className="text-blue-700 font-semibold"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {t("builds.tooltip.techSourceSteamDb")}
+                          </a>{" "}
+                          {t("builds.tooltip.techDescription")}
+                          <br />
+                          <a
+                            href="https://github.com/SteamDatabase/FileDetectionRuleSets"
+                            className="text-blue-700 font-semibold"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {t("builds.tooltip.source")}
+                          </a>
+                        </p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </TableCell>
+                <TableCell className="border-l-border/10 border-l">
+                  <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3">
+                    {build.technologies
+                      ?.filter((tech) => tech.section !== "Evidence")
+                      .map((tech) => (
+                        <span
+                          key={`${tech.section}.${tech.technology}`}
+                          className="inline-flex gap-1 items-center justify-start"
+                        >
+                          <span className="text-xs text-muted-foreground">
+                            {tech.section} / {tech.technology}
+                          </span>
+                        </span>
+                      ))}
+                  </div>
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+      </div>
+      <div className="flex w-full flex-col items-start justify-start gap-4 md:flex-row md:gap-1">
+        <SectionsNav
+          links={[
+            {
+              id: "files",
+              label: (
+                <span className="inline-flex items-center gap-2">
+                  <FilesIcon className="size-3" />
+                  <span>{t("builds.tabs.files")}</span>
+                </span>
+              ),
+              href: `/builds/${id}/files`,
+            },
+            {
+              id: "items",
+              label: (
+                <span className="inline-flex items-center gap-2">
+                  <BoxIcon className="size-3" />
+                  <span>{t("builds.tabs.items")}</span>
+                </span>
+              ),
+              href: `/builds/${id}/items`,
+            },
+            {
+              id: "install-options",
+              label: (
+                <span className="inline-flex items-center gap-2">
+                  <OptionIcon className="size-3" />
+                  <span>{t("builds.tabs.installOptions")}</span>
+                </span>
+              ),
+              href: `/builds/${id}/install-options`,
+            },
+          ]}
+          activeSection={subPath ?? "files"}
+          onSectionChange={(location) => {
+            const buildRoutes = {
+              files: "/{-$locale}/builds/$id/files",
+              items: "/{-$locale}/builds/$id/items",
+              "install-options": "/{-$locale}/builds/$id/install-options",
+            } as const;
+            const to = buildRoutes[location as keyof typeof buildRoutes] ?? buildRoutes.files;
+
+            navigate({
+              to,
+              params: { id, locale },
+              replace: false,
+              resetScroll: false,
+            });
+          }}
+          orientation="vertical"
+        />
+        <div className="h-full w-full min-w-0">
+          <Outlet />
+        </div>
+      </div>
+    </main>
+  );
+}

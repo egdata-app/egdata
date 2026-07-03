@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -29,7 +29,7 @@ export function AndroidInstallBanner() {
       <div className="flex items-center justify-between gap-4">
         <p className="flex-1 text-center">
           The egdata.app Android app is now available!{" "}
-          <Link to="/android-beta" className="underline font-semibold">
+          <Link to="/{-$locale}/android-beta" className="underline font-semibold">
             Install now
           </Link>{" "}
           to get the egdata.app mobile app on your device.

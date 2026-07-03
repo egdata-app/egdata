@@ -7,7 +7,7 @@ import { CalendarIcon } from "lucide-react";
 import type { DateRange } from "react-day-picker";
 import { DateTime } from "luxon";
 import { useLocale } from "@/hooks/use-locale";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 export function DateRangePicker({
   handleChange,

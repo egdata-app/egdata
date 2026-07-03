@@ -1,5 +1,5 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/paraglide-react";
 
 export const Route = createFileRoute("/auth/logout")({
   component: () => {
@@ -18,7 +18,7 @@ export const Route = createFileRoute("/auth/logout")({
     }
 
     throw redirect({
-      to: "/",
+      to: "/{-$locale}",
     });
   },
 });

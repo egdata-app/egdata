@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import { useQuery } from "@tanstack/react-query";
 import { useCountry } from "@/hooks/use-country";
 import buildImageUrl from "@/lib/build-image-url";
@@ -44,7 +44,7 @@ export const OfferInBundle: React.FC<{ offer: SingleOffer }> = ({ offer }) => {
   return (
     <Link
       className="flex items-center bg-muted rounded-lg shadow-lg w-full h-16 relative overflow-hidden group"
-      to="/offers/$id"
+      to="/{-$locale}/offers/$id"
       params={{ id: bundle.id }}
       preload="viewport"
     >

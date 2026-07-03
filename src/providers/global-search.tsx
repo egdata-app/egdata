@@ -202,7 +202,7 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
     (title?: string) => {
       closeSearch(true);
       void navigate({
-        to: "/search",
+        to: "/{-$locale}/search",
         search: title ? { title } : {},
       });
     },
@@ -212,7 +212,7 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
   const openDiscounts = useCallback(() => {
     closeSearch(true);
     void navigate({
-      to: "/search",
+      to: "/{-$locale}/search",
       search: { onSale: true },
     });
   }, [closeSearch, navigate]);
@@ -221,7 +221,7 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
     (id: string) => {
       closeSearch(true);
       void navigate({
-        to: "/offers/$id",
+        to: "/{-$locale}/offers/$id",
         params: { id },
       });
     },
@@ -232,7 +232,7 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
     (id: string) => {
       closeSearch(true);
       void navigate({
-        to: "/items/$id",
+        to: "/{-$locale}/items/$id",
         params: { id },
       });
     },
@@ -243,7 +243,7 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
     (id: string) => {
       closeSearch(true);
       void navigate({
-        to: "/sellers/$id",
+        to: "/{-$locale}/sellers/$id",
         params: { id },
       });
     },
@@ -253,14 +253,14 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
   const openFreebies = useCallback(() => {
     closeSearch(true);
     void navigate({
-      to: "/freebies",
+      to: "/{-$locale}/freebies",
       search: { developerDisplayName: undefined, publisherDisplayName: undefined },
     });
   }, [closeSearch, navigate]);
 
   const openSales = useCallback(() => {
     closeSearch(true);
-    void navigate({ to: "/sales" });
+    void navigate({ to: "/{-$locale}/sales" });
   }, [closeSearch, navigate]);
 
   const offers = offersData?.hits ?? [];

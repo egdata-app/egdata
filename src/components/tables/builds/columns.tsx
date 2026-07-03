@@ -2,7 +2,7 @@ import { textPlatformIcons } from "@/components/app/platform-icons";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { calculateSize } from "@/lib/calculate-size";
 import type { Build } from "@/types/builds";
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import type { ColumnDef } from "@tanstack/react-table";
 import { DateTime } from "luxon";
 
@@ -69,7 +69,7 @@ export const columns: ColumnDef<Build>[] = [
     cell: (info) => {
       return (
         <Link
-          to="/builds/$id"
+          to="/{-$locale}/builds/$id"
           params={{ id: info.getValue() as string }}
           className="font-mono text-badge"
         >

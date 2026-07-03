@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "@/components/app/localized-link";
 import { cn } from "@/lib/utils";
 
 interface BuildTitleProps {
@@ -34,7 +34,7 @@ export function BuildTitle({
   );
 
   return (
-    <Link to="/builds/$id" params={{ id }} className={cn("pl-2 font-mono", className)}>
+    <Link to="/{-$locale}/builds/$id" params={{ id }} className={cn("pl-2 font-mono", className)}>
       {displayText}
     </Link>
   );

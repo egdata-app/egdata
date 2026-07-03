@@ -9,87 +9,88 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TheGameAwardsRouteImport } from './routes/the-game-awards'
+import { Route as Char123LocaleChar125RouteImport } from './routes/{-$locale}'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as SearchRouteImport } from './routes/search'
-import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as PostsRouteImport } from './routes/posts'
-import { Route as NotificationsRouteImport } from './routes/notifications'
-import { Route as GenresRouteImport } from './routes/genres'
-import { Route as FreegamesRouteImport } from './routes/freegames'
-import { Route as FreeGamesRouteImport } from './routes/free-games'
-import { Route as FairUseRouteImport } from './routes/fair-use'
-import { Route as DownloadsRouteImport } from './routes/downloads'
-import { Route as DonateKeyRouteImport } from './routes/donate-key'
-import { Route as DiscordLinkedRouteImport } from './routes/discord-linked'
-import { Route as DashboardRouteImport } from './routes/dashboard'
-import { Route as AndroidBetaRouteImport } from './routes/android-beta'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as SalesIndexRouteImport } from './routes/sales/index'
-import { Route as FreebiesIndexRouteImport } from './routes/freebies/index'
-import { Route as CollectionsIndexRouteImport } from './routes/collections/index'
-import { Route as ChangelogIndexRouteImport } from './routes/changelog/index'
-import { Route as TagsIdRouteImport } from './routes/tags/$id'
-import { Route as StatsReleasesRouteImport } from './routes/stats/releases'
-import { Route as StatsCreationsRouteImport } from './routes/stats/creations'
-import { Route as SellersIdRouteImport } from './routes/sellers/$id'
-import { Route as SandboxesIdRouteImport } from './routes/sandboxes/$id'
-import { Route as SalesIdRouteImport } from './routes/sales/$id'
-import { Route as PromotionsIdRouteImport } from './routes/promotions/$id'
-import { Route as ProfileIdRouteImport } from './routes/profile/$id'
-import { Route as OffersIdRouteImport } from './routes/offers/$id'
-import { Route as ItemsIdRouteImport } from './routes/items/$id'
-import { Route as FreebiesSellersRouteImport } from './routes/freebies/sellers'
-import { Route as ChangelogIdRouteImport } from './routes/changelog/$id'
-import { Route as BuildsIdRouteImport } from './routes/builds/$id'
+import { Route as Char123LocaleChar125IndexRouteImport } from './routes/{-$locale}/index'
+import { Route as Char123LocaleChar125TheGameAwardsRouteImport } from './routes/{-$locale}/the-game-awards'
+import { Route as Char123LocaleChar125SearchRouteImport } from './routes/{-$locale}/search'
+import { Route as Char123LocaleChar125PrivacyRouteImport } from './routes/{-$locale}/privacy'
+import { Route as Char123LocaleChar125PostsRouteImport } from './routes/{-$locale}/posts'
+import { Route as Char123LocaleChar125NotificationsRouteImport } from './routes/{-$locale}/notifications'
+import { Route as Char123LocaleChar125GenresRouteImport } from './routes/{-$locale}/genres'
+import { Route as Char123LocaleChar125FreegamesRouteImport } from './routes/{-$locale}/freegames'
+import { Route as Char123LocaleChar125FreeGamesRouteImport } from './routes/{-$locale}/free-games'
+import { Route as Char123LocaleChar125FairUseRouteImport } from './routes/{-$locale}/fair-use'
+import { Route as Char123LocaleChar125DownloadsRouteImport } from './routes/{-$locale}/downloads'
+import { Route as Char123LocaleChar125DonateKeyRouteImport } from './routes/{-$locale}/donate-key'
+import { Route as Char123LocaleChar125DiscordLinkedRouteImport } from './routes/{-$locale}/discord-linked'
+import { Route as Char123LocaleChar125DashboardRouteImport } from './routes/{-$locale}/dashboard'
+import { Route as Char123LocaleChar125AndroidBetaRouteImport } from './routes/{-$locale}/android-beta'
+import { Route as Char123LocaleChar125AboutRouteImport } from './routes/{-$locale}/about'
 import { Route as AuthLogoutRouteImport } from './routes/auth/logout'
 import { Route as AuthLoginRouteImport } from './routes/auth/login'
 import { Route as AuthCallbackRouteImport } from './routes/auth/callback'
 import { Route as ApiTokenRouteImport } from './routes/api/token'
 import { Route as ApiLogoutRouteImport } from './routes/api/logout'
 import { Route as ApiHelloRouteImport } from './routes/api/hello'
-import { Route as SandboxesIdIndexRouteImport } from './routes/sandboxes/$id/index'
-import { Route as ProfileIdIndexRouteImport } from './routes/profile/$id/index'
-import { Route as OffersIdIndexRouteImport } from './routes/offers/$id/index'
-import { Route as ItemsIdIndexRouteImport } from './routes/items/$id/index'
-import { Route as FranchisesIdIndexRouteImport } from './routes/franchises/$id/index'
-import { Route as CollectionsIdIndexRouteImport } from './routes/collections/$id/index'
-import { Route as StoreNamespaceSlugRouteImport } from './routes/store/$namespace/$slug'
-import { Route as SandboxesIdOffersRouteImport } from './routes/sandboxes/$id/offers'
-import { Route as SandboxesIdItemsRouteImport } from './routes/sandboxes/$id/items'
-import { Route as SandboxesIdChangelogRouteImport } from './routes/sandboxes/$id/changelog'
-import { Route as SandboxesIdBuildsRouteImport } from './routes/sandboxes/$id/builds'
-import { Route as SandboxesIdAssetsRouteImport } from './routes/sandboxes/$id/assets'
-import { Route as SandboxesIdAchievementsRouteImport } from './routes/sandboxes/$id/achievements'
-import { Route as OffersIdReviewsRouteImport } from './routes/offers/$id/reviews'
-import { Route as OffersIdRelatedRouteImport } from './routes/offers/$id/related'
-import { Route as OffersIdPriceRouteImport } from './routes/offers/$id/price'
-import { Route as OffersIdMetadataRouteImport } from './routes/offers/$id/metadata'
-import { Route as OffersIdMediaRouteImport } from './routes/offers/$id/media'
-import { Route as OffersIdItemsRouteImport } from './routes/offers/$id/items'
-import { Route as OffersIdChangelogRouteImport } from './routes/offers/$id/changelog'
-import { Route as OffersIdBuildsRouteImport } from './routes/offers/$id/builds'
-import { Route as OffersIdAchievementsRouteImport } from './routes/offers/$id/achievements'
-import { Route as ItemsIdImagesRouteImport } from './routes/items/$id/images'
-import { Route as ItemsIdChangelogRouteImport } from './routes/items/$id/changelog'
-import { Route as ItemsIdBuildsRouteImport } from './routes/items/$id/builds'
-import { Route as ItemsIdAssetsRouteImport } from './routes/items/$id/assets'
-import { Route as CollectionsIdWeekRouteImport } from './routes/collections/$id/$week'
-import { Route as BuildsIdItemsRouteImport } from './routes/builds/$id/items'
-import { Route as BuildsIdInstallOptionsRouteImport } from './routes/builds/$id/install-options'
-import { Route as BuildsIdFilesRouteImport } from './routes/builds/$id/files'
+import { Route as Char123LocaleChar125SalesIndexRouteImport } from './routes/{-$locale}/sales/index'
+import { Route as Char123LocaleChar125FreebiesIndexRouteImport } from './routes/{-$locale}/freebies/index'
+import { Route as Char123LocaleChar125CollectionsIndexRouteImport } from './routes/{-$locale}/collections/index'
+import { Route as Char123LocaleChar125ChangelogIndexRouteImport } from './routes/{-$locale}/changelog/index'
+import { Route as Char123LocaleChar125TagsIdRouteImport } from './routes/{-$locale}/tags/$id'
+import { Route as Char123LocaleChar125StatsReleasesRouteImport } from './routes/{-$locale}/stats/releases'
+import { Route as Char123LocaleChar125StatsCreationsRouteImport } from './routes/{-$locale}/stats/creations'
+import { Route as Char123LocaleChar125SellersIdRouteImport } from './routes/{-$locale}/sellers/$id'
+import { Route as Char123LocaleChar125SandboxesIdRouteImport } from './routes/{-$locale}/sandboxes/$id'
+import { Route as Char123LocaleChar125SalesIdRouteImport } from './routes/{-$locale}/sales/$id'
+import { Route as Char123LocaleChar125PromotionsIdRouteImport } from './routes/{-$locale}/promotions/$id'
+import { Route as Char123LocaleChar125ProfileIdRouteImport } from './routes/{-$locale}/profile/$id'
+import { Route as Char123LocaleChar125OffersIdRouteImport } from './routes/{-$locale}/offers/$id'
+import { Route as Char123LocaleChar125ItemsIdRouteImport } from './routes/{-$locale}/items/$id'
+import { Route as Char123LocaleChar125FreebiesSellersRouteImport } from './routes/{-$locale}/freebies/sellers'
+import { Route as Char123LocaleChar125ChangelogIdRouteImport } from './routes/{-$locale}/changelog/$id'
+import { Route as Char123LocaleChar125BuildsIdRouteImport } from './routes/{-$locale}/builds/$id'
 import { Route as ApiAuthLoginRouteImport } from './routes/api/auth/login'
 import { Route as ApiAuthCallbackRouteImport } from './routes/api/auth/callback'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as ApiAndroidBetaStatusRouteImport } from './routes/api/android-beta/status'
 import { Route as ApiAndroidBetaRegisterRouteImport } from './routes/api/android-beta/register'
-import { Route as CollectionsIdWeekIndexRouteImport } from './routes/collections/$id/$week/index'
-import { Route as ProfileIdAchievementsSandboxRouteImport } from './routes/profile/$id/achievements/$sandbox'
+import { Route as Char123LocaleChar125SandboxesIdIndexRouteImport } from './routes/{-$locale}/sandboxes/$id/index'
+import { Route as Char123LocaleChar125ProfileIdIndexRouteImport } from './routes/{-$locale}/profile/$id/index'
+import { Route as Char123LocaleChar125OffersIdIndexRouteImport } from './routes/{-$locale}/offers/$id/index'
+import { Route as Char123LocaleChar125ItemsIdIndexRouteImport } from './routes/{-$locale}/items/$id/index'
+import { Route as Char123LocaleChar125FranchisesIdIndexRouteImport } from './routes/{-$locale}/franchises/$id/index'
+import { Route as Char123LocaleChar125CollectionsIdIndexRouteImport } from './routes/{-$locale}/collections/$id/index'
+import { Route as Char123LocaleChar125StoreNamespaceSlugRouteImport } from './routes/{-$locale}/store/$namespace/$slug'
+import { Route as Char123LocaleChar125SandboxesIdOffersRouteImport } from './routes/{-$locale}/sandboxes/$id/offers'
+import { Route as Char123LocaleChar125SandboxesIdItemsRouteImport } from './routes/{-$locale}/sandboxes/$id/items'
+import { Route as Char123LocaleChar125SandboxesIdChangelogRouteImport } from './routes/{-$locale}/sandboxes/$id/changelog'
+import { Route as Char123LocaleChar125SandboxesIdBuildsRouteImport } from './routes/{-$locale}/sandboxes/$id/builds'
+import { Route as Char123LocaleChar125SandboxesIdAssetsRouteImport } from './routes/{-$locale}/sandboxes/$id/assets'
+import { Route as Char123LocaleChar125SandboxesIdAchievementsRouteImport } from './routes/{-$locale}/sandboxes/$id/achievements'
+import { Route as Char123LocaleChar125OffersIdReviewsRouteImport } from './routes/{-$locale}/offers/$id/reviews'
+import { Route as Char123LocaleChar125OffersIdRelatedRouteImport } from './routes/{-$locale}/offers/$id/related'
+import { Route as Char123LocaleChar125OffersIdPriceRouteImport } from './routes/{-$locale}/offers/$id/price'
+import { Route as Char123LocaleChar125OffersIdMetadataRouteImport } from './routes/{-$locale}/offers/$id/metadata'
+import { Route as Char123LocaleChar125OffersIdMediaRouteImport } from './routes/{-$locale}/offers/$id/media'
+import { Route as Char123LocaleChar125OffersIdItemsRouteImport } from './routes/{-$locale}/offers/$id/items'
+import { Route as Char123LocaleChar125OffersIdChangelogRouteImport } from './routes/{-$locale}/offers/$id/changelog'
+import { Route as Char123LocaleChar125OffersIdBuildsRouteImport } from './routes/{-$locale}/offers/$id/builds'
+import { Route as Char123LocaleChar125OffersIdAchievementsRouteImport } from './routes/{-$locale}/offers/$id/achievements'
+import { Route as Char123LocaleChar125ItemsIdImagesRouteImport } from './routes/{-$locale}/items/$id/images'
+import { Route as Char123LocaleChar125ItemsIdChangelogRouteImport } from './routes/{-$locale}/items/$id/changelog'
+import { Route as Char123LocaleChar125ItemsIdBuildsRouteImport } from './routes/{-$locale}/items/$id/builds'
+import { Route as Char123LocaleChar125ItemsIdAssetsRouteImport } from './routes/{-$locale}/items/$id/assets'
+import { Route as Char123LocaleChar125CollectionsIdWeekRouteImport } from './routes/{-$locale}/collections/$id/$week'
+import { Route as Char123LocaleChar125BuildsIdItemsRouteImport } from './routes/{-$locale}/builds/$id/items'
+import { Route as Char123LocaleChar125BuildsIdInstallOptionsRouteImport } from './routes/{-$locale}/builds/$id/install-options'
+import { Route as Char123LocaleChar125BuildsIdFilesRouteImport } from './routes/{-$locale}/builds/$id/files'
+import { Route as Char123LocaleChar125CollectionsIdWeekIndexRouteImport } from './routes/{-$locale}/collections/$id/$week/index'
+import { Route as Char123LocaleChar125ProfileIdAchievementsSandboxRouteImport } from './routes/{-$locale}/profile/$id/achievements/$sandbox'
 
-const TheGameAwardsRoute = TheGameAwardsRouteImport.update({
-  id: '/the-game-awards',
-  path: '/the-game-awards',
+const Char123LocaleChar125Route = Char123LocaleChar125RouteImport.update({
+  id: '/{-$locale}',
+  path: '/{-$locale}',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -97,166 +98,102 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SearchRoute = SearchRouteImport.update({
-  id: '/search',
-  path: '/search',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivacyRoute = PrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PostsRoute = PostsRouteImport.update({
-  id: '/posts',
-  path: '/posts',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const NotificationsRoute = NotificationsRouteImport.update({
-  id: '/notifications',
-  path: '/notifications',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GenresRoute = GenresRouteImport.update({
-  id: '/genres',
-  path: '/genres',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FreegamesRoute = FreegamesRouteImport.update({
-  id: '/freegames',
-  path: '/freegames',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FreeGamesRoute = FreeGamesRouteImport.update({
-  id: '/free-games',
-  path: '/free-games',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FairUseRoute = FairUseRouteImport.update({
-  id: '/fair-use',
-  path: '/fair-use',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DownloadsRoute = DownloadsRouteImport.update({
-  id: '/downloads',
-  path: '/downloads',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DonateKeyRoute = DonateKeyRouteImport.update({
-  id: '/donate-key',
-  path: '/donate-key',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DiscordLinkedRoute = DiscordLinkedRouteImport.update({
-  id: '/discord-linked',
-  path: '/discord-linked',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AndroidBetaRoute = AndroidBetaRouteImport.update({
-  id: '/android-beta',
-  path: '/android-beta',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SalesIndexRoute = SalesIndexRouteImport.update({
-  id: '/sales/',
-  path: '/sales/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FreebiesIndexRoute = FreebiesIndexRouteImport.update({
-  id: '/freebies/',
-  path: '/freebies/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CollectionsIndexRoute = CollectionsIndexRouteImport.update({
-  id: '/collections/',
-  path: '/collections/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ChangelogIndexRoute = ChangelogIndexRouteImport.update({
-  id: '/changelog/',
-  path: '/changelog/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TagsIdRoute = TagsIdRouteImport.update({
-  id: '/tags/$id',
-  path: '/tags/$id',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const StatsReleasesRoute = StatsReleasesRouteImport.update({
-  id: '/stats/releases',
-  path: '/stats/releases',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const StatsCreationsRoute = StatsCreationsRouteImport.update({
-  id: '/stats/creations',
-  path: '/stats/creations',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SellersIdRoute = SellersIdRouteImport.update({
-  id: '/sellers/$id',
-  path: '/sellers/$id',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SandboxesIdRoute = SandboxesIdRouteImport.update({
-  id: '/sandboxes/$id',
-  path: '/sandboxes/$id',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SalesIdRoute = SalesIdRouteImport.update({
-  id: '/sales/$id',
-  path: '/sales/$id',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PromotionsIdRoute = PromotionsIdRouteImport.update({
-  id: '/promotions/$id',
-  path: '/promotions/$id',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProfileIdRoute = ProfileIdRouteImport.update({
-  id: '/profile/$id',
-  path: '/profile/$id',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OffersIdRoute = OffersIdRouteImport.update({
-  id: '/offers/$id',
-  path: '/offers/$id',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ItemsIdRoute = ItemsIdRouteImport.update({
-  id: '/items/$id',
-  path: '/items/$id',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FreebiesSellersRoute = FreebiesSellersRouteImport.update({
-  id: '/freebies/sellers',
-  path: '/freebies/sellers',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ChangelogIdRoute = ChangelogIdRouteImport.update({
-  id: '/changelog/$id',
-  path: '/changelog/$id',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BuildsIdRoute = BuildsIdRouteImport.update({
-  id: '/builds/$id',
-  path: '/builds/$id',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const Char123LocaleChar125IndexRoute =
+  Char123LocaleChar125IndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125TheGameAwardsRoute =
+  Char123LocaleChar125TheGameAwardsRouteImport.update({
+    id: '/the-game-awards',
+    path: '/the-game-awards',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125SearchRoute =
+  Char123LocaleChar125SearchRouteImport.update({
+    id: '/search',
+    path: '/search',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125PrivacyRoute =
+  Char123LocaleChar125PrivacyRouteImport.update({
+    id: '/privacy',
+    path: '/privacy',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125PostsRoute =
+  Char123LocaleChar125PostsRouteImport.update({
+    id: '/posts',
+    path: '/posts',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125NotificationsRoute =
+  Char123LocaleChar125NotificationsRouteImport.update({
+    id: '/notifications',
+    path: '/notifications',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125GenresRoute =
+  Char123LocaleChar125GenresRouteImport.update({
+    id: '/genres',
+    path: '/genres',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125FreegamesRoute =
+  Char123LocaleChar125FreegamesRouteImport.update({
+    id: '/freegames',
+    path: '/freegames',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125FreeGamesRoute =
+  Char123LocaleChar125FreeGamesRouteImport.update({
+    id: '/free-games',
+    path: '/free-games',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125FairUseRoute =
+  Char123LocaleChar125FairUseRouteImport.update({
+    id: '/fair-use',
+    path: '/fair-use',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125DownloadsRoute =
+  Char123LocaleChar125DownloadsRouteImport.update({
+    id: '/downloads',
+    path: '/downloads',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125DonateKeyRoute =
+  Char123LocaleChar125DonateKeyRouteImport.update({
+    id: '/donate-key',
+    path: '/donate-key',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125DiscordLinkedRoute =
+  Char123LocaleChar125DiscordLinkedRouteImport.update({
+    id: '/discord-linked',
+    path: '/discord-linked',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125DashboardRoute =
+  Char123LocaleChar125DashboardRouteImport.update({
+    id: '/dashboard',
+    path: '/dashboard',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125AndroidBetaRoute =
+  Char123LocaleChar125AndroidBetaRouteImport.update({
+    id: '/android-beta',
+    path: '/android-beta',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125AboutRoute =
+  Char123LocaleChar125AboutRouteImport.update({
+    id: '/about',
+    path: '/about',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
 const AuthLogoutRoute = AuthLogoutRouteImport.update({
   id: '/auth/logout',
   path: '/auth/logout',
@@ -287,156 +224,108 @@ const ApiHelloRoute = ApiHelloRouteImport.update({
   path: '/api/hello',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SandboxesIdIndexRoute = SandboxesIdIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => SandboxesIdRoute,
-} as any)
-const ProfileIdIndexRoute = ProfileIdIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => ProfileIdRoute,
-} as any)
-const OffersIdIndexRoute = OffersIdIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => OffersIdRoute,
-} as any)
-const ItemsIdIndexRoute = ItemsIdIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => ItemsIdRoute,
-} as any)
-const FranchisesIdIndexRoute = FranchisesIdIndexRouteImport.update({
-  id: '/franchises/$id/',
-  path: '/franchises/$id/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CollectionsIdIndexRoute = CollectionsIdIndexRouteImport.update({
-  id: '/collections/$id/',
-  path: '/collections/$id/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const StoreNamespaceSlugRoute = StoreNamespaceSlugRouteImport.update({
-  id: '/store/$namespace/$slug',
-  path: '/store/$namespace/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SandboxesIdOffersRoute = SandboxesIdOffersRouteImport.update({
-  id: '/offers',
-  path: '/offers',
-  getParentRoute: () => SandboxesIdRoute,
-} as any)
-const SandboxesIdItemsRoute = SandboxesIdItemsRouteImport.update({
-  id: '/items',
-  path: '/items',
-  getParentRoute: () => SandboxesIdRoute,
-} as any)
-const SandboxesIdChangelogRoute = SandboxesIdChangelogRouteImport.update({
-  id: '/changelog',
-  path: '/changelog',
-  getParentRoute: () => SandboxesIdRoute,
-} as any)
-const SandboxesIdBuildsRoute = SandboxesIdBuildsRouteImport.update({
-  id: '/builds',
-  path: '/builds',
-  getParentRoute: () => SandboxesIdRoute,
-} as any)
-const SandboxesIdAssetsRoute = SandboxesIdAssetsRouteImport.update({
-  id: '/assets',
-  path: '/assets',
-  getParentRoute: () => SandboxesIdRoute,
-} as any)
-const SandboxesIdAchievementsRoute = SandboxesIdAchievementsRouteImport.update({
-  id: '/achievements',
-  path: '/achievements',
-  getParentRoute: () => SandboxesIdRoute,
-} as any)
-const OffersIdReviewsRoute = OffersIdReviewsRouteImport.update({
-  id: '/reviews',
-  path: '/reviews',
-  getParentRoute: () => OffersIdRoute,
-} as any)
-const OffersIdRelatedRoute = OffersIdRelatedRouteImport.update({
-  id: '/related',
-  path: '/related',
-  getParentRoute: () => OffersIdRoute,
-} as any)
-const OffersIdPriceRoute = OffersIdPriceRouteImport.update({
-  id: '/price',
-  path: '/price',
-  getParentRoute: () => OffersIdRoute,
-} as any)
-const OffersIdMetadataRoute = OffersIdMetadataRouteImport.update({
-  id: '/metadata',
-  path: '/metadata',
-  getParentRoute: () => OffersIdRoute,
-} as any)
-const OffersIdMediaRoute = OffersIdMediaRouteImport.update({
-  id: '/media',
-  path: '/media',
-  getParentRoute: () => OffersIdRoute,
-} as any)
-const OffersIdItemsRoute = OffersIdItemsRouteImport.update({
-  id: '/items',
-  path: '/items',
-  getParentRoute: () => OffersIdRoute,
-} as any)
-const OffersIdChangelogRoute = OffersIdChangelogRouteImport.update({
-  id: '/changelog',
-  path: '/changelog',
-  getParentRoute: () => OffersIdRoute,
-} as any)
-const OffersIdBuildsRoute = OffersIdBuildsRouteImport.update({
-  id: '/builds',
-  path: '/builds',
-  getParentRoute: () => OffersIdRoute,
-} as any)
-const OffersIdAchievementsRoute = OffersIdAchievementsRouteImport.update({
-  id: '/achievements',
-  path: '/achievements',
-  getParentRoute: () => OffersIdRoute,
-} as any)
-const ItemsIdImagesRoute = ItemsIdImagesRouteImport.update({
-  id: '/images',
-  path: '/images',
-  getParentRoute: () => ItemsIdRoute,
-} as any)
-const ItemsIdChangelogRoute = ItemsIdChangelogRouteImport.update({
-  id: '/changelog',
-  path: '/changelog',
-  getParentRoute: () => ItemsIdRoute,
-} as any)
-const ItemsIdBuildsRoute = ItemsIdBuildsRouteImport.update({
-  id: '/builds',
-  path: '/builds',
-  getParentRoute: () => ItemsIdRoute,
-} as any)
-const ItemsIdAssetsRoute = ItemsIdAssetsRouteImport.update({
-  id: '/assets',
-  path: '/assets',
-  getParentRoute: () => ItemsIdRoute,
-} as any)
-const CollectionsIdWeekRoute = CollectionsIdWeekRouteImport.update({
-  id: '/collections/$id/$week',
-  path: '/collections/$id/$week',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BuildsIdItemsRoute = BuildsIdItemsRouteImport.update({
-  id: '/items',
-  path: '/items',
-  getParentRoute: () => BuildsIdRoute,
-} as any)
-const BuildsIdInstallOptionsRoute = BuildsIdInstallOptionsRouteImport.update({
-  id: '/install-options',
-  path: '/install-options',
-  getParentRoute: () => BuildsIdRoute,
-} as any)
-const BuildsIdFilesRoute = BuildsIdFilesRouteImport.update({
-  id: '/files',
-  path: '/files',
-  getParentRoute: () => BuildsIdRoute,
-} as any)
+const Char123LocaleChar125SalesIndexRoute =
+  Char123LocaleChar125SalesIndexRouteImport.update({
+    id: '/sales/',
+    path: '/sales/',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125FreebiesIndexRoute =
+  Char123LocaleChar125FreebiesIndexRouteImport.update({
+    id: '/freebies/',
+    path: '/freebies/',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125CollectionsIndexRoute =
+  Char123LocaleChar125CollectionsIndexRouteImport.update({
+    id: '/collections/',
+    path: '/collections/',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125ChangelogIndexRoute =
+  Char123LocaleChar125ChangelogIndexRouteImport.update({
+    id: '/changelog/',
+    path: '/changelog/',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125TagsIdRoute =
+  Char123LocaleChar125TagsIdRouteImport.update({
+    id: '/tags/$id',
+    path: '/tags/$id',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125StatsReleasesRoute =
+  Char123LocaleChar125StatsReleasesRouteImport.update({
+    id: '/stats/releases',
+    path: '/stats/releases',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125StatsCreationsRoute =
+  Char123LocaleChar125StatsCreationsRouteImport.update({
+    id: '/stats/creations',
+    path: '/stats/creations',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125SellersIdRoute =
+  Char123LocaleChar125SellersIdRouteImport.update({
+    id: '/sellers/$id',
+    path: '/sellers/$id',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125SandboxesIdRoute =
+  Char123LocaleChar125SandboxesIdRouteImport.update({
+    id: '/sandboxes/$id',
+    path: '/sandboxes/$id',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125SalesIdRoute =
+  Char123LocaleChar125SalesIdRouteImport.update({
+    id: '/sales/$id',
+    path: '/sales/$id',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125PromotionsIdRoute =
+  Char123LocaleChar125PromotionsIdRouteImport.update({
+    id: '/promotions/$id',
+    path: '/promotions/$id',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125ProfileIdRoute =
+  Char123LocaleChar125ProfileIdRouteImport.update({
+    id: '/profile/$id',
+    path: '/profile/$id',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125OffersIdRoute =
+  Char123LocaleChar125OffersIdRouteImport.update({
+    id: '/offers/$id',
+    path: '/offers/$id',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125ItemsIdRoute =
+  Char123LocaleChar125ItemsIdRouteImport.update({
+    id: '/items/$id',
+    path: '/items/$id',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125FreebiesSellersRoute =
+  Char123LocaleChar125FreebiesSellersRouteImport.update({
+    id: '/freebies/sellers',
+    path: '/freebies/sellers',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125ChangelogIdRoute =
+  Char123LocaleChar125ChangelogIdRouteImport.update({
+    id: '/changelog/$id',
+    path: '/changelog/$id',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125BuildsIdRoute =
+  Char123LocaleChar125BuildsIdRouteImport.update({
+    id: '/builds/$id',
+    path: '/builds/$id',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
 const ApiAuthLoginRoute = ApiAuthLoginRouteImport.update({
   id: '/api/auth/login',
   path: '/api/auth/login',
@@ -462,545 +351,694 @@ const ApiAndroidBetaRegisterRoute = ApiAndroidBetaRegisterRouteImport.update({
   path: '/api/android-beta/register',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CollectionsIdWeekIndexRoute = CollectionsIdWeekIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => CollectionsIdWeekRoute,
-} as any)
-const ProfileIdAchievementsSandboxRoute =
-  ProfileIdAchievementsSandboxRouteImport.update({
+const Char123LocaleChar125SandboxesIdIndexRoute =
+  Char123LocaleChar125SandboxesIdIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => Char123LocaleChar125SandboxesIdRoute,
+  } as any)
+const Char123LocaleChar125ProfileIdIndexRoute =
+  Char123LocaleChar125ProfileIdIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => Char123LocaleChar125ProfileIdRoute,
+  } as any)
+const Char123LocaleChar125OffersIdIndexRoute =
+  Char123LocaleChar125OffersIdIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => Char123LocaleChar125OffersIdRoute,
+  } as any)
+const Char123LocaleChar125ItemsIdIndexRoute =
+  Char123LocaleChar125ItemsIdIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => Char123LocaleChar125ItemsIdRoute,
+  } as any)
+const Char123LocaleChar125FranchisesIdIndexRoute =
+  Char123LocaleChar125FranchisesIdIndexRouteImport.update({
+    id: '/franchises/$id/',
+    path: '/franchises/$id/',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125CollectionsIdIndexRoute =
+  Char123LocaleChar125CollectionsIdIndexRouteImport.update({
+    id: '/collections/$id/',
+    path: '/collections/$id/',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125StoreNamespaceSlugRoute =
+  Char123LocaleChar125StoreNamespaceSlugRouteImport.update({
+    id: '/store/$namespace/$slug',
+    path: '/store/$namespace/$slug',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125SandboxesIdOffersRoute =
+  Char123LocaleChar125SandboxesIdOffersRouteImport.update({
+    id: '/offers',
+    path: '/offers',
+    getParentRoute: () => Char123LocaleChar125SandboxesIdRoute,
+  } as any)
+const Char123LocaleChar125SandboxesIdItemsRoute =
+  Char123LocaleChar125SandboxesIdItemsRouteImport.update({
+    id: '/items',
+    path: '/items',
+    getParentRoute: () => Char123LocaleChar125SandboxesIdRoute,
+  } as any)
+const Char123LocaleChar125SandboxesIdChangelogRoute =
+  Char123LocaleChar125SandboxesIdChangelogRouteImport.update({
+    id: '/changelog',
+    path: '/changelog',
+    getParentRoute: () => Char123LocaleChar125SandboxesIdRoute,
+  } as any)
+const Char123LocaleChar125SandboxesIdBuildsRoute =
+  Char123LocaleChar125SandboxesIdBuildsRouteImport.update({
+    id: '/builds',
+    path: '/builds',
+    getParentRoute: () => Char123LocaleChar125SandboxesIdRoute,
+  } as any)
+const Char123LocaleChar125SandboxesIdAssetsRoute =
+  Char123LocaleChar125SandboxesIdAssetsRouteImport.update({
+    id: '/assets',
+    path: '/assets',
+    getParentRoute: () => Char123LocaleChar125SandboxesIdRoute,
+  } as any)
+const Char123LocaleChar125SandboxesIdAchievementsRoute =
+  Char123LocaleChar125SandboxesIdAchievementsRouteImport.update({
+    id: '/achievements',
+    path: '/achievements',
+    getParentRoute: () => Char123LocaleChar125SandboxesIdRoute,
+  } as any)
+const Char123LocaleChar125OffersIdReviewsRoute =
+  Char123LocaleChar125OffersIdReviewsRouteImport.update({
+    id: '/reviews',
+    path: '/reviews',
+    getParentRoute: () => Char123LocaleChar125OffersIdRoute,
+  } as any)
+const Char123LocaleChar125OffersIdRelatedRoute =
+  Char123LocaleChar125OffersIdRelatedRouteImport.update({
+    id: '/related',
+    path: '/related',
+    getParentRoute: () => Char123LocaleChar125OffersIdRoute,
+  } as any)
+const Char123LocaleChar125OffersIdPriceRoute =
+  Char123LocaleChar125OffersIdPriceRouteImport.update({
+    id: '/price',
+    path: '/price',
+    getParentRoute: () => Char123LocaleChar125OffersIdRoute,
+  } as any)
+const Char123LocaleChar125OffersIdMetadataRoute =
+  Char123LocaleChar125OffersIdMetadataRouteImport.update({
+    id: '/metadata',
+    path: '/metadata',
+    getParentRoute: () => Char123LocaleChar125OffersIdRoute,
+  } as any)
+const Char123LocaleChar125OffersIdMediaRoute =
+  Char123LocaleChar125OffersIdMediaRouteImport.update({
+    id: '/media',
+    path: '/media',
+    getParentRoute: () => Char123LocaleChar125OffersIdRoute,
+  } as any)
+const Char123LocaleChar125OffersIdItemsRoute =
+  Char123LocaleChar125OffersIdItemsRouteImport.update({
+    id: '/items',
+    path: '/items',
+    getParentRoute: () => Char123LocaleChar125OffersIdRoute,
+  } as any)
+const Char123LocaleChar125OffersIdChangelogRoute =
+  Char123LocaleChar125OffersIdChangelogRouteImport.update({
+    id: '/changelog',
+    path: '/changelog',
+    getParentRoute: () => Char123LocaleChar125OffersIdRoute,
+  } as any)
+const Char123LocaleChar125OffersIdBuildsRoute =
+  Char123LocaleChar125OffersIdBuildsRouteImport.update({
+    id: '/builds',
+    path: '/builds',
+    getParentRoute: () => Char123LocaleChar125OffersIdRoute,
+  } as any)
+const Char123LocaleChar125OffersIdAchievementsRoute =
+  Char123LocaleChar125OffersIdAchievementsRouteImport.update({
+    id: '/achievements',
+    path: '/achievements',
+    getParentRoute: () => Char123LocaleChar125OffersIdRoute,
+  } as any)
+const Char123LocaleChar125ItemsIdImagesRoute =
+  Char123LocaleChar125ItemsIdImagesRouteImport.update({
+    id: '/images',
+    path: '/images',
+    getParentRoute: () => Char123LocaleChar125ItemsIdRoute,
+  } as any)
+const Char123LocaleChar125ItemsIdChangelogRoute =
+  Char123LocaleChar125ItemsIdChangelogRouteImport.update({
+    id: '/changelog',
+    path: '/changelog',
+    getParentRoute: () => Char123LocaleChar125ItemsIdRoute,
+  } as any)
+const Char123LocaleChar125ItemsIdBuildsRoute =
+  Char123LocaleChar125ItemsIdBuildsRouteImport.update({
+    id: '/builds',
+    path: '/builds',
+    getParentRoute: () => Char123LocaleChar125ItemsIdRoute,
+  } as any)
+const Char123LocaleChar125ItemsIdAssetsRoute =
+  Char123LocaleChar125ItemsIdAssetsRouteImport.update({
+    id: '/assets',
+    path: '/assets',
+    getParentRoute: () => Char123LocaleChar125ItemsIdRoute,
+  } as any)
+const Char123LocaleChar125CollectionsIdWeekRoute =
+  Char123LocaleChar125CollectionsIdWeekRouteImport.update({
+    id: '/collections/$id/$week',
+    path: '/collections/$id/$week',
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any)
+const Char123LocaleChar125BuildsIdItemsRoute =
+  Char123LocaleChar125BuildsIdItemsRouteImport.update({
+    id: '/items',
+    path: '/items',
+    getParentRoute: () => Char123LocaleChar125BuildsIdRoute,
+  } as any)
+const Char123LocaleChar125BuildsIdInstallOptionsRoute =
+  Char123LocaleChar125BuildsIdInstallOptionsRouteImport.update({
+    id: '/install-options',
+    path: '/install-options',
+    getParentRoute: () => Char123LocaleChar125BuildsIdRoute,
+  } as any)
+const Char123LocaleChar125BuildsIdFilesRoute =
+  Char123LocaleChar125BuildsIdFilesRouteImport.update({
+    id: '/files',
+    path: '/files',
+    getParentRoute: () => Char123LocaleChar125BuildsIdRoute,
+  } as any)
+const Char123LocaleChar125CollectionsIdWeekIndexRoute =
+  Char123LocaleChar125CollectionsIdWeekIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => Char123LocaleChar125CollectionsIdWeekRoute,
+  } as any)
+const Char123LocaleChar125ProfileIdAchievementsSandboxRoute =
+  Char123LocaleChar125ProfileIdAchievementsSandboxRouteImport.update({
     id: '/achievements/$sandbox',
     path: '/achievements/$sandbox',
-    getParentRoute: () => ProfileIdRoute,
+    getParentRoute: () => Char123LocaleChar125ProfileIdRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/android-beta': typeof AndroidBetaRoute
-  '/dashboard': typeof DashboardRoute
-  '/discord-linked': typeof DiscordLinkedRoute
-  '/donate-key': typeof DonateKeyRoute
-  '/downloads': typeof DownloadsRoute
-  '/fair-use': typeof FairUseRoute
-  '/free-games': typeof FreeGamesRoute
-  '/freegames': typeof FreegamesRoute
-  '/genres': typeof GenresRoute
-  '/notifications': typeof NotificationsRoute
-  '/posts': typeof PostsRoute
-  '/privacy': typeof PrivacyRoute
-  '/search': typeof SearchRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/the-game-awards': typeof TheGameAwardsRoute
+  '/{-$locale}': typeof Char123LocaleChar125RouteWithChildren
   '/api/hello': typeof ApiHelloRoute
   '/api/logout': typeof ApiLogoutRoute
   '/api/token': typeof ApiTokenRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/logout': typeof AuthLogoutRoute
-  '/builds/$id': typeof BuildsIdRouteWithChildren
-  '/changelog/$id': typeof ChangelogIdRoute
-  '/freebies/sellers': typeof FreebiesSellersRoute
-  '/items/$id': typeof ItemsIdRouteWithChildren
-  '/offers/$id': typeof OffersIdRouteWithChildren
-  '/profile/$id': typeof ProfileIdRouteWithChildren
-  '/promotions/$id': typeof PromotionsIdRoute
-  '/sales/$id': typeof SalesIdRoute
-  '/sandboxes/$id': typeof SandboxesIdRouteWithChildren
-  '/sellers/$id': typeof SellersIdRoute
-  '/stats/creations': typeof StatsCreationsRoute
-  '/stats/releases': typeof StatsReleasesRoute
-  '/tags/$id': typeof TagsIdRoute
-  '/changelog/': typeof ChangelogIndexRoute
-  '/collections/': typeof CollectionsIndexRoute
-  '/freebies/': typeof FreebiesIndexRoute
-  '/sales/': typeof SalesIndexRoute
+  '/{-$locale}/about': typeof Char123LocaleChar125AboutRoute
+  '/{-$locale}/android-beta': typeof Char123LocaleChar125AndroidBetaRoute
+  '/{-$locale}/dashboard': typeof Char123LocaleChar125DashboardRoute
+  '/{-$locale}/discord-linked': typeof Char123LocaleChar125DiscordLinkedRoute
+  '/{-$locale}/donate-key': typeof Char123LocaleChar125DonateKeyRoute
+  '/{-$locale}/downloads': typeof Char123LocaleChar125DownloadsRoute
+  '/{-$locale}/fair-use': typeof Char123LocaleChar125FairUseRoute
+  '/{-$locale}/free-games': typeof Char123LocaleChar125FreeGamesRoute
+  '/{-$locale}/freegames': typeof Char123LocaleChar125FreegamesRoute
+  '/{-$locale}/genres': typeof Char123LocaleChar125GenresRoute
+  '/{-$locale}/notifications': typeof Char123LocaleChar125NotificationsRoute
+  '/{-$locale}/posts': typeof Char123LocaleChar125PostsRoute
+  '/{-$locale}/privacy': typeof Char123LocaleChar125PrivacyRoute
+  '/{-$locale}/search': typeof Char123LocaleChar125SearchRoute
+  '/{-$locale}/the-game-awards': typeof Char123LocaleChar125TheGameAwardsRoute
+  '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
   '/api/android-beta/register': typeof ApiAndroidBetaRegisterRoute
   '/api/android-beta/status': typeof ApiAndroidBetaStatusRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/auth/callback': typeof ApiAuthCallbackRoute
   '/api/auth/login': typeof ApiAuthLoginRoute
-  '/builds/$id/files': typeof BuildsIdFilesRoute
-  '/builds/$id/install-options': typeof BuildsIdInstallOptionsRoute
-  '/builds/$id/items': typeof BuildsIdItemsRoute
-  '/collections/$id/$week': typeof CollectionsIdWeekRouteWithChildren
-  '/items/$id/assets': typeof ItemsIdAssetsRoute
-  '/items/$id/builds': typeof ItemsIdBuildsRoute
-  '/items/$id/changelog': typeof ItemsIdChangelogRoute
-  '/items/$id/images': typeof ItemsIdImagesRoute
-  '/offers/$id/achievements': typeof OffersIdAchievementsRoute
-  '/offers/$id/builds': typeof OffersIdBuildsRoute
-  '/offers/$id/changelog': typeof OffersIdChangelogRoute
-  '/offers/$id/items': typeof OffersIdItemsRoute
-  '/offers/$id/media': typeof OffersIdMediaRoute
-  '/offers/$id/metadata': typeof OffersIdMetadataRoute
-  '/offers/$id/price': typeof OffersIdPriceRoute
-  '/offers/$id/related': typeof OffersIdRelatedRoute
-  '/offers/$id/reviews': typeof OffersIdReviewsRoute
-  '/sandboxes/$id/achievements': typeof SandboxesIdAchievementsRoute
-  '/sandboxes/$id/assets': typeof SandboxesIdAssetsRoute
-  '/sandboxes/$id/builds': typeof SandboxesIdBuildsRoute
-  '/sandboxes/$id/changelog': typeof SandboxesIdChangelogRoute
-  '/sandboxes/$id/items': typeof SandboxesIdItemsRoute
-  '/sandboxes/$id/offers': typeof SandboxesIdOffersRoute
-  '/store/$namespace/$slug': typeof StoreNamespaceSlugRoute
-  '/collections/$id/': typeof CollectionsIdIndexRoute
-  '/franchises/$id/': typeof FranchisesIdIndexRoute
-  '/items/$id/': typeof ItemsIdIndexRoute
-  '/offers/$id/': typeof OffersIdIndexRoute
-  '/profile/$id/': typeof ProfileIdIndexRoute
-  '/sandboxes/$id/': typeof SandboxesIdIndexRoute
-  '/profile/$id/achievements/$sandbox': typeof ProfileIdAchievementsSandboxRoute
-  '/collections/$id/$week/': typeof CollectionsIdWeekIndexRoute
+  '/{-$locale}/builds/$id': typeof Char123LocaleChar125BuildsIdRouteWithChildren
+  '/{-$locale}/changelog/$id': typeof Char123LocaleChar125ChangelogIdRoute
+  '/{-$locale}/freebies/sellers': typeof Char123LocaleChar125FreebiesSellersRoute
+  '/{-$locale}/items/$id': typeof Char123LocaleChar125ItemsIdRouteWithChildren
+  '/{-$locale}/offers/$id': typeof Char123LocaleChar125OffersIdRouteWithChildren
+  '/{-$locale}/profile/$id': typeof Char123LocaleChar125ProfileIdRouteWithChildren
+  '/{-$locale}/promotions/$id': typeof Char123LocaleChar125PromotionsIdRoute
+  '/{-$locale}/sales/$id': typeof Char123LocaleChar125SalesIdRoute
+  '/{-$locale}/sandboxes/$id': typeof Char123LocaleChar125SandboxesIdRouteWithChildren
+  '/{-$locale}/sellers/$id': typeof Char123LocaleChar125SellersIdRoute
+  '/{-$locale}/stats/creations': typeof Char123LocaleChar125StatsCreationsRoute
+  '/{-$locale}/stats/releases': typeof Char123LocaleChar125StatsReleasesRoute
+  '/{-$locale}/tags/$id': typeof Char123LocaleChar125TagsIdRoute
+  '/{-$locale}/changelog/': typeof Char123LocaleChar125ChangelogIndexRoute
+  '/{-$locale}/collections/': typeof Char123LocaleChar125CollectionsIndexRoute
+  '/{-$locale}/freebies/': typeof Char123LocaleChar125FreebiesIndexRoute
+  '/{-$locale}/sales/': typeof Char123LocaleChar125SalesIndexRoute
+  '/{-$locale}/builds/$id/files': typeof Char123LocaleChar125BuildsIdFilesRoute
+  '/{-$locale}/builds/$id/install-options': typeof Char123LocaleChar125BuildsIdInstallOptionsRoute
+  '/{-$locale}/builds/$id/items': typeof Char123LocaleChar125BuildsIdItemsRoute
+  '/{-$locale}/collections/$id/$week': typeof Char123LocaleChar125CollectionsIdWeekRouteWithChildren
+  '/{-$locale}/items/$id/assets': typeof Char123LocaleChar125ItemsIdAssetsRoute
+  '/{-$locale}/items/$id/builds': typeof Char123LocaleChar125ItemsIdBuildsRoute
+  '/{-$locale}/items/$id/changelog': typeof Char123LocaleChar125ItemsIdChangelogRoute
+  '/{-$locale}/items/$id/images': typeof Char123LocaleChar125ItemsIdImagesRoute
+  '/{-$locale}/offers/$id/achievements': typeof Char123LocaleChar125OffersIdAchievementsRoute
+  '/{-$locale}/offers/$id/builds': typeof Char123LocaleChar125OffersIdBuildsRoute
+  '/{-$locale}/offers/$id/changelog': typeof Char123LocaleChar125OffersIdChangelogRoute
+  '/{-$locale}/offers/$id/items': typeof Char123LocaleChar125OffersIdItemsRoute
+  '/{-$locale}/offers/$id/media': typeof Char123LocaleChar125OffersIdMediaRoute
+  '/{-$locale}/offers/$id/metadata': typeof Char123LocaleChar125OffersIdMetadataRoute
+  '/{-$locale}/offers/$id/price': typeof Char123LocaleChar125OffersIdPriceRoute
+  '/{-$locale}/offers/$id/related': typeof Char123LocaleChar125OffersIdRelatedRoute
+  '/{-$locale}/offers/$id/reviews': typeof Char123LocaleChar125OffersIdReviewsRoute
+  '/{-$locale}/sandboxes/$id/achievements': typeof Char123LocaleChar125SandboxesIdAchievementsRoute
+  '/{-$locale}/sandboxes/$id/assets': typeof Char123LocaleChar125SandboxesIdAssetsRoute
+  '/{-$locale}/sandboxes/$id/builds': typeof Char123LocaleChar125SandboxesIdBuildsRoute
+  '/{-$locale}/sandboxes/$id/changelog': typeof Char123LocaleChar125SandboxesIdChangelogRoute
+  '/{-$locale}/sandboxes/$id/items': typeof Char123LocaleChar125SandboxesIdItemsRoute
+  '/{-$locale}/sandboxes/$id/offers': typeof Char123LocaleChar125SandboxesIdOffersRoute
+  '/{-$locale}/store/$namespace/$slug': typeof Char123LocaleChar125StoreNamespaceSlugRoute
+  '/{-$locale}/collections/$id/': typeof Char123LocaleChar125CollectionsIdIndexRoute
+  '/{-$locale}/franchises/$id/': typeof Char123LocaleChar125FranchisesIdIndexRoute
+  '/{-$locale}/items/$id/': typeof Char123LocaleChar125ItemsIdIndexRoute
+  '/{-$locale}/offers/$id/': typeof Char123LocaleChar125OffersIdIndexRoute
+  '/{-$locale}/profile/$id/': typeof Char123LocaleChar125ProfileIdIndexRoute
+  '/{-$locale}/sandboxes/$id/': typeof Char123LocaleChar125SandboxesIdIndexRoute
+  '/{-$locale}/profile/$id/achievements/$sandbox': typeof Char123LocaleChar125ProfileIdAchievementsSandboxRoute
+  '/{-$locale}/collections/$id/$week/': typeof Char123LocaleChar125CollectionsIdWeekIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/android-beta': typeof AndroidBetaRoute
-  '/dashboard': typeof DashboardRoute
-  '/discord-linked': typeof DiscordLinkedRoute
-  '/donate-key': typeof DonateKeyRoute
-  '/downloads': typeof DownloadsRoute
-  '/fair-use': typeof FairUseRoute
-  '/free-games': typeof FreeGamesRoute
-  '/freegames': typeof FreegamesRoute
-  '/genres': typeof GenresRoute
-  '/notifications': typeof NotificationsRoute
-  '/posts': typeof PostsRoute
-  '/privacy': typeof PrivacyRoute
-  '/search': typeof SearchRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/the-game-awards': typeof TheGameAwardsRoute
   '/api/hello': typeof ApiHelloRoute
   '/api/logout': typeof ApiLogoutRoute
   '/api/token': typeof ApiTokenRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/logout': typeof AuthLogoutRoute
-  '/builds/$id': typeof BuildsIdRouteWithChildren
-  '/changelog/$id': typeof ChangelogIdRoute
-  '/freebies/sellers': typeof FreebiesSellersRoute
-  '/promotions/$id': typeof PromotionsIdRoute
-  '/sales/$id': typeof SalesIdRoute
-  '/sellers/$id': typeof SellersIdRoute
-  '/stats/creations': typeof StatsCreationsRoute
-  '/stats/releases': typeof StatsReleasesRoute
-  '/tags/$id': typeof TagsIdRoute
-  '/changelog': typeof ChangelogIndexRoute
-  '/collections': typeof CollectionsIndexRoute
-  '/freebies': typeof FreebiesIndexRoute
-  '/sales': typeof SalesIndexRoute
+  '/{-$locale}/about': typeof Char123LocaleChar125AboutRoute
+  '/{-$locale}/android-beta': typeof Char123LocaleChar125AndroidBetaRoute
+  '/{-$locale}/dashboard': typeof Char123LocaleChar125DashboardRoute
+  '/{-$locale}/discord-linked': typeof Char123LocaleChar125DiscordLinkedRoute
+  '/{-$locale}/donate-key': typeof Char123LocaleChar125DonateKeyRoute
+  '/{-$locale}/downloads': typeof Char123LocaleChar125DownloadsRoute
+  '/{-$locale}/fair-use': typeof Char123LocaleChar125FairUseRoute
+  '/{-$locale}/free-games': typeof Char123LocaleChar125FreeGamesRoute
+  '/{-$locale}/freegames': typeof Char123LocaleChar125FreegamesRoute
+  '/{-$locale}/genres': typeof Char123LocaleChar125GenresRoute
+  '/{-$locale}/notifications': typeof Char123LocaleChar125NotificationsRoute
+  '/{-$locale}/posts': typeof Char123LocaleChar125PostsRoute
+  '/{-$locale}/privacy': typeof Char123LocaleChar125PrivacyRoute
+  '/{-$locale}/search': typeof Char123LocaleChar125SearchRoute
+  '/{-$locale}/the-game-awards': typeof Char123LocaleChar125TheGameAwardsRoute
+  '/{-$locale}': typeof Char123LocaleChar125IndexRoute
   '/api/android-beta/register': typeof ApiAndroidBetaRegisterRoute
   '/api/android-beta/status': typeof ApiAndroidBetaStatusRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/auth/callback': typeof ApiAuthCallbackRoute
   '/api/auth/login': typeof ApiAuthLoginRoute
-  '/builds/$id/files': typeof BuildsIdFilesRoute
-  '/builds/$id/install-options': typeof BuildsIdInstallOptionsRoute
-  '/builds/$id/items': typeof BuildsIdItemsRoute
-  '/items/$id/assets': typeof ItemsIdAssetsRoute
-  '/items/$id/builds': typeof ItemsIdBuildsRoute
-  '/items/$id/changelog': typeof ItemsIdChangelogRoute
-  '/items/$id/images': typeof ItemsIdImagesRoute
-  '/offers/$id/achievements': typeof OffersIdAchievementsRoute
-  '/offers/$id/builds': typeof OffersIdBuildsRoute
-  '/offers/$id/changelog': typeof OffersIdChangelogRoute
-  '/offers/$id/items': typeof OffersIdItemsRoute
-  '/offers/$id/media': typeof OffersIdMediaRoute
-  '/offers/$id/metadata': typeof OffersIdMetadataRoute
-  '/offers/$id/price': typeof OffersIdPriceRoute
-  '/offers/$id/related': typeof OffersIdRelatedRoute
-  '/offers/$id/reviews': typeof OffersIdReviewsRoute
-  '/sandboxes/$id/achievements': typeof SandboxesIdAchievementsRoute
-  '/sandboxes/$id/assets': typeof SandboxesIdAssetsRoute
-  '/sandboxes/$id/builds': typeof SandboxesIdBuildsRoute
-  '/sandboxes/$id/changelog': typeof SandboxesIdChangelogRoute
-  '/sandboxes/$id/items': typeof SandboxesIdItemsRoute
-  '/sandboxes/$id/offers': typeof SandboxesIdOffersRoute
-  '/store/$namespace/$slug': typeof StoreNamespaceSlugRoute
-  '/collections/$id': typeof CollectionsIdIndexRoute
-  '/franchises/$id': typeof FranchisesIdIndexRoute
-  '/items/$id': typeof ItemsIdIndexRoute
-  '/offers/$id': typeof OffersIdIndexRoute
-  '/profile/$id': typeof ProfileIdIndexRoute
-  '/sandboxes/$id': typeof SandboxesIdIndexRoute
-  '/profile/$id/achievements/$sandbox': typeof ProfileIdAchievementsSandboxRoute
-  '/collections/$id/$week': typeof CollectionsIdWeekIndexRoute
+  '/{-$locale}/builds/$id': typeof Char123LocaleChar125BuildsIdRouteWithChildren
+  '/{-$locale}/changelog/$id': typeof Char123LocaleChar125ChangelogIdRoute
+  '/{-$locale}/freebies/sellers': typeof Char123LocaleChar125FreebiesSellersRoute
+  '/{-$locale}/promotions/$id': typeof Char123LocaleChar125PromotionsIdRoute
+  '/{-$locale}/sales/$id': typeof Char123LocaleChar125SalesIdRoute
+  '/{-$locale}/sellers/$id': typeof Char123LocaleChar125SellersIdRoute
+  '/{-$locale}/stats/creations': typeof Char123LocaleChar125StatsCreationsRoute
+  '/{-$locale}/stats/releases': typeof Char123LocaleChar125StatsReleasesRoute
+  '/{-$locale}/tags/$id': typeof Char123LocaleChar125TagsIdRoute
+  '/{-$locale}/changelog': typeof Char123LocaleChar125ChangelogIndexRoute
+  '/{-$locale}/collections': typeof Char123LocaleChar125CollectionsIndexRoute
+  '/{-$locale}/freebies': typeof Char123LocaleChar125FreebiesIndexRoute
+  '/{-$locale}/sales': typeof Char123LocaleChar125SalesIndexRoute
+  '/{-$locale}/builds/$id/files': typeof Char123LocaleChar125BuildsIdFilesRoute
+  '/{-$locale}/builds/$id/install-options': typeof Char123LocaleChar125BuildsIdInstallOptionsRoute
+  '/{-$locale}/builds/$id/items': typeof Char123LocaleChar125BuildsIdItemsRoute
+  '/{-$locale}/items/$id/assets': typeof Char123LocaleChar125ItemsIdAssetsRoute
+  '/{-$locale}/items/$id/builds': typeof Char123LocaleChar125ItemsIdBuildsRoute
+  '/{-$locale}/items/$id/changelog': typeof Char123LocaleChar125ItemsIdChangelogRoute
+  '/{-$locale}/items/$id/images': typeof Char123LocaleChar125ItemsIdImagesRoute
+  '/{-$locale}/offers/$id/achievements': typeof Char123LocaleChar125OffersIdAchievementsRoute
+  '/{-$locale}/offers/$id/builds': typeof Char123LocaleChar125OffersIdBuildsRoute
+  '/{-$locale}/offers/$id/changelog': typeof Char123LocaleChar125OffersIdChangelogRoute
+  '/{-$locale}/offers/$id/items': typeof Char123LocaleChar125OffersIdItemsRoute
+  '/{-$locale}/offers/$id/media': typeof Char123LocaleChar125OffersIdMediaRoute
+  '/{-$locale}/offers/$id/metadata': typeof Char123LocaleChar125OffersIdMetadataRoute
+  '/{-$locale}/offers/$id/price': typeof Char123LocaleChar125OffersIdPriceRoute
+  '/{-$locale}/offers/$id/related': typeof Char123LocaleChar125OffersIdRelatedRoute
+  '/{-$locale}/offers/$id/reviews': typeof Char123LocaleChar125OffersIdReviewsRoute
+  '/{-$locale}/sandboxes/$id/achievements': typeof Char123LocaleChar125SandboxesIdAchievementsRoute
+  '/{-$locale}/sandboxes/$id/assets': typeof Char123LocaleChar125SandboxesIdAssetsRoute
+  '/{-$locale}/sandboxes/$id/builds': typeof Char123LocaleChar125SandboxesIdBuildsRoute
+  '/{-$locale}/sandboxes/$id/changelog': typeof Char123LocaleChar125SandboxesIdChangelogRoute
+  '/{-$locale}/sandboxes/$id/items': typeof Char123LocaleChar125SandboxesIdItemsRoute
+  '/{-$locale}/sandboxes/$id/offers': typeof Char123LocaleChar125SandboxesIdOffersRoute
+  '/{-$locale}/store/$namespace/$slug': typeof Char123LocaleChar125StoreNamespaceSlugRoute
+  '/{-$locale}/collections/$id': typeof Char123LocaleChar125CollectionsIdIndexRoute
+  '/{-$locale}/franchises/$id': typeof Char123LocaleChar125FranchisesIdIndexRoute
+  '/{-$locale}/items/$id': typeof Char123LocaleChar125ItemsIdIndexRoute
+  '/{-$locale}/offers/$id': typeof Char123LocaleChar125OffersIdIndexRoute
+  '/{-$locale}/profile/$id': typeof Char123LocaleChar125ProfileIdIndexRoute
+  '/{-$locale}/sandboxes/$id': typeof Char123LocaleChar125SandboxesIdIndexRoute
+  '/{-$locale}/profile/$id/achievements/$sandbox': typeof Char123LocaleChar125ProfileIdAchievementsSandboxRoute
+  '/{-$locale}/collections/$id/$week': typeof Char123LocaleChar125CollectionsIdWeekIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/android-beta': typeof AndroidBetaRoute
-  '/dashboard': typeof DashboardRoute
-  '/discord-linked': typeof DiscordLinkedRoute
-  '/donate-key': typeof DonateKeyRoute
-  '/downloads': typeof DownloadsRoute
-  '/fair-use': typeof FairUseRoute
-  '/free-games': typeof FreeGamesRoute
-  '/freegames': typeof FreegamesRoute
-  '/genres': typeof GenresRoute
-  '/notifications': typeof NotificationsRoute
-  '/posts': typeof PostsRoute
-  '/privacy': typeof PrivacyRoute
-  '/search': typeof SearchRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/the-game-awards': typeof TheGameAwardsRoute
+  '/{-$locale}': typeof Char123LocaleChar125RouteWithChildren
   '/api/hello': typeof ApiHelloRoute
   '/api/logout': typeof ApiLogoutRoute
   '/api/token': typeof ApiTokenRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/logout': typeof AuthLogoutRoute
-  '/builds/$id': typeof BuildsIdRouteWithChildren
-  '/changelog/$id': typeof ChangelogIdRoute
-  '/freebies/sellers': typeof FreebiesSellersRoute
-  '/items/$id': typeof ItemsIdRouteWithChildren
-  '/offers/$id': typeof OffersIdRouteWithChildren
-  '/profile/$id': typeof ProfileIdRouteWithChildren
-  '/promotions/$id': typeof PromotionsIdRoute
-  '/sales/$id': typeof SalesIdRoute
-  '/sandboxes/$id': typeof SandboxesIdRouteWithChildren
-  '/sellers/$id': typeof SellersIdRoute
-  '/stats/creations': typeof StatsCreationsRoute
-  '/stats/releases': typeof StatsReleasesRoute
-  '/tags/$id': typeof TagsIdRoute
-  '/changelog/': typeof ChangelogIndexRoute
-  '/collections/': typeof CollectionsIndexRoute
-  '/freebies/': typeof FreebiesIndexRoute
-  '/sales/': typeof SalesIndexRoute
+  '/{-$locale}/about': typeof Char123LocaleChar125AboutRoute
+  '/{-$locale}/android-beta': typeof Char123LocaleChar125AndroidBetaRoute
+  '/{-$locale}/dashboard': typeof Char123LocaleChar125DashboardRoute
+  '/{-$locale}/discord-linked': typeof Char123LocaleChar125DiscordLinkedRoute
+  '/{-$locale}/donate-key': typeof Char123LocaleChar125DonateKeyRoute
+  '/{-$locale}/downloads': typeof Char123LocaleChar125DownloadsRoute
+  '/{-$locale}/fair-use': typeof Char123LocaleChar125FairUseRoute
+  '/{-$locale}/free-games': typeof Char123LocaleChar125FreeGamesRoute
+  '/{-$locale}/freegames': typeof Char123LocaleChar125FreegamesRoute
+  '/{-$locale}/genres': typeof Char123LocaleChar125GenresRoute
+  '/{-$locale}/notifications': typeof Char123LocaleChar125NotificationsRoute
+  '/{-$locale}/posts': typeof Char123LocaleChar125PostsRoute
+  '/{-$locale}/privacy': typeof Char123LocaleChar125PrivacyRoute
+  '/{-$locale}/search': typeof Char123LocaleChar125SearchRoute
+  '/{-$locale}/the-game-awards': typeof Char123LocaleChar125TheGameAwardsRoute
+  '/{-$locale}/': typeof Char123LocaleChar125IndexRoute
   '/api/android-beta/register': typeof ApiAndroidBetaRegisterRoute
   '/api/android-beta/status': typeof ApiAndroidBetaStatusRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/api/auth/callback': typeof ApiAuthCallbackRoute
   '/api/auth/login': typeof ApiAuthLoginRoute
-  '/builds/$id/files': typeof BuildsIdFilesRoute
-  '/builds/$id/install-options': typeof BuildsIdInstallOptionsRoute
-  '/builds/$id/items': typeof BuildsIdItemsRoute
-  '/collections/$id/$week': typeof CollectionsIdWeekRouteWithChildren
-  '/items/$id/assets': typeof ItemsIdAssetsRoute
-  '/items/$id/builds': typeof ItemsIdBuildsRoute
-  '/items/$id/changelog': typeof ItemsIdChangelogRoute
-  '/items/$id/images': typeof ItemsIdImagesRoute
-  '/offers/$id/achievements': typeof OffersIdAchievementsRoute
-  '/offers/$id/builds': typeof OffersIdBuildsRoute
-  '/offers/$id/changelog': typeof OffersIdChangelogRoute
-  '/offers/$id/items': typeof OffersIdItemsRoute
-  '/offers/$id/media': typeof OffersIdMediaRoute
-  '/offers/$id/metadata': typeof OffersIdMetadataRoute
-  '/offers/$id/price': typeof OffersIdPriceRoute
-  '/offers/$id/related': typeof OffersIdRelatedRoute
-  '/offers/$id/reviews': typeof OffersIdReviewsRoute
-  '/sandboxes/$id/achievements': typeof SandboxesIdAchievementsRoute
-  '/sandboxes/$id/assets': typeof SandboxesIdAssetsRoute
-  '/sandboxes/$id/builds': typeof SandboxesIdBuildsRoute
-  '/sandboxes/$id/changelog': typeof SandboxesIdChangelogRoute
-  '/sandboxes/$id/items': typeof SandboxesIdItemsRoute
-  '/sandboxes/$id/offers': typeof SandboxesIdOffersRoute
-  '/store/$namespace/$slug': typeof StoreNamespaceSlugRoute
-  '/collections/$id/': typeof CollectionsIdIndexRoute
-  '/franchises/$id/': typeof FranchisesIdIndexRoute
-  '/items/$id/': typeof ItemsIdIndexRoute
-  '/offers/$id/': typeof OffersIdIndexRoute
-  '/profile/$id/': typeof ProfileIdIndexRoute
-  '/sandboxes/$id/': typeof SandboxesIdIndexRoute
-  '/profile/$id/achievements/$sandbox': typeof ProfileIdAchievementsSandboxRoute
-  '/collections/$id/$week/': typeof CollectionsIdWeekIndexRoute
+  '/{-$locale}/builds/$id': typeof Char123LocaleChar125BuildsIdRouteWithChildren
+  '/{-$locale}/changelog/$id': typeof Char123LocaleChar125ChangelogIdRoute
+  '/{-$locale}/freebies/sellers': typeof Char123LocaleChar125FreebiesSellersRoute
+  '/{-$locale}/items/$id': typeof Char123LocaleChar125ItemsIdRouteWithChildren
+  '/{-$locale}/offers/$id': typeof Char123LocaleChar125OffersIdRouteWithChildren
+  '/{-$locale}/profile/$id': typeof Char123LocaleChar125ProfileIdRouteWithChildren
+  '/{-$locale}/promotions/$id': typeof Char123LocaleChar125PromotionsIdRoute
+  '/{-$locale}/sales/$id': typeof Char123LocaleChar125SalesIdRoute
+  '/{-$locale}/sandboxes/$id': typeof Char123LocaleChar125SandboxesIdRouteWithChildren
+  '/{-$locale}/sellers/$id': typeof Char123LocaleChar125SellersIdRoute
+  '/{-$locale}/stats/creations': typeof Char123LocaleChar125StatsCreationsRoute
+  '/{-$locale}/stats/releases': typeof Char123LocaleChar125StatsReleasesRoute
+  '/{-$locale}/tags/$id': typeof Char123LocaleChar125TagsIdRoute
+  '/{-$locale}/changelog/': typeof Char123LocaleChar125ChangelogIndexRoute
+  '/{-$locale}/collections/': typeof Char123LocaleChar125CollectionsIndexRoute
+  '/{-$locale}/freebies/': typeof Char123LocaleChar125FreebiesIndexRoute
+  '/{-$locale}/sales/': typeof Char123LocaleChar125SalesIndexRoute
+  '/{-$locale}/builds/$id/files': typeof Char123LocaleChar125BuildsIdFilesRoute
+  '/{-$locale}/builds/$id/install-options': typeof Char123LocaleChar125BuildsIdInstallOptionsRoute
+  '/{-$locale}/builds/$id/items': typeof Char123LocaleChar125BuildsIdItemsRoute
+  '/{-$locale}/collections/$id/$week': typeof Char123LocaleChar125CollectionsIdWeekRouteWithChildren
+  '/{-$locale}/items/$id/assets': typeof Char123LocaleChar125ItemsIdAssetsRoute
+  '/{-$locale}/items/$id/builds': typeof Char123LocaleChar125ItemsIdBuildsRoute
+  '/{-$locale}/items/$id/changelog': typeof Char123LocaleChar125ItemsIdChangelogRoute
+  '/{-$locale}/items/$id/images': typeof Char123LocaleChar125ItemsIdImagesRoute
+  '/{-$locale}/offers/$id/achievements': typeof Char123LocaleChar125OffersIdAchievementsRoute
+  '/{-$locale}/offers/$id/builds': typeof Char123LocaleChar125OffersIdBuildsRoute
+  '/{-$locale}/offers/$id/changelog': typeof Char123LocaleChar125OffersIdChangelogRoute
+  '/{-$locale}/offers/$id/items': typeof Char123LocaleChar125OffersIdItemsRoute
+  '/{-$locale}/offers/$id/media': typeof Char123LocaleChar125OffersIdMediaRoute
+  '/{-$locale}/offers/$id/metadata': typeof Char123LocaleChar125OffersIdMetadataRoute
+  '/{-$locale}/offers/$id/price': typeof Char123LocaleChar125OffersIdPriceRoute
+  '/{-$locale}/offers/$id/related': typeof Char123LocaleChar125OffersIdRelatedRoute
+  '/{-$locale}/offers/$id/reviews': typeof Char123LocaleChar125OffersIdReviewsRoute
+  '/{-$locale}/sandboxes/$id/achievements': typeof Char123LocaleChar125SandboxesIdAchievementsRoute
+  '/{-$locale}/sandboxes/$id/assets': typeof Char123LocaleChar125SandboxesIdAssetsRoute
+  '/{-$locale}/sandboxes/$id/builds': typeof Char123LocaleChar125SandboxesIdBuildsRoute
+  '/{-$locale}/sandboxes/$id/changelog': typeof Char123LocaleChar125SandboxesIdChangelogRoute
+  '/{-$locale}/sandboxes/$id/items': typeof Char123LocaleChar125SandboxesIdItemsRoute
+  '/{-$locale}/sandboxes/$id/offers': typeof Char123LocaleChar125SandboxesIdOffersRoute
+  '/{-$locale}/store/$namespace/$slug': typeof Char123LocaleChar125StoreNamespaceSlugRoute
+  '/{-$locale}/collections/$id/': typeof Char123LocaleChar125CollectionsIdIndexRoute
+  '/{-$locale}/franchises/$id/': typeof Char123LocaleChar125FranchisesIdIndexRoute
+  '/{-$locale}/items/$id/': typeof Char123LocaleChar125ItemsIdIndexRoute
+  '/{-$locale}/offers/$id/': typeof Char123LocaleChar125OffersIdIndexRoute
+  '/{-$locale}/profile/$id/': typeof Char123LocaleChar125ProfileIdIndexRoute
+  '/{-$locale}/sandboxes/$id/': typeof Char123LocaleChar125SandboxesIdIndexRoute
+  '/{-$locale}/profile/$id/achievements/$sandbox': typeof Char123LocaleChar125ProfileIdAchievementsSandboxRoute
+  '/{-$locale}/collections/$id/$week/': typeof Char123LocaleChar125CollectionsIdWeekIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
-    | '/about'
-    | '/android-beta'
-    | '/dashboard'
-    | '/discord-linked'
-    | '/donate-key'
-    | '/downloads'
-    | '/fair-use'
-    | '/free-games'
-    | '/freegames'
-    | '/genres'
-    | '/notifications'
-    | '/posts'
-    | '/privacy'
-    | '/search'
     | '/sitemap.xml'
-    | '/the-game-awards'
+    | '/{-$locale}'
     | '/api/hello'
     | '/api/logout'
     | '/api/token'
     | '/auth/callback'
     | '/auth/login'
     | '/auth/logout'
-    | '/builds/$id'
-    | '/changelog/$id'
-    | '/freebies/sellers'
-    | '/items/$id'
-    | '/offers/$id'
-    | '/profile/$id'
-    | '/promotions/$id'
-    | '/sales/$id'
-    | '/sandboxes/$id'
-    | '/sellers/$id'
-    | '/stats/creations'
-    | '/stats/releases'
-    | '/tags/$id'
-    | '/changelog/'
-    | '/collections/'
-    | '/freebies/'
-    | '/sales/'
+    | '/{-$locale}/about'
+    | '/{-$locale}/android-beta'
+    | '/{-$locale}/dashboard'
+    | '/{-$locale}/discord-linked'
+    | '/{-$locale}/donate-key'
+    | '/{-$locale}/downloads'
+    | '/{-$locale}/fair-use'
+    | '/{-$locale}/free-games'
+    | '/{-$locale}/freegames'
+    | '/{-$locale}/genres'
+    | '/{-$locale}/notifications'
+    | '/{-$locale}/posts'
+    | '/{-$locale}/privacy'
+    | '/{-$locale}/search'
+    | '/{-$locale}/the-game-awards'
+    | '/{-$locale}/'
     | '/api/android-beta/register'
     | '/api/android-beta/status'
     | '/api/auth/$'
     | '/api/auth/callback'
     | '/api/auth/login'
-    | '/builds/$id/files'
-    | '/builds/$id/install-options'
-    | '/builds/$id/items'
-    | '/collections/$id/$week'
-    | '/items/$id/assets'
-    | '/items/$id/builds'
-    | '/items/$id/changelog'
-    | '/items/$id/images'
-    | '/offers/$id/achievements'
-    | '/offers/$id/builds'
-    | '/offers/$id/changelog'
-    | '/offers/$id/items'
-    | '/offers/$id/media'
-    | '/offers/$id/metadata'
-    | '/offers/$id/price'
-    | '/offers/$id/related'
-    | '/offers/$id/reviews'
-    | '/sandboxes/$id/achievements'
-    | '/sandboxes/$id/assets'
-    | '/sandboxes/$id/builds'
-    | '/sandboxes/$id/changelog'
-    | '/sandboxes/$id/items'
-    | '/sandboxes/$id/offers'
-    | '/store/$namespace/$slug'
-    | '/collections/$id/'
-    | '/franchises/$id/'
-    | '/items/$id/'
-    | '/offers/$id/'
-    | '/profile/$id/'
-    | '/sandboxes/$id/'
-    | '/profile/$id/achievements/$sandbox'
-    | '/collections/$id/$week/'
+    | '/{-$locale}/builds/$id'
+    | '/{-$locale}/changelog/$id'
+    | '/{-$locale}/freebies/sellers'
+    | '/{-$locale}/items/$id'
+    | '/{-$locale}/offers/$id'
+    | '/{-$locale}/profile/$id'
+    | '/{-$locale}/promotions/$id'
+    | '/{-$locale}/sales/$id'
+    | '/{-$locale}/sandboxes/$id'
+    | '/{-$locale}/sellers/$id'
+    | '/{-$locale}/stats/creations'
+    | '/{-$locale}/stats/releases'
+    | '/{-$locale}/tags/$id'
+    | '/{-$locale}/changelog/'
+    | '/{-$locale}/collections/'
+    | '/{-$locale}/freebies/'
+    | '/{-$locale}/sales/'
+    | '/{-$locale}/builds/$id/files'
+    | '/{-$locale}/builds/$id/install-options'
+    | '/{-$locale}/builds/$id/items'
+    | '/{-$locale}/collections/$id/$week'
+    | '/{-$locale}/items/$id/assets'
+    | '/{-$locale}/items/$id/builds'
+    | '/{-$locale}/items/$id/changelog'
+    | '/{-$locale}/items/$id/images'
+    | '/{-$locale}/offers/$id/achievements'
+    | '/{-$locale}/offers/$id/builds'
+    | '/{-$locale}/offers/$id/changelog'
+    | '/{-$locale}/offers/$id/items'
+    | '/{-$locale}/offers/$id/media'
+    | '/{-$locale}/offers/$id/metadata'
+    | '/{-$locale}/offers/$id/price'
+    | '/{-$locale}/offers/$id/related'
+    | '/{-$locale}/offers/$id/reviews'
+    | '/{-$locale}/sandboxes/$id/achievements'
+    | '/{-$locale}/sandboxes/$id/assets'
+    | '/{-$locale}/sandboxes/$id/builds'
+    | '/{-$locale}/sandboxes/$id/changelog'
+    | '/{-$locale}/sandboxes/$id/items'
+    | '/{-$locale}/sandboxes/$id/offers'
+    | '/{-$locale}/store/$namespace/$slug'
+    | '/{-$locale}/collections/$id/'
+    | '/{-$locale}/franchises/$id/'
+    | '/{-$locale}/items/$id/'
+    | '/{-$locale}/offers/$id/'
+    | '/{-$locale}/profile/$id/'
+    | '/{-$locale}/sandboxes/$id/'
+    | '/{-$locale}/profile/$id/achievements/$sandbox'
+    | '/{-$locale}/collections/$id/$week/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
-    | '/about'
-    | '/android-beta'
-    | '/dashboard'
-    | '/discord-linked'
-    | '/donate-key'
-    | '/downloads'
-    | '/fair-use'
-    | '/free-games'
-    | '/freegames'
-    | '/genres'
-    | '/notifications'
-    | '/posts'
-    | '/privacy'
-    | '/search'
     | '/sitemap.xml'
-    | '/the-game-awards'
     | '/api/hello'
     | '/api/logout'
     | '/api/token'
     | '/auth/callback'
     | '/auth/login'
     | '/auth/logout'
-    | '/builds/$id'
-    | '/changelog/$id'
-    | '/freebies/sellers'
-    | '/promotions/$id'
-    | '/sales/$id'
-    | '/sellers/$id'
-    | '/stats/creations'
-    | '/stats/releases'
-    | '/tags/$id'
-    | '/changelog'
-    | '/collections'
-    | '/freebies'
-    | '/sales'
+    | '/{-$locale}/about'
+    | '/{-$locale}/android-beta'
+    | '/{-$locale}/dashboard'
+    | '/{-$locale}/discord-linked'
+    | '/{-$locale}/donate-key'
+    | '/{-$locale}/downloads'
+    | '/{-$locale}/fair-use'
+    | '/{-$locale}/free-games'
+    | '/{-$locale}/freegames'
+    | '/{-$locale}/genres'
+    | '/{-$locale}/notifications'
+    | '/{-$locale}/posts'
+    | '/{-$locale}/privacy'
+    | '/{-$locale}/search'
+    | '/{-$locale}/the-game-awards'
+    | '/{-$locale}'
     | '/api/android-beta/register'
     | '/api/android-beta/status'
     | '/api/auth/$'
     | '/api/auth/callback'
     | '/api/auth/login'
-    | '/builds/$id/files'
-    | '/builds/$id/install-options'
-    | '/builds/$id/items'
-    | '/items/$id/assets'
-    | '/items/$id/builds'
-    | '/items/$id/changelog'
-    | '/items/$id/images'
-    | '/offers/$id/achievements'
-    | '/offers/$id/builds'
-    | '/offers/$id/changelog'
-    | '/offers/$id/items'
-    | '/offers/$id/media'
-    | '/offers/$id/metadata'
-    | '/offers/$id/price'
-    | '/offers/$id/related'
-    | '/offers/$id/reviews'
-    | '/sandboxes/$id/achievements'
-    | '/sandboxes/$id/assets'
-    | '/sandboxes/$id/builds'
-    | '/sandboxes/$id/changelog'
-    | '/sandboxes/$id/items'
-    | '/sandboxes/$id/offers'
-    | '/store/$namespace/$slug'
-    | '/collections/$id'
-    | '/franchises/$id'
-    | '/items/$id'
-    | '/offers/$id'
-    | '/profile/$id'
-    | '/sandboxes/$id'
-    | '/profile/$id/achievements/$sandbox'
-    | '/collections/$id/$week'
+    | '/{-$locale}/builds/$id'
+    | '/{-$locale}/changelog/$id'
+    | '/{-$locale}/freebies/sellers'
+    | '/{-$locale}/promotions/$id'
+    | '/{-$locale}/sales/$id'
+    | '/{-$locale}/sellers/$id'
+    | '/{-$locale}/stats/creations'
+    | '/{-$locale}/stats/releases'
+    | '/{-$locale}/tags/$id'
+    | '/{-$locale}/changelog'
+    | '/{-$locale}/collections'
+    | '/{-$locale}/freebies'
+    | '/{-$locale}/sales'
+    | '/{-$locale}/builds/$id/files'
+    | '/{-$locale}/builds/$id/install-options'
+    | '/{-$locale}/builds/$id/items'
+    | '/{-$locale}/items/$id/assets'
+    | '/{-$locale}/items/$id/builds'
+    | '/{-$locale}/items/$id/changelog'
+    | '/{-$locale}/items/$id/images'
+    | '/{-$locale}/offers/$id/achievements'
+    | '/{-$locale}/offers/$id/builds'
+    | '/{-$locale}/offers/$id/changelog'
+    | '/{-$locale}/offers/$id/items'
+    | '/{-$locale}/offers/$id/media'
+    | '/{-$locale}/offers/$id/metadata'
+    | '/{-$locale}/offers/$id/price'
+    | '/{-$locale}/offers/$id/related'
+    | '/{-$locale}/offers/$id/reviews'
+    | '/{-$locale}/sandboxes/$id/achievements'
+    | '/{-$locale}/sandboxes/$id/assets'
+    | '/{-$locale}/sandboxes/$id/builds'
+    | '/{-$locale}/sandboxes/$id/changelog'
+    | '/{-$locale}/sandboxes/$id/items'
+    | '/{-$locale}/sandboxes/$id/offers'
+    | '/{-$locale}/store/$namespace/$slug'
+    | '/{-$locale}/collections/$id'
+    | '/{-$locale}/franchises/$id'
+    | '/{-$locale}/items/$id'
+    | '/{-$locale}/offers/$id'
+    | '/{-$locale}/profile/$id'
+    | '/{-$locale}/sandboxes/$id'
+    | '/{-$locale}/profile/$id/achievements/$sandbox'
+    | '/{-$locale}/collections/$id/$week'
   id:
     | '__root__'
-    | '/'
-    | '/about'
-    | '/android-beta'
-    | '/dashboard'
-    | '/discord-linked'
-    | '/donate-key'
-    | '/downloads'
-    | '/fair-use'
-    | '/free-games'
-    | '/freegames'
-    | '/genres'
-    | '/notifications'
-    | '/posts'
-    | '/privacy'
-    | '/search'
     | '/sitemap.xml'
-    | '/the-game-awards'
+    | '/{-$locale}'
     | '/api/hello'
     | '/api/logout'
     | '/api/token'
     | '/auth/callback'
     | '/auth/login'
     | '/auth/logout'
-    | '/builds/$id'
-    | '/changelog/$id'
-    | '/freebies/sellers'
-    | '/items/$id'
-    | '/offers/$id'
-    | '/profile/$id'
-    | '/promotions/$id'
-    | '/sales/$id'
-    | '/sandboxes/$id'
-    | '/sellers/$id'
-    | '/stats/creations'
-    | '/stats/releases'
-    | '/tags/$id'
-    | '/changelog/'
-    | '/collections/'
-    | '/freebies/'
-    | '/sales/'
+    | '/{-$locale}/about'
+    | '/{-$locale}/android-beta'
+    | '/{-$locale}/dashboard'
+    | '/{-$locale}/discord-linked'
+    | '/{-$locale}/donate-key'
+    | '/{-$locale}/downloads'
+    | '/{-$locale}/fair-use'
+    | '/{-$locale}/free-games'
+    | '/{-$locale}/freegames'
+    | '/{-$locale}/genres'
+    | '/{-$locale}/notifications'
+    | '/{-$locale}/posts'
+    | '/{-$locale}/privacy'
+    | '/{-$locale}/search'
+    | '/{-$locale}/the-game-awards'
+    | '/{-$locale}/'
     | '/api/android-beta/register'
     | '/api/android-beta/status'
     | '/api/auth/$'
     | '/api/auth/callback'
     | '/api/auth/login'
-    | '/builds/$id/files'
-    | '/builds/$id/install-options'
-    | '/builds/$id/items'
-    | '/collections/$id/$week'
-    | '/items/$id/assets'
-    | '/items/$id/builds'
-    | '/items/$id/changelog'
-    | '/items/$id/images'
-    | '/offers/$id/achievements'
-    | '/offers/$id/builds'
-    | '/offers/$id/changelog'
-    | '/offers/$id/items'
-    | '/offers/$id/media'
-    | '/offers/$id/metadata'
-    | '/offers/$id/price'
-    | '/offers/$id/related'
-    | '/offers/$id/reviews'
-    | '/sandboxes/$id/achievements'
-    | '/sandboxes/$id/assets'
-    | '/sandboxes/$id/builds'
-    | '/sandboxes/$id/changelog'
-    | '/sandboxes/$id/items'
-    | '/sandboxes/$id/offers'
-    | '/store/$namespace/$slug'
-    | '/collections/$id/'
-    | '/franchises/$id/'
-    | '/items/$id/'
-    | '/offers/$id/'
-    | '/profile/$id/'
-    | '/sandboxes/$id/'
-    | '/profile/$id/achievements/$sandbox'
-    | '/collections/$id/$week/'
+    | '/{-$locale}/builds/$id'
+    | '/{-$locale}/changelog/$id'
+    | '/{-$locale}/freebies/sellers'
+    | '/{-$locale}/items/$id'
+    | '/{-$locale}/offers/$id'
+    | '/{-$locale}/profile/$id'
+    | '/{-$locale}/promotions/$id'
+    | '/{-$locale}/sales/$id'
+    | '/{-$locale}/sandboxes/$id'
+    | '/{-$locale}/sellers/$id'
+    | '/{-$locale}/stats/creations'
+    | '/{-$locale}/stats/releases'
+    | '/{-$locale}/tags/$id'
+    | '/{-$locale}/changelog/'
+    | '/{-$locale}/collections/'
+    | '/{-$locale}/freebies/'
+    | '/{-$locale}/sales/'
+    | '/{-$locale}/builds/$id/files'
+    | '/{-$locale}/builds/$id/install-options'
+    | '/{-$locale}/builds/$id/items'
+    | '/{-$locale}/collections/$id/$week'
+    | '/{-$locale}/items/$id/assets'
+    | '/{-$locale}/items/$id/builds'
+    | '/{-$locale}/items/$id/changelog'
+    | '/{-$locale}/items/$id/images'
+    | '/{-$locale}/offers/$id/achievements'
+    | '/{-$locale}/offers/$id/builds'
+    | '/{-$locale}/offers/$id/changelog'
+    | '/{-$locale}/offers/$id/items'
+    | '/{-$locale}/offers/$id/media'
+    | '/{-$locale}/offers/$id/metadata'
+    | '/{-$locale}/offers/$id/price'
+    | '/{-$locale}/offers/$id/related'
+    | '/{-$locale}/offers/$id/reviews'
+    | '/{-$locale}/sandboxes/$id/achievements'
+    | '/{-$locale}/sandboxes/$id/assets'
+    | '/{-$locale}/sandboxes/$id/builds'
+    | '/{-$locale}/sandboxes/$id/changelog'
+    | '/{-$locale}/sandboxes/$id/items'
+    | '/{-$locale}/sandboxes/$id/offers'
+    | '/{-$locale}/store/$namespace/$slug'
+    | '/{-$locale}/collections/$id/'
+    | '/{-$locale}/franchises/$id/'
+    | '/{-$locale}/items/$id/'
+    | '/{-$locale}/offers/$id/'
+    | '/{-$locale}/profile/$id/'
+    | '/{-$locale}/sandboxes/$id/'
+    | '/{-$locale}/profile/$id/achievements/$sandbox'
+    | '/{-$locale}/collections/$id/$week/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
-  AndroidBetaRoute: typeof AndroidBetaRoute
-  DashboardRoute: typeof DashboardRoute
-  DiscordLinkedRoute: typeof DiscordLinkedRoute
-  DonateKeyRoute: typeof DonateKeyRoute
-  DownloadsRoute: typeof DownloadsRoute
-  FairUseRoute: typeof FairUseRoute
-  FreeGamesRoute: typeof FreeGamesRoute
-  FreegamesRoute: typeof FreegamesRoute
-  GenresRoute: typeof GenresRoute
-  NotificationsRoute: typeof NotificationsRoute
-  PostsRoute: typeof PostsRoute
-  PrivacyRoute: typeof PrivacyRoute
-  SearchRoute: typeof SearchRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  TheGameAwardsRoute: typeof TheGameAwardsRoute
+  Char123LocaleChar125Route: typeof Char123LocaleChar125RouteWithChildren
   ApiHelloRoute: typeof ApiHelloRoute
   ApiLogoutRoute: typeof ApiLogoutRoute
   ApiTokenRoute: typeof ApiTokenRoute
   AuthCallbackRoute: typeof AuthCallbackRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthLogoutRoute: typeof AuthLogoutRoute
-  BuildsIdRoute: typeof BuildsIdRouteWithChildren
-  ChangelogIdRoute: typeof ChangelogIdRoute
-  FreebiesSellersRoute: typeof FreebiesSellersRoute
-  ItemsIdRoute: typeof ItemsIdRouteWithChildren
-  OffersIdRoute: typeof OffersIdRouteWithChildren
-  ProfileIdRoute: typeof ProfileIdRouteWithChildren
-  PromotionsIdRoute: typeof PromotionsIdRoute
-  SalesIdRoute: typeof SalesIdRoute
-  SandboxesIdRoute: typeof SandboxesIdRouteWithChildren
-  SellersIdRoute: typeof SellersIdRoute
-  StatsCreationsRoute: typeof StatsCreationsRoute
-  StatsReleasesRoute: typeof StatsReleasesRoute
-  TagsIdRoute: typeof TagsIdRoute
-  ChangelogIndexRoute: typeof ChangelogIndexRoute
-  CollectionsIndexRoute: typeof CollectionsIndexRoute
-  FreebiesIndexRoute: typeof FreebiesIndexRoute
-  SalesIndexRoute: typeof SalesIndexRoute
   ApiAndroidBetaRegisterRoute: typeof ApiAndroidBetaRegisterRoute
   ApiAndroidBetaStatusRoute: typeof ApiAndroidBetaStatusRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiAuthCallbackRoute: typeof ApiAuthCallbackRoute
   ApiAuthLoginRoute: typeof ApiAuthLoginRoute
-  CollectionsIdWeekRoute: typeof CollectionsIdWeekRouteWithChildren
-  StoreNamespaceSlugRoute: typeof StoreNamespaceSlugRoute
-  CollectionsIdIndexRoute: typeof CollectionsIdIndexRoute
-  FranchisesIdIndexRoute: typeof FranchisesIdIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/the-game-awards': {
-      id: '/the-game-awards'
-      path: '/the-game-awards'
-      fullPath: '/the-game-awards'
-      preLoaderRoute: typeof TheGameAwardsRouteImport
+    '/{-$locale}': {
+      id: '/{-$locale}'
+      path: '/{-$locale}'
+      fullPath: '/{-$locale}'
+      preLoaderRoute: typeof Char123LocaleChar125RouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -1010,229 +1048,117 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/search': {
-      id: '/search'
-      path: '/search'
-      fullPath: '/search'
-      preLoaderRoute: typeof SearchRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/posts': {
-      id: '/posts'
-      path: '/posts'
-      fullPath: '/posts'
-      preLoaderRoute: typeof PostsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/notifications': {
-      id: '/notifications'
-      path: '/notifications'
-      fullPath: '/notifications'
-      preLoaderRoute: typeof NotificationsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/genres': {
-      id: '/genres'
-      path: '/genres'
-      fullPath: '/genres'
-      preLoaderRoute: typeof GenresRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/freegames': {
-      id: '/freegames'
-      path: '/freegames'
-      fullPath: '/freegames'
-      preLoaderRoute: typeof FreegamesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/free-games': {
-      id: '/free-games'
-      path: '/free-games'
-      fullPath: '/free-games'
-      preLoaderRoute: typeof FreeGamesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/fair-use': {
-      id: '/fair-use'
-      path: '/fair-use'
-      fullPath: '/fair-use'
-      preLoaderRoute: typeof FairUseRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/downloads': {
-      id: '/downloads'
-      path: '/downloads'
-      fullPath: '/downloads'
-      preLoaderRoute: typeof DownloadsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/donate-key': {
-      id: '/donate-key'
-      path: '/donate-key'
-      fullPath: '/donate-key'
-      preLoaderRoute: typeof DonateKeyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/discord-linked': {
-      id: '/discord-linked'
-      path: '/discord-linked'
-      fullPath: '/discord-linked'
-      preLoaderRoute: typeof DiscordLinkedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/android-beta': {
-      id: '/android-beta'
-      path: '/android-beta'
-      fullPath: '/android-beta'
-      preLoaderRoute: typeof AndroidBetaRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
+    '/{-$locale}/': {
+      id: '/{-$locale}/'
       path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/{-$locale}/'
+      preLoaderRoute: typeof Char123LocaleChar125IndexRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/sales/': {
-      id: '/sales/'
-      path: '/sales'
-      fullPath: '/sales/'
-      preLoaderRoute: typeof SalesIndexRouteImport
-      parentRoute: typeof rootRouteImport
+    '/{-$locale}/the-game-awards': {
+      id: '/{-$locale}/the-game-awards'
+      path: '/the-game-awards'
+      fullPath: '/{-$locale}/the-game-awards'
+      preLoaderRoute: typeof Char123LocaleChar125TheGameAwardsRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/freebies/': {
-      id: '/freebies/'
-      path: '/freebies'
-      fullPath: '/freebies/'
-      preLoaderRoute: typeof FreebiesIndexRouteImport
-      parentRoute: typeof rootRouteImport
+    '/{-$locale}/search': {
+      id: '/{-$locale}/search'
+      path: '/search'
+      fullPath: '/{-$locale}/search'
+      preLoaderRoute: typeof Char123LocaleChar125SearchRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/collections/': {
-      id: '/collections/'
-      path: '/collections'
-      fullPath: '/collections/'
-      preLoaderRoute: typeof CollectionsIndexRouteImport
-      parentRoute: typeof rootRouteImport
+    '/{-$locale}/privacy': {
+      id: '/{-$locale}/privacy'
+      path: '/privacy'
+      fullPath: '/{-$locale}/privacy'
+      preLoaderRoute: typeof Char123LocaleChar125PrivacyRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/changelog/': {
-      id: '/changelog/'
-      path: '/changelog'
-      fullPath: '/changelog/'
-      preLoaderRoute: typeof ChangelogIndexRouteImport
-      parentRoute: typeof rootRouteImport
+    '/{-$locale}/posts': {
+      id: '/{-$locale}/posts'
+      path: '/posts'
+      fullPath: '/{-$locale}/posts'
+      preLoaderRoute: typeof Char123LocaleChar125PostsRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/tags/$id': {
-      id: '/tags/$id'
-      path: '/tags/$id'
-      fullPath: '/tags/$id'
-      preLoaderRoute: typeof TagsIdRouteImport
-      parentRoute: typeof rootRouteImport
+    '/{-$locale}/notifications': {
+      id: '/{-$locale}/notifications'
+      path: '/notifications'
+      fullPath: '/{-$locale}/notifications'
+      preLoaderRoute: typeof Char123LocaleChar125NotificationsRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/stats/releases': {
-      id: '/stats/releases'
-      path: '/stats/releases'
-      fullPath: '/stats/releases'
-      preLoaderRoute: typeof StatsReleasesRouteImport
-      parentRoute: typeof rootRouteImport
+    '/{-$locale}/genres': {
+      id: '/{-$locale}/genres'
+      path: '/genres'
+      fullPath: '/{-$locale}/genres'
+      preLoaderRoute: typeof Char123LocaleChar125GenresRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/stats/creations': {
-      id: '/stats/creations'
-      path: '/stats/creations'
-      fullPath: '/stats/creations'
-      preLoaderRoute: typeof StatsCreationsRouteImport
-      parentRoute: typeof rootRouteImport
+    '/{-$locale}/freegames': {
+      id: '/{-$locale}/freegames'
+      path: '/freegames'
+      fullPath: '/{-$locale}/freegames'
+      preLoaderRoute: typeof Char123LocaleChar125FreegamesRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/sellers/$id': {
-      id: '/sellers/$id'
-      path: '/sellers/$id'
-      fullPath: '/sellers/$id'
-      preLoaderRoute: typeof SellersIdRouteImport
-      parentRoute: typeof rootRouteImport
+    '/{-$locale}/free-games': {
+      id: '/{-$locale}/free-games'
+      path: '/free-games'
+      fullPath: '/{-$locale}/free-games'
+      preLoaderRoute: typeof Char123LocaleChar125FreeGamesRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/sandboxes/$id': {
-      id: '/sandboxes/$id'
-      path: '/sandboxes/$id'
-      fullPath: '/sandboxes/$id'
-      preLoaderRoute: typeof SandboxesIdRouteImport
-      parentRoute: typeof rootRouteImport
+    '/{-$locale}/fair-use': {
+      id: '/{-$locale}/fair-use'
+      path: '/fair-use'
+      fullPath: '/{-$locale}/fair-use'
+      preLoaderRoute: typeof Char123LocaleChar125FairUseRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/sales/$id': {
-      id: '/sales/$id'
-      path: '/sales/$id'
-      fullPath: '/sales/$id'
-      preLoaderRoute: typeof SalesIdRouteImport
-      parentRoute: typeof rootRouteImport
+    '/{-$locale}/downloads': {
+      id: '/{-$locale}/downloads'
+      path: '/downloads'
+      fullPath: '/{-$locale}/downloads'
+      preLoaderRoute: typeof Char123LocaleChar125DownloadsRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/promotions/$id': {
-      id: '/promotions/$id'
-      path: '/promotions/$id'
-      fullPath: '/promotions/$id'
-      preLoaderRoute: typeof PromotionsIdRouteImport
-      parentRoute: typeof rootRouteImport
+    '/{-$locale}/donate-key': {
+      id: '/{-$locale}/donate-key'
+      path: '/donate-key'
+      fullPath: '/{-$locale}/donate-key'
+      preLoaderRoute: typeof Char123LocaleChar125DonateKeyRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/profile/$id': {
-      id: '/profile/$id'
-      path: '/profile/$id'
-      fullPath: '/profile/$id'
-      preLoaderRoute: typeof ProfileIdRouteImport
-      parentRoute: typeof rootRouteImport
+    '/{-$locale}/discord-linked': {
+      id: '/{-$locale}/discord-linked'
+      path: '/discord-linked'
+      fullPath: '/{-$locale}/discord-linked'
+      preLoaderRoute: typeof Char123LocaleChar125DiscordLinkedRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/offers/$id': {
-      id: '/offers/$id'
-      path: '/offers/$id'
-      fullPath: '/offers/$id'
-      preLoaderRoute: typeof OffersIdRouteImport
-      parentRoute: typeof rootRouteImport
+    '/{-$locale}/dashboard': {
+      id: '/{-$locale}/dashboard'
+      path: '/dashboard'
+      fullPath: '/{-$locale}/dashboard'
+      preLoaderRoute: typeof Char123LocaleChar125DashboardRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/items/$id': {
-      id: '/items/$id'
-      path: '/items/$id'
-      fullPath: '/items/$id'
-      preLoaderRoute: typeof ItemsIdRouteImport
-      parentRoute: typeof rootRouteImport
+    '/{-$locale}/android-beta': {
+      id: '/{-$locale}/android-beta'
+      path: '/android-beta'
+      fullPath: '/{-$locale}/android-beta'
+      preLoaderRoute: typeof Char123LocaleChar125AndroidBetaRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/freebies/sellers': {
-      id: '/freebies/sellers'
-      path: '/freebies/sellers'
-      fullPath: '/freebies/sellers'
-      preLoaderRoute: typeof FreebiesSellersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/changelog/$id': {
-      id: '/changelog/$id'
-      path: '/changelog/$id'
-      fullPath: '/changelog/$id'
-      preLoaderRoute: typeof ChangelogIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/builds/$id': {
-      id: '/builds/$id'
-      path: '/builds/$id'
-      fullPath: '/builds/$id'
-      preLoaderRoute: typeof BuildsIdRouteImport
-      parentRoute: typeof rootRouteImport
+    '/{-$locale}/about': {
+      id: '/{-$locale}/about'
+      path: '/about'
+      fullPath: '/{-$locale}/about'
+      preLoaderRoute: typeof Char123LocaleChar125AboutRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
     '/auth/logout': {
       id: '/auth/logout'
@@ -1276,215 +1202,124 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiHelloRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sandboxes/$id/': {
-      id: '/sandboxes/$id/'
-      path: '/'
-      fullPath: '/sandboxes/$id/'
-      preLoaderRoute: typeof SandboxesIdIndexRouteImport
-      parentRoute: typeof SandboxesIdRoute
+    '/{-$locale}/sales/': {
+      id: '/{-$locale}/sales/'
+      path: '/sales'
+      fullPath: '/{-$locale}/sales/'
+      preLoaderRoute: typeof Char123LocaleChar125SalesIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/profile/$id/': {
-      id: '/profile/$id/'
-      path: '/'
-      fullPath: '/profile/$id/'
-      preLoaderRoute: typeof ProfileIdIndexRouteImport
-      parentRoute: typeof ProfileIdRoute
+    '/{-$locale}/freebies/': {
+      id: '/{-$locale}/freebies/'
+      path: '/freebies'
+      fullPath: '/{-$locale}/freebies/'
+      preLoaderRoute: typeof Char123LocaleChar125FreebiesIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/offers/$id/': {
-      id: '/offers/$id/'
-      path: '/'
-      fullPath: '/offers/$id/'
-      preLoaderRoute: typeof OffersIdIndexRouteImport
-      parentRoute: typeof OffersIdRoute
+    '/{-$locale}/collections/': {
+      id: '/{-$locale}/collections/'
+      path: '/collections'
+      fullPath: '/{-$locale}/collections/'
+      preLoaderRoute: typeof Char123LocaleChar125CollectionsIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/items/$id/': {
-      id: '/items/$id/'
-      path: '/'
-      fullPath: '/items/$id/'
-      preLoaderRoute: typeof ItemsIdIndexRouteImport
-      parentRoute: typeof ItemsIdRoute
-    }
-    '/franchises/$id/': {
-      id: '/franchises/$id/'
-      path: '/franchises/$id'
-      fullPath: '/franchises/$id/'
-      preLoaderRoute: typeof FranchisesIdIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/collections/$id/': {
-      id: '/collections/$id/'
-      path: '/collections/$id'
-      fullPath: '/collections/$id/'
-      preLoaderRoute: typeof CollectionsIdIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/store/$namespace/$slug': {
-      id: '/store/$namespace/$slug'
-      path: '/store/$namespace/$slug'
-      fullPath: '/store/$namespace/$slug'
-      preLoaderRoute: typeof StoreNamespaceSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sandboxes/$id/offers': {
-      id: '/sandboxes/$id/offers'
-      path: '/offers'
-      fullPath: '/sandboxes/$id/offers'
-      preLoaderRoute: typeof SandboxesIdOffersRouteImport
-      parentRoute: typeof SandboxesIdRoute
-    }
-    '/sandboxes/$id/items': {
-      id: '/sandboxes/$id/items'
-      path: '/items'
-      fullPath: '/sandboxes/$id/items'
-      preLoaderRoute: typeof SandboxesIdItemsRouteImport
-      parentRoute: typeof SandboxesIdRoute
-    }
-    '/sandboxes/$id/changelog': {
-      id: '/sandboxes/$id/changelog'
+    '/{-$locale}/changelog/': {
+      id: '/{-$locale}/changelog/'
       path: '/changelog'
-      fullPath: '/sandboxes/$id/changelog'
-      preLoaderRoute: typeof SandboxesIdChangelogRouteImport
-      parentRoute: typeof SandboxesIdRoute
+      fullPath: '/{-$locale}/changelog/'
+      preLoaderRoute: typeof Char123LocaleChar125ChangelogIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/sandboxes/$id/builds': {
-      id: '/sandboxes/$id/builds'
-      path: '/builds'
-      fullPath: '/sandboxes/$id/builds'
-      preLoaderRoute: typeof SandboxesIdBuildsRouteImport
-      parentRoute: typeof SandboxesIdRoute
+    '/{-$locale}/tags/$id': {
+      id: '/{-$locale}/tags/$id'
+      path: '/tags/$id'
+      fullPath: '/{-$locale}/tags/$id'
+      preLoaderRoute: typeof Char123LocaleChar125TagsIdRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/sandboxes/$id/assets': {
-      id: '/sandboxes/$id/assets'
-      path: '/assets'
-      fullPath: '/sandboxes/$id/assets'
-      preLoaderRoute: typeof SandboxesIdAssetsRouteImport
-      parentRoute: typeof SandboxesIdRoute
+    '/{-$locale}/stats/releases': {
+      id: '/{-$locale}/stats/releases'
+      path: '/stats/releases'
+      fullPath: '/{-$locale}/stats/releases'
+      preLoaderRoute: typeof Char123LocaleChar125StatsReleasesRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/sandboxes/$id/achievements': {
-      id: '/sandboxes/$id/achievements'
-      path: '/achievements'
-      fullPath: '/sandboxes/$id/achievements'
-      preLoaderRoute: typeof SandboxesIdAchievementsRouteImport
-      parentRoute: typeof SandboxesIdRoute
+    '/{-$locale}/stats/creations': {
+      id: '/{-$locale}/stats/creations'
+      path: '/stats/creations'
+      fullPath: '/{-$locale}/stats/creations'
+      preLoaderRoute: typeof Char123LocaleChar125StatsCreationsRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/offers/$id/reviews': {
-      id: '/offers/$id/reviews'
-      path: '/reviews'
-      fullPath: '/offers/$id/reviews'
-      preLoaderRoute: typeof OffersIdReviewsRouteImport
-      parentRoute: typeof OffersIdRoute
+    '/{-$locale}/sellers/$id': {
+      id: '/{-$locale}/sellers/$id'
+      path: '/sellers/$id'
+      fullPath: '/{-$locale}/sellers/$id'
+      preLoaderRoute: typeof Char123LocaleChar125SellersIdRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/offers/$id/related': {
-      id: '/offers/$id/related'
-      path: '/related'
-      fullPath: '/offers/$id/related'
-      preLoaderRoute: typeof OffersIdRelatedRouteImport
-      parentRoute: typeof OffersIdRoute
+    '/{-$locale}/sandboxes/$id': {
+      id: '/{-$locale}/sandboxes/$id'
+      path: '/sandboxes/$id'
+      fullPath: '/{-$locale}/sandboxes/$id'
+      preLoaderRoute: typeof Char123LocaleChar125SandboxesIdRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/offers/$id/price': {
-      id: '/offers/$id/price'
-      path: '/price'
-      fullPath: '/offers/$id/price'
-      preLoaderRoute: typeof OffersIdPriceRouteImport
-      parentRoute: typeof OffersIdRoute
+    '/{-$locale}/sales/$id': {
+      id: '/{-$locale}/sales/$id'
+      path: '/sales/$id'
+      fullPath: '/{-$locale}/sales/$id'
+      preLoaderRoute: typeof Char123LocaleChar125SalesIdRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/offers/$id/metadata': {
-      id: '/offers/$id/metadata'
-      path: '/metadata'
-      fullPath: '/offers/$id/metadata'
-      preLoaderRoute: typeof OffersIdMetadataRouteImport
-      parentRoute: typeof OffersIdRoute
+    '/{-$locale}/promotions/$id': {
+      id: '/{-$locale}/promotions/$id'
+      path: '/promotions/$id'
+      fullPath: '/{-$locale}/promotions/$id'
+      preLoaderRoute: typeof Char123LocaleChar125PromotionsIdRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/offers/$id/media': {
-      id: '/offers/$id/media'
-      path: '/media'
-      fullPath: '/offers/$id/media'
-      preLoaderRoute: typeof OffersIdMediaRouteImport
-      parentRoute: typeof OffersIdRoute
+    '/{-$locale}/profile/$id': {
+      id: '/{-$locale}/profile/$id'
+      path: '/profile/$id'
+      fullPath: '/{-$locale}/profile/$id'
+      preLoaderRoute: typeof Char123LocaleChar125ProfileIdRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/offers/$id/items': {
-      id: '/offers/$id/items'
-      path: '/items'
-      fullPath: '/offers/$id/items'
-      preLoaderRoute: typeof OffersIdItemsRouteImport
-      parentRoute: typeof OffersIdRoute
+    '/{-$locale}/offers/$id': {
+      id: '/{-$locale}/offers/$id'
+      path: '/offers/$id'
+      fullPath: '/{-$locale}/offers/$id'
+      preLoaderRoute: typeof Char123LocaleChar125OffersIdRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/offers/$id/changelog': {
-      id: '/offers/$id/changelog'
-      path: '/changelog'
-      fullPath: '/offers/$id/changelog'
-      preLoaderRoute: typeof OffersIdChangelogRouteImport
-      parentRoute: typeof OffersIdRoute
+    '/{-$locale}/items/$id': {
+      id: '/{-$locale}/items/$id'
+      path: '/items/$id'
+      fullPath: '/{-$locale}/items/$id'
+      preLoaderRoute: typeof Char123LocaleChar125ItemsIdRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/offers/$id/builds': {
-      id: '/offers/$id/builds'
-      path: '/builds'
-      fullPath: '/offers/$id/builds'
-      preLoaderRoute: typeof OffersIdBuildsRouteImport
-      parentRoute: typeof OffersIdRoute
+    '/{-$locale}/freebies/sellers': {
+      id: '/{-$locale}/freebies/sellers'
+      path: '/freebies/sellers'
+      fullPath: '/{-$locale}/freebies/sellers'
+      preLoaderRoute: typeof Char123LocaleChar125FreebiesSellersRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/offers/$id/achievements': {
-      id: '/offers/$id/achievements'
-      path: '/achievements'
-      fullPath: '/offers/$id/achievements'
-      preLoaderRoute: typeof OffersIdAchievementsRouteImport
-      parentRoute: typeof OffersIdRoute
+    '/{-$locale}/changelog/$id': {
+      id: '/{-$locale}/changelog/$id'
+      path: '/changelog/$id'
+      fullPath: '/{-$locale}/changelog/$id'
+      preLoaderRoute: typeof Char123LocaleChar125ChangelogIdRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
-    '/items/$id/images': {
-      id: '/items/$id/images'
-      path: '/images'
-      fullPath: '/items/$id/images'
-      preLoaderRoute: typeof ItemsIdImagesRouteImport
-      parentRoute: typeof ItemsIdRoute
-    }
-    '/items/$id/changelog': {
-      id: '/items/$id/changelog'
-      path: '/changelog'
-      fullPath: '/items/$id/changelog'
-      preLoaderRoute: typeof ItemsIdChangelogRouteImport
-      parentRoute: typeof ItemsIdRoute
-    }
-    '/items/$id/builds': {
-      id: '/items/$id/builds'
-      path: '/builds'
-      fullPath: '/items/$id/builds'
-      preLoaderRoute: typeof ItemsIdBuildsRouteImport
-      parentRoute: typeof ItemsIdRoute
-    }
-    '/items/$id/assets': {
-      id: '/items/$id/assets'
-      path: '/assets'
-      fullPath: '/items/$id/assets'
-      preLoaderRoute: typeof ItemsIdAssetsRouteImport
-      parentRoute: typeof ItemsIdRoute
-    }
-    '/collections/$id/$week': {
-      id: '/collections/$id/$week'
-      path: '/collections/$id/$week'
-      fullPath: '/collections/$id/$week'
-      preLoaderRoute: typeof CollectionsIdWeekRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/builds/$id/items': {
-      id: '/builds/$id/items'
-      path: '/items'
-      fullPath: '/builds/$id/items'
-      preLoaderRoute: typeof BuildsIdItemsRouteImport
-      parentRoute: typeof BuildsIdRoute
-    }
-    '/builds/$id/install-options': {
-      id: '/builds/$id/install-options'
-      path: '/install-options'
-      fullPath: '/builds/$id/install-options'
-      preLoaderRoute: typeof BuildsIdInstallOptionsRouteImport
-      parentRoute: typeof BuildsIdRoute
-    }
-    '/builds/$id/files': {
-      id: '/builds/$id/files'
-      path: '/files'
-      fullPath: '/builds/$id/files'
-      preLoaderRoute: typeof BuildsIdFilesRouteImport
-      parentRoute: typeof BuildsIdRoute
+    '/{-$locale}/builds/$id': {
+      id: '/{-$locale}/builds/$id'
+      path: '/builds/$id'
+      fullPath: '/{-$locale}/builds/$id'
+      preLoaderRoute: typeof Char123LocaleChar125BuildsIdRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
     }
     '/api/auth/login': {
       id: '/api/auth/login'
@@ -1521,187 +1356,504 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAndroidBetaRegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/collections/$id/$week/': {
-      id: '/collections/$id/$week/'
+    '/{-$locale}/sandboxes/$id/': {
+      id: '/{-$locale}/sandboxes/$id/'
       path: '/'
-      fullPath: '/collections/$id/$week/'
-      preLoaderRoute: typeof CollectionsIdWeekIndexRouteImport
-      parentRoute: typeof CollectionsIdWeekRoute
+      fullPath: '/{-$locale}/sandboxes/$id/'
+      preLoaderRoute: typeof Char123LocaleChar125SandboxesIdIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125SandboxesIdRoute
     }
-    '/profile/$id/achievements/$sandbox': {
-      id: '/profile/$id/achievements/$sandbox'
+    '/{-$locale}/profile/$id/': {
+      id: '/{-$locale}/profile/$id/'
+      path: '/'
+      fullPath: '/{-$locale}/profile/$id/'
+      preLoaderRoute: typeof Char123LocaleChar125ProfileIdIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125ProfileIdRoute
+    }
+    '/{-$locale}/offers/$id/': {
+      id: '/{-$locale}/offers/$id/'
+      path: '/'
+      fullPath: '/{-$locale}/offers/$id/'
+      preLoaderRoute: typeof Char123LocaleChar125OffersIdIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125OffersIdRoute
+    }
+    '/{-$locale}/items/$id/': {
+      id: '/{-$locale}/items/$id/'
+      path: '/'
+      fullPath: '/{-$locale}/items/$id/'
+      preLoaderRoute: typeof Char123LocaleChar125ItemsIdIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125ItemsIdRoute
+    }
+    '/{-$locale}/franchises/$id/': {
+      id: '/{-$locale}/franchises/$id/'
+      path: '/franchises/$id'
+      fullPath: '/{-$locale}/franchises/$id/'
+      preLoaderRoute: typeof Char123LocaleChar125FranchisesIdIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
+    }
+    '/{-$locale}/collections/$id/': {
+      id: '/{-$locale}/collections/$id/'
+      path: '/collections/$id'
+      fullPath: '/{-$locale}/collections/$id/'
+      preLoaderRoute: typeof Char123LocaleChar125CollectionsIdIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
+    }
+    '/{-$locale}/store/$namespace/$slug': {
+      id: '/{-$locale}/store/$namespace/$slug'
+      path: '/store/$namespace/$slug'
+      fullPath: '/{-$locale}/store/$namespace/$slug'
+      preLoaderRoute: typeof Char123LocaleChar125StoreNamespaceSlugRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
+    }
+    '/{-$locale}/sandboxes/$id/offers': {
+      id: '/{-$locale}/sandboxes/$id/offers'
+      path: '/offers'
+      fullPath: '/{-$locale}/sandboxes/$id/offers'
+      preLoaderRoute: typeof Char123LocaleChar125SandboxesIdOffersRouteImport
+      parentRoute: typeof Char123LocaleChar125SandboxesIdRoute
+    }
+    '/{-$locale}/sandboxes/$id/items': {
+      id: '/{-$locale}/sandboxes/$id/items'
+      path: '/items'
+      fullPath: '/{-$locale}/sandboxes/$id/items'
+      preLoaderRoute: typeof Char123LocaleChar125SandboxesIdItemsRouteImport
+      parentRoute: typeof Char123LocaleChar125SandboxesIdRoute
+    }
+    '/{-$locale}/sandboxes/$id/changelog': {
+      id: '/{-$locale}/sandboxes/$id/changelog'
+      path: '/changelog'
+      fullPath: '/{-$locale}/sandboxes/$id/changelog'
+      preLoaderRoute: typeof Char123LocaleChar125SandboxesIdChangelogRouteImport
+      parentRoute: typeof Char123LocaleChar125SandboxesIdRoute
+    }
+    '/{-$locale}/sandboxes/$id/builds': {
+      id: '/{-$locale}/sandboxes/$id/builds'
+      path: '/builds'
+      fullPath: '/{-$locale}/sandboxes/$id/builds'
+      preLoaderRoute: typeof Char123LocaleChar125SandboxesIdBuildsRouteImport
+      parentRoute: typeof Char123LocaleChar125SandboxesIdRoute
+    }
+    '/{-$locale}/sandboxes/$id/assets': {
+      id: '/{-$locale}/sandboxes/$id/assets'
+      path: '/assets'
+      fullPath: '/{-$locale}/sandboxes/$id/assets'
+      preLoaderRoute: typeof Char123LocaleChar125SandboxesIdAssetsRouteImport
+      parentRoute: typeof Char123LocaleChar125SandboxesIdRoute
+    }
+    '/{-$locale}/sandboxes/$id/achievements': {
+      id: '/{-$locale}/sandboxes/$id/achievements'
+      path: '/achievements'
+      fullPath: '/{-$locale}/sandboxes/$id/achievements'
+      preLoaderRoute: typeof Char123LocaleChar125SandboxesIdAchievementsRouteImport
+      parentRoute: typeof Char123LocaleChar125SandboxesIdRoute
+    }
+    '/{-$locale}/offers/$id/reviews': {
+      id: '/{-$locale}/offers/$id/reviews'
+      path: '/reviews'
+      fullPath: '/{-$locale}/offers/$id/reviews'
+      preLoaderRoute: typeof Char123LocaleChar125OffersIdReviewsRouteImport
+      parentRoute: typeof Char123LocaleChar125OffersIdRoute
+    }
+    '/{-$locale}/offers/$id/related': {
+      id: '/{-$locale}/offers/$id/related'
+      path: '/related'
+      fullPath: '/{-$locale}/offers/$id/related'
+      preLoaderRoute: typeof Char123LocaleChar125OffersIdRelatedRouteImport
+      parentRoute: typeof Char123LocaleChar125OffersIdRoute
+    }
+    '/{-$locale}/offers/$id/price': {
+      id: '/{-$locale}/offers/$id/price'
+      path: '/price'
+      fullPath: '/{-$locale}/offers/$id/price'
+      preLoaderRoute: typeof Char123LocaleChar125OffersIdPriceRouteImport
+      parentRoute: typeof Char123LocaleChar125OffersIdRoute
+    }
+    '/{-$locale}/offers/$id/metadata': {
+      id: '/{-$locale}/offers/$id/metadata'
+      path: '/metadata'
+      fullPath: '/{-$locale}/offers/$id/metadata'
+      preLoaderRoute: typeof Char123LocaleChar125OffersIdMetadataRouteImport
+      parentRoute: typeof Char123LocaleChar125OffersIdRoute
+    }
+    '/{-$locale}/offers/$id/media': {
+      id: '/{-$locale}/offers/$id/media'
+      path: '/media'
+      fullPath: '/{-$locale}/offers/$id/media'
+      preLoaderRoute: typeof Char123LocaleChar125OffersIdMediaRouteImport
+      parentRoute: typeof Char123LocaleChar125OffersIdRoute
+    }
+    '/{-$locale}/offers/$id/items': {
+      id: '/{-$locale}/offers/$id/items'
+      path: '/items'
+      fullPath: '/{-$locale}/offers/$id/items'
+      preLoaderRoute: typeof Char123LocaleChar125OffersIdItemsRouteImport
+      parentRoute: typeof Char123LocaleChar125OffersIdRoute
+    }
+    '/{-$locale}/offers/$id/changelog': {
+      id: '/{-$locale}/offers/$id/changelog'
+      path: '/changelog'
+      fullPath: '/{-$locale}/offers/$id/changelog'
+      preLoaderRoute: typeof Char123LocaleChar125OffersIdChangelogRouteImport
+      parentRoute: typeof Char123LocaleChar125OffersIdRoute
+    }
+    '/{-$locale}/offers/$id/builds': {
+      id: '/{-$locale}/offers/$id/builds'
+      path: '/builds'
+      fullPath: '/{-$locale}/offers/$id/builds'
+      preLoaderRoute: typeof Char123LocaleChar125OffersIdBuildsRouteImport
+      parentRoute: typeof Char123LocaleChar125OffersIdRoute
+    }
+    '/{-$locale}/offers/$id/achievements': {
+      id: '/{-$locale}/offers/$id/achievements'
+      path: '/achievements'
+      fullPath: '/{-$locale}/offers/$id/achievements'
+      preLoaderRoute: typeof Char123LocaleChar125OffersIdAchievementsRouteImport
+      parentRoute: typeof Char123LocaleChar125OffersIdRoute
+    }
+    '/{-$locale}/items/$id/images': {
+      id: '/{-$locale}/items/$id/images'
+      path: '/images'
+      fullPath: '/{-$locale}/items/$id/images'
+      preLoaderRoute: typeof Char123LocaleChar125ItemsIdImagesRouteImport
+      parentRoute: typeof Char123LocaleChar125ItemsIdRoute
+    }
+    '/{-$locale}/items/$id/changelog': {
+      id: '/{-$locale}/items/$id/changelog'
+      path: '/changelog'
+      fullPath: '/{-$locale}/items/$id/changelog'
+      preLoaderRoute: typeof Char123LocaleChar125ItemsIdChangelogRouteImport
+      parentRoute: typeof Char123LocaleChar125ItemsIdRoute
+    }
+    '/{-$locale}/items/$id/builds': {
+      id: '/{-$locale}/items/$id/builds'
+      path: '/builds'
+      fullPath: '/{-$locale}/items/$id/builds'
+      preLoaderRoute: typeof Char123LocaleChar125ItemsIdBuildsRouteImport
+      parentRoute: typeof Char123LocaleChar125ItemsIdRoute
+    }
+    '/{-$locale}/items/$id/assets': {
+      id: '/{-$locale}/items/$id/assets'
+      path: '/assets'
+      fullPath: '/{-$locale}/items/$id/assets'
+      preLoaderRoute: typeof Char123LocaleChar125ItemsIdAssetsRouteImport
+      parentRoute: typeof Char123LocaleChar125ItemsIdRoute
+    }
+    '/{-$locale}/collections/$id/$week': {
+      id: '/{-$locale}/collections/$id/$week'
+      path: '/collections/$id/$week'
+      fullPath: '/{-$locale}/collections/$id/$week'
+      preLoaderRoute: typeof Char123LocaleChar125CollectionsIdWeekRouteImport
+      parentRoute: typeof Char123LocaleChar125Route
+    }
+    '/{-$locale}/builds/$id/items': {
+      id: '/{-$locale}/builds/$id/items'
+      path: '/items'
+      fullPath: '/{-$locale}/builds/$id/items'
+      preLoaderRoute: typeof Char123LocaleChar125BuildsIdItemsRouteImport
+      parentRoute: typeof Char123LocaleChar125BuildsIdRoute
+    }
+    '/{-$locale}/builds/$id/install-options': {
+      id: '/{-$locale}/builds/$id/install-options'
+      path: '/install-options'
+      fullPath: '/{-$locale}/builds/$id/install-options'
+      preLoaderRoute: typeof Char123LocaleChar125BuildsIdInstallOptionsRouteImport
+      parentRoute: typeof Char123LocaleChar125BuildsIdRoute
+    }
+    '/{-$locale}/builds/$id/files': {
+      id: '/{-$locale}/builds/$id/files'
+      path: '/files'
+      fullPath: '/{-$locale}/builds/$id/files'
+      preLoaderRoute: typeof Char123LocaleChar125BuildsIdFilesRouteImport
+      parentRoute: typeof Char123LocaleChar125BuildsIdRoute
+    }
+    '/{-$locale}/collections/$id/$week/': {
+      id: '/{-$locale}/collections/$id/$week/'
+      path: '/'
+      fullPath: '/{-$locale}/collections/$id/$week/'
+      preLoaderRoute: typeof Char123LocaleChar125CollectionsIdWeekIndexRouteImport
+      parentRoute: typeof Char123LocaleChar125CollectionsIdWeekRoute
+    }
+    '/{-$locale}/profile/$id/achievements/$sandbox': {
+      id: '/{-$locale}/profile/$id/achievements/$sandbox'
       path: '/achievements/$sandbox'
-      fullPath: '/profile/$id/achievements/$sandbox'
-      preLoaderRoute: typeof ProfileIdAchievementsSandboxRouteImport
-      parentRoute: typeof ProfileIdRoute
+      fullPath: '/{-$locale}/profile/$id/achievements/$sandbox'
+      preLoaderRoute: typeof Char123LocaleChar125ProfileIdAchievementsSandboxRouteImport
+      parentRoute: typeof Char123LocaleChar125ProfileIdRoute
     }
   }
 }
 
-interface BuildsIdRouteChildren {
-  BuildsIdFilesRoute: typeof BuildsIdFilesRoute
-  BuildsIdInstallOptionsRoute: typeof BuildsIdInstallOptionsRoute
-  BuildsIdItemsRoute: typeof BuildsIdItemsRoute
+interface Char123LocaleChar125BuildsIdRouteChildren {
+  Char123LocaleChar125BuildsIdFilesRoute: typeof Char123LocaleChar125BuildsIdFilesRoute
+  Char123LocaleChar125BuildsIdInstallOptionsRoute: typeof Char123LocaleChar125BuildsIdInstallOptionsRoute
+  Char123LocaleChar125BuildsIdItemsRoute: typeof Char123LocaleChar125BuildsIdItemsRoute
 }
 
-const BuildsIdRouteChildren: BuildsIdRouteChildren = {
-  BuildsIdFilesRoute: BuildsIdFilesRoute,
-  BuildsIdInstallOptionsRoute: BuildsIdInstallOptionsRoute,
-  BuildsIdItemsRoute: BuildsIdItemsRoute,
+const Char123LocaleChar125BuildsIdRouteChildren: Char123LocaleChar125BuildsIdRouteChildren =
+  {
+    Char123LocaleChar125BuildsIdFilesRoute:
+      Char123LocaleChar125BuildsIdFilesRoute,
+    Char123LocaleChar125BuildsIdInstallOptionsRoute:
+      Char123LocaleChar125BuildsIdInstallOptionsRoute,
+    Char123LocaleChar125BuildsIdItemsRoute:
+      Char123LocaleChar125BuildsIdItemsRoute,
+  }
+
+const Char123LocaleChar125BuildsIdRouteWithChildren =
+  Char123LocaleChar125BuildsIdRoute._addFileChildren(
+    Char123LocaleChar125BuildsIdRouteChildren,
+  )
+
+interface Char123LocaleChar125ItemsIdRouteChildren {
+  Char123LocaleChar125ItemsIdAssetsRoute: typeof Char123LocaleChar125ItemsIdAssetsRoute
+  Char123LocaleChar125ItemsIdBuildsRoute: typeof Char123LocaleChar125ItemsIdBuildsRoute
+  Char123LocaleChar125ItemsIdChangelogRoute: typeof Char123LocaleChar125ItemsIdChangelogRoute
+  Char123LocaleChar125ItemsIdImagesRoute: typeof Char123LocaleChar125ItemsIdImagesRoute
+  Char123LocaleChar125ItemsIdIndexRoute: typeof Char123LocaleChar125ItemsIdIndexRoute
 }
 
-const BuildsIdRouteWithChildren = BuildsIdRoute._addFileChildren(
-  BuildsIdRouteChildren,
-)
+const Char123LocaleChar125ItemsIdRouteChildren: Char123LocaleChar125ItemsIdRouteChildren =
+  {
+    Char123LocaleChar125ItemsIdAssetsRoute:
+      Char123LocaleChar125ItemsIdAssetsRoute,
+    Char123LocaleChar125ItemsIdBuildsRoute:
+      Char123LocaleChar125ItemsIdBuildsRoute,
+    Char123LocaleChar125ItemsIdChangelogRoute:
+      Char123LocaleChar125ItemsIdChangelogRoute,
+    Char123LocaleChar125ItemsIdImagesRoute:
+      Char123LocaleChar125ItemsIdImagesRoute,
+    Char123LocaleChar125ItemsIdIndexRoute:
+      Char123LocaleChar125ItemsIdIndexRoute,
+  }
 
-interface ItemsIdRouteChildren {
-  ItemsIdAssetsRoute: typeof ItemsIdAssetsRoute
-  ItemsIdBuildsRoute: typeof ItemsIdBuildsRoute
-  ItemsIdChangelogRoute: typeof ItemsIdChangelogRoute
-  ItemsIdImagesRoute: typeof ItemsIdImagesRoute
-  ItemsIdIndexRoute: typeof ItemsIdIndexRoute
+const Char123LocaleChar125ItemsIdRouteWithChildren =
+  Char123LocaleChar125ItemsIdRoute._addFileChildren(
+    Char123LocaleChar125ItemsIdRouteChildren,
+  )
+
+interface Char123LocaleChar125OffersIdRouteChildren {
+  Char123LocaleChar125OffersIdAchievementsRoute: typeof Char123LocaleChar125OffersIdAchievementsRoute
+  Char123LocaleChar125OffersIdBuildsRoute: typeof Char123LocaleChar125OffersIdBuildsRoute
+  Char123LocaleChar125OffersIdChangelogRoute: typeof Char123LocaleChar125OffersIdChangelogRoute
+  Char123LocaleChar125OffersIdItemsRoute: typeof Char123LocaleChar125OffersIdItemsRoute
+  Char123LocaleChar125OffersIdMediaRoute: typeof Char123LocaleChar125OffersIdMediaRoute
+  Char123LocaleChar125OffersIdMetadataRoute: typeof Char123LocaleChar125OffersIdMetadataRoute
+  Char123LocaleChar125OffersIdPriceRoute: typeof Char123LocaleChar125OffersIdPriceRoute
+  Char123LocaleChar125OffersIdRelatedRoute: typeof Char123LocaleChar125OffersIdRelatedRoute
+  Char123LocaleChar125OffersIdReviewsRoute: typeof Char123LocaleChar125OffersIdReviewsRoute
+  Char123LocaleChar125OffersIdIndexRoute: typeof Char123LocaleChar125OffersIdIndexRoute
 }
 
-const ItemsIdRouteChildren: ItemsIdRouteChildren = {
-  ItemsIdAssetsRoute: ItemsIdAssetsRoute,
-  ItemsIdBuildsRoute: ItemsIdBuildsRoute,
-  ItemsIdChangelogRoute: ItemsIdChangelogRoute,
-  ItemsIdImagesRoute: ItemsIdImagesRoute,
-  ItemsIdIndexRoute: ItemsIdIndexRoute,
+const Char123LocaleChar125OffersIdRouteChildren: Char123LocaleChar125OffersIdRouteChildren =
+  {
+    Char123LocaleChar125OffersIdAchievementsRoute:
+      Char123LocaleChar125OffersIdAchievementsRoute,
+    Char123LocaleChar125OffersIdBuildsRoute:
+      Char123LocaleChar125OffersIdBuildsRoute,
+    Char123LocaleChar125OffersIdChangelogRoute:
+      Char123LocaleChar125OffersIdChangelogRoute,
+    Char123LocaleChar125OffersIdItemsRoute:
+      Char123LocaleChar125OffersIdItemsRoute,
+    Char123LocaleChar125OffersIdMediaRoute:
+      Char123LocaleChar125OffersIdMediaRoute,
+    Char123LocaleChar125OffersIdMetadataRoute:
+      Char123LocaleChar125OffersIdMetadataRoute,
+    Char123LocaleChar125OffersIdPriceRoute:
+      Char123LocaleChar125OffersIdPriceRoute,
+    Char123LocaleChar125OffersIdRelatedRoute:
+      Char123LocaleChar125OffersIdRelatedRoute,
+    Char123LocaleChar125OffersIdReviewsRoute:
+      Char123LocaleChar125OffersIdReviewsRoute,
+    Char123LocaleChar125OffersIdIndexRoute:
+      Char123LocaleChar125OffersIdIndexRoute,
+  }
+
+const Char123LocaleChar125OffersIdRouteWithChildren =
+  Char123LocaleChar125OffersIdRoute._addFileChildren(
+    Char123LocaleChar125OffersIdRouteChildren,
+  )
+
+interface Char123LocaleChar125ProfileIdRouteChildren {
+  Char123LocaleChar125ProfileIdIndexRoute: typeof Char123LocaleChar125ProfileIdIndexRoute
+  Char123LocaleChar125ProfileIdAchievementsSandboxRoute: typeof Char123LocaleChar125ProfileIdAchievementsSandboxRoute
 }
 
-const ItemsIdRouteWithChildren =
-  ItemsIdRoute._addFileChildren(ItemsIdRouteChildren)
+const Char123LocaleChar125ProfileIdRouteChildren: Char123LocaleChar125ProfileIdRouteChildren =
+  {
+    Char123LocaleChar125ProfileIdIndexRoute:
+      Char123LocaleChar125ProfileIdIndexRoute,
+    Char123LocaleChar125ProfileIdAchievementsSandboxRoute:
+      Char123LocaleChar125ProfileIdAchievementsSandboxRoute,
+  }
 
-interface OffersIdRouteChildren {
-  OffersIdAchievementsRoute: typeof OffersIdAchievementsRoute
-  OffersIdBuildsRoute: typeof OffersIdBuildsRoute
-  OffersIdChangelogRoute: typeof OffersIdChangelogRoute
-  OffersIdItemsRoute: typeof OffersIdItemsRoute
-  OffersIdMediaRoute: typeof OffersIdMediaRoute
-  OffersIdMetadataRoute: typeof OffersIdMetadataRoute
-  OffersIdPriceRoute: typeof OffersIdPriceRoute
-  OffersIdRelatedRoute: typeof OffersIdRelatedRoute
-  OffersIdReviewsRoute: typeof OffersIdReviewsRoute
-  OffersIdIndexRoute: typeof OffersIdIndexRoute
+const Char123LocaleChar125ProfileIdRouteWithChildren =
+  Char123LocaleChar125ProfileIdRoute._addFileChildren(
+    Char123LocaleChar125ProfileIdRouteChildren,
+  )
+
+interface Char123LocaleChar125SandboxesIdRouteChildren {
+  Char123LocaleChar125SandboxesIdAchievementsRoute: typeof Char123LocaleChar125SandboxesIdAchievementsRoute
+  Char123LocaleChar125SandboxesIdAssetsRoute: typeof Char123LocaleChar125SandboxesIdAssetsRoute
+  Char123LocaleChar125SandboxesIdBuildsRoute: typeof Char123LocaleChar125SandboxesIdBuildsRoute
+  Char123LocaleChar125SandboxesIdChangelogRoute: typeof Char123LocaleChar125SandboxesIdChangelogRoute
+  Char123LocaleChar125SandboxesIdItemsRoute: typeof Char123LocaleChar125SandboxesIdItemsRoute
+  Char123LocaleChar125SandboxesIdOffersRoute: typeof Char123LocaleChar125SandboxesIdOffersRoute
+  Char123LocaleChar125SandboxesIdIndexRoute: typeof Char123LocaleChar125SandboxesIdIndexRoute
 }
 
-const OffersIdRouteChildren: OffersIdRouteChildren = {
-  OffersIdAchievementsRoute: OffersIdAchievementsRoute,
-  OffersIdBuildsRoute: OffersIdBuildsRoute,
-  OffersIdChangelogRoute: OffersIdChangelogRoute,
-  OffersIdItemsRoute: OffersIdItemsRoute,
-  OffersIdMediaRoute: OffersIdMediaRoute,
-  OffersIdMetadataRoute: OffersIdMetadataRoute,
-  OffersIdPriceRoute: OffersIdPriceRoute,
-  OffersIdRelatedRoute: OffersIdRelatedRoute,
-  OffersIdReviewsRoute: OffersIdReviewsRoute,
-  OffersIdIndexRoute: OffersIdIndexRoute,
+const Char123LocaleChar125SandboxesIdRouteChildren: Char123LocaleChar125SandboxesIdRouteChildren =
+  {
+    Char123LocaleChar125SandboxesIdAchievementsRoute:
+      Char123LocaleChar125SandboxesIdAchievementsRoute,
+    Char123LocaleChar125SandboxesIdAssetsRoute:
+      Char123LocaleChar125SandboxesIdAssetsRoute,
+    Char123LocaleChar125SandboxesIdBuildsRoute:
+      Char123LocaleChar125SandboxesIdBuildsRoute,
+    Char123LocaleChar125SandboxesIdChangelogRoute:
+      Char123LocaleChar125SandboxesIdChangelogRoute,
+    Char123LocaleChar125SandboxesIdItemsRoute:
+      Char123LocaleChar125SandboxesIdItemsRoute,
+    Char123LocaleChar125SandboxesIdOffersRoute:
+      Char123LocaleChar125SandboxesIdOffersRoute,
+    Char123LocaleChar125SandboxesIdIndexRoute:
+      Char123LocaleChar125SandboxesIdIndexRoute,
+  }
+
+const Char123LocaleChar125SandboxesIdRouteWithChildren =
+  Char123LocaleChar125SandboxesIdRoute._addFileChildren(
+    Char123LocaleChar125SandboxesIdRouteChildren,
+  )
+
+interface Char123LocaleChar125CollectionsIdWeekRouteChildren {
+  Char123LocaleChar125CollectionsIdWeekIndexRoute: typeof Char123LocaleChar125CollectionsIdWeekIndexRoute
 }
 
-const OffersIdRouteWithChildren = OffersIdRoute._addFileChildren(
-  OffersIdRouteChildren,
-)
+const Char123LocaleChar125CollectionsIdWeekRouteChildren: Char123LocaleChar125CollectionsIdWeekRouteChildren =
+  {
+    Char123LocaleChar125CollectionsIdWeekIndexRoute:
+      Char123LocaleChar125CollectionsIdWeekIndexRoute,
+  }
 
-interface ProfileIdRouteChildren {
-  ProfileIdIndexRoute: typeof ProfileIdIndexRoute
-  ProfileIdAchievementsSandboxRoute: typeof ProfileIdAchievementsSandboxRoute
+const Char123LocaleChar125CollectionsIdWeekRouteWithChildren =
+  Char123LocaleChar125CollectionsIdWeekRoute._addFileChildren(
+    Char123LocaleChar125CollectionsIdWeekRouteChildren,
+  )
+
+interface Char123LocaleChar125RouteChildren {
+  Char123LocaleChar125AboutRoute: typeof Char123LocaleChar125AboutRoute
+  Char123LocaleChar125AndroidBetaRoute: typeof Char123LocaleChar125AndroidBetaRoute
+  Char123LocaleChar125DashboardRoute: typeof Char123LocaleChar125DashboardRoute
+  Char123LocaleChar125DiscordLinkedRoute: typeof Char123LocaleChar125DiscordLinkedRoute
+  Char123LocaleChar125DonateKeyRoute: typeof Char123LocaleChar125DonateKeyRoute
+  Char123LocaleChar125DownloadsRoute: typeof Char123LocaleChar125DownloadsRoute
+  Char123LocaleChar125FairUseRoute: typeof Char123LocaleChar125FairUseRoute
+  Char123LocaleChar125FreeGamesRoute: typeof Char123LocaleChar125FreeGamesRoute
+  Char123LocaleChar125FreegamesRoute: typeof Char123LocaleChar125FreegamesRoute
+  Char123LocaleChar125GenresRoute: typeof Char123LocaleChar125GenresRoute
+  Char123LocaleChar125NotificationsRoute: typeof Char123LocaleChar125NotificationsRoute
+  Char123LocaleChar125PostsRoute: typeof Char123LocaleChar125PostsRoute
+  Char123LocaleChar125PrivacyRoute: typeof Char123LocaleChar125PrivacyRoute
+  Char123LocaleChar125SearchRoute: typeof Char123LocaleChar125SearchRoute
+  Char123LocaleChar125TheGameAwardsRoute: typeof Char123LocaleChar125TheGameAwardsRoute
+  Char123LocaleChar125IndexRoute: typeof Char123LocaleChar125IndexRoute
+  Char123LocaleChar125BuildsIdRoute: typeof Char123LocaleChar125BuildsIdRouteWithChildren
+  Char123LocaleChar125ChangelogIdRoute: typeof Char123LocaleChar125ChangelogIdRoute
+  Char123LocaleChar125FreebiesSellersRoute: typeof Char123LocaleChar125FreebiesSellersRoute
+  Char123LocaleChar125ItemsIdRoute: typeof Char123LocaleChar125ItemsIdRouteWithChildren
+  Char123LocaleChar125OffersIdRoute: typeof Char123LocaleChar125OffersIdRouteWithChildren
+  Char123LocaleChar125ProfileIdRoute: typeof Char123LocaleChar125ProfileIdRouteWithChildren
+  Char123LocaleChar125PromotionsIdRoute: typeof Char123LocaleChar125PromotionsIdRoute
+  Char123LocaleChar125SalesIdRoute: typeof Char123LocaleChar125SalesIdRoute
+  Char123LocaleChar125SandboxesIdRoute: typeof Char123LocaleChar125SandboxesIdRouteWithChildren
+  Char123LocaleChar125SellersIdRoute: typeof Char123LocaleChar125SellersIdRoute
+  Char123LocaleChar125StatsCreationsRoute: typeof Char123LocaleChar125StatsCreationsRoute
+  Char123LocaleChar125StatsReleasesRoute: typeof Char123LocaleChar125StatsReleasesRoute
+  Char123LocaleChar125TagsIdRoute: typeof Char123LocaleChar125TagsIdRoute
+  Char123LocaleChar125ChangelogIndexRoute: typeof Char123LocaleChar125ChangelogIndexRoute
+  Char123LocaleChar125CollectionsIndexRoute: typeof Char123LocaleChar125CollectionsIndexRoute
+  Char123LocaleChar125FreebiesIndexRoute: typeof Char123LocaleChar125FreebiesIndexRoute
+  Char123LocaleChar125SalesIndexRoute: typeof Char123LocaleChar125SalesIndexRoute
+  Char123LocaleChar125CollectionsIdWeekRoute: typeof Char123LocaleChar125CollectionsIdWeekRouteWithChildren
+  Char123LocaleChar125StoreNamespaceSlugRoute: typeof Char123LocaleChar125StoreNamespaceSlugRoute
+  Char123LocaleChar125CollectionsIdIndexRoute: typeof Char123LocaleChar125CollectionsIdIndexRoute
+  Char123LocaleChar125FranchisesIdIndexRoute: typeof Char123LocaleChar125FranchisesIdIndexRoute
 }
 
-const ProfileIdRouteChildren: ProfileIdRouteChildren = {
-  ProfileIdIndexRoute: ProfileIdIndexRoute,
-  ProfileIdAchievementsSandboxRoute: ProfileIdAchievementsSandboxRoute,
+const Char123LocaleChar125RouteChildren: Char123LocaleChar125RouteChildren = {
+  Char123LocaleChar125AboutRoute: Char123LocaleChar125AboutRoute,
+  Char123LocaleChar125AndroidBetaRoute: Char123LocaleChar125AndroidBetaRoute,
+  Char123LocaleChar125DashboardRoute: Char123LocaleChar125DashboardRoute,
+  Char123LocaleChar125DiscordLinkedRoute:
+    Char123LocaleChar125DiscordLinkedRoute,
+  Char123LocaleChar125DonateKeyRoute: Char123LocaleChar125DonateKeyRoute,
+  Char123LocaleChar125DownloadsRoute: Char123LocaleChar125DownloadsRoute,
+  Char123LocaleChar125FairUseRoute: Char123LocaleChar125FairUseRoute,
+  Char123LocaleChar125FreeGamesRoute: Char123LocaleChar125FreeGamesRoute,
+  Char123LocaleChar125FreegamesRoute: Char123LocaleChar125FreegamesRoute,
+  Char123LocaleChar125GenresRoute: Char123LocaleChar125GenresRoute,
+  Char123LocaleChar125NotificationsRoute:
+    Char123LocaleChar125NotificationsRoute,
+  Char123LocaleChar125PostsRoute: Char123LocaleChar125PostsRoute,
+  Char123LocaleChar125PrivacyRoute: Char123LocaleChar125PrivacyRoute,
+  Char123LocaleChar125SearchRoute: Char123LocaleChar125SearchRoute,
+  Char123LocaleChar125TheGameAwardsRoute:
+    Char123LocaleChar125TheGameAwardsRoute,
+  Char123LocaleChar125IndexRoute: Char123LocaleChar125IndexRoute,
+  Char123LocaleChar125BuildsIdRoute:
+    Char123LocaleChar125BuildsIdRouteWithChildren,
+  Char123LocaleChar125ChangelogIdRoute: Char123LocaleChar125ChangelogIdRoute,
+  Char123LocaleChar125FreebiesSellersRoute:
+    Char123LocaleChar125FreebiesSellersRoute,
+  Char123LocaleChar125ItemsIdRoute:
+    Char123LocaleChar125ItemsIdRouteWithChildren,
+  Char123LocaleChar125OffersIdRoute:
+    Char123LocaleChar125OffersIdRouteWithChildren,
+  Char123LocaleChar125ProfileIdRoute:
+    Char123LocaleChar125ProfileIdRouteWithChildren,
+  Char123LocaleChar125PromotionsIdRoute: Char123LocaleChar125PromotionsIdRoute,
+  Char123LocaleChar125SalesIdRoute: Char123LocaleChar125SalesIdRoute,
+  Char123LocaleChar125SandboxesIdRoute:
+    Char123LocaleChar125SandboxesIdRouteWithChildren,
+  Char123LocaleChar125SellersIdRoute: Char123LocaleChar125SellersIdRoute,
+  Char123LocaleChar125StatsCreationsRoute:
+    Char123LocaleChar125StatsCreationsRoute,
+  Char123LocaleChar125StatsReleasesRoute:
+    Char123LocaleChar125StatsReleasesRoute,
+  Char123LocaleChar125TagsIdRoute: Char123LocaleChar125TagsIdRoute,
+  Char123LocaleChar125ChangelogIndexRoute:
+    Char123LocaleChar125ChangelogIndexRoute,
+  Char123LocaleChar125CollectionsIndexRoute:
+    Char123LocaleChar125CollectionsIndexRoute,
+  Char123LocaleChar125FreebiesIndexRoute:
+    Char123LocaleChar125FreebiesIndexRoute,
+  Char123LocaleChar125SalesIndexRoute: Char123LocaleChar125SalesIndexRoute,
+  Char123LocaleChar125CollectionsIdWeekRoute:
+    Char123LocaleChar125CollectionsIdWeekRouteWithChildren,
+  Char123LocaleChar125StoreNamespaceSlugRoute:
+    Char123LocaleChar125StoreNamespaceSlugRoute,
+  Char123LocaleChar125CollectionsIdIndexRoute:
+    Char123LocaleChar125CollectionsIdIndexRoute,
+  Char123LocaleChar125FranchisesIdIndexRoute:
+    Char123LocaleChar125FranchisesIdIndexRoute,
 }
 
-const ProfileIdRouteWithChildren = ProfileIdRoute._addFileChildren(
-  ProfileIdRouteChildren,
-)
-
-interface SandboxesIdRouteChildren {
-  SandboxesIdAchievementsRoute: typeof SandboxesIdAchievementsRoute
-  SandboxesIdAssetsRoute: typeof SandboxesIdAssetsRoute
-  SandboxesIdBuildsRoute: typeof SandboxesIdBuildsRoute
-  SandboxesIdChangelogRoute: typeof SandboxesIdChangelogRoute
-  SandboxesIdItemsRoute: typeof SandboxesIdItemsRoute
-  SandboxesIdOffersRoute: typeof SandboxesIdOffersRoute
-  SandboxesIdIndexRoute: typeof SandboxesIdIndexRoute
-}
-
-const SandboxesIdRouteChildren: SandboxesIdRouteChildren = {
-  SandboxesIdAchievementsRoute: SandboxesIdAchievementsRoute,
-  SandboxesIdAssetsRoute: SandboxesIdAssetsRoute,
-  SandboxesIdBuildsRoute: SandboxesIdBuildsRoute,
-  SandboxesIdChangelogRoute: SandboxesIdChangelogRoute,
-  SandboxesIdItemsRoute: SandboxesIdItemsRoute,
-  SandboxesIdOffersRoute: SandboxesIdOffersRoute,
-  SandboxesIdIndexRoute: SandboxesIdIndexRoute,
-}
-
-const SandboxesIdRouteWithChildren = SandboxesIdRoute._addFileChildren(
-  SandboxesIdRouteChildren,
-)
-
-interface CollectionsIdWeekRouteChildren {
-  CollectionsIdWeekIndexRoute: typeof CollectionsIdWeekIndexRoute
-}
-
-const CollectionsIdWeekRouteChildren: CollectionsIdWeekRouteChildren = {
-  CollectionsIdWeekIndexRoute: CollectionsIdWeekIndexRoute,
-}
-
-const CollectionsIdWeekRouteWithChildren =
-  CollectionsIdWeekRoute._addFileChildren(CollectionsIdWeekRouteChildren)
+const Char123LocaleChar125RouteWithChildren =
+  Char123LocaleChar125Route._addFileChildren(Char123LocaleChar125RouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
-  AndroidBetaRoute: AndroidBetaRoute,
-  DashboardRoute: DashboardRoute,
-  DiscordLinkedRoute: DiscordLinkedRoute,
-  DonateKeyRoute: DonateKeyRoute,
-  DownloadsRoute: DownloadsRoute,
-  FairUseRoute: FairUseRoute,
-  FreeGamesRoute: FreeGamesRoute,
-  FreegamesRoute: FreegamesRoute,
-  GenresRoute: GenresRoute,
-  NotificationsRoute: NotificationsRoute,
-  PostsRoute: PostsRoute,
-  PrivacyRoute: PrivacyRoute,
-  SearchRoute: SearchRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  TheGameAwardsRoute: TheGameAwardsRoute,
+  Char123LocaleChar125Route: Char123LocaleChar125RouteWithChildren,
   ApiHelloRoute: ApiHelloRoute,
   ApiLogoutRoute: ApiLogoutRoute,
   ApiTokenRoute: ApiTokenRoute,
   AuthCallbackRoute: AuthCallbackRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthLogoutRoute: AuthLogoutRoute,
-  BuildsIdRoute: BuildsIdRouteWithChildren,
-  ChangelogIdRoute: ChangelogIdRoute,
-  FreebiesSellersRoute: FreebiesSellersRoute,
-  ItemsIdRoute: ItemsIdRouteWithChildren,
-  OffersIdRoute: OffersIdRouteWithChildren,
-  ProfileIdRoute: ProfileIdRouteWithChildren,
-  PromotionsIdRoute: PromotionsIdRoute,
-  SalesIdRoute: SalesIdRoute,
-  SandboxesIdRoute: SandboxesIdRouteWithChildren,
-  SellersIdRoute: SellersIdRoute,
-  StatsCreationsRoute: StatsCreationsRoute,
-  StatsReleasesRoute: StatsReleasesRoute,
-  TagsIdRoute: TagsIdRoute,
-  ChangelogIndexRoute: ChangelogIndexRoute,
-  CollectionsIndexRoute: CollectionsIndexRoute,
-  FreebiesIndexRoute: FreebiesIndexRoute,
-  SalesIndexRoute: SalesIndexRoute,
   ApiAndroidBetaRegisterRoute: ApiAndroidBetaRegisterRoute,
   ApiAndroidBetaStatusRoute: ApiAndroidBetaStatusRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiAuthCallbackRoute: ApiAuthCallbackRoute,
   ApiAuthLoginRoute: ApiAuthLoginRoute,
-  CollectionsIdWeekRoute: CollectionsIdWeekRouteWithChildren,
-  StoreNamespaceSlugRoute: StoreNamespaceSlugRoute,
-  CollectionsIdIndexRoute: CollectionsIdIndexRoute,
-  FranchisesIdIndexRoute: FranchisesIdIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
