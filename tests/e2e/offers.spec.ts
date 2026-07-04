@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 import {
   expectMainReady,
   expectNoAppError,
@@ -6,6 +6,51 @@ import {
   expectSearchResultsReady,
   waitForSearchResponse,
 } from "./support/assertions";
+
+async function getFirstSearchOffer(page: Page) {
+  const initialSearch = waitForSearchResponse(page);
+  await page.goto("/search?sortBy=creationDate");
+  await initialSearch;
+
+  await expectMainReady(page);
+  await expectSearchResultsReady(page);
+
+  const firstOffer = page.getByRole("link", { name: /^Open offer / }).first();
+  await expect(firstOffer).toBeVisible();
+
+  const href = await firstOffer.getAttribute("href");
+  const offerName = (await firstOffer.getAttribute("aria-label"))?.replace(/^Open offer /, "");
+
+  expect(href).toMatch(/^\/offers\/[^/?#]+/);
+
+  return { href: href!, offerName };
+}
+
+async function expectOfferMainHasLoadingOrContent(page: Page) {
+  await expectMainReady(page);
+
+  const hasLoadingOrText = await page.locator("main").first().evaluate((main) => {
+    return Boolean(main.querySelector(".animate-pulse")) || (main.textContent ?? "").trim() !== "";
+  });
+
+  expect(hasLoadingOrText).toBe(true);
+}
+
+async function expectOfferDetailReady(
+  page: Page,
+  options: { offerName?: string; offerIdLabel?: string } = {},
+) {
+  await expectOfferMainHasLoadingOrContent(page);
+  await expect(page.getByRole("heading", { level: 1 }).first()).toBeVisible({ timeout: 30_000 });
+
+  if (options.offerName) {
+    await expect(page.getByRole("heading", { name: options.offerName, level: 1 })).toBeVisible();
+  }
+
+  await expect(page.getByText(options.offerIdLabel ?? "Offer ID")).toBeVisible();
+  await expect(page.locator("#offer-information")).toBeVisible();
+  await expectNoAppError(page);
+}
 
 test.describe("Offer detail flow", () => {
   test("opens an offer from search and navigates detail tabs", async ({ page }) => {
@@ -48,6 +93,35 @@ test.describe("Offer detail flow", () => {
         timeout: 30_000,
       });
       await expectNoAppError(page);
+    }
+  });
+
+  test("renders a cold direct offer detail page without a blank loading state", async ({
+    page,
+  }) => {
+    const { href, offerName } = await getFirstSearchOffer(page);
+    const coldPage = await page.context().newPage();
+
+    try {
+      await coldPage.goto(href, { waitUntil: "domcontentloaded" });
+      await expect(coldPage).toHaveURL(/\/offers\/[^/?#]+\/?$/);
+      await expectOfferDetailReady(coldPage, { offerName });
+    } finally {
+      await coldPage.close();
+    }
+  });
+
+  test("hydrates a cold direct localized offer detail page", async ({ page }) => {
+    const { href } = await getFirstSearchOffer(page);
+    const localizedPage = await page.context().newPage();
+
+    try {
+      await localizedPage.goto(`/es-ES${href}`, { waitUntil: "domcontentloaded" });
+      await expect(localizedPage).toHaveURL(/\/es-ES\/offers\/[^/?#]+\/?$/);
+      await expect(localizedPage.locator("html")).toHaveAttribute("lang", "es-ES");
+      await expectOfferDetailReady(localizedPage, { offerIdLabel: "ID de oferta" });
+    } finally {
+      await localizedPage.close();
     }
   });
 

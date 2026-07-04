@@ -26,6 +26,7 @@ import { getRarity } from "@/lib/get-rarity";
 import { httpClient } from "@/lib/http-client";
 import { cn } from "@/lib/utils";
 import type { AchievementsSets } from "@/queries/offer-achievements";
+import { offerOnlyQueryOptions } from "@/queries/offer-gql";
 import type { SingleOffer } from "@/types/single-offer";
 import { CardStackIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import {
@@ -51,7 +52,7 @@ function rarityPriority(rarity: keyof typeof rarities) {
 type LoaderData = {
   dehydratedState: DehydratedState;
   id: string;
-  offer: SingleOffer;
+  offer: SingleOffer | null;
   locale: string | undefined;
 };
 
@@ -74,13 +75,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/achievements")({
       queryFn: () => httpClient.get<AchievementsSets>(`/offers/${id}/achievements`).catch(() => []),
     });
 
-    const offer = await queryClient.ensureQueryData({
-      queryKey: ["offer", { id: params.id, locale }],
-      queryFn: () =>
-        httpClient
-          .get<SingleOffer>(`/offers/${params.id}`, { params: { locale } })
-          .catch(() => null),
-    });
+    const offer = await queryClient.ensureQueryData(offerOnlyQueryOptions(params.id, locale));
 
     return {
       id,
@@ -106,8 +101,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/achievements")({
     }
 
     const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
-      "offer",
-      { id: params.id, locale: ctx.loaderData?.locale },
+      ...offerOnlyQueryOptions(params.id, ctx.loaderData?.locale).queryKey,
     ]);
 
     if (!offer) {

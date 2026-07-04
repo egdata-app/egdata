@@ -23,6 +23,7 @@ import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { httpClient } from "@/lib/http-client";
 import { offerChangeFields } from "@/lib/offer-change-fields";
+import { offerOnlyQueryOptions } from "@/queries/offer-gql";
 import type { ChangelogStats } from "@/types/changelog";
 import type { SingleOffer } from "@/types/single-offer";
 import {
@@ -69,7 +70,7 @@ const getChangelog = (id: string, page: number, query?: string, field?: string, 
 type LoaderData = {
   dehydratedState: DehydratedState;
   id: string;
-  offer: SingleOffer;
+  offer: SingleOffer | null;
   locale: string | undefined;
 };
 
@@ -88,13 +89,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/changelog")({
     const { queryClient, locale } = context;
     const { id } = params;
 
-    const offer = await queryClient.ensureQueryData({
-      queryKey: ["offer", { id: params.id, locale }],
-      queryFn: () =>
-        httpClient
-          .get<SingleOffer>(`/offers/${params.id}`, { params: { locale } })
-          .catch(() => null),
-    });
+    const offer = await queryClient.ensureQueryData(offerOnlyQueryOptions(params.id, locale));
 
     await queryClient.prefetchQuery(getChangelog(id, 1));
 
@@ -122,8 +117,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/changelog")({
     }
 
     const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
-      "offer",
-      { id: params.id, locale: ctx.loaderData?.locale },
+      ...offerOnlyQueryOptions(params.id, ctx.loaderData?.locale).queryKey,
     ]);
 
     if (!offer) {
@@ -181,10 +175,7 @@ function ChangelogPage() {
       }),
   });
 
-  const { data: offer } = useQuery({
-    queryKey: ["offer", { id, locale }],
-    queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`, { params: { locale } }),
-  });
+  const { data: offer } = useQuery(offerOnlyQueryOptions(id, locale));
 
   if (isLoading) {
     return (

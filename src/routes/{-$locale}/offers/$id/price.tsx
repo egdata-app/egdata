@@ -1,7 +1,6 @@
 import { RegionalPricing } from "@/components/app/regional-pricing";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
-import { httpClient } from "@/lib/http-client";
-import type { SingleOffer } from "@/types/single-offer";
+import { offerOnlyQueryOptions } from "@/queries/offer-gql";
 import { dehydrate } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useTranslation } from "@/lib/paraglide-react";
@@ -24,11 +23,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/price")({
     const { id } = params;
     const { queryClient, locale } = context;
 
-    const offer = await queryClient.ensureQueryData({
-      queryKey: ["offer", { id, locale }],
-      queryFn: () =>
-        httpClient.get<SingleOffer>(`/offers/${id}`, { params: { locale } }).catch(() => null),
-    });
+    const offer = await queryClient.ensureQueryData(offerOnlyQueryOptions(id, locale));
 
     return {
       id,

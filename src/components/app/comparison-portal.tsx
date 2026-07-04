@@ -23,6 +23,7 @@ import { platformIcons } from "./platform-icons";
 import { GameFeatures } from "./features";
 import { calculatePrice } from "@/lib/calculate-price";
 import { useLocale } from "@/hooks/use-locale";
+import { offerOnlyQueryOptions } from "@/queries/offer-gql";
 import { useTranslation } from "@/lib/paraglide-react";
 
 const CompareIcon = (props: JSX.IntrinsicElements["svg"]) => (
@@ -130,10 +131,7 @@ function CompareTable() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const queries = useQueries({
-    queries: compareIds.map((id) => ({
-      queryKey: ["offer", { id, locale }],
-      queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`, { params: { locale } }),
-    })),
+    queries: compareIds.map((id) => offerOnlyQueryOptions(id, locale)),
   });
 
   if (compareIds.length === 0) {
@@ -157,7 +155,7 @@ function CompareTable() {
   );
 }
 
-function SingleGame({ query, id }: { query: UseQueryResult<SingleOffer, Error>; id: string }) {
+function SingleGame({ query, id }: { query: UseQueryResult<SingleOffer | null, Error>; id: string }) {
   const { country } = useCountry();
   const { removeFromCompare } = useCompare();
   const { genres } = useGenres();

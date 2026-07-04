@@ -37,6 +37,7 @@ import Markdown from "react-markdown";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { getQueryClient } from "@/lib/client";
 import { useLocale } from "@/hooks/use-locale";
+import { offerOnlyQueryOptions } from "@/queries/offer-gql";
 import { Viewer } from "@/components/app/viewer";
 import { DateTime } from "luxon";
 import { useTranslation } from "@/lib/paraglide-react";
@@ -81,7 +82,8 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/reviews")({
       dehydratedState: DehydratedState;
       id: string;
       userId: string | undefined;
-      offer: SingleOffer | undefined;
+      offer: SingleOffer | null;
+      locale: string | undefined;
     };
 
     return (
@@ -93,9 +95,10 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/reviews")({
 
   loader: async ({ params, context }) => {
     const { id } = params;
-    const { queryClient, epicToken, session } = context;
+    const { queryClient, epicToken, locale, session } = context;
 
     const user = epicToken;
+    const offer = await queryClient.ensureQueryData(offerOnlyQueryOptions(id, locale));
 
     await Promise.allSettled([
       queryClient.prefetchQuery({
@@ -146,16 +149,12 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/reviews")({
       }),
     ]);
 
-    const offer = getFetchedQuery<SingleOffer>(queryClient, dehydrate(queryClient), [
-      "offer",
-      { id: params.id },
-    ]);
-
     return {
       id,
       dehydratedState: dehydrate(queryClient),
       userId: session?.user?.email.split("@")[0] ?? user?.account_id,
       offer,
+      locale,
     };
   },
 
@@ -175,8 +174,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/reviews")({
     }
 
     const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData.dehydratedState, [
-      "offer",
-      { id: params.id },
+      ...offerOnlyQueryOptions(params.id, ctx.loaderData.locale).queryKey,
     ]);
 
     if (!offer)
@@ -203,7 +201,8 @@ function Reviews() {
     dehydratedState: DehydratedState;
     id: string;
     userId: string | undefined;
-    offer: SingleOffer | undefined;
+    offer: SingleOffer | null;
+    locale: string | undefined;
   };
   const [page] = useState(1);
   const [filter, setFilter] = useState<ReviewsFilter>("all");
@@ -529,7 +528,8 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
     dehydratedState: DehydratedState;
     id: string;
     userId: string | undefined;
-    offer: SingleOffer | undefined;
+    offer: SingleOffer | null;
+    locale: string | undefined;
   };
   const userAvatar =
     review.user.avatarUrl?.variants[0] ??

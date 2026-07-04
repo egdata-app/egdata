@@ -1,11 +1,11 @@
 import { OfferCard } from "@/components/app/offer-card";
 import { useCountry } from "@/hooks/use-country";
-import { useLocale } from "@/hooks/use-locale";
 import { getQueryClient } from "@/lib/client";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { httpClient } from "@/lib/http-client";
 import { offersDictionary } from "@/lib/offers-dictionary";
+import { offerOnlyQueryOptions } from "@/queries/offer-gql";
 import type { SingleOffer } from "@/types/single-offer";
 import {
   dehydrate,
@@ -20,8 +20,9 @@ import i18n from "@/lib/i18n";
 type LoaderData = {
   dehydratedState: DehydratedState;
   id: string;
-  offer: SingleOffer;
+  offer: SingleOffer | null;
   country: string;
+  locale: string | undefined;
 };
 
 export const Route = createFileRoute("/{-$locale}/offers/$id/related")({
@@ -38,11 +39,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/related")({
     const { queryClient, country, locale } = context;
     const { id } = params;
 
-    const offer = await queryClient.ensureQueryData({
-      queryKey: ["offer", { id, locale }],
-      queryFn: () =>
-        httpClient.get<SingleOffer>(`/offers/${id}`, { params: { locale } }).catch(() => null),
-    });
+    const offer = await queryClient.ensureQueryData(offerOnlyQueryOptions(id, locale));
 
     await queryClient.prefetchQuery({
       queryKey: ["related-offers", { id, country }],
@@ -61,6 +58,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/related")({
       dehydratedState: dehydrate(queryClient),
       offer,
       country,
+      locale,
     };
   },
 
@@ -80,8 +78,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/related")({
     }
 
     const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
-      "offer",
-      { id: params.id },
+      ...offerOnlyQueryOptions(params.id, ctx.loaderData?.locale).queryKey,
     ]);
 
     if (!offer) {
@@ -105,7 +102,6 @@ function RelatedOffersPage() {
   const { t } = useTranslation();
   const { id } = Route.useLoaderData() as LoaderData;
   const { country } = useCountry();
-  const { locale } = useLocale();
   const {
     data: offers,
     isLoading,

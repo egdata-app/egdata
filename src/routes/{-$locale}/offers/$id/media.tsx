@@ -32,13 +32,14 @@ import { getQueryClient } from "@/lib/client";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { useLocale } from "@/hooks/use-locale";
 import { Button } from "@/components/ui/button";
+import { offerOnlyQueryOptions } from "@/queries/offer-gql";
 import { useTranslation } from "@/lib/paraglide-react";
 import i18n from "@/lib/i18n";
 
 type LoaderData = {
   dehydratedState: DehydratedState;
   id: string;
-  offer: SingleOffer | undefined;
+  offer: SingleOffer | null;
   locale: string | undefined;
 };
 
@@ -62,10 +63,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/media")({
       queryFn: () => httpClient.get<Media>(`/offers/${params.id}/media`).catch(() => null),
     });
 
-    const offer = getFetchedQuery<SingleOffer>(queryClient, dehydrate(queryClient), [
-      "offer",
-      { id: params.id, locale },
-    ]);
+    const offer = await queryClient.ensureQueryData(offerOnlyQueryOptions(id, locale));
 
     return {
       dehydratedState: dehydrate(queryClient),
@@ -91,8 +89,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/media")({
     }
 
     const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
-      "offer",
-      { id: params.id, locale: ctx.loaderData?.locale },
+      ...offerOnlyQueryOptions(params.id, ctx.loaderData?.locale).queryKey,
     ]);
 
     if (!offer) {
@@ -121,11 +118,7 @@ function MediaPage() {
     queryFn: () => httpClient.get<Media>(`/offers/${params.id}/media`),
     retry: false,
   });
-  const { data: offer, isLoading: isOfferLoading } = useQuery({
-    queryKey: ["offer", { id: params.id, locale }],
-    queryFn: () => httpClient.get<SingleOffer>(`/offers/${params.id}`, { params: { locale } }),
-    retry: false,
-  });
+  const { data: offer, isLoading: isOfferLoading } = useQuery(offerOnlyQueryOptions(params.id, locale));
 
   const [active, setActive] = useState<boolean | string>(false);
 

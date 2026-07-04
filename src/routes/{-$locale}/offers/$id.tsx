@@ -51,6 +51,7 @@ import { Link } from "@/components/app/localized-link";
 import { FabIcon } from "@/components/icons/fab";
 import { DateTime } from "luxon";
 import { Bell } from "lucide-react";
+import { Suspense } from "react";
 import { useCookies } from "react-cookie";
 import { OffersHomeSkeleton } from "@/components/skeletons/offers-home";
 import { useTranslation } from "@/lib/paraglide-react";
@@ -58,7 +59,11 @@ import i18n from "@/lib/i18n";
 
 export const Route = createFileRoute("/{-$locale}/offers/$id")({
   component: () => {
-    return <OfferPage />;
+    return (
+      <Suspense fallback={<OffersHomeSkeleton />}>
+        <OfferPage />
+      </Suspense>
+    );
   },
 
   headers: () => ({

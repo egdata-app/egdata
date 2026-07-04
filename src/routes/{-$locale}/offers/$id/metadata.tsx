@@ -14,6 +14,7 @@ import { httpClient } from "@/lib/http-client";
 import { captureError } from "@/lib/pulse-telemetry";
 import i18n from "@/lib/i18n";
 import { useLocale } from "@/hooks/use-locale";
+import { offerOnlyQueryOptions } from "@/queries/offer-gql";
 import type { Asset } from "@/types/asset";
 import type { SingleOffer } from "@/types/single-offer";
 import type { SingleSandbox } from "@/types/single-sandbox";
@@ -30,7 +31,8 @@ import { useTranslation } from "@/lib/paraglide-react";
 type LoaderData = {
   dehydratedState: DehydratedState;
   id: string;
-  offer: SingleOffer;
+  offer: SingleOffer | null;
+  locale: string | undefined;
 };
 
 export const Route = createFileRoute("/{-$locale}/offers/$id/metadata")({
@@ -48,11 +50,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/metadata")({
     const { queryClient, locale } = context;
     const { id } = params;
 
-    const offer = await queryClient.ensureQueryData({
-      queryKey: ["offer", { id, locale }],
-      queryFn: () =>
-        httpClient.get<SingleOffer>(`/offers/${id}`, { params: { locale } }).catch(() => null),
-    });
+    const offer = await queryClient.ensureQueryData(offerOnlyQueryOptions(id, locale));
 
     await Promise.allSettled([
       queryClient.prefetchQuery({
@@ -86,6 +84,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/metadata")({
     return {
       id,
       offer,
+      locale,
       dehydratedState: dehydrate(queryClient),
     };
   },
@@ -106,8 +105,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/metadata")({
     }
 
     const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
-      "offer",
-      { id: params.id },
+      ...offerOnlyQueryOptions(params.id, ctx.loaderData?.locale).queryKey,
     ]);
 
     if (!offer) {
@@ -133,10 +131,7 @@ function MetadataPage() {
   const { t } = useTranslation();
   const [offerQuery, sandboxQuery, assetsQuery] = useQueries({
     queries: [
-      {
-        queryKey: ["offer", { id, locale }],
-        queryFn: () => httpClient.get<SingleOffer>(`/offers/${id}`, { params: { locale } }),
-      },
+      offerOnlyQueryOptions(id, locale),
       {
         queryKey: ["sandbox", { id: serverOffer?.namespace }],
         queryFn: () => httpClient.get<SingleSandbox>(`/sandboxes/${serverOffer?.namespace}`),
@@ -153,7 +148,7 @@ function MetadataPage() {
     ],
   });
 
-  const { data: offer } = offerQuery;
+  const offer = offerQuery.data ?? serverOffer;
   const { data: assets } = assetsQuery;
   const { data: sandbox } = sandboxQuery;
 

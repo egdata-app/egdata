@@ -1,5 +1,6 @@
-import { graphql, type ResultOf, type VariablesOf } from "@/graphql";
+import { graphql, type ResultOf } from "@/graphql";
 import { httpClient } from "@/lib/http-client";
+import { DEFAULT_LOCALE, isSupportedLocale } from "@/lib/supported-locales";
 import { queryOptions } from "@tanstack/react-query";
 import { print } from "graphql";
 import type { SingleOffer } from "@/types/single-offer";
@@ -7,6 +8,10 @@ import type { Franchise } from "@/types/franchise";
 import type { Technology } from "@/types/builds";
 
 const GRAPHQL_URL = "/graphql";
+
+export function resolveQueryLocale(locale?: string | null): string {
+  return locale && isSupportedLocale(locale) ? locale : DEFAULT_LOCALE;
+}
 
 const offerPageQuery = graphql(`
   query OfferPage($id: ID!, $country: String!, $locale: String) {
@@ -169,7 +174,7 @@ function toRestOffer(gql: NonNullable<OfferPageResult["offer"]>): SingleOffer {
         pageSlug: m.pageSlug ?? "",
         pageType: m.pageType ?? "",
       })) as SingleOffer["offerMappings"],
-    price: gql.price as SingleOffer["price"],
+    price: (gql.price as SingleOffer["price"] | undefined) ?? null,
     giveaway: gql.giveaways?.[0]
       ? {
           id: gql.giveaways[0].id ?? "",
@@ -219,14 +224,16 @@ export const offerGqlQueryOptions = ({
 }: {
   id: string;
   country: string;
-  locale?: string;
-}) =>
-  queryOptions({
-    queryKey: ["offer-gql", { id, country, locale }],
+  locale?: string | null;
+}) => {
+  const resolvedLocale = resolveQueryLocale(locale);
+
+  return queryOptions({
+    queryKey: ["offer-gql", { id, country, locale: resolvedLocale }],
     queryFn: async () => {
       const res = await httpClient.post<{ data: OfferPageResult }>(GRAPHQL_URL, {
         query: print(offerPageQuery),
-        variables: { id, country, locale },
+        variables: { id, country, locale: resolvedLocale },
       });
       const offer = res.data.offer;
       if (!offer) return null;
@@ -238,6 +245,7 @@ export const offerGqlQueryOptions = ({
     },
     staleTime: 60_000,
   });
+};
 
 const offerOnlyQuery = graphql(`
   query OfferOnly($id: ID!, $locale: String) {
@@ -307,13 +315,15 @@ const offerOnlyQuery = graphql(`
 
 type OfferOnlyResult = ResultOf<typeof offerOnlyQuery>;
 
-export const offerOnlyQueryOptions = (id: string, locale?: string) =>
-  queryOptions({
-    queryKey: ["offer", { id, locale }],
+export const offerOnlyQueryOptions = (id: string, locale?: string | null) => {
+  const resolvedLocale = resolveQueryLocale(locale);
+
+  return queryOptions({
+    queryKey: ["offer", { id, locale: resolvedLocale }],
     queryFn: async () => {
       const res = await httpClient.post<{ data: OfferOnlyResult }>(GRAPHQL_URL, {
         query: print(offerOnlyQuery),
-        variables: { id, locale },
+        variables: { id, locale: resolvedLocale },
       });
       const offer = res.data.offer;
       if (!offer) return null;
@@ -321,3 +331,4 @@ export const offerOnlyQueryOptions = (id: string, locale?: string) =>
     },
     staleTime: 60_000,
   });
+};
