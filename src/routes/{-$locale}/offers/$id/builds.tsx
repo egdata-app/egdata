@@ -1,9 +1,8 @@
 import { columns } from "@/components/tables/builds/columns";
 import { DataTable } from "@/components/tables/builds/table";
-import { getQueryClient } from "@/lib/client";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
-import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { httpClient } from "@/lib/http-client";
+import { offerOnlyQueryOptions } from "@/queries/offer-gql";
 import type { SingleOffer } from "@/types/single-offer";
 import {
   dehydrate,
@@ -28,7 +27,7 @@ const getOfferBuilds = (id: string) =>
 type LoaderData = {
   dehydratedState: DehydratedState;
   id: string;
-  offer: SingleOffer | undefined;
+  offer: SingleOffer | null;
 };
 
 export const Route = createFileRoute("/{-$locale}/offers/$id/builds")({
@@ -41,12 +40,9 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/builds")({
     );
   },
   loader: async ({ params, context }) => {
-    const { queryClient } = context;
+    const { queryClient, locale } = context;
 
-    const offer = getFetchedQuery<SingleOffer>(queryClient, dehydrate(queryClient), [
-      "offer",
-      { id: params.id },
-    ]);
+    const offer = await queryClient.ensureQueryData(offerOnlyQueryOptions(params.id, locale));
 
     await queryClient.prefetchQuery(getOfferBuilds(params.id));
 
@@ -58,9 +54,6 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/builds")({
   },
 
   head: (ctx) => {
-    const { params } = ctx;
-    const queryClient = getQueryClient();
-
     if (!ctx.loaderData) {
       return {
         meta: [
@@ -72,10 +65,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/builds")({
       };
     }
 
-    const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
-      "offer",
-      { id: params.id },
-    ]);
+    const { offer } = ctx.loaderData;
 
     if (!offer) {
       return {

@@ -1,9 +1,8 @@
 import { columns } from "@/components/tables/items/columns";
 import { DataTable } from "@/components/tables/items/table";
-import { getQueryClient } from "@/lib/client";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
-import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { httpClient } from "@/lib/http-client";
+import { offerOnlyQueryOptions } from "@/queries/offer-gql";
 import type { SingleItem } from "@/types/single-item";
 import type { SingleOffer } from "@/types/single-offer";
 import {
@@ -21,7 +20,7 @@ import i18n from "@/lib/i18n";
 type LoaderData = {
   dehydratedState: DehydratedState;
   id: string;
-  offer: SingleOffer | undefined;
+  offer: SingleOffer | null;
 };
 
 export const Route = createFileRoute("/{-$locale}/offers/$id/items")({
@@ -34,12 +33,9 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/items")({
     );
   },
   loader: async ({ params, context }) => {
-    const { queryClient } = context;
+    const { queryClient, locale } = context;
 
-    const offer = getFetchedQuery<SingleOffer>(queryClient, dehydrate(queryClient), [
-      "offer",
-      { id: params.id },
-    ]);
+    const offer = await queryClient.ensureQueryData(offerOnlyQueryOptions(params.id, locale));
 
     await queryClient.prefetchQuery({
       queryKey: ["offer-items", { id: params.id }],
@@ -54,9 +50,6 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/items")({
   },
 
   head: (ctx) => {
-    const { params } = ctx;
-    const queryClient = getQueryClient();
-
     if (!ctx.loaderData) {
       return {
         meta: [
@@ -68,10 +61,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/items")({
       };
     }
 
-    const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
-      "offer",
-      { id: params.id },
-    ]);
+    const { offer } = ctx.loaderData;
 
     if (!offer) {
       return {
