@@ -20,7 +20,6 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Image } from "@/components/app/image";
 import { getImage } from "@/lib/getImage";
@@ -100,6 +99,8 @@ const MIN_QUERY_LENGTH = 2;
 const MAX_QUERY_LENGTH = 500;
 const DIRECT_SEARCH_DEBOUNCE_MS = 180;
 const SEMANTIC_SEARCH_DEBOUNCE_MS = 400;
+const RESULTS_MAX_HEIGHT = 640;
+const RESULTS_MAX_VIEWPORT_RATIO = 0.74;
 const GROUP_CLASS_NAME = "min-w-0 max-w-full [&_[cmdk-group-items]]:min-w-0";
 const RESULT_ROW_CLASS_NAME =
   "w-full max-w-full min-w-0 items-center gap-3 overflow-hidden rounded-md px-3 py-2 transition-colors hover:bg-accent hover:text-accent-foreground";
@@ -165,6 +166,8 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
   const [queryValue, setQueryValue] = useState(initialQuery);
   const [debouncedQuery, setDebouncedQuery] = useState(initialQuery);
   const [semanticDebouncedQuery, setSemanticDebouncedQuery] = useState(initialQuery);
+  const [resultsHeight, setResultsHeight] = useState(0);
+  const commandListRef = useRef<HTMLDivElement>(null);
 
   const query = queryValue.trim();
   const resolvedQuery = debouncedQuery.trim();
@@ -198,6 +201,56 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
   useEffect(() => {
     window.requestAnimationFrame(() => inputRef.current?.focus());
   }, [inputRef]);
+
+  useEffect(() => {
+    let animationFrame: number | undefined;
+    let cleanupObservers: (() => void) | undefined;
+
+    const connectHeightObserver = () => {
+      const commandList = commandListRef.current;
+      const viewport = commandList?.querySelector<HTMLElement>("[data-radix-scroll-area-viewport]");
+      const content = viewport?.firstElementChild as HTMLElement | null;
+      if (!commandList || !viewport || !content) {
+        animationFrame = window.requestAnimationFrame(connectHeightObserver);
+        return;
+      }
+
+      const updateHeight = () => {
+        const maxHeight = Math.min(
+          window.innerHeight * RESULTS_MAX_VIEWPORT_RATIO,
+          RESULTS_MAX_HEIGHT,
+        );
+        const nextHeight = Math.min(content.scrollHeight, maxHeight);
+
+        setResultsHeight((currentHeight) =>
+          Math.abs(currentHeight - nextHeight) < 1 ? currentHeight : nextHeight,
+        );
+      };
+
+      const scheduleHeightUpdate = () => window.requestAnimationFrame(updateHeight);
+      const resizeObserver = new ResizeObserver(scheduleHeightUpdate);
+      const mutationObserver = new MutationObserver(scheduleHeightUpdate);
+      resizeObserver.observe(content);
+      mutationObserver.observe(commandList, { childList: true, subtree: true });
+      window.addEventListener("resize", scheduleHeightUpdate);
+      updateHeight();
+
+      cleanupObservers = () => {
+        resizeObserver.disconnect();
+        mutationObserver.disconnect();
+        window.removeEventListener("resize", scheduleHeightUpdate);
+      };
+    };
+
+    connectHeightObserver();
+
+    return () => {
+      if (animationFrame !== undefined) {
+        window.cancelAnimationFrame(animationFrame);
+      }
+      cleanupObservers?.();
+    };
+  }, []);
 
   const [
     { data: offersData, isFetching: offersFetching, isError: offersError },
@@ -432,175 +485,178 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
               </button>
             </div>
 
-            <ScrollArea className="h-[min(74vh,640px)]">
-              <CommandList className="max-h-none overflow-x-hidden !overflow-y-visible pr-3 [&_[cmdk-list-sizer]]:min-w-0 [&_[cmdk-list-sizer]]:max-w-full [&_[cmdk-list-sizer]]:w-full">
-                {!query && (
-                  <CommandGroup className={GROUP_CLASS_NAME} heading="Quick links">
+            <CommandList
+              ref={commandListRef}
+              className="max-h-none overflow-x-hidden !overflow-y-visible pr-3 [&_[cmdk-list-sizer]]:min-w-0 [&_[cmdk-list-sizer]]:max-w-full [&_[cmdk-list-sizer]]:w-full"
+              scrollAreaClassName="max-h-[min(74vh,640px)] motion-safe:transition-[height] motion-safe:duration-200 motion-safe:ease-out"
+              scrollAreaStyle={{ height: resultsHeight }}
+            >
+              {!query && (
+                <CommandGroup className={GROUP_CLASS_NAME} heading="Quick links">
+                  <SearchActionItem
+                    value="action:browse-catalog"
+                    icon={SearchIcon}
+                    title="Browse catalog"
+                    description="Open the advanced offer search"
+                    label="Search"
+                    onSelect={() => openFullSearch()}
+                  />
+                  <SearchActionItem
+                    value="action:discounts"
+                    icon={Tag}
+                    title="Discounts"
+                    description="Show offers that are currently on sale"
+                    label="Search"
+                    onSelect={openDiscounts}
+                  />
+                  <SearchActionItem
+                    value="action:free-games"
+                    icon={Gift}
+                    title="Free games"
+                    description="Open current and past giveaways"
+                    label="Page"
+                    onSelect={openFreebies}
+                  />
+                  <SearchActionItem
+                    value="action:sales"
+                    icon={CalendarDays}
+                    title="Sales"
+                    description="Open sale events"
+                    label="Page"
+                    onSelect={openSales}
+                  />
+                </CommandGroup>
+              )}
+
+              {query && !queryReady && (
+                <div className="px-4 py-10 text-center text-sm text-muted-foreground">
+                  Type at least {MIN_QUERY_LENGTH} characters.
+                </div>
+              )}
+
+              {queryReady && (
+                <>
+                  <CommandGroup className={GROUP_CLASS_NAME} heading={`Results for "${query}"`}>
                     <SearchActionItem
-                      value="action:browse-catalog"
+                      value={`action:search-offers:${query}`}
                       icon={SearchIcon}
-                      title="Browse catalog"
-                      description="Open the advanced offer search"
+                      title={`Search all offers for "${query}"`}
+                      description="Open the full catalog with filters"
                       label="Search"
-                      onSelect={() => openFullSearch()}
-                    />
-                    <SearchActionItem
-                      value="action:discounts"
-                      icon={Tag}
-                      title="Discounts"
-                      description="Show offers that are currently on sale"
-                      label="Search"
-                      onSelect={openDiscounts}
-                    />
-                    <SearchActionItem
-                      value="action:free-games"
-                      icon={Gift}
-                      title="Free games"
-                      description="Open current and past giveaways"
-                      label="Page"
-                      onSelect={openFreebies}
-                    />
-                    <SearchActionItem
-                      value="action:sales"
-                      icon={CalendarDays}
-                      title="Sales"
-                      description="Open sale events"
-                      label="Page"
-                      onSelect={openSales}
+                      onSelect={() => openFullSearch(query)}
                     />
                   </CommandGroup>
-                )}
 
-                {query && !queryReady && (
-                  <div className="px-4 py-10 text-center text-sm text-muted-foreground">
-                    Type at least {MIN_QUERY_LENGTH} characters.
-                  </div>
-                )}
+                  <CommandSeparator />
 
-                {queryReady && (
-                  <>
-                    <CommandGroup className={GROUP_CLASS_NAME} heading={`Results for "${query}"`}>
-                      <SearchActionItem
-                        value={`action:search-offers:${query}`}
-                        icon={SearchIcon}
-                        title={`Search all offers for "${query}"`}
-                        description="Open the full catalog with filters"
-                        label="Search"
-                        onSelect={() => openFullSearch(query)}
-                      />
-                    </CommandGroup>
+                  {isSearching && <ResultSkeletonList />}
 
-                    <CommandSeparator />
+                  {!isSearching && (
+                    <>
+                      <ResultGroup
+                        icon={Tag}
+                        title="Offers"
+                        count={offersData?.estimatedTotalHits}
+                        error={offersError}
+                        emptyLabel="No matching offers"
+                      >
+                        {offers.map((offer) => (
+                          <OfferResultItem
+                            key={offer.id}
+                            offer={offer}
+                            locale={resolvedLocale}
+                            onSelect={() => openOffer(offer.id)}
+                          />
+                        ))}
+                      </ResultGroup>
 
-                    {isSearching && <ResultSkeletonList />}
-
-                    {!isSearching && (
-                      <>
+                      {semanticPending && (
                         <ResultGroup
-                          icon={Tag}
-                          title="Offers"
-                          count={offersData?.estimatedTotalHits}
-                          error={offersError}
-                          emptyLabel="No matching offers"
+                          icon={Sparkles}
+                          title={t("globalSearch.semantic.heading")}
+                          error={false}
+                          emptyLabel=""
                         >
-                          {offers.map((offer) => (
-                            <OfferResultItem
-                              key={offer.id}
-                              offer={offer}
-                              locale={resolvedLocale}
-                              onSelect={() => openOffer(offer.id)}
-                            />
-                          ))}
+                          <ResultNotice>{t("globalSearch.semantic.loading")}</ResultNotice>
                         </ResultGroup>
+                      )}
 
-                        {semanticPending && (
+                      {semanticQueryIsCurrent && semanticError && (
+                        <ResultGroup
+                          icon={Sparkles}
+                          title={t("globalSearch.semantic.heading")}
+                          error={true}
+                          errorLabel={t("globalSearch.semantic.error")}
+                          emptyLabel=""
+                        >
+                          {null}
+                        </ResultGroup>
+                      )}
+
+                      {semanticQueryIsCurrent &&
+                        !semanticFetching &&
+                        !semanticError &&
+                        semanticOffers.length > 0 && (
                           <ResultGroup
                             icon={Sparkles}
                             title={t("globalSearch.semantic.heading")}
+                            count={semanticOffers.length}
                             error={false}
                             emptyLabel=""
                           >
-                            <ResultNotice>{t("globalSearch.semantic.loading")}</ResultNotice>
+                            {semanticOffers.map((offer) => (
+                              <OfferResultItem
+                                key={offer.id}
+                                offer={offer}
+                                locale={resolvedLocale}
+                                onSelect={() => openOffer(offer.id)}
+                              />
+                            ))}
                           </ResultGroup>
                         )}
 
-                        {semanticQueryIsCurrent && semanticError && (
-                          <ResultGroup
-                            icon={Sparkles}
-                            title={t("globalSearch.semantic.heading")}
-                            error={true}
-                            errorLabel={t("globalSearch.semantic.error")}
-                            emptyLabel=""
-                          >
-                            {null}
-                          </ResultGroup>
-                        )}
+                      <ResultGroup
+                        icon={Gamepad2}
+                        title="Items"
+                        count={itemsData?.estimatedTotalHits}
+                        error={itemsError}
+                        emptyLabel="No matching items"
+                      >
+                        {items.map((item) => (
+                          <ItemResultItem
+                            key={item._id}
+                            item={item}
+                            onSelect={() => openItem(item.id)}
+                          />
+                        ))}
+                      </ResultGroup>
 
-                        {semanticQueryIsCurrent &&
-                          !semanticFetching &&
-                          !semanticError &&
-                          semanticOffers.length > 0 && (
-                            <ResultGroup
-                              icon={Sparkles}
-                              title={t("globalSearch.semantic.heading")}
-                              count={semanticOffers.length}
-                              error={false}
-                              emptyLabel=""
-                            >
-                              {semanticOffers.map((offer) => (
-                                <OfferResultItem
-                                  key={offer.id}
-                                  offer={offer}
-                                  locale={resolvedLocale}
-                                  onSelect={() => openOffer(offer.id)}
-                                />
-                              ))}
-                            </ResultGroup>
-                          )}
+                      <ResultGroup
+                        icon={Store}
+                        title="Sellers"
+                        count={sellersData?.estimatedTotalHits}
+                        error={sellersError}
+                        emptyLabel="No matching sellers"
+                      >
+                        {sellers.map((seller) => (
+                          <SellerResultItem
+                            key={seller._id}
+                            seller={seller}
+                            onSelect={() => openSeller(seller._id)}
+                          />
+                        ))}
+                      </ResultGroup>
+                    </>
+                  )}
 
-                        <ResultGroup
-                          icon={Gamepad2}
-                          title="Items"
-                          count={itemsData?.estimatedTotalHits}
-                          error={itemsError}
-                          emptyLabel="No matching items"
-                        >
-                          {items.map((item) => (
-                            <ItemResultItem
-                              key={item._id}
-                              item={item}
-                              onSelect={() => openItem(item.id)}
-                            />
-                          ))}
-                        </ResultGroup>
-
-                        <ResultGroup
-                          icon={Store}
-                          title="Sellers"
-                          count={sellersData?.estimatedTotalHits}
-                          error={sellersError}
-                          emptyLabel="No matching sellers"
-                        >
-                          {sellers.map((seller) => (
-                            <SellerResultItem
-                              key={seller._id}
-                              seller={seller}
-                              onSelect={() => openSeller(seller._id)}
-                            />
-                          ))}
-                        </ResultGroup>
-                      </>
-                    )}
-
-                    {hasNoMatches && (
-                      <div className="px-4 pb-6 pt-2 text-center text-sm text-muted-foreground">
-                        No matches. Try the full catalog search.
-                      </div>
-                    )}
-                  </>
-                )}
-              </CommandList>
-            </ScrollArea>
+                  {hasNoMatches && (
+                    <div className="px-4 pb-6 pt-2 text-center text-sm text-muted-foreground">
+                      No matches. Try the full catalog search.
+                    </div>
+                  )}
+                </>
+              )}
+            </CommandList>
           </Command>
         </div>
       </div>

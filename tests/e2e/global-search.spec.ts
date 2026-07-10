@@ -24,7 +24,7 @@ const tinyPng = Buffer.from(
   "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/p9sAAAAASUVORK5CYII=",
   "base64",
 );
-type SemanticSearchMode = "success" | "empty" | "error";
+type SemanticSearchMode = "success" | "empty" | "error" | "overflow";
 
 test.describe("Global search", () => {
   test.beforeEach(async ({ page }) => {
@@ -119,6 +119,28 @@ test.describe("Global search", () => {
     ).toBeVisible();
     await directOffer.click();
     await page.waitForURL(/\/offers\/offer-rdr2-standard/);
+  });
+
+  test("fits short content and caps overflowing global-search results", async ({ page }) => {
+    await page.unroute("**/search/natural-language**");
+    await mockSemanticSearch(page, "overflow");
+    const dialog = await openGlobalSearch(page);
+
+    const compactMetrics = await getSearchViewportMetrics(dialog);
+    expect(compactMetrics.height).toBeLessThan(compactMetrics.maxHeight);
+    expect(compactMetrics.transitionProperty).toBe("height");
+
+    const responsePromise = page.waitForResponse(
+      (response) =>
+        response.url().includes("/search/natural-language") && response.status() === 200,
+    );
+    await page.getByPlaceholder("Search games, items, sellers...").fill(searchQuery);
+    await responsePromise;
+    await page.waitForTimeout(250);
+
+    const overflowMetrics = await getSearchViewportMetrics(dialog);
+    expect(overflowMetrics.height).toBeLessThanOrEqual(overflowMetrics.maxHeight + 1);
+    expect(overflowMetrics.scrollHeight).toBeGreaterThan(overflowMetrics.height);
   });
 });
 
@@ -258,20 +280,25 @@ async function mockSemanticSearch(page: Page, mode: SemanticSearchMode) {
     const matches =
       mode === "empty"
         ? []
-        : [
-            {
-              score: 0.99,
-              offer: offer("offer-rdr2-standard", "Red Dead Redemption 2"),
-            },
-            {
-              score: 0.91,
-              offer: offer("offer-semantic-survival", "Semantic Survival Match"),
-            },
-            {
-              score: 0.83,
-              offer: offer("offer-semantic-coop", "Semantic Co-op Match"),
-            },
-          ];
+        : mode === "overflow"
+          ? Array.from({ length: 6 }, (_, index) => ({
+              score: 0.9 - index / 100,
+              offer: offer(`offer-semantic-overflow-${index}`, `Semantic Overflow ${index + 1}`),
+            }))
+          : [
+              {
+                score: 0.99,
+                offer: offer("offer-rdr2-standard", "Red Dead Redemption 2"),
+              },
+              {
+                score: 0.91,
+                offer: offer("offer-semantic-survival", "Semantic Survival Match"),
+              },
+              {
+                score: 0.83,
+                offer: offer("offer-semantic-coop", "Semantic Co-op Match"),
+              },
+            ];
 
     await route.fulfill({
       contentType: "application/json",
@@ -281,6 +308,23 @@ async function mockSemanticSearch(page: Page, mode: SemanticSearchMode) {
         matches,
       }),
     });
+  });
+}
+
+async function getSearchViewportMetrics(dialog: ReturnType<Page["locator"]>) {
+  const viewport = dialog.locator("[data-radix-scroll-area-viewport]");
+  await expect(viewport).toHaveCount(1);
+
+  return viewport.evaluate((element) => {
+    const scrollViewport = element as HTMLElement;
+    const root = scrollViewport.parentElement;
+
+    return {
+      height: scrollViewport.getBoundingClientRect().height,
+      scrollHeight: scrollViewport.scrollHeight,
+      maxHeight: Math.min(window.innerHeight * 0.74, 640),
+      transitionProperty: getComputedStyle(root ?? scrollViewport).transitionProperty,
+    };
   });
 }
 
