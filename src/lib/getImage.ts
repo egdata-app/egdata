@@ -38,7 +38,7 @@ type EGSImageTypes =
 type KeyImages = {
   type: string;
   url: string;
-  md5: string;
+  md5?: string;
 };
 
 /**

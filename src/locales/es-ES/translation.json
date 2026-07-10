@@ -46,6 +46,13 @@
     "searchLanguages": "Buscar idiomas...",
     "noLanguagesFound": "No se encontraron idiomas"
   },
+  "globalSearch": {
+    "semantic": {
+      "heading": "Coincidencias por significado",
+      "loading": "Buscando coincidencias por significado...",
+      "error": "No se pudieron cargar las coincidencias por significado."
+    }
+  },
   "footer": {
     "logoAlt": "Logo de EGDATA",
     "disclaimer": "Una base de datos de la Epic Games Store creada por fans. No está afiliada con Epic Games, Inc. Todos los logotipos, imágenes y marcas comerciales pertenecen a sus respectivos propietarios.",

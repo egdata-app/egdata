@@ -118,6 +118,7 @@ class HttpFetch {
           ...options.headers,
         },
         timeout: options.timeout,
+        signal: options.signal,
       });
       return response.data;
     } catch (error) {

@@ -24,6 +24,7 @@ const tinyPng = Buffer.from(
   "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/p9sAAAAASUVORK5CYII=",
   "base64",
 );
+type SemanticSearchMode = "success" | "empty" | "error";
 
 test.describe("Global search", () => {
   test.beforeEach(async ({ page }) => {
@@ -33,34 +34,28 @@ test.describe("Global search", () => {
   test("keeps duplicate results independently selectable and uses sharper thumbnails", async ({
     page,
   }) => {
-    await page.setViewportSize({ width: 1024, height: 720 });
-    await page.context().addCookies([
-      {
-        name: "EGDATA_COOKIES_2",
-        value: acceptedCookies,
-        domain: "localhost",
-        path: "/",
-      },
-    ]);
-    await page.goto("/about");
-    await expectMainReady(page);
-
-    const searchButton = page.getByRole("button", { name: /Search games/i });
-    const dialog = page.getByRole("dialog", { name: "Search EGDATA" });
-    await expect(async () => {
-      await searchButton.click();
-      await expect(dialog).toBeVisible({ timeout: 1_000 });
-    }).toPass({ timeout: 15_000 });
+    const dialog = await openGlobalSearch(page);
     await page.setViewportSize({ width: 698, height: 720 });
 
     await page.getByPlaceholder("Search games, items, sellers...").fill(searchQuery);
     await expect(page.locator('[cmdk-item][data-value="offer:offer-rdr2-standard"]')).toBeVisible();
 
-    await page.locator('[cmdk-item][data-value="offer:offer-rdr2-standard"]').hover();
-    await expect(page.locator("[cmdk-item][data-selected=true]")).toHaveCount(1);
-    await expect(
-      page.locator('[cmdk-item][data-value="offer:offer-rdr2-standard"]'),
-    ).toHaveAttribute("data-selected", "true");
+    const semanticGroup = page.locator("[cmdk-group]").filter({ hasText: "Matches by meaning" });
+    const semanticItems = semanticGroup.locator('[cmdk-item][data-value^="offer:"]');
+    await expect(semanticGroup).toBeVisible();
+    await expect(semanticItems).toHaveCount(2);
+    await expect(semanticItems.nth(0)).toContainText("Semantic Survival Match");
+    await expect(semanticItems.nth(1)).toContainText("Semantic Co-op Match");
+    await expect(page.locator('[cmdk-item][data-value="offer:offer-rdr2-standard"]')).toHaveCount(
+      1,
+    );
+    await expect(page.getByText("0.91", { exact: true })).toHaveCount(0);
+
+    const standardOffer = page.locator('[cmdk-item][data-value="offer:offer-rdr2-standard"]');
+    const duplicateOffer = page.locator('[cmdk-item][data-value="offer:offer-rdr2-duplicate"]');
+    await standardOffer.hover();
+    expect(await standardOffer.evaluate((element) => element.matches(":hover"))).toBe(true);
+    expect(await duplicateOffer.evaluate((element) => element.matches(":hover"))).toBe(false);
 
     const commandListHasNoHorizontalOverflow = await page
       .locator("[cmdk-list]")
@@ -84,8 +79,71 @@ test.describe("Global search", () => {
     await expect(image).toHaveAttribute("src", /w=88/);
     await expect(image).toHaveAttribute("src", /quality=high/);
     await expect(image).toHaveAttribute("sizes", "44px");
+
+    await semanticItems.nth(0).click();
+    await page.waitForURL(/\/offers\/offer-semantic-survival/);
+  });
+
+  test("hides the semantic group when the endpoint returns no matches", async ({ page }) => {
+    await page.unroute("**/search/natural-language**");
+    await mockSemanticSearch(page, "empty");
+    await openGlobalSearch(page);
+
+    const responsePromise = page.waitForResponse(
+      (response) =>
+        response.url().includes("/search/natural-language") && response.status() === 200,
+    );
+    await page.getByPlaceholder("Search games, items, sellers...").fill(searchQuery);
+    await responsePromise;
+
+    await expect(page.locator('[cmdk-item][data-value="offer:offer-rdr2-standard"]')).toBeVisible();
+    await expect(page.getByText("Matches by meaning", { exact: true })).toHaveCount(0);
+  });
+
+  test("keeps direct matches usable when semantic search is unavailable", async ({ page }) => {
+    await page.unroute("**/search/natural-language**");
+    await mockSemanticSearch(page, "error");
+    await openGlobalSearch(page);
+
+    const responsePromise = page.waitForResponse(
+      (response) =>
+        response.url().includes("/search/natural-language") && response.status() === 503,
+    );
+    await page.getByPlaceholder("Search games, items, sellers...").fill(searchQuery);
+    await responsePromise;
+
+    const directOffer = page.locator('[cmdk-item][data-value="offer:offer-rdr2-standard"]');
+    await expect(directOffer).toBeVisible();
+    await expect(
+      page.getByText("Could not load matches by meaning.", { exact: true }),
+    ).toBeVisible();
+    await directOffer.click();
+    await page.waitForURL(/\/offers\/offer-rdr2-standard/);
   });
 });
+
+async function openGlobalSearch(page: Page) {
+  await page.setViewportSize({ width: 1024, height: 720 });
+  await page.context().addCookies([
+    {
+      name: "EGDATA_COOKIES_2",
+      value: acceptedCookies,
+      domain: "localhost",
+      path: "/",
+    },
+  ]);
+  await page.goto("/about");
+  await expectMainReady(page);
+
+  const searchButton = page.getByRole("button", { name: /Search games/i });
+  const dialog = page.getByRole("dialog", { name: "Search EGDATA" });
+  await expect(async () => {
+    await searchButton.click();
+    await expect(dialog).toBeVisible({ timeout: 1_000 });
+  }).toPass({ timeout: 15_000 });
+
+  return dialog;
+}
 
 async function mockGlobalSearch(page: Page) {
   await page.route("**/multisearch/offers**", async (route) => {
@@ -166,10 +224,62 @@ async function mockGlobalSearch(page: Page) {
     });
   });
 
+  await mockSemanticSearch(page, "success");
+
   await page.route("https://cdn.example.test/**", async (route) => {
     await route.fulfill({
       contentType: "image/png",
       body: tinyPng,
+    });
+  });
+}
+
+async function mockSemanticSearch(page: Page, mode: SemanticSearchMode) {
+  await page.route("**/search/natural-language**", async (route) => {
+    const request = route.request();
+    const requestUrl = new URL(request.url());
+
+    expect(request.method()).toBe("POST");
+    expect(requestUrl.searchParams.get("locale")).toBe("en-US");
+    expect(request.postDataJSON()).toEqual({ query: searchQuery, topK: 6 });
+
+    if (mode === "error") {
+      await route.fulfill({
+        status: 503,
+        contentType: "application/json",
+        body: JSON.stringify({
+          message: "Natural-language search is temporarily unavailable",
+          error: "SERVICE_UNAVAILABLE",
+        }),
+      });
+      return;
+    }
+
+    const matches =
+      mode === "empty"
+        ? []
+        : [
+            {
+              score: 0.99,
+              offer: offer("offer-rdr2-standard", "Red Dead Redemption 2"),
+            },
+            {
+              score: 0.91,
+              offer: offer("offer-semantic-survival", "Semantic Survival Match"),
+            },
+            {
+              score: 0.83,
+              offer: offer("offer-semantic-coop", "Semantic Co-op Match"),
+            },
+          ];
+
+    await route.fulfill({
+      contentType: "application/json",
+      body: JSON.stringify({
+        query: searchQuery,
+        count: matches.length,
+        matches,
+      }),
     });
   });
 }

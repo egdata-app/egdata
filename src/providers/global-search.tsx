@@ -9,7 +9,7 @@ import {
   type RefObject,
 } from "react";
 import { Portal } from "@radix-ui/react-portal";
-import { keepPreviousData, useQueries } from "@tanstack/react-query";
+import { keepPreviousData, useQueries, useQuery } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -28,6 +28,7 @@ import { SearchContext } from "@/contexts/global-search";
 import { getPlatformsArray, textPlatformIcons } from "@/components/app/platform-icons";
 import { httpClient } from "@/lib/http-client";
 import { calculatePrice } from "@/lib/calculate-price";
+import { useTranslation } from "@/lib/paraglide-react";
 import { useLocale } from "@/hooks/use-locale";
 import type { SingleOffer } from "@/types/single-offer";
 import type { SingleItem } from "@/types/single-item";
@@ -38,6 +39,7 @@ import {
   Gamepad2,
   Gift,
   SearchIcon,
+  Sparkles,
   Store,
   Tag,
   X,
@@ -57,6 +59,35 @@ interface Multisearch<T> {
   estimatedTotalHits: number;
 }
 
+interface GlobalSearchOffer {
+  id: string;
+  title: string;
+  seller?: {
+    name?: string | null;
+  } | null;
+  keyImages?: Array<{
+    type: string;
+    url: string;
+    md5?: string;
+  }> | null;
+  price?: {
+    price: {
+      currencyCode: string;
+      discountPrice: number;
+    };
+  } | null;
+  prePurchase?: boolean | null;
+}
+
+interface NaturalLanguageSearchResponse {
+  query: string;
+  count: number;
+  matches: Array<{
+    score: number;
+    offer: GlobalSearchOffer;
+  }>;
+}
+
 interface SearchPortalProps {
   initialQuery: string;
   closeSearch: (clearQuery?: boolean) => void;
@@ -66,6 +97,9 @@ interface SearchPortalProps {
 
 const SEARCH_LIMIT = 6;
 const MIN_QUERY_LENGTH = 2;
+const MAX_QUERY_LENGTH = 500;
+const DIRECT_SEARCH_DEBOUNCE_MS = 180;
+const SEMANTIC_SEARCH_DEBOUNCE_MS = 400;
 const GROUP_CLASS_NAME = "min-w-0 max-w-full [&_[cmdk-group-items]]:min-w-0";
 const RESULT_ROW_CLASS_NAME =
   "w-full max-w-full min-w-0 items-center gap-3 overflow-hidden rounded-md px-3 py-2 transition-colors hover:bg-accent hover:text-accent-foreground";
@@ -125,19 +159,36 @@ export function SearchProvider({ children }: SearchProviderProps) {
 
 function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: SearchPortalProps) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { locale } = useLocale();
   const resolvedLocale = locale ?? "en-US";
   const [queryValue, setQueryValue] = useState(initialQuery);
   const [debouncedQuery, setDebouncedQuery] = useState(initialQuery);
+  const [semanticDebouncedQuery, setSemanticDebouncedQuery] = useState(initialQuery);
 
   const query = queryValue.trim();
   const resolvedQuery = debouncedQuery.trim();
+  const semanticResolvedQuery = semanticDebouncedQuery.trim();
   const queryReady = resolvedQuery.length >= MIN_QUERY_LENGTH;
+  const semanticQueryReady =
+    semanticResolvedQuery.length >= MIN_QUERY_LENGTH &&
+    semanticResolvedQuery.length <= MAX_QUERY_LENGTH;
+  const semanticQueryIsCurrent = semanticResolvedQuery === query;
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
       setDebouncedQuery(queryValue);
-    }, 180);
+    }, DIRECT_SEARCH_DEBOUNCE_MS);
+
+    return () => {
+      window.clearTimeout(timeout);
+    };
+  }, [queryValue]);
+
+  useEffect(() => {
+    const timeout = window.setTimeout(() => {
+      setSemanticDebouncedQuery(queryValue);
+    }, SEMANTIC_SEARCH_DEBOUNCE_MS);
 
     return () => {
       window.clearTimeout(timeout);
@@ -190,10 +241,31 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
     ],
   });
 
+  const {
+    data: semanticData,
+    isFetching: semanticFetching,
+    isError: semanticError,
+  } = useQuery({
+    queryKey: ["global-search", "natural-language", semanticResolvedQuery, resolvedLocale],
+    queryFn: ({ signal }) =>
+      httpClient.post<NaturalLanguageSearchResponse>(
+        "/search/natural-language",
+        { query: semanticResolvedQuery, topK: SEARCH_LIMIT },
+        {
+          params: { locale: resolvedLocale },
+          signal,
+        },
+      ),
+    enabled: semanticQueryReady,
+    staleTime: 30_000,
+    retry: false,
+  });
+
   const updateQuery = useCallback(
     (nextQuery: string) => {
-      setQueryValue(nextQuery);
-      storeQuery(nextQuery);
+      const limitedQuery = nextQuery.slice(0, MAX_QUERY_LENGTH);
+      setQueryValue(limitedQuery);
+      storeQuery(limitedQuery);
     },
     [storeQuery],
   );
@@ -263,19 +335,39 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
     void navigate({ to: "/{-$locale}/sales" });
   }, [closeSearch, navigate]);
 
-  const offers = offersData?.hits ?? [];
+  const offers = useMemo(() => offersData?.hits ?? [], [offersData?.hits]);
   const items = itemsData?.hits ?? [];
   const sellers = sellersData?.hits ?? [];
+  const semanticOffers = useMemo(() => {
+    if (!semanticQueryIsCurrent) return [];
+
+    const seenOfferIds = new Set(offers.map((offer) => offer.id));
+    const uniqueOffers: GlobalSearchOffer[] = [];
+
+    for (const match of semanticData?.matches ?? []) {
+      if (!match.offer?.id || seenOfferIds.has(match.offer.id)) continue;
+
+      seenOfferIds.add(match.offer.id);
+      uniqueOffers.push(match.offer);
+    }
+
+    return uniqueOffers;
+  }, [offers, semanticData, semanticQueryIsCurrent]);
+  const semanticPending =
+    query.length >= MIN_QUERY_LENGTH && (!semanticQueryIsCurrent || semanticFetching);
   const isSearching =
     queryReady &&
     (offersFetching || itemsFetching || sellersFetching) &&
     !hasAnyResults(offers, items, sellers);
-  const hasNoDirectMatches =
+  const hasNoMatches =
     queryReady &&
     !offersFetching &&
     !itemsFetching &&
     !sellersFetching &&
-    !hasAnyResults(offers, items, sellers);
+    semanticQueryIsCurrent &&
+    !semanticFetching &&
+    !hasAnyResults(offers, items, sellers) &&
+    semanticOffers.length === 0;
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -318,6 +410,7 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
                 ref={inputRef}
                 value={queryValue}
                 onValueChange={updateQuery}
+                maxLength={MAX_QUERY_LENGTH}
                 placeholder="Search games, items, sellers..."
                 className="h-14 pr-11 text-base"
               />
@@ -420,6 +513,51 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
                           ))}
                         </ResultGroup>
 
+                        {semanticPending && (
+                          <ResultGroup
+                            icon={Sparkles}
+                            title={t("globalSearch.semantic.heading")}
+                            error={false}
+                            emptyLabel=""
+                          >
+                            <ResultNotice>{t("globalSearch.semantic.loading")}</ResultNotice>
+                          </ResultGroup>
+                        )}
+
+                        {semanticQueryIsCurrent && semanticError && (
+                          <ResultGroup
+                            icon={Sparkles}
+                            title={t("globalSearch.semantic.heading")}
+                            error={true}
+                            errorLabel={t("globalSearch.semantic.error")}
+                            emptyLabel=""
+                          >
+                            {null}
+                          </ResultGroup>
+                        )}
+
+                        {semanticQueryIsCurrent &&
+                          !semanticFetching &&
+                          !semanticError &&
+                          semanticOffers.length > 0 && (
+                            <ResultGroup
+                              icon={Sparkles}
+                              title={t("globalSearch.semantic.heading")}
+                              count={semanticOffers.length}
+                              error={false}
+                              emptyLabel=""
+                            >
+                              {semanticOffers.map((offer) => (
+                                <OfferResultItem
+                                  key={offer.id}
+                                  offer={offer}
+                                  locale={resolvedLocale}
+                                  onSelect={() => openOffer(offer.id)}
+                                />
+                              ))}
+                            </ResultGroup>
+                          )}
+
                         <ResultGroup
                           icon={Gamepad2}
                           title="Items"
@@ -454,9 +592,9 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
                       </>
                     )}
 
-                    {hasNoDirectMatches && (
+                    {hasNoMatches && (
                       <div className="px-4 pb-6 pt-2 text-center text-sm text-muted-foreground">
-                        No direct matches. Try the full catalog search.
+                        No matches. Try the full catalog search.
                       </div>
                     )}
                   </>
@@ -512,6 +650,7 @@ function ResultGroup({
   title,
   count,
   error,
+  errorLabel,
   emptyLabel,
   children,
 }: {
@@ -519,6 +658,7 @@ function ResultGroup({
   title: string;
   count?: number;
   error: boolean;
+  errorLabel?: string;
   emptyLabel: string;
   children: ReactNode;
 }) {
@@ -543,7 +683,9 @@ function ResultGroup({
         </span>
       }
     >
-      {error && <ResultNotice>Could not load {title.toLowerCase()}.</ResultNotice>}
+      {error && (
+        <ResultNotice>{errorLabel ?? `Could not load ${title.toLowerCase()}.`}</ResultNotice>
+      )}
       {!error && childCount === 0 && <ResultNotice>{emptyLabel}</ResultNotice>}
       {!error && children}
     </CommandGroup>
@@ -555,7 +697,7 @@ function OfferResultItem({
   locale,
   onSelect,
 }: {
-  offer: SingleOffer;
+  offer: GlobalSearchOffer;
   locale: string;
   onSelect: () => void;
 }) {
@@ -571,7 +713,7 @@ function OfferResultItem({
     >
       <ResultImage
         src={
-          getImage(offer.keyImages, [
+          getImage(offer.keyImages ?? null, [
             "DieselStoreFrontWide",
             "OfferImageWide",
             "DieselGameBoxWide",
@@ -716,11 +858,11 @@ function ResultSkeletonList() {
   );
 }
 
-function hasAnyResults(offers: SingleOffer[], items: SingleItem[], sellers: SingleSeller[]) {
+function hasAnyResults(offers: GlobalSearchOffer[], items: SingleItem[], sellers: SingleSeller[]) {
   return offers.length > 0 || items.length > 0 || sellers.length > 0;
 }
 
-function formatOfferPrice(price: SingleOffer["price"], locale: string) {
+function formatOfferPrice(price: GlobalSearchOffer["price"], locale: string) {
   if (!price) {
     return null;
   }

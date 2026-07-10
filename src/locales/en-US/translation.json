@@ -46,6 +46,13 @@
     "searchLanguages": "Search languages...",
     "noLanguagesFound": "No languages found"
   },
+  "globalSearch": {
+    "semantic": {
+      "heading": "Matches by meaning",
+      "loading": "Finding matches by meaning...",
+      "error": "Could not load matches by meaning."
+    }
+  },
   "footer": {
     "logoAlt": "EGDATA Logo",
     "disclaimer": "A fan-made Epic Games Store database. Not affiliated with Epic Games, Inc. All logos, images, and trademarks belong to their respective owners.",
