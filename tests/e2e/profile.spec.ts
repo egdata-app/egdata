@@ -1,19 +1,26 @@
 import { expect, test } from "@playwright/test";
 import { expectNoAppError, waitForApiResponse } from "./support/assertions";
+import {
+  createProfilePageResponse,
+  isProfilePageRequest,
+  PROFILE_DISPLAY_NAME,
+  PROFILE_ID_WITH_ACHIEVEMENTS,
+} from "./support/profile-fixture.mjs";
 
-const PROFILE_ID_WITH_ACHIEVEMENTS = "ac7b3a70e3ce4652b49c38e648001d9e";
+const tinyPng = Buffer.from(
+  "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+/p9sAAAAASUVORK5CYII=",
+  "base64",
+);
+const profileBaseURL = "http://localhost:3100";
+
+test.use({ baseURL: profileBaseURL });
 
 test.describe("Profile page", () => {
   test("renders the public showcase, library, and activity profile experience", async ({
     page,
-  }, testInfo) => {
+  }) => {
     const achievementIconRequests: string[] = [];
     const invalidHtmlMessages: string[] = [];
-    const baseURL = testInfo.project.use.baseURL;
-
-    if (!baseURL) {
-      throw new Error("Profile e2e test requires a configured baseURL.");
-    }
 
     page.on("console", (message) => {
       if (message.type() !== "error" && message.type() !== "warning") return;
@@ -30,6 +37,23 @@ test.describe("Profile page", () => {
       if (url.pathname.includes("/epic-achievements/")) {
         achievementIconRequests.push(request.url());
       }
+    });
+
+    await page.route("**/graphql", async (route) => {
+      const payload = route.request().postDataJSON();
+
+      if (!isProfilePageRequest(payload)) {
+        await route.continue();
+        return;
+      }
+
+      await route.fulfill({
+        contentType: "application/json",
+        body: JSON.stringify(createProfilePageResponse(payload.variables)),
+      });
+    });
+    await page.route("https://cdn.example.test/**", async (route) => {
+      await route.fulfill({ contentType: "image/png", body: tinyPng });
     });
 
     await page.context().addCookies([
@@ -51,14 +75,14 @@ test.describe("Profile page", () => {
             },
           }),
         ).toString("base64"),
-        url: baseURL,
+        url: profileBaseURL,
       },
     ]);
 
     await page.goto(`/profile/${PROFILE_ID_WITH_ACHIEVEMENTS}`);
 
     await expect(page).toHaveURL(new RegExp(`/profile/${PROFILE_ID_WITH_ACHIEVEMENTS}/?$`));
-    await expect(page.getByRole("heading", { name: "Sr_DraBx" })).toBeVisible({
+    await expect(page.getByRole("heading", { name: PROFILE_DISPLAY_NAME })).toBeVisible({
       timeout: 30_000,
     });
     await expect(page.getByRole("tab", { name: "Showcase" })).toBeVisible();
