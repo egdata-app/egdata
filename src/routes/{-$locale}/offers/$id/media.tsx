@@ -231,11 +231,7 @@ function MediaPage() {
                   <span className="absolute top-2 right-2 text-xs font-mono">
                     <a
                       className="text-xs bg-card/15 p-2 rounded-md cursor-pointer inline-block"
-                      href={
-                        cover.mediaType === "image"
-                          ? cover.imageUrl
-                          : (cover.coverUrl ?? cover.sourceUrl)
-                      }
+                      href={cover.mediaType === "image" ? cover.imageUrl : cover.coverUrl}
                       download={`${offer.title}-${cover.type}`}
                       target="_blank"
                       rel="noreferrer"
@@ -246,11 +242,7 @@ function MediaPage() {
                   </span>
                   <img
                     key={cover.md5}
-                    src={
-                      cover.mediaType === "image"
-                        ? cover.imageUrl
-                        : (cover.coverUrl ?? cover.sourceUrl)
-                    }
+                    src={cover.mediaType === "image" ? cover.imageUrl : cover.coverUrl}
                     alt={`${offer.title} - ${cover.type}`}
                     className="w-full h-auto object-contain"
                   />

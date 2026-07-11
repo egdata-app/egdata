@@ -359,7 +359,7 @@ function ValueToString(value: unknown, query: string, field?: string, short?: bo
 
             {parsedMedia.coverUrl && (
               <img
-                src={parsedMedia.coverUrl ?? parsedMedia.sourceUrl}
+                src={parsedMedia.coverUrl}
                 alt={parsedMedia.videoId}
                 className="w-1/2 max-w-64 h-auto object-cover rounded-lg"
               />

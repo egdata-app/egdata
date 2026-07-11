@@ -30,11 +30,7 @@ export const Route = createFileRoute("/{-$locale}/items/$id/images")({
             {item.keyImages.map(parseKeyImage).map((media) => (
               <div key={media.md5} className="flex flex-col gap-2 items-start justify-start w-1/3">
                 <img
-                  src={
-                    media.mediaType === "image"
-                      ? media.imageUrl
-                      : (media.coverUrl ?? media.sourceUrl)
-                  }
+                  src={media.mediaType === "image" ? media.imageUrl : media.coverUrl}
                   alt={item.title}
                   className="rounded-lg h-auto  object-cover"
                 />

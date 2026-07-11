@@ -3,6 +3,7 @@ import { KeyImage } from "@/types/single-offer";
 const epicLegacyVideoProtocol = "com.epicgames.video://";
 const epicQuickSilverVideoProtocol = "com.epicgames.video.qs://";
 const staticVideoHash = "comepicgamesvideomd5hashconstant";
+const placeholderVideoCoverUrl = "https://cdn.egdata.app/placeholder-1080.webp";
 
 export type ParsedKeyImage = ParsedImageKeyImage | ParsedVideoKeyImage;
 
@@ -18,8 +19,7 @@ export interface ParsedVideoKeyImage {
   type: string;
   md5: string;
   videoId: string;
-  coverUrl: string | null;
-  sourceUrl: string;
+  coverUrl: string;
 }
 
 export const parseKeyImage = (keyImage: KeyImage): ParsedKeyImage => {
@@ -38,8 +38,7 @@ export const parseKeyImage = (keyImage: KeyImage): ParsedKeyImage => {
       type: keyImage.type,
       md5: videoId,
       videoId,
-      coverUrl,
-      sourceUrl: keyImage.url,
+      coverUrl: coverUrl || placeholderVideoCoverUrl,
     };
   }
 
