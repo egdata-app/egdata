@@ -89,6 +89,7 @@ export const columns: ColumnDef<Build>[] = [
         version.split("+")[0] ||
         version.replace(`++${info.row.original.appName}+Release-`, "") ||
         version;
+
       return (
         <Tooltip>
           <TooltipTrigger>

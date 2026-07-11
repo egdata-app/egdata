@@ -35,6 +35,7 @@ import { Button } from "@/components/ui/button";
 import { offerOnlyQueryOptions } from "@/queries/offer-gql";
 import { useTranslation } from "@/lib/paraglide-react";
 import i18n from "@/lib/i18n";
+import { parseKeyImage } from "@/utils/parse-key-image";
 
 type LoaderData = {
   dehydratedState: DehydratedState;
@@ -118,7 +119,9 @@ function MediaPage() {
     queryFn: () => httpClient.get<Media>(`/offers/${params.id}/media`),
     retry: false,
   });
-  const { data: offer, isLoading: isOfferLoading } = useQuery(offerOnlyQueryOptions(params.id, locale));
+  const { data: offer, isLoading: isOfferLoading } = useQuery(
+    offerOnlyQueryOptions(params.id, locale),
+  );
 
   const [active, setActive] = useState<boolean | string>(false);
 
@@ -223,12 +226,12 @@ function MediaPage() {
               </div>
             )}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {offer?.keyImages?.map((cover) => (
+              {offer?.keyImages?.map(parseKeyImage).map((cover) => (
                 <div key={cover.md5} className="flex flex-col items-center gap-2 relative">
                   <span className="absolute top-2 right-2 text-xs font-mono">
                     <a
                       className="text-xs bg-card/15 p-2 rounded-md cursor-pointer inline-block"
-                      href={cover.url}
+                      href={cover.mediaType === "image" ? cover.imageUrl : cover.coverUrl}
                       download={`${offer.title}-${cover.type}`}
                       target="_blank"
                       rel="noreferrer"
@@ -239,7 +242,7 @@ function MediaPage() {
                   </span>
                   <img
                     key={cover.md5}
-                    src={cover.url}
+                    src={cover.mediaType === "image" ? cover.imageUrl : cover.coverUrl}
                     alt={`${offer.title} - ${cover.type}`}
                     className="w-full h-auto object-contain"
                   />
