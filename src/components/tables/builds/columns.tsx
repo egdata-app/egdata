@@ -1,6 +1,7 @@
 import { textPlatformIcons } from "@/components/app/platform-icons";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { calculateSize } from "@/lib/calculate-size";
+import { formatBuildVersion } from "@/lib/format-build-version";
 import type { Build } from "@/types/builds";
 import { Link } from "@/components/app/localized-link";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -85,10 +86,7 @@ export const columns: ColumnDef<Build>[] = [
     enableColumnFilter: true,
     cell: (info) => {
       const version = info.getValue() as string;
-      const displayVersion =
-        version.split("+")[0] ||
-        version.replace(`++${info.row.original.appName}+Release-`, "") ||
-        version;
+      const displayVersion = formatBuildVersion(version);
 
       return (
         <Tooltip>
