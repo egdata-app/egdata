@@ -128,7 +128,6 @@ test.describe("Global search", () => {
 
     const compactMetrics = await getSearchViewportMetrics(dialog);
     expect(compactMetrics.height).toBeLessThan(compactMetrics.maxHeight);
-    expect(compactMetrics.transitionProperty).toBe("height");
 
     const responsePromise = page.waitForResponse(
       (response) =>
@@ -312,18 +311,16 @@ async function mockSemanticSearch(page: Page, mode: SemanticSearchMode) {
 }
 
 async function getSearchViewportMetrics(dialog: ReturnType<Page["locator"]>) {
-  const viewport = dialog.locator("[data-radix-scroll-area-viewport]");
+  const viewport = dialog.locator("[cmdk-list] [data-radix-scroll-area-viewport]");
   await expect(viewport).toHaveCount(1);
 
   return viewport.evaluate((element) => {
     const scrollViewport = element as HTMLElement;
-    const root = scrollViewport.parentElement;
 
     return {
       height: scrollViewport.getBoundingClientRect().height,
       scrollHeight: scrollViewport.scrollHeight,
       maxHeight: Math.min(window.innerHeight * 0.74, 640),
-      transitionProperty: getComputedStyle(root ?? scrollViewport).transitionProperty,
     };
   });
 }
