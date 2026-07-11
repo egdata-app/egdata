@@ -85,7 +85,11 @@ export const columns: ColumnDef<Build>[] = [
     enableColumnFilter: true,
     cell: (info) => {
       const version = info.getValue() as string;
-      const displayVersion = version.split("+")[0];
+      const displayVersion =
+        version.split("+")[0] ||
+        version.replace(`++${info.row.original.appName}+Release-`, "") ||
+        version;
+
       return (
         <Tooltip>
           <TooltipTrigger>
