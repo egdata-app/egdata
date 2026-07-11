@@ -7,6 +7,7 @@ import { dehydrate, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useTranslation } from "@/lib/paraglide-react";
 import i18n from "@/lib/i18n";
+import { parseKeyImage } from "@/utils/parse-key-image";
 
 export const Route = createFileRoute("/{-$locale}/items/$id/images")({
   component: () => {
@@ -26,11 +27,19 @@ export const Route = createFileRoute("/{-$locale}/items/$id/images")({
         <h2 className="text-xl font-bold">{t("items.images.title")}</h2>
         <div className=" mt-2">
           <div className="flex flex-row items-start justify-start flex-wrap gap-2">
-            {item.keyImages.map((image) => (
-              <div key={image.md5} className="flex flex-col gap-2 items-start justify-start w-1/3">
-                <img src={image.url} alt={item.title} className="rounded-lg h-auto  object-cover" />
+            {item.keyImages.map(parseKeyImage).map((media) => (
+              <div key={media.md5} className="flex flex-col gap-2 items-start justify-start w-1/3">
+                <img
+                  src={
+                    media.mediaType === "image"
+                      ? media.imageUrl
+                      : (media.coverUrl ?? media.sourceUrl)
+                  }
+                  alt={item.title}
+                  className="rounded-lg h-auto  object-cover"
+                />
                 <span className="text-sm text-muted-foreground w-full text-center">
-                  {image.type}
+                  {media.type}
                 </span>
               </div>
             ))}

@@ -22,6 +22,7 @@ import { useLocale } from "@/hooks/use-locale";
 import { Separator } from "@/components/ui/separator";
 import { DateTime } from "luxon";
 import { localizeHref } from "@/lib/paraglide-strategy";
+import { parseKeyImage } from "@/utils/parse-key-image";
 
 interface Metadata {
   contextType: "offer" | "item" | "asset" | "build" | "sandbox";
@@ -62,8 +63,6 @@ interface AssetChange extends ChangeTrackerProps {
   metadata: Metadata & { contextType: "asset" };
   document: Asset;
 }
-
-const epicVideoProtocol = "com.epicgames.video://";
 
 /**
  * Some images changes are detected as insert and delete, instead of update
@@ -344,25 +343,24 @@ function ValueToString(value: unknown, query: string, field?: string, short?: bo
     const typedValue = value as { url?: unknown; md5?: unknown; type?: unknown };
     const url = typeof typedValue.url === "string" ? typedValue.url : null;
     const md5 = typeof typedValue.md5 === "string" ? typedValue.md5 : "key-image";
+    const type = typeof typedValue.type === "string" ? typedValue.type : "media-kind";
 
     if (!url) {
       return <JsonVisualizer data={value as JsonValue} />;
     }
 
-    if (url.startsWith(epicVideoProtocol) && URL.canParse(url)) {
-      const parsedUrl = new URL(url);
-      const coverUrl = parsedUrl.searchParams.get("cover");
-      const videoId = parsedUrl.host;
+    const parsedMedia = parseKeyImage({ type, url, md5 });
 
+    if (parsedMedia.mediaType === "video") {
       return (
         <div className="flex items-start justify-start gap-2">
           <div>
-            <p>Video {videoId}</p>
+            <p>Video {parsedMedia.videoId}</p>
 
-            {coverUrl && (
+            {parsedMedia.coverUrl && (
               <img
-                src={coverUrl}
-                alt={videoId}
+                src={parsedMedia.coverUrl ?? parsedMedia.sourceUrl}
+                alt={parsedMedia.videoId}
                 className="w-1/2 max-w-64 h-auto object-cover rounded-lg"
               />
             )}
@@ -373,7 +371,11 @@ function ValueToString(value: unknown, query: string, field?: string, short?: bo
 
     return (
       <div className="flex items-start justify-start gap-2">
-        <img src={url} alt={md5} className="w-1/2 max-w-64 h-auto object-cover rounded-lg" />
+        <img
+          src={parsedMedia.imageUrl}
+          alt={parsedMedia.md5}
+          className="w-1/2 max-w-64 h-auto object-cover rounded-lg"
+        />
       </div>
     );
   }
