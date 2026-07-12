@@ -436,13 +436,13 @@ function Reviews() {
         </TooltipProvider>
       </div>
       {reviewItems.length ? (
-        <div className="grid gap-6 grid-cols-1 md:grid-cols-2 w-full max-w-7xl mx-auto px-4">
+        <div className="grid w-full max-w-7xl grid-cols-1 gap-6 mx-auto md:grid-cols-2">
           {reviewItems.map((review) => (
             <Review key={review.id} review={review} />
           ))}
         </div>
       ) : (
-        <div className="w-full text-center min-h-[400px] max-w-4xl mx-auto px-4">
+        <div className="min-h-[400px] w-full max-w-4xl mx-auto text-center">
           <h6 className="text-lg font-semibold">
             {isReleased ? t("offerDetail.reviews.noReviews") : t("offerDetail.reviews.notReleased")}
           </h6>
