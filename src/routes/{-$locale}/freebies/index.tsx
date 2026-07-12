@@ -14,6 +14,11 @@ import { formSchema } from "@/stores/searchStore";
 import { getGiveawaysStats, GiveawaysStats } from "@/components/modules/giveaway-stats";
 import { mergeFreebies } from "@/utils/merge-freebies";
 import { useTranslation } from "@/lib/paraglide-react";
+import { useQuery } from "@tanstack/react-query";
+import { useCountry } from "@/hooks/use-country";
+import { getBuyLink, getRedeemableOffers } from "@/lib/build-buy-link";
+import { useLocale } from "@/hooks/use-locale";
+import { DEFAULT_LOCALE } from "@/lib/supported-locales";
 
 export const Route = createFileRoute("/{-$locale}/freebies/")({
   component: () => {
@@ -128,8 +133,31 @@ export const Route = createFileRoute("/{-$locale}/freebies/")({
 
 function FreeGames() {
   const { t } = useTranslation();
+  const { country } = useCountry();
+  const { locale } = useLocale();
   const search = Route.useSearch();
   const navigate = Route.useNavigate();
+  const giveawaysQuery = useQuery({
+    queryKey: ["giveaways"],
+    queryFn: () =>
+      httpClient
+        .get<GiveawayOffer[]>("/free-games", {
+          params: {
+            country,
+          },
+        })
+        .then(mergeFreebies),
+    refetchInterval: 60 * 1000,
+    refetchIntervalInBackground: true,
+  });
+  const mobileGiveawaysQuery = useQuery(mobileFreebiesQuery);
+  const canSelectRedeemableOffers = giveawaysQuery.isSuccess && mobileGiveawaysQuery.isSuccess;
+  const redeemableOffers = canSelectRedeemableOffers
+    ? getRedeemableOffers({
+        giveaways: giveawaysQuery.data,
+        mobileOffers: mobileGiveawaysQuery.data,
+      })
+    : [];
 
   return (
     <div className="flex flex-col items-start justify-start h-full gap-4 p-4">
@@ -138,9 +166,31 @@ function FreeGames() {
         <h2 className="text-xl font-display font-semibold">{t("freebies.headings.current")}</h2>
         <Button
           className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center gap-2 w-fit"
+          disabled={redeemableOffers.length === 0}
           onClick={() => {
-            // TODO: Implement redeem functionality for current free games
-            console.log("Redeem current free games");
+            if (!canSelectRedeemableOffers) {
+              return;
+            }
+
+            const currentRedeemableOffers = getRedeemableOffers({
+              giveaways: giveawaysQuery.data,
+              mobileOffers: mobileGiveawaysQuery.data,
+            });
+
+            if (currentRedeemableOffers.length === 0) {
+              return;
+            }
+
+            const popup = window.open(
+              getBuyLink({
+                offers: currentRedeemableOffers,
+                locale: locale ?? DEFAULT_LOCALE,
+              }),
+              "_blank",
+              "width=1000,height=700",
+            );
+
+            popup?.focus();
           }}
         >
           <EGSIcon className="w-5 h-5" />
