@@ -243,7 +243,7 @@ function RouteComponent() {
   }, [achievements, isNotBaseGame]);
 
   return (
-    <div className="flex flex-col items-start justify-start h-full gap-1 px-4 w-full">
+    <div className="flex h-full w-full flex-col items-start justify-start gap-1">
       {tops && Object.keys(tops).length > 0 && (
         <PerformanceTable
           data={collections as OfferPosition}

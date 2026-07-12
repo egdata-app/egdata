@@ -104,7 +104,7 @@ function BuildsPage() {
 
   if (isError) {
     return (
-      <section id="offer-builds" className="w-full h-full max-w-7xl mx-auto px-4">
+      <section id="offer-builds" className="h-full w-full">
         <h2 className="text-xl md:text-2xl font-bold mb-4">{t("offerDetail.builds.title")}</h2>
         <div>{t("offerDetail.common.somethingWentWrong")}</div>
       </section>
@@ -128,7 +128,7 @@ function BuildsPage() {
     }) ?? [];
 
   return (
-    <section id="offer-builds" className="w-full h-full max-w-7xl mx-auto px-4">
+    <section id="offer-builds" className="h-full w-full">
       <h2 className="text-xl md:text-2xl font-bold mb-4">{t("offerDetail.builds.title")}</h2>
       <DataTable<Build, unknown>
         columns={columns}

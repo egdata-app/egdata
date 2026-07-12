@@ -294,7 +294,7 @@ function Reviews() {
     : false;
 
   return (
-    <main className="flex flex-col items-start justify-start h-full gap-1 px-4 w-full">
+    <main className="flex h-full w-full flex-col items-start justify-start gap-1">
       <div className="grid gap-4 w-full">
         <div className="flex items-center flex-col gap-4">
           {poll?.averageRating && (
