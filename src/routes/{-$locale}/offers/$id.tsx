@@ -269,6 +269,7 @@ function OfferPage() {
   const offer = data?.offer;
   const technologies = data?.technologies ?? [];
   const franchises = data?.franchises ?? [];
+  const franchise = franchises[0];
 
   const subPath = location.pathname.split(`/${id}/`)[1];
 
@@ -749,8 +750,8 @@ function OfferPage() {
             </Popover>
           </div>
           <OfferHero offer={offer} />
-          {franchises && franchises.length > 0 && franchises[0].offers.length > 1 && (
-            <FranchiseBanner franchise={franchises[0]} />
+          {franchise && franchise.offers.length > 1 && franchise.namespaces.length > 1 && (
+            <FranchiseBanner franchise={franchise} />
           )}
           <p className="px-1">{offer.description}</p>
         </div>
