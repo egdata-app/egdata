@@ -76,6 +76,9 @@ const offerPageQuery = graphql(`
         _id
         name
         offers
+        allOffers {
+          namespace
+        }
       }
       giveaways {
         id
@@ -207,14 +210,21 @@ function toTechnologies(gql: NonNullable<OfferPageResult["offer"]>): Technology[
   return Array.from(techMap.values());
 }
 
-function toFranchises(gql: NonNullable<OfferPageResult["offer"]>): Franchise[] {
+type OfferPageFranchise = Franchise & { namespaces: string[] };
+
+function toFranchises(gql: NonNullable<OfferPageResult["offer"]>): OfferPageFranchise[] {
   return (gql.franchises ?? [])
     .filter((f): f is NonNullable<typeof f> => f != null)
     .map((f) => ({
       _id: f._id ?? "",
       name: f.name ?? "",
       offers: (f.offers ?? []) as string[],
-    })) as Franchise[];
+      namespaces: [
+        ...new Set(
+          (f.allOffers ?? []).flatMap((offer) => (offer?.namespace ? [offer.namespace] : [])),
+        ),
+      ],
+    })) as OfferPageFranchise[];
 }
 
 export const offerGqlQueryOptions = ({
