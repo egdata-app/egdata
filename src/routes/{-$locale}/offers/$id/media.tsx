@@ -143,7 +143,7 @@ function MediaPage() {
 
   if (isLoading && !media && isOfferLoading) {
     return (
-      <div className="flex flex-col gap-4 mt-6 max-w-4xl w-full mx-auto">
+      <div className="mt-6 flex w-full flex-col gap-4">
         <h4 className="text-xl">{t("offerDetail.media.images")}</h4>
         <div className="grid grid-cols-2 gap-4">
           {Array.from({ length: 4 }).map((_, index) => (
@@ -156,7 +156,7 @@ function MediaPage() {
   }
 
   return (
-    <div className="flex flex-col items-start gap-2 w-full max-w-7xl mx-auto px-4">
+    <div className="flex w-full flex-col items-start gap-2">
       <Accordion
         type="single"
         collapsible

@@ -144,10 +144,7 @@ function RelatedOffersPage() {
   const offerTypeOrder = ["BASE_GAME", "DLC", "EDITION", "ADD_ON", "OTHERS"];
 
   return (
-    <section
-      id="offer-related-offers"
-      className="w-full h-full flex flex-col gap-4 max-w-7xl mx-auto px-4"
-    >
+    <section id="offer-related-offers" className="flex h-full w-full flex-col gap-4">
       <h2 className="text-xl md:text-2xl font-bold">{t("offerDetail.related.title")}</h2>
       <div className="flex flex-col gap-4">
         {Object.entries(offersGroupedByOfferType)

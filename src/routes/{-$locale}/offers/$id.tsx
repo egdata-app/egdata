@@ -849,7 +849,9 @@ function OfferPage() {
           }}
         />
 
-        <Outlet />
+        <div className="mx-auto w-full max-w-7xl px-4">
+          <Outlet />
+        </div>
       </section>
 
       <hr className="my-4 border-border/40" />
