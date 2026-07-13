@@ -69,6 +69,22 @@ test.describe("Freebies flow", () => {
     await expect(redeemButton).toBeEnabled();
     await redeemButton.click();
 
+    if (expectedOffers.length > 1) {
+      await expect(page.getByRole("dialog")).toBeVisible();
+      await expect(page.getByRole("heading", { name: "Choose a free game" })).toBeVisible();
+
+      const callsBeforeSelection = await page.evaluate(() => {
+        return (
+          window as typeof window & {
+            __redeemPopupState: { calls: Array<{ url: string }> };
+          }
+        ).__redeemPopupState.calls.length;
+      });
+      expect(callsBeforeSelection).toBe(0);
+
+      await page.getByTestId("redeem-offer-option").first().click();
+    }
+
     const popupState = await page.evaluate(() => {
       return (
         window as typeof window & {
@@ -93,7 +109,9 @@ test.describe("Freebies flow", () => {
     expect(purchaseUrl.searchParams.get("lang")).toBe(
       await page.locator("html").getAttribute("lang"),
     );
-    expect(purchaseUrl.searchParams.getAll("offers").sort()).toEqual(expectedOffers.sort());
+    const purchasedOffers = purchaseUrl.searchParams.getAll("offers");
+    expect(purchasedOffers).toHaveLength(1);
+    expect(expectedOffers).toContain(purchasedOffers[0]);
   });
 
   test("renders stats, current freebies, mobile freebies, and past freebies search", async ({

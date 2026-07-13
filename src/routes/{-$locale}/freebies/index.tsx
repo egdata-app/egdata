@@ -4,6 +4,13 @@ import { GiveawaysCarousel } from "@/components/modules/giveaways";
 import { MobileFreebiesCarousel } from "@/components/modules/mobile-freebies";
 import { SearchContainer } from "@/components/search/SearchContainer";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import { httpClient } from "@/lib/http-client";
 import type { GiveawayOffer } from "@/types/giveaways";
@@ -19,6 +26,10 @@ import { useCountry } from "@/hooks/use-country";
 import { getBuyLink, getRedeemableOffers } from "@/lib/build-buy-link";
 import { useLocale } from "@/hooks/use-locale";
 import { DEFAULT_LOCALE } from "@/lib/supported-locales";
+import { useState } from "react";
+import buildImageUrl from "@/lib/build-image-url";
+import { getImage } from "@/lib/get-image";
+import { RenderTextPlatformIcon } from "@/components/app/platform-icons";
 
 export const Route = createFileRoute("/{-$locale}/freebies/")({
   component: () => {
@@ -137,6 +148,8 @@ function FreeGames() {
   const { locale } = useLocale();
   const search = Route.useSearch();
   const navigate = Route.useNavigate();
+  const [isRedeemDialogOpen, setIsRedeemDialogOpen] = useState(false);
+  const [redeemOptions, setRedeemOptions] = useState<GiveawayOffer[]>([]);
   const giveawaysQuery = useQuery({
     queryKey: ["giveaways"],
     queryFn: () =>
@@ -158,6 +171,19 @@ function FreeGames() {
         mobileOffers: mobileGiveawaysQuery.data,
       })
     : [];
+
+  const openRedeemPopup = (offer: GiveawayOffer) => {
+    const popup = window.open(
+      getBuyLink({
+        offers: [offer],
+        locale: locale ?? DEFAULT_LOCALE,
+      }),
+      "_blank",
+      "width=1000,height=700",
+    );
+
+    popup?.focus();
+  };
 
   return (
     <div className="flex flex-col items-start justify-start h-full gap-4 p-4">
@@ -181,21 +207,78 @@ function FreeGames() {
               return;
             }
 
-            const popup = window.open(
-              getBuyLink({
-                offers: currentRedeemableOffers,
-                locale: locale ?? DEFAULT_LOCALE,
-              }),
-              "_blank",
-              "width=1000,height=700",
-            );
+            if (currentRedeemableOffers.length === 1) {
+              openRedeemPopup(currentRedeemableOffers[0]);
+              return;
+            }
 
-            popup?.focus();
+            setRedeemOptions(currentRedeemableOffers);
+            setIsRedeemDialogOpen(true);
           }}
         >
           <EGSIcon className="w-5 h-5" />
           <span>{t("freebies.buttons.redeem")}</span>
         </Button>
+        <Dialog open={isRedeemDialogOpen} onOpenChange={setIsRedeemDialogOpen}>
+          <DialogContent className="sm:max-w-xl">
+            <DialogHeader>
+              <DialogTitle>{t("freebies.redeemDialog.title")}</DialogTitle>
+              <DialogDescription>{t("freebies.redeemDialog.description")}</DialogDescription>
+            </DialogHeader>
+            <div className="max-h-[min(65vh,32rem)] space-y-2 overflow-y-auto pr-1">
+              {redeemOptions.map((offer) => {
+                const platforms = [
+                  ...new Set(
+                    offer.items.flatMap((item) =>
+                      item.releaseInfo.flatMap((info) => info.platform),
+                    ),
+                  ),
+                ];
+
+                return (
+                  <button
+                    key={`${offer.namespace}:${offer.id}`}
+                    type="button"
+                    data-testid="redeem-offer-option"
+                    className="bg-card hover:border-primary/60 focus-visible:ring-ring flex w-full items-center gap-3 rounded-lg border p-3 text-left transition-colors focus-visible:ring-2 focus-visible:outline-none"
+                    onClick={() => {
+                      setIsRedeemDialogOpen(false);
+                      openRedeemPopup(offer);
+                    }}
+                  >
+                    <img
+                      src={buildImageUrl(
+                        getImage(offer.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url ??
+                          "/placeholder.webp",
+                        96,
+                        "low",
+                      )}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      className="h-16 w-12 shrink-0 rounded object-cover"
+                    />
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate font-medium">{offer.title}</span>
+                      <span className="mt-1 flex flex-wrap gap-1">
+                        {platforms.map((platform) =>
+                          RenderTextPlatformIcon({
+                            platform,
+                            className: "size-6 rounded-full bg-muted p-1",
+                            key: `${platform}-${offer.namespace}-${offer.id}`,
+                          }),
+                        )}
+                      </span>
+                    </span>
+                    <span className="text-primary shrink-0 text-sm font-medium">
+                      {t("freebies.buttons.redeem")}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
       <GiveawaysCarousel hideTitle={true} />
       <Separator orientation="horizontal" className="my-4" />

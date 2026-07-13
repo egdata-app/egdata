@@ -467,6 +467,10 @@
       "downloadCsv": "Descargar como CSV",
       "downloadTxt": "Descargar como texto"
     },
+    "redeemDialog": {
+      "title": "Elige un juego gratis",
+      "description": "Epic tramita una oferta gratuita por compra. Elige el juego que quieres canjear."
+    },
     "placeholders": {
       "searchSellers": "Buscar vendedores..."
     },
