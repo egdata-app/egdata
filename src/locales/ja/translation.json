@@ -460,6 +460,10 @@
       "downloadCsv": "CSV としてダウンロード",
       "downloadTxt": "テキストとしてダウンロード"
     },
+    "redeemDialog": {
+      "title": "無料ゲームを選択",
+      "description": "Epicは1回のチェックアウトにつき1件の無料Offerを処理します。受け取りたいゲームを選択してください。"
+    },
     "placeholders": {
       "searchSellers": "販売元を検索..."
     },

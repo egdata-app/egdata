@@ -460,6 +460,10 @@
       "downloadCsv": "Ladda ner som CSV",
       "downloadTxt": "Ladda ner som text"
     },
+    "redeemDialog": {
+      "title": "Välj ett gratis spel",
+      "description": "Epic hanterar en gratis Offer per beställning. Välj det spel du vill lösa in."
+    },
     "placeholders": {
       "searchSellers": "Sök säljare..."
     },

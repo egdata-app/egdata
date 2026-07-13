@@ -460,6 +460,10 @@
       "downloadCsv": "Letöltés CSV-ként",
       "downloadTxt": "Letöltés szövegként"
     },
+    "redeemDialog": {
+      "title": "Válassz egy ingyenes játékot",
+      "description": "Az Epic fizetésenként egy ingyenes Offert dolgoz fel. Válaszd ki a játékot, amelyet be szeretnél váltani."
+    },
     "placeholders": {
       "searchSellers": "Eladók keresése..."
     },

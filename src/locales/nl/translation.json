@@ -460,6 +460,10 @@
       "downloadCsv": "Downloaden als CSV",
       "downloadTxt": "Downloaden als tekst"
     },
+    "redeemDialog": {
+      "title": "Kies een gratis game",
+      "description": "Epic verwerkt één gratis Offer per bestelling. Selecteer de game die je wilt inwisselen."
+    },
     "placeholders": {
       "searchSellers": "Verkopers zoeken..."
     },

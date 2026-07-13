@@ -467,6 +467,10 @@
       "downloadCsv": "Download as CSV",
       "downloadTxt": "Download as Text"
     },
+    "redeemDialog": {
+      "title": "Choose a free game",
+      "description": "Epic processes one free Offer per checkout. Select the game you want to redeem."
+    },
     "placeholders": {
       "searchSellers": "Search sellers..."
     },

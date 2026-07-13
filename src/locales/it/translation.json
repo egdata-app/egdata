@@ -460,6 +460,10 @@
       "downloadCsv": "Scarica come CSV",
       "downloadTxt": "Scarica come testo"
     },
+    "redeemDialog": {
+      "title": "Scegli un gioco gratuito",
+      "description": "Epic elabora un'offerta gratuita per acquisto. Scegli il gioco che vuoi riscattare."
+    },
     "placeholders": {
       "searchSellers": "Cerca venditori..."
     },

@@ -460,6 +460,10 @@
       "downloadCsv": "Lataa CSV-muodossa",
       "downloadTxt": "Lataa tekstimuodossa"
     },
+    "redeemDialog": {
+      "title": "Valitse ilmainen peli",
+      "description": "Epic käsittelee yhden ilmaisen Offerin kassalla. Valitse peli, jonka haluat lunastaa."
+    },
     "placeholders": {
       "searchSellers": "Hae myyjiä..."
     },

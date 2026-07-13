@@ -460,6 +460,10 @@
       "downloadCsv": "Pobierz jako CSV",
       "downloadTxt": "Pobierz jako tekst"
     },
+    "redeemDialog": {
+      "title": "Wybierz darmową grę",
+      "description": "Epic przetwarza jedną darmową Offer na transakcję. Wybierz grę, którą chcesz odebrać."
+    },
     "placeholders": {
       "searchSellers": "Szukaj sprzedawców..."
     },

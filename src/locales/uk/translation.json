@@ -460,6 +460,10 @@
       "downloadCsv": "Завантажити як CSV",
       "downloadTxt": "Завантажити як текст"
     },
+    "redeemDialog": {
+      "title": "Виберіть безкоштовну гру",
+      "description": "Epic обробляє одну безплатну Offer за одну транзакцію. Виберіть гру, яку хочете отримати."
+    },
     "placeholders": {
       "searchSellers": "Пошук продавців..."
     },

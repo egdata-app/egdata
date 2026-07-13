@@ -460,6 +460,10 @@
       "downloadCsv": "Stáhnout jako CSV",
       "downloadTxt": "Stáhnout jako text"
     },
+    "redeemDialog": {
+      "title": "Vyberte si bezplatnou hru",
+      "description": "Epic zpracovává jednu bezplatnou Offer na jednu transakci. Vyberte hru, kterou chcete uplatnit."
+    },
     "placeholders": {
       "searchSellers": "Hledat prodejce..."
     },

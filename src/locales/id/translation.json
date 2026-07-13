@@ -460,6 +460,10 @@
       "downloadCsv": "Unduh sebagai CSV",
       "downloadTxt": "Unduh sebagai Teks"
     },
+    "redeemDialog": {
+      "title": "Pilih game gratis",
+      "description": "Epic memproses satu Offer gratis per checkout. Pilih game yang ingin Anda tukarkan."
+    },
     "placeholders": {
       "searchSellers": "Cari penjual..."
     },
