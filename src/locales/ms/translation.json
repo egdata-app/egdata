@@ -460,6 +460,10 @@
       "downloadCsv": "Muat turun sebagai CSV",
       "downloadTxt": "Muat turun sebagai Teks"
     },
+    "redeemDialog": {
+      "title": "Pilih permainan percuma",
+      "description": "Epic memproses satu Offer percuma setiap checkout. Pilih permainan yang ingin anda tebus."
+    },
     "placeholders": {
       "searchSellers": "Cari penjual..."
     },

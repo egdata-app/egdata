@@ -460,6 +460,10 @@
       "downloadCsv": "Télécharger en CSV",
       "downloadTxt": "Télécharger en texte"
     },
+    "redeemDialog": {
+      "title": "Choisissez un jeu gratuit",
+      "description": "Epic ne traite qu'une offre gratuite par commande. Sélectionnez le jeu que vous souhaitez récupérer."
+    },
     "placeholders": {
       "searchSellers": "Rechercher des vendeurs…"
     },

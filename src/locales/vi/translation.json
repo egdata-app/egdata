@@ -460,6 +460,10 @@
       "downloadCsv": "Tải xuống dạng CSV",
       "downloadTxt": "Tải xuống dạng Văn bản"
     },
+    "redeemDialog": {
+      "title": "Chọn một game miễn phí",
+      "description": "Epic xử lý một Offer miễn phí cho mỗi lần thanh toán. Hãy chọn game bạn muốn đổi."
+    },
     "placeholders": {
       "searchSellers": "Tìm kiếm người bán..."
     },

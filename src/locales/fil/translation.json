@@ -460,6 +460,10 @@
       "downloadCsv": "I-download bilang CSV",
       "downloadTxt": "I-download bilang Text"
     },
+    "redeemDialog": {
+      "title": "Pumili ng libreng laro",
+      "description": "Ang Epic ay nagpoproseso ng isang libreng Offer bawat checkout. Piliin ang larong gusto mong i-redeem."
+    },
     "placeholders": {
       "searchSellers": "Maghanap ng mga nagbebenta..."
     },

@@ -460,6 +460,10 @@
       "downloadCsv": "Baixar como CSV",
       "downloadTxt": "Baixar como texto"
     },
+    "redeemDialog": {
+      "title": "Escolha um jogo grátis",
+      "description": "A Epic processa uma oferta gratuita por compra. Selecione o jogo que deseja resgatar."
+    },
     "placeholders": {
       "searchSellers": "Pesquisar vendedores..."
     },

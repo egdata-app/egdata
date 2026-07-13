@@ -460,6 +460,10 @@
       "downloadCsv": "Last ned som CSV",
       "downloadTxt": "Last ned som tekst"
     },
+    "redeemDialog": {
+      "title": "Velg et gratis spill",
+      "description": "Epic behandler én gratis Offer per utsjekking. Velg spillet du vil løse inn."
+    },
     "placeholders": {
       "searchSellers": "Søk etter selgere..."
     },

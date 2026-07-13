@@ -460,6 +460,10 @@
       "downloadCsv": "CSV Olarak İndir",
       "downloadTxt": "Metin Olarak İndir"
     },
+    "redeemDialog": {
+      "title": "Ücretsiz bir oyun seçin",
+      "description": "Epic, ödeme başına yalnızca bir ücretsiz Offer işler. Kullanmak istediğiniz oyunu seçin."
+    },
     "placeholders": {
       "searchSellers": "Satıcıları ara..."
     },

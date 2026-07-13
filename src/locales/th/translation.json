@@ -460,6 +460,10 @@
       "downloadCsv": "ดาวน์โหลดเป็น CSV",
       "downloadTxt": "ดาวน์โหลดเป็นข้อความ"
     },
+    "redeemDialog": {
+      "title": "เลือกเกมฟรี",
+      "description": "Epic จะดำเนินการ Offer ฟรีเพียงรายการเดียวต่อการชำระเงิน เลือกเกมที่คุณต้องการรับ"
+    },
     "placeholders": {
       "searchSellers": "ค้นหาผู้ขาย..."
     },

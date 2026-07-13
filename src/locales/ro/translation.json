@@ -460,6 +460,10 @@
       "downloadCsv": "Descarcă ca CSV",
       "downloadTxt": "Descarcă ca text"
     },
+    "redeemDialog": {
+      "title": "Alege un joc gratuit",
+      "description": "Epic procesează o singură ofertă gratuită per checkout. Selectează jocul pe care dorești să îl revendici."
+    },
     "placeholders": {
       "searchSellers": "Caută vânzători..."
     },

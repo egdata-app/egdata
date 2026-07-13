@@ -460,6 +460,10 @@
       "downloadCsv": "下载为CSV",
       "downloadTxt": "下载为TXT"
     },
+    "redeemDialog": {
+      "title": "选择一款免费游戏",
+      "description": "Epic每次结账仅处理一个免费Offer。请选择您想要领取的游戏。"
+    },
     "placeholders": {
       "searchSellers": "搜索发行商..."
     },

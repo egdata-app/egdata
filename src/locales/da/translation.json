@@ -460,6 +460,10 @@
       "downloadCsv": "Download som CSV",
       "downloadTxt": "Download som Tekst"
     },
+    "redeemDialog": {
+      "title": "Vælg et gratis spil",
+      "description": "Epic behandler én gratis Offer pr. bestilling. Vælg det spil, du vil indløse."
+    },
     "placeholders": {
       "searchSellers": "Søg efter sælgere..."
     },

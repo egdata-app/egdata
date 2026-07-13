@@ -460,6 +460,10 @@
       "downloadCsv": "Als CSV herunterladen",
       "downloadTxt": "Als Text herunterladen"
     },
+    "redeemDialog": {
+      "title": "Wähle ein kostenloses Spiel aus",
+      "description": "Epic verarbeitet ein kostenloses Angebot pro Kaufvorgang. Wähle das Spiel aus, das du einlösen möchtest."
+    },
     "placeholders": {
       "searchSellers": "Verkäufer durchsuchen..."
     },

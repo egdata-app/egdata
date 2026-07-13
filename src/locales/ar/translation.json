@@ -460,6 +460,10 @@
       "downloadCsv": "تنزيل بصيغة CSV",
       "downloadTxt": "تنزيل كنص"
     },
+    "redeemDialog": {
+      "title": "اختر لعبة مجانية",
+      "description": "تعالج Epic Offerًا مجانيًا واحدًا لكل عملية دفع. اختر اللعبة التي تريد استلامها."
+    },
     "placeholders": {
       "searchSellers": "البحث عن بائعين..."
     },
