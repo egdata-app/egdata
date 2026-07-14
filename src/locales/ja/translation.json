@@ -46,6 +46,13 @@
     "searchLanguages": "言語を検索...",
     "noLanguagesFound": "言語が見つかりません"
   },
+  "globalSearch": {
+    "semantic": {
+      "heading": "Matches by meaning",
+      "loading": "Finding matches by meaning...",
+      "error": "Could not load matches by meaning."
+    }
+  },
   "footer": {
     "logoAlt": "EGDATA ロゴ",
     "disclaimer": "ファン制作の Epic Games Store データベースです。Epic Games, Inc. とは提携していません。すべてのロゴ、画像、商標はそれぞれの所有者に帰属します。",
@@ -692,6 +699,69 @@
     },
     "files": {
       "title": "ファイル"
+    },
+    "header": {
+      "description": "Inspect this build snapshot and compare it with earlier observed builds.",
+      "firstSeen": "First seen",
+      "lastSeen": "Last seen",
+      "parser": "Parser version",
+      "fullDownload": "Full download size",
+      "files": "Files indexed",
+      "technicalDetails": "Technical details"
+    },
+    "health": {
+      "processing": "Processing",
+      "verified": "Verified",
+      "invalid": "Invalid manifest",
+      "unavailable": "Unavailable",
+      "failed": "Processing failed",
+      "legacy_unverified": "Not yet verified"
+    },
+    "timeline": {
+      "title": "Observed build history"
+    },
+    "comparison": {
+      "current": "Current build",
+      "compareAgainst": "Compare against",
+      "noPrevious": "No previous verified build",
+      "noPreviousDescription": "This is the first comparable build observed in this stream. You can still inspect all manifest files.",
+      "swap": "Swap",
+      "changes": "Changes",
+      "allFiles": "All files",
+      "unavailable": "This manifest is not comparable",
+      "unavailableDescription": "The snapshot is still processing, unavailable, or was parsed by an older parser. Raw files may be incomplete.",
+      "error": "Comparison could not be loaded",
+      "errorDescription": "The selected baseline may be unavailable or incompatible. Choose another verified build and try again.",
+      "loading": "Comparing manifest snapshots…",
+      "crossStream": "These builds come from different release channels.",
+      "summary": "Build change summary",
+      "status": {
+        "added": "Added",
+        "modified": "Modified",
+        "removed": "Removed",
+        "unchanged": "Unchanged"
+      },
+      "installedDelta": "Installed size change",
+      "fullDownloadDelta": "Full download change",
+      "changedFiles": "Changed files",
+      "downloadDisclaimer": "Full download size is the compressed size of each complete build, not an update or patch estimate.",
+      "unchanged": "unchanged",
+      "search": "Search file paths",
+      "searchPlaceholder": "Search the full path…",
+      "extensionPlaceholder": "Extension, e.g. pak",
+      "apply": "Apply",
+      "columns": {
+        "status": "Status",
+        "path": "File path",
+        "size": "Before → after",
+        "delta": "Size change",
+        "hash": "Hash"
+      },
+      "empty": "No files match this comparison.",
+      "page": "Page {{page}} of {{total}}",
+      "previousPage": "Previous page",
+      "nextPage": "Next page",
+      "rawWarning": "This snapshot has not been verified; its raw files may be incomplete."
     },
     "items": {
       "title": "アイテム"

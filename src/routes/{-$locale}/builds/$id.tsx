@@ -1,31 +1,23 @@
 import { SectionsNav } from "@/components/app/offer-sections";
-import { textPlatformIcons } from "@/components/app/platform-icons";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { SandboxPageHeader } from "@/components/app/sandbox-layout";
+import { Badge } from "@/components/ui/badge";
 import { useLocale } from "@/hooks/use-locale";
 import { calculateSize } from "@/lib/calculate-size";
 import { getQueryClient } from "@/lib/client";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
-import { getHashType } from "@/lib/get-hash-type";
-import { getImage } from "@/lib/get-image";
-import { httpClient } from "@/lib/http-client";
-import { cn } from "@/lib/utils";
+import i18n from "@/lib/i18n";
+import { useTranslation } from "@/lib/paraglide-react";
+import {
+  type BuildItemsResponse,
+  buildItemsQueryOptions,
+  buildQueryOptions,
+} from "@/queries/build-details";
 import type { SingleBuild } from "@/types/builds";
-import type { SingleItem } from "@/types/single-item";
 import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { createFileRoute, Outlet, redirect, useLocation } from "@tanstack/react-router";
-import { BoxIcon, FilesIcon, OptionIcon } from "lucide-react";
+import { BoxIcon, FilesIcon, OptionIcon, PackageOpenIcon } from "lucide-react";
 import { DateTime } from "luxon";
-import { useTranslation } from "@/lib/paraglide-react";
-import i18n from "@/lib/i18n";
 
 export const Route = createFileRoute("/{-$locale}/builds/$id")({
   component: () => {
@@ -40,143 +32,63 @@ export const Route = createFileRoute("/{-$locale}/builds/$id")({
     );
   },
   loader: async ({ params, context }) => {
-    const { queryClient } = context;
     const { id } = params;
-
-    await Promise.all([
-      queryClient.prefetchQuery({
-        queryKey: ["build", { id }],
-        queryFn: () => httpClient.get<SingleBuild>(`/builds/${id}`).catch(() => null),
-      }),
-      queryClient.prefetchQuery({
-        queryKey: ["build-items", { id }],
-        queryFn: () => httpClient.get<SingleItem[]>(`/builds/${id}/items`).catch(() => null),
-      }),
+    await Promise.allSettled([
+      context.queryClient.prefetchQuery(buildQueryOptions(id)),
+      context.queryClient.prefetchQuery(buildItemsQueryOptions(id)),
     ]);
-
-    return {
-      id,
-      dehydratedState: dehydrate(queryClient),
-    };
+    return { id, dehydratedState: dehydrate(context.queryClient) };
   },
   // @ts-expect-error - loader return type
   beforeLoad: async (ctx) => {
-    const { params } = ctx;
-    const subPath = ctx.location.pathname.toString().split(`/${params.id}/`)[1] as
+    const subPath = ctx.location.pathname.toString().split(`/${ctx.params.id}/`)[1] as
       | string
       | undefined;
-
     if (!subPath) {
       throw redirect({
         to: "/{-$locale}/builds/$id/files",
-        params: { id: params.id },
+        params: { id: ctx.params.id },
+        search: { view: "changes", page: 1 },
         replace: true,
         resetScroll: true,
       });
     }
   },
-
   head: (ctx) => {
-    const { params } = ctx;
     const queryClient = getQueryClient();
-
-    if (!ctx.loaderData) {
-      return {
-        meta: [
-          {
-            title: i18n.t("builds.notFound"),
-            description: i18n.t("builds.notFound"),
-          },
-        ],
-      };
-    }
-
-    const build = getFetchedQuery<SingleBuild>(queryClient, ctx.loaderData?.dehydratedState, [
+    if (!ctx.loaderData) return { meta: [{ title: i18n.t("builds.notFound") }] };
+    const build = getFetchedQuery<SingleBuild>(queryClient, ctx.loaderData.dehydratedState, [
       "build",
-      { id: params.id },
+      { id: ctx.params.id },
     ]);
-    const items = getFetchedQuery<PaginatedResponse<SingleItem>>(
-      queryClient,
-      ctx.loaderData?.dehydratedState,
-      ["build-items", { id: params.id }],
-    );
-
-    if (!build) {
-      return {
-        meta: [
-          {
-            title: i18n.t("builds.notFound"),
-            description: i18n.t("builds.notFound"),
-          },
-        ],
-      };
-    }
-
-    const image = getImage(items?.data[0]?.keyImages ?? [], ["DieselGameBoxWide", "DieselGameBox"]);
-
+    const items = getFetchedQuery<BuildItemsResponse>(queryClient, ctx.loaderData.dehydratedState, [
+      "build-items",
+      { id: ctx.params.id },
+    ]);
+    if (!build) return { meta: [{ title: i18n.t("builds.notFound") }] };
+    const title = items?.data[0]?.title ?? build.appName;
     return {
       meta: [
-        {
-          title: i18n.t("builds.meta.title", {
-            title: items?.data[0]?.title,
-            version: build.buildVersion,
-          }),
-        },
+        { title: i18n.t("builds.meta.title", { title, version: build.buildVersion }) },
         {
           name: "description",
-          content: i18n.t("builds.meta.description", {
-            version: build.buildVersion,
-            title: items?.data[0]?.title,
-          }),
-        },
-        {
-          name: "og:title",
-          content: i18n.t("builds.meta.title", {
-            title: items?.data[0]?.title,
-            version: build.buildVersion,
-          }),
-        },
-        {
-          name: "og:description",
-          content: i18n.t("builds.meta.description", {
-            version: build.buildVersion,
-            title: items?.data[0]?.title,
-          }),
-        },
-        {
-          property: "twitter:title",
-          content: i18n.t("builds.meta.title", {
-            title: items?.data[0]?.title,
-            version: build.buildVersion,
-          }),
-        },
-        {
-          property: "twitter:description",
-          content: i18n.t("builds.meta.description", {
-            version: build.buildVersion,
-            title: items?.data[0]?.title,
-          }),
-        },
-        {
-          name: "og:image",
-          content: image?.url ?? "https://cdn.egdata.app/placeholder-1080.webp",
-        },
-        {
-          name: "og:type",
-          content: "website",
-        },
-        {
-          name: "twitter:image",
-          content: image?.url ?? "https://cdn.egdata.app/placeholder-1080.webp",
+          content: i18n.t("builds.meta.description", { title, version: build.buildVersion }),
         },
       ],
     };
   },
 });
 
-interface PaginatedResponse<T> {
-  data: T[];
-  total: number;
+function formatDate(
+  value: string | null,
+  timezone: string | undefined,
+  locale: string | undefined,
+) {
+  if (!value) return "N/A";
+  return DateTime.fromISO(value)
+    .setZone(timezone || "UTC")
+    .setLocale(locale || "en-US")
+    .toLocaleString(DateTime.DATETIME_MED_WITH_SECONDS);
 }
 
 function BuildPage() {
@@ -186,180 +98,84 @@ function BuildPage() {
   const navigate = Route.useNavigate();
   const { timezone } = useLocale();
   const subPath = useLocation().pathname.split(`/${id}/`)[1];
-  const { data: items } = useQuery({
-    queryKey: ["build-items", { id }],
-    queryFn: () =>
-      httpClient.get<PaginatedResponse<SingleItem>>(`/builds/${id}/items`).catch(() => null),
-  });
-  const { data: build } = useQuery({
-    queryKey: ["build", { id }],
-    queryFn: () => httpClient.get<SingleBuild>(`/builds/${id}`).catch(() => null),
-  });
+  const { data: items } = useQuery(buildItemsQueryOptions(id));
+  const { data: build } = useQuery(buildQueryOptions(id));
 
-  if (!build) {
-    return <div>{t("builds.notFound")}</div>;
-  }
+  if (!build) return <div className="p-4">{t("builds.notFound")}</div>;
+
+  const title = items?.data[0]?.title ?? build.appName;
+  const healthVariant = build.manifest.status === "verified" ? "default" : "destructive";
+  const technicalDetails = [
+    [t("builds.table.buildId"), id.toUpperCase()],
+    [t("builds.table.appName"), build.appName],
+    [t("builds.table.hash"), build.hash],
+    [t("builds.header.firstSeen"), formatDate(build.firstSeenAt, timezone, locale)],
+    [t("builds.header.lastSeen"), formatDate(build.lastSeenAt, timezone, locale)],
+    [t("builds.header.parser"), build.manifest.parserVersion ?? "N/A"],
+  ];
 
   return (
-    <main className="flex flex-col items-start justify-start h-full gap-4 p-4 w-full">
-      <div className="flex flex-col gap-4 mx-auto w-full">
-        <div className="flex h-auto w-full flex-wrap items-center justify-start gap-2 md:h-8">
-          <span className="text-lg text-muted-foreground inline-flex items-center">
-            {t("builds.build")}
-          </span>
-          <strong className="text-lg font-medium">{id.toUpperCase()}</strong>
-          <span className="text-lg text-muted-foreground inline-flex items-center">
-            {t("builds.for")}
-          </span>
-          <strong className="text-lg font-medium">{items?.data[0].title}</strong>
-          <span>{textPlatformIcons[build.labelName.split("-")[1]]}</span>
-        </div>
-        <div className="w-full overflow-hidden rounded-xl border border-border/10">
-          <Table className="min-w-[680px]">
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[180px] md:w-[300px]">
-                  {t("builds.table.buildId")}
-                </TableHead>
-                <TableHead className="text-left font-mono border-l-border/10 border-l">
-                  {id.toUpperCase()}
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              <TableRow>
-                <TableCell className="font-medium">{t("builds.table.buildName")}</TableCell>
-                <TableCell className="font-mono text-left inline-flex items-center gap-1 border-l-border/10 border-l">
-                  {build.buildVersion}
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">{t("builds.table.appName")}</TableCell>
-                <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
-                  {build.appName}
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">{t("builds.table.hash")}</TableCell>
-                <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
-                  {build.hash}{" "}
-                  <span className="text-xs text-muted-foreground">({getHashType(build.hash)})</span>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">{t("builds.table.installedSize")}</TableCell>
-                <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
-                  {calculateSize(build.installedSizeBytes)}
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">{t("builds.table.downloadSize")}</TableCell>
-                <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
-                  {calculateSize(build.downloadSizeBytes)}{" "}
-                  <span
-                    className={cn(
-                      "text-xs text-muted-foreground",
-                      !build.downloadSizeBytes ? "opacity-0" : "opacity-100",
-                    )}
-                  >
-                    {t("builds.compressed", {
-                      percent: (
-                        100 -
-                        (build.downloadSizeBytes / build.installedSizeBytes) * 100
-                      ).toFixed(2),
-                    })}
-                  </span>
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">{t("builds.table.createdAt")}</TableCell>
-                <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
-                  {DateTime.fromISO(build.createdAt)
-                    .setZone(timezone || "UTC")
-                    .setLocale("en-GB")
-                    .toLocaleString({
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                      timeZoneName: "short",
-                      hour: "numeric",
-                      minute: "numeric",
-                    })}
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">{t("builds.table.updatedAt")}</TableCell>
-                <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
-                  {DateTime.fromISO(build.updatedAt)
-                    .setZone(timezone || "UTC")
-                    .setLocale("en-GB")
-                    .toLocaleString({
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                      timeZoneName: "short",
-                      hour: "numeric",
-                      minute: "numeric",
-                    })}
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger>
-                        <span className="underline decoration-dotted decoration-border/60 underline-offset-4 cursor-help">
-                          {t("builds.table.technologies")}
-                        </span>
-                      </TooltipTrigger>
-                      <TooltipContent>
-                        <p className="text-sm max-w-md">
-                          {t("builds.tooltip.techSource")}{" "}
-                          <a
-                            href="https://steamdb.info/tech/"
-                            className="text-blue-700 font-semibold"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {t("builds.tooltip.techSourceSteamDb")}
-                          </a>{" "}
-                          {t("builds.tooltip.techDescription")}
-                          <br />
-                          <a
-                            href="https://github.com/SteamDatabase/FileDetectionRuleSets"
-                            className="text-blue-700 font-semibold"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            {t("builds.tooltip.source")}
-                          </a>
-                        </p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </TableCell>
-                <TableCell className="border-l-border/10 border-l">
-                  <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3">
-                    {build.technologies
-                      ?.filter((tech) => tech.section !== "Evidence")
-                      .map((tech) => (
-                        <span
-                          key={`${tech.section}.${tech.technology}`}
-                          className="inline-flex gap-1 items-center justify-start"
-                        >
-                          <span className="text-xs text-muted-foreground">
-                            {tech.section} / {tech.technology}
-                          </span>
-                        </span>
-                      ))}
-                  </div>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </div>
-      </div>
-      <div className="flex w-full flex-col items-start justify-start gap-4 md:flex-row md:gap-1">
+    <main className="flex h-full w-full flex-col gap-4 p-4">
+      <SandboxPageHeader
+        icon={PackageOpenIcon}
+        eyebrow={t("builds.build")}
+        title={`${title} · ${build.buildVersion}`}
+        description={t("builds.header.description")}
+        stats={[
+          {
+            label: t("builds.table.installedSize"),
+            value: calculateSize(build.installedSizeBytes),
+          },
+          { label: t("builds.header.fullDownload"), value: calculateSize(build.downloadSizeBytes) },
+          {
+            label: t("builds.header.files"),
+            value: build.manifest.fileCount?.toLocaleString(locale) ?? "N/A",
+          },
+          {
+            label: t("builds.header.firstSeen"),
+            value: formatDate(build.firstSeenAt, timezone, locale),
+          },
+        ]}
+      >
+        <Badge variant="outline">{build.platform}</Badge>
+        <Badge variant="outline">{build.labelName}</Badge>
+        <Badge variant={healthVariant}>{t(`builds.health.${build.manifest.status}`)}</Badge>
+      </SandboxPageHeader>
+
+      <details className="rounded-md border border-border/60 bg-card/50 p-4">
+        <summary className="cursor-pointer text-sm font-semibold">
+          {t("builds.header.technicalDetails")}
+        </summary>
+        <dl className="mt-4 grid gap-3 text-sm md:grid-cols-2">
+          {technicalDetails.map(([label, value]) => (
+            <div key={label} className="min-w-0">
+              <dt className="text-xs text-muted-foreground">{label}</dt>
+              <dd className="mt-1 break-all font-mono">{value}</dd>
+            </div>
+          ))}
+          <div className="md:col-span-2">
+            <dt className="text-xs text-muted-foreground">{t("builds.table.technologies")}</dt>
+            <dd className="mt-2 flex flex-wrap gap-2">
+              {build.technologies.length ? (
+                build.technologies
+                  .filter((technology) => technology.section !== "Evidence")
+                  .map((technology) => (
+                    <Badge
+                      key={`${technology.section}.${technology.technology}`}
+                      variant="secondary"
+                    >
+                      {technology.section} / {technology.technology}
+                    </Badge>
+                  ))
+              ) : (
+                <span className="text-muted-foreground">N/A</span>
+              )}
+            </dd>
+          </div>
+        </dl>
+      </details>
+
+      <div className="flex w-full flex-col items-start gap-4 md:flex-row md:gap-1">
         <SectionsNav
           links={[
             {
@@ -367,7 +183,7 @@ function BuildPage() {
               label: (
                 <span className="inline-flex items-center gap-2">
                   <FilesIcon className="size-3" />
-                  <span>{t("builds.tabs.files")}</span>
+                  {t("builds.tabs.files")}
                 </span>
               ),
               href: `/builds/${id}/files`,
@@ -377,7 +193,7 @@ function BuildPage() {
               label: (
                 <span className="inline-flex items-center gap-2">
                   <BoxIcon className="size-3" />
-                  <span>{t("builds.tabs.items")}</span>
+                  {t("builds.tabs.items")}
                 </span>
               ),
               href: `/builds/${id}/items`,
@@ -387,7 +203,7 @@ function BuildPage() {
               label: (
                 <span className="inline-flex items-center gap-2">
                   <OptionIcon className="size-3" />
-                  <span>{t("builds.tabs.installOptions")}</span>
+                  {t("builds.tabs.installOptions")}
                 </span>
               ),
               href: `/builds/${id}/install-options`,
@@ -395,17 +211,14 @@ function BuildPage() {
           ]}
           activeSection={subPath ?? "files"}
           onSectionChange={(location) => {
-            const buildRoutes = {
+            const routes = {
               files: "/{-$locale}/builds/$id/files",
               items: "/{-$locale}/builds/$id/items",
               "install-options": "/{-$locale}/builds/$id/install-options",
             } as const;
-            const to = buildRoutes[location as keyof typeof buildRoutes] ?? buildRoutes.files;
-
             navigate({
-              to,
+              to: routes[location as keyof typeof routes] ?? routes.files,
               params: { id, locale },
-              replace: false,
               resetScroll: false,
             });
           }}

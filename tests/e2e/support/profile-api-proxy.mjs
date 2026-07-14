@@ -1,5 +1,6 @@
 import { createServer } from "node:http";
 import { createProfilePageResponse, isProfilePageRequest } from "./profile-fixture.mjs";
+import { createBuildPageResponse } from "./build-fixture.mjs";
 
 const port = Number(process.env.E2E_API_PROXY_PORT ?? "3101");
 const upstreamUrl = process.env.E2E_API_UPSTREAM ?? "https://api.egdata.app";
@@ -11,6 +12,14 @@ const server = createServer(async (request, response) => {
     response.writeHead(200, { "content-type": "application/json" });
     response.end('{"ok":true}');
     return;
+  }
+
+  if (request.method === "GET") {
+    const buildResponse = createBuildPageResponse(url);
+    if (buildResponse) {
+      sendJson(response, buildResponse);
+      return;
+    }
   }
 
   const body = await readBody(request);
