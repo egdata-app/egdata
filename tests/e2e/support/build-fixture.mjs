@@ -31,28 +31,84 @@ const build = (id, version, firstSeenAt) => ({
   manifest: manifest(),
 });
 
-export const currentBuild = build(currentBuildId, "BuildVersion-1.0.131025", "2026-07-01T10:00:00.000Z");
-export const previousBuild = build(previousBuildId, "BuildVersion-1.0.290725", "2026-06-01T10:00:00.000Z");
-export const oldestBuild = build(oldestBuildId, "BuildVersion-1.0.210725.2", "2026-05-01T10:00:00.000Z");
+export const currentBuild = build(
+  currentBuildId,
+  "BuildVersion-1.0.131025",
+  "2026-07-01T10:00:00.000Z",
+);
+export const previousBuild = build(
+  previousBuildId,
+  "BuildVersion-1.0.290725",
+  "2026-06-01T10:00:00.000Z",
+);
+export const oldestBuild = build(
+  oldestBuildId,
+  "BuildVersion-1.0.210725.2",
+  "2026-05-01T10:00:00.000Z",
+);
+export const denseBuilds = Array.from({ length: 8 }, (_, index) =>
+  build(
+    `68820d0000000000000000${String(index + 10).padStart(2, "0")}`,
+    `BuildVersion-1.0.220725.${index + 1}`,
+    `2026-05-02T10:0${index}:00.000Z`,
+  ),
+);
+export const unverifiedBuild = {
+  ...build(
+    "68830d000000000000000001",
+    "BuildVersion-1.0.230725-unverified",
+    "2026-05-03T10:00:00.000Z",
+  ),
+  manifest: manifest("unavailable"),
+};
+export const undatedBuild = {
+  ...build("68840d000000000000000001", "BuildVersion-date-unknown", null),
+  firstSeenAt: null,
+  lastSeenAt: null,
+};
+
+const historyBuilds = [
+  currentBuild,
+  previousBuild,
+  unverifiedBuild,
+  ...denseBuilds,
+  oldestBuild,
+  undatedBuild,
+];
 
 export function createBuildPageResponse(url) {
   const path = url.pathname;
-  if (path === `/builds/${currentBuildId}`) return currentBuild;
-  if (path === `/builds/${previousBuildId}`) return previousBuild;
-  if (path === `/builds/${oldestBuildId}`) return oldestBuild;
-  if (path === `/builds/${currentBuildId}/items`) {
-    return { data: [{ id: "luto", title: "Luto", keyImages: [], releaseInfo: [] }], page: 1, limit: 25, total: 1 };
-  }
-  if (path === `/builds/${currentBuildId}/history`) {
+  const buildMatch = path.match(/^\/builds\/([^/]+)$/);
+  if (buildMatch) return historyBuilds.find((entry) => entry.id === buildMatch[1]) ?? null;
+  if (/^\/builds\/[^/]+\/items$/.test(path)) {
     return {
-      data: [currentBuild, previousBuild, oldestBuild].map((entry) => ({ ...entry, comparable: true, sameStream: true })),
-      previousComparableBuildId: previousBuildId,
+      data: [{ id: "luto", title: "Luto", keyImages: [], releaseInfo: [] }],
       page: 1,
-      limit: 100,
-      total: 3,
+      limit: 25,
+      total: 1,
     };
   }
-  if (path === `/builds/${currentBuildId}/files`) {
+  const historyMatch = path.match(/^\/builds\/([^/]+)\/history$/);
+  if (historyMatch) {
+    const previousComparableBuildId =
+      historyMatch[1] === currentBuildId
+        ? previousBuildId
+        : historyMatch[1] === previousBuildId
+          ? oldestBuildId
+          : null;
+    return {
+      data: historyBuilds.map((entry) => ({
+        ...entry,
+        comparable: entry.id !== unverifiedBuild.id,
+        sameStream: true,
+      })),
+      previousComparableBuildId,
+      page: 1,
+      limit: 100,
+      total: historyBuilds.length,
+    };
+  }
+  if (/^\/builds\/[^/]+\/files$/.test(path)) {
     return {
       files: [],
       manifestStatus: "verified",
@@ -61,14 +117,25 @@ export function createBuildPageResponse(url) {
       total: 0,
     };
   }
-  if (path === `/builds/${currentBuildId}/compare/${previousBuildId}`) {
+  const comparisonMatch = path.match(/^\/builds\/([^/]+)\/compare\/([^/]+)$/);
+  if (comparisonMatch) {
+    const target = historyBuilds.find((entry) => entry.id === comparisonMatch[1]) ?? currentBuild;
+    const base = historyBuilds.find((entry) => entry.id === comparisonMatch[2]) ?? previousBuild;
     return {
-      base: previousBuild,
-      target: currentBuild,
+      base,
+      target,
       comparisonScope: "same_stream",
       summary: {
         files: { added: 1, modified: 1, removed: 1, unchanged: 121, total: 124 },
-        fileBytes: { base: 100, target: 125, delta: 25, added: 40, removed: 20, modifiedBase: 10, modifiedTarget: 15 },
+        fileBytes: {
+          base: 100,
+          target: 125,
+          delta: 25,
+          added: 40,
+          removed: 20,
+          modifiedBase: 10,
+          modifiedTarget: 15,
+        },
         installedSizeBytes: { base: 19_500_000_000, target: 19_572_719_616, delta: 72_719_616 },
         fullDownloadSizeBytes: { base: 9_000_000_000, target: 9_100_000_000, delta: 100_000_000 },
         technologies: { added: [], removed: [] },
@@ -77,9 +144,27 @@ export function createBuildPageResponse(url) {
         topDirectories: [],
       },
       changes: [
-        { path: "Binaries/Game.exe", status: "modified", before: { fileName: "Binaries/Game.exe", fileHash: "old", fileSize: 10 }, after: { fileName: "Binaries/Game.exe", fileHash: "new", fileSize: 15 }, sizeDeltaBytes: 5 },
-        { path: "Content/Added.pak", status: "added", before: null, after: { fileName: "Content/Added.pak", fileHash: "added", fileSize: 40 }, sizeDeltaBytes: 40 },
-        { path: "Content/Removed.pak", status: "removed", before: { fileName: "Content/Removed.pak", fileHash: "removed", fileSize: 20 }, after: null, sizeDeltaBytes: -20 },
+        {
+          path: "Binaries/Game.exe",
+          status: "modified",
+          before: { fileName: "Binaries/Game.exe", fileHash: "old", fileSize: 10 },
+          after: { fileName: "Binaries/Game.exe", fileHash: "new", fileSize: 15 },
+          sizeDeltaBytes: 5,
+        },
+        {
+          path: "Content/Added.pak",
+          status: "added",
+          before: null,
+          after: { fileName: "Content/Added.pak", fileHash: "added", fileSize: 40 },
+          sizeDeltaBytes: 40,
+        },
+        {
+          path: "Content/Removed.pak",
+          status: "removed",
+          before: { fileName: "Content/Removed.pak", fileHash: "removed", fileSize: 20 },
+          after: null,
+          sizeDeltaBytes: -20,
+        },
       ],
       warnings: [],
       page: 1,

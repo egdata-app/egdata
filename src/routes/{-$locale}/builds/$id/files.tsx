@@ -1,4 +1,8 @@
 import { SandboxDataSurface } from "@/components/app/sandbox-layout";
+import {
+  BuildHistoryExplorer,
+  buildHealthBadgeClass,
+} from "@/components/app/build-history-explorer";
 import { columns } from "@/components/tables/files/columns";
 import { DataTable } from "@/components/tables/files/table";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -6,13 +10,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import {
   Table,
   TableBody,
@@ -36,13 +33,7 @@ import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import type { ColumnFiltersState } from "@tanstack/react-table";
-import {
-  AlertTriangleIcon,
-  ArrowLeftRightIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  SearchIcon,
-} from "lucide-react";
+import { AlertTriangleIcon, ChevronLeftIcon, ChevronRightIcon, SearchIcon } from "lucide-react";
 import { type FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 
 type BuildFilesSearch = {
@@ -172,87 +163,37 @@ function FilesPage() {
 
   return (
     <main className="flex h-full w-full flex-col gap-5 px-4" data-testid="build-comparison">
-      <BuildTimeline
+      <BuildHistoryExplorer
         builds={history?.data ?? []}
         currentId={id}
-        onSelect={(buildId) =>
+        baselineId={baseline}
+        onSelectCurrent={(buildId) =>
           navigate({
             to: "/{-$locale}/builds/$id/files",
             params: { locale, id: buildId },
             search: { view: "changes", page: 1 },
           })
         }
+        onSelectBaseline={(compare) => updateSearch({ compare, view: "changes", page: 1 })}
+        onSwap={() => {
+          if (!baseline) return;
+          navigate({
+            to: "/{-$locale}/builds/$id/files",
+            params: { locale, id: baseline },
+            search: { view: "changes", compare: id, page: 1 },
+          });
+        }}
       />
 
-      <section className="grid gap-3 rounded-md border border-border/60 bg-card/50 p-4 md:grid-cols-[1fr_1fr_auto] md:items-end">
-        <label className="grid gap-1 text-sm">
-          <span className="text-xs font-medium text-muted-foreground">
-            {t("builds.comparison.current")}
-          </span>
-          <Select
-            value={id}
-            onValueChange={(buildId) =>
-              navigate({
-                to: "/{-$locale}/builds/$id/files",
-                params: { locale, id: buildId },
-                search: { view: "changes", page: 1 },
-              })
-            }
-          >
-            <SelectTrigger className="w-full" data-testid="current-build-select">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {(history?.data ?? []).map((entry) => (
-                <SelectItem key={entry.id} value={entry.id}>
-                  {entry.buildVersion}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </label>
-        <label className="grid gap-1 text-sm">
-          <span className="text-xs font-medium text-muted-foreground">
-            {t("builds.comparison.compareAgainst")}
-          </span>
-          <Select
-            value={baseline}
-            onValueChange={(compare) => updateSearch({ compare, view: "changes", page: 1 })}
-          >
-            <SelectTrigger className="w-full" data-testid="previous-build-select">
-              <SelectValue placeholder={t("builds.comparison.noPrevious")} />
-            </SelectTrigger>
-            <SelectContent>
-              {(history?.data ?? [])
-                .filter((entry) => entry.id !== id)
-                .map((entry) => (
-                  <SelectItem key={entry.id} value={entry.id} disabled={!entry.comparable}>
-                    {entry.buildVersion} · {entry.manifest.status}
-                  </SelectItem>
-                ))}
-            </SelectContent>
-          </Select>
-        </label>
-        <Button
-          variant="outline"
-          disabled={!baseline}
-          onClick={() => {
-            if (!baseline) return;
-            navigate({
-              to: "/{-$locale}/builds/$id/files",
-              params: { locale, id: baseline },
-              search: { view: "changes", compare: id, page: 1 },
-            });
-          }}
-        >
-          <ArrowLeftRightIcon /> {t("builds.comparison.swap")}
-        </Button>
-      </section>
-
-      <div className="flex flex-wrap items-center gap-2">
+      <div
+        className="flex flex-wrap items-center gap-2 rounded-lg border border-border/60 bg-card/30 p-2"
+        role="group"
+        aria-label={t("builds.comparison.changes")}
+      >
         <Button
           variant={search.view === "changes" ? "default" : "outline"}
           size="sm"
+          aria-pressed={search.view === "changes"}
           onClick={() => updateSearch({ view: "changes", page: 1 })}
         >
           {t("builds.comparison.changes")}
@@ -260,6 +201,7 @@ function FilesPage() {
         <Button
           variant={search.view === "all" ? "default" : "outline"}
           size="sm"
+          aria-pressed={search.view === "all"}
           onClick={() => updateSearch({ view: "all", page: 1 })}
         >
           {t("builds.comparison.allFiles")}
@@ -274,7 +216,8 @@ function FilesPage() {
           <AlertTitle>{t("builds.comparison.noPrevious")}</AlertTitle>
           <AlertDescription>{t("builds.comparison.noPreviousDescription")}</AlertDescription>
         </Alert>
-      ) : build?.manifest.status !== "verified" ? (
+      ) : build?.manifest.status !== "verified" &&
+        build?.manifest.status !== "legacy_unverified" ? (
         <Alert variant="destructive" data-testid="build-diff-error">
           <AlertTriangleIcon />
           <AlertTitle>{t("builds.comparison.unavailable")}</AlertTitle>
@@ -295,47 +238,6 @@ function FilesPage() {
         />
       )}
     </main>
-  );
-}
-
-function BuildTimeline({
-  builds,
-  currentId,
-  onSelect,
-}: {
-  builds: Array<{ id: string; buildVersion: string; manifest: { status: string } }>;
-  currentId: string;
-  onSelect: (id: string) => void;
-}) {
-  const { t } = useTranslation();
-  if (!builds.length) return null;
-  return (
-    <section
-      aria-label={t("builds.timeline.title")}
-      data-testid="build-timeline"
-      className="overflow-x-auto"
-    >
-      <div className="flex min-w-max items-center gap-1 py-2">
-        {[...builds].reverse().map((build, index) => (
-          <div key={build.id} className="flex items-center gap-1">
-            {index > 0 && <span aria-hidden className="h-px w-5 bg-border" />}
-            <button
-              type="button"
-              data-build-id={build.id}
-              aria-current={build.id === currentId ? "true" : undefined}
-              onClick={() => onSelect(build.id)}
-              className={cn(
-                "rounded-md border px-3 py-2 text-left text-xs transition-colors hover:bg-accent",
-                build.id === currentId ? "border-primary bg-primary/10" : "border-border/60",
-              )}
-            >
-              <span className="block max-w-48 truncate font-mono">{build.buildVersion}</span>
-              <span className="mt-1 block text-muted-foreground">{build.manifest.status}</span>
-            </button>
-          </div>
-        ))}
-      </div>
-    </section>
   );
 }
 
@@ -399,7 +301,29 @@ function ComparisonView({
   const totalPages = Math.max(1, Math.ceil(comparison.total / comparison.limit));
 
   return (
-    <>
+    <div className="flex flex-col gap-4">
+      <section className="flex flex-col gap-3 rounded-lg border border-border/60 bg-card/30 p-4 sm:flex-row sm:items-end sm:justify-between">
+        <div className="min-w-0">
+          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+            {t("builds.comparison.summary")}
+          </p>
+          <h2 className="mt-1 truncate text-lg font-semibold">{comparison.target.buildVersion}</h2>
+          <p className="mt-1 truncate text-sm text-muted-foreground">
+            {t("builds.comparison.compareAgainst")}: {comparison.base.buildVersion}
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          <Badge
+            variant="outline"
+            className={buildHealthBadgeClass(comparison.target.manifest.status)}
+          >
+            {t(`builds.health.${comparison.target.manifest.status}`)}
+          </Badge>
+          {comparison.comparisonScope === "cross_stream" && (
+            <Badge variant="outline">{t("builds.comparison.crossStream")}</Badge>
+          )}
+        </div>
+      </section>
       {comparison.comparisonScope === "cross_stream" && (
         <Alert>
           <AlertTriangleIcon />
@@ -407,9 +331,13 @@ function ComparisonView({
         </Alert>
       )}
       {comparison.warnings.includes("LEGACY_UNVERIFIED_SNAPSHOT") && (
-        <Alert>
+        <Alert
+          className="border-amber-500/40 bg-amber-500/5 text-amber-100 [&>svg]:text-amber-300"
+          data-testid="build-diff-legacy-warning"
+        >
           <AlertTriangleIcon />
           <AlertTitle>{t("builds.comparison.rawWarning")}</AlertTitle>
+          <AlertDescription>{t("builds.comparison.unavailableDescription")}</AlertDescription>
         </Alert>
       )}
       <section
@@ -577,7 +505,7 @@ function ComparisonView({
           </Button>
         </div>
       </SandboxDataSurface>
-    </>
+    </div>
   );
 }
 

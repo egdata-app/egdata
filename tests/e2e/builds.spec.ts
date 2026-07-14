@@ -2,6 +2,7 @@ import { expect, test, type Page } from "@playwright/test";
 import {
   createBuildPageResponse,
   currentBuildId,
+  oldestBuildId,
   previousBuildId,
 } from "./support/build-fixture.mjs";
 
@@ -22,8 +23,12 @@ test.describe("build comparison", () => {
     await expect(page.getByTestId("build-diff-summary")).toBeVisible();
     await expect.poll(() => new URL(page.url()).searchParams.get("compare")).toBe(previousBuildId);
     await expect(
-      page.getByTestId("build-timeline").locator('[aria-current="true"]'),
+      page.getByTestId("desktop-build-timeline").locator('[aria-current="true"]'),
     ).toHaveAttribute("data-build-id", currentBuildId);
+    await expect(page.getByTestId("current-build-select")).toContainText("Jul 1, 2026");
+    await expect(page.getByTestId("previous-build-select")).toContainText("Jun 1, 2026");
+    await expect(page.getByTestId("current-timeline-label")).toContainText("Jul 1, 2026");
+    await expect(page.getByTestId("baseline-timeline-label")).toContainText("Jun 1, 2026");
     await expect(
       page.getByTestId("build-diff-table").locator('[data-change-kind="modified"]'),
     ).toHaveCount(1);
@@ -36,12 +41,57 @@ test.describe("build comparison", () => {
     expect(new URL(page.url()).searchParams.get("compare")).toBe(previousBuildId);
   });
 
+  test("selects dated endpoints and clusters dense observations without horizontal overflow", async ({
+    page,
+  }) => {
+    await mockBuildApi(page);
+    await page.goto(`http://localhost:3000/builds/${currentBuildId}/files`);
+
+    await expect(page.getByTestId("build-timeline-cluster").first()).toBeVisible();
+    await page.getByTestId("build-timeline-cluster").first().click();
+    const unverifiedClusterEntry = page
+      .getByText("BuildVersion-1.0.230725-unverified", { exact: true })
+      .locator("..")
+      .locator("..");
+    await expect(
+      unverifiedClusterEntry.getByRole("button", { name: "Use as baseline" }),
+    ).toBeDisabled();
+    await page.keyboard.press("Escape");
+
+    await page.getByTestId("previous-build-select").click();
+    await page.getByRole("option", { name: /BuildVersion-1\.0\.210725\.2/ }).click();
+    await expect.poll(() => new URL(page.url()).searchParams.get("compare")).toBe(oldestBuildId);
+    await expect(page.getByTestId("previous-build-select")).toContainText("May 1, 2026");
+
+    await page.getByTestId("current-build-select").click();
+    await page.getByRole("option", { name: /BuildVersion-1\.0\.290725/ }).click();
+    await expect
+      .poll(() => new URL(page.url()).pathname)
+      .toContain(`/builds/${previousBuildId}/files`);
+    await expect.poll(() => new URL(page.url()).searchParams.get("compare")).toBe(oldestBuildId);
+
+    await page.getByRole("button", { name: "Swap" }).click();
+    await expect
+      .poll(() => new URL(page.url()).pathname)
+      .toContain(`/builds/${oldestBuildId}/files`);
+    await expect.poll(() => new URL(page.url()).searchParams.get("compare")).toBe(previousBuildId);
+
+    const overflow = await page.getByTestId("build-timeline").evaluate((element) => ({
+      width: element.clientWidth,
+      scrollWidth: element.scrollWidth,
+    }));
+    expect(overflow.scrollWidth).toBeLessThanOrEqual(overflow.width + 1);
+  });
+
   test("keeps the comparison usable without page-level mobile overflow", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await mockBuildApi(page);
     await page.goto(
       `http://localhost:3000/es-ES/builds/${currentBuildId}/files?view=changes&page=1&compare=${previousBuildId}`,
     );
+    await expect(page.getByTestId("mobile-build-trail")).toBeVisible();
+    await expect(page.getByTestId("desktop-build-timeline")).toBeHidden();
+    await expect(page.getByTestId("current-build-select")).toContainText("1 jul 2026");
     await expect(page.getByText("Añadido", { exact: true }).first()).toBeVisible();
     const overflow = await page.evaluate(() => ({
       width: document.documentElement.clientWidth,

@@ -718,7 +718,24 @@
     "legacy_unverified": "Aún sin verificar"
   },
   "timeline": {
-    "title": "Historial de compilaciones observadas"
+    "title": "Historial de compilaciones observadas",
+    "description": "Elige dos compilaciones observadas para comparar sus archivos.",
+    "observed": "Observadas en tu zona horaria",
+    "earlier": "Anteriores",
+    "later": "Posteriores",
+    "baseline": "Compilación de referencia",
+    "selectBuild": "Selecciona una compilación",
+    "searchBuilds": "Buscar versiones o fechas…",
+    "noBuilds": "No se encontraron compilaciones.",
+    "dateUnavailable": "Fecha de observación no disponible",
+    "undatedBuilds_one": "{{count}} compilación sin fecha de observación",
+    "undatedBuilds_other": "{{count}} compilaciones sin fecha de observación",
+    "clusteredBuilds_one": "{{count}} compilación observada en este intervalo",
+    "clusteredBuilds_other": "{{count}} compilaciones observadas en este intervalo",
+    "useAsBaseline": "Usar como referencia",
+    "viewAsCurrent": "Ver compilación",
+    "notComparable": "Esta compilación no se puede usar como referencia de comparación.",
+    "comparisonDirection": "Dirección de la comparación"
   },
   "comparison": {
     "current": "Compilación actual",
