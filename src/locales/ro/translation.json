@@ -48,9 +48,9 @@
   },
   "globalSearch": {
     "semantic": {
-      "heading": "Matches by meaning",
-      "loading": "Finding matches by meaning...",
-      "error": "Could not load matches by meaning."
+      "heading": "Potriviri după sens",
+      "loading": "Se caută potriviri după sens...",
+      "error": "Potrivirile după sens nu au putut fi încărcate."
     }
   },
   "footer": {
@@ -701,67 +701,67 @@
       "title": "Fișiere"
     },
     "header": {
-      "description": "Inspect this build snapshot and compare it with earlier observed builds.",
-      "firstSeen": "First seen",
-      "lastSeen": "Last seen",
-      "parser": "Parser version",
-      "fullDownload": "Full download size",
-      "files": "Files indexed",
-      "technicalDetails": "Technical details"
+      "description": "Inspectează acest instantaneu al buildului și compară-l cu buildurile observate anterior.",
+      "firstSeen": "Văzut prima dată",
+      "lastSeen": "Văzut ultima dată",
+      "parser": "Versiunea parserului",
+      "fullDownload": "Dimensiunea descărcării complete",
+      "files": "Fișiere indexate",
+      "technicalDetails": "Detalii tehnice"
     },
     "health": {
-      "processing": "Processing",
-      "verified": "Verified",
-      "invalid": "Invalid manifest",
-      "unavailable": "Unavailable",
-      "failed": "Processing failed",
-      "legacy_unverified": "Not yet verified"
+      "processing": "Se procesează",
+      "verified": "Verificat",
+      "invalid": "Manifest nevalid",
+      "unavailable": "Indisponibil",
+      "failed": "Procesarea a eșuat",
+      "legacy_unverified": "Neverificat încă"
     },
     "timeline": {
-      "title": "Observed build history"
+      "title": "Istoricul buildurilor observate"
     },
     "comparison": {
-      "current": "Current build",
-      "compareAgainst": "Compare against",
-      "noPrevious": "No previous verified build",
-      "noPreviousDescription": "This is the first comparable build observed in this stream. You can still inspect all manifest files.",
-      "swap": "Swap",
-      "changes": "Changes",
-      "allFiles": "All files",
-      "unavailable": "This manifest is not comparable",
-      "unavailableDescription": "The snapshot is still processing, unavailable, or was parsed by an older parser. Raw files may be incomplete.",
-      "error": "Comparison could not be loaded",
-      "errorDescription": "The selected baseline may be unavailable or incompatible. Choose another verified build and try again.",
-      "loading": "Comparing manifest snapshots…",
-      "crossStream": "These builds come from different release channels.",
-      "summary": "Build change summary",
+      "current": "Buildul curent",
+      "compareAgainst": "Compară cu",
+      "noPrevious": "Nu există un build verificat anterior",
+      "noPreviousDescription": "Acesta este primul build comparabil observat în acest flux. Poți inspecta în continuare toate fișierele manifestului.",
+      "swap": "Schimbă",
+      "changes": "Modificări",
+      "allFiles": "Toate fișierele",
+      "unavailable": "Acest manifest nu poate fi comparat",
+      "unavailableDescription": "Instantaneul este încă în procesare, indisponibil sau a fost analizat de un parser mai vechi. Fișierele brute pot fi incomplete.",
+      "error": "Compararea nu a putut fi încărcată",
+      "errorDescription": "Baza selectată poate fi indisponibilă sau incompatibilă. Alege alt build verificat și încearcă din nou.",
+      "loading": "Se compară instantaneele manifestului…",
+      "crossStream": "Aceste builduri provin din canale de lansare diferite.",
+      "summary": "Rezumatul modificărilor buildului",
       "status": {
-        "added": "Added",
-        "modified": "Modified",
-        "removed": "Removed",
-        "unchanged": "Unchanged"
+        "added": "Adăugat",
+        "modified": "Modificat",
+        "removed": "Eliminat",
+        "unchanged": "Neschimbat"
       },
-      "installedDelta": "Installed size change",
-      "fullDownloadDelta": "Full download change",
-      "changedFiles": "Changed files",
-      "downloadDisclaimer": "Full download size is the compressed size of each complete build, not an update or patch estimate.",
-      "unchanged": "unchanged",
-      "search": "Search file paths",
-      "searchPlaceholder": "Search the full path…",
-      "extensionPlaceholder": "Extension, e.g. pak",
-      "apply": "Apply",
+      "installedDelta": "Modificarea dimensiunii instalate",
+      "fullDownloadDelta": "Modificarea descărcării complete",
+      "changedFiles": "Fișiere modificate",
+      "downloadDisclaimer": "Dimensiunea descărcării complete este dimensiunea comprimată a fiecărui build complet, nu o estimare pentru o actualizare sau o corecție.",
+      "unchanged": "neschimbat",
+      "search": "Caută în căile fișierelor",
+      "searchPlaceholder": "Caută în calea completă…",
+      "extensionPlaceholder": "Extensie, de ex. pak",
+      "apply": "Aplică",
       "columns": {
-        "status": "Status",
-        "path": "File path",
-        "size": "Before → after",
-        "delta": "Size change",
+        "status": "Stare",
+        "path": "Calea fișierului",
+        "size": "Înainte → după",
+        "delta": "Modificarea dimensiunii",
         "hash": "Hash"
       },
-      "empty": "No files match this comparison.",
-      "page": "Page {{page}} of {{total}}",
-      "previousPage": "Previous page",
-      "nextPage": "Next page",
-      "rawWarning": "This snapshot has not been verified; its raw files may be incomplete."
+      "empty": "Niciun fișier nu corespunde acestei comparații.",
+      "page": "Pagina {{page}} din {{total}}",
+      "previousPage": "Pagina anterioară",
+      "nextPage": "Pagina următoare",
+      "rawWarning": "Acest instantaneu nu a fost verificat; fișierele sale brute pot fi incomplete."
     },
     "items": {
       "title": "Elemente"

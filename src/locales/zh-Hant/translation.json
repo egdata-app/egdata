@@ -48,9 +48,9 @@
   },
   "globalSearch": {
     "semantic": {
-      "heading": "Matches by meaning",
-      "loading": "Finding matches by meaning...",
-      "error": "Could not load matches by meaning."
+      "heading": "依意義相符",
+      "loading": "正在尋找依意義相符的結果...",
+      "error": "無法載入依意義相符的結果。"
     }
   },
   "footer": {
@@ -701,67 +701,67 @@
       "title": "檔案"
     },
     "header": {
-      "description": "Inspect this build snapshot and compare it with earlier observed builds.",
-      "firstSeen": "First seen",
-      "lastSeen": "Last seen",
-      "parser": "Parser version",
-      "fullDownload": "Full download size",
-      "files": "Files indexed",
-      "technicalDetails": "Technical details"
+      "description": "檢視此組建快照，並與先前觀察到的組建比較。",
+      "firstSeen": "首次發現",
+      "lastSeen": "最後發現",
+      "parser": "剖析器版本",
+      "fullDownload": "完整下載大小",
+      "files": "已編索檔案",
+      "technicalDetails": "技術詳細資料"
     },
     "health": {
-      "processing": "Processing",
-      "verified": "Verified",
-      "invalid": "Invalid manifest",
-      "unavailable": "Unavailable",
-      "failed": "Processing failed",
-      "legacy_unverified": "Not yet verified"
+      "processing": "處理中",
+      "verified": "已驗證",
+      "invalid": "無效資訊清單",
+      "unavailable": "無法使用",
+      "failed": "處理失敗",
+      "legacy_unverified": "尚未驗證"
     },
     "timeline": {
-      "title": "Observed build history"
+      "title": "觀察到的組建歷程"
     },
     "comparison": {
-      "current": "Current build",
-      "compareAgainst": "Compare against",
-      "noPrevious": "No previous verified build",
-      "noPreviousDescription": "This is the first comparable build observed in this stream. You can still inspect all manifest files.",
-      "swap": "Swap",
-      "changes": "Changes",
-      "allFiles": "All files",
-      "unavailable": "This manifest is not comparable",
-      "unavailableDescription": "The snapshot is still processing, unavailable, or was parsed by an older parser. Raw files may be incomplete.",
-      "error": "Comparison could not be loaded",
-      "errorDescription": "The selected baseline may be unavailable or incompatible. Choose another verified build and try again.",
-      "loading": "Comparing manifest snapshots…",
-      "crossStream": "These builds come from different release channels.",
-      "summary": "Build change summary",
+      "current": "目前組建",
+      "compareAgainst": "比較對象",
+      "noPrevious": "沒有先前已驗證的組建",
+      "noPreviousDescription": "這是此串流中觀察到的第一個可比較組建。你仍然可以檢視所有資訊清單檔案。",
+      "swap": "交換",
+      "changes": "變更",
+      "allFiles": "所有檔案",
+      "unavailable": "此資訊清單無法比較",
+      "unavailableDescription": "快照仍在處理、無法使用，或由較舊的剖析器解析。原始檔案可能不完整。",
+      "error": "無法載入比較結果",
+      "errorDescription": "選取的基準可能無法使用或不相容。請選擇其他已驗證組建並重試。",
+      "loading": "正在比較資訊清單快照…",
+      "crossStream": "這些組建來自不同的發行頻道。",
+      "summary": "組建變更摘要",
       "status": {
-        "added": "Added",
-        "modified": "Modified",
-        "removed": "Removed",
-        "unchanged": "Unchanged"
+        "added": "新增",
+        "modified": "已修改",
+        "removed": "已移除",
+        "unchanged": "未變更"
       },
-      "installedDelta": "Installed size change",
-      "fullDownloadDelta": "Full download change",
-      "changedFiles": "Changed files",
-      "downloadDisclaimer": "Full download size is the compressed size of each complete build, not an update or patch estimate.",
-      "unchanged": "unchanged",
-      "search": "Search file paths",
-      "searchPlaceholder": "Search the full path…",
-      "extensionPlaceholder": "Extension, e.g. pak",
-      "apply": "Apply",
+      "installedDelta": "已安裝大小變更",
+      "fullDownloadDelta": "完整下載變更",
+      "changedFiles": "已變更檔案",
+      "downloadDisclaimer": "完整下載大小是每個完整組建的壓縮大小，不是更新或修補程式大小的估計。",
+      "unchanged": "未變更",
+      "search": "搜尋檔案路徑",
+      "searchPlaceholder": "搜尋完整路徑…",
+      "extensionPlaceholder": "副檔名，例如 pak",
+      "apply": "套用",
       "columns": {
-        "status": "Status",
-        "path": "File path",
-        "size": "Before → after",
-        "delta": "Size change",
-        "hash": "Hash"
+        "status": "狀態",
+        "path": "檔案路徑",
+        "size": "之前 → 之後",
+        "delta": "大小變更",
+        "hash": "雜湊"
       },
-      "empty": "No files match this comparison.",
-      "page": "Page {{page}} of {{total}}",
-      "previousPage": "Previous page",
-      "nextPage": "Next page",
-      "rawWarning": "This snapshot has not been verified; its raw files may be incomplete."
+      "empty": "沒有檔案符合此比較結果。",
+      "page": "第 {{page}} 頁，共 {{total}} 頁",
+      "previousPage": "上一頁",
+      "nextPage": "下一頁",
+      "rawWarning": "此快照尚未驗證；其原始檔案可能不完整。"
     },
     "items": {
       "title": "物品"

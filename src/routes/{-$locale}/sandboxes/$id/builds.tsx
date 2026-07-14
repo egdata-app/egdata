@@ -42,7 +42,7 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id/builds")({
     const { id } = params;
     const { queryClient } = context;
 
-    await queryClient.prefetchQuery({
+    await queryClient.ensureQueryData({
       queryKey: ["sandbox", "builds", { id, page: 1, limit: 20, filters: [] }],
       queryFn: () =>
         httpClient

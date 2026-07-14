@@ -34,8 +34,8 @@ export const Route = createFileRoute("/{-$locale}/builds/$id")({
   loader: async ({ params, context }) => {
     const { id } = params;
     await Promise.allSettled([
-      context.queryClient.prefetchQuery(buildQueryOptions(id)),
-      context.queryClient.prefetchQuery(buildItemsQueryOptions(id)),
+      context.queryClient.ensureQueryData(buildQueryOptions(id)),
+      context.queryClient.ensureQueryData(buildItemsQueryOptions(id)),
     ]);
     return { id, dehydratedState: dehydrate(context.queryClient) };
   },

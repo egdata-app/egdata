@@ -6,8 +6,8 @@ const PROFILE_API_PROXY_PORT = 3101;
 const baseURL = "http://localhost:3000";
 const webServerCommand =
   process.platform === "win32"
-    ? `pwsh -Command "& { $env:BETTER_AUTH_URL='${baseURL}'; $env:BETTER_AUTH_SECRET='${BETTER_AUTH_SECRET}'; pnpm start }"`
-    : `BETTER_AUTH_URL=${baseURL} BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET} pnpm start`;
+    ? `pwsh -Command "& { $env:API_ENDPOINT='http://127.0.0.1:${PROFILE_API_PROXY_PORT}'; $env:BETTER_AUTH_URL='${baseURL}'; $env:BETTER_AUTH_SECRET='${BETTER_AUTH_SECRET}'; pnpm start }"`
+    : `API_ENDPOINT=http://127.0.0.1:${PROFILE_API_PROXY_PORT} BETTER_AUTH_URL=${baseURL} BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET} pnpm start`;
 const profileWebServerCommand =
   process.platform === "win32"
     ? `pwsh -Command "& { $env:API_ENDPOINT='http://127.0.0.1:${PROFILE_API_PROXY_PORT}'; $env:BETTER_AUTH_URL='http://localhost:${PROFILE_APP_PORT}'; $env:BETTER_AUTH_SECRET='${BETTER_AUTH_SECRET}'; $env:PORT='${PROFILE_APP_PORT}'; pnpm start }"`

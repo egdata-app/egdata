@@ -48,9 +48,9 @@
   },
   "globalSearch": {
     "semantic": {
-      "heading": "Matches by meaning",
-      "loading": "Finding matches by meaning...",
-      "error": "Could not load matches by meaning."
+      "heading": "รายการที่ตรงกันตามความหมาย",
+      "loading": "กำลังค้นหารายการที่ตรงกันตามความหมาย...",
+      "error": "ไม่สามารถโหลดรายการที่ตรงกันตามความหมายได้"
     }
   },
   "footer": {
@@ -701,67 +701,67 @@
       "title": "ไฟล์"
     },
     "header": {
-      "description": "Inspect this build snapshot and compare it with earlier observed builds.",
-      "firstSeen": "First seen",
-      "lastSeen": "Last seen",
-      "parser": "Parser version",
-      "fullDownload": "Full download size",
-      "files": "Files indexed",
-      "technicalDetails": "Technical details"
+      "description": "ตรวจสอบสแนปช็อตบิลด์นี้และเปรียบเทียบกับบิลด์ที่พบก่อนหน้านี้",
+      "firstSeen": "พบครั้งแรก",
+      "lastSeen": "พบครั้งล่าสุด",
+      "parser": "เวอร์ชันพาร์เซอร์",
+      "fullDownload": "ขนาดดาวน์โหลดทั้งหมด",
+      "files": "ไฟล์ที่ทำดัชนีแล้ว",
+      "technicalDetails": "รายละเอียดทางเทคนิค"
     },
     "health": {
-      "processing": "Processing",
-      "verified": "Verified",
-      "invalid": "Invalid manifest",
-      "unavailable": "Unavailable",
-      "failed": "Processing failed",
-      "legacy_unverified": "Not yet verified"
+      "processing": "กำลังประมวลผล",
+      "verified": "ยืนยันแล้ว",
+      "invalid": "แมนิเฟสต์ไม่ถูกต้อง",
+      "unavailable": "ไม่พร้อมใช้งาน",
+      "failed": "ประมวลผลไม่สำเร็จ",
+      "legacy_unverified": "ยังไม่ได้ยืนยัน"
     },
     "timeline": {
-      "title": "Observed build history"
+      "title": "ประวัติบิลด์ที่พบ"
     },
     "comparison": {
-      "current": "Current build",
-      "compareAgainst": "Compare against",
-      "noPrevious": "No previous verified build",
-      "noPreviousDescription": "This is the first comparable build observed in this stream. You can still inspect all manifest files.",
-      "swap": "Swap",
-      "changes": "Changes",
-      "allFiles": "All files",
-      "unavailable": "This manifest is not comparable",
-      "unavailableDescription": "The snapshot is still processing, unavailable, or was parsed by an older parser. Raw files may be incomplete.",
-      "error": "Comparison could not be loaded",
-      "errorDescription": "The selected baseline may be unavailable or incompatible. Choose another verified build and try again.",
-      "loading": "Comparing manifest snapshots…",
-      "crossStream": "These builds come from different release channels.",
-      "summary": "Build change summary",
+      "current": "บิลด์ปัจจุบัน",
+      "compareAgainst": "เปรียบเทียบกับ",
+      "noPrevious": "ไม่มีบิลด์ที่ยืนยันก่อนหน้านี้",
+      "noPreviousDescription": "นี่คือบิลด์แรกที่เปรียบเทียบได้ซึ่งพบในสตรีมนี้ คุณยังตรวจสอบไฟล์แมนิเฟสต์ทั้งหมดได้",
+      "swap": "สลับ",
+      "changes": "การเปลี่ยนแปลง",
+      "allFiles": "ไฟล์ทั้งหมด",
+      "unavailable": "ไม่สามารถเปรียบเทียบแมนิเฟสต์นี้ได้",
+      "unavailableDescription": "สแนปช็อตยังอยู่ระหว่างการประมวลผล ไม่พร้อมใช้งาน หรือวิเคราะห์ด้วยพาร์เซอร์รุ่นเก่า ไฟล์ดิบอาจไม่สมบูรณ์",
+      "error": "โหลดการเปรียบเทียบไม่ได้",
+      "errorDescription": "ฐานที่เลือกอาจไม่พร้อมใช้งานหรือเข้ากันไม่ได้ เลือกบิลด์ที่ยืนยันแล้วรายการอื่นแล้วลองอีกครั้ง",
+      "loading": "กำลังเปรียบเทียบสแนปช็อตแมนิเฟสต์…",
+      "crossStream": "บิลด์เหล่านี้มาจากช่องทางการเผยแพร่ที่แตกต่างกัน",
+      "summary": "สรุปการเปลี่ยนแปลงบิลด์",
       "status": {
-        "added": "Added",
-        "modified": "Modified",
-        "removed": "Removed",
-        "unchanged": "Unchanged"
+        "added": "เพิ่มแล้ว",
+        "modified": "แก้ไขแล้ว",
+        "removed": "ลบแล้ว",
+        "unchanged": "ไม่เปลี่ยนแปลง"
       },
-      "installedDelta": "Installed size change",
-      "fullDownloadDelta": "Full download change",
-      "changedFiles": "Changed files",
-      "downloadDisclaimer": "Full download size is the compressed size of each complete build, not an update or patch estimate.",
-      "unchanged": "unchanged",
-      "search": "Search file paths",
-      "searchPlaceholder": "Search the full path…",
-      "extensionPlaceholder": "Extension, e.g. pak",
-      "apply": "Apply",
+      "installedDelta": "การเปลี่ยนแปลงขนาดที่ติดตั้ง",
+      "fullDownloadDelta": "การเปลี่ยนแปลงการดาวน์โหลดทั้งหมด",
+      "changedFiles": "ไฟล์ที่เปลี่ยนแปลง",
+      "downloadDisclaimer": "ขนาดดาวน์โหลดทั้งหมดคือขนาดบีบอัดของบิลด์เต็มแต่ละรายการ ไม่ใช่ค่าประมาณการอัปเดตหรือแพตช์",
+      "unchanged": "ไม่เปลี่ยนแปลง",
+      "search": "ค้นหาเส้นทางไฟล์",
+      "searchPlaceholder": "ค้นหาเส้นทางแบบเต็ม…",
+      "extensionPlaceholder": "นามสกุล เช่น pak",
+      "apply": "ใช้",
       "columns": {
-        "status": "Status",
-        "path": "File path",
-        "size": "Before → after",
-        "delta": "Size change",
-        "hash": "Hash"
+        "status": "สถานะ",
+        "path": "เส้นทางไฟล์",
+        "size": "ก่อน → หลัง",
+        "delta": "การเปลี่ยนแปลงขนาด",
+        "hash": "แฮช"
       },
-      "empty": "No files match this comparison.",
-      "page": "Page {{page}} of {{total}}",
-      "previousPage": "Previous page",
-      "nextPage": "Next page",
-      "rawWarning": "This snapshot has not been verified; its raw files may be incomplete."
+      "empty": "ไม่มีไฟล์ที่ตรงกับการเปรียบเทียบนี้",
+      "page": "หน้า {{page}} จาก {{total}}",
+      "previousPage": "หน้าก่อนหน้า",
+      "nextPage": "หน้าถัดไป",
+      "rawWarning": "สแนปช็อตนี้ยังไม่ได้รับการยืนยัน ไฟล์ดิบอาจไม่สมบูรณ์"
     },
     "items": {
       "title": "รายการ"

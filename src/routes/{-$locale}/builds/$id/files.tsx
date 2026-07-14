@@ -71,42 +71,37 @@ function normalizeSearch(search: Record<string, unknown>): BuildFilesSearch {
 export const Route = createFileRoute("/{-$locale}/builds/$id/files")({
   validateSearch: normalizeSearch,
   component: () => {
-    const { dehydratedState } = Route.useLoaderData() as {
+    const { dehydratedState, id } = Route.useLoaderData() as {
       dehydratedState: DehydratedState;
       id: string;
     };
     return (
       <HydrationBoundary state={dehydratedState}>
-        <FilesPage />
+        <FilesPage key={id} />
       </HydrationBoundary>
     );
   },
   loaderDeps: ({ search }) => search,
   loader: async ({ params, context, deps }) => {
     const { id } = params;
-    const requests = [
-      context.queryClient.prefetchQuery(buildHistoryQueryOptions(id)),
-      context.queryClient.prefetchQuery(buildQueryOptions(id)),
-    ];
-    if (deps.view === "all" || !deps.compare) {
-      requests.push(
-        context.queryClient.prefetchQuery(
-          buildFilesQueryOptions(id, { page: deps.page, q: deps.q, extension: deps.extension }),
-        ),
-      );
-    } else {
-      requests.push(
-        context.queryClient.prefetchQuery(
-          buildComparisonQueryOptions(id, deps.compare, {
-            page: deps.page,
-            q: deps.q,
-            extension: deps.extension,
-            status: deps.status,
-          }),
-        ),
-      );
-    }
-    await Promise.allSettled(requests);
+    await Promise.allSettled([
+      context.queryClient.ensureQueryData(buildHistoryQueryOptions(id)),
+      context.queryClient.ensureQueryData(buildQueryOptions(id)),
+    ]);
+    const request =
+      deps.view === "all" || !deps.compare
+        ? context.queryClient.ensureQueryData(
+            buildFilesQueryOptions(id, { page: deps.page, q: deps.q, extension: deps.extension }),
+          )
+        : context.queryClient.ensureQueryData(
+            buildComparisonQueryOptions(id, deps.compare, {
+              page: deps.page,
+              q: deps.q,
+              extension: deps.extension,
+              status: deps.status,
+            }),
+          );
+    await Promise.allSettled([request]);
     return { id, dehydratedState: dehydrate(context.queryClient) };
   },
 });

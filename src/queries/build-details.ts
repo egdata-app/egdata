@@ -19,12 +19,16 @@ export const buildQueryOptions = (id: string) =>
   queryOptions({
     queryKey: ["build", { id }],
     queryFn: () => httpClient.get<SingleBuild>(`/builds/${id}`),
+    staleTime: 5 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
   });
 
 export const buildItemsQueryOptions = (id: string) =>
   queryOptions({
     queryKey: ["build-items", { id }],
     queryFn: () => httpClient.get<BuildItemsResponse>(`/builds/${id}/items`),
+    staleTime: 5 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
   });
 
 export const buildHistoryQueryOptions = (id: string, scope: "stream" | "platform" = "stream") =>
@@ -34,6 +38,8 @@ export const buildHistoryQueryOptions = (id: string, scope: "stream" | "platform
       httpClient.get<BuildHistoryResponse>(`/builds/${id}/history`, {
         params: { scope, limit: 100 },
       }),
+    staleTime: 5 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
   });
 
 export const buildFilesQueryOptions = (
@@ -43,6 +49,8 @@ export const buildFilesQueryOptions = (
   queryOptions({
     queryKey: ["build-files", { id, ...options }],
     queryFn: () => httpClient.get<BuildFiles>(`/builds/${id}/files`, { params: options }),
+    staleTime: 5 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
   });
 
 export const buildComparisonQueryOptions = (
@@ -57,4 +65,6 @@ export const buildComparisonQueryOptions = (
         params: options,
       }),
     enabled: Boolean(baseId),
+    staleTime: 5 * 60 * 1000,
+    gcTime: 30 * 60 * 1000,
   });

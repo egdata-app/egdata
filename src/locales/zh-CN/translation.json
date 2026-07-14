@@ -48,9 +48,9 @@
   },
   "globalSearch": {
     "semantic": {
-      "heading": "Matches by meaning",
-      "loading": "Finding matches by meaning...",
-      "error": "Could not load matches by meaning."
+      "heading": "按含义匹配",
+      "loading": "正在查找按含义匹配的结果...",
+      "error": "无法加载按含义匹配的结果。"
     }
   },
   "footer": {
@@ -701,67 +701,67 @@
       "title": "文件"
     },
     "header": {
-      "description": "Inspect this build snapshot and compare it with earlier observed builds.",
-      "firstSeen": "First seen",
-      "lastSeen": "Last seen",
-      "parser": "Parser version",
-      "fullDownload": "Full download size",
-      "files": "Files indexed",
-      "technicalDetails": "Technical details"
+      "description": "查看此构建快照，并与之前观察到的构建进行比较。",
+      "firstSeen": "首次发现",
+      "lastSeen": "最后发现",
+      "parser": "解析器版本",
+      "fullDownload": "完整下载大小",
+      "files": "已索引文件",
+      "technicalDetails": "技术详情"
     },
     "health": {
-      "processing": "Processing",
-      "verified": "Verified",
-      "invalid": "Invalid manifest",
-      "unavailable": "Unavailable",
-      "failed": "Processing failed",
-      "legacy_unverified": "Not yet verified"
+      "processing": "处理中",
+      "verified": "已验证",
+      "invalid": "无效清单",
+      "unavailable": "不可用",
+      "failed": "处理失败",
+      "legacy_unverified": "尚未验证"
     },
     "timeline": {
-      "title": "Observed build history"
+      "title": "已观察构建历史"
     },
     "comparison": {
-      "current": "Current build",
-      "compareAgainst": "Compare against",
-      "noPrevious": "No previous verified build",
-      "noPreviousDescription": "This is the first comparable build observed in this stream. You can still inspect all manifest files.",
-      "swap": "Swap",
-      "changes": "Changes",
-      "allFiles": "All files",
-      "unavailable": "This manifest is not comparable",
-      "unavailableDescription": "The snapshot is still processing, unavailable, or was parsed by an older parser. Raw files may be incomplete.",
-      "error": "Comparison could not be loaded",
-      "errorDescription": "The selected baseline may be unavailable or incompatible. Choose another verified build and try again.",
-      "loading": "Comparing manifest snapshots…",
-      "crossStream": "These builds come from different release channels.",
-      "summary": "Build change summary",
+      "current": "当前构建",
+      "compareAgainst": "比较对象",
+      "noPrevious": "没有之前已验证的构建",
+      "noPreviousDescription": "这是在此数据流中观察到的第一个可比较构建。你仍然可以查看所有清单文件。",
+      "swap": "交换",
+      "changes": "更改",
+      "allFiles": "所有文件",
+      "unavailable": "此清单无法比较",
+      "unavailableDescription": "快照仍在处理、不可用，或由旧版解析器解析。原始文件可能不完整。",
+      "error": "无法加载比较结果",
+      "errorDescription": "所选基线可能不可用或不兼容。请选择其他已验证构建，然后重试。",
+      "loading": "正在比较清单快照…",
+      "crossStream": "这些构建来自不同的发布渠道。",
+      "summary": "构建更改摘要",
       "status": {
-        "added": "Added",
-        "modified": "Modified",
-        "removed": "Removed",
-        "unchanged": "Unchanged"
+        "added": "新增",
+        "modified": "已修改",
+        "removed": "已移除",
+        "unchanged": "未更改"
       },
-      "installedDelta": "Installed size change",
-      "fullDownloadDelta": "Full download change",
-      "changedFiles": "Changed files",
-      "downloadDisclaimer": "Full download size is the compressed size of each complete build, not an update or patch estimate.",
-      "unchanged": "unchanged",
-      "search": "Search file paths",
-      "searchPlaceholder": "Search the full path…",
-      "extensionPlaceholder": "Extension, e.g. pak",
-      "apply": "Apply",
+      "installedDelta": "已安装大小变化",
+      "fullDownloadDelta": "完整下载变化",
+      "changedFiles": "已更改文件",
+      "downloadDisclaimer": "完整下载大小是每个完整构建的压缩大小，不是更新或补丁大小的估算。",
+      "unchanged": "未更改",
+      "search": "搜索文件路径",
+      "searchPlaceholder": "搜索完整路径…",
+      "extensionPlaceholder": "扩展名，例如 pak",
+      "apply": "应用",
       "columns": {
-        "status": "Status",
-        "path": "File path",
-        "size": "Before → after",
-        "delta": "Size change",
-        "hash": "Hash"
+        "status": "状态",
+        "path": "文件路径",
+        "size": "之前 → 之后",
+        "delta": "大小变化",
+        "hash": "哈希"
       },
-      "empty": "No files match this comparison.",
-      "page": "Page {{page}} of {{total}}",
-      "previousPage": "Previous page",
-      "nextPage": "Next page",
-      "rawWarning": "This snapshot has not been verified; its raw files may be incomplete."
+      "empty": "没有文件匹配此比较结果。",
+      "page": "第 {{page}} 页，共 {{total}} 页",
+      "previousPage": "上一页",
+      "nextPage": "下一页",
+      "rawWarning": "此快照尚未验证；其原始文件可能不完整。"
     },
     "items": {
       "title": "物品"

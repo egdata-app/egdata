@@ -48,9 +48,9 @@
   },
   "globalSearch": {
     "semantic": {
-      "heading": "Matches by meaning",
-      "loading": "Finding matches by meaning...",
-      "error": "Could not load matches by meaning."
+      "heading": "Dopasowania według znaczenia",
+      "loading": "Wyszukiwanie dopasowań według znaczenia...",
+      "error": "Nie udało się załadować dopasowań według znaczenia."
     }
   },
   "footer": {
@@ -701,67 +701,67 @@
       "title": "Pliki"
     },
     "header": {
-      "description": "Inspect this build snapshot and compare it with earlier observed builds.",
-      "firstSeen": "First seen",
-      "lastSeen": "Last seen",
-      "parser": "Parser version",
-      "fullDownload": "Full download size",
-      "files": "Files indexed",
-      "technicalDetails": "Technical details"
+      "description": "Sprawdź ten zrzut buildu i porównaj go z wcześniej zaobserwowanymi buildami.",
+      "firstSeen": "Po raz pierwszy",
+      "lastSeen": "Ostatnio",
+      "parser": "Wersja parsera",
+      "fullDownload": "Pełny rozmiar pobierania",
+      "files": "Zindeksowane pliki",
+      "technicalDetails": "Szczegóły techniczne"
     },
     "health": {
-      "processing": "Processing",
-      "verified": "Verified",
-      "invalid": "Invalid manifest",
-      "unavailable": "Unavailable",
-      "failed": "Processing failed",
-      "legacy_unverified": "Not yet verified"
+      "processing": "Przetwarzanie",
+      "verified": "Zweryfikowany",
+      "invalid": "Nieprawidłowy manifest",
+      "unavailable": "Niedostępny",
+      "failed": "Przetwarzanie nie powiodło się",
+      "legacy_unverified": "Jeszcze niezweryfikowany"
     },
     "timeline": {
-      "title": "Observed build history"
+      "title": "Historia zaobserwowanych buildów"
     },
     "comparison": {
-      "current": "Current build",
-      "compareAgainst": "Compare against",
-      "noPrevious": "No previous verified build",
-      "noPreviousDescription": "This is the first comparable build observed in this stream. You can still inspect all manifest files.",
-      "swap": "Swap",
-      "changes": "Changes",
-      "allFiles": "All files",
-      "unavailable": "This manifest is not comparable",
-      "unavailableDescription": "The snapshot is still processing, unavailable, or was parsed by an older parser. Raw files may be incomplete.",
-      "error": "Comparison could not be loaded",
-      "errorDescription": "The selected baseline may be unavailable or incompatible. Choose another verified build and try again.",
-      "loading": "Comparing manifest snapshots…",
-      "crossStream": "These builds come from different release channels.",
-      "summary": "Build change summary",
+      "current": "Bieżący build",
+      "compareAgainst": "Porównaj z",
+      "noPrevious": "Brak wcześniejszego zweryfikowanego buildu",
+      "noPreviousDescription": "To pierwszy porównywalny build zaobserwowany w tym strumieniu. Nadal możesz sprawdzić wszystkie pliki manifestu.",
+      "swap": "Zamień",
+      "changes": "Zmiany",
+      "allFiles": "Wszystkie pliki",
+      "unavailable": "Tego manifestu nie można porównać",
+      "unavailableDescription": "Zrzut jest nadal przetwarzany, niedostępny lub został przeanalizowany przez starszy parser. Surowe pliki mogą być niekompletne.",
+      "error": "Nie udało się załadować porównania",
+      "errorDescription": "Wybrana baza może być niedostępna lub niezgodna. Wybierz inny zweryfikowany build i spróbuj ponownie.",
+      "loading": "Porównywanie zrzutów manifestu…",
+      "crossStream": "Te buildy pochodzą z różnych kanałów wydań.",
+      "summary": "Podsumowanie zmian buildu",
       "status": {
-        "added": "Added",
-        "modified": "Modified",
-        "removed": "Removed",
-        "unchanged": "Unchanged"
+        "added": "Dodane",
+        "modified": "Zmodyfikowane",
+        "removed": "Usunięte",
+        "unchanged": "Bez zmian"
       },
-      "installedDelta": "Installed size change",
-      "fullDownloadDelta": "Full download change",
-      "changedFiles": "Changed files",
-      "downloadDisclaimer": "Full download size is the compressed size of each complete build, not an update or patch estimate.",
-      "unchanged": "unchanged",
-      "search": "Search file paths",
-      "searchPlaceholder": "Search the full path…",
-      "extensionPlaceholder": "Extension, e.g. pak",
-      "apply": "Apply",
+      "installedDelta": "Zmiana zainstalowanego rozmiaru",
+      "fullDownloadDelta": "Zmiana pełnego pobierania",
+      "changedFiles": "Zmienione pliki",
+      "downloadDisclaimer": "Pełny rozmiar pobierania to skompresowany rozmiar każdego kompletnego buildu, a nie szacowany rozmiar aktualizacji lub poprawki.",
+      "unchanged": "bez zmian",
+      "search": "Szukaj w ścieżkach plików",
+      "searchPlaceholder": "Szukaj w pełnej ścieżce…",
+      "extensionPlaceholder": "Rozszerzenie, np. pak",
+      "apply": "Zastosuj",
       "columns": {
-        "status": "Status",
-        "path": "File path",
-        "size": "Before → after",
-        "delta": "Size change",
+        "status": "Stan",
+        "path": "Ścieżka pliku",
+        "size": "Przed → po",
+        "delta": "Zmiana rozmiaru",
         "hash": "Hash"
       },
-      "empty": "No files match this comparison.",
-      "page": "Page {{page}} of {{total}}",
-      "previousPage": "Previous page",
-      "nextPage": "Next page",
-      "rawWarning": "This snapshot has not been verified; its raw files may be incomplete."
+      "empty": "Brak plików pasujących do tego porównania.",
+      "page": "Strona {{page}} z {{total}}",
+      "previousPage": "Poprzednia strona",
+      "nextPage": "Następna strona",
+      "rawWarning": "Ten zrzut nie został zweryfikowany; jego surowe pliki mogą być niekompletne."
     },
     "items": {
       "title": "Elementy"

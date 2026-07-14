@@ -48,9 +48,9 @@
   },
   "globalSearch": {
     "semantic": {
-      "heading": "Matches by meaning",
-      "loading": "Finding matches by meaning...",
-      "error": "Could not load matches by meaning."
+      "heading": "Jelentés szerinti találatok",
+      "loading": "Jelentés szerinti találatok keresése...",
+      "error": "A jelentés szerinti találatok nem tölthetők be."
     }
   },
   "footer": {
@@ -701,67 +701,67 @@
       "title": "Fájlok"
     },
     "header": {
-      "description": "Inspect this build snapshot and compare it with earlier observed builds.",
-      "firstSeen": "First seen",
-      "lastSeen": "Last seen",
-      "parser": "Parser version",
-      "fullDownload": "Full download size",
-      "files": "Files indexed",
-      "technicalDetails": "Technical details"
+      "description": "Vizsgáld meg ezt a build-pillanatképet, és hasonlítsd össze a korábban megfigyelt buildekkel.",
+      "firstSeen": "Első észlelés",
+      "lastSeen": "Legutóbbi észlelés",
+      "parser": "Parser verziója",
+      "fullDownload": "Teljes letöltési méret",
+      "files": "Indexelt fájlok",
+      "technicalDetails": "Technikai részletek"
     },
     "health": {
-      "processing": "Processing",
-      "verified": "Verified",
-      "invalid": "Invalid manifest",
-      "unavailable": "Unavailable",
-      "failed": "Processing failed",
-      "legacy_unverified": "Not yet verified"
+      "processing": "Feldolgozás",
+      "verified": "Ellenőrizve",
+      "invalid": "Érvénytelen manifest",
+      "unavailable": "Nem érhető el",
+      "failed": "Sikertelen feldolgozás",
+      "legacy_unverified": "Még nincs ellenőrizve"
     },
     "timeline": {
-      "title": "Observed build history"
+      "title": "A megfigyelt buildek előzményei"
     },
     "comparison": {
-      "current": "Current build",
-      "compareAgainst": "Compare against",
-      "noPrevious": "No previous verified build",
-      "noPreviousDescription": "This is the first comparable build observed in this stream. You can still inspect all manifest files.",
-      "swap": "Swap",
-      "changes": "Changes",
-      "allFiles": "All files",
-      "unavailable": "This manifest is not comparable",
-      "unavailableDescription": "The snapshot is still processing, unavailable, or was parsed by an older parser. Raw files may be incomplete.",
-      "error": "Comparison could not be loaded",
-      "errorDescription": "The selected baseline may be unavailable or incompatible. Choose another verified build and try again.",
-      "loading": "Comparing manifest snapshots…",
-      "crossStream": "These builds come from different release channels.",
-      "summary": "Build change summary",
+      "current": "Jelenlegi build",
+      "compareAgainst": "Összehasonlítás ezzel",
+      "noPrevious": "Nincs korábbi ellenőrzött build",
+      "noPreviousDescription": "Ez az első összehasonlítható build, amelyet ebben az adatfolyamban megfigyeltek. Ettől még megvizsgálhatod az összes manifestfájlt.",
+      "swap": "Felcserélés",
+      "changes": "Változások",
+      "allFiles": "Minden fájl",
+      "unavailable": "Ez a manifest nem hasonlítható össze",
+      "unavailableDescription": "A pillanatkép feldolgozása folyamatban van, nem érhető el, vagy régebbi parser elemezte. A nyers fájlok hiányosak lehetnek.",
+      "error": "Az összehasonlítás nem tölthető be",
+      "errorDescription": "A kiválasztott alap nem érhető el, vagy nem kompatibilis. Válassz másik ellenőrzött buildet, majd próbáld újra.",
+      "loading": "Manifest-pillanatképek összehasonlítása…",
+      "crossStream": "Ezek a buildek különböző kiadási csatornákból származnak.",
+      "summary": "Buildváltozások összegzése",
       "status": {
-        "added": "Added",
-        "modified": "Modified",
-        "removed": "Removed",
-        "unchanged": "Unchanged"
+        "added": "Hozzáadva",
+        "modified": "Módosítva",
+        "removed": "Eltávolítva",
+        "unchanged": "Változatlan"
       },
-      "installedDelta": "Installed size change",
-      "fullDownloadDelta": "Full download change",
-      "changedFiles": "Changed files",
-      "downloadDisclaimer": "Full download size is the compressed size of each complete build, not an update or patch estimate.",
-      "unchanged": "unchanged",
-      "search": "Search file paths",
-      "searchPlaceholder": "Search the full path…",
-      "extensionPlaceholder": "Extension, e.g. pak",
-      "apply": "Apply",
+      "installedDelta": "Telepített méret változása",
+      "fullDownloadDelta": "Teljes letöltés változása",
+      "changedFiles": "Módosított fájlok",
+      "downloadDisclaimer": "A teljes letöltési méret minden teljes build tömörített mérete, nem pedig frissítés- vagy javításbecslés.",
+      "unchanged": "változatlan",
+      "search": "Keresés a fájlútvonalak között",
+      "searchPlaceholder": "Keresés a teljes útvonalon…",
+      "extensionPlaceholder": "Kiterjesztés, például pak",
+      "apply": "Alkalmazás",
       "columns": {
-        "status": "Status",
-        "path": "File path",
-        "size": "Before → after",
-        "delta": "Size change",
+        "status": "Állapot",
+        "path": "Fájlútvonal",
+        "size": "Előtte → utána",
+        "delta": "Méretváltozás",
         "hash": "Hash"
       },
-      "empty": "No files match this comparison.",
-      "page": "Page {{page}} of {{total}}",
-      "previousPage": "Previous page",
-      "nextPage": "Next page",
-      "rawWarning": "This snapshot has not been verified; its raw files may be incomplete."
+      "empty": "Egyetlen fájl sem felel meg ennek az összehasonlításnak.",
+      "page": "{{page}}. oldal / {{total}}",
+      "previousPage": "Előző oldal",
+      "nextPage": "Következő oldal",
+      "rawWarning": "Ez a pillanatkép nincs ellenőrizve; a nyers fájlok hiányosak lehetnek."
     },
     "items": {
       "title": "Elemek"

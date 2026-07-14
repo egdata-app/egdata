@@ -48,9 +48,9 @@
   },
   "globalSearch": {
     "semantic": {
-      "heading": "Matches by meaning",
-      "loading": "Finding matches by meaning...",
-      "error": "Could not load matches by meaning."
+      "heading": "Kết quả khớp theo ý nghĩa",
+      "loading": "Đang tìm kết quả khớp theo ý nghĩa...",
+      "error": "Không thể tải kết quả khớp theo ý nghĩa."
     }
   },
   "footer": {
@@ -701,67 +701,67 @@
       "title": "Tệp"
     },
     "header": {
-      "description": "Inspect this build snapshot and compare it with earlier observed builds.",
-      "firstSeen": "First seen",
-      "lastSeen": "Last seen",
-      "parser": "Parser version",
-      "fullDownload": "Full download size",
-      "files": "Files indexed",
-      "technicalDetails": "Technical details"
+      "description": "Kiểm tra ảnh chụp build này và so sánh với các build được quan sát trước đó.",
+      "firstSeen": "Thấy lần đầu",
+      "lastSeen": "Thấy lần cuối",
+      "parser": "Phiên bản parser",
+      "fullDownload": "Kích thước tải xuống đầy đủ",
+      "files": "Tệp đã lập chỉ mục",
+      "technicalDetails": "Chi tiết kỹ thuật"
     },
     "health": {
-      "processing": "Processing",
-      "verified": "Verified",
-      "invalid": "Invalid manifest",
-      "unavailable": "Unavailable",
-      "failed": "Processing failed",
-      "legacy_unverified": "Not yet verified"
+      "processing": "Đang xử lý",
+      "verified": "Đã xác minh",
+      "invalid": "Manifest không hợp lệ",
+      "unavailable": "Không khả dụng",
+      "failed": "Xử lý thất bại",
+      "legacy_unverified": "Chưa được xác minh"
     },
     "timeline": {
-      "title": "Observed build history"
+      "title": "Lịch sử build đã quan sát"
     },
     "comparison": {
-      "current": "Current build",
-      "compareAgainst": "Compare against",
-      "noPrevious": "No previous verified build",
-      "noPreviousDescription": "This is the first comparable build observed in this stream. You can still inspect all manifest files.",
-      "swap": "Swap",
-      "changes": "Changes",
-      "allFiles": "All files",
-      "unavailable": "This manifest is not comparable",
-      "unavailableDescription": "The snapshot is still processing, unavailable, or was parsed by an older parser. Raw files may be incomplete.",
-      "error": "Comparison could not be loaded",
-      "errorDescription": "The selected baseline may be unavailable or incompatible. Choose another verified build and try again.",
-      "loading": "Comparing manifest snapshots…",
-      "crossStream": "These builds come from different release channels.",
-      "summary": "Build change summary",
+      "current": "Build hiện tại",
+      "compareAgainst": "So sánh với",
+      "noPrevious": "Không có build đã xác minh trước đó",
+      "noPreviousDescription": "Đây là build đầu tiên có thể so sánh được quan sát trong luồng này. Bạn vẫn có thể kiểm tra mọi tệp manifest.",
+      "swap": "Hoán đổi",
+      "changes": "Thay đổi",
+      "allFiles": "Tất cả tệp",
+      "unavailable": "Không thể so sánh manifest này",
+      "unavailableDescription": "Ảnh chụp vẫn đang được xử lý, không khả dụng hoặc được phân tích bằng parser cũ hơn. Tệp thô có thể chưa đầy đủ.",
+      "error": "Không thể tải so sánh",
+      "errorDescription": "Baseline đã chọn có thể không khả dụng hoặc không tương thích. Hãy chọn một build đã xác minh khác và thử lại.",
+      "loading": "Đang so sánh các ảnh chụp manifest…",
+      "crossStream": "Các build này đến từ những kênh phát hành khác nhau.",
+      "summary": "Tóm tắt thay đổi build",
       "status": {
-        "added": "Added",
-        "modified": "Modified",
-        "removed": "Removed",
-        "unchanged": "Unchanged"
+        "added": "Đã thêm",
+        "modified": "Đã sửa đổi",
+        "removed": "Đã xóa",
+        "unchanged": "Không thay đổi"
       },
-      "installedDelta": "Installed size change",
-      "fullDownloadDelta": "Full download change",
-      "changedFiles": "Changed files",
-      "downloadDisclaimer": "Full download size is the compressed size of each complete build, not an update or patch estimate.",
-      "unchanged": "unchanged",
-      "search": "Search file paths",
-      "searchPlaceholder": "Search the full path…",
-      "extensionPlaceholder": "Extension, e.g. pak",
-      "apply": "Apply",
+      "installedDelta": "Thay đổi kích thước đã cài đặt",
+      "fullDownloadDelta": "Thay đổi tải xuống đầy đủ",
+      "changedFiles": "Tệp đã thay đổi",
+      "downloadDisclaimer": "Kích thước tải xuống đầy đủ là kích thước nén của mỗi build hoàn chỉnh, không phải ước tính cập nhật hoặc bản vá.",
+      "unchanged": "không thay đổi",
+      "search": "Tìm kiếm đường dẫn tệp",
+      "searchPlaceholder": "Tìm kiếm đường dẫn đầy đủ…",
+      "extensionPlaceholder": "Phần mở rộng, ví dụ pak",
+      "apply": "Áp dụng",
       "columns": {
-        "status": "Status",
-        "path": "File path",
-        "size": "Before → after",
-        "delta": "Size change",
+        "status": "Trạng thái",
+        "path": "Đường dẫn tệp",
+        "size": "Trước → sau",
+        "delta": "Thay đổi kích thước",
         "hash": "Hash"
       },
-      "empty": "No files match this comparison.",
-      "page": "Page {{page}} of {{total}}",
-      "previousPage": "Previous page",
-      "nextPage": "Next page",
-      "rawWarning": "This snapshot has not been verified; its raw files may be incomplete."
+      "empty": "Không có tệp nào khớp với so sánh này.",
+      "page": "Trang {{page}} trên {{total}}",
+      "previousPage": "Trang trước",
+      "nextPage": "Trang tiếp theo",
+      "rawWarning": "Ảnh chụp này chưa được xác minh; các tệp thô có thể chưa đầy đủ."
     },
     "items": {
       "title": "Mục"

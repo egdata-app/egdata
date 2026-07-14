@@ -17,7 +17,7 @@ async function mockBuildApi(page: Page) {
 test.describe("build comparison", () => {
   test("pins the previous build and renders an accessible change summary", async ({ page }) => {
     await mockBuildApi(page);
-    await page.goto(`http://localhost:3100/builds/${currentBuildId}/files`);
+    await page.goto(`http://localhost:3000/builds/${currentBuildId}/files`);
 
     await expect(page.getByTestId("build-diff-summary")).toBeVisible();
     await expect.poll(() => new URL(page.url()).searchParams.get("compare")).toBe(previousBuildId);
@@ -40,7 +40,7 @@ test.describe("build comparison", () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await mockBuildApi(page);
     await page.goto(
-      `http://localhost:3100/es-ES/builds/${currentBuildId}/files?view=changes&page=1&compare=${previousBuildId}`,
+      `http://localhost:3000/es-ES/builds/${currentBuildId}/files?view=changes&page=1&compare=${previousBuildId}`,
     );
     await expect(page.getByText("Añadido", { exact: true }).first()).toBeVisible();
     const overflow = await page.evaluate(() => ({

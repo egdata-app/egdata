@@ -48,9 +48,9 @@
   },
   "globalSearch": {
     "semantic": {
-      "heading": "Matches by meaning",
-      "loading": "Finding matches by meaning...",
-      "error": "Could not load matches by meaning."
+      "heading": "अर्थ के आधार पर मिलान",
+      "loading": "अर्थ के आधार पर मिलान खोजे जा रहे हैं...",
+      "error": "अर्थ के आधार पर मिलान लोड नहीं हो सके।"
     }
   },
   "footer": {
@@ -701,67 +701,67 @@
       "title": "फ़ाइलें"
     },
     "header": {
-      "description": "Inspect this build snapshot and compare it with earlier observed builds.",
-      "firstSeen": "First seen",
-      "lastSeen": "Last seen",
-      "parser": "Parser version",
-      "fullDownload": "Full download size",
-      "files": "Files indexed",
-      "technicalDetails": "Technical details"
+      "description": "इस बिल्ड स्नैपशॉट का निरीक्षण करें और इसकी तुलना पहले देखे गए बिल्ड से करें।",
+      "firstSeen": "पहली बार देखा गया",
+      "lastSeen": "अंतिम बार देखा गया",
+      "parser": "पार्सर संस्करण",
+      "fullDownload": "पूर्ण डाउनलोड आकार",
+      "files": "अनुक्रमित फ़ाइलें",
+      "technicalDetails": "तकनीकी विवरण"
     },
     "health": {
-      "processing": "Processing",
-      "verified": "Verified",
-      "invalid": "Invalid manifest",
-      "unavailable": "Unavailable",
-      "failed": "Processing failed",
-      "legacy_unverified": "Not yet verified"
+      "processing": "प्रोसेस हो रहा है",
+      "verified": "सत्यापित",
+      "invalid": "अमान्य मेनिफ़ेस्ट",
+      "unavailable": "अनुपलब्ध",
+      "failed": "प्रोसेसिंग विफल",
+      "legacy_unverified": "अभी सत्यापित नहीं"
     },
     "timeline": {
-      "title": "Observed build history"
+      "title": "देखे गए बिल्ड का इतिहास"
     },
     "comparison": {
-      "current": "Current build",
-      "compareAgainst": "Compare against",
-      "noPrevious": "No previous verified build",
-      "noPreviousDescription": "This is the first comparable build observed in this stream. You can still inspect all manifest files.",
-      "swap": "Swap",
-      "changes": "Changes",
-      "allFiles": "All files",
-      "unavailable": "This manifest is not comparable",
-      "unavailableDescription": "The snapshot is still processing, unavailable, or was parsed by an older parser. Raw files may be incomplete.",
-      "error": "Comparison could not be loaded",
-      "errorDescription": "The selected baseline may be unavailable or incompatible. Choose another verified build and try again.",
-      "loading": "Comparing manifest snapshots…",
-      "crossStream": "These builds come from different release channels.",
-      "summary": "Build change summary",
+      "current": "वर्तमान बिल्ड",
+      "compareAgainst": "तुलना करें",
+      "noPrevious": "कोई पिछला सत्यापित बिल्ड नहीं",
+      "noPreviousDescription": "इस स्ट्रीम में देखा गया यह पहला तुलनीय बिल्ड है। फिर भी आप सभी मेनिफ़ेस्ट फ़ाइलों का निरीक्षण कर सकते हैं।",
+      "swap": "अदला-बदली",
+      "changes": "बदलाव",
+      "allFiles": "सभी फ़ाइलें",
+      "unavailable": "इस मेनिफ़ेस्ट की तुलना नहीं की जा सकती",
+      "unavailableDescription": "स्नैपशॉट अभी प्रोसेस हो रहा है, अनुपलब्ध है या पुराने पार्सर से पार्स किया गया था। कच्ची फ़ाइलें अधूरी हो सकती हैं।",
+      "error": "तुलना लोड नहीं हो सकी",
+      "errorDescription": "चयनित बेसलाइन अनुपलब्ध या असंगत हो सकती है। कोई दूसरा सत्यापित बिल्ड चुनकर फिर कोशिश करें।",
+      "loading": "मेनिफ़ेस्ट स्नैपशॉट की तुलना की जा रही है…",
+      "crossStream": "ये बिल्ड अलग-अलग रिलीज़ चैनल से आते हैं।",
+      "summary": "बिल्ड बदलाव का सारांश",
       "status": {
-        "added": "Added",
-        "modified": "Modified",
-        "removed": "Removed",
-        "unchanged": "Unchanged"
+        "added": "जोड़े गए",
+        "modified": "बदले गए",
+        "removed": "हटाए गए",
+        "unchanged": "अपरिवर्तित"
       },
-      "installedDelta": "Installed size change",
-      "fullDownloadDelta": "Full download change",
-      "changedFiles": "Changed files",
-      "downloadDisclaimer": "Full download size is the compressed size of each complete build, not an update or patch estimate.",
-      "unchanged": "unchanged",
-      "search": "Search file paths",
-      "searchPlaceholder": "Search the full path…",
-      "extensionPlaceholder": "Extension, e.g. pak",
-      "apply": "Apply",
+      "installedDelta": "इंस्टॉल किए गए आकार में बदलाव",
+      "fullDownloadDelta": "पूर्ण डाउनलोड में बदलाव",
+      "changedFiles": "बदली गई फ़ाइलें",
+      "downloadDisclaimer": "पूर्ण डाउनलोड आकार हर पूरे बिल्ड का संपीड़ित आकार है, अपडेट या पैच का अनुमान नहीं।",
+      "unchanged": "अपरिवर्तित",
+      "search": "फ़ाइल पाथ खोजें",
+      "searchPlaceholder": "पूरा पाथ खोजें…",
+      "extensionPlaceholder": "एक्सटेंशन, जैसे pak",
+      "apply": "लागू करें",
       "columns": {
-        "status": "Status",
-        "path": "File path",
-        "size": "Before → after",
-        "delta": "Size change",
-        "hash": "Hash"
+        "status": "स्थिति",
+        "path": "फ़ाइल पाथ",
+        "size": "पहले → बाद में",
+        "delta": "आकार में बदलाव",
+        "hash": "हैश"
       },
-      "empty": "No files match this comparison.",
-      "page": "Page {{page}} of {{total}}",
-      "previousPage": "Previous page",
-      "nextPage": "Next page",
-      "rawWarning": "This snapshot has not been verified; its raw files may be incomplete."
+      "empty": "इस तुलना से मेल खाने वाली कोई फ़ाइल नहीं है।",
+      "page": "पृष्ठ {{page}} / {{total}}",
+      "previousPage": "पिछला पृष्ठ",
+      "nextPage": "अगला पृष्ठ",
+      "rawWarning": "इस स्नैपशॉट का सत्यापन नहीं हुआ है; इसकी कच्ची फ़ाइलें अधूरी हो सकती हैं।"
     },
     "items": {
       "title": "आइटम"

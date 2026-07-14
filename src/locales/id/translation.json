@@ -48,9 +48,9 @@
   },
   "globalSearch": {
     "semantic": {
-      "heading": "Matches by meaning",
-      "loading": "Finding matches by meaning...",
-      "error": "Could not load matches by meaning."
+      "heading": "Kecocokan berdasarkan makna",
+      "loading": "Mencari kecocokan berdasarkan makna...",
+      "error": "Kecocokan berdasarkan makna tidak dapat dimuat."
     }
   },
   "footer": {
@@ -701,67 +701,67 @@
       "title": "File"
     },
     "header": {
-      "description": "Inspect this build snapshot and compare it with earlier observed builds.",
-      "firstSeen": "First seen",
-      "lastSeen": "Last seen",
-      "parser": "Parser version",
-      "fullDownload": "Full download size",
-      "files": "Files indexed",
-      "technicalDetails": "Technical details"
+      "description": "Periksa snapshot build ini dan bandingkan dengan build yang diamati sebelumnya.",
+      "firstSeen": "Pertama kali dilihat",
+      "lastSeen": "Terakhir dilihat",
+      "parser": "Versi parser",
+      "fullDownload": "Ukuran unduhan penuh",
+      "files": "File yang diindeks",
+      "technicalDetails": "Detail teknis"
     },
     "health": {
-      "processing": "Processing",
-      "verified": "Verified",
-      "invalid": "Invalid manifest",
-      "unavailable": "Unavailable",
-      "failed": "Processing failed",
-      "legacy_unverified": "Not yet verified"
+      "processing": "Memproses",
+      "verified": "Terverifikasi",
+      "invalid": "Manifest tidak valid",
+      "unavailable": "Tidak tersedia",
+      "failed": "Pemrosesan gagal",
+      "legacy_unverified": "Belum diverifikasi"
     },
     "timeline": {
-      "title": "Observed build history"
+      "title": "Riwayat build yang diamati"
     },
     "comparison": {
-      "current": "Current build",
-      "compareAgainst": "Compare against",
-      "noPrevious": "No previous verified build",
-      "noPreviousDescription": "This is the first comparable build observed in this stream. You can still inspect all manifest files.",
-      "swap": "Swap",
-      "changes": "Changes",
-      "allFiles": "All files",
-      "unavailable": "This manifest is not comparable",
-      "unavailableDescription": "The snapshot is still processing, unavailable, or was parsed by an older parser. Raw files may be incomplete.",
-      "error": "Comparison could not be loaded",
-      "errorDescription": "The selected baseline may be unavailable or incompatible. Choose another verified build and try again.",
-      "loading": "Comparing manifest snapshots…",
-      "crossStream": "These builds come from different release channels.",
-      "summary": "Build change summary",
+      "current": "Build saat ini",
+      "compareAgainst": "Bandingkan dengan",
+      "noPrevious": "Tidak ada build terverifikasi sebelumnya",
+      "noPreviousDescription": "Ini adalah build pertama yang dapat dibandingkan dan diamati di stream ini. Anda tetap dapat memeriksa semua file manifest.",
+      "swap": "Tukar",
+      "changes": "Perubahan",
+      "allFiles": "Semua file",
+      "unavailable": "Manifest ini tidak dapat dibandingkan",
+      "unavailableDescription": "Snapshot masih diproses, tidak tersedia, atau diurai oleh parser lama. File mentah mungkin tidak lengkap.",
+      "error": "Perbandingan tidak dapat dimuat",
+      "errorDescription": "Baseline yang dipilih mungkin tidak tersedia atau tidak kompatibel. Pilih build terverifikasi lain dan coba lagi.",
+      "loading": "Membandingkan snapshot manifest…",
+      "crossStream": "Build ini berasal dari saluran rilis yang berbeda.",
+      "summary": "Ringkasan perubahan build",
       "status": {
-        "added": "Added",
-        "modified": "Modified",
-        "removed": "Removed",
-        "unchanged": "Unchanged"
+        "added": "Ditambahkan",
+        "modified": "Diubah",
+        "removed": "Dihapus",
+        "unchanged": "Tidak berubah"
       },
-      "installedDelta": "Installed size change",
-      "fullDownloadDelta": "Full download change",
-      "changedFiles": "Changed files",
-      "downloadDisclaimer": "Full download size is the compressed size of each complete build, not an update or patch estimate.",
-      "unchanged": "unchanged",
-      "search": "Search file paths",
-      "searchPlaceholder": "Search the full path…",
-      "extensionPlaceholder": "Extension, e.g. pak",
-      "apply": "Apply",
+      "installedDelta": "Perubahan ukuran terpasang",
+      "fullDownloadDelta": "Perubahan unduhan penuh",
+      "changedFiles": "File yang berubah",
+      "downloadDisclaimer": "Ukuran unduhan penuh adalah ukuran terkompresi setiap build lengkap, bukan perkiraan pembaruan atau patch.",
+      "unchanged": "tidak berubah",
+      "search": "Cari jalur file",
+      "searchPlaceholder": "Cari jalur lengkap…",
+      "extensionPlaceholder": "Ekstensi, misalnya pak",
+      "apply": "Terapkan",
       "columns": {
-        "status": "Status",
-        "path": "File path",
-        "size": "Before → after",
-        "delta": "Size change",
+        "status": "Keadaan",
+        "path": "Jalur file",
+        "size": "Sebelum → sesudah",
+        "delta": "Perubahan ukuran",
         "hash": "Hash"
       },
-      "empty": "No files match this comparison.",
-      "page": "Page {{page}} of {{total}}",
-      "previousPage": "Previous page",
-      "nextPage": "Next page",
-      "rawWarning": "This snapshot has not been verified; its raw files may be incomplete."
+      "empty": "Tidak ada file yang cocok dengan perbandingan ini.",
+      "page": "Halaman {{page}} dari {{total}}",
+      "previousPage": "Halaman sebelumnya",
+      "nextPage": "Halaman berikutnya",
+      "rawWarning": "Snapshot ini belum diverifikasi; file mentahnya mungkin tidak lengkap."
     },
     "items": {
       "title": "Item"

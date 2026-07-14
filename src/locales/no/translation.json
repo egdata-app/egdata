@@ -48,9 +48,9 @@
   },
   "globalSearch": {
     "semantic": {
-      "heading": "Matches by meaning",
-      "loading": "Finding matches by meaning...",
-      "error": "Could not load matches by meaning."
+      "heading": "Treff etter betydning",
+      "loading": "Finner treff etter betydning...",
+      "error": "Kunne ikke laste inn treff etter betydning."
     }
   },
   "footer": {
@@ -701,67 +701,67 @@
       "title": "Filer"
     },
     "header": {
-      "description": "Inspect this build snapshot and compare it with earlier observed builds.",
-      "firstSeen": "First seen",
-      "lastSeen": "Last seen",
-      "parser": "Parser version",
-      "fullDownload": "Full download size",
-      "files": "Files indexed",
-      "technicalDetails": "Technical details"
+      "description": "Undersøk dette build-øyeblikksbildet og sammenlign det med tidligere observerte builds.",
+      "firstSeen": "Sett første gang",
+      "lastSeen": "Sist sett",
+      "parser": "Parser-versjon",
+      "fullDownload": "Full nedlastingsstørrelse",
+      "files": "Indekserte filer",
+      "technicalDetails": "Tekniske detaljer"
     },
     "health": {
-      "processing": "Processing",
-      "verified": "Verified",
-      "invalid": "Invalid manifest",
-      "unavailable": "Unavailable",
-      "failed": "Processing failed",
-      "legacy_unverified": "Not yet verified"
+      "processing": "Behandles",
+      "verified": "Bekreftet",
+      "invalid": "Ugyldig manifest",
+      "unavailable": "Utilgjengelig",
+      "failed": "Behandlingen mislyktes",
+      "legacy_unverified": "Ikke bekreftet ennå"
     },
     "timeline": {
-      "title": "Observed build history"
+      "title": "Historikk over observerte builds"
     },
     "comparison": {
-      "current": "Current build",
-      "compareAgainst": "Compare against",
-      "noPrevious": "No previous verified build",
-      "noPreviousDescription": "This is the first comparable build observed in this stream. You can still inspect all manifest files.",
-      "swap": "Swap",
-      "changes": "Changes",
-      "allFiles": "All files",
-      "unavailable": "This manifest is not comparable",
-      "unavailableDescription": "The snapshot is still processing, unavailable, or was parsed by an older parser. Raw files may be incomplete.",
-      "error": "Comparison could not be loaded",
-      "errorDescription": "The selected baseline may be unavailable or incompatible. Choose another verified build and try again.",
-      "loading": "Comparing manifest snapshots…",
-      "crossStream": "These builds come from different release channels.",
-      "summary": "Build change summary",
+      "current": "Gjeldende build",
+      "compareAgainst": "Sammenlign med",
+      "noPrevious": "Ingen tidligere bekreftet build",
+      "noPreviousDescription": "Dette er den første sammenlignbare builden som er observert i denne strømmen. Du kan fortsatt undersøke alle manifestfiler.",
+      "swap": "Bytt",
+      "changes": "Endringer",
+      "allFiles": "Alle filer",
+      "unavailable": "Dette manifestet kan ikke sammenlignes",
+      "unavailableDescription": "Øyeblikksbildet behandles fortsatt, er utilgjengelig eller ble analysert av en eldre parser. Råfiler kan være ufullstendige.",
+      "error": "Kunne ikke laste inn sammenligningen",
+      "errorDescription": "Den valgte basen kan være utilgjengelig eller inkompatibel. Velg en annen bekreftet build og prøv igjen.",
+      "loading": "Sammenligner manifestøyeblikksbilder…",
+      "crossStream": "Disse buildene kommer fra ulike utgivelseskanaler.",
+      "summary": "Sammendrag av build-endringer",
       "status": {
-        "added": "Added",
-        "modified": "Modified",
-        "removed": "Removed",
-        "unchanged": "Unchanged"
+        "added": "Lagt til",
+        "modified": "Endret",
+        "removed": "Fjernet",
+        "unchanged": "Uendret"
       },
-      "installedDelta": "Installed size change",
-      "fullDownloadDelta": "Full download change",
-      "changedFiles": "Changed files",
-      "downloadDisclaimer": "Full download size is the compressed size of each complete build, not an update or patch estimate.",
-      "unchanged": "unchanged",
-      "search": "Search file paths",
-      "searchPlaceholder": "Search the full path…",
-      "extensionPlaceholder": "Extension, e.g. pak",
-      "apply": "Apply",
+      "installedDelta": "Endring i installert størrelse",
+      "fullDownloadDelta": "Endring i full nedlasting",
+      "changedFiles": "Endrede filer",
+      "downloadDisclaimer": "Full nedlastingsstørrelse er den komprimerte størrelsen på hver komplette build, ikke et estimat for en oppdatering eller oppdateringspakke.",
+      "unchanged": "uendret",
+      "search": "Søk i filbaner",
+      "searchPlaceholder": "Søk i hele banen…",
+      "extensionPlaceholder": "Filtype, f.eks. pak",
+      "apply": "Bruk",
       "columns": {
-        "status": "Status",
-        "path": "File path",
-        "size": "Before → after",
-        "delta": "Size change",
+        "status": "Tilstand",
+        "path": "Filbane",
+        "size": "Før → etter",
+        "delta": "Størrelsesendring",
         "hash": "Hash"
       },
-      "empty": "No files match this comparison.",
-      "page": "Page {{page}} of {{total}}",
-      "previousPage": "Previous page",
-      "nextPage": "Next page",
-      "rawWarning": "This snapshot has not been verified; its raw files may be incomplete."
+      "empty": "Ingen filer samsvarer med denne sammenligningen.",
+      "page": "Side {{page}} av {{total}}",
+      "previousPage": "Forrige side",
+      "nextPage": "Neste side",
+      "rawWarning": "Dette øyeblikksbildet er ikke bekreftet; råfilene kan være ufullstendige."
     },
     "items": {
       "title": "Elementer"

@@ -48,9 +48,9 @@
   },
   "globalSearch": {
     "semantic": {
-      "heading": "Matches by meaning",
-      "loading": "Finding matches by meaning...",
-      "error": "Could not load matches by meaning."
+      "heading": "Merkityksen perusteella löytyvät osumat",
+      "loading": "Etsitään merkityksen perusteella löytyviä osumia...",
+      "error": "Merkityksen perusteella löytyviä osumia ei voitu ladata."
     }
   },
   "footer": {
@@ -701,67 +701,67 @@
       "title": "Tiedostot"
     },
     "header": {
-      "description": "Inspect this build snapshot and compare it with earlier observed builds.",
-      "firstSeen": "First seen",
-      "lastSeen": "Last seen",
-      "parser": "Parser version",
-      "fullDownload": "Full download size",
-      "files": "Files indexed",
-      "technicalDetails": "Technical details"
+      "description": "Tarkastele tätä build-vedosta ja vertaa sitä aiemmin havaittuihin buildeihin.",
+      "firstSeen": "Havaittu ensimmäisen kerran",
+      "lastSeen": "Havaittu viimeksi",
+      "parser": "Parserin versio",
+      "fullDownload": "Täyden latauksen koko",
+      "files": "Indeksoidut tiedostot",
+      "technicalDetails": "Tekniset tiedot"
     },
     "health": {
-      "processing": "Processing",
-      "verified": "Verified",
-      "invalid": "Invalid manifest",
-      "unavailable": "Unavailable",
-      "failed": "Processing failed",
-      "legacy_unverified": "Not yet verified"
+      "processing": "Käsitellään",
+      "verified": "Vahvistettu",
+      "invalid": "Virheellinen manifesti",
+      "unavailable": "Ei saatavilla",
+      "failed": "Käsittely epäonnistui",
+      "legacy_unverified": "Ei vielä vahvistettu"
     },
     "timeline": {
-      "title": "Observed build history"
+      "title": "Havaittujen buildien historia"
     },
     "comparison": {
-      "current": "Current build",
-      "compareAgainst": "Compare against",
-      "noPrevious": "No previous verified build",
-      "noPreviousDescription": "This is the first comparable build observed in this stream. You can still inspect all manifest files.",
-      "swap": "Swap",
-      "changes": "Changes",
-      "allFiles": "All files",
-      "unavailable": "This manifest is not comparable",
-      "unavailableDescription": "The snapshot is still processing, unavailable, or was parsed by an older parser. Raw files may be incomplete.",
-      "error": "Comparison could not be loaded",
-      "errorDescription": "The selected baseline may be unavailable or incompatible. Choose another verified build and try again.",
-      "loading": "Comparing manifest snapshots…",
-      "crossStream": "These builds come from different release channels.",
-      "summary": "Build change summary",
+      "current": "Nykyinen build",
+      "compareAgainst": "Vertailukohde",
+      "noPrevious": "Aiemmin vahvistettua buildia ei ole",
+      "noPreviousDescription": "Tämä on ensimmäinen tässä streamissa havaittu vertailukelpoinen build. Voit silti tarkastella kaikkia manifestitiedostoja.",
+      "swap": "Vaihda",
+      "changes": "Muutokset",
+      "allFiles": "Kaikki tiedostot",
+      "unavailable": "Tätä manifestia ei voi verrata",
+      "unavailableDescription": "Vedosta käsitellään edelleen, se ei ole saatavilla tai se jäsennettiin vanhemmalla parserilla. Raakatiedostot voivat olla puutteellisia.",
+      "error": "Vertailua ei voitu ladata",
+      "errorDescription": "Valittu perusta ei ehkä ole saatavilla tai yhteensopiva. Valitse toinen vahvistettu build ja yritä uudelleen.",
+      "loading": "Vertaillaan manifestivedoksia…",
+      "crossStream": "Nämä buildit ovat peräisin eri julkaisukanavista.",
+      "summary": "Buildin muutosten yhteenveto",
       "status": {
-        "added": "Added",
-        "modified": "Modified",
-        "removed": "Removed",
-        "unchanged": "Unchanged"
+        "added": "Lisätty",
+        "modified": "Muokattu",
+        "removed": "Poistettu",
+        "unchanged": "Muuttumaton"
       },
-      "installedDelta": "Installed size change",
-      "fullDownloadDelta": "Full download change",
-      "changedFiles": "Changed files",
-      "downloadDisclaimer": "Full download size is the compressed size of each complete build, not an update or patch estimate.",
-      "unchanged": "unchanged",
-      "search": "Search file paths",
-      "searchPlaceholder": "Search the full path…",
-      "extensionPlaceholder": "Extension, e.g. pak",
-      "apply": "Apply",
+      "installedDelta": "Asennetun koon muutos",
+      "fullDownloadDelta": "Täyden latauksen muutos",
+      "changedFiles": "Muuttuneet tiedostot",
+      "downloadDisclaimer": "Täyden latauksen koko on jokaisen kokonaisen buildin pakattu koko, ei päivityksen tai paikkauksen arvio.",
+      "unchanged": "muuttumaton",
+      "search": "Hae tiedostopoluista",
+      "searchPlaceholder": "Hae koko polusta…",
+      "extensionPlaceholder": "Tiedostopääte, esim. pak",
+      "apply": "Käytä",
       "columns": {
-        "status": "Status",
-        "path": "File path",
-        "size": "Before → after",
-        "delta": "Size change",
-        "hash": "Hash"
+        "status": "Tila",
+        "path": "Tiedostopolku",
+        "size": "Ennen → jälkeen",
+        "delta": "Koon muutos",
+        "hash": "Hajautusarvo"
       },
-      "empty": "No files match this comparison.",
-      "page": "Page {{page}} of {{total}}",
-      "previousPage": "Previous page",
-      "nextPage": "Next page",
-      "rawWarning": "This snapshot has not been verified; its raw files may be incomplete."
+      "empty": "Yksikään tiedosto ei vastaa tätä vertailua.",
+      "page": "Sivu {{page}}/{{total}}",
+      "previousPage": "Edellinen sivu",
+      "nextPage": "Seuraava sivu",
+      "rawWarning": "Tätä vedosta ei ole vahvistettu; sen raakatiedostot voivat olla puutteellisia."
     },
     "items": {
       "title": "Kohteet"

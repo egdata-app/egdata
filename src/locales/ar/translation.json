@@ -48,9 +48,9 @@
   },
   "globalSearch": {
     "semantic": {
-      "heading": "Matches by meaning",
-      "loading": "Finding matches by meaning...",
-      "error": "Could not load matches by meaning."
+      "heading": "مطابقات حسب المعنى",
+      "loading": "جارٍ العثور على المطابقات حسب المعنى...",
+      "error": "تعذّر تحميل المطابقات حسب المعنى."
     }
   },
   "footer": {
@@ -701,67 +701,67 @@
       "title": "الملفات"
     },
     "header": {
-      "description": "Inspect this build snapshot and compare it with earlier observed builds.",
-      "firstSeen": "First seen",
-      "lastSeen": "Last seen",
-      "parser": "Parser version",
-      "fullDownload": "Full download size",
-      "files": "Files indexed",
-      "technicalDetails": "Technical details"
+      "description": "افحص لقطة البناء هذه وقارنها بالبناءات المرصودة سابقًا.",
+      "firstSeen": "شوهد لأول مرة",
+      "lastSeen": "شوهد آخر مرة",
+      "parser": "إصدار المحلل",
+      "fullDownload": "حجم التنزيل الكامل",
+      "files": "الملفات المفهرسة",
+      "technicalDetails": "التفاصيل التقنية"
     },
     "health": {
-      "processing": "Processing",
-      "verified": "Verified",
-      "invalid": "Invalid manifest",
-      "unavailable": "Unavailable",
-      "failed": "Processing failed",
-      "legacy_unverified": "Not yet verified"
+      "processing": "قيد المعالجة",
+      "verified": "تم التحقق",
+      "invalid": "بيان غير صالح",
+      "unavailable": "غير متاح",
+      "failed": "فشلت المعالجة",
+      "legacy_unverified": "لم يتم التحقق بعد"
     },
     "timeline": {
-      "title": "Observed build history"
+      "title": "سجل البناءات المرصودة"
     },
     "comparison": {
-      "current": "Current build",
-      "compareAgainst": "Compare against",
-      "noPrevious": "No previous verified build",
-      "noPreviousDescription": "This is the first comparable build observed in this stream. You can still inspect all manifest files.",
-      "swap": "Swap",
-      "changes": "Changes",
-      "allFiles": "All files",
-      "unavailable": "This manifest is not comparable",
-      "unavailableDescription": "The snapshot is still processing, unavailable, or was parsed by an older parser. Raw files may be incomplete.",
-      "error": "Comparison could not be loaded",
-      "errorDescription": "The selected baseline may be unavailable or incompatible. Choose another verified build and try again.",
-      "loading": "Comparing manifest snapshots…",
-      "crossStream": "These builds come from different release channels.",
-      "summary": "Build change summary",
+      "current": "البناء الحالي",
+      "compareAgainst": "المقارنة مع",
+      "noPrevious": "لا يوجد بناء سابق تم التحقق منه",
+      "noPreviousDescription": "هذا أول بناء قابل للمقارنة تتم ملاحظته في هذا المسار. لا يزال بإمكانك فحص جميع ملفات البيان.",
+      "swap": "تبديل",
+      "changes": "التغييرات",
+      "allFiles": "كل الملفات",
+      "unavailable": "هذا البيان غير قابل للمقارنة",
+      "unavailableDescription": "لا تزال اللقطة قيد المعالجة أو غير متاحة أو تم تحليلها بمحلل قديم. قد تكون الملفات الخام غير مكتملة.",
+      "error": "تعذر تحميل المقارنة",
+      "errorDescription": "قد تكون القاعدة المحددة غير متاحة أو غير متوافقة. اختر بناءً آخر تم التحقق منه وحاول مجددًا.",
+      "loading": "جارٍ مقارنة لقطات البيانات…",
+      "crossStream": "تأتي هذه البناءات من قنوات إصدار مختلفة.",
+      "summary": "ملخص تغييرات البناء",
       "status": {
-        "added": "Added",
-        "modified": "Modified",
-        "removed": "Removed",
-        "unchanged": "Unchanged"
+        "added": "مضاف",
+        "modified": "معدّل",
+        "removed": "محذوف",
+        "unchanged": "دون تغيير"
       },
-      "installedDelta": "Installed size change",
-      "fullDownloadDelta": "Full download change",
-      "changedFiles": "Changed files",
-      "downloadDisclaimer": "Full download size is the compressed size of each complete build, not an update or patch estimate.",
-      "unchanged": "unchanged",
-      "search": "Search file paths",
-      "searchPlaceholder": "Search the full path…",
-      "extensionPlaceholder": "Extension, e.g. pak",
-      "apply": "Apply",
+      "installedDelta": "تغيير الحجم المثبت",
+      "fullDownloadDelta": "تغيير التنزيل الكامل",
+      "changedFiles": "الملفات المتغيرة",
+      "downloadDisclaimer": "حجم التنزيل الكامل هو الحجم المضغوط لكل بناء كامل، وليس تقديرًا لتحديث أو تصحيح.",
+      "unchanged": "دون تغيير",
+      "search": "البحث في مسارات الملفات",
+      "searchPlaceholder": "البحث في المسار الكامل…",
+      "extensionPlaceholder": "الامتداد، مثل pak",
+      "apply": "تطبيق",
       "columns": {
-        "status": "Status",
-        "path": "File path",
-        "size": "Before → after",
-        "delta": "Size change",
-        "hash": "Hash"
+        "status": "الحالة",
+        "path": "مسار الملف",
+        "size": "قبل ← بعد",
+        "delta": "تغيير الحجم",
+        "hash": "التجزئة"
       },
-      "empty": "No files match this comparison.",
-      "page": "Page {{page}} of {{total}}",
-      "previousPage": "Previous page",
-      "nextPage": "Next page",
-      "rawWarning": "This snapshot has not been verified; its raw files may be incomplete."
+      "empty": "لا توجد ملفات تطابق هذه المقارنة.",
+      "page": "الصفحة {{page}} من {{total}}",
+      "previousPage": "الصفحة السابقة",
+      "nextPage": "الصفحة التالية",
+      "rawWarning": "لم يتم التحقق من هذه اللقطة؛ قد تكون ملفاتها الخام غير مكتملة."
     },
     "items": {
       "title": "العناصر"

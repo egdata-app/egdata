@@ -48,9 +48,9 @@
   },
   "globalSearch": {
     "semantic": {
-      "heading": "Matches by meaning",
-      "loading": "Finding matches by meaning...",
-      "error": "Could not load matches by meaning."
+      "heading": "意味による一致",
+      "loading": "意味による一致を検索しています...",
+      "error": "意味による一致を読み込めませんでした。"
     }
   },
   "footer": {
@@ -701,67 +701,67 @@
       "title": "ファイル"
     },
     "header": {
-      "description": "Inspect this build snapshot and compare it with earlier observed builds.",
-      "firstSeen": "First seen",
-      "lastSeen": "Last seen",
-      "parser": "Parser version",
-      "fullDownload": "Full download size",
-      "files": "Files indexed",
-      "technicalDetails": "Technical details"
+      "description": "このビルドスナップショットを確認し、以前に観測されたビルドと比較します。",
+      "firstSeen": "初回確認",
+      "lastSeen": "最終確認",
+      "parser": "パーサーバージョン",
+      "fullDownload": "完全ダウンロードサイズ",
+      "files": "インデックス済みファイル",
+      "technicalDetails": "技術詳細"
     },
     "health": {
-      "processing": "Processing",
-      "verified": "Verified",
-      "invalid": "Invalid manifest",
-      "unavailable": "Unavailable",
-      "failed": "Processing failed",
-      "legacy_unverified": "Not yet verified"
+      "processing": "処理中",
+      "verified": "検証済み",
+      "invalid": "無効なマニフェスト",
+      "unavailable": "利用不可",
+      "failed": "処理に失敗",
+      "legacy_unverified": "未検証"
     },
     "timeline": {
-      "title": "Observed build history"
+      "title": "観測されたビルドの履歴"
     },
     "comparison": {
-      "current": "Current build",
-      "compareAgainst": "Compare against",
-      "noPrevious": "No previous verified build",
-      "noPreviousDescription": "This is the first comparable build observed in this stream. You can still inspect all manifest files.",
-      "swap": "Swap",
-      "changes": "Changes",
-      "allFiles": "All files",
-      "unavailable": "This manifest is not comparable",
-      "unavailableDescription": "The snapshot is still processing, unavailable, or was parsed by an older parser. Raw files may be incomplete.",
-      "error": "Comparison could not be loaded",
-      "errorDescription": "The selected baseline may be unavailable or incompatible. Choose another verified build and try again.",
-      "loading": "Comparing manifest snapshots…",
-      "crossStream": "These builds come from different release channels.",
-      "summary": "Build change summary",
+      "current": "現在のビルド",
+      "compareAgainst": "比較対象",
+      "noPrevious": "以前に検証されたビルドはありません",
+      "noPreviousDescription": "このストリームで観測された、比較可能な最初のビルドです。すべてのマニフェストファイルは引き続き確認できます。",
+      "swap": "入れ替え",
+      "changes": "変更",
+      "allFiles": "すべてのファイル",
+      "unavailable": "このマニフェストは比較できません",
+      "unavailableDescription": "スナップショットは処理中、利用不可、または古いパーサーで解析されています。未加工ファイルは不完全な場合があります。",
+      "error": "比較を読み込めませんでした",
+      "errorDescription": "選択したベースラインは利用できないか互換性がない可能性があります。別の検証済みビルドを選んで再試行してください。",
+      "loading": "マニフェストスナップショットを比較しています…",
+      "crossStream": "これらのビルドは異なるリリースチャンネルのものです。",
+      "summary": "ビルド変更の概要",
       "status": {
-        "added": "Added",
-        "modified": "Modified",
-        "removed": "Removed",
-        "unchanged": "Unchanged"
+        "added": "追加",
+        "modified": "変更",
+        "removed": "削除",
+        "unchanged": "変更なし"
       },
-      "installedDelta": "Installed size change",
-      "fullDownloadDelta": "Full download change",
-      "changedFiles": "Changed files",
-      "downloadDisclaimer": "Full download size is the compressed size of each complete build, not an update or patch estimate.",
-      "unchanged": "unchanged",
-      "search": "Search file paths",
-      "searchPlaceholder": "Search the full path…",
-      "extensionPlaceholder": "Extension, e.g. pak",
-      "apply": "Apply",
+      "installedDelta": "インストールサイズの変化",
+      "fullDownloadDelta": "完全ダウンロードの変化",
+      "changedFiles": "変更されたファイル",
+      "downloadDisclaimer": "完全ダウンロードサイズは各完全ビルドの圧縮サイズであり、更新やパッチの推定値ではありません。",
+      "unchanged": "変更なし",
+      "search": "ファイルパスを検索",
+      "searchPlaceholder": "フルパスを検索…",
+      "extensionPlaceholder": "拡張子（例: pak）",
+      "apply": "適用",
       "columns": {
-        "status": "Status",
-        "path": "File path",
-        "size": "Before → after",
-        "delta": "Size change",
-        "hash": "Hash"
+        "status": "ステータス",
+        "path": "ファイルパス",
+        "size": "変更前 → 変更後",
+        "delta": "サイズの変化",
+        "hash": "ハッシュ"
       },
-      "empty": "No files match this comparison.",
-      "page": "Page {{page}} of {{total}}",
-      "previousPage": "Previous page",
-      "nextPage": "Next page",
-      "rawWarning": "This snapshot has not been verified; its raw files may be incomplete."
+      "empty": "この比較に一致するファイルはありません。",
+      "page": "{{total}} ページ中 {{page}} ページ",
+      "previousPage": "前のページ",
+      "nextPage": "次のページ",
+      "rawWarning": "このスナップショットは検証されていません。未加工ファイルは不完全な場合があります。"
     },
     "items": {
       "title": "アイテム"

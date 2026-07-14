@@ -48,9 +48,9 @@
   },
   "globalSearch": {
     "semantic": {
-      "heading": "Matches by meaning",
-      "loading": "Finding matches by meaning...",
-      "error": "Could not load matches by meaning."
+      "heading": "Shody podle významu",
+      "loading": "Hledání shod podle významu...",
+      "error": "Shody podle významu se nepodařilo načíst."
     }
   },
   "footer": {
@@ -701,67 +701,67 @@
       "title": "Soubory"
     },
     "header": {
-      "description": "Inspect this build snapshot and compare it with earlier observed builds.",
-      "firstSeen": "First seen",
-      "lastSeen": "Last seen",
-      "parser": "Parser version",
-      "fullDownload": "Full download size",
-      "files": "Files indexed",
-      "technicalDetails": "Technical details"
+      "description": "Prohlédněte tento snímek buildu a porovnejte ho s dříve zaznamenanými buildy.",
+      "firstSeen": "Poprvé zaznamenán",
+      "lastSeen": "Naposledy zaznamenán",
+      "parser": "Verze parseru",
+      "fullDownload": "Velikost úplného stažení",
+      "files": "Indexované soubory",
+      "technicalDetails": "Technické podrobnosti"
     },
     "health": {
-      "processing": "Processing",
-      "verified": "Verified",
-      "invalid": "Invalid manifest",
-      "unavailable": "Unavailable",
-      "failed": "Processing failed",
-      "legacy_unverified": "Not yet verified"
+      "processing": "Zpracování",
+      "verified": "Ověřený",
+      "invalid": "Neplatný manifest",
+      "unavailable": "Nedostupný",
+      "failed": "Zpracování selhalo",
+      "legacy_unverified": "Dosud neověřený"
     },
     "timeline": {
-      "title": "Observed build history"
+      "title": "Historie zaznamenaných buildů"
     },
     "comparison": {
-      "current": "Current build",
-      "compareAgainst": "Compare against",
-      "noPrevious": "No previous verified build",
-      "noPreviousDescription": "This is the first comparable build observed in this stream. You can still inspect all manifest files.",
-      "swap": "Swap",
-      "changes": "Changes",
-      "allFiles": "All files",
-      "unavailable": "This manifest is not comparable",
-      "unavailableDescription": "The snapshot is still processing, unavailable, or was parsed by an older parser. Raw files may be incomplete.",
-      "error": "Comparison could not be loaded",
-      "errorDescription": "The selected baseline may be unavailable or incompatible. Choose another verified build and try again.",
-      "loading": "Comparing manifest snapshots…",
-      "crossStream": "These builds come from different release channels.",
-      "summary": "Build change summary",
+      "current": "Aktuální build",
+      "compareAgainst": "Porovnat s",
+      "noPrevious": "Žádný předchozí ověřený build",
+      "noPreviousDescription": "Toto je první porovnatelný build zaznamenaný v tomto streamu. Stále můžete prohlédnout všechny soubory manifestu.",
+      "swap": "Prohodit",
+      "changes": "Změny",
+      "allFiles": "Všechny soubory",
+      "unavailable": "Tento manifest nelze porovnat",
+      "unavailableDescription": "Snímek se stále zpracovává, je nedostupný nebo byl analyzován starším parserem. Surové soubory mohou být neúplné.",
+      "error": "Porovnání se nepodařilo načíst",
+      "errorDescription": "Vybraná základní kompilace může být nedostupná nebo nekompatibilní. Vyberte jiný ověřený build a zkuste to znovu.",
+      "loading": "Porovnávání snímků manifestu…",
+      "crossStream": "Tyto buildy pocházejí z různých kanálů vydání.",
+      "summary": "Souhrn změn buildu",
       "status": {
-        "added": "Added",
-        "modified": "Modified",
-        "removed": "Removed",
-        "unchanged": "Unchanged"
+        "added": "Přidané",
+        "modified": "Upravené",
+        "removed": "Odebrané",
+        "unchanged": "Beze změny"
       },
-      "installedDelta": "Installed size change",
-      "fullDownloadDelta": "Full download change",
-      "changedFiles": "Changed files",
-      "downloadDisclaimer": "Full download size is the compressed size of each complete build, not an update or patch estimate.",
-      "unchanged": "unchanged",
-      "search": "Search file paths",
-      "searchPlaceholder": "Search the full path…",
-      "extensionPlaceholder": "Extension, e.g. pak",
-      "apply": "Apply",
+      "installedDelta": "Změna instalované velikosti",
+      "fullDownloadDelta": "Změna úplného stažení",
+      "changedFiles": "Změněné soubory",
+      "downloadDisclaimer": "Velikost úplného stažení je komprimovaná velikost každého celého buildu, nikoli odhad aktualizace nebo patche.",
+      "unchanged": "beze změny",
+      "search": "Hledat v cestách souborů",
+      "searchPlaceholder": "Hledat v celé cestě…",
+      "extensionPlaceholder": "Přípona, např. pak",
+      "apply": "Použít",
       "columns": {
-        "status": "Status",
-        "path": "File path",
-        "size": "Before → after",
-        "delta": "Size change",
+        "status": "Stav",
+        "path": "Cesta k souboru",
+        "size": "Před → po",
+        "delta": "Změna velikosti",
         "hash": "Hash"
       },
-      "empty": "No files match this comparison.",
-      "page": "Page {{page}} of {{total}}",
-      "previousPage": "Previous page",
-      "nextPage": "Next page",
-      "rawWarning": "This snapshot has not been verified; its raw files may be incomplete."
+      "empty": "Žádné soubory neodpovídají tomuto porovnání.",
+      "page": "Stránka {{page}} z {{total}}",
+      "previousPage": "Předchozí stránka",
+      "nextPage": "Další stránka",
+      "rawWarning": "Tento snímek nebyl ověřen; jeho surové soubory mohou být neúplné."
     },
     "items": {
       "title": "Položky"
