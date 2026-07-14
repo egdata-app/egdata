@@ -46,6 +46,13 @@
     "searchLanguages": "Hledat jazyky...",
     "noLanguagesFound": "Nenalezeny žádné jazyky"
   },
+  "globalSearch": {
+    "semantic": {
+      "heading": "Shody podle významu",
+      "loading": "Hledání shod podle významu...",
+      "error": "Shody podle významu se nepodařilo načíst."
+    }
+  },
   "footer": {
     "logoAlt": "Logo EGDATA",
     "disclaimer": "Fanouškovská databáze Epic Games Store. Není přidružena k Epic Games, Inc. Všechna loga, obrázky a ochranné známky patří jejich příslušným vlastníkům.",
@@ -692,6 +699,86 @@
     },
     "files": {
       "title": "Soubory"
+    },
+    "header": {
+      "description": "Prohlédněte tento snímek buildu a porovnejte ho s dříve zaznamenanými buildy.",
+      "firstSeen": "Poprvé zaznamenán",
+      "lastSeen": "Naposledy zaznamenán",
+      "parser": "Verze parseru",
+      "fullDownload": "Velikost úplného stažení",
+      "files": "Indexované soubory",
+      "technicalDetails": "Technické podrobnosti"
+    },
+    "health": {
+      "processing": "Zpracování",
+      "verified": "Ověřený",
+      "invalid": "Neplatný manifest",
+      "unavailable": "Nedostupný",
+      "failed": "Zpracování selhalo",
+      "legacy_unverified": "Dosud neověřený"
+    },
+    "timeline": {
+      "title": "Observed build history",
+      "description": "Choose two observed snapshots to compare their files.",
+      "observed": "Observed in your timezone",
+      "earlier": "Earlier",
+      "later": "Later",
+      "baseline": "Baseline",
+      "selectBuild": "Select a build",
+      "searchBuilds": "Search versions or dates…",
+      "noBuilds": "No builds found.",
+      "dateUnavailable": "Observed date unavailable",
+      "undatedBuilds_one": "{{count}} build without an observed date",
+      "undatedBuilds_other": "{{count}} builds without observed dates",
+      "clusteredBuilds_one": "{{count}} build observed near this time",
+      "clusteredBuilds_other": "{{count}} builds observed near this time",
+      "useAsBaseline": "Use as baseline",
+      "viewAsCurrent": "View build",
+      "notComparable": "This build cannot be used as a comparison baseline.",
+      "comparisonDirection": "Comparison direction"
+    },
+    "comparison": {
+      "current": "Aktuální build",
+      "compareAgainst": "Porovnat s",
+      "noPrevious": "Žádný předchozí ověřený build",
+      "noPreviousDescription": "Toto je první porovnatelný build zaznamenaný v tomto streamu. Stále můžete prohlédnout všechny soubory manifestu.",
+      "swap": "Prohodit",
+      "changes": "Změny",
+      "allFiles": "Všechny soubory",
+      "unavailable": "Tento manifest nelze porovnat",
+      "unavailableDescription": "Snímek se stále zpracovává, je nedostupný nebo byl analyzován starším parserem. Surové soubory mohou být neúplné.",
+      "error": "Porovnání se nepodařilo načíst",
+      "errorDescription": "Vybraná základní kompilace může být nedostupná nebo nekompatibilní. Vyberte jiný ověřený build a zkuste to znovu.",
+      "loading": "Porovnávání snímků manifestu…",
+      "crossStream": "Tyto buildy pocházejí z různých kanálů vydání.",
+      "summary": "Souhrn změn buildu",
+      "status": {
+        "added": "Přidané",
+        "modified": "Upravené",
+        "removed": "Odebrané",
+        "unchanged": "Beze změny"
+      },
+      "installedDelta": "Změna instalované velikosti",
+      "fullDownloadDelta": "Změna úplného stažení",
+      "changedFiles": "Změněné soubory",
+      "downloadDisclaimer": "Velikost úplného stažení je komprimovaná velikost každého celého buildu, nikoli odhad aktualizace nebo patche.",
+      "unchanged": "beze změny",
+      "search": "Hledat v cestách souborů",
+      "searchPlaceholder": "Hledat v celé cestě…",
+      "extensionPlaceholder": "Přípona, např. pak",
+      "apply": "Použít",
+      "columns": {
+        "status": "Stav",
+        "path": "Cesta k souboru",
+        "size": "Před → po",
+        "delta": "Změna velikosti",
+        "hash": "Hash"
+      },
+      "empty": "Žádné soubory neodpovídají tomuto porovnání.",
+      "page": "Stránka {{page}} z {{total}}",
+      "previousPage": "Předchozí stránka",
+      "nextPage": "Další stránka",
+      "rawWarning": "Tento snímek nebyl ověřen; jeho surové soubory mohou být neúplné."
     },
     "items": {
       "title": "Položky"

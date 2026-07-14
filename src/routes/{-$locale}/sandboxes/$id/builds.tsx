@@ -1,5 +1,5 @@
 import { httpClient } from "@/lib/http-client";
-import type { SingleBuild } from "@/types/builds";
+import type { Build } from "@/types/builds";
 import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { formatSandboxCount, SandboxPageHeader } from "@/components/app/sandbox-layout";
@@ -42,11 +42,11 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id/builds")({
     const { id } = params;
     const { queryClient } = context;
 
-    await queryClient.prefetchQuery({
+    await queryClient.ensureQueryData({
       queryKey: ["sandbox", "builds", { id, page: 1, limit: 20, filters: [] }],
       queryFn: () =>
         httpClient
-          .get<PaginatedResponse<SingleBuild>>(`/sandboxes/${id}/builds`, {
+          .get<PaginatedResponse<Build>>(`/sandboxes/${id}/builds`, {
             params: { page: 1, limit: 20 },
           })
           .catch(() => null),
@@ -120,7 +120,7 @@ function SandboxBuildsPage() {
         queryParams.set(filter.id, filter.value as string);
       }
 
-      return httpClient.get<PaginatedResponse<SingleBuild>>(`/sandboxes/${id}/builds`, {
+      return httpClient.get<PaginatedResponse<Build>>(`/sandboxes/${id}/builds`, {
         params: Object.fromEntries(queryParams),
       });
     },

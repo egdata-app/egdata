@@ -46,6 +46,13 @@
     "searchLanguages": "Søg efter sprog...",
     "noLanguagesFound": "Ingen sprog fundet"
   },
+  "globalSearch": {
+    "semantic": {
+      "heading": "Matcher efter betydning",
+      "loading": "Finder matcher efter betydning...",
+      "error": "Kunne ikke indlæse matcher efter betydning."
+    }
+  },
   "footer": {
     "logoAlt": "EGDATA Logo",
     "disclaimer": "En fan-lavet Epic Games Store database. Ikke tilknyttet Epic Games, Inc. Alle logoer, billeder og varemærker tilhører deres respektive ejere.",
@@ -692,6 +699,86 @@
     },
     "files": {
       "title": "Filer"
+    },
+    "header": {
+      "description": "Undersøg dette build-snapshot, og sammenlign det med tidligere observerede builds.",
+      "firstSeen": "Set første gang",
+      "lastSeen": "Set senest",
+      "parser": "Parser-version",
+      "fullDownload": "Fuld downloadstørrelse",
+      "files": "Indekserede filer",
+      "technicalDetails": "Tekniske detaljer"
+    },
+    "health": {
+      "processing": "Behandler",
+      "verified": "Bekræftet",
+      "invalid": "Ugyldigt manifest",
+      "unavailable": "Utilgængelig",
+      "failed": "Behandling mislykkedes",
+      "legacy_unverified": "Ikke bekræftet endnu"
+    },
+    "timeline": {
+      "title": "Observed build history",
+      "description": "Choose two observed snapshots to compare their files.",
+      "observed": "Observed in your timezone",
+      "earlier": "Earlier",
+      "later": "Later",
+      "baseline": "Baseline",
+      "selectBuild": "Select a build",
+      "searchBuilds": "Search versions or dates…",
+      "noBuilds": "No builds found.",
+      "dateUnavailable": "Observed date unavailable",
+      "undatedBuilds_one": "{{count}} build without an observed date",
+      "undatedBuilds_other": "{{count}} builds without observed dates",
+      "clusteredBuilds_one": "{{count}} build observed near this time",
+      "clusteredBuilds_other": "{{count}} builds observed near this time",
+      "useAsBaseline": "Use as baseline",
+      "viewAsCurrent": "View build",
+      "notComparable": "This build cannot be used as a comparison baseline.",
+      "comparisonDirection": "Comparison direction"
+    },
+    "comparison": {
+      "current": "Aktuelt build",
+      "compareAgainst": "Sammenlign med",
+      "noPrevious": "Intet tidligere bekræftet build",
+      "noPreviousDescription": "Dette er det første sammenlignelige build, der er observeret i denne strøm. Du kan stadig undersøge alle manifestfiler.",
+      "swap": "Byt",
+      "changes": "Ændringer",
+      "allFiles": "Alle filer",
+      "unavailable": "Dette manifest kan ikke sammenlignes",
+      "unavailableDescription": "Snapshot'et behandles stadig, er utilgængeligt eller blev fortolket af en ældre parser. Råfiler kan være ufuldstændige.",
+      "error": "Sammenligning kunne ikke indlæses",
+      "errorDescription": "Den valgte basis kan være utilgængelig eller inkompatibel. Vælg et andet bekræftet build, og prøv igen.",
+      "loading": "Sammenligner manifestsnapshots…",
+      "crossStream": "Disse builds kommer fra forskellige udgivelseskanaler.",
+      "summary": "Oversigt over buildændringer",
+      "status": {
+        "added": "Tilføjet",
+        "modified": "Ændret",
+        "removed": "Fjernet",
+        "unchanged": "Uændret"
+      },
+      "installedDelta": "Ændring i installeret størrelse",
+      "fullDownloadDelta": "Ændring i fuld download",
+      "changedFiles": "Ændrede filer",
+      "downloadDisclaimer": "Den fulde downloadstørrelse er den komprimerede størrelse af hvert komplette build, ikke et estimat for en opdatering eller patch.",
+      "unchanged": "uændret",
+      "search": "Søg i filstier",
+      "searchPlaceholder": "Søg i hele stien…",
+      "extensionPlaceholder": "Filtypenavn, f.eks. pak",
+      "apply": "Anvend",
+      "columns": {
+        "status": "Tilstand",
+        "path": "Filsti",
+        "size": "Før → efter",
+        "delta": "Størrelsesændring",
+        "hash": "Hash"
+      },
+      "empty": "Ingen filer matcher denne sammenligning.",
+      "page": "Side {{page}} af {{total}}",
+      "previousPage": "Forrige side",
+      "nextPage": "Næste side",
+      "rawWarning": "Dette snapshot er ikke bekræftet; råfilerne kan være ufuldstændige."
     },
     "items": {
       "title": "Items"

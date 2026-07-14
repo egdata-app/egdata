@@ -46,6 +46,13 @@
     "searchLanguages": "搜索语言...",
     "noLanguagesFound": "未找到相关语言"
   },
+  "globalSearch": {
+    "semantic": {
+      "heading": "按含义匹配",
+      "loading": "正在查找按含义匹配的结果...",
+      "error": "无法加载按含义匹配的结果。"
+    }
+  },
   "footer": {
     "logoAlt": "EGDATA Logo",
     "disclaimer": "这是一个粉丝制作的Epic游戏商城数据库，与Epic Games, Inc.无任何关联。所有Logo、图像和商标均属于其各自的所有者。",
@@ -692,6 +699,86 @@
     },
     "files": {
       "title": "文件"
+    },
+    "header": {
+      "description": "查看此构建快照，并与之前观察到的构建进行比较。",
+      "firstSeen": "首次发现",
+      "lastSeen": "最后发现",
+      "parser": "解析器版本",
+      "fullDownload": "完整下载大小",
+      "files": "已索引文件",
+      "technicalDetails": "技术详情"
+    },
+    "health": {
+      "processing": "处理中",
+      "verified": "已验证",
+      "invalid": "无效清单",
+      "unavailable": "不可用",
+      "failed": "处理失败",
+      "legacy_unverified": "尚未验证"
+    },
+    "timeline": {
+      "title": "Observed build history",
+      "description": "Choose two observed snapshots to compare their files.",
+      "observed": "Observed in your timezone",
+      "earlier": "Earlier",
+      "later": "Later",
+      "baseline": "Baseline",
+      "selectBuild": "Select a build",
+      "searchBuilds": "Search versions or dates…",
+      "noBuilds": "No builds found.",
+      "dateUnavailable": "Observed date unavailable",
+      "undatedBuilds_one": "{{count}} build without an observed date",
+      "undatedBuilds_other": "{{count}} builds without observed dates",
+      "clusteredBuilds_one": "{{count}} build observed near this time",
+      "clusteredBuilds_other": "{{count}} builds observed near this time",
+      "useAsBaseline": "Use as baseline",
+      "viewAsCurrent": "View build",
+      "notComparable": "This build cannot be used as a comparison baseline.",
+      "comparisonDirection": "Comparison direction"
+    },
+    "comparison": {
+      "current": "当前构建",
+      "compareAgainst": "比较对象",
+      "noPrevious": "没有之前已验证的构建",
+      "noPreviousDescription": "这是在此数据流中观察到的第一个可比较构建。你仍然可以查看所有清单文件。",
+      "swap": "交换",
+      "changes": "更改",
+      "allFiles": "所有文件",
+      "unavailable": "此清单无法比较",
+      "unavailableDescription": "快照仍在处理、不可用，或由旧版解析器解析。原始文件可能不完整。",
+      "error": "无法加载比较结果",
+      "errorDescription": "所选基线可能不可用或不兼容。请选择其他已验证构建，然后重试。",
+      "loading": "正在比较清单快照…",
+      "crossStream": "这些构建来自不同的发布渠道。",
+      "summary": "构建更改摘要",
+      "status": {
+        "added": "新增",
+        "modified": "已修改",
+        "removed": "已移除",
+        "unchanged": "未更改"
+      },
+      "installedDelta": "已安装大小变化",
+      "fullDownloadDelta": "完整下载变化",
+      "changedFiles": "已更改文件",
+      "downloadDisclaimer": "完整下载大小是每个完整构建的压缩大小，不是更新或补丁大小的估算。",
+      "unchanged": "未更改",
+      "search": "搜索文件路径",
+      "searchPlaceholder": "搜索完整路径…",
+      "extensionPlaceholder": "扩展名，例如 pak",
+      "apply": "应用",
+      "columns": {
+        "status": "状态",
+        "path": "文件路径",
+        "size": "之前 → 之后",
+        "delta": "大小变化",
+        "hash": "哈希"
+      },
+      "empty": "没有文件匹配此比较结果。",
+      "page": "第 {{page}} 页，共 {{total}} 页",
+      "previousPage": "上一页",
+      "nextPage": "下一页",
+      "rawWarning": "此快照尚未验证；其原始文件可能不完整。"
     },
     "items": {
       "title": "物品"

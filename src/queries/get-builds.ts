@@ -3,10 +3,6 @@ import type { SingleBuild } from "@/types/builds";
 import type { SingleItem } from "@/types/single-item";
 import { queryOptions } from "@tanstack/react-query";
 
-type BuildWithItem = SingleBuild & {
-  item: SingleItem;
-};
-
 export function getBuilds({
   sortDir = "desc",
   sortBy = "createdAt",
@@ -22,13 +18,19 @@ export function getBuilds({
         sortBy,
       },
     ],
-    queryFn: () =>
-      httpClient.get<BuildWithItem[]>("/builds", {
+    queryFn: async () => {
+      const builds = await httpClient.get<Array<SingleBuild & { item: SingleItem }>>("/builds", {
         params: {
           sortDir,
           sortBy,
           limit: 10,
         },
-      }),
+      });
+      return builds.map((build) => ({
+        ...build,
+        downloadSizeBytes: build.downloadSizeBytes ?? 0,
+        createdAt: build.createdAt ?? build.firstSeenAt ?? new Date(0).toISOString(),
+      }));
+    },
   });
 }

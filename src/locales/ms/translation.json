@@ -46,6 +46,13 @@
     "searchLanguages": "Cari bahasa...",
     "noLanguagesFound": "Tiada bahasa ditemui"
   },
+  "globalSearch": {
+    "semantic": {
+      "heading": "Padanan mengikut makna",
+      "loading": "Mencari padanan mengikut makna...",
+      "error": "Padanan mengikut makna tidak dapat dimuatkan."
+    }
+  },
   "footer": {
     "logoAlt": "Logo EGDATA",
     "disclaimer": "Pangkalan data Epic Games Store buatan peminat. Tidak berafiliasi dengan Epic Games, Inc. Semua logo, imej, dan tanda dagangan adalah milik pemilik masing-masing.",
@@ -692,6 +699,86 @@
     },
     "files": {
       "title": "Fail"
+    },
+    "header": {
+      "description": "Periksa syot kilat binaan ini dan bandingkan dengan binaan yang diperhatikan sebelum ini.",
+      "firstSeen": "Dilihat kali pertama",
+      "lastSeen": "Dilihat kali terakhir",
+      "parser": "Versi parser",
+      "fullDownload": "Saiz muat turun penuh",
+      "files": "Fail diindeks",
+      "technicalDetails": "Butiran teknikal"
+    },
+    "health": {
+      "processing": "Sedang diproses",
+      "verified": "Disahkan",
+      "invalid": "Manifes tidak sah",
+      "unavailable": "Tidak tersedia",
+      "failed": "Pemprosesan gagal",
+      "legacy_unverified": "Belum disahkan"
+    },
+    "timeline": {
+      "title": "Observed build history",
+      "description": "Choose two observed snapshots to compare their files.",
+      "observed": "Observed in your timezone",
+      "earlier": "Earlier",
+      "later": "Later",
+      "baseline": "Baseline",
+      "selectBuild": "Select a build",
+      "searchBuilds": "Search versions or dates…",
+      "noBuilds": "No builds found.",
+      "dateUnavailable": "Observed date unavailable",
+      "undatedBuilds_one": "{{count}} build without an observed date",
+      "undatedBuilds_other": "{{count}} builds without observed dates",
+      "clusteredBuilds_one": "{{count}} build observed near this time",
+      "clusteredBuilds_other": "{{count}} builds observed near this time",
+      "useAsBaseline": "Use as baseline",
+      "viewAsCurrent": "View build",
+      "notComparable": "This build cannot be used as a comparison baseline.",
+      "comparisonDirection": "Comparison direction"
+    },
+    "comparison": {
+      "current": "Binaan semasa",
+      "compareAgainst": "Bandingkan dengan",
+      "noPrevious": "Tiada binaan disahkan sebelumnya",
+      "noPreviousDescription": "Ini ialah binaan pertama yang boleh dibandingkan dan diperhatikan dalam strim ini. Anda masih boleh memeriksa semua fail manifes.",
+      "swap": "Tukar",
+      "changes": "Perubahan",
+      "allFiles": "Semua fail",
+      "unavailable": "Manifes ini tidak boleh dibandingkan",
+      "unavailableDescription": "Syot kilat masih diproses, tidak tersedia atau dihuraikan oleh parser lama. Fail mentah mungkin tidak lengkap.",
+      "error": "Perbandingan tidak dapat dimuatkan",
+      "errorDescription": "Garis dasar yang dipilih mungkin tidak tersedia atau tidak serasi. Pilih binaan disahkan lain dan cuba lagi.",
+      "loading": "Membandingkan syot kilat manifes…",
+      "crossStream": "Binaan ini berasal daripada saluran keluaran yang berbeza.",
+      "summary": "Ringkasan perubahan binaan",
+      "status": {
+        "added": "Ditambah",
+        "modified": "Diubah",
+        "removed": "Dibuang",
+        "unchanged": "Tidak berubah"
+      },
+      "installedDelta": "Perubahan saiz dipasang",
+      "fullDownloadDelta": "Perubahan muat turun penuh",
+      "changedFiles": "Fail yang berubah",
+      "downloadDisclaimer": "Saiz muat turun penuh ialah saiz termampat bagi setiap binaan lengkap, bukan anggaran kemas kini atau tampalan.",
+      "unchanged": "tidak berubah",
+      "search": "Cari laluan fail",
+      "searchPlaceholder": "Cari laluan penuh…",
+      "extensionPlaceholder": "Sambungan, cth. pak",
+      "apply": "Gunakan",
+      "columns": {
+        "status": "Keadaan",
+        "path": "Laluan fail",
+        "size": "Sebelum → selepas",
+        "delta": "Perubahan saiz",
+        "hash": "Cincangan"
+      },
+      "empty": "Tiada fail sepadan dengan perbandingan ini.",
+      "page": "Halaman {{page}} daripada {{total}}",
+      "previousPage": "Halaman sebelumnya",
+      "nextPage": "Halaman seterusnya",
+      "rawWarning": "Syot kilat ini belum disahkan; fail mentahnya mungkin tidak lengkap."
     },
     "items": {
       "title": "Item"

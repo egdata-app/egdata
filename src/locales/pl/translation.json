@@ -46,6 +46,13 @@
     "searchLanguages": "Szukaj języków...",
     "noLanguagesFound": "Nie znaleziono języków"
   },
+  "globalSearch": {
+    "semantic": {
+      "heading": "Dopasowania według znaczenia",
+      "loading": "Wyszukiwanie dopasowań według znaczenia...",
+      "error": "Nie udało się załadować dopasowań według znaczenia."
+    }
+  },
   "footer": {
     "logoAlt": "Logo EGDATA",
     "disclaimer": "Baza danych Epic Games Store stworzona przez fanów. Niezwiązana z Epic Games, Inc. Wszystkie loga, obrazy i znaki towarowe należą do ich właścicieli.",
@@ -692,6 +699,86 @@
     },
     "files": {
       "title": "Pliki"
+    },
+    "header": {
+      "description": "Sprawdź ten zrzut buildu i porównaj go z wcześniej zaobserwowanymi buildami.",
+      "firstSeen": "Po raz pierwszy",
+      "lastSeen": "Ostatnio",
+      "parser": "Wersja parsera",
+      "fullDownload": "Pełny rozmiar pobierania",
+      "files": "Zindeksowane pliki",
+      "technicalDetails": "Szczegóły techniczne"
+    },
+    "health": {
+      "processing": "Przetwarzanie",
+      "verified": "Zweryfikowany",
+      "invalid": "Nieprawidłowy manifest",
+      "unavailable": "Niedostępny",
+      "failed": "Przetwarzanie nie powiodło się",
+      "legacy_unverified": "Jeszcze niezweryfikowany"
+    },
+    "timeline": {
+      "title": "Observed build history",
+      "description": "Choose two observed snapshots to compare their files.",
+      "observed": "Observed in your timezone",
+      "earlier": "Earlier",
+      "later": "Later",
+      "baseline": "Baseline",
+      "selectBuild": "Select a build",
+      "searchBuilds": "Search versions or dates…",
+      "noBuilds": "No builds found.",
+      "dateUnavailable": "Observed date unavailable",
+      "undatedBuilds_one": "{{count}} build without an observed date",
+      "undatedBuilds_other": "{{count}} builds without observed dates",
+      "clusteredBuilds_one": "{{count}} build observed near this time",
+      "clusteredBuilds_other": "{{count}} builds observed near this time",
+      "useAsBaseline": "Use as baseline",
+      "viewAsCurrent": "View build",
+      "notComparable": "This build cannot be used as a comparison baseline.",
+      "comparisonDirection": "Comparison direction"
+    },
+    "comparison": {
+      "current": "Bieżący build",
+      "compareAgainst": "Porównaj z",
+      "noPrevious": "Brak wcześniejszego zweryfikowanego buildu",
+      "noPreviousDescription": "To pierwszy porównywalny build zaobserwowany w tym strumieniu. Nadal możesz sprawdzić wszystkie pliki manifestu.",
+      "swap": "Zamień",
+      "changes": "Zmiany",
+      "allFiles": "Wszystkie pliki",
+      "unavailable": "Tego manifestu nie można porównać",
+      "unavailableDescription": "Zrzut jest nadal przetwarzany, niedostępny lub został przeanalizowany przez starszy parser. Surowe pliki mogą być niekompletne.",
+      "error": "Nie udało się załadować porównania",
+      "errorDescription": "Wybrana baza może być niedostępna lub niezgodna. Wybierz inny zweryfikowany build i spróbuj ponownie.",
+      "loading": "Porównywanie zrzutów manifestu…",
+      "crossStream": "Te buildy pochodzą z różnych kanałów wydań.",
+      "summary": "Podsumowanie zmian buildu",
+      "status": {
+        "added": "Dodane",
+        "modified": "Zmodyfikowane",
+        "removed": "Usunięte",
+        "unchanged": "Bez zmian"
+      },
+      "installedDelta": "Zmiana zainstalowanego rozmiaru",
+      "fullDownloadDelta": "Zmiana pełnego pobierania",
+      "changedFiles": "Zmienione pliki",
+      "downloadDisclaimer": "Pełny rozmiar pobierania to skompresowany rozmiar każdego kompletnego buildu, a nie szacowany rozmiar aktualizacji lub poprawki.",
+      "unchanged": "bez zmian",
+      "search": "Szukaj w ścieżkach plików",
+      "searchPlaceholder": "Szukaj w pełnej ścieżce…",
+      "extensionPlaceholder": "Rozszerzenie, np. pak",
+      "apply": "Zastosuj",
+      "columns": {
+        "status": "Stan",
+        "path": "Ścieżka pliku",
+        "size": "Przed → po",
+        "delta": "Zmiana rozmiaru",
+        "hash": "Hash"
+      },
+      "empty": "Brak plików pasujących do tego porównania.",
+      "page": "Strona {{page}} z {{total}}",
+      "previousPage": "Poprzednia strona",
+      "nextPage": "Następna strona",
+      "rawWarning": "Ten zrzut nie został zweryfikowany; jego surowe pliki mogą być niekompletne."
     },
     "items": {
       "title": "Elementy"

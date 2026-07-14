@@ -46,6 +46,13 @@
     "searchLanguages": "Talen zoeken...",
     "noLanguagesFound": "Geen talen gevonden"
   },
+  "globalSearch": {
+    "semantic": {
+      "heading": "Overeenkomsten op betekenis",
+      "loading": "Overeenkomsten op betekenis zoeken...",
+      "error": "Overeenkomsten op betekenis konden niet worden geladen."
+    }
+  },
   "footer": {
     "logoAlt": "EGDATA Logo",
     "disclaimer": "Een fan-gemaakte Epic Games Store database. Niet gelieerd aan Epic Games, Inc. Alle logo's, afbeeldingen en handelsmerken zijn eigendom van hun respectieve eigenaren.",
@@ -692,6 +699,86 @@
     },
     "files": {
       "title": "Bestanden"
+    },
+    "header": {
+      "description": "Bekijk deze build-snapshot en vergelijk deze met eerder waargenomen builds.",
+      "firstSeen": "Eerste keer gezien",
+      "lastSeen": "Laatst gezien",
+      "parser": "Parserversie",
+      "fullDownload": "Volledige downloadgrootte",
+      "files": "Geïndexeerde bestanden",
+      "technicalDetails": "Technische details"
+    },
+    "health": {
+      "processing": "Wordt verwerkt",
+      "verified": "Geverifieerd",
+      "invalid": "Ongeldig manifest",
+      "unavailable": "Niet beschikbaar",
+      "failed": "Verwerking mislukt",
+      "legacy_unverified": "Nog niet geverifieerd"
+    },
+    "timeline": {
+      "title": "Observed build history",
+      "description": "Choose two observed snapshots to compare their files.",
+      "observed": "Observed in your timezone",
+      "earlier": "Earlier",
+      "later": "Later",
+      "baseline": "Baseline",
+      "selectBuild": "Select a build",
+      "searchBuilds": "Search versions or dates…",
+      "noBuilds": "No builds found.",
+      "dateUnavailable": "Observed date unavailable",
+      "undatedBuilds_one": "{{count}} build without an observed date",
+      "undatedBuilds_other": "{{count}} builds without observed dates",
+      "clusteredBuilds_one": "{{count}} build observed near this time",
+      "clusteredBuilds_other": "{{count}} builds observed near this time",
+      "useAsBaseline": "Use as baseline",
+      "viewAsCurrent": "View build",
+      "notComparable": "This build cannot be used as a comparison baseline.",
+      "comparisonDirection": "Comparison direction"
+    },
+    "comparison": {
+      "current": "Huidige build",
+      "compareAgainst": "Vergelijken met",
+      "noPrevious": "Geen eerdere geverifieerde build",
+      "noPreviousDescription": "Dit is de eerste vergelijkbare build die in deze stream is waargenomen. Je kunt nog steeds alle manifestbestanden bekijken.",
+      "swap": "Wisselen",
+      "changes": "Wijzigingen",
+      "allFiles": "Alle bestanden",
+      "unavailable": "Dit manifest is niet vergelijkbaar",
+      "unavailableDescription": "De snapshot wordt nog verwerkt, is niet beschikbaar of is geparseerd door een oudere parser. Raw bestanden kunnen onvolledig zijn.",
+      "error": "Vergelijking kon niet worden geladen",
+      "errorDescription": "De geselecteerde basis is mogelijk niet beschikbaar of incompatibel. Kies een andere geverifieerde build en probeer het opnieuw.",
+      "loading": "Manifestsnapshots vergelijken…",
+      "crossStream": "Deze builds komen uit verschillende releasekanalen.",
+      "summary": "Samenvatting van buildwijzigingen",
+      "status": {
+        "added": "Toegevoegd",
+        "modified": "Gewijzigd",
+        "removed": "Verwijderd",
+        "unchanged": "Ongewijzigd"
+      },
+      "installedDelta": "Wijziging in geïnstalleerde grootte",
+      "fullDownloadDelta": "Wijziging in volledige download",
+      "changedFiles": "Gewijzigde bestanden",
+      "downloadDisclaimer": "De volledige downloadgrootte is de gecomprimeerde grootte van elke volledige build, geen schatting van een update of patch.",
+      "unchanged": "ongewijzigd",
+      "search": "Bestandspaden doorzoeken",
+      "searchPlaceholder": "Volledig pad doorzoeken…",
+      "extensionPlaceholder": "Extensie, bijv. pak",
+      "apply": "Toepassen",
+      "columns": {
+        "status": "Toestand",
+        "path": "Bestandspad",
+        "size": "Voor → na",
+        "delta": "Groottewijziging",
+        "hash": "Hash"
+      },
+      "empty": "Geen bestanden komen overeen met deze vergelijking.",
+      "page": "Pagina {{page}} van {{total}}",
+      "previousPage": "Vorige pagina",
+      "nextPage": "Volgende pagina",
+      "rawWarning": "Deze snapshot is niet geverifieerd; de raw bestanden kunnen onvolledig zijn."
     },
     "items": {
       "title": "Items"

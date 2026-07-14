@@ -46,6 +46,13 @@
     "searchLanguages": "Rechercher des langues…",
     "noLanguagesFound": "Aucune langue trouvée"
   },
+  "globalSearch": {
+    "semantic": {
+      "heading": "Correspondances par sens",
+      "loading": "Recherche de correspondances par sens...",
+      "error": "Impossible de charger les correspondances par sens."
+    }
+  },
   "footer": {
     "logoAlt": "Logo EGDATA",
     "disclaimer": "Une base de données de l'Epic Games Store créée par des fans. Non affiliée à Epic Games, Inc. Tous les logos, images et marques commerciales appartiennent à leurs propriétaires respectifs.",
@@ -692,6 +699,86 @@
     },
     "files": {
       "title": "Fichiers"
+    },
+    "header": {
+      "description": "Examinez cet instantané de build et comparez-le aux builds observés précédemment.",
+      "firstSeen": "Vu pour la première fois",
+      "lastSeen": "Vu pour la dernière fois",
+      "parser": "Version de l’analyseur",
+      "fullDownload": "Taille du téléchargement complet",
+      "files": "Fichiers indexés",
+      "technicalDetails": "Détails techniques"
+    },
+    "health": {
+      "processing": "Traitement",
+      "verified": "Vérifié",
+      "invalid": "Manifeste invalide",
+      "unavailable": "Indisponible",
+      "failed": "Échec du traitement",
+      "legacy_unverified": "Pas encore vérifié"
+    },
+    "timeline": {
+      "title": "Observed build history",
+      "description": "Choose two observed snapshots to compare their files.",
+      "observed": "Observed in your timezone",
+      "earlier": "Earlier",
+      "later": "Later",
+      "baseline": "Baseline",
+      "selectBuild": "Select a build",
+      "searchBuilds": "Search versions or dates…",
+      "noBuilds": "No builds found.",
+      "dateUnavailable": "Observed date unavailable",
+      "undatedBuilds_one": "{{count}} build without an observed date",
+      "undatedBuilds_other": "{{count}} builds without observed dates",
+      "clusteredBuilds_one": "{{count}} build observed near this time",
+      "clusteredBuilds_other": "{{count}} builds observed near this time",
+      "useAsBaseline": "Use as baseline",
+      "viewAsCurrent": "View build",
+      "notComparable": "This build cannot be used as a comparison baseline.",
+      "comparisonDirection": "Comparison direction"
+    },
+    "comparison": {
+      "current": "Build actuel",
+      "compareAgainst": "Comparer avec",
+      "noPrevious": "Aucun build vérifié précédent",
+      "noPreviousDescription": "Il s’agit du premier build comparable observé dans ce flux. Vous pouvez tout de même examiner tous les fichiers du manifeste.",
+      "swap": "Inverser",
+      "changes": "Modifications",
+      "allFiles": "Tous les fichiers",
+      "unavailable": "Ce manifeste n’est pas comparable",
+      "unavailableDescription": "L’instantané est encore en cours de traitement, indisponible ou a été analysé par un analyseur plus ancien. Les fichiers bruts peuvent être incomplets.",
+      "error": "Impossible de charger la comparaison",
+      "errorDescription": "La base sélectionnée est peut-être indisponible ou incompatible. Choisissez un autre build vérifié et réessayez.",
+      "loading": "Comparaison des instantanés de manifeste…",
+      "crossStream": "Ces builds proviennent de canaux de publication différents.",
+      "summary": "Résumé des modifications du build",
+      "status": {
+        "added": "Ajouté",
+        "modified": "Modifié",
+        "removed": "Supprimé",
+        "unchanged": "Inchangé"
+      },
+      "installedDelta": "Variation de la taille installée",
+      "fullDownloadDelta": "Variation du téléchargement complet",
+      "changedFiles": "Fichiers modifiés",
+      "downloadDisclaimer": "La taille du téléchargement complet correspond à la taille compressée de chaque build complet, et non à une estimation de mise à jour ou de correctif.",
+      "unchanged": "inchangé",
+      "search": "Rechercher dans les chemins de fichiers",
+      "searchPlaceholder": "Rechercher le chemin complet…",
+      "extensionPlaceholder": "Extension, par ex. pak",
+      "apply": "Appliquer",
+      "columns": {
+        "status": "Statut",
+        "path": "Chemin du fichier",
+        "size": "Avant → après",
+        "delta": "Variation de taille",
+        "hash": "Hash"
+      },
+      "empty": "Aucun fichier ne correspond à cette comparaison.",
+      "page": "Page {{page}} sur {{total}}",
+      "previousPage": "Page précédente",
+      "nextPage": "Page suivante",
+      "rawWarning": "Cet instantané n’a pas été vérifié ; ses fichiers bruts peuvent être incomplets."
     },
     "items": {
       "title": "Items"

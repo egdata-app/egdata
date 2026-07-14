@@ -46,6 +46,13 @@
     "searchLanguages": "搜尋語言...",
     "noLanguagesFound": "未找到相關語言"
   },
+  "globalSearch": {
+    "semantic": {
+      "heading": "依意義相符",
+      "loading": "正在尋找依意義相符的結果...",
+      "error": "無法載入依意義相符的結果。"
+    }
+  },
   "footer": {
     "logoAlt": "EGDATA Logo",
     "disclaimer": "這是一個粉絲製作的Epic遊戲商城資料庫，與Epic Games, Inc.無任何關聯。所有Logo、圖像和商標均屬於其各自的所有者。",
@@ -692,6 +699,86 @@
     },
     "files": {
       "title": "檔案"
+    },
+    "header": {
+      "description": "檢視此組建快照，並與先前觀察到的組建比較。",
+      "firstSeen": "首次發現",
+      "lastSeen": "最後發現",
+      "parser": "剖析器版本",
+      "fullDownload": "完整下載大小",
+      "files": "已編索檔案",
+      "technicalDetails": "技術詳細資料"
+    },
+    "health": {
+      "processing": "處理中",
+      "verified": "已驗證",
+      "invalid": "無效資訊清單",
+      "unavailable": "無法使用",
+      "failed": "處理失敗",
+      "legacy_unverified": "尚未驗證"
+    },
+    "timeline": {
+      "title": "觀察到的組建歷史",
+      "description": "選擇兩個觀察到的快照來比較其檔案。",
+      "observed": "依你所在時區顯示的觀察時間",
+      "earlier": "較早",
+      "later": "較晚",
+      "baseline": "基準",
+      "selectBuild": "選擇組建",
+      "searchBuilds": "搜尋版本或日期…",
+      "noBuilds": "找不到組建。",
+      "dateUnavailable": "無法取得觀察日期",
+      "undatedBuilds_one": "{{count}} 個沒有觀察日期的組建",
+      "undatedBuilds_other": "{{count}} 個沒有觀察日期的組建",
+      "clusteredBuilds_one": "{{count}} 個在此時間附近觀察到的組建",
+      "clusteredBuilds_other": "{{count}} 個在此時間附近觀察到的組建",
+      "useAsBaseline": "設為基準",
+      "viewAsCurrent": "檢視組建",
+      "notComparable": "此組建不能用作比較基準。",
+      "comparisonDirection": "比較方向"
+    },
+    "comparison": {
+      "current": "目前組建",
+      "compareAgainst": "比較對象",
+      "noPrevious": "沒有先前已驗證的組建",
+      "noPreviousDescription": "這是此串流中觀察到的第一個可比較組建。你仍然可以檢視所有資訊清單檔案。",
+      "swap": "交換",
+      "changes": "變更",
+      "allFiles": "所有檔案",
+      "unavailable": "此資訊清單無法比較",
+      "unavailableDescription": "快照仍在處理、無法使用，或由較舊的剖析器解析。原始檔案可能不完整。",
+      "error": "無法載入比較結果",
+      "errorDescription": "選取的基準可能無法使用或不相容。請選擇其他已驗證組建並重試。",
+      "loading": "正在比較資訊清單快照…",
+      "crossStream": "這些組建來自不同的發行頻道。",
+      "summary": "組建變更摘要",
+      "status": {
+        "added": "新增",
+        "modified": "已修改",
+        "removed": "已移除",
+        "unchanged": "未變更"
+      },
+      "installedDelta": "已安裝大小變更",
+      "fullDownloadDelta": "完整下載變更",
+      "changedFiles": "已變更檔案",
+      "downloadDisclaimer": "完整下載大小是每個完整組建的壓縮大小，不是更新或修補程式大小的估計。",
+      "unchanged": "未變更",
+      "search": "搜尋檔案路徑",
+      "searchPlaceholder": "搜尋完整路徑…",
+      "extensionPlaceholder": "副檔名，例如 pak",
+      "apply": "套用",
+      "columns": {
+        "status": "狀態",
+        "path": "檔案路徑",
+        "size": "之前 → 之後",
+        "delta": "大小變更",
+        "hash": "雜湊"
+      },
+      "empty": "沒有檔案符合此比較結果。",
+      "page": "第 {{page}} 頁，共 {{total}} 頁",
+      "previousPage": "上一頁",
+      "nextPage": "下一頁",
+      "rawWarning": "此快照尚未驗證；其原始檔案可能不完整。"
     },
     "items": {
       "title": "物品"

@@ -46,6 +46,13 @@
     "searchLanguages": "Buscar idiomas...",
     "noLanguagesFound": "No se encontraron idiomas"
   },
+  "globalSearch": {
+    "semantic": {
+      "heading": "Coincidencias por significado",
+      "loading": "Buscando coincidencias por significado...",
+      "error": "No se pudieron cargar las coincidencias por significado."
+    }
+  },
   "footer": {
     "logoAlt": "Logo de EGDATA",
     "disclaimer": "Una base de datos de la Epic Games Store hecha por fans. No está afiliada con Epic Games, Inc. Todos los logotipos, imágenes y marcas comerciales pertenecen a sus respectivos dueños.",
@@ -692,6 +699,86 @@
     },
     "files": {
       "title": "Archivos"
+    },
+    "header": {
+      "description": "Consulta esta compilación y compárala con compilaciones observadas anteriormente.",
+      "firstSeen": "Vista por primera vez",
+      "lastSeen": "Vista por última vez",
+      "parser": "Versión del parser",
+      "fullDownload": "Tamaño de descarga completa",
+      "files": "Archivos indexados",
+      "technicalDetails": "Detalles técnicos"
+    },
+    "health": {
+      "processing": "Procesando",
+      "verified": "Verificada",
+      "invalid": "Manifiesto inválido",
+      "unavailable": "No disponible",
+      "failed": "Error de procesamiento",
+      "legacy_unverified": "Aún sin verificar"
+    },
+    "timeline": {
+      "title": "Historial de compilaciones observadas",
+      "description": "Elige dos instantáneas observadas para comparar sus archivos.",
+      "observed": "Observado según tu zona horaria",
+      "earlier": "Anterior",
+      "later": "Posterior",
+      "baseline": "Base",
+      "selectBuild": "Selecciona una compilación",
+      "searchBuilds": "Busca versiones o fechas…",
+      "noBuilds": "No se encontraron compilaciones.",
+      "dateUnavailable": "Fecha de observación no disponible",
+      "undatedBuilds_one": "{{count}} compilación sin fecha de observación",
+      "undatedBuilds_other": "{{count}} compilaciones sin fecha de observación",
+      "clusteredBuilds_one": "{{count}} compilación observada cerca de este momento",
+      "clusteredBuilds_other": "{{count}} compilaciones observadas cerca de este momento",
+      "useAsBaseline": "Usar como base",
+      "viewAsCurrent": "Ver compilación",
+      "notComparable": "Esta compilación no se puede usar como base de comparación.",
+      "comparisonDirection": "Dirección de la comparación"
+    },
+    "comparison": {
+      "current": "Compilación actual",
+      "compareAgainst": "Comparar con",
+      "noPrevious": "No hay una compilación anterior verificada",
+      "noPreviousDescription": "Esta es la primera compilación comparable observada en este canal. Aun así puedes consultar todos los archivos del manifiesto.",
+      "swap": "Intercambiar",
+      "changes": "Cambios",
+      "allFiles": "Todos los archivos",
+      "unavailable": "Este manifiesto no se puede comparar",
+      "unavailableDescription": "La instantánea sigue procesándose, no está disponible o se analizó con un parser anterior. Los archivos sin procesar pueden estar incompletos.",
+      "error": "No se pudo cargar la comparación",
+      "errorDescription": "La compilación de referencia puede no estar disponible o ser incompatible. Elige otra compilación verificada e inténtalo de nuevo.",
+      "loading": "Comparando las instantáneas del manifiesto…",
+      "crossStream": "Estas compilaciones proceden de canales de lanzamiento distintos.",
+      "summary": "Resumen de cambios de la compilación",
+      "status": {
+        "added": "Añadido",
+        "modified": "Modificado",
+        "removed": "Eliminado",
+        "unchanged": "Sin cambios"
+      },
+      "installedDelta": "Cambio de tamaño instalado",
+      "fullDownloadDelta": "Cambio de descarga completa",
+      "changedFiles": "Archivos modificados",
+      "downloadDisclaimer": "El tamaño de descarga completa es el tamaño comprimido de cada compilación completa, no una estimación de actualización o parche.",
+      "unchanged": "sin cambios",
+      "search": "Buscar rutas de archivos",
+      "searchPlaceholder": "Buscar la ruta completa…",
+      "extensionPlaceholder": "Extensión, p. ej. pak",
+      "apply": "Aplicar",
+      "columns": {
+        "status": "Estado",
+        "path": "Ruta del archivo",
+        "size": "Antes → después",
+        "delta": "Cambio de tamaño",
+        "hash": "Hash"
+      },
+      "empty": "Ningún archivo coincide con esta comparación.",
+      "page": "Página {{page}} de {{total}}",
+      "previousPage": "Página anterior",
+      "nextPage": "Página siguiente",
+      "rawWarning": "Esta instantánea no está verificada; sus archivos sin procesar pueden estar incompletos."
     },
     "items": {
       "title": "Ítems"

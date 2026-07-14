@@ -46,6 +46,13 @@
     "searchLanguages": "Caută limbi...",
     "noLanguagesFound": "Nicio limbă găsită"
   },
+  "globalSearch": {
+    "semantic": {
+      "heading": "Potriviri după sens",
+      "loading": "Se caută potriviri după sens...",
+      "error": "Potrivirile după sens nu au putut fi încărcate."
+    }
+  },
   "footer": {
     "logoAlt": "Logo EGDATA",
     "disclaimer": "O bază de date a Epic Games Store creată de fani. Nu este afiliată cu Epic Games, Inc. Toate logo-urile, imaginile și mărcile comerciale aparțin proprietarilor lor respectivi.",
@@ -692,6 +699,86 @@
     },
     "files": {
       "title": "Fișiere"
+    },
+    "header": {
+      "description": "Inspectează acest instantaneu al buildului și compară-l cu buildurile observate anterior.",
+      "firstSeen": "Văzut prima dată",
+      "lastSeen": "Văzut ultima dată",
+      "parser": "Versiunea parserului",
+      "fullDownload": "Dimensiunea descărcării complete",
+      "files": "Fișiere indexate",
+      "technicalDetails": "Detalii tehnice"
+    },
+    "health": {
+      "processing": "Se procesează",
+      "verified": "Verificat",
+      "invalid": "Manifest nevalid",
+      "unavailable": "Indisponibil",
+      "failed": "Procesarea a eșuat",
+      "legacy_unverified": "Neverificat încă"
+    },
+    "timeline": {
+      "title": "Observed build history",
+      "description": "Choose two observed snapshots to compare their files.",
+      "observed": "Observed in your timezone",
+      "earlier": "Earlier",
+      "later": "Later",
+      "baseline": "Baseline",
+      "selectBuild": "Select a build",
+      "searchBuilds": "Search versions or dates…",
+      "noBuilds": "No builds found.",
+      "dateUnavailable": "Observed date unavailable",
+      "undatedBuilds_one": "{{count}} build without an observed date",
+      "undatedBuilds_other": "{{count}} builds without observed dates",
+      "clusteredBuilds_one": "{{count}} build observed near this time",
+      "clusteredBuilds_other": "{{count}} builds observed near this time",
+      "useAsBaseline": "Use as baseline",
+      "viewAsCurrent": "View build",
+      "notComparable": "This build cannot be used as a comparison baseline.",
+      "comparisonDirection": "Comparison direction"
+    },
+    "comparison": {
+      "current": "Buildul curent",
+      "compareAgainst": "Compară cu",
+      "noPrevious": "Nu există un build verificat anterior",
+      "noPreviousDescription": "Acesta este primul build comparabil observat în acest flux. Poți inspecta în continuare toate fișierele manifestului.",
+      "swap": "Schimbă",
+      "changes": "Modificări",
+      "allFiles": "Toate fișierele",
+      "unavailable": "Acest manifest nu poate fi comparat",
+      "unavailableDescription": "Instantaneul este încă în procesare, indisponibil sau a fost analizat de un parser mai vechi. Fișierele brute pot fi incomplete.",
+      "error": "Compararea nu a putut fi încărcată",
+      "errorDescription": "Baza selectată poate fi indisponibilă sau incompatibilă. Alege alt build verificat și încearcă din nou.",
+      "loading": "Se compară instantaneele manifestului…",
+      "crossStream": "Aceste builduri provin din canale de lansare diferite.",
+      "summary": "Rezumatul modificărilor buildului",
+      "status": {
+        "added": "Adăugat",
+        "modified": "Modificat",
+        "removed": "Eliminat",
+        "unchanged": "Neschimbat"
+      },
+      "installedDelta": "Modificarea dimensiunii instalate",
+      "fullDownloadDelta": "Modificarea descărcării complete",
+      "changedFiles": "Fișiere modificate",
+      "downloadDisclaimer": "Dimensiunea descărcării complete este dimensiunea comprimată a fiecărui build complet, nu o estimare pentru o actualizare sau o corecție.",
+      "unchanged": "neschimbat",
+      "search": "Caută în căile fișierelor",
+      "searchPlaceholder": "Caută în calea completă…",
+      "extensionPlaceholder": "Extensie, de ex. pak",
+      "apply": "Aplică",
+      "columns": {
+        "status": "Stare",
+        "path": "Calea fișierului",
+        "size": "Înainte → după",
+        "delta": "Modificarea dimensiunii",
+        "hash": "Hash"
+      },
+      "empty": "Niciun fișier nu corespunde acestei comparații.",
+      "page": "Pagina {{page}} din {{total}}",
+      "previousPage": "Pagina anterioară",
+      "nextPage": "Pagina următoare",
+      "rawWarning": "Acest instantaneu nu a fost verificat; fișierele sale brute pot fi incomplete."
     },
     "items": {
       "title": "Elemente"

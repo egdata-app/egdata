@@ -46,6 +46,13 @@
     "searchLanguages": "Търсене на езици...",
     "noLanguagesFound": "Няма намерени езици"
   },
+  "globalSearch": {
+    "semantic": {
+      "heading": "Съвпадения по смисъл",
+      "loading": "Търсене на съвпадения по смисъл...",
+      "error": "Съвпаденията по смисъл не могат да бъдат заредени."
+    }
+  },
   "footer": {
     "logoAlt": "Лого на EGDATA",
     "disclaimer": "Фенска база данни на Epic Games Store. Няма връзка с Epic Games, Inc. Всички лога, изображения и търговски марки принадлежат на съответните им собственици.",
@@ -692,6 +699,86 @@
     },
     "files": {
       "title": "Файлове"
+    },
+    "header": {
+      "description": "Прегледайте тази моментна снимка на компилацията и я сравнете с по-рано наблюдавани компилации.",
+      "firstSeen": "Видяна за първи път",
+      "lastSeen": "Видяна за последен път",
+      "parser": "Версия на парсера",
+      "fullDownload": "Пълен размер за изтегляне",
+      "files": "Индексирани файлове",
+      "technicalDetails": "Технически подробности"
+    },
+    "health": {
+      "processing": "Обработва се",
+      "verified": "Проверена",
+      "invalid": "Невалиден манифест",
+      "unavailable": "Недостъпна",
+      "failed": "Обработката е неуспешна",
+      "legacy_unverified": "Все още непроверена"
+    },
+    "timeline": {
+      "title": "Observed build history",
+      "description": "Choose two observed snapshots to compare their files.",
+      "observed": "Observed in your timezone",
+      "earlier": "Earlier",
+      "later": "Later",
+      "baseline": "Baseline",
+      "selectBuild": "Select a build",
+      "searchBuilds": "Search versions or dates…",
+      "noBuilds": "No builds found.",
+      "dateUnavailable": "Observed date unavailable",
+      "undatedBuilds_one": "{{count}} build without an observed date",
+      "undatedBuilds_other": "{{count}} builds without observed dates",
+      "clusteredBuilds_one": "{{count}} build observed near this time",
+      "clusteredBuilds_other": "{{count}} builds observed near this time",
+      "useAsBaseline": "Use as baseline",
+      "viewAsCurrent": "View build",
+      "notComparable": "This build cannot be used as a comparison baseline.",
+      "comparisonDirection": "Comparison direction"
+    },
+    "comparison": {
+      "current": "Текуща компилация",
+      "compareAgainst": "Сравнение с",
+      "noPrevious": "Няма предишна проверена компилация",
+      "noPreviousDescription": "Това е първата сравнима компилация, наблюдавана в този поток. Все още можете да прегледате всички файлове на манифеста.",
+      "swap": "Размени",
+      "changes": "Промени",
+      "allFiles": "Всички файлове",
+      "unavailable": "Този манифест не може да се сравнява",
+      "unavailableDescription": "Моментната снимка все още се обработва, недостъпна е или е анализирана от по-стар парсер. Необработените файлове може да са непълни.",
+      "error": "Сравнението не може да бъде заредено",
+      "errorDescription": "Избраната базова компилация може да е недостъпна или несъвместима. Изберете друга проверена компилация и опитайте отново.",
+      "loading": "Сравняване на моментните снимки на манифеста…",
+      "crossStream": "Тези компилации идват от различни канали за издаване.",
+      "summary": "Обобщение на промените в компилацията",
+      "status": {
+        "added": "Добавени",
+        "modified": "Променени",
+        "removed": "Премахнати",
+        "unchanged": "Без промяна"
+      },
+      "installedDelta": "Промяна в инсталирания размер",
+      "fullDownloadDelta": "Промяна в пълното изтегляне",
+      "changedFiles": "Променени файлове",
+      "downloadDisclaimer": "Пълният размер за изтегляне е компресираният размер на всяка цяла компилация, а не оценка за актуализация или пач.",
+      "unchanged": "без промяна",
+      "search": "Търсене в пътищата на файловете",
+      "searchPlaceholder": "Търсене в пълния път…",
+      "extensionPlaceholder": "Разширение, напр. pak",
+      "apply": "Приложи",
+      "columns": {
+        "status": "Състояние",
+        "path": "Път на файла",
+        "size": "Преди → след",
+        "delta": "Промяна в размера",
+        "hash": "Хеш"
+      },
+      "empty": "Няма файлове, отговарящи на това сравнение.",
+      "page": "Страница {{page}} от {{total}}",
+      "previousPage": "Предишна страница",
+      "nextPage": "Следваща страница",
+      "rawWarning": "Тази моментна снимка не е проверена; необработените ѝ файлове може да са непълни."
     },
     "items": {
       "title": "Обекти"

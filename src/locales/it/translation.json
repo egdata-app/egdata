@@ -46,6 +46,13 @@
     "searchLanguages": "Cerca lingue...",
     "noLanguagesFound": "Nessuna lingua trovata"
   },
+  "globalSearch": {
+    "semantic": {
+      "heading": "Corrispondenze per significato",
+      "loading": "Ricerca delle corrispondenze per significato...",
+      "error": "Impossibile caricare le corrispondenze per significato."
+    }
+  },
   "footer": {
     "logoAlt": "Logo EGDATA",
     "disclaimer": "Un database dell'Epic Games Store creato da fan. Non affiliato con Epic Games, Inc. Tutti i loghi, le immagini e i marchi appartengono ai rispettivi proprietari.",
@@ -692,6 +699,86 @@
     },
     "files": {
       "title": "File"
+    },
+    "header": {
+      "description": "Esamina questo snapshot della build e confrontalo con le build osservate in precedenza.",
+      "firstSeen": "Visto per la prima volta",
+      "lastSeen": "Visto l’ultima volta",
+      "parser": "Versione del parser",
+      "fullDownload": "Dimensione del download completo",
+      "files": "File indicizzati",
+      "technicalDetails": "Dettagli tecnici"
+    },
+    "health": {
+      "processing": "Elaborazione",
+      "verified": "Verificata",
+      "invalid": "Manifest non valido",
+      "unavailable": "Non disponibile",
+      "failed": "Elaborazione non riuscita",
+      "legacy_unverified": "Non ancora verificata"
+    },
+    "timeline": {
+      "title": "Observed build history",
+      "description": "Choose two observed snapshots to compare their files.",
+      "observed": "Observed in your timezone",
+      "earlier": "Earlier",
+      "later": "Later",
+      "baseline": "Baseline",
+      "selectBuild": "Select a build",
+      "searchBuilds": "Search versions or dates…",
+      "noBuilds": "No builds found.",
+      "dateUnavailable": "Observed date unavailable",
+      "undatedBuilds_one": "{{count}} build without an observed date",
+      "undatedBuilds_other": "{{count}} builds without observed dates",
+      "clusteredBuilds_one": "{{count}} build observed near this time",
+      "clusteredBuilds_other": "{{count}} builds observed near this time",
+      "useAsBaseline": "Use as baseline",
+      "viewAsCurrent": "View build",
+      "notComparable": "This build cannot be used as a comparison baseline.",
+      "comparisonDirection": "Comparison direction"
+    },
+    "comparison": {
+      "current": "Build corrente",
+      "compareAgainst": "Confronta con",
+      "noPrevious": "Nessuna build verificata precedente",
+      "noPreviousDescription": "Questa è la prima build confrontabile osservata in questo flusso. Puoi comunque esaminare tutti i file del manifest.",
+      "swap": "Scambia",
+      "changes": "Modifiche",
+      "allFiles": "Tutti i file",
+      "unavailable": "Questo manifest non è confrontabile",
+      "unavailableDescription": "Lo snapshot è ancora in elaborazione, non disponibile oppure è stato analizzato da un parser precedente. I file grezzi potrebbero essere incompleti.",
+      "error": "Impossibile caricare il confronto",
+      "errorDescription": "La base selezionata potrebbe non essere disponibile o compatibile. Scegli un’altra build verificata e riprova.",
+      "loading": "Confronto degli snapshot del manifest…",
+      "crossStream": "Queste build provengono da canali di rilascio diversi.",
+      "summary": "Riepilogo delle modifiche alla build",
+      "status": {
+        "added": "Aggiunto",
+        "modified": "Modificato",
+        "removed": "Rimosso",
+        "unchanged": "Invariato"
+      },
+      "installedDelta": "Variazione delle dimensioni installate",
+      "fullDownloadDelta": "Variazione del download completo",
+      "changedFiles": "File modificati",
+      "downloadDisclaimer": "La dimensione del download completo è la dimensione compressa di ogni build completa, non una stima di aggiornamento o patch.",
+      "unchanged": "invariato",
+      "search": "Cerca nei percorsi dei file",
+      "searchPlaceholder": "Cerca nel percorso completo…",
+      "extensionPlaceholder": "Estensione, ad es. pak",
+      "apply": "Applica",
+      "columns": {
+        "status": "Stato",
+        "path": "Percorso del file",
+        "size": "Prima → dopo",
+        "delta": "Variazione dimensione",
+        "hash": "Hash"
+      },
+      "empty": "Nessun file corrisponde a questo confronto.",
+      "page": "Pagina {{page}} di {{total}}",
+      "previousPage": "Pagina precedente",
+      "nextPage": "Pagina successiva",
+      "rawWarning": "Questo snapshot non è stato verificato; i suoi file grezzi potrebbero essere incompleti."
     },
     "items": {
       "title": "Articoli"

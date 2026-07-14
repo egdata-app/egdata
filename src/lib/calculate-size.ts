@@ -1,4 +1,4 @@
-export const calculateSize = (bytes: number, decimals = 2) => {
+export const calculateSize = (bytes: number | null | undefined, decimals = 2) => {
   if (bytes === 0) return "0 Bytes";
   if (bytes === undefined || bytes === null) return "N/A";
 

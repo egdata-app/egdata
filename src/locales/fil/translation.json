@@ -46,6 +46,13 @@
     "searchLanguages": "Maghanap ng mga wika...",
     "noLanguagesFound": "Walang nakitang wika"
   },
+  "globalSearch": {
+    "semantic": {
+      "heading": "Mga tugma ayon sa kahulugan",
+      "loading": "Naghahanap ng mga tugma ayon sa kahulugan...",
+      "error": "Hindi ma-load ang mga tugma ayon sa kahulugan."
+    }
+  },
   "footer": {
     "logoAlt": "Logo ng EGDATA",
     "disclaimer": "Isang fan-made Epic Games Store database. Hindi kaakibat ng Epic Games, Inc. Lahat ng logo, larawan, at trademark ay pag-aari ng kani-kanilang may-ari.",
@@ -692,6 +699,86 @@
     },
     "files": {
       "title": "Mga File"
+    },
+    "header": {
+      "description": "Suriin ang snapshot ng build na ito at ihambing ito sa mga naunang naobserbahang build.",
+      "firstSeen": "Unang nakita",
+      "lastSeen": "Huling nakita",
+      "parser": "Bersyon ng parser",
+      "fullDownload": "Buong laki ng download",
+      "files": "Mga naka-index na file",
+      "technicalDetails": "Teknikal na detalye"
+    },
+    "health": {
+      "processing": "Pinoproseso",
+      "verified": "Na-verify",
+      "invalid": "Di-wastong manifest",
+      "unavailable": "Hindi available",
+      "failed": "Nabigo ang pagproseso",
+      "legacy_unverified": "Hindi pa na-verify"
+    },
+    "timeline": {
+      "title": "Observed build history",
+      "description": "Choose two observed snapshots to compare their files.",
+      "observed": "Observed in your timezone",
+      "earlier": "Earlier",
+      "later": "Later",
+      "baseline": "Baseline",
+      "selectBuild": "Select a build",
+      "searchBuilds": "Search versions or dates…",
+      "noBuilds": "No builds found.",
+      "dateUnavailable": "Observed date unavailable",
+      "undatedBuilds_one": "{{count}} build without an observed date",
+      "undatedBuilds_other": "{{count}} builds without observed dates",
+      "clusteredBuilds_one": "{{count}} build observed near this time",
+      "clusteredBuilds_other": "{{count}} builds observed near this time",
+      "useAsBaseline": "Use as baseline",
+      "viewAsCurrent": "View build",
+      "notComparable": "This build cannot be used as a comparison baseline.",
+      "comparisonDirection": "Comparison direction"
+    },
+    "comparison": {
+      "current": "Kasalukuyang build",
+      "compareAgainst": "Ihambing sa",
+      "noPrevious": "Walang naunang na-verify na build",
+      "noPreviousDescription": "Ito ang unang maihahambing na build na naobserbahan sa stream na ito. Maaari mo pa ring suriin ang lahat ng manifest file.",
+      "swap": "Pagpalitin",
+      "changes": "Mga pagbabago",
+      "allFiles": "Lahat ng file",
+      "unavailable": "Hindi maihahambing ang manifest na ito",
+      "unavailableDescription": "Pinoproseso pa ang snapshot, hindi ito available, o sinuri ito gamit ang mas lumang parser. Maaaring hindi kumpleto ang mga raw file.",
+      "error": "Hindi ma-load ang paghahambing",
+      "errorDescription": "Maaaring hindi available o hindi tugma ang napiling baseline. Pumili ng ibang na-verify na build at subukan muli.",
+      "loading": "Inihahambing ang mga snapshot ng manifest…",
+      "crossStream": "Ang mga build na ito ay mula sa magkakaibang release channel.",
+      "summary": "Buod ng mga pagbabago sa build",
+      "status": {
+        "added": "Idinagdag",
+        "modified": "Binago",
+        "removed": "Inalis",
+        "unchanged": "Walang pagbabago"
+      },
+      "installedDelta": "Pagbabago sa naka-install na laki",
+      "fullDownloadDelta": "Pagbabago sa buong download",
+      "changedFiles": "Mga binagong file",
+      "downloadDisclaimer": "Ang buong laki ng download ay ang naka-compress na laki ng bawat kumpletong build, hindi pagtatantya ng update o patch.",
+      "unchanged": "walang pagbabago",
+      "search": "Maghanap sa mga path ng file",
+      "searchPlaceholder": "Maghanap sa buong path…",
+      "extensionPlaceholder": "Extension, hal. pak",
+      "apply": "Ilapat",
+      "columns": {
+        "status": "Kalagayan",
+        "path": "Path ng file",
+        "size": "Bago → pagkatapos",
+        "delta": "Pagbabago sa laki",
+        "hash": "Hash"
+      },
+      "empty": "Walang file na tumutugma sa paghahambing na ito.",
+      "page": "Pahina {{page}} ng {{total}}",
+      "previousPage": "Nakaraang pahina",
+      "nextPage": "Susunod na pahina",
+      "rawWarning": "Hindi pa na-verify ang snapshot na ito; maaaring hindi kumpleto ang mga raw file nito."
     },
     "items": {
       "title": "Mga Item"

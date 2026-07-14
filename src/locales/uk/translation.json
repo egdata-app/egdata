@@ -46,6 +46,13 @@
     "searchLanguages": "Пошук мов...",
     "noLanguagesFound": "Мов не знайдено"
   },
+  "globalSearch": {
+    "semantic": {
+      "heading": "Збіги за значенням",
+      "loading": "Пошук збігів за значенням...",
+      "error": "Не вдалося завантажити збіги за значенням."
+    }
+  },
   "footer": {
     "logoAlt": "Логотип EGDATA",
     "disclaimer": "Фан-база даних Epic Games Store. Не пов'язана з Epic Games, Inc. Усі логотипи, зображення та торговельні марки належать їхнім власникам.",
@@ -692,6 +699,86 @@
     },
     "files": {
       "title": "Файли"
+    },
+    "header": {
+      "description": "Перегляньте цей знімок білду та порівняйте його з білдами, які спостерігалися раніше.",
+      "firstSeen": "Вперше побачено",
+      "lastSeen": "Востаннє побачено",
+      "parser": "Версія парсера",
+      "fullDownload": "Повний розмір завантаження",
+      "files": "Проіндексовані файли",
+      "technicalDetails": "Технічні відомості"
+    },
+    "health": {
+      "processing": "Обробляється",
+      "verified": "Перевірено",
+      "invalid": "Недійсний маніфест",
+      "unavailable": "Недоступний",
+      "failed": "Помилка обробки",
+      "legacy_unverified": "Ще не перевірено"
+    },
+    "timeline": {
+      "title": "Observed build history",
+      "description": "Choose two observed snapshots to compare their files.",
+      "observed": "Observed in your timezone",
+      "earlier": "Earlier",
+      "later": "Later",
+      "baseline": "Baseline",
+      "selectBuild": "Select a build",
+      "searchBuilds": "Search versions or dates…",
+      "noBuilds": "No builds found.",
+      "dateUnavailable": "Observed date unavailable",
+      "undatedBuilds_one": "{{count}} build without an observed date",
+      "undatedBuilds_other": "{{count}} builds without observed dates",
+      "clusteredBuilds_one": "{{count}} build observed near this time",
+      "clusteredBuilds_other": "{{count}} builds observed near this time",
+      "useAsBaseline": "Use as baseline",
+      "viewAsCurrent": "View build",
+      "notComparable": "This build cannot be used as a comparison baseline.",
+      "comparisonDirection": "Comparison direction"
+    },
+    "comparison": {
+      "current": "Поточний білд",
+      "compareAgainst": "Порівняти з",
+      "noPrevious": "Немає попереднього перевіреного білду",
+      "noPreviousDescription": "Це перший порівнюваний білд, який спостерігався в цьому потоці. Ви все одно можете переглянути всі файли маніфесту.",
+      "swap": "Поміняти місцями",
+      "changes": "Зміни",
+      "allFiles": "Усі файли",
+      "unavailable": "Цей маніфест не можна порівняти",
+      "unavailableDescription": "Знімок ще обробляється, недоступний або був проаналізований старішим парсером. Необроблені файли можуть бути неповними.",
+      "error": "Не вдалося завантажити порівняння",
+      "errorDescription": "Вибрана база може бути недоступною або несумісною. Виберіть інший перевірений білд і спробуйте ще раз.",
+      "loading": "Порівняння знімків маніфесту…",
+      "crossStream": "Ці білди походять із різних каналів випуску.",
+      "summary": "Підсумок змін білду",
+      "status": {
+        "added": "Додано",
+        "modified": "Змінено",
+        "removed": "Вилучено",
+        "unchanged": "Без змін"
+      },
+      "installedDelta": "Зміна встановленого розміру",
+      "fullDownloadDelta": "Зміна повного завантаження",
+      "changedFiles": "Змінені файли",
+      "downloadDisclaimer": "Повний розмір завантаження — це стиснений розмір кожного повного білду, а не оцінка оновлення чи патчу.",
+      "unchanged": "без змін",
+      "search": "Пошук шляхів до файлів",
+      "searchPlaceholder": "Пошук за повним шляхом…",
+      "extensionPlaceholder": "Розширення, наприклад pak",
+      "apply": "Застосувати",
+      "columns": {
+        "status": "Стан",
+        "path": "Шлях до файлу",
+        "size": "До → після",
+        "delta": "Зміна розміру",
+        "hash": "Хеш"
+      },
+      "empty": "Немає файлів, що відповідають цьому порівнянню.",
+      "page": "Сторінка {{page}} з {{total}}",
+      "previousPage": "Попередня сторінка",
+      "nextPage": "Наступна сторінка",
+      "rawWarning": "Цей знімок не перевірено; його необроблені файли можуть бути неповними."
     },
     "items": {
       "title": "Елементи"

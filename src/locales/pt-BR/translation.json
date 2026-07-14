@@ -46,6 +46,13 @@
     "searchLanguages": "Pesquisar idiomas...",
     "noLanguagesFound": "Nenhum idioma encontrado"
   },
+  "globalSearch": {
+    "semantic": {
+      "heading": "Correspondências por significado",
+      "loading": "Buscando correspondências por significado...",
+      "error": "Não foi possível carregar as correspondências por significado."
+    }
+  },
   "footer": {
     "logoAlt": "Logo do EGDATA",
     "disclaimer": "Uma base de dados da Epic Games Store feita por fãs. Não afiliada à Epic Games, Inc. Todos os logotipos, imagens e marcas comerciais pertencem aos seus respectivos proprietários.",
@@ -692,6 +699,86 @@
     },
     "files": {
       "title": "Arquivos"
+    },
+    "header": {
+      "description": "Inspecione este snapshot do build e compare-o com builds observados anteriormente.",
+      "firstSeen": "Visto pela primeira vez",
+      "lastSeen": "Visto pela última vez",
+      "parser": "Versão do parser",
+      "fullDownload": "Tamanho do download completo",
+      "files": "Arquivos indexados",
+      "technicalDetails": "Detalhes técnicos"
+    },
+    "health": {
+      "processing": "Processando",
+      "verified": "Verificado",
+      "invalid": "Manifesto inválido",
+      "unavailable": "Indisponível",
+      "failed": "Falha no processamento",
+      "legacy_unverified": "Ainda não verificado"
+    },
+    "timeline": {
+      "title": "Observed build history",
+      "description": "Choose two observed snapshots to compare their files.",
+      "observed": "Observed in your timezone",
+      "earlier": "Earlier",
+      "later": "Later",
+      "baseline": "Baseline",
+      "selectBuild": "Select a build",
+      "searchBuilds": "Search versions or dates…",
+      "noBuilds": "No builds found.",
+      "dateUnavailable": "Observed date unavailable",
+      "undatedBuilds_one": "{{count}} build without an observed date",
+      "undatedBuilds_other": "{{count}} builds without observed dates",
+      "clusteredBuilds_one": "{{count}} build observed near this time",
+      "clusteredBuilds_other": "{{count}} builds observed near this time",
+      "useAsBaseline": "Use as baseline",
+      "viewAsCurrent": "View build",
+      "notComparable": "This build cannot be used as a comparison baseline.",
+      "comparisonDirection": "Comparison direction"
+    },
+    "comparison": {
+      "current": "Build atual",
+      "compareAgainst": "Comparar com",
+      "noPrevious": "Nenhum build verificado anterior",
+      "noPreviousDescription": "Este é o primeiro build comparável observado neste fluxo. Ainda é possível inspecionar todos os arquivos do manifesto.",
+      "swap": "Trocar",
+      "changes": "Alterações",
+      "allFiles": "Todos os arquivos",
+      "unavailable": "Este manifesto não é comparável",
+      "unavailableDescription": "O snapshot ainda está sendo processado, está indisponível ou foi analisado por um parser antigo. Os arquivos brutos podem estar incompletos.",
+      "error": "Não foi possível carregar a comparação",
+      "errorDescription": "A base selecionada pode estar indisponível ou ser incompatível. Escolha outro build verificado e tente novamente.",
+      "loading": "Comparando snapshots do manifesto…",
+      "crossStream": "Esses builds vêm de canais de lançamento diferentes.",
+      "summary": "Resumo das alterações do build",
+      "status": {
+        "added": "Adicionado",
+        "modified": "Modificado",
+        "removed": "Removido",
+        "unchanged": "Sem alterações"
+      },
+      "installedDelta": "Alteração do tamanho instalado",
+      "fullDownloadDelta": "Alteração do download completo",
+      "changedFiles": "Arquivos alterados",
+      "downloadDisclaimer": "O tamanho do download completo é o tamanho compactado de cada build completo, não uma estimativa de atualização ou patch.",
+      "unchanged": "sem alterações",
+      "search": "Pesquisar caminhos de arquivos",
+      "searchPlaceholder": "Pesquisar o caminho completo…",
+      "extensionPlaceholder": "Extensão, ex.: pak",
+      "apply": "Aplicar",
+      "columns": {
+        "status": "Estado",
+        "path": "Caminho do arquivo",
+        "size": "Antes → depois",
+        "delta": "Alteração de tamanho",
+        "hash": "Hash"
+      },
+      "empty": "Nenhum arquivo corresponde a esta comparação.",
+      "page": "Página {{page}} de {{total}}",
+      "previousPage": "Página anterior",
+      "nextPage": "Próxima página",
+      "rawWarning": "Este snapshot não foi verificado; seus arquivos brutos podem estar incompletos."
     },
     "items": {
       "title": "Itens"

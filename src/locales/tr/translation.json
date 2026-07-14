@@ -46,6 +46,13 @@
     "searchLanguages": "Dilleri ara...",
     "noLanguagesFound": "Dil bulunamadı"
   },
+  "globalSearch": {
+    "semantic": {
+      "heading": "Anlama göre eşleşmeler",
+      "loading": "Anlama göre eşleşmeler bulunuyor...",
+      "error": "Anlama göre eşleşmeler yüklenemedi."
+    }
+  },
   "footer": {
     "logoAlt": "EGDATA Logosu",
     "disclaimer": "Hayran yapımı bir Epic Games Store veritabanı. Epic Games, Inc. ile bağlantılı değildir. Tüm logolar, görseller ve ticari markalar ilgili sahiplerine aittir.",
@@ -692,6 +699,86 @@
     },
     "files": {
       "title": "Dosyalar"
+    },
+    "header": {
+      "description": "Bu derleme anlık görüntüsünü inceleyin ve daha önce gözlemlenen derlemelerle karşılaştırın.",
+      "firstSeen": "İlk görülme",
+      "lastSeen": "Son görülme",
+      "parser": "Ayrıştırıcı sürümü",
+      "fullDownload": "Tam indirme boyutu",
+      "files": "Dizine eklenen dosyalar",
+      "technicalDetails": "Teknik ayrıntılar"
+    },
+    "health": {
+      "processing": "İşleniyor",
+      "verified": "Doğrulandı",
+      "invalid": "Geçersiz manifest",
+      "unavailable": "Kullanılamıyor",
+      "failed": "İşleme başarısız oldu",
+      "legacy_unverified": "Henüz doğrulanmadı"
+    },
+    "timeline": {
+      "title": "Observed build history",
+      "description": "Choose two observed snapshots to compare their files.",
+      "observed": "Observed in your timezone",
+      "earlier": "Earlier",
+      "later": "Later",
+      "baseline": "Baseline",
+      "selectBuild": "Select a build",
+      "searchBuilds": "Search versions or dates…",
+      "noBuilds": "No builds found.",
+      "dateUnavailable": "Observed date unavailable",
+      "undatedBuilds_one": "{{count}} build without an observed date",
+      "undatedBuilds_other": "{{count}} builds without observed dates",
+      "clusteredBuilds_one": "{{count}} build observed near this time",
+      "clusteredBuilds_other": "{{count}} builds observed near this time",
+      "useAsBaseline": "Use as baseline",
+      "viewAsCurrent": "View build",
+      "notComparable": "This build cannot be used as a comparison baseline.",
+      "comparisonDirection": "Comparison direction"
+    },
+    "comparison": {
+      "current": "Geçerli derleme",
+      "compareAgainst": "Şununla karşılaştır",
+      "noPrevious": "Önceki doğrulanmış derleme yok",
+      "noPreviousDescription": "Bu akışta gözlemlenen ilk karşılaştırılabilir derleme budur. Yine de tüm manifest dosyalarını inceleyebilirsiniz.",
+      "swap": "Değiştir",
+      "changes": "Değişiklikler",
+      "allFiles": "Tüm dosyalar",
+      "unavailable": "Bu manifest karşılaştırılamaz",
+      "unavailableDescription": "Anlık görüntü hâlâ işleniyor, kullanılamıyor veya daha eski bir ayrıştırıcı tarafından ayrıştırıldı. Ham dosyalar eksik olabilir.",
+      "error": "Karşılaştırma yüklenemedi",
+      "errorDescription": "Seçilen temel kullanılamıyor veya uyumsuz olabilir. Başka bir doğrulanmış derleme seçip tekrar deneyin.",
+      "loading": "Manifest anlık görüntüleri karşılaştırılıyor…",
+      "crossStream": "Bu derlemeler farklı yayın kanallarından geliyor.",
+      "summary": "Derleme değişiklikleri özeti",
+      "status": {
+        "added": "Eklendi",
+        "modified": "Değiştirildi",
+        "removed": "Kaldırıldı",
+        "unchanged": "Değişmedi"
+      },
+      "installedDelta": "Yüklü boyut değişikliği",
+      "fullDownloadDelta": "Tam indirme değişikliği",
+      "changedFiles": "Değişen dosyalar",
+      "downloadDisclaimer": "Tam indirme boyutu her eksiksiz derlemenin sıkıştırılmış boyutudur; güncelleme veya yama tahmini değildir.",
+      "unchanged": "değişmedi",
+      "search": "Dosya yollarında ara",
+      "searchPlaceholder": "Tam yolda ara…",
+      "extensionPlaceholder": "Uzantı, ör. pak",
+      "apply": "Uygula",
+      "columns": {
+        "status": "Durum",
+        "path": "Dosya yolu",
+        "size": "Önce → sonra",
+        "delta": "Boyut değişikliği",
+        "hash": "Karma"
+      },
+      "empty": "Bu karşılaştırmayla eşleşen dosya yok.",
+      "page": "{{total}} içinde {{page}}. sayfa",
+      "previousPage": "Önceki sayfa",
+      "nextPage": "Sonraki sayfa",
+      "rawWarning": "Bu anlık görüntü doğrulanmadı; ham dosyaları eksik olabilir."
     },
     "items": {
       "title": "Öğeler"

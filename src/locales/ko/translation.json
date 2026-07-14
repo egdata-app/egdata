@@ -46,6 +46,13 @@
     "searchLanguages": "언어 검색...",
     "noLanguagesFound": "언어를 찾을 수 없음"
   },
+  "globalSearch": {
+    "semantic": {
+      "heading": "의미별 일치 항목",
+      "loading": "의미별 일치 항목을 찾는 중...",
+      "error": "의미별 일치 항목을 불러오지 못했습니다."
+    }
+  },
   "footer": {
     "logoAlt": "EGDATA 로고",
     "disclaimer": "팬 제작 Epic Games Store 데이터베이스입니다. Epic Games, Inc.와 제휴되어 있지 않습니다. 모든 로고, 이미지 및 상표는 해당 소유자의 자산입니다.",
@@ -692,6 +699,86 @@
     },
     "files": {
       "title": "파일"
+    },
+    "header": {
+      "description": "이 빌드 스냅샷을 확인하고 이전에 관찰된 빌드와 비교합니다.",
+      "firstSeen": "처음 확인됨",
+      "lastSeen": "마지막 확인됨",
+      "parser": "파서 버전",
+      "fullDownload": "전체 다운로드 크기",
+      "files": "색인된 파일",
+      "technicalDetails": "기술 세부 정보"
+    },
+    "health": {
+      "processing": "처리 중",
+      "verified": "검증됨",
+      "invalid": "잘못된 매니페스트",
+      "unavailable": "사용할 수 없음",
+      "failed": "처리 실패",
+      "legacy_unverified": "아직 검증되지 않음"
+    },
+    "timeline": {
+      "title": "Observed build history",
+      "description": "Choose two observed snapshots to compare their files.",
+      "observed": "Observed in your timezone",
+      "earlier": "Earlier",
+      "later": "Later",
+      "baseline": "Baseline",
+      "selectBuild": "Select a build",
+      "searchBuilds": "Search versions or dates…",
+      "noBuilds": "No builds found.",
+      "dateUnavailable": "Observed date unavailable",
+      "undatedBuilds_one": "{{count}} build without an observed date",
+      "undatedBuilds_other": "{{count}} builds without observed dates",
+      "clusteredBuilds_one": "{{count}} build observed near this time",
+      "clusteredBuilds_other": "{{count}} builds observed near this time",
+      "useAsBaseline": "Use as baseline",
+      "viewAsCurrent": "View build",
+      "notComparable": "This build cannot be used as a comparison baseline.",
+      "comparisonDirection": "Comparison direction"
+    },
+    "comparison": {
+      "current": "현재 빌드",
+      "compareAgainst": "비교 대상",
+      "noPrevious": "이전에 검증된 빌드가 없음",
+      "noPreviousDescription": "이 스트림에서 관찰된 첫 번째 비교 가능한 빌드입니다. 모든 매니페스트 파일은 계속 확인할 수 있습니다.",
+      "swap": "교체",
+      "changes": "변경 사항",
+      "allFiles": "모든 파일",
+      "unavailable": "이 매니페스트는 비교할 수 없음",
+      "unavailableDescription": "스냅샷이 아직 처리 중이거나 사용할 수 없거나 이전 파서로 분석되었습니다. 원시 파일이 불완전할 수 있습니다.",
+      "error": "비교를 불러오지 못함",
+      "errorDescription": "선택한 기준 빌드를 사용할 수 없거나 호환되지 않을 수 있습니다. 다른 검증된 빌드를 선택하고 다시 시도하세요.",
+      "loading": "매니페스트 스냅샷 비교 중…",
+      "crossStream": "이 빌드들은 서로 다른 릴리스 채널에서 가져왔습니다.",
+      "summary": "빌드 변경 요약",
+      "status": {
+        "added": "추가됨",
+        "modified": "수정됨",
+        "removed": "삭제됨",
+        "unchanged": "변경 없음"
+      },
+      "installedDelta": "설치 크기 변경",
+      "fullDownloadDelta": "전체 다운로드 변경",
+      "changedFiles": "변경된 파일",
+      "downloadDisclaimer": "전체 다운로드 크기는 각 전체 빌드의 압축된 크기이며 업데이트나 패치의 예상치가 아닙니다.",
+      "unchanged": "변경 없음",
+      "search": "파일 경로 검색",
+      "searchPlaceholder": "전체 경로 검색…",
+      "extensionPlaceholder": "확장자(예: pak)",
+      "apply": "적용",
+      "columns": {
+        "status": "상태",
+        "path": "파일 경로",
+        "size": "이전 → 이후",
+        "delta": "크기 변경",
+        "hash": "해시"
+      },
+      "empty": "이 비교와 일치하는 파일이 없습니다.",
+      "page": "{{total}}개 중 {{page}}페이지",
+      "previousPage": "이전 페이지",
+      "nextPage": "다음 페이지",
+      "rawWarning": "이 스냅샷은 검증되지 않았습니다. 원시 파일이 불완전할 수 있습니다."
     },
     "items": {
       "title": "아이템"

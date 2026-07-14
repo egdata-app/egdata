@@ -46,6 +46,13 @@
     "searchLanguages": "البحث عن لغات...",
     "noLanguagesFound": "لم يتم العثور على لغات"
   },
+  "globalSearch": {
+    "semantic": {
+      "heading": "مطابقات حسب المعنى",
+      "loading": "جارٍ العثور على المطابقات حسب المعنى...",
+      "error": "تعذّر تحميل المطابقات حسب المعنى."
+    }
+  },
   "footer": {
     "logoAlt": "شعار EGDATA",
     "disclaimer": "قاعدة بيانات Epic Games Store من صنع المعجبين. غير تابعة لشركة Epic Games, Inc. جميع الشعارات والصور والعلامات التجارية مملوكة لأصحابها.",
@@ -692,6 +699,86 @@
     },
     "files": {
       "title": "الملفات"
+    },
+    "header": {
+      "description": "افحص لقطة البناء هذه وقارنها بالبناءات المرصودة سابقًا.",
+      "firstSeen": "شوهد لأول مرة",
+      "lastSeen": "شوهد آخر مرة",
+      "parser": "إصدار المحلل",
+      "fullDownload": "حجم التنزيل الكامل",
+      "files": "الملفات المفهرسة",
+      "technicalDetails": "التفاصيل التقنية"
+    },
+    "health": {
+      "processing": "قيد المعالجة",
+      "verified": "تم التحقق",
+      "invalid": "بيان غير صالح",
+      "unavailable": "غير متاح",
+      "failed": "فشلت المعالجة",
+      "legacy_unverified": "لم يتم التحقق بعد"
+    },
+    "timeline": {
+      "title": "Observed build history",
+      "description": "Choose two observed snapshots to compare their files.",
+      "observed": "Observed in your timezone",
+      "earlier": "Earlier",
+      "later": "Later",
+      "baseline": "Baseline",
+      "selectBuild": "Select a build",
+      "searchBuilds": "Search versions or dates…",
+      "noBuilds": "No builds found.",
+      "dateUnavailable": "Observed date unavailable",
+      "undatedBuilds_one": "{{count}} build without an observed date",
+      "undatedBuilds_other": "{{count}} builds without observed dates",
+      "clusteredBuilds_one": "{{count}} build observed near this time",
+      "clusteredBuilds_other": "{{count}} builds observed near this time",
+      "useAsBaseline": "Use as baseline",
+      "viewAsCurrent": "View build",
+      "notComparable": "This build cannot be used as a comparison baseline.",
+      "comparisonDirection": "Comparison direction"
+    },
+    "comparison": {
+      "current": "البناء الحالي",
+      "compareAgainst": "المقارنة مع",
+      "noPrevious": "لا يوجد بناء سابق تم التحقق منه",
+      "noPreviousDescription": "هذا أول بناء قابل للمقارنة تتم ملاحظته في هذا المسار. لا يزال بإمكانك فحص جميع ملفات البيان.",
+      "swap": "تبديل",
+      "changes": "التغييرات",
+      "allFiles": "كل الملفات",
+      "unavailable": "هذا البيان غير قابل للمقارنة",
+      "unavailableDescription": "لا تزال اللقطة قيد المعالجة أو غير متاحة أو تم تحليلها بمحلل قديم. قد تكون الملفات الخام غير مكتملة.",
+      "error": "تعذر تحميل المقارنة",
+      "errorDescription": "قد تكون القاعدة المحددة غير متاحة أو غير متوافقة. اختر بناءً آخر تم التحقق منه وحاول مجددًا.",
+      "loading": "جارٍ مقارنة لقطات البيانات…",
+      "crossStream": "تأتي هذه البناءات من قنوات إصدار مختلفة.",
+      "summary": "ملخص تغييرات البناء",
+      "status": {
+        "added": "مضاف",
+        "modified": "معدّل",
+        "removed": "محذوف",
+        "unchanged": "دون تغيير"
+      },
+      "installedDelta": "تغيير الحجم المثبت",
+      "fullDownloadDelta": "تغيير التنزيل الكامل",
+      "changedFiles": "الملفات المتغيرة",
+      "downloadDisclaimer": "حجم التنزيل الكامل هو الحجم المضغوط لكل بناء كامل، وليس تقديرًا لتحديث أو تصحيح.",
+      "unchanged": "دون تغيير",
+      "search": "البحث في مسارات الملفات",
+      "searchPlaceholder": "البحث في المسار الكامل…",
+      "extensionPlaceholder": "الامتداد، مثل pak",
+      "apply": "تطبيق",
+      "columns": {
+        "status": "الحالة",
+        "path": "مسار الملف",
+        "size": "قبل ← بعد",
+        "delta": "تغيير الحجم",
+        "hash": "التجزئة"
+      },
+      "empty": "لا توجد ملفات تطابق هذه المقارنة.",
+      "page": "الصفحة {{page}} من {{total}}",
+      "previousPage": "الصفحة السابقة",
+      "nextPage": "الصفحة التالية",
+      "rawWarning": "لم يتم التحقق من هذه اللقطة؛ قد تكون ملفاتها الخام غير مكتملة."
     },
     "items": {
       "title": "العناصر"

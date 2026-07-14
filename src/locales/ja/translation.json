@@ -46,6 +46,13 @@
     "searchLanguages": "言語を検索...",
     "noLanguagesFound": "言語が見つかりません"
   },
+  "globalSearch": {
+    "semantic": {
+      "heading": "意味による一致",
+      "loading": "意味による一致を検索しています...",
+      "error": "意味による一致を読み込めませんでした。"
+    }
+  },
   "footer": {
     "logoAlt": "EGDATA ロゴ",
     "disclaimer": "ファン制作の Epic Games Store データベースです。Epic Games, Inc. とは提携していません。すべてのロゴ、画像、商標はそれぞれの所有者に帰属します。",
@@ -692,6 +699,86 @@
     },
     "files": {
       "title": "ファイル"
+    },
+    "header": {
+      "description": "このビルドスナップショットを確認し、以前に観測されたビルドと比較します。",
+      "firstSeen": "初回確認",
+      "lastSeen": "最終確認",
+      "parser": "パーサーバージョン",
+      "fullDownload": "完全ダウンロードサイズ",
+      "files": "インデックス済みファイル",
+      "technicalDetails": "技術詳細"
+    },
+    "health": {
+      "processing": "処理中",
+      "verified": "検証済み",
+      "invalid": "無効なマニフェスト",
+      "unavailable": "利用不可",
+      "failed": "処理に失敗",
+      "legacy_unverified": "未検証"
+    },
+    "timeline": {
+      "title": "Observed build history",
+      "description": "Choose two observed snapshots to compare their files.",
+      "observed": "Observed in your timezone",
+      "earlier": "Earlier",
+      "later": "Later",
+      "baseline": "Baseline",
+      "selectBuild": "Select a build",
+      "searchBuilds": "Search versions or dates…",
+      "noBuilds": "No builds found.",
+      "dateUnavailable": "Observed date unavailable",
+      "undatedBuilds_one": "{{count}} build without an observed date",
+      "undatedBuilds_other": "{{count}} builds without observed dates",
+      "clusteredBuilds_one": "{{count}} build observed near this time",
+      "clusteredBuilds_other": "{{count}} builds observed near this time",
+      "useAsBaseline": "Use as baseline",
+      "viewAsCurrent": "View build",
+      "notComparable": "This build cannot be used as a comparison baseline.",
+      "comparisonDirection": "Comparison direction"
+    },
+    "comparison": {
+      "current": "現在のビルド",
+      "compareAgainst": "比較対象",
+      "noPrevious": "以前に検証されたビルドはありません",
+      "noPreviousDescription": "このストリームで観測された、比較可能な最初のビルドです。すべてのマニフェストファイルは引き続き確認できます。",
+      "swap": "入れ替え",
+      "changes": "変更",
+      "allFiles": "すべてのファイル",
+      "unavailable": "このマニフェストは比較できません",
+      "unavailableDescription": "スナップショットは処理中、利用不可、または古いパーサーで解析されています。未加工ファイルは不完全な場合があります。",
+      "error": "比較を読み込めませんでした",
+      "errorDescription": "選択したベースラインは利用できないか互換性がない可能性があります。別の検証済みビルドを選んで再試行してください。",
+      "loading": "マニフェストスナップショットを比較しています…",
+      "crossStream": "これらのビルドは異なるリリースチャンネルのものです。",
+      "summary": "ビルド変更の概要",
+      "status": {
+        "added": "追加",
+        "modified": "変更",
+        "removed": "削除",
+        "unchanged": "変更なし"
+      },
+      "installedDelta": "インストールサイズの変化",
+      "fullDownloadDelta": "完全ダウンロードの変化",
+      "changedFiles": "変更されたファイル",
+      "downloadDisclaimer": "完全ダウンロードサイズは各完全ビルドの圧縮サイズであり、更新やパッチの推定値ではありません。",
+      "unchanged": "変更なし",
+      "search": "ファイルパスを検索",
+      "searchPlaceholder": "フルパスを検索…",
+      "extensionPlaceholder": "拡張子（例: pak）",
+      "apply": "適用",
+      "columns": {
+        "status": "ステータス",
+        "path": "ファイルパス",
+        "size": "変更前 → 変更後",
+        "delta": "サイズの変化",
+        "hash": "ハッシュ"
+      },
+      "empty": "この比較に一致するファイルはありません。",
+      "page": "{{total}} ページ中 {{page}} ページ",
+      "previousPage": "前のページ",
+      "nextPage": "次のページ",
+      "rawWarning": "このスナップショットは検証されていません。未加工ファイルは不完全な場合があります。"
     },
     "items": {
       "title": "アイテム"

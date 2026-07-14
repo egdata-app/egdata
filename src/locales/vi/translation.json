@@ -46,6 +46,13 @@
     "searchLanguages": "Tìm kiếm ngôn ngữ...",
     "noLanguagesFound": "Không tìm thấy ngôn ngữ"
   },
+  "globalSearch": {
+    "semantic": {
+      "heading": "Kết quả khớp theo ý nghĩa",
+      "loading": "Đang tìm kết quả khớp theo ý nghĩa...",
+      "error": "Không thể tải kết quả khớp theo ý nghĩa."
+    }
+  },
   "footer": {
     "logoAlt": "Logo EGDATA",
     "disclaimer": "Cơ sở dữ liệu Epic Games Store do người hâm mộ tạo ra. Không liên kết với Epic Games, Inc. Mọi logo, hình ảnh và nhãn hiệu đều thuộc về chủ sở hữu tương ứng.",
@@ -692,6 +699,86 @@
     },
     "files": {
       "title": "Tệp"
+    },
+    "header": {
+      "description": "Kiểm tra ảnh chụp build này và so sánh với các build được quan sát trước đó.",
+      "firstSeen": "Thấy lần đầu",
+      "lastSeen": "Thấy lần cuối",
+      "parser": "Phiên bản parser",
+      "fullDownload": "Kích thước tải xuống đầy đủ",
+      "files": "Tệp đã lập chỉ mục",
+      "technicalDetails": "Chi tiết kỹ thuật"
+    },
+    "health": {
+      "processing": "Đang xử lý",
+      "verified": "Đã xác minh",
+      "invalid": "Manifest không hợp lệ",
+      "unavailable": "Không khả dụng",
+      "failed": "Xử lý thất bại",
+      "legacy_unverified": "Chưa được xác minh"
+    },
+    "timeline": {
+      "title": "Observed build history",
+      "description": "Choose two observed snapshots to compare their files.",
+      "observed": "Observed in your timezone",
+      "earlier": "Earlier",
+      "later": "Later",
+      "baseline": "Baseline",
+      "selectBuild": "Select a build",
+      "searchBuilds": "Search versions or dates…",
+      "noBuilds": "No builds found.",
+      "dateUnavailable": "Observed date unavailable",
+      "undatedBuilds_one": "{{count}} build without an observed date",
+      "undatedBuilds_other": "{{count}} builds without observed dates",
+      "clusteredBuilds_one": "{{count}} build observed near this time",
+      "clusteredBuilds_other": "{{count}} builds observed near this time",
+      "useAsBaseline": "Use as baseline",
+      "viewAsCurrent": "View build",
+      "notComparable": "This build cannot be used as a comparison baseline.",
+      "comparisonDirection": "Comparison direction"
+    },
+    "comparison": {
+      "current": "Build hiện tại",
+      "compareAgainst": "So sánh với",
+      "noPrevious": "Không có build đã xác minh trước đó",
+      "noPreviousDescription": "Đây là build đầu tiên có thể so sánh được quan sát trong luồng này. Bạn vẫn có thể kiểm tra mọi tệp manifest.",
+      "swap": "Hoán đổi",
+      "changes": "Thay đổi",
+      "allFiles": "Tất cả tệp",
+      "unavailable": "Không thể so sánh manifest này",
+      "unavailableDescription": "Ảnh chụp vẫn đang được xử lý, không khả dụng hoặc được phân tích bằng parser cũ hơn. Tệp thô có thể chưa đầy đủ.",
+      "error": "Không thể tải so sánh",
+      "errorDescription": "Baseline đã chọn có thể không khả dụng hoặc không tương thích. Hãy chọn một build đã xác minh khác và thử lại.",
+      "loading": "Đang so sánh các ảnh chụp manifest…",
+      "crossStream": "Các build này đến từ những kênh phát hành khác nhau.",
+      "summary": "Tóm tắt thay đổi build",
+      "status": {
+        "added": "Đã thêm",
+        "modified": "Đã sửa đổi",
+        "removed": "Đã xóa",
+        "unchanged": "Không thay đổi"
+      },
+      "installedDelta": "Thay đổi kích thước đã cài đặt",
+      "fullDownloadDelta": "Thay đổi tải xuống đầy đủ",
+      "changedFiles": "Tệp đã thay đổi",
+      "downloadDisclaimer": "Kích thước tải xuống đầy đủ là kích thước nén của mỗi build hoàn chỉnh, không phải ước tính cập nhật hoặc bản vá.",
+      "unchanged": "không thay đổi",
+      "search": "Tìm kiếm đường dẫn tệp",
+      "searchPlaceholder": "Tìm kiếm đường dẫn đầy đủ…",
+      "extensionPlaceholder": "Phần mở rộng, ví dụ pak",
+      "apply": "Áp dụng",
+      "columns": {
+        "status": "Trạng thái",
+        "path": "Đường dẫn tệp",
+        "size": "Trước → sau",
+        "delta": "Thay đổi kích thước",
+        "hash": "Hash"
+      },
+      "empty": "Không có tệp nào khớp với so sánh này.",
+      "page": "Trang {{page}} trên {{total}}",
+      "previousPage": "Trang trước",
+      "nextPage": "Trang tiếp theo",
+      "rawWarning": "Ảnh chụp này chưa được xác minh; các tệp thô có thể chưa đầy đủ."
     },
     "items": {
       "title": "Mục"

@@ -46,6 +46,13 @@
     "searchLanguages": "Sök språk...",
     "noLanguagesFound": "Inga språk hittades"
   },
+  "globalSearch": {
+    "semantic": {
+      "heading": "Matchningar efter betydelse",
+      "loading": "Söker efter matchningar efter betydelse...",
+      "error": "Det gick inte att läsa in matchningar efter betydelse."
+    }
+  },
   "footer": {
     "logoAlt": "EGDATA-logotyp",
     "disclaimer": "En fanbaserad Epic Games Store-databas. Inte ansluten till Epic Games, Inc. Alla logotyper, bilder och varumärken tillhör respektive ägare.",
@@ -692,6 +699,86 @@
     },
     "files": {
       "title": "Filer"
+    },
+    "header": {
+      "description": "Granska den här build-ögonblicksbilden och jämför den med tidigare observerade builds.",
+      "firstSeen": "Sågs första gången",
+      "lastSeen": "Sågs senast",
+      "parser": "Parserversion",
+      "fullDownload": "Fullständig nedladdningsstorlek",
+      "files": "Indexerade filer",
+      "technicalDetails": "Tekniska detaljer"
+    },
+    "health": {
+      "processing": "Bearbetar",
+      "verified": "Verifierad",
+      "invalid": "Ogiltigt manifest",
+      "unavailable": "Inte tillgänglig",
+      "failed": "Bearbetningen misslyckades",
+      "legacy_unverified": "Inte verifierad ännu"
+    },
+    "timeline": {
+      "title": "Observed build history",
+      "description": "Choose two observed snapshots to compare their files.",
+      "observed": "Observed in your timezone",
+      "earlier": "Earlier",
+      "later": "Later",
+      "baseline": "Baseline",
+      "selectBuild": "Select a build",
+      "searchBuilds": "Search versions or dates…",
+      "noBuilds": "No builds found.",
+      "dateUnavailable": "Observed date unavailable",
+      "undatedBuilds_one": "{{count}} build without an observed date",
+      "undatedBuilds_other": "{{count}} builds without observed dates",
+      "clusteredBuilds_one": "{{count}} build observed near this time",
+      "clusteredBuilds_other": "{{count}} builds observed near this time",
+      "useAsBaseline": "Use as baseline",
+      "viewAsCurrent": "View build",
+      "notComparable": "This build cannot be used as a comparison baseline.",
+      "comparisonDirection": "Comparison direction"
+    },
+    "comparison": {
+      "current": "Aktuell build",
+      "compareAgainst": "Jämför med",
+      "noPrevious": "Ingen tidigare verifierad build",
+      "noPreviousDescription": "Det här är den första jämförbara builden som observerats i den här strömmen. Du kan fortfarande granska alla manifestfiler.",
+      "swap": "Byt",
+      "changes": "Ändringar",
+      "allFiles": "Alla filer",
+      "unavailable": "Det här manifestet kan inte jämföras",
+      "unavailableDescription": "Ögonblicksbilden bearbetas fortfarande, är inte tillgänglig eller analyserades av en äldre parser. Råfiler kan vara ofullständiga.",
+      "error": "Det gick inte att läsa in jämförelsen",
+      "errorDescription": "Den valda basen kanske inte är tillgänglig eller kompatibel. Välj en annan verifierad build och försök igen.",
+      "loading": "Jämför manifestögonblicksbilder…",
+      "crossStream": "De här buildsen kommer från olika utgivningskanaler.",
+      "summary": "Sammanfattning av buildändringar",
+      "status": {
+        "added": "Tillagd",
+        "modified": "Ändrad",
+        "removed": "Borttagen",
+        "unchanged": "Oförändrad"
+      },
+      "installedDelta": "Ändring av installerad storlek",
+      "fullDownloadDelta": "Ändring av fullständig nedladdning",
+      "changedFiles": "Ändrade filer",
+      "downloadDisclaimer": "Den fullständiga nedladdningsstorleken är den komprimerade storleken för varje komplett build, inte en uppskattning av en uppdatering eller patch.",
+      "unchanged": "oförändrad",
+      "search": "Sök i filsökvägar",
+      "searchPlaceholder": "Sök i hela sökvägen…",
+      "extensionPlaceholder": "Filändelse, t.ex. pak",
+      "apply": "Verkställ",
+      "columns": {
+        "status": "Tillstånd",
+        "path": "Filsökväg",
+        "size": "Före → efter",
+        "delta": "Storleksändring",
+        "hash": "Hash"
+      },
+      "empty": "Inga filer matchar den här jämförelsen.",
+      "page": "Sida {{page}} av {{total}}",
+      "previousPage": "Föregående sida",
+      "nextPage": "Nästa sida",
+      "rawWarning": "Den här ögonblicksbilden har inte verifierats; råfilerna kan vara ofullständiga."
     },
     "items": {
       "title": "Objekt"
