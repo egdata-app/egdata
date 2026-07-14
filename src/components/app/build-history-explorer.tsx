@@ -584,11 +584,11 @@ function DesktopTimeline({
             className="absolute top-[202px] flex -translate-x-1/2 items-center gap-2 rounded-full border border-border/70 bg-background/85 px-3 py-1 text-[11px] text-muted-foreground"
             style={{ left: `${(currentPosition + baselinePosition) / 2}%` }}
           >
-            {direction !== "backward" ? (
+            {direction === "forward" ? (
               <ArrowRightIcon className="size-3.5 text-cyan-300" />
-            ) : (
+            ) : direction === "backward" ? (
               <ArrowLeftIcon className="size-3.5 text-cyan-300" />
-            )}
+            ) : null}
             {t("builds.timeline.comparisonDirection")}
           </div>
         )}
@@ -622,9 +622,11 @@ function MobileTrail({
   const { locale, timezone } = useLocale();
   const groups = useMemo(() => {
     const sorted = [...builds].sort((left, right) => {
-      const leftDate = left.firstSeenAt ? Date.parse(left.firstSeenAt) : Number.NEGATIVE_INFINITY;
-      const rightDate = right.firstSeenAt
-        ? Date.parse(right.firstSeenAt)
+      const parsedLeftDate = left.firstSeenAt ? Date.parse(left.firstSeenAt) : Number.NaN;
+      const parsedRightDate = right.firstSeenAt ? Date.parse(right.firstSeenAt) : Number.NaN;
+      const leftDate = Number.isFinite(parsedLeftDate) ? parsedLeftDate : Number.NEGATIVE_INFINITY;
+      const rightDate = Number.isFinite(parsedRightDate)
+        ? parsedRightDate
         : Number.NEGATIVE_INFINITY;
       return rightDate - leftDate;
     });
@@ -725,6 +727,7 @@ export function BuildHistoryExplorer({
   onSwap,
 }: BuildHistoryExplorerProps) {
   const { t } = useTranslation();
+  const currentBuild = builds.find((build) => build.id === currentId);
 
   if (!builds.length) return null;
 
@@ -757,7 +760,7 @@ export function BuildHistoryExplorer({
           variant="outline"
           size="icon"
           className="mx-auto size-9 rotate-90 md:rotate-0"
-          disabled={!baselineId}
+          disabled={!baselineId || !currentBuild?.comparable}
           aria-label={t("builds.comparison.swap")}
           onClick={onSwap}
         >

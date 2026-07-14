@@ -2,11 +2,11 @@
 
 ## Evidence
 
-- Reference: `C:\Users\nacho\.codex\generated_images\019f604b-ccdb-7712-b317-e6131b85a8cf\exec-621742e6-b8b8-4683-8687-87656cedc546.png`
-- Combined reference/implementation comparison: `C:\Users\nacho\.codex\visualizations\2026\07\14\019f604b-ccdb-7712-b317-e6131b85a8cf\design-qa\build-history-comparison.png`
-- Desktop implementation (1425 × 1024 browser interior): `C:\Users\nacho\.codex\visualizations\2026\07\14\019f604b-ccdb-7712-b317-e6131b85a8cf\design-qa\build-history-desktop-final.png`
-- Mobile implementation (375 × 844 browser interior): `C:\Users\nacho\.codex\visualizations\2026\07\14\019f604b-ccdb-7712-b317-e6131b85a8cf\design-qa\build-history-mobile.png`
-- Interaction states: `build-history-cluster-open.png` and `build-history-picker-open.png` in the same evidence directory.
+- Reference: [build-history-reference.png](docs/design-qa/build-history-reference.png)
+- Combined reference/implementation comparison: [build-history-comparison.png](docs/design-qa/build-history-comparison.png)
+- Desktop implementation (1425 × 1024 browser interior): [build-history-desktop-final.png](docs/design-qa/build-history-desktop-final.png)
+- Mobile implementation (375 × 844 browser interior): [build-history-mobile.png](docs/design-qa/build-history-mobile.png)
+- Interaction states: [build-history-cluster-open.png](docs/design-qa/build-history-cluster-open.png) and [build-history-picker-open.png](docs/design-qa/build-history-picker-open.png).
 
 ## Comparison result
 

@@ -21,7 +21,7 @@ test.describe("build comparison", () => {
     await page.goto(`http://localhost:3000/builds/${currentBuildId}/files`);
 
     await expect(page.getByTestId("build-diff-summary")).toBeVisible();
-    await expect.poll(() => new URL(page.url()).searchParams.get("compare")).toBe(previousBuildId);
+    await expect(page).toHaveURL(new RegExp(`[?&]compare=${previousBuildId}(?:&|$)`));
     await expect(
       page.getByTestId("desktop-build-timeline").locator('[aria-current="true"]'),
     ).toHaveAttribute("data-build-id", currentBuildId);
@@ -38,7 +38,7 @@ test.describe("build comparison", () => {
 
     await page.reload();
     await expect(page.getByTestId("build-diff-summary")).toBeVisible();
-    expect(new URL(page.url()).searchParams.get("compare")).toBe(previousBuildId);
+    await expect(page).toHaveURL(new RegExp(`[?&]compare=${previousBuildId}(?:&|$)`));
   });
 
   test("selects dated endpoints and clusters dense observations without horizontal overflow", async ({
@@ -60,21 +60,17 @@ test.describe("build comparison", () => {
 
     await page.getByTestId("previous-build-select").click();
     await page.getByRole("option", { name: /BuildVersion-1\.0\.210725\.2/ }).click();
-    await expect.poll(() => new URL(page.url()).searchParams.get("compare")).toBe(oldestBuildId);
+    await expect(page).toHaveURL(new RegExp(`[?&]compare=${oldestBuildId}(?:&|$)`));
     await expect(page.getByTestId("previous-build-select")).toContainText("May 1, 2026");
 
     await page.getByTestId("current-build-select").click();
     await page.getByRole("option", { name: /BuildVersion-1\.0\.290725/ }).click();
-    await expect
-      .poll(() => new URL(page.url()).pathname)
-      .toContain(`/builds/${previousBuildId}/files`);
-    await expect.poll(() => new URL(page.url()).searchParams.get("compare")).toBe(oldestBuildId);
+    await expect(page).toHaveURL(new RegExp(`/builds/${previousBuildId}/files(?:\\?|$)`));
+    await expect(page).toHaveURL(new RegExp(`[?&]compare=${oldestBuildId}(?:&|$)`));
 
     await page.getByRole("button", { name: "Swap" }).click();
-    await expect
-      .poll(() => new URL(page.url()).pathname)
-      .toContain(`/builds/${oldestBuildId}/files`);
-    await expect.poll(() => new URL(page.url()).searchParams.get("compare")).toBe(previousBuildId);
+    await expect(page).toHaveURL(new RegExp(`/builds/${oldestBuildId}/files(?:\\?|$)`));
+    await expect(page).toHaveURL(new RegExp(`[?&]compare=${previousBuildId}(?:&|$)`));
 
     const overflow = await page.getByTestId("build-timeline").evaluate((element) => ({
       width: element.clientWidth,
