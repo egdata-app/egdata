@@ -260,6 +260,12 @@ export const Route = createRootRouteWithContext<Context>()({
             async: true,
             "data-website-id": "931f85f9-f8b6-422c-882d-04864194435b",
           } as any,
+          {
+            src: "https://insights.egdata.app/egdata.js",
+            defer: true,
+            "data-site": "default",
+            "data-endpoint": "https://insights.egdata.app/api/events",
+          } as any,
         ],
   }),
 });
@@ -314,7 +320,9 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
                   <Navbar />
                   <div className="pt-6">
                     <PreferencesProvider>
-                      <CookiesProvider initialSelection={analyticsCookies as unknown as CookiesSelection}>
+                      <CookiesProvider
+                        initialSelection={analyticsCookies as unknown as CookiesSelection}
+                      >
                         <ExtensionProvider>{children}</ExtensionProvider>
                       </CookiesProvider>
                     </PreferencesProvider>
