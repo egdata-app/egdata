@@ -75,7 +75,7 @@ export function CookieBanner() {
   };
 
   return (
-    <Card className="fixed bottom-4 left-4 right-4 max-w-lg mx-auto">
+    <Card className="fixed bottom-4 left-4 right-4 z-50 max-h-[calc(100dvh-2rem)] max-w-lg mx-auto overflow-y-auto">
       <CardHeader>
         <CardTitle>Cookie Preferences</CardTitle>
       </CardHeader>
