@@ -3,8 +3,7 @@ import {
   BuildHistoryExplorer,
   buildHealthBadgeClass,
 } from "@/components/app/build-history-explorer";
-import { columns } from "@/components/tables/files/columns";
-import { DataTable } from "@/components/tables/files/table";
+import { BuildFilesTree } from "@/components/app/build-files-tree";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -24,7 +23,7 @@ import { cn } from "@/lib/utils";
 import { useTranslation } from "@/lib/paraglide-react";
 import {
   buildComparisonQueryOptions,
-  buildFilesQueryOptions,
+  buildFileTreeQueryOptions,
   buildHistoryQueryOptions,
   buildQueryOptions,
 } from "@/queries/build-details";
@@ -32,7 +31,6 @@ import type { BuildFileChangeStatus } from "@/types/builds";
 import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import type { ColumnFiltersState } from "@tanstack/react-table";
 import { AlertTriangleIcon, ChevronLeftIcon, ChevronRightIcon, SearchIcon } from "lucide-react";
 import { type FormEvent, useCallback, useEffect, useMemo, useState } from "react";
 
@@ -42,6 +40,7 @@ type BuildFilesSearch = {
   status?: string;
   q?: string;
   extension?: string;
+  path?: string;
   page: number;
 };
 
@@ -55,6 +54,7 @@ function normalizeSearch(search: Record<string, unknown>): BuildFilesSearch {
     q: typeof search.q === "string" && search.q ? search.q : undefined,
     extension:
       typeof search.extension === "string" && search.extension ? search.extension : undefined,
+    path: typeof search.path === "string" && search.path ? search.path : undefined,
     page: Number.isFinite(pageValue) && pageValue > 0 ? pageValue : 1,
   };
 }
@@ -79,20 +79,24 @@ export const Route = createFileRoute("/{-$locale}/builds/$id/files")({
       context.queryClient.ensureQueryData(buildHistoryQueryOptions(id)),
       context.queryClient.ensureQueryData(buildQueryOptions(id)),
     ]);
-    const request =
-      deps.view === "all" || !deps.compare
-        ? context.queryClient.ensureQueryData(
-            buildFilesQueryOptions(id, { page: deps.page, q: deps.q, extension: deps.extension }),
-          )
-        : context.queryClient.ensureQueryData(
-            buildComparisonQueryOptions(id, deps.compare, {
-              page: deps.page,
-              q: deps.q,
-              extension: deps.extension,
-              status: deps.status,
-            }),
-          );
-    await Promise.allSettled([request]);
+    if (deps.view === "all") {
+      await Promise.allSettled([
+        context.queryClient.ensureQueryData(
+          buildFileTreeQueryOptions(id, { path: deps.path, page: deps.page, limit: 100 }),
+        ),
+      ]);
+    } else if (deps.compare) {
+      await Promise.allSettled([
+        context.queryClient.ensureQueryData(
+          buildComparisonQueryOptions(id, deps.compare, {
+            page: deps.page,
+            q: deps.q,
+            extension: deps.extension,
+            status: deps.status,
+          }),
+        ),
+      ]);
+    }
     return { id, dehydratedState: dehydrate(context.queryClient) };
   },
 });
@@ -171,16 +175,18 @@ function FilesPage() {
           navigate({
             to: "/{-$locale}/builds/$id/files",
             params: { locale, id: buildId },
-            search: { view: "changes", page: 1 },
+            search: { view: search.view, compare: baseline, page: 1 },
           })
         }
-        onSelectBaseline={(compare) => updateSearch({ compare, view: "changes", page: 1 })}
+        onSelectBaseline={(compare) =>
+          updateSearch(search.view === "changes" ? { compare, page: 1 } : { compare })
+        }
         onSwap={() => {
           if (!baseline) return;
           navigate({
             to: "/{-$locale}/builds/$id/files",
             params: { locale, id: baseline },
-            search: { view: "changes", compare: id, page: 1 },
+            search: { view: search.view, compare: id, page: 1 },
           });
         }}
       />
@@ -194,7 +200,7 @@ function FilesPage() {
           variant={search.view === "changes" ? "default" : "outline"}
           size="sm"
           aria-pressed={search.view === "changes"}
-          onClick={() => updateSearch({ view: "changes", page: 1 })}
+          onClick={() => updateSearch({ view: "changes", path: undefined, page: 1 })}
         >
           {t("builds.comparison.changes")}
         </Button>
@@ -202,14 +208,31 @@ function FilesPage() {
           variant={search.view === "all" ? "default" : "outline"}
           size="sm"
           aria-pressed={search.view === "all"}
-          onClick={() => updateSearch({ view: "all", page: 1 })}
+          onClick={() =>
+            updateSearch({
+              view: "all",
+              status: undefined,
+              q: undefined,
+              extension: undefined,
+              path: undefined,
+              page: 1,
+            })
+          }
         >
           {t("builds.comparison.allFiles")}
         </Button>
       </div>
 
       {search.view === "all" ? (
-        <AllFiles id={id} search={search} updateSearch={updateSearch} />
+        <SandboxDataSurface title={t("builds.files.title")}>
+          <BuildFilesTree
+            id={id}
+            baseline={baseline}
+            path={search.path}
+            page={search.page}
+            onNavigate={(path, page) => updateSearch({ path, page })}
+          />
+        </SandboxDataSurface>
       ) : !baseline ? (
         <Alert data-testid="build-diff-empty">
           <AlertTriangleIcon />
@@ -506,53 +529,5 @@ function ComparisonView({
         </div>
       </SandboxDataSurface>
     </div>
-  );
-}
-
-function AllFiles({
-  id,
-  search,
-  updateSearch,
-}: {
-  id: string;
-  search: BuildFilesSearch;
-  updateSearch: UpdateSearch;
-}) {
-  const { t } = useTranslation();
-  const [page, setPage] = useState({ pageIndex: search.page - 1, pageSize: 25 });
-  const [filters, setFilters] = useState<ColumnFiltersState>([
-    ...(search.q ? [{ id: "fileName", value: search.q }] : []),
-    ...(search.extension ? [{ id: "mimeType", value: search.extension.split(",") }] : []),
-  ]);
-  const q =
-    (filters.find((filter) => filter.id === "fileName")?.value as string | undefined) ?? undefined;
-  const extension = (
-    filters.find((filter) => filter.id === "mimeType")?.value as string[] | undefined
-  )?.join(",");
-  const { data } = useQuery({
-    ...buildFilesQueryOptions(id, { page: page.pageIndex + 1, q, extension }),
-    placeholderData: keepPreviousData,
-  });
-  useEffect(() => {
-    updateSearch({ page: page.pageIndex + 1, q, extension }, true);
-  }, [extension, page.pageIndex, q, updateSearch]);
-  return (
-    <SandboxDataSurface title={t("builds.files.title")}>
-      {data?.manifestStatus && data.manifestStatus !== "verified" && (
-        <Alert>
-          <AlertTriangleIcon />
-          <AlertTitle>{t("builds.comparison.rawWarning")}</AlertTitle>
-        </Alert>
-      )}
-      <DataTable
-        columns={columns}
-        data={data?.files ?? []}
-        setPage={setPage}
-        page={page}
-        total={data?.total ?? 0}
-        filters={filters}
-        setFilters={setFilters}
-      />
-    </SandboxDataSurface>
   );
 }

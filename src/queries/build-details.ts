@@ -1,7 +1,7 @@
 import { httpClient } from "@/lib/http-client";
 import type {
   BuildComparisonResponse,
-  BuildFiles,
+  BuildFileTreeResponse,
   BuildHistoryResponse,
   SingleBuild,
 } from "@/types/builds";
@@ -42,13 +42,13 @@ export const buildHistoryQueryOptions = (id: string, scope: "stream" | "platform
     gcTime: 30 * 60 * 1000,
   });
 
-export const buildFilesQueryOptions = (
+export const buildFileTreeQueryOptions = (
   id: string,
-  options: { page: number; q?: string; extension?: string },
+  options: { path?: string; page: number; limit?: number },
 ) =>
   queryOptions({
-    queryKey: ["build-files", { id, ...options }],
-    queryFn: () => httpClient.get<BuildFiles>(`/builds/${id}/files`, { params: options }),
+    queryKey: ["build-file-tree", { id, ...options }],
+    queryFn: () => httpClient.get<BuildFileTreeResponse>(`/builds/${id}/tree`, { params: options }),
     staleTime: 5 * 60 * 1000,
     gcTime: 30 * 60 * 1000,
   });

@@ -708,7 +708,35 @@
       "installOptions": "Opciones de instalación"
     },
     "files": {
-      "title": "Archivos"
+      "title": "Archivos",
+      "breadcrumb": "Ruta del archivo",
+      "root": "Raíz",
+      "columns": {
+        "name": "Nombre",
+        "size": "Tamaño"
+      },
+      "loading": "Cargando carpeta…",
+      "error": "No se pudieron cargar los archivos",
+      "errorDescription": "Esta carpeta no está disponible ahora mismo. Inténtalo de nuevo en unos instantes.",
+      "empty": "Esta carpeta está vacía.",
+      "openFolder": "Abrir la carpeta {{name}}",
+      "selectFile": "Seleccionar el archivo {{name}}",
+      "details": {
+        "title": "Detalles del archivo",
+        "prompt": "Selecciona un archivo para consultar sus metadatos y compararlo con la compilación de referencia.",
+        "currentHash": "Hash actual",
+        "currentSize": "Tamaño actual",
+        "baselineHash": "Hash de referencia",
+        "baselineSize": "Tamaño de referencia",
+        "sizeDelta": "Cambio de tamaño",
+        "mimeType": "Tipo MIME",
+        "installTags": "Etiquetas de instalación",
+        "symlinkTarget": "Destino del enlace simbólico",
+        "flags": "Flags de metadatos del archivo",
+        "noBaseline": "No hay una compilación anterior comparable para este archivo.",
+        "comparing": "Comparando este archivo con la compilación de referencia…",
+        "comparisonUnavailable": "La comparación de este archivo no está disponible"
+      }
     },
     "header": {
       "description": "Consulta esta compilación y compárala con compilaciones observadas anteriormente.",
