@@ -4,19 +4,30 @@ import {
   currentBuildId,
   oldestBuildId,
   previousBuildId,
+  unverifiedBuild,
 } from "./support/build-fixture.mjs";
 
-async function mockBuildApi(page: Page) {
+async function mockBuildApi(page: Page, options: { treeErrorPath?: string } = {}) {
   await page.route("**/builds/**", async (route) => {
     if (route.request().resourceType() === "document") return route.continue();
-    const response = createBuildPageResponse(new URL(route.request().url()));
+    const url = new URL(route.request().url());
+    if (
+      options.treeErrorPath !== undefined &&
+      url.pathname.endsWith("/tree") &&
+      url.searchParams.get("path") === options.treeErrorPath
+    ) {
+      return route.fulfill({ status: 500, contentType: "application/json", body: "{}" });
+    }
+    const response = createBuildPageResponse(url);
     if (!response) return route.continue();
     await route.fulfill({ contentType: "application/json", body: JSON.stringify(response) });
   });
 }
 
 test.describe("build comparison", () => {
-  test("shows technical details by default and still lets visitors collapse them", async ({ page }) => {
+  test("shows technical details by default and still lets visitors collapse them", async ({
+    page,
+  }) => {
     await mockBuildApi(page);
     await page.goto(`http://localhost:3000/builds/${currentBuildId}/files`);
 
@@ -24,6 +35,25 @@ test.describe("build comparison", () => {
     await expect(details).toHaveAttribute("open", "");
     await details.locator("summary").click();
     await expect(details).not.toHaveAttribute("open", "");
+  });
+
+  test("clears comparison filters when switching to all files", async ({ page }) => {
+    await mockBuildApi(page);
+    await page.goto(
+      `http://localhost:3000/builds/${currentBuildId}/files?view=changes&page=1&compare=${previousBuildId}&q=Game&extension=exe`,
+    );
+
+    const searchInput = page.getByPlaceholder("Search the full path…");
+    const extensionInput = page.getByPlaceholder("Extension, e.g. pak");
+    await expect(searchInput).toHaveValue("Game");
+    await expect(extensionInput).toHaveValue("exe");
+
+    await page.getByRole("button", { name: "All files" }).click();
+    await expect(page).not.toHaveURL(/[?&](?:q|extension)=/);
+
+    await page.getByRole("button", { name: "Changes", exact: true }).click();
+    await expect(searchInput).toHaveValue("");
+    await expect(extensionInput).toHaveValue("");
   });
 
   test("pins the previous build and renders an accessible change summary", async ({ page }) => {
@@ -104,5 +134,90 @@ test.describe("build comparison", () => {
       scrollWidth: document.documentElement.scrollWidth,
     }));
     expect(overflow.scrollWidth).toBeLessThanOrEqual(overflow.width + 1);
+  });
+
+  test("browses the file tree and compares a selected file with the active baseline", async ({
+    page,
+  }) => {
+    const apiRequests = [];
+    page.on("request", (request) => {
+      const url = new URL(request.url());
+      if (url.hostname === "api.egdata.app") apiRequests.push(url.pathname);
+    });
+    await mockBuildApi(page);
+    await page.goto(
+      `http://localhost:3000/builds/${currentBuildId}/files?view=all&page=1&compare=${previousBuildId}`,
+    );
+
+    await expect(page.getByTestId("build-files-tree")).toBeVisible();
+    await expect(page.getByRole("button", { name: "Open folder Binaries" })).toBeVisible();
+    await page.getByRole("button", { name: "Open folder Binaries" }).click();
+    await expect(page).toHaveURL(/(?:\?|&)path=Binaries(?:&|$)/);
+    await expect(page.getByTestId("build-tree-breadcrumbs")).toContainText("Binaries");
+
+    await page.getByRole("button", { name: "Select file Game.exe" }).click();
+    const details = page.getByTestId("build-file-details");
+    await expect(details).toContainText("Binaries/Game.exe");
+    await expect(details).toContainText("new");
+    await expect(details).toContainText("old");
+    await expect(details).toContainText("Modified");
+
+    await page.getByTestId("previous-build-select").click();
+    await page.getByRole("option", { name: /BuildVersion-1\.0\.210725\.2/ }).click();
+    await expect(page).toHaveURL(/(?:\?|&)view=all(?:&|$)/);
+    await expect(page).toHaveURL(new RegExp(`[?&]compare=${oldestBuildId}(?:&|$)`));
+    await expect(page).toHaveURL(/(?:\?|&)path=Binaries(?:&|$)/);
+
+    expect(apiRequests.some((path) => path.endsWith("/tree"))).toBe(true);
+    expect(apiRequests.some((path) => path.endsWith("/files"))).toBe(false);
+  });
+
+  test("keeps folder paths in browser history and paginates directory contents", async ({
+    page,
+  }) => {
+    await mockBuildApi(page);
+    await page.goto(`http://localhost:3000/builds/${currentBuildId}/files?view=all&page=1`);
+
+    await page.getByRole("button", { name: "Open folder Many" }).click();
+    await expect(page.getByRole("button", { name: "Select file File-100.bin" })).toBeVisible();
+    await page.getByRole("button", { name: "Next page" }).click();
+    await expect(page).toHaveURL(/(?:\?|&)page=2(?:&|$)/);
+    await expect(page.getByRole("button", { name: "Select file File-101.bin" })).toBeVisible();
+
+    await page.goBack();
+    await expect(page).toHaveURL(/(?:\?|&)page=1(?:&|$)/);
+    await expect(page.getByRole("button", { name: "Select file File-100.bin" })).toBeVisible();
+    await page.getByRole("button", { name: "Root", exact: true }).click();
+    await page.getByRole("button", { name: "Open folder Empty" }).click();
+    await expect(page.getByTestId("build-tree-empty")).toHaveText("This folder is empty.");
+  });
+
+  test("shows a warning for an unverified file tree", async ({ page }) => {
+    await mockBuildApi(page);
+    await page.goto(`http://localhost:3000/builds/${unverifiedBuild.id}/files?view=all&page=1`);
+    await expect(page.getByTestId("build-tree-manifest-warning")).toBeVisible();
+  });
+
+  test("shows no-baseline details in a mobile-safe layout", async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await mockBuildApi(page);
+    await page.goto(`http://localhost:3000/builds/${oldestBuildId}/files?view=all&page=1`);
+    await expect(page.getByTestId("current-build-select")).toContainText(
+      "BuildVersion-1.0.210725.2",
+    );
+    await page.getByRole("button", { name: "Select file README.txt" }).click();
+    await expect(page.getByTestId("build-file-no-baseline")).toBeVisible();
+    const overflow = await page.evaluate(() => ({
+      width: document.documentElement.clientWidth,
+      scrollWidth: document.documentElement.scrollWidth,
+    }));
+    expect(overflow.scrollWidth).toBeLessThanOrEqual(overflow.width + 1);
+  });
+
+  test("shows an error when a tree folder cannot be loaded", async ({ page }) => {
+    await mockBuildApi(page, { treeErrorPath: "Error" });
+    await page.goto(`http://localhost:3000/builds/${currentBuildId}/files?view=all&page=1`);
+    await page.getByRole("button", { name: "Open folder Error" }).click();
+    await expect(page.getByTestId("build-tree-error")).toBeVisible({ timeout: 10_000 });
   });
 });

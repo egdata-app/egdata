@@ -35,15 +35,7 @@ export interface SingleBuild {
   manifest: ManifestHealth;
 }
 
-export interface BuildFiles {
-  files: File[];
-  manifestStatus: ManifestStatus;
-  page: number;
-  limit: number;
-  total: number;
-}
-
-export interface File {
+export interface BuildFile {
   _id: string;
   manifestHash: string;
   manifestId?: string;
@@ -58,6 +50,32 @@ export interface File {
   fileSize: number;
   mimeType: string;
   depth: number;
+}
+
+export interface BuildFileTreeDirectoryNode {
+  type: "directory";
+  name: string;
+  fileCount: number;
+  totalSize: number;
+  path: string;
+}
+
+export interface BuildFileTreeFileNode {
+  type: "file";
+  name: string;
+  file: BuildFile;
+  path: string;
+}
+
+export type BuildFileTreeNode = BuildFileTreeDirectoryNode | BuildFileTreeFileNode;
+
+export interface BuildFileTreeResponse {
+  path: string;
+  nodes: BuildFileTreeNode[];
+  manifestStatus: ManifestStatus;
+  page: number;
+  limit: number;
+  total: number;
 }
 
 export interface BuildInstallOptions {

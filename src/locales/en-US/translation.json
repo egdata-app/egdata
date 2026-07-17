@@ -708,7 +708,37 @@
       "installOptions": "Install Options"
     },
   "files": {
-    "title": "Files"
+    "title": "Files",
+    "breadcrumb": "File path",
+    "root": "Root",
+    "columns": {
+      "name": "Name",
+      "size": "Size"
+    },
+    "loading": "Loading folder…",
+    "error": "Files could not be loaded",
+    "errorDescription": "This folder is unavailable right now. Try again in a moment.",
+    "empty": "This folder is empty.",
+    "openFolder": "Open folder {{name}}",
+    "selectFile": "Select file {{name}}",
+    "details": {
+      "title": "File details",
+      "prompt": "Select a file to inspect its metadata and compare it with the baseline build.",
+      "currentHash": "Current hash",
+      "currentSize": "Current size",
+      "baselineHash": "Baseline hash",
+      "baselineSize": "Baseline size",
+      "sizeDelta": "Size change",
+      "mimeType": "MIME type",
+      "installTags": "Install tags",
+      "symlinkTarget": "Symlink target",
+      "flags": "File metadata flags",
+      "notAvailable": "N/A",
+      "zeroBytes": "0 Bytes",
+      "noBaseline": "No previous comparable build is available for this file.",
+      "comparing": "Comparing this file with the baseline build…",
+      "comparisonUnavailable": "This file comparison is unavailable"
+    }
   },
   "header": {
     "description": "Inspect this build snapshot and compare it with earlier observed builds.",
