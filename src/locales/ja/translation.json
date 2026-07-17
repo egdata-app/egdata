@@ -225,7 +225,8 @@
     },
     "badges": {
       "prePurchase": "予約購入",
-      "earlyAccess": "アーリーアクセス"
+      "earlyAccess": "アーリーアクセス",
+      "unavailableForPurchase": "購入できません"
     },
     "hero": {
       "offeredBy": "{{seller}} 提供"

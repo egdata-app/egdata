@@ -225,7 +225,8 @@
     },
     "badges": {
       "prePurchase": "الطلب المسبق",
-      "earlyAccess": "الوصول المبكر"
+      "earlyAccess": "الوصول المبكر",
+      "unavailableForPurchase": "غير متاح للشراء"
     },
     "hero": {
       "offeredBy": "مقدم من {{seller}}"

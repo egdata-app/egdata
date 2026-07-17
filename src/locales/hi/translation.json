@@ -225,7 +225,8 @@
     },
     "badges": {
       "prePurchase": "प्री-परचेज़",
-      "earlyAccess": "अर्ली एक्सेस"
+      "earlyAccess": "अर्ली एक्सेस",
+      "unavailableForPurchase": "खरीद के लिए अनुपलब्ध"
     },
     "hero": {
       "offeredBy": "{{seller}} द्वारा प्रस्तुत"

@@ -225,7 +225,8 @@
     },
     "badges": {
       "prePurchase": "Pre-Purchase",
-      "earlyAccess": "Early Access"
+      "earlyAccess": "Early Access",
+      "unavailableForPurchase": "Unavailable for purchase"
     },
     "hero": {
       "offeredBy": "Offered by {{seller}}"

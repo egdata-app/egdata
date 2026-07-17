@@ -225,7 +225,8 @@
     },
     "badges": {
       "prePurchase": "Předobjednávka",
-      "earlyAccess": "Předběžný přístup"
+      "earlyAccess": "Předběžný přístup",
+      "unavailableForPurchase": "Není k dispozici k nákupu"
     },
     "hero": {
       "offeredBy": "Nabízí {{seller}}"

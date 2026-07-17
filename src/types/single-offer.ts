@@ -9,6 +9,7 @@ export interface SingleOffer {
   longDescription: string | null;
   offerType: string;
   effectiveDate: string;
+  expiryDate?: string | null;
   creationDate: string;
   lastModifiedDate: string;
   isCodeRedemptionOnly: boolean;

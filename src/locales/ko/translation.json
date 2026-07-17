@@ -225,7 +225,8 @@
     },
     "badges": {
       "prePurchase": "선구매",
-      "earlyAccess": "얼리 액세스"
+      "earlyAccess": "얼리 액세스",
+      "unavailableForPurchase": "구매할 수 없음"
     },
     "hero": {
       "offeredBy": "{{seller}} 제공"

@@ -225,7 +225,8 @@
     },
     "badges": {
       "prePurchase": "Передзамовлення",
-      "earlyAccess": "Ранній доступ"
+      "earlyAccess": "Ранній доступ",
+      "unavailableForPurchase": "Недоступно для придбання"
     },
     "hero": {
       "offeredBy": "Пропонується {{seller}}"

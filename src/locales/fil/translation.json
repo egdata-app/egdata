@@ -225,7 +225,8 @@
     },
     "badges": {
       "prePurchase": "Pre-Purchase",
-      "earlyAccess": "Early Access"
+      "earlyAccess": "Early Access",
+      "unavailableForPurchase": "Hindi mabibili"
     },
     "hero": {
       "offeredBy": "Inaalok ni {{seller}}"

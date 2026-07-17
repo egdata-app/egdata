@@ -225,7 +225,8 @@
     },
     "badges": {
       "prePurchase": "Предварителна покупка",
-      "earlyAccess": "Ранен достъп"
+      "earlyAccess": "Ранен достъп",
+      "unavailableForPurchase": "Не е налично за покупка"
     },
     "hero": {
       "offeredBy": "Предлага се от {{seller}}"

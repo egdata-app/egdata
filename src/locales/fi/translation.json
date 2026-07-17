@@ -225,7 +225,8 @@
     },
     "badges": {
       "prePurchase": "Ennakko-osto",
-      "earlyAccess": "Early Access"
+      "earlyAccess": "Early Access",
+      "unavailableForPurchase": "Ei saatavilla ostettavaksi"
     },
     "hero": {
       "offeredBy": "Tarjoaa {{seller}}"
