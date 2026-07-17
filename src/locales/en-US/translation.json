@@ -89,12 +89,21 @@
     "sections": {
       "giveawayStats": "Giveaway Stats",
       "giveawayOffers": "Giveaway Offers",
+      "historicalLows": "Historical Lows",
       "upcomingOffers": "Upcoming Offers",
       "latestOffers": "Latest Offers",
       "latestReleased": "Latest Released",
       "latestOffersWithAchievements": "Latest Offers w/ Achievements",
       "topSellingOffers": "Top‑Selling Offers",
       "latestBuilds": "Latest Builds"
+    },
+    "historicalLows": {
+      "previous": "Previous historical-low offers",
+      "next": "Next historical-low offers",
+      "openOffer": "Open offer {{title}}",
+      "updated": "Price updated {{time}}",
+      "empty": "No historical-low offers are available for this region.",
+      "error": "Historical-low offers could not be loaded."
     },
     "tableHeaders": {
       "hash": "#",

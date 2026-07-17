@@ -17,6 +17,7 @@ import { getLatestReleased } from "@/queries/latest-released";
 import { getOffersWithAchievements } from "@/queries/offers-with-achievements";
 import { getStats } from "@/queries/stats";
 import { getTopSellers } from "@/queries/top-sellers";
+import { historicalLowsQueryOptions } from "@/queries/historical-lows";
 import type { GiveawayOffer } from "@/types/giveaways";
 import type { KeyImage } from "@/types/single-offer";
 import type { SingleItem } from "@/types/single-item";
@@ -68,6 +69,7 @@ import { mergeFreebies } from "@/utils/merge-freebies";
 import { RenderTextPlatformIcon } from "@/components/app/platform-icons";
 import { TruncatedText } from "@/lib/truncate-text";
 import { timeAgo } from "@/lib/time-ago";
+import { HistoricalLowsStrip } from "@/components/modules/historical-lows-strip";
 import { useTranslation } from "@/lib/paraglide-react";
 import type { TFunction } from "@/lib/paraglide-i18next";
 
@@ -181,6 +183,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         queryKey: ["giveaways-stats", { country }],
         queryFn: () => getGiveawaysStats({ country: country ?? "US" }).catch(() => null),
       }),
+      queryClient.prefetchQuery(historicalLowsQueryOptions(country ?? "US")),
       queryClient.prefetchQuery(liveChangelistBaseQueryOptions()),
       queryClient.prefetchQuery(getBuilds({ sortDir: "desc", sortBy: "createdAt" })),
     ]);
@@ -574,6 +577,7 @@ function RouteComponent() {
       },
     ],
   });
+  const historicalLowsQuery = useQuery(historicalLowsQueryOptions(country));
   const liveChangelistQuery = useQuery(liveChangelistQueryOptions());
   const { data: giveawayOffers = [] } = freebiesQuery;
   const { data: upcomingOffers = { elements: [] } } = upcomingQuery;
@@ -925,6 +929,12 @@ function RouteComponent() {
           />
         </Section>
       </div>
+
+      <HistoricalLowsStrip
+        offers={historicalLowsQuery.data?.offers ?? []}
+        isLoading={historicalLowsQuery.isLoading}
+        isError={historicalLowsQuery.isError}
+      />
 
       <div className="grid auto-rows-[1fr] gap-6 grid-cols-1 lg:grid-cols-2">
         <Section

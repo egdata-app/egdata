@@ -13,7 +13,7 @@ export interface SearchFormV2Props {
 
 function formatPrice(offer: SingleOfferWithPrice) {
   if (!offer.price) return null;
-  const { discountPrice, currencyCode } = offer.price;
+  const { discountPrice, currencyCode } = offer.price.price;
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: currencyCode || "USD",

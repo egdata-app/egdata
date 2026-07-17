@@ -1,4 +1,4 @@
-import type { SinglePrice } from "./price";
+import type { Price } from "./price";
 
 export interface SingleOfferWithPrice {
   _id: string;
@@ -29,7 +29,8 @@ export interface SingleOfferWithPrice {
   countriesBlacklist: string[] | null;
   countriesWhitelist: string[] | null;
   refundType: string;
-  price: SinglePrice;
+  /** The complete price record for the selected pricing region. */
+  price: Price;
 }
 
 export interface KeyImage {

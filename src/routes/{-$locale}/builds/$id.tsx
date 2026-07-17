@@ -142,7 +142,7 @@ function BuildPage() {
         <Badge variant={healthVariant}>{t(`builds.health.${build.manifest.status}`)}</Badge>
       </SandboxPageHeader>
 
-      <details className="rounded-md border border-border/60 bg-card/50 p-4">
+      <details open className="rounded-md border border-border/60 bg-card/50 p-4">
         <summary className="cursor-pointer text-sm font-semibold">
           {t("builds.header.technicalDetails")}
         </summary>

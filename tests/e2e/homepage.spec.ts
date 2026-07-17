@@ -62,6 +62,13 @@ test.describe("Homepage smoke", () => {
 
     await expect(page.getByRole("link", { name: "Giveaway Stats", exact: true })).toBeVisible();
     await expect(page.getByRole("link", { name: "Giveaway Offers", exact: true })).toBeVisible();
+    await expect(page.getByTestId("historical-lows")).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "Previous historical-low offers", exact: true }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "Next historical-low offers", exact: true }),
+    ).toBeVisible();
     await expect(page.getByRole("link", { name: "Latest Offers", exact: true })).toBeVisible();
     await expectNoAppError(page);
   });
