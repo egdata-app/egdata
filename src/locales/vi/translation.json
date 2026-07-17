@@ -225,7 +225,8 @@
     },
     "badges": {
       "prePurchase": "Đặt trước",
-      "earlyAccess": "Truy cập sớm"
+      "earlyAccess": "Truy cập sớm",
+      "unavailableForPurchase": "Không thể mua"
     },
     "hero": {
       "offeredBy": "Được cung cấp bởi {{seller}}"

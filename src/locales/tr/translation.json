@@ -225,7 +225,8 @@
     },
     "badges": {
       "prePurchase": "Ön Satın Alma",
-      "earlyAccess": "Erken Erişim"
+      "earlyAccess": "Erken Erişim",
+      "unavailableForPurchase": "Satın alınamaz"
     },
     "hero": {
       "offeredBy": "{{seller}} tarafından sunuldu"

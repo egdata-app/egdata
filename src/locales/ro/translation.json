@@ -225,7 +225,8 @@
     },
     "badges": {
       "prePurchase": "Precomandă",
-      "earlyAccess": "Acces timpuriu"
+      "earlyAccess": "Acces timpuriu",
+      "unavailableForPurchase": "Indisponibil pentru cumpărare"
     },
     "hero": {
       "offeredBy": "Oferit de {{seller}}"

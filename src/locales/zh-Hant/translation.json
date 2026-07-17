@@ -225,7 +225,8 @@
     },
     "badges": {
       "prePurchase": "預購",
-      "earlyAccess": "搶先體驗"
+      "earlyAccess": "搶先體驗",
+      "unavailableForPurchase": "暫時無法購買"
     },
     "hero": {
       "offeredBy": "由 {{seller}} 提供"

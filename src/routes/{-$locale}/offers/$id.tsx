@@ -286,6 +286,8 @@ function OfferPage() {
   }
 
   const isFabItem = offer.customAttributes.FabListingId;
+  const expiryDate = offer.expiryDate ? DateTime.fromISO(offer.expiryDate).toUTC() : null;
+  const isUnavailableForPurchase = Boolean(expiryDate?.isValid && expiryDate < DateTime.utc());
   const platformTags = offer.tags
     .filter((tag) => tag !== null)
     .filter((tag) => platformIcons[tag.id]);
@@ -313,6 +315,9 @@ function OfferPage() {
             />
             {offer.prePurchase && (
               <Badge variant="outline">{t("offerDetail.badges.prePurchase")}</Badge>
+            )}
+            {isUnavailableForPurchase && (
+              <Badge variant="destructive">{t("offerDetail.badges.unavailableForPurchase")}</Badge>
             )}
             {offer.tags.find((tag) => tag.id === "1310") && (
               <Badge variant="outline">{t("offerDetail.badges.earlyAccess")}</Badge>

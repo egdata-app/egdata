@@ -24,6 +24,7 @@ const offerPageQuery = graphql(`
       longDescription
       offerType
       effectiveDate
+      expiryDate
       creationDate
       lastModifiedDate
       isCodeRedemptionOnly
@@ -138,6 +139,7 @@ function toRestOffer(gql: NonNullable<OfferPageResult["offer"]>): SingleOffer {
     longDescription: gql.longDescription ?? null,
     offerType: gql.offerType ?? "UNKNOWN",
     effectiveDate: gql.effectiveDate ?? "",
+    expiryDate: gql.expiryDate ?? null,
     creationDate: gql.creationDate ?? "",
     lastModifiedDate: gql.lastModifiedDate ?? "",
     isCodeRedemptionOnly: gql.isCodeRedemptionOnly ?? false,
@@ -268,6 +270,7 @@ const offerOnlyQuery = graphql(`
       longDescription
       offerType
       effectiveDate
+      expiryDate
       creationDate
       lastModifiedDate
       isCodeRedemptionOnly

@@ -225,7 +225,8 @@
     },
     "badges": {
       "prePurchase": "Vooraankoop",
-      "earlyAccess": "Vroege toegang"
+      "earlyAccess": "Vroege toegang",
+      "unavailableForPurchase": "Niet beschikbaar voor aankoop"
     },
     "hero": {
       "offeredBy": "Aangeboden door {{seller}}"

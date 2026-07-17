@@ -225,7 +225,8 @@
     },
     "badges": {
       "prePurchase": "Előrendelés",
-      "earlyAccess": "Korai hozzáférés"
+      "earlyAccess": "Korai hozzáférés",
+      "unavailableForPurchase": "Nem vásárolható meg"
     },
     "hero": {
       "offeredBy": "Ajánlotta {{seller}}"

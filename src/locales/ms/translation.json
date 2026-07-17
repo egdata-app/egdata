@@ -225,7 +225,8 @@
     },
     "badges": {
       "prePurchase": "Pre-Pembelian",
-      "earlyAccess": "Akses Awal"
+      "earlyAccess": "Akses Awal",
+      "unavailableForPurchase": "Tidak tersedia untuk dibeli"
     },
     "hero": {
       "offeredBy": "Ditawarkan oleh {{seller}}"

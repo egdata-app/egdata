@@ -225,7 +225,8 @@
     },
     "badges": {
       "prePurchase": "สั่งซื้อล่วงหน้า",
-      "earlyAccess": "เล่นก่อนใคร"
+      "earlyAccess": "เล่นก่อนใคร",
+      "unavailableForPurchase": "ไม่พร้อมจำหน่าย"
     },
     "hero": {
       "offeredBy": "เสนอโดย {{seller}}"

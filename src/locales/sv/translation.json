@@ -225,7 +225,8 @@
     },
     "badges": {
       "prePurchase": "Förköp",
-      "earlyAccess": "Early Access"
+      "earlyAccess": "Early Access",
+      "unavailableForPurchase": "Inte tillgänglig för köp"
     },
     "hero": {
       "offeredBy": "Erbjuds av {{seller}}"
