@@ -42,6 +42,7 @@ export const formSchema = z.object({
       "discount",
       "discountPercent",
       "giveawayDate",
+      "priceUpdatedAt",
     ])
     .optional(),
   sortDir: z.enum(["asc", "desc"]).optional(),

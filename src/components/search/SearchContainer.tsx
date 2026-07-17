@@ -179,7 +179,6 @@ export function SearchContainer({
     if (isPriceStats(priceAgg)) {
       return {
         ...priceAgg,
-        // @ts-expect-error - TODO: fix this
         currency: results?.offers?.[0]?.price?.price?.currencyCode ?? "USD",
       };
     }

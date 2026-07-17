@@ -16,6 +16,16 @@ async function mockBuildApi(page: Page) {
 }
 
 test.describe("build comparison", () => {
+  test("shows technical details by default and still lets visitors collapse them", async ({ page }) => {
+    await mockBuildApi(page);
+    await page.goto(`http://localhost:3000/builds/${currentBuildId}/files`);
+
+    const details = page.locator("details").filter({ hasText: "Technical Details" });
+    await expect(details).toHaveAttribute("open", "");
+    await details.locator("summary").click();
+    await expect(details).not.toHaveAttribute("open", "");
+  });
+
   test("pins the previous build and renders an accessible change summary", async ({ page }) => {
     await mockBuildApi(page);
     await page.goto(`http://localhost:3000/builds/${currentBuildId}/files`);
