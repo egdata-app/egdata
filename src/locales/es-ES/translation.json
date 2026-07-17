@@ -733,6 +733,8 @@
         "installTags": "Etiquetas de instalación",
         "symlinkTarget": "Destino del enlace simbólico",
         "flags": "Flags de metadatos del archivo",
+        "notAvailable": "N/D",
+        "zeroBytes": "0 bytes",
         "noBaseline": "No hay una compilación anterior comparable para este archivo.",
         "comparing": "Comparando este archivo con la compilación de referencia…",
         "comparisonUnavailable": "La comparación de este archivo no está disponible"

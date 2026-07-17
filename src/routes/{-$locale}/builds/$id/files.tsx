@@ -208,7 +208,9 @@ function FilesPage() {
           variant={search.view === "all" ? "default" : "outline"}
           size="sm"
           aria-pressed={search.view === "all"}
-          onClick={() =>
+          onClick={() => {
+            setQuery("");
+            setExtension("");
             updateSearch({
               view: "all",
               status: undefined,
@@ -216,8 +218,8 @@ function FilesPage() {
               extension: undefined,
               path: undefined,
               page: 1,
-            })
-          }
+            });
+          }}
         >
           {t("builds.comparison.allFiles")}
         </Button>

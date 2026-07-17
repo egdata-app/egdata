@@ -733,6 +733,8 @@
       "installTags": "Install tags",
       "symlinkTarget": "Symlink target",
       "flags": "File metadata flags",
+      "notAvailable": "N/A",
+      "zeroBytes": "0 Bytes",
       "noBaseline": "No previous comparable build is available for this file.",
       "comparing": "Comparing this file with the baseline build…",
       "comparisonUnavailable": "This file comparison is unavailable"

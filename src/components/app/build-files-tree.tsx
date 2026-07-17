@@ -11,6 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { calculateSize } from "@/lib/calculate-size";
+import type { TFunction } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "@/lib/paraglide-react";
 import { buildComparisonQueryOptions, buildFileTreeQueryOptions } from "@/queries/build-details";
@@ -46,9 +47,15 @@ function statusVariant(status: BuildFileChangeStatus) {
   return variants[status];
 }
 
-function signedSize(value: number | null | undefined) {
-  if (value === null || value === undefined) return "N/A";
-  if (value === 0) return "0 Bytes";
+function localizedSize(value: number | null | undefined, t: TFunction) {
+  if (value === null || value === undefined) return t("builds.files.details.notAvailable");
+  if (value === 0) return t("builds.files.details.zeroBytes");
+  return calculateSize(value);
+}
+
+function signedSize(value: number | null | undefined, t: TFunction) {
+  if (value === null || value === undefined) return t("builds.files.details.notAvailable");
+  if (value === 0) return t("builds.files.details.zeroBytes");
   return `${value > 0 ? "+" : "−"}${calculateSize(Math.abs(value))}`;
 }
 
@@ -189,8 +196,9 @@ export function BuildFilesTree({ id, baseline, path, page, onNavigate }: BuildFi
                             </Button>
                           </TableCell>
                           <TableCell className="text-right font-mono text-xs text-muted-foreground">
-                            {calculateSize(
+                            {localizedSize(
                               node.type === "directory" ? node.totalSize : node.file.fileSize,
+                              t,
                             )}
                           </TableCell>
                         </TableRow>
@@ -271,23 +279,25 @@ export function BuildFilesTree({ id, baseline, path, page, onNavigate }: BuildFi
                     />
                     <Detail
                       label={t("builds.files.details.currentSize")}
-                      value={calculateSize(selectedFile.file.fileSize)}
+                      value={localizedSize(selectedFile.file.fileSize, t)}
                     />
                     <Detail
                       label={t("builds.files.details.mimeType")}
-                      value={selectedFile.file.mimeType || "N/A"}
+                      value={selectedFile.file.mimeType || t("builds.files.details.notAvailable")}
                     />
                     <Detail
                       label={t("builds.files.details.installTags")}
                       value={
                         selectedFile.file.installTags.length
                           ? selectedFile.file.installTags.join(", ")
-                          : "N/A"
+                          : t("builds.files.details.notAvailable")
                       }
                     />
                     <Detail
                       label={t("builds.files.details.symlinkTarget")}
-                      value={selectedFile.file.symlinkTarget || "N/A"}
+                      value={
+                        selectedFile.file.symlinkTarget || t("builds.files.details.notAvailable")
+                      }
                       mono={Boolean(selectedFile.file.symlinkTarget)}
                     />
                     <Detail
@@ -320,16 +330,19 @@ export function BuildFilesTree({ id, baseline, path, page, onNavigate }: BuildFi
                       <dl className="space-y-3 text-sm">
                         <Detail
                           label={t("builds.files.details.baselineHash")}
-                          value={selectedChange.before?.fileHash ?? "N/A"}
+                          value={
+                            selectedChange.before?.fileHash ??
+                            t("builds.files.details.notAvailable")
+                          }
                           mono={Boolean(selectedChange.before?.fileHash)}
                         />
                         <Detail
                           label={t("builds.files.details.baselineSize")}
-                          value={calculateSize(selectedChange.before?.fileSize)}
+                          value={localizedSize(selectedChange.before?.fileSize, t)}
                         />
                         <Detail
                           label={t("builds.files.details.sizeDelta")}
-                          value={signedSize(selectedChange.sizeDeltaBytes)}
+                          value={signedSize(selectedChange.sizeDeltaBytes, t)}
                           className={cn(
                             selectedChange.sizeDeltaBytes > 0 && "text-emerald-600",
                             selectedChange.sizeDeltaBytes < 0 && "text-red-600",

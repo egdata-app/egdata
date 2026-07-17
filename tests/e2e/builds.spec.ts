@@ -12,7 +12,7 @@ async function mockBuildApi(page: Page, options: { treeErrorPath?: string } = {}
     if (route.request().resourceType() === "document") return route.continue();
     const url = new URL(route.request().url());
     if (
-      options.treeErrorPath &&
+      options.treeErrorPath !== undefined &&
       url.pathname.endsWith("/tree") &&
       url.searchParams.get("path") === options.treeErrorPath
     ) {
@@ -35,6 +35,25 @@ test.describe("build comparison", () => {
     await expect(details).toHaveAttribute("open", "");
     await details.locator("summary").click();
     await expect(details).not.toHaveAttribute("open", "");
+  });
+
+  test("clears comparison filters when switching to all files", async ({ page }) => {
+    await mockBuildApi(page);
+    await page.goto(
+      `http://localhost:3000/builds/${currentBuildId}/files?view=changes&page=1&compare=${previousBuildId}&q=Game&extension=exe`,
+    );
+
+    const searchInput = page.getByPlaceholder("Search the full path…");
+    const extensionInput = page.getByPlaceholder("Extension, e.g. pak");
+    await expect(searchInput).toHaveValue("Game");
+    await expect(extensionInput).toHaveValue("exe");
+
+    await page.getByRole("button", { name: "All files" }).click();
+    await expect(page).not.toHaveURL(/[?&](?:q|extension)=/);
+
+    await page.getByRole("button", { name: "Changes", exact: true }).click();
+    await expect(searchInput).toHaveValue("");
+    await expect(extensionInput).toHaveValue("");
   });
 
   test("pins the previous build and renders an accessible change summary", async ({ page }) => {
