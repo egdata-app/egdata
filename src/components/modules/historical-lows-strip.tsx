@@ -15,6 +15,7 @@ import { useLocale } from "@/hooks/use-locale";
 import { useTranslation } from "@/lib/paraglide-react";
 import type { SearchV2Response } from "@/types/search-v2";
 import { DateTime } from "luxon";
+import { getCurrentHistoricalLowOffers, getEffectivePrice } from "@/lib/effective-price";
 
 type HistoricalLowsStripProps = {
   offers: SearchV2Response["offers"];
@@ -22,12 +23,9 @@ type HistoricalLowsStripProps = {
   isError: boolean;
 };
 
-export function HistoricalLowsStrip({
-  offers,
-  isLoading,
-  isError,
-}: HistoricalLowsStripProps) {
+export function HistoricalLowsStrip({ offers, isLoading, isError }: HistoricalLowsStripProps) {
   const { t } = useTranslation();
+  const visibleOffers = getCurrentHistoricalLowOffers(offers);
 
   return (
     <section
@@ -37,7 +35,10 @@ export function HistoricalLowsStrip({
     >
       <Carousel opts={{ align: "start", slidesToScroll: "auto" }}>
         <div className="mb-4 flex items-center justify-between gap-4">
-          <h2 id="historical-lows-title" className="font-display text-sm font-semibold text-muted-foreground">
+          <h2
+            id="historical-lows-title"
+            className="font-display text-sm font-semibold text-muted-foreground"
+          >
             {t("home.sections.historicalLows")}
           </h2>
           <div className="flex items-center gap-2">
@@ -65,13 +66,13 @@ export function HistoricalLowsStrip({
           <p className="py-8 text-center text-sm text-muted-foreground">
             {t("home.historicalLows.error")}
           </p>
-        ) : offers.length === 0 ? (
+        ) : visibleOffers.length === 0 ? (
           <p className="py-8 text-center text-sm text-muted-foreground">
             {t("home.historicalLows.empty")}
           </p>
         ) : (
           <CarouselContent className="-ml-3">
-            {offers.map((offer) => (
+            {visibleOffers.map((offer) => (
               <CarouselItem
                 key={offer.id}
                 className="basis-full pl-3 sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5"
@@ -89,7 +90,7 @@ export function HistoricalLowsStrip({
 function HistoricalLowOffer({ offer }: { offer: SearchV2Response["offers"][number] }) {
   const { t } = useTranslation();
   const { locale } = useLocale();
-  const price = offer.price.price;
+  const price = (getEffectivePrice(offer.price) ?? offer.price).price;
   const image = getImage(offer.keyImages, [
     "OfferImageWide",
     "DieselGameBoxWide",
@@ -101,7 +102,9 @@ function HistoricalLowOffer({ offer }: { offer: SearchV2Response["offers"][numbe
     Intl.NumberFormat(locale, { style: "currency", currency: price.currencyCode }).format(
       calculatePrice(amount, price.currencyCode),
     );
-  const updatedAt = DateTime.fromISO(offer.price.updatedAt).setLocale(locale ?? "en-US").toRelative();
+  const updatedAt = DateTime.fromISO(offer.price.updatedAt)
+    .setLocale(locale ?? "en-US")
+    .toRelative();
 
   return (
     <Link
@@ -119,7 +122,10 @@ function HistoricalLowOffer({ offer }: { offer: SearchV2Response["offers"][numbe
           loading="lazy"
           className="size-full object-cover transition-transform duration-300 group-hover:scale-[1.04]"
         />
-        <Badge className="absolute start-2 top-2 max-w-[calc(100%-1rem)] truncate bg-background/80 text-[0.65rem] text-foreground backdrop-blur-sm" variant="secondary">
+        <Badge
+          className="absolute start-2 top-2 max-w-[calc(100%-1rem)] truncate bg-background/80 text-[0.65rem] text-foreground backdrop-blur-sm"
+          variant="secondary"
+        >
           {offersDictionary[offer.offerType as keyof typeof offersDictionary] ?? offer.offerType}
         </Badge>
       </div>

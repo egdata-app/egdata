@@ -321,7 +321,8 @@
       "title": "Ítems"
     },
     "price": {
-      "title": "Precio"
+      "title": "Precio",
+      "inferredFromPromotionEnd": "Inferido a partir del fin de la promoción"
     },
     "related": {
       "title": "Juegos relacionados"

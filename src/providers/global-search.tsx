@@ -27,6 +27,8 @@ import { SearchContext } from "@/contexts/global-search";
 import { getPlatformsArray, textPlatformIcons } from "@/components/app/platform-icons";
 import { httpClient } from "@/lib/http-client";
 import { calculatePrice } from "@/lib/calculate-price";
+import { getEffectivePrice } from "@/lib/effective-price";
+import type { Price } from "@/types/price";
 import { useTranslation } from "@/lib/paraglide-react";
 import { useLocale } from "@/hooks/use-locale";
 import type { SingleOffer } from "@/types/single-offer";
@@ -69,12 +71,7 @@ interface GlobalSearchOffer {
     url: string;
     md5?: string;
   }> | null;
-  price?: {
-    price: {
-      currencyCode: string;
-      discountPrice: number;
-    };
-  } | null;
+  price?: Price | null;
   prePurchase?: boolean | null;
 }
 
@@ -919,19 +916,20 @@ function hasAnyResults(offers: GlobalSearchOffer[], items: SingleItem[], sellers
 }
 
 function formatOfferPrice(price: GlobalSearchOffer["price"], locale: string) {
-  if (!price) {
+  const effectivePrice = getEffectivePrice(price);
+  if (!effectivePrice) {
     return null;
   }
 
-  if (price.price.discountPrice === 0) {
+  if (effectivePrice.price.discountPrice === 0) {
     return "Free";
   }
 
   return new Intl.NumberFormat(locale, {
     style: "currency",
-    currency: price.price.currencyCode,
+    currency: effectivePrice.price.currencyCode,
     currencySign: "standard",
-  }).format(calculatePrice(price.price.discountPrice, price.price.currencyCode));
+  }).format(calculatePrice(effectivePrice.price.discountPrice, effectivePrice.price.currencyCode));
 }
 
 function formatCount(count: number) {

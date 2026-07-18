@@ -321,7 +321,8 @@
       "title": "Items"
     },
     "price": {
-      "title": "Price"
+      "title": "Price",
+      "inferredFromPromotionEnd": "Inferred from promotion end"
     },
     "related": {
       "title": "Related Offers"

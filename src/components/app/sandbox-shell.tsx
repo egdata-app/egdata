@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useCountry } from "@/hooks/use-country";
 import { useLocale } from "@/hooks/use-locale";
 import { calculatePrice } from "@/lib/calculate-price";
+import { getEffectivePrice } from "@/lib/effective-price";
 import { getImage } from "@/lib/get-image";
 import { internalNamespaces } from "@/lib/internal-namespaces";
 import { cn } from "@/lib/utils";
@@ -335,18 +336,25 @@ function getStoreUrl(offer: SingleOffer) {
 function PriceBlock({ price }: { price: Price | null }) {
   const { locale } = useLocale();
   const { t } = useTranslation();
+  const effectivePrice = getEffectivePrice(price);
 
-  if (!price) {
+  if (!effectivePrice) {
     return null;
   }
 
   const formatter = new Intl.NumberFormat(locale, {
     style: "currency",
-    currency: price.price.currencyCode || "USD",
+    currency: effectivePrice.price.currencyCode || "USD",
   });
-  const discountPrice = calculatePrice(price.price.discountPrice ?? 0, price.price.currencyCode);
-  const originalPrice = calculatePrice(price.price.originalPrice ?? 0, price.price.currencyCode);
-  const discounted = (price.price.discount ?? 0) > 0 && originalPrice > discountPrice;
+  const discountPrice = calculatePrice(
+    effectivePrice.price.discountPrice ?? 0,
+    effectivePrice.price.currencyCode,
+  );
+  const originalPrice = calculatePrice(
+    effectivePrice.price.originalPrice ?? 0,
+    effectivePrice.price.currencyCode,
+  );
+  const discounted = (effectivePrice.price.discount ?? 0) > 0 && originalPrice > discountPrice;
   const discountPercent = discounted
     ? Math.round(((originalPrice - discountPrice) / originalPrice) * 100)
     : 0;

@@ -72,6 +72,18 @@ import { timeAgo } from "@/lib/time-ago";
 import { HistoricalLowsStrip } from "@/components/modules/historical-lows-strip";
 import { useTranslation } from "@/lib/paraglide-react";
 import type { TFunction } from "@/lib/paraglide-i18next";
+import { getEffectivePrice } from "@/lib/effective-price";
+import type { Price } from "@/types/price";
+
+function formatCurrentPrice(price: Price | null | undefined, locale: string | undefined) {
+  const effectivePrice = getEffectivePrice(price);
+  const currencyCode = effectivePrice?.price.currencyCode ?? "USD";
+
+  return Intl.NumberFormat(locale ?? "en-US", {
+    style: "currency",
+    currency: currencyCode,
+  }).format(calculatePrice(effectivePrice?.price.discountPrice ?? 0, currencyCode));
+}
 
 type LiveChangeAction = "insert" | "update" | "delete" | string;
 
@@ -197,6 +209,7 @@ function OfferHoverCard({ id }: { id: string }) {
   const { data, isLoading } = useQuery(getOfferOverview({ id, country }));
 
   if (!data || isLoading) return null;
+  const price = getEffectivePrice(data.price);
 
   const formatPrice = (price: number, currencyCode: string) => {
     const fmt = new Intl.NumberFormat(locale, {
@@ -236,19 +249,19 @@ function OfferHoverCard({ id }: { id: string }) {
 
       <div className="flex items-center justify-between gap-2">
         <h3 className="text-xl font-display font-bold text-foreground">{data.offer.title}</h3>
-        {data.price && (
+        {price && (
           <div className="text-right">
-            {data.price.price.discountPrice === 0 ? (
+            {price.price.discountPrice === 0 ? (
               <span className="text-primary font-bold">{t("common.free")}</span>
             ) : (
               <div className="flex flex-col items-end">
                 <span className="text-foreground font-bold">
-                  {formatPrice(data.price.price.discountPrice, data.price.price.currencyCode)}
+                  {formatPrice(price.price.discountPrice, price.price.currencyCode)}
                 </span>
-                {data.price.price.originalPrice > data.price.price.discountPrice && (
+                {price.price.originalPrice > price.price.discountPrice && (
                   <div className="flex items-center gap-1">
                     <span className="text-xs text-muted-foreground line-through">
-                      {formatPrice(data.price.price.originalPrice, data.price.price.currencyCode)}
+                      {formatPrice(price.price.originalPrice, price.price.currencyCode)}
                     </span>
                     <Badge
                       variant="default"
@@ -256,8 +269,8 @@ function OfferHoverCard({ id }: { id: string }) {
                     >
                       -
                       {Math.round(
-                        ((data.price.price.originalPrice - data.price.price.discountPrice) /
-                          data.price.price.originalPrice) *
+                        ((price.price.originalPrice - price.price.discountPrice) /
+                          price.price.originalPrice) *
                           100,
                       )}
                       %
@@ -1042,15 +1055,7 @@ function RouteComponent() {
                 <TruncatedText text={o.title ?? t("common.notAvailable")} maxLength={40} />
               </Link>,
               o.creationDate ? formatDate(o.creationDate) : t("common.notAvailable"),
-              Intl.NumberFormat(locale, {
-                style: "currency",
-                currency: o.price?.price.currencyCode ?? "USD",
-              }).format(
-                calculatePrice(
-                  o.price?.price.discountPrice ?? 0,
-                  o.price?.price.currencyCode ?? "USD",
-                ),
-              ),
+              formatCurrentPrice(o.price, locale),
             ])}
           />
         </Section>
@@ -1111,15 +1116,7 @@ function RouteComponent() {
               >
                 <TruncatedText text={u.title ?? t("common.notAvailable")} maxLength={40} />
               </Link>,
-              Intl.NumberFormat(locale, {
-                style: "currency",
-                currency: u.price?.price.currencyCode ?? "USD",
-              }).format(
-                calculatePrice(
-                  u.price?.price.discountPrice ?? 0,
-                  u.price?.price.currencyCode ?? "USD",
-                ),
-              ),
+              formatCurrentPrice(u.price, locale),
             ])}
           />
         </Section>
@@ -1349,9 +1346,17 @@ function SearchPulseHero({
       search: { sortBy: "releaseDate", sortDir: "desc" },
     },
     { label: t("home.hero.priceDrops72h"), to: "/{-$locale}/sales" },
-    { label: t("home.hero.hasAchievements"), to: "/{-$locale}/search", search: { tags: ["19847"] } },
+    {
+      label: t("home.hero.hasAchievements"),
+      to: "/{-$locale}/search",
+      search: { tags: ["19847"] },
+    },
     { label: t("home.hero.upcoming"), to: "/{-$locale}/search", search: { sortBy: "upcoming" } },
-    { label: t("home.hero.topSellers"), to: "/{-$locale}/collections/$id", params: { id: "top-sellers" } },
+    {
+      label: t("home.hero.topSellers"),
+      to: "/{-$locale}/collections/$id",
+      params: { id: "top-sellers" },
+    },
   ];
 
   const events = useMemo(

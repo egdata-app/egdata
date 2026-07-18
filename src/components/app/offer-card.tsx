@@ -12,17 +12,19 @@ import { calculatePrice } from "@/lib/calculate-price";
 import { useLocale } from "@/hooks/use-locale";
 import { platformIcons } from "./platform-icons";
 import useExtension from "@/hooks/use-extension";
+import { getEffectivePrice } from "@/lib/effective-price";
 
 export function GameCard({ offer }: { offer: SingleOffer }) {
   const { locale } = useLocale();
+  const price = getEffectivePrice(offer.price);
   const fmt = Intl.NumberFormat(locale, {
     style: "currency",
-    currency: offer.price?.price.currencyCode || "USD",
+    currency: price?.price.currencyCode || "USD",
   });
 
   const isReleased = offer.releaseDate ? new Date(offer.releaseDate) < new Date() : false;
   const isPreOrder = offer.prePurchase;
-  const isFree = offer.price?.price.discountPrice === 0;
+  const isFree = price?.price.discountPrice === 0;
 
   const gradientImage = getImage(offer.keyImages, [
     "OfferImageTall",
@@ -60,29 +62,29 @@ export function GameCard({ offer }: { offer: SingleOffer }) {
           <div className="mt-1.5 flex items-center justify-between gap-2">
             <span className="text-xs text-muted-foreground truncate">{offer.seller.name}</span>
             <div className="inline-flex items-center gap-2 justify-end">
-              {isReleased && offer.price && (
+              {isReleased && price && (
                 <>
-                  {offer.price?.price.discount > 0 && (
+                  {price.price.discount > 0 && (
                     <span className="text-xs text-muted-foreground line-through">
-                      {fmt.format(offer.price?.price.originalPrice / 100)}
+                      {fmt.format(price.price.originalPrice / 100)}
                     </span>
                   )}
                   <span
                     className={cn(
                       "text-sm font-semibold",
-                      isFree || offer.price.price.discount > 0 ? "text-primary" : "text-foreground",
+                      isFree || price.price.discount > 0 ? "text-primary" : "text-foreground",
                     )}
                   >
-                    {isFree ? "Free" : fmt.format(offer.price?.price.discountPrice / 100)}
+                    {isFree ? "Free" : fmt.format(price.price.discountPrice / 100)}
                   </span>
                 </>
               )}
-              {!isReleased && isPreOrder && offer.price?.price.discountPrice !== undefined && (
+              {!isReleased && isPreOrder && price?.price.discountPrice !== undefined && (
                 <span className="text-sm font-semibold text-foreground">
-                  {fmt.format(offer.price.price.discountPrice / 100)}
+                  {fmt.format(price.price.discountPrice / 100)}
                 </span>
               )}
-              {!isReleased && !isPreOrder && !offer.price && (
+              {!isReleased && !isPreOrder && !price && (
                 <span className="text-sm font-semibold text-muted-foreground">Coming Soon</span>
               )}
             </div>
@@ -248,16 +250,17 @@ function OfferPrice({
   size?: "xs" | "sm" | "md" | "lg" | "xl";
 }) {
   const { locale } = useLocale();
+  const price = getEffectivePrice(offer.price);
   const fmt = Intl.NumberFormat(locale, {
     style: "currency",
-    currency: offer.price?.price.currencyCode || "USD",
+    currency: price?.price.currencyCode || "USD",
   });
 
   const isReleased = offer.releaseDate ? new Date(offer.releaseDate) < new Date() : false;
   const isPreOrder = offer.prePurchase;
-  const isFree = offer.price?.price.discountPrice === 0;
+  const isFree = price?.price.discountPrice === 0;
 
-  if (!offer.price) return null;
+  if (!price) return null;
 
   const discountTextSizes = {
     xs: "text-[0.6rem]",
@@ -275,15 +278,15 @@ function OfferPrice({
     xl: "text-xl",
   };
 
-  const formatPrice = (price: number) =>
-    fmt.format(calculatePrice(price, offer.price?.price.currencyCode ?? "USD"));
+  const formatPrice = (amount: number) =>
+    fmt.format(calculatePrice(amount, price.price.currencyCode));
 
-  const isDiscounted = (offer.price?.price.discount ?? 0) > 0;
+  const isDiscounted = price.price.discount > 0;
 
   const renderPrice = () => (
     <>
       <span className={isFree || isDiscounted ? "text-primary" : "text-foreground"}>
-        {isFree ? "Free" : formatPrice(offer.price?.price.discountPrice ?? 0)}
+        {isFree ? "Free" : formatPrice(price.price.discountPrice)}
       </span>
       {isDiscounted && (
         <span
@@ -292,7 +295,7 @@ function OfferPrice({
             discountTextSizes[size] ?? discountTextSizes.xl,
           )}
         >
-          {formatPrice(offer.price?.price.originalPrice ?? 0)}
+          {formatPrice(price.price.originalPrice)}
         </span>
       )}
     </>
@@ -301,9 +304,7 @@ function OfferPrice({
   const renderDiscountBadge = () => (
     <div className="text-xs inline-flex items-center rounded-full bg-primary text-primary-foreground px-2 py-1 font-semibold shadow-sm">
       {`-${Math.round(
-        (((offer.price?.price.originalPrice ?? 0) - (offer.price?.price.discountPrice ?? 0)) /
-          (offer.price?.price.originalPrice ?? 0)) *
-          100,
+        ((price.price.originalPrice - price.price.discountPrice) / price.price.originalPrice) * 100,
       )}%`}
     </div>
   );
@@ -320,13 +321,13 @@ function OfferPrice({
           renderPrice()
         ) : isPreOrder ? (
           renderPrice()
-        ) : offer.price && offer.price.price.discountPrice !== 0 ? (
+        ) : price.price.discountPrice !== 0 ? (
           renderPrice()
         ) : (
           <span className="text-muted-foreground">Coming Soon</span>
         )}
       </div>
-      {offer.price.price.discount > 0 && renderDiscountBadge()}
+      {price.price.discount > 0 && renderDiscountBadge()}
     </div>
   );
 }

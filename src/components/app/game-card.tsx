@@ -10,6 +10,8 @@ import { offersDictionary } from "@/lib/offers-dictionary";
 import { calculatePrice } from "@/lib/calculate-price";
 import { textPlatformIcons } from "./platform-icons";
 import { useLocale } from "@/hooks/use-locale";
+import { getEffectivePrice } from "@/lib/effective-price";
+import type { Price } from "@/types/price";
 
 export function GameCard({
   game,
@@ -73,6 +75,7 @@ export function OfferListItem({
   >;
 }) {
   const { locale } = useLocale();
+  const price = getEffectivePrice(game.price);
   const epicImage = getImage(game.keyImages, [
     "DieselGameBoxWide",
     "OfferImageWide",
@@ -81,7 +84,7 @@ export function OfferListItem({
 
   const priceFmtd = new Intl.NumberFormat(locale, {
     style: "currency",
-    currency: game.price?.price.currencyCode || "USD",
+    currency: price?.price.currencyCode || "USD",
   });
 
   return (
@@ -178,26 +181,26 @@ export function OfferListItem({
           )}
 
           {/* Price and Sale Info */}
-          {game.price && (
+          {price && (
             <div className="mt-4 flex flex-wrap items-end justify-start gap-3 md:justify-end md:gap-4">
-              {game.price.appliedRules.length > 0 && <SaleModule game={game} />}
-              {game.price.price.originalPrice !== game.price.price.discountPrice && (
+              {price.appliedRules.length > 0 && <SaleModule price={price} />}
+              {price.price.originalPrice !== price.price.discountPrice && (
                 <span className="line-through text-muted-foreground">
                   {priceFmtd.format(
-                    calculatePrice(game.price.price.originalPrice, game.price.price.currencyCode),
+                    calculatePrice(price.price.originalPrice, price.price.currencyCode),
                   )}
                 </span>
               )}
               <span
                 className={cn(
                   "text-lg font-bold",
-                  game.price.price.originalPrice !== game.price.price.discountPrice
+                  price.price.originalPrice !== price.price.discountPrice
                     ? "text-primary"
                     : "text-foreground",
                 )}
               >
                 {priceFmtd.format(
-                  calculatePrice(game.price.price.discountPrice, game.price.price.currencyCode),
+                  calculatePrice(price.price.discountPrice, price.price.currencyCode),
                 )}
               </span>
             </div>
@@ -222,8 +225,8 @@ export function OfferListItem({
 /**
  * Shows the 1st applied rule of the offer that the end date is not passed
  */
-function SaleModule({ game }: { game: Pick<SingleOffer, "price"> }) {
-  const sale = game.price?.appliedRules.find((rule) => {
+function SaleModule({ price }: { price: Price }) {
+  const sale = price.appliedRules.find((rule) => {
     return new Date(rule.endDate) > new Date();
   });
 
