@@ -20,6 +20,7 @@ import { calculatePrice } from "@/lib/calculate-price";
 import { Badge } from "@/components/ui/badge";
 import { useLocale } from "@/hooks/use-locale";
 import type { RegionalPrice, RegionData } from "@/types/regional-pricing";
+import { getEffectivePrice } from "@/lib/effective-price";
 
 const getRegionalPricing = async ({ id }: { id: string }) => {
   const response = await httpClient.get<RegionalPrice>(`/offers/${id}/regional-price`);
@@ -84,8 +85,10 @@ export function RegionalPricing({ id }: { id: string }) {
   };
 
   const sortedRegions = Object.keys(regionalPricing).sort((a, b) => {
-    const lastPriceA = regionalPricing[a].currentPrice.price.basePayoutPrice;
-    const lastPriceB = regionalPricing[b].currentPrice.price.basePayoutPrice;
+    const lastPriceA =
+      getEffectivePrice(regionalPricing[a].currentPrice)?.price.basePayoutPrice ?? 0;
+    const lastPriceB =
+      getEffectivePrice(regionalPricing[b].currentPrice)?.price.basePayoutPrice ?? 0;
 
     return sortDirection === "asc" ? lastPriceA - lastPriceB : lastPriceB - lastPriceA;
   });
@@ -134,11 +137,7 @@ export function RegionalPricing({ id }: { id: string }) {
           <TableBody>
             {sortedRegions.map((key) => {
               const regionPricing = regionalPricing[key];
-              const {
-                currentPrice: lastPrice,
-                maxPrice,
-                minPrice,
-              } = regionPricing || {
+              const { currentPrice, maxPrice, minPrice } = regionPricing || {
                 currentPrice: {
                   price: {
                     currencyCode: "USD",
@@ -149,6 +148,7 @@ export function RegionalPricing({ id }: { id: string }) {
                 maxPrice: 0,
                 minPrice: 0,
               };
+              const lastPrice = getEffectivePrice(currentPrice) ?? currentPrice;
 
               const currencyFormatter = new Intl.NumberFormat(locale, {
                 style: "currency",

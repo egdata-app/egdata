@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { useCountry } from "@/hooks/use-country";
 import { useLocale } from "@/hooks/use-locale";
 import { calculatePrice } from "@/lib/calculate-price";
+import { getEffectivePrice } from "@/lib/effective-price";
 import { getQueryClient } from "@/lib/client";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { getImage } from "@/lib/get-image";
@@ -268,9 +269,10 @@ function FranchisePage() {
 function FranchiseOfferCard({ offer }: { offer: SingleOffer }) {
   const { t } = useTranslation();
   const { locale } = useLocale();
+  const price = getEffectivePrice(offer.price);
   const fmt = Intl.NumberFormat(locale, {
     style: "currency",
-    currency: offer.price?.price.currencyCode || "USD",
+    currency: price?.price.currencyCode || "USD",
   });
 
   const imageUrl =
@@ -281,9 +283,8 @@ function FranchiseOfferCard({ offer }: { offer: SingleOffer }) {
       "OfferImageWide",
     ])?.url ?? "/placeholder.webp";
 
-  const isFree = offer.price?.price.discountPrice === 0;
-  const hasDiscount =
-    offer.price && offer.price.price.discountPrice !== offer.price.price.originalPrice;
+  const isFree = price?.price.discountPrice === 0;
+  const hasDiscount = price && price.price.discountPrice !== price.price.originalPrice;
 
   return (
     <Link to="/{-$locale}/offers/$id" params={{ id: offer.id }} preload="viewport">
@@ -303,15 +304,12 @@ function FranchiseOfferCard({ offer }: { offer: SingleOffer }) {
           <h3 className="text-lg font-semibold truncate">{offer.title}</h3>
           <div className="flex items-center justify-between">
             <span className="text-sm text-muted-foreground truncate">{offer.seller?.name}</span>
-            {offer.price && (
+            {price && (
               <div className="flex items-center gap-2">
                 {hasDiscount && (
                   <span className="text-sm text-muted-foreground line-through">
                     {fmt.format(
-                      calculatePrice(
-                        offer.price.price.originalPrice,
-                        offer.price.price.currencyCode,
-                      ),
+                      calculatePrice(price.price.originalPrice, price.price.currencyCode),
                     )}
                   </span>
                 )}
@@ -319,10 +317,7 @@ function FranchiseOfferCard({ offer }: { offer: SingleOffer }) {
                   {isFree
                     ? t("franchises.free")
                     : fmt.format(
-                        calculatePrice(
-                          offer.price.price.discountPrice,
-                          offer.price.price.currencyCode,
-                        ),
+                        calculatePrice(price.price.discountPrice, price.price.currencyCode),
                       )}
                 </span>
               </div>

@@ -3,6 +3,7 @@ import type { SingleOfferWithPrice } from "@/types/single-offer-price";
 import { GameCardSkeleton } from "@/components/app/offer-card";
 import { DynamicPagination } from "@/components/app/dynamic-pagination";
 import React from "react";
+import { getEffectivePrice } from "@/lib/effective-price";
 
 export interface SearchFormV2Props {
   query: Record<string, unknown>;
@@ -12,8 +13,9 @@ export interface SearchFormV2Props {
 }
 
 function formatPrice(offer: SingleOfferWithPrice) {
-  if (!offer.price) return null;
-  const { discountPrice, currencyCode } = offer.price.price;
+  const price = getEffectivePrice(offer.price);
+  if (!price) return null;
+  const { discountPrice, currencyCode } = price.price;
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: currencyCode || "USD",

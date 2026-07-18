@@ -18,6 +18,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useLocale } from "@/hooks/use-locale";
 import { useTranslation } from "@/lib/paraglide-react";
 import { localizeHref } from "@/lib/paraglide-strategy";
+import { getEffectivePrice } from "@/lib/effective-price";
 
 type UpcomingOffer = Pick<
   SingleOffer,
@@ -134,19 +135,22 @@ function TablePrice({
 }) {
   const { t } = useTranslation();
   const { locale } = useLocale();
+  const effectivePrice = getEffectivePrice(price);
   const fmt = Intl.NumberFormat(locale, {
     style: "currency",
-    currency: price?.price.currencyCode || "USD",
+    currency: effectivePrice?.price.currencyCode || "USD",
   });
 
-  if (!price) {
+  if (!effectivePrice) {
     return t("components.upcoming.unknown");
   }
 
   return (
     <div className="inline-flex items-center gap-2">
       {prePurchase && <Badge variant="default">{t("components.upcoming.prePurchase")}</Badge>}
-      <span className="text-primary font-bold">{fmt.format(price.price.discountPrice / 100)}</span>
+      <span className="text-primary font-bold">
+        {fmt.format(effectivePrice.price.discountPrice / 100)}
+      </span>
     </div>
   );
 }

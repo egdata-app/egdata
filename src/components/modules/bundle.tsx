@@ -19,6 +19,7 @@ import { Link } from "@/components/app/localized-link";
 import { useLocale } from "@/hooks/use-locale";
 import { getBuyLink } from "@/lib/get-build-link";
 import { useTranslation } from "@/lib/paraglide-react";
+import { getEffectivePrice } from "@/lib/effective-price";
 
 const trackEvent = (offers: { id: string; namespace: string }[], type: "bundle" | "single") => {
   window.umami?.track(`bundle-${type}`, {
@@ -113,18 +114,20 @@ export function Bundle({ id, offer }: { id: string; offer: SingleOffer }) {
 
   if (isError) return null;
 
+  const effectiveBundlePrice = getEffectivePrice(collection?.bundlePrice);
+  const effectiveTotalPrice = getEffectivePrice(collection?.totalPrice);
   const priceFmtr = new Intl.NumberFormat(locale, {
     style: "currency",
-    currency: collection?.bundlePrice.price.currencyCode ?? "USD",
+    currency: effectiveBundlePrice?.price.currencyCode ?? "USD",
   });
 
   const bundlePrice = calculatePrice(
-    collection?.bundlePrice.price.discountPrice ?? 0,
-    collection?.bundlePrice.price.currencyCode,
+    effectiveBundlePrice?.price.discountPrice ?? 0,
+    effectiveBundlePrice?.price.currencyCode,
   );
   const totalPrice = calculatePrice(
-    collection?.totalPrice.price.discountPrice ?? 0,
-    collection?.totalPrice.price.currencyCode,
+    effectiveTotalPrice?.price.discountPrice ?? 0,
+    effectiveTotalPrice?.price.currencyCode,
   );
 
   const bundleIsBetter = bundlePrice < totalPrice;

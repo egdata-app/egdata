@@ -5,6 +5,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { useCountry } from "@/hooks/use-country";
 import { useLocale } from "@/hooks/use-locale";
 import { calculatePrice } from "@/lib/calculate-price";
+import { getEffectivePrice } from "@/lib/effective-price";
 import { getImage } from "@/lib/get-image";
 import { cn } from "@/lib/utils";
 import { type Collections, getCollection, type OfferWithTops } from "@/queries/collection";
@@ -189,9 +190,10 @@ function CollectionPage() {
 
 function OfferInTop({ offer }: { offer: OfferWithTops }) {
   const { locale } = useLocale();
+  const price = getEffectivePrice(offer.price);
   const fmt = Intl.NumberFormat(locale, {
     style: "currency",
-    currency: offer.price?.price.currencyCode || "USD",
+    currency: price?.price.currencyCode || "USD",
   });
 
   const weeksInTop100 = Math.floor(offer.metadata.timesInTop100 / 7);
@@ -227,23 +229,15 @@ function OfferInTop({ offer }: { offer: OfferWithTops }) {
           <span
             className={cn(
               "text-lg font-semibold",
-              offer.price?.price.discountPrice !== offer.price?.price.originalPrice && "text-badge",
+              price?.price.discountPrice !== price?.price.originalPrice && "text-badge",
             )}
           >
-            {fmt.format(
-              calculatePrice(
-                offer.price?.price.discountPrice ?? 0,
-                offer.price?.price.currencyCode,
-              ),
-            )}
+            {fmt.format(calculatePrice(price?.price.discountPrice ?? 0, price?.price.currencyCode))}
           </span>
-          {offer.price?.price.discountPrice !== offer.price?.price.originalPrice && (
+          {price?.price.discountPrice !== price?.price.originalPrice && (
             <span className="text-lg font-medium text-muted-foreground line-through">
               {fmt.format(
-                calculatePrice(
-                  offer.price?.price.originalPrice ?? 0,
-                  offer.price?.price.currencyCode,
-                ),
+                calculatePrice(price?.price.originalPrice ?? 0, price?.price.currencyCode),
               )}
             </span>
           )}

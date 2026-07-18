@@ -25,6 +25,7 @@ import { calculatePrice } from "@/lib/calculate-price";
 import { Link } from "@/components/app/localized-link";
 import { useLocale } from "@/hooks/use-locale";
 import { useTranslation } from "@/lib/paraglide-react";
+import { getEffectivePrice, hasEffectiveDiscount } from "@/lib/effective-price";
 
 const SLIDE_DELAY = 15_000;
 
@@ -36,6 +37,10 @@ export function FeaturedDiscounts() {
     queryFn: () => getFeaturedDiscounts({ country }),
     staleTime: 5 * 60 * 1000, // 5 minutes stale time to reduce refetches
   });
+  const currentDiscounts = useMemo(
+    () => featuredDiscounts?.filter((offer) => hasEffectiveDiscount(offer.price)) ?? [],
+    [featuredDiscounts],
+  );
 
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
@@ -45,8 +50,8 @@ export function FeaturedDiscounts() {
 
   // Memoize the progress array initialization to avoid recreating on each render
   const initializeProgress = useCallback(() => {
-    return Array.from({ length: (featuredDiscounts as SingleOffer[])?.length || 0 }, () => 0);
-  }, [featuredDiscounts]);
+    return Array.from({ length: currentDiscounts.length }, () => 0);
+  }, [currentDiscounts.length]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
@@ -106,7 +111,7 @@ export function FeaturedDiscounts() {
       api.containerNode().removeEventListener("mouseenter", handleMouseEnter);
       api.containerNode().removeEventListener("mouseleave", handleMouseLeave);
     };
-  }, [api, current, isPaused, featuredDiscounts]);
+  }, [api, current, isPaused, initializeProgress]);
 
   // Memoize event handlers to prevent recreating functions on each render
   const handleNextSlide = useCallback(() => {
@@ -117,7 +122,7 @@ export function FeaturedDiscounts() {
     api?.scrollPrev();
   }, [api]);
 
-  if (!featuredDiscounts) {
+  if (currentDiscounts.length === 0) {
     return null;
   }
 
@@ -158,7 +163,7 @@ export function FeaturedDiscounts() {
         ]}
       >
         <CarouselContent>
-          {featuredDiscounts.map((offer) => (
+          {currentDiscounts.map((offer) => (
             <CarouselItem key={offer.id}>
               <FeaturedOffer offer={offer} />
             </CarouselItem>
@@ -169,7 +174,7 @@ export function FeaturedDiscounts() {
             current={current}
             total={count}
             api={api}
-            offers={featuredDiscounts}
+            offers={currentDiscounts}
             progress={progress}
           />
         </div>
@@ -378,14 +383,15 @@ const FeaturedOffer = memo(function FeaturedOffer({ offer }: { offer: SingleOffe
 const Price = memo(function Price({ offer }: { offer: SingleOffer }) {
   const { t } = useTranslation();
   const { locale } = useLocale();
+  const price = getEffectivePrice(offer.price);
   const priceFmtd = new Intl.NumberFormat(locale, {
     style: "currency",
-    currency: offer.price?.price.currencyCode || "USD",
+    currency: price?.price.currencyCode || "USD",
   });
 
-  const isFree = offer.price?.price.discountPrice === 0;
+  const isFree = price?.price.discountPrice === 0;
 
-  if (!offer.price) {
+  if (!price) {
     return (
       <span className="text-xl font-bold text-primary">{t("components.offerCard.comingSoon")}</span>
     );
@@ -393,13 +399,11 @@ const Price = memo(function Price({ offer }: { offer: SingleOffer }) {
 
   return (
     <div className="flex items-end justify-end space-x-4">
-      {offer.price?.appliedRules.length > 0 && <SaleModule price={offer.price} />}
+      {price.appliedRules.length > 0 && <SaleModule price={price} />}
       <div className="flex flex-col gap-0">
-        {offer.price?.price.originalPrice !== offer.price?.price.discountPrice && (
+        {price.price.originalPrice !== price.price.discountPrice && (
           <span className="line-through text-muted-foreground text-sm">
-            {priceFmtd.format(
-              calculatePrice(offer.price?.price.originalPrice, offer.price?.price.currencyCode),
-            )}
+            {priceFmtd.format(calculatePrice(price.price.originalPrice, price.price.currencyCode))}
           </span>
         )}
         {isFree ? (
@@ -408,9 +412,7 @@ const Price = memo(function Price({ offer }: { offer: SingleOffer }) {
           </span>
         ) : (
           <span className="text-xl font-bold text-primary">
-            {priceFmtd.format(
-              calculatePrice(offer.price?.price.discountPrice, offer.price?.price.currencyCode),
-            )}
+            {priceFmtd.format(calculatePrice(price.price.discountPrice, price.price.currencyCode))}
           </span>
         )}
       </div>

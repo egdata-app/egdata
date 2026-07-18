@@ -12,6 +12,7 @@ import { calculatePrice } from "@/lib/calculate-price";
 import { Link } from "@/components/app/localized-link";
 import { useLocale } from "@/hooks/use-locale";
 import { useTranslation } from "@/lib/paraglide-react";
+import { getEffectivePrice } from "@/lib/effective-price";
 
 const platforms: Record<string, string> = {
   "9547": "Windows",
@@ -51,6 +52,7 @@ export function TopSection({
         .then((res) => res),
     enabled: Boolean(offer?.id),
   });
+  const effectivePrice = getEffectivePrice(price);
 
   if (isLoading) {
     return <div>{t("common.loading")}</div>;
@@ -136,37 +138,43 @@ export function TopSection({
               )}
             >
               <div>
-                {price?.price?.discountPrice ? (
+                {effectivePrice?.price.discountPrice ? (
                   <div className="inline-flex items-center gap-2">
                     <span className="text-2xl font-bold">
-                      {price.price.discountPrice === 0 ? (
+                      {effectivePrice.price.discountPrice === 0 ? (
                         <span>{t("components.topSection.free")}</span>
                       ) : (
                         new Intl.NumberFormat(locale, {
                           style: "currency",
-                          currency: price.price.currencyCode,
+                          currency: effectivePrice.price.currencyCode,
                         }).format(
-                          calculatePrice(price.price.discountPrice, price.price.currencyCode),
+                          calculatePrice(
+                            effectivePrice.price.discountPrice,
+                            effectivePrice.price.currencyCode,
+                          ),
                         )
                       )}
                     </span>
-                    {price.price.discountPrice < price.price.originalPrice ? (
+                    {effectivePrice.price.discountPrice < effectivePrice.price.originalPrice ? (
                       <span className="text-sm line-through text-muted-foreground">
-                        {price.price.originalPrice === 0 ? (
+                        {effectivePrice.price.originalPrice === 0 ? (
                           <span>{t("components.topSection.free")}</span>
                         ) : (
                           new Intl.NumberFormat(locale, {
                             style: "currency",
-                            currency: price.price.currencyCode,
+                            currency: effectivePrice.price.currencyCode,
                           }).format(
-                            calculatePrice(price.price.originalPrice, price.price.currencyCode),
+                            calculatePrice(
+                              effectivePrice.price.originalPrice,
+                              effectivePrice.price.currencyCode,
+                            ),
                           )
                         )}
                       </span>
                     ) : null}
                   </div>
                 ) : null}
-                {price?.price?.discountPrice === 0 ? (
+                {effectivePrice?.price.discountPrice === 0 ? (
                   <div className="inline-flex items-center gap-2">
                     <span className="text-2xl font-bold">{t("components.topSection.free")}</span>
                   </div>

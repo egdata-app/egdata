@@ -25,6 +25,7 @@ import { calculatePrice } from "@/lib/calculate-price";
 import { useLocale } from "@/hooks/use-locale";
 import { offerOnlyQueryOptions } from "@/queries/offer-gql";
 import { useTranslation } from "@/lib/paraglide-react";
+import { getEffectivePrice } from "@/lib/effective-price";
 
 const CompareIcon = (props: JSX.IntrinsicElements["svg"]) => (
   <svg
@@ -155,7 +156,13 @@ function CompareTable() {
   );
 }
 
-function SingleGame({ query, id }: { query: UseQueryResult<SingleOffer | null, Error>; id: string }) {
+function SingleGame({
+  query,
+  id,
+}: {
+  query: UseQueryResult<SingleOffer | null, Error>;
+  id: string;
+}) {
   const { country } = useCountry();
   const { removeFromCompare } = useCompare();
   const { genres } = useGenres();
@@ -596,15 +603,17 @@ function Price({ id }: { id: string }) {
     );
   }
 
+  const currentPrice = getEffectivePrice(data.currentPrice);
+
   const priceFmtr = new Intl.NumberFormat(locale, {
     style: "currency",
-    currency: data?.currentPrice?.price?.currencyCode ?? "USD",
+    currency: currentPrice?.price.currencyCode ?? "USD",
   });
 
   return (
     <div className="flex flex-col gap-4 h-28">
       <span className="text-sm text-muted-foreground">{t("components.comparison.price")}</span>
-      {data.currentPrice && (
+      {currentPrice && (
         <div className="flex justify-evenly gap-4">
           <div className="text-center">
             <div>{t("components.comparison.current")}</div>
@@ -612,24 +621,21 @@ function Price({ id }: { id: string }) {
               <span
                 className={cn(
                   "text-sm mt-3 font-bold",
-                  data.currentPrice?.price.discount > 0
+                  currentPrice.price.discount > 0
                     ? "bg-blue-600 text-foreground px-2 rounded-md"
                     : "",
                 )}
               >
                 {priceFmtr.format(
-                  calculatePrice(
-                    data.currentPrice?.price.discountPrice,
-                    data.currentPrice?.price.currencyCode,
-                  ),
+                  calculatePrice(currentPrice.price.discountPrice, currentPrice.price.currencyCode),
                 )}
               </span>
-              {data.currentPrice?.price.discount > 0 && (
+              {currentPrice.price.discount > 0 && (
                 <span className="text-xs mt-3 font-bold line-through text-muted-foreground ml-2">
                   {priceFmtr.format(
                     calculatePrice(
-                      data.currentPrice?.price.originalPrice,
-                      data.currentPrice?.price.currencyCode,
+                      currentPrice.price.originalPrice,
+                      currentPrice.price.currencyCode,
                     ),
                   )}
                 </span>
@@ -639,13 +645,10 @@ function Price({ id }: { id: string }) {
           <div className="text-center">
             <div>{t("components.comparison.lowest")}</div>
             <div className="text-sm mt-3 font-bold">
-              {priceFmtr.format(
-                calculatePrice(data.minPrice, data.currentPrice?.price.currencyCode),
-              )}
-              {data.minPrice !== data.currentPrice?.price.originalPrice && (
+              {priceFmtr.format(calculatePrice(data.minPrice, currentPrice.price.currencyCode))}
+              {data.minPrice !== currentPrice.price.originalPrice && (
                 <span className="text-red-500 text-xs">
-                  (
-                  {Math.round((data.minPrice / data.currentPrice?.price.originalPrice) * 100) - 100}
+                  ({Math.round((data.minPrice / currentPrice.price.originalPrice) * 100) - 100}
                   %)
                 </span>
               )}
@@ -653,7 +656,7 @@ function Price({ id }: { id: string }) {
           </div>
         </div>
       )}
-      {!data.currentPrice && (
+      {!currentPrice && (
         <div className="text-sm text-muted-foreground text-center">
           {t("components.comparison.noPriceFound")}
         </div>

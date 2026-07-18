@@ -4,7 +4,7 @@ import { useTranslation } from "@/lib/paraglide-react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@/components/app/localized-link";
 import { Card, CardContent } from "@/components/ui/card";
-import { keepPreviousData, useQueries, useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQueries } from "@tanstack/react-query";
 import { httpClient } from "@/lib/http-client";
 import type { Tag } from "@/types/single-offer";
 import type { SingleSandbox } from "@/types/single-sandbox";
@@ -29,6 +29,7 @@ import { getOfferPriceFairness } from "@/queries/offer-price-fairness";
 import { RegionalPricingBadge } from "@/components/app/regional-pricing-badge";
 import { DateTime } from "luxon";
 import { formatTimeToHumanReadable } from "@/lib/time-to-human-readable";
+import { getEffectivePrice } from "@/lib/effective-price";
 
 export const Route = createFileRoute("/{-$locale}/offers/$id/")({
   component: () => {
@@ -466,7 +467,7 @@ function RouteComponent() {
                     <span className="text-xl font-bold text-muted-foreground">
                       {t("offerDetail.overview.priceCurrent")}
                     </span>
-                    <PriceText price={price?.current} />
+                    <PriceText price={getEffectivePrice(price?.current)} />
                     {priceFairness && <RegionalPricingBadge score={priceFairness} />}
                   </div>
                   <div className="flex items-start justify-start gap-2">

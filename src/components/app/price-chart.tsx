@@ -28,6 +28,8 @@ import type { SingleRegionalPrice } from "@/types/regional-pricing";
 import { DateTime } from "luxon";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
+import { getEffectivePriceHistory } from "@/lib/effective-price";
+import { useTranslation } from "@/lib/paraglide-react";
 
 const chartConfig = {
   price: {
@@ -134,6 +136,7 @@ const calculateSinceDate = (timeRange: "all" | "3y" | "1y") => {
 export function PriceChart({ selectedRegion, id, regionStats }: PriceChartProps) {
   const { regions } = useRegions();
   const { locale } = useLocale();
+  const { t } = useTranslation();
   const [timeRange, setTimeRange] = React.useState("1y");
   const [compareUSD, setCompareUSD] = React.useState(false);
   const isUSDRegion = selectedRegion === "US";
@@ -180,17 +183,24 @@ export function PriceChart({ selectedRegion, id, regionStats }: PriceChartProps)
     return <Skeleton className="w-3/4 mx-auto h-[400px]" />;
   }
 
-  const filteredData = regionPricing
+  const regionTimeline = getEffectivePriceHistory(regionPricing);
+  const usdTimeline = getEffectivePriceHistory(usdPricing);
+  const effectiveUsdPricing = usdTimeline.map(({ price }) => price);
+
+  const filteredData = regionTimeline
     // Only get 1 price per day, remove duplicates
-    .filter((item, index, self) => {
+    .filter((entry, index, self) => {
+      if (entry.inferred) return true;
       return (
         index ===
         self.findIndex(
-          (t) => new Date(t.updatedAt).toDateString() === new Date(item.updatedAt).toDateString(),
+          ({ price }) =>
+            new Date(price.updatedAt).toDateString() ===
+            new Date(entry.price.updatedAt).toDateString(),
         )
       );
     })
-    .map((item) => {
+    .map(({ price: item, inferred }) => {
       const date = new Date(item.updatedAt);
       const isComparison = compareUSD;
 
@@ -198,7 +208,8 @@ export function PriceChart({ selectedRegion, id, regionStats }: PriceChartProps)
         return {
           date: date.toISOString(),
           price: item.price.basePayoutPrice / 100,
-          usd: (findApproximateUSDPrice(item, usdPricing)?.price.discountPrice || 0) / 100,
+          usd: (findApproximateUSDPrice(item, effectiveUsdPricing)?.price.discountPrice || 0) / 100,
+          inferred,
         };
       }
 
@@ -206,6 +217,7 @@ export function PriceChart({ selectedRegion, id, regionStats }: PriceChartProps)
         date: date.toISOString(),
         price: item.price.discountPrice / 100,
         min: (regionStats?.minPrice || 0) / 100,
+        inferred,
       };
     })
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
@@ -398,6 +410,11 @@ export function PriceChart({ selectedRegion, id, regionStats }: PriceChartProps)
                         {saleName && label === "Region" && <Separator orientation="horizontal" />}
                         {saleName && label === "Region" && (
                           <span className="text-xs text-muted-foreground">{saleName}</span>
+                        )}
+                        {entry.payload.inferred && label === "Region" && (
+                          <span className="text-xs text-muted-foreground">
+                            {t("offerDetail.price.inferredFromPromotionEnd")}
+                          </span>
                         )}
                       </span>
                     );
