@@ -15,6 +15,7 @@ export interface SearchV2Response {
 
 export interface Aggregations {
   price_stats: PriceStats;
+  technologies: AggregationBuckets;
   [key: string]: AggregationBuckets | PriceStats;
 }
 

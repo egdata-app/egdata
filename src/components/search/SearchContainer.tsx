@@ -24,6 +24,7 @@ export interface SearchContainerProps {
   controls?: Partial<{
     showTitle: boolean;
     showTags: boolean;
+    showTechnologies: boolean;
     showDeveloper: boolean;
     showPublisher: boolean;
     showOfferType: boolean;
@@ -42,6 +43,7 @@ export interface SearchContainerProps {
 const defaultControls = {
   showTitle: true,
   showTags: true,
+  showTechnologies: true,
   showDeveloper: true,
   showPublisher: true,
   showOfferType: true,
@@ -190,7 +192,7 @@ export function SearchContainer({
   }, [results]);
 
   const parseAggregationBuckets = (
-    aggregation: AggregationBuckets,
+    aggregation?: AggregationBuckets,
     transformKey?: (key: string) => string,
   ): Record<string, number> => {
     const counts: Record<string, number> = {};
@@ -213,6 +215,10 @@ export function SearchContainer({
     results?.aggregations?.tags as AggregationBuckets,
     (key) => tags?.find((t) => t.name === key)?.id ?? key,
   );
+  // Technology counts
+  const technologyCounts: Record<string, number> = parseAggregationBuckets(
+    results?.aggregations?.technologies,
+  );
   // Developer counts
   const developerCounts: Record<string, number> = parseAggregationBuckets(
     results?.aggregations?.developer as AggregationBuckets,
@@ -226,6 +232,7 @@ export function SearchContainer({
   const mergedControls = { ...defaultControls, ...controls };
   const activeFilterCount = [
     query.tags,
+    query.technologies,
     query.developerDisplayName,
     query.publisherDisplayName,
     query.offerType,
@@ -256,6 +263,7 @@ export function SearchContainer({
       priceRange={priceRange}
       offerTypeCounts={offerTypeCounts}
       tagCounts={tagCounts}
+      technologyCounts={technologyCounts}
       developerCounts={developerCounts}
       publisherCounts={publisherCounts}
       controls={mergedControls}

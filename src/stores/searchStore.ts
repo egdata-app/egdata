@@ -7,6 +7,9 @@ export const formSchema = z.object({
   tags: z
     .preprocess((v) => (v == null || Array.isArray(v) ? v : [String(v)]), z.array(z.string()))
     .optional(),
+  technologies: z
+    .preprocess((v) => (v == null || Array.isArray(v) ? v : [String(v)]), z.array(z.string()))
+    .optional(),
   developerDisplayName: z
     .string()
     .nullish()

@@ -419,6 +419,8 @@
       "developer": "Developer",
       "publisher": "Publisher",
       "noTags": "No tags found",
+      "technologies": "Technologies",
+      "noTechnologies": "No technologies found",
       "seller": "Seller"
     },
     "checkboxes": {
