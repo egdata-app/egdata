@@ -32,11 +32,13 @@ export interface SearchFiltersProps {
   priceRange: { min: number; max: number; currency: string };
   offerTypeCounts: Record<string, number>;
   tagCounts: Record<string, number>;
+  technologyCounts: Record<string, number>;
   developerCounts: Record<string, number>;
   publisherCounts: Record<string, number>;
   controls: {
     showTitle: boolean;
     showTags: boolean;
+    showTechnologies: boolean;
     showDeveloper: boolean;
     showPublisher: boolean;
     showOfferType: boolean;
@@ -59,6 +61,7 @@ export function SearchFilters({
   priceRange,
   offerTypeCounts,
   tagCounts,
+  technologyCounts,
   developerCounts,
   publisherCounts,
   controls,
@@ -67,6 +70,7 @@ export function SearchFilters({
   const {
     showTitle,
     showTags,
+    showTechnologies,
     showDeveloper,
     showPublisher,
     showOfferType,
@@ -130,6 +134,21 @@ export function SearchFilters({
               />
             );
           })}
+        {showTechnologies &&
+          (isStringArray(query.technologies) ? query.technologies : []).map((technology) => (
+            <QuickPill
+              key={technology}
+              label={technology}
+              onRemove={() => {
+                handleArrayFieldChange(
+                  "technologies",
+                  (isStringArray(query.technologies) ? query.technologies : []).filter(
+                    (value) => value !== technology,
+                  ),
+                );
+              }}
+            />
+          ))}
         {showDeveloper && query.developerDisplayName && (
           <QuickPill
             label={query.developerDisplayName}
@@ -263,6 +282,52 @@ export function SearchFilters({
               </AccordionItem>
             );
           })}
+
+        {showTechnologies && (
+          <AccordionItem value="technologies">
+            <AccordionTrigger>{t("search.accordion.technologies")}</AccordionTrigger>
+            <AccordionContent className="mt-2 flex flex-col gap-2">
+              <ScrollArea>
+                <div className="flex max-h-[400px] flex-col gap-1">
+                  {Object.entries(technologyCounts)
+                    .filter(([, count]) => count > 0)
+                    .sort(([a], [b]) => a.localeCompare(b))
+                    .map(([technology, count]) => (
+                      <CheckboxWithCount
+                        key={technology}
+                        checked={
+                          isStringArray(query.technologies) &&
+                          query.technologies.includes(technology)
+                        }
+                        onChange={(checked: boolean) => {
+                          if (checked) {
+                            handleArrayFieldChange("technologies", [
+                              ...(isStringArray(query.technologies) ? query.technologies : []),
+                              technology,
+                            ]);
+                          } else {
+                            handleArrayFieldChange(
+                              "technologies",
+                              (isStringArray(query.technologies) ? query.technologies : []).filter(
+                                (value) => value !== technology,
+                              ),
+                            );
+                          }
+                        }}
+                        count={count}
+                        label={technology}
+                      />
+                    ))}
+                  {Object.values(technologyCounts).every((count) => count <= 0) && (
+                    <span className="px-4 text-muted-foreground">
+                      {t("search.accordion.noTechnologies")}
+                    </span>
+                  )}
+                </div>
+              </ScrollArea>
+            </AccordionContent>
+          </AccordionItem>
+        )}
 
         {showDeveloper && (
           <AccordionItem value="developer">
