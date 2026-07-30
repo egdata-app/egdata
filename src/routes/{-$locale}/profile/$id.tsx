@@ -797,10 +797,9 @@ function RefreshProfile({ id }: { id: string }) {
     <Tooltip delayDuration={0} open={refreshStatus?.canRefresh ? false : undefined}>
       <TooltipTrigger asChild>
         <Button
-          variant="outline"
           onClick={handleRefresh}
           disabled={isRefreshing || !refreshStatus?.canRefresh}
-          className="inline-flex items-center justify-center gap-2 bg-black/25"
+          className="border border-primary/40 bg-primary text-primary-foreground shadow-md shadow-primary/20 hover:bg-primary/90 hover:shadow-primary/30 disabled:border-white/15 disabled:bg-muted/90 disabled:text-muted-foreground disabled:shadow-none disabled:opacity-100"
         >
           <ReloadIcon className={cn("size-4", isRefreshing && "animate-spin")} />
           <span className="text-sm font-medium">{t("profile.hero.refreshProfile")}</span>
