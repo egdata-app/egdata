@@ -210,6 +210,7 @@
       "developer": "开发商",
       "supportedPlatforms": "支持平台",
       "releaseDate": "发布日期",
+      "expirationDate": "到期日期",
       "lastUpdate": "最后更新",
       "creationDate": "创建日期",
       "technologies": "技术栈",

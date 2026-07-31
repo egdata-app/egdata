@@ -210,6 +210,7 @@
       "developer": "Розробник",
       "supportedPlatforms": "Підтримувані платформи",
       "releaseDate": "Дата виходу",
+      "expirationDate": "Дата закінчення терміну дії",
       "lastUpdate": "Останнє оновлення",
       "creationDate": "Дата створення",
       "technologies": "Технології",

@@ -210,6 +210,7 @@
       "developer": "Pengembang",
       "supportedPlatforms": "Platform yang Didukung",
       "releaseDate": "Tanggal Rilis",
+      "expirationDate": "Tanggal Kedaluwarsa",
       "lastUpdate": "Pembaruan Terakhir",
       "creationDate": "Tanggal Pembuatan",
       "technologies": "Teknologi",

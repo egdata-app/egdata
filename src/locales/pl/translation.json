@@ -210,6 +210,7 @@
       "developer": "Deweloper",
       "supportedPlatforms": "Obsługiwane platformy",
       "releaseDate": "Data wydania",
+      "expirationDate": "Data wygaśnięcia",
       "lastUpdate": "Ostatnia aktualizacja",
       "creationDate": "Data utworzenia",
       "technologies": "Technologie",

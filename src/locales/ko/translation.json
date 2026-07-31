@@ -210,6 +210,7 @@
       "developer": "개발자",
       "supportedPlatforms": "지원 플랫폼",
       "releaseDate": "출시일",
+      "expirationDate": "만료일",
       "lastUpdate": "마지막 업데이트",
       "creationDate": "생성 날짜",
       "technologies": "기술",

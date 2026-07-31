@@ -210,6 +210,7 @@
       "developer": "Kehittäjä",
       "supportedPlatforms": "Tuetut alustat",
       "releaseDate": "Julkaisupäivä",
+      "expirationDate": "Vanhenemispäivä",
       "lastUpdate": "Viimeisin päivitys",
       "creationDate": "Luontipäivä",
       "technologies": "Teknologiat",

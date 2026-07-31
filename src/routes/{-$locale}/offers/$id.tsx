@@ -286,7 +286,8 @@ function OfferPage() {
   }
 
   const isFabItem = offer.customAttributes.FabListingId;
-  const expiryDate = offer.expiryDate ? DateTime.fromISO(offer.expiryDate).toUTC() : null;
+  const expiryDateValue = offer.expiryDate;
+  const expiryDate = expiryDateValue ? DateTime.fromISO(expiryDateValue).toUTC() : null;
   const isUnavailableForPurchase = Boolean(expiryDate?.isValid && expiryDate < DateTime.utc());
   const platformTags = offer.tags
     .filter((tag) => tag !== null)
@@ -421,6 +422,24 @@ function OfferPage() {
                     />
                   </TableCell>
                 </TableRow>
+                {expiryDateValue && expiryDate && (
+                  <TableRow>
+                    <TableCell className="font-medium">
+                      {t("offerDetail.table.expirationDate")}
+                    </TableCell>
+                    <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
+                      {expiryDate.setZone(timezone).setLocale("en-GB").toLocaleString({
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        hour: "numeric",
+                        minute: "numeric",
+                        timeZoneName: "short",
+                      })}
+                      <TimeAgo targetDate={expiryDateValue} />
+                    </TableCell>
+                  </TableRow>
+                )}
                 <TableRow>
                   <TableCell className="font-medium">{t("offerDetail.table.lastUpdate")}</TableCell>
                   <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
