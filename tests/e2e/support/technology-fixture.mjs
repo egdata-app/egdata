@@ -66,6 +66,20 @@ export function createTechnologyApiResponse(id) {
     };
   }
 
+  if (id === "iCue") {
+    return {
+      status: 200,
+      body: {
+        status: "unresolved",
+        id,
+        reason: "insufficient_sources",
+        generatedAt,
+        refreshAfter,
+        stale: false,
+      },
+    };
+  }
+
   if (id === "UNAVAILABLE_TECH") {
     return { status: 503, body: { error: "validation_unavailable" } };
   }

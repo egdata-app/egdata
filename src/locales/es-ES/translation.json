@@ -1029,7 +1029,7 @@
     "unresolved": {
       "ambiguous": "Este identificador puede referirse a varias tecnologías, así que no publicaremos un perfil basado en suposiciones.",
       "unknown": "No hemos podido identificar esta tecnología mediante fuentes públicas fiables.",
-      "insufficient_sources": "Hemos encontrado una posible identidad, pero no suficientes fuentes fiables para publicarla."
+      "insufficientSources": "Hemos encontrado una posible identidad, pero no suficientes fuentes fiables para publicarla."
     },
     "serviceTitle": "El perfil de tecnología no está disponible temporalmente",
     "serviceDescription": "El servicio de perfiles no ha respondido, pero puedes consultar los juegos relacionados más abajo.",

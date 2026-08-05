@@ -1029,7 +1029,7 @@
     "unresolved": {
       "ambiguous": "This identifier can refer to multiple technologies, so we are not publishing a guessed profile.",
       "unknown": "We could not identify this technology from reliable public sources.",
-      "insufficient_sources": "We found a possible identity, but not enough reliable sources to publish it."
+      "insufficientSources": "We found a possible identity, but not enough reliable sources to publish it."
     },
     "serviceTitle": "Technology profile temporarily unavailable",
     "serviceDescription": "The profile service could not respond, but matching games are still available below.",

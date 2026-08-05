@@ -127,6 +127,11 @@ test.describe("technology profiles", () => {
       description: "multiple technologies",
     },
     {
+      id: "iCue",
+      heading: "Profile unavailable for i Cue",
+      description: "not enough reliable sources",
+    },
+    {
       id: "INVALID_TECH",
       heading: "Technology not found",
       description: "does not appear in the EGDATA search index",

@@ -104,7 +104,7 @@ export function TechnologyProfileHeader({ id }: { id: string }) {
     const reason: Record<typeof query.data.reason, string> = {
       ambiguous: t("technologies.unresolved.ambiguous"),
       unknown: t("technologies.unresolved.unknown"),
-      insufficient_sources: t("technologies.unresolved.insufficient_sources"),
+      insufficient_sources: t("technologies.unresolved.insufficientSources"),
     };
     return (
       <StatusCard
