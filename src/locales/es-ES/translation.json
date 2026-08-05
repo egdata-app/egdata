@@ -1018,6 +1018,46 @@
       "freeGames": "Juegos gratis"
     }
   },
+  "technologies": {
+    "meta": {
+      "title": "Tecnología {{name}} | egdata.app",
+      "description": "Conoce {{name}} y explora los juegos que usan esta tecnología en la Epic Games Store."
+    },
+    "pendingTitle": "Investigando {{name}}",
+    "pendingDescription": "Estamos creando este perfil de tecnología. Puedes consultar los juegos relacionados mientras termina la investigación.",
+    "unresolvedTitle": "Perfil no disponible para {{name}}",
+    "unresolved": {
+      "ambiguous": "Este identificador puede referirse a varias tecnologías, así que no publicaremos un perfil basado en suposiciones.",
+      "unknown": "No hemos podido identificar esta tecnología mediante fuentes públicas fiables.",
+      "insufficient_sources": "Hemos encontrado una posible identidad, pero no suficientes fuentes fiables para publicarla."
+    },
+    "serviceTitle": "El perfil de tecnología no está disponible temporalmente",
+    "serviceDescription": "El servicio de perfiles no ha respondido, pero puedes consultar los juegos relacionados más abajo.",
+    "notFoundTitle": "Tecnología no encontrada",
+    "notFoundDescription": "Esta clave de tecnología exacta no aparece en el índice de búsqueda de EGDATA.",
+    "official": "Sitio oficial",
+    "sources": "Fuentes",
+    "generatedOn": "Generado el {{date}}",
+    "aiDisclosure": "Perfil en inglés generado por IA y contrastado con las fuentes web citadas.",
+    "stale": "Este perfil se está actualizando.",
+    "matchingGames": "Juegos que usan {{name}}",
+    "externalLink": "se abre en una pestaña nueva",
+    "categories": {
+      "engine": "Motor",
+      "graphics": "Gráficos",
+      "audio": "Audio",
+      "physics": "Física",
+      "networking": "Redes",
+      "anti_cheat": "Antitrampas",
+      "runtime": "Entorno de ejecución",
+      "framework": "Framework",
+      "middleware": "Middleware",
+      "platform_service": "Servicio de plataforma",
+      "tooling": "Herramientas",
+      "file_format": "Formato de archivo",
+      "other": "Otros"
+    }
+  },
   "franchises": {
     "meta": {
       "notFoundTitle": "Franquicia no encontrada",

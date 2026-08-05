@@ -115,7 +115,10 @@ export function SearchContainer({
   const prevSearchRef = useRef<TypeOf<typeof formSchema> | undefined>(undefined);
 
   // Debounce query for search
-  const mergedQuery = useMemo(() => mergeSearchStates(query, fixedParams), [query, fixedParams]);
+  const mergedQuery = useMemo(
+    () => ({ ...query, ...fixedParams }) as Partial<SearchState>,
+    [query, fixedParams],
+  );
   const debouncedQuery = useDebounce(mergedQuery, 300);
   const { country } = useCountry();
 
@@ -230,21 +233,23 @@ export function SearchContainer({
 
   // Controls (merge defaults with overrides)
   const mergedControls = { ...defaultControls, ...controls };
-  const activeFilterCount = [
-    query.tags,
-    query.technologies,
-    query.developerDisplayName,
-    query.publisherDisplayName,
-    query.offerType,
-    query.onSale,
-    query.isCodeRedemptionOnly,
-    query.excludeBlockchain,
-    query.pastGiveaways,
-    query.seller,
-    query.price,
-    query.isLowestPrice,
-    query.isLowestPriceEver,
-  ].reduce((count, value) => {
+  const editableFilterValues: Array<[boolean, unknown]> = [
+    [mergedControls.showTags, query.tags],
+    [mergedControls.showTechnologies, query.technologies],
+    [mergedControls.showDeveloper, query.developerDisplayName],
+    [mergedControls.showPublisher, query.publisherDisplayName],
+    [mergedControls.showOfferType, query.offerType],
+    [mergedControls.showOnSale, query.onSale],
+    [mergedControls.showCodeRedemption, query.isCodeRedemptionOnly],
+    [mergedControls.showBlockchain, query.excludeBlockchain],
+    [mergedControls.showPastGiveaways, query.pastGiveaways],
+    [mergedControls.showSeller, query.seller],
+    [mergedControls.showPrice, query.price],
+    [mergedControls.showLowestPrice, query.isLowestPrice],
+    [mergedControls.showLowestPriceEver, query.isLowestPriceEver],
+  ];
+  const activeFilterCount = editableFilterValues.reduce((count, [editable, value]) => {
+    if (!editable) return count;
     if (Array.isArray(value)) {
       return count + value.length;
     }

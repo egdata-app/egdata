@@ -5,7 +5,7 @@ export const SECURITY_HEADERS = {
     "style-src 'self' 'unsafe-inline' https://cdn.egdata.app chrome-extension: moz-extension:",
     "img-src 'self' data: blob: https: chrome-extension: moz-extension:",
     "font-src 'self' data: https://cdn.egdata.app chrome-extension: moz-extension:",
-    "connect-src 'self' https://api.egdata.app https://cdn.egdata.app https://pulse.egdata.app https://analytics.egdata.app https://insights.egdata.app https://kv.better-auth.com https://www.google-analytics.com https://*.analytics.google.com https://stats.g.doubleclick.net https://analytics.ahrefs.com https://cloudflareinsights.com chrome-extension: moz-extension:",
+    "connect-src 'self' https://api.egdata.app https://technologies-api.egdata.app https://technologies-api-staging.egdata.app https://cdn.egdata.app https://pulse.egdata.app https://analytics.egdata.app https://insights.egdata.app https://kv.better-auth.com https://www.google-analytics.com https://*.analytics.google.com https://stats.g.doubleclick.net https://analytics.ahrefs.com https://cloudflareinsights.com chrome-extension: moz-extension:",
     "media-src 'self' https://cdn.egdata.app https://cdn1.epicgames.com https://media-cdn.epicgames.com",
     "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com",
     "worker-src 'self' blob:",

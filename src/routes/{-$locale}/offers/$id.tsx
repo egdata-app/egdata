@@ -54,6 +54,7 @@ import { Bell } from "lucide-react";
 import { Suspense } from "react";
 import { useCookies } from "react-cookie";
 import { OffersHomeSkeleton } from "@/components/skeletons/offers-home";
+import { TechnologyLink } from "@/components/technology/TechnologyLink";
 import { useTranslation } from "@/lib/paraglide-react";
 import i18n from "@/lib/i18n";
 
@@ -567,7 +568,12 @@ function OfferPage() {
                             key={`${technology.section}-${technology.technology}`}
                             className="font-mono"
                           >
-                            {technology.technology}
+                            <TechnologyLink
+                              id={technology.technology}
+                              className="underline-offset-4 hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                            >
+                              {technology.technology}
+                            </TechnologyLink>
                             <sup className="ml-[2px] text-[0.68rem]">{technology.section}</sup>
                             {index < array.length - 1 && ","}
                           </span>

@@ -1,6 +1,11 @@
 import { createServer } from "node:http";
 import { createProfilePageResponse, isProfilePageRequest } from "./profile-fixture.mjs";
 import { createBuildPageResponse } from "./build-fixture.mjs";
+import {
+  createTechnologyApiResponse,
+  createTechnologyOfferResponse,
+  isTechnologyOfferRequest,
+} from "./technology-fixture.mjs";
 
 const port = Number(process.env.E2E_API_PROXY_PORT ?? "3101");
 const upstreamUrl = process.env.E2E_API_UPSTREAM ?? "https://api.egdata.app";
@@ -15,6 +20,19 @@ const server = createServer(async (request, response) => {
   }
 
   if (request.method === "GET") {
+    const technologyPrefix = "/v1/technologies/";
+    if (url.pathname.startsWith(technologyPrefix)) {
+      const id = decodeURIComponent(url.pathname.slice(technologyPrefix.length));
+      const technologyResponse = createTechnologyApiResponse(id);
+      sendJson(
+        response,
+        technologyResponse.body,
+        technologyResponse.status,
+        technologyResponse.headers,
+      );
+      return;
+    }
+
     const buildResponse = createBuildPageResponse(url);
     if (buildResponse) {
       sendJson(response, buildResponse);
@@ -24,6 +42,15 @@ const server = createServer(async (request, response) => {
 
   const body = await readBody(request);
   const payload = parseJson(body);
+
+  if (
+    request.method === "POST" &&
+    url.pathname === "/graphql" &&
+    isTechnologyOfferRequest(payload)
+  ) {
+    sendJson(response, createTechnologyOfferResponse(payload.variables.id));
+    return;
+  }
 
   if (request.method === "POST" && url.pathname === "/graphql" && isProfilePageRequest(payload)) {
     sendJson(response, createProfilePageResponse(payload.variables));
@@ -55,8 +82,8 @@ function parseJson(body) {
   }
 }
 
-function sendJson(response, body) {
-  response.writeHead(200, { "content-type": "application/json" });
+function sendJson(response, body, status = 200, headers = {}) {
+  response.writeHead(status, { "content-type": "application/json", ...headers });
   response.end(JSON.stringify(body));
 }
 
