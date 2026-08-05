@@ -1035,6 +1035,7 @@
     "serviceDescription": "El servicio de perfiles no ha respondido, pero puedes consultar los juegos relacionados más abajo.",
     "notFoundTitle": "Tecnología no encontrada",
     "notFoundDescription": "Esta clave de tecnología exacta no aparece en el índice de búsqueda de EGDATA.",
+    "logoAlt": "Logotipo de {{name}}",
     "official": "Sitio oficial",
     "sources": "Fuentes",
     "generatedOn": "Generado el {{date}}",

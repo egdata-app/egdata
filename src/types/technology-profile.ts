@@ -22,6 +22,11 @@ export const technologySourceSchema = z.strictObject({
   kind: z.enum(["official", "documentation", "repository", "secondary"]),
 });
 
+export const technologyLogoSchema = z.strictObject({
+  url: z.string().url().max(2_048),
+  sourceUrl: z.string().url().max(2_048),
+});
+
 export const technologyProfileSchema = z.strictObject({
   displayName: z.string().min(2).max(120),
   summary: z.string().min(40).max(1_200),
@@ -38,6 +43,7 @@ export const technologyResponseSchema = z.discriminatedUnion("status", [
     id: z.string().min(1).max(128),
     profile: technologyProfileSchema,
     sources: z.array(technologySourceSchema).min(2).max(8),
+    logo: technologyLogoSchema.nullable(),
     generatedAt: z.string().datetime(),
     refreshAfter: z.string().datetime(),
     stale: z.boolean(),

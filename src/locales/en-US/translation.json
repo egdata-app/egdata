@@ -1035,6 +1035,7 @@
     "serviceDescription": "The profile service could not respond, but matching games are still available below.",
     "notFoundTitle": "Technology not found",
     "notFoundDescription": "This exact technology key does not appear in the EGDATA search index.",
+    "logoAlt": "{{name}} logo",
     "official": "Official site",
     "sources": "Sources",
     "generatedOn": "Generated {{date}}",

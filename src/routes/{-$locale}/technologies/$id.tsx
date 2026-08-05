@@ -40,6 +40,9 @@ export const Route = createFileRoute("/{-$locale}/technologies/$id")({
         ? loaderData.technology.profile.summary
         : i18n.t("technologies.meta.description", { name });
     const title = i18n.t("technologies.meta.title", { name });
+    const logoUrl =
+      loaderData?.technology?.status === "ready" ? loaderData.technology.logo?.url : null;
+    const logoAlt = i18n.t("technologies.logoAlt", { name });
 
     return {
       meta: [
@@ -49,6 +52,15 @@ export const Route = createFileRoute("/{-$locale}/technologies/$id")({
         { property: "og:description", content: description },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
+        ...(logoUrl
+          ? [
+              { property: "og:image", content: logoUrl },
+              { property: "og:image:alt", content: logoAlt },
+              { name: "twitter:card", content: "summary" },
+              { name: "twitter:image", content: logoUrl },
+              { name: "twitter:image:alt", content: logoAlt },
+            ]
+          : []),
       ],
     };
   },

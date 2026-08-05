@@ -38,6 +38,19 @@ async function mockTechnologyClient(
   page: Page,
   resolve = (id: string) => createTechnologyApiResponse(id),
 ) {
+  await page.route(
+    "https://technologies-api.egdata.app/v1/assets/technology-logos/**",
+    async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: "image/png",
+        body: Buffer.from(
+          "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=",
+          "base64",
+        ),
+      });
+    },
+  );
   await page.route("https://technologies-api.egdata.app/v1/technologies/**", async (route) => {
     const pathname = new URL(route.request().url()).pathname;
     const id = decodeURIComponent(pathname.slice(pathname.lastIndexOf("/") + 1));
@@ -60,6 +73,13 @@ test.describe("technology profiles", () => {
     await page.goto("/technologies/NVIDIA_DLSS?technologies=OVERRIDE&title=ray");
 
     await expect(page.getByRole("heading", { name: "NVIDIA DLSS", exact: true })).toBeVisible();
+    const logo = page.getByRole("img", { name: "NVIDIA DLSS logo" });
+    await expect(logo).toBeVisible();
+    await expect(logo).toHaveAttribute(
+      "src",
+      `https://technologies-api.egdata.app/v1/assets/technology-logos/${"a".repeat(64)}.png`,
+    );
+    await expect.poll(() => logo.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBe(1);
     await expect(page).toHaveTitle("NVIDIA DLSS Technology | egdata.app");
     await expect(page.getByRole("link", { name: /Official site/u })).toHaveAttribute(
       "href",
@@ -140,6 +160,7 @@ test.describe("technology profiles", () => {
     await page.goto("/es-ES/technologies/NVIDIA_DLSS");
 
     await expect(page.locator("html")).toHaveAttribute("lang", "es-ES");
+    await expect(page.getByRole("img", { name: "Logotipo de NVIDIA DLSS" })).toBeVisible();
     await expect(page.getByRole("heading", { name: "Fuentes" })).toBeVisible();
     await expect(page.getByText("Juegos que usan NVIDIA DLSS")).toBeVisible();
     await expect(

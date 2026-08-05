@@ -114,7 +114,7 @@ export function TechnologyProfileHeader({ id }: { id: string }) {
     );
   }
 
-  const { profile, sources } = query.data;
+  const { logo, profile, sources } = query.data;
   const categories: Record<TechnologyCategory, string> = {
     engine: t("technologies.categories.engine"),
     graphics: t("technologies.categories.graphics"),
@@ -138,17 +138,32 @@ export function TechnologyProfileHeader({ id }: { id: string }) {
     <section className="rounded-lg border border-border/60 bg-card/50 p-5 md:p-6">
       <div className="flex flex-col gap-4">
         <div className="flex flex-col items-start justify-between gap-3 md:flex-row md:gap-6">
-          <div className="min-w-0 space-y-3">
-            <h1 lang="en" className="font-display text-3xl font-bold tracking-tight md:text-4xl">
-              {profile.displayName}
-            </h1>
-            <div className="flex flex-wrap gap-2">
-              <Badge variant="secondary">{categories[profile.category]}</Badge>
-              {profile.vendor && (
-                <Badge lang="en" variant="outline">
-                  {profile.vendor}
-                </Badge>
-              )}
+          <div className="flex min-w-0 items-start gap-4">
+            {logo && (
+              <div className="flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border/60 bg-muted/40 p-2 sm:size-20">
+                <img
+                  src={logo.url}
+                  alt={t("technologies.logoAlt", { name: profile.displayName })}
+                  width={80}
+                  height={80}
+                  loading="eager"
+                  decoding="async"
+                  className="size-full object-contain"
+                />
+              </div>
+            )}
+            <div className="min-w-0 space-y-3">
+              <h1 lang="en" className="font-display text-3xl font-bold tracking-tight md:text-4xl">
+                {profile.displayName}
+              </h1>
+              <div className="flex flex-wrap gap-2">
+                <Badge variant="secondary">{categories[profile.category]}</Badge>
+                {profile.vendor && (
+                  <Badge lang="en" variant="outline">
+                    {profile.vendor}
+                  </Badge>
+                )}
+              </div>
             </div>
           </div>
           {profile.officialUrl && (

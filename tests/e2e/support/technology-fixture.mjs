@@ -29,6 +29,10 @@ export function createReadyTechnologyResponse(id = "NVIDIA_DLSS", displayName = 
         kind: "documentation",
       },
     ],
+    logo: {
+      url: `https://technologies-api.egdata.app/v1/assets/technology-logos/${"a".repeat(64)}.png`,
+      sourceUrl: "https://www.nvidia.com/en-us/geforce/technologies/dlss/",
+    },
     generatedAt,
     refreshAfter,
     stale: false,
