@@ -236,6 +236,35 @@ export function PriceChart({ selectedRegion, id, regionStats }: PriceChartProps)
       return date >= now;
     });
 
+  // If the price has never been updated within the selected time frame
+  // (e.g. it hasn't changed since release years ago), fall back to showing
+  // the current price as of today so the chart isn't empty.
+  if (filteredData.length === 0 && regionStats?.currentPrice) {
+    const currentPrice = regionStats.currentPrice;
+    const nowIso = new Date().toISOString();
+
+    if (compareUSD) {
+      filteredData.push({
+        date: nowIso,
+        price: currentPrice.price.basePayoutPrice / 100,
+        usd:
+          (findApproximateUSDPrice(currentPrice, effectiveUsdPricing)?.price.discountPrice || 0) /
+          100,
+        inferred: false,
+      });
+    } else {
+      filteredData.push({
+        date: nowIso,
+        price: currentPrice.price.discountPrice / 100,
+        min: (regionStats?.minPrice || 0) / 100,
+        inferred: false,
+      });
+    }
+  }
+
+  const currencyCode =
+    regionPricing[0]?.price.currencyCode || regionStats?.currentPrice?.price.currencyCode || "USD";
+
   return (
     <Card className="w-full md:w-3/4 mx-auto" id="price-chart">
       <CardHeader className="flex flex-col items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
@@ -355,7 +384,7 @@ export function PriceChart({ selectedRegion, id, regionStats }: PriceChartProps)
               tickFormatter={(value) => {
                 const formatter = new Intl.NumberFormat(locale, {
                   style: "currency",
-                  currency: compareUSD ? "USD" : regionPricing[0]?.price.currencyCode || "USD",
+                  currency: compareUSD ? "USD" : currencyCode,
                   compactDisplay: "short",
                   maximumFractionDigits: 0,
                   currencyDisplay: "symbol",
@@ -379,7 +408,7 @@ export function PriceChart({ selectedRegion, id, regionStats }: PriceChartProps)
                     const regionName = regions?.[selectedRegion]?.description || selectedRegion;
                     const formatter = new Intl.NumberFormat(locale, {
                       style: "currency",
-                      currency: compareUSD ? "USD" : regionPricing[0].price.currencyCode,
+                      currency: compareUSD ? "USD" : currencyCode,
                     });
 
                     const saleName = regionPricing.find(
