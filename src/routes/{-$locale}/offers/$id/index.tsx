@@ -458,11 +458,6 @@ function RouteComponent() {
             <Card className="w-full bg-card text-card-foreground p-4">
               <CardContent className="p-6">
                 <div className="flex flex-col gap-4">
-                  {priceFairness && (
-                    <div className="flex items-start justify-start gap-2">
-                      <RegionalPricingBadge score={priceFairness} />
-                    </div>
-                  )}
                   <div className="flex items-start justify-start gap-2 flex-wrap">
                     <span className="text-xl font-bold text-muted-foreground">
                       {t("offerDetail.overview.priceCurrent")}
