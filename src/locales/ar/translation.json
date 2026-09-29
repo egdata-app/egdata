@@ -717,7 +717,7 @@
       "invalid": "بيان غير صالح",
       "unavailable": "غير متاح",
       "failed": "فشلت المعالجة",
-      "legacy_unverified": "لم يتم التحقق بعد"
+      "legacyUnverified": "لم يتم التحقق بعد"
     },
     "timeline": {
       "title": "Observed build history",

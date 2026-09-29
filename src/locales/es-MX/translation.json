@@ -717,7 +717,7 @@
       "invalid": "Manifiesto inválido",
       "unavailable": "No disponible",
       "failed": "Error de procesamiento",
-      "legacy_unverified": "Aún sin verificar"
+      "legacyUnverified": "Aún sin verificar"
     },
     "timeline": {
       "title": "Historial de compilaciones observadas",

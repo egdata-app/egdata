@@ -717,7 +717,7 @@
       "invalid": "Di-wastong manifest",
       "unavailable": "Hindi available",
       "failed": "Nabigo ang pagproseso",
-      "legacy_unverified": "Hindi pa na-verify"
+      "legacyUnverified": "Hindi pa na-verify"
     },
     "timeline": {
       "title": "Observed build history",

@@ -1,3 +1,4 @@
+import { SandboxQueryState } from "@/components/app/sandbox-catalog";
 import { httpClient } from "@/lib/http-client";
 import type { Build } from "@/types/builds";
 import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
@@ -42,14 +43,12 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id/builds")({
     const { id } = params;
     const { queryClient } = context;
 
-    await queryClient.ensureQueryData({
+    await queryClient.prefetchQuery({
       queryKey: ["sandbox", "builds", { id, page: 1, limit: 20, filters: [] }],
       queryFn: () =>
-        httpClient
-          .get<PaginatedResponse<Build>>(`/sandboxes/${id}/builds`, {
-            params: { page: 1, limit: 20 },
-          })
-          .catch(() => null),
+        httpClient.get<PaginatedResponse<Build>>(`/sandboxes/${id}/builds`, {
+          params: { page: 1, limit: 20 },
+        }),
     });
 
     return {
@@ -106,7 +105,7 @@ function SandboxBuildsPage() {
   const { id } = Route.useParams();
   const [page, setPage] = useState({ pageIndex: 0, pageSize: 20 });
   const [filters, setFilters] = useState<ColumnFiltersState>([]);
-  const buildsQuery = useQuery({
+  const recordsQuery = useQuery({
     queryKey: [
       "sandbox",
       "builds",
@@ -128,10 +127,21 @@ function SandboxBuildsPage() {
     placeholderData: keepPreviousData,
   });
 
-  const { data: buildsData } = buildsQuery;
+  const {
+    data: buildsData,
+    isPending,
+    isError,
+    isFetching,
+    isPlaceholderData,
+    refetch,
+  } = recordsQuery;
+  const updateFilters: typeof setFilters = (next) => {
+    setFilters(next);
+    setPage((current) => ({ ...current, pageIndex: 0 }));
+  };
 
   return (
-    <div className="flex flex-col gap-6 w-full">
+    <div className="flex min-w-0 flex-col gap-5 w-full">
       <SandboxPageHeader
         icon={PackageIcon}
         eyebrow={t("sandboxes.buildsEyebrow")}
@@ -141,15 +151,34 @@ function SandboxBuildsPage() {
           { label: t("sandboxes.totalBuildsLabel"), value: formatSandboxCount(buildsData?.count) },
         ]}
       />
-      <DataTable
-        columns={columns}
-        data={buildsData?.elements ?? []}
-        setPage={setPage}
-        page={page}
-        total={buildsData?.count ?? 0}
-        filters={filters}
-        setFilters={setFilters}
-      />
+      {isFetching && !isPending && (
+        <p role="status" className="text-sm text-muted-foreground">
+          {t("sandboxCatalog.refreshing")}
+        </p>
+      )}
+      {isPending ? (
+        <SandboxQueryState loading />
+      ) : isError ? (
+        <SandboxQueryState error retry={() => void refetch()} />
+      ) : (
+        <div aria-busy={isFetching} className={isPlaceholderData ? "opacity-60" : ""}>
+          <DataTable
+            columns={columns}
+            data={buildsData?.elements ?? []}
+            setPage={setPage}
+            page={page}
+            total={buildsData?.count ?? 0}
+            filters={filters}
+            setFilters={updateFilters}
+            emptyContent={
+              <SandboxQueryState
+                empty={!filters.length}
+                reset={filters.length ? () => updateFilters([]) : undefined}
+              />
+            }
+          />
+        </div>
+      )}
     </div>
   );
 }

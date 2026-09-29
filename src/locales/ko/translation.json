@@ -717,7 +717,7 @@
       "invalid": "잘못된 매니페스트",
       "unavailable": "사용할 수 없음",
       "failed": "처리 실패",
-      "legacy_unverified": "아직 검증되지 않음"
+      "legacyUnverified": "아직 검증되지 않음"
     },
     "timeline": {
       "title": "Observed build history",

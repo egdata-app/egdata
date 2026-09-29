@@ -1,17 +1,14 @@
-import { OfferCard } from "@/components/app/offer-card";
-import {
-  formatSandboxCount,
-  SandboxDataSurface,
-  SandboxPageHeader,
-} from "@/components/app/sandbox-layout";
+import { SandboxCatalogPreviews, SandboxQueryState } from "@/components/app/sandbox-catalog";
+import { sandboxCatalogGroups } from "@/lib/sandbox-catalog";
+import { sandboxViewTransition } from "@/lib/sandbox-transition";
+import { sandboxCatalogQueryOptions } from "@/queries/sandbox-catalog";
+import { formatSandboxCount, SandboxDataSurface } from "@/components/app/sandbox-layout";
 import { EpicTrophyIcon } from "@/components/icons/epic-trophy";
-import { Button } from "@/components/ui/button";
 import { useCountry } from "@/hooks/use-country";
 import { calculateSize } from "@/lib/calculate-size";
 import i18n from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { sandboxHubQueryOptions, type SandboxHubData } from "@/queries/sandbox-hub";
-import type { SingleOffer } from "@/types/single-offer";
 import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -24,7 +21,6 @@ import {
   LibrarySquareIcon,
   PackageIcon,
   StoreIcon,
-  Workflow,
 } from "lucide-react";
 import { useTranslation } from "@/lib/paraglide-react";
 
@@ -57,6 +53,18 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id/")({
       )
       .catch(() => null);
 
+    await Promise.all(
+      sandboxCatalogGroups.map((group) =>
+        queryClient.prefetchQuery(
+          sandboxCatalogQueryOptions(
+            id,
+            { q: "", group: group.id, types: "", page: 1, pageSize: 4 },
+            country || "US",
+          ),
+        ),
+      ),
+    );
+
     return {
       id,
       dehydratedState: dehydrate(queryClient),
@@ -65,13 +73,13 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id/")({
 });
 
 function SandboxHubPage() {
-  const { t } = useTranslation();
   const { id } = Route.useParams();
   const { country } = useCountry();
   const {
     data: hub,
     isError,
     isLoading,
+    refetch,
   } = useQuery(
     sandboxHubQueryOptions({
       id,
@@ -85,51 +93,12 @@ function SandboxHubPage() {
     return <SandboxHubSkeleton />;
   }
 
-  if (isError) {
-    return (
-      <div className="flex min-h-[40vh] items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-2xl font-semibold">{t("sandboxes.unavailableTitle")}</h2>
-          <p className="mt-2 text-sm text-muted-foreground">
-            {t("sandboxes.unavailableDescription")}
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  if (!hub) {
-    return (
-      <div className="flex min-h-[40vh] items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-2xl font-semibold">{t("sandboxes.notFoundTitle")}</h2>
-          <p className="mt-2 text-sm text-muted-foreground">
-            {t("sandboxes.noProductDataDescription")}
-          </p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="flex flex-col gap-8">
-      <SandboxPageHeader
-        icon={Workflow}
-        eyebrow={t("sandboxes.hubEyebrow")}
-        title={t("sandboxes.hubOverviewTitle")}
-        description={t("sandboxes.hubOverviewDescription")}
-      >
-        <Button asChild variant="outline" size="sm">
-          <Link to="/{-$locale}/sandboxes/$id/changelog" params={{ id: hub.id ?? "" }}>
-            <FileClock className="size-4" />
-            {t("sandboxes.latestChangesButton")}
-          </Link>
-        </Button>
-      </SandboxPageHeader>
-
-      <EntityMap hub={hub} />
-      <FeaturedOffers offers={hub.featuredOffers} />
-      <RecentActivity hub={hub} />
+    <div className="flex flex-col gap-10">
+      {hub && <EntityMap hub={hub} />}
+      {isError && <SandboxQueryState error retry={() => void refetch()} />}
+      <SandboxCatalogPreviews id={id} total={hub?.stats?.offers} />
+      {hub && <RecentActivity hub={hub} />}
     </div>
   );
 }
@@ -182,13 +151,14 @@ function EntityMap({ hub }: { hub: SandboxHubData }) {
   ];
 
   return (
-    <section className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+    <section className="grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-6">
       {entities.map((entity) => (
         <Link
           key={entity.label}
           to={entity.to}
+          viewTransition={sandboxViewTransition}
           params={{ id: hub.id ?? "" }}
-          className="group rounded-md border border-border/60 bg-card/75 p-4 transition-colors hover:border-primary/40 hover:bg-muted/35"
+          className="group rounded-md border border-border/60 bg-card/75 p-3 transition-colors hover:border-primary/40 hover:bg-muted/35"
         >
           <div className="flex items-center justify-between gap-4">
             <div className="flex min-w-0 items-center gap-3">
@@ -200,7 +170,7 @@ function EntityMap({ hub }: { hub: SandboxHubData }) {
             </div>
             <ArrowRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-primary" />
           </div>
-          <div className="mt-5 text-2xl font-semibold">
+          <div className="mt-2 text-lg font-semibold">
             {typeof entity.value === "number"
               ? formatSandboxCount(entity.value)
               : t("sandboxes.viewButton")}
@@ -208,27 +178,6 @@ function EntityMap({ hub }: { hub: SandboxHubData }) {
         </Link>
       ))}
     </section>
-  );
-}
-
-function FeaturedOffers({ offers }: { offers: SingleOffer[] }) {
-  const { t } = useTranslation();
-  if (!offers.length) {
-    return null;
-  }
-
-  return (
-    <SandboxDataSurface
-      title={t("sandboxes.storefrontOffersTitle")}
-      description={t("sandboxes.storefrontOffersDescription")}
-      badge={`${formatSandboxCount(offers.length)} shown`}
-    >
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {offers.map((offer) => (
-          <OfferCard key={offer.id} offer={offer} size="sm" />
-        ))}
-      </div>
-    </SandboxDataSurface>
   );
 }
 
@@ -349,7 +298,7 @@ function SandboxHubSkeleton() {
   return (
     <div className="flex flex-col gap-8">
       <div className="h-44 animate-pulse rounded-md border border-border/60 bg-card/75" />
-      <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-6">
         {Array.from({ length: 6 }).map((_, index) => (
           <div key={index} className="h-28 animate-pulse rounded-md bg-muted" />
         ))}
@@ -376,7 +325,7 @@ function formatDate(value: string | null | undefined) {
     return i18n.t("common.notAvailable");
   }
 
-  return date.setLocale("en-GB").toLocaleString({
+  return date.setLocale(i18n.language).toLocaleString({
     year: "numeric",
     month: "short",
     day: "numeric",

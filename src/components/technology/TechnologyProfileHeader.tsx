@@ -121,13 +121,13 @@ export function TechnologyProfileHeader({ id }: { id: string }) {
     audio: t("technologies.categories.audio"),
     physics: t("technologies.categories.physics"),
     networking: t("technologies.categories.networking"),
-    anti_cheat: t("technologies.categories.anti_cheat"),
+    anti_cheat: t("technologies.categories.antiCheat"),
     runtime: t("technologies.categories.runtime"),
     framework: t("technologies.categories.framework"),
     middleware: t("technologies.categories.middleware"),
-    platform_service: t("technologies.categories.platform_service"),
+    platform_service: t("technologies.categories.platformService"),
     tooling: t("technologies.categories.tooling"),
-    file_format: t("technologies.categories.file_format"),
+    file_format: t("technologies.categories.fileFormat"),
     other: t("technologies.categories.other"),
   };
   const generatedDate = new Intl.DateTimeFormat(locale ?? "en-US", {
