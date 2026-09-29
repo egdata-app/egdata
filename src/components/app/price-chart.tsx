@@ -28,7 +28,7 @@ import type { SingleRegionalPrice } from "@/types/regional-pricing";
 import { DateTime } from "luxon";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import { getEffectivePriceHistory } from "@/lib/effective-price";
+import { getEffectivePrice, getEffectivePriceHistory } from "@/lib/effective-price";
 import { useTranslation } from "@/lib/paraglide-react";
 
 const chartConfig = {
@@ -240,7 +240,9 @@ export function PriceChart({ selectedRegion, id, regionStats }: PriceChartProps)
   // (e.g. it hasn't changed since release years ago), fall back to showing
   // the current price as of today so the chart isn't empty.
   if (filteredData.length === 0 && regionStats?.currentPrice) {
-    const currentPrice = regionStats.currentPrice;
+    // Resolve expired promotions so an ended sale isn't shown as today's price,
+    // consistent with how the regional pricing table renders the same record.
+    const currentPrice = getEffectivePrice(regionStats.currentPrice) ?? regionStats.currentPrice;
     const nowIso = new Date().toISOString();
 
     if (compareUSD) {
