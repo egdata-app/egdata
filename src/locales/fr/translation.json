@@ -717,7 +717,7 @@
       "invalid": "Manifeste invalide",
       "unavailable": "Indisponible",
       "failed": "Échec du traitement",
-      "legacy_unverified": "Pas encore vérifié"
+      "legacyUnverified": "Pas encore vérifié"
     },
     "timeline": {
       "title": "Observed build history",

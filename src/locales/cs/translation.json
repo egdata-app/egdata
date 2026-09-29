@@ -717,7 +717,7 @@
       "invalid": "Neplatný manifest",
       "unavailable": "Nedostupný",
       "failed": "Zpracování selhalo",
-      "legacy_unverified": "Dosud neověřený"
+      "legacyUnverified": "Dosud neověřený"
     },
     "timeline": {
       "title": "Observed build history",

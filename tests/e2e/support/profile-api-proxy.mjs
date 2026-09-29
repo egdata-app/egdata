@@ -1,6 +1,7 @@
 import { createServer } from "node:http";
 import { createProfilePageResponse, isProfilePageRequest } from "./profile-fixture.mjs";
 import { createBuildPageResponse } from "./build-fixture.mjs";
+import { sandboxFixtureResponse } from "./sandbox-fixture.mjs";
 import {
   createTechnologyApiResponse,
   createTechnologyOfferResponse,
@@ -42,6 +43,12 @@ const server = createServer(async (request, response) => {
 
   const body = await readBody(request);
   const payload = parseJson(body);
+
+  const sandboxResponse = sandboxFixtureResponse(url, payload);
+  if (sandboxResponse) {
+    sendJson(response, sandboxResponse.body, sandboxResponse.status);
+    return;
+  }
 
   if (
     request.method === "POST" &&

@@ -717,7 +717,7 @@
       "invalid": "Manifest tidak valid",
       "unavailable": "Tidak tersedia",
       "failed": "Pemrosesan gagal",
-      "legacy_unverified": "Belum diverifikasi"
+      "legacyUnverified": "Belum diverifikasi"
     },
     "timeline": {
       "title": "Observed build history",

@@ -1,4 +1,4 @@
-import { useNavigate } from "@tanstack/react-router";
+import { useNavigate, useRouterState } from "@tanstack/react-router";
 import { Link } from "@/components/app/localized-link";
 import {
   NavigationMenuContent,
@@ -8,11 +8,10 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import React, { useEffect } from "react";
-import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { NavigationMenu } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -40,10 +39,6 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import {
-  Gamepad2Icon,
-  SwordIcon,
-  JoystickIcon,
-  BrainIcon,
   TrendingUpIcon,
   UsersIcon,
   BarChart3Icon,
@@ -51,55 +46,122 @@ import {
   GiftIcon,
   StarIcon,
   CalendarCheck2Icon,
+  CompassIcon,
+  LayoutGridIcon,
+  HistoryIcon,
+  InfoIcon,
+  LayoutDashboardIcon,
+  LogOutIcon,
+  LogInIcon,
 } from "lucide-react";
 import { httpClient } from "@/lib/http-client";
 import { useTranslation } from "@/lib/paraglide-react";
 import type { GenreResponse } from "@/routes/{-$locale}/genres";
 import { Separator } from "../ui/separator";
 
-interface ListItemProps extends React.ComponentPropsWithoutRef<"a"> {
-  title: string;
-  href?: string;
-  backgroundImage?: string;
+const mobileRowClass =
+  "flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent/60 hover:text-foreground";
+
+const mobileGroupHeadingClass =
+  "px-3 pb-1 pt-4 text-xs font-semibold uppercase tracking-wider text-muted-foreground";
+
+interface MobileNavLinkProps {
+  to: string;
+  params?: Record<string, unknown>;
+  search?: Record<string, unknown>;
+  icon?: React.ComponentType<{ className?: string }>;
+  label: string;
+  subtle?: boolean;
 }
 
-function MobileMenuItem({ title, children, href, backgroundImage }: ListItemProps) {
+function MobileNavLink({ to, params, search, icon: Icon, label, subtle }: MobileNavLinkProps) {
   return (
-    <div className="py-2">
-      {href ? (
-        <Link
-          to={href}
-          className={cn(
-            "block select-none rounded-md leading-none no-underline outline-none transition-colors",
-            "hover:text-accent-foreground focus:bg-accent hover:bg-accent focus:text-accent-foreground",
-            "group relative overflow-hidden",
-          )}
-        >
-          <div className="relative z-20 p-3 space-y-1">
-            <div className="text-sm font-medium leading-none">{title}</div>
-            {children ? (
-              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>
-            ) : null}
-          </div>
-          {backgroundImage && (
-            <>
-              <span className="absolute inset-0 bg-gradient-to-l from-transparent via-card/75 to-card z-10 rounded-md" />
-              <div
-                className="h-full absolute inset-0 opacity-25 group-hover:opacity-75 bg-cover bg-center transition-opacity duration-500 ease-in-out rounded-md"
-                style={{ backgroundImage: `url(${backgroundImage})` }}
-                aria-hidden="true"
-              />
-            </>
-          )}
-        </Link>
-      ) : (
-        <div className="p-3 space-y-1">
-          <div className="text-sm font-medium leading-none">{title}</div>
-          {children ? (
-            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>
-          ) : null}
-        </div>
+    <Link
+      to={to}
+      params={params}
+      search={search}
+      className={cn(mobileRowClass, subtle && "py-2 text-foreground/60")}
+      activeProps={{ className: "bg-accent/60 text-foreground" }}
+    >
+      {Icon && <Icon className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />}
+      <span className="truncate">{label}</span>
+    </Link>
+  );
+}
+
+function MobileSeeAllLink({ to, label }: { to: string; label: string }) {
+  return (
+    <Link
+      to={to}
+      className="block rounded-md px-3 py-2 text-xs font-medium text-primary transition-colors hover:bg-accent/60"
+    >
+      {label}
+    </Link>
+  );
+}
+
+function MobileExploreMenu() {
+  const { t } = useTranslation();
+  const { data: genres, isLoading } = useQuery({
+    queryKey: ["genres-list"],
+    queryFn: () => httpClient.get<GenreResponse[]>("/offers/genres"),
+  });
+
+  return (
+    <div className="pb-2">
+      <h4 className={mobileGroupHeadingClass}>{t("nav.rankings")}</h4>
+      <MobileNavLink
+        to="/{-$locale}/collections/$id"
+        params={{ id: "top-sellers" }}
+        icon={TrendingUpIcon}
+        label={t("nav.topSellers")}
+        subtle
+      />
+      <MobileNavLink
+        to="/{-$locale}/collections/$id"
+        params={{ id: "most-played" }}
+        icon={UsersIcon}
+        label={t("nav.mostPlayed")}
+        subtle
+      />
+      <MobileNavLink
+        to="/{-$locale}/collections/$id"
+        params={{ id: "top-wishlisted" }}
+        icon={StarIcon}
+        label={t("nav.topWishlisted")}
+        subtle
+      />
+      <MobileNavLink
+        to="/{-$locale}/collections/$id"
+        params={{ id: "top-new-releases" }}
+        icon={CalendarCheck2Icon}
+        label={t("nav.topNewReleases")}
+        subtle
+      />
+      <MobileSeeAllLink to="/{-$locale}/collections" label={t("nav.seeAllCollections")} />
+
+      <h4 className={mobileGroupHeadingClass}>{t("nav.genres")}</h4>
+      {isLoading && (
+        <p className="px-3 py-2 text-sm text-muted-foreground">{t("common.loading")}</p>
       )}
+      {genres?.slice(0, 6).map((genre) => (
+        <MobileNavLink
+          key={genre.genre.id}
+          to="/{-$locale}/search"
+          search={{ tags: [genre.genre.id] }}
+          label={genre.genre.name}
+          subtle
+        />
+      ))}
+      <MobileSeeAllLink to="/{-$locale}/genres" label={t("nav.seeAllGenres")} />
+
+      <h4 className={mobileGroupHeadingClass}>{t("nav.others")}</h4>
+      <MobileNavLink
+        to="/{-$locale}/stats/releases"
+        icon={BarChart3Icon}
+        label={t("nav.releaseStats")}
+        subtle
+      />
     </div>
   );
 }
@@ -304,6 +366,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const { setFocus, toggleFocus } = useSearch();
   const [sheetOpen, setSheetOpen] = React.useState(false);
+  const locationHref = useRouterState({ select: (state) => state.location.href });
   const { data: user } = useQuery({
     queryKey: ["user", { id: session?.user.email.split("@")[0] }],
     queryFn: () => getUserInformation(session?.user.email.split("@")[0] || null),
@@ -324,6 +387,10 @@ export default function Navbar() {
     };
   }, [toggleFocus]);
 
+  useEffect(() => {
+    setSheetOpen(false);
+  }, [locationHref]);
+
   const handleSearchClick = () => {
     setFocus(true);
     setSheetOpen(false);
@@ -338,8 +405,8 @@ export default function Navbar() {
             <span className="sr-only">{t("nav.toggleMenu")}</span>
           </Button>
         </SheetTrigger>
-        <SheetContent side="left" className="w-[300px] sm:w-[400px] p-0">
-          <SheetHeader className="p-4 border-b border-border/50">
+        <SheetContent side="left" className="flex w-[300px] flex-col gap-0 p-0 sm:w-[360px]">
+          <SheetHeader className="flex-row items-center space-y-0 border-b border-border/50 p-4 pr-12 text-left">
             <Link to="/{-$locale}" className="flex items-center gap-2">
               <img
                 src="https://cdn.egdata.app/logo_simple_white_clean.png"
@@ -347,146 +414,108 @@ export default function Navbar() {
                 width={32}
                 height={32}
               />
-              <span className="text-lg text-foreground font-display font-bold tracking-tight">
+              <SheetTitle className="text-lg text-foreground font-display font-bold tracking-tight">
                 {t("common.appName")}
-              </span>
+              </SheetTitle>
             </Link>
           </SheetHeader>
-          <div className="p-4">
-            <div
-              className="relative mb-4 cursor-text"
+          <div className="p-4 pb-2">
+            <button
+              type="button"
               onClick={handleSearchClick}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  handleSearchClick();
-                }
-              }}
+              className="flex h-10 w-full cursor-text items-center gap-2 rounded-md border border-border/60 bg-card/40 px-3 text-sm text-muted-foreground transition-colors hover:border-primary/50 hover:text-foreground"
             >
-              <SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder={t("common.searchPlaceholder")}
-                className="pl-8 w-full cursor-text"
-                readOnly
-              />
-            </div>
+              <SearchIcon className="h-4 w-4 shrink-0" />
+              <span className="truncate">{t("common.searchPlaceholder")}</span>
+            </button>
+          </div>
+          <nav className="flex-1 overflow-y-auto p-4 pt-2" aria-label={t("nav.toggleMenu")}>
             <Accordion type="single" collapsible className="w-full">
-              {routes.map((route) => (
-                <AccordionItem key={route.nameKey} value={route.nameKey}>
-                  <AccordionTrigger className="text-base font-medium">
-                    {t(route.nameKey)}
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    {route.component ? (
-                      <div className="pt-2">
-                        {route.nameKey === "nav.explore" && (
-                          <>
-                            <div className="mb-4">
-                              <div className="text-xs font-semibold text-muted-foreground mb-2 tracking-wider uppercase">
-                                {t("nav.genres")}
-                              </div>
-                              <MobileMenuItem href="/genres/action" title={t("nav.action")}>
-                                <SwordIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
-                                {t("nav.action")}
-                              </MobileMenuItem>
-                              <MobileMenuItem href="/genres/rpg" title={t("nav.rpg")}>
-                                <Gamepad2Icon className="w-4 h-4 mr-2 text-muted-foreground inline" />
-                                {t("nav.rpg")}
-                              </MobileMenuItem>
-                              <MobileMenuItem href="/genres/indie" title={t("nav.indie")}>
-                                <JoystickIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
-                                {t("nav.indie")}
-                              </MobileMenuItem>
-                              <MobileMenuItem href="/genres/strategy" title={t("nav.strategy")}>
-                                <BrainIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
-                                {t("nav.strategy")}
-                              </MobileMenuItem>
-                              {/* Add more genres as needed */}
-                            </div>
-                            <div>
-                              <div className="text-xs font-semibold text-muted-foreground mb-2 tracking-wider uppercase">
-                                {t("nav.other")}
-                              </div>
-                              <MobileMenuItem
-                                href="/collections/top-sellers"
-                                title={t("nav.topSellers")}
-                              >
-                                <TrendingUpIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
-                                {t("nav.topSellers")}
-                              </MobileMenuItem>
-                              <MobileMenuItem
-                                href="/collections/most-played"
-                                title={t("nav.mostPlayed")}
-                              >
-                                <UsersIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
-                                {t("nav.mostPlayed")}
-                              </MobileMenuItem>
-                              <MobileMenuItem
-                                href="/collections/top-wishlisted"
-                                title={t("nav.topWishlisted")}
-                              >
-                                <StarIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
-                                {t("nav.topWishlisted")}
-                              </MobileMenuItem>
-                              <MobileMenuItem
-                                href="/collections/top-new-releases"
-                                title={t("nav.topNewReleases")}
-                              >
-                                <CalendarCheck2Icon className="w-4 h-4 mr-2 text-muted-foreground inline" />
-                                {t("nav.topNewReleases")}
-                              </MobileMenuItem>
-                              <MobileMenuItem href="/stats/releases" title={t("nav.releaseStats")}>
-                                <BarChart3Icon className="w-4 h-4 mr-2 text-muted-foreground inline" />
-                                {t("nav.releaseStats")}
-                              </MobileMenuItem>
-                              <MobileMenuItem href="/sales" title={t("nav.sales")}>
-                                <TagIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
-                                {t("nav.sales")}
-                              </MobileMenuItem>
-                              <MobileMenuItem href="/freebies" title={t("nav.freeGamesItemTitle")}>
-                                <GiftIcon className="w-4 h-4 mr-2 text-muted-foreground inline" />
-                                {t("nav.freeGamesItemTitle")}
-                              </MobileMenuItem>
-                              {/* Add more links as needed */}
-                            </div>
-                          </>
-                        )}
-                        {route.nameKey === "nav.browse" && (
-                          <>
-                            <MobileMenuItem href="/search" title={t("nav.searchItemTitle")}>
-                              {t("nav.searchItemDesc")}
-                            </MobileMenuItem>
-                            <MobileMenuItem href="/freebies" title={t("nav.freeGamesItemTitle")}>
-                              {t("nav.freeGamesItemDesc")}
-                            </MobileMenuItem>
-                            <MobileMenuItem
-                              href="/search?onSale=true"
-                              title={t("nav.withDiscountsItemTitle")}
-                            >
-                              {t("nav.withDiscountsItemDesc")}
-                            </MobileMenuItem>
-                          </>
-                        )}
-                      </div>
-                    ) : (
-                      <Link
-                        to={route.href}
-                        className="block py-2 text-muted-foreground hover:text-foreground transition-colors"
-                      >
-                        {t(route.nameKey)}
-                      </Link>
-                    )}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
+              <AccordionItem value="explore" className="border-b-0">
+                <AccordionTrigger className={cn(mobileRowClass, "w-full hover:no-underline")}>
+                  <span className="flex items-center gap-3">
+                    <CompassIcon
+                      className="h-4 w-4 shrink-0 text-muted-foreground"
+                      aria-hidden="true"
+                    />
+                    {t("nav.explore")}
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="pb-0">
+                  <MobileExploreMenu />
+                </AccordionContent>
+              </AccordionItem>
             </Accordion>
-            <div className="mt-4 pt-4 border-t">
-              <DiscordBotPopover />
-            </div>
+            <div className="my-2 border-t border-border/50" aria-hidden="true" />
+            <MobileNavLink to="/{-$locale}/search" icon={LayoutGridIcon} label={t("nav.browse")} />
+            <MobileNavLink
+              to="/{-$locale}/freebies"
+              icon={GiftIcon}
+              label={t("nav.freeGamesItemTitle")}
+            />
+            <MobileNavLink to="/{-$locale}/sales" icon={TagIcon} label={t("nav.sales")} />
+            <MobileNavLink
+              to="/{-$locale}/changelog"
+              icon={HistoryIcon}
+              label={t("nav.changelog")}
+            />
+            <MobileNavLink to="/{-$locale}/about" icon={InfoIcon} label={t("nav.about")} />
+          </nav>
+          <div className="border-t border-border/50 p-4">
+            {user ? (
+              <div className="mb-3 space-y-1">
+                <div className="flex items-center gap-3 px-3 py-2">
+                  <Avatar className="h-8 w-8">
+                    <AvatarImage
+                      src={
+                        user.avatar?.medium
+                          ? user.avatar?.medium
+                          : `https://shared-static-prod.epicgames.com/epic-profile-icon/D8033C/${user.displayName[0].toUpperCase()}/icon.png?size=512`
+                      }
+                    />
+                    <AvatarFallback>{user.displayName.slice(0, 2).toUpperCase()}</AvatarFallback>
+                  </Avatar>
+                  <span className="truncate text-sm font-medium">{user.displayName}</span>
+                </div>
+                <a href="/dashboard" className={mobileRowClass}>
+                  <LayoutDashboardIcon
+                    className="h-4 w-4 shrink-0 text-muted-foreground"
+                    aria-hidden="true"
+                  />
+                  <span className="truncate">{t("nav.dashboard")}</span>
+                </a>
+                <a href="/auth/logout" className={mobileRowClass}>
+                  <LogOutIcon
+                    className="h-4 w-4 shrink-0 text-muted-foreground"
+                    aria-hidden="true"
+                  />
+                  <span className="truncate">{t("nav.logout")}</span>
+                </a>
+                <div className="my-2 border-t border-border/50" aria-hidden="true" />
+              </div>
+            ) : (
+              <button
+                type="button"
+                className={cn(mobileRowClass, "mb-3 w-full")}
+                onClick={async () => {
+                  await authClient.signIn.oauth2({
+                    providerId: "epic",
+                  });
+                }}
+              >
+                <LogInIcon className="h-4 w-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+                <span className="truncate">{t("nav.signIn")}</span>
+              </button>
+            )}
+            <DiscordBotPopover />
           </div>
         </SheetContent>
       </Sheet>
-      <Link to="/{-$locale}" className="hidden lg:flex justify-center items-center" preload="viewport">
+      <Link
+        to="/{-$locale}"
+        className="hidden lg:flex justify-center items-center"
+        preload="viewport"
+      >
         <img
           src="https://cdn.egdata.app/logo_simple_white_clean.png"
           alt={t("nav.logoAlt")}

@@ -717,7 +717,7 @@
       "invalid": "Manifest không hợp lệ",
       "unavailable": "Không khả dụng",
       "failed": "Xử lý thất bại",
-      "legacy_unverified": "Chưa được xác minh"
+      "legacyUnverified": "Chưa được xác minh"
     },
     "timeline": {
       "title": "Observed build history",

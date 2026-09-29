@@ -717,7 +717,7 @@
       "invalid": "无效清单",
       "unavailable": "不可用",
       "failed": "处理失败",
-      "legacy_unverified": "尚未验证"
+      "legacyUnverified": "尚未验证"
     },
     "timeline": {
       "title": "Observed build history",

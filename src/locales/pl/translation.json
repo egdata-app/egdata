@@ -717,7 +717,7 @@
       "invalid": "Nieprawidłowy manifest",
       "unavailable": "Niedostępny",
       "failed": "Przetwarzanie nie powiodło się",
-      "legacy_unverified": "Jeszcze niezweryfikowany"
+      "legacyUnverified": "Jeszcze niezweryfikowany"
     },
     "timeline": {
       "title": "Observed build history",

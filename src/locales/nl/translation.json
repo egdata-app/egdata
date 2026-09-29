@@ -717,7 +717,7 @@
       "invalid": "Ongeldig manifest",
       "unavailable": "Niet beschikbaar",
       "failed": "Verwerking mislukt",
-      "legacy_unverified": "Nog niet geverifieerd"
+      "legacyUnverified": "Nog niet geverifieerd"
     },
     "timeline": {
       "title": "Observed build history",

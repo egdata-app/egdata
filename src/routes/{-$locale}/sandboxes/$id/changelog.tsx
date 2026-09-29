@@ -1,3 +1,4 @@
+import { SandboxQueryState } from "@/components/app/sandbox-catalog";
 import { ChangeTracker } from "@/components/app/changelog/item";
 import { DynamicPagination } from "@/components/app/dynamic-pagination";
 import { formatSandboxCount, SandboxPageHeader } from "@/components/app/sandbox-layout";
@@ -9,7 +10,7 @@ import type { SingleItem } from "@/types/single-item";
 import type { SingleOffer } from "@/types/single-offer";
 import type { SingleSandbox } from "@/types/single-sandbox";
 import type { DehydratedState } from "@tanstack/react-query";
-import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
+import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { FileClock } from "lucide-react";
 import { useState } from "react";
@@ -86,11 +87,9 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id/changelog")({
     await queryClient.prefetchQuery({
       queryKey: ["changelog", { id: params.id, page: 1, limit: 20 }],
       queryFn: () =>
-        httpClient
-          .get<ChangelogResponse>(`/sandboxes/${params.id}/changelog`, {
-            params: { page: 1, limit: 20 },
-          })
-          .catch(() => null),
+        httpClient.get<ChangelogResponse>(`/sandboxes/${params.id}/changelog`, {
+          params: { page: 1, limit: 20 },
+        }),
     });
 
     return {
@@ -146,14 +145,19 @@ function RouteComponent() {
   const { t } = useTranslation();
   const { id } = Route.useParams();
   const [page, setPage] = useState(1);
-  const { data, isLoading } = useQuery({
+  const {
+    data,
+    isPending: isLoading,
+    isError,
+    isFetching,
+    refetch,
+  } = useQuery({
+    placeholderData: keepPreviousData,
     queryKey: ["changelog", { id, page, limit: 20 }],
     queryFn: () =>
-      httpClient
-        .get<ChangelogResponse>(`/sandboxes/${id}/changelog`, {
-          params: { page, limit: 20 },
-        })
-        .catch(() => null),
+      httpClient.get<ChangelogResponse>(`/sandboxes/${id}/changelog`, {
+        params: { page, limit: 20 },
+      }),
   });
 
   if (isLoading) {
@@ -164,10 +168,7 @@ function RouteComponent() {
           eyebrow={t("sandboxes.changelogEyebrow")}
           title={t("sandboxes.changelogTitle")}
           description={t("sandboxes.changelogDescription")}
-          stats={[
-            { label: t("sandboxes.totalChangesLabel"), value: "Loading" },
-            { label: t("sandboxes.queryTimeLabel"), value: "Loading" },
-          ]}
+          stats={[{ label: t("sandboxes.totalChangesLabel"), value: t("sandboxCatalog.loading") }]}
         />
         <div className="grid grid-cols-1 gap-4 w-full">
           {Array.from({ length: 5 }).map((_, index) => (
@@ -177,6 +178,8 @@ function RouteComponent() {
       </div>
     );
   }
+
+  if (isError) return <SandboxQueryState error retry={() => void refetch()} />;
 
   return (
     <div className="flex flex-col gap-6 w-full">
@@ -190,9 +193,13 @@ function RouteComponent() {
             label: t("sandboxes.totalChangesLabel"),
             value: formatSandboxCount(data?.estimatedTotalHits),
           },
-          { label: t("sandboxes.queryTimeLabel"), value: `${data?.processingTimeMs ?? 0} ms` },
         ]}
       />
+      {isFetching && (
+        <p role="status" className="text-sm text-muted-foreground">
+          {t("sandboxCatalog.refreshing")}
+        </p>
+      )}
       <div className="grid grid-cols-1 gap-4 w-full">
         {data?.hits
           // Filter out hits without metadata
@@ -209,9 +216,7 @@ function RouteComponent() {
             />
           ))}
       </div>
-      {data?.hits?.length === 0 && (
-        <div className="text-center">{t("sandboxes.noChangelogFound")}</div>
-      )}
+      {data?.hits?.length === 0 && <SandboxQueryState empty />}
       {(data?.hits?.length ?? 0) > 0 && (
         <DynamicPagination
           totalPages={data ? Math.ceil(data.estimatedTotalHits / data.limit) : 0}
