@@ -37,4 +37,40 @@ test.describe("Search flow", () => {
     await expect(page).toHaveURL(/sortBy=price/);
     await expectSearchResultsReady(page);
   });
+
+  test("scrolls to the top when pagination or sorting changes", async ({ page }) => {
+    const scrollY = () => page.evaluate(() => window.scrollY);
+    const scrollToBottom = async () => {
+      await page.evaluate(() =>
+        window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "instant" }),
+      );
+      await expect.poll(scrollY).toBeGreaterThan(0);
+    };
+
+    const initialSearch = waitForSearchResponse(page);
+    await page.goto("/search");
+    await initialSearch;
+    await expectMainReady(page);
+    await expectSearchResultsReady(page);
+
+    // Pagination: the controls live at the bottom of the results,
+    // so navigating to the next page must scroll back to the top
+    await scrollToBottom();
+    await Promise.all([
+      waitForSearchResponse(page),
+      page.getByRole("button", { name: "Go to next page" }).click(),
+    ]);
+    await expect(page).toHaveURL(/page=2/);
+    await expect.poll(scrollY, { timeout: 10_000 }).toBe(0);
+
+    // Sorting: scroll down again, then change the sort field
+    await scrollToBottom();
+    await page.getByRole("combobox", { name: "Sort offers" }).click();
+    await Promise.all([
+      waitForSearchResponse(page),
+      page.getByRole("option", { name: "Price" }).click(),
+    ]);
+    await expect(page).toHaveURL(/sortBy=price/);
+    await expect.poll(scrollY, { timeout: 10_000 }).toBe(0);
+  });
 });

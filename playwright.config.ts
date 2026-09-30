@@ -1,16 +1,22 @@
 import { defineConfig, devices } from "@playwright/test";
+import { spawnSync } from "node:child_process";
 
 const BETTER_AUTH_SECRET = process.env.BETTER_AUTH_SECRET || "test-secret-key-for-e2e"; // fallback for tests
 const PROFILE_APP_PORT = 3100;
 const PROFILE_API_PROXY_PORT = 3101;
 const baseURL = "http://localhost:3000";
+// Prefer pwsh (PowerShell Core) on Windows, fall back to Windows PowerShell
+const winShell =
+  spawnSync("pwsh", ["-NoProfile", "-Command", "exit"], { stdio: "ignore" }).status === 0
+    ? "pwsh"
+    : "powershell";
 const webServerCommand =
   process.platform === "win32"
-    ? `pwsh -Command "& { $env:API_ENDPOINT='http://127.0.0.1:${PROFILE_API_PROXY_PORT}'; $env:TECHNOLOGY_API_ENDPOINT='http://127.0.0.1:${PROFILE_API_PROXY_PORT}'; $env:BETTER_AUTH_URL='${baseURL}'; $env:BETTER_AUTH_SECRET='${BETTER_AUTH_SECRET}'; pnpm start }"`
+    ? `${winShell} -Command "& { $env:API_ENDPOINT='http://127.0.0.1:${PROFILE_API_PROXY_PORT}'; $env:TECHNOLOGY_API_ENDPOINT='http://127.0.0.1:${PROFILE_API_PROXY_PORT}'; $env:BETTER_AUTH_URL='${baseURL}'; $env:BETTER_AUTH_SECRET='${BETTER_AUTH_SECRET}'; pnpm start }"`
     : `API_ENDPOINT=http://127.0.0.1:${PROFILE_API_PROXY_PORT} TECHNOLOGY_API_ENDPOINT=http://127.0.0.1:${PROFILE_API_PROXY_PORT} BETTER_AUTH_URL=${baseURL} BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET} pnpm start`;
 const profileWebServerCommand =
   process.platform === "win32"
-    ? `pwsh -Command "& { $env:API_ENDPOINT='http://127.0.0.1:${PROFILE_API_PROXY_PORT}'; $env:TECHNOLOGY_API_ENDPOINT='http://127.0.0.1:${PROFILE_API_PROXY_PORT}'; $env:BETTER_AUTH_URL='http://localhost:${PROFILE_APP_PORT}'; $env:BETTER_AUTH_SECRET='${BETTER_AUTH_SECRET}'; $env:PORT='${PROFILE_APP_PORT}'; pnpm start }"`
+    ? `${winShell} -Command "& { $env:API_ENDPOINT='http://127.0.0.1:${PROFILE_API_PROXY_PORT}'; $env:TECHNOLOGY_API_ENDPOINT='http://127.0.0.1:${PROFILE_API_PROXY_PORT}'; $env:BETTER_AUTH_URL='http://localhost:${PROFILE_APP_PORT}'; $env:BETTER_AUTH_SECRET='${BETTER_AUTH_SECRET}'; $env:PORT='${PROFILE_APP_PORT}'; pnpm start }"`
     : `API_ENDPOINT=http://127.0.0.1:${PROFILE_API_PROXY_PORT} TECHNOLOGY_API_ENDPOINT=http://127.0.0.1:${PROFILE_API_PROXY_PORT} BETTER_AUTH_URL=http://localhost:${PROFILE_APP_PORT} BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET} PORT=${PROFILE_APP_PORT} pnpm start`;
 
 /**

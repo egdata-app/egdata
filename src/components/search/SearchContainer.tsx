@@ -95,6 +95,11 @@ export function SearchContainer({
     field: K,
     value: TypeOf<typeof formSchema>[K],
   ) => void = (field, value) => {
+    // Scroll to the top when filters, sorting, or pagination change.
+    // Skip "title" so typing in the search box doesn't yank the scroll position.
+    if (field !== "title") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
     store.setState((prev) => {
       // If a filter changes (not the page itself), reset pagination to 1
       if (field !== "page" && field !== "limit") {
