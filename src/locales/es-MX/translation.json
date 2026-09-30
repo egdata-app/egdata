@@ -44,7 +44,8 @@
     "dashboard": "Tablero",
     "logout": "Cerrar sesión",
     "searchLanguages": "Buscar idiomas...",
-    "noLanguagesFound": "No se encontraron idiomas"
+    "noLanguagesFound": "No se encontraron idiomas",
+    "signIn": "Iniciar Sesión"
   },
   "globalSearch": {
     "semantic": {
