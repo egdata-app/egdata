@@ -3,7 +3,10 @@ import type { SingleOffer } from "@/types/single-offer";
 export const generateOfferMeta = (
   offer: SingleOffer,
   section?: string,
+  country?: string,
 ): Array<React.JSX.IntrinsicElements["meta"]> => {
+  const ogImageUrl = `https://api.egdata.app/offers/${offer.id}/og.webp?v=${new Date(offer.lastModifiedDate).getTime()}${country ? `&country=${country}` : ""}`;
+
   return [
     {
       title: `${offer?.title}${section ? ` - ${section}` : ""} | egdata.app`,
@@ -26,7 +29,19 @@ export const generateOfferMeta = (
     },
     {
       name: "og:image",
-      content: `https://api.egdata.app/offers/${offer.id}/og?v=${new Date(offer.lastModifiedDate).getTime()}`,
+      content: ogImageUrl,
+    },
+    {
+      name: "og:image:type",
+      content: "image/webp",
+    },
+    {
+      name: "og:image:width",
+      content: "1200",
+    },
+    {
+      name: "og:image:height",
+      content: "630",
     },
     {
       name: "og:type",
@@ -48,7 +63,7 @@ export const generateOfferMeta = (
     },
     {
       name: "twitter:image",
-      content: `https://api.egdata.app/offers/${offer.id}/og?v=${new Date(offer.lastModifiedDate).getTime()}`,
+      content: ogImageUrl,
     },
   ];
 };

@@ -127,7 +127,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id")({
         ],
       };
 
-    const { offer } = loaderData;
+    const { offer, country } = loaderData;
 
     if (!offer) {
       return {
@@ -141,7 +141,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id")({
     }
 
     return {
-      meta: generateOfferMeta(offer),
+      meta: generateOfferMeta(offer, undefined, country || "US"),
       links: [
         {
           rel: "stylesheet",
