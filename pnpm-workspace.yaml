@@ -5,6 +5,7 @@ allowBuilds:
   better-sqlite3: true
   es5-ext: false
   esbuild: true
+  sharp: set this to true or false
   simple-git-hooks: true
   workerd: true
 ignoredBuiltDependencies:
@@ -37,9 +38,20 @@ overrides:
   follow-redirects@<=1.16.0: 1.16.0
   rollup@<=3.29.5: 3.29.5
   cjs-module-lexer@<=2.2.0: 2.2.0
-  lodash@<=4.17.23: 4.17.23
-  undici@<=7.24.1: 7.24.1
-  axios@<=1.15.1: 1.15.1
+  lodash@<=4.17.23: 4.18.1
+  undici@<=7.29.1: 7.30.0
+  axios@<=1.20.0: 1.20.0
+  form-data@<=4.0.5: 4.0.6
+  brace-expansion@<=2.1.6: 2.1.7
+  brace-expansion@<=5.0.11: 5.0.12
+  js-yaml@<=4.3.1: 4.3.2
+  linkify-it@<=5.0.1: 5.0.2
+  fast-uri@<=3.1.7: 3.1.8
+  nanoid@<=3.3.17: 3.3.19
+  ws@<=8.21.0: 8.22.0
+  sharp: 0.35.5
+  postcss@<=8.5.17: 8.5.28
+  browserslist@<=4.28.6: 4.29.3
 minimumReleaseAgeExclude:
   - "@rsbuild/plugin-react@2.1.0"
   - srvx@0.11.17

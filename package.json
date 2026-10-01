@@ -92,7 +92,7 @@
     "@types/node": "^22.19.17",
     "@uidotdev/usehooks": "^2.4.1",
     "@vidstack/react": "^1.12.13",
-    "axios": "^1.15.1",
+    "axios": "^1.20.0",
     "better-auth": "^1.7.7",
     "better-sqlite3": "^12.9.0",
     "class-variance-authority": "^0.7.1",
@@ -170,7 +170,7 @@
     "workbox-precaching": "7.4.1",
     "workbox-routing": "7.4.1",
     "workbox-strategies": "7.4.1",
-    "wrangler": "3.99.0"
+    "wrangler": "3.114.17"
   },
   "packageManager": "pnpm@11.8.0",
   "engines": {
