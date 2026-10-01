@@ -498,8 +498,8 @@ export default function Navbar() {
                 type="button"
                 className={cn(mobileRowClass, "mb-3 w-full")}
                 onClick={async () => {
-                  await authClient.signIn.oauth2({
-                    providerId: "epic",
+                  await authClient.signIn.social({
+                    provider: "epic",
                   });
                 }}
               >
@@ -620,8 +620,8 @@ export default function Navbar() {
           <Avatar
             className="cursor-pointer"
             onClick={async () => {
-              await authClient.signIn.oauth2({
-                providerId: "epic",
+              await authClient.signIn.social({
+                provider: "epic",
               });
             }}
           >

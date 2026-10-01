@@ -40,7 +40,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@better-auth/infra": "^0.1.14",
+    "@better-auth/infra": "^0.4.13",
     "@egdata/core.schemas.ratings": "^5.0.0",
     "@libsql/kysely-libsql": "^0.4.1",
     "@mdxeditor/editor": "^3.54.0",
@@ -93,7 +93,7 @@
     "@uidotdev/usehooks": "^2.4.1",
     "@vidstack/react": "^1.12.13",
     "axios": "^1.15.1",
-    "better-auth": "1.6.6",
+    "better-auth": "^1.7.7",
     "better-sqlite3": "^12.9.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
