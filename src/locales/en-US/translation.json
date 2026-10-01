@@ -1087,6 +1087,19 @@
       "monthlyTitle": "Monthly creations",
       "yearlyTitle": "Yearly creations"
     },
+    "chart": {
+      "releasesLabel": "Releases",
+      "creationsLabel": "Creations",
+      "ongoing": "In progress",
+      "ongoingSoFar": "In progress (so far)",
+      "prediction": "Projection",
+      "projectedTotal": "Projected total",
+      "likelyRange": "Likely range",
+      "ytd": "Year to date",
+      "forecastZone": "Forecast",
+      "captionMonthly": "Projection: linear trend over the last {{months}} completed months. The shaded area marks the forecast zone; the band and ranges show ±1σ.",
+      "captionYearly": "Projection: linear trend over the last {{years}} completed years. The current year stacks year-to-date (solid) with the projected remainder (dashed outline)."
+    },
     "releases": {
       "meta": {
         "title": "Releases stats - egdata.app",

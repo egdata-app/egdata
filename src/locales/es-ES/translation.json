@@ -1087,6 +1087,19 @@
       "monthlyTitle": "Creaciones mensuales",
       "yearlyTitle": "Creaciones anuales"
     },
+    "chart": {
+      "releasesLabel": "Lanzamientos",
+      "creationsLabel": "Creaciones",
+      "ongoing": "En curso",
+      "ongoingSoFar": "En curso (hasta hoy)",
+      "prediction": "Proyección",
+      "projectedTotal": "Total proyectado",
+      "likelyRange": "Rango probable",
+      "ytd": "Año hasta la fecha",
+      "forecastZone": "Pronóstico",
+      "captionMonthly": "Proyección: tendencia lineal de los últimos {{months}} meses completos. El área sombreada marca la zona de pronóstico; la banda y los rangos muestran ±1σ.",
+      "captionYearly": "Proyección: tendencia lineal de los últimos {{years}} años completos. El año actual apila lo acumulado hasta la fecha (sólido) con el resto proyectado (contorno discontinuo)."
+    },
     "releases": {
       "meta": {
         "title": "Estadísticas de lanzamientos - egdata.app",

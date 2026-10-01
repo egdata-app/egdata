@@ -1,21 +1,38 @@
 import {
-  type ChartConfig,
   ChartContainer,
+  ChartLegend,
+  ChartLegendContent,
   ChartTooltip,
-  ChartTooltipContent,
+  type ChartConfig,
 } from "@/components/ui/chart";
+import {
+  FORECAST_COLORS,
+  FORECAST_WINDOW_YEARS,
+  ForecastCaption,
+  ForecastTooltipShell,
+  TooltipRow,
+} from "@/components/charts/forecast";
 import { httpClient } from "@/lib/http-client";
-import { linearRegression } from "@/lib/linear-regression";
+import { linearRegressionForecast } from "@/lib/linear-regression";
 import { keepPreviousData } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
+import { useTranslation } from "@/lib/paraglide-react";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 
 interface YearlyChartPoint {
   year: number;
+  /** Actual releases for a completed year */
   releases?: number;
+  /** Year-to-date releases for the current (unfinished) year */
   ongoing?: number;
+  /** Projected remainder stacked on top of YTD (current year) or full projection (next year) */
   prediction?: number;
+  /** Projected total for the year (YTD + remainder), shown in the tooltip */
+  projectedTotal?: number;
+  /** ±1σ bounds for the projected total, shown in the tooltip */
+  rangeLow?: number;
+  rangeHigh?: number;
 }
 
 interface YearlyRelease {
@@ -26,67 +43,90 @@ interface YearlyRelease {
 export const getReleasesByYear = async () =>
   httpClient.get<YearlyRelease[]>("/stats/releases/yearly");
 
-const yearlyChartConfig: ChartConfig = {
-  releases: { label: "Releases", color: "hsl(var(--chart-1))" },
-  ongoing: { label: "YTD", color: "oklch(0.6 0.118 184.704)" },
-  prediction: { label: "Prediction", color: "oklch(0.398 0.07 227.392)" },
-} as const;
-
 export function ReleasesByYear() {
+  const { t } = useTranslation();
   const { data, isLoading } = useQuery({
     queryKey: ["releases-by-year"],
     queryFn: getReleasesByYear,
     placeholderData: keepPreviousData,
   });
 
+  const chartConfig = useMemo<ChartConfig>(
+    () => ({
+      releases: { label: t("stats.chart.releasesLabel"), color: "hsl(var(--chart-1))" },
+      ongoing: { label: t("stats.chart.ytd"), color: FORECAST_COLORS.ongoing },
+      prediction: { label: t("stats.chart.prediction"), color: FORECAST_COLORS.prediction },
+    }),
+    [t],
+  );
+
   const chartData = useMemo<YearlyChartPoint[]>(() => {
     if (!data?.length) return [];
 
     const base = data.map(({ year, releases }) => ({ year, releases }));
-    const lastIdx = base.length - 1;
-    const lastYear = base[lastIdx].year;
+    const lastYear = base[base.length - 1].year;
     const currentYear = new Date().getFullYear();
     const isCurrentYearOngoing = lastYear === currentYear;
 
-    const regressionRows = isCurrentYearOngoing ? base.slice(0, -1) : base;
-    const x = regressionRows.map((_, i) => i);
-    const y = regressionRows.map((d) => d.releases);
-    const { slope, intercept } = linearRegression(x, y);
+    const completeRows = isCurrentYearOngoing ? base.slice(0, -1) : base;
+    if (!completeRows.length) return [];
 
-    const forecastCurrentTotal = isCurrentYearOngoing
-      ? Math.max(0, Math.round(slope * regressionRows.length + intercept))
-      : undefined;
-    const forecastNextYearTotal = Math.max(
-      0,
-      Math.round(slope * (regressionRows.length + 1) + intercept),
+    // Fit the projection on a trailing window of completed years so old
+    // regimes don't distort the trend.
+    const regressionRows = completeRows.slice(-FORECAST_WINDOW_YEARS);
+    const n = regressionRows.length;
+    const forecast = linearRegressionForecast(
+      regressionRows.map((_, i) => i),
+      regressionRows.map((d) => d.releases),
     );
 
-    const points: YearlyChartPoint[] = base.map((row, i) => {
-      if (isCurrentYearOngoing && i === lastIdx) {
-        const ongoing = row.releases;
-        const remainderPrediction = Math.max(0, (forecastCurrentTotal ?? 0) - ongoing);
-        return {
-          year: row.year,
-          releases: 0,
-          ongoing,
-          prediction: remainderPrediction,
-        };
-      }
+    const points: YearlyChartPoint[] = completeRows.map((row) => ({
+      year: row.year,
+      releases: row.releases,
+    }));
 
+    const forecastYear = (xIdx: number) => {
+      const y = Math.max(0, forecast.predict(xIdx));
+      const hw = forecast.halfWidth(xIdx);
       return {
-        year: row.year,
-        releases: row.releases,
-        ongoing: 0,
-        prediction: 0,
+        total: Math.round(y),
+        low: Math.max(0, Math.round(y - hw)),
+        high: Math.round(y + hw),
       };
-    });
+    };
 
-    points.push({
-      year: lastYear + 1,
-      releases: 0,
-      ongoing: 0,
-      prediction: forecastNextYearTotal,
-    });
+    if (isCurrentYearOngoing) {
+      const ytd = base[base.length - 1].releases;
+      const current = forecastYear(n);
+      // The total can never be below what has already been released.
+      const projectedTotal = Math.max(current.total, ytd);
+      points.push({
+        year: lastYear,
+        ongoing: ytd,
+        prediction: Math.max(0, projectedTotal - ytd),
+        projectedTotal,
+        rangeLow: Math.max(current.low, ytd),
+        rangeHigh: Math.max(current.high, ytd),
+      });
+
+      const next = forecastYear(n + 1);
+      points.push({
+        year: lastYear + 1,
+        prediction: next.total,
+        projectedTotal: next.total,
+        rangeLow: next.low,
+        rangeHigh: next.high,
+      });
+    } else {
+      const next = forecastYear(n);
+      points.push({
+        year: lastYear + 1,
+        prediction: next.total,
+        projectedTotal: next.total,
+        rangeLow: next.low,
+        rangeHigh: next.high,
+      });
+    }
 
     return points;
   }, [data]);
@@ -95,36 +135,88 @@ export function ReleasesByYear() {
   if (!chartData.length) return null;
 
   return (
-    <ChartContainer config={yearlyChartConfig} className="aspect-auto h-[300px] w-full">
-      <BarChart accessibilityLayer data={chartData} margin={{ left: 12, right: 12 }}>
-        <CartesianGrid vertical={false} />
-        <XAxis dataKey="year" tickMargin={6} tickLine={false} axisLine={false} />
+    <div>
+      <ChartContainer config={chartConfig} className="aspect-auto h-[300px] w-full">
+        <BarChart accessibilityLayer data={chartData} margin={{ left: 12, right: 12 }}>
+          <CartesianGrid vertical={false} />
+          <XAxis dataKey="year" tickMargin={6} tickLine={false} axisLine={false} />
 
-        <ChartTooltip
-          content={
-            <ChartTooltipContent
-              className="w-[140px]"
-              nameKey="year"
-              labelFormatter={(year: number) => year.toString()}
-            />
-          }
-        />
+          <ChartTooltip
+            content={(props) => {
+              if (!props.active || !props.payload?.length) return null;
+              const point = props.payload[0].payload as YearlyChartPoint;
 
-        <Bar
-          dataKey="releases"
-          fill="var(--color-releases)"
-          stackId="releases"
-          radius={[8, 8, 0, 0]}
-        />
-        <Bar dataKey="ongoing" fill="var(--color-ongoing)" stackId="releases" />
-        <Bar
-          dataKey="prediction"
-          fill="var(--color-prediction)"
-          fillOpacity={0.6}
-          stackId="releases"
-          radius={[8, 8, 0, 0]}
-        />
-      </BarChart>
-    </ChartContainer>
+              return (
+                <ForecastTooltipShell>
+                  <div className="font-medium">{point.year}</div>
+                  <div className="grid gap-1">
+                    {point.releases != null && (
+                      <TooltipRow
+                        color="var(--color-releases)"
+                        label={t("stats.chart.releasesLabel")}
+                        value={point.releases}
+                      />
+                    )}
+                    {point.ongoing != null && (
+                      <TooltipRow
+                        color="var(--color-ongoing)"
+                        label={t("stats.chart.ytd")}
+                        value={point.ongoing}
+                      />
+                    )}
+                    {point.projectedTotal != null && (
+                      <>
+                        <TooltipRow
+                          dashed
+                          color="var(--color-prediction)"
+                          label={t("stats.chart.projectedTotal")}
+                          value={point.projectedTotal}
+                        />
+                        {point.rangeLow != null && point.rangeHigh != null && (
+                          <TooltipRow
+                            dashed
+                            color="var(--color-prediction)"
+                            label={t("stats.chart.likelyRange")}
+                            value={`${point.rangeLow.toLocaleString()}–${point.rangeHigh.toLocaleString()}`}
+                          />
+                        )}
+                      </>
+                    )}
+                  </div>
+                </ForecastTooltipShell>
+              );
+            }}
+          />
+
+          <Bar
+            dataKey="releases"
+            fill="var(--color-releases)"
+            stackId="total"
+            radius={[8, 8, 0, 0]}
+            isAnimationActive={false}
+          />
+          <Bar
+            dataKey="ongoing"
+            fill="var(--color-ongoing)"
+            stackId="total"
+            isAnimationActive={false}
+          />
+          <Bar
+            dataKey="prediction"
+            fill="var(--color-prediction)"
+            fillOpacity={0.25}
+            stroke="var(--color-prediction)"
+            strokeDasharray="4 3"
+            stackId="total"
+            radius={[8, 8, 0, 0]}
+            isAnimationActive={false}
+          />
+          <ChartLegend content={<ChartLegendContent />} />
+        </BarChart>
+      </ChartContainer>
+      <ForecastCaption>
+        {t("stats.chart.captionYearly", { years: FORECAST_WINDOW_YEARS })}
+      </ForecastCaption>
+    </div>
   );
 }
