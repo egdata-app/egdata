@@ -39,10 +39,11 @@
     "freeGamesItemTitle": "Бесплатные игры",
     "freeGamesItemDesc": "Изучите последние бесплатные предложения игр в Epic Games Store.",
     "withDiscountsItemTitle": "Со скидкой",
-    "withDiscountsItemDesc": "Посмотрите игры, которые сейчас продаются со скидками.",
+    "withDiscountsItemDesc": "Посмотрите игры, на которые сейчас действуют отличные скидки.",
     "helloUser": "Здравствуйте, {{name}}!",
     "dashboard": "Панель",
     "logout": "Выйти",
+    "signIn": "Войти",
     "searchLanguages": "Поиск языков...",
     "noLanguagesFound": "Языки не найдены"
   },
@@ -67,13 +68,13 @@
     "madeIn": "Сделано в"
   },
   "meta": {
-    "title": "База данных Epic Games - egdata.app",
-    "description": "Полная база данных Epic Games Store: информация об играх, цены, история продаж, списки файлов и многое другое. Исследуйте бесплатные игры, предстоящие релизы и аналитику сообщества.",
+    "title": "База данных Epic Games — egdata.app",
+    "description": "Полная база данных Epic Games Store: информация об играх, цены, история продаж, списки файлов и многое другое. Знакомьтесь с бесплатными играми, предстоящими релизами, мнениями и аналитикой сообщества.",
     "twitterTitle": "База данных Epic Games",
-    "twitterDescription": "Бесплатная база данных Epic Games Store с открытым исходным кодом, содержащая полную информацию об играх, отслеживание продаж и многое другое. Управляется сообществом и постоянно обновляется.",
+    "twitterDescription": "Бесплатная база данных Epic Games Store с открытым исходным кодом, содержащая подробную информацию об играх, отслеживание распродаж, акций и многое другое. Проект развивается силами сообщества и постоянно обновляется.",
     "twitterImageAlt": "База данных Epic Games",
     "ogTitle": "База данных Epic Games",
-    "ogDescription": "Бесплатная база данных Epic Games Store с открытым исходным кодом, содержащая полную информацию об играх, отслеживание продаж и многое другое. Управляется сообществом и постоянно обновляется.",
+    "ogDescription": "Бесплатная база данных Epic Games Store с открытым исходным кодом, содержащая подробную информацию об играх, отслеживание распродаж, акций и многое другое. Проект развивается силами сообщества и постоянно обновляется.",
     "ogImageAlt": "База данных Epic Games"
   },
   "notFound": {
@@ -82,13 +83,14 @@
   "home": {
     "statsBar": {
       "offersTracked": "Отслеживаемых предложений",
-      "priceChanges72h": "Изменения цен / 72ч",
+      "priceChanges72h": "Изменения цен за 72 часа",
       "activeDiscounts": "Активные скидки",
-      "giveawaysToDate": "Роздач на сегодня"
+      "giveawaysToDate": "Раздач за всё время"
     },
     "sections": {
-      "giveawayStats": "Статистика роздач",
-      "giveawayOffers": "Предложения раздачи",
+      "giveawayStats": "Статистика раздач",
+      "giveawayOffers": "Предлагаемые раздачи",
+      "historicalLows": "Исторически минимальные цены",
       "upcomingOffers": "Предстоящие предложения",
       "latestOffers": "Последние предложения",
       "latestReleased": "Последние релизы",
@@ -96,9 +98,17 @@
       "topSellingOffers": "Самые продаваемые предложения",
       "latestBuilds": "Последние сборки"
     },
+    "historicalLows": {
+      "previous": "Предыдущие предложения с исторически минимальными ценами",
+      "next": "Следующие предложения с исторически минимальными ценами",
+      "openOffer": "Открыть предложение {{title}}",
+      "updated": "Цена изменена {{time}}",
+      "empty": "Для выбранного региона нет предложений с исторически минимальными ценами.",
+      "error": "Не удалось загрузить предложения с исторически минимальными ценами."
+    },
     "tableHeaders": {
       "hash": "#",
-      "pos": "Поз",
+      "pos": "№",
       "dash": "-",
       "title": "Название",
       "starts": "Начало",
@@ -116,14 +126,14 @@
       "publisher": "Издатель:",
       "releaseDate": "Дата выхода:",
       "ageRating": "Возрастной рейтинг:",
-      "moreGenres_one": "+{{count}} ещё",
-      "moreGenres_other": "+{{count}} ещё",
+      "moreGenres_one": "и ещё +{{count}}",
+      "moreGenres_other": "и ещё +{{count}}",
       "communityRating": "Рейтинг сообщества:",
       "igdbScore": "Оценка IGDB",
-      "reviews": "• {{count}} рецензий",
+      "reviews": "• {{count}} обзоров",
       "timeToBeat": "Время прохождения:",
       "features": "Особенности:",
-      "moreFeatures": " +{{count}} ещё"
+      "moreFeatures": "и ещё +{{count}}"
     },
     "buildHover": {
       "unknownBuild": "Неизвестная сборка",
@@ -135,12 +145,12 @@
     },
     "multipleOffers": "{{title}} — несколько предложений",
     "hero": {
-      "subtitle": "Отслеживайте цены, находите скидки и не пропускайте бесплатные игры. Ваш помощник по базе данных Epic Games Store — предложения, скидки, раздачи, сборки и многое другое.",
+      "subtitle": "Отслеживайте цены, находите выгодные предложения и не пропускайте бесплатные раздачи игр. Ваш помощник по базе данных Epic Games Store — предложения, акции, скидки, раздачи, сборки и многое другое.",
       "searchPlaceholder": "Поиск в базе данных…",
       "justReleased": "Только что вышло",
-      "priceDrops72h": "Снижения цен (72ч)",
+      "priceDrops72h": "Снижения цен (за последние 72 часа)",
       "hasAchievements": "Есть достижения",
-      "upcoming": "Предстоящие",
+      "upcoming": "Скоро выйдет",
       "topSellers": "Лидеры продаж"
     },
     "pulse": {
@@ -151,9 +161,9 @@
         "offer": "Предложение",
         "build": "Сборка",
         "item": "Объект",
-        "asset": "Asset",
+        "asset": "Ассет",
         "xp": "XP",
-        "sandbox": "Sandbox",
+        "sandbox": "Песочница",
         "change": "Изменение"
       },
       "title": {
@@ -164,8 +174,8 @@
       "detail": {
         "newBuildIndexed": "Новая сборка проиндексирована",
         "buildManifestRefreshed": "Манифест сборки обновлён",
-        "achievementChanges_one": "{{count}} {{entry}} {{verb}}",
-        "achievementChanges_other": "{{count}} {{entry}} {{verb}}",
+        "achievementChanges_one": "{{count}} достижение {{entry}} {{verb}}",
+        "achievementChanges_other": "{{count}} достижений {{entry}} {{verb}}",
         "offerMetadataRefreshed": "Метаданные предложения обновлены",
         "fieldsChanged_one": "{{count}} поле {{verb}}",
         "fieldsChanged_other": "{{count}} полей {{verb}}",
@@ -185,7 +195,7 @@
     "common": {
       "offerNotFound": "Предложение не найдено",
       "notAvailable": "Недоступно",
-      "na": "Н/Д",
+      "na": "Нет данных",
       "loading": "Загрузка...",
       "somethingWentWrong": "Что-то пошло не так",
       "noChangesFound": "Для этого предложения не найдено изменений"
@@ -200,17 +210,17 @@
       "metadata": "Метаданные",
       "changelog": "Журнал изменений",
       "media": "Медиа",
-      "reviews": "Рецензии"
+      "reviews": "Обзоры"
     },
     "table": {
       "offerId": "ID предложения",
-      "namespace": "Namespace",
+      "namespace": "Пространство имён",
       "offerType": "Тип предложения",
       "seller": "Продавец",
       "developer": "Разработчик",
       "supportedPlatforms": "Поддерживаемые платформы",
       "releaseDate": "Дата выхода",
-      "expirationDate": "Дата истечения срока",
+      "expirationDate": "Дата окончания срока",
       "lastUpdate": "Последнее обновление",
       "creationDate": "Дата создания",
       "technologies": "Технологии",
@@ -233,8 +243,8 @@
       "offeredBy": "Предлагается {{seller}}"
     },
     "tooltip": {
-      "internalNamespace": "Внутреннее Namespace Epic Games",
-      "techDescription": "список технологий для отслеживания используемых движков и различных технологий из файлов игры.",
+      "internalNamespace": "Внутреннее пространство имён (namespace) Epic Games",
+      "techDescription": "Список технологий для отслеживания используемых игровых движков и различных технологий на основе файлов игры.",
       "techSource": "Мы используем",
       "techSourceSteamDb": "SteamDB",
       "source": "Источник"
@@ -245,7 +255,7 @@
     "releaseDate": {
       "releasedOnPc": "Вышло на ПК",
       "theEgs": "EGS",
-      "releasedSameDay": "Вышло в Epic в тот же день, что и на ПК"
+      "releasedSameDay": "Вышло в Epic Games Store в тот же день, что и на ПК"
     },
     "notifications": {
       "title": "Настройки уведомлений",
@@ -268,7 +278,7 @@
       "giveaways": "Раздачи",
       "noGiveaways": "Раздачи не найдены",
       "achievements": "Достижения",
-      "igdbTimeToBeat": "IGDB Время прохождения",
+      "igdbTimeToBeat": "Время прохождения согласно IGDB",
       "hastily": "Быстро",
       "normally": "Обычно",
       "completely": "Полностью",
@@ -278,20 +288,20 @@
       "priceCurrent": "Текущая:",
       "priceLowest": "Самая низкая:",
       "priceLastDiscount": "Последняя скидка:",
-      "hltbTitle": "How Long To Beat",
-      "noGameTimes": "Время прохождения не найдено",
-      "epicRating": "Рейтинг игроков Epic",
+      "hltbTitle": "Сколько времени нужно на прохождение",
+      "noGameTimes": "Время прохождений не найдено",
+      "epicRating": "Рейтинг игроков Epic Games",
       "epicRatingDescription": "Получено от игроков в экосистеме Epic Games",
       "igdbRating": "Рейтинг IGDB",
-      "igdbReviews_one": "{{count}} рецензия",
-      "igdbReviews_other": "{{count}} рецензий"
+      "igdbReviews_one": "{{count}} обзор",
+      "igdbReviews_other": "{{count}} обзоров"
     },
     "achievements": {
       "title": "Достижения",
       "sortBy": "Сортировать по",
       "defaultSort": "Сортировка по умолчанию",
-      "sortByRarity": "Сортировать по редкости",
-      "sortByCompleted": "Сортировать по % выполнения",
+      "sortByRarity": "Сортировка по редкости",
+      "sortByCompleted": "Сортировка по % выполнения",
       "search": "Поиск",
       "flipAll": "Перевернуть всё",
       "noAchievements": "Достижения не найдены",
@@ -313,7 +323,8 @@
       "title": "Объекты"
     },
     "price": {
-      "title": "Цена"
+      "title": "Цена",
+      "inferredFromPromotionEnd": "Определено на основании завершения акции"
     },
     "related": {
       "title": "Связанные предложения"
@@ -337,7 +348,7 @@
     "changelog": {
       "title": "Журнал изменений",
       "tooltip": "Этот список содержит изменения, внесённые в данное конкретное предложение или связанные с ним объекты, ассеты или сборки.",
-      "sandboxChangelog": "журнал изменений sandbox",
+      "sandboxChangelog": "журнал изменений Песочница",
       "sandboxChangelogPrefix": "Вы можете просмотреть журнал изменений для всего продукта в",
       "noChangelog": "Журнал изменений недоступен",
       "allTypes": "Все типы",
@@ -352,39 +363,39 @@
       "typeInsert": "Вставка"
     },
     "reviews": {
-      "epicRating": "Рейтинг игроков Epic",
-      "epicRatingDescription": "Получено от игроков в экосистеме Epic Games",
+      "epicRating": "Рейтинг игроков Epic Games",
+      "epicRatingDescription": "Данные получены от игроков в экосистеме Epic Games",
       "egdataRating": "Рейтинг EGDATA",
       "overallScore": "Общий балл",
       "scoreOutOf10": "{{score}} / 10",
-      "basedOnReviews": "На основе {{count}} рецензий",
-      "allReviews": "Все рецензии",
+      "basedOnReviews": "На основе {{count}} обзоров",
+      "allReviews": "Все обзоры",
       "onlyVerified": "Только подтверждённые",
       "notVerified": "Неподтверждённые",
-      "leaveReview": "Оставить рецензию",
-      "alreadyReviewed": "Уже оставлена рецензия",
-      "loginToReview": "Войдите, чтобы оставить рецензию",
-      "noReviews": "Пока нет рецензий",
+      "leaveReview": "Написать обзор",
+      "alreadyReviewed": "Обзор уже написан",
+      "loginToReview": "Войдите, чтобы написать обзор",
+      "noReviews": "Пока нет обзоров",
       "notReleased": "Этот продукт ещё не вышел",
-      "beFirst": "Будьте первым, кто оставит рецензию на этот продукт!",
-      "checkBack": "Загляните после даты выхода, чтобы оставить рецензию!",
+      "beFirst": "Будьте первым, кто напишет обзор на этот продукт!",
+      "checkBack": "Загляните после даты выхода, чтобы написать обзор!",
       "verifiedOwner": "Подтверждённый владелец",
       "recommended": "Рекомендуется",
       "notRecommended": "Не рекомендуется",
       "readMore": "Читать далее",
-      "reviewedOn": "Рецензия от",
+      "reviewedOn": "Обзор от",
       "lastUpdatedOn": "Последнее обновление",
-      "editedTimes": "Отредактировано {{count}} раз",
+      "editedTimes": "Отредактировано {{count}} раз(а)",
       "edit": "Редактировать",
       "close": "Закрыть",
-      "reviewCount_one": "{{count}} рецензия",
-      "reviewCount_other": "{{count}} рецензий",
+      "reviewCount_one": "{{count}} обзор",
+      "reviewCount_other": "{{count}} обзоров",
       "ownershipVerification": "Подтверждение владения",
       "ownershipVerificationDescription": "основывается на выполнении игроком хотя бы одного достижения.",
       "ownershipVerificationTooltip": "Мы используем достижения Epic Games для подтверждения владения продуктом. Чтобы пометить игрока как подтверждённого владельца, он должен выполнить хотя бы одно достижение для выбранного продукта в Epic Games Store. Чтобы привязать свою учётную запись к профилю egdata, вам нужно перейти в",
-      "yourDashboard": "вашу панель",
-      "criticReviews": "Рецензии критиков",
-      "basedOnCriticReviews": "На основе {{count}} рецензий критиков",
+      "yourDashboard": "Вашу панель",
+      "criticReviews": "Обзоры критиков",
+      "basedOnCriticReviews": "На основе {{count}} обзоров критиков",
       "opencriticRating": "Рейтинг OpenCritic",
       "topCriticAverage": "Средний балл топ-критиков",
       "criticsRecommend": "Критики рекомендуют",
@@ -402,7 +413,7 @@
     "pills": {
       "onSale": "Со скидкой",
       "codeRedemptionOnly": "Только активация кода",
-      "excludeBlockchain": "Исключить Blockchain/NFT",
+      "excludeBlockchain": "Исключить Блокчейн/NFT",
       "pastGiveaways": "Прошедшие раздачи"
     },
     "accordion": {
@@ -410,13 +421,15 @@
       "developer": "Разработчик",
       "publisher": "Издатель",
       "noTags": "Теги не найдены",
+      "technologies": "Технологии",
+      "noTechnologies": "Технологии не найдены",
       "seller": "Продавец"
     },
     "checkboxes": {
       "pastGiveaways": "Прошедшие раздачи",
       "onSale": "Со скидкой",
       "codeRedemptionOnly": "Только активация кода",
-      "excludeBlockchain": "Исключить Blockchain/NFT",
+      "excludeBlockchain": "Исключить Блокчейн/NFT",
       "onlyHistoricalLows": "Только исторические минимумы",
       "onlyLowestPriceEver": "Только самая низкая цена"
     },
@@ -460,18 +473,18 @@
     },
     "headings": {
       "current": "Текущие бесплатные игры",
-      "past": "Прошедшие бесплатные игры",
+      "past": "Бесплатные игры в прошлом",
       "sellers": "Продавцы бесплатных игр"
     },
     "buttons": {
       "redeem": "Забрать сейчас",
       "downloadJson": "Скачать как JSON",
       "downloadCsv": "Скачать как CSV",
-      "downloadTxt": "Скачать как текст"
+      "downloadTxt": "Скачать как текст TXT"
     },
     "redeemDialog": {
       "title": "Выберите бесплатную игру",
-      "description": "Epic обрабатывает одну бесплатную Offer за одну транзакцию. Выберите игру, которую хотите забрать."
+      "description": "Epic обрабатывает одно бесплатное предложение за одну транзакцию. Выберите игру, которую хотите забрать."
     },
     "placeholders": {
       "searchSellers": "Поиск продавцов..."
@@ -490,7 +503,7 @@
   "sales": {
     "meta": {
       "title": "{{title}} | egdata.app",
-      "description": "Посмотрите {{title}} в Epic Games Store."
+      "description": "Посмотрите {{title}} из Epic Games Store."
     },
     "metaIndex": {
       "title": "Активные скидки | egdata.app",
@@ -525,7 +538,7 @@
       "main": "Подборки"
     },
     "description": {
-      "overview": "Самые продаваемые, популярные и любимые игры в Epic Games Store"
+      "overview": "Самые продаваемые, самые популярные и самые любимые игры в Epic Games Store"
     },
     "status": {
       "loading": "Загрузка..."
@@ -539,39 +552,39 @@
       "weeks": "Недели"
     },
     "tooltips": {
-      "variance": "Разница между текущей позицией и предыдущей. Обычно меняется каждый день.",
-      "weeks": "Количество недель, которые игра провела в топ-100 для {{title}}."
+      "variance": "Разница между текущей и предыдущей позицией. Обычно меняется каждый день.",
+      "weeks": "Количество недель, которые игра провела в ТОП-100 для {{title}}."
     },
     "buttons": {
       "loadMore": "Загрузить ещё"
     }
   },
   "sandboxes": {
-    "notFoundTitle": "Sandbox не найден",
-    "notFoundDescription": "Sandbox не найден",
+    "notFoundTitle": "Песочница не найдена",
+    "notFoundDescription": "Песочница не найдена",
     "unrealEngineTitle": "Unreal Engine",
-    "unavailableTitle": "Sandbox недоступен",
+    "unavailableTitle": "Песочница недоступна",
     "unavailableDescription": "Не удалось загрузить центр продукта.",
-    "noProductDataDescription": "Для этого sandbox нет данных о продукте.",
-    "hubEyebrow": "Sandbox",
+    "noProductDataDescription": "Для этой песочницы нет данных о продукте.",
+    "hubEyebrow": "Песочница",
     "hubOverviewTitle": "Обзор",
-    "hubOverviewDescription": "Сфокусированная карта записей витрины, владения, доставки и обновлений для этого Namespace.",
+    "hubOverviewDescription": "Карта подсвечивающая записи о витрине, о владении, об ассетах и обновлениях для этого пространства имён.",
     "latestChangesButton": "Последние изменения",
     "entityOffersLabel": "Предложения",
     "entityOffersDescription": "Записи витрины",
     "entityItemsLabel": "Объекты",
-    "entityItemsDescription": "Владеемые записи",
+    "entityItemsDescription": "Записи владения",
     "entityAssetsLabel": "Ассеты",
-    "entityAssetsDescription": "Артефакты и медиа",
+    "entityAssetsDescription": "Записи об ассетах",
     "entityBuildsLabel": "Сборки",
-    "entityBuildsDescription": "Бинарные пакеты",
+    "entityBuildsDescription": "Записи о бинарных пакетах",
     "entityAchievementsLabel": "Достижения",
     "entityAchievementsDescription": "Данные прогресса",
     "entityChangelogLabel": "Журнал изменений",
     "entityChangelogDescription": "Отслеживаемые обновления",
     "viewButton": "Просмотр",
     "storefrontOffersTitle": "Предложения витрины",
-    "storefrontOffersDescription": "Представительские записи витрины, найденные в этом sandbox.",
+    "storefrontOffersDescription": "В этой песочнице представлены записи из витрин.",
     "recentBuildsTitle": "Последние сборки",
     "recentBuildsDescription": "Новейшие бинарные записи.",
     "latestBadge": "последняя",
@@ -583,18 +596,18 @@
     "metaOffersTitle": "Предложения",
     "offersEyebrow": "Электронная коммерция",
     "offersTitle": "Предложения",
-    "offersDescription": "Записи витрины в этом sandbox, включая базовые игры, издания, DLC, дополнения, наборы и любые предложения, которые могут предоставлять объекты каталога.",
+    "offersDescription": "Товары на витрине в этой песочнице, включая базовые игры, различные издания игр, DLC, дополнения, комплекты игр и любые предложения, которые могут предоставить доступ к предметам из каталога.",
     "totalOffersLabel": "Всего предложений",
     "metaAchievementsTitle": "Достижения",
     "achievementsEyebrow": "Прогресс",
     "achievementsTitle": "Достижения",
-    "achievementsDescription": "Наборы достижений, скрытые состояния, распределение редкости и общее количество XP, привязанные к этому sandbox.",
+    "achievementsDescription": "Наборы достижений, скрытые состояния, распределение редкости и общее количество опыта (XP), привязанные к этой песочнице.",
     "achievementsSetsLabel": "Наборы",
     "achievementsLabel": "Достижения",
-    "achievementsXpLabel": "XP",
+    "achievementsXpLabel": "Опыт (XP)",
     "searchAchievementsPlaceholder": "Поиск достижений",
     "flipAllButton": "Перевернуть всё",
-    "revealHiddenAchievementAria": "Показать скрытый текст достижения",
+    "revealHiddenAchievementAria": "Показать текст скрытого достижения",
     "hideHiddenAchievementAria": "Скрыть текст скрытого достижения",
     "achievementsBaseGameLabel": "Базовая игра",
     "achievementsDlcLabel": "DLC",
@@ -609,24 +622,24 @@
     "metaItemsTitle": "Объекты",
     "itemsEyebrow": "Владение каталогом",
     "itemsTitle": "Объекты",
-    "itemsDescription": "Владеемые объекты каталога, содержащиеся в предложениях. Это записи, которые становятся правами игрока после покупки или активации.",
+    "itemsDescription": "Объекты каталога, которыми можно владеть, содержащиеся в предложениях. Это записи, которые становятся правами игрока после покупки или активации.",
     "totalItemsLabel": "Всего объектов",
     "metaChangelogTitle": "Журнал изменений",
     "changelogEyebrow": "Аудиторский след",
     "changelogTitle": "Журнал изменений",
-    "changelogDescription": "Наблюдаемые изменения в предложениях, объектах, ассетах, сборках и связанных метаданных каталога этого sandbox.",
+    "changelogDescription": "Наблюдаемые изменения в предложениях, объектах, ассетах, сборках и связанных метаданных каталога этой песочницы.",
     "totalChangesLabel": "Изменения",
     "queryTimeLabel": "Время запроса",
     "noChangelogFound": "Журнал изменений не найден",
     "metaBuildsTitle": "Сборки",
     "buildsEyebrow": "Бинарные файлы",
     "buildsTitle": "Сборки",
-    "buildsDescription": "Версионированные пакеты файлов, загруженные для sandbox. Сборки назначаются артефактам и определяют, что игроки скачивают через лаунчер.",
+    "buildsDescription": "Версии пакетов файлов, загруженных для песочницы. Сборки назначаются артефактам и определяют, что именно игроки скачивают через лаунчер.",
     "totalBuildsLabel": "Всего сборок",
     "metaAssetsTitle": "Ассеты",
     "assetsEyebrow": "Ассеты и артефакты",
     "assetsTitle": "Ассеты",
-    "assetsDescription": "Записи распространения и медиа, прикреплённые к объектам sandbox, включая артефакты, которые связывают содержимое каталога витрины с загружаемыми сборками.",
+    "assetsDescription": "Изучите дистрибутивные ресурсы, связанные артефакты, платформы и размеры загружаемых файлов.",
     "totalAssetsLabel": "Всего ассетов"
   },
   "items": {
@@ -634,7 +647,7 @@
     "badge": "Объект",
     "table": {
       "itemId": "ID объекта",
-      "namespace": "Namespace",
+      "namespace": "Пространство имён",
       "developer": "Разработчик",
       "entitlementType": "Тип права",
       "entitlementName": "Имя права",
@@ -644,7 +657,7 @@
       "platforms": "Платформы"
     },
     "tooltip": {
-      "internalNamespace": "Внутреннее Namespace Epic Games"
+      "internalNamespace": "Внутреннее пространство имён Epic Games"
     },
     "tabs": {
       "item": "Объект",
@@ -681,7 +694,7 @@
       "buildId": "ID сборки",
       "buildName": "Имя сборки",
       "appName": "Имя приложения",
-      "hash": "Хэш",
+      "hash": "Хеш",
       "installedSize": "Установленный размер",
       "downloadSize": "Размер загрузки",
       "createdAt": "Создана",
@@ -700,10 +713,40 @@
       "installOptions": "Параметры установки"
     },
     "files": {
-      "title": "Файлы"
+      "title": "Файлы",
+      "breadcrumb": "Путь файла",
+      "root": "Корень",
+      "columns": {
+        "name": "Имя",
+        "size": "Размер"
+      },
+      "loading": "Загрузка папки…",
+      "error": "Не удалось загрузить файлы",
+      "errorDescription": "Эта папка сейчас недоступна. Попробуйте позже.",
+      "empty": "Эта папка пуста.",
+      "openFolder": "Открыть папку {{name}}",
+      "selectFile": "Выбрать файл {{name}}",
+      "details": {
+        "title": "Сведения о файле",
+        "prompt": "Выберите файл, чтобы просмотреть его метаданные и сравнить их с базовой сборкой.",
+        "currentHash": "Текущий хеш",
+        "currentSize": "Текущий размер",
+        "baselineHash": "Хеш базовой сборки",
+        "baselineSize": "Размер базовой сборки",
+        "sizeDelta": "Изменение размера",
+        "mimeType": "MIME-тип",
+        "installTags": "Теги установки",
+        "symlinkTarget": "Целевой объект символической ссылки",
+        "flags": "Флаги метаданных файла",
+        "notAvailable": "Нет данных",
+        "zeroBytes": "0 байт",
+        "noBaseline": "Для этого файла нет сопоставимой сборки из предыдущих версий.",
+        "comparing": "Сравнение этого файла с базовой сборкой…",
+        "comparisonUnavailable": "Сравнение этого файла недоступно"
+      }
     },
     "header": {
-      "description": "Просмотрите этот снимок билда и сравните его с ранее наблюдавшимися билдами.",
+      "description": "Изучите этот снимок сборки и сравните его с предыдущими.",
       "firstSeen": "Впервые замечен",
       "lastSeen": "Последний раз замечен",
       "parser": "Версия парсера",
@@ -720,54 +763,54 @@
       "legacyUnverified": "Ещё не проверен"
     },
     "timeline": {
-      "title": "История наблюдавшихся билдов",
-      "description": "Выберите два наблюдавшихся снимка, чтобы сравнить их файлы.",
+      "title": "Наблюдаемая история сборок",
+      "description": "Выберите два наблюдаемых снимка, чтобы сравнить их файлы.",
       "observed": "Время указано для вашего часового пояса",
       "earlier": "Раньше",
       "later": "Позже",
-      "baseline": "База сравнения",
-      "selectBuild": "Выберите билд",
+      "baseline": "Базовый уровень для сравнения",
+      "selectBuild": "Выберите сборку",
       "searchBuilds": "Поиск по версиям или датам…",
-      "noBuilds": "Билды не найдены.",
+      "noBuilds": "Сборки не найдены.",
       "dateUnavailable": "Дата наблюдения недоступна",
-      "undatedBuilds_one": "{{count}} билд без даты наблюдения",
-      "undatedBuilds_other": "{{count}} билдов без даты наблюдения",
-      "clusteredBuilds_one": "{{count}} билд наблюдался примерно в это время",
-      "clusteredBuilds_other": "{{count}} билдов наблюдались примерно в это время",
-      "useAsBaseline": "Использовать как базу",
-      "viewAsCurrent": "Просмотреть билд",
-      "notComparable": "Этот билд нельзя использовать как базу для сравнения.",
+      "undatedBuilds_one": "{{count}} сборка без даты наблюдения",
+      "undatedBuilds_other": "{{count}} сборок без даты наблюдения",
+      "clusteredBuilds_one": "{{count}} сборка наблюдаемая примерно в это время",
+      "clusteredBuilds_other": "{{count}} сборок наблюдаемых примерно в это время",
+      "useAsBaseline": "Использовать как базовый уровень",
+      "viewAsCurrent": "Просмотреть сборку",
+      "notComparable": "Эту сборку нельзя использовать как базовую для сравнения.",
       "comparisonDirection": "Направление сравнения"
     },
     "comparison": {
-      "current": "Текущий билд",
+      "current": "Текущая сборка",
       "compareAgainst": "Сравнить с",
-      "noPrevious": "Нет предыдущего проверенного билда",
-      "noPreviousDescription": "Это первый сопоставимый билд, обнаруженный в данном потоке. Вы всё ещё можете просмотреть все файлы манифеста.",
+      "noPrevious": "Нет предыдущей проверенной сборки",
+      "noPreviousDescription": "Это первая доступная для сравнения сборка, обнаруженная в этом потоке. Вы по-прежнему можете просмотреть все файлы манифеста.",
       "swap": "Поменять местами",
       "changes": "Изменения",
       "allFiles": "Все файлы",
       "unavailable": "Этот манифест нельзя сравнить",
       "unavailableDescription": "Снимок всё ещё обрабатывается, недоступен или был разобран старой версией парсера. Исходные файлы могут быть неполными.",
       "error": "Не удалось загрузить сравнение",
-      "errorDescription": "Выбранная база может быть недоступна или несовместима. Выберите другой проверенный билд и повторите попытку.",
+      "errorDescription": "Выбранная в качестве базовой сборка может быть недоступна или несовместима. Выберите другую проверенную сборку и повторите попытку.",
       "loading": "Сравнение снимков манифеста…",
-      "crossStream": "Эти билды относятся к разным каналам выпуска.",
-      "summary": "Сводка изменений билда",
+      "crossStream": "Эти сборки относятся к разным каналам выпуска.",
+      "summary": "Сводка изменений сборки",
       "status": {
         "added": "Добавлено",
         "modified": "Изменено",
         "removed": "Удалено",
         "unchanged": "Без изменений"
       },
-      "installedDelta": "Изменение установленного размера",
-      "fullDownloadDelta": "Изменение полной загрузки",
+      "installedDelta": "Изменение размера при установке",
+      "fullDownloadDelta": "Изменение полного размера загрузки",
       "changedFiles": "Изменённые файлы",
-      "downloadDisclaimer": "Полный размер загрузки — это сжатый размер каждого полного билда, а не оценка обновления или патча.",
+      "downloadDisclaimer": "Полный размер загрузки — это сжатый размер каждой полной сборки, а не оценка обновления или патча.",
       "unchanged": "без изменений",
       "search": "Поиск по путям файлов",
       "searchPlaceholder": "Поиск по полному пути…",
-      "extensionPlaceholder": "Расширение, например pak",
+      "extensionPlaceholder": "Расширение, например: pak",
       "apply": "Применить",
       "columns": {
         "status": "Статус",
@@ -808,7 +851,7 @@
       "notFoundTitle": "Профиль не найден",
       "notFoundDescription": "Этот профиль недоступен или ещё не проиндексирован.",
       "unavailableTitle": "Профиль недоступен",
-      "unavailableDescription": "Не удалось загрузить этот профиль прямо сейчас.",
+      "unavailableDescription": "Этот профиль не удалось загрузить в данный момент.",
       "invalidImageFormat": "Неверный формат изображения",
       "failedToUpload": "Не удалось загрузить",
       "uploadFailed": "Не удалось загрузить",
@@ -821,7 +864,7 @@
       "dialogDescription": "Загрузите новое изображение профиля.",
       "previewAlt": "Предпросмотр аватара",
       "fallback": "Аватар",
-      "description": "Загрузите новое изображение аватара, макс. 5 МБ.",
+      "description": "Загрузите новое изображение аватара, максимальный размер файла 5 МБ.",
       "uploadingWithProgress": "Загрузка... {{progress}}%",
       "uploading": "Загрузка...",
       "updateAvatar": "Обновить аватар",
@@ -840,24 +883,24 @@
       "perfectGames": "Идеальные игры",
       "library": "Библиотека",
       "achievementGames": "Игры с достижениями",
-      "reviews": "Рецензии",
-      "contributed": "Оставлено",
-      "xpToNextLevel": "{{xp}} XP до уровня {{level}}",
+      "reviews": "Обзоры",
+      "contributed": "Внёс вклад",
+      "xpToNextLevel": "{{xp}} опыта (XP) до уровня {{level}}",
       "heroGame": "Главная игра",
       "complete": "пройдено"
     },
     "donor": {
-      "donated_one": "{{name}} пожертвовал {{count}} ключ egdata.app",
-      "donated_other": "{{name}} пожертвовал {{count}} ключей egdata.app",
+      "donated_one": "{{name}} пожертвовал(а) {{count}} ключ egdata.app",
+      "donated_other": "{{name}} пожертвовал(а) {{count}} ключей(а) egdata.app",
       "goTo": "Перейти по",
       "thisLink": "этой ссылке",
       "toDonateKey": "чтобы пожертвовать ключ."
     },
     "countdown": {
       "minutesSeconds_one": "{{minutes}} минута {{seconds}} секунда",
-      "minutesSeconds_other": "{{minutes}} минут {{seconds}} секунд",
+      "minutesSeconds_other": "{{minutes}} минут(ы) {{seconds}} секунд(ы)",
       "seconds_one": "{{seconds}} секунда",
-      "seconds_other": "{{seconds}} секунд"
+      "seconds_other": "{{seconds}} секунд(ы)"
     },
     "tabs": {
       "showcase": "Витрина",
@@ -867,14 +910,14 @@
     "stats": {
       "games": "{{count}} игр",
       "achievements": "{{count}} достижений",
-      "platinum": "{{count}} платина"
+      "platinum": "{{count}} платин"
     },
     "showcase": {
-      "ariaLabel": "Основные моменты витрины профиля",
+      "ariaLabel": "Основные моменты из профиля",
       "featuredGamesTitle": "Рекомендуемые игры",
       "featuredGamesDetail": "{{count}} выбрано по производительности профиля",
       "rareAchievementsTitle": "Редкие достижения",
-      "rareAchievementsDetail": "Трудно находимые открытия в профиле",
+      "rareAchievementsDetail": "Трудно получаемые достижения в профиле",
       "recentUnlocksTitle": "Недавние открытия",
       "recentUnlocksDetail": "Последняя видимая активность",
       "noDataTitle": "Данные витрины пока отсутствуют",
@@ -904,8 +947,8 @@
       },
       "sorts": {
         "completion": "Прохождение",
-        "alphabetical": "Алфавиту",
-        "xp": "XP",
+        "alphabetical": "По алфавиту",
+        "xp": "Опыт (XP)",
         "achievements": "Достижения"
       }
     },
@@ -913,7 +956,7 @@
       "title": "Активность",
       "detail": "{{count}} открыто достижений",
       "noActivityTitle": "Пока нет активности",
-      "noActivityDescription": "Открытия достижений появятся здесь, когда у этого профиля будет публичный прогресс.",
+      "noActivityDescription": "Открытые достижения появятся здесь, когда у этого профиля будет публичный прогресс.",
       "achievementAlt": "Достижение",
       "platinumEarned": "Платина получена",
       "achievementUnlocked": "Достижение открыто",
@@ -933,7 +976,7 @@
       "notFoundDescription": "Акция не найдена",
       "title": "{{title}} | egdata.app",
       "description": "Посмотрите {{count}} доступных предложений для {{title}} на egdata.app.",
-      "socialTitle": "{{title}} - egdata.app"
+      "socialTitle": "{{title}} — egdata.app"
     },
     "loading": "Загрузка...",
     "offersCount": "{{count}} предложений доступно в этой акции",
@@ -954,7 +997,7 @@
   },
   "genres": {
     "meta": {
-      "title": "Жанры - egdata.app",
+      "title": "Жанры — egdata.app",
       "description": "Жанры на egdata.app"
     },
     "heading": "Жанры"
@@ -976,16 +1019,57 @@
       "freeGames": "Бесплатных игр"
     }
   },
+    "technologies": {
+    "meta": {
+      "title": "Технология: {{name}} | egdata.app",
+      "description": "Узнайте больше о {{name}} и просмотрите подходящие игры в Epic Games Store."
+    },
+    "pendingTitle": "Исследования {{name}}",
+    "pendingDescription": "Сейчас мы создаём этот технологический профиль. Игры на сопоставление будут доступны после завершения исследования.",
+    "unresolvedTitle": "Для {{name}} профиль недоступен",
+    "unresolved": {
+      "ambiguous": "Этот идентификатор может относиться к нескольким технологиям, поэтому мы не публикуем его предполагаемый профиль.",
+      "unknown": "Нам не удалось найти информацию об этой технологии в надёжных открытых источниках.",
+      "insufficientSources": "Мы нашли некоторую информацию о технологии, но у нас недостаточно достоверных источников, чтобы опубликовать информацию о ней."
+    },
+    "serviceTitle": "Профиль технологии временно недоступен",
+    "serviceDescription": "Сервис профилей не ответил, но подходящие игры по-прежнему доступны ниже.",
+    "notFoundTitle": "Технология не найдена",
+    "notFoundDescription": "Этот конкретный технологический ключ отсутствует в поисковом индексе egdata.app",
+    "logoAlt": "Логотип {{name}}",
+    "official": "Официальный сайт",
+    "sources": "Источники",
+    "generatedOn": "Сгенерировано {{date}}",
+    "aiDisclosure": "Английский профиль, сгенерированный ИИ, проверен по указанным веб-источникам.",
+    "stale": "Этот профиль обновляется.",
+    "matchingGames": "Игра использует {{name}}",
+    "externalLink": "откроется в новой вкладке",
+    "categories": {
+      "engine": "Игровой движок",
+      "graphics": "Графика",
+      "audio": "Аудио",
+      "physics": "Физика",
+      "networking": "Сетевое взаимодействие",
+      "antiCheat": "Анти-чит",
+      "runtime": "Рантайм",
+      "framework": "Фреймворк",
+      "middleware": "Промежуточное ПО",
+      "platformService": "Сервисная платформа",
+      "tooling": "Инструменты",
+      "fileFormat": "Формат файла",
+      "other": "Прочее"
+    }
+  },
   "franchises": {
     "meta": {
       "notFoundTitle": "Франшиза не найдена",
       "notFoundDescription": "Франшиза не найдена",
-      "title": "Франшиза {{name}} | egdata.app",
+      "title": "Франшиза: {{name}} | egdata.app",
       "description": "Просмотр всех игр франшизы {{name}} в Epic Games Store."
     },
     "loading": "Загрузка...",
     "gamesCount_one": "{{count}} игра",
-    "gamesCount_other": "{{count}} игр",
+    "gamesCount_other": "{{count}} игр(ы)",
     "timeToBeat": "Время прохождения",
     "achievements": "Достижения",
     "loadMore": "Загрузить ещё",
@@ -994,21 +1078,34 @@
   "stats": {
     "creations": {
       "meta": {
-        "title": "Статистика созданий - egdata.app",
-        "description": "Ежемесячная и ежегодная частота появления новых созданий в Epic Games Store."
+        "title": "Статистика созданий — egdata.app",
+        "description": "Ежемесячная и ежегодная частота появления новых предложений в Epic Games Store."
       },
       "viewReleases": "Посмотреть релизы",
-      "heading": "Статистика созданий Epic Games Store",
-      "description": "Ежемесячная и ежегодная частота появления новых созданий в магазине.",
-      "monthlyTitle": "Ежемесячные создания",
-      "yearlyTitle": "Ежегодные создания"
+      "heading": "Статистика релизов Epic Games Store",
+      "description": "Ежемесячная и ежегодная частота появления новых предложений в магазине.",
+      "monthlyTitle": "Ежемесячные предложения",
+      "yearlyTitle": "Ежегодные предложения"
+    },
+    "chart": {
+      "releasesLabel": "Релизы",
+      "creationsLabel": "Предложения",
+      "ongoing": "В разработке",
+      "ongoingSoFar": "В разработке (уже давно)",
+      "prediction": "Прогноз",
+      "projectedTotal": "Прогнозируемый общий объём",
+      "likelyRange": "Вероятный диапазон",
+      "ytd": "С начала года по настоящее время",
+      "forecastZone": "Прогнозирование",
+      "captionMonthly": "Прогноз: линейный тренд за последние {{months}} завершённые месяцы. Заштрихованная область обозначает зону прогноза; полоса и диапазоны показывают ±1σ.",
+      "captionYearly": "Прогноз: линейный тренд за последние {{years}} завершённые годы. Текущий год суммируется с текущим годом (сплошным) и прогнозируемым остатком (пунктирным)."
     },
     "releases": {
       "meta": {
-        "title": "Статистика релизов - egdata.app",
+        "title": "Статистика релизов — egdata.app",
         "description": "Ежемесячная и ежегодная частота выхода новых игр в Epic Games Store."
       },
-      "viewCreations": "Посмотреть создания",
+      "viewCreations": "Посмотреть релизы",
       "heading": "Статистика релизов Epic Games Store",
       "description": "Ежемесячная и ежегодная частота выхода новых игр в магазине.",
       "monthlyTitle": "Ежемесячные релизы",
@@ -1018,29 +1115,29 @@
   "store": {
     "creatorCode": {
       "title": "Поддержите egdata.app",
-      "description": "Хотите поддержать egdata.app, используя наш код создателя при покупке игр? Этот выбор будет запомнен для будущих посещений.",
-      "body": "Использование нашего кода создателя помогает поддерживать разработку egdata.app и его функций. Это не влияет на цену, которую вы платите.",
+      "description": "Хотели бы вы поддержать egdata.app, используя наш код создателя при покупке игр? Этот выбор запомнится при последующих посещениях.",
+      "body": "Использование нашего кода создателя помогает поддерживать разработку egdata.app и его функций. Это не влияет на цену игр, которую вы платите.",
       "noThanks": "Нет, спасибо",
       "yesUseCode": "Да, использовать код"
     }
   },
   "dashboard": {
-    "placeholder": "Привет /dashboard!"
+    "placeholder": "Привет, /dashboard!"
   },
   "auth": {
     "login": {
-      "placeholder": "Привет /auth/login!"
+      "placeholder": "Привет, /auth/login!"
     },
     "callback": {
-      "placeholder": "Привет /auth/callback!"
+      "placeholder": "Привет, /auth/callback!"
     },
     "logout": {
-      "placeholder": "Привет /auth/logout!"
+      "placeholder": "Привет, /auth/logout!"
     }
   },
   "about": {
     "meta": {
-      "title": "О проекте - egdata.app",
+      "title": "О проекте — egdata.app",
       "description": "О проекте egdata.app"
     },
     "title": "О проекте",
@@ -1050,20 +1147,20 @@
     "featuresTitle": "Возможности",
     "features": {
       "trackPrices": "Отслеживайте изменения цен на игры и исторические данные",
-      "upcomingReleases": "Просматривайте предстоящие релизы и акции с бесплатными играми",
-      "gameDetails": "Изучайте детали игр, рейтинги и пользовательские рецензии",
+      "upcomingReleases": "Просматривайте предстоящие релизы, акции и раздачи с бесплатными играми",
+      "gameDetails": "Изучайте детали игр, рейтинги и пользовательские обзоры",
       "analyzeTrends": "Анализируйте тенденции и закономерности в Epic Games Store"
     },
     "communityTitle": "Управляется сообществом",
-    "communityBody": "egdata.app создаётся и поддерживается страстным сообществом геймеров и разработчиков. Мы приветствуем вклад всех, кто хочет помочь улучшить сайт и сделать его ценным ресурсом для всех. Не стесняйтесь обращаться к нам, если у вас есть отзывы, предложения или вы хотите принять участие.",
+    "communityBody": "egdata.app создаётся и поддерживается страстным сообществом геймеров, разработчиков и переводчиков. Мы приветствуем вклад всех, кто хочет помочь улучшить сайт и сделать его ценным ресурсом для всех. Не стесняйтесь обращаться к нам, если у вас есть отзывы, предложения или вы хотите принять участие.",
     "sourceCodeIntro": "Весь исходный код egdata.app доступен на",
     "github": "GitHub",
     "notTitle": "Чем egdata.app НЕ является",
     "notIntro": "Важно прояснить, что egdata.app не является:",
     "notList": {
-      "affiliated": "Аффилированным с Epic Games: Мы независимый проект, управляемый сообществом, и не имеем официальной поддержки или связи с Epic Games.",
+      "affiliated": "Ресурсом аффилированным с Epic Games: Мы независимый проект, управляемый сообществом, и не имеем официальной поддержки или связи с Epic Games.",
       "storefront": "Магазином или торговой площадкой: Мы не продаём игры и не предоставляем вариантов покупки. Наша цель — предоставлять информацию и данные об Epic Games Store.",
-      "piracy": "Платформой для пиратства или незаконной деятельности: Мы решительно осуждаем пиратство и не предоставляем никаких средств для доступа или распространения незаконно защищённого контента."
+      "piracy": "Платформой для пиратства или незаконной деятельности: Мы решительно осуждаем пиратство и не предоставляем никаких средств для доступа или распространения незаконно защищённого авторским правом контента."
     },
     "fairUseTitle": "Политика добросовестного использования",
     "fairUseBody": "egdata.app стремится соблюдать принципы добросовестного использования в соответствии с законом об авторском праве. Мы предоставляем информацию и данные только в информационных целях, направленных на просвещение и информирование общественности об играх, доступных в Epic Games Store.",
@@ -1072,9 +1169,9 @@
       "nonCommercial": "Некоммерческая образовательная цель:",
       "nonCommercialBody": "Наш сайт является некоммерческим и стремится расширить общественные знания об играх в Epic Games Store.",
       "factual": "Фактическая информация:",
-      "factualBody": "Мы представляем в основном фактические данные, такие как названия игр, даты выхода и разработчики, которые меньше защищены авторским правом.",
+      "factualBody": "В основном мы представляем фактические данные, такие как названия игр, даты выхода и имена разработчиков, которые в меньшей степени защищены авторским правом.",
       "limited": "Ограниченное использование:",
-      "limitedBody": "Мы используем только необходимый объём данных для предоставления значимой информации, не заменяя оригинальные произведения.",
+      "limitedBody": "Мы используем только необходимый объём данных для предоставления значимой информации, не заменяя оригинальные источники.",
       "noMarketHarm": "Отсутствие вреда для рынка:",
       "noMarketHarmBody": "Наше использование не оказывает негативного влияния на рынок оригинальных игр; наоборот, оно может способствовать их продвижению за счёт повышения интереса пользователей."
     },
@@ -1082,7 +1179,7 @@
     "leakedDataTitle": "Отказ от ответственности за утечку данных:",
     "leakedDataBody": "Любые данные, которые кажутся утёкшими на нашем сайте, происходят из общедоступной информации в Epic Games Store. Мы не имеем доступа к конфиденциальным или проприетарным данным. Издатели несут ответственность за защиту своей конфиденциальной информации в",
     "epicDevPortal": "портале разработчика Epic Games",
-    "euDirectivesIntro": "Разрабатывая нашу Политику добросовестного использования, мы учли принципы, изложенные в следующих директивах ЕС по авторскому праву:",
+    "euDirectivesIntro": "Разрабатывая нашу Политику добросовестного использования, мы учли принципы, изложенные в следующих директивах Европейского Союза по авторскому праву:",
     "euDirective1": "Директива (ЕС) 2019/790 об авторском праве и смежных правах на едином цифровом рынке",
     "euDirective2": "Вопросы и ответы — Новые правила ЕС по авторскому праву",
     "fairUseContact": "Если у вас есть вопросы о нашей Политике добросовестного использования или вы считаете, что какой-либо контент нарушает ваши авторские права, пожалуйста, свяжитесь с нами по адресу:",
@@ -1117,19 +1214,19 @@
     "features": {
       "trackPrices": "Отслеживайте изменения цен на игры и исторические данные",
       "upcomingReleases": "Просматривайте предстоящие релизы и акции с бесплатными играми",
-      "gameDetails": "Изучайте детали игр, рейтинги и пользовательские рецензии",
+      "gameDetails": "Изучайте детали игр, рейтинги и пользовательские обзоры",
       "analyzeTrends": "Анализируйте тенденции и закономерности в Epic Games Store"
     },
     "communityTitle": "Управляется сообществом",
-    "communityBody": "egdata.app создаётся и поддерживается страстным сообществом геймеров и разработчиков. Мы приветствуем вклад всех, кто хочет помочь улучшить сайт и сделать его ценным ресурсом для всех. Не стесняйтесь обращаться к нам, если у вас есть отзывы, предложения или вы хотите принять участие.",
+    "communityBody": "egdata.app создаётся и поддерживается страстным сообществом геймеров, разработчиков и переводчиков. Мы приветствуем вклад всех, кто хочет помочь улучшить сайт и сделать его ценным ресурсом для всех. Не стесняйтесь обращаться к нам, если у вас есть отзывы, предложения или вы хотите принять участие.",
     "sourceCodeIntro": "Весь исходный код egdata.app доступен на",
     "github": "GitHub",
     "notTitle": "Чем egdata.app НЕ является",
     "notIntro": "Важно прояснить, что egdata.app не является:",
     "notList": {
-      "affiliated": "Аффилированным с Epic Games: Мы независимый проект, управляемый сообществом, и не имеем официальной поддержки или связи с Epic Games.",
+      "affiliated": "Ресурсом аффилированным с Epic Games: Мы независимый проект, управляемый сообществом, и не имеем официальной поддержки или связи с Epic Games.",
       "storefront": "Магазином или торговой площадкой: Мы не продаём игры и не предоставляем вариантов покупки. Наша цель — предоставлять информацию и данные об Epic Games Store.",
-      "piracy": "Платформой для пиратства или незаконной деятельности: Мы решительно осуждаем пиратство и не предоставляем никаких средств для доступа или распространения незаконно защищённого контента."
+      "piracy": "Платформой для пиратства или незаконной деятельности: Мы решительно осуждаем пиратство и не предоставляем никаких средств для доступа или распространения незаконно защищённого авторским правом контента."
     },
     "fairUseTitle": "Политика добросовестного использования",
     "fairUseBody": "egdata.app стремится соблюдать принципы добросовестного использования в соответствии с законом об авторском праве. Мы предоставляем информацию и данные только в информационных целях, направленных на просвещение и информирование общественности об играх, доступных в Epic Games Store.",
@@ -1138,9 +1235,9 @@
       "nonCommercial": "Некоммерческая образовательная цель:",
       "nonCommercialBody": "Наш сайт является некоммерческим и стремится расширить общественные знания об играх в Epic Games Store.",
       "factual": "Фактическая информация:",
-      "factualBody": "Мы представляем в основном фактические данные, такие как названия игр, даты выхода и разработчики, которые меньше защищены авторским правом.",
+      "factualBody": "В основном мы представляем фактические данные, такие как названия игр, даты выхода и имена разработчиков, которые в меньшей степени защищены авторским правом.",
       "limited": "Ограниченное использование:",
-      "limitedBody": "Мы используем только необходимый объём данных для предоставления значимой информации, не заменяя оригинальные произведения.",
+      "limitedBody": "Мы используем только необходимый объём данных для предоставления значимой информации, не заменяя оригинальные источники.",
       "noMarketHarm": "Отсутствие вреда для рынка:",
       "noMarketHarmBody": "Наше использование не оказывает негативного влияния на рынок оригинальных игр; наоборот, оно может способствовать их продвижению за счёт повышения интереса пользователей."
     },
@@ -1148,7 +1245,7 @@
     "leakedDataTitle": "Отказ от ответственности за утечку данных:",
     "leakedDataBody": "Любые данные, которые кажутся утёкшими на нашем сайте, происходят из общедоступной информации в Epic Games Store. Мы не имеем доступа к конфиденциальным или проприетарным данным. Издатели несут ответственность за защиту своей конфиденциальной информации в",
     "epicDevPortal": "портале разработчика Epic Games",
-    "euDirectivesIntro": "Разрабатывая нашу Политику добросовестного использования, мы учли принципы, изложенные в следующих директивах ЕС по авторскому праву:",
+    "euDirectivesIntro": "Разрабатывая нашу Политику добросовестного использования, мы учли принципы, изложенные в следующих директивах Европейского Союза по авторскому праву:",
     "euDirective1": "Директива (ЕС) 2019/790 об авторском праве и смежных правах на едином цифровом рынке",
     "euDirective2": "Вопросы и ответы — Новые правила ЕС по авторскому праву",
     "fairUseContact": "Если у вас есть вопросы о нашей Политике добросовестного использования или вы считаете, что какой-либо контент нарушает ваши авторские права, пожалуйста, свяжитесь с нами по адресу:",
@@ -1157,7 +1254,7 @@
   },
   "notifications": {
     "meta": {
-      "title": "Уведомления - egdata.app",
+      "title": "Уведомления — egdata.app",
       "description": "Настройте push-уведомления для обновлений Epic Games Store, релизов игр и многого другого."
     },
     "title": "Уведомления",
@@ -1167,7 +1264,7 @@
       "mySubscriptions": "Мои подписки"
     },
     "aboutPushTitle": "О push-уведомлениях",
-    "aboutPushDescription": "Узнайте больше о том, как работают push-уведомления на EGData.",
+    "aboutPushDescription": "Узнайте больше о том, как работают push-уведомления на egdata.app",
     "whatYoullReceive": "Что вы будете получать:",
     "receiveList": {
       "freeGames": "Анонсы новых бесплатных игр",
@@ -1255,7 +1352,7 @@
     }
   },
   "promotions": {
-    "placeholder": "Привет /promotions/$id!"
+    "placeholder": "Привет, /promotions/$id!"
   },
   "misc": {
     "gameAwards": {
@@ -1280,7 +1377,7 @@
       "downloadsSuffix": "Загрузки",
       "versionPublished": "Версия {{version}} — Опубликована {{date}}",
       "assetInfo": {
-        "appleSilicon": "Для новых компьютеров Mac с чипами Apple (M1, M2, M3 и т.д.).",
+        "appleSilicon": "Для новых компьютеров Mac с чипами Apple (M1, M2, M3, M4, M5, M6 и т.д.).",
         "intel": "Для старых компьютеров Mac с процессорами Intel.",
         "universal": "Совместимо с Apple Silicon и Intel Mac.",
         "msi": "Стандартный мастер установки. Рекомендуется для большинства пользователей.",
@@ -1303,7 +1400,7 @@
       "dateRange": "5 декабря по 12 декабря 2024 г.",
       "game": "LEGO® Star Wars™: The Skywalker Saga",
       "price": "$49.99",
-      "saga": "саги Скайуокер",
+      "saga": "саги о Скайуокерах",
       "gameplayAlt": "Геймплей LEGO Star Wars",
       "charactersAlt": "Персонажи LEGO Star Wars",
       "whatToExpect": "🧩 Чего ожидать?",
@@ -1311,7 +1408,7 @@
       "developer": "TT Games",
       "publisher": "Warner Bros.",
       "expectList": {
-        "allMovies": "🌌 {{strong}}: Заново переживите сюжеты всех девяти фильмов саги Скайуокер, наполненные классическим LEGO-юмором.",
+        "allMovies": "🌌 {{strong}}: Заново переживите сюжеты всех девяти фильмов саги о Скайуокерах, наполненные классическим LEGO-юмором.",
         "allMoviesStrong": "Все 9 фильмов",
         "characters": "🛸 {{strong}}: Управляйте любимыми героями и злодеями из далёкой-далёкой галактики.",
         "charactersStrong": "300+ игровых персонажей",
@@ -1321,7 +1418,7 @@
         "planetsStrong": "23 планеты для исследования"
       },
       "specialTitle": "🌟 Что делает эту игру особенной?",
-      "specialBody": "С момента выхода в {{releaseDate}} LEGO Star Wars: The Skywalker Saga получила высокие оценки за увлекательный геймплей и верную адаптацию вселенной Star Wars. С {{metascore}} на Metacritic критики и фанаты отметили:",
+      "specialBody": "С момента выхода в {{releaseDate}} LEGO Star Wars: The Skywalker Saga получила высокие оценки за увлекательный геймплей и верную адаптацию вселенной Star Wars. С оценкой {{metascore}} на Metacritic критики и фанаты отметили:",
       "releaseDate": "апреле 2022 г.",
       "metascore": "82 Metascore",
       "specialList": {
@@ -1330,37 +1427,37 @@
         "charm": "🏗️ {{strong}}: Классический юмор Star Wars, переосмысленный в уникальном стиле LEGO.",
         "charmStrong": "Очарование LEGO",
         "replayability": "🤯 {{strong}}: Тонны коллекционных предметов, побочных миссий и скрытых секретов.",
-        "replayabilityStrong": "Реплейабельность"
+        "replayabilityStrong": "Реиграбельность"
       },
       "howToClaim": "🎁 Как получить?",
       "howToClaimBody": "Получить бесплатную копию очень просто!",
       "step1": "Посетите {{storeLink}} с {{dec5}} по {{dec12}}.",
       "storeLink": "Epic Games Store",
-      "dec5": "5 декабря",
+      "dec5": "5 декабря 2024 г.",
       "dec12": "12 декабря 2024 г.",
       "step2": "Добавьте игру в свою библиотеку.",
-      "step3": "Она остаётся у вас навсегда!",
+      "step3": "Она останется у вас навсегда!",
       "cardTitle": "Не упустите шанс отправиться в пропитанное LEGO путешествие по галактике!",
       "cardBody": "Будь вы заядлым фанатом Star Wars или новичком, эта игра подарит бесконечное удовольствие каждому.",
       "footer": "Да пребудет с вами Сила (и кирпичики LEGO)! 🧱✨"
     },
     "fairUse": {
       "meta": {
-        "title": "Политика добросовестного использования - egdata.app",
+        "title": "Политика добросовестного использования — egdata.app",
         "description": "Политика добросовестного использования для egdata.app"
       },
-      "title": "Политика добросовестного использования EGData App",
+      "title": "Политика добросовестного использования egdata.app",
       "section1Title": "1. Введение",
-      "section1Body": "Добро пожаловать в EGData App («мы», «нас»). Настоящая Политика добросовестного использования определяет условия, на которых вы можете использовать контент и данные, предоставленные на нашем сайте {{siteLink}} («Сайт»).",
+      "section1Body": "Добро пожаловать в egdata.app («мы», «нас»). Настоящая Политика добросовестного использования определяет условия, на которых вы можете использовать контент и данные, предоставленные на нашем сайте {{siteLink}} («Сайт»).",
       "section2Title": "2. Цель добросовестного использования",
-      "section2Body": "Контент и данные на EGData App предоставляются только в информационных целях. Наша цель — предложить всеобъемлющую базу данных игр (или связанных с играми данных), доступных в Epic Games Store, для образовательного и справочного использования сообществом.",
+      "section2Body": "Контент и данные на egdata.app предоставляются только в информационных целях. Наша цель — предложить всеобъемлющую базу данных игр (или связанных с играми данных), доступных в Epic Games Store, для образовательного и справочного использования сообществом.",
       "section3Title": "3. Соответствие добросовестному использованию",
-      "section3Body": "EGData App соблюдает принципы добросовестного использования в соответствии с законом об авторском праве, предоставляя информацию и данные таким образом, который приносит пользу общественности, не нарушая прав владельцев контента. Вот ключевые факторы, оправдывающие наше использование как добросовестное:",
+      "section3Body": "egdata.app соблюдает принципы добросовестного использования в соответствии с законом об авторском праве, предоставляя информацию и данные таким образом, который приносит пользу общественности, не нарушая прав владельцев контента. Вот ключевые факторы, определюящие наше использование как добросовестное:",
       "section3List": {
         "purpose": "Цель и характер использования:",
         "purposeBody": "Наш сайт является некоммерческим и направлен на просвещение и информирование общественности об играх, доступных в Epic Games Store. Мы предоставляем важную информацию, обзоры и обновления, повышая знания и оценку этих игр общественностью.",
         "nature": "Характер охраняемого авторским правом произведения:",
-        "natureBody": "Данные, которые мы собираем и представляем, состоят из фактической информации, такой как названия игр, даты выхода, разработчики и обновления. Фактическая информация менее защищена законом об авторском праве, чем творческие произведения.",
+        "natureBody": "Данные, которые мы собираем и представляем, состоят из фактической информации, такой как названия игр, даты выхода, имена разработчиков и обновления. Фактическая информация менее защищена законом об авторском праве, чем творческие произведения.",
         "amount": "Объём и существенность:",
         "amountBody": "Мы используем только тот объём данных, который необходим для предоставления значимой и релевантной информации нашим пользователям. Мы не воспроизводим полные произведения и не предоставляем обширных выдержек, которые могли бы заменить оригинальные продукты.",
         "effect": "Влияние на рынок:",
@@ -1372,8 +1469,8 @@
       "section4Body3": "Что касается графических ресурсов, мы загружаем изображения непосредственно с серверов Epic Games Store. Мы не храним никаких изображений на наших серверах.",
       "section5Title": "5. Отказ от ответственности за утечку данных",
       "section5Body1": "Любые данные, которые кажутся утёкшими на нашем Сайте, поступают из общедоступной информации, предоставленной Epic Games Store. Мы не имеем доступа к конфиденциальным или проприетарным данным, которые не являются общедоступными. Таким образом, ответственность издателей заключается в защите своих предстоящих объектов интеллектуальной собственности (IP), игр, загружаемого контента (DLC) и другой конфиденциальной информации в портале разработчика Epic Games.",
-      "section5Body2": "Издателям рекомендуется обеспечивать надлежащую защиту конфиденциальной информации и не допускать её случайного раскрытия. EGData App не несёт ответственности за любую утёкшую информацию, полученную из общедоступных источников.",
-      "section5Body3": "Для получения дополнительной информации о защите данных и добросовестном использовании в Европейском союзе, пожалуйста, обратитесь к следующим ресурсам:",
+      "section5Body2": "Издателям рекомендуется обеспечивать надлежащую защиту конфиденциальной информации и не допускать её случайного раскрытия. egdata.app не несёт ответственности за любую утёкшую информацию, полученную из общедоступных источников.",
+      "section5Body3": "Для получения дополнительной информации о защите данных и добросовестном использовании в Европейском Союзе, пожалуйста, обратитесь к следующим ресурсам:",
       "euDirective1": "Директива (ЕС) 2019/790 об авторском праве и смежных правах на едином цифровом рынке",
       "euDirective2": "Вопросы и ответы — Новые правила ЕС по авторскому праву",
       "section6Title": "6. Свяжитесь с нами",
@@ -1386,10 +1483,10 @@
     },
     "androidBeta": {
       "meta": {
-        "title": "Android Beta - egdata.app",
+        "title": "Android Бета — egdata.app",
         "description": "Присоединяйтесь к программе закрытого бета-тестирования Android-приложения egdata.app"
       },
-      "title": "Программа Android Beta",
+      "title": "Программа Android Бета",
       "description": "Присоединяйтесь к нашему закрытому бета-тестированию, чтобы протестировать Android-приложение egdata.app до публичного релиза.",
       "whatHappensNext": "Что дальше?",
       "steps": {
@@ -1406,7 +1503,7 @@
       "offers": "Предложений",
       "offersTooltip": "Предложение — это покупаемый объект из магазина",
       "items": "Объектов",
-      "itemsTooltip": "Объект — это право для лаунчера",
+      "itemsTooltip": "Объект — это отдельный объект для лаунчера",
       "tags": "Теги",
       "offersYear": "Предложений (год)",
       "itemsYear": "Объектов (год)",
@@ -1414,8 +1511,8 @@
       "assetsTooltip": "Ассет — это файлы игры",
       "regPrices": "Обычные цены",
       "changes": "Изменений",
-      "sandboxes": "Sandbox",
-      "sandboxesTooltip": "Sandbox — это группа предложений"
+      "sandboxes": "Песочница",
+      "sandboxesTooltip": "Песочница — это группа предложений"
     },
     "sandboxShell": {
       "overview": "Обзор",
@@ -1425,12 +1522,12 @@
       "builds": "Сборки",
       "achievements": "Достижения",
       "changelog": "Журнал изменений",
-      "sandbox": "Sandbox",
-      "internalNamespace": "Внутреннее namespace",
+      "sandbox": "Песочница",
+      "internalNamespace": "Внутреннее пространство имён",
       "storePage": "Страница магазина",
       "updated": "Обновлено {{date}}",
       "unrealEngine": "Unreal Engine",
-      "internalSandbox": "Внутренний Sandbox",
+      "internalSandbox": "Внутренняя песочница",
       "releaseStatus": {
         "prePurchase": "Предзаказ",
         "datePending": "Дата ожидается",
@@ -1508,7 +1605,7 @@
       "repeated": "Повторяющиеся",
       "repeatedTooltip": "Количество уникальных предложений, появляющихся в раздачах несколько раз",
       "sellers": "Продавцы",
-      "sellersTooltip": "Общее количество уникальных продавцов, предлагающих предложения"
+      "sellersTooltip": "Общее количество уникальных продавцов, проводивших раздачи"
     },
     "offerCard": {
       "openOffer": "Открыть предложение {{title}}",
@@ -1516,7 +1613,7 @@
       "comingSoon": "Скоро",
       "earlyAccess": "Ранний доступ",
       "prePurchase": "Предзаказ",
-      "owned": "в собственности"
+      "owned": "в библиотеке"
     },
     "baseGame": {
       "checkBaseGame": "Проверить базовую игру",
@@ -1533,7 +1630,7 @@
       "noData": "Нет данных",
       "game": "Игра",
       "achievements": "Достижения",
-      "xp": "XP",
+      "xp": "Опыт (XP)",
       "bronze": "Бронза",
       "silver": "Серебро",
       "gold": "Золото",
@@ -1550,7 +1647,7 @@
     "featuredDiscounts": {
       "free": "Бесплатно",
       "title": "Рекомендуемые скидки",
-      "countMore": "+{{count}} ещё",
+      "countMore": "ещё +{{count}}",
       "checkOffer": "Посмотреть предложение",
       "until": "до"
     },
@@ -1561,9 +1658,9 @@
       "chartView": "Вид графиком",
       "noChange": "Без изменений",
       "movedUp_one": "Поднялся на {{count}} место",
-      "movedUp_other": "Поднялся на {{count}} мест",
+      "movedUp_other": "Поднялся на {{count}} мест(а)",
       "movedDown_one": "Опустился на {{count}} место",
-      "movedDown_other": "Опустился на {{count}} мест",
+      "movedDown_other": "Опустился на {{count}} мест(а)",
       "offChart": "Вне чарта",
       "topPosition": "Топ {{position}}",
       "topRank": "Топ {{rank}}",
@@ -1571,8 +1668,8 @@
       "days_other": "дней",
       "best": "Лучший:",
       "tracked": "Отслеживается:",
-      "trackedDays_one": "{{count}}д",
-      "trackedDays_other": "{{count}}д",
+      "trackedDays_one": "{{count}} день",
+      "trackedDays_other": "{{count}} дней",
       "collections": {
         "topSellers": "Лидеры продаж",
         "mostPlayed": "Самые популярные",
@@ -1820,54 +1917,54 @@
   },
   "forms": {
     "review": {
-      "submitTitle": "Отправить рецензию",
-      "editTitle": "Редактировать рецензию",
+      "submitTitle": "Отправить обзор",
+      "editTitle": "Редактировать обзор",
       "description": "Поделитесь своими мыслями о {{title}}",
       "rating": "Оценка",
       "ratingError": "Оценка должна быть от 1 до 10",
       "recommend": "Порекомендовали бы вы этот продукт?",
-      "recommendError": "Пожалуйста, выберите да или нет",
+      "recommendError": "Пожалуйста, выберите «Да» или «Нет»",
       "yes": "Да",
       "no": "Нет",
       "title": "Заголовок",
-      "titlePlaceholder": "Введите заголовок для вашей рецензии",
+      "titlePlaceholder": "Введите заголовок для вашего обзора",
       "titleRequired": "Заголовок обязателен",
       "titleMinLength": "Заголовок должен содержать не менее 3 символов",
       "titleMinLengthLong": "Заголовок должен содержать не менее 3 символов",
       "titleMaxLength": "Заголовок должен быть менее 75 символов",
-      "reviewContent": "Содержание рецензии",
+      "reviewContent": "Содержание обзора",
       "contentMinLength": "Содержание должно содержать не менее 3 символов",
       "tags": "Теги (через запятую)",
-      "tagsPlaceholder": "напр. качество, дизайн, производительность",
+      "tagsPlaceholder": "например: качество, дизайн, производительность",
       "previous": "Назад",
       "next": "Далее",
-      "submit": "Отправить рецензию",
-      "deleteReview": "Удалить рецензию",
-      "confirmDelete": "Вы уверены, что хотите удалить эту рецензию?",
-      "deleteDescription": "Это действие нельзя отменить. Рецензия будет навсегда удалена с наших серверов.",
+      "submit": "Отправить обзор",
+      "deleteReview": "Удалить обзор",
+      "confirmDelete": "Вы уверены, что хотите удалить этот обзор?",
+      "deleteDescription": "Это действие нельзя отменить. Обзор будет навсегда удалён с наших серверов.",
       "cancel": "Отмена",
       "delete": "Удалить",
       "deleting": "Удаление...",
-      "errorSubmitting": "Ошибка при отправке рецензии",
-      "errorDeleting": "Ошибка при удалении рецензии",
+      "errorSubmitting": "Ошибка при отправке обзора",
+      "errorDeleting": "Ошибка при удалении обзора",
       "spamDetected": "Обнаружен спам",
-      "defaultContent": "Пожалуйста, напишите вашу рецензию здесь",
+      "defaultContent": "Пожалуйста, напишите Ваш обзор здесь",
       "theProduct": "продукт"
     },
     "androidBeta": {
       "title": "Присоединиться к бета-тесту",
-      "description": "Войдите через Google, чтобы зарегистрироваться в закрытом бета-тесте. Нам нужен только ваш адрес электронной почты.",
+      "description": "Войдите через Google, чтобы зарегистрироваться в закрытом бета-тесте. Нам нужен только ваш адрес электронной почты (gmail).",
       "spotsRemaining": "<strong>{{remaining}}</strong> из {{max}} мест осталось",
       "betaFull": "Бета-тест заполнен",
-      "betaFullDesc": "Все {{max}} мест заняты. Загляните позже или следите за нами, чтобы узнать, когда появятся новые места.",
+      "betaFullDesc": "Все места ({{max}}) заняты. Загляните позже или следите за нами, чтобы узнать, когда появятся новые места.",
       "registering": "Регистрация в бета-тесте...",
       "registered": "Вы зарегистрированы!",
       "registeredDesc": "Мы зарегистрировали <strong>{{email}}</strong> для закрытого бета-теста.",
-      "registeredDesc2": "Может пройти несколько часов, пока вас вручную добавят в список тестеров. После добавления вы можете присоединиться к бета-тесту здесь:",
+      "registeredDesc2": "Может пройти несколько часов, пока вас вручную добавят в список тестировщиков. После добавления вы можете присоединиться к бета-тесту здесь:",
       "joinBeta": "Присоединиться к бета-тесту в Google Play",
       "alreadyRegistered": "Уже зарегистрирован",
       "alreadyRegisteredDesc": "<strong>{{email}}</strong> уже зарегистрирован для бета-теста.",
-      "alreadyRegisteredDesc2": "Если вы уже добавлены в список тестеров, вы можете присоединиться к бета-тесту здесь:",
+      "alreadyRegisteredDesc2": "Если вы уже добавлены в список тестировщиков, вы можете присоединиться к бета-тесту здесь:",
       "error": "Ошибка",
       "tryAgain": "Повторить",
       "noCredential": "Не получены учётные данные от Google",
@@ -1904,5 +2001,86 @@
       "minPrice": "Мин. цена",
       "maxPrice": "Макс. цена"
     }
+  },
+  "sandboxCatalog": {
+    "title": "Ознакомьтесь с этой игрой",
+    "description": "Просмотрите предложения, сгруппированные по типам каталога Epic. Эти группы не подтверждают совместимость или единообразное содержание издания. Включены исторические и тестовые записи; Все предложения также содержат неклассифицированные записи.",
+    "allOffers": "Все предложения",
+    "viewAll": "Просмотреть все",
+    "priceUnknown": "Цена недоступна",
+    "unknownType": "Неизвестный тип",
+    "loading": "Загрузка записей…",
+    "refreshing": "Обновление результатов…",
+    "error": "Не удалось загрузить эти записи.",
+    "retry": "Попробуйте ещё раз",
+    "empty": "В этом разделе пока нет записей.",
+    "noMatches": "Ни одна запись не соответствует вашему запросу.",
+    "reset": "Очистить фильтры",
+    "search": "Поиск предложений по названию",
+    "group": "Группа контента",
+    "rawTypes": "Типы каталогов",
+    "cards": "Карточки",
+    "table": "Техническая таблица",
+    "previous": "Предыдущая",
+    "next": "Следующая",
+    "page": "Страница {{page}} из {{pages}}",
+    "pageSize": "Предложений на странице",
+    "copy": "Скопировать пространство имён",
+    "copied": "Пространство имён скопировано",
+    "copyFailed": "Не удалось скопировать пространство имён",
+    "developer": "Разработчик",
+    "publisher": "Издатель",
+    "platforms": "Платформы",
+    "primaryOffer": "Посмотреть основное предложение",
+    "details": "Подробности игры",
+    "navigation": "Разделы песочницы",
+    "technical": "Просмотреть технические записи",
+    "groups": {
+      "games": "Базовая игра и издания",
+      "dlc": "Дополнение",
+      "addons": "Аддон",
+      "bundles": "Пакеты",
+      "ingame": "Внутриигровой контент",
+      "extras": "Демоверсии и дополнительные материалы",
+      "passes": "Подписки и пропуска",
+      "other": "Прочее"
+    },
+    "columns": {
+      "id": "ID предложения",
+      "title": "Название",
+      "type": "Тип каталога",
+      "seller": "Продавец",
+      "modified": "Последнее изменение",
+      "prePurchase": "Предзаказ"
+    },
+    "types": {
+      "BASEGAME": "Основна игра",
+      "EDITION": "Издание",
+      "DLC": "DLC",
+      "ADDON": "Аддон",
+      "BUNDLE": "Пакет",
+      "Bundle": "Пакет (устаревший)",
+      "VIRTUALCURRENCY": "Виртуальная валюта",
+      "INGAMECURRENCY": "Внутриигроваяй валюта",
+      "WALLET": "Кошелёк",
+      "INGAMEITEM": "Внутриигровой предмет",
+      "INGAMEPURCHASE": "Внутриигровая покупка",
+      "CONSUMABLE": "Расходуемый материал",
+      "UNLOCKABLE": "Разблокируемый",
+      "LOOTBOX": "Лутбокс",
+      "DEMO": "Демо",
+      "DIGITALEXTRA": "Цифровые дополнительные материалы",
+      "EXPERIENCE": "Опыт",
+      "SUBSCRIPTION": "Подписка",
+      "SUBSCRIPTIONBUNDLE": "Набор подписок",
+      "SEASON": "Сезонный",
+      "PASS": "Пропуск",
+      "OTHERS": "Другое",
+      "UNKNOWN": "Неизвестное"
+    },
+    "results_one": "{{count}} предложение",
+    "results_other": "{{count}} предложения",
+    "readMore": "Показать больше",
+    "readLess": "Показать меньше"
   }
 }
