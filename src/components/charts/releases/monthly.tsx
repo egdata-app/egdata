@@ -12,6 +12,7 @@ import {
   ForecastTooltipShell,
   TooltipRow,
 } from "@/components/charts/forecast";
+import { getImportantDates, getImportantEventLabels } from "@/components/charts/important-dates";
 import { Fragment, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { keepPreviousData } from "@tanstack/react-query";
@@ -55,33 +56,6 @@ interface MonthlyChartPoint {
   bandRange?: number;
 }
 
-const importantDates = [
-  {
-    date: new Date("2023-11-01"),
-    label: "Now on Epic",
-  },
-  {
-    date: new Date("2023-10-01"),
-    label: "Epic First Run",
-  },
-  {
-    date: new Date("2025-05-01"),
-    label: "100% Revenue Share Program",
-  },
-  {
-    date: new Date("2025-01-01"),
-    label: "Launch Everywhere",
-  },
-  {
-    date: new Date("2025-01-01"),
-    label: "EGS Mobile 3rd Party",
-  },
-  {
-    date: new Date("2023-03-01"),
-    label: "Self Publish Tool (PC)",
-  },
-];
-
 const toMonthlyBase = (data: MonthlyRelease[]) =>
   data.map(({ year, month, releases }) => {
     const date = new Date(year, month - 1, 1);
@@ -94,6 +68,7 @@ const toMonthlyBase = (data: MonthlyRelease[]) =>
 
 export function ReleasesByMonth() {
   const { t } = useTranslation();
+  const importantDates = getImportantDates(t);
   const { data, isLoading } = useQuery({
     queryKey: ["releases-by-month"],
     queryFn: getReleasesByMonth,
@@ -236,7 +211,7 @@ export function ReleasesByMonth() {
               if (!props.active || !props.payload?.length) return null;
               const point = props.payload[0].payload as MonthlyChartPoint;
               const date = new Date(point.date);
-              const eventLabels = getImportantEventLabels(point.date);
+              const eventLabels = getImportantEventLabels(point.date, importantDates);
 
               return (
                 <ForecastTooltipShell>
@@ -345,12 +320,4 @@ export function ReleasesByMonth() {
       </ForecastCaption>
     </div>
   );
-}
-
-function getImportantEventLabels(dateStr: string): string[] {
-  const date = new Date(dateStr);
-  const events = importantDates.filter(
-    (d) => d.date.getFullYear() === date.getFullYear() && d.date.getMonth() === date.getMonth(),
-  );
-  return events.map((e) => e.label);
 }

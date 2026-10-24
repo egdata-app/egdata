@@ -296,6 +296,30 @@
       "igdbReviews_one": "{{count}} reseña",
       "igdbReviews_other": "{{count}} reseñas"
     },
+    "requirements": {
+      "title": "Requisitos del sistema",
+      "windows": "Windows",
+      "macos": "macOS",
+      "minimum": "Mínimos",
+      "recommended": "Recomendados",
+      "inheritedFromBaseGame": "Heredados del juego base",
+      "staleNotice": "Estos requisitos pueden estar desactualizados",
+      "fields": {
+        "os": "SO",
+        "cpu": "CPU",
+        "processor": "Procesador",
+        "gpu": "GPU",
+        "graphics": "Gráficos",
+        "memory": "Memoria",
+        "ram": "Memoria",
+        "storage": "Almacenamiento",
+        "disk": "Almacenamiento",
+        "directx": "DirectX",
+        "network": "Red",
+        "soundCard": "Tarjeta de sonido",
+        "additional": "Notas adicionales"
+      }
+    },
     "achievements": {
       "title": "Logros",
       "sortBy": "Ordenar por",
@@ -1090,6 +1114,7 @@
     "chart": {
       "releasesLabel": "Lanzamientos",
       "creationsLabel": "Creaciones",
+      "launcherBeta": "Beta del nuevo Epic Games Launcher",
       "ongoing": "En curso",
       "ongoingSoFar": "En curso (hasta hoy)",
       "prediction": "Proyección",
