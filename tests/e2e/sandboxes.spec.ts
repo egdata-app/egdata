@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { sandboxFixtureId, sandboxFixtureResponse } from "./support/sandbox-fixture.mjs";
+import { GRAPHQL_ROUTE_PATTERN, readGraphQLPayload } from "./support/graphql-payload.mjs";
 import { expectNoAppError, expectNoPageHorizontalOverflow } from "./support/assertions";
 
 test.use({ baseURL: "http://localhost:3100" });
@@ -11,10 +12,11 @@ test.beforeEach(async ({ page }) => {
     if (response) await route.fulfill({ status: response.status, json: response.body });
     else await route.continue();
   });
-  await page.route("**/graphql", async (route) => {
+  await page.route(GRAPHQL_ROUTE_PATTERN, async (route) => {
+    const request = route.request();
     const response = sandboxFixtureResponse(
-      new URL(route.request().url()),
-      route.request().postDataJSON(),
+      new URL(request.url()),
+      readGraphQLPayload(new URL(request.url()), request.postData()),
     );
     if (response) await route.fulfill({ status: response.status, json: response.body });
     else await route.continue();

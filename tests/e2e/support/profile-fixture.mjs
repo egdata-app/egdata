@@ -34,11 +34,11 @@ function game(index) {
 }
 
 export function isProfilePageRequest(payload) {
-  return (
-    typeof payload?.query === "string" &&
-    payload.query.includes("query ProfilePage") &&
-    payload.variables?.id === PROFILE_ID_WITH_ACHIEVEMENTS
-  );
+  const matchesOperation =
+    payload?.operationName === "ProfilePage" ||
+    (typeof payload?.query === "string" && payload.query.includes("query ProfilePage"));
+
+  return matchesOperation && payload.variables?.id === PROFILE_ID_WITH_ACHIEVEMENTS;
 }
 
 export function createProfilePageResponse(variables) {

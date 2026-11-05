@@ -1,6 +1,7 @@
 import { createServer } from "node:http";
 import { createProfilePageResponse, isProfilePageRequest } from "./profile-fixture.mjs";
 import { createBuildPageResponse } from "./build-fixture.mjs";
+import { readGraphQLPayload } from "./graphql-payload.mjs";
 import { sandboxFixtureResponse } from "./sandbox-fixture.mjs";
 import {
   createTechnologyApiResponse,
@@ -42,7 +43,7 @@ const server = createServer(async (request, response) => {
   }
 
   const body = await readBody(request);
-  const payload = parseJson(body);
+  const payload = readGraphQLPayload(url, body);
 
   const sandboxResponse = sandboxFixtureResponse(url, payload);
   if (sandboxResponse) {
@@ -50,16 +51,12 @@ const server = createServer(async (request, response) => {
     return;
   }
 
-  if (
-    request.method === "POST" &&
-    url.pathname === "/graphql" &&
-    isTechnologyOfferRequest(payload)
-  ) {
+  if (url.pathname === "/graphql" && isTechnologyOfferRequest(payload)) {
     sendJson(response, createTechnologyOfferResponse(payload.variables.id));
     return;
   }
 
-  if (request.method === "POST" && url.pathname === "/graphql" && isProfilePageRequest(payload)) {
+  if (url.pathname === "/graphql" && isProfilePageRequest(payload)) {
     sendJson(response, createProfilePageResponse(payload.variables));
     return;
   }
@@ -77,16 +74,6 @@ async function readBody(request) {
   const chunks = [];
   for await (const chunk of request) chunks.push(chunk);
   return chunks.length > 0 ? Buffer.concat(chunks) : undefined;
-}
-
-function parseJson(body) {
-  if (!body) return null;
-
-  try {
-    return JSON.parse(body.toString("utf8"));
-  } catch {
-    return null;
-  }
 }
 
 function sendJson(response, body, status = 200, headers = {}) {

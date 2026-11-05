@@ -1,9 +1,6 @@
 import { graphql, type ResultOf } from "@/graphql";
-import { httpClient } from "@/lib/http-client";
+import { graphqlRequest } from "@/lib/graphql-request";
 import { queryOptions } from "@tanstack/react-query";
-import { print } from "graphql";
-
-const GRAPHQL_URL = "/graphql";
 
 export const PROFILE_LIBRARY_LIMIT = 12;
 export const PROFILE_ACTIVITY_LIMIT = 25;
@@ -172,11 +169,6 @@ export type ProfilePageVariables = {
   achievementPage: number;
 };
 
-type GraphQLResponse<T> = {
-  data?: T;
-  errors?: Array<{ message?: string }>;
-};
-
 export function getDefaultProfilePageVariables(id: string): ProfilePageVariables {
   return {
     id,
@@ -197,21 +189,9 @@ export const profilePageQueryOptions = (variables: ProfilePageVariables) =>
   queryOptions({
     queryKey: ["profile-gql", variables],
     queryFn: async () => {
-      const res = await httpClient.post<GraphQLResponse<ProfilePageResult>>(GRAPHQL_URL, {
-        query: print(profilePageQuery),
-        variables,
-      });
+      const data = await graphqlRequest<ProfilePageResult>(profilePageQuery, variables);
 
-      if (res.errors?.length) {
-        throw new Error(
-          res.errors
-            .map((error) => error.message)
-            .filter(Boolean)
-            .join("\n"),
-        );
-      }
-
-      return res.data?.profile ?? null;
+      return data.profile ?? null;
     },
     staleTime: 60_000,
   });

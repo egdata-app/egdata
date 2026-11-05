@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { expectNoAppError, waitForApiResponse } from "./support/assertions";
+import { GRAPHQL_ROUTE_PATTERN, readGraphQLPayload } from "./support/graphql-payload.mjs";
 import {
   createProfilePageResponse,
   isProfilePageRequest,
@@ -39,8 +40,9 @@ test.describe("Profile page", () => {
       }
     });
 
-    await page.route("**/graphql", async (route) => {
-      const payload = route.request().postDataJSON();
+    await page.route(GRAPHQL_ROUTE_PATTERN, async (route) => {
+      const request = route.request();
+      const payload = readGraphQLPayload(new URL(request.url()), request.postData());
 
       if (!isProfilePageRequest(payload)) {
         await route.continue();
@@ -109,17 +111,17 @@ test.describe("Profile page", () => {
     await expect(libraryFilter.getByRole("button", { name: "All", exact: true })).toBeVisible();
     await expect(libraryFilter.getByRole("button", { name: "In Progress" })).toBeVisible();
 
-    const nextPageResponse = waitForApiResponse(page, "/graphql", { method: "POST" });
+    const nextPageResponse = waitForApiResponse(page, "/graphql");
     await page.getByRole("button", { name: "Go to next page" }).click();
     await nextPageResponse;
     await expect(page).toHaveURL(/page=2/);
 
-    const filterResponse = waitForApiResponse(page, "/graphql", { method: "POST" });
+    const filterResponse = waitForApiResponse(page, "/graphql");
     await libraryFilter.getByRole("button", { name: "In Progress" }).click();
     await filterResponse;
     await expect(page).toHaveURL(/filter=in-progress/);
 
-    const sortResponse = waitForApiResponse(page, "/graphql", { method: "POST" });
+    const sortResponse = waitForApiResponse(page, "/graphql");
     await page.getByRole("combobox", { name: "Sort library" }).click();
     await page.getByRole("option", { name: "XP" }).click();
     await sortResponse;

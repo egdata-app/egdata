@@ -1,5 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 import { createBuildPageResponse, currentBuildId } from "./support/build-fixture.mjs";
+import { GRAPHQL_ROUTE_PATTERN, readGraphQLPayload } from "./support/graphql-payload.mjs";
 import {
   createReadyTechnologyResponse,
   createTechnologyApiResponse,
@@ -191,8 +192,9 @@ test.describe("technology profiles", () => {
   });
 
   test("preserves exact technology keys and locale prefixes in offer links", async ({ page }) => {
-    await page.route("**/graphql", async (route) => {
-      const payload = route.request().postDataJSON();
+    await page.route(GRAPHQL_ROUTE_PATTERN, async (route) => {
+      const request = route.request();
+      const payload = readGraphQLPayload(new URL(request.url()), request.postData());
       if (!isTechnologyOfferRequest(payload)) return route.continue();
       await route.fulfill({
         contentType: "application/json",

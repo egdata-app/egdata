@@ -144,9 +144,10 @@ export function createTechnologyOfferResponse(id = technologyOfferId) {
 }
 
 export function isTechnologyOfferRequest(payload) {
-  return (
-    payload?.variables?.id === technologyOfferId &&
-    typeof payload?.query === "string" &&
-    /query\s+Offer(?:Only|Page)/u.test(payload.query)
-  );
+  const matchesOperation =
+    payload?.operationName === "OfferPage" ||
+    payload?.operationName === "OfferOnly" ||
+    (typeof payload?.query === "string" && /query\s+Offer(?:Only|Page)/u.test(payload.query));
+
+  return payload?.variables?.id === technologyOfferId && matchesOperation;
 }
