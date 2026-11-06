@@ -2107,5 +2107,17 @@
     "results_other": "{{count}} offers",
     "readMore": "Read more",
     "readLess": "Show less"
+  },
+  "pow": {
+    "recovery": {
+      "title": "Completing a security check",
+      "description": "Hang tight. This only takes a moment."
+    },
+    "failure": {
+      "title": "We couldn't finish the security check",
+      "description": "Your request wasn't completed. Please try again.",
+      "retry": "Try again",
+      "dismiss": "Dismiss"
+    }
   }
 }

@@ -31,6 +31,7 @@ import "@/styles.css";
 import { ExtensionProvider } from "@/providers/extension";
 import { VideoProvider } from "@/providers/offers-video";
 import { GlobalBackground } from "@/components/app/global-background";
+import { ProofOfWorkRecoveryNotice } from "@/components/app/pow-recovery-notice";
 import "../registerSW";
 import type { CookiesSelection } from "@/contexts/cookies";
 import { captureError } from "@/lib/pulse-telemetry";
@@ -328,6 +329,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
                     </PreferencesProvider>
                   </div>
                   <Toaster />
+                  <ProofOfWorkRecoveryNotice />
                   <footer className="mt-12 border-t border-border/40">
                     <div
                       className="h-px w-full"

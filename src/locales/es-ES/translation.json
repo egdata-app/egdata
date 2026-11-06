@@ -2107,5 +2107,17 @@
     "results_other": "{{count}} ofertas",
     "readMore": "Leer más",
     "readLess": "Mostrar menos"
+  },
+  "pow": {
+    "recovery": {
+      "title": "Completando una comprobación de seguridad",
+      "description": "Un momento. Esto solo tardará un instante."
+    },
+    "failure": {
+      "title": "No pudimos completar la comprobación de seguridad",
+      "description": "Tu solicitud no se completó. Inténtalo de nuevo.",
+      "retry": "Reintentar",
+      "dismiss": "Descartar"
+    }
   }
 }

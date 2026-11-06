@@ -1,5 +1,6 @@
 import { isServer, QueryClient } from "@tanstack/react-query";
 import { captureError, flushPulseTelemetry } from "@/lib/pulse-telemetry";
+import { shouldRetryQuery } from "@/lib/pow/query-retry";
 
 // Convert stray promise rejections into explicit logs so they can be GC'd.
 // Without this, Node retains references to rejection reasons (including axios
@@ -35,6 +36,9 @@ function makeQueryClient() {
         // SSR query clients are throwaway per request — short gcTime keeps
         // erroring/aborted entries from piling up under upstream flakiness.
         gcTime: isServer ? 60 * 1000 : 1000 * 60 * 60 * 24,
+        // A typed PoW recovery failure is terminal: never let TanStack Query
+        // restart the handshake/solve cycle behind the user's back.
+        retry: shouldRetryQuery,
       },
     },
   });

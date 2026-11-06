@@ -1,4 +1,4 @@
-import { httpClient } from "@/lib/http-client";
+import { httpClient, type HttpFetch } from "./http-client.ts";
 import { Kind, print, type DocumentNode } from "graphql";
 
 /**
@@ -34,6 +34,8 @@ type PreparedDocument = {
   operationName?: string;
 };
 
+type GraphQLHttpClient = Pick<HttpFetch, "get" | "post">;
+
 export type GraphQLRequestOptions = {
   signal?: AbortSignal;
   /**
@@ -41,6 +43,8 @@ export type GraphQLRequestOptions = {
    * a shared cache, so they opt out of the GET/APQ path.
    */
   preferPost?: boolean;
+  /** Testing/advanced seam; defaults to the shared API client. */
+  client?: GraphQLHttpClient;
 };
 
 const GRAPHQL_ENDPOINT = "/graphql";
@@ -81,24 +85,26 @@ export async function graphqlRequest<TData, TVariables extends GraphQLVariables 
   options: GraphQLRequestOptions = {},
 ): Promise<TData> {
   const prepared = options.preferPost ? null : await prepareDocument(document).catch(() => null);
+  const client = options.client ?? httpClient;
 
   if (prepared && getRequestsSupported && persistedQueriesSupported) {
     const params = buildGetParams(prepared, variables);
 
     if (estimateUrlLength(params) <= MAX_GET_URL_LENGTH) {
-      const attempt = await attemptGet<TData>(params, options.signal);
+      const attempt = await attemptGet<TData>(client, params, options.signal);
 
       if (attempt.kind === "data") {
         return attempt.data;
       }
 
       if (attempt.kind === "not-found") {
-        return registerPersistedQuery<TData>(prepared, variables, options.signal);
+        return registerPersistedQuery<TData>(client, prepared, variables, options.signal);
       }
     }
   }
 
   return executePost<TData>(
+    client,
     prepared?.query ?? print(document),
     prepared,
     variables,
@@ -107,13 +113,14 @@ export async function graphqlRequest<TData, TVariables extends GraphQLVariables 
 }
 
 async function attemptGet<TData>(
+  client: GraphQLHttpClient,
   params: Record<string, string>,
   signal?: AbortSignal,
 ): Promise<{ kind: "data"; data: TData } | { kind: "not-found" } | { kind: "unsupported" }> {
   let response: GraphQLResponse<TData>;
 
   try {
-    response = await httpClient.get<GraphQLResponse<TData>>(GRAPHQL_ENDPOINT, {
+    response = await client.get<GraphQLResponse<TData>>(GRAPHQL_ENDPOINT, {
       params,
       headers: GET_HEADERS,
       signal,
@@ -147,11 +154,12 @@ async function attemptGet<TData>(
 }
 
 async function registerPersistedQuery<TData>(
+  client: GraphQLHttpClient,
   prepared: PreparedDocument,
   variables: GraphQLVariables | undefined,
   signal?: AbortSignal,
 ): Promise<TData> {
-  const response = await httpClient.post<GraphQLResponse<TData>>(
+  const response = await client.post<GraphQLResponse<TData>>(
     GRAPHQL_ENDPOINT,
     {
       query: prepared.query,
@@ -171,12 +179,13 @@ async function registerPersistedQuery<TData>(
 }
 
 async function executePost<TData>(
+  client: GraphQLHttpClient,
   query: string,
   prepared: PreparedDocument | null,
   variables: GraphQLVariables | undefined,
   signal?: AbortSignal,
 ): Promise<TData> {
-  const response = await httpClient.post<GraphQLResponse<TData>>(
+  const response = await client.post<GraphQLResponse<TData>>(
     GRAPHQL_ENDPOINT,
     {
       query,
