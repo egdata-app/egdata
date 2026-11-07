@@ -53,8 +53,14 @@ export function ProofOfWorkRecoveryNotice() {
       <div className="flex items-start gap-3">
         <ShieldCheck className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />
         <div className="min-w-0">
-          <p className="font-medium leading-tight">{t("pow.failure.title")}</p>
-          <p className="text-xs text-muted-foreground">{t("pow.failure.description")}</p>
+          <p className="font-medium leading-tight">
+            {t(state.failureKind === "tarpit" ? "pow.tarpit.title" : "pow.failure.title")}
+          </p>
+          <p className="text-xs text-muted-foreground">
+            {t(
+              state.failureKind === "tarpit" ? "pow.tarpit.description" : "pow.failure.description",
+            )}
+          </p>
         </div>
         <button
           type="button"

@@ -5,6 +5,7 @@
 export type RecoveryEventState = {
   active: number;
   failureId: number;
+  failureKind?: "challenge" | "tarpit";
 };
 
 const INITIAL_STATE: RecoveryEventState = { active: 0, failureId: 0 };
@@ -50,9 +51,9 @@ export function endRecoveryOperation(): void {
   publish({ ...state, active: Math.max(0, state.active - 1) });
 }
 
-export function reportRecoveryFailure(): void {
+export function reportRecoveryFailure(failureKind: "challenge" | "tarpit" = "challenge"): void {
   nextFailureId += 1;
-  publish({ ...state, failureId: nextFailureId });
+  publish({ ...state, failureId: nextFailureId, failureKind });
 }
 
 export function clearRecoveryFailure(): void {
@@ -60,5 +61,5 @@ export function clearRecoveryFailure(): void {
     return;
   }
 
-  publish({ ...state, failureId: 0 });
+  publish({ ...state, failureId: 0, failureKind: undefined });
 }

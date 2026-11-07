@@ -61,3 +61,13 @@ proofs at 16-bit and 20-bit difficulty, shared handshakes, late-generation reuse
 replacement challenges, expiry, worker failure/cancellation, exact request
 replay, bounded 400/503/429 handling, empty/high-risk responses, cache isolation
 and the SSR path.
+
+## High-risk tarpits
+
+HTTP 204 with `X-Egdata-Mitigation: tarpit` is intercepted before REST/GraphQL
+parsing, including after the one allowed PoW replay. It throws `AbuseTarpitError`
+in browser and SSR, never starts a handshake and is excluded from query retries.
+The browser shows a localized temporary-limit notice with manual retry; router
+errors use the same message. Failed queries do not cache empty successful data.
+Unmarked 204s (for example successful deletion) retain their existing behavior.
+Deploy this frontend before the backend switches from its legacy 200 tarpit.

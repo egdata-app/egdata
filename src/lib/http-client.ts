@@ -1,13 +1,17 @@
 import axios, {
+  AxiosHeaders,
   CanceledError,
   type AxiosError,
   type AxiosInstance,
   type AxiosRequestConfig,
+  type AxiosResponse,
 } from "axios";
 import { parseRetryAfterMs } from "./pow/challenge.ts";
 import {
+  AbuseTarpitError,
   ProofOfWorkRecoveryError,
   isAbortLikeError,
+  isAbuseTarpitError,
   isProofOfWorkRecoveryError,
   isSessionChallengeEnvelope,
 } from "./pow/errors.ts";
@@ -298,6 +302,20 @@ export class HttpFetch {
     }
   }
 
+  private rejectTarpit(response: Pick<AxiosResponse, "status" | "headers">): void {
+    if (response.status !== 204) return;
+    const marker =
+      response.headers instanceof AxiosHeaders
+        ? response.headers.get("x-egdata-mitigation")
+        : Object.entries(response.headers).find(
+            ([name]) => name.toLowerCase() === "x-egdata-mitigation",
+          )?.[1];
+    if (marker === "tarpit") {
+      if (this.mode === "browser") reportRecoveryFailure("tarpit");
+      throw new AbuseTarpitError();
+    }
+  }
+
   private requestConfig(
     method: HttpMethod,
     endpoint: string,
@@ -371,7 +389,7 @@ export class HttpFetch {
       } catch (error) {
         lastError = error;
 
-        if (isProofOfWorkRecoveryError(error)) {
+        if (isProofOfWorkRecoveryError(error) || isAbuseTarpitError(error)) {
           throw error;
         }
 
@@ -406,6 +424,7 @@ export class HttpFetch {
       return this.handleAxiosError(error);
     }
 
+    this.rejectTarpit(firstResponse);
     if (!isSessionChallengeEnvelope(firstResponse.data)) {
       return firstResponse.data;
     }
@@ -465,6 +484,7 @@ export class HttpFetch {
       return this.handleAxiosError(error);
     }
 
+    this.rejectTarpit(retryResponse);
     if (isSessionChallengeEnvelope(retryResponse.data)) {
       this.notifyFailure();
       throw new ProofOfWorkRecoveryError("challenged-again");

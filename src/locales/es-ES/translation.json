@@ -2109,6 +2109,10 @@
     "readLess": "Mostrar menos"
   },
   "pow": {
+    "tarpit": {
+      "title": "Las solicitudes están limitadas temporalmente",
+      "description": "Espera un poco antes de volver a intentarlo."
+    },
     "recovery": {
       "title": "Completando una comprobación de seguridad",
       "description": "Un momento. Esto solo tardará un instante."

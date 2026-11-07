@@ -1,4 +1,4 @@
-import { isProofOfWorkRecoveryError } from "./errors.ts";
+import { isAbuseTarpitError, isProofOfWorkRecoveryError } from "./errors.ts";
 
 export const DEFAULT_QUERY_RETRY_COUNT = 3;
 
@@ -8,7 +8,7 @@ export const DEFAULT_QUERY_RETRY_COUNT = 3;
  * manual retry instead.
  */
 export function shouldRetryQuery(failureCount: number, error: unknown): boolean {
-  if (isProofOfWorkRecoveryError(error)) {
+  if (isProofOfWorkRecoveryError(error) || isAbuseTarpitError(error)) {
     return false;
   }
 
@@ -17,7 +17,7 @@ export function shouldRetryQuery(failureCount: number, error: unknown): boolean 
 
 export function shouldRetryQueryWithLimit(limit: number) {
   return (failureCount: number, error: unknown): boolean => {
-    if (isProofOfWorkRecoveryError(error)) {
+    if (isProofOfWorkRecoveryError(error) || isAbuseTarpitError(error)) {
       return false;
     }
 

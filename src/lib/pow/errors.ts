@@ -7,6 +7,25 @@
 
 export const SESSION_CHALLENGE_REQUIRED = "SESSION_CHALLENGE_REQUIRED";
 
+/** A high-risk response is terminal for this attempt; it never starts PoW. */
+export class AbuseTarpitError extends Error {
+  readonly name = "AbuseTarpitError";
+  readonly code = "ABUSE_TARPIT";
+  readonly status = 204;
+  readonly recoverable = true;
+
+  constructor() {
+    super("Requests are temporarily limited. Please wait a little and try again.");
+  }
+}
+
+export function isAbuseTarpitError(value: unknown): value is AbuseTarpitError {
+  if (value instanceof AbuseTarpitError) return true;
+  if (!value || typeof value !== "object") return false;
+  const candidate = value as { name?: unknown; code?: unknown };
+  return candidate.name === "AbuseTarpitError" && candidate.code === "ABUSE_TARPIT";
+}
+
 export type ProofOfWorkRecoveryReason =
   | "ssr-unsupported"
   | "not-replayable"

@@ -2109,6 +2109,10 @@
     "readLess": "Show less"
   },
   "pow": {
+    "tarpit": {
+      "title": "Requests are temporarily limited",
+      "description": "Please wait a little before trying again."
+    },
     "recovery": {
       "title": "Completing a security check",
       "description": "Hang tight. This only takes a moment."
