@@ -219,6 +219,8 @@ test.describe("build comparison", () => {
     await mockBuildApi(page, { treeErrorPath: "Error" });
     await page.goto(`http://localhost:3000/builds/${currentBuildId}/files?view=all&page=1`);
     await page.getByRole("button", { name: "Open folder Error" }).click();
-    await expect(page.getByTestId("build-tree-error")).toBeVisible({ timeout: 10_000 });
+    // HTTP retries take 2s per query attempt, plus React Query's 1+2+4s backoff:
+    // the terminal error can appear after 15s even with immediate mocked 500s.
+    await expect(page.getByTestId("build-tree-error")).toBeVisible({ timeout: 25_000 });
   });
 });

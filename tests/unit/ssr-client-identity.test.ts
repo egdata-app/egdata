@@ -137,3 +137,31 @@ test("cross-origin redirects remove SSR identity before making the next request"
     ]);
   }
 });
+
+test("IPv6 redirect destinations are parsed without losing brackets", async () => {
+  const client = new HttpFetch(
+    "http://[::1]:4000",
+    {},
+    {
+      mode: "server",
+      serverRequestIdentity: async () => ({ "cf-connecting-ip": "2001:db8::48" }),
+    },
+  );
+  const { adapter, configs } = createAdapter(() => ({ data: {} }));
+  client.axiosInstance.defaults.adapter = adapter;
+  await client.get("/redirect");
+  const sameOrigin = {
+    href: "http://[::1]:4000/target",
+    hostname: "::1",
+    headers: { "cf-connecting-ip": "2001:db8::48" },
+  };
+  const external = {
+    href: "http://[::1]:4001/target",
+    hostname: "::1",
+    headers: { "cf-connecting-ip": "2001:db8::48" },
+  };
+  configs[0].beforeRedirect!(sameOrigin, { headers: {}, statusCode: 302 });
+  configs[0].beforeRedirect!(external, { headers: {}, statusCode: 302 });
+  assert.equal(sameOrigin.headers["cf-connecting-ip"], "2001:db8::48");
+  assert.equal(external.headers["cf-connecting-ip"], undefined);
+});

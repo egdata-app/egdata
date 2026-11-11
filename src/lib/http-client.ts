@@ -345,9 +345,7 @@ export class HttpFetch {
         }
       }
       beforeRedirect = (redirect) => {
-        const origin = new URL(
-          `${redirect.protocol}//${redirect.hostname}${redirect.port ? `:${redirect.port}` : ""}`,
-        ).origin;
+        const origin = new URL(redirect.href).origin;
         if (origin !== this.apiOrigin) {
           for (const name of Object.keys(redirect.headers)) {
             if (["cf-connecting-ip", "x-forwarded-for", "x-real-ip"].includes(name.toLowerCase())) {
