@@ -17,6 +17,7 @@ import {
 } from "./pow/errors.ts";
 import { clearRecoveryFailure, reportRecoveryFailure } from "./pow/recovery-events.ts";
 import type { SessionRecovery } from "./pow/session-recovery.ts";
+import { readSsrClientIdentity } from "./ssr-client-identity.ts";
 
 type ParameterValue = string | number | boolean | undefined | null;
 
@@ -42,6 +43,8 @@ type BufferedBody = {
 
 export type HttpFetchRuntime = {
   mode?: "browser" | "server";
+  /** Request-scoped identity provider; never put visitor headers in Axios defaults. */
+  serverRequestIdentity?: () => Promise<Record<string, string>>;
   /**
    * Test/advanced seam. `undefined` enables the lazy browser coordinator,
    * `null` disables recovery for this instance.
@@ -203,6 +206,7 @@ export class HttpFetch {
   private readonly injectedRecovery: SessionRecovery | null | undefined;
   private recoveryInstance: SessionRecovery | null = null;
   private recoveryPromise: Promise<SessionRecovery | null> | null = null;
+  private readonly serverRequestIdentity: () => Promise<Record<string, string>>;
 
   constructor(baseURL = "", defaultOptions: FetchOptions = {}, runtime: HttpFetchRuntime = {}) {
     const env = readEnv();
@@ -210,6 +214,7 @@ export class HttpFetch {
     this.mode = mode;
     this.apiOrigin = resolveApiOrigin(baseURL);
     this.injectedRecovery = runtime.recovery;
+    this.serverRequestIdentity = runtime.serverRequestIdentity ?? readSsrClientIdentity;
 
     const config: AxiosRequestConfig = {
       baseURL,
@@ -316,22 +321,49 @@ export class HttpFetch {
     }
   }
 
-  private requestConfig(
+  private async requestConfig(
     method: HttpMethod,
     endpoint: string,
     options: FetchOptions,
     data: unknown,
-  ): AxiosRequestConfig {
+  ): Promise<AxiosRequestConfig> {
     const requiresJsonContentType = method === "POST" || method === "PUT" || method === "PATCH";
+    const headers = new AxiosHeaders({
+      ...(requiresJsonContentType ? { "Content-Type": "application/json" } : {}),
+      ...options.headers,
+    });
+    let beforeRedirect: AxiosRequestConfig["beforeRedirect"];
+    if (this.mode === "server") {
+      // Never let request options override the visitor's rate-limit identity.
+      for (const name of ["cf-connecting-ip", "x-forwarded-for", "x-real-ip"]) {
+        headers.set(name, false);
+      }
+      if (this.apiOrigin && new URL(endpoint, this.apiOrigin).origin === this.apiOrigin) {
+        const identity = await this.serverRequestIdentity();
+        if (identity["cf-connecting-ip"]) {
+          headers.set("cf-connecting-ip", identity["cf-connecting-ip"], true);
+        }
+      }
+      beforeRedirect = (redirect) => {
+        const origin = new URL(
+          `${redirect.protocol}//${redirect.hostname}${redirect.port ? `:${redirect.port}` : ""}`,
+        ).origin;
+        if (origin !== this.apiOrigin) {
+          for (const name of Object.keys(redirect.headers)) {
+            if (["cf-connecting-ip", "x-forwarded-for", "x-real-ip"].includes(name.toLowerCase())) {
+              delete redirect.headers[name];
+            }
+          }
+        }
+      };
+    }
 
     return {
       method,
       url: endpoint,
       params: options.params ? { ...options.params } : undefined,
-      headers: {
-        ...(requiresJsonContentType ? { "Content-Type": "application/json" } : {}),
-        ...options.headers,
-      },
+      headers,
+      beforeRedirect,
       timeout: options.timeout,
       signal: options.signal,
       data,
@@ -418,7 +450,7 @@ export class HttpFetch {
 
     try {
       firstResponse = await this.axiosInstance.request<T>(
-        this.requestConfig(method, endpoint, options, buffered.data),
+        await this.requestConfig(method, endpoint, options, buffered.data),
       );
     } catch (error) {
       return this.handleAxiosError(error);
@@ -478,7 +510,7 @@ export class HttpFetch {
 
     try {
       retryResponse = await this.axiosInstance.request<T>(
-        this.requestConfig(method, endpoint, options, buffered.data),
+        await this.requestConfig(method, endpoint, options, buffered.data),
       );
     } catch (error) {
       return this.handleAxiosError(error);
