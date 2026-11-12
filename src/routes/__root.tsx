@@ -1,7 +1,7 @@
 import { createRootRouteWithContext } from "@tanstack/react-router";
 import { Link } from "@/components/app/localized-link";
 import { Outlet, HeadContent, Scripts } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import Navbar from "@/components/app/navbar";
 import { queryOptions, type QueryClient } from "@tanstack/react-query";
 import { CountryProvider } from "@/providers/country";
@@ -295,16 +295,6 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
   const { country, locale, timezone, analyticsCookies } = Route.useLoaderData() as Context;
   const { t } = useTranslation();
   const dir = isRTL(locale ?? "en-US") ? "rtl" : "ltr";
-
-  useEffect(() => {
-    void import("@/lib/pulse-telemetry/browser")
-      .then(({ initPulseBrowserTelemetry }) => {
-        initPulseBrowserTelemetry();
-      })
-      .catch((error: unknown) => {
-        console.error("Failed to initialize Pulse telemetry", error);
-      });
-  }, []);
 
   return (
     <html lang={locale ?? "en"} dir={dir}>
