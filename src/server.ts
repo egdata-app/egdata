@@ -5,13 +5,6 @@ import "@/lib/paraglide-strategy";
 import { paraglideMiddleware } from "@/paraglide/server.js";
 import { SECURITY_HEADERS } from "@/lib/security-headers";
 import { serveStaticAssets } from "@/lib/static-assets";
-import {
-  captureError,
-  flushPulseTelemetry,
-  initPulseServerTelemetry,
-} from "@/lib/pulse-telemetry/server";
-
-initPulseServerTelemetry();
 
 const withSecurityHeaders = (request: Request, response: Response) => {
   const headers = new Headers(response.headers);
@@ -39,20 +32,7 @@ const clientDist = resolve(process.cwd(), "dist/client");
 
 const entry = createServerEntry({
   async fetch(request) {
-    try {
-      return await paraglideMiddleware(request, () => handler.fetch(request));
-    } catch (error) {
-      captureError(error, {
-        request,
-        source: "server.fetch",
-      });
-      if (request.cloudflare) {
-        request.cloudflare.waitUntil(flushPulseTelemetry());
-      } else {
-        void flushPulseTelemetry();
-      }
-      throw error;
-    }
+    return paraglideMiddleware(request, () => handler.fetch(request));
   },
 });
 
