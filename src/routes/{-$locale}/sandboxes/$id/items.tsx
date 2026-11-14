@@ -1,3 +1,4 @@
+import { SandboxQueryState } from "@/components/app/sandbox-catalog";
 import { httpClient } from "@/lib/http-client";
 import type { SingleItem } from "@/types/single-item";
 import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
@@ -45,11 +46,9 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id/items")({
     await queryClient.prefetchQuery({
       queryKey: ["sandbox", "items", { id, page: 1, limit: 20, filters: [] }],
       queryFn: () =>
-        httpClient
-          .get<PaginatedResponse<SingleItem>>(`/sandboxes/${id}/items`, {
-            params: { page: 1, limit: 20 },
-          })
-          .catch(() => null),
+        httpClient.get<PaginatedResponse<SingleItem>>(`/sandboxes/${id}/items`, {
+          params: { page: 1, limit: 20 },
+        }),
     });
 
     return {
@@ -106,7 +105,7 @@ function SandboxItemsPage() {
   const { id } = Route.useParams();
   const [page, setPage] = useState({ pageIndex: 0, pageSize: 20 });
   const [filters, setFilters] = useState<ColumnFiltersState>([]);
-  const itemsQuery = useQuery({
+  const recordsQuery = useQuery({
     queryKey: ["sandbox", "items", { id, page: page.pageIndex + 1, limit: page.pageSize, filters }],
     queryFn: () => {
       const queryParams = new URLSearchParams();
@@ -122,10 +121,21 @@ function SandboxItemsPage() {
     placeholderData: keepPreviousData,
   });
 
-  const { data: itemsData } = itemsQuery;
+  const {
+    data: itemsData,
+    isPending,
+    isError,
+    isFetching,
+    isPlaceholderData,
+    refetch,
+  } = recordsQuery;
+  const updateFilters: typeof setFilters = (next) => {
+    setFilters(next);
+    setPage((current) => ({ ...current, pageIndex: 0 }));
+  };
 
   return (
-    <div className="flex flex-col gap-6 w-full">
+    <div className="flex min-w-0 flex-col gap-5 w-full">
       <SandboxPageHeader
         icon={LibrarySquareIcon}
         eyebrow={t("sandboxes.itemsEyebrow")}
@@ -135,15 +145,34 @@ function SandboxItemsPage() {
           { label: t("sandboxes.totalItemsLabel"), value: formatSandboxCount(itemsData?.count) },
         ]}
       />
-      <DataTable
-        columns={columns}
-        data={itemsData?.elements ?? []}
-        setPage={setPage}
-        page={page}
-        total={itemsData?.count ?? 0}
-        filters={filters}
-        setFilters={setFilters}
-      />
+      {isFetching && !isPending && (
+        <p role="status" className="text-sm text-muted-foreground">
+          {t("sandboxCatalog.refreshing")}
+        </p>
+      )}
+      {isPending ? (
+        <SandboxQueryState loading />
+      ) : isError ? (
+        <SandboxQueryState error retry={() => void refetch()} />
+      ) : (
+        <div aria-busy={isFetching} className={isPlaceholderData ? "opacity-60" : ""}>
+          <DataTable
+            columns={columns}
+            data={itemsData?.elements ?? []}
+            setPage={setPage}
+            page={page}
+            total={itemsData?.count ?? 0}
+            filters={filters}
+            setFilters={updateFilters}
+            emptyContent={
+              <SandboxQueryState
+                empty={!filters.length}
+                reset={filters.length ? () => updateFilters([]) : undefined}
+              />
+            }
+          />
+        </div>
+      )}
     </div>
   );
 }

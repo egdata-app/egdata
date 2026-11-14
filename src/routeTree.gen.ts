@@ -38,6 +38,7 @@ import { Route as Char123LocaleChar125SalesIndexRouteImport } from "./routes/{-$
 import { Route as Char123LocaleChar125FreebiesIndexRouteImport } from "./routes/{-$locale}/freebies/index";
 import { Route as Char123LocaleChar125CollectionsIndexRouteImport } from "./routes/{-$locale}/collections/index";
 import { Route as Char123LocaleChar125ChangelogIndexRouteImport } from "./routes/{-$locale}/changelog/index";
+import { Route as Char123LocaleChar125TechnologiesIdRouteImport } from "./routes/{-$locale}/technologies/$id";
 import { Route as Char123LocaleChar125TagsIdRouteImport } from "./routes/{-$locale}/tags/$id";
 import { Route as Char123LocaleChar125StatsReleasesRouteImport } from "./routes/{-$locale}/stats/releases";
 import { Route as Char123LocaleChar125StatsCreationsRouteImport } from "./routes/{-$locale}/stats/creations";
@@ -234,6 +235,12 @@ const Char123LocaleChar125ChangelogIndexRoute =
   Char123LocaleChar125ChangelogIndexRouteImport.update({
     id: "/changelog/",
     path: "/changelog/",
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any);
+const Char123LocaleChar125TechnologiesIdRoute =
+  Char123LocaleChar125TechnologiesIdRouteImport.update({
+    id: "/technologies/$id",
+    path: "/technologies/$id",
     getParentRoute: () => Char123LocaleChar125Route,
   } as any);
 const Char123LocaleChar125TagsIdRoute = Char123LocaleChar125TagsIdRouteImport.update({
@@ -555,6 +562,7 @@ export interface FileRoutesByFullPath {
   "/{-$locale}/stats/creations": typeof Char123LocaleChar125StatsCreationsRoute;
   "/{-$locale}/stats/releases": typeof Char123LocaleChar125StatsReleasesRoute;
   "/{-$locale}/tags/$id": typeof Char123LocaleChar125TagsIdRoute;
+  "/{-$locale}/technologies/$id": typeof Char123LocaleChar125TechnologiesIdRoute;
   "/{-$locale}/changelog/": typeof Char123LocaleChar125ChangelogIndexRoute;
   "/{-$locale}/collections/": typeof Char123LocaleChar125CollectionsIndexRoute;
   "/{-$locale}/freebies/": typeof Char123LocaleChar125FreebiesIndexRoute;
@@ -631,6 +639,7 @@ export interface FileRoutesByTo {
   "/{-$locale}/stats/creations": typeof Char123LocaleChar125StatsCreationsRoute;
   "/{-$locale}/stats/releases": typeof Char123LocaleChar125StatsReleasesRoute;
   "/{-$locale}/tags/$id": typeof Char123LocaleChar125TagsIdRoute;
+  "/{-$locale}/technologies/$id": typeof Char123LocaleChar125TechnologiesIdRoute;
   "/{-$locale}/changelog": typeof Char123LocaleChar125ChangelogIndexRoute;
   "/{-$locale}/collections": typeof Char123LocaleChar125CollectionsIndexRoute;
   "/{-$locale}/freebies": typeof Char123LocaleChar125FreebiesIndexRoute;
@@ -712,6 +721,7 @@ export interface FileRoutesById {
   "/{-$locale}/stats/creations": typeof Char123LocaleChar125StatsCreationsRoute;
   "/{-$locale}/stats/releases": typeof Char123LocaleChar125StatsReleasesRoute;
   "/{-$locale}/tags/$id": typeof Char123LocaleChar125TagsIdRoute;
+  "/{-$locale}/technologies/$id": typeof Char123LocaleChar125TechnologiesIdRoute;
   "/{-$locale}/changelog/": typeof Char123LocaleChar125ChangelogIndexRoute;
   "/{-$locale}/collections/": typeof Char123LocaleChar125CollectionsIndexRoute;
   "/{-$locale}/freebies/": typeof Char123LocaleChar125FreebiesIndexRoute;
@@ -795,6 +805,7 @@ export interface FileRouteTypes {
     | "/{-$locale}/stats/creations"
     | "/{-$locale}/stats/releases"
     | "/{-$locale}/tags/$id"
+    | "/{-$locale}/technologies/$id"
     | "/{-$locale}/changelog/"
     | "/{-$locale}/collections/"
     | "/{-$locale}/freebies/"
@@ -871,6 +882,7 @@ export interface FileRouteTypes {
     | "/{-$locale}/stats/creations"
     | "/{-$locale}/stats/releases"
     | "/{-$locale}/tags/$id"
+    | "/{-$locale}/technologies/$id"
     | "/{-$locale}/changelog"
     | "/{-$locale}/collections"
     | "/{-$locale}/freebies"
@@ -951,6 +963,7 @@ export interface FileRouteTypes {
     | "/{-$locale}/stats/creations"
     | "/{-$locale}/stats/releases"
     | "/{-$locale}/tags/$id"
+    | "/{-$locale}/technologies/$id"
     | "/{-$locale}/changelog/"
     | "/{-$locale}/collections/"
     | "/{-$locale}/freebies/"
@@ -1209,6 +1222,13 @@ declare module "@tanstack/react-router" {
       path: "/changelog";
       fullPath: "/{-$locale}/changelog/";
       preLoaderRoute: typeof Char123LocaleChar125ChangelogIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/technologies/$id": {
+      id: "/{-$locale}/technologies/$id";
+      path: "/technologies/$id";
+      fullPath: "/{-$locale}/technologies/$id";
+      preLoaderRoute: typeof Char123LocaleChar125TechnologiesIdRouteImport;
       parentRoute: typeof Char123LocaleChar125Route;
     };
     "/{-$locale}/tags/$id": {
@@ -1712,6 +1732,7 @@ interface Char123LocaleChar125RouteChildren {
   Char123LocaleChar125StatsCreationsRoute: typeof Char123LocaleChar125StatsCreationsRoute;
   Char123LocaleChar125StatsReleasesRoute: typeof Char123LocaleChar125StatsReleasesRoute;
   Char123LocaleChar125TagsIdRoute: typeof Char123LocaleChar125TagsIdRoute;
+  Char123LocaleChar125TechnologiesIdRoute: typeof Char123LocaleChar125TechnologiesIdRoute;
   Char123LocaleChar125ChangelogIndexRoute: typeof Char123LocaleChar125ChangelogIndexRoute;
   Char123LocaleChar125CollectionsIndexRoute: typeof Char123LocaleChar125CollectionsIndexRoute;
   Char123LocaleChar125FreebiesIndexRoute: typeof Char123LocaleChar125FreebiesIndexRoute;
@@ -1752,6 +1773,7 @@ const Char123LocaleChar125RouteChildren: Char123LocaleChar125RouteChildren = {
   Char123LocaleChar125StatsCreationsRoute: Char123LocaleChar125StatsCreationsRoute,
   Char123LocaleChar125StatsReleasesRoute: Char123LocaleChar125StatsReleasesRoute,
   Char123LocaleChar125TagsIdRoute: Char123LocaleChar125TagsIdRoute,
+  Char123LocaleChar125TechnologiesIdRoute: Char123LocaleChar125TechnologiesIdRoute,
   Char123LocaleChar125ChangelogIndexRoute: Char123LocaleChar125ChangelogIndexRoute,
   Char123LocaleChar125CollectionsIndexRoute: Char123LocaleChar125CollectionsIndexRoute,
   Char123LocaleChar125FreebiesIndexRoute: Char123LocaleChar125FreebiesIndexRoute,

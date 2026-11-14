@@ -2,6 +2,7 @@ import { SandboxDataSurface } from "@/components/app/sandbox-layout";
 import {
   BuildHistoryExplorer,
   buildHealthBadgeClass,
+  buildHealthLabelKey,
 } from "@/components/app/build-history-explorer";
 import { BuildFilesTree } from "@/components/app/build-files-tree";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -342,7 +343,7 @@ function ComparisonView({
             variant="outline"
             className={buildHealthBadgeClass(comparison.target.manifest.status)}
           >
-            {t(`builds.health.${comparison.target.manifest.status}`)}
+            {t(buildHealthLabelKey(comparison.target.manifest.status))}
           </Badge>
           {comparison.comparisonScope === "cross_stream" && (
             <Badge variant="outline">{t("builds.comparison.crossStream")}</Badge>

@@ -43,6 +43,7 @@
     "helloUser": "¡Hola, {{name}}!",
     "dashboard": "Panel",
     "logout": "Cerrar sesión",
+    "signIn": "Iniciar sesión",
     "searchLanguages": "Buscar idiomas...",
     "noLanguagesFound": "No se encontraron idiomas"
   },
@@ -294,6 +295,30 @@
       "igdbRating": "Calificación IGDB",
       "igdbReviews_one": "{{count}} reseña",
       "igdbReviews_other": "{{count}} reseñas"
+    },
+    "requirements": {
+      "title": "Requisitos del sistema",
+      "windows": "Windows",
+      "macos": "macOS",
+      "minimum": "Mínimos",
+      "recommended": "Recomendados",
+      "inheritedFromBaseGame": "Heredados del juego base",
+      "staleNotice": "Estos requisitos pueden estar desactualizados",
+      "fields": {
+        "os": "SO",
+        "cpu": "CPU",
+        "processor": "Procesador",
+        "gpu": "GPU",
+        "graphics": "Gráficos",
+        "memory": "Memoria",
+        "ram": "Memoria",
+        "storage": "Almacenamiento",
+        "disk": "Almacenamiento",
+        "directx": "DirectX",
+        "network": "Red",
+        "soundCard": "Tarjeta de sonido",
+        "additional": "Notas adicionales"
+      }
     },
     "achievements": {
       "title": "Logros",
@@ -574,7 +599,7 @@
     "entityItemsLabel": "Ítems",
     "entityItemsDescription": "Registros de propiedad",
     "entityAssetsLabel": "Assets",
-    "entityAssetsDescription": "Artefactos y assets multimedia",
+    "entityAssetsDescription": "Registros de distribución",
     "entityBuildsLabel": "Compilaciones",
     "entityBuildsDescription": "Paquetes de binarios",
     "entityAchievementsLabel": "Logros",
@@ -638,7 +663,7 @@
     "metaAssetsTitle": "Assets",
     "assetsEyebrow": "Assets y artefactos",
     "assetsTitle": "Assets",
-    "assetsDescription": "Registros de distribución y assets multimedia adjuntos a ítems del sandbox, incluyendo artefactos que conectan el contenido del catálogo de la tienda con compilaciones descargables.",
+    "assetsDescription": "Explora los assets de distribución, los artefactos vinculados, las plataformas y los tamaños de descarga.",
     "totalAssetsLabel": "Total de assets"
   },
   "items": {
@@ -759,7 +784,7 @@
       "invalid": "Manifiesto inválido",
       "unavailable": "No disponible",
       "failed": "Error de procesamiento",
-      "legacy_unverified": "Aún sin verificar"
+      "legacyUnverified": "Aún sin verificar"
     },
     "timeline": {
       "title": "Historial de compilaciones observadas",
@@ -1018,6 +1043,47 @@
       "freeGames": "Juegos gratis"
     }
   },
+  "technologies": {
+    "meta": {
+      "title": "Tecnología {{name}} | egdata.app",
+      "description": "Conoce {{name}} y explora los juegos que usan esta tecnología en la Epic Games Store."
+    },
+    "pendingTitle": "Investigando {{name}}",
+    "pendingDescription": "Estamos creando este perfil de tecnología. Puedes consultar los juegos relacionados mientras termina la investigación.",
+    "unresolvedTitle": "Perfil no disponible para {{name}}",
+    "unresolved": {
+      "ambiguous": "Este identificador puede referirse a varias tecnologías, así que no publicaremos un perfil basado en suposiciones.",
+      "unknown": "No hemos podido identificar esta tecnología mediante fuentes públicas fiables.",
+      "insufficientSources": "Hemos encontrado una posible identidad, pero no suficientes fuentes fiables para publicarla."
+    },
+    "serviceTitle": "El perfil de tecnología no está disponible temporalmente",
+    "serviceDescription": "El servicio de perfiles no ha respondido, pero puedes consultar los juegos relacionados más abajo.",
+    "notFoundTitle": "Tecnología no encontrada",
+    "notFoundDescription": "Esta clave de tecnología exacta no aparece en el índice de búsqueda de EGDATA.",
+    "logoAlt": "Logotipo de {{name}}",
+    "official": "Sitio oficial",
+    "sources": "Fuentes",
+    "generatedOn": "Generado el {{date}}",
+    "aiDisclosure": "Perfil en inglés generado por IA y contrastado con las fuentes web citadas.",
+    "stale": "Este perfil se está actualizando.",
+    "matchingGames": "Juegos que usan {{name}}",
+    "externalLink": "se abre en una pestaña nueva",
+    "categories": {
+      "engine": "Motor",
+      "graphics": "Gráficos",
+      "audio": "Audio",
+      "physics": "Física",
+      "networking": "Redes",
+      "antiCheat": "Antitrampas",
+      "runtime": "Entorno de ejecución",
+      "framework": "Framework",
+      "middleware": "Middleware",
+      "platformService": "Servicio de plataforma",
+      "tooling": "Herramientas",
+      "fileFormat": "Formato de archivo",
+      "other": "Otros"
+    }
+  },
   "franchises": {
     "meta": {
       "notFoundTitle": "Franquicia no encontrada",
@@ -1044,6 +1110,20 @@
       "description": "Ritmo mensual y anual de nuevas creaciones que llegan a la tienda.",
       "monthlyTitle": "Creaciones mensuales",
       "yearlyTitle": "Creaciones anuales"
+    },
+    "chart": {
+      "releasesLabel": "Lanzamientos",
+      "creationsLabel": "Creaciones",
+      "launcherBeta": "Beta del nuevo Epic Games Launcher",
+      "ongoing": "En curso",
+      "ongoingSoFar": "En curso (hasta hoy)",
+      "prediction": "Proyección",
+      "projectedTotal": "Total proyectado",
+      "likelyRange": "Rango probable",
+      "ytd": "Año hasta la fecha",
+      "forecastZone": "Pronóstico",
+      "captionMonthly": "Proyección: tendencia lineal de los últimos {{months}} meses completos. El área sombreada marca la zona de pronóstico; la banda y los rangos muestran ±1σ.",
+      "captionYearly": "Proyección: tendencia lineal de los últimos {{years}} años completos. El año actual apila lo acumulado hasta la fecha (sólido) con el resto proyectado (contorno discontinuo)."
     },
     "releases": {
       "meta": {
@@ -1945,6 +2025,103 @@
       "priceRange": "Rango de precios",
       "minPrice": "Precio mín",
       "maxPrice": "Precio máx"
+    }
+  },
+  "sandboxCatalog": {
+    "title": "Explora este juego",
+    "description": "Explora las ofertas agrupadas por los tipos del catálogo de Epic. Estos grupos no confirman la compatibilidad ni el contenido de una edición. Se incluyen registros históricos y de prueba; Todas las ofertas también contiene registros sin clasificar.",
+    "allOffers": "Todas las ofertas",
+    "viewAll": "Ver todo",
+    "priceUnknown": "Precio no disponible",
+    "unknownType": "Tipo desconocido",
+    "loading": "Cargando registros…",
+    "refreshing": "Actualizando resultados…",
+    "error": "No se han podido cargar estos registros.",
+    "retry": "Reintentar",
+    "empty": "Todavía no hay registros en esta sección.",
+    "noMatches": "Ningún registro coincide con la búsqueda.",
+    "reset": "Borrar filtros",
+    "search": "Buscar ofertas por título",
+    "group": "Grupo de contenido",
+    "rawTypes": "Tipos de catálogo",
+    "cards": "Tarjetas",
+    "table": "Tabla técnica",
+    "previous": "Anterior",
+    "next": "Siguiente",
+    "page": "Página {{page}} de {{pages}}",
+    "pageSize": "Ofertas por página",
+    "copy": "Copiar Namespace",
+    "copied": "Namespace copiado",
+    "copyFailed": "No se ha podido copiar el Namespace",
+    "developer": "Desarrollador",
+    "publisher": "Editor",
+    "platforms": "Plataformas",
+    "primaryOffer": "Ver oferta principal",
+    "details": "Detalles del juego",
+    "navigation": "Secciones del Sandbox",
+    "technical": "Explorar registros técnicos",
+    "groups": {
+      "games": "Juego base y ediciones",
+      "dlc": "DLC",
+      "addons": "Complementos",
+      "bundles": "Paquetes",
+      "ingame": "Contenido del juego",
+      "extras": "Demos y extras",
+      "passes": "Suscripciones y pases",
+      "other": "Otros"
+    },
+    "columns": {
+      "id": "ID de oferta",
+      "title": "Título",
+      "type": "Tipo de catálogo",
+      "seller": "Vendedor",
+      "modified": "Última modificación",
+      "prePurchase": "Precompra"
+    },
+    "types": {
+      "BASEGAME": "Juego base",
+      "EDITION": "Edición",
+      "DLC": "DLC",
+      "ADDON": "Complemento",
+      "BUNDLE": "Paquete",
+      "Bundle": "Paquete (heredado)",
+      "VIRTUALCURRENCY": "Moneda virtual",
+      "INGAMECURRENCY": "Moneda del juego",
+      "WALLET": "Monedero",
+      "INGAMEITEM": "Objeto del juego",
+      "INGAMEPURCHASE": "Compra en el juego",
+      "CONSUMABLE": "Consumible",
+      "UNLOCKABLE": "Desbloqueable",
+      "LOOTBOX": "Caja de botín",
+      "DEMO": "Demo",
+      "DIGITALEXTRA": "Extra digital",
+      "EXPERIENCE": "Experiencia",
+      "SUBSCRIPTION": "Suscripción",
+      "SUBSCRIPTIONBUNDLE": "Paquete de suscripción",
+      "SEASON": "Temporada",
+      "PASS": "Pase",
+      "OTHERS": "Otros",
+      "UNKNOWN": "Desconocido"
+    },
+    "results_one": "{{count}} oferta",
+    "results_other": "{{count}} ofertas",
+    "readMore": "Leer más",
+    "readLess": "Mostrar menos"
+  },
+  "pow": {
+    "tarpit": {
+      "title": "Las solicitudes están limitadas temporalmente",
+      "description": "Espera un poco antes de volver a intentarlo."
+    },
+    "recovery": {
+      "title": "Completando una comprobación de seguridad",
+      "description": "Un momento. Esto solo tardará un instante."
+    },
+    "failure": {
+      "title": "No pudimos completar la comprobación de seguridad",
+      "description": "Tu solicitud no se completó. Inténtalo de nuevo.",
+      "retry": "Reintentar",
+      "dismiss": "Descartar"
     }
   }
 }

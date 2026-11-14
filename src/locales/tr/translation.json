@@ -717,7 +717,7 @@
       "invalid": "Geçersiz manifest",
       "unavailable": "Kullanılamıyor",
       "failed": "İşleme başarısız oldu",
-      "legacy_unverified": "Henüz doğrulanmadı"
+      "legacyUnverified": "Henüz doğrulanmadı"
     },
     "timeline": {
       "title": "Observed build history",

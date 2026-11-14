@@ -1,5 +1,6 @@
 import { SectionsNav } from "@/components/app/offer-sections";
 import { SandboxPageHeader } from "@/components/app/sandbox-layout";
+import { TechnologyLink } from "@/components/technology/TechnologyLink";
 import { Badge } from "@/components/ui/badge";
 import { useLocale } from "@/hooks/use-locale";
 import { calculateSize } from "@/lib/calculate-size";
@@ -160,12 +161,15 @@ function BuildPage() {
                 build.technologies
                   .filter((technology) => technology.section !== "Evidence")
                   .map((technology) => (
-                    <Badge
+                    <TechnologyLink
                       key={`${technology.section}.${technology.technology}`}
-                      variant="secondary"
+                      id={technology.technology}
+                      className="rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     >
-                      {technology.section} / {technology.technology}
-                    </Badge>
+                      <Badge variant="secondary">
+                        {technology.section} / {technology.technology}
+                      </Badge>
+                    </TechnologyLink>
                   ))
               ) : (
                 <span className="text-muted-foreground">N/A</span>

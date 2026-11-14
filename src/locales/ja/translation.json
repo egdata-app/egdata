@@ -717,7 +717,7 @@
       "invalid": "無効なマニフェスト",
       "unavailable": "利用不可",
       "failed": "処理に失敗",
-      "legacy_unverified": "未検証"
+      "legacyUnverified": "未検証"
     },
     "timeline": {
       "title": "Observed build history",

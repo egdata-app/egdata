@@ -45,8 +45,11 @@ export const auth = betterAuth({
           clientId: process.env.EPIC_CLIENT_ID || "",
           clientSecret: process.env.EPIC_CLIENT_SECRET || "",
           scopes: ["basic_profile"],
+          // The Epic flow predates PKCE; keep it off (1.7 defaults it on).
+          pkce: false,
           tokenUrl: `${process.env.BETTER_AUTH_URL as string}/api/token`,
-          redirectURI: `${process.env.BETTER_AUTH_URL as string}/api/auth/oauth2/callback/epic`,
+          // better-auth 1.7 serves generic OAuth callbacks at /api/auth/callback/:id
+          redirectURI: `${process.env.BETTER_AUTH_URL as string}/api/auth/callback/epic`,
           authorizationUrl: discovery.authorization_endpoint,
           userInfoUrl: discovery.userinfo_endpoint,
           getUserInfo: async ({ accessToken }) => {

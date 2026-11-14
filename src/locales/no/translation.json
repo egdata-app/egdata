@@ -717,7 +717,7 @@
       "invalid": "Ugyldig manifest",
       "unavailable": "Utilgjengelig",
       "failed": "Behandlingen mislyktes",
-      "legacy_unverified": "Ikke bekreftet ennå"
+      "legacyUnverified": "Ikke bekreftet ennå"
     },
     "timeline": {
       "title": "Observed build history",

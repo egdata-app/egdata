@@ -1,6 +1,5 @@
 import { OpenLauncher } from "@/components/app/open-launcher";
-import { SectionsNav } from "@/components/app/offer-sections";
-import { EpicTrophyIcon } from "@/components/icons/epic-trophy";
+import { Link } from "@/components/app/localized-link";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useCountry } from "@/hooks/use-country";
@@ -9,6 +8,7 @@ import { calculatePrice } from "@/lib/calculate-price";
 import { getEffectivePrice } from "@/lib/effective-price";
 import { getImage } from "@/lib/get-image";
 import { internalNamespaces } from "@/lib/internal-namespaces";
+import { sandboxViewTransition } from "@/lib/sandbox-transition";
 import { cn } from "@/lib/utils";
 import { sandboxBaseGameQueryOptions, sandboxQueryOptions } from "@/queries/sandbox";
 import { sandboxHubQueryOptions, type SandboxHubData } from "@/queries/sandbox-hub";
@@ -17,28 +17,27 @@ import type { SingleItem } from "@/types/single-item";
 import type { SingleOffer } from "@/types/single-offer";
 import type { SingleSandbox } from "@/types/single-sandbox";
 import { useQuery } from "@tanstack/react-query";
-import { Outlet, useLocation, useNavigate } from "@tanstack/react-router";
-import { Link } from "@/components/app/localized-link";
+import { Outlet, useMatches } from "@tanstack/react-router";
 import { DateTime } from "luxon";
 import { useTranslation } from "@/lib/paraglide-react";
 import type { TFunction } from "@/lib/paraglide-i18next";
 import {
   Archive,
   BoxIcon,
-  CalculatorIcon,
+  Check,
+  Copy,
+  FileClock,
   LibrarySquareIcon,
   PackageIcon,
   ShoppingBag,
   StoreIcon,
+  Trophy,
 } from "lucide-react";
-import { useMemo, type ComponentType } from "react";
+import { useState } from "react";
 
 type BaseGame = SingleOffer | (SingleItem & { isItem: true }) | null;
-type NavIcon = ComponentType<{ className?: string }>;
-
 export interface SandboxShellProps {
   id: string;
-  /** If the hub data is already available (hub index route), pass it to avoid a second GraphQL call. */
   hub?: SandboxHubData | null;
 }
 
@@ -49,101 +48,107 @@ export function SandboxShell({ id, hub }: SandboxShellProps) {
   const { data: sandbox } = useQuery(sandboxQueryOptions(id));
   const { data: baseGame } = useQuery(sandboxBaseGameQueryOptions(id));
   const { data: hubData } = useQuery(
-    sandboxHubQueryOptions({
-      id,
-      country: country || "US",
-      offerLimit: 8,
-      updateLimit: 8,
-    }),
+    sandboxHubQueryOptions({ id, country: country || "US", offerLimit: 8, updateLimit: 8 }),
   );
-  const navigate = useNavigate();
-  const location = useLocation();
-  const subPath = (location.pathname.split(`/${id}/`)[1] ?? "") as string;
+  // Matches commit inside the view transition; location changes earlier, while loaders run.
+  const pathname = useMatches({ select: (matches) => matches.at(-1)?.pathname ?? "" });
+  const subPath = pathname.split(`/sandboxes/${id}`)[1]?.replace(/^\/|\/$/g, "") || "";
   const activeHub = hub ?? hubData ?? null;
-
+  const sections = [
+    { id: "", label: "overview", icon: BoxIcon, count: undefined },
+    { id: "offers", label: "offers", icon: StoreIcon, count: activeHub?.stats?.offers },
+    { id: "items", label: "items", icon: LibrarySquareIcon, count: activeHub?.stats?.items },
+    { id: "assets", label: "assets", icon: Archive, count: activeHub?.stats?.assets },
+    { id: "builds", label: "builds", icon: PackageIcon, count: activeHub?.stats?.builds },
+    {
+      id: "achievements",
+      label: "achievements",
+      icon: Trophy,
+      count: activeHub?.stats?.achievements,
+    },
+    { id: "changelog", label: "changelog", icon: FileClock, count: undefined },
+  ] as const;
   return (
-    <main className="mx-auto flex w-full max-w-[1500px] flex-col gap-8 px-4 pb-16 pt-2 md:px-8">
-      <SandboxHero id={id} hub={activeHub} sandbox={sandbox ?? null} baseGame={baseGame ?? null} />
-
-      <div className="sticky top-0 z-20 -mx-4 border-y border-border/40 bg-background/92 px-4 py-3 backdrop-blur md:-mx-8 md:px-8">
-        <SectionsNav
-          links={[
-            {
-              id: "",
-              label: <NavLabel icon={BoxIcon} label={t("components.sandboxShell.overview")} />,
-              href: `/sandboxes/${id}`,
-            },
-            {
-              id: "offers",
-              label: <NavLabel icon={StoreIcon} label={t("components.sandboxShell.offers")} />,
-              href: `/sandboxes/${id}/offers`,
-            },
-            {
-              id: "items",
-              label: (
-                <NavLabel icon={LibrarySquareIcon} label={t("components.sandboxShell.items")} />
-              ),
-              href: `/sandboxes/${id}/items`,
-            },
-            {
-              id: "assets",
-              label: <NavLabel icon={Archive} label={t("components.sandboxShell.assets")} />,
-              href: `/sandboxes/${id}/assets`,
-            },
-            {
-              id: "builds",
-              label: <NavLabel icon={PackageIcon} label={t("components.sandboxShell.builds")} />,
-              href: `/sandboxes/${id}/builds`,
-            },
-            {
-              id: "achievements",
-              label: (
-                <NavLabel icon={EpicTrophyIcon} label={t("components.sandboxShell.achievements")} />
-              ),
-              href: `/sandboxes/${id}/achievements`,
-            },
-            {
-              id: "changelog",
-              label: (
-                <NavLabel icon={CalculatorIcon} label={t("components.sandboxShell.changelog")} />
-              ),
-              href: `/sandboxes/${id}/changelog`,
-            },
-          ]}
-          activeSection={subPath}
-          onSectionChange={(section) => {
-            const sandboxRoutes = {
-              "": "/{-$locale}/sandboxes/$id",
-              offers: "/{-$locale}/sandboxes/$id/offers",
-              items: "/{-$locale}/sandboxes/$id/items",
-              assets: "/{-$locale}/sandboxes/$id/assets",
-              builds: "/{-$locale}/sandboxes/$id/builds",
-              achievements: "/{-$locale}/sandboxes/$id/achievements",
-              changelog: "/{-$locale}/sandboxes/$id/changelog",
-            } as const;
-            const to = sandboxRoutes[section as keyof typeof sandboxRoutes] ?? sandboxRoutes[""];
-
-            navigate({
-              to,
-              params: { id, locale },
-              replace: false,
-              resetScroll: false,
-            });
-          }}
-        />
+    <main className="sandbox-shell mx-auto flex w-full min-w-0 max-w-[1500px] flex-col gap-6 px-4 pb-16 pt-4 md:px-8">
+      <SandboxHero
+        id={id}
+        hub={activeHub}
+        sandbox={sandbox ?? null}
+        baseGame={baseGame ?? null}
+        compact={Boolean(subPath)}
+      />
+      <nav
+        style={{ viewTransitionName: "sandbox-tabs" }}
+        aria-label={t("sandboxCatalog.navigation")}
+        className="sticky top-0 z-20 -mx-4 overflow-x-auto [color-scheme:dark] [scrollbar-width:thin] border-b border-border bg-background/95 px-4 backdrop-blur md:-mx-8 md:px-8"
+      >
+        <ul className="flex w-max min-w-full gap-1">
+          {sections.map((section) => (
+            <li key={section.id}>
+              <Link
+                to={`/{-$locale}/sandboxes/$id${section.id ? `/${section.id}` : ""}`}
+                params={{ id }}
+                viewTransition={sandboxViewTransition}
+                aria-current={subPath === section.id ? "page" : undefined}
+                className={cn(
+                  "inline-flex min-h-12 items-center gap-2 whitespace-nowrap border-b-2 px-3 py-3 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary",
+                  subPath === section.id
+                    ? "border-primary text-primary"
+                    : "border-transparent text-muted-foreground hover:text-foreground",
+                )}
+              >
+                <section.icon aria-hidden="true" className="size-4" />
+                {t(`components.sandboxShell.${section.label}`)}
+                {typeof section.count === "number" && (
+                  <span className="rounded bg-muted/70 px-1.5 py-0.5 text-[11px] tabular-nums text-muted-foreground">
+                    {section.count.toLocaleString(locale)}
+                  </span>
+                )}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <div className="min-w-0" style={{ viewTransitionName: "sandbox-content" }}>
+        <Outlet />
       </div>
-
-      <Outlet />
     </main>
   );
 }
 
-function NavLabel({ icon: Icon, label }: { icon: NavIcon; label: string }) {
+function NamespaceCopy({ id }: { id: string }) {
+  const { t } = useTranslation();
+  const [status, setStatus] = useState<"idle" | "copied" | "error">("idle");
   return (
-    <span className="inline-flex items-center gap-2">
-      <Icon className="size-4" />
-      <span>{label}</span>
-    </span>
+    <div className="min-w-0">
+      <div className="flex items-center gap-2">
+        <span className="text-xs text-muted-foreground">Namespace</span>
+        <code className="min-w-0 break-all text-xs">{id}</code>
+        <Button
+          size="icon"
+          variant="ghost"
+          className="size-8 shrink-0"
+          aria-label={t("sandboxCatalog.copy")}
+          onClick={async () => {
+            try {
+              await navigator.clipboard.writeText(id);
+              setStatus("copied");
+            } catch {
+              setStatus("error");
+            }
+          }}
+        >
+          {status === "copied" ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
+        </Button>
+      </div>
+      <span role="status" className="text-xs text-muted-foreground">
+        {status === "copied"
+          ? t("sandboxCatalog.copied")
+          : status === "error"
+            ? t("sandboxCatalog.copyFailed")
+            : ""}
+      </span>
+    </div>
   );
 }
 
@@ -152,45 +157,33 @@ function SandboxHero({
   hub,
   sandbox,
   baseGame,
+  compact,
 }: {
   id: string;
   hub: SandboxHubData | null;
   sandbox: SingleSandbox | null;
   baseGame: BaseGame;
+  compact: boolean;
 }) {
   const { t } = useTranslation();
-  const isInternal = useMemo(() => internalNamespaces.includes(id), [id]);
-  const isUnreal = id === "ue";
-
+  const { locale } = useLocale();
+  const [expanded, setExpanded] = useState(false);
+  const isInternal = internalNamespaces.includes(id);
   const title =
-    hub?.title ??
-    (isUnreal
+    hub?.title ||
+    (id === "ue"
       ? t("components.sandboxShell.unrealEngine")
       : isInternal
         ? t("components.sandboxShell.internalSandbox")
-        : undefined) ??
-    (baseGame && "title" in baseGame ? baseGame.title : undefined) ??
-    sandbox?.displayName ??
-    (sandbox?.name as string | undefined) ??
+        : undefined) ||
+    baseGame?.title ||
+    sandbox?.displayName ||
+    sandbox?.name ||
     t("components.sandboxShell.sandbox");
-
-  const description = hub?.description ?? undefined;
-  const developer = hub?.developer ?? undefined;
-  const publisher = hub?.publisher ?? undefined;
-  const seller = hub?.seller ?? null;
-  const genres = hub?.genres ?? null;
-  const platforms = hub?.platforms ?? null;
-  const price = hub?.price ?? null;
-  const primaryOffer = hub?.primaryOffer ?? null;
-
-  const keyImages = (hub?.keyImages ??
-    (baseGame && "keyImages" in baseGame ? baseGame.keyImages : [])) as {
-    type: string;
-    url: string;
-    md5: string;
-  }[];
-
-  const image = getImage(keyImages, [
+  const images = (hub?.keyImages?.filter(Boolean) ??
+    baseGame?.keyImages ??
+    []) as SingleOffer["keyImages"];
+  const image = getImage(images, [
     "DieselStoreFrontWide",
     "OfferImageWide",
     "DieselGameBoxWide",
@@ -198,97 +191,159 @@ function SandboxHero({
     "Screenshot",
     "DieselGameBox",
   ]);
-
+  const primaryOffer = hub?.primaryOffer ?? (baseGame && !("isItem" in baseGame) ? baseGame : null);
   const releaseStatus = getReleaseStatus(primaryOffer, t);
   const updated = hub?.updated ?? sandbox?.updated;
-
-  return (
-    <section className="relative overflow-hidden rounded-md border border-border/50 bg-card">
-      <div className="absolute inset-0">
-        <img src={image.url} alt={title} className="h-full w-full object-cover" loading="eager" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/88 to-background/55" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/35 to-transparent" />
+  const artwork =
+    image.type !== "placeholder" ? (
+      <img
+        src={image.url}
+        alt=""
+        className="h-full w-full object-cover object-top"
+        onError={(event) => {
+          event.currentTarget.src = "/placeholder.webp";
+        }}
+      />
+    ) : (
+      <div className="flex h-full items-center justify-center bg-muted/25">
+        <BoxIcon className="size-12 text-muted-foreground" />
       </div>
-
-      <div className="relative z-10 flex min-h-[330px] flex-col justify-end gap-5 p-6 md:p-9 lg:p-10">
-        <div className="flex flex-wrap items-center gap-2">
-          <Badge variant="secondary">{t("components.sandboxShell.sandbox")}</Badge>
-          {releaseStatus && <Badge variant="outline">{releaseStatus}</Badge>}
-          {sandbox?.status && <Badge variant="outline">{sandbox.status}</Badge>}
-          {isInternal && (
-            <Badge variant="outline">{t("components.sandboxShell.internalNamespace")}</Badge>
-          )}
+    );
+  if (compact)
+    return (
+      <header className="flex min-w-0 items-center gap-4">
+        <div
+          style={{ viewTransitionName: "sandbox-artwork" }}
+          className="aspect-video w-24 shrink-0 overflow-hidden rounded-md sm:w-32"
+        >
+          {artwork}
         </div>
-
-        <div className="max-w-5xl space-y-3">
-          <h1 className="text-3xl font-bold leading-tight tracking-tight md:text-5xl">{title}</h1>
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
-            <span className="font-mono text-xs">{id}</span>
-            {developer && (
-              <>
-                <span>/</span>
-                <span>{developer}</span>
-              </>
-            )}
-            {publisher && publisher !== developer && (
-              <>
-                <span>/</span>
-                <span>{publisher}</span>
-              </>
-            )}
-            {seller?.id ? (
-              <>
-                <span>/</span>
-                <Link
-                  to="/{-$locale}/sellers/$id"
-                  params={{ id: seller.id }}
-                  className="underline decoration-dotted underline-offset-4"
-                >
-                  {seller.name}
-                </Link>
-              </>
-            ) : (
-              seller?.name && (
-                <>
-                  <span>/</span>
-                  <span>{seller.name}</span>
-                </>
-              )
-            )}
-            {updated && (
-              <>
-                <span>/</span>
-                <span>{t("components.sandboxShell.updated", { date: formatDate(updated) })}</span>
-              </>
+        <div className="min-w-0 flex-1">
+          <Link
+            to="/{-$locale}/sandboxes/$id"
+            params={{ id }}
+            viewTransition={sandboxViewTransition}
+            className="text-xs text-muted-foreground hover:text-primary"
+          >
+            {t("components.sandboxShell.sandbox")}
+          </Link>
+          <h1
+            style={{ viewTransitionName: "sandbox-title" }}
+            className="break-words text-2xl font-semibold tracking-tight"
+          >
+            {title}
+          </h1>
+          <NamespaceCopy key={id} id={id} />
+        </div>
+      </header>
+    );
+  return (
+    <header className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
+      <div className="min-w-0 space-y-5">
+        <div>
+          <div className="mb-2 flex flex-wrap gap-2">
+            <Badge variant="secondary">{t("components.sandboxShell.sandbox")}</Badge>
+            {isInternal && (
+              <Badge variant="outline">{t("components.sandboxShell.internalNamespace")}</Badge>
             )}
           </div>
+          <h1
+            style={{ viewTransitionName: "sandbox-title" }}
+            className="break-words text-3xl font-bold tracking-tight md:text-4xl"
+          >
+            {title}
+          </h1>
         </div>
-
-        {description && (
-          <p className="line-clamp-2 max-w-4xl text-base leading-7 text-muted-foreground md:text-lg">
-            {description}
+        <div
+          style={{ viewTransitionName: "sandbox-artwork" }}
+          className="relative aspect-video w-full max-h-[420px] overflow-hidden rounded-md border border-border/50"
+        >
+          {artwork}
+        </div>
+        {hub?.description && (
+          <div>
+            <p
+              id="sandbox-description"
+              className={cn(
+                "max-w-3xl text-sm leading-7 text-muted-foreground",
+                !expanded && "line-clamp-3",
+              )}
+            >
+              {hub.description}
+            </p>
+            {hub.description.length > 240 && (
+              <button
+                type="button"
+                aria-expanded={expanded}
+                aria-controls="sandbox-description"
+                onClick={() => setExpanded(!expanded)}
+                className="mt-2 text-sm text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              >
+                {t(expanded ? "sandboxCatalog.readLess" : "sandboxCatalog.readMore")}
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+      <aside
+        aria-label={t("sandboxCatalog.details")}
+        className="flex min-w-0 flex-col gap-5 self-start rounded-md border border-border/60 bg-card p-5 lg:mt-0"
+      >
+        <div className="flex flex-wrap gap-2">
+          {releaseStatus && <Badge variant="secondary">{releaseStatus}</Badge>}
+          {sandbox?.status && <Badge variant="outline">{sandbox.status}</Badge>}
+        </div>
+        <NamespaceCopy key={id} id={id} />
+        <dl className="divide-y divide-border/60 text-sm">
+          {[
+            { label: t("sandboxCatalog.developer"), value: hub?.developer },
+            { label: t("sandboxCatalog.publisher"), value: hub?.publisher },
+            { label: t("sandboxCatalog.platforms"), value: hub?.platforms?.join(", ") },
+          ]
+            .filter((entry) => entry.value)
+            .map((entry) => (
+              <div key={entry.label} className="flex justify-between gap-4 py-3">
+                <dt className="text-muted-foreground">{entry.label}</dt>
+                <dd className="min-w-0 break-words text-right">{entry.value}</dd>
+              </div>
+            ))}
+        </dl>
+        {hub?.seller?.id && (
+          <Link
+            to="/{-$locale}/sellers/$id"
+            params={{ id: hub.seller.id }}
+            className="text-sm text-primary hover:underline"
+          >
+            {hub.seller.name}
+          </Link>
+        )}
+        {!!hub?.genres?.length && (
+          <div className="flex flex-wrap gap-2">
+            {hub.genres.filter(Boolean).map((genre) => (
+              <Badge key={genre?.id ?? genre?.name} variant="outline">
+                {genre?.name}
+              </Badge>
+            ))}
+          </div>
+        )}
+        {updated && (
+          <p className="text-xs text-muted-foreground">
+            {t("components.sandboxShell.updated", { date: formatDate(updated, locale || "en-US") })}
           </p>
         )}
-
-        <div className="flex flex-wrap items-center gap-2">
-          {genres?.slice(0, 3).map((genre) => (
-            <Badge key={genre?.id ?? genre?.name} variant="secondary">
-              {genre?.name}
-            </Badge>
-          ))}
-          {platforms?.slice(0, 4).map((platform) => (
-            <Badge key={platform} variant="outline">
-              {platform}
-            </Badge>
-          ))}
-        </div>
-
-        <div className="flex flex-wrap items-center gap-3">
-          <PriceBlock price={price} />
-          {primaryOffer && <StoreActions offer={primaryOffer} />}
-        </div>
-      </div>
-    </section>
+        {primaryOffer && (
+          <div className="flex flex-col gap-3 border-t border-border pt-5">
+            <PriceBlock price={hub?.price ?? primaryOffer.price} />
+            <Button asChild variant="outline">
+              <Link to="/{-$locale}/offers/$id" params={{ id: primaryOffer.id }}>
+                {t("sandboxCatalog.primaryOffer")}
+              </Link>
+            </Button>
+            <StoreActions offer={primaryOffer} />
+          </div>
+        )}
+      </aside>
+    </header>
   );
 }
 
@@ -394,7 +449,7 @@ function getReleaseStatus(offer: SingleOffer | null, t: TFunction) {
     : t("components.sandboxShell.releaseStatus.released");
 }
 
-function formatDate(value: string | null | undefined) {
+function formatDate(value: string | null | undefined, locale: string) {
   if (!value) {
     return "N/A";
   }
@@ -404,7 +459,7 @@ function formatDate(value: string | null | undefined) {
     return "N/A";
   }
 
-  return date.setLocale("en-GB").toLocaleString({
+  return date.setLocale(locale).toLocaleString({
     year: "numeric",
     month: "short",
     day: "numeric",

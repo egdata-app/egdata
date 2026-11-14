@@ -1,13 +1,10 @@
 import { graphql, type ResultOf } from "@/graphql";
-import { httpClient } from "@/lib/http-client";
+import { graphqlRequest } from "@/lib/graphql-request";
 import { DEFAULT_LOCALE, isSupportedLocale } from "@/lib/supported-locales";
 import { queryOptions } from "@tanstack/react-query";
-import { print } from "graphql";
 import type { SingleOffer } from "@/types/single-offer";
 import type { Franchise } from "@/types/franchise";
 import type { Technology } from "@/types/builds";
-
-const GRAPHQL_URL = "/graphql";
 
 export function resolveQueryLocale(locale?: string | null): string {
   return locale && isSupportedLocale(locale) ? locale : DEFAULT_LOCALE;
@@ -243,11 +240,12 @@ export const offerGqlQueryOptions = ({
   return queryOptions({
     queryKey: ["offer-gql", { id, country, locale: resolvedLocale }],
     queryFn: async () => {
-      const res = await httpClient.post<{ data: OfferPageResult }>(GRAPHQL_URL, {
-        query: print(offerPageQuery),
-        variables: { id, country, locale: resolvedLocale },
+      const res = await graphqlRequest<OfferPageResult>(offerPageQuery, {
+        id,
+        country,
+        locale: resolvedLocale,
       });
-      const offer = res.data.offer;
+      const offer = res.offer;
       if (!offer) return null;
       return {
         offer: toRestOffer(offer),
@@ -334,11 +332,11 @@ export const offerOnlyQueryOptions = (id: string, locale?: string | null) => {
   return queryOptions({
     queryKey: ["offer", { id, locale: resolvedLocale }],
     queryFn: async () => {
-      const res = await httpClient.post<{ data: OfferOnlyResult }>(GRAPHQL_URL, {
-        query: print(offerOnlyQuery),
-        variables: { id, locale: resolvedLocale },
+      const res = await graphqlRequest<OfferOnlyResult>(offerOnlyQuery, {
+        id,
+        locale: resolvedLocale,
       });
-      const offer = res.data.offer;
+      const offer = res.offer;
       if (!offer) return null;
       return toRestOffer(offer as NonNullable<OfferPageResult["offer"]>);
     },

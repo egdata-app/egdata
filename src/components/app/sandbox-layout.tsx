@@ -1,3 +1,4 @@
+import i18n from "@/lib/i18n";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import type * as React from "react";
@@ -11,7 +12,9 @@ export type SandboxHeaderStat = {
 };
 
 export function formatSandboxCount(value: number | null | undefined) {
-  return typeof value === "number" ? value.toLocaleString("en-GB") : "N/A";
+  return typeof value === "number"
+    ? value.toLocaleString(i18n.language)
+    : i18n.t("common.notAvailable");
 }
 
 export function SandboxPageHeader({
@@ -32,12 +35,7 @@ export function SandboxPageHeader({
   className?: string;
 }) {
   return (
-    <section
-      className={cn(
-        "rounded-md border border-border/60 bg-card/75 p-5 shadow-sm shadow-black/10",
-        className,
-      )}
-    >
+    <section className={cn("border-b border-border/60 pb-5", className)}>
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div className="min-w-0 space-y-2">
           <div className="flex flex-wrap items-center gap-2">
@@ -46,15 +44,11 @@ export function SandboxPageHeader({
                 <Icon className="size-4" />
               </span>
             )}
-            <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-              {eyebrow}
-            </span>
+            <span className="sr-only">{eyebrow}</span>
           </div>
           <div className="space-y-2">
-            <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">{title}</h1>
-            <p className="max-w-3xl text-sm leading-6 text-muted-foreground md:text-base">
-              {description}
-            </p>
+            <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
+            <p className="max-w-3xl text-sm leading-6 text-muted-foreground">{description}</p>
           </div>
         </div>
 
@@ -62,14 +56,11 @@ export function SandboxPageHeader({
       </div>
 
       {stats.length > 0 && (
-        <dl className="mt-5 grid grid-cols-2 gap-2 md:grid-cols-4">
+        <dl className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
           {stats.map((stat) => (
-            <div
-              key={stat.label}
-              className="min-w-0 rounded-md border border-border/50 bg-background/45 px-3 py-2"
-            >
+            <div key={stat.label} className="flex min-w-0 items-baseline gap-2">
               <dt className="truncate text-xs text-muted-foreground">{stat.label}</dt>
-              <dd className="mt-1 truncate text-lg font-semibold">{stat.value}</dd>
+              <dd className="text-base font-semibold tabular-nums">{stat.value}</dd>
             </div>
           ))}
         </dl>

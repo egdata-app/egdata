@@ -8,5 +8,6 @@ interface ImportMetaEnv {
   readonly VITE_PULSE_RELEASE?: string;
   readonly VITE_PULSE_TRACES_ENDPOINT?: string;
   readonly VITE_API_ENDPOINT?: string;
+  readonly VITE_TECHNOLOGY_API_ENDPOINT?: string;
   readonly VITE_VAPID_PUBLIC_KEY: string;
 }

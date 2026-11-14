@@ -32,7 +32,7 @@ export function getRouter() {
       },
     },
     parseSearch: parseSearchWith(parse),
-    stringifySearch: stringifySearchWith(stringify),
+    stringifySearch: stringifySearchWith(stringify, parse),
   });
 
   setupRouterSsrQueryIntegration({

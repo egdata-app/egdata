@@ -717,7 +717,7 @@
       "invalid": "अमान्य मेनिफ़ेस्ट",
       "unavailable": "अनुपलब्ध",
       "failed": "प्रोसेसिंग विफल",
-      "legacy_unverified": "अभी सत्यापित नहीं"
+      "legacyUnverified": "अभी सत्यापित नहीं"
     },
     "timeline": {
       "title": "देखे गए बिल्ड का इतिहास",

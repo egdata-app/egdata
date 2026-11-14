@@ -717,7 +717,7 @@
       "invalid": "แมนิเฟสต์ไม่ถูกต้อง",
       "unavailable": "ไม่พร้อมใช้งาน",
       "failed": "ประมวลผลไม่สำเร็จ",
-      "legacy_unverified": "ยังไม่ได้ยืนยัน"
+      "legacyUnverified": "ยังไม่ได้ยืนยัน"
     },
     "timeline": {
       "title": "ประวัติบิลด์ที่พบ",

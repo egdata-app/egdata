@@ -717,7 +717,7 @@
       "invalid": "Недійсний маніфест",
       "unavailable": "Недоступний",
       "failed": "Помилка обробки",
-      "legacy_unverified": "Ще не перевірено"
+      "legacyUnverified": "Ще не перевірено"
     },
     "timeline": {
       "title": "Observed build history",

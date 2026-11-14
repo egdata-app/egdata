@@ -1,3 +1,4 @@
+import { SandboxQueryState } from "@/components/app/sandbox-catalog";
 import {
   FlippableCard,
   type rarities,
@@ -47,8 +48,7 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id/achievements")({
 
     await queryClient.prefetchQuery({
       queryKey: ["sandbox", "achievements", { id }],
-      queryFn: () =>
-        httpClient.get<AchievementSet[]>(`/sandboxes/${id}/achievements`).catch(() => []),
+      queryFn: () => httpClient.get<AchievementSet[]>(`/sandboxes/${id}/achievements`),
     });
 
     return {
@@ -121,7 +121,13 @@ function SandboxAchievementsPage() {
       [achievementName]: !prev[achievementName],
     }));
   };
-  const { data: achievements } = useQuery({
+  const {
+    data: achievements,
+    isPending,
+    isError,
+    isFetching,
+    refetch,
+  } = useQuery({
     queryKey: ["sandbox", "achievements", { id }],
     queryFn: () => httpClient.get<AchievementSet[]>(`/sandboxes/${id}/achievements`),
   });
@@ -154,7 +160,9 @@ function SandboxAchievementsPage() {
       .reduce((acc, achievement) => acc + achievement.xp, 0);
   }, [achievements]);
 
-  if (!achievements) {
+  if (isError) return <SandboxQueryState error retry={() => void refetch()} />;
+
+  if (isPending || !achievements) {
     return (
       <div className="flex flex-col gap-6 w-full">
         <SandboxPageHeader
@@ -163,9 +171,9 @@ function SandboxAchievementsPage() {
           title={t("sandboxes.achievementsTitle")}
           description={t("sandboxes.achievementsDescription")}
           stats={[
-            { label: t("sandboxes.achievementsSetsLabel"), value: "Loading" },
-            { label: t("sandboxes.achievementsLabel"), value: "Loading" },
-            { label: t("sandboxes.achievementsXpLabel"), value: "Loading" },
+            { label: t("sandboxes.achievementsSetsLabel"), value: t("sandboxCatalog.loading") },
+            { label: t("sandboxes.achievementsLabel"), value: t("sandboxCatalog.loading") },
+            { label: t("sandboxes.achievementsXpLabel"), value: t("sandboxCatalog.loading") },
           ]}
         />
         <div className="h-64 animate-pulse rounded-md bg-muted" />
@@ -191,6 +199,7 @@ function SandboxAchievementsPage() {
       >
         <Input
           className="h-8 w-full min-w-44 sm:w-64"
+          aria-label={t("sandboxes.searchAchievementsPlaceholder")}
           placeholder={t("sandboxes.searchAchievementsPlaceholder")}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -218,35 +227,53 @@ function SandboxAchievementsPage() {
           {blur ? <EyeOpenIcon className="size-4" /> : <EyeClosedIcon className="size-4" />}
         </Button>
       </SandboxPageHeader>
+      {isFetching && (
+        <p role="status" className="text-sm text-muted-foreground">
+          {t("sandboxCatalog.refreshing")}
+        </p>
+      )}
+      {!totalAchievements && <SandboxQueryState empty />}
+      {search &&
+        !achievements.some((set) =>
+          set.achievements.some(
+            (achievement) =>
+              (achievement.unlockedDisplayName || "")
+                .toLowerCase()
+                .includes(search.toLowerCase()) ||
+              (achievement.lockedDisplayName || "").toLowerCase().includes(search.toLowerCase()),
+          ),
+        ) && <SandboxQueryState reset={() => setSearch("")} />}
       <div className="flex flex-col gap-4 w-full">
-        <Card className="w-full bg-card text-foreground p-4">
-          <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-5">
-            {Object.entries(noOfAchievemenentsPerRarity).map(([rarity, count]) => (
+        {totalAchievements > 0 && (
+          <Card className="w-full bg-card text-foreground p-4">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-5">
+              {Object.entries(noOfAchievemenentsPerRarity).map(([rarity, count]) => (
+                <div
+                  key={rarity}
+                  className={cn(
+                    "flex flex-col items-center justify-center gap-2 rounded-md p-4 text-center",
+                  )}
+                >
+                  <EpicTrophyIcon
+                    className={cn(
+                      "size-6",
+                      raritiesTextColors[rarity as keyof typeof raritiesTextColors],
+                    )}
+                  />
+                  <span className="text-xl font-bold">{count}</span>
+                </div>
+              ))}
               <div
-                key={rarity}
                 className={cn(
                   "flex flex-col items-center justify-center gap-2 rounded-md p-4 text-center",
                 )}
               >
-                <EpicTrophyIcon
-                  className={cn(
-                    "size-6",
-                    raritiesTextColors[rarity as keyof typeof raritiesTextColors],
-                  )}
-                />
-                <span className="text-xl font-bold">{count}</span>
+                <EpicTrophyIcon className={cn("size-8", raritiesTextColors.platinum)} />
+                <span className="text-2xl font-bold">{baseAchievements}</span>
               </div>
-            ))}
-            <div
-              className={cn(
-                "flex flex-col items-center justify-center gap-2 rounded-md p-4 text-center",
-              )}
-            >
-              <EpicTrophyIcon className={cn("size-8", raritiesTextColors.platinum)} />
-              <span className="text-2xl font-bold">{baseAchievements}</span>
             </div>
-          </div>
-        </Card>
+          </Card>
+        )}
         {[...achievements]
           .sort((a, b) => (a.isBase ? -1 : b.isBase ? 1 : 0))
           .map((achievementSet) => (
@@ -343,11 +370,6 @@ function SandboxAchievementsPage() {
               <hr className="w-full my-4 border-border/40" />
             </div>
           ))}
-        {achievements.length === 0 && (
-          <div className="flex justify-center items-center h-96">
-            <p className="text-muted-foreground">{t("sandboxes.noAchievementsFound")}</p>
-          </div>
-        )}
       </div>
     </div>
   );

@@ -717,7 +717,7 @@
       "invalid": "Manifes tidak sah",
       "unavailable": "Tidak tersedia",
       "failed": "Pemprosesan gagal",
-      "legacy_unverified": "Belum disahkan"
+      "legacyUnverified": "Belum disahkan"
     },
     "timeline": {
       "title": "Observed build history",

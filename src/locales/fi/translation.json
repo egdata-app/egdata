@@ -717,7 +717,7 @@
       "invalid": "Virheellinen manifesti",
       "unavailable": "Ei saatavilla",
       "failed": "Käsittely epäonnistui",
-      "legacy_unverified": "Ei vielä vahvistettu"
+      "legacyUnverified": "Ei vielä vahvistettu"
     },
     "timeline": {
       "title": "Observed build history",

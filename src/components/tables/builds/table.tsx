@@ -29,6 +29,7 @@ import { Link } from "@/components/app/localized-link";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
+  emptyContent?: React.ReactNode;
   data: TData[];
   setPage: React.Dispatch<
     React.SetStateAction<{
@@ -47,6 +48,7 @@ interface DataTableProps<TData, TValue> {
 
 export function DataTable<TData, TValue>({
   columns,
+  emptyContent,
   data,
   setPage,
   page,
@@ -121,10 +123,14 @@ export function DataTable<TData, TValue>({
               ) : (
                 <TableRow>
                   <TableCell colSpan={columns.length} className="h-24 text-center w-full gap-2">
-                    <p className="mb-4">No results.</p>
-                    <Button variant="outline" asChild>
-                      <Link to="/{-$locale}/donate-key">Donate a Key</Link>
-                    </Button>
+                    {emptyContent ?? (
+                      <>
+                        <p className="mb-4">No results.</p>
+                        <Button variant="outline" asChild>
+                          <Link to="/{-$locale}/donate-key">Donate a Key</Link>
+                        </Button>
+                      </>
+                    )}
                   </TableCell>
                 </TableRow>
               )}

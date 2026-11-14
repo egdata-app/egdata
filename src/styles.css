@@ -71,12 +71,14 @@
     transparent 80%
   );
   --card-hover-glow: hsl(199 100% 50% / 0.09);
-  --font-cjk-sans: "Noto Sans SC", "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC",
-    "Hiragino Sans GB", "Source Han Sans SC", "WenQuanYi Micro Hei", sans-serif;
-  --font-cjk-traditional: "Noto Sans TC", "Microsoft JhengHei UI", "Microsoft JhengHei",
-    "PingFang TC", "Source Han Sans TC", sans-serif;
-  --font-cjk-japanese: "Noto Sans JP", "Yu Gothic UI", "Yu Gothic", "Hiragino Sans",
-    "Meiryo", sans-serif;
+  --font-cjk-sans:
+    "Noto Sans SC", "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB",
+    "Source Han Sans SC", "WenQuanYi Micro Hei", sans-serif;
+  --font-cjk-traditional:
+    "Noto Sans TC", "Microsoft JhengHei UI", "Microsoft JhengHei", "PingFang TC",
+    "Source Han Sans TC", sans-serif;
+  --font-cjk-japanese:
+    "Noto Sans JP", "Yu Gothic UI", "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
   --font-cjk-korean: "Noto Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
 }
 
@@ -457,4 +459,44 @@ body::before {
 .egd-image-wrap[data-loaded="true"] > .egd-image-skeleton {
   opacity: 0;
   pointer-events: none;
+}
+
+/* Shared Sandbox elements move between the store header and compact tab header. */
+::view-transition-group(sandbox-artwork),
+::view-transition-group(sandbox-title),
+::view-transition-group(sandbox-tabs),
+::view-transition-group(sandbox-content) {
+  animation-duration: 360ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+::view-transition-group(sandbox-artwork) {
+  z-index: 2;
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+::view-transition-old(sandbox-artwork),
+::view-transition-new(sandbox-artwork) {
+  height: 100%;
+  object-fit: cover;
+  object-position: top left;
+}
+
+/* Keep the surrounding app stationary while the Sandbox elements move. */
+html:active-view-transition-type(sandbox-tabs)::view-transition-old(root) {
+  display: none;
+}
+
+html:active-view-transition-type(sandbox-tabs)::view-transition-new(root) {
+  animation: none;
+}
+
+/* Also covers browsers with view transitions but without transition types. */
+@media (prefers-reduced-motion: reduce) {
+  html:has(.sandbox-shell)::view-transition-group(*),
+  html:has(.sandbox-shell)::view-transition-old(*),
+  html:has(.sandbox-shell)::view-transition-new(*) {
+    animation: none !important;
+  }
 }

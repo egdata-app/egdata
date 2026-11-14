@@ -1,13 +1,14 @@
 import type { SingleOffer } from "@/types/single-offer";
 import type { SingleSandbox } from "@/types/single-sandbox";
 import type { SingleItem } from "@/types/single-item";
-import { getImage } from "./get-image";
 
 export const generateSandboxMeta = (
   sandbox: SingleSandbox,
   offer: SingleOffer | (SingleItem & { isItem: true }) | null,
   section?: string,
 ): Array<React.JSX.IntrinsicElements["meta"]> => {
+  const ogImageUrl = `https://api.egdata.app/sandboxes/${sandbox._id}/og.webp?v=${new Date(sandbox.updated).getTime()}`;
+
   return [
     {
       title: `${offer?.title ?? sandbox?.displayName ?? (sandbox?.name as string)}${section ? ` - ${section}` : ""} | Sandbox`,
@@ -30,13 +31,19 @@ export const generateSandboxMeta = (
     },
     {
       name: "og:image",
-      content:
-        getImage(offer?.keyImages ?? [], [
-          "OfferImageWide",
-          "DieselGameBoxWide",
-          "DieselStoreFrontWide",
-          "DieselGameBox",
-        ])?.url ?? "/placeholder.webp",
+      content: ogImageUrl,
+    },
+    {
+      name: "og:image:type",
+      content: "image/webp",
+    },
+    {
+      name: "og:image:width",
+      content: "1200",
+    },
+    {
+      name: "og:image:height",
+      content: "630",
     },
     {
       name: "og:type",
@@ -58,13 +65,7 @@ export const generateSandboxMeta = (
     },
     {
       name: "twitter:image",
-      content:
-        getImage(offer?.keyImages ?? [], [
-          "OfferImageWide",
-          "DieselGameBoxWide",
-          "DieselStoreFrontWide",
-          "DieselGameBox",
-        ])?.url ?? "/placeholder.webp",
+      content: ogImageUrl,
     },
   ];
 };

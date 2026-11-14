@@ -717,7 +717,7 @@
       "invalid": "Érvénytelen manifest",
       "unavailable": "Nem érhető el",
       "failed": "Sikertelen feldolgozás",
-      "legacy_unverified": "Még nincs ellenőrizve"
+      "legacyUnverified": "Még nincs ellenőrizve"
     },
     "timeline": {
       "title": "Observed build history",

@@ -717,7 +717,7 @@
       "invalid": "Manifest non valido",
       "unavailable": "Non disponibile",
       "failed": "Elaborazione non riuscita",
-      "legacy_unverified": "Non ancora verificata"
+      "legacyUnverified": "Non ancora verificata"
     },
     "timeline": {
       "title": "Observed build history",

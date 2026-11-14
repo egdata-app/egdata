@@ -11,6 +11,7 @@ import {
 import { useCountry } from "@/hooks/use-country";
 import { useLocale } from "@/hooks/use-locale";
 import { httpClient } from "@/lib/http-client";
+import { shouldRetryQueryWithLimit } from "@/lib/pow/query-retry";
 import { getUpcoming } from "@/queries/upcoming";
 import { getLatestOffers } from "@/queries/latest-offers";
 import { getLatestReleased } from "@/queries/latest-released";
@@ -147,7 +148,7 @@ const liveChangelistQueryOptions = () => ({
   refetchInterval: 25_000,
   refetchIntervalInBackground: false,
   refetchOnWindowFocus: true,
-  retry: 1,
+  retry: shouldRetryQueryWithLimit(1),
 });
 
 export const Route = createFileRoute("/{-$locale}/")({

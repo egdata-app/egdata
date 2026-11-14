@@ -1,12 +1,9 @@
 import { graphql, type ResultOf } from "@/graphql";
-import { httpClient } from "@/lib/http-client";
+import { graphqlRequest } from "@/lib/graphql-request";
 import type { Price } from "@/types/price";
 import type { SingleItem } from "@/types/single-item";
 import type { SingleOffer } from "@/types/single-offer";
 import { queryOptions } from "@tanstack/react-query";
-import { print } from "graphql";
-
-const GRAPHQL_URL = "/graphql";
 
 const sandboxHubQuery = graphql(`
   query SandboxHub($id: ID!, $country: String!, $offerLimit: Int, $updateLimit: Int) {
@@ -457,12 +454,14 @@ export const sandboxHubQueryOptions = ({
   queryOptions({
     queryKey: ["sandbox-hub", { id, country, offerLimit, updateLimit }],
     queryFn: async () => {
-      const res = await httpClient.post<{ data: SandboxHubResult }>(GRAPHQL_URL, {
-        query: print(sandboxHubQuery),
-        variables: { id, country, offerLimit, updateLimit },
+      const res = await graphqlRequest<SandboxHubResult>(sandboxHubQuery, {
+        id,
+        country,
+        offerLimit,
+        updateLimit,
       });
 
-      return res.data.sandboxHub ? normalizeSandboxHub(res.data.sandboxHub) : null;
+      return res.sandboxHub ? normalizeSandboxHub(res.sandboxHub) : null;
     },
     staleTime: 60_000,
   });

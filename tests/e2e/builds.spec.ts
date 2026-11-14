@@ -152,7 +152,8 @@ test.describe("build comparison", () => {
     await expect(page.getByTestId("build-files-tree")).toBeVisible();
     await expect(page.getByRole("button", { name: "Open folder Binaries" })).toBeVisible();
     await page.getByRole("button", { name: "Open folder Binaries" }).click();
-    await expect(page).toHaveURL(/(?:\?|&)path=Binaries(?:&|$)/);
+    // String search params are jsurl2-encoded, so values carry a trailing "~" (encoded as %7E)
+    await expect(page).toHaveURL(/(?:\?|&)path=Binaries(?:%7E|~)?(?:&|$)/);
     await expect(page.getByTestId("build-tree-breadcrumbs")).toContainText("Binaries");
 
     await page.getByRole("button", { name: "Select file Game.exe" }).click();
@@ -164,9 +165,9 @@ test.describe("build comparison", () => {
 
     await page.getByTestId("previous-build-select").click();
     await page.getByRole("option", { name: /BuildVersion-1\.0\.210725\.2/ }).click();
-    await expect(page).toHaveURL(/(?:\?|&)view=all(?:&|$)/);
+    await expect(page).toHaveURL(/(?:\?|&)view=all(?:%7E|~)?(?:&|$)/);
     await expect(page).toHaveURL(new RegExp(`[?&]compare=${oldestBuildId}(?:&|$)`));
-    await expect(page).toHaveURL(/(?:\?|&)path=Binaries(?:&|$)/);
+    await expect(page).toHaveURL(/(?:\?|&)path=Binaries(?:%7E|~)?(?:&|$)/);
 
     expect(apiRequests.some((path) => path.endsWith("/tree"))).toBe(true);
     expect(apiRequests.some((path) => path.endsWith("/files"))).toBe(false);
@@ -218,6 +219,8 @@ test.describe("build comparison", () => {
     await mockBuildApi(page, { treeErrorPath: "Error" });
     await page.goto(`http://localhost:3000/builds/${currentBuildId}/files?view=all&page=1`);
     await page.getByRole("button", { name: "Open folder Error" }).click();
-    await expect(page.getByTestId("build-tree-error")).toBeVisible({ timeout: 10_000 });
+    // HTTP retries take 2s per query attempt, plus React Query's 1+2+4s backoff:
+    // the terminal error can appear after 15s even with immediate mocked 500s.
+    await expect(page.getByTestId("build-tree-error")).toBeVisible({ timeout: 25_000 });
   });
 });

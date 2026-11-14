@@ -27,6 +27,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
+  emptyContent?: React.ReactNode;
   data: TData[];
   setPage: React.Dispatch<
     React.SetStateAction<{
@@ -45,6 +46,7 @@ interface DataTableProps<TData, TValue> {
 
 export function DataTable<TData, TValue>({
   columns,
+  emptyContent,
   data,
   setPage,
   page,
@@ -114,7 +116,7 @@ export function DataTable<TData, TValue>({
               ) : (
                 <TableRow>
                   <TableCell colSpan={columns.length} className="h-24 text-center">
-                    No results.
+                    {emptyContent ?? "No results."}
                   </TableCell>
                 </TableRow>
               )}

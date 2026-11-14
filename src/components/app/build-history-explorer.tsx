@@ -42,6 +42,12 @@ interface BuildHistoryExplorerProps {
   onSwap: () => void;
 }
 
+export function buildHealthLabelKey(status: ManifestStatus) {
+  return status === "legacy_unverified"
+    ? "builds.health.legacyUnverified"
+    : (`builds.health.${status}` as const);
+}
+
 export function buildHealthBadgeClass(status: ManifestStatus) {
   return status === "verified"
     ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-300"
@@ -79,7 +85,7 @@ function HealthBadge({ status }: { status: ManifestStatus }) {
   const { t } = useTranslation();
   return (
     <Badge variant="outline" className={cn("shrink-0", buildHealthBadgeClass(status))}>
-      {t(`builds.health.${status}`)}
+      {t(buildHealthLabelKey(status))}
     </Badge>
   );
 }

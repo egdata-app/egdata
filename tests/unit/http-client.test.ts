@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import type { AxiosResponse, InternalAxiosRequestConfig } from "axios";
-import { httpClient } from "../../src/lib/http-client.ts";
+import { HttpFetch, httpClient } from "../../src/lib/http-client.ts";
 
 test("httpClient setWebApiKey decodes base64url payload exp", () => {
   const exp = Date.now() + 1800000;
@@ -104,7 +104,6 @@ test("untrusted external origins do not receive internal SSR headers or browser 
 });
 
 test("in simulated browser mode, handles token refresh and retries only on EXPIRED_WEB_TOKEN", async () => {
-  const origAdapter = httpClient.axiosInstance.defaults.adapter;
   const origFetch = globalThis.fetch;
   const origWindow = (globalThis as unknown as { window?: unknown }).window;
   let fetchCallCount = 0;
@@ -112,7 +111,7 @@ test("in simulated browser mode, handles token refresh and retries only on EXPIR
 
   try {
     (globalThis as unknown as { window?: unknown }).window = {};
-    httpClient.setWebApiKey(null);
+    const client = new HttpFetch("https://api.egdata.app", {}, { mode: "browser" });
 
     // Mock fetch for /api/web-token
     globalThis.fetch = (async (url: string | URL | Request) => {
@@ -129,7 +128,7 @@ test("in simulated browser mode, handles token refresh and retries only on EXPIR
     }) as typeof fetch;
 
     // 1. Initial request triggers token refresh and attaches X-API-Key
-    httpClient.axiosInstance.defaults.adapter = async (config) => {
+    client.axiosInstance.defaults.adapter = async (config) => {
       adapterCallCount++;
       return {
         data: { success: true },
@@ -140,14 +139,14 @@ test("in simulated browser mode, handles token refresh and retries only on EXPIR
       } as AxiosResponse;
     };
 
-    const res1 = await httpClient.get<{ success: boolean }>("/v1/countries");
+    const res1 = await client.get<{ success: boolean }>("/v1/countries");
     assert.deepEqual(res1, { success: true });
     assert.equal(fetchCallCount, 1);
-    assert.equal(httpClient.getWebApiKey(), "egw_token_1");
+    assert.equal(client.getWebApiKey(), "egw_token_1");
 
     // 2. Request encountering EXPIRED_WEB_TOKEN retries once with renewed token
     adapterCallCount = 0;
-    httpClient.axiosInstance.defaults.adapter = async (config) => {
+    client.axiosInstance.defaults.adapter = async (config) => {
       adapterCallCount++;
       const key = (config.headers as Record<string, string>)["X-API-Key"];
       if (key === "egw_token_1") {
@@ -174,7 +173,7 @@ test("in simulated browser mode, handles token refresh and retries only on EXPIR
       } as AxiosResponse;
     };
 
-    const res2 = await httpClient.get<{ recovered: boolean; usedKey: string }>("/v1/countries");
+    const res2 = await client.get<{ recovered: boolean; usedKey: string }>("/v1/countries");
     assert.equal(res2.recovered, true);
     assert.equal(res2.usedKey, "egw_token_2");
     assert.equal(adapterCallCount, 2); // original + 1 retry
@@ -182,7 +181,7 @@ test("in simulated browser mode, handles token refresh and retries only on EXPIR
     // 3. Request encountering INVALID_WEB_TOKEN does NOT retry
     adapterCallCount = 0;
     const fetchCallsBefore = fetchCallCount;
-    httpClient.axiosInstance.defaults.adapter = async (config) => {
+    client.axiosInstance.defaults.adapter = async (config) => {
       adapterCallCount++;
       const error = new Error("Request failed with status code 401") as Error & {
         response: AxiosResponse;
@@ -201,7 +200,7 @@ test("in simulated browser mode, handles token refresh and retries only on EXPIR
 
     await assert.rejects(
       async () => {
-        await httpClient.get("/v1/countries");
+        await client.get("/v1/countries");
       },
       (err: any) => {
         return err.status === 401;
@@ -210,8 +209,6 @@ test("in simulated browser mode, handles token refresh and retries only on EXPIR
     assert.equal(adapterCallCount, 1, "Should not retry on INVALID_WEB_TOKEN");
     assert.equal(fetchCallCount, fetchCallsBefore, "Should not call fetch for INVALID_WEB_TOKEN");
   } finally {
-    httpClient.setWebApiKey(null);
-    httpClient.axiosInstance.defaults.adapter = origAdapter;
     globalThis.fetch = origFetch;
     if (origWindow === undefined) {
       delete (globalThis as any).window;

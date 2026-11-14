@@ -1,3 +1,4 @@
+import { SandboxQueryState } from "@/components/app/sandbox-catalog";
 import { httpClient } from "@/lib/http-client";
 import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
@@ -43,13 +44,11 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id/assets")({
     const { queryClient } = context;
 
     await queryClient.prefetchQuery({
-      queryKey: ["sandbox", "assets", { id, page: 1, limit: 20 }],
+      queryKey: ["sandbox", "assets", { id, page: 1, limit: 20, filters: [] }],
       queryFn: () =>
-        httpClient
-          .get<PaginatedResponse<Asset>>(`/sandboxes/${id}/assets`, {
-            params: { page: 1, limit: 20 },
-          })
-          .catch(() => null),
+        httpClient.get<PaginatedResponse<Asset>>(`/sandboxes/${id}/assets`, {
+          params: { page: 1, limit: 20 },
+        }),
     });
 
     return {
@@ -106,7 +105,7 @@ function SandboxAssetsPage() {
   const { id } = Route.useParams();
   const [page, setPage] = useState({ pageIndex: 0, pageSize: 20 });
   const [filters, setFilters] = useState<ColumnFiltersState>([]);
-  const { data: assetsData } = useQuery({
+  const recordsQuery = useQuery({
     queryKey: [
       "sandbox",
       "assets",
@@ -127,8 +126,21 @@ function SandboxAssetsPage() {
     placeholderData: keepPreviousData,
   });
 
+  const {
+    data: assetsData,
+    isPending,
+    isError,
+    isFetching,
+    isPlaceholderData,
+    refetch,
+  } = recordsQuery;
+  const updateFilters: typeof setFilters = (next) => {
+    setFilters(next);
+    setPage((current) => ({ ...current, pageIndex: 0 }));
+  };
+
   return (
-    <div className="flex flex-col gap-6 w-full">
+    <div className="flex min-w-0 flex-col gap-5 w-full">
       <SandboxPageHeader
         icon={Archive}
         eyebrow={t("sandboxes.assetsEyebrow")}
@@ -138,15 +150,34 @@ function SandboxAssetsPage() {
           { label: t("sandboxes.totalAssetsLabel"), value: formatSandboxCount(assetsData?.count) },
         ]}
       />
-      <DataTable
-        columns={columns}
-        data={assetsData?.elements ?? []}
-        setPage={setPage}
-        page={page}
-        total={assetsData?.count ?? 0}
-        filters={filters}
-        setFilters={setFilters}
-      />
+      {isFetching && !isPending && (
+        <p role="status" className="text-sm text-muted-foreground">
+          {t("sandboxCatalog.refreshing")}
+        </p>
+      )}
+      {isPending ? (
+        <SandboxQueryState loading />
+      ) : isError ? (
+        <SandboxQueryState error retry={() => void refetch()} />
+      ) : (
+        <div aria-busy={isFetching} className={isPlaceholderData ? "opacity-60" : ""}>
+          <DataTable
+            columns={columns}
+            data={assetsData?.elements ?? []}
+            setPage={setPage}
+            page={page}
+            total={assetsData?.count ?? 0}
+            filters={filters}
+            setFilters={updateFilters}
+            emptyContent={
+              <SandboxQueryState
+                empty={!filters.length}
+                reset={filters.length ? () => updateFilters([]) : undefined}
+              />
+            }
+          />
+        </div>
+      )}
     </div>
   );
 }

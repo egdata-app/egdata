@@ -717,7 +717,7 @@
       "invalid": "無效資訊清單",
       "unavailable": "無法使用",
       "failed": "處理失敗",
-      "legacy_unverified": "尚未驗證"
+      "legacyUnverified": "尚未驗證"
     },
     "timeline": {
       "title": "觀察到的組建歷史",

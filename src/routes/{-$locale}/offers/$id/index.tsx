@@ -30,6 +30,8 @@ import { RegionalPricingBadge } from "@/components/app/regional-pricing-badge";
 import { DateTime } from "luxon";
 import { formatTimeToHumanReadable } from "@/lib/time-to-human-readable";
 import { getEffectivePrice } from "@/lib/effective-price";
+import { hasOfferRequirements, OfferRequirementsCard } from "@/components/app/offer-requirements";
+import type { OfferRequirements } from "@/types/offer-requirements";
 
 export const Route = createFileRoute("/{-$locale}/offers/$id/")({
   component: () => {
@@ -127,6 +129,7 @@ function RouteComponent() {
     collectionsQuery,
     topsQuery,
     igdbQuery,
+    requirementsQuery,
   ] = useQueries({
     queries: [
       {
@@ -200,6 +203,12 @@ function RouteComponent() {
         placeholderData: keepPreviousData,
       },
       getOfferIgdb(id),
+      {
+        queryKey: ["offer", "requirements", { id }],
+        queryFn: () =>
+          httpClient.get<OfferRequirements>(`/offers/${id}/requirements`).catch(() => null),
+        retry: false,
+      },
     ],
   });
 
@@ -214,6 +223,7 @@ function RouteComponent() {
   const { data: collections } = collectionsQuery;
   const { data: tops } = topsQuery;
   const { data: igdb } = igdbQuery;
+  const { data: requirements } = requirementsQuery;
   const timeToBeat = igdb?.timeToBeat;
 
   useEffect(() => {
@@ -408,6 +418,15 @@ function RouteComponent() {
               </div>
             </Card>
           </OverviewSection>
+          {hasOfferRequirements(requirements) && requirements && (
+            <OverviewSection title={t("offerDetail.requirements.title")}>
+              <Card className="w-full">
+                <CardContent className="p-6">
+                  <OfferRequirementsCard requirements={requirements} />
+                </CardContent>
+              </Card>
+            </OverviewSection>
+          )}
           {timeToBeat && (
             <OverviewSection
               title={t("offerDetail.overview.igdbTimeToBeat")}
@@ -458,11 +477,6 @@ function RouteComponent() {
             <Card className="w-full bg-card text-card-foreground p-4">
               <CardContent className="p-6">
                 <div className="flex flex-col gap-4">
-                  {priceFairness && (
-                    <div className="flex items-start justify-start gap-2">
-                      <RegionalPricingBadge score={priceFairness} />
-                    </div>
-                  )}
                   <div className="flex items-start justify-start gap-2 flex-wrap">
                     <span className="text-xl font-bold text-muted-foreground">
                       {t("offerDetail.overview.priceCurrent")}

@@ -717,7 +717,7 @@
       "invalid": "Невалиден манифест",
       "unavailable": "Недостъпна",
       "failed": "Обработката е неуспешна",
-      "legacy_unverified": "Все още непроверена"
+      "legacyUnverified": "Все още непроверена"
     },
     "timeline": {
       "title": "Observed build history",
