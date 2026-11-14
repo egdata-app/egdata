@@ -106,6 +106,89 @@ class HttpFetch {
     }
   }
 
+  private getTrustedOrigins(): Set<string> {
+    const trusted = new Set<string>();
+    trusted.add("https://api.egdata.app");
+    trusted.add("https://origin-api.egdata.app");
+
+    const addOrigin = (rawUrl?: string | null) => {
+      if (!rawUrl || typeof rawUrl !== "string") return;
+      try {
+        const parsed = new URL(rawUrl);
+        trusted.add(parsed.origin.toLowerCase());
+      } catch {
+        // Ignore non-URL strings
+      }
+    };
+
+    addOrigin(this.axiosInstance.defaults.baseURL);
+    if (typeof process !== "undefined" && process.env) {
+      addOrigin(process.env.API_ENDPOINT);
+    }
+    if (import.meta.env?.VITE_API_ENDPOINT) {
+      addOrigin(import.meta.env.VITE_API_ENDPOINT);
+    }
+    return trusted;
+  }
+
+  private isOriginTrusted(urlStr: string): boolean {
+    try {
+      const url = new URL(urlStr);
+      const origin = url.origin.toLowerCase();
+      const trustedOrigins = this.getTrustedOrigins();
+      if (trustedOrigins.has(origin)) {
+        return true;
+      }
+
+      const isNonProd =
+        typeof process !== "undefined" && process.env
+          ? process.env.NODE_ENV !== "production"
+          : true;
+      if (
+        isNonProd &&
+        (url.protocol === "http:" || url.protocol === "https:") &&
+        (url.hostname === "localhost" || url.hostname === "127.0.0.1")
+      ) {
+        return true;
+      }
+    } catch {
+      return false;
+    }
+    return false;
+  }
+
+  private isTrustedV1Request(endpoint: string, config: AxiosRequestConfig): boolean {
+    if (!this.isV1Endpoint(endpoint)) {
+      return false;
+    }
+
+    const trimmed = endpoint.trim();
+    const isAbsolute =
+      trimmed.startsWith("http://") || trimmed.startsWith("https://") || trimmed.startsWith("//");
+
+    const targetUrlStr = isAbsolute
+      ? trimmed.startsWith("//")
+        ? `https:${trimmed}`
+        : trimmed
+      : null;
+
+    const baseURL = (config.baseURL || this.axiosInstance.defaults.baseURL || "").trim();
+
+    if (!targetUrlStr) {
+      if (!baseURL) {
+        return true;
+      }
+      const isBaseAbsolute =
+        baseURL.startsWith("http://") || baseURL.startsWith("https://") || baseURL.startsWith("//");
+      if (!isBaseAbsolute) {
+        return true;
+      }
+      return this.isOriginTrusted(baseURL.startsWith("//") ? `https:${baseURL}` : baseURL);
+    }
+
+    return this.isOriginTrusted(targetUrlStr);
+  }
+
   private normalizeV1Endpoint(endpoint: string): string {
     if (
       endpoint.startsWith("/v1/") ||
@@ -120,42 +203,72 @@ class HttpFetch {
     return endpoint.startsWith("/") ? `/v1${endpoint}` : `/v1/${endpoint}`;
   }
 
-  public async refreshWebApiKey(): Promise<string | null> {
-    if (this.refreshPromise) {
-      return this.refreshPromise;
+  public async refreshWebApiKey(callerSignal?: AbortSignal): Promise<string | null> {
+    if (callerSignal?.aborted) {
+      throw callerSignal.reason ?? new DOMException("Aborted", "AbortError");
     }
 
-    this.refreshPromise = (async () => {
-      try {
-        const response = await fetch("/api/web-token", {
-          method: "GET",
-          credentials: "same-origin",
-          headers: { Accept: "application/json" },
-        });
+    if (!this.refreshPromise) {
+      this.refreshPromise = (async () => {
+        const timeoutSignal = AbortSignal.timeout(5_000);
+        try {
+          const response = await fetch("/api/web-token", {
+            method: "GET",
+            credentials: "same-origin",
+            headers: { Accept: "application/json" },
+            signal: timeoutSignal,
+          });
 
-        if (!response.ok) {
+          if (!response.ok) {
+            return null;
+          }
+
+          const data = (await response.json()) as {
+            token?: string | null;
+            expiresAt?: number | null;
+          };
+
+          if (data?.token) {
+            this.setWebApiKey(data.token, data.expiresAt);
+            return data.token;
+          }
           return null;
+        } catch (err) {
+          console.error("Failed to refresh webApiKey", err);
+          return null;
+        } finally {
+          this.refreshPromise = null;
         }
+      })();
+    }
 
-        const data = (await response.json()) as {
-          token?: string | null;
-          expiresAt?: number | null;
-        };
+    const sharedPromise = this.refreshPromise;
+    if (!callerSignal) {
+      return sharedPromise;
+    }
 
-        if (data?.token) {
-          this.setWebApiKey(data.token, data.expiresAt);
-          return data.token;
-        }
-        return null;
-      } catch (err) {
-        console.error("Failed to refresh webApiKey", err);
-        return null;
-      } finally {
-        this.refreshPromise = null;
-      }
-    })();
+    return new Promise<string | null>((resolve, reject) => {
+      const onAbort = () => {
+        cleanup();
+        reject(callerSignal.reason ?? new DOMException("Aborted", "AbortError"));
+      };
 
-    return this.refreshPromise;
+      const cleanup = () => {
+        callerSignal.removeEventListener("abort", onAbort);
+      };
+
+      callerSignal.addEventListener("abort", onAbort, { once: true });
+
+      sharedPromise
+        .then((res) => {
+          cleanup();
+          resolve(res);
+        })
+        .catch((err) => {
+          cleanup();
+          reject(err);
+        });
+    });
   }
 
   private handleAxiosError(error: unknown): never {
@@ -210,14 +323,14 @@ class HttpFetch {
     hasRefreshedRetry = false,
   ): Promise<T> {
     await this.ensureInitialized();
-    const isV1 = this.isV1Endpoint(endpoint);
+    const isTrustedV1 = this.isTrustedV1Request(endpoint, config);
 
     const requestHeaders: Record<string, string> = {};
     if (config.headers) {
       Object.assign(requestHeaders, config.headers);
     }
 
-    if (isV1) {
+    if (isTrustedV1) {
       if (typeof window === "undefined" || import.meta.env?.SSR) {
         const workerToken = process.env.V1_WORKER_TOKEN || process.env.ORIGIN_AUTH_TOKEN || "";
         const originToken = process.env.ORIGIN_AUTH_TOKEN || process.env.V1_WORKER_TOKEN || "";
@@ -237,7 +350,7 @@ class HttpFetch {
           !this.webApiKey ||
           (this.webApiKeyExpiresAt && Date.now() >= this.webApiKeyExpiresAt - 30_000)
         ) {
-          await this.refreshWebApiKey();
+          await this.refreshWebApiKey(config.signal as AbortSignal | undefined);
         }
         if (this.webApiKey) {
           requestHeaders["X-API-Key"] = this.webApiKey;
@@ -258,13 +371,13 @@ class HttpFetch {
       if (
         !hasRefreshedRetry &&
         typeof window !== "undefined" &&
-        isV1 &&
+        isTrustedV1 &&
         axios.isAxiosError(error) &&
         error.response?.status === 401
       ) {
         const data = error.response.data as { code?: string } | undefined;
-        if (data?.code === "EXPIRED_WEB_TOKEN" || !hasRefreshedRetry) {
-          const newToken = await this.refreshWebApiKey();
+        if (data?.code === "EXPIRED_WEB_TOKEN") {
+          const newToken = await this.refreshWebApiKey(config.signal as AbortSignal | undefined);
           if (newToken) {
             requestHeaders["X-API-Key"] = newToken;
             return this.executeRequest<T>(

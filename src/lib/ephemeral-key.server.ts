@@ -2,7 +2,7 @@ import { createHmac } from "node:crypto";
 import { isIP } from "node:net";
 import { getRequestHeaders } from "@tanstack/react-start/server";
 
-const DEV_SECRET = "dev-web-ephemeral-key-secret-at-least-32-bytes";
+export const DEV_SECRET = "dev-web-ephemeral-key-secret-at-least-32-bytes";
 const TTL_MS = 30 * 60 * 1000; // 30 minutes
 
 export interface MintedWebToken {
@@ -10,31 +10,93 @@ export interface MintedWebToken {
   expiresAt: number | null;
 }
 
+export interface ClientIpOptions {
+  peerIp?: string | null;
+  trustProxy?: boolean;
+}
+
+function parseIpv4(ip: string): number | null {
+  const parts = ip.trim().split(".");
+  if (parts.length !== 4) return null;
+  let out = 0;
+  for (const part of parts) {
+    if (!/^\d+$/.test(part)) return null;
+    const n = Number(part);
+    if (n < 0 || n > 255 || (part.length > 1 && part.startsWith("0"))) return null;
+    out = (out << 8) | n;
+  }
+  return out >>> 0;
+}
+
 /**
- * Extract client IP from request headers.
- * Order of precedence:
- * 1. cf-connecting-ip
- * 2. first IP in x-forwarded-for
- * 3. x-real-ip
- * 4. Fallback: "127.0.0.1"
+ * Validates and cleans a raw IP address string, stripping ::ffff: and zone identifiers.
+ * Normalizes trailing IPv4 dotted decimal in IPv6 addresses for valid isIP detection.
+ */
+export function cleanAndValidateIp(rawIp?: string | null): string | null {
+  if (!rawIp || typeof rawIp !== "string") return null;
+  let ip = rawIp.trim();
+  if (ip.toLowerCase().startsWith("::ffff:")) {
+    ip = ip.slice(7);
+  }
+  const zoneIndex = ip.indexOf("%");
+  if (zoneIndex !== -1) {
+    ip = ip.slice(0, zoneIndex);
+  }
+
+  // Handle trailing IPv4 in IPv6 for validation
+  let normalized = ip;
+  const lastColon = normalized.lastIndexOf(":");
+  if (lastColon !== -1 && normalized.slice(lastColon + 1).includes(".")) {
+    const v4 = parseIpv4(normalized.slice(lastColon + 1));
+    if (v4 !== null) {
+      const hi = ((v4 >>> 16) & 0xffff).toString(16);
+      const lo = (v4 & 0xffff).toString(16);
+      normalized = `${normalized.slice(0, lastColon)}:${hi}:${lo}`;
+    }
+  }
+
+  return isIP(normalized) !== 0 ? ip : null;
+}
+
+/**
+ * Extract client IP from request headers or socket peer.
+ * In production, egdata runs behind Cloudflare (which sets and overwrites cf-connecting-ip at the edge).
+ * Proxy trust is determined via options.trustProxy, TRUST_PROXY env var, CF-Ray header presence, or non-production mode.
  */
 export function extractClientIp(
   headers?: Headers | Record<string, string | string[] | undefined>,
+  options?: ClientIpOptions,
 ): string {
-  const cfConnectingIp = getHeaderValue(headers, "cf-connecting-ip");
-  if (cfConnectingIp?.trim()) {
-    return cfConnectingIp.trim();
+  const trustProxy =
+    options?.trustProxy ??
+    (process.env.TRUST_PROXY !== "false" &&
+      (Boolean(getHeaderValue(headers, "cf-ray")) ||
+        process.env.TRUST_PROXY === "true" ||
+        process.env.NODE_ENV !== "production"));
+
+  if (trustProxy) {
+    const cfConnectingIp = cleanAndValidateIp(getHeaderValue(headers, "cf-connecting-ip"));
+    if (cfConnectingIp) {
+      return cfConnectingIp;
+    }
+
+    const xForwardedFor = getHeaderValue(headers, "x-forwarded-for");
+    if (xForwardedFor) {
+      const firstIp = cleanAndValidateIp(xForwardedFor.split(",")[0]?.trim());
+      if (firstIp) {
+        return firstIp;
+      }
+    }
+
+    const xRealIp = cleanAndValidateIp(getHeaderValue(headers, "x-real-ip"));
+    if (xRealIp) {
+      return xRealIp;
+    }
   }
 
-  const xForwardedFor = getHeaderValue(headers, "x-forwarded-for");
-  if (xForwardedFor?.trim()) {
-    const firstIp = xForwardedFor.split(",")[0]?.trim();
-    if (firstIp) return firstIp;
-  }
-
-  const xRealIp = getHeaderValue(headers, "x-real-ip");
-  if (xRealIp?.trim()) {
-    return xRealIp.trim();
+  const peerIp = cleanAndValidateIp(options?.peerIp);
+  if (peerIp) {
+    return peerIp;
   }
 
   return "127.0.0.1";
@@ -63,6 +125,7 @@ function getHeaderValue(
  * Compute the IP subnet string matching the Cloudflare Worker implementation:
  * - Empty/missing => "local"
  * - Trim; strip "::ffff:" if IPv4-mapped IPv6
+ * - Normalize dotted IPv4-in-IPv6 suffix (e.g. 2001:db8:1234:0:0:0:192.0.2.1)
  * - IPv4 => a.b.c.0/24
  * - IPv6 => expand :: to 8 groups, format first three groups as hex without leading zeros => g0:g1:g2::/48
  * - Otherwise => "local"
@@ -72,6 +135,17 @@ export function computeIpSubnet(ip?: string | null): string {
   let cleanIp = ip.trim();
   if (cleanIp.toLowerCase().startsWith("::ffff:")) {
     cleanIp = cleanIp.slice(7);
+  }
+
+  // Dotted IPv4-in-IPv6 suffix normalization (matching Worker permissions.ts parseIpv6)
+  const lastColon = cleanIp.lastIndexOf(":");
+  if (cleanIp.includes(":") && lastColon !== -1 && cleanIp.slice(lastColon + 1).includes(".")) {
+    const v4 = parseIpv4(cleanIp.slice(lastColon + 1));
+    if (v4 !== null) {
+      const hi = ((v4 >>> 16) & 0xffff).toString(16);
+      const lo = (v4 & 0xffff).toString(16);
+      cleanIp = `${cleanIp.slice(0, lastColon)}:${hi}:${lo}`;
+    }
   }
 
   const ipType = isIP(cleanIp);
@@ -119,13 +193,23 @@ export function computeIpSubnet(ip?: string | null): string {
 
 /**
  * Signs an ephemeral web token egw_<base64url(payload)>.<sig> with a 30m TTL.
+ * In production, rejects DEV_SECRET and enforces configured secret >= 32 chars.
  */
 export function mintWebEphemeralToken(subnet: string): MintedWebToken {
   const configuredSecret = process.env.WEB_EPHEMERAL_KEY_SECRET?.trim();
-  const secret = configuredSecret || (process.env.NODE_ENV !== "production" ? DEV_SECRET : null);
+  const isProd = process.env.NODE_ENV === "production";
 
-  if (!secret) {
-    return { token: null, expiresAt: null };
+  let secret: string | null = null;
+  if (isProd) {
+    if (!configuredSecret || configuredSecret === DEV_SECRET || configuredSecret.length < 32) {
+      return { token: null, expiresAt: null };
+    }
+    secret = configuredSecret;
+  } else {
+    secret = configuredSecret || DEV_SECRET;
+    if (secret.length < 32) {
+      return { token: null, expiresAt: null };
+    }
   }
 
   const exp = Date.now() + TTL_MS;
@@ -144,6 +228,7 @@ export function mintWebEphemeralToken(subnet: string): MintedWebToken {
  */
 export function mintWebEphemeralTokenFromRequest(
   headers?: Headers | Record<string, string | string[] | undefined>,
+  options?: ClientIpOptions,
 ): MintedWebToken {
   let resolvedHeaders = headers;
   if (!resolvedHeaders) {
@@ -154,7 +239,7 @@ export function mintWebEphemeralTokenFromRequest(
     }
   }
 
-  const clientIp = extractClientIp(resolvedHeaders);
+  const clientIp = extractClientIp(resolvedHeaders, options);
   const subnet = computeIpSubnet(clientIp);
   return mintWebEphemeralToken(subnet);
 }
