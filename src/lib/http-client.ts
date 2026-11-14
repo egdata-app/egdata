@@ -21,17 +21,22 @@ import { readSsrClientIdentity } from "./ssr-client-identity.ts";
 
 type ParameterValue = string | number | boolean | undefined | null;
 
-interface FetchOptions extends AxiosRequestConfig {
+export interface FetchOptions extends AxiosRequestConfig {
   params?: Record<string, ParameterValue>;
   headers?: Record<string, string>;
   timeout?: number;
   signal?: AbortSignal;
 }
 
-interface HttpError extends Error {
+export interface HttpError extends Error {
   response?: unknown;
   status?: number;
   retryAfterMs?: number;
+}
+
+export interface V1Envelope<T, M = Record<string, unknown>> {
+  data: T;
+  meta: M;
 }
 
 type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS";
@@ -185,8 +190,18 @@ function bufferReplayableBody(data: unknown): BufferedBody {
     }
 
     try {
-      if (typeof structuredClone === "function") {
-        return { replayable: true, data: structuredClone(data) };
+      const candidate = data as {
+        toJSON?: unknown;
+        constructor?: { name?: string };
+      };
+
+      if (typeof candidate.toJSON === "function") {
+        return { replayable: true, data: candidate.toJSON() };
+      }
+
+      const ctorName = candidate.constructor?.name;
+      if (ctorName && ctorName !== "Object" && ctorName !== "Array") {
+        return { replayable: false, data };
       }
 
       return { replayable: true, data: JSON.parse(JSON.stringify(data)) };
@@ -201,12 +216,16 @@ function bufferReplayableBody(data: unknown): BufferedBody {
 export class HttpFetch {
   public axiosInstance: AxiosInstance;
   private initializationPromise: Promise<void>;
-  private readonly mode: "browser" | "server";
-  private readonly apiOrigin: string | null;
+  public readonly mode: "browser" | "server";
+  public readonly apiOrigin: string | null;
   private readonly injectedRecovery: SessionRecovery | null | undefined;
   private recoveryInstance: SessionRecovery | null = null;
   private recoveryPromise: Promise<SessionRecovery | null> | null = null;
   private readonly serverRequestIdentity: () => Promise<Record<string, string>>;
+
+  private webApiKey: string | null = null;
+  private webApiKeyExpiresAt: number | null = null;
+  private refreshPromise: Promise<string | null> | null = null;
 
   constructor(baseURL = "", defaultOptions: FetchOptions = {}, runtime: HttpFetchRuntime = {}) {
     const env = readEnv();
@@ -248,6 +267,229 @@ export class HttpFetch {
 
   private async ensureInitialized() {
     await this.initializationPromise;
+  }
+
+  public setWebApiKey(token: string | null, expiresAt?: number | null): void {
+    this.webApiKey = token;
+    if (expiresAt !== undefined && expiresAt !== null) {
+      this.webApiKeyExpiresAt = expiresAt;
+      return;
+    }
+
+    if (token?.startsWith("egw_")) {
+      try {
+        const payloadB64 = token.slice(4).split(".")[0];
+        if (payloadB64) {
+          let jsonStr: string;
+          if (typeof Buffer !== "undefined") {
+            jsonStr = Buffer.from(payloadB64, "base64url").toString("utf8");
+          } else {
+            let b64 = payloadB64.replace(/-/g, "+").replace(/_/g, "/");
+            while (b64.length % 4) {
+              b64 += "=";
+            }
+            jsonStr = atob(b64);
+          }
+          const payload = JSON.parse(jsonStr) as { exp?: number };
+          if (typeof payload.exp === "number") {
+            this.webApiKeyExpiresAt = payload.exp;
+            return;
+          }
+        }
+      } catch {
+        // Ignore parsing errors
+      }
+    }
+
+    this.webApiKeyExpiresAt = null;
+  }
+
+  public getWebApiKey(): string | null {
+    return this.webApiKey;
+  }
+
+  private isV1Endpoint(endpoint: string): boolean {
+    if (!endpoint) return false;
+    if (endpoint === "/v1" || endpoint === "v1") return true;
+    if (endpoint.startsWith("/v1/") || endpoint.startsWith("v1/")) return true;
+    try {
+      const url = new URL(endpoint, "https://api.egdata.app");
+      return url.pathname === "/v1" || url.pathname.startsWith("/v1/");
+    } catch {
+      return endpoint.includes("/v1/") || endpoint.endsWith("/v1");
+    }
+  }
+
+  private getTrustedOrigins(): Set<string> {
+    const trusted = new Set<string>();
+    trusted.add("https://api.egdata.app");
+    trusted.add("https://origin-api.egdata.app");
+
+    const addOrigin = (rawUrl?: string | null) => {
+      if (!rawUrl || typeof rawUrl !== "string") return;
+      try {
+        const parsed = new URL(rawUrl);
+        trusted.add(parsed.origin.toLowerCase());
+      } catch {
+        // Ignore non-URL strings
+      }
+    };
+
+    addOrigin(this.apiOrigin);
+    addOrigin(this.axiosInstance.defaults.baseURL);
+    if (typeof process !== "undefined" && process.env) {
+      addOrigin(process.env.API_ENDPOINT);
+    }
+    const env = readEnv();
+    if (env.VITE_API_ENDPOINT) {
+      addOrigin(env.VITE_API_ENDPOINT);
+    }
+    return trusted;
+  }
+
+  private isOriginTrusted(urlStr: string): boolean {
+    try {
+      const url = new URL(urlStr);
+      const origin = url.origin.toLowerCase();
+      const trustedOrigins = this.getTrustedOrigins();
+      if (trustedOrigins.has(origin)) {
+        return true;
+      }
+
+      const isNonProd =
+        typeof process !== "undefined" && process.env
+          ? process.env.NODE_ENV !== "production"
+          : true;
+      if (
+        isNonProd &&
+        (url.protocol === "http:" || url.protocol === "https:") &&
+        (url.hostname === "localhost" || url.hostname === "127.0.0.1")
+      ) {
+        return true;
+      }
+    } catch {
+      return false;
+    }
+    return false;
+  }
+
+  private isTrustedV1Request(endpoint: string, config: AxiosRequestConfig): boolean {
+    if (!this.isV1Endpoint(endpoint)) {
+      return false;
+    }
+
+    const trimmed = endpoint.trim();
+    const isAbsolute =
+      trimmed.startsWith("http://") || trimmed.startsWith("https://") || trimmed.startsWith("//");
+
+    const targetUrlStr = isAbsolute
+      ? trimmed.startsWith("//")
+        ? `https:${trimmed}`
+        : trimmed
+      : null;
+
+    const baseURL = (
+      config.baseURL ||
+      this.axiosInstance.defaults.baseURL ||
+      this.apiOrigin ||
+      ""
+    ).trim();
+
+    if (!targetUrlStr) {
+      if (!baseURL) {
+        return true;
+      }
+      const isBaseAbsolute =
+        baseURL.startsWith("http://") || baseURL.startsWith("https://") || baseURL.startsWith("//");
+      if (!isBaseAbsolute) {
+        return true;
+      }
+      return this.isOriginTrusted(baseURL.startsWith("//") ? `https:${baseURL}` : baseURL);
+    }
+
+    return this.isOriginTrusted(targetUrlStr);
+  }
+
+  private normalizeV1Endpoint(endpoint: string): string {
+    if (
+      endpoint.startsWith("/v1/") ||
+      endpoint.startsWith("v1/") ||
+      endpoint === "/v1" ||
+      endpoint === "v1" ||
+      endpoint.startsWith("http://") ||
+      endpoint.startsWith("https://")
+    ) {
+      return endpoint;
+    }
+    return endpoint.startsWith("/") ? `/v1${endpoint}` : `/v1/${endpoint}`;
+  }
+
+  public async refreshWebApiKey(callerSignal?: AbortSignal): Promise<string | null> {
+    if (callerSignal?.aborted) {
+      throw callerSignal.reason ?? new DOMException("Aborted", "AbortError");
+    }
+
+    if (!this.refreshPromise) {
+      this.refreshPromise = (async () => {
+        const timeoutSignal = AbortSignal.timeout(5_000);
+        try {
+          const response = await fetch("/api/web-token", {
+            method: "GET",
+            credentials: "same-origin",
+            headers: { Accept: "application/json" },
+            signal: timeoutSignal,
+          });
+
+          if (!response.ok) {
+            return null;
+          }
+
+          const data = (await response.json()) as {
+            token?: string | null;
+            expiresAt?: number | null;
+          };
+
+          if (data?.token) {
+            this.setWebApiKey(data.token, data.expiresAt);
+            return data.token;
+          }
+          return null;
+        } catch (err) {
+          console.error("Failed to refresh webApiKey", err);
+          return null;
+        } finally {
+          this.refreshPromise = null;
+        }
+      })();
+    }
+
+    const sharedPromise = this.refreshPromise;
+    if (!callerSignal) {
+      return sharedPromise;
+    }
+
+    return new Promise<string | null>((resolve, reject) => {
+      const onAbort = () => {
+        cleanup();
+        reject(callerSignal.reason ?? new DOMException("Aborted", "AbortError"));
+      };
+
+      const cleanup = () => {
+        callerSignal.removeEventListener("abort", onAbort);
+      };
+
+      callerSignal.addEventListener("abort", onAbort, { once: true });
+
+      sharedPromise
+        .then((res) => {
+          cleanup();
+          resolve(res);
+        })
+        .catch((err) => {
+          cleanup();
+          reject(err);
+        });
+    });
   }
 
   private async getRecovery(): Promise<SessionRecovery | null> {
@@ -348,12 +590,53 @@ export class HttpFetch {
         const origin = new URL(redirect.href).origin;
         if (origin !== this.apiOrigin) {
           for (const name of Object.keys(redirect.headers)) {
-            if (["cf-connecting-ip", "x-forwarded-for", "x-real-ip"].includes(name.toLowerCase())) {
+            if (
+              [
+                "cf-connecting-ip",
+                "x-forwarded-for",
+                "x-real-ip",
+                "x-egdata-worker-token",
+                "x-egdata-origin-token",
+                "x-egdata-key-id",
+                "x-egdata-key-tier",
+                "x-egdata-key-project",
+                "x-egdata-authenticated",
+              ].includes(name.toLowerCase())
+            ) {
               delete redirect.headers[name];
             }
           }
         }
       };
+    }
+
+    const isTrustedV1 = this.isTrustedV1Request(endpoint, options);
+    if (isTrustedV1) {
+      if (this.mode === "server") {
+        const workerToken = process.env.V1_WORKER_TOKEN || process.env.ORIGIN_AUTH_TOKEN || "";
+        const originToken = process.env.ORIGIN_AUTH_TOKEN || process.env.V1_WORKER_TOKEN || "";
+
+        if (workerToken) {
+          headers.set("x-egdata-worker-token", workerToken);
+        }
+        if (originToken) {
+          headers.set("x-egdata-origin-token", originToken);
+        }
+        headers.set("x-egdata-key-id", process.env.WEB_SSR_KEY_ID || "key_egdata_web_ssr");
+        headers.set("x-egdata-key-tier", "enterprise");
+        headers.set("x-egdata-key-project", process.env.WEB_PROJECT_ID || "prj_egdata_web");
+        headers.set("x-egdata-authenticated", "1");
+      } else {
+        if (
+          !this.webApiKey ||
+          (this.webApiKeyExpiresAt && Date.now() >= this.webApiKeyExpiresAt - 30_000)
+        ) {
+          await this.refreshWebApiKey(options.signal);
+        }
+        if (this.webApiKey) {
+          headers.set("X-API-Key", this.webApiKey);
+        }
+      }
     }
 
     return {
@@ -434,7 +717,7 @@ export class HttpFetch {
     throw lastError ?? new Error("Max retries reached");
   }
 
-  private async request<T>(
+  private async executeRequest<T>(
     method: HttpMethod,
     endpoint: string,
     options: FetchOptions = {},
@@ -451,6 +734,28 @@ export class HttpFetch {
         await this.requestConfig(method, endpoint, options, buffered.data),
       );
     } catch (error) {
+      if (
+        this.mode === "browser" &&
+        this.isTrustedV1Request(endpoint, options) &&
+        axios.isAxiosError(error) &&
+        error.response?.status === 401
+      ) {
+        const data = error.response.data as { code?: string } | undefined;
+        if (data?.code === "EXPIRED_WEB_TOKEN") {
+          const newToken = await this.refreshWebApiKey(options.signal);
+          if (newToken) {
+            try {
+              const retryResponse = await this.axiosInstance.request<T>(
+                await this.requestConfig(method, endpoint, options, buffered.data),
+              );
+              this.rejectTarpit(retryResponse);
+              return retryResponse.data;
+            } catch (retryError) {
+              return this.handleAxiosError(retryError);
+            }
+          }
+        }
+      }
       return this.handleAxiosError(error);
     }
 
@@ -527,28 +832,70 @@ export class HttpFetch {
     return retryResponse.data;
   }
 
+  public async request<T>(
+    endpointOrConfig: string | FetchOptions,
+    config: FetchOptions = {},
+  ): Promise<T> {
+    if (typeof endpointOrConfig === "string") {
+      const method = (config.method?.toUpperCase() as HttpMethod) || "GET";
+      return this.executeRequest<T>(method, endpointOrConfig, config, config.data);
+    }
+    const method = (endpointOrConfig.method?.toUpperCase() as HttpMethod) || "GET";
+    return this.executeRequest<T>(
+      method,
+      endpointOrConfig.url || "",
+      endpointOrConfig,
+      endpointOrConfig.data,
+    );
+  }
+
   public async get<T>(endpoint: string, options: FetchOptions = {}): Promise<T> {
-    return this.request<T>("GET", endpoint, options);
+    return this.executeRequest<T>("GET", endpoint, options);
   }
 
   public async post<T>(endpoint: string, body?: unknown, options: FetchOptions = {}): Promise<T> {
-    return this.request<T>("POST", endpoint, options, body);
+    return this.executeRequest<T>("POST", endpoint, options, body);
   }
 
   public async put<T>(endpoint: string, body?: unknown, options: FetchOptions = {}): Promise<T> {
-    return this.request<T>("PUT", endpoint, options, body);
+    return this.executeRequest<T>("PUT", endpoint, options, body);
   }
 
   public async patch<T>(endpoint: string, body?: unknown, options: FetchOptions = {}): Promise<T> {
-    return this.request<T>("PATCH", endpoint, options, body);
+    return this.executeRequest<T>("PATCH", endpoint, options, body);
   }
 
   public async delete<T>(endpoint: string, options: FetchOptions = {}): Promise<T> {
-    return this.request<T>("DELETE", endpoint, options);
+    return this.executeRequest<T>("DELETE", endpoint, options);
   }
 
   public async options<T>(endpoint: string, options: FetchOptions = {}): Promise<T> {
-    return this.request<T>("OPTIONS", endpoint, options);
+    return this.executeRequest<T>("OPTIONS", endpoint, options);
+  }
+
+  public async v1Get<T, M = Record<string, unknown>>(
+    endpoint: string,
+    options?: FetchOptions,
+  ): Promise<T> {
+    const envelope = await this.get<V1Envelope<T, M>>(this.normalizeV1Endpoint(endpoint), options);
+    return envelope && typeof envelope === "object" && "data" in envelope
+      ? envelope.data
+      : (envelope as unknown as T);
+  }
+
+  public async v1Post<T, M = Record<string, unknown>>(
+    endpoint: string,
+    body?: Record<string, unknown> | unknown,
+    options?: FetchOptions,
+  ): Promise<T> {
+    const envelope = await this.post<V1Envelope<T, M>>(
+      this.normalizeV1Endpoint(endpoint),
+      body as Record<string, unknown> | undefined,
+      options,
+    );
+    return envelope && typeof envelope === "object" && "data" in envelope
+      ? envelope.data
+      : (envelope as unknown as T);
   }
 }
 

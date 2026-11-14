@@ -1,7 +1,7 @@
 import { createRootRouteWithContext } from "@tanstack/react-router";
 import { Link } from "@/components/app/localized-link";
 import { Outlet, HeadContent, Scripts } from "@tanstack/react-router";
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import Navbar from "@/components/app/navbar";
 import { queryOptions, type QueryClient } from "@tanstack/react-query";
 import { CountryProvider } from "@/providers/country";
@@ -35,6 +35,21 @@ import { ProofOfWorkRecoveryNotice } from "@/components/app/pow-recovery-notice"
 import "../registerSW";
 import type { CookiesSelection } from "@/contexts/cookies";
 import { captureError } from "@/lib/pulse-telemetry";
+import { httpClient } from "@/lib/http-client";
+
+async function fetchServerWebApiKey(
+  headers?: Headers | Record<string, string | string[] | undefined>,
+): Promise<string | null> {
+  if (!import.meta.env.SSR) return null;
+  try {
+    const { mintWebEphemeralTokenFromRequest } = await import("@/lib/ephemeral-key.server");
+    const { token } = mintWebEphemeralTokenFromRequest(headers);
+    return token;
+  } catch (error) {
+    console.error("Failed to mint SSR webApiKey", error);
+    return null;
+  }
+}
 
 const getClientSession = queryOptions({
   queryKey: ["session"],
@@ -57,6 +72,7 @@ type Context = {
   locale?: string;
   timezone?: string;
   analyticsCookies?: Record<string, string> | null;
+  webApiKey?: string | null;
 };
 
 export const Route = createRootRouteWithContext<Context>()({
@@ -70,6 +86,7 @@ export const Route = createRootRouteWithContext<Context>()({
       analyticsCookies: context.analyticsCookies,
       cookies: context.cookies,
       session: context.session,
+      webApiKey: context.webApiKey ?? null,
     };
   },
 
@@ -83,19 +100,25 @@ export const Route = createRootRouteWithContext<Context>()({
       session: typeof auth.$Infer.Session.session;
       user: typeof auth.$Infer.Session.user;
     } | null;
+    let webApiKey: string | null = null;
 
     if (import.meta.env.SSR) {
       const { getCookies, getRequestHeaders, getRequestUrl } = await import("@/lib/start-server");
       const reqUrl = getRequestUrl();
+      const headers = getRequestHeaders();
 
       url = new URL(reqUrl);
       cookies = getCookies();
+
+      webApiKey = await fetchServerWebApiKey(headers);
+      if (webApiKey) {
+        httpClient.setWebApiKey(webApiKey);
+      }
 
       // server session (headers carry auth)
       session = null;
       try {
         const { auth } = await import("@/lib/auth");
-        const headers = getRequestHeaders();
         session = await auth.api.getSession({ headers });
       } catch (error) {
         console.error(
@@ -144,6 +167,7 @@ export const Route = createRootRouteWithContext<Context>()({
       analyticsCookies,
       cookies,
       session,
+      webApiKey,
     };
   },
 
@@ -292,10 +316,29 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
-  const { country, locale, timezone, analyticsCookies } = Route.useLoaderData() as Context;
+  const { country, locale, timezone, analyticsCookies, webApiKey } =
+    Route.useLoaderData() as Context;
   const { t } = useTranslation();
   const dir = isRTL(locale ?? "en-US") ? "rtl" : "ltr";
 
+  // Hydrate webApiKey synchronously on initial client render
+  if (webApiKey && !httpClient.getWebApiKey()) {
+    httpClient.setWebApiKey(webApiKey);
+  }
+
+  useEffect(() => {
+    if (webApiKey) {
+      httpClient.setWebApiKey(webApiKey);
+    }
+    // Proactive refresh before 30m token expiration
+    const refreshInterval = setInterval(
+      () => {
+        void httpClient.refreshWebApiKey();
+      },
+      25 * 60 * 1000,
+    );
+    return () => clearInterval(refreshInterval);
+  }, [webApiKey]);
   return (
     <html lang={locale ?? "en"} dir={dir}>
       <head>
