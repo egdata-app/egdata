@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "pnpm paraglide:compile && TZ=UTC rsbuild dev",
-    "build": "pnpm paraglide:compile && rsbuild build && node scripts/build-sw.mjs && node scripts/precompress-assets.mjs",
+    "build": "pnpm paraglide:compile && rsbuild build && node scripts/precompress-assets.mjs",
     "start": "node --enable-source-maps scripts/start-prod.mjs",
     "start:srvx": "TZ=UTC NODE_OPTIONS=--enable-source-maps srvx --prod dist/server/index.js",
     "precompress": "node scripts/precompress-assets.mjs",

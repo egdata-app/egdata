@@ -31,12 +31,21 @@ test.describe("service worker", () => {
     "base64",
   );
 
-  test("serves the service worker without browser or edge caching", async ({ request }) => {
-    const response = await request.get("/sw.js");
-
-    expect(response.headers()["cache-control"]).toBe(
+  test("serves unversioned sw.js without caching and caches versioned sw.js immutably", async ({
+    request,
+  }) => {
+    const unversioned = await request.get("/sw.js");
+    expect(unversioned.headers()["cache-control"]).toBe(
       "no-cache, no-store, max-age=0, must-revalidate",
     );
+
+    const emptyVersion = await request.get("/sw.js?v=");
+    expect(emptyVersion.headers()["cache-control"]).toBe(
+      "no-cache, no-store, max-age=0, must-revalidate",
+    );
+
+    const versioned = await request.get("/sw.js?v=test-version");
+    expect(versioned.headers()["cache-control"]).toBe("public, max-age=31536000, immutable");
   });
 
   test("does not precache hashed app chunks", async ({ request }) => {

@@ -44,17 +44,13 @@ if (canRegister) {
   });
 
   navigator.serviceWorker
-    .register(serviceWorkerUrl, { type: "module", scope: "/", updateViaCache: "none" })
+    .register(serviceWorkerUrl, { type: "module", scope: "/", updateViaCache: "all" })
     .then((registration) => {
       console.log("SW Registered:", registration);
 
       if (registration.waiting && navigator.serviceWorker.controller) {
         activateWaitingWorker(registration.waiting);
       }
-
-      void registration.update().catch((error: unknown) => {
-        console.log("SW update check error", error);
-      });
 
       registration.addEventListener("updatefound", () => {
         const worker = registration.installing;

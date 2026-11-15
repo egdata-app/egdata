@@ -4,7 +4,7 @@ import type { ServerMiddleware } from "srvx";
 import "@/lib/paraglide-strategy";
 import { paraglideMiddleware } from "@/paraglide/server.js";
 import { SECURITY_HEADERS } from "@/lib/security-headers";
-import { serveStaticAssets } from "@/lib/static-assets";
+import { getServiceWorkerCacheControl, serveStaticAssets } from "@/lib/static-assets";
 
 const withSecurityHeaders = (request: Request, response: Response) => {
   const headers = new Headers(response.headers);
@@ -13,8 +13,9 @@ const withSecurityHeaders = (request: Request, response: Response) => {
     headers.set(name, value);
   }
 
-  if (new URL(request.url).pathname === "/sw.js") {
-    headers.set("Cache-Control", "no-cache, no-store, max-age=0, must-revalidate");
+  const requestUrl = new URL(request.url);
+  if (requestUrl.pathname === "/sw.js") {
+    headers.set("Cache-Control", getServiceWorkerCacheControl(requestUrl));
   }
 
   return new Response(response.body, {

@@ -1,15 +1,58 @@
-import { defineConfig, loadEnv } from "@rsbuild/core";
+import { resolve } from "node:path";
+import { defineConfig, loadEnv, type RsbuildPlugin } from "@rsbuild/core";
 import { pluginReact } from "@rsbuild/plugin-react";
 import { pluginTailwindcss } from "@rsbuild/plugin-tailwindcss";
 import { tanstackStart } from "@tanstack/react-start/plugin/rsbuild";
+import { buildServiceWorker, writeServiceWorker } from "./scripts/build-sw.mjs";
 import { SECURITY_HEADERS } from "./src/lib/security-headers";
 
 const { publicVars } = loadEnv({ prefixes: ["VITE_"] });
-const swVersion =
-  process.env.VITE_SW_VERSION ||
-  process.env.CF_PAGES_COMMIT_SHA ||
-  process.env.GITHUB_SHA ||
-  Date.now().toString();
+
+function serviceWorkerPlugin(): RsbuildPlugin {
+  let builtSw: Awaited<ReturnType<typeof buildServiceWorker>> | null = null;
+
+  return {
+    name: "egdata-service-worker",
+    setup(api) {
+      api.modifyRsbuildConfig(async (config, { mergeRsbuildConfig }) => {
+        if (api.context.action !== "build") {
+          return mergeRsbuildConfig(config, {
+            source: {
+              define: {
+                __SW_VERSION__: JSON.stringify(process.env.VITE_SW_VERSION || "dev"),
+              },
+            },
+          });
+        }
+
+        builtSw = await buildServiceWorker(api.context.rootPath);
+        const swVersion = process.env.VITE_SW_VERSION || builtSw.hash;
+
+        return mergeRsbuildConfig(config, {
+          source: {
+            define: {
+              __SW_VERSION__: JSON.stringify(swVersion),
+            },
+          },
+        });
+      });
+
+      api.onAfterBuild(async () => {
+        if (!builtSw) return;
+
+        for (const warning of builtSw.warnings) {
+          console.warn(warning);
+        }
+
+        const swDest = resolve(api.context.rootPath, "dist", "client", "sw.js");
+        await writeServiceWorker(swDest, builtSw.code);
+        console.log(
+          `Generated ${swDest} (${builtSw.hash}) with ${builtSw.count} precache entries (${builtSw.size} bytes).`,
+        );
+      });
+    },
+  };
+}
 
 function getCssUrlAssetName(sourceFilename: string | undefined, fallbackName: string) {
   const normalized = (sourceFilename || fallbackName).replaceAll("\\", "/");
@@ -42,7 +85,6 @@ export default defineConfig({
   source: {
     define: {
       ...publicVars,
-      __SW_VERSION__: JSON.stringify(swVersion),
     },
   },
   output: {
@@ -88,5 +130,5 @@ export default defineConfig({
       },
     },
   },
-  plugins: [pluginReact(), pluginTailwindcss(), tanstackStart()],
+  plugins: [pluginReact(), pluginTailwindcss(), tanstackStart(), serviceWorkerPlugin()],
 });
