@@ -20,7 +20,7 @@ import type { Price } from "@/types/price";
 import { Checkbox } from "@/components/ui/checkbox";
 import { keepPreviousData, useQueries } from "@tanstack/react-query";
 import { Skeleton } from "../ui/skeleton";
-import { httpClient } from "@/lib/http-client";
+import { getOfferPriceHistoryByRegion } from "@/queries/offer-price";
 import { useRegions } from "@/hooks/use-regions";
 import { Separator } from "../ui/separator";
 import { useLocale } from "@/hooks/use-locale";
@@ -146,30 +146,26 @@ export function PriceChart({ selectedRegion, id, regionStats }: PriceChartProps)
       {
         queryKey: ["price-history", { region: selectedRegion, id, timeRange }],
         queryFn: () =>
-          httpClient
-            .get<Price[]>(`/offers/${id}/price-history`, {
-              params: {
-                region: selectedRegion,
-                since:
-                  timeRange === "all"
-                    ? undefined
-                    : calculateSinceDate(timeRange as "all" | "3y" | "1y").toISOString(),
-              },
-            })
-            .then((res) => res),
+          getOfferPriceHistoryByRegion({
+            id,
+            region: selectedRegion,
+            since:
+              timeRange === "all"
+                ? undefined
+                : calculateSinceDate(timeRange as "all" | "3y" | "1y").toISOString(),
+          }),
         placeholderData: keepPreviousData,
       },
       {
         queryKey: ["price-history", { region: "US", id, timeRange }],
         queryFn: () =>
-          httpClient.get<Price[]>(`/offers/${id}/price-history`, {
-            params: {
-              region: "US",
-              since:
-                timeRange === "all"
-                  ? undefined
-                  : calculateSinceDate(timeRange as "all" | "3y" | "1y").toISOString(),
-            },
+          getOfferPriceHistoryByRegion({
+            id,
+            region: "US",
+            since:
+              timeRange === "all"
+                ? undefined
+                : calculateSinceDate(timeRange as "all" | "3y" | "1y").toISOString(),
           }),
         placeholderData: keepPreviousData,
       },

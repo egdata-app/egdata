@@ -46,7 +46,7 @@ export function TopSection({
     ],
     queryFn: () =>
       httpClient
-        .get<SingleOffer["price"]>(`/offers/${offer?.id}/price`, {
+        .v1Get<SingleOffer["price"]>(`/offers/${offer?.id}/price`, {
           params: { country },
         })
         .then((res) => res),

@@ -104,14 +104,14 @@ export const Route = createFileRoute("/{-$locale}/profile/$id/achievements/$sand
         queryKey: ["player-sandbox-achievements", { id: params.id, sandbox: params.sandbox }],
         queryFn: () =>
           httpClient
-            .get<Root>(`/profiles/${params.id}/achievements/${params.sandbox}`)
+            .v1Get<Root>(`/profiles/${params.id}/achievements/${params.sandbox}`)
             .catch(() => null),
       }),
       queryClient.prefetchQuery({
         queryKey: ["sandbox:base", { id: params.sandbox, country: "US" }],
         queryFn: () =>
           httpClient
-            .get<SingleOffer>(`/sandboxes/${params.sandbox}/base-game`, {
+            .v1Get<SingleOffer>(`/sandboxes/${params.sandbox}/base-game`, {
               params: {
                 country: "US",
               },
@@ -142,12 +142,12 @@ function RouteComponent() {
   };
   const { data, isLoading } = useQuery({
     queryKey: ["player-sandbox-achievements", { id, sandbox }],
-    queryFn: () => httpClient.get<Root>(`/profiles/${id}/achievements/${sandbox}`),
+    queryFn: () => httpClient.v1Get<Root>(`/profiles/${id}/achievements/${sandbox}`),
   });
   const { data: offer } = useQuery({
     queryKey: ["sandbox:base", { id: sandbox, country: "US" }],
     queryFn: () =>
-      httpClient.get<SingleOffer>(`/sandboxes/${sandbox}/base-game`, {
+      httpClient.v1Get<SingleOffer>(`/sandboxes/${sandbox}/base-game`, {
         params: {
           country: "US",
         },

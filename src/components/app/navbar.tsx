@@ -104,7 +104,7 @@ function MobileExploreMenu() {
   const { t } = useTranslation();
   const { data: genres, isLoading } = useQuery({
     queryKey: ["genres-list"],
-    queryFn: () => httpClient.get<GenreResponse[]>("/offers/genres"),
+    queryFn: () => httpClient.v1Get<GenreResponse[]>("/offers/genres"),
   });
 
   return (
@@ -179,7 +179,7 @@ const ExploreMenu = () => {
   const { t } = useTranslation();
   const { data: genres, isLoading } = useQuery({
     queryKey: ["genres-list"],
-    queryFn: () => httpClient.get<GenreResponse[]>("/offers/genres"),
+    queryFn: () => httpClient.v1Get<GenreResponse[]>("/offers/genres"),
   });
 
   return (

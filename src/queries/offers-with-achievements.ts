@@ -7,7 +7,7 @@ type OfferWithAchievements = SingleOffer & {
 };
 
 export const getOffersWithAchievements = async (country: string) => {
-  return httpClient.get<OfferWithAchievements[]>("/offers/latest-achievements", {
+  return httpClient.v1Get<OfferWithAchievements[]>("/offers/latest-achievements", {
     params: {
       country,
     },

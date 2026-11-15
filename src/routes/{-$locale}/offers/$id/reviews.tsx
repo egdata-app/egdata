@@ -8,6 +8,7 @@ import {
   useQueries,
 } from "@tanstack/react-query";
 import { httpClient } from "@/lib/http-client";
+import { unwrapV1Poll } from "@/lib/v1-adapters";
 import type { SingleReview } from "@/types/reviews";
 import type { RatingsType } from "@egdata/core.schemas.ratings";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
@@ -135,7 +136,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/reviews")({
         ],
         queryFn: () =>
           httpClient
-            .get<ReviewSummary>(`/offers/${params.id}/reviews-summary`, {
+            .v1Get<ReviewSummary>(`/offers/${params.id}/reviews-summary`, {
               params: {
                 verified: getVerificationParam("all"),
               },
@@ -145,7 +146,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/reviews")({
       queryClient.prefetchQuery({
         queryKey: ["ratings", { id: params.id }],
         queryFn: () =>
-          httpClient.get<RatingsType>(`/offers/${params.id}/ratings`).catch(() => null),
+          httpClient.v1Get<RatingsType>(`/offers/${params.id}/ratings`).catch(() => null),
       }),
     ]);
 
@@ -238,7 +239,7 @@ function Reviews() {
           },
         ],
         queryFn: () =>
-          httpClient.get<ReviewSummary>(`/offers/${id}/reviews-summary`, {
+          httpClient.v1Get<ReviewSummary>(`/offers/${id}/reviews-summary`, {
             params: {
               verified: getVerificationParam(filter),
             },
@@ -251,7 +252,10 @@ function Reviews() {
             offer: id,
           },
         ],
-        queryFn: () => httpClient.get<SinglePoll>(`/offers/${id}/polls`),
+        queryFn: () =>
+          httpClient
+            .v1Get<SinglePoll | { poll: SinglePoll | null } | null>(`/offers/${id}/polls`)
+            .then(unwrapV1Poll),
       },
       {
         queryKey: [
@@ -260,7 +264,7 @@ function Reviews() {
             id,
           },
         ],
-        queryFn: () => httpClient.get<RatingsType>(`/offers/${id}/ratings`),
+        queryFn: () => httpClient.v1Get<RatingsType>(`/offers/${id}/ratings`),
       },
       {
         queryKey: ["permissions", { id }],

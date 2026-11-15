@@ -20,7 +20,7 @@ export function CollectionOffers({ id }: { id: string }) {
   } = useQuery({
     queryKey: ["collection-offers", { id, country }],
     queryFn: () =>
-      httpClient.get<SingleOffer[]>(`/offers/${id}/collection`, {
+      httpClient.v1Get<SingleOffer[]>(`/offers/${id}/collection`, {
         params: { country },
       }),
   });

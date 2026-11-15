@@ -10,5 +10,5 @@ export interface GameAwardsSection {
 export const YOUTUBE_VIDEO_ID = "d-BDeU3R5ic"; // Update with 2024 TGA video ID
 
 export async function getGameAwardsData() {
-  return httpClient.get<GameAwardsSection[]>("/game-awards");
+  return httpClient.v1Get<GameAwardsSection[]>("/game-awards");
 }

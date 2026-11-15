@@ -252,7 +252,7 @@ const FeaturedOffer = memo(function FeaturedOffer({ offer }: { offer: SingleOffe
   const [image] = useState<string | null>(null);
   const { data: offerMedia } = useQuery({
     queryKey: ["media", { id: offer.id }],
-    queryFn: () => httpClient.get<Media>(`/offers/${offer.id}/media`),
+    queryFn: () => httpClient.v1Get<Media>(`/offers/${offer.id}/media`),
     retry: false,
     staleTime: 5 * 60 * 1000, // 5 minutes stale time
   });

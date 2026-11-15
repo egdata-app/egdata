@@ -34,5 +34,5 @@ export interface Achievement {
 }
 
 export async function fetchAchievementsSets({ id }: { id: string }) {
-  return httpClient.get<AchievementsSets>(`/offers/${id}/achievements`);
+  return httpClient.v1Get<AchievementsSets>(`/offers/${id}/achievements`);
 }

@@ -45,7 +45,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/related")({
       queryKey: ["related-offers", { id, country }],
       queryFn: () =>
         httpClient
-          .get<SingleOffer[]>(`/offers/${id}/related`, {
+          .v1Get<SingleOffer[]>(`/offers/${id}/related`, {
             params: {
               country,
             },
@@ -109,7 +109,7 @@ function RelatedOffersPage() {
   } = useQuery({
     queryKey: ["related-offers", { id, country }],
     queryFn: () =>
-      httpClient.get<SingleOffer[]>(`/offers/${id}/related`, {
+      httpClient.v1Get<SingleOffer[]>(`/offers/${id}/related`, {
         params: {
           country,
         },

@@ -41,7 +41,7 @@ export function OfferMediaSlider({ offer }: { offer: SingleOffer }) {
   const { t } = useTranslation();
   const { data } = useQuery({
     queryKey: ["media", { id: offer.id }],
-    queryFn: () => httpClient.get<Media>(`/offers/${offer.id}/media`),
+    queryFn: () => httpClient.v1Get<Media>(`/offers/${offer.id}/media`),
     retry: false,
   });
 

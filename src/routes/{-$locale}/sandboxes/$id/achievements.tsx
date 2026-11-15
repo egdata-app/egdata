@@ -48,7 +48,7 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id/achievements")({
 
     await queryClient.prefetchQuery({
       queryKey: ["sandbox", "achievements", { id }],
-      queryFn: () => httpClient.get<AchievementSet[]>(`/sandboxes/${id}/achievements`),
+      queryFn: () => httpClient.v1Get<AchievementSet[]>(`/sandboxes/${id}/achievements`),
     });
 
     return {
@@ -129,7 +129,7 @@ function SandboxAchievementsPage() {
     refetch,
   } = useQuery({
     queryKey: ["sandbox", "achievements", { id }],
-    queryFn: () => httpClient.get<AchievementSet[]>(`/sandboxes/${id}/achievements`),
+    queryFn: () => httpClient.v1Get<AchievementSet[]>(`/sandboxes/${id}/achievements`),
   });
 
   const noOfAchievemenentsPerRarity = useMemo(() => {

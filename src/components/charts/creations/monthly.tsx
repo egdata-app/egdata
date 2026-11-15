@@ -31,7 +31,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 
 export const getCreationsByMonth = async () =>
-  httpClient.get<MonthlyCreation[]>("/stats/creations/monthly");
+  httpClient.v1Get<MonthlyCreation[]>("/stats/creations/monthly");
 
 export interface MonthlyCreation {
   creations: number;

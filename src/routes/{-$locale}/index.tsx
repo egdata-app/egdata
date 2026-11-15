@@ -134,7 +134,7 @@ type PulseEvent = {
 const liveChangelistBaseQueryOptions = () => ({
   queryKey: ["changelist", "home-pulse"] as const,
   queryFn: () =>
-    httpClient.get<LiveChangeEvent[]>("/changelist", {
+    httpClient.v1Get<LiveChangeEvent[]>("/changelist", {
       params: {
         limit: 12,
       },
@@ -166,7 +166,7 @@ export const Route = createFileRoute("/{-$locale}/")({
         queryKey: ["giveaways"],
         queryFn: () =>
           httpClient
-            .get<GiveawayOffer[]>("/free-games", {
+            .v1Get<GiveawayOffer[]>("/free-games", {
               params: {
                 country,
               },
@@ -539,7 +539,7 @@ function RouteComponent() {
         queryKey: ["giveaways"],
         queryFn: () =>
           httpClient
-            .get<GiveawayOffer[]>("/free-games", {
+            .v1Get<GiveawayOffer[]>("/free-games", {
               params: {
                 country,
               },
@@ -599,14 +599,12 @@ function RouteComponent() {
   const { data: latestReleasedOffers = { elements: [] } } = latestReleasedQuery;
   const { data: achievementOffers = [] } = achievementsQuery;
   const { data: topSellerOffers = [] } = topSellersQuery;
-  const {
-    data: stats = {
-      offers: 0,
-      trackedPriceChanges: 0,
-      activeDiscounts: 0,
-      giveaways: 0,
-    },
-  } = statsQuery;
+  const stats = statsQuery.data ?? {
+    offers: 0,
+    trackedPriceChanges: 0,
+    activeDiscounts: 0,
+    giveaways: 0,
+  };
   const { data: latestBuilds = [] } = latestBuildsQuery;
   const upcomingOfferRows = Array.isArray(upcomingOffers?.elements) ? upcomingOffers.elements : [];
   const latestReleasedOfferRows = Array.isArray(latestReleasedOffers?.elements)
@@ -777,22 +775,22 @@ function RouteComponent() {
       <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 py-3 border-y border-border/40 rounded-md bg-card/30 px-4">
         <StatItem
           label={t("home.statsBar.offersTracked")}
-          value={stats.offers.toLocaleString("en-UK")}
+          value={(stats.offers ?? 0).toLocaleString("en-UK")}
         />
         <StatDivider />
         <StatItem
           label={t("home.statsBar.priceChanges72h")}
-          value={stats.trackedPriceChanges.toLocaleString("en-UK")}
+          value={(stats.trackedPriceChanges ?? 0).toLocaleString("en-UK")}
         />
         <StatDivider />
         <StatItem
           label={t("home.statsBar.activeDiscounts")}
-          value={stats.activeDiscounts.toLocaleString("en-UK")}
+          value={(stats.activeDiscounts ?? 0).toLocaleString("en-UK")}
         />
         <StatDivider />
         <StatItem
           label={t("home.statsBar.giveawaysToDate")}
-          value={stats.giveaways.toLocaleString("en-UK")}
+          value={(stats.giveaways ?? 0).toLocaleString("en-UK")}
         />
       </div>
 

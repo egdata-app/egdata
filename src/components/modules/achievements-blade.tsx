@@ -44,7 +44,7 @@ export function GamesWithAchievements() {
       },
     ],
     queryFn: () =>
-      httpClient.get<OfferWithAchievements[]>("/offers/latest-achievements", {
+      httpClient.v1Get<OfferWithAchievements[]>("/offers/latest-achievements", {
         params: {
           country,
         },

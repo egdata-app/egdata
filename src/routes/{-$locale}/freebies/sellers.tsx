@@ -13,7 +13,7 @@ const freebiesSellersQuery = queryOptions({
   queryKey: ["freebies-sellers"],
   queryFn: () =>
     httpClient
-      .get<
+      .v1Get<
         {
           totalSingleGames: number;
           sellerId: string;

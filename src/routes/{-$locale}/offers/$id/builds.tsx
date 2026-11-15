@@ -21,7 +21,7 @@ import i18n from "@/lib/i18n";
 const getOfferBuilds = (id: string) =>
   queryOptions({
     queryKey: ["offer-builds", { id }],
-    queryFn: () => httpClient.get<Build[]>(`/offers/${id}/builds`).catch(() => []),
+    queryFn: () => httpClient.v1Get<Build[]>(`/offers/${id}/builds`).catch(() => []),
   });
 
 type LoaderData = {
@@ -95,7 +95,7 @@ function BuildsPage() {
     isError,
   } = useQuery({
     queryKey: ["offer-builds", { id }],
-    queryFn: () => httpClient.get<Build[]>(`/offers/${id}/builds`),
+    queryFn: () => httpClient.v1Get<Build[]>(`/offers/${id}/builds`),
   });
 
   if (isLoading) {

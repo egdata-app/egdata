@@ -72,7 +72,8 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/achievements")({
 
     await queryClient.prefetchQuery({
       queryKey: ["offer-achievements", { id }],
-      queryFn: () => httpClient.get<AchievementsSets>(`/offers/${id}/achievements`).catch(() => []),
+      queryFn: () =>
+        httpClient.v1Get<AchievementsSets>(`/offers/${id}/achievements`).catch(() => []),
     });
 
     const offer = await queryClient.ensureQueryData(offerOnlyQueryOptions(params.id, locale));
@@ -129,7 +130,7 @@ function AchievementsPage() {
   const [blur, setBlur] = useState(true);
   const { data: achievements, isLoading } = useQuery({
     queryKey: ["offer-achievements", { id }],
-    queryFn: () => httpClient.get<AchievementsSets>(`/offers/${id}/achievements`),
+    queryFn: () => httpClient.v1Get<AchievementsSets>(`/offers/${id}/achievements`),
   });
 
   const [flipAll, setFlipAll] = useState(false);

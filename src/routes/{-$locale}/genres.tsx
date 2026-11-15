@@ -63,7 +63,7 @@ export const Route = createFileRoute("/{-$locale}/genres")({
 
     await queryClient.prefetchQuery({
       queryKey: ["genres-list"],
-      queryFn: () => httpClient.get<GenreResponse[]>("/offers/genres").catch(() => []),
+      queryFn: () => httpClient.v1Get<GenreResponse[]>("/offers/genres").catch(() => []),
     });
 
     return {
@@ -76,7 +76,7 @@ function GenresPage() {
   const { t } = useTranslation();
   const { data: genres } = useQuery({
     queryKey: ["genres-list"],
-    queryFn: () => httpClient.get<GenreResponse[]>("/offers/genres"),
+    queryFn: () => httpClient.v1Get<GenreResponse[]>("/offers/genres"),
   });
 
   if (!genres) {

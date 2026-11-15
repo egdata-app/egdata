@@ -7,7 +7,7 @@ import { httpClient } from "@/lib/http-client";
 export const sandboxQueryOptions = (id: string) =>
   queryOptions({
     queryKey: ["sandbox", { id }],
-    queryFn: () => httpClient.get<SingleSandbox>(`/sandboxes/${id}`).catch(() => null),
+    queryFn: () => httpClient.v1Get<SingleSandbox>(`/sandboxes/${id}`).catch(() => null),
     staleTime: 5 * 60_000,
     retry: false,
   });
@@ -17,7 +17,7 @@ export const sandboxBaseGameQueryOptions = (id: string) =>
     queryKey: ["sandbox", "base-game", { id }],
     queryFn: () =>
       httpClient
-        .get<SingleOffer | (SingleItem & { isItem: true })>(`/sandboxes/${id}/base-game`)
+        .v1Get<SingleOffer | (SingleItem & { isItem: true })>(`/sandboxes/${id}/base-game`)
         .catch(() => null),
     staleTime: 5 * 60_000,
     retry: false,

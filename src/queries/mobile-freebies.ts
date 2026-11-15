@@ -4,5 +4,5 @@ import { queryOptions } from "@tanstack/react-query";
 
 export const mobileFreebiesQuery = queryOptions({
   queryKey: ["mobile-freebies"],
-  queryFn: () => httpClient.get<GiveawayOffer[]>("/free-games/mobile"),
+  queryFn: () => httpClient.v1Get<GiveawayOffer[]>("/free-games/mobile"),
 });

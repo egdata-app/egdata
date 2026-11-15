@@ -64,7 +64,7 @@ export const Route = createFileRoute("/{-$locale}/freebies/")({
         queryKey: ["giveaways"],
         queryFn: () =>
           httpClient
-            .get<GiveawayOffer[]>("/free-games", {
+            .v1Get<GiveawayOffer[]>("/free-games", {
               params: {
                 country,
               },
@@ -154,7 +154,7 @@ function FreeGames() {
     queryKey: ["giveaways"],
     queryFn: () =>
       httpClient
-        .get<GiveawayOffer[]>("/free-games", {
+        .v1Get<GiveawayOffer[]>("/free-games", {
           params: {
             country,
           },

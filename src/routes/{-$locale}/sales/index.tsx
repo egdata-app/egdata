@@ -35,7 +35,7 @@ export const Route = createFileRoute("/{-$locale}/sales/")({
       queryKey: ["active-sales"],
       queryFn: () =>
         httpClient
-          .get<
+          .v1Get<
             {
               id: string;
               name: string;
@@ -87,7 +87,7 @@ function SalesPageIndex() {
   const { data, isLoading } = useQuery({
     queryKey: ["active-sales"],
     queryFn: () =>
-      httpClient.get<
+      httpClient.v1Get<
         {
           id: string;
           name: string;

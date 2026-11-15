@@ -19,7 +19,7 @@ export function getBuilds({
       },
     ],
     queryFn: async () => {
-      const builds = await httpClient.get<Array<SingleBuild & { item: SingleItem }>>("/builds", {
+      const builds = await httpClient.v1Get<Array<SingleBuild & { item: SingleItem }>>("/builds", {
         params: {
           sortDir,
           sortBy,

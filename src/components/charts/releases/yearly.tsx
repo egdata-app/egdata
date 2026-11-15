@@ -41,7 +41,7 @@ interface YearlyRelease {
 }
 
 export const getReleasesByYear = async () =>
-  httpClient.get<YearlyRelease[]>("/stats/releases/yearly");
+  httpClient.v1Get<YearlyRelease[]>("/stats/releases/yearly");
 
 export function ReleasesByYear() {
   const { t } = useTranslation();

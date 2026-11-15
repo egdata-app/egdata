@@ -19,7 +19,7 @@ export const FranchiseBanner = ({ franchise }: { franchise: Franchise }) => {
   const { data: offer } = useQuery({
     queryKey: ["offer", { id: offerToFetchId, country, locale }],
     queryFn: () =>
-      httpClient.get<SingleOffer>(`/offers/${offerToFetchId}`, {
+      httpClient.v1Get<SingleOffer>(`/offers/${offerToFetchId}`, {
         params: { country, locale },
       }),
     enabled: !!offerToFetchId,

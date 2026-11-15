@@ -31,7 +31,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 
 export const getReleasesByMonth = async () =>
-  httpClient.get<MonthlyRelease[]>("/stats/releases/monthly");
+  httpClient.v1Get<MonthlyRelease[]>("/stats/releases/monthly");
 
 export interface MonthlyRelease {
   releases: number;

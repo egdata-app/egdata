@@ -27,7 +27,7 @@ export function SearchProvider({ children }: PropsWithChildren<{}>) {
 
   // Centralized count data fetching function
   const fetchCountData = async () => {
-    const data = await httpClient.get<CountData>(`/search/${hash}/count`, {
+    const data = await httpClient.v1Get<CountData>(`/search/${hash}/count`, {
       params: { country },
     });
     return data;

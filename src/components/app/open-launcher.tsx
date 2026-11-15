@@ -16,7 +16,7 @@ type Asset = {
 export function OpenLauncher({ id }: { id: string }) {
   const { data: assets } = useQuery({
     queryKey: ["offer-assets", { id }],
-    queryFn: () => httpClient.get<Asset[]>(`/offers/${id}/assets`).catch(() => []),
+    queryFn: () => httpClient.v1Get<Asset[]>(`/offers/${id}/assets`).catch(() => []),
   });
 
   if (!assets) return null;

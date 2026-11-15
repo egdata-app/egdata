@@ -61,7 +61,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/metadata")({
           },
         ],
         queryFn: () =>
-          httpClient.get<SingleSandbox>(`/sandboxes/${offer?.namespace}`).catch(() => null),
+          httpClient.v1Get<SingleSandbox>(`/sandboxes/${offer?.namespace}`).catch(() => null),
       }),
       queryClient.prefetchQuery({
         queryKey: [
@@ -72,7 +72,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/metadata")({
         ],
         queryFn: () =>
           httpClient
-            .get<
+            .v1Get<
               {
                 assets: Asset;
               }[]
@@ -134,12 +134,12 @@ function MetadataPage() {
       offerOnlyQueryOptions(id, locale),
       {
         queryKey: ["sandbox", { id: serverOffer?.namespace }],
-        queryFn: () => httpClient.get<SingleSandbox>(`/sandboxes/${serverOffer?.namespace}`),
+        queryFn: () => httpClient.v1Get<SingleSandbox>(`/sandboxes/${serverOffer?.namespace}`),
       },
       {
         queryKey: ["assets", { id }],
         queryFn: () =>
-          httpClient.get<
+          httpClient.v1Get<
             {
               assets: Asset;
             }[]

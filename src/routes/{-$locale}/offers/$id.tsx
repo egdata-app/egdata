@@ -94,7 +94,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id")({
         queryKey: ["price", { id: params.id, country }],
         queryFn: () =>
           httpClient
-            .get<Price>(`/offers/${params.id}/price?country=${country || "US"}`)
+            .v1Get<Price>(`/offers/${params.id}/price?country=${country || "US"}`)
             .catch(() => null),
       }),
       queryClient.prefetchQuery(
@@ -102,7 +102,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id")({
       ),
       queryClient.prefetchQuery({
         queryKey: ["offer-assets", { id }],
-        queryFn: () => httpClient.get<Asset[]>(`/offers/${id}/assets`).catch(() => []),
+        queryFn: () => httpClient.v1Get<Asset[]>(`/offers/${id}/assets`).catch(() => []),
       }),
     ]);
 

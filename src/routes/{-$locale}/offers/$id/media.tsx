@@ -61,7 +61,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/media")({
 
     await queryClient.prefetchQuery({
       queryKey: ["media", { id: params.id }],
-      queryFn: () => httpClient.get<Media>(`/offers/${params.id}/media`).catch(() => null),
+      queryFn: () => httpClient.v1Get<Media>(`/offers/${params.id}/media`).catch(() => null),
     });
 
     const offer = await queryClient.ensureQueryData(offerOnlyQueryOptions(id, locale));
@@ -116,7 +116,7 @@ function MediaPage() {
   const { locale } = useLocale();
   const { data: media, isLoading } = useQuery({
     queryKey: ["media", { id: params.id }],
-    queryFn: () => httpClient.get<Media>(`/offers/${params.id}/media`),
+    queryFn: () => httpClient.v1Get<Media>(`/offers/${params.id}/media`),
     retry: false,
   });
   const { data: offer, isLoading: isOfferLoading } = useQuery(

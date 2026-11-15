@@ -8,7 +8,25 @@ type TopSection = {
   total: number;
 };
 
+const V1_TOP_SECTION_SLUGS = new Set(["top-sellers", "top-wishlisted"]);
+
 export const getTopSection = async (slug: string) => {
+  if (V1_TOP_SECTION_SLUGS.has(slug)) {
+    const data = await httpClient.v1Get<SingleOffer[] | null>(`/offers/${slug}`, {
+      params: {
+        limit: 2,
+      },
+    });
+    const elements = Array.isArray(data) ? data : [];
+
+    return {
+      elements,
+      page: 1,
+      limit: 2,
+      total: elements.length,
+    };
+  }
+
   // API off-by-one: `limit=N` returns N-1 elements, so `limit=1` returns 0.
   const data = await httpClient.get<TopSection | null>(`/offers/${slug}`, {
     params: {

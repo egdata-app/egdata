@@ -67,7 +67,7 @@ export function ChangelistModule() {
   } = useQuery({
     queryKey: ["changelist", "home"],
     queryFn: async () => {
-      return await httpClient.get<Change[]>("/changelist?limit=20");
+      return await httpClient.v1Get<Change[]>("/changelist?limit=20");
     },
   });
 

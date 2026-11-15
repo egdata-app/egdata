@@ -15,7 +15,7 @@ export const BaseGame: React.FC<{ offer: SingleOffer }> = ({ offer }) => {
   const [game, setGame] = useState<SingleOffer | null>(null);
 
   useEffect(() => {
-    httpClient.get<SingleOffer>(`/base-game/${offer.namespace}`).then((response) => {
+    httpClient.v1Get<SingleOffer>(`/base-game/${offer.namespace}`).then((response) => {
       setGame(response);
     });
   }, [offer.namespace]);

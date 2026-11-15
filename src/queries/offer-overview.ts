@@ -28,7 +28,7 @@ export const getOfferOverview = ({ id, country }: { id: string; country: string 
   queryOptions({
     queryKey: ["offer-overview", { id, country }],
     queryFn: () =>
-      httpClient.get<OfferOverview>(`/offers/${id}/overview`, {
+      httpClient.v1Get<OfferOverview>(`/offers/${id}/overview`, {
         params: { country },
       }),
     staleTime: 60 * 60 * 1000, // 1 hour

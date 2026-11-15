@@ -33,7 +33,7 @@ export const getUserInformation = async (id: string | null) => {
     return null;
   }
 
-  const res = await httpClient.get<Profile>(`/profiles/${id}/information`);
+  const res = await httpClient.v1Get<Profile>(`/profiles/${id}/information`);
   return res;
 };
 

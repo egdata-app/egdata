@@ -54,7 +54,7 @@ const sandboxBaseGameQuery = (id: string | undefined) =>
     queryKey: ["sandbox", "base-game", { id }],
     queryFn: () =>
       httpClient
-        .get<SingleOffer | (SingleItem & { isItem: true })>(`/sandboxes/${id}/base-game`)
+        .v1Get<SingleOffer | (SingleItem & { isItem: true })>(`/sandboxes/${id}/base-game`)
         .catch(() => null),
     enabled: !!id,
   });
@@ -79,7 +79,7 @@ export const Route = createFileRoute("/{-$locale}/changelog/$id")({
 
     const data = await queryClient.ensureQueryData({
       queryKey: ["changelog", id],
-      queryFn: () => httpClient.get<ChangeResponse>(`/changelist/${id}`).catch(() => null),
+      queryFn: () => httpClient.v1Get<ChangeResponse>(`/changelist/${id}`).catch(() => null),
     });
 
     if (data?.metadata.context?.namespace) {
@@ -108,7 +108,7 @@ function ChangeDetailPage() {
   const { id } = Route.useLoaderData() as { dehydratedState: DehydratedState; id: string };
   const { data, isLoading, isError } = useQuery({
     queryKey: ["changelog", id],
-    queryFn: () => httpClient.get<ChangeResponse>(`/changelist/${id}`),
+    queryFn: () => httpClient.v1Get<ChangeResponse>(`/changelist/${id}`),
   });
   useQuery({
     ...sandboxBaseGameQuery(data?.metadata.context?.namespace),

@@ -55,16 +55,70 @@ export type HttpFetchRuntime = {
    * `null` disables recovery for this instance.
    */
   recovery?: SessionRecovery | null;
+  /** Optional fixed `/v1` API key (overrides ephemeral `egw_` browser tokens). */
+  fixedApiKey?: string | null;
+  /** Enable verbose request start/completion logging. */
+  debug?: boolean;
 };
 
 type EnvBag = {
   SSR?: boolean;
   VITE_API_ENDPOINT?: string;
+  VITE_V1_API_KEY?: string;
+  VITE_HTTP_DEBUG?: string;
   API_ENDPOINT?: string;
 };
 
+const SLOW_REQUEST_THRESHOLD_MS = 2_000;
+
 function readEnv(): EnvBag {
-  return (import.meta.env ?? {}) as EnvBag;
+  let ssr: boolean | undefined;
+  let viteApiEndpoint: string | undefined;
+  let viteV1ApiKey: string | undefined;
+  let viteHttpDebug: string | undefined;
+  let apiEndpoint: string | undefined;
+
+  try {
+    ssr = import.meta.env.SSR;
+  } catch {
+    ssr = undefined;
+  }
+  try {
+    viteApiEndpoint = import.meta.env.VITE_API_ENDPOINT;
+  } catch {
+    viteApiEndpoint = undefined;
+  }
+  try {
+    viteV1ApiKey = import.meta.env.VITE_V1_API_KEY;
+  } catch {
+    viteV1ApiKey = undefined;
+  }
+  try {
+    viteHttpDebug = import.meta.env.VITE_HTTP_DEBUG;
+  } catch {
+    viteHttpDebug = undefined;
+  }
+  try {
+    apiEndpoint = (import.meta.env as EnvBag).API_ENDPOINT;
+  } catch {
+    apiEndpoint = undefined;
+  }
+
+  return {
+    SSR: ssr,
+    VITE_API_ENDPOINT:
+      viteApiEndpoint ??
+      (typeof process !== "undefined" && process.env ? process.env.VITE_API_ENDPOINT : undefined),
+    VITE_V1_API_KEY:
+      viteV1ApiKey ??
+      (typeof process !== "undefined" && process.env ? process.env.VITE_V1_API_KEY : undefined),
+    VITE_HTTP_DEBUG:
+      viteHttpDebug ??
+      (typeof process !== "undefined" && process.env
+        ? (process.env.HTTP_DEBUG ?? process.env.VITE_HTTP_DEBUG)
+        : undefined),
+    API_ENDPOINT: apiEndpoint,
+  };
 }
 
 function detectServer(env: EnvBag): boolean {
@@ -223,9 +277,11 @@ export class HttpFetch {
   private recoveryPromise: Promise<SessionRecovery | null> | null = null;
   private readonly serverRequestIdentity: () => Promise<Record<string, string>>;
 
+  private readonly fixedApiKey: string | null;
   private webApiKey: string | null = null;
   private webApiKeyExpiresAt: number | null = null;
   private refreshPromise: Promise<string | null> | null = null;
+  private debug: boolean;
 
   constructor(baseURL = "", defaultOptions: FetchOptions = {}, runtime: HttpFetchRuntime = {}) {
     const env = readEnv();
@@ -234,6 +290,16 @@ export class HttpFetch {
     this.apiOrigin = resolveApiOrigin(baseURL);
     this.injectedRecovery = runtime.recovery;
     this.serverRequestIdentity = runtime.serverRequestIdentity ?? readSsrClientIdentity;
+
+    const rawFixedKey =
+      runtime.fixedApiKey !== undefined
+        ? runtime.fixedApiKey
+        : mode === "server" && typeof process !== "undefined" && process.env
+          ? (process.env.V1_API_KEY ?? env.VITE_V1_API_KEY)
+          : env.VITE_V1_API_KEY;
+    this.fixedApiKey =
+      typeof rawFixedKey === "string" && rawFixedKey.trim() ? rawFixedKey.trim() : null;
+    this.debug = runtime.debug ?? (env.VITE_HTTP_DEBUG === "1" || env.VITE_HTTP_DEBUG === "true");
 
     const config: AxiosRequestConfig = {
       baseURL,
@@ -269,7 +335,102 @@ export class HttpFetch {
     await this.initializationPromise;
   }
 
+  public setDebug(enabled: boolean): void {
+    this.debug = enabled;
+  }
+
+  public isDebugEnabled(): boolean {
+    if (this.debug) {
+      return true;
+    }
+    if (this.mode === "browser" && typeof window !== "undefined") {
+      try {
+        return window.localStorage?.getItem("egdata:http-debug") === "1";
+      } catch {
+        return false;
+      }
+    }
+    return false;
+  }
+
+  public getAuthSummary(): "fixed-api-key" | "ssr-worker-headers" | "ephemeral-web-token" {
+    if (this.fixedApiKey) {
+      return "fixed-api-key";
+    }
+    return this.mode === "server" ? "ssr-worker-headers" : "ephemeral-web-token";
+  }
+
+  private getV1AuthMode(
+    endpoint: string,
+    options: FetchOptions,
+  ): "fixed-api-key" | "ssr-worker-headers" | "ephemeral-web-token" | "none" {
+    if (!this.isTrustedV1Request(endpoint, options)) {
+      return "none";
+    }
+    return this.getAuthSummary();
+  }
+
+  private formatRequestTarget(endpoint: string, params?: Record<string, ParameterValue>): string {
+    if (!params) {
+      return endpoint;
+    }
+    const searchParams = new URLSearchParams();
+    for (const [key, value] of Object.entries(params)) {
+      if (value !== undefined && value !== null) {
+        searchParams.set(key, String(value));
+      }
+    }
+    const query = searchParams.toString();
+    if (!query) {
+      return endpoint;
+    }
+    return `${endpoint}${endpoint.includes("?") ? "&" : "?"}${query}`;
+  }
+
+  private extractAxiosErrorDetails(axiosError: AxiosError): Record<string, unknown> {
+    const errorData = axiosError.response?.data;
+    const dataObj =
+      errorData && typeof errorData === "object" ? (errorData as Record<string, unknown>) : null;
+    const rawDetail =
+      typeof errorData === "string"
+        ? errorData
+        : (dataObj?.detail ?? dataObj?.message ?? dataObj?.error ?? dataObj?.title);
+    const detail =
+      typeof rawDetail === "string"
+        ? rawDetail.slice(0, 300)
+        : rawDetail !== undefined
+          ? String(rawDetail).slice(0, 300)
+          : undefined;
+    const headers = axiosError.response?.headers as
+      | { get?: (name: string) => string | null; [key: string]: unknown }
+      | undefined;
+    const headerRequestId =
+      typeof headers?.get === "function" ? headers.get("x-request-id") : headers?.["x-request-id"];
+    const requestId =
+      typeof dataObj?.requestId === "string"
+        ? dataObj.requestId
+        : typeof headerRequestId === "string"
+          ? headerRequestId
+          : undefined;
+
+    return {
+      status: axiosError.response?.status ?? null,
+      axiosCode: axiosError.code,
+      message: axiosError.message,
+      ...(typeof dataObj?.code === "string" ? { responseCode: dataObj.code } : {}),
+      ...(detail ? { detail } : {}),
+      ...(requestId ? { requestId } : {}),
+      ...(axiosError.code === "ERR_NETWORK" && !axiosError.response
+        ? { hint: "Network or CORS preflight failure" }
+        : {}),
+    };
+  }
+
   public setWebApiKey(token: string | null, expiresAt?: number | null): void {
+    if (this.fixedApiKey) {
+      return;
+    }
+
     this.webApiKey = token;
     if (expiresAt !== undefined && expiresAt !== null) {
       this.webApiKeyExpiresAt = expiresAt;
@@ -305,7 +466,7 @@ export class HttpFetch {
   }
 
   public getWebApiKey(): string | null {
-    return this.webApiKey;
+    return this.fixedApiKey ?? this.webApiKey;
   }
 
   private isV1Endpoint(endpoint: string): boolean {
@@ -429,6 +590,10 @@ export class HttpFetch {
       throw callerSignal.reason ?? new DOMException("Aborted", "AbortError");
     }
 
+    if (this.fixedApiKey) {
+      return this.fixedApiKey;
+    }
+
     if (!this.refreshPromise) {
       this.refreshPromise = (async () => {
         const timeoutSignal = AbortSignal.timeout(5_000);
@@ -441,6 +606,12 @@ export class HttpFetch {
           });
 
           if (!response.ok) {
+            const errorBody = await response.text().catch(() => "");
+            console.error("[http-client] web-token fetch failed", {
+              status: response.status,
+              statusText: response.statusText,
+              ...(errorBody ? { body: errorBody.slice(0, 300) } : {}),
+            });
             return null;
           }
 
@@ -453,9 +624,10 @@ export class HttpFetch {
             this.setWebApiKey(data.token, data.expiresAt);
             return data.token;
           }
+          console.warn("[http-client] web-token response did not contain a token");
           return null;
         } catch (err) {
-          console.error("Failed to refresh webApiKey", err);
+          console.error("[http-client] failed to refresh webApiKey", err);
           return null;
         } finally {
           this.refreshPromise = null;
@@ -549,7 +721,10 @@ export class HttpFetch {
     }
   }
 
-  private rejectTarpit(response: Pick<AxiosResponse, "status" | "headers">): void {
+  private rejectTarpit(
+    response: Pick<AxiosResponse, "status" | "headers">,
+    context?: { method: HttpMethod; target: string; durationMs: number },
+  ): void {
     if (response.status !== 204) return;
     const marker =
       response.headers instanceof AxiosHeaders
@@ -558,6 +733,10 @@ export class HttpFetch {
             ([name]) => name.toLowerCase() === "x-egdata-mitigation",
           )?.[1];
     if (marker === "tarpit") {
+      console.error("[http-client] tarpit mitigation response", {
+        ...context,
+        mode: this.mode,
+      });
       if (this.mode === "browser") reportRecoveryFailure("tarpit");
       throw new AbuseTarpitError();
     }
@@ -612,7 +791,9 @@ export class HttpFetch {
 
     const isTrustedV1 = this.isTrustedV1Request(endpoint, options);
     if (isTrustedV1) {
-      if (this.mode === "server") {
+      if (this.fixedApiKey) {
+        headers.set("X-API-Key", this.fixedApiKey);
+      } else if (this.mode === "server") {
         const workerToken = process.env.V1_WORKER_TOKEN || process.env.ORIGIN_AUTH_TOKEN || "";
         const originToken = process.env.ORIGIN_AUTH_TOKEN || process.env.V1_WORKER_TOKEN || "";
 
@@ -639,20 +820,61 @@ export class HttpFetch {
       }
     }
 
+    const withCredentials =
+      options.withCredentials ?? (this.isV1Endpoint(endpoint) ? false : undefined);
+
     return {
       method,
       url: endpoint,
       params: options.params ? { ...options.params } : undefined,
       headers,
       beforeRedirect,
+      ...(withCredentials !== undefined ? { withCredentials } : {}),
       timeout: options.timeout,
       signal: options.signal,
       data,
     };
   }
 
-  private handleAxiosError(error: unknown): never {
+  private logResponse(
+    meta: { method: HttpMethod; target: string; auth: string; startedAt: number },
+    status: number,
+  ): void {
+    const durationMs = Date.now() - meta.startedAt;
+    if (this.isDebugEnabled()) {
+      console.info("[http-client] <-", {
+        method: meta.method,
+        target: meta.target,
+        status,
+        durationMs,
+        mode: this.mode,
+        auth: meta.auth,
+      });
+    } else if (durationMs >= SLOW_REQUEST_THRESHOLD_MS) {
+      console.warn("[http-client] slow request", {
+        method: meta.method,
+        target: meta.target,
+        status,
+        durationMs,
+        mode: this.mode,
+        auth: meta.auth,
+      });
+    }
+  }
+
+  private handleAxiosError(
+    error: unknown,
+    context?: { method: HttpMethod; target: string; auth: string; startedAt: number },
+  ): never {
+    const durationMs = context ? Date.now() - context.startedAt : undefined;
+
     if (axios.isCancel(error)) {
+      console.warn("[http-client] request canceled", {
+        ...(context ? { method: context.method, target: context.target, auth: context.auth } : {}),
+        ...(durationMs !== undefined ? { durationMs } : {}),
+        mode: this.mode,
+        message: error instanceof Error ? error.message : String(error),
+      });
       throw error;
     }
 
@@ -660,7 +882,16 @@ export class HttpFetch {
       const axiosError = error as AxiosError;
       const errorData = axiosError.response?.data;
       const status = axiosError.response?.status;
-      const errorMessage = `HTTP error! Status: ${status ?? "unknown"}`;
+      const details = this.extractAxiosErrorDetails(axiosError);
+      const targetLabel = context ? ` (${context.method} ${context.target})` : "";
+      const errorMessage = `HTTP error! Status: ${status ?? "unknown"}${targetLabel}`;
+
+      console.error("[http-client] request failed", {
+        ...(context ? { method: context.method, target: context.target, auth: context.auth } : {}),
+        ...(durationMs !== undefined ? { durationMs } : {}),
+        mode: this.mode,
+        ...details,
+      });
 
       const httpError = new Error(errorMessage) as HttpError;
       httpError.response = errorData;
@@ -682,6 +913,13 @@ export class HttpFetch {
 
       throw httpError;
     }
+
+    console.error("[http-client] unexpected error", {
+      ...(context ? { method: context.method, target: context.target, auth: context.auth } : {}),
+      ...(durationMs !== undefined ? { durationMs } : {}),
+      mode: this.mode,
+      message: error instanceof Error ? error.message : String(error),
+    });
     throw error instanceof Error ? error : new Error("Unknown error occurred");
   }
 
@@ -708,8 +946,23 @@ export class HttpFetch {
 
         const status = (error as { status?: number }).status;
         if (status === 404 || attempt === retries) {
+          console.error("[http-client] retry terminated", {
+            attempt,
+            retries,
+            status: status ?? null,
+            mode: this.mode,
+            message: error instanceof Error ? error.message : String(error),
+          });
           throw lastError;
         }
+        console.warn("[http-client] retrying failed attempt", {
+          attempt,
+          retries,
+          status: status ?? null,
+          nextDelayMs: delay,
+          mode: this.mode,
+          message: error instanceof Error ? error.message : String(error),
+        });
         await this.delay(delay);
       }
     }
@@ -725,6 +978,22 @@ export class HttpFetch {
   ): Promise<T> {
     await this.ensureInitialized();
 
+    const meta = {
+      method,
+      target: this.formatRequestTarget(endpoint, options.params),
+      auth: this.getV1AuthMode(endpoint, options),
+      startedAt: Date.now(),
+    };
+
+    if (this.isDebugEnabled()) {
+      console.info("[http-client] ->", {
+        method: meta.method,
+        target: meta.target,
+        mode: this.mode,
+        auth: meta.auth,
+      });
+    }
+
     const generationAtStart = this.currentGeneration();
     const buffered = bufferReplayableBody(body);
     let firstResponse;
@@ -736,41 +1005,70 @@ export class HttpFetch {
     } catch (error) {
       if (
         this.mode === "browser" &&
+        !this.fixedApiKey &&
         this.isTrustedV1Request(endpoint, options) &&
         axios.isAxiosError(error) &&
         error.response?.status === 401
       ) {
         const data = error.response.data as { code?: string } | undefined;
         if (data?.code === "EXPIRED_WEB_TOKEN") {
+          console.warn("[http-client] expired web token, refreshing and retrying", {
+            method: meta.method,
+            target: meta.target,
+          });
           const newToken = await this.refreshWebApiKey(options.signal);
           if (newToken) {
             try {
               const retryResponse = await this.axiosInstance.request<T>(
                 await this.requestConfig(method, endpoint, options, buffered.data),
               );
-              this.rejectTarpit(retryResponse);
+              this.rejectTarpit(retryResponse, {
+                method: meta.method,
+                target: meta.target,
+                durationMs: Date.now() - meta.startedAt,
+              });
+              this.logResponse(meta, retryResponse.status);
               return retryResponse.data;
             } catch (retryError) {
-              return this.handleAxiosError(retryError);
+              return this.handleAxiosError(retryError, meta);
             }
           }
         }
       }
-      return this.handleAxiosError(error);
+      return this.handleAxiosError(error, meta);
     }
 
-    this.rejectTarpit(firstResponse);
+    this.rejectTarpit(firstResponse, {
+      method: meta.method,
+      target: meta.target,
+      durationMs: Date.now() - meta.startedAt,
+    });
     if (!isSessionChallengeEnvelope(firstResponse.data)) {
+      this.logResponse(meta, firstResponse.status);
       return firstResponse.data;
     }
+
+    console.warn("[http-client] session PoW challenge triggered", {
+      method: meta.method,
+      target: meta.target,
+      mode: this.mode,
+    });
 
     // From here on we only recover from the exact envelope. No other status,
     // empty result, GraphQL error or high-risk mitigation reaches this path.
     if (options.signal?.aborted) {
+      console.warn("[http-client] canceled before PoW recovery", {
+        method: meta.method,
+        target: meta.target,
+      });
       throw new CanceledError("The request was canceled.");
     }
 
     if (!buffered.replayable) {
+      console.error("[http-client] PoW recovery aborted: body not replayable", {
+        method: meta.method,
+        target: meta.target,
+      });
       this.notifyFailure();
       throw new ProofOfWorkRecoveryError("not-replayable");
     }
@@ -779,9 +1077,17 @@ export class HttpFetch {
 
     if (!recovery) {
       if (this.mode === "server") {
+        console.error("[http-client] PoW challenge received on SSR", {
+          method: meta.method,
+          target: meta.target,
+        });
         throw new ProofOfWorkRecoveryError("ssr-unsupported");
       }
 
+      console.error("[http-client] PoW recovery unavailable", {
+        method: meta.method,
+        target: meta.target,
+      });
       this.notifyFailure();
       throw new ProofOfWorkRecoveryError("recovery-failed");
     }
@@ -793,8 +1099,18 @@ export class HttpFetch {
       });
     } catch (error) {
       if (options.signal?.aborted || isAbortLikeError(error)) {
+        console.warn("[http-client] PoW recovery canceled", {
+          method: meta.method,
+          target: meta.target,
+        });
         throw new CanceledError("The request was canceled.");
       }
+
+      console.error("[http-client] PoW recovery failed", {
+        method: meta.method,
+        target: meta.target,
+        message: error instanceof Error ? error.message : String(error),
+      });
 
       if (isProofOfWorkRecoveryError(error)) {
         throw error;
@@ -816,11 +1132,19 @@ export class HttpFetch {
         await this.requestConfig(method, endpoint, options, buffered.data),
       );
     } catch (error) {
-      return this.handleAxiosError(error);
+      return this.handleAxiosError(error, meta);
     }
 
-    this.rejectTarpit(retryResponse);
+    this.rejectTarpit(retryResponse, {
+      method: meta.method,
+      target: meta.target,
+      durationMs: Date.now() - meta.startedAt,
+    });
     if (isSessionChallengeEnvelope(retryResponse.data)) {
+      console.error("[http-client] PoW challenge persisted after recovery", {
+        method: meta.method,
+        target: meta.target,
+      });
       this.notifyFailure();
       throw new ProofOfWorkRecoveryError("challenged-again");
     }
@@ -829,6 +1153,7 @@ export class HttpFetch {
       clearRecoveryFailure();
     }
 
+    this.logResponse(meta, retryResponse.status);
     return retryResponse.data;
   }
 
@@ -873,14 +1198,29 @@ export class HttpFetch {
     return this.executeRequest<T>("OPTIONS", endpoint, options);
   }
 
+  private unwrapV1Envelope<T, M = Record<string, unknown>>(
+    method: "GET" | "POST",
+    endpoint: string,
+    envelope: V1Envelope<T, M>,
+  ): T {
+    if (envelope && typeof envelope === "object" && "data" in envelope) {
+      return envelope.data;
+    }
+    console.warn("[http-client] v1 response missing .data envelope", {
+      method,
+      endpoint,
+      receivedType: envelope === null ? "null" : typeof envelope,
+    });
+    return envelope as unknown as T;
+  }
+
   public async v1Get<T, M = Record<string, unknown>>(
     endpoint: string,
     options?: FetchOptions,
   ): Promise<T> {
-    const envelope = await this.get<V1Envelope<T, M>>(this.normalizeV1Endpoint(endpoint), options);
-    return envelope && typeof envelope === "object" && "data" in envelope
-      ? envelope.data
-      : (envelope as unknown as T);
+    const normalized = this.normalizeV1Endpoint(endpoint);
+    const envelope = await this.get<V1Envelope<T, M>>(normalized, options);
+    return this.unwrapV1Envelope("GET", normalized, envelope);
   }
 
   public async v1Post<T, M = Record<string, unknown>>(
@@ -888,14 +1228,13 @@ export class HttpFetch {
     body?: Record<string, unknown> | unknown,
     options?: FetchOptions,
   ): Promise<T> {
+    const normalized = this.normalizeV1Endpoint(endpoint);
     const envelope = await this.post<V1Envelope<T, M>>(
-      this.normalizeV1Endpoint(endpoint),
+      normalized,
       body as Record<string, unknown> | undefined,
       options,
     );
-    return envelope && typeof envelope === "object" && "data" in envelope
-      ? envelope.data
-      : (envelope as unknown as T);
+    return this.unwrapV1Envelope("POST", normalized, envelope);
   }
 }
 
@@ -909,6 +1248,14 @@ export const httpClient = new HttpFetch(resolveBaseUrl(defaultEnv, detectServer(
     "User-Agent":
       defaultEnv.SSR || detectServer(defaultEnv) ? "egdata-web-client/1.0.0" : undefined,
   },
+});
+
+console.info("[http-client] initialized", {
+  mode: httpClient.mode,
+  baseURL: httpClient.axiosInstance.defaults.baseURL || "(relative)",
+  auth: httpClient.getAuthSummary(),
+  timeout: httpClient.axiosInstance.defaults.timeout,
+  debug: httpClient.isDebugEnabled(),
 });
 
 export { bufferReplayableBody };

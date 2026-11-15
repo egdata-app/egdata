@@ -44,7 +44,7 @@ export function Bundle({ id, offer }: { id: string; offer: SingleOffer }) {
   } = useQuery({
     queryKey: ["bundle-offers", { id, country }],
     queryFn: () =>
-      httpClient.get<{
+      httpClient.v1Get<{
         offers: SingleOffer[];
         totalPrice: Price;
         bundlePrice: Price;

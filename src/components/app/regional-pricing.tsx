@@ -23,7 +23,7 @@ import type { RegionalPrice, RegionData } from "@/types/regional-pricing";
 import { getEffectivePrice } from "@/lib/effective-price";
 
 const getRegionalPricing = async ({ id }: { id: string }) => {
-  const response = await httpClient.get<RegionalPrice>(`/offers/${id}/regional-price`);
+  const response = await httpClient.v1Get<RegionalPrice>(`/offers/${id}/regional-price`);
   return response;
 };
 
@@ -46,7 +46,7 @@ export function RegionalPricing({ id }: { id: string }) {
     queryKey: ["region", { country }],
     queryFn: () =>
       httpClient
-        .get<RegionData>("/region", {
+        .v1Get<RegionData>("/region", {
           params: {
             country,
           },

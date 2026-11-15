@@ -70,14 +70,15 @@ export const Route = createFileRoute("/{-$locale}/sellers/$id")({
         queryKey: ["seller:cover", { id, country }],
         queryFn: async () =>
           httpClient
-            .get<SingleOffer[]>(`/sellers/${id}/cover`, {
+            .v1Get<SingleOffer[]>(`/sellers/${id}/cover`, {
               params: { country },
             })
             .catch(() => []),
       }),
       queryClient.prefetchQuery({
         queryKey: ["seller:stats", { id }],
-        queryFn: async () => httpClient.get<SellerStats>(`/sellers/${id}/stats`).catch(() => null),
+        queryFn: async () =>
+          httpClient.v1Get<SellerStats>(`/sellers/${id}/stats`).catch(() => null),
       }),
     ]);
 
@@ -157,13 +158,13 @@ function RouteComponent() {
       {
         queryKey: ["seller:cover", { id, country }],
         queryFn: () =>
-          httpClient.get<SingleOffer[]>(`/sellers/${id}/cover`, {
+          httpClient.v1Get<SingleOffer[]>(`/sellers/${id}/cover`, {
             params: { country },
           }),
       },
       {
         queryKey: ["seller:stats", { id }],
-        queryFn: () => httpClient.get<SellerStats>(`/sellers/${id}/stats`),
+        queryFn: () => httpClient.v1Get<SellerStats>(`/sellers/${id}/stats`),
       },
     ],
   });

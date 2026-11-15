@@ -41,7 +41,7 @@ export function SellerOffers({
       },
     ],
     queryFn: () =>
-      httpClient.get<SingleOffer[]>(`/sellers/${id}`, {
+      httpClient.v1Get<SingleOffer[]>(`/sellers/${id}`, {
         params: {
           country,
           offerType: "BASE_GAME",

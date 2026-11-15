@@ -19,7 +19,7 @@ export const OfferInBundle: React.FC<{ offer: SingleOffer }> = ({ offer }) => {
       },
     ],
     queryFn: () =>
-      httpClient.get<SingleOffer[]>(`/offers/${offer.id}/in-bundle`, {
+      httpClient.v1Get<SingleOffer[]>(`/offers/${offer.id}/in-bundle`, {
         params: {
           country,
         },

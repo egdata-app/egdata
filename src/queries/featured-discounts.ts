@@ -9,7 +9,7 @@ export const getFeaturedDiscounts = async ({
   limit?: number;
 }) => {
   return httpClient
-    .get<SingleOffer[]>("/offers/featured-discounts", {
+    .v1Get<SingleOffer[]>("/offers/featured-discounts", {
       params: { country, limit },
     })
     .then((res) => {

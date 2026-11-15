@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
 import { useTranslation } from "@/lib/paraglide-react";
 
 export const getGiveawaysStats = async ({ country }: { country: string }) => {
-  const res = await httpClient.get<{
+  const res = await httpClient.v1Get<{
     totalValue: Price["price"];
     totalGiveaways: number;
     totalOffers: number;

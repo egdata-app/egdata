@@ -21,11 +21,9 @@ export function SalesModule({ eventId, event }: { eventId: string; event: string
 
   useEffect(() => {
     httpClient
-      .get<{
-        elements: SingleOffer[];
-      }>(`/promotions/${eventId}?country=${country || "US"}`)
+      .v1Get<SingleOffer[]>(`/promotions/${eventId}?country=${country || "US"}`)
       .then((res) => {
-        setGames(Array.isArray(res?.elements) ? res.elements : []);
+        setGames(Array.isArray(res) ? res : []);
         setLoading(false);
       });
   }, [eventId, country]);

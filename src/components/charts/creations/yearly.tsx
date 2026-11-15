@@ -41,7 +41,7 @@ interface YearlyCreation {
 }
 
 export const getCreationsByYear = async () =>
-  httpClient.get<YearlyCreation[]>("/stats/creations/yearly");
+  httpClient.v1Get<YearlyCreation[]>("/stats/creations/yearly");
 
 export function CreationsByYear() {
   const { t } = useTranslation();

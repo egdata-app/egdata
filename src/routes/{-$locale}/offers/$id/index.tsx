@@ -6,6 +6,7 @@ import { Link } from "@/components/app/localized-link";
 import { Card, CardContent } from "@/components/ui/card";
 import { keepPreviousData, useQueries } from "@tanstack/react-query";
 import { httpClient } from "@/lib/http-client";
+import { unwrapV1Poll } from "@/lib/v1-adapters";
 import type { Tag } from "@/types/single-offer";
 import type { SingleSandbox } from "@/types/single-sandbox";
 import type { AchievementSet } from "@/queries/offer-achievements";
@@ -50,7 +51,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/")({
       queryClient
         .fetchQuery({
           queryKey: ["offer", "genres", { id }],
-          queryFn: () => httpClient.get<Tag[]>(`/offers/${id}/genres`).catch(() => []),
+          queryFn: () => httpClient.v1Get<Tag[]>(`/offers/${id}/genres`).catch(() => []),
         })
         .catch(() => {});
       queryClient
@@ -58,7 +59,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/")({
           queryKey: ["price-stats", { id, country }],
           queryFn: () =>
             httpClient
-              .get<{
+              .v1Get<{
                 current: Price | null;
                 lowest: Price | null;
                 lastDiscount: Price | null;
@@ -81,7 +82,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/")({
       queryKey: ["offer", "tops", { id }],
       queryFn: () =>
         httpClient
-          .get<{
+          .v1Get<{
             [key: string]: number;
           }>(`/offers/${id}/tops`)
           .catch(() => null),
@@ -94,7 +95,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/")({
       queryKey: ["collection", "positions", { id, collection: defaultCollection }],
       queryFn: () =>
         httpClient
-          .get<OfferPosition>(`/offers/${id}/collections/${defaultCollection}`, {
+          .v1Get<OfferPosition>(`/offers/${id}/collections/${defaultCollection}`, {
             params: {
               country,
             },
@@ -134,13 +135,13 @@ function RouteComponent() {
     queries: [
       {
         queryKey: ["offer", "genres", { id }],
-        queryFn: () => httpClient.get<Tag[]>(`/offers/${id}/genres`),
+        queryFn: () => httpClient.v1Get<Tag[]>(`/offers/${id}/genres`),
       },
       {
         queryKey: ["price-stats", { id, country }],
         queryFn: () =>
           httpClient
-            .get<{
+            .v1Get<{
               current: Price | null;
               lowest: Price | null;
               lastDiscount: Price | null;
@@ -157,18 +158,18 @@ function RouteComponent() {
       {
         queryKey: ["offer", "age-rating", { id, country }],
         queryFn: () =>
-          httpClient.get<SingleSandbox["ageGatings"]>(`/offers/${id}/age-rating`, {
+          httpClient.v1Get<SingleSandbox["ageGatings"]>(`/offers/${id}/age-rating`, {
             params: { country, single: true },
           }),
       },
       {
         queryKey: ["offer", "achievements", { id }],
-        queryFn: () => httpClient.get<AchievementSet[]>(`/offers/${id}/achievements`),
+        queryFn: () => httpClient.v1Get<AchievementSet[]>(`/offers/${id}/achievements`),
       },
       {
         queryKey: ["offer", "giveaways", { id }],
         queryFn: () =>
-          httpClient.get<
+          httpClient.v1Get<
             {
               _id: string;
               id: string;
@@ -180,24 +181,27 @@ function RouteComponent() {
       },
       {
         queryKey: ["offer", "hltb", { id }],
-        queryFn: () => httpClient.get<Hltb>(`/offers/${id}/hltb`),
+        queryFn: () => httpClient.v1Get<Hltb>(`/offers/${id}/hltb`),
         retry: false,
       },
       {
         queryKey: ["offer", "reviews", { id }],
-        queryFn: () => httpClient.get<SinglePoll>(`/offers/${id}/polls`),
+        queryFn: () =>
+          httpClient
+            .v1Get<SinglePoll | { poll: SinglePoll | null } | null>(`/offers/${id}/polls`)
+            .then(unwrapV1Poll),
         retry: false,
       },
       {
         queryKey: ["collection", "positions", { id, collection }],
-        queryFn: () => httpClient.get<OfferPosition>(`/offers/${id}/collections/${collection}`),
+        queryFn: () => httpClient.v1Get<OfferPosition>(`/offers/${id}/collections/${collection}`),
         retry: false,
         enabled: !!collection,
       },
       {
         queryKey: ["offer", "tops", { id }],
         queryFn: () =>
-          httpClient.get<{
+          httpClient.v1Get<{
             [key: string]: number;
           }>(`/offers/${id}/tops`),
         placeholderData: keepPreviousData,
@@ -206,7 +210,7 @@ function RouteComponent() {
       {
         queryKey: ["offer", "requirements", { id }],
         queryFn: () =>
-          httpClient.get<OfferRequirements>(`/offers/${id}/requirements`).catch(() => null),
+          httpClient.v1Get<OfferRequirements>(`/offers/${id}/requirements`).catch(() => null),
         retry: false,
       },
     ],

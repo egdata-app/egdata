@@ -29,7 +29,7 @@ export function PrepurchasePopup({ id }: { id: string }) {
       offerOnlyQueryOptions(id, locale),
       {
         queryKey: ["offer", "prepurchase-offers", { id }],
-        queryFn: () => httpClient.get<IsPrepurchase>(`/offers/${id}/has-regular`),
+        queryFn: () => httpClient.v1Get<IsPrepurchase>(`/offers/${id}/has-regular`),
       },
     ],
   });

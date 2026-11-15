@@ -33,7 +33,7 @@ async function fetchCountries(): Promise<string[]> {
     }
   }
 
-  const data = await httpClient.get<string[]>("/countries");
+  const data = await httpClient.v1Get<string[]>("/countries");
 
   const normalizedData = Array.from(new Set(data.map(normalizeCountryCode)));
 

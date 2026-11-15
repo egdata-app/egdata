@@ -47,7 +47,7 @@ const getHoverVideoUrl = (media?: Media) => {
 export function OfferHero({ offer }: { offer: SingleOffer }) {
   const { data: media } = useQuery({
     queryKey: ["media", { id: offer.id }],
-    queryFn: () => httpClient.get<Media>(`/offers/${offer.id}/media`),
+    queryFn: () => httpClient.v1Get<Media>(`/offers/${offer.id}/media`),
     retry: false,
   });
   const { isHovered, setIsHovered, setVideoRef, setAmbientColors } = useVideo();

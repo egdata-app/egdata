@@ -25,7 +25,7 @@ export function GiveawaysCarousel({ hideTitle }: { hideTitle?: boolean }) {
     queryKey: ["giveaways"],
     queryFn: () =>
       httpClient
-        .get<GiveawayOffer[]>("/free-games", {
+        .v1Get<GiveawayOffer[]>("/free-games", {
           params: {
             country,
           },

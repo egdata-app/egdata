@@ -23,7 +23,7 @@ export function GameFeatures({ id, size: _size = "md" }: { id: string; size?: Fe
 
   useEffect(() => {
     httpClient
-      .get<OfferFeatures>(`/offers/${id}/features`)
+      .v1Get<OfferFeatures>(`/offers/${id}/features`)
       .then((response) => {
         setOfferFeatures(response);
       })
@@ -252,7 +252,7 @@ const epicFeatures = (features: string[]) => {
 export function GameFeaturesV2({ id }: { id: string }) {
   const { data: offerFeatures } = useQuery({
     queryKey: ["offer-features", { id }],
-    queryFn: () => httpClient.get<OfferFeatures>(`/offers/${id}/features`),
+    queryFn: () => httpClient.v1Get<OfferFeatures>(`/offers/${id}/features`),
   });
 
   const launcher = getLauncher(offerFeatures?.launcher || "");

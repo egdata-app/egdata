@@ -13,10 +13,6 @@ import { useTranslation } from "@/lib/paraglide-react";
 
 interface UpcomingRes {
   elements: SingleOffer[];
-  limit: number;
-  start: number;
-  page: number;
-  count: number;
 }
 
 export function UpcomingCalendar() {
@@ -27,16 +23,19 @@ export function UpcomingCalendar() {
       "upcoming",
       {
         country,
-        page: 1,
       },
     ],
-    queryFn: () =>
-      httpClient.get<UpcomingRes>("/offers/upcoming", {
+    queryFn: async () => {
+      const elements = await httpClient.v1Get<SingleOffer[]>("/offers/upcoming", {
         params: {
           country,
-          page: 1,
+          limit: 100,
         },
-      }),
+      });
+      return {
+        elements: Array.isArray(elements) ? elements : [],
+      } satisfies UpcomingRes;
+    },
   });
 
   if (isLoading) {

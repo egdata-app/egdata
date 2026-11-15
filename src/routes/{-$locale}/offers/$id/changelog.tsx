@@ -166,7 +166,7 @@ function ChangelogPage() {
   const { data: stats } = useQuery({
     queryKey: ["changelog-stats", { id }],
     queryFn: () =>
-      httpClient.get<ChangelogStats>(`/offers/${id}/changelog/stats`, {
+      httpClient.v1Get<ChangelogStats>(`/offers/${id}/changelog/stats`, {
         params: {
           // One year ago
           from: new Date(Date.now() - 365 * 24 * 60 * 60 * 1000).toISOString(),

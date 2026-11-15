@@ -37,7 +37,7 @@ export const Route = createFileRoute("/{-$locale}/items/$id/assets")({
 
     await queryClient.prefetchQuery({
       queryKey: ["item", "assets", { id }],
-      queryFn: () => httpClient.get<Asset[]>(`/items/${id}/assets`).catch(() => []),
+      queryFn: () => httpClient.v1Get<Asset[]>(`/items/${id}/assets`).catch(() => []),
     });
 
     return {
@@ -90,7 +90,7 @@ function ItemAssetsPage() {
   const [filters, setFilters] = useState<ColumnFiltersState>([]);
   const { data: assets } = useQuery({
     queryKey: ["item", "assets", { id }],
-    queryFn: () => httpClient.get<Asset[]>(`/items/${id}/assets`),
+    queryFn: () => httpClient.v1Get<Asset[]>(`/items/${id}/assets`),
   });
 
   if (!assets) {

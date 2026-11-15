@@ -49,7 +49,9 @@ test("v1Get and v1Post normalize endpoints, unwrap envelope, and attach SSR head
     assert.equal(getHeaders["x-egdata-authenticated"], "1");
 
     // 2. v1Post normalizes /offers/search -> /v1/offers/search and unwraps .data
-    const postData = await httpClient.v1Post<{ result: string }>("/offers/search", { query: "game" });
+    const postData = await httpClient.v1Post<{ result: string }>("/offers/search", {
+      query: "game",
+    });
     assert.deepEqual(postData, { result: "created" });
     assert.equal(captured[1]?.url, "/v1/offers/search");
     const postHeaders = captured[1]?.headers as Record<string, string>;
@@ -119,17 +121,19 @@ test("in simulated browser mode, handles token refresh and retries only on EXPIR
       if (urlStr.includes("/api/web-token")) {
         fetchCallCount++;
         const token = `egw_token_${fetchCallCount}`;
-        return new Response(
-          JSON.stringify({ token, expiresAt: Date.now() + 1800000 }),
-          { status: 200, headers: { "Content-Type": "application/json" } },
-        );
+        return new Response(JSON.stringify({ token, expiresAt: Date.now() + 1800000 }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        });
       }
       return new Response("Not Found", { status: 404 });
     }) as typeof fetch;
 
     // 1. Initial request triggers token refresh and attaches X-API-Key
+    let lastV1Config: Record<string, unknown> | undefined;
     client.axiosInstance.defaults.adapter = async (config) => {
       adapterCallCount++;
+      lastV1Config = config as unknown as Record<string, unknown>;
       return {
         data: { success: true },
         status: 200,
@@ -141,8 +145,24 @@ test("in simulated browser mode, handles token refresh and retries only on EXPIR
 
     const res1 = await client.get<{ success: boolean }>("/v1/countries");
     assert.deepEqual(res1, { success: true });
+    assert.equal(lastV1Config?.withCredentials, false);
     assert.equal(fetchCallCount, 1);
     assert.equal(client.getWebApiKey(), "egw_token_1");
+
+    // Legacy endpoints continue inheriting withCredentials: true
+    let lastLegacyConfig: Record<string, unknown> | undefined;
+    client.axiosInstance.defaults.adapter = async (config) => {
+      lastLegacyConfig = config as unknown as Record<string, unknown>;
+      return {
+        data: { ok: true },
+        status: 200,
+        statusText: "OK",
+        headers: {},
+        config,
+      } as AxiosResponse;
+    };
+    await client.get("/countries");
+    assert.equal(lastLegacyConfig?.withCredentials, true);
 
     // 2. Request encountering EXPIRED_WEB_TOKEN retries once with renewed token
     adapterCallCount = 0;
@@ -215,5 +235,189 @@ test("in simulated browser mode, handles token refresh and retries only on EXPIR
     } else {
       (globalThis as any).window = origWindow;
     }
+  }
+});
+
+test("fixedApiKey enforces static X-API-Key without calling /api/web-token or leaking to untrusted origins", async () => {
+  const origFetch = globalThis.fetch;
+  const origWindow = (globalThis as unknown as { window?: unknown }).window;
+  let fetchCalled = false;
+
+  try {
+    (globalThis as unknown as { window?: unknown }).window = {};
+    globalThis.fetch = (async () => {
+      fetchCalled = true;
+      return new Response("unexpected", { status: 500 });
+    }) as typeof fetch;
+
+    const client = new HttpFetch(
+      "https://api.egdata.app",
+      {},
+      { mode: "browser", fixedApiKey: "eg_fixed_dev_key" },
+    );
+
+    client.setWebApiKey("egw_ignored_ephemeral");
+    assert.equal(client.getWebApiKey(), "eg_fixed_dev_key");
+    assert.equal(await client.refreshWebApiKey(), "eg_fixed_dev_key");
+
+    const captured: InternalAxiosRequestConfig[] = [];
+    client.axiosInstance.defaults.adapter = async (config) => {
+      captured.push(config);
+      return {
+        data: { data: ["US"], meta: {} },
+        status: 200,
+        statusText: "OK",
+        headers: {},
+        config,
+      } as AxiosResponse;
+    };
+
+    const countries = await client.v1Get<string[]>("/countries");
+    assert.deepEqual(countries, ["US"]);
+    assert.equal(fetchCalled, false);
+    assert.equal((captured[0]?.headers as Record<string, string>)["X-API-Key"], "eg_fixed_dev_key");
+    assert.equal(captured[0]?.withCredentials, false);
+
+    // Must not leak fixed key to untrusted origins
+    await client.get("https://other.example/v1/countries");
+    assert.equal((captured[1]?.headers as Record<string, string>)["X-API-Key"], undefined);
+  } finally {
+    globalThis.fetch = origFetch;
+    if (origWindow === undefined) {
+      delete (globalThis as any).window;
+    } else {
+      (globalThis as any).window = origWindow;
+    }
+  }
+});
+
+test("fixedApiKey takes precedence over ORIGIN_AUTH_TOKEN in server SSR mode", async () => {
+  const origOriginToken = process.env.ORIGIN_AUTH_TOKEN;
+  const origWorkerToken = process.env.V1_WORKER_TOKEN;
+
+  try {
+    process.env.ORIGIN_AUTH_TOKEN = "mock-origin-token";
+    delete process.env.V1_WORKER_TOKEN;
+
+    const client = new HttpFetch(
+      "https://api.egdata.app",
+      {},
+      { mode: "server", fixedApiKey: "eg_fixed_ssr_key" },
+    );
+
+    const captured: InternalAxiosRequestConfig[] = [];
+    client.axiosInstance.defaults.adapter = async (config) => {
+      captured.push(config);
+      return {
+        data: { data: { offers: 10 }, meta: {} },
+        status: 200,
+        statusText: "OK",
+        headers: {},
+        config,
+      } as AxiosResponse;
+    };
+
+    const stats = await client.v1Get<{ offers: number }>("/stats/homepage");
+    assert.deepEqual(stats, { offers: 10 });
+    const headers = captured[0]?.headers as Record<string, string>;
+    assert.equal(headers["X-API-Key"], "eg_fixed_ssr_key");
+    assert.equal(headers["x-egdata-worker-token"], undefined);
+    assert.equal(headers["x-egdata-origin-token"], undefined);
+  } finally {
+    if (origOriginToken !== undefined) {
+      process.env.ORIGIN_AUTH_TOKEN = origOriginToken;
+    } else {
+      delete process.env.ORIGIN_AUTH_TOKEN;
+    }
+    if (origWorkerToken !== undefined) {
+      process.env.V1_WORKER_TOKEN = origWorkerToken;
+    } else {
+      delete process.env.V1_WORKER_TOKEN;
+    }
+  }
+});
+
+test("HTTP client logs failed and debug requests without leaking secret keys", async () => {
+  const origConsoleError = console.error;
+  const origConsoleInfo = console.info;
+  const errorLogs: unknown[][] = [];
+  const infoLogs: unknown[][] = [];
+
+  try {
+    console.error = (...args: unknown[]) => {
+      errorLogs.push(args);
+    };
+    console.info = (...args: unknown[]) => {
+      infoLogs.push(args);
+    };
+
+    const secretKey = "eg_super_secret_do_not_log";
+    const client = new HttpFetch(
+      "https://api.egdata.app",
+      {},
+      { mode: "browser", fixedApiKey: secretKey, debug: true },
+    );
+
+    client.axiosInstance.defaults.adapter = async (config) => {
+      if (config.url === "/v1/countries") {
+        return {
+          data: { data: ["US"], meta: {} },
+          status: 200,
+          statusText: "OK",
+          headers: {},
+          config,
+        } as AxiosResponse;
+      }
+
+      const error = new Error("Forbidden") as Error & {
+        isAxiosError?: boolean;
+        response?: AxiosResponse;
+        code?: string;
+      };
+      error.isAxiosError = true;
+      error.code = "ERR_BAD_REQUEST";
+      error.response = {
+        data: {
+          code: "FORBIDDEN_ORIGIN",
+          detail: "Blocked for test",
+          requestId: "req_test_123",
+        },
+        status: 403,
+        statusText: "Forbidden",
+        headers: {},
+        config,
+      };
+      throw error;
+    };
+
+    await client.v1Get<string[]>("/countries", { params: { country: "US" } });
+    assert.equal(infoLogs.length, 2);
+    assert.equal(infoLogs[0]?.[0], "[http-client] ->");
+    assert.equal((infoLogs[0]?.[1] as { target?: string })?.target, "/v1/countries?country=US");
+    assert.equal(infoLogs[1]?.[0], "[http-client] <-");
+    assert.equal((infoLogs[1]?.[1] as { status?: number })?.status, 200);
+
+    await assert.rejects(
+      async () => {
+        await client.v1Get("/stats/homepage", { params: { country: "ES" } });
+      },
+      (err: Error) => err.message === "HTTP error! Status: 403 (GET /v1/stats/homepage?country=ES)",
+    );
+
+    assert.equal(errorLogs.length, 1);
+    assert.equal(errorLogs[0]?.[0], "[http-client] request failed");
+    const logged = errorLogs[0]?.[1] as Record<string, unknown>;
+    assert.equal(logged.method, "GET");
+    assert.equal(logged.target, "/v1/stats/homepage?country=ES");
+    assert.equal(logged.status, 403);
+    assert.equal(logged.responseCode, "FORBIDDEN_ORIGIN");
+    assert.equal(logged.detail, "Blocked for test");
+    assert.equal(logged.requestId, "req_test_123");
+    assert.equal(logged.auth, "fixed-api-key");
+    assert.equal(JSON.stringify(logged).includes(secretKey), false);
+    assert.equal(JSON.stringify(infoLogs).includes(secretKey), false);
+  } finally {
+    console.error = origConsoleError;
+    console.info = origConsoleInfo;
   }
 });

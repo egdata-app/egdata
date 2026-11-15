@@ -21,7 +21,7 @@ export const Route = createFileRoute("/{-$locale}/items/$id/")({
     const { id } = Route.useParams();
     const { data: item } = useQuery({
       queryKey: ["item", { id }],
-      queryFn: () => httpClient.get<SingleItem>(`/items/${id}`),
+      queryFn: () => httpClient.v1Get<SingleItem>(`/items/${id}`),
     });
 
     if (!item) {

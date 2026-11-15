@@ -6,7 +6,7 @@ export function getOfferPriceFairness(id: string, country: string) {
     queryKey: ["offer", "price-fairness", { id, country }],
     queryFn: () =>
       httpClient
-        .get<RegionalPricingScore>(`/offers/${id}/price/fairness`, {
+        .v1Get<RegionalPricingScore>(`/offers/${id}/price/fairness`, {
           params: { country },
         })
         .catch(() => null),

@@ -368,7 +368,7 @@ const trophyColors: { [key: string]: string } = {
 function Achievements({ id }: { id: string }) {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["achievements", { id }],
-    queryFn: () => httpClient.get<AchievementsSets>(`/offers/${id}/achievements`),
+    queryFn: () => httpClient.v1Get<AchievementsSets>(`/offers/${id}/achievements`),
   });
   const { t } = useTranslation();
 
@@ -453,7 +453,7 @@ function AgeRatings({ id }: { id: string }) {
       },
     ],
     queryFn: () =>
-      httpClient.get<SingleSandbox["ageGatings"]>(`/offers/${id}/age-rating`, {
+      httpClient.v1Get<SingleSandbox["ageGatings"]>(`/offers/${id}/age-rating`, {
         params: {
           country,
           single: true,
@@ -576,7 +576,7 @@ function Price({ id }: { id: string }) {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["regional-price", { id, country }],
     queryFn: () =>
-      httpClient.get<RegionalPrice>(`/offers/${id}/regional-price`, {
+      httpClient.v1Get<RegionalPrice>(`/offers/${id}/regional-price`, {
         params: { country },
       }),
   });

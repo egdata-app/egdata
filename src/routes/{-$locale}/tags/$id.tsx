@@ -144,7 +144,7 @@ export const Route = createFileRoute("/{-$locale}/tags/$id")({
         queryKey: ["promotion-cover", { id }],
         queryFn: () =>
           httpClient
-            .get<Pick<SingleOffer, "_id" | "id" | "namespace" | "title" | "keyImages">>(
+            .v1Get<Pick<SingleOffer, "_id" | "id" | "namespace" | "title" | "keyImages">>(
               `/promotions/${id}/cover`,
             )
             .catch(() => null),
