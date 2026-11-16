@@ -109,6 +109,34 @@ export function getV1TotalPages(
   return Math.max(1, Math.ceil(pagination.total / limit));
 }
 
+function syncCursorBoundary(
+  cursors: Array<string | undefined>,
+  pageNumber: number,
+  cursorUsed: string | undefined,
+  hasMore: boolean,
+  nextCursor: string | null,
+  scopeKey: string,
+): void {
+  if (hasMore && (!nextCursor || (cursorUsed !== undefined && nextCursor === cursorUsed))) {
+    throw new Error("Pagination cursor did not advance while more results remain.");
+  }
+
+  if (!hasMore) {
+    if (cursors.length > pageNumber) {
+      cursors.length = pageNumber;
+      writeCursorCache(scopeKey, cursors);
+    }
+    return;
+  }
+
+  if (nextCursor && cursors[pageNumber] !== nextCursor) {
+    // Discard stale downstream boundaries whenever an earlier page boundary shifts.
+    cursors.length = pageNumber + 1;
+    cursors[pageNumber] = nextCursor;
+    writeCursorCache(scopeKey, cursors);
+  }
+}
+
 /**
  * Fetches page `targetPage` (1-based) of a v1 cursor-paginated endpoint.
  * Reuses cached cursors for previously visited pages (across Next/Previous and reloads),
@@ -136,10 +164,7 @@ export async function fetchV1CursorPageAt<T, M extends V1CursorPaginationMeta>(
     const hasMore = Boolean(pagination?.hasMore);
     const nextCursor = pagination?.nextCursor ?? null;
 
-    if (hasMore && nextCursor && nextCursor !== cursor) {
-      cursors[normalizedTarget] = nextCursor;
-      writeCursorCache(scopeKey, cursors);
-    }
+    syncCursorBoundary(cursors, normalizedTarget, cursor, hasMore, nextCursor, scopeKey);
 
     return {
       envelope,
@@ -168,12 +193,9 @@ export async function fetchV1CursorPageAt<T, M extends V1CursorPaginationMeta>(
     const hasMore = Boolean(pagination?.hasMore);
     const nextCursor = pagination?.nextCursor ?? null;
 
-    if (hasMore && nextCursor && nextCursor !== cursor) {
-      cursors[currentPage] = nextCursor;
-      writeCursorCache(scopeKey, cursors);
-    }
+    syncCursorBoundary(cursors, currentPage, cursor, hasMore, nextCursor, scopeKey);
 
-    if (currentPage === normalizedTarget || !hasMore || !nextCursor || nextCursor === cursor) {
+    if (currentPage === normalizedTarget || !hasMore || !nextCursor) {
       return {
         envelope,
         resolvedPage: currentPage,

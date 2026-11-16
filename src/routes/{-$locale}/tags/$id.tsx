@@ -11,7 +11,7 @@ import type { SingleOffer } from "@/types/single-offer";
 import { z } from "zod";
 import { zodSearchValidator } from "@tanstack/router-zod-adapter";
 import { httpClient } from "@/lib/http-client";
-import { getV1PaginationTotal, type V1CursorPaginationMeta } from "@/lib/v1-adapters";
+import type { V1CursorPaginationMeta } from "@/lib/v1-adapters";
 import { useCountry } from "@/hooks/use-country";
 import { usePreferences } from "@/hooks/use-preferences";
 import debounce from "lodash.debounce";
@@ -59,7 +59,7 @@ type PromotionPage = {
   title: string;
   start: number;
   page: number;
-  count: number;
+  count: number | null;
   hasMore: boolean;
   nextCursor: string | null;
 };
@@ -99,7 +99,7 @@ const fetchPromotionData = async ({
     title: envelope?.meta?.title ?? id,
     start: envelope?.meta?.start ?? 0,
     page: 1,
-    count: getV1PaginationTotal(pagination, elements.length),
+    count: typeof pagination?.total === "number" ? pagination.total : null,
     hasMore: Boolean(pagination?.hasMore),
     nextCursor: pagination?.nextCursor ?? null,
   };
@@ -135,7 +135,7 @@ export const Route = createFileRoute("/{-$locale}/tags/$id")({
         title: string;
         start: number;
         page: number;
-        count: number;
+        count: number | null;
       } | null;
     };
 
@@ -235,7 +235,8 @@ export const Route = createFileRoute("/{-$locale}/tags/$id")({
       };
     }
 
-    const { title, count } = promotion;
+    const { title, count, elements } = promotion;
+    const resolvedCount = count ?? elements.length;
 
     const coverImage =
       getImage(cover?.keyImages || [], [
@@ -252,7 +253,7 @@ export const Route = createFileRoute("/{-$locale}/tags/$id")({
         },
         {
           name: "description",
-          content: i18n.t("tags.meta.description", { count, title }),
+          content: i18n.t("tags.meta.description", { count: resolvedCount, title }),
         },
         {
           name: "og:title",
@@ -260,7 +261,7 @@ export const Route = createFileRoute("/{-$locale}/tags/$id")({
         },
         {
           name: "og:description",
-          content: i18n.t("tags.meta.description", { count, title }),
+          content: i18n.t("tags.meta.description", { count: resolvedCount, title }),
         },
         {
           name: "twitter:title",
@@ -268,7 +269,7 @@ export const Route = createFileRoute("/{-$locale}/tags/$id")({
         },
         {
           name: "twitter:description",
-          content: i18n.t("tags.meta.description", { count, title }),
+          content: i18n.t("tags.meta.description", { count: resolvedCount, title }),
         },
         {
           name: "og:image",
@@ -377,7 +378,7 @@ function RouteComponent() {
       title: string;
       start: number;
       page: number;
-      count: number;
+      count: number | null;
     } | null;
   };
   const {
@@ -400,7 +401,7 @@ function RouteComponent() {
       }),
     initialPageParam: undefined as string | undefined,
     getNextPageParam: (lastPage) =>
-      lastPage.hasMore && lastPage.nextCursor ? lastPage.nextCursor : undefined,
+      lastPage?.hasMore && lastPage.nextCursor ? lastPage.nextCursor : undefined,
     placeholderData: keepPreviousData,
   });
 
@@ -445,9 +446,11 @@ function RouteComponent() {
           <h1 className="text-3xl font-bold leading-tight md:text-5xl">
             {firstPromotionPage.title}
           </h1>
-          <p className="mt-4 text-lg">
-            {t("tags.offersCount", { count: firstPromotionPage.count })}
-          </p>
+          {firstPromotionPage.count !== null && (
+            <p className="mt-4 text-lg">
+              {t("tags.offersCount", { count: firstPromotionPage.count })}
+            </p>
+          )}
         </div>
       </div>
 

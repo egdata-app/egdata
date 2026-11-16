@@ -26,6 +26,7 @@ export interface Root {
   limit: number;
   offset: number;
   estimatedTotalHits: number;
+  page: number;
   hasMore?: boolean;
   totalPages?: number | null;
 }
@@ -33,7 +34,7 @@ export interface Root {
 async function fetchSearchChangelogPage(query: string, page: number): Promise<Root> {
   const trimmed = query.trim();
   const limit = 20;
-  const { envelope, hasMore, total } = await fetchV1CursorPageAt<
+  const { envelope, resolvedPage, hasMore, total } = await fetchV1CursorPageAt<
     Root["hits"],
     V1CursorPaginationMeta
   >(
@@ -56,6 +57,7 @@ async function fetchSearchChangelogPage(query: string, page: number): Promise<Ro
     limit: envelope?.meta?.pagination?.limit ?? limit,
     offset: 0,
     estimatedTotalHits: total ?? hits.length,
+    page: resolvedPage,
     hasMore,
     totalPages: getV1TotalPages(envelope?.meta?.pagination, limit),
   };
@@ -178,7 +180,7 @@ function ChangelogPage() {
   const navigate = Route.useNavigate();
   const [page, setPage] = React.useState(initialPage || 1);
   const [query, setQuery] = React.useState(initialQuery || "");
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading, isError, isPlaceholderData } = useQuery({
     queryKey: [
       "changelogs",
       {
@@ -190,6 +192,20 @@ function ChangelogPage() {
     refetchOnMount: false,
     placeholderData: keepPreviousData,
   });
+
+  React.useEffect(() => {
+    if (data && !isPlaceholderData && data.page !== page) {
+      setPage(data.page);
+      void navigate({
+        search: {
+          query: query.trim() === "" ? undefined : query,
+          page: data.page,
+        },
+        replace: true,
+        resetScroll: false,
+      });
+    }
+  }, [data, isPlaceholderData, navigate, page, query]);
 
   const handleQueryChange = (newQuery: string) => {
     setQuery(newQuery);
@@ -203,8 +219,6 @@ function ChangelogPage() {
       resetScroll: false,
     });
   };
-
-  const totalPages = Math.ceil((data?.estimatedTotalHits || 0) / (data?.limit || 1));
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage);
@@ -249,7 +263,7 @@ function ChangelogPage() {
       </div>
       <DynamicPagination
         cursorMode
-        totalPages={data?.totalPages ?? totalPages}
+        totalPages={data?.totalPages ?? null}
         hasMore={data?.hasMore}
         currentPage={page}
         setPage={handlePageChange}

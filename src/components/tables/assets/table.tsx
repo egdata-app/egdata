@@ -42,6 +42,7 @@ interface DataTableProps<TData, TValue> {
   total: number | null;
   hasMore?: boolean;
   cursorMode?: boolean;
+  isPlaceholderData?: boolean;
   filters: ColumnFiltersState;
   setFilters: React.Dispatch<React.SetStateAction<ColumnFiltersState>>;
 }
@@ -55,6 +56,7 @@ export function DataTable<TData, TValue>({
   total,
   hasMore,
   cursorMode = false,
+  isPlaceholderData = false,
   filters,
   setFilters,
 }: DataTableProps<TData, TValue>) {
@@ -133,6 +135,7 @@ export function DataTable<TData, TValue>({
           cursorMode={cursorMode}
           hasMore={hasMore}
           totalPages={totalPages}
+          isPlaceholderData={isPlaceholderData}
         />
       </div>
     </TooltipProvider>

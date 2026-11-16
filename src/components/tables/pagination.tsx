@@ -15,6 +15,7 @@ interface DataTablePaginationProps<TData> {
   cursorMode?: boolean;
   hasMore?: boolean;
   totalPages?: number | null;
+  isPlaceholderData?: boolean;
 }
 
 export function DataTablePagination<TData>({
@@ -22,10 +23,11 @@ export function DataTablePagination<TData>({
   cursorMode = false,
   hasMore,
   totalPages,
+  isPlaceholderData = false,
 }: DataTablePaginationProps<TData>) {
   const currentPage = table.getState().pagination.pageIndex + 1;
   const pageCount = totalPages !== undefined ? totalPages : table.getPageCount();
-  const canGoNext = cursorMode ? Boolean(hasMore) : table.getCanNextPage();
+  const canGoNext = cursorMode ? Boolean(hasMore) && !isPlaceholderData : table.getCanNextPage();
 
   return (
     <div className="flex flex-col gap-3 px-2 sm:flex-row sm:items-center sm:justify-between">

@@ -47,7 +47,7 @@ export async function waitForApiResponse(
 }
 
 export async function waitForSearchResponse(page: Page) {
-  return waitForApiResponse(page, "/v1/search", { method: "GET" });
+  return waitForApiResponse(page, /\/v1\/search(?:\?|$)/, { method: "GET" });
 }
 
 export async function expectSearchResultsReady(page: Page) {

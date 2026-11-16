@@ -11,7 +11,7 @@ import type { SingleSandbox } from "@/types/single-sandbox";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { getQueryClient } from "@/lib/client";
 import { generateSandboxMeta } from "@/lib/generate-sandbox-meta";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { ColumnFiltersState } from "@tanstack/react-table";
 import type { DehydratedState } from "@tanstack/react-query";
 import { PackageIcon } from "lucide-react";
@@ -120,6 +120,12 @@ function SandboxBuildsPage() {
     setPage((current) => ({ ...current, pageIndex: 0 }));
   };
 
+  useEffect(() => {
+    if (buildsData && !isPlaceholderData && buildsData.page - 1 !== page.pageIndex) {
+      setPage((current) => ({ ...current, pageIndex: buildsData.page - 1 }));
+    }
+  }, [buildsData, isPlaceholderData, page.pageIndex]);
+
   return (
     <div className="flex min-w-0 flex-col gap-5 w-full">
       <SandboxPageHeader
@@ -150,6 +156,7 @@ function SandboxBuildsPage() {
             total={buildsData?.total ?? null}
             hasMore={buildsData?.hasMore}
             cursorMode
+            isPlaceholderData={isPlaceholderData}
             filters={filters}
             setFilters={updateFilters}
             emptyContent={

@@ -247,9 +247,7 @@ function RouteComponent() {
       {(data?.hits?.length ?? 0) > 0 && (
         <DynamicPagination
           cursorMode
-          totalPages={
-            data?.totalPages ?? (data ? Math.ceil(data.estimatedTotalHits / data.limit) : null)
-          }
+          totalPages={data?.totalPages ?? null}
           hasMore={data?.hasMore}
           currentPage={page}
           setPage={setPage}

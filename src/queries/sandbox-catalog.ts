@@ -6,7 +6,7 @@ import type { SingleOffer } from "@/types/single-offer";
 
 export type SandboxCatalogResponse = {
   elements: SingleOffer[];
-  count: number;
+  count: number | null;
   page: number;
   limit: number;
   hasMore: boolean;
@@ -56,7 +56,7 @@ export function sandboxCatalogQueryOptions(
       const elements = Array.isArray(envelope?.data) ? envelope.data : [];
       return {
         elements,
-        count: total ?? elements.length,
+        count: total,
         page: resolvedPage,
         limit: envelope?.meta?.pagination?.limit ?? limit,
         hasMore,

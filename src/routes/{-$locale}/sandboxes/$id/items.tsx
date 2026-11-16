@@ -11,7 +11,7 @@ import type { SingleSandbox } from "@/types/single-sandbox";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { getQueryClient } from "@/lib/client";
 import { generateSandboxMeta } from "@/lib/generate-sandbox-meta";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { ColumnFiltersState } from "@tanstack/react-table";
 import type { DehydratedState } from "@tanstack/react-query";
 import { LibrarySquareIcon } from "lucide-react";
@@ -121,6 +121,12 @@ function SandboxItemsPage() {
     setPage((current) => ({ ...current, pageIndex: 0 }));
   };
 
+  useEffect(() => {
+    if (itemsData && !isPlaceholderData && itemsData.page - 1 !== page.pageIndex) {
+      setPage((current) => ({ ...current, pageIndex: itemsData.page - 1 }));
+    }
+  }, [itemsData, isPlaceholderData, page.pageIndex]);
+
   return (
     <div className="flex min-w-0 flex-col gap-5 w-full">
       <SandboxPageHeader
@@ -151,6 +157,7 @@ function SandboxItemsPage() {
             total={itemsData?.total ?? null}
             hasMore={itemsData?.hasMore}
             cursorMode
+            isPlaceholderData={isPlaceholderData}
             filters={filters}
             setFilters={updateFilters}
             emptyContent={

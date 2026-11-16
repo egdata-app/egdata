@@ -202,3 +202,83 @@ test("getV1PaginationTotal and getV1TotalPages handle null totals gracefully", (
   assert.equal(getV1TotalPages({ total: null, limit: 20 }, 20), null);
   assert.equal(getV1TotalPages({ total: 41, limit: 20 }, 20), 3);
 });
+
+test("fetchV1CursorPageAt invalidates downstream cursors when a boundary shifts or terminates", async () => {
+  const scopeKey = "unit-test-boundary-shift";
+  clearV1CursorCache(scopeKey);
+  let phase = 1;
+
+  const fetchPage = async (cursor?: string) => {
+    if (phase === 1) {
+      if (!cursor) {
+        return {
+          data: [makeOffer("A")],
+          meta: { pagination: { limit: 1, hasMore: true, nextCursor: "cur-A", total: 3 } },
+        };
+      }
+      if (cursor === "cur-A") {
+        return {
+          data: [makeOffer("B")],
+          meta: { pagination: { limit: 1, hasMore: true, nextCursor: "cur-B", total: 3 } },
+        };
+      }
+      return {
+        data: [makeOffer("C")],
+        meta: { pagination: { limit: 1, hasMore: false, nextCursor: null, total: 3 } },
+      };
+    }
+
+    // Phase 2: dataset shifted so page 1 boundary changes to cur-0
+    if (!cursor) {
+      return {
+        data: [makeOffer("0")],
+        meta: { pagination: { limit: 1, hasMore: true, nextCursor: "cur-0", total: 3 } },
+      };
+    }
+    if (cursor === "cur-0") {
+      return {
+        data: [makeOffer("A")],
+        meta: { pagination: { limit: 1, hasMore: false, nextCursor: null, total: 2 } },
+      };
+    }
+    throw new Error(`Unexpected stale cursor: ${cursor}`);
+  };
+
+  await fetchV1CursorPageAt(fetchPage, 3, scopeKey);
+
+  // Refresh page 1 with a new boundary; stale cursor cur-B must be discarded.
+  phase = 2;
+  await fetchV1CursorPageAt(fetchPage, 1, scopeKey);
+  const page3AfterShift = await fetchV1CursorPageAt(fetchPage, 3, scopeKey);
+  assert.equal(page3AfterShift.resolvedPage, 2);
+  assert.equal(page3AfterShift.envelope.data[0]?.id, "A");
+  assert.equal(page3AfterShift.hasMore, false);
+  clearV1CursorCache(scopeKey);
+});
+
+test("fetchV1CursorPageAt rejects non-advancing cursor responses", async () => {
+  const scopeKey = "unit-test-stuck-cursor";
+  clearV1CursorCache(scopeKey);
+
+  await assert.rejects(
+    () =>
+      fetchV1CursorPageAt(
+        async (cursor) => ({
+          data: [makeOffer("1")],
+          meta: {
+            pagination: {
+              limit: 1,
+              hasMore: true,
+              nextCursor: cursor ?? "c1",
+              total: null,
+            },
+          },
+        }),
+        2,
+        scopeKey,
+      ),
+    /did not advance/i,
+  );
+
+  clearV1CursorCache(scopeKey);
+});

@@ -143,13 +143,13 @@ function CatalogPreview({ id, group }: { id: string; group: SandboxCatalogGroup 
       country || "US",
     ),
   );
-  if (query.isSuccess && !query.data.count) return null;
+  if (query.isSuccess && query.data.elements.length === 0) return null;
   return (
     <section className="space-y-4" aria-label={t(`sandboxCatalog.groups.${group}`)}>
       <div className="flex items-center justify-between gap-4">
         <h2 className="text-xl font-semibold">
           {t(`sandboxCatalog.groups.${group}`)}
-          {query.data && (
+          {query.data && query.data.count !== null && (
             <span className="ml-3 text-sm font-normal text-muted-foreground">
               {" "}
               {query.data.count.toLocaleString(locale)}
@@ -193,7 +193,10 @@ export function SandboxCatalogPreviews({ id, total }: { id: string; total?: numb
     ),
     enabled: total == null,
   });
-  const isEmpty = (total ?? countQuery.data?.count) === 0;
+  const resolvedTotal = total ?? countQuery.data?.count;
+  const isEmpty =
+    resolvedTotal === 0 ||
+    (resolvedTotal == null && countQuery.isSuccess && countQuery.data.elements.length === 0);
 
   return (
     <div className="space-y-9">

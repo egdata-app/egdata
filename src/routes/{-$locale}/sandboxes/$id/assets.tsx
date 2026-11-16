@@ -12,7 +12,7 @@ import type { SingleSandbox } from "@/types/single-sandbox";
 import { getQueryClient } from "@/lib/client";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { generateSandboxMeta } from "@/lib/generate-sandbox-meta";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { ColumnFiltersState } from "@tanstack/react-table";
 import { Archive } from "lucide-react";
 import { useTranslation } from "@/lib/paraglide-react";
@@ -119,6 +119,12 @@ function SandboxAssetsPage() {
     setPage((current) => ({ ...current, pageIndex: 0 }));
   };
 
+  useEffect(() => {
+    if (assetsData && !isPlaceholderData && assetsData.page - 1 !== page.pageIndex) {
+      setPage((current) => ({ ...current, pageIndex: assetsData.page - 1 }));
+    }
+  }, [assetsData, isPlaceholderData, page.pageIndex]);
+
   return (
     <div className="flex min-w-0 flex-col gap-5 w-full">
       <SandboxPageHeader
@@ -149,6 +155,7 @@ function SandboxAssetsPage() {
             total={assetsData?.total ?? null}
             hasMore={assetsData?.hasMore}
             cursorMode
+            isPlaceholderData={isPlaceholderData}
             filters={filters}
             setFilters={updateFilters}
             emptyContent={

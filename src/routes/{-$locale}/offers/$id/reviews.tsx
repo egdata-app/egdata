@@ -75,6 +75,21 @@ const getVerificationParam = (verified: ReviewsFilter): "true" | "false" | undef
   return undefined;
 };
 
+async function fetchOfferReviews(id: string, verified: "true" | "false" | undefined) {
+  const envelope = await httpClient.v1GetEnvelope<SingleReview[], V1CursorPaginationMeta>(
+    `/offers/${id}/reviews`,
+    {
+      params: { verified },
+    },
+  );
+  const elements = Array.isArray(envelope?.data) ? envelope.data : [];
+  return {
+    elements,
+    page: 1,
+    total: getV1PaginationTotal(envelope?.meta?.pagination, elements.length),
+  };
+}
+
 export const Route = createFileRoute("/{-$locale}/offers/$id/reviews")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData() as {
@@ -109,20 +124,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/reviews")({
             verified: getVerificationParam("all"),
           },
         ],
-        queryFn: () =>
-          httpClient
-            .get<{
-              elements: Array<SingleReview>;
-              page: number;
-              total: number;
-              limit: number;
-            }>(`/offers/${params.id}/reviews`, {
-              params: {
-                page: 1,
-                verified: getVerificationParam("all"),
-              },
-            })
-            .catch(() => null),
+        queryFn: () => fetchOfferReviews(params.id, getVerificationParam("all")).catch(() => null),
       }),
       queryClient.prefetchQuery({
         queryKey: [
@@ -216,20 +218,7 @@ function Reviews() {
             verified: getVerificationParam(filter),
           },
         ],
-        queryFn: async () => {
-          const envelope = await httpClient.v1GetEnvelope<SingleReview[], V1CursorPaginationMeta>(
-            `/offers/${id}/reviews`,
-            {
-              params: { verified: getVerificationParam(filter) },
-            },
-          );
-          const elements = Array.isArray(envelope?.data) ? envelope.data : [];
-          return {
-            elements,
-            page: 1,
-            total: getV1PaginationTotal(envelope?.meta?.pagination, elements.length),
-          };
-        },
+        queryFn: () => fetchOfferReviews(id, getVerificationParam(filter)),
         refetchOnMount: "always",
       },
       {

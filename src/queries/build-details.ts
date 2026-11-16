@@ -20,7 +20,7 @@ export interface BuildItemsResponse {
   data: SingleItem[];
   page: number;
   limit: number;
-  total: number;
+  total: number | null;
   hasMore?: boolean;
 }
 
@@ -52,7 +52,7 @@ export const buildItemsQueryOptions = (id: string, page = 1, limit = 20) =>
         data,
         page: resolvedPage,
         limit: envelope?.meta?.pagination?.limit ?? limit,
-        total: total ?? data.length,
+        total,
         hasMore,
       } satisfies BuildItemsResponse;
     },
@@ -116,7 +116,7 @@ export const buildFileTreeQueryOptions = (
         manifestStatus: envelope?.meta?.manifestStatus ?? "verified",
         page: resolvedPage,
         limit: envelope?.meta?.pagination?.limit ?? limit,
-        total: total ?? nodes.length,
+        total,
         hasMore,
       } satisfies BuildFileTreeResponse & { hasMore: boolean };
     },
@@ -158,7 +158,7 @@ export const buildComparisonQueryOptions = (
         ...data,
         page: resolvedPage,
         limit: envelope?.meta?.pagination?.limit ?? limit,
-        total: total ?? data?.changes?.length ?? 0,
+        total,
         hasMore,
       } satisfies BuildComparisonResponse & { hasMore: boolean };
     },

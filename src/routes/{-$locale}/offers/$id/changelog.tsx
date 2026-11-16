@@ -50,8 +50,8 @@ type ChangelogWithPagination = {
   elements: Change[];
   page: number;
   limit: number;
-  totalCount: number;
-  totalPages: number;
+  totalCount: number | null;
+  totalPages: number | null;
   hasNextPage: boolean;
   hasPreviousPage: boolean;
 };
@@ -81,12 +81,12 @@ const getChangelog = (id: string, page: number, query?: string, field?: string, 
           `offer-changelog:${id}:${trimmedQuery ?? ""}:${field ?? ""}:${type ?? ""}`,
         );
         const elements = Array.isArray(envelope?.data) ? envelope.data : [];
-        const totalPages = getV1TotalPages(envelope?.meta?.pagination, limit) ?? resolvedPage;
+        const totalPages = getV1TotalPages(envelope?.meta?.pagination, limit);
         return {
           elements,
           page: resolvedPage,
           limit: envelope?.meta?.pagination?.limit ?? limit,
-          totalCount: total ?? elements.length,
+          totalCount: total,
           totalPages,
           hasNextPage: hasMore,
           hasPreviousPage: resolvedPage > 1,
@@ -334,7 +334,9 @@ function ChangelogPage() {
             </Button>
             <div className="flex items-center gap-2">
               <p className="text-sm text-muted-foreground">
-                {t("offerDetail.changelog.pageOf", { page, totalPages: data.totalPages })}
+                {data.totalPages !== null
+                  ? t("offerDetail.changelog.pageOf", { page, totalPages: data.totalPages })
+                  : `Page ${page}`}
               </p>
             </div>
             <Button

@@ -113,13 +113,27 @@ function SandboxOffersPage() {
     return () => clearTimeout(timer);
   }, [draft, search.q, update]);
   const query = useQuery(sandboxCatalogQueryOptions(id, search, country || "US"));
-  const total = query.data?.count ?? 0;
-  const pages = Math.max(1, Math.ceil(total / search.pageSize));
-  const canGoNext = query.data?.hasMore ?? search.page < pages;
+  const total = query.data?.count ?? null;
+  const pages = total !== null ? Math.max(1, Math.ceil(total / search.pageSize)) : null;
+  const canGoNext = query.data?.hasMore ?? (pages !== null && search.page < pages);
   useEffect(() => {
-    if (query.isSuccess && !query.isPlaceholderData && !query.data?.hasMore && search.page > pages)
+    if (!query.isSuccess || query.isPlaceholderData) return;
+    if (query.data.page !== search.page) {
+      update({ page: query.data.page }, true);
+      return;
+    }
+    if (pages !== null && !query.data.hasMore && search.page > pages) {
       update({ page: pages }, true);
-  }, [query.isSuccess, query.isPlaceholderData, query.data?.hasMore, search.page, pages, update]);
+    }
+  }, [
+    query.isSuccess,
+    query.isPlaceholderData,
+    query.data?.page,
+    query.data?.hasMore,
+    search.page,
+    pages,
+    update,
+  ]);
   const filtered = Boolean(search.q || search.types || search.group !== "all");
   const reset = () => {
     setDraft("");
@@ -230,7 +244,7 @@ function SandboxOffersPage() {
         aria-live="polite"
       >
         <span>
-          {query.data
+          {query.data && total !== null
             ? t("sandboxCatalog.results", {
                 count: total,
               })
@@ -319,41 +333,45 @@ function SandboxOffersPage() {
           )}
         </div>
       )}
-      {query.data && total > 0 && !query.isError && (
-        <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
-          <label className="flex items-center gap-2 text-sm text-muted-foreground">
-            {t("sandboxCatalog.pageSize")}
-            <select
-              className={selectClass}
-              value={search.pageSize}
-              onChange={(event) => update({ pageSize: Number(event.target.value) })}
-            >
-              {[20, 40, 60].map((size) => (
-                <option key={size}>{size}</option>
-              ))}
-            </select>
-          </label>
-          <div className="flex items-center gap-3">
-            <Button
-              variant="outline"
-              disabled={search.page <= 1 || query.isPlaceholderData}
-              onClick={() => update({ page: search.page - 1 })}
-            >
-              {t("sandboxCatalog.previous")}
-            </Button>
-            <span className="text-sm tabular-nums">
-              {t("sandboxCatalog.page", { page: search.page, pages })}
-            </span>
-            <Button
-              variant="outline"
-              disabled={!canGoNext || query.isPlaceholderData}
-              onClick={() => update({ page: search.page + 1 })}
-            >
-              {t("sandboxCatalog.next")}
-            </Button>
+      {query.data &&
+        (total === null ? query.data.elements.length > 0 : total > 0) &&
+        !query.isError && (
+          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
+            <label className="flex items-center gap-2 text-sm text-muted-foreground">
+              {t("sandboxCatalog.pageSize")}
+              <select
+                className={selectClass}
+                value={search.pageSize}
+                onChange={(event) => update({ pageSize: Number(event.target.value) })}
+              >
+                {[20, 40, 60].map((size) => (
+                  <option key={size}>{size}</option>
+                ))}
+              </select>
+            </label>
+            <div className="flex items-center gap-3">
+              <Button
+                variant="outline"
+                disabled={search.page <= 1 || query.isPlaceholderData}
+                onClick={() => update({ page: search.page - 1 })}
+              >
+                {t("sandboxCatalog.previous")}
+              </Button>
+              <span className="text-sm tabular-nums">
+                {pages !== null
+                  ? t("sandboxCatalog.page", { page: search.page, pages })
+                  : `Page ${search.page}`}
+              </span>
+              <Button
+                variant="outline"
+                disabled={!canGoNext || query.isPlaceholderData}
+                onClick={() => update({ page: search.page + 1 })}
+              >
+                {t("sandboxCatalog.next")}
+              </Button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
     </fieldset>
   );
 }
