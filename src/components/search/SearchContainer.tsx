@@ -4,12 +4,20 @@ import { useDebounce } from "@uidotdev/usehooks";
 import { useQuery } from "@tanstack/react-query";
 import { useStore } from "@tanstack/react-store";
 import { httpClient } from "@/lib/http-client";
-import { getSearchStore, searchStoreManager } from "@/stores/searchStore";
+import {
+  fetchV1CursorPageAt,
+  normalizeV1SearchResponse,
+  toV1SearchParams,
+  type NormalizedV1SearchResponse,
+  type V1SearchMeta,
+} from "@/lib/v1-adapters";
+import { DEFAULT_LIMIT, getSearchStore, searchStoreManager } from "@/stores/searchStore";
 import type { formSchema, SearchState } from "@/stores/searchStore";
 import { useCountry } from "@/hooks/use-country";
 import type { TypeOf } from "zod";
 import type { FullTag } from "@/types/tags";
-import type { AggregationBuckets, SearchV2Response } from "@/types/search-v2";
+import type { AggregationBuckets } from "@/types/search-v2";
+import type { SingleOfferWithPrice } from "@/types/single-offer-price";
 import { keepPreviousData } from "@tanstack/react-query";
 import { SearchFilters } from "./SearchFilters";
 import { SearchHeader } from "./SearchHeader";
@@ -132,16 +140,33 @@ export function SearchContainer({
     data: results,
     isFetching,
     isLoading,
-  } = useQuery({
-    queryKey: ["search", contextId, debouncedQuery],
-    queryFn: () =>
-      httpClient.post<SearchV2Response>(`/search/v2/search?country=${country}`, debouncedQuery),
+  } = useQuery<NormalizedV1SearchResponse>({
+    queryKey: ["search", contextId, country, debouncedQuery],
+    queryFn: async ({ signal }) => {
+      const targetPage = debouncedQuery.page ?? 1;
+      const limit = debouncedQuery.limit ?? DEFAULT_LIMIT;
+      const { page: _ignoredPage, ...filterKey } = debouncedQuery;
+      const scopeKey = `search:${contextId ?? "default"}:${country}:${JSON.stringify(filterKey)}`;
+      const { envelope, resolvedPage } = await fetchV1CursorPageAt<
+        SingleOfferWithPrice[],
+        V1SearchMeta
+      >(
+        (cursor) =>
+          httpClient.v1GetEnvelope<SingleOfferWithPrice[], V1SearchMeta>("/search", {
+            params: toV1SearchParams(debouncedQuery, { country, cursor }),
+            signal,
+          }),
+        targetPage,
+        scopeKey,
+      );
+      return normalizeV1SearchResponse(envelope, resolvedPage, limit);
+    },
     placeholderData: keepPreviousData,
   });
   // Fetch tags
   const { data: tags } = useQuery({
     queryKey: ["all-tags"],
-    queryFn: () => httpClient.get<FullTag[]>("/search/tags?raw=true"),
+    queryFn: () => httpClient.v1Get<FullTag[]>("/search/tags"),
     refetchInterval: 1000 * 60 * 5, // 5 minutes
     placeholderData: keepPreviousData,
   });

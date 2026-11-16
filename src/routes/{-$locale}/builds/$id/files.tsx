@@ -324,7 +324,9 @@ function ComparisonView({
     ["modified", comparison.summary.files.modified],
     ["removed", comparison.summary.files.removed],
   ] as const;
-  const totalPages = Math.max(1, Math.ceil(comparison.total / comparison.limit));
+  const totalPages =
+    comparison.total !== null ? Math.max(1, Math.ceil(comparison.total / comparison.limit)) : null;
+  const canGoNext = comparison.hasMore ?? (totalPages !== null && search.page < totalPages);
 
   return (
     <div className="flex flex-col gap-4">
@@ -509,7 +511,9 @@ function ComparisonView({
         </div>
         <div className="flex items-center justify-end gap-2 text-sm">
           <span className="mr-2 text-muted-foreground">
-            {t("builds.comparison.page", { page: search.page, total: totalPages })}
+            {totalPages !== null
+              ? t("builds.comparison.page", { page: search.page, total: totalPages })
+              : `Page ${search.page}`}
           </span>
           <Button
             variant="outline"
@@ -523,7 +527,7 @@ function ComparisonView({
           <Button
             variant="outline"
             size="icon"
-            disabled={search.page >= totalPages}
+            disabled={!canGoNext}
             onClick={() => updateSearch({ page: search.page + 1 })}
           >
             <ChevronRightIcon />

@@ -47,18 +47,25 @@ export function sandboxFixtureResponse(url, payload) {
   if (url.pathname === "/graphql" && payload?.variables?.id?.startsWith("e2e-sandbox-catalog")) {
     return { status: 200, body: { data: { sandboxHub: null } } };
   }
-  const match = url.pathname.match(/^\/sandboxes\/(e2e-sandbox-catalog[^/]*)(?:\/(.*))?$/);
+  const pathname = url.pathname.replace(/^\/v1/, "");
+  const match = pathname.match(/^\/sandboxes\/(e2e-sandbox-catalog[^/]*)(?:\/(.*))?$/);
   if (!match) return null;
   const [, id, section] = match;
   if (!section)
     return {
       status: 200,
-      body: { _id: id, name: id, displayName: "Catalog fixture", status: "ACTIVE" },
+      body: { data: { _id: id, name: id, displayName: "Catalog fixture", status: "ACTIVE" } },
     };
-  if (section === "base-game") return { status: 200, body: null };
-  if (section === "achievements") return { status: 200, body: [] };
+  if (section === "base-game") return { status: 200, body: { data: null } };
+  if (section === "achievements") return { status: 200, body: { data: [], meta: { count: 0 } } };
   if (section === "changelog")
-    return { status: 200, body: { hits: [], estimatedTotalHits: 0, limit: 20 } };
+    return {
+      status: 200,
+      body: {
+        data: { hits: [] },
+        meta: { count: 0, pagination: { limit: 20, hasMore: false, nextCursor: null, total: 0 } },
+      },
+    };
   const types = url.searchParams.get("offerType")?.split(",");
   const title = (url.searchParams.get("title") || "").toLowerCase();
   if (types?.includes("DLC")) return { status: 503, body: { error: "Fixture group unavailable" } };
@@ -70,15 +77,24 @@ export function sandboxFixtureResponse(url, payload) {
             (!types || types.includes(entry.offerType)) &&
             entry.title.toLowerCase().includes(title),
         );
-  const page = Number(url.searchParams.get("page") || 1);
+  const cursor = url.searchParams.get("cursor");
+  const page = cursor ? Number(cursor) || 1 : 1;
   const limit = Number(url.searchParams.get("limit") || 20);
+  const sliced = elements.slice((page - 1) * limit, page * limit);
+  const hasMore = page * limit < elements.length;
   return {
     status: 200,
     body: {
-      elements: elements.slice((page - 1) * limit, page * limit),
-      count: elements.length,
-      page,
-      limit,
+      data: sliced,
+      meta: {
+        count: sliced.length,
+        pagination: {
+          limit,
+          hasMore,
+          nextCursor: hasMore ? String(page + 1) : null,
+          total: elements.length,
+        },
+      },
     },
   };
 }

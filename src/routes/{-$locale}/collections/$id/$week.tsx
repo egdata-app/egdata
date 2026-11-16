@@ -27,19 +27,13 @@ export const Route = createFileRoute("/{-$locale}/collections/$id/$week")({
         getCollection({
           slug: id,
           limit: 20,
-          page: pageParam as number,
+          cursor: pageParam as string | undefined,
           country: country ?? "US",
           week,
         }).catch(() => null),
-      initialPageParam: 1,
-      getNextPageParam: (lastPage: Collections | null, allPages: (Collections | null)[]) => {
-        if (!lastPage) return undefined;
-        if (lastPage.page * lastPage.limit + 20 > lastPage.total) {
-          return undefined;
-        }
-
-        return allPages?.length + 1;
-      },
+      initialPageParam: undefined as string | undefined,
+      getNextPageParam: (lastPage: Collections | null) =>
+        lastPage?.hasMore && lastPage.nextCursor ? lastPage.nextCursor : undefined,
     });
 
     return {

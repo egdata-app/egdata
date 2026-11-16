@@ -201,8 +201,13 @@ test("a failed group can be retried after recovery", async ({ page }) => {
   await expect(page.getByRole("button", { name: "Try again", exact: true })).toBeVisible({
     timeout: 20000,
   });
-  await page.route("**/sandboxes/e2e-sandbox-catalog*/offers?**", (route) =>
-    route.fulfill({ json: { elements: [], count: 0, page: 1, limit: 20 } }),
+  await page.route("**/v1/sandboxes/e2e-sandbox-catalog*/offers?**", (route) =>
+    route.fulfill({
+      json: {
+        data: [],
+        meta: { count: 0, pagination: { limit: 20, hasMore: false, nextCursor: null, total: 0 } },
+      },
+    }),
   );
   await page.getByRole("button", { name: "Try again", exact: true }).click();
   await expect(page.getByText("No records match your search.", { exact: true })).toBeVisible();

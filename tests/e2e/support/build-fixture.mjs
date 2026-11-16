@@ -153,15 +153,20 @@ const treeNodes = {
 };
 
 export function createBuildPageResponse(url) {
-  const path = url.pathname;
+  const path = url.pathname.replace(/^\/v1/, "");
   const buildMatch = path.match(/^\/builds\/([^/]+)$/);
-  if (buildMatch) return historyBuilds.find((entry) => entry.id === buildMatch[1]) ?? null;
+  if (buildMatch) {
+    const build = historyBuilds.find((entry) => entry.id === buildMatch[1]) ?? null;
+    return build ? { data: build } : null;
+  }
   if (/^\/builds\/[^/]+\/items$/.test(path)) {
+    const data = [{ id: "luto", title: "Luto", keyImages: [], releaseInfo: [] }];
     return {
-      data: [{ id: "luto", title: "Luto", keyImages: [], releaseInfo: [] }],
-      page: 1,
-      limit: 25,
-      total: 1,
+      data,
+      meta: {
+        count: data.length,
+        pagination: { limit: 25, hasMore: false, nextCursor: null, total: data.length },
+      },
     };
   }
   const historyMatch = path.match(/^\/builds\/([^/]+)\/history$/);
@@ -172,32 +177,44 @@ export function createBuildPageResponse(url) {
         : historyMatch[1] === previousBuildId
           ? oldestBuildId
           : null;
+    const data = historyBuilds.map((entry) => ({
+      ...entry,
+      comparable: entry.id !== unverifiedBuild.id,
+      sameStream: true,
+    }));
     return {
-      data: historyBuilds.map((entry) => ({
-        ...entry,
-        comparable: entry.id !== unverifiedBuild.id,
-        sameStream: true,
-      })),
-      previousComparableBuildId,
-      page: 1,
-      limit: 100,
-      total: historyBuilds.length,
+      data,
+      meta: {
+        count: data.length,
+        scope: url.searchParams.get("scope") ?? "stream",
+        previousComparableBuildId,
+        pagination: { limit: 100, hasMore: false, nextCursor: null, total: data.length },
+      },
     };
   }
   const treeMatch = path.match(/^\/builds\/([^/]+)\/tree$/);
   if (treeMatch) {
     const treePath = url.searchParams.get("path") ?? "";
-    const page = Number.parseInt(url.searchParams.get("page") ?? "1", 10);
+    const cursor = url.searchParams.get("cursor");
+    const page = cursor ? Number.parseInt(cursor, 10) || 1 : 1;
     const limit = Number.parseInt(url.searchParams.get("limit") ?? "100", 10);
     const nodes = treeNodes[treePath] ?? [];
     const offset = (page - 1) * limit;
+    const sliced = nodes.slice(offset, offset + limit);
+    const hasMore = offset + limit < nodes.length;
     return {
-      path: treePath,
-      nodes: nodes.slice(offset, offset + limit),
-      manifestStatus: treeMatch[1] === unverifiedBuild.id ? "unavailable" : "verified",
-      page,
-      limit,
-      total: nodes.length,
+      data: sliced,
+      meta: {
+        count: sliced.length,
+        path: treePath,
+        manifestStatus: treeMatch[1] === unverifiedBuild.id ? "unavailable" : "verified",
+        pagination: {
+          limit,
+          hasMore,
+          nextCursor: hasMore ? String(page + 1) : null,
+          total: nodes.length,
+        },
+      },
     };
   }
   const comparisonMatch = path.match(/^\/builds\/([^/]+)\/compare\/([^/]+)$/);
@@ -242,32 +259,40 @@ export function createBuildPageResponse(url) {
         (!statuses?.length || statuses.includes(change.status)),
     );
     return {
-      base,
-      target,
-      comparisonScope: "same_stream",
-      summary: {
-        files: { added: 1, modified: 1, removed: 1, unchanged: 121, total: 124 },
-        fileBytes: {
-          base: 100,
-          target: 125,
-          delta: 25,
-          added: 40,
-          removed: 20,
-          modifiedBase: 10,
-          modifiedTarget: 15,
+      data: {
+        base,
+        target,
+        comparisonScope: "same_stream",
+        summary: {
+          files: { added: 1, modified: 1, removed: 1, unchanged: 121, total: 124 },
+          fileBytes: {
+            base: 100,
+            target: 125,
+            delta: 25,
+            added: 40,
+            removed: 20,
+            modifiedBase: 10,
+            modifiedTarget: 15,
+          },
+          installedSizeBytes: { base: 19_500_000_000, target: 19_572_719_616, delta: 72_719_616 },
+          fullDownloadSizeBytes: { base: 9_000_000_000, target: 9_100_000_000, delta: 100_000_000 },
+          technologies: { added: [], removed: [] },
+          installTags: { added: [], removed: [] },
+          topFiles: [],
+          topDirectories: [],
         },
-        installedSizeBytes: { base: 19_500_000_000, target: 19_572_719_616, delta: 72_719_616 },
-        fullDownloadSizeBytes: { base: 9_000_000_000, target: 9_100_000_000, delta: 100_000_000 },
-        technologies: { added: [], removed: [] },
-        installTags: { added: [], removed: [] },
-        topFiles: [],
-        topDirectories: [],
+        changes: filteredChanges,
+        warnings: [],
       },
-      changes: filteredChanges,
-      warnings: [],
-      page: 1,
-      limit: 50,
-      total: filteredChanges.length,
+      meta: {
+        count: filteredChanges.length,
+        pagination: {
+          limit: 50,
+          hasMore: false,
+          nextCursor: null,
+          total: filteredChanges.length,
+        },
+      },
     };
   }
   return null;

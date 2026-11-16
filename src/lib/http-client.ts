@@ -1214,6 +1214,14 @@ export class HttpFetch {
     return envelope as unknown as T;
   }
 
+  public async v1GetEnvelope<T, M = Record<string, unknown>>(
+    endpoint: string,
+    options?: FetchOptions,
+  ): Promise<V1Envelope<T, M>> {
+    const normalized = this.normalizeV1Endpoint(endpoint);
+    return this.get<V1Envelope<T, M>>(normalized, options);
+  }
+
   public async v1Get<T, M = Record<string, unknown>>(
     endpoint: string,
     options?: FetchOptions,
@@ -1221,6 +1229,19 @@ export class HttpFetch {
     const normalized = this.normalizeV1Endpoint(endpoint);
     const envelope = await this.get<V1Envelope<T, M>>(normalized, options);
     return this.unwrapV1Envelope("GET", normalized, envelope);
+  }
+
+  public async v1PostEnvelope<T, M = Record<string, unknown>>(
+    endpoint: string,
+    body?: Record<string, unknown> | unknown,
+    options?: FetchOptions,
+  ): Promise<V1Envelope<T, M>> {
+    const normalized = this.normalizeV1Endpoint(endpoint);
+    return this.post<V1Envelope<T, M>>(
+      normalized,
+      body as Record<string, unknown> | undefined,
+      options,
+    );
   }
 
   public async v1Post<T, M = Record<string, unknown>>(

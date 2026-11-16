@@ -26,6 +26,7 @@ import { getImage } from "@/lib/getImage";
 import { SearchContext } from "@/contexts/global-search";
 import { getPlatformsArray, textPlatformIcons } from "@/components/app/platform-icons";
 import { httpClient } from "@/lib/http-client";
+import { getV1PaginationTotal, type V1CursorPaginationMeta } from "@/lib/v1-adapters";
 import { calculatePrice } from "@/lib/calculate-price";
 import { getEffectivePrice } from "@/lib/effective-price";
 import type { Price } from "@/types/price";
@@ -257,33 +258,73 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
     queries: [
       {
         queryKey: ["global-search", "offers", resolvedQuery],
-        queryFn: ({ signal }) =>
-          httpClient.get<Multisearch<SingleOffer>>("/multisearch/offers", {
-            params: { query: resolvedQuery, limit: SEARCH_LIMIT },
-            signal,
-          }),
+        queryFn: async ({ signal }) => {
+          const envelope = await httpClient.v1GetEnvelope<SingleOffer[], V1CursorPaginationMeta>(
+            "/multisearch/offers",
+            {
+              params: { query: resolvedQuery, limit: SEARCH_LIMIT },
+              signal,
+            },
+          );
+          const hits = Array.isArray(envelope?.data) ? envelope.data : [];
+          return {
+            query: resolvedQuery,
+            hits,
+            processingTimeMs: 0,
+            limit: envelope?.meta?.pagination?.limit ?? SEARCH_LIMIT,
+            offset: 0,
+            estimatedTotalHits: getV1PaginationTotal(envelope?.meta?.pagination, hits.length),
+          } satisfies Multisearch<SingleOffer>;
+        },
         enabled: queryReady,
         placeholderData: keepPreviousData,
         staleTime: 30_000,
       },
       {
         queryKey: ["global-search", "items", resolvedQuery],
-        queryFn: ({ signal }) =>
-          httpClient.get<Multisearch<SingleItem>>("/multisearch/items", {
-            params: { query: resolvedQuery, limit: SEARCH_LIMIT },
-            signal,
-          }),
+        queryFn: async ({ signal }) => {
+          const envelope = await httpClient.v1GetEnvelope<SingleItem[], V1CursorPaginationMeta>(
+            "/multisearch/items",
+            {
+              params: { query: resolvedQuery, limit: SEARCH_LIMIT },
+              signal,
+            },
+          );
+          const hits = Array.isArray(envelope?.data) ? envelope.data : [];
+          return {
+            query: resolvedQuery,
+            hits,
+            processingTimeMs: 0,
+            limit: envelope?.meta?.pagination?.limit ?? SEARCH_LIMIT,
+            offset: 0,
+            estimatedTotalHits: getV1PaginationTotal(envelope?.meta?.pagination, hits.length),
+          } satisfies Multisearch<SingleItem>;
+        },
         enabled: queryReady,
         placeholderData: keepPreviousData,
         staleTime: 30_000,
       },
       {
         queryKey: ["global-search", "sellers", resolvedQuery],
-        queryFn: ({ signal }) =>
-          httpClient.get<Multisearch<SingleSeller>>("/multisearch/sellers", {
-            params: { query: resolvedQuery, limit: SEARCH_LIMIT },
-            signal,
-          }),
+        queryFn: async ({ signal }) => {
+          const envelope = await httpClient.v1GetEnvelope<SingleSeller[], { count?: number }>(
+            "/multisearch/sellers",
+            {
+              params: { query: resolvedQuery, limit: SEARCH_LIMIT },
+              signal,
+            },
+          );
+          const hits = Array.isArray(envelope?.data) ? envelope.data : [];
+          return {
+            query: resolvedQuery,
+            hits,
+            processingTimeMs: 0,
+            limit: SEARCH_LIMIT,
+            offset: 0,
+            estimatedTotalHits:
+              typeof envelope?.meta?.count === "number" ? envelope.meta.count : hits.length,
+          } satisfies Multisearch<SingleSeller>;
+        },
         enabled: queryReady,
         placeholderData: keepPreviousData,
         staleTime: 30_000,
@@ -297,15 +338,25 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
     isError: semanticError,
   } = useQuery({
     queryKey: ["global-search", "natural-language", semanticResolvedQuery, resolvedLocale],
-    queryFn: ({ signal }) =>
-      httpClient.post<NaturalLanguageSearchResponse>(
+    queryFn: async ({ signal }) => {
+      const envelope = await httpClient.v1PostEnvelope<
+        Array<{ score: number; offer: GlobalSearchOffer }>,
+        { query?: string; count?: number }
+      >(
         "/search/natural-language",
         { query: semanticResolvedQuery, topK: SEARCH_LIMIT },
         {
           params: { locale: resolvedLocale },
           signal,
         },
-      ),
+      );
+      const matches = Array.isArray(envelope?.data) ? envelope.data : [];
+      return {
+        query: envelope?.meta?.query ?? semanticResolvedQuery,
+        count: typeof envelope?.meta?.count === "number" ? envelope.meta.count : matches.length,
+        matches,
+      } satisfies NaturalLanguageSearchResponse;
+    },
     enabled: semanticQueryReady,
     staleTime: 30_000,
     retry: false,

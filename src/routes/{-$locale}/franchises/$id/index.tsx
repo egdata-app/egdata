@@ -48,20 +48,12 @@ export const Route = createFileRoute("/{-$locale}/franchises/$id/")({
         getFranchise({
           slug: id,
           limit: 20,
-          page: pageParam as number,
+          cursor: pageParam as string | undefined,
           country: country ?? "US",
         }).catch(() => null),
-      initialPageParam: 1,
-      getNextPageParam: (
-        lastPage: FranchiseResponse | null,
-        allPages: (FranchiseResponse | null)[],
-      ) => {
-        if (!lastPage) return undefined;
-        if (lastPage.page * lastPage.limit >= lastPage.total) {
-          return undefined;
-        }
-        return allPages.length + 1;
-      },
+      initialPageParam: undefined as string | undefined,
+      getNextPageParam: (lastPage: FranchiseResponse | null) =>
+        lastPage?.hasMore && lastPage.nextCursor ? lastPage.nextCursor : undefined,
     });
 
     return {
@@ -152,16 +144,12 @@ function FranchisePage() {
       getFranchise({
         slug: id,
         limit: 20,
-        page: pageParam as number,
+        cursor: pageParam as string | undefined,
         country,
       }),
-    initialPageParam: 1,
-    getNextPageParam: (lastPage: FranchiseResponse, allPages: FranchiseResponse[]) => {
-      if (lastPage.page * lastPage.limit >= lastPage.total) {
-        return undefined;
-      }
-      return allPages.length + 1;
-    },
+    initialPageParam: undefined as string | undefined,
+    getNextPageParam: (lastPage: FranchiseResponse) =>
+      lastPage.hasMore && lastPage.nextCursor ? lastPage.nextCursor : undefined,
   });
 
   if (isLoading) {

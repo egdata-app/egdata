@@ -11,27 +11,32 @@ import {
 import { expectNoPageHorizontalOverflow } from "./support/assertions";
 
 const emptySearchResponse = {
-  total: 0,
-  offers: [],
-  page: 1,
-  limit: 28,
-  aggregations: {
-    price_stats: { count: 0, min: 0, max: 0, avg: 0, sum: 0 },
-    technologies: { doc_count_error_upper_bound: 0, sum_other_doc_count: 0, buckets: [] },
+  data: [],
+  meta: {
+    pagination: { limit: 28, hasMore: false, nextCursor: null, total: 0 },
+    facets: {
+      priceStats: { count: 0, min: 0, max: 0, avg: 0, sum: 0 },
+      technologies: { doc_count_error_upper_bound: 0, sum_other_doc_count: 0, buckets: [] },
+    },
+    result: { tookMs: 1, timedOut: false },
   },
-  meta: { ms: 1, timed_out: false, cached: false },
 };
 
-async function mockSearch(page: Page, bodies: unknown[] = []) {
-  await page.route("**/search/v2/search**", async (route) => {
-    bodies.push(route.request().postDataJSON());
+async function mockSearch(page: Page, queries: Record<string, string>[] = []) {
+  await page.route("**/v1/search**", async (route) => {
+    const url = new URL(route.request().url());
+    if (url.pathname.endsWith("/tags")) {
+      await route.fulfill({
+        contentType: "application/json",
+        body: JSON.stringify({ data: [], meta: { count: 0 } }),
+      });
+      return;
+    }
+    queries.push(Object.fromEntries(url.searchParams.entries()));
     await route.fulfill({
       contentType: "application/json",
       body: JSON.stringify(emptySearchResponse),
     });
-  });
-  await page.route("**/search/tags**", async (route) => {
-    await route.fulfill({ contentType: "application/json", body: "[]" });
   });
 }
 
@@ -67,8 +72,8 @@ async function mockTechnologyClient(
 
 test.describe("technology profiles", () => {
   test("renders a sourced profile and locks search to the exact route key", async ({ page }) => {
-    const searchBodies: unknown[] = [];
-    await mockSearch(page, searchBodies);
+    const searchQueries: Record<string, string>[] = [];
+    await mockSearch(page, searchQueries);
     await mockTechnologyClient(page);
 
     await page.goto("/technologies/NVIDIA_DLSS?technologies=OVERRIDE&title=ray");
@@ -93,13 +98,8 @@ test.describe("technology profiles", () => {
     await expect(page.getByText("No results found")).toBeVisible();
     await expect(page).not.toHaveURL(/(?:\?|&)technologies=/u);
     await expect
-      .poll(() =>
-        searchBodies.find(
-          (body) =>
-            typeof body === "object" && body !== null && "title" in body && body.title === "ray",
-        ),
-      )
-      .toMatchObject({ technologies: ["NVIDIA_DLSS"], title: "ray" });
+      .poll(() => searchQueries.find((params) => params.title === "ray"))
+      .toMatchObject({ technologies: "NVIDIA_DLSS", title: "ray" });
   });
 
   test("polls a pending profile until it becomes ready", async ({ page }) => {

@@ -29,12 +29,11 @@ export const InternalBanner: React.FC<{
         return [{ id: manualOfferId, title }];
       }
 
-      const response = await httpClient.get<{
-        elements: SingleOffer[];
-        total: number;
-      }>(`/autocomplete?query=${title}`);
+      const response = await httpClient.v1Get<SingleOffer[]>("/autocomplete", {
+        params: { query: title },
+      });
 
-      const elements = Array.isArray(response?.elements) ? response.elements : [];
+      const elements = Array.isArray(response) ? response : [];
 
       return elements
         .filter(({ namespace }) => !internalNamespaces.includes(namespace))

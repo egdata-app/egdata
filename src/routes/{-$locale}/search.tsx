@@ -15,7 +15,7 @@ export const Route = createFileRoute("/{-$locale}/search")({
     // Only prefetch tags on initial load - SearchContainer handles search results client-side
     await queryClient.ensureQueryData({
       queryKey: ["all-tags"],
-      queryFn: () => httpClient.get("/search/tags?raw=true").catch(() => null),
+      queryFn: () => httpClient.v1Get("/search/tags").catch(() => null),
     });
 
     return {

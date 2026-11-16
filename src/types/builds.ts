@@ -75,7 +75,7 @@ export interface BuildFileTreeResponse {
   manifestStatus: ManifestStatus;
   page: number;
   limit: number;
-  total: number;
+  total: number | null;
 }
 
 export interface BuildInstallOptions {
@@ -168,5 +168,5 @@ export interface BuildComparisonResponse {
   warnings: string[];
   page: number;
   limit: number;
-  total: number;
+  total: number | null;
 }

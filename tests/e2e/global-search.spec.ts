@@ -85,13 +85,13 @@ test.describe("Global search", () => {
   });
 
   test("hides the semantic group when the endpoint returns no matches", async ({ page }) => {
-    await page.unroute("**/search/natural-language**");
+    await page.unroute("**/v1/search/natural-language**");
     await mockSemanticSearch(page, "empty");
     await openGlobalSearch(page);
 
     const responsePromise = page.waitForResponse(
       (response) =>
-        response.url().includes("/search/natural-language") && response.status() === 200,
+        response.url().includes("/v1/search/natural-language") && response.status() === 200,
     );
     await page.getByPlaceholder("Search games, items, sellers...").fill(searchQuery);
     await responsePromise;
@@ -101,13 +101,13 @@ test.describe("Global search", () => {
   });
 
   test("keeps direct matches usable when semantic search is unavailable", async ({ page }) => {
-    await page.unroute("**/search/natural-language**");
+    await page.unroute("**/v1/search/natural-language**");
     await mockSemanticSearch(page, "error");
     await openGlobalSearch(page);
 
     const responsePromise = page.waitForResponse(
       (response) =>
-        response.url().includes("/search/natural-language") && response.status() === 503,
+        response.url().includes("/v1/search/natural-language") && response.status() === 503,
     );
     await page.getByPlaceholder("Search games, items, sellers...").fill(searchQuery);
     await responsePromise;
@@ -122,7 +122,7 @@ test.describe("Global search", () => {
   });
 
   test("fits short content and caps overflowing global-search results", async ({ page }) => {
-    await page.unroute("**/search/natural-language**");
+    await page.unroute("**/v1/search/natural-language**");
     await mockSemanticSearch(page, "overflow");
     const dialog = await openGlobalSearch(page);
 
@@ -131,7 +131,7 @@ test.describe("Global search", () => {
 
     const responsePromise = page.waitForResponse(
       (response) =>
-        response.url().includes("/search/natural-language") && response.status() === 200,
+        response.url().includes("/v1/search/natural-language") && response.status() === 200,
     );
     await page.getByPlaceholder("Search games, items, sellers...").fill(searchQuery);
     await responsePromise;
@@ -167,29 +167,26 @@ async function openGlobalSearch(page: Page) {
 }
 
 async function mockGlobalSearch(page: Page) {
-  await page.route("**/multisearch/offers**", async (route) => {
+  await page.route("**/v1/multisearch/offers**", async (route) => {
     await route.fulfill({
       contentType: "application/json",
       body: JSON.stringify({
-        query: searchQuery,
-        hits: [
+        data: [
           offer("offer-rdr2-standard", "Red Dead Redemption 2"),
           offer("offer-rdr2-duplicate", "Red Dead Redemption 2"),
         ],
-        processingTimeMs: 1,
-        limit: 6,
-        offset: 0,
-        estimatedTotalHits: 2,
+        meta: {
+          pagination: { limit: 6, hasMore: false, nextCursor: null, total: 2 },
+        },
       }),
     });
   });
 
-  await page.route("**/multisearch/items**", async (route) => {
+  await page.route("**/v1/multisearch/items**", async (route) => {
     await route.fulfill({
       contentType: "application/json",
       body: JSON.stringify({
-        query: searchQuery,
-        hits: [
+        data: [
           {
             _id: "item-long-title",
             id: "item-long-title",
@@ -223,24 +220,19 @@ async function mockGlobalSearch(page: Page) {
             requiresSecureAccount: false,
           },
         ],
-        processingTimeMs: 1,
-        limit: 6,
-        offset: 0,
-        estimatedTotalHits: 1,
+        meta: {
+          pagination: { limit: 6, hasMore: false, nextCursor: null, total: 1 },
+        },
       }),
     });
   });
 
-  await page.route("**/multisearch/sellers**", async (route) => {
+  await page.route("**/v1/multisearch/sellers**", async (route) => {
     await route.fulfill({
       contentType: "application/json",
       body: JSON.stringify({
-        query: searchQuery,
-        hits: [],
-        processingTimeMs: 1,
-        limit: 6,
-        offset: 0,
-        estimatedTotalHits: 0,
+        data: [],
+        meta: { count: 0 },
       }),
     });
   });
@@ -256,7 +248,7 @@ async function mockGlobalSearch(page: Page) {
 }
 
 async function mockSemanticSearch(page: Page, mode: SemanticSearchMode) {
-  await page.route("**/search/natural-language**", async (route) => {
+  await page.route("**/v1/search/natural-language**", async (route) => {
     const request = route.request();
     const requestUrl = new URL(request.url());
 
@@ -302,9 +294,11 @@ async function mockSemanticSearch(page: Page, mode: SemanticSearchMode) {
     await route.fulfill({
       contentType: "application/json",
       body: JSON.stringify({
-        query: searchQuery,
-        count: matches.length,
-        matches,
+        data: matches,
+        meta: {
+          query: searchQuery,
+          count: matches.length,
+        },
       }),
     });
   });

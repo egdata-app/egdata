@@ -87,9 +87,11 @@ export function BuildFilesTree({ id, baseline, path, page, onNavigate }: BuildFi
 
   const comparison = comparisonQuery.data;
   const selectedChange = comparison?.changes.find((change) => change.path === selectedFile?.path);
-  const totalPages = treeQuery.data
-    ? Math.max(1, Math.ceil(treeQuery.data.total / treeQuery.data.limit))
-    : 1;
+  const totalPages =
+    treeQuery.data && treeQuery.data.total !== null
+      ? Math.max(1, Math.ceil(treeQuery.data.total / treeQuery.data.limit))
+      : null;
+  const canGoNext = treeQuery.data?.hasMore ?? (totalPages !== null && page < totalPages);
 
   return (
     <div className="flex flex-col gap-4" data-testid="build-files-tree">
@@ -223,7 +225,9 @@ export function BuildFilesTree({ id, baseline, path, page, onNavigate }: BuildFi
           {treeQuery.data && (
             <div className="mt-4 flex items-center justify-end gap-2 text-sm">
               <span className="mr-2 text-muted-foreground">
-                {t("builds.comparison.page", { page, total: totalPages })}
+                {totalPages !== null
+                  ? t("builds.comparison.page", { page, total: totalPages })
+                  : `Page ${page}`}
               </span>
               <Button
                 type="button"
@@ -239,7 +243,7 @@ export function BuildFilesTree({ id, baseline, path, page, onNavigate }: BuildFi
                 type="button"
                 variant="outline"
                 size="icon"
-                disabled={page >= totalPages}
+                disabled={!canGoNext}
                 onClick={() => onNavigate(path, page + 1)}
               >
                 <ChevronRightIcon />

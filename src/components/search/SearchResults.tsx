@@ -1,7 +1,7 @@
 import type { TypeOf } from "zod";
 import { useTranslation } from "@/lib/paraglide-react";
 import type { formSchema } from "@/stores/searchStore";
-import type { SearchV2Response } from "@/types/search-v2";
+import type { NormalizedV1SearchResponse } from "@/lib/v1-adapters";
 import { usePreferences } from "@/hooks/use-preferences";
 import { cn } from "@/lib/utils";
 import { GameCardSkeleton, OfferCard } from "@/components/app/offer-card";
@@ -17,7 +17,7 @@ export interface SearchResultsProps {
     value: TypeOf<typeof formSchema>[K],
   ) => void;
   loading: boolean;
-  results: SearchV2Response | null | undefined;
+  results: NormalizedV1SearchResponse | null | undefined;
 }
 
 export function SearchResults(props: SearchResultsProps) {
@@ -74,8 +74,10 @@ export function SearchResults(props: SearchResultsProps) {
         })}
       </div>
       <DynamicPagination
-        currentPage={query.page ?? 1}
-        totalPages={Math.ceil(results.total / (query.limit ?? DEFAULT_LIMIT))}
+        cursorMode
+        currentPage={results.page ?? query.page ?? 1}
+        totalPages={results.totalPages ?? Math.ceil(results.total / (query.limit ?? DEFAULT_LIMIT))}
+        hasMore={results.hasMore}
         setPage={(page) => setField("page", page)}
       />
     </section>

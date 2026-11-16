@@ -1,4 +1,4 @@
-import { createFileRoute, getRouteApi } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@/components/app/localized-link";
 import "@mdxeditor/editor/style.css";
 import {
@@ -8,7 +8,7 @@ import {
   useQueries,
 } from "@tanstack/react-query";
 import { httpClient } from "@/lib/http-client";
-import { unwrapV1Poll } from "@/lib/v1-adapters";
+import { getV1PaginationTotal, type V1CursorPaginationMeta, unwrapV1Poll } from "@/lib/v1-adapters";
 import type { SingleReview } from "@/types/reviews";
 import type { RatingsType } from "@egdata/core.schemas.ratings";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
@@ -60,8 +60,6 @@ const EditReviewForm = lazy(() =>
   }),
 );
 
-const routeApi = getRouteApi("__root__");
-
 type ReviewSummary = {
   overallScore: number;
   recommendedPercentage: number;
@@ -76,6 +74,21 @@ const getVerificationParam = (verified: ReviewsFilter): "true" | "false" | undef
   if (verified === "not-verified") return "false";
   return undefined;
 };
+
+async function fetchOfferReviews(id: string, verified: "true" | "false" | undefined) {
+  const envelope = await httpClient.v1GetEnvelope<SingleReview[], V1CursorPaginationMeta>(
+    `/offers/${id}/reviews`,
+    {
+      params: { verified },
+    },
+  );
+  const elements = Array.isArray(envelope?.data) ? envelope.data : [];
+  return {
+    elements,
+    page: 1,
+    total: getV1PaginationTotal(envelope?.meta?.pagination, elements.length),
+  };
+}
 
 export const Route = createFileRoute("/{-$locale}/offers/$id/reviews")({
   component: () => {
@@ -111,20 +124,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/reviews")({
             verified: getVerificationParam("all"),
           },
         ],
-        queryFn: () =>
-          httpClient
-            .get<{
-              elements: Array<SingleReview>;
-              page: number;
-              total: number;
-              limit: number;
-            }>(`/offers/${params.id}/reviews`, {
-              params: {
-                page: 1,
-                verified: getVerificationParam("all"),
-              },
-            })
-            .catch(() => null),
+        queryFn: () => fetchOfferReviews(params.id, getVerificationParam("all")).catch(() => null),
       }),
       queryClient.prefetchQuery({
         queryKey: [
@@ -196,7 +196,6 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/reviews")({
 
 function Reviews() {
   const { t } = useTranslation();
-  const { epicToken } = routeApi.useRouteContext();
   const { locale } = useLocale();
   const { offer, id } = Route.useLoaderData() as {
     dehydratedState: DehydratedState;
@@ -219,15 +218,7 @@ function Reviews() {
             verified: getVerificationParam(filter),
           },
         ],
-        queryFn: () =>
-          httpClient.get<{
-            elements: SingleReview[];
-            page: number;
-            total: number;
-          }>(`/offers/${id}/reviews`, {
-            params: { page, verified: getVerificationParam(filter) },
-            headers: epicToken ? { Authorization: `Bearer ${epicToken.access_token}` } : undefined,
-          }),
+        queryFn: () => fetchOfferReviews(id, getVerificationParam(filter)),
         refetchOnMount: "always",
       },
       {
