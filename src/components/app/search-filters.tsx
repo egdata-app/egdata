@@ -76,7 +76,7 @@ export function SearchFilters({
 
   const { data: tags } = useQuery({
     queryKey: ["tags"],
-    queryFn: () => httpClient.get<FullTag[]>("/search/tags"),
+    queryFn: () => httpClient.v1Get<FullTag[]>("/search/tags"),
     refetchInterval: 1000 * 60,
   });
 
@@ -333,26 +333,20 @@ export function SearchFilters({
                     queryKey={["search", "items"]}
                     fetchItems={async (query) => {
                       return httpClient
-                        .get<{
-                          hits: {
+                        .v1Get<
+                          {
                             _id: string;
                             name: string;
                             createdAt: string;
                             updatedAt: string;
-                            __v: number;
-                          }[];
-                          query: string;
-                          processingTimeMs: number;
-                          limit: number;
-                          offset: number;
-                          estimatedTotalHits: number;
-                        }>("/multisearch/sellers", {
+                          }[]
+                        >("/multisearch/sellers", {
                           params: {
                             query,
                           },
                         })
-                        .then((res) =>
-                          res.hits.map((hit) => ({
+                        .then((hits) =>
+                          (Array.isArray(hits) ? hits : []).map((hit) => ({
                             id: hit._id,
                             name: hit.name,
                           })),

@@ -115,10 +115,11 @@ function SandboxOffersPage() {
   const query = useQuery(sandboxCatalogQueryOptions(id, search, country || "US"));
   const total = query.data?.count ?? 0;
   const pages = Math.max(1, Math.ceil(total / search.pageSize));
+  const canGoNext = query.data?.hasMore ?? search.page < pages;
   useEffect(() => {
-    if (query.isSuccess && !query.isPlaceholderData && search.page > pages)
+    if (query.isSuccess && !query.isPlaceholderData && !query.data?.hasMore && search.page > pages)
       update({ page: pages }, true);
-  }, [query.isSuccess, query.isPlaceholderData, search.page, pages, update]);
+  }, [query.isSuccess, query.isPlaceholderData, query.data?.hasMore, search.page, pages, update]);
   const filtered = Boolean(search.q || search.types || search.group !== "all");
   const reset = () => {
     setDraft("");
@@ -345,7 +346,7 @@ function SandboxOffersPage() {
             </span>
             <Button
               variant="outline"
-              disabled={search.page >= pages || query.isPlaceholderData}
+              disabled={!canGoNext || query.isPlaceholderData}
               onClick={() => update({ page: search.page + 1 })}
             >
               {t("sandboxCatalog.next")}

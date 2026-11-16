@@ -1,18 +1,12 @@
 import { columns } from "@/components/tables/items/columns";
 import { DataTable } from "@/components/tables/items/table";
-import { httpClient } from "@/lib/http-client";
-import type { SingleItem } from "@/types/single-item";
+import { buildItemsQueryOptions } from "@/queries/build-details";
 import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import type { ColumnFiltersState } from "@tanstack/react-table";
 import { useTranslation } from "@/lib/paraglide-react";
-
-interface PaginatedResponse<T> {
-  data: T[];
-  total: number;
-}
 
 export const Route = createFileRoute("/{-$locale}/builds/$id/items")({
   component: () => {
@@ -31,10 +25,7 @@ export const Route = createFileRoute("/{-$locale}/builds/$id/items")({
     const { id } = params;
     const { queryClient } = context;
 
-    await queryClient.prefetchQuery({
-      queryKey: ["build-items", { id }],
-      queryFn: () => httpClient.get<SingleItem[]>(`/builds/${id}/items`).catch(() => []),
-    });
+    await queryClient.prefetchQuery(buildItemsQueryOptions(id, 1, 25));
 
     return {
       id,
@@ -50,22 +41,7 @@ function ItemsPage() {
   const [filters, setFilters] = useState<ColumnFiltersState>([]);
 
   const { data: items } = useQuery({
-    queryKey: ["build-items", { id, page, filters }],
-    queryFn: () => {
-      const params = new URLSearchParams({
-        page: (page.pageIndex + 1).toString(),
-        limit: page.pageSize.toString(),
-      });
-
-      // Add filters to params
-      for (const filter of filters) {
-        params.append(filter.id, filter.value as string);
-      }
-
-      return httpClient.get<PaginatedResponse<SingleItem>>(
-        `/builds/${id}/items?${params.toString()}`,
-      );
-    },
+    ...buildItemsQueryOptions(id, page.pageIndex + 1, page.pageSize),
     placeholderData: keepPreviousData,
   });
 
@@ -77,7 +53,9 @@ function ItemsPage() {
         data={items?.data ?? []}
         page={page}
         setPage={setPage}
-        total={items?.total ?? 0}
+        total={items?.total ?? null}
+        hasMore={items?.hasMore}
+        cursorMode
         filters={filters}
         setFilters={setFilters}
       />

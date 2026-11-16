@@ -22,6 +22,11 @@ import { ClientOnly } from "@/lib/cllient-only";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { httpClient } from "@/lib/http-client";
+import {
+  fetchV1CursorPageAt,
+  getV1TotalPages,
+  type V1CursorPaginationMeta,
+} from "@/lib/v1-adapters";
 import { offerChangeFields } from "@/lib/offer-change-fields";
 import { offerOnlyQueryOptions } from "@/queries/offer-gql";
 import type { ChangelogStats } from "@/types/changelog";
@@ -51,21 +56,48 @@ type ChangelogWithPagination = {
   hasPreviousPage: boolean;
 };
 
-const getChangelog = (id: string, page: number, query?: string, field?: string, type?: string) => ({
-  queryKey: ["changelog", { id, page, query, field, type }],
-  queryFn: () =>
-    httpClient
-      .get<ChangelogWithPagination>(`/offers/${id}/changelog`, {
-        params: {
+const getChangelog = (id: string, page: number, query?: string, field?: string, type?: string) => {
+  const trimmedQuery = query?.trim() || undefined;
+  const limit = 20;
+  return {
+    queryKey: ["changelog", { id, page, query: trimmedQuery, field, type }],
+    queryFn: async () => {
+      try {
+        const { envelope, resolvedPage, hasMore, total } = await fetchV1CursorPageAt<
+          Change[],
+          V1CursorPaginationMeta
+        >(
+          (cursor) =>
+            httpClient.v1GetEnvelope<Change[], V1CursorPaginationMeta>(`/offers/${id}/changelog`, {
+              params: {
+                cursor,
+                limit,
+                query: trimmedQuery,
+                field,
+                type,
+              },
+            }),
           page,
-          query,
-          field,
-          type,
-        },
-      })
-      .catch(() => null),
-  placeholderData: keepPreviousData,
-});
+          `offer-changelog:${id}:${trimmedQuery ?? ""}:${field ?? ""}:${type ?? ""}`,
+        );
+        const elements = Array.isArray(envelope?.data) ? envelope.data : [];
+        const totalPages = getV1TotalPages(envelope?.meta?.pagination, limit) ?? resolvedPage;
+        return {
+          elements,
+          page: resolvedPage,
+          limit: envelope?.meta?.pagination?.limit ?? limit,
+          totalCount: total ?? elements.length,
+          totalPages,
+          hasNextPage: hasMore,
+          hasPreviousPage: resolvedPage > 1,
+        } satisfies ChangelogWithPagination;
+      } catch {
+        return null;
+      }
+    },
+    placeholderData: keepPreviousData,
+  };
+};
 
 type LoaderData = {
   dehydratedState: DehydratedState;
@@ -239,7 +271,10 @@ function ChangelogPage() {
             <div className="flex flex-row gap-2 items-center">
               <Select
                 value={type}
-                onValueChange={(value) => (value === "all" ? setType(undefined) : setType(value))}
+                onValueChange={(value) => {
+                  setType(value === "all" ? undefined : value);
+                  setPage(1);
+                }}
               >
                 <SelectTrigger>
                   <SelectValue placeholder={t("offerDetail.changelog.allTypes")} />
@@ -260,7 +295,10 @@ function ChangelogPage() {
               </Select>
               <Select
                 value={field}
-                onValueChange={(value) => (value === "all" ? setField(undefined) : setField(value))}
+                onValueChange={(value) => {
+                  setField(value === "all" ? undefined : value);
+                  setPage(1);
+                }}
               >
                 <SelectTrigger>
                   <SelectValue placeholder={t("offerDetail.changelog.selectField")} />
@@ -278,7 +316,10 @@ function ChangelogPage() {
               <Input
                 placeholder={t("offerDetail.changelog.search")}
                 value={query}
-                onChange={(e) => setQuery(e.target.value)}
+                onChange={(e) => {
+                  setQuery(e.target.value);
+                  setPage(1);
+                }}
               />
             </div>
             <Button
@@ -302,7 +343,7 @@ function ChangelogPage() {
               onClick={() => {
                 setPage(page + 1);
               }}
-              disabled={page === data.totalPages}
+              disabled={!data.hasNextPage}
             >
               {t("offerDetail.changelog.next")}
             </Button>
@@ -329,8 +370,10 @@ function ChangelogPage() {
           )}
         </div>
         <DynamicPagination
+          cursorMode
           currentPage={page}
           totalPages={data.totalPages}
+          hasMore={data.hasNextPage}
           setPage={(page) => {
             setPage(page);
             window.scrollTo({

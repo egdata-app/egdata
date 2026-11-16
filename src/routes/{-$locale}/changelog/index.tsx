@@ -5,6 +5,11 @@ import type { SingleItem } from "@/types/single-item";
 import { z } from "zod";
 import { zodSearchValidator } from "@tanstack/router-zod-adapter";
 import { httpClient } from "@/lib/http-client";
+import {
+  fetchV1CursorPageAt,
+  getV1TotalPages,
+  type V1CursorPaginationMeta,
+} from "@/lib/v1-adapters";
 import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
 import { Input } from "@/components/ui/input";
@@ -21,6 +26,39 @@ export interface Root {
   limit: number;
   offset: number;
   estimatedTotalHits: number;
+  hasMore?: boolean;
+  totalPages?: number | null;
+}
+
+async function fetchSearchChangelogPage(query: string, page: number): Promise<Root> {
+  const trimmed = query.trim();
+  const limit = 20;
+  const { envelope, hasMore, total } = await fetchV1CursorPageAt<
+    Root["hits"],
+    V1CursorPaginationMeta
+  >(
+    (cursor) =>
+      httpClient.v1GetEnvelope<Root["hits"], V1CursorPaginationMeta>("/search/changelog", {
+        params: {
+          query: trimmed || undefined,
+          limit,
+          cursor,
+        },
+      }),
+    page,
+    `search-changelog:${trimmed}`,
+  );
+  const hits = Array.isArray(envelope?.data) ? envelope.data : [];
+  return {
+    hits,
+    query: trimmed,
+    processingTimeMs: 0,
+    limit: envelope?.meta?.pagination?.limit ?? limit,
+    offset: 0,
+    estimatedTotalHits: total ?? hits.length,
+    hasMore,
+    totalPages: getV1TotalPages(envelope?.meta?.pagination, limit),
+  };
 }
 
 interface DefaultHit {
@@ -105,15 +143,7 @@ export const Route = createFileRoute("/{-$locale}/changelog/")({
           page,
         },
       ],
-      queryFn: () =>
-        httpClient
-          .get<Root>("/search/changelog", {
-            params: {
-              query,
-              page,
-            },
-          })
-          .catch(() => null),
+      queryFn: () => fetchSearchChangelogPage(query, page).catch(() => null),
     });
 
     return {
@@ -156,13 +186,7 @@ function ChangelogPage() {
         page,
       },
     ],
-    queryFn: () =>
-      httpClient.get<Root>("/search/changelog", {
-        params: {
-          query,
-          page,
-        },
-      }),
+    queryFn: () => fetchSearchChangelogPage(query, page),
     refetchOnMount: false,
     placeholderData: keepPreviousData,
   });
@@ -223,7 +247,13 @@ function ChangelogPage() {
             />
           ))}
       </div>
-      <DynamicPagination totalPages={totalPages} currentPage={page} setPage={handlePageChange} />
+      <DynamicPagination
+        cursorMode
+        totalPages={data?.totalPages ?? totalPages}
+        hasMore={data?.hasMore}
+        currentPage={page}
+        setPage={handlePageChange}
+      />
     </div>
   );
 }

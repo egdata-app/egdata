@@ -90,6 +90,7 @@ export function BuildFilesTree({ id, baseline, path, page, onNavigate }: BuildFi
   const totalPages = treeQuery.data
     ? Math.max(1, Math.ceil(treeQuery.data.total / treeQuery.data.limit))
     : 1;
+  const canGoNext = treeQuery.data?.hasMore ?? page < totalPages;
 
   return (
     <div className="flex flex-col gap-4" data-testid="build-files-tree">
@@ -239,7 +240,7 @@ export function BuildFilesTree({ id, baseline, path, page, onNavigate }: BuildFi
                 type="button"
                 variant="outline"
                 size="icon"
-                disabled={page >= totalPages}
+                disabled={!canGoNext}
                 onClick={() => onNavigate(path, page + 1)}
               >
                 <ChevronRightIcon />

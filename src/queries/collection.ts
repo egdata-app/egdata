@@ -1,4 +1,5 @@
 import { httpClient } from "@/lib/http-client";
+import { getV1PaginationTotal, type V1CursorPaginationMeta } from "@/lib/v1-adapters";
 import type { SingleOffer } from "@/types/single-offer";
 
 export interface OfferWithTops extends SingleOffer {
@@ -25,38 +26,54 @@ export interface Collections {
   title: string;
   start?: string;
   end?: string;
+  hasMore: boolean;
+  nextCursor: string | null;
 }
+
+type CollectionMeta = V1CursorPaginationMeta & {
+  title?: string;
+  start?: string;
+  end?: string;
+};
 
 export const getCollection = async ({
   slug,
   limit,
-  page,
+  page = 1,
+  cursor,
   country,
   week,
 }: {
   slug: string;
   limit: number;
-  page: number;
+  page?: number;
+  cursor?: string;
   country: string;
   week?: string;
-}) => {
-  const data = await httpClient.get<Collections | null>(
+}): Promise<Collections> => {
+  const envelope = await httpClient.v1GetEnvelope<OfferWithTops[], CollectionMeta>(
     !week ? `/collections/${slug}` : `/collections/${slug}/${week}`,
     {
       params: {
         country,
-        page,
+        cursor,
         limit,
       },
     },
   );
 
+  const elements = Array.isArray(envelope?.data) ? envelope.data : [];
+  const pagination = envelope?.meta?.pagination;
+
   return {
-    ...data,
-    elements: Array.isArray(data?.elements) ? data.elements : [],
-    limit: data?.limit ?? limit,
-    page: data?.page ?? page,
-    total: data?.total ?? 0,
-    title: data?.title ?? slug,
+    elements,
+    limit: pagination?.limit ?? limit,
+    page,
+    total: getV1PaginationTotal(pagination, elements.length),
+    title: envelope?.meta?.title ?? slug,
+    start: envelope?.meta?.start,
+    end: envelope?.meta?.end,
+    hasMore: Boolean(pagination?.hasMore),
+    nextCursor: pagination?.nextCursor ?? null,
   };
 };

@@ -325,6 +325,7 @@ function ComparisonView({
     ["removed", comparison.summary.files.removed],
   ] as const;
   const totalPages = Math.max(1, Math.ceil(comparison.total / comparison.limit));
+  const canGoNext = comparison.hasMore ?? search.page < totalPages;
 
   return (
     <div className="flex flex-col gap-4">
@@ -523,7 +524,7 @@ function ComparisonView({
           <Button
             variant="outline"
             size="icon"
-            disabled={search.page >= totalPages}
+            disabled={!canGoNext}
             onClick={() => updateSearch({ page: search.page + 1 })}
           >
             <ChevronRightIcon />

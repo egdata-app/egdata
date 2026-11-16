@@ -6,6 +6,11 @@ import { getQueryClient } from "@/lib/client";
 import { generateSandboxMeta } from "@/lib/generate-sandbox-meta";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { httpClient } from "@/lib/http-client";
+import {
+  fetchV1CursorPageAt,
+  getV1TotalPages,
+  type V1CursorPaginationMeta,
+} from "@/lib/v1-adapters";
 import type { SingleItem } from "@/types/single-item";
 import type { SingleOffer } from "@/types/single-offer";
 import type { SingleSandbox } from "@/types/single-sandbox";
@@ -24,6 +29,34 @@ interface ChangelogResponse {
   limit: number;
   offset: number;
   estimatedTotalHits: number;
+  hasMore?: boolean;
+  totalPages?: number | null;
+}
+
+async function fetchSandboxChangelogPage(id: string, page: number): Promise<ChangelogResponse> {
+  const { envelope, hasMore, total } = await fetchV1CursorPageAt<
+    { hits: ChangelogResponse["hits"] },
+    V1CursorPaginationMeta
+  >(
+    (cursor) =>
+      httpClient.v1GetEnvelope<{ hits: ChangelogResponse["hits"] }, V1CursorPaginationMeta>(
+        `/sandboxes/${id}/changelog`,
+        { params: { cursor, limit: 20 } },
+      ),
+    page,
+    `sandbox-changelog:${id}:20`,
+  );
+  const hits = Array.isArray(envelope?.data?.hits) ? envelope.data.hits : [];
+  return {
+    hits,
+    query: "",
+    processingTimeMs: 0,
+    limit: envelope?.meta?.pagination?.limit ?? 20,
+    offset: 0,
+    estimatedTotalHits: total ?? hits.length,
+    hasMore,
+    totalPages: getV1TotalPages(envelope?.meta?.pagination, 20),
+  };
 }
 
 interface DefaultHit {
@@ -86,10 +119,7 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id/changelog")({
 
     await queryClient.prefetchQuery({
       queryKey: ["changelog", { id: params.id, page: 1, limit: 20 }],
-      queryFn: () =>
-        httpClient.get<ChangelogResponse>(`/sandboxes/${params.id}/changelog`, {
-          params: { page: 1, limit: 20 },
-        }),
+      queryFn: () => fetchSandboxChangelogPage(params.id, 1),
     });
 
     return {
@@ -154,10 +184,7 @@ function RouteComponent() {
   } = useQuery({
     placeholderData: keepPreviousData,
     queryKey: ["changelog", { id, page, limit: 20 }],
-    queryFn: () =>
-      httpClient.get<ChangelogResponse>(`/sandboxes/${id}/changelog`, {
-        params: { page, limit: 20 },
-      }),
+    queryFn: () => fetchSandboxChangelogPage(id, page),
   });
 
   if (isLoading) {
@@ -219,7 +246,11 @@ function RouteComponent() {
       {data?.hits?.length === 0 && <SandboxQueryState empty />}
       {(data?.hits?.length ?? 0) > 0 && (
         <DynamicPagination
-          totalPages={data ? Math.ceil(data.estimatedTotalHits / data.limit) : 0}
+          cursorMode
+          totalPages={
+            data?.totalPages ?? (data ? Math.ceil(data.estimatedTotalHits / data.limit) : null)
+          }
+          hasMore={data?.hasMore}
           currentPage={page}
           setPage={setPage}
         />

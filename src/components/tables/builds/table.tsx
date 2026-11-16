@@ -41,7 +41,9 @@ interface DataTableProps<TData, TValue> {
     pageIndex: number;
     pageSize: number;
   };
-  total: number;
+  total: number | null;
+  hasMore?: boolean;
+  cursorMode?: boolean;
   filters: ColumnFiltersState;
   setFilters: React.Dispatch<React.SetStateAction<ColumnFiltersState>>;
 }
@@ -53,6 +55,8 @@ export function DataTable<TData, TValue>({
   setPage,
   page,
   total,
+  hasMore,
+  cursorMode = false,
   filters,
   setFilters,
 }: DataTableProps<TData, TValue>) {
@@ -63,11 +67,12 @@ export function DataTable<TData, TValue>({
       desc: true,
     },
   ]);
+  const totalPages = total !== null ? Math.max(1, Math.ceil(total / page.pageSize)) : null;
 
   const table = useReactTable({
     data,
     columns,
-    pageCount: Math.ceil(total / page.pageSize),
+    pageCount: totalPages ?? (hasMore ? page.pageIndex + 2 : page.pageIndex + 1),
     state: {
       sorting,
       rowSelection,
@@ -137,7 +142,12 @@ export function DataTable<TData, TValue>({
             </TableBody>
           </Table>
         </div>
-        <DataTablePagination table={table} />
+        <DataTablePagination
+          table={table}
+          cursorMode={cursorMode}
+          hasMore={hasMore}
+          totalPages={totalPages}
+        />
       </div>
     </TooltipProvider>
   );

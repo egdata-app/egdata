@@ -57,18 +57,13 @@ function CollectionPage() {
       getCollection({
         slug: id,
         limit: 20,
-        page: pageParam as number,
+        cursor: pageParam as string | undefined,
         country,
         week,
       }),
-    initialPageParam: 1,
-    getNextPageParam: (lastPage: Collections, allPages: Collections[]) => {
-      if (lastPage.page * lastPage.limit + 20 > lastPage.total) {
-        return undefined;
-      }
-
-      return allPages?.length + 1;
-    },
+    initialPageParam: undefined as string | undefined,
+    getNextPageParam: (lastPage: Collections) =>
+      lastPage.hasMore && lastPage.nextCursor ? lastPage.nextCursor : undefined,
   });
 
   if (isLoading) {

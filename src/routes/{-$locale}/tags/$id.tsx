@@ -11,6 +11,7 @@ import type { SingleOffer } from "@/types/single-offer";
 import { z } from "zod";
 import { zodSearchValidator } from "@tanstack/router-zod-adapter";
 import { httpClient } from "@/lib/http-client";
+import { getV1PaginationTotal, type V1CursorPaginationMeta } from "@/lib/v1-adapters";
 import { useCountry } from "@/hooks/use-country";
 import { usePreferences } from "@/hooks/use-preferences";
 import debounce from "lodash.debounce";
@@ -53,38 +54,55 @@ const sortByKeys: SortBy[] = [
   "price",
 ];
 
+type PromotionPage = {
+  elements: SingleOffer[];
+  title: string;
+  start: number;
+  page: number;
+  count: number;
+  hasMore: boolean;
+  nextCursor: string | null;
+};
+
 const fetchPromotionData = async ({
   id,
   country,
-  page,
+  cursor,
   sortBy,
   sortDir,
   query,
 }: {
   id: string;
   country: string;
-  page: number;
+  cursor?: string;
   sortBy: SortBy | null;
   sortDir: "asc" | "desc" | null;
   query: "" | string;
-}) => {
-  const data = await httpClient.get<{
-    elements: SingleOffer[];
-    title: string;
-    start: number;
-    page: number;
-    count: number;
-  }>(`/promotions/${id}`, {
+}): Promise<PromotionPage> => {
+  const envelope = await httpClient.v1GetEnvelope<
+    SingleOffer[],
+    V1CursorPaginationMeta & { title?: string; start?: number | null }
+  >(`/promotions/${id}`, {
     params: {
       country,
-      page,
+      cursor,
       limit: 20,
       sortBy: sortBy || undefined,
       sortDir: sortDir || undefined,
       q: query !== "" ? query : undefined,
     },
   });
-  return data;
+  const elements = Array.isArray(envelope?.data) ? envelope.data : [];
+  const pagination = envelope?.meta?.pagination;
+  return {
+    elements,
+    title: envelope?.meta?.title ?? id,
+    start: envelope?.meta?.start ?? 0,
+    page: 1,
+    count: getV1PaginationTotal(pagination, elements.length),
+    hasMore: Boolean(pagination?.hasMore),
+    nextCursor: pagination?.nextCursor ?? null,
+  };
 };
 
 const searchParamsSchema = z.object({
@@ -133,8 +151,6 @@ export const Route = createFileRoute("/{-$locale}/tags/$id")({
     const { queryClient, country } = context;
     const { id } = params;
 
-    // const { page, sortBy, sortDir, q } = search;
-    const page = search?.page ?? 1;
     const sortBy = search?.sortBy ?? "lastModifiedDate";
     const sortDir = search?.sortDir ?? "desc";
     const q = search?.q ?? "";
@@ -158,7 +174,6 @@ export const Route = createFileRoute("/{-$locale}/tags/$id")({
           fetchPromotionData({
             id,
             country: country ?? "US",
-            page: 1,
             sortBy,
             sortDir,
             query: q,
@@ -170,24 +185,14 @@ export const Route = createFileRoute("/{-$locale}/tags/$id")({
           fetchPromotionData({
             id,
             country: country ?? "US",
-            page: pageParam as number,
+            cursor: pageParam as string | undefined,
             sortBy,
             sortDir,
             query: q,
           }).catch(() => null),
-        initialPageParam: page,
-        getNextPageParam: (
-          lastPage: { elements: SingleOffer[]; start: number; count: number } | null,
-          allPages: ({ elements: SingleOffer[]; start: number; count: number } | null)[],
-        ) => {
-          if (!lastPage) return undefined;
-          // If the start is greater than the count, we have reached the end
-          if (lastPage.start + 20 > lastPage.count) {
-            return undefined;
-          }
-
-          return allPages?.length + 1;
-        },
+        initialPageParam: undefined as string | undefined,
+        getNextPageParam: (lastPage: PromotionPage | null) =>
+          lastPage?.hasMore && lastPage.nextCursor ? lastPage.nextCursor : undefined,
       }),
     ]);
 
@@ -388,19 +393,14 @@ function RouteComponent() {
       fetchPromotionData({
         id,
         country,
-        page: pageParam as number,
+        cursor: pageParam as string | undefined,
         sortBy,
         sortDir,
         query,
       }),
-    initialPageParam: 1,
-    getNextPageParam: (lastPage, allPages) => {
-      if (lastPage.start + 20 > lastPage.count) {
-        return undefined;
-      }
-
-      return allPages?.length + 1;
-    },
+    initialPageParam: undefined as string | undefined,
+    getNextPageParam: (lastPage) =>
+      lastPage.hasMore && lastPage.nextCursor ? lastPage.nextCursor : undefined,
     placeholderData: keepPreviousData,
   });
 

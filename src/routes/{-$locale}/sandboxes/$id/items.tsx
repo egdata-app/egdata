@@ -1,5 +1,5 @@
 import { SandboxQueryState } from "@/components/app/sandbox-catalog";
-import { httpClient } from "@/lib/http-client";
+import { fetchV1SandboxSectionPage } from "@/lib/v1-adapters";
 import type { SingleItem } from "@/types/single-item";
 import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -17,13 +17,6 @@ import type { DehydratedState } from "@tanstack/react-query";
 import { LibrarySquareIcon } from "lucide-react";
 import { useTranslation } from "@/lib/paraglide-react";
 import i18n from "@/lib/i18n";
-
-interface PaginatedResponse<T> {
-  elements: T[];
-  page: number;
-  limit: number;
-  count: number;
-}
 
 export const Route = createFileRoute("/{-$locale}/sandboxes/$id/items")({
   component: () => {
@@ -45,10 +38,7 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id/items")({
 
     await queryClient.prefetchQuery({
       queryKey: ["sandbox", "items", { id, page: 1, limit: 20, filters: [] }],
-      queryFn: () =>
-        httpClient.get<PaginatedResponse<SingleItem>>(`/sandboxes/${id}/items`, {
-          params: { page: 1, limit: 20 },
-        }),
+      queryFn: () => fetchV1SandboxSectionPage<SingleItem>(id, "items", 1, 20, []),
     });
 
     return {
@@ -107,17 +97,14 @@ function SandboxItemsPage() {
   const [filters, setFilters] = useState<ColumnFiltersState>([]);
   const recordsQuery = useQuery({
     queryKey: ["sandbox", "items", { id, page: page.pageIndex + 1, limit: page.pageSize, filters }],
-    queryFn: () => {
-      const queryParams = new URLSearchParams();
-      queryParams.set("page", (page.pageIndex + 1).toString());
-      queryParams.set("limit", page.pageSize.toString());
-      for (const filter of filters) {
-        queryParams.set(filter.id, filter.value as string);
-      }
-      return httpClient.get<PaginatedResponse<SingleItem>>(`/sandboxes/${id}/items`, {
-        params: Object.fromEntries(queryParams),
-      });
-    },
+    queryFn: () =>
+      fetchV1SandboxSectionPage<SingleItem>(
+        id,
+        "items",
+        page.pageIndex + 1,
+        page.pageSize,
+        filters,
+      ),
     placeholderData: keepPreviousData,
   });
 
@@ -161,7 +148,9 @@ function SandboxItemsPage() {
             data={itemsData?.elements ?? []}
             setPage={setPage}
             page={page}
-            total={itemsData?.count ?? 0}
+            total={itemsData?.total ?? null}
+            hasMore={itemsData?.hasMore}
+            cursorMode
             filters={filters}
             setFilters={updateFilters}
             emptyContent={

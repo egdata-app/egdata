@@ -1,5 +1,5 @@
 import { SandboxQueryState } from "@/components/app/sandbox-catalog";
-import { httpClient } from "@/lib/http-client";
+import { fetchV1SandboxSectionPage } from "@/lib/v1-adapters";
 import type { Build } from "@/types/builds";
 import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -17,13 +17,6 @@ import type { DehydratedState } from "@tanstack/react-query";
 import { PackageIcon } from "lucide-react";
 import { useTranslation } from "@/lib/paraglide-react";
 import i18n from "@/lib/i18n";
-
-interface PaginatedResponse<T> {
-  elements: T[];
-  page: number;
-  limit: number;
-  count: number;
-}
 
 export const Route = createFileRoute("/{-$locale}/sandboxes/$id/builds")({
   component: () => {
@@ -45,10 +38,7 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id/builds")({
 
     await queryClient.prefetchQuery({
       queryKey: ["sandbox", "builds", { id, page: 1, limit: 20, filters: [] }],
-      queryFn: () =>
-        httpClient.get<PaginatedResponse<Build>>(`/sandboxes/${id}/builds`, {
-          params: { page: 1, limit: 20 },
-        }),
+      queryFn: () => fetchV1SandboxSectionPage<Build>(id, "builds", 1, 20, []),
     });
 
     return {
@@ -111,18 +101,8 @@ function SandboxBuildsPage() {
       "builds",
       { id, page: page.pageIndex + 1, limit: page.pageSize, filters },
     ],
-    queryFn: () => {
-      const queryParams = new URLSearchParams();
-      queryParams.set("page", (page.pageIndex + 1).toString());
-      queryParams.set("limit", page.pageSize.toString());
-      for (const filter of filters) {
-        queryParams.set(filter.id, filter.value as string);
-      }
-
-      return httpClient.get<PaginatedResponse<Build>>(`/sandboxes/${id}/builds`, {
-        params: Object.fromEntries(queryParams),
-      });
-    },
+    queryFn: () =>
+      fetchV1SandboxSectionPage<Build>(id, "builds", page.pageIndex + 1, page.pageSize, filters),
 
     placeholderData: keepPreviousData,
   });
@@ -167,7 +147,9 @@ function SandboxBuildsPage() {
             data={buildsData?.elements ?? []}
             setPage={setPage}
             page={page}
-            total={buildsData?.count ?? 0}
+            total={buildsData?.total ?? null}
+            hasMore={buildsData?.hasMore}
+            cursorMode
             filters={filters}
             setFilters={updateFilters}
             emptyContent={
