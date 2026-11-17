@@ -33,11 +33,14 @@ jobs:
       
     - name: Build application
       run: pnpm build
-      
+      env:
+        VITE_V1_API_KEY: ${{ secrets.VITE_V1_API_KEY }}
+        
     - name: Run Playwright tests
       run: pnpm test:e2e
       env:
         CI: true
+        VITE_V1_API_KEY: ${{ secrets.VITE_V1_API_KEY }}
         
     - name: Upload Playwright Report
       uses: actions/upload-artifact@v4
