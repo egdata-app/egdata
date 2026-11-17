@@ -412,12 +412,15 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
                               {t("footer.resources")}
                             </h4>
                             <a
-                              href="https://docs.egdata.app"
+                              href="https://devs.egdata.app"
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="block text-muted-foreground hover:text-primary transition-colors"
+                              className="flex w-fit items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
                             >
-                              {t("footer.apiDocs")}
+                              <span>{t("footer.developerPortal")}</span>
+                              <span className="rounded-full border border-primary/30 bg-primary/15 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+                                {t("footer.newBadge")}
+                              </span>
                             </a>
                             <Link
                               to="/{-$locale}/changelog"
