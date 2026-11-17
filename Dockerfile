@@ -7,29 +7,34 @@ ENV PNPM_HOME="/pnpm"
 ENV PNPM_STORE_PATH="/pnpm-store"
 ENV PATH="$PNPM_HOME/bin:$PATH"
 ENV CI=true
-RUN apk add --no-cache ca-certificates wget
-RUN wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.shrc" SHELL="$(which sh)" PNPM_VERSION="${PNPM_VERSION}" sh -
-RUN pnpm --version
+RUN apk add --no-cache ca-certificates wget \
+  && wget -qO- https://get.pnpm.io/install.sh | ENV="$HOME/.shrc" SHELL="$(which sh)" PNPM_VERSION="${PNPM_VERSION}" sh - \
+  && pnpm --version
 WORKDIR /app
+
+FROM base AS prod-deps
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
+RUN --mount=type=cache,id=pnpm,target=/pnpm-store \
+  pnpm install --prod --frozen-lockfile --ignore-scripts --store-dir "$PNPM_STORE_PATH"
 
 FROM base AS deps
 RUN apk add --no-cache --virtual .build-deps gcc g++ make python3
-COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
-RUN --mount=type=cache,id=pnpm,target=/pnpm-store pnpm install --frozen-lockfile --store-dir "$PNPM_STORE_PATH"
-COPY . .
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
+RUN --mount=type=cache,id=pnpm,target=/pnpm-store \
+  pnpm install --frozen-lockfile --store-dir "$PNPM_STORE_PATH"
 
 FROM deps AS build
-RUN pnpm run build
-RUN pnpm prune --prod --ignore-scripts
-RUN apk del .build-deps
+COPY . .
+RUN pnpm run build \
+  && find /app/dist/client -type f -name '*.map*' -delete
 
-FROM node:${NODE_VERSION}-alpine
+FROM node:${NODE_VERSION}-alpine AS runtime
 WORKDIR /app
 ENV NODE_ENV=production
 ENV TZ=UTC
 RUN apk add --no-cache ca-certificates wget
+COPY --from=prod-deps /app/node_modules /app/node_modules
 COPY --from=build /app/dist /app/dist
-COPY --from=build /app/node_modules /app/node_modules
 COPY --from=build /app/package.json /app/package.json
 COPY --from=build /app/scripts/start-prod.mjs /app/scripts/start-prod.mjs
 COPY --from=build /app/scripts/prod-logger-worker.mjs /app/scripts/prod-logger-worker.mjs

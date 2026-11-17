@@ -1,9 +1,13 @@
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 import consola from "consola";
-import { google } from "googleapis";
+import {
+  auth as sheetsAuth,
+  sheets as createSheetsClient,
+  type sheets_v4,
+} from "@googleapis/sheets";
 
-type SheetsClient = ReturnType<typeof google.sheets>;
+type SheetsClient = sheets_v4.Sheets;
 
 const clientsByScope = new Map<string, SheetsClient>();
 
@@ -81,11 +85,11 @@ export function getSheetsClient(scope: string): SheetsClient {
   if (existing) return existing;
 
   const credentials = parseServiceAccountKey();
-  const auth = new google.auth.GoogleAuth({
+  const auth = new sheetsAuth.GoogleAuth({
     credentials,
     scopes: [scope],
   });
-  const client = google.sheets({ version: "v4", auth });
+  const client = createSheetsClient({ version: "v4", auth });
   clientsByScope.set(scope, client);
   return client;
 }
