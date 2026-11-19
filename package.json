@@ -10,6 +10,7 @@
     "start": "node --enable-source-maps scripts/start-prod.mjs",
     "start:srvx": "TZ=UTC NODE_OPTIONS=--enable-source-maps srvx --prod dist/server/index.js",
     "precompress": "node scripts/precompress-assets.mjs",
+    "assets:sync": "node scripts/sync-static-assets.mjs",
     "format": "oxfmt --write src",
     "lint": "oxlint --fix src",
     "wrangler": "wrangler",

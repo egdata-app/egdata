@@ -1,7 +1,7 @@
 let waitingWorker: ServiceWorker | null = null;
 let reloadOnControllerChange = false;
 let isRefreshing = false;
-const serviceWorkerUrl = `/sw.js?v=${encodeURIComponent(__SW_VERSION__)}`;
+const serviceWorkerUrl = `/sw.${encodeURIComponent(__SW_VERSION__)}.js`;
 
 const updateSW = async (reloadPage = false) => {
   if (reloadPage) {

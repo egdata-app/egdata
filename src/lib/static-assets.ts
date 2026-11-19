@@ -53,10 +53,11 @@ const SIDECAR_ENCODINGS: Array<{ encoding: ContentEncoding; extension: string }>
 ];
 
 const MIN_DYNAMIC_COMPRESSION_BYTES = 1024;
-const STATIC_IMMUTABLE_CACHE = "public, max-age=31536000, immutable";
+export const STATIC_IMMUTABLE_CACHE = "public, max-age=31536000, immutable";
 const SW_NO_CACHE = "no-cache, no-store, max-age=0, must-revalidate";
 const DEFAULT_CACHE = "public, max-age=3600";
 const HTML_CACHE = "no-cache";
+const HASHED_SW_FILENAME = /^sw\.[^.]+\.js$/;
 
 export const getServiceWorkerCacheControl = (url: URL) =>
   url.searchParams.get("v")?.trim() ? STATIC_IMMUTABLE_CACHE : SW_NO_CACHE;
@@ -178,6 +179,7 @@ function isNotModified(request: Request, headers: Headers) {
 
 function getCacheControl(path: string, fileExt: string, url: URL) {
   if (path === "sw.js") return getServiceWorkerCacheControl(url);
+  if (HASHED_SW_FILENAME.test(path)) return STATIC_IMMUTABLE_CACHE;
   if (path.startsWith("static/")) return STATIC_IMMUTABLE_CACHE;
   if (fileExt === ".html") return HTML_CACHE;
   return DEFAULT_CACHE;

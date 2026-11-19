@@ -24,9 +24,11 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm-store \
   pnpm install --frozen-lockfile --store-dir "$PNPM_STORE_PATH"
 
 FROM deps AS build
+# Baked into the SSR bundle at build time: prefix for hashed asset URLs
+# (empty = serve assets from the origin itself).
+ARG ASSET_PREFIX=""
 COPY . .
-RUN pnpm run build \
-  && find /app/dist/client -type f -name '*.map*' -delete
+RUN pnpm run build
 
 FROM node:${NODE_VERSION}-alpine AS runtime
 WORKDIR /app
@@ -38,5 +40,6 @@ COPY --from=build /app/dist /app/dist
 COPY --from=build /app/package.json /app/package.json
 COPY --from=build /app/scripts/start-prod.mjs /app/scripts/start-prod.mjs
 COPY --from=build /app/scripts/prod-logger-worker.mjs /app/scripts/prod-logger-worker.mjs
+COPY --from=build /app/scripts/sync-static-assets.mjs /app/scripts/sync-static-assets.mjs
 EXPOSE 3000
 CMD [ "node", "--enable-source-maps", "scripts/start-prod.mjs" ]

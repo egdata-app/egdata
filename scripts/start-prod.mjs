@@ -10,6 +10,7 @@ process.env.NODE_ENV ||= "production";
 process.env.TZ ||= "UTC";
 
 const logger = createAsyncLogger();
+await syncStaticAssetsIfConfigured();
 const entryPath = resolve(process.cwd(), "dist/server/index.js");
 const entryModule = await import(pathToFileURL(entryPath).href);
 const serverEntry = entryModule.default ?? entryModule;
@@ -366,4 +367,31 @@ function parseContentLength(length) {
 
   const parsed = Number.parseInt(length, 10);
   return Number.isFinite(parsed) ? parsed : null;
+}
+
+async function syncStaticAssetsIfConfigured() {
+  const bucket = process.env.SYNC_STATIC_BUCKET?.trim();
+  if (!bucket) return;
+
+  const { syncStaticAssets } = await import("./sync-static-assets.mjs");
+  const started = performance.now();
+
+  try {
+    const summary = await syncStaticAssets({
+      bucket,
+      dir: resolve(process.cwd(), "dist/client"),
+      prune: process.env.SYNC_STATIC_PRUNE === "true",
+      logger: (line) => logger.info(line),
+    });
+
+    logger.info(`Static asset sync: ${summary} (${Math.round(performance.now() - started)}ms)`, {
+      critical: true,
+    });
+  } catch (error) {
+    logger.error(`Static asset sync failed: ${formatError(error)}`, { critical: true });
+
+    if (process.env.SYNC_STATIC_REQUIRED === "false") return;
+
+    throw error;
+  }
 }

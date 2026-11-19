@@ -67,13 +67,14 @@ const isMain = process.argv[1] && import.meta.url === pathToFileURL(resolve(proc
 
 if (isMain) {
   const root = process.cwd();
-  const swDest = resolve(root, "dist", "client", "sw.js");
   const { code, hash, count, size, warnings } = await buildServiceWorker(root);
+  const swVersion = process.env.VITE_SW_VERSION || hash;
 
   for (const warning of warnings) {
     console.warn(warning);
   }
 
+  const swDest = resolve(root, "dist", "client", `sw.${swVersion}.js`);
   await writeServiceWorker(swDest, code);
   console.log(`Generated ${swDest} (${hash}) with ${count} precache entries (${size} bytes).`);
 }

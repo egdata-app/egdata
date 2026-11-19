@@ -1,10 +1,30 @@
-import handler, { createServerEntry } from "@tanstack/react-start/server-entry";
+import { createStartHandler, defaultStreamHandler } from "@tanstack/react-start/server";
+import { createServerEntry } from "@tanstack/react-start/server-entry";
 import { resolve } from "node:path";
 import type { ServerMiddleware } from "srvx";
 import "@/lib/paraglide-strategy";
 import { paraglideMiddleware } from "@/paraglide/server.js";
 import { SECURITY_HEADERS } from "@/lib/security-headers";
-import { getServiceWorkerCacheControl, serveStaticAssets } from "@/lib/static-assets";
+import {
+  getServiceWorkerCacheControl,
+  serveStaticAssets,
+  STATIC_IMMUTABLE_CACHE,
+} from "@/lib/static-assets";
+
+const HASHED_SW_PATH = /^\/sw\.[^.]+\.js$/;
+
+const assetPrefix = process.env.ASSET_PREFIX?.trim().replace(/\/+$/, "");
+
+if (assetPrefix) {
+  console.info(`[cdn] build assets served from ${assetPrefix}`);
+}
+
+const startHandler = createStartHandler({
+  handler: defaultStreamHandler,
+  ...(assetPrefix
+    ? { transformAssets: { prefix: assetPrefix, crossOrigin: "anonymous" as const } }
+    : {}),
+});
 
 const withSecurityHeaders = (request: Request, response: Response) => {
   const headers = new Headers(response.headers);
@@ -16,6 +36,8 @@ const withSecurityHeaders = (request: Request, response: Response) => {
   const requestUrl = new URL(request.url);
   if (requestUrl.pathname === "/sw.js") {
     headers.set("Cache-Control", getServiceWorkerCacheControl(requestUrl));
+  } else if (HASHED_SW_PATH.test(requestUrl.pathname)) {
+    headers.set("Cache-Control", STATIC_IMMUTABLE_CACHE);
   }
 
   return new Response(response.body, {
@@ -33,7 +55,7 @@ const clientDist = resolve(process.cwd(), "dist/client");
 
 const entry = createServerEntry({
   async fetch(request) {
-    return paraglideMiddleware(request, () => handler.fetch(request));
+    return paraglideMiddleware(request, () => startHandler(request));
   },
 });
 

@@ -10,6 +10,7 @@ const { publicVars } = loadEnv({ prefixes: ["VITE_"] });
 
 function serviceWorkerPlugin(): RsbuildPlugin {
   let builtSw: Awaited<ReturnType<typeof buildServiceWorker>> | null = null;
+  let swVersion: string | null = null;
 
   return {
     name: "egdata-service-worker",
@@ -26,7 +27,7 @@ function serviceWorkerPlugin(): RsbuildPlugin {
         }
 
         builtSw = await buildServiceWorker(api.context.rootPath);
-        const swVersion = process.env.VITE_SW_VERSION || builtSw.hash;
+        swVersion = process.env.VITE_SW_VERSION || builtSw.hash;
 
         return mergeRsbuildConfig(config, {
           source: {
@@ -38,13 +39,13 @@ function serviceWorkerPlugin(): RsbuildPlugin {
       });
 
       api.onAfterBuild(async () => {
-        if (!builtSw) return;
+        if (!builtSw || !swVersion) return;
 
         for (const warning of builtSw.warnings) {
           console.warn(warning);
         }
 
-        const swDest = resolve(api.context.rootPath, "dist", "client", "sw.js");
+        const swDest = resolve(api.context.rootPath, "dist", "client", `sw.${swVersion}.js`);
         await writeServiceWorker(swDest, builtSw.code);
         console.log(
           `Generated ${swDest} (${builtSw.hash}) with ${builtSw.count} precache entries (${builtSw.size} bytes).`,
@@ -72,6 +73,34 @@ function getCssUrlAssetName(sourceFilename: string | undefined, fallbackName: st
   return fallbackName.split("/").pop() || "style";
 }
 
+// CDN prefix for hashed assets, baked into the build when set
+// (e.g. ASSET_PREFIX=https://static.egdata.app). TanStack Start's rsbuild
+// plugin overrides per-environment output.assetPrefix with publicBase ("/"),
+// so we re-apply the CDN prefix in modifyEnvironmentConfig (which runs after
+// modifyRsbuildConfig). This sets rspack's client publicPath for async chunks,
+// prefixes ?url asset imports in SSR, and causes rsbuild:define to bake
+// process.env.ASSET_PREFIX into the SSR bundle for transformAssets in src/server.ts.
+const assetPrefix = process.env.ASSET_PREFIX?.trim().replace(/\/+$/, "") || "";
+
+function cdnAssetPrefixPlugin(prefix: string): RsbuildPlugin {
+  return {
+    name: "egdata-cdn-asset-prefix",
+    setup(api) {
+      if (!prefix) return;
+
+      api.modifyEnvironmentConfig((config, { mergeEnvironmentConfig }) => {
+        if (api.context.action === "dev") return config;
+
+        return mergeEnvironmentConfig(config, {
+          output: {
+            assetPrefix: prefix,
+          },
+        });
+      });
+    },
+  };
+}
+
 export default defineConfig({
   server: {
     port: 3000,
@@ -88,6 +117,7 @@ export default defineConfig({
     },
   },
   output: {
+    assetPrefix: assetPrefix || "/",
     sourceMap: {
       css: true,
       js: "source-map",
@@ -129,5 +159,11 @@ export default defineConfig({
       },
     },
   },
-  plugins: [pluginReact(), pluginTailwindcss(), tanstackStart(), serviceWorkerPlugin()],
+  plugins: [
+    pluginReact(),
+    pluginTailwindcss(),
+    tanstackStart(),
+    cdnAssetPrefixPlugin(assetPrefix),
+    serviceWorkerPlugin(),
+  ],
 });
