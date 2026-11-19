@@ -20,8 +20,10 @@ export function mergeFreebies(data: GiveawayOffer[]): MergedFreebie[] {
   for (const [, offers] of groupedOffers) {
     const mergedFreebie: MergedFreebie = {
       ...offers[0],
-      platforms: offers.flatMap((offer) =>
-        offer.items.flatMap((item) => item.releaseInfo.flatMap((info) => info.platform)),
+      platforms: (offers ?? []).flatMap((offer) =>
+        (offer.items ?? []).flatMap((item) =>
+          (item.releaseInfo ?? []).flatMap((info) => info?.platform ?? []),
+        ),
       ),
       offers,
     };

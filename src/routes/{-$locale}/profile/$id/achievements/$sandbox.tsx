@@ -162,12 +162,12 @@ function RouteComponent() {
     return <div>{t("profile.achievements.notFound")}</div>;
   }
 
-  const sandboxAchievements = data.sandboxAchievements
-    .flatMap((achievementSet) => achievementSet.achievements)
+  const sandboxAchievements = (data.sandboxAchievements ?? [])
+    .flatMap((achievementSet) => achievementSet.achievements ?? [])
     .flat();
 
-  const playerAchievements = data.playerAchievements
-    .flatMap((playerAchievement) => playerAchievement.playerAchievements)
+  const playerAchievements = (data.playerAchievements ?? [])
+    .flatMap((playerAchievement) => playerAchievement.playerAchievements ?? [])
     .flat();
 
   // Merge achievements, we know if its unlocked from the playerAchievements, while the sandboxAchievements has the data

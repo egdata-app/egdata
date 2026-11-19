@@ -46,7 +46,6 @@ export const OfferInBundle: React.FC<{ offer: SingleOffer }> = ({ offer }) => {
       className="flex items-center bg-muted rounded-lg shadow-lg w-full h-16 relative overflow-hidden group"
       to="/{-$locale}/offers/$id"
       params={{ id: bundle.id }}
-      preload="viewport"
     >
       <span className="text-foreground font-bold absolute z-20 flex-col px-5 gap-1">
         <h6 className="text-xs">This offer is part of</h6>

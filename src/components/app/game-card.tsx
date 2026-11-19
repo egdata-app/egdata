@@ -27,7 +27,6 @@ export function GameCard({
         to="/{-$locale}/offers/$id"
         params={{ id: game.id }}
         className="w-full relative select-none group"
-        preload="viewport"
         aria-label={`Open offer ${game.title}`}
       >
         <div className="relative w-full overflow-hidden rounded-md bg-card aspect-[3/4]">
@@ -92,7 +91,6 @@ export function OfferListItem({
       to="/{-$locale}/offers/$id"
       params={{ id: game.id }}
       className="w-full"
-      preload="viewport"
       aria-label={`Open offer ${game.title}`}
     >
       <Card className="relative flex h-fit w-full flex-col rounded-md border-border/60 bg-card p-2 text-card-foreground md:flex-row">

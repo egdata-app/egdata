@@ -14,15 +14,13 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 import {
-  getDefaultProfilePageVariables,
-  profilePageQueryOptions,
-  type ProfilePageProfile,
-} from "@/queries/profile-gql";
-import {
-  getRefreshStatus,
-  getUserInformation,
-  type Profile as RestProfile,
-} from "@/queries/profiles";
+  profileFeaturedGamesQueryOptions,
+  profileInformationQueryOptions,
+  selectHeroGame,
+  type ProfileGame,
+  type ProfileInformation,
+} from "@/queries/profile";
+import { getRefreshStatus } from "@/queries/profiles";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { getQueryClient } from "@/lib/client";
 import {
@@ -85,15 +83,10 @@ export const Route = createFileRoute("/{-$locale}/profile/$id")({
   loader: async ({ context, params }) => {
     const { queryClient, session } = context;
     const { id } = params;
-    const profileVariables = getDefaultProfilePageVariables(id);
 
     await Promise.allSettled([
-      queryClient.ensureQueryData(profilePageQueryOptions(profileVariables)),
-      queryClient.ensureQueryData({
-        queryKey: ["profile-information", { id }],
-        queryFn: () => getUserInformation(id).catch(() => null),
-        staleTime: 60_000,
-      }),
+      queryClient.ensureQueryData(profileInformationQueryOptions(id)),
+      queryClient.ensureQueryData(profileFeaturedGamesQueryOptions(id)),
     ]);
 
     return {
@@ -106,8 +99,7 @@ export const Route = createFileRoute("/{-$locale}/profile/$id")({
   head: (ctx) => {
     const { params } = ctx;
     const queryClient = getQueryClient();
-    const profileVariables = getDefaultProfilePageVariables(params.id);
-    const profileQueryKey = profilePageQueryOptions(profileVariables).queryKey;
+    const profileQueryKey = profileInformationQueryOptions(params.id).queryKey;
 
     if (!ctx.loaderData) {
       return {
@@ -120,7 +112,7 @@ export const Route = createFileRoute("/{-$locale}/profile/$id")({
       };
     }
 
-    const profile = getFetchedQuery<ProfilePageProfile | null>(
+    const profile = getFetchedQuery<ProfileInformation | null>(
       queryClient,
       ctx.loaderData?.dehydratedState,
       profileQueryKey,
@@ -168,13 +160,9 @@ function RouteComponent() {
   const [uploadProgress, setUploadProgress] = React.useState(0);
   const [selectedImagePreviewUrl, setSelectedImagePreviewUrl] = React.useState<string | null>(null);
 
-  const profileVariables = getDefaultProfilePageVariables(id);
-  const { data: profile, isLoading, isError } = useQuery(profilePageQueryOptions(profileVariables));
-  const { data: legacyProfile } = useQuery({
-    queryKey: ["profile-information", { id }],
-    queryFn: () => getUserInformation(id).catch(() => null),
-    staleTime: 60_000,
-  });
+  const { data: profile, isLoading, isError } = useQuery(profileInformationQueryOptions(id));
+  const { data: featuredGames } = useQuery(profileFeaturedGamesQueryOptions(id));
+  const heroGame = selectHeroGame(featuredGames ?? []);
 
   React.useEffect(() => {
     if (!selectedImage) {
@@ -260,18 +248,19 @@ function RouteComponent() {
     );
   }
 
-  const accountId = profile.accountId ?? id;
+  const accountId = profile.epicAccountId ?? id;
   const displayName = profile.displayName ?? t("profile.fallbackName");
   const avatarUrl = profile.avatar?.large ?? profile.avatar?.medium ?? profile.avatar?.small ?? "";
   const isOwner = userId === accountId;
   const linkedAccounts = getProfileLinkedAccounts(profile.linkedAccounts);
+  const totalXP = profile.stats?.totalXP ?? 0;
   const highlights = {
-    level: profile.highlights?.level ?? Math.floor((profile.highlights?.totalXP ?? 0) / 250),
-    totalXP: profile.highlights?.totalXP ?? 0,
-    totalGames: profile.highlights?.totalGames ?? 0,
-    totalAchievements: profile.highlights?.totalAchievements ?? 0,
-    totalPlatinums: profile.highlights?.totalPlatinums ?? 0,
-    reviewsCount: profile.highlights?.reviewsCount ?? profile.reviewsCount ?? 0,
+    level: Math.floor(totalXP / 250),
+    totalXP,
+    totalGames: profile.stats?.totalGames ?? 0,
+    totalAchievements: profile.stats?.totalAchievements ?? 0,
+    totalPlatinums: profile.stats?.totalPlayerAwards ?? 0,
+    reviewsCount: profile.stats?.reviewsCount ?? 0,
   };
 
   const xpInCurrentLevel = highlights.totalXP % 250;
@@ -282,7 +271,7 @@ function RouteComponent() {
     <TooltipProvider>
       <main className="flex min-h-screen w-full flex-col pb-12">
         <section className="relative isolate -mx-4 overflow-hidden px-4 pb-10 pt-8 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-          <ProfileHeroBackground imageUrl={profile.heroGame?.imageUrl} title={displayName} />
+          <ProfileHeroBackground imageUrl={heroGame?.imageUrl} title={displayName} />
           <div className="mx-auto flex w-full max-w-7xl flex-col gap-8">
             <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
               <div className="flex flex-col gap-5 sm:flex-row sm:items-end">
@@ -295,7 +284,7 @@ function RouteComponent() {
                           alt={displayName}
                           className="size-32 rounded-full border border-white/20 object-cover shadow-2xl"
                         />
-                        <DonnorBadge profile={legacyProfile} displayName={displayName} />
+                        <DonnorBadge profile={profile} displayName={displayName} />
                         <span className="absolute inset-0 flex items-center justify-center rounded-full bg-black/55 opacity-0 transition-opacity group-hover:opacity-100">
                           <UploadIcon className="size-6 text-foreground" />
                         </span>
@@ -399,12 +388,12 @@ function RouteComponent() {
                       alt={displayName}
                       className="size-32 rounded-full border border-white/20 object-cover shadow-2xl"
                     />
-                    <DonnorBadge profile={legacyProfile} displayName={displayName} />
+                    <DonnorBadge profile={profile} displayName={displayName} />
                   </div>
                 )}
 
                 <div className="min-w-0 space-y-4">
-                  <PlayerName displayName={displayName} donorProfile={legacyProfile} />
+                  <PlayerName displayName={displayName} donorProfile={profile} />
                   <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm text-foreground">
                     {linkedAccounts.length > 0 && (
                       <div className="inline-flex items-center gap-4">
@@ -451,7 +440,7 @@ function RouteComponent() {
               </div>
 
               <div className="flex flex-wrap items-center gap-2 lg:justify-end">
-                {legacyProfile?.discord === false && isOwner && (
+                {profile.discord === false && isOwner && (
                   <Button asChild variant="outline" className="bg-[#5865f2] hover:bg-[#4752c4]">
                     <a href={`${httpClient.axiosInstance.defaults.baseURL}/auth/discord/link`}>
                       <DiscordIcon className="size-4" fill="white" />
@@ -519,18 +508,18 @@ function RouteComponent() {
                   />
                 </div>
               </div>
-              {profile.heroGame &&
-                (profile.heroGame.sandboxId ? (
+              {heroGame &&
+                (heroGame.sandboxId ? (
                   <Link
                     to="/{-$locale}/profile/$id/achievements/$sandbox"
-                    params={{ id: accountId, sandbox: profile.heroGame.sandboxId }}
+                    params={{ id: accountId, sandbox: heroGame.sandboxId }}
                     className="group flex items-center justify-between gap-4 rounded-md border border-white/15 bg-black/35 p-4 text-left transition-colors hover:bg-black/50"
                   >
-                    <HeroGameSummary game={profile.heroGame} />
+                    <HeroGameSummary game={heroGame} />
                   </Link>
                 ) : (
                   <div className="flex items-center justify-between gap-4 rounded-md border border-white/15 bg-black/35 p-4 text-left">
-                    <HeroGameSummary game={profile.heroGame} />
+                    <HeroGameSummary game={heroGame} />
                   </div>
                 ))}
             </div>
@@ -545,7 +534,7 @@ function RouteComponent() {
   );
 }
 
-function HeroGameSummary({ game }: { game: NonNullable<ProfilePageProfile["heroGame"]> }) {
+function HeroGameSummary({ game }: { game: ProfileGame }) {
   const { t } = useTranslation();
   return (
     <>
@@ -678,7 +667,7 @@ function PlayerName({
   donorProfile,
 }: {
   displayName: string;
-  donorProfile?: RestProfile | null;
+  donorProfile?: ProfileInformation | null;
 }) {
   const isDonator = (donorProfile?.donations.length ?? 0) > 0;
 
@@ -742,7 +731,7 @@ function DonnorBadge({
   profile,
   displayName,
 }: {
-  profile?: RestProfile | null;
+  profile?: ProfileInformation | null;
   displayName: string;
 }) {
   const { t } = useTranslation();

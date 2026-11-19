@@ -861,8 +861,8 @@ function RouteComponent() {
 
                     <div className="space-y-3">
                       {g.offers.map((offer) => {
-                        const offerPlatforms = offer.items.flatMap((item) =>
-                          item.releaseInfo.flatMap((info) => info.platform),
+                        const offerPlatforms = (offer.items ?? []).flatMap((item) =>
+                          (item.releaseInfo ?? []).flatMap((info) => info?.platform ?? []),
                         );
                         return (
                           <HoverCard key={offer.id}>

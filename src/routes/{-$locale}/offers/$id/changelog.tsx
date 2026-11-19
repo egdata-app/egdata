@@ -28,7 +28,7 @@ import {
   type V1CursorPaginationMeta,
 } from "@/lib/v1-adapters";
 import { offerChangeFields } from "@/lib/offer-change-fields";
-import { offerOnlyQueryOptions } from "@/queries/offer-gql";
+import { offerOnlyQueryOptions } from "@/queries/offer";
 import type { ChangelogStats } from "@/types/changelog";
 import type { SingleOffer } from "@/types/single-offer";
 import {

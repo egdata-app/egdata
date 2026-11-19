@@ -236,7 +236,7 @@ function RouteComponent() {
 
   const noOfAchievemenentsPerRarity = useMemo(() => {
     return achievements
-      ?.flatMap((set) => set.achievements)
+      ?.flatMap((set) => set.achievements ?? [])
       .reduce(
         (acc, achievement) => {
           const rarity = getRarity(achievement.xp);
@@ -253,7 +253,7 @@ function RouteComponent() {
 
   const totalXP = useMemo(() => {
     return achievements
-      ?.flatMap((set) => set.achievements)
+      ?.flatMap((set) => set.achievements ?? [])
       .reduce((acc, achievement) => acc + achievement.xp, !isNotBaseGame ? 250 : 0);
   }, [achievements, isNotBaseGame]);
 
@@ -397,7 +397,7 @@ function RouteComponent() {
                           {
                             achievements
                               ?.filter((set) => set.isBase)
-                              .flatMap((set) => set.achievements).length
+                              .flatMap((set) => set.achievements ?? []).length
                           }
                         </span>
                       </div>

@@ -1,9 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { expectNoAppError, waitForApiResponse } from "./support/assertions";
-import { GRAPHQL_ROUTE_PATTERN, readGraphQLPayload } from "./support/graphql-payload.mjs";
 import {
-  createProfilePageResponse,
-  isProfilePageRequest,
+  createProfileApiResponse,
   PROFILE_DISPLAY_NAME,
   PROFILE_ID_WITH_ACHIEVEMENTS,
 } from "./support/profile-fixture.mjs";
@@ -40,18 +38,22 @@ test.describe("Profile page", () => {
       }
     });
 
-    await page.route(GRAPHQL_ROUTE_PATTERN, async (route) => {
-      const request = route.request();
-      const payload = readGraphQLPayload(new URL(request.url()), request.postData());
+    await page.route(`**/profiles/${PROFILE_ID_WITH_ACHIEVEMENTS}/**`, async (route) => {
+      if (route.request().isNavigationRequest()) {
+        await route.continue();
+        return;
+      }
 
-      if (!isProfilePageRequest(payload)) {
+      const response = createProfileApiResponse(new URL(route.request().url()));
+      if (!response) {
         await route.continue();
         return;
       }
 
       await route.fulfill({
+        status: response.status,
         contentType: "application/json",
-        body: JSON.stringify(createProfilePageResponse(payload.variables)),
+        body: JSON.stringify(response.body),
       });
     });
     await page.route("https://cdn.example.test/**", async (route) => {
@@ -111,17 +113,17 @@ test.describe("Profile page", () => {
     await expect(libraryFilter.getByRole("button", { name: "All", exact: true })).toBeVisible();
     await expect(libraryFilter.getByRole("button", { name: "In Progress" })).toBeVisible();
 
-    const nextPageResponse = waitForApiResponse(page, "/graphql");
+    const nextPageResponse = waitForApiResponse(page, "/games");
     await page.getByRole("button", { name: "Go to next page" }).click();
     await nextPageResponse;
     await expect(page).toHaveURL(/page=2/);
 
-    const filterResponse = waitForApiResponse(page, "/graphql");
+    const filterResponse = waitForApiResponse(page, "/games");
     await libraryFilter.getByRole("button", { name: "In Progress" }).click();
     await filterResponse;
     await expect(page).toHaveURL(/filter=in-progress/);
 
-    const sortResponse = waitForApiResponse(page, "/graphql");
+    const sortResponse = waitForApiResponse(page, "/games");
     await page.getByRole("combobox", { name: "Sort library" }).click();
     await page.getByRole("option", { name: "XP" }).click();
     await sortResponse;

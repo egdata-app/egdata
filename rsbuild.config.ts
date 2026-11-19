@@ -124,7 +124,6 @@ export default defineConfig({
             "@mdxeditor/editor",
             "@tanstack/devtools",
             "@tanstack/react-start",
-            "graphql",
           ],
         },
       },

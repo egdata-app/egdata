@@ -38,7 +38,7 @@ import Markdown from "react-markdown";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { getQueryClient } from "@/lib/client";
 import { useLocale } from "@/hooks/use-locale";
-import { offerOnlyQueryOptions } from "@/queries/offer-gql";
+import { offerOnlyQueryOptions } from "@/queries/offer";
 import { Viewer } from "@/components/app/viewer";
 import { DateTime } from "luxon";
 import { useTranslation } from "@/lib/paraglide-react";

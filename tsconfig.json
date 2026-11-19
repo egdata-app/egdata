@@ -14,14 +14,7 @@
       ]
     },
     "types": ["node", "@rsbuild/core/types"],
-    "lib": ["ESNext", "DOM", "WebWorker"],
-    "plugins": [
-      {
-        "name": "gql.tada/ts-plugin",
-        "schema": "https://api.egdata.app/graphql",
-        "tadaOutputLocation": "./src/graphql-env.d.ts"
-      }
-    ]
+    "lib": ["ESNext", "DOM", "WebWorker"]
   },
   "include": ["src", "global.d.ts", "*.config.ts", "scripts/*.mjs"]
 }

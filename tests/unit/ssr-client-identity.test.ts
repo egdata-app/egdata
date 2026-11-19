@@ -56,7 +56,7 @@ test("overlapping SSR requests retain their own visitor identity and never mutat
     ips.map((ip) =>
       context.run(new Headers({ "cf-connecting-ip": ip }), () =>
         client.get<{ ip: string; path: string; forwarded?: unknown; real?: unknown }>(
-          `/graphql?visitor=${ip}`,
+          `/offers/abc?visitor=${ip}`,
           {
             headers: {
               "CF-Connecting-IP": "192.0.2.99",
@@ -75,7 +75,7 @@ test("overlapping SSR requests retain their own visitor identity and never mutat
   });
   assert.equal(client.axiosInstance.defaults.headers.common["cf-connecting-ip"], undefined);
   assert.equal(configs.length, 3);
-  const background = await client.get<{ ip?: unknown }>("/graphql");
+  const background = await client.get<{ ip?: unknown }>("/offers/abc");
   assert.equal(background.ip, false);
 });
 
@@ -95,7 +95,7 @@ test("browser requests never invoke SSR identity and external destinations recei
     );
     const { adapter, configs } = createAdapter(() => ({ data: {} }));
     client.axiosInstance.defaults.adapter = adapter;
-    await client.get(mode === "browser" ? "/graphql" : "https://example.com/other");
+    await client.get(mode === "browser" ? "/offers/abc" : "https://example.com/other");
     assert.ok(!configs[0].headers.get("cf-connecting-ip"));
   }
   assert.equal(calls, 0);

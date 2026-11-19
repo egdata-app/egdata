@@ -1,6 +1,5 @@
 import { expect, test } from "@playwright/test";
 import { sandboxFixtureId, sandboxFixtureResponse } from "./support/sandbox-fixture.mjs";
-import { GRAPHQL_ROUTE_PATTERN, readGraphQLPayload } from "./support/graphql-payload.mjs";
 import { expectNoAppError, expectNoPageHorizontalOverflow } from "./support/assertions";
 
 test.use({ baseURL: "http://localhost:3100" });
@@ -9,15 +8,6 @@ test.beforeEach(async ({ page }) => {
   await page.route("**/sandboxes/e2e-sandbox-catalog*/**", async (route) => {
     if (route.request().isNavigationRequest()) return route.continue();
     const response = sandboxFixtureResponse(new URL(route.request().url()));
-    if (response) await route.fulfill({ status: response.status, json: response.body });
-    else await route.continue();
-  });
-  await page.route(GRAPHQL_ROUTE_PATTERN, async (route) => {
-    const request = route.request();
-    const response = sandboxFixtureResponse(
-      new URL(request.url()),
-      readGraphQLPayload(new URL(request.url()), request.postData()),
-    );
     if (response) await route.fulfill({ status: response.status, json: response.body });
     else await route.continue();
   });
@@ -211,4 +201,11 @@ test("a failed group can be retried after recovery", async ({ page }) => {
   );
   await page.getByRole("button", { name: "Try again", exact: true }).click();
   await expect(page.getByText("No records match your search.", { exact: true })).toBeVisible();
+});
+
+test("sandbox items table renders items even when releaseInfo is omitted", async ({ page }) => {
+  await page.goto(`/sandboxes/${sandboxFixtureId}-items/items`);
+  await expect(page.getByRole("cell", { name: "Item without releaseInfo" })).toBeVisible();
+  await expect(page.getByRole("cell", { name: "Item with Windows releaseInfo" })).toBeVisible();
+  await expectNoAppError(page);
 });

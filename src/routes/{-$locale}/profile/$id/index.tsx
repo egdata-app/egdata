@@ -4,17 +4,24 @@ import { Link } from "@/components/app/localized-link";
 import { useQuery } from "@tanstack/react-query";
 import { z } from "zod";
 import {
-  getDefaultProfilePageVariables,
   PROFILE_ACTIVITY_LIMIT,
   PROFILE_LIBRARY_LIMIT,
-  profilePageQueryOptions,
+  profileActivityQueryOptions,
+  profileFeaturedAchievementsQueryOptions,
+  profileFeaturedGamesQueryOptions,
+  profileInformationQueryOptions,
+  profileLibraryQueryOptions,
+  profileSearchFilters,
+  profileSearchSorts,
+  toProfileActivityItems,
   type ProfileAchievement,
   type ProfileActivityItem,
+  type ProfileActivityPageResult,
   type ProfileGame,
-  type ProfileGameFilter,
-  type ProfileGameSort,
-  type ProfilePageProfile,
-} from "@/queries/profile-gql";
+  type ProfileGamesPageResult,
+  type ProfileSearchFilter,
+  type ProfileSearchSort,
+} from "@/queries/profile";
 import { Image } from "@/components/app/image";
 import { DynamicPagination } from "@/components/app/dynamic-pagination";
 import {
@@ -45,11 +52,11 @@ import i18n from "@/lib/i18n";
 const profileTabs = ["showcase", "library", "activity"] as const;
 type ProfileTab = (typeof profileTabs)[number];
 
-const searchFilters = ["all", "completed", "near-platinum", "in-progress", "platinum"] as const;
-type SearchFilter = (typeof searchFilters)[number];
+const searchFilters = profileSearchFilters;
+type SearchFilter = ProfileSearchFilter;
 
-const searchSorts = ["completion", "alphabetical", "xp", "achievements"] as const;
-type SearchSort = (typeof searchSorts)[number];
+const searchSorts = profileSearchSorts;
+type SearchSort = ProfileSearchSort;
 
 const profileParamsSchema = z.object({
   tab: z.enum(profileTabs).optional().catch(undefined),
@@ -82,21 +89,6 @@ type EffectiveProfileSearch = {
   sort: SearchSort;
 };
 
-const filterToGraphQL: Record<SearchFilter, ProfileGameFilter> = {
-  all: "ALL",
-  completed: "COMPLETED",
-  "near-platinum": "NEAR_PLATINUM",
-  "in-progress": "IN_PROGRESS",
-  platinum: "PLATINUM",
-};
-
-const sortToGraphQL: Record<SearchSort, ProfileGameSort> = {
-  completion: "COMPLETION",
-  alphabetical: "ALPHABETICAL",
-  xp: "XP",
-  achievements: "ACHIEVEMENTS",
-};
-
 export const Route = createFileRoute("/{-$locale}/profile/$id/")({
   component: ProfileInformation,
   validateSearch: (search): ProfileSearch => {
@@ -123,17 +115,38 @@ function ProfileInformation() {
   const rawSearch = Route.useSearch();
   const search = getEffectiveSearch(rawSearch);
   const navigate = Route.useNavigate();
-  const variables = React.useMemo(
-    () => ({
-      ...getDefaultProfilePageVariables(id),
-      gamePage: search.page,
-      gameFilter: filterToGraphQL[search.filter],
-      gameSort: sortToGraphQL[search.sort],
-      achievementPage: search.activityPage,
+
+  const { data: profile, isLoading, isError } = useQuery(profileInformationQueryOptions(id));
+  const { data: featuredAchievements = [] } = useQuery({
+    ...profileFeaturedAchievementsQueryOptions(id),
+    enabled: search.tab === "showcase",
+  });
+  const { data: featuredGames = [] } = useQuery({
+    ...profileFeaturedGamesQueryOptions(id),
+    enabled: search.tab === "showcase",
+  });
+  const { data: recentActivityPage } = useQuery({
+    ...profileActivityQueryOptions({ id, page: 1 }),
+    enabled: search.tab === "showcase",
+  });
+  const { data: libraryPage, isLoading: libraryLoading } = useQuery({
+    ...profileLibraryQueryOptions({
+      id,
+      page: search.page,
+      filter: search.filter,
+      sort: search.sort,
     }),
-    [id, search.activityPage, search.filter, search.page, search.sort],
+    enabled: search.tab === "library",
+  });
+  const { data: activityPage, isLoading: activityLoading } = useQuery({
+    ...profileActivityQueryOptions({ id, page: search.activityPage }),
+    enabled: search.tab === "activity",
+  });
+
+  const recentActivity = React.useMemo(
+    () => toProfileActivityItems(recentActivityPage?.elements ?? []),
+    [recentActivityPage?.elements],
   );
-  const { data: profile, isLoading, isError } = useQuery(profilePageQueryOptions(variables));
 
   const updateSearch = (next: Partial<EffectiveProfileSearch>) => {
     navigate({
@@ -177,27 +190,33 @@ function ProfileInformation() {
         <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
           <span className="inline-flex items-center gap-2">
             <Gamepad2Icon className="size-4" />
-            {t("profile.stats.games", { count: profile.highlights?.totalGames ?? 0 })}
+            {t("profile.stats.games", { count: profile.stats?.totalGames ?? 0 })}
           </span>
           <span className="inline-flex items-center gap-2">
             <EpicTrophyIcon className="size-4" />
             {t("profile.stats.achievements", {
-              count: profile.highlights?.totalAchievements ?? 0,
+              count: profile.stats?.totalAchievements ?? 0,
             })}
           </span>
           <span className="inline-flex items-center gap-2">
             <EpicPlatinumIcon className="size-4 text-[#8a7cff]" />
-            {t("profile.stats.platinum", { count: profile.highlights?.totalPlatinums ?? 0 })}
+            {t("profile.stats.platinum", { count: profile.stats?.totalPlayerAwards ?? 0 })}
           </span>
         </div>
       </div>
 
       <TabsContent value="showcase" className="mt-0">
-        <ShowcaseView profile={profile} profileId={id} />
+        <ShowcaseView
+          featuredAchievements={featuredAchievements}
+          featuredGames={featuredGames}
+          recentActivity={recentActivity}
+          profileId={id}
+        />
       </TabsContent>
       <TabsContent value="library" className="mt-0">
         <LibraryView
-          profile={profile}
+          gamesPage={libraryPage}
+          isLoading={libraryLoading && !libraryPage}
           profileId={id}
           search={search}
           onFilterChange={(filter) =>
@@ -211,8 +230,10 @@ function ProfileInformation() {
       </TabsContent>
       <TabsContent value="activity" className="mt-0">
         <ActivityView
-          profile={profile}
+          activityPage={activityPage}
+          isLoading={activityLoading && !activityPage}
           profileId={id}
+          currentPage={search.activityPage}
           onPageChange={(activityPage) => updateSearch({ tab: "activity", activityPage })}
         />
       </TabsContent>
@@ -220,11 +241,21 @@ function ProfileInformation() {
   );
 }
 
-function ShowcaseView({ profile, profileId }: { profile: ProfilePageProfile; profileId: string }) {
+function ShowcaseView({
+  featuredAchievements: rawFeaturedAchievements,
+  featuredGames: rawFeaturedGames,
+  recentActivity: rawRecentActivity,
+  profileId,
+}: {
+  featuredAchievements: ProfileAchievement[];
+  featuredGames: ProfileGame[];
+  recentActivity: ProfileActivityItem[];
+  profileId: string;
+}) {
   const { t } = useTranslation();
-  const featuredAchievements = compact(profile.featuredAchievements).slice(0, 8);
-  const featuredGames = compact(profile.featuredGames).slice(0, 6);
-  const recentActivity = compact(profile.recentActivity).slice(0, 6);
+  const featuredAchievements = compact(rawFeaturedAchievements).slice(0, 8);
+  const featuredGames = compact(rawFeaturedGames).slice(0, 6);
+  const recentActivity = compact(rawRecentActivity).slice(0, 6);
   const rarestAchievement = featuredAchievements[0];
   const strongestGame = featuredGames[0];
   const recentHighlight = recentActivity[0];
@@ -461,14 +492,16 @@ function ActivitySpotlight({ item, profileId }: { item: ProfileActivityItem; pro
 }
 
 function LibraryView({
-  profile,
+  gamesPage,
+  isLoading,
   profileId,
   search,
   onFilterChange,
   onSortChange,
   onPageChange,
 }: {
-  profile: ProfilePageProfile;
+  gamesPage: ProfileGamesPageResult | undefined;
+  isLoading: boolean;
   profileId: string;
   search: EffectiveProfileSearch;
   onFilterChange: (filter: SearchFilter) => void;
@@ -476,11 +509,10 @@ function LibraryView({
   onPageChange: (page: number) => void;
 }) {
   const { t } = useTranslation();
-  const games = compact(profile.games?.elements);
-  const totalPages = getTotalPages(
-    profile.games?.total,
-    profile.games?.limit ?? PROFILE_LIBRARY_LIMIT,
-  );
+  const games = compact(gamesPage?.elements);
+  const totalPages =
+    gamesPage?.totalPages ??
+    getTotalPages(gamesPage?.total, gamesPage?.limit ?? PROFILE_LIBRARY_LIMIT);
 
   const filterLabels: Record<SearchFilter, string> = {
     all: t("profile.library.filters.all"),
@@ -541,7 +573,9 @@ function LibraryView({
         </div>
       </div>
 
-      {games.length > 0 ? (
+      {isLoading ? (
+        <ProfileContentSkeleton />
+      ) : games.length > 0 ? (
         <>
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {games.map((game) => (
@@ -553,8 +587,9 @@ function LibraryView({
             ))}
           </div>
           <DynamicPagination
-            currentPage={profile.games?.page ?? search.page}
+            currentPage={gamesPage?.page ?? search.page}
             totalPages={totalPages}
+            hasMore={gamesPage?.hasMore}
             setPage={onPageChange}
           />
         </>
@@ -675,20 +710,23 @@ function AchievementTile({
 }
 
 function ActivityView({
-  profile,
+  activityPage,
+  isLoading,
   profileId,
+  currentPage,
   onPageChange,
 }: {
-  profile: ProfilePageProfile;
+  activityPage: ProfileActivityPageResult | undefined;
+  isLoading: boolean;
   profileId: string;
+  currentPage: number;
   onPageChange: (page: number) => void;
 }) {
   const { t } = useTranslation();
-  const achievements = compact(profile.achievements?.elements);
-  const totalPages = getTotalPages(
-    profile.achievements?.total,
-    profile.achievements?.limit ?? PROFILE_ACTIVITY_LIMIT,
-  );
+  const achievements = compact(activityPage?.elements);
+  const totalPages =
+    activityPage?.totalPages ??
+    getTotalPages(activityPage?.total, activityPage?.limit ?? PROFILE_ACTIVITY_LIMIT);
 
   return (
     <div className="space-y-6">
@@ -696,10 +734,12 @@ function ActivityView({
         icon={<ActivityIcon className="size-5" />}
         title={t("profile.activity.title")}
         detail={t("profile.activity.detail", {
-          count: profile.achievements?.total ?? achievements.length,
+          count: activityPage?.total ?? achievements.length,
         })}
       />
-      {achievements.length > 0 ? (
+      {isLoading ? (
+        <ProfileContentSkeleton />
+      ) : achievements.length > 0 ? (
         <>
           <div className="space-y-3">
             {achievements.map((achievement) => (
@@ -711,8 +751,9 @@ function ActivityView({
             ))}
           </div>
           <DynamicPagination
-            currentPage={profile.achievements?.page ?? 1}
+            currentPage={activityPage?.page ?? currentPage}
             totalPages={totalPages}
+            hasMore={activityPage?.hasMore}
             setPage={onPageChange}
           />
         </>

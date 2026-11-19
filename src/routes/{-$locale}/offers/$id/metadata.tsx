@@ -14,7 +14,7 @@ import { httpClient } from "@/lib/http-client";
 import { captureError } from "@/lib/pulse-telemetry";
 import i18n from "@/lib/i18n";
 import { useLocale } from "@/hooks/use-locale";
-import { offerOnlyQueryOptions } from "@/queries/offer-gql";
+import { offerOnlyQueryOptions } from "@/queries/offer";
 import type { Asset } from "@/types/asset";
 import type { SingleOffer } from "@/types/single-offer";
 import type { SingleSandbox } from "@/types/single-sandbox";

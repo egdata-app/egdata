@@ -207,7 +207,7 @@ function CollectionPage() {
 
         {/* Offers List */}
         <div className="flex flex-col gap-2 w-full">
-          {data?.pages
+          {(data?.pages ?? [])
             .flatMap((page) => (Array.isArray(page?.elements) ? page.elements : []))
             .map((offer) => (
               <OfferInTop key={offer.id} offer={offer} />
@@ -267,7 +267,7 @@ function OfferInTop({ offer }: { offer: OfferWithTops }) {
   const weeksInTop100 = Math.floor(offer.metadata.timesInTop100 / 7);
 
   return (
-    <Link to="/{-$locale}/offers/$id" params={{ id: offer.id }} preload="viewport">
+    <Link to="/{-$locale}/offers/$id" params={{ id: offer.id }}>
       <Card className="flex h-auto min-h-20 w-full flex-wrap items-center gap-3 overflow-hidden rounded-xl px-4 py-3 md:h-16 md:min-h-0 md:flex-nowrap md:gap-0 md:px-5 md:py-0">
         <span className="text-xl font-bold w-10 flex-shrink-0">{offer.position}</span>
 

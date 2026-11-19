@@ -1,6 +1,6 @@
 import { RegionalPricing } from "@/components/app/regional-pricing";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
-import { offerOnlyQueryOptions } from "@/queries/offer-gql";
+import { offerOnlyQueryOptions } from "@/queries/offer";
 import { dehydrate } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useTranslation } from "@/lib/paraglide-react";

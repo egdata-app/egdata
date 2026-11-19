@@ -34,7 +34,6 @@ export function SalesModule({ eventId, event }: { eventId: string; event: string
         className="text-xl font-bold text-left inline-flex group items-center gap-2"
         to="/{-$locale}/promotions/$id"
         params={{ id: eventId }}
-        preload="viewport"
       >
         {event}{" "}
         <ArrowRightIcon className="w-6 h-6 inline-block group-hover:translate-x-1 transition-transform duration-300 ease-in-out" />

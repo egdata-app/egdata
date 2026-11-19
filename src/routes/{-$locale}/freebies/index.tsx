@@ -229,8 +229,8 @@ function FreeGames() {
               {redeemOptions.map((offer) => {
                 const platforms = [
                   ...new Set(
-                    offer.items.flatMap((item) =>
-                      item.releaseInfo.flatMap((info) => info.platform),
+                    (offer.items ?? []).flatMap((item) =>
+                      (item.releaseInfo ?? []).flatMap((info) => info?.platform ?? []),
                     ),
                   ),
                 ];

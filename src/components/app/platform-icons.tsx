@@ -96,8 +96,8 @@ export const accountPlatformIcons: Record<string, React.ReactNode> = {
   samsung: <SiSamsung className="w-5 h-5 text-muted-foreground" />,
 };
 
-export const getPlatformsArray = (releaseInfo: SingleItem["releaseInfo"]): string[] => {
-  const platforms = releaseInfo.flatMap((release) => release.platform);
+export const getPlatformsArray = (releaseInfo?: SingleItem["releaseInfo"] | null): string[] => {
+  const platforms = (releaseInfo ?? []).flatMap((release) => release?.platform ?? []);
 
   return Array.from(new Set(platforms));
 };

@@ -275,7 +275,7 @@ function FranchiseOfferCard({ offer }: { offer: SingleOffer }) {
   const hasDiscount = price && price.price.discountPrice !== price.price.originalPrice;
 
   return (
-    <Link to="/{-$locale}/offers/$id" params={{ id: offer.id }} preload="viewport">
+    <Link to="/{-$locale}/offers/$id" params={{ id: offer.id }}>
       <Card className="w-full rounded-xl overflow-hidden hover:ring-1 hover:ring-primary/50 transition-all">
         <div className="relative aspect-video">
           <Image

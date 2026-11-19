@@ -134,7 +134,7 @@ function SandboxAchievementsPage() {
 
   const noOfAchievemenentsPerRarity = useMemo(() => {
     return (achievements ?? [])
-      .flatMap((set) => set.achievements)
+      .flatMap((set) => set.achievements ?? [])
       .reduce(
         (acc, achievement) => {
           const rarity = getRarity(achievement.xp);
@@ -146,17 +146,17 @@ function SandboxAchievementsPage() {
   }, [achievements]);
 
   const totalAchievements = useMemo(() => {
-    return (achievements ?? []).flatMap((set) => set.achievements).length;
+    return (achievements ?? []).flatMap((set) => set.achievements ?? []).length;
   }, [achievements]);
 
   const baseAchievements = useMemo(() => {
-    return (achievements ?? []).filter((set) => set.isBase).flatMap((set) => set.achievements)
+    return (achievements ?? []).filter((set) => set.isBase).flatMap((set) => set.achievements ?? [])
       .length;
   }, [achievements]);
 
   const totalXp = useMemo(() => {
     return (achievements ?? [])
-      .flatMap((set) => set.achievements)
+      .flatMap((set) => set.achievements ?? [])
       .reduce((acc, achievement) => acc + achievement.xp, 0);
   }, [achievements]);
 

@@ -1,4 +1,4 @@
-import { textPlatformIcons } from "@/components/app/platform-icons";
+import { getPlatformsArray, textPlatformIcons } from "@/components/app/platform-icons";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import type { SingleItem } from "@/types/single-item";
 import { Link } from "@/components/app/localized-link";
@@ -129,14 +129,13 @@ export const columns: ColumnDef<SingleItem>[] = [
     enableSorting: true,
     enableColumnFilter: true,
     cell: (info) => {
+      const id = (info.getValue() as string | undefined) ?? "";
+      if (!id) {
+        return <span className="font-mono">-</span>;
+      }
       return (
-        <Link
-          className="text-badge font-mono"
-          to="/{-$locale}/items/$id"
-          params={{ id: info.getValue() as string }}
-        >
-          {(info.getValue() as string).slice(0, 4)}...
-          {(info.getValue() as string).slice(-4)}
+        <Link className="text-badge font-mono" to="/{-$locale}/items/$id" params={{ id }}>
+          {id.slice(0, 4)}...{id.slice(-4)}
         </Link>
       );
     },
@@ -147,14 +146,14 @@ export const columns: ColumnDef<SingleItem>[] = [
     enableSorting: true,
     enableColumnFilter: true,
     cell: (info) => {
-      const textLength = (info.getValue() as string).length;
-      if (textLength <= 40) {
-        return info.getValue() as string;
+      const title = (info.getValue() as string | undefined) ?? "";
+      if (title.length <= 40) {
+        return title;
       }
       return (
         <Tooltip>
-          <TooltipTrigger>{(info.getValue() as string).slice(0, 40)}...</TooltipTrigger>
-          <TooltipContent className="max-w-xs">{info.getValue() as string}</TooltipContent>
+          <TooltipTrigger>{title.slice(0, 40)}...</TooltipTrigger>
+          <TooltipContent className="max-w-xs">{title}</TooltipContent>
         </Tooltip>
       );
     },
@@ -179,11 +178,17 @@ export const columns: ColumnDef<SingleItem>[] = [
     enableSorting: true,
     enableColumnFilter: true,
     cell: (info) => {
-      const developer = info.getValue();
+      const developer = info.getValue() as string | undefined;
       const id = info.row.original.developerId;
+      if (!developer) {
+        return null;
+      }
+      if (!id) {
+        return <span>{developer}</span>;
+      }
       return (
-        <Link to="/{-$locale}/sellers/$id" params={{ id: id as string }} className="text-badge">
-          {developer as string}
+        <Link to="/{-$locale}/sellers/$id" params={{ id }} className="text-badge">
+          {developer}
         </Link>
       );
     },
@@ -193,11 +198,11 @@ export const columns: ColumnDef<SingleItem>[] = [
     header: "Platforms",
     enableSorting: true,
     enableColumnFilter: true,
-    getUniqueValues: ({ releaseInfo }) => {
-      return releaseInfo.flatMap((release) => release.platform);
+    getUniqueValues: (row) => {
+      return getPlatformsArray(row?.releaseInfo);
     },
     cell: (info) => {
-      const platforms = info.row.original.releaseInfo.flatMap((release) => release.platform);
+      const platforms = getPlatformsArray(info.row.original?.releaseInfo);
       return (
         <div className="flex flex-row gap-2 items-center justify-center">
           {platforms.map((platform) => (
@@ -208,11 +213,8 @@ export const columns: ColumnDef<SingleItem>[] = [
         </div>
       );
     },
-    filterFn: (row, columnId, value) => {
-      console.log(row, columnId, value);
-      const data = row.original;
-
-      const rowPlatforms = data.releaseInfo.flatMap((release) => release.platform);
+    filterFn: (row, _columnId, value) => {
+      const rowPlatforms = getPlatformsArray(row.original?.releaseInfo);
 
       if (value.length === 0) {
         return true;
@@ -226,11 +228,16 @@ export const columns: ColumnDef<SingleItem>[] = [
     header: "Last Modified",
     enableSorting: true,
     enableColumnFilter: true,
-    cell: (info) =>
-      new Date(info.getValue() as string).toLocaleDateString("en-UK", {
+    cell: (info) => {
+      const value = info.getValue() as string | undefined;
+      if (!value) {
+        return null;
+      }
+      return new Date(value).toLocaleDateString("en-UK", {
         year: "numeric",
         month: "long",
         day: "numeric",
-      }),
+      });
+    },
   },
 ];

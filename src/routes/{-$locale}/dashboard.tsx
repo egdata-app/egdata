@@ -15,6 +15,4 @@ export const Route = createFileRoute("/{-$locale}/dashboard")({
 
     throw redirect({ to: "/{-$locale}" });
   },
-
-  preload: true,
 });

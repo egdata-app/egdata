@@ -23,7 +23,6 @@
     "paraglide:compile": "node scripts/compile-paraglide.mjs",
     "translation:add": "node scripts/add-translation.mjs",
     "typecheck": "pnpm paraglide:compile && tsgo",
-    "generate": "gql-tada generate-output",
     "prepare": "simple-git-hooks"
   },
   "simple-git-hooks": {
@@ -102,9 +101,6 @@
     "embla-carousel-react": "^8.6.0",
     "@googleapis/sheets": "^18.1.3",
     "google-auth-library": "^11.3.4",
-    "gql.tada": "^1.9.2",
-    "graphql": "^16.14.0",
-    "graphql-request": "^7.4.0",
     "h3": "^1.15.11",
     "idb": "^8.0.3",
     "input-otp": "^1.4.2",

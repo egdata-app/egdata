@@ -43,10 +43,7 @@ export const sandboxFixtureOffers = [
   ),
 ];
 
-export function sandboxFixtureResponse(url, payload) {
-  if (url.pathname === "/graphql" && payload?.variables?.id?.startsWith("e2e-sandbox-catalog")) {
-    return { status: 200, body: { data: { sandboxHub: null } } };
-  }
+export function sandboxFixtureResponse(url) {
   const pathname = url.pathname.replace(/^\/v1/, "");
   const match = pathname.match(/^\/sandboxes\/(e2e-sandbox-catalog[^/]*)(?:\/(.*))?$/);
   if (!match) return null;
@@ -57,6 +54,28 @@ export function sandboxFixtureResponse(url, payload) {
       body: { data: { _id: id, name: id, displayName: "Catalog fixture", status: "ACTIVE" } },
     };
   if (section === "base-game") return { status: 200, body: { data: null } };
+  if (section === "stats")
+    return {
+      status: 200,
+      body: {
+        data: {
+          offers: id.endsWith("-empty") ? 0 : sandboxFixtureOffers.length,
+          items: 0,
+          assets: 0,
+          builds: 0,
+          achievements: 0,
+        },
+        meta: {},
+      },
+    };
+  if (section === "builds")
+    return {
+      status: 200,
+      body: {
+        data: [],
+        meta: { count: 0, pagination: { limit: 20, hasMore: false, nextCursor: null, total: 0 } },
+      },
+    };
   if (section === "achievements") return { status: 200, body: { data: [], meta: { count: 0 } } };
   if (section === "changelog")
     return {
@@ -69,6 +88,43 @@ export function sandboxFixtureResponse(url, payload) {
   const types = url.searchParams.get("offerType")?.split(",");
   const title = (url.searchParams.get("title") || "").toLowerCase();
   if (types?.includes("DLC")) return { status: 503, body: { error: "Fixture group unavailable" } };
+  if (id === `${sandboxFixtureId}-items` && section === "items") {
+    const items = [
+      {
+        _id: "item-no-release",
+        id: "item-no-release",
+        namespace: id,
+        title: "Item without releaseInfo",
+        status: "ACTIVE",
+        entitlementType: "EXECUTABLE",
+        developer: "Epic",
+        developerId: "epic",
+        lastModifiedDate: "2026-01-01",
+      },
+      {
+        _id: "item-with-release",
+        id: "item-with-release",
+        namespace: id,
+        title: "Item with Windows releaseInfo",
+        status: "ACTIVE",
+        entitlementType: "EXECUTABLE",
+        developer: "Epic",
+        developerId: "epic",
+        releaseInfo: [{ id: "r1", appId: "app", platform: ["Windows"] }],
+        lastModifiedDate: "2026-01-01",
+      },
+    ];
+    return {
+      status: 200,
+      body: {
+        data: items,
+        meta: {
+          count: items.length,
+          pagination: { limit: 20, hasMore: false, nextCursor: null, total: items.length },
+        },
+      },
+    };
+  }
   const elements =
     id.endsWith("-empty") || section !== "offers"
       ? []

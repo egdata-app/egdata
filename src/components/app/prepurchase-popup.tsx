@@ -12,7 +12,7 @@ import type { IsPrepurchase } from "@/types/prepurchase";
 import { getImage } from "@/lib/get-image";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { useLocale } from "@/hooks/use-locale";
-import { offerOnlyQueryOptions } from "@/queries/offer-gql";
+import { offerOnlyQueryOptions } from "@/queries/offer";
 
 const normalizeDate = (dateString: string) => new Date(dateString).getTime();
 

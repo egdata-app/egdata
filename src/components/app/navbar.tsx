@@ -511,11 +511,7 @@ export default function Navbar() {
           </div>
         </SheetContent>
       </Sheet>
-      <Link
-        to="/{-$locale}"
-        className="hidden lg:flex justify-center items-center"
-        preload="viewport"
-      >
+      <Link to="/{-$locale}" className="hidden lg:flex justify-center items-center">
         <img
           src="https://cdn.egdata.app/logo_simple_white_clean.png"
           alt={t("nav.logoAlt")}

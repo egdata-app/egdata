@@ -38,7 +38,7 @@ import { ClientOnly } from "@/lib/cllient-only";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { Seller } from "@/lib/get-seller";
 import { httpClient } from "@/lib/http-client";
-import { offerGqlQueryOptions, offerOnlyQueryOptions } from "@/queries/offer-gql";
+import { offerOnlyQueryOptions, offerPageQueryOptions } from "@/queries/offer";
 import { internalNamespaces } from "@/lib/internal-namespaces";
 import { offersDictionary } from "@/lib/offers-dictionary";
 import { compareDates, timeAgo } from "@/lib/time-ago";
@@ -98,7 +98,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id")({
             .catch(() => null),
       }),
       queryClient.prefetchQuery(
-        offerGqlQueryOptions({ id: params.id, country: country || "US", locale }),
+        offerPageQueryOptions({ id: params.id, country: country || "US", locale }),
       ),
       queryClient.prefetchQuery({
         queryKey: ["offer-assets", { id }],
@@ -264,7 +264,7 @@ function OfferPage() {
   };
 
   const { data, isLoading: offerLoading } = useSuspenseQuery(
-    offerGqlQueryOptions({ id, country: country || "US", locale }),
+    offerPageQueryOptions({ id, country: country || "US", locale }),
   );
 
   const offer = data?.offer;
@@ -780,9 +780,11 @@ function OfferPage() {
             </Popover>
           </div>
           <OfferHero offer={offer} />
-          {franchise && franchise.offers.length > 1 && franchise.namespaces.length > 1 && (
-            <FranchiseBanner franchise={franchise} />
-          )}
+          {franchise &&
+            franchise.offers.length > 1 &&
+            (!franchise.namespaces || franchise.namespaces.length > 1) && (
+              <FranchiseBanner franchise={franchise} />
+            )}
           <p className="px-1">{offer.description}</p>
         </div>
       </header>

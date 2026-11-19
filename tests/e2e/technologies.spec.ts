@@ -1,11 +1,9 @@
 import { expect, test, type Page } from "@playwright/test";
 import { createBuildPageResponse, currentBuildId } from "./support/build-fixture.mjs";
-import { GRAPHQL_ROUTE_PATTERN, readGraphQLPayload } from "./support/graphql-payload.mjs";
 import {
   createReadyTechnologyResponse,
   createTechnologyApiResponse,
-  createTechnologyOfferResponse,
-  isTechnologyOfferRequest,
+  createTechnologyOfferApiResponse,
   technologyOfferId,
 } from "./support/technology-fixture.mjs";
 import { expectNoPageHorizontalOverflow } from "./support/assertions";
@@ -192,13 +190,12 @@ test.describe("technology profiles", () => {
   });
 
   test("preserves exact technology keys and locale prefixes in offer links", async ({ page }) => {
-    await page.route(GRAPHQL_ROUTE_PATTERN, async (route) => {
-      const request = route.request();
-      const payload = readGraphQLPayload(new URL(request.url()), request.postData());
-      if (!isTechnologyOfferRequest(payload)) return route.continue();
+    await page.route(`**/v1/offers/${technologyOfferId}**`, async (route) => {
+      const response = createTechnologyOfferApiResponse(new URL(route.request().url()));
+      if (!response) return route.continue();
       await route.fulfill({
         contentType: "application/json",
-        body: JSON.stringify(createTechnologyOfferResponse(payload.variables.id)),
+        body: JSON.stringify(response),
       });
     });
 

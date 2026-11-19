@@ -23,7 +23,6 @@ export const StyledSmallCard: React.FC<{
       className="flex items-center justify-between bg-muted rounded-lg shadow-lg w-full h-16 relative overflow-hidden group"
       to="/{-$locale}/offers/$id"
       params={{ id: offer.id }}
-      preload="viewport"
     >
       <span className="text-foreground font-bold flex flex-col px-5 gap-1 z-10">
         <h6 className="text-xs">{title}</h6>

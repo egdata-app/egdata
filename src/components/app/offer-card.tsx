@@ -37,7 +37,6 @@ export function GameCard({ offer }: { offer: SingleOffer }) {
     <Link
       to="/{-$locale}/offers/$id"
       params={{ id: offer.id }}
-      preload="viewport"
       aria-label={`Open offer ${offer.title}`}
     >
       <div className="w-full max-w-sm overflow-hidden rounded-md bg-card aspect-[3/4] relative group">
@@ -156,7 +155,6 @@ export function OfferCard({
       params={{
         id: offer.id,
       }}
-      preload="viewport"
       className="select-none group mx-auto w-fit md:w-full"
       viewTransition
       aria-label={`Open offer ${offer.title}`}

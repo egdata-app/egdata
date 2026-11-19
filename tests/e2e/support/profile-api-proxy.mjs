@@ -1,12 +1,10 @@
 import { createServer } from "node:http";
-import { createProfilePageResponse, isProfilePageRequest } from "./profile-fixture.mjs";
 import { createBuildPageResponse } from "./build-fixture.mjs";
-import { readGraphQLPayload } from "./graphql-payload.mjs";
+import { createProfileApiResponse } from "./profile-fixture.mjs";
 import { sandboxFixtureResponse } from "./sandbox-fixture.mjs";
 import {
   createTechnologyApiResponse,
-  createTechnologyOfferResponse,
-  isTechnologyOfferRequest,
+  createTechnologyOfferApiResponse,
 } from "./technology-fixture.mjs";
 
 const port = Number(process.env.E2E_API_PROXY_PORT ?? "3101");
@@ -35,6 +33,18 @@ const server = createServer(async (request, response) => {
       return;
     }
 
+    const technologyOfferResponse = createTechnologyOfferApiResponse(url);
+    if (technologyOfferResponse) {
+      sendJson(response, technologyOfferResponse);
+      return;
+    }
+
+    const profileResponse = createProfileApiResponse(url);
+    if (profileResponse) {
+      sendJson(response, profileResponse.body, profileResponse.status);
+      return;
+    }
+
     const buildResponse = createBuildPageResponse(url);
     if (buildResponse) {
       sendJson(response, buildResponse);
@@ -43,21 +53,10 @@ const server = createServer(async (request, response) => {
   }
 
   const body = await readBody(request);
-  const payload = readGraphQLPayload(url, body);
 
-  const sandboxResponse = sandboxFixtureResponse(url, payload);
+  const sandboxResponse = sandboxFixtureResponse(url);
   if (sandboxResponse) {
     sendJson(response, sandboxResponse.body, sandboxResponse.status);
-    return;
-  }
-
-  if (url.pathname === "/graphql" && isTechnologyOfferRequest(payload)) {
-    sendJson(response, createTechnologyOfferResponse(payload.variables.id));
-    return;
-  }
-
-  if (url.pathname === "/graphql" && isProfilePageRequest(payload)) {
-    sendJson(response, createProfilePageResponse(payload.variables));
     return;
   }
 

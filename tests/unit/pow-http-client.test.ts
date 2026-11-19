@@ -2,9 +2,7 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import axios from "axios";
 import { QueryClient } from "@tanstack/react-query";
-import { parse } from "graphql";
 import { HttpFetch } from "../../src/lib/http-client.ts";
-import { graphqlRequest } from "../../src/lib/graphql-request.ts";
 import { ProofOfWorkRecoveryError, isProofOfWorkRecoveryError } from "../../src/lib/pow/errors.ts";
 import { shouldRetryQuery } from "../../src/lib/pow/query-retry.ts";
 import type { SessionRecovery } from "../../src/lib/pow/session-recovery.ts";
@@ -82,72 +80,6 @@ test("intercepts a REST HTTP-200 challenge envelope and replays the request once
     rating: 5,
     body: "great",
   });
-});
-
-test("intercepts a GraphQL HTTP-200 challenge envelope before parsing", async () => {
-  const { recovery, starts } = createRecoverySpy();
-  const client = createClient(recovery);
-  const { adapter, configs } = createAdapter((_config, index) =>
-    index === 0 ? { data: CHALLENGE_ENVELOPE } : { data: { data: { viewer: { id: "viewer-1" } } } },
-  );
-  client.axiosInstance.defaults.adapter = adapter;
-
-  const document = parse("query Viewer { viewer { id } }");
-  const data = await graphqlRequest<{ viewer: { id: string } }>(document, undefined, {
-    preferPost: true,
-    client,
-  });
-
-  assert.deepEqual(data, { viewer: { id: "viewer-1" } });
-  assert.equal(configs.length, 2);
-  assert.equal(starts.length, 1);
-  assert.equal(configs[1].headers.get("content-type"), "application/json");
-});
-
-test("intercepts a GraphQL APQ GET challenge envelope and preserves preflight headers", async () => {
-  const { recovery, starts } = createRecoverySpy();
-  const client = createClient(recovery);
-  const { adapter, configs } = createAdapter((_config, index) =>
-    index === 0
-      ? { data: CHALLENGE_ENVELOPE }
-      : { data: { data: { viewer: { id: "viewer-get" } } } },
-  );
-  client.axiosInstance.defaults.adapter = adapter;
-
-  const document = parse("query ViewerGet { viewer { id } }");
-  const data = await graphqlRequest<{ viewer: { id: string } }>(document, undefined, {
-    client,
-  });
-
-  assert.deepEqual(data, { viewer: { id: "viewer-get" } });
-  assert.equal(configs.length, 2);
-  assert.equal(starts.length, 1);
-
-  for (const config of configs) {
-    assert.equal(config.method, "get");
-    assert.equal(config.headers.get("apollo-require-preflight"), "true");
-  }
-});
-
-test("a GraphQL challenge failure is surfaced as a typed error, not GraphQL data", async () => {
-  const recovery: SessionRecovery = {
-    getGeneration: () => 0,
-    recover: async () => {
-      throw new ProofOfWorkRecoveryError("solve-failed");
-    },
-  };
-  const client = createClient(recovery);
-  const { adapter, configs } = createAdapter(() => ({ data: CHALLENGE_ENVELOPE }));
-  client.axiosInstance.defaults.adapter = adapter;
-
-  const document = parse("query Viewer { viewer { id } }");
-
-  await assert.rejects(
-    graphqlRequest(document, undefined, { preferPost: true, client }),
-    (error) => isProofOfWorkRecoveryError(error) && error.reason === "solve-failed",
-  );
-
-  assert.equal(configs.length, 1);
 });
 
 test("twenty simultaneous challenged HTTP requests share one handshake", async () => {

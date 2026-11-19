@@ -23,7 +23,7 @@ import { platformIcons } from "./platform-icons";
 import { GameFeatures } from "./features";
 import { calculatePrice } from "@/lib/calculate-price";
 import { useLocale } from "@/hooks/use-locale";
-import { offerOnlyQueryOptions } from "@/queries/offer-gql";
+import { offerOnlyQueryOptions } from "@/queries/offer";
 import { useTranslation } from "@/lib/paraglide-react";
 import { getEffectivePrice } from "@/lib/effective-price";
 

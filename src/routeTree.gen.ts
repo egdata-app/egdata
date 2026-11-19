@@ -9,205 +9,95 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from "./routes/__root";
-import { Route as Char123LocaleChar125RouteImport } from "./routes/{-$locale}";
 import { Route as SitemapDotxmlRouteImport } from "./routes/sitemap[.]xml";
-import { Route as Char123LocaleChar125IndexRouteImport } from "./routes/{-$locale}/index";
-import { Route as Char123LocaleChar125TheGameAwardsRouteImport } from "./routes/{-$locale}/the-game-awards";
-import { Route as Char123LocaleChar125SearchRouteImport } from "./routes/{-$locale}/search";
-import { Route as Char123LocaleChar125PrivacyRouteImport } from "./routes/{-$locale}/privacy";
-import { Route as Char123LocaleChar125PostsRouteImport } from "./routes/{-$locale}/posts";
-import { Route as Char123LocaleChar125NotificationsRouteImport } from "./routes/{-$locale}/notifications";
-import { Route as Char123LocaleChar125GenresRouteImport } from "./routes/{-$locale}/genres";
-import { Route as Char123LocaleChar125FreegamesRouteImport } from "./routes/{-$locale}/freegames";
-import { Route as Char123LocaleChar125FreeGamesRouteImport } from "./routes/{-$locale}/free-games";
-import { Route as Char123LocaleChar125FairUseRouteImport } from "./routes/{-$locale}/fair-use";
-import { Route as Char123LocaleChar125DownloadsRouteImport } from "./routes/{-$locale}/downloads";
-import { Route as Char123LocaleChar125DonateKeyRouteImport } from "./routes/{-$locale}/donate-key";
-import { Route as Char123LocaleChar125DiscordLinkedRouteImport } from "./routes/{-$locale}/discord-linked";
-import { Route as Char123LocaleChar125DashboardRouteImport } from "./routes/{-$locale}/dashboard";
-import { Route as Char123LocaleChar125AndroidBetaRouteImport } from "./routes/{-$locale}/android-beta";
-import { Route as Char123LocaleChar125AboutRouteImport } from "./routes/{-$locale}/about";
-import { Route as AuthLogoutRouteImport } from "./routes/auth/logout";
-import { Route as AuthLoginRouteImport } from "./routes/auth/login";
-import { Route as AuthCallbackRouteImport } from "./routes/auth/callback";
-import { Route as ApiWebTokenRouteImport } from "./routes/api/web-token";
-import { Route as ApiTokenRouteImport } from "./routes/api/token";
-import { Route as ApiLogoutRouteImport } from "./routes/api/logout";
+import { Route as Char123LocaleChar125RouteImport } from "./routes/{-$locale}";
 import { Route as ApiHelloRouteImport } from "./routes/api/hello";
-import { Route as Char123LocaleChar125SalesIndexRouteImport } from "./routes/{-$locale}/sales/index";
-import { Route as Char123LocaleChar125FreebiesIndexRouteImport } from "./routes/{-$locale}/freebies/index";
-import { Route as Char123LocaleChar125CollectionsIndexRouteImport } from "./routes/{-$locale}/collections/index";
-import { Route as Char123LocaleChar125ChangelogIndexRouteImport } from "./routes/{-$locale}/changelog/index";
-import { Route as Char123LocaleChar125TechnologiesIdRouteImport } from "./routes/{-$locale}/technologies/$id";
-import { Route as Char123LocaleChar125TagsIdRouteImport } from "./routes/{-$locale}/tags/$id";
-import { Route as Char123LocaleChar125StatsReleasesRouteImport } from "./routes/{-$locale}/stats/releases";
-import { Route as Char123LocaleChar125StatsCreationsRouteImport } from "./routes/{-$locale}/stats/creations";
-import { Route as Char123LocaleChar125SellersIdRouteImport } from "./routes/{-$locale}/sellers/$id";
-import { Route as Char123LocaleChar125SandboxesIdRouteImport } from "./routes/{-$locale}/sandboxes/$id";
-import { Route as Char123LocaleChar125SalesIdRouteImport } from "./routes/{-$locale}/sales/$id";
-import { Route as Char123LocaleChar125PromotionsIdRouteImport } from "./routes/{-$locale}/promotions/$id";
-import { Route as Char123LocaleChar125ProfileIdRouteImport } from "./routes/{-$locale}/profile/$id";
-import { Route as Char123LocaleChar125OffersIdRouteImport } from "./routes/{-$locale}/offers/$id";
-import { Route as Char123LocaleChar125ItemsIdRouteImport } from "./routes/{-$locale}/items/$id";
-import { Route as Char123LocaleChar125FreebiesSellersRouteImport } from "./routes/{-$locale}/freebies/sellers";
-import { Route as Char123LocaleChar125ChangelogIdRouteImport } from "./routes/{-$locale}/changelog/$id";
-import { Route as Char123LocaleChar125BuildsIdRouteImport } from "./routes/{-$locale}/builds/$id";
-import { Route as ApiAuthLoginRouteImport } from "./routes/api/auth/login";
-import { Route as ApiAuthCallbackRouteImport } from "./routes/api/auth/callback";
-import { Route as ApiAuthSplatRouteImport } from "./routes/api/auth/$";
-import { Route as ApiAndroidBetaStatusRouteImport } from "./routes/api/android-beta/status";
+import { Route as ApiLogoutRouteImport } from "./routes/api/logout";
+import { Route as ApiTokenRouteImport } from "./routes/api/token";
+import { Route as ApiWebTokenRouteImport } from "./routes/api/web-token";
+import { Route as AuthCallbackRouteImport } from "./routes/auth/callback";
+import { Route as AuthLoginRouteImport } from "./routes/auth/login";
+import { Route as AuthLogoutRouteImport } from "./routes/auth/logout";
+import { Route as Char123LocaleChar125IndexRouteImport } from "./routes/{-$locale}/index";
+import { Route as Char123LocaleChar125AboutRouteImport } from "./routes/{-$locale}/about";
+import { Route as Char123LocaleChar125AndroidBetaRouteImport } from "./routes/{-$locale}/android-beta";
+import { Route as Char123LocaleChar125DashboardRouteImport } from "./routes/{-$locale}/dashboard";
+import { Route as Char123LocaleChar125DiscordLinkedRouteImport } from "./routes/{-$locale}/discord-linked";
+import { Route as Char123LocaleChar125DonateKeyRouteImport } from "./routes/{-$locale}/donate-key";
+import { Route as Char123LocaleChar125DownloadsRouteImport } from "./routes/{-$locale}/downloads";
+import { Route as Char123LocaleChar125FairUseRouteImport } from "./routes/{-$locale}/fair-use";
+import { Route as Char123LocaleChar125FreeGamesRouteImport } from "./routes/{-$locale}/free-games";
+import { Route as Char123LocaleChar125FreegamesRouteImport } from "./routes/{-$locale}/freegames";
+import { Route as Char123LocaleChar125GenresRouteImport } from "./routes/{-$locale}/genres";
+import { Route as Char123LocaleChar125NotificationsRouteImport } from "./routes/{-$locale}/notifications";
+import { Route as Char123LocaleChar125PostsRouteImport } from "./routes/{-$locale}/posts";
+import { Route as Char123LocaleChar125PrivacyRouteImport } from "./routes/{-$locale}/privacy";
+import { Route as Char123LocaleChar125SearchRouteImport } from "./routes/{-$locale}/search";
+import { Route as Char123LocaleChar125TheGameAwardsRouteImport } from "./routes/{-$locale}/the-game-awards";
 import { Route as ApiAndroidBetaRegisterRouteImport } from "./routes/api/android-beta/register";
-import { Route as Char123LocaleChar125SandboxesIdIndexRouteImport } from "./routes/{-$locale}/sandboxes/$id/index";
-import { Route as Char123LocaleChar125ProfileIdIndexRouteImport } from "./routes/{-$locale}/profile/$id/index";
-import { Route as Char123LocaleChar125OffersIdIndexRouteImport } from "./routes/{-$locale}/offers/$id/index";
-import { Route as Char123LocaleChar125ItemsIdIndexRouteImport } from "./routes/{-$locale}/items/$id/index";
-import { Route as Char123LocaleChar125FranchisesIdIndexRouteImport } from "./routes/{-$locale}/franchises/$id/index";
-import { Route as Char123LocaleChar125CollectionsIdIndexRouteImport } from "./routes/{-$locale}/collections/$id/index";
-import { Route as Char123LocaleChar125StoreNamespaceSlugRouteImport } from "./routes/{-$locale}/store/$namespace/$slug";
-import { Route as Char123LocaleChar125SandboxesIdOffersRouteImport } from "./routes/{-$locale}/sandboxes/$id/offers";
-import { Route as Char123LocaleChar125SandboxesIdItemsRouteImport } from "./routes/{-$locale}/sandboxes/$id/items";
-import { Route as Char123LocaleChar125SandboxesIdChangelogRouteImport } from "./routes/{-$locale}/sandboxes/$id/changelog";
-import { Route as Char123LocaleChar125SandboxesIdBuildsRouteImport } from "./routes/{-$locale}/sandboxes/$id/builds";
-import { Route as Char123LocaleChar125SandboxesIdAssetsRouteImport } from "./routes/{-$locale}/sandboxes/$id/assets";
-import { Route as Char123LocaleChar125SandboxesIdAchievementsRouteImport } from "./routes/{-$locale}/sandboxes/$id/achievements";
-import { Route as Char123LocaleChar125OffersIdReviewsRouteImport } from "./routes/{-$locale}/offers/$id/reviews";
-import { Route as Char123LocaleChar125OffersIdRelatedRouteImport } from "./routes/{-$locale}/offers/$id/related";
-import { Route as Char123LocaleChar125OffersIdPriceRouteImport } from "./routes/{-$locale}/offers/$id/price";
-import { Route as Char123LocaleChar125OffersIdMetadataRouteImport } from "./routes/{-$locale}/offers/$id/metadata";
-import { Route as Char123LocaleChar125OffersIdMediaRouteImport } from "./routes/{-$locale}/offers/$id/media";
-import { Route as Char123LocaleChar125OffersIdItemsRouteImport } from "./routes/{-$locale}/offers/$id/items";
-import { Route as Char123LocaleChar125OffersIdChangelogRouteImport } from "./routes/{-$locale}/offers/$id/changelog";
-import { Route as Char123LocaleChar125OffersIdBuildsRouteImport } from "./routes/{-$locale}/offers/$id/builds";
-import { Route as Char123LocaleChar125OffersIdAchievementsRouteImport } from "./routes/{-$locale}/offers/$id/achievements";
-import { Route as Char123LocaleChar125ItemsIdImagesRouteImport } from "./routes/{-$locale}/items/$id/images";
-import { Route as Char123LocaleChar125ItemsIdChangelogRouteImport } from "./routes/{-$locale}/items/$id/changelog";
-import { Route as Char123LocaleChar125ItemsIdBuildsRouteImport } from "./routes/{-$locale}/items/$id/builds";
-import { Route as Char123LocaleChar125ItemsIdAssetsRouteImport } from "./routes/{-$locale}/items/$id/assets";
-import { Route as Char123LocaleChar125CollectionsIdWeekRouteImport } from "./routes/{-$locale}/collections/$id/$week";
-import { Route as Char123LocaleChar125BuildsIdItemsRouteImport } from "./routes/{-$locale}/builds/$id/items";
-import { Route as Char123LocaleChar125BuildsIdInstallOptionsRouteImport } from "./routes/{-$locale}/builds/$id/install-options";
+import { Route as ApiAndroidBetaStatusRouteImport } from "./routes/api/android-beta/status";
+import { Route as ApiAuthSplatRouteImport } from "./routes/api/auth/$";
+import { Route as ApiAuthCallbackRouteImport } from "./routes/api/auth/callback";
+import { Route as ApiAuthLoginRouteImport } from "./routes/api/auth/login";
+import { Route as Char123LocaleChar125BuildsIdRouteImport } from "./routes/{-$locale}/builds/$id";
+import { Route as Char123LocaleChar125ChangelogIndexRouteImport } from "./routes/{-$locale}/changelog/index";
+import { Route as Char123LocaleChar125ChangelogIdRouteImport } from "./routes/{-$locale}/changelog/$id";
+import { Route as Char123LocaleChar125CollectionsIndexRouteImport } from "./routes/{-$locale}/collections/index";
+import { Route as Char123LocaleChar125FreebiesIndexRouteImport } from "./routes/{-$locale}/freebies/index";
+import { Route as Char123LocaleChar125FreebiesSellersRouteImport } from "./routes/{-$locale}/freebies/sellers";
+import { Route as Char123LocaleChar125ItemsIdRouteImport } from "./routes/{-$locale}/items/$id";
+import { Route as Char123LocaleChar125OffersIdRouteImport } from "./routes/{-$locale}/offers/$id";
+import { Route as Char123LocaleChar125ProfileIdRouteImport } from "./routes/{-$locale}/profile/$id";
+import { Route as Char123LocaleChar125PromotionsIdRouteImport } from "./routes/{-$locale}/promotions/$id";
+import { Route as Char123LocaleChar125SalesIndexRouteImport } from "./routes/{-$locale}/sales/index";
+import { Route as Char123LocaleChar125SalesIdRouteImport } from "./routes/{-$locale}/sales/$id";
+import { Route as Char123LocaleChar125SandboxesIdRouteImport } from "./routes/{-$locale}/sandboxes/$id";
+import { Route as Char123LocaleChar125SellersIdRouteImport } from "./routes/{-$locale}/sellers/$id";
+import { Route as Char123LocaleChar125StatsCreationsRouteImport } from "./routes/{-$locale}/stats/creations";
+import { Route as Char123LocaleChar125StatsReleasesRouteImport } from "./routes/{-$locale}/stats/releases";
+import { Route as Char123LocaleChar125TagsIdRouteImport } from "./routes/{-$locale}/tags/$id";
+import { Route as Char123LocaleChar125TechnologiesIdRouteImport } from "./routes/{-$locale}/technologies/$id";
 import { Route as Char123LocaleChar125BuildsIdFilesRouteImport } from "./routes/{-$locale}/builds/$id/files";
+import { Route as Char123LocaleChar125BuildsIdInstallOptionsRouteImport } from "./routes/{-$locale}/builds/$id/install-options";
+import { Route as Char123LocaleChar125BuildsIdItemsRouteImport } from "./routes/{-$locale}/builds/$id/items";
+import { Route as Char123LocaleChar125CollectionsIdIndexRouteImport } from "./routes/{-$locale}/collections/$id/index";
+import { Route as Char123LocaleChar125CollectionsIdWeekRouteImport } from "./routes/{-$locale}/collections/$id/$week";
+import { Route as Char123LocaleChar125FranchisesIdIndexRouteImport } from "./routes/{-$locale}/franchises/$id/index";
+import { Route as Char123LocaleChar125ItemsIdIndexRouteImport } from "./routes/{-$locale}/items/$id/index";
+import { Route as Char123LocaleChar125ItemsIdAssetsRouteImport } from "./routes/{-$locale}/items/$id/assets";
+import { Route as Char123LocaleChar125ItemsIdBuildsRouteImport } from "./routes/{-$locale}/items/$id/builds";
+import { Route as Char123LocaleChar125ItemsIdChangelogRouteImport } from "./routes/{-$locale}/items/$id/changelog";
+import { Route as Char123LocaleChar125ItemsIdImagesRouteImport } from "./routes/{-$locale}/items/$id/images";
+import { Route as Char123LocaleChar125OffersIdIndexRouteImport } from "./routes/{-$locale}/offers/$id/index";
+import { Route as Char123LocaleChar125OffersIdAchievementsRouteImport } from "./routes/{-$locale}/offers/$id/achievements";
+import { Route as Char123LocaleChar125OffersIdBuildsRouteImport } from "./routes/{-$locale}/offers/$id/builds";
+import { Route as Char123LocaleChar125OffersIdChangelogRouteImport } from "./routes/{-$locale}/offers/$id/changelog";
+import { Route as Char123LocaleChar125OffersIdItemsRouteImport } from "./routes/{-$locale}/offers/$id/items";
+import { Route as Char123LocaleChar125OffersIdMediaRouteImport } from "./routes/{-$locale}/offers/$id/media";
+import { Route as Char123LocaleChar125OffersIdMetadataRouteImport } from "./routes/{-$locale}/offers/$id/metadata";
+import { Route as Char123LocaleChar125OffersIdPriceRouteImport } from "./routes/{-$locale}/offers/$id/price";
+import { Route as Char123LocaleChar125OffersIdRelatedRouteImport } from "./routes/{-$locale}/offers/$id/related";
+import { Route as Char123LocaleChar125OffersIdReviewsRouteImport } from "./routes/{-$locale}/offers/$id/reviews";
+import { Route as Char123LocaleChar125ProfileIdIndexRouteImport } from "./routes/{-$locale}/profile/$id/index";
+import { Route as Char123LocaleChar125SandboxesIdIndexRouteImport } from "./routes/{-$locale}/sandboxes/$id/index";
+import { Route as Char123LocaleChar125SandboxesIdAchievementsRouteImport } from "./routes/{-$locale}/sandboxes/$id/achievements";
+import { Route as Char123LocaleChar125SandboxesIdAssetsRouteImport } from "./routes/{-$locale}/sandboxes/$id/assets";
+import { Route as Char123LocaleChar125SandboxesIdBuildsRouteImport } from "./routes/{-$locale}/sandboxes/$id/builds";
+import { Route as Char123LocaleChar125SandboxesIdChangelogRouteImport } from "./routes/{-$locale}/sandboxes/$id/changelog";
+import { Route as Char123LocaleChar125SandboxesIdItemsRouteImport } from "./routes/{-$locale}/sandboxes/$id/items";
+import { Route as Char123LocaleChar125SandboxesIdOffersRouteImport } from "./routes/{-$locale}/sandboxes/$id/offers";
+import { Route as Char123LocaleChar125StoreNamespaceSlugRouteImport } from "./routes/{-$locale}/store/$namespace/$slug";
 import { Route as Char123LocaleChar125CollectionsIdWeekIndexRouteImport } from "./routes/{-$locale}/collections/$id/$week/index";
 import { Route as Char123LocaleChar125ProfileIdAchievementsSandboxRouteImport } from "./routes/{-$locale}/profile/$id/achievements/$sandbox";
 
-const Char123LocaleChar125Route = Char123LocaleChar125RouteImport.update({
-  id: "/{-$locale}",
-  path: "/{-$locale}",
-  getParentRoute: () => rootRouteImport,
-} as any);
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: "/sitemap.xml",
   path: "/sitemap.xml",
   getParentRoute: () => rootRouteImport,
 } as any);
-const Char123LocaleChar125IndexRoute = Char123LocaleChar125IndexRouteImport.update({
-  id: "/",
-  path: "/",
-  getParentRoute: () => Char123LocaleChar125Route,
-} as any);
-const Char123LocaleChar125TheGameAwardsRoute = Char123LocaleChar125TheGameAwardsRouteImport.update({
-  id: "/the-game-awards",
-  path: "/the-game-awards",
-  getParentRoute: () => Char123LocaleChar125Route,
-} as any);
-const Char123LocaleChar125SearchRoute = Char123LocaleChar125SearchRouteImport.update({
-  id: "/search",
-  path: "/search",
-  getParentRoute: () => Char123LocaleChar125Route,
-} as any);
-const Char123LocaleChar125PrivacyRoute = Char123LocaleChar125PrivacyRouteImport.update({
-  id: "/privacy",
-  path: "/privacy",
-  getParentRoute: () => Char123LocaleChar125Route,
-} as any);
-const Char123LocaleChar125PostsRoute = Char123LocaleChar125PostsRouteImport.update({
-  id: "/posts",
-  path: "/posts",
-  getParentRoute: () => Char123LocaleChar125Route,
-} as any);
-const Char123LocaleChar125NotificationsRoute = Char123LocaleChar125NotificationsRouteImport.update({
-  id: "/notifications",
-  path: "/notifications",
-  getParentRoute: () => Char123LocaleChar125Route,
-} as any);
-const Char123LocaleChar125GenresRoute = Char123LocaleChar125GenresRouteImport.update({
-  id: "/genres",
-  path: "/genres",
-  getParentRoute: () => Char123LocaleChar125Route,
-} as any);
-const Char123LocaleChar125FreegamesRoute = Char123LocaleChar125FreegamesRouteImport.update({
-  id: "/freegames",
-  path: "/freegames",
-  getParentRoute: () => Char123LocaleChar125Route,
-} as any);
-const Char123LocaleChar125FreeGamesRoute = Char123LocaleChar125FreeGamesRouteImport.update({
-  id: "/free-games",
-  path: "/free-games",
-  getParentRoute: () => Char123LocaleChar125Route,
-} as any);
-const Char123LocaleChar125FairUseRoute = Char123LocaleChar125FairUseRouteImport.update({
-  id: "/fair-use",
-  path: "/fair-use",
-  getParentRoute: () => Char123LocaleChar125Route,
-} as any);
-const Char123LocaleChar125DownloadsRoute = Char123LocaleChar125DownloadsRouteImport.update({
-  id: "/downloads",
-  path: "/downloads",
-  getParentRoute: () => Char123LocaleChar125Route,
-} as any);
-const Char123LocaleChar125DonateKeyRoute = Char123LocaleChar125DonateKeyRouteImport.update({
-  id: "/donate-key",
-  path: "/donate-key",
-  getParentRoute: () => Char123LocaleChar125Route,
-} as any);
-const Char123LocaleChar125DiscordLinkedRoute = Char123LocaleChar125DiscordLinkedRouteImport.update({
-  id: "/discord-linked",
-  path: "/discord-linked",
-  getParentRoute: () => Char123LocaleChar125Route,
-} as any);
-const Char123LocaleChar125DashboardRoute = Char123LocaleChar125DashboardRouteImport.update({
-  id: "/dashboard",
-  path: "/dashboard",
-  getParentRoute: () => Char123LocaleChar125Route,
-} as any);
-const Char123LocaleChar125AndroidBetaRoute = Char123LocaleChar125AndroidBetaRouteImport.update({
-  id: "/android-beta",
-  path: "/android-beta",
-  getParentRoute: () => Char123LocaleChar125Route,
-} as any);
-const Char123LocaleChar125AboutRoute = Char123LocaleChar125AboutRouteImport.update({
-  id: "/about",
-  path: "/about",
-  getParentRoute: () => Char123LocaleChar125Route,
-} as any);
-const AuthLogoutRoute = AuthLogoutRouteImport.update({
-  id: "/auth/logout",
-  path: "/auth/logout",
-  getParentRoute: () => rootRouteImport,
-} as any);
-const AuthLoginRoute = AuthLoginRouteImport.update({
-  id: "/auth/login",
-  path: "/auth/login",
-  getParentRoute: () => rootRouteImport,
-} as any);
-const AuthCallbackRoute = AuthCallbackRouteImport.update({
-  id: "/auth/callback",
-  path: "/auth/callback",
-  getParentRoute: () => rootRouteImport,
-} as any);
-const ApiWebTokenRoute = ApiWebTokenRouteImport.update({
-  id: "/api/web-token",
-  path: "/api/web-token",
-  getParentRoute: () => rootRouteImport,
-} as any);
-const ApiTokenRoute = ApiTokenRouteImport.update({
-  id: "/api/token",
-  path: "/api/token",
-  getParentRoute: () => rootRouteImport,
-} as any);
-const ApiLogoutRoute = ApiLogoutRouteImport.update({
-  id: "/api/logout",
-  path: "/api/logout",
+const Char123LocaleChar125Route = Char123LocaleChar125RouteImport.update({
+  id: "/{-$locale}",
+  path: "/{-$locale}",
   getParentRoute: () => rootRouteImport,
 } as any);
 const ApiHelloRoute = ApiHelloRouteImport.update({
@@ -215,14 +105,155 @@ const ApiHelloRoute = ApiHelloRouteImport.update({
   path: "/api/hello",
   getParentRoute: () => rootRouteImport,
 } as any);
-const Char123LocaleChar125SalesIndexRoute = Char123LocaleChar125SalesIndexRouteImport.update({
-  id: "/sales/",
-  path: "/sales/",
+const ApiLogoutRoute = ApiLogoutRouteImport.update({
+  id: "/api/logout",
+  path: "/api/logout",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const ApiTokenRoute = ApiTokenRouteImport.update({
+  id: "/api/token",
+  path: "/api/token",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const ApiWebTokenRoute = ApiWebTokenRouteImport.update({
+  id: "/api/web-token",
+  path: "/api/web-token",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const AuthCallbackRoute = AuthCallbackRouteImport.update({
+  id: "/auth/callback",
+  path: "/auth/callback",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const AuthLoginRoute = AuthLoginRouteImport.update({
+  id: "/auth/login",
+  path: "/auth/login",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const AuthLogoutRoute = AuthLogoutRouteImport.update({
+  id: "/auth/logout",
+  path: "/auth/logout",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const Char123LocaleChar125IndexRoute = Char123LocaleChar125IndexRouteImport.update({
+  id: "/",
+  path: "/",
   getParentRoute: () => Char123LocaleChar125Route,
 } as any);
-const Char123LocaleChar125FreebiesIndexRoute = Char123LocaleChar125FreebiesIndexRouteImport.update({
-  id: "/freebies/",
-  path: "/freebies/",
+const Char123LocaleChar125AboutRoute = Char123LocaleChar125AboutRouteImport.update({
+  id: "/about",
+  path: "/about",
+  getParentRoute: () => Char123LocaleChar125Route,
+} as any);
+const Char123LocaleChar125AndroidBetaRoute = Char123LocaleChar125AndroidBetaRouteImport.update({
+  id: "/android-beta",
+  path: "/android-beta",
+  getParentRoute: () => Char123LocaleChar125Route,
+} as any);
+const Char123LocaleChar125DashboardRoute = Char123LocaleChar125DashboardRouteImport.update({
+  id: "/dashboard",
+  path: "/dashboard",
+  getParentRoute: () => Char123LocaleChar125Route,
+} as any);
+const Char123LocaleChar125DiscordLinkedRoute = Char123LocaleChar125DiscordLinkedRouteImport.update({
+  id: "/discord-linked",
+  path: "/discord-linked",
+  getParentRoute: () => Char123LocaleChar125Route,
+} as any);
+const Char123LocaleChar125DonateKeyRoute = Char123LocaleChar125DonateKeyRouteImport.update({
+  id: "/donate-key",
+  path: "/donate-key",
+  getParentRoute: () => Char123LocaleChar125Route,
+} as any);
+const Char123LocaleChar125DownloadsRoute = Char123LocaleChar125DownloadsRouteImport.update({
+  id: "/downloads",
+  path: "/downloads",
+  getParentRoute: () => Char123LocaleChar125Route,
+} as any);
+const Char123LocaleChar125FairUseRoute = Char123LocaleChar125FairUseRouteImport.update({
+  id: "/fair-use",
+  path: "/fair-use",
+  getParentRoute: () => Char123LocaleChar125Route,
+} as any);
+const Char123LocaleChar125FreeGamesRoute = Char123LocaleChar125FreeGamesRouteImport.update({
+  id: "/free-games",
+  path: "/free-games",
+  getParentRoute: () => Char123LocaleChar125Route,
+} as any);
+const Char123LocaleChar125FreegamesRoute = Char123LocaleChar125FreegamesRouteImport.update({
+  id: "/freegames",
+  path: "/freegames",
+  getParentRoute: () => Char123LocaleChar125Route,
+} as any);
+const Char123LocaleChar125GenresRoute = Char123LocaleChar125GenresRouteImport.update({
+  id: "/genres",
+  path: "/genres",
+  getParentRoute: () => Char123LocaleChar125Route,
+} as any);
+const Char123LocaleChar125NotificationsRoute = Char123LocaleChar125NotificationsRouteImport.update({
+  id: "/notifications",
+  path: "/notifications",
+  getParentRoute: () => Char123LocaleChar125Route,
+} as any);
+const Char123LocaleChar125PostsRoute = Char123LocaleChar125PostsRouteImport.update({
+  id: "/posts",
+  path: "/posts",
+  getParentRoute: () => Char123LocaleChar125Route,
+} as any);
+const Char123LocaleChar125PrivacyRoute = Char123LocaleChar125PrivacyRouteImport.update({
+  id: "/privacy",
+  path: "/privacy",
+  getParentRoute: () => Char123LocaleChar125Route,
+} as any);
+const Char123LocaleChar125SearchRoute = Char123LocaleChar125SearchRouteImport.update({
+  id: "/search",
+  path: "/search",
+  getParentRoute: () => Char123LocaleChar125Route,
+} as any);
+const Char123LocaleChar125TheGameAwardsRoute = Char123LocaleChar125TheGameAwardsRouteImport.update({
+  id: "/the-game-awards",
+  path: "/the-game-awards",
+  getParentRoute: () => Char123LocaleChar125Route,
+} as any);
+const ApiAndroidBetaRegisterRoute = ApiAndroidBetaRegisterRouteImport.update({
+  id: "/api/android-beta/register",
+  path: "/api/android-beta/register",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const ApiAndroidBetaStatusRoute = ApiAndroidBetaStatusRouteImport.update({
+  id: "/api/android-beta/status",
+  path: "/api/android-beta/status",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
+  id: "/api/auth/$",
+  path: "/api/auth/$",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const ApiAuthCallbackRoute = ApiAuthCallbackRouteImport.update({
+  id: "/api/auth/callback",
+  path: "/api/auth/callback",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const ApiAuthLoginRoute = ApiAuthLoginRouteImport.update({
+  id: "/api/auth/login",
+  path: "/api/auth/login",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const Char123LocaleChar125BuildsIdRoute = Char123LocaleChar125BuildsIdRouteImport.update({
+  id: "/builds/$id",
+  path: "/builds/$id",
+  getParentRoute: () => Char123LocaleChar125Route,
+} as any);
+const Char123LocaleChar125ChangelogIndexRoute =
+  Char123LocaleChar125ChangelogIndexRouteImport.update({
+    id: "/changelog/",
+    path: "/changelog/",
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any);
+const Char123LocaleChar125ChangelogIdRoute = Char123LocaleChar125ChangelogIdRouteImport.update({
+  id: "/changelog/$id",
+  path: "/changelog/$id",
   getParentRoute: () => Char123LocaleChar125Route,
 } as any);
 const Char123LocaleChar125CollectionsIndexRoute =
@@ -231,67 +262,9 @@ const Char123LocaleChar125CollectionsIndexRoute =
     path: "/collections/",
     getParentRoute: () => Char123LocaleChar125Route,
   } as any);
-const Char123LocaleChar125ChangelogIndexRoute =
-  Char123LocaleChar125ChangelogIndexRouteImport.update({
-    id: "/changelog/",
-    path: "/changelog/",
-    getParentRoute: () => Char123LocaleChar125Route,
-  } as any);
-const Char123LocaleChar125TechnologiesIdRoute =
-  Char123LocaleChar125TechnologiesIdRouteImport.update({
-    id: "/technologies/$id",
-    path: "/technologies/$id",
-    getParentRoute: () => Char123LocaleChar125Route,
-  } as any);
-const Char123LocaleChar125TagsIdRoute = Char123LocaleChar125TagsIdRouteImport.update({
-  id: "/tags/$id",
-  path: "/tags/$id",
-  getParentRoute: () => Char123LocaleChar125Route,
-} as any);
-const Char123LocaleChar125StatsReleasesRoute = Char123LocaleChar125StatsReleasesRouteImport.update({
-  id: "/stats/releases",
-  path: "/stats/releases",
-  getParentRoute: () => Char123LocaleChar125Route,
-} as any);
-const Char123LocaleChar125StatsCreationsRoute =
-  Char123LocaleChar125StatsCreationsRouteImport.update({
-    id: "/stats/creations",
-    path: "/stats/creations",
-    getParentRoute: () => Char123LocaleChar125Route,
-  } as any);
-const Char123LocaleChar125SellersIdRoute = Char123LocaleChar125SellersIdRouteImport.update({
-  id: "/sellers/$id",
-  path: "/sellers/$id",
-  getParentRoute: () => Char123LocaleChar125Route,
-} as any);
-const Char123LocaleChar125SandboxesIdRoute = Char123LocaleChar125SandboxesIdRouteImport.update({
-  id: "/sandboxes/$id",
-  path: "/sandboxes/$id",
-  getParentRoute: () => Char123LocaleChar125Route,
-} as any);
-const Char123LocaleChar125SalesIdRoute = Char123LocaleChar125SalesIdRouteImport.update({
-  id: "/sales/$id",
-  path: "/sales/$id",
-  getParentRoute: () => Char123LocaleChar125Route,
-} as any);
-const Char123LocaleChar125PromotionsIdRoute = Char123LocaleChar125PromotionsIdRouteImport.update({
-  id: "/promotions/$id",
-  path: "/promotions/$id",
-  getParentRoute: () => Char123LocaleChar125Route,
-} as any);
-const Char123LocaleChar125ProfileIdRoute = Char123LocaleChar125ProfileIdRouteImport.update({
-  id: "/profile/$id",
-  path: "/profile/$id",
-  getParentRoute: () => Char123LocaleChar125Route,
-} as any);
-const Char123LocaleChar125OffersIdRoute = Char123LocaleChar125OffersIdRouteImport.update({
-  id: "/offers/$id",
-  path: "/offers/$id",
-  getParentRoute: () => Char123LocaleChar125Route,
-} as any);
-const Char123LocaleChar125ItemsIdRoute = Char123LocaleChar125ItemsIdRouteImport.update({
-  id: "/items/$id",
-  path: "/items/$id",
+const Char123LocaleChar125FreebiesIndexRoute = Char123LocaleChar125FreebiesIndexRouteImport.update({
+  id: "/freebies/",
+  path: "/freebies/",
   getParentRoute: () => Char123LocaleChar125Route,
 } as any);
 const Char123LocaleChar125FreebiesSellersRoute =
@@ -300,198 +273,71 @@ const Char123LocaleChar125FreebiesSellersRoute =
     path: "/freebies/sellers",
     getParentRoute: () => Char123LocaleChar125Route,
   } as any);
-const Char123LocaleChar125ChangelogIdRoute = Char123LocaleChar125ChangelogIdRouteImport.update({
-  id: "/changelog/$id",
-  path: "/changelog/$id",
+const Char123LocaleChar125ItemsIdRoute = Char123LocaleChar125ItemsIdRouteImport.update({
+  id: "/items/$id",
+  path: "/items/$id",
   getParentRoute: () => Char123LocaleChar125Route,
 } as any);
-const Char123LocaleChar125BuildsIdRoute = Char123LocaleChar125BuildsIdRouteImport.update({
-  id: "/builds/$id",
-  path: "/builds/$id",
+const Char123LocaleChar125OffersIdRoute = Char123LocaleChar125OffersIdRouteImport.update({
+  id: "/offers/$id",
+  path: "/offers/$id",
   getParentRoute: () => Char123LocaleChar125Route,
 } as any);
-const ApiAuthLoginRoute = ApiAuthLoginRouteImport.update({
-  id: "/api/auth/login",
-  path: "/api/auth/login",
-  getParentRoute: () => rootRouteImport,
+const Char123LocaleChar125ProfileIdRoute = Char123LocaleChar125ProfileIdRouteImport.update({
+  id: "/profile/$id",
+  path: "/profile/$id",
+  getParentRoute: () => Char123LocaleChar125Route,
 } as any);
-const ApiAuthCallbackRoute = ApiAuthCallbackRouteImport.update({
-  id: "/api/auth/callback",
-  path: "/api/auth/callback",
-  getParentRoute: () => rootRouteImport,
+const Char123LocaleChar125PromotionsIdRoute = Char123LocaleChar125PromotionsIdRouteImport.update({
+  id: "/promotions/$id",
+  path: "/promotions/$id",
+  getParentRoute: () => Char123LocaleChar125Route,
 } as any);
-const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
-  id: "/api/auth/$",
-  path: "/api/auth/$",
-  getParentRoute: () => rootRouteImport,
+const Char123LocaleChar125SalesIndexRoute = Char123LocaleChar125SalesIndexRouteImport.update({
+  id: "/sales/",
+  path: "/sales/",
+  getParentRoute: () => Char123LocaleChar125Route,
 } as any);
-const ApiAndroidBetaStatusRoute = ApiAndroidBetaStatusRouteImport.update({
-  id: "/api/android-beta/status",
-  path: "/api/android-beta/status",
-  getParentRoute: () => rootRouteImport,
+const Char123LocaleChar125SalesIdRoute = Char123LocaleChar125SalesIdRouteImport.update({
+  id: "/sales/$id",
+  path: "/sales/$id",
+  getParentRoute: () => Char123LocaleChar125Route,
 } as any);
-const ApiAndroidBetaRegisterRoute = ApiAndroidBetaRegisterRouteImport.update({
-  id: "/api/android-beta/register",
-  path: "/api/android-beta/register",
-  getParentRoute: () => rootRouteImport,
+const Char123LocaleChar125SandboxesIdRoute = Char123LocaleChar125SandboxesIdRouteImport.update({
+  id: "/sandboxes/$id",
+  path: "/sandboxes/$id",
+  getParentRoute: () => Char123LocaleChar125Route,
 } as any);
-const Char123LocaleChar125SandboxesIdIndexRoute =
-  Char123LocaleChar125SandboxesIdIndexRouteImport.update({
-    id: "/",
-    path: "/",
-    getParentRoute: () => Char123LocaleChar125SandboxesIdRoute,
-  } as any);
-const Char123LocaleChar125ProfileIdIndexRoute =
-  Char123LocaleChar125ProfileIdIndexRouteImport.update({
-    id: "/",
-    path: "/",
-    getParentRoute: () => Char123LocaleChar125ProfileIdRoute,
-  } as any);
-const Char123LocaleChar125OffersIdIndexRoute = Char123LocaleChar125OffersIdIndexRouteImport.update({
-  id: "/",
-  path: "/",
-  getParentRoute: () => Char123LocaleChar125OffersIdRoute,
+const Char123LocaleChar125SellersIdRoute = Char123LocaleChar125SellersIdRouteImport.update({
+  id: "/sellers/$id",
+  path: "/sellers/$id",
+  getParentRoute: () => Char123LocaleChar125Route,
 } as any);
-const Char123LocaleChar125ItemsIdIndexRoute = Char123LocaleChar125ItemsIdIndexRouteImport.update({
-  id: "/",
-  path: "/",
-  getParentRoute: () => Char123LocaleChar125ItemsIdRoute,
-} as any);
-const Char123LocaleChar125FranchisesIdIndexRoute =
-  Char123LocaleChar125FranchisesIdIndexRouteImport.update({
-    id: "/franchises/$id/",
-    path: "/franchises/$id/",
+const Char123LocaleChar125StatsCreationsRoute =
+  Char123LocaleChar125StatsCreationsRouteImport.update({
+    id: "/stats/creations",
+    path: "/stats/creations",
     getParentRoute: () => Char123LocaleChar125Route,
   } as any);
-const Char123LocaleChar125CollectionsIdIndexRoute =
-  Char123LocaleChar125CollectionsIdIndexRouteImport.update({
-    id: "/collections/$id/",
-    path: "/collections/$id/",
+const Char123LocaleChar125StatsReleasesRoute = Char123LocaleChar125StatsReleasesRouteImport.update({
+  id: "/stats/releases",
+  path: "/stats/releases",
+  getParentRoute: () => Char123LocaleChar125Route,
+} as any);
+const Char123LocaleChar125TagsIdRoute = Char123LocaleChar125TagsIdRouteImport.update({
+  id: "/tags/$id",
+  path: "/tags/$id",
+  getParentRoute: () => Char123LocaleChar125Route,
+} as any);
+const Char123LocaleChar125TechnologiesIdRoute =
+  Char123LocaleChar125TechnologiesIdRouteImport.update({
+    id: "/technologies/$id",
+    path: "/technologies/$id",
     getParentRoute: () => Char123LocaleChar125Route,
   } as any);
-const Char123LocaleChar125StoreNamespaceSlugRoute =
-  Char123LocaleChar125StoreNamespaceSlugRouteImport.update({
-    id: "/store/$namespace/$slug",
-    path: "/store/$namespace/$slug",
-    getParentRoute: () => Char123LocaleChar125Route,
-  } as any);
-const Char123LocaleChar125SandboxesIdOffersRoute =
-  Char123LocaleChar125SandboxesIdOffersRouteImport.update({
-    id: "/offers",
-    path: "/offers",
-    getParentRoute: () => Char123LocaleChar125SandboxesIdRoute,
-  } as any);
-const Char123LocaleChar125SandboxesIdItemsRoute =
-  Char123LocaleChar125SandboxesIdItemsRouteImport.update({
-    id: "/items",
-    path: "/items",
-    getParentRoute: () => Char123LocaleChar125SandboxesIdRoute,
-  } as any);
-const Char123LocaleChar125SandboxesIdChangelogRoute =
-  Char123LocaleChar125SandboxesIdChangelogRouteImport.update({
-    id: "/changelog",
-    path: "/changelog",
-    getParentRoute: () => Char123LocaleChar125SandboxesIdRoute,
-  } as any);
-const Char123LocaleChar125SandboxesIdBuildsRoute =
-  Char123LocaleChar125SandboxesIdBuildsRouteImport.update({
-    id: "/builds",
-    path: "/builds",
-    getParentRoute: () => Char123LocaleChar125SandboxesIdRoute,
-  } as any);
-const Char123LocaleChar125SandboxesIdAssetsRoute =
-  Char123LocaleChar125SandboxesIdAssetsRouteImport.update({
-    id: "/assets",
-    path: "/assets",
-    getParentRoute: () => Char123LocaleChar125SandboxesIdRoute,
-  } as any);
-const Char123LocaleChar125SandboxesIdAchievementsRoute =
-  Char123LocaleChar125SandboxesIdAchievementsRouteImport.update({
-    id: "/achievements",
-    path: "/achievements",
-    getParentRoute: () => Char123LocaleChar125SandboxesIdRoute,
-  } as any);
-const Char123LocaleChar125OffersIdReviewsRoute =
-  Char123LocaleChar125OffersIdReviewsRouteImport.update({
-    id: "/reviews",
-    path: "/reviews",
-    getParentRoute: () => Char123LocaleChar125OffersIdRoute,
-  } as any);
-const Char123LocaleChar125OffersIdRelatedRoute =
-  Char123LocaleChar125OffersIdRelatedRouteImport.update({
-    id: "/related",
-    path: "/related",
-    getParentRoute: () => Char123LocaleChar125OffersIdRoute,
-  } as any);
-const Char123LocaleChar125OffersIdPriceRoute = Char123LocaleChar125OffersIdPriceRouteImport.update({
-  id: "/price",
-  path: "/price",
-  getParentRoute: () => Char123LocaleChar125OffersIdRoute,
-} as any);
-const Char123LocaleChar125OffersIdMetadataRoute =
-  Char123LocaleChar125OffersIdMetadataRouteImport.update({
-    id: "/metadata",
-    path: "/metadata",
-    getParentRoute: () => Char123LocaleChar125OffersIdRoute,
-  } as any);
-const Char123LocaleChar125OffersIdMediaRoute = Char123LocaleChar125OffersIdMediaRouteImport.update({
-  id: "/media",
-  path: "/media",
-  getParentRoute: () => Char123LocaleChar125OffersIdRoute,
-} as any);
-const Char123LocaleChar125OffersIdItemsRoute = Char123LocaleChar125OffersIdItemsRouteImport.update({
-  id: "/items",
-  path: "/items",
-  getParentRoute: () => Char123LocaleChar125OffersIdRoute,
-} as any);
-const Char123LocaleChar125OffersIdChangelogRoute =
-  Char123LocaleChar125OffersIdChangelogRouteImport.update({
-    id: "/changelog",
-    path: "/changelog",
-    getParentRoute: () => Char123LocaleChar125OffersIdRoute,
-  } as any);
-const Char123LocaleChar125OffersIdBuildsRoute =
-  Char123LocaleChar125OffersIdBuildsRouteImport.update({
-    id: "/builds",
-    path: "/builds",
-    getParentRoute: () => Char123LocaleChar125OffersIdRoute,
-  } as any);
-const Char123LocaleChar125OffersIdAchievementsRoute =
-  Char123LocaleChar125OffersIdAchievementsRouteImport.update({
-    id: "/achievements",
-    path: "/achievements",
-    getParentRoute: () => Char123LocaleChar125OffersIdRoute,
-  } as any);
-const Char123LocaleChar125ItemsIdImagesRoute = Char123LocaleChar125ItemsIdImagesRouteImport.update({
-  id: "/images",
-  path: "/images",
-  getParentRoute: () => Char123LocaleChar125ItemsIdRoute,
-} as any);
-const Char123LocaleChar125ItemsIdChangelogRoute =
-  Char123LocaleChar125ItemsIdChangelogRouteImport.update({
-    id: "/changelog",
-    path: "/changelog",
-    getParentRoute: () => Char123LocaleChar125ItemsIdRoute,
-  } as any);
-const Char123LocaleChar125ItemsIdBuildsRoute = Char123LocaleChar125ItemsIdBuildsRouteImport.update({
-  id: "/builds",
-  path: "/builds",
-  getParentRoute: () => Char123LocaleChar125ItemsIdRoute,
-} as any);
-const Char123LocaleChar125ItemsIdAssetsRoute = Char123LocaleChar125ItemsIdAssetsRouteImport.update({
-  id: "/assets",
-  path: "/assets",
-  getParentRoute: () => Char123LocaleChar125ItemsIdRoute,
-} as any);
-const Char123LocaleChar125CollectionsIdWeekRoute =
-  Char123LocaleChar125CollectionsIdWeekRouteImport.update({
-    id: "/collections/$id/$week",
-    path: "/collections/$id/$week",
-    getParentRoute: () => Char123LocaleChar125Route,
-  } as any);
-const Char123LocaleChar125BuildsIdItemsRoute = Char123LocaleChar125BuildsIdItemsRouteImport.update({
-  id: "/items",
-  path: "/items",
+const Char123LocaleChar125BuildsIdFilesRoute = Char123LocaleChar125BuildsIdFilesRouteImport.update({
+  id: "/files",
+  path: "/files",
   getParentRoute: () => Char123LocaleChar125BuildsIdRoute,
 } as any);
 const Char123LocaleChar125BuildsIdInstallOptionsRoute =
@@ -500,11 +346,165 @@ const Char123LocaleChar125BuildsIdInstallOptionsRoute =
     path: "/install-options",
     getParentRoute: () => Char123LocaleChar125BuildsIdRoute,
   } as any);
-const Char123LocaleChar125BuildsIdFilesRoute = Char123LocaleChar125BuildsIdFilesRouteImport.update({
-  id: "/files",
-  path: "/files",
+const Char123LocaleChar125BuildsIdItemsRoute = Char123LocaleChar125BuildsIdItemsRouteImport.update({
+  id: "/items",
+  path: "/items",
   getParentRoute: () => Char123LocaleChar125BuildsIdRoute,
 } as any);
+const Char123LocaleChar125CollectionsIdIndexRoute =
+  Char123LocaleChar125CollectionsIdIndexRouteImport.update({
+    id: "/collections/$id/",
+    path: "/collections/$id/",
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any);
+const Char123LocaleChar125CollectionsIdWeekRoute =
+  Char123LocaleChar125CollectionsIdWeekRouteImport.update({
+    id: "/collections/$id/$week",
+    path: "/collections/$id/$week",
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any);
+const Char123LocaleChar125FranchisesIdIndexRoute =
+  Char123LocaleChar125FranchisesIdIndexRouteImport.update({
+    id: "/franchises/$id/",
+    path: "/franchises/$id/",
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any);
+const Char123LocaleChar125ItemsIdIndexRoute = Char123LocaleChar125ItemsIdIndexRouteImport.update({
+  id: "/",
+  path: "/",
+  getParentRoute: () => Char123LocaleChar125ItemsIdRoute,
+} as any);
+const Char123LocaleChar125ItemsIdAssetsRoute = Char123LocaleChar125ItemsIdAssetsRouteImport.update({
+  id: "/assets",
+  path: "/assets",
+  getParentRoute: () => Char123LocaleChar125ItemsIdRoute,
+} as any);
+const Char123LocaleChar125ItemsIdBuildsRoute = Char123LocaleChar125ItemsIdBuildsRouteImport.update({
+  id: "/builds",
+  path: "/builds",
+  getParentRoute: () => Char123LocaleChar125ItemsIdRoute,
+} as any);
+const Char123LocaleChar125ItemsIdChangelogRoute =
+  Char123LocaleChar125ItemsIdChangelogRouteImport.update({
+    id: "/changelog",
+    path: "/changelog",
+    getParentRoute: () => Char123LocaleChar125ItemsIdRoute,
+  } as any);
+const Char123LocaleChar125ItemsIdImagesRoute = Char123LocaleChar125ItemsIdImagesRouteImport.update({
+  id: "/images",
+  path: "/images",
+  getParentRoute: () => Char123LocaleChar125ItemsIdRoute,
+} as any);
+const Char123LocaleChar125OffersIdIndexRoute = Char123LocaleChar125OffersIdIndexRouteImport.update({
+  id: "/",
+  path: "/",
+  getParentRoute: () => Char123LocaleChar125OffersIdRoute,
+} as any);
+const Char123LocaleChar125OffersIdAchievementsRoute =
+  Char123LocaleChar125OffersIdAchievementsRouteImport.update({
+    id: "/achievements",
+    path: "/achievements",
+    getParentRoute: () => Char123LocaleChar125OffersIdRoute,
+  } as any);
+const Char123LocaleChar125OffersIdBuildsRoute =
+  Char123LocaleChar125OffersIdBuildsRouteImport.update({
+    id: "/builds",
+    path: "/builds",
+    getParentRoute: () => Char123LocaleChar125OffersIdRoute,
+  } as any);
+const Char123LocaleChar125OffersIdChangelogRoute =
+  Char123LocaleChar125OffersIdChangelogRouteImport.update({
+    id: "/changelog",
+    path: "/changelog",
+    getParentRoute: () => Char123LocaleChar125OffersIdRoute,
+  } as any);
+const Char123LocaleChar125OffersIdItemsRoute = Char123LocaleChar125OffersIdItemsRouteImport.update({
+  id: "/items",
+  path: "/items",
+  getParentRoute: () => Char123LocaleChar125OffersIdRoute,
+} as any);
+const Char123LocaleChar125OffersIdMediaRoute = Char123LocaleChar125OffersIdMediaRouteImport.update({
+  id: "/media",
+  path: "/media",
+  getParentRoute: () => Char123LocaleChar125OffersIdRoute,
+} as any);
+const Char123LocaleChar125OffersIdMetadataRoute =
+  Char123LocaleChar125OffersIdMetadataRouteImport.update({
+    id: "/metadata",
+    path: "/metadata",
+    getParentRoute: () => Char123LocaleChar125OffersIdRoute,
+  } as any);
+const Char123LocaleChar125OffersIdPriceRoute = Char123LocaleChar125OffersIdPriceRouteImport.update({
+  id: "/price",
+  path: "/price",
+  getParentRoute: () => Char123LocaleChar125OffersIdRoute,
+} as any);
+const Char123LocaleChar125OffersIdRelatedRoute =
+  Char123LocaleChar125OffersIdRelatedRouteImport.update({
+    id: "/related",
+    path: "/related",
+    getParentRoute: () => Char123LocaleChar125OffersIdRoute,
+  } as any);
+const Char123LocaleChar125OffersIdReviewsRoute =
+  Char123LocaleChar125OffersIdReviewsRouteImport.update({
+    id: "/reviews",
+    path: "/reviews",
+    getParentRoute: () => Char123LocaleChar125OffersIdRoute,
+  } as any);
+const Char123LocaleChar125ProfileIdIndexRoute =
+  Char123LocaleChar125ProfileIdIndexRouteImport.update({
+    id: "/",
+    path: "/",
+    getParentRoute: () => Char123LocaleChar125ProfileIdRoute,
+  } as any);
+const Char123LocaleChar125SandboxesIdIndexRoute =
+  Char123LocaleChar125SandboxesIdIndexRouteImport.update({
+    id: "/",
+    path: "/",
+    getParentRoute: () => Char123LocaleChar125SandboxesIdRoute,
+  } as any);
+const Char123LocaleChar125SandboxesIdAchievementsRoute =
+  Char123LocaleChar125SandboxesIdAchievementsRouteImport.update({
+    id: "/achievements",
+    path: "/achievements",
+    getParentRoute: () => Char123LocaleChar125SandboxesIdRoute,
+  } as any);
+const Char123LocaleChar125SandboxesIdAssetsRoute =
+  Char123LocaleChar125SandboxesIdAssetsRouteImport.update({
+    id: "/assets",
+    path: "/assets",
+    getParentRoute: () => Char123LocaleChar125SandboxesIdRoute,
+  } as any);
+const Char123LocaleChar125SandboxesIdBuildsRoute =
+  Char123LocaleChar125SandboxesIdBuildsRouteImport.update({
+    id: "/builds",
+    path: "/builds",
+    getParentRoute: () => Char123LocaleChar125SandboxesIdRoute,
+  } as any);
+const Char123LocaleChar125SandboxesIdChangelogRoute =
+  Char123LocaleChar125SandboxesIdChangelogRouteImport.update({
+    id: "/changelog",
+    path: "/changelog",
+    getParentRoute: () => Char123LocaleChar125SandboxesIdRoute,
+  } as any);
+const Char123LocaleChar125SandboxesIdItemsRoute =
+  Char123LocaleChar125SandboxesIdItemsRouteImport.update({
+    id: "/items",
+    path: "/items",
+    getParentRoute: () => Char123LocaleChar125SandboxesIdRoute,
+  } as any);
+const Char123LocaleChar125SandboxesIdOffersRoute =
+  Char123LocaleChar125SandboxesIdOffersRouteImport.update({
+    id: "/offers",
+    path: "/offers",
+    getParentRoute: () => Char123LocaleChar125SandboxesIdRoute,
+  } as any);
+const Char123LocaleChar125StoreNamespaceSlugRoute =
+  Char123LocaleChar125StoreNamespaceSlugRouteImport.update({
+    id: "/store/$namespace/$slug",
+    path: "/store/$namespace/$slug",
+    getParentRoute: () => Char123LocaleChar125Route,
+  } as any);
 const Char123LocaleChar125CollectionsIdWeekIndexRoute =
   Char123LocaleChar125CollectionsIdWeekIndexRouteImport.update({
     id: "/",
@@ -1021,13 +1021,6 @@ export interface RootRouteChildren {
 
 declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    "/{-$locale}": {
-      id: "/{-$locale}";
-      path: "/{-$locale}";
-      fullPath: "/{-$locale}";
-      preLoaderRoute: typeof Char123LocaleChar125RouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
     "/sitemap.xml": {
       id: "/sitemap.xml";
       path: "/sitemap.xml";
@@ -1035,158 +1028,11 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof SitemapDotxmlRouteImport;
       parentRoute: typeof rootRouteImport;
     };
-    "/{-$locale}/": {
-      id: "/{-$locale}/";
-      path: "/";
-      fullPath: "/{-$locale}/";
-      preLoaderRoute: typeof Char123LocaleChar125IndexRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/the-game-awards": {
-      id: "/{-$locale}/the-game-awards";
-      path: "/the-game-awards";
-      fullPath: "/{-$locale}/the-game-awards";
-      preLoaderRoute: typeof Char123LocaleChar125TheGameAwardsRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/search": {
-      id: "/{-$locale}/search";
-      path: "/search";
-      fullPath: "/{-$locale}/search";
-      preLoaderRoute: typeof Char123LocaleChar125SearchRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/privacy": {
-      id: "/{-$locale}/privacy";
-      path: "/privacy";
-      fullPath: "/{-$locale}/privacy";
-      preLoaderRoute: typeof Char123LocaleChar125PrivacyRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/posts": {
-      id: "/{-$locale}/posts";
-      path: "/posts";
-      fullPath: "/{-$locale}/posts";
-      preLoaderRoute: typeof Char123LocaleChar125PostsRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/notifications": {
-      id: "/{-$locale}/notifications";
-      path: "/notifications";
-      fullPath: "/{-$locale}/notifications";
-      preLoaderRoute: typeof Char123LocaleChar125NotificationsRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/genres": {
-      id: "/{-$locale}/genres";
-      path: "/genres";
-      fullPath: "/{-$locale}/genres";
-      preLoaderRoute: typeof Char123LocaleChar125GenresRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/freegames": {
-      id: "/{-$locale}/freegames";
-      path: "/freegames";
-      fullPath: "/{-$locale}/freegames";
-      preLoaderRoute: typeof Char123LocaleChar125FreegamesRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/free-games": {
-      id: "/{-$locale}/free-games";
-      path: "/free-games";
-      fullPath: "/{-$locale}/free-games";
-      preLoaderRoute: typeof Char123LocaleChar125FreeGamesRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/fair-use": {
-      id: "/{-$locale}/fair-use";
-      path: "/fair-use";
-      fullPath: "/{-$locale}/fair-use";
-      preLoaderRoute: typeof Char123LocaleChar125FairUseRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/downloads": {
-      id: "/{-$locale}/downloads";
-      path: "/downloads";
-      fullPath: "/{-$locale}/downloads";
-      preLoaderRoute: typeof Char123LocaleChar125DownloadsRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/donate-key": {
-      id: "/{-$locale}/donate-key";
-      path: "/donate-key";
-      fullPath: "/{-$locale}/donate-key";
-      preLoaderRoute: typeof Char123LocaleChar125DonateKeyRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/discord-linked": {
-      id: "/{-$locale}/discord-linked";
-      path: "/discord-linked";
-      fullPath: "/{-$locale}/discord-linked";
-      preLoaderRoute: typeof Char123LocaleChar125DiscordLinkedRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/dashboard": {
-      id: "/{-$locale}/dashboard";
-      path: "/dashboard";
-      fullPath: "/{-$locale}/dashboard";
-      preLoaderRoute: typeof Char123LocaleChar125DashboardRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/android-beta": {
-      id: "/{-$locale}/android-beta";
-      path: "/android-beta";
-      fullPath: "/{-$locale}/android-beta";
-      preLoaderRoute: typeof Char123LocaleChar125AndroidBetaRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/about": {
-      id: "/{-$locale}/about";
-      path: "/about";
-      fullPath: "/{-$locale}/about";
-      preLoaderRoute: typeof Char123LocaleChar125AboutRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/auth/logout": {
-      id: "/auth/logout";
-      path: "/auth/logout";
-      fullPath: "/auth/logout";
-      preLoaderRoute: typeof AuthLogoutRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/auth/login": {
-      id: "/auth/login";
-      path: "/auth/login";
-      fullPath: "/auth/login";
-      preLoaderRoute: typeof AuthLoginRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/auth/callback": {
-      id: "/auth/callback";
-      path: "/auth/callback";
-      fullPath: "/auth/callback";
-      preLoaderRoute: typeof AuthCallbackRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/api/web-token": {
-      id: "/api/web-token";
-      path: "/api/web-token";
-      fullPath: "/api/web-token";
-      preLoaderRoute: typeof ApiWebTokenRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/api/token": {
-      id: "/api/token";
-      path: "/api/token";
-      fullPath: "/api/token";
-      preLoaderRoute: typeof ApiTokenRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
-    "/api/logout": {
-      id: "/api/logout";
-      path: "/api/logout";
-      fullPath: "/api/logout";
-      preLoaderRoute: typeof ApiLogoutRouteImport;
+    "/{-$locale}": {
+      id: "/{-$locale}";
+      path: "/{-$locale}";
+      fullPath: "/{-$locale}";
+      preLoaderRoute: typeof Char123LocaleChar125RouteImport;
       parentRoute: typeof rootRouteImport;
     };
     "/api/hello": {
@@ -1196,151 +1042,165 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof ApiHelloRouteImport;
       parentRoute: typeof rootRouteImport;
     };
-    "/{-$locale}/sales/": {
-      id: "/{-$locale}/sales/";
-      path: "/sales";
-      fullPath: "/{-$locale}/sales/";
-      preLoaderRoute: typeof Char123LocaleChar125SalesIndexRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/freebies/": {
-      id: "/{-$locale}/freebies/";
-      path: "/freebies";
-      fullPath: "/{-$locale}/freebies/";
-      preLoaderRoute: typeof Char123LocaleChar125FreebiesIndexRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/collections/": {
-      id: "/{-$locale}/collections/";
-      path: "/collections";
-      fullPath: "/{-$locale}/collections/";
-      preLoaderRoute: typeof Char123LocaleChar125CollectionsIndexRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/changelog/": {
-      id: "/{-$locale}/changelog/";
-      path: "/changelog";
-      fullPath: "/{-$locale}/changelog/";
-      preLoaderRoute: typeof Char123LocaleChar125ChangelogIndexRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/technologies/$id": {
-      id: "/{-$locale}/technologies/$id";
-      path: "/technologies/$id";
-      fullPath: "/{-$locale}/technologies/$id";
-      preLoaderRoute: typeof Char123LocaleChar125TechnologiesIdRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/tags/$id": {
-      id: "/{-$locale}/tags/$id";
-      path: "/tags/$id";
-      fullPath: "/{-$locale}/tags/$id";
-      preLoaderRoute: typeof Char123LocaleChar125TagsIdRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/stats/releases": {
-      id: "/{-$locale}/stats/releases";
-      path: "/stats/releases";
-      fullPath: "/{-$locale}/stats/releases";
-      preLoaderRoute: typeof Char123LocaleChar125StatsReleasesRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/stats/creations": {
-      id: "/{-$locale}/stats/creations";
-      path: "/stats/creations";
-      fullPath: "/{-$locale}/stats/creations";
-      preLoaderRoute: typeof Char123LocaleChar125StatsCreationsRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/sellers/$id": {
-      id: "/{-$locale}/sellers/$id";
-      path: "/sellers/$id";
-      fullPath: "/{-$locale}/sellers/$id";
-      preLoaderRoute: typeof Char123LocaleChar125SellersIdRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/sandboxes/$id": {
-      id: "/{-$locale}/sandboxes/$id";
-      path: "/sandboxes/$id";
-      fullPath: "/{-$locale}/sandboxes/$id";
-      preLoaderRoute: typeof Char123LocaleChar125SandboxesIdRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/sales/$id": {
-      id: "/{-$locale}/sales/$id";
-      path: "/sales/$id";
-      fullPath: "/{-$locale}/sales/$id";
-      preLoaderRoute: typeof Char123LocaleChar125SalesIdRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/promotions/$id": {
-      id: "/{-$locale}/promotions/$id";
-      path: "/promotions/$id";
-      fullPath: "/{-$locale}/promotions/$id";
-      preLoaderRoute: typeof Char123LocaleChar125PromotionsIdRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/profile/$id": {
-      id: "/{-$locale}/profile/$id";
-      path: "/profile/$id";
-      fullPath: "/{-$locale}/profile/$id";
-      preLoaderRoute: typeof Char123LocaleChar125ProfileIdRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/offers/$id": {
-      id: "/{-$locale}/offers/$id";
-      path: "/offers/$id";
-      fullPath: "/{-$locale}/offers/$id";
-      preLoaderRoute: typeof Char123LocaleChar125OffersIdRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/items/$id": {
-      id: "/{-$locale}/items/$id";
-      path: "/items/$id";
-      fullPath: "/{-$locale}/items/$id";
-      preLoaderRoute: typeof Char123LocaleChar125ItemsIdRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/freebies/sellers": {
-      id: "/{-$locale}/freebies/sellers";
-      path: "/freebies/sellers";
-      fullPath: "/{-$locale}/freebies/sellers";
-      preLoaderRoute: typeof Char123LocaleChar125FreebiesSellersRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/changelog/$id": {
-      id: "/{-$locale}/changelog/$id";
-      path: "/changelog/$id";
-      fullPath: "/{-$locale}/changelog/$id";
-      preLoaderRoute: typeof Char123LocaleChar125ChangelogIdRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/builds/$id": {
-      id: "/{-$locale}/builds/$id";
-      path: "/builds/$id";
-      fullPath: "/{-$locale}/builds/$id";
-      preLoaderRoute: typeof Char123LocaleChar125BuildsIdRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/api/auth/login": {
-      id: "/api/auth/login";
-      path: "/api/auth/login";
-      fullPath: "/api/auth/login";
-      preLoaderRoute: typeof ApiAuthLoginRouteImport;
+    "/api/logout": {
+      id: "/api/logout";
+      path: "/api/logout";
+      fullPath: "/api/logout";
+      preLoaderRoute: typeof ApiLogoutRouteImport;
       parentRoute: typeof rootRouteImport;
     };
-    "/api/auth/callback": {
-      id: "/api/auth/callback";
-      path: "/api/auth/callback";
-      fullPath: "/api/auth/callback";
-      preLoaderRoute: typeof ApiAuthCallbackRouteImport;
+    "/api/token": {
+      id: "/api/token";
+      path: "/api/token";
+      fullPath: "/api/token";
+      preLoaderRoute: typeof ApiTokenRouteImport;
       parentRoute: typeof rootRouteImport;
     };
-    "/api/auth/$": {
-      id: "/api/auth/$";
-      path: "/api/auth/$";
-      fullPath: "/api/auth/$";
-      preLoaderRoute: typeof ApiAuthSplatRouteImport;
+    "/api/web-token": {
+      id: "/api/web-token";
+      path: "/api/web-token";
+      fullPath: "/api/web-token";
+      preLoaderRoute: typeof ApiWebTokenRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/auth/callback": {
+      id: "/auth/callback";
+      path: "/auth/callback";
+      fullPath: "/auth/callback";
+      preLoaderRoute: typeof AuthCallbackRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/auth/login": {
+      id: "/auth/login";
+      path: "/auth/login";
+      fullPath: "/auth/login";
+      preLoaderRoute: typeof AuthLoginRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/auth/logout": {
+      id: "/auth/logout";
+      path: "/auth/logout";
+      fullPath: "/auth/logout";
+      preLoaderRoute: typeof AuthLogoutRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/{-$locale}/": {
+      id: "/{-$locale}/";
+      path: "/";
+      fullPath: "/{-$locale}/";
+      preLoaderRoute: typeof Char123LocaleChar125IndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/about": {
+      id: "/{-$locale}/about";
+      path: "/about";
+      fullPath: "/{-$locale}/about";
+      preLoaderRoute: typeof Char123LocaleChar125AboutRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/android-beta": {
+      id: "/{-$locale}/android-beta";
+      path: "/android-beta";
+      fullPath: "/{-$locale}/android-beta";
+      preLoaderRoute: typeof Char123LocaleChar125AndroidBetaRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/dashboard": {
+      id: "/{-$locale}/dashboard";
+      path: "/dashboard";
+      fullPath: "/{-$locale}/dashboard";
+      preLoaderRoute: typeof Char123LocaleChar125DashboardRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/discord-linked": {
+      id: "/{-$locale}/discord-linked";
+      path: "/discord-linked";
+      fullPath: "/{-$locale}/discord-linked";
+      preLoaderRoute: typeof Char123LocaleChar125DiscordLinkedRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/donate-key": {
+      id: "/{-$locale}/donate-key";
+      path: "/donate-key";
+      fullPath: "/{-$locale}/donate-key";
+      preLoaderRoute: typeof Char123LocaleChar125DonateKeyRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/downloads": {
+      id: "/{-$locale}/downloads";
+      path: "/downloads";
+      fullPath: "/{-$locale}/downloads";
+      preLoaderRoute: typeof Char123LocaleChar125DownloadsRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/fair-use": {
+      id: "/{-$locale}/fair-use";
+      path: "/fair-use";
+      fullPath: "/{-$locale}/fair-use";
+      preLoaderRoute: typeof Char123LocaleChar125FairUseRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/free-games": {
+      id: "/{-$locale}/free-games";
+      path: "/free-games";
+      fullPath: "/{-$locale}/free-games";
+      preLoaderRoute: typeof Char123LocaleChar125FreeGamesRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/freegames": {
+      id: "/{-$locale}/freegames";
+      path: "/freegames";
+      fullPath: "/{-$locale}/freegames";
+      preLoaderRoute: typeof Char123LocaleChar125FreegamesRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/genres": {
+      id: "/{-$locale}/genres";
+      path: "/genres";
+      fullPath: "/{-$locale}/genres";
+      preLoaderRoute: typeof Char123LocaleChar125GenresRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/notifications": {
+      id: "/{-$locale}/notifications";
+      path: "/notifications";
+      fullPath: "/{-$locale}/notifications";
+      preLoaderRoute: typeof Char123LocaleChar125NotificationsRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/posts": {
+      id: "/{-$locale}/posts";
+      path: "/posts";
+      fullPath: "/{-$locale}/posts";
+      preLoaderRoute: typeof Char123LocaleChar125PostsRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/privacy": {
+      id: "/{-$locale}/privacy";
+      path: "/privacy";
+      fullPath: "/{-$locale}/privacy";
+      preLoaderRoute: typeof Char123LocaleChar125PrivacyRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/search": {
+      id: "/{-$locale}/search";
+      path: "/search";
+      fullPath: "/{-$locale}/search";
+      preLoaderRoute: typeof Char123LocaleChar125SearchRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/the-game-awards": {
+      id: "/{-$locale}/the-game-awards";
+      path: "/the-game-awards";
+      fullPath: "/{-$locale}/the-game-awards";
+      preLoaderRoute: typeof Char123LocaleChar125TheGameAwardsRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/api/android-beta/register": {
+      id: "/api/android-beta/register";
+      path: "/api/android-beta/register";
+      fullPath: "/api/android-beta/register";
+      preLoaderRoute: typeof ApiAndroidBetaRegisterRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     "/api/android-beta/status": {
@@ -1350,207 +1210,158 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof ApiAndroidBetaStatusRouteImport;
       parentRoute: typeof rootRouteImport;
     };
-    "/api/android-beta/register": {
-      id: "/api/android-beta/register";
-      path: "/api/android-beta/register";
-      fullPath: "/api/android-beta/register";
-      preLoaderRoute: typeof ApiAndroidBetaRegisterRouteImport;
+    "/api/auth/$": {
+      id: "/api/auth/$";
+      path: "/api/auth/$";
+      fullPath: "/api/auth/$";
+      preLoaderRoute: typeof ApiAuthSplatRouteImport;
       parentRoute: typeof rootRouteImport;
     };
-    "/{-$locale}/sandboxes/$id/": {
-      id: "/{-$locale}/sandboxes/$id/";
-      path: "/";
-      fullPath: "/{-$locale}/sandboxes/$id/";
-      preLoaderRoute: typeof Char123LocaleChar125SandboxesIdIndexRouteImport;
-      parentRoute: typeof Char123LocaleChar125SandboxesIdRoute;
+    "/api/auth/callback": {
+      id: "/api/auth/callback";
+      path: "/api/auth/callback";
+      fullPath: "/api/auth/callback";
+      preLoaderRoute: typeof ApiAuthCallbackRouteImport;
+      parentRoute: typeof rootRouteImport;
     };
-    "/{-$locale}/profile/$id/": {
-      id: "/{-$locale}/profile/$id/";
-      path: "/";
-      fullPath: "/{-$locale}/profile/$id/";
-      preLoaderRoute: typeof Char123LocaleChar125ProfileIdIndexRouteImport;
-      parentRoute: typeof Char123LocaleChar125ProfileIdRoute;
+    "/api/auth/login": {
+      id: "/api/auth/login";
+      path: "/api/auth/login";
+      fullPath: "/api/auth/login";
+      preLoaderRoute: typeof ApiAuthLoginRouteImport;
+      parentRoute: typeof rootRouteImport;
     };
-    "/{-$locale}/offers/$id/": {
-      id: "/{-$locale}/offers/$id/";
-      path: "/";
-      fullPath: "/{-$locale}/offers/$id/";
-      preLoaderRoute: typeof Char123LocaleChar125OffersIdIndexRouteImport;
-      parentRoute: typeof Char123LocaleChar125OffersIdRoute;
-    };
-    "/{-$locale}/items/$id/": {
-      id: "/{-$locale}/items/$id/";
-      path: "/";
-      fullPath: "/{-$locale}/items/$id/";
-      preLoaderRoute: typeof Char123LocaleChar125ItemsIdIndexRouteImport;
-      parentRoute: typeof Char123LocaleChar125ItemsIdRoute;
-    };
-    "/{-$locale}/franchises/$id/": {
-      id: "/{-$locale}/franchises/$id/";
-      path: "/franchises/$id";
-      fullPath: "/{-$locale}/franchises/$id/";
-      preLoaderRoute: typeof Char123LocaleChar125FranchisesIdIndexRouteImport;
+    "/{-$locale}/builds/$id": {
+      id: "/{-$locale}/builds/$id";
+      path: "/builds/$id";
+      fullPath: "/{-$locale}/builds/$id";
+      preLoaderRoute: typeof Char123LocaleChar125BuildsIdRouteImport;
       parentRoute: typeof Char123LocaleChar125Route;
     };
-    "/{-$locale}/collections/$id/": {
-      id: "/{-$locale}/collections/$id/";
-      path: "/collections/$id";
-      fullPath: "/{-$locale}/collections/$id/";
-      preLoaderRoute: typeof Char123LocaleChar125CollectionsIdIndexRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/store/$namespace/$slug": {
-      id: "/{-$locale}/store/$namespace/$slug";
-      path: "/store/$namespace/$slug";
-      fullPath: "/{-$locale}/store/$namespace/$slug";
-      preLoaderRoute: typeof Char123LocaleChar125StoreNamespaceSlugRouteImport;
-      parentRoute: typeof Char123LocaleChar125Route;
-    };
-    "/{-$locale}/sandboxes/$id/offers": {
-      id: "/{-$locale}/sandboxes/$id/offers";
-      path: "/offers";
-      fullPath: "/{-$locale}/sandboxes/$id/offers";
-      preLoaderRoute: typeof Char123LocaleChar125SandboxesIdOffersRouteImport;
-      parentRoute: typeof Char123LocaleChar125SandboxesIdRoute;
-    };
-    "/{-$locale}/sandboxes/$id/items": {
-      id: "/{-$locale}/sandboxes/$id/items";
-      path: "/items";
-      fullPath: "/{-$locale}/sandboxes/$id/items";
-      preLoaderRoute: typeof Char123LocaleChar125SandboxesIdItemsRouteImport;
-      parentRoute: typeof Char123LocaleChar125SandboxesIdRoute;
-    };
-    "/{-$locale}/sandboxes/$id/changelog": {
-      id: "/{-$locale}/sandboxes/$id/changelog";
+    "/{-$locale}/changelog/": {
+      id: "/{-$locale}/changelog/";
       path: "/changelog";
-      fullPath: "/{-$locale}/sandboxes/$id/changelog";
-      preLoaderRoute: typeof Char123LocaleChar125SandboxesIdChangelogRouteImport;
-      parentRoute: typeof Char123LocaleChar125SandboxesIdRoute;
-    };
-    "/{-$locale}/sandboxes/$id/builds": {
-      id: "/{-$locale}/sandboxes/$id/builds";
-      path: "/builds";
-      fullPath: "/{-$locale}/sandboxes/$id/builds";
-      preLoaderRoute: typeof Char123LocaleChar125SandboxesIdBuildsRouteImport;
-      parentRoute: typeof Char123LocaleChar125SandboxesIdRoute;
-    };
-    "/{-$locale}/sandboxes/$id/assets": {
-      id: "/{-$locale}/sandboxes/$id/assets";
-      path: "/assets";
-      fullPath: "/{-$locale}/sandboxes/$id/assets";
-      preLoaderRoute: typeof Char123LocaleChar125SandboxesIdAssetsRouteImport;
-      parentRoute: typeof Char123LocaleChar125SandboxesIdRoute;
-    };
-    "/{-$locale}/sandboxes/$id/achievements": {
-      id: "/{-$locale}/sandboxes/$id/achievements";
-      path: "/achievements";
-      fullPath: "/{-$locale}/sandboxes/$id/achievements";
-      preLoaderRoute: typeof Char123LocaleChar125SandboxesIdAchievementsRouteImport;
-      parentRoute: typeof Char123LocaleChar125SandboxesIdRoute;
-    };
-    "/{-$locale}/offers/$id/reviews": {
-      id: "/{-$locale}/offers/$id/reviews";
-      path: "/reviews";
-      fullPath: "/{-$locale}/offers/$id/reviews";
-      preLoaderRoute: typeof Char123LocaleChar125OffersIdReviewsRouteImport;
-      parentRoute: typeof Char123LocaleChar125OffersIdRoute;
-    };
-    "/{-$locale}/offers/$id/related": {
-      id: "/{-$locale}/offers/$id/related";
-      path: "/related";
-      fullPath: "/{-$locale}/offers/$id/related";
-      preLoaderRoute: typeof Char123LocaleChar125OffersIdRelatedRouteImport;
-      parentRoute: typeof Char123LocaleChar125OffersIdRoute;
-    };
-    "/{-$locale}/offers/$id/price": {
-      id: "/{-$locale}/offers/$id/price";
-      path: "/price";
-      fullPath: "/{-$locale}/offers/$id/price";
-      preLoaderRoute: typeof Char123LocaleChar125OffersIdPriceRouteImport;
-      parentRoute: typeof Char123LocaleChar125OffersIdRoute;
-    };
-    "/{-$locale}/offers/$id/metadata": {
-      id: "/{-$locale}/offers/$id/metadata";
-      path: "/metadata";
-      fullPath: "/{-$locale}/offers/$id/metadata";
-      preLoaderRoute: typeof Char123LocaleChar125OffersIdMetadataRouteImport;
-      parentRoute: typeof Char123LocaleChar125OffersIdRoute;
-    };
-    "/{-$locale}/offers/$id/media": {
-      id: "/{-$locale}/offers/$id/media";
-      path: "/media";
-      fullPath: "/{-$locale}/offers/$id/media";
-      preLoaderRoute: typeof Char123LocaleChar125OffersIdMediaRouteImport;
-      parentRoute: typeof Char123LocaleChar125OffersIdRoute;
-    };
-    "/{-$locale}/offers/$id/items": {
-      id: "/{-$locale}/offers/$id/items";
-      path: "/items";
-      fullPath: "/{-$locale}/offers/$id/items";
-      preLoaderRoute: typeof Char123LocaleChar125OffersIdItemsRouteImport;
-      parentRoute: typeof Char123LocaleChar125OffersIdRoute;
-    };
-    "/{-$locale}/offers/$id/changelog": {
-      id: "/{-$locale}/offers/$id/changelog";
-      path: "/changelog";
-      fullPath: "/{-$locale}/offers/$id/changelog";
-      preLoaderRoute: typeof Char123LocaleChar125OffersIdChangelogRouteImport;
-      parentRoute: typeof Char123LocaleChar125OffersIdRoute;
-    };
-    "/{-$locale}/offers/$id/builds": {
-      id: "/{-$locale}/offers/$id/builds";
-      path: "/builds";
-      fullPath: "/{-$locale}/offers/$id/builds";
-      preLoaderRoute: typeof Char123LocaleChar125OffersIdBuildsRouteImport;
-      parentRoute: typeof Char123LocaleChar125OffersIdRoute;
-    };
-    "/{-$locale}/offers/$id/achievements": {
-      id: "/{-$locale}/offers/$id/achievements";
-      path: "/achievements";
-      fullPath: "/{-$locale}/offers/$id/achievements";
-      preLoaderRoute: typeof Char123LocaleChar125OffersIdAchievementsRouteImport;
-      parentRoute: typeof Char123LocaleChar125OffersIdRoute;
-    };
-    "/{-$locale}/items/$id/images": {
-      id: "/{-$locale}/items/$id/images";
-      path: "/images";
-      fullPath: "/{-$locale}/items/$id/images";
-      preLoaderRoute: typeof Char123LocaleChar125ItemsIdImagesRouteImport;
-      parentRoute: typeof Char123LocaleChar125ItemsIdRoute;
-    };
-    "/{-$locale}/items/$id/changelog": {
-      id: "/{-$locale}/items/$id/changelog";
-      path: "/changelog";
-      fullPath: "/{-$locale}/items/$id/changelog";
-      preLoaderRoute: typeof Char123LocaleChar125ItemsIdChangelogRouteImport;
-      parentRoute: typeof Char123LocaleChar125ItemsIdRoute;
-    };
-    "/{-$locale}/items/$id/builds": {
-      id: "/{-$locale}/items/$id/builds";
-      path: "/builds";
-      fullPath: "/{-$locale}/items/$id/builds";
-      preLoaderRoute: typeof Char123LocaleChar125ItemsIdBuildsRouteImport;
-      parentRoute: typeof Char123LocaleChar125ItemsIdRoute;
-    };
-    "/{-$locale}/items/$id/assets": {
-      id: "/{-$locale}/items/$id/assets";
-      path: "/assets";
-      fullPath: "/{-$locale}/items/$id/assets";
-      preLoaderRoute: typeof Char123LocaleChar125ItemsIdAssetsRouteImport;
-      parentRoute: typeof Char123LocaleChar125ItemsIdRoute;
-    };
-    "/{-$locale}/collections/$id/$week": {
-      id: "/{-$locale}/collections/$id/$week";
-      path: "/collections/$id/$week";
-      fullPath: "/{-$locale}/collections/$id/$week";
-      preLoaderRoute: typeof Char123LocaleChar125CollectionsIdWeekRouteImport;
+      fullPath: "/{-$locale}/changelog/";
+      preLoaderRoute: typeof Char123LocaleChar125ChangelogIndexRouteImport;
       parentRoute: typeof Char123LocaleChar125Route;
     };
-    "/{-$locale}/builds/$id/items": {
-      id: "/{-$locale}/builds/$id/items";
-      path: "/items";
-      fullPath: "/{-$locale}/builds/$id/items";
-      preLoaderRoute: typeof Char123LocaleChar125BuildsIdItemsRouteImport;
+    "/{-$locale}/changelog/$id": {
+      id: "/{-$locale}/changelog/$id";
+      path: "/changelog/$id";
+      fullPath: "/{-$locale}/changelog/$id";
+      preLoaderRoute: typeof Char123LocaleChar125ChangelogIdRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/collections/": {
+      id: "/{-$locale}/collections/";
+      path: "/collections";
+      fullPath: "/{-$locale}/collections/";
+      preLoaderRoute: typeof Char123LocaleChar125CollectionsIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/freebies/": {
+      id: "/{-$locale}/freebies/";
+      path: "/freebies";
+      fullPath: "/{-$locale}/freebies/";
+      preLoaderRoute: typeof Char123LocaleChar125FreebiesIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/freebies/sellers": {
+      id: "/{-$locale}/freebies/sellers";
+      path: "/freebies/sellers";
+      fullPath: "/{-$locale}/freebies/sellers";
+      preLoaderRoute: typeof Char123LocaleChar125FreebiesSellersRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/items/$id": {
+      id: "/{-$locale}/items/$id";
+      path: "/items/$id";
+      fullPath: "/{-$locale}/items/$id";
+      preLoaderRoute: typeof Char123LocaleChar125ItemsIdRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/offers/$id": {
+      id: "/{-$locale}/offers/$id";
+      path: "/offers/$id";
+      fullPath: "/{-$locale}/offers/$id";
+      preLoaderRoute: typeof Char123LocaleChar125OffersIdRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/profile/$id": {
+      id: "/{-$locale}/profile/$id";
+      path: "/profile/$id";
+      fullPath: "/{-$locale}/profile/$id";
+      preLoaderRoute: typeof Char123LocaleChar125ProfileIdRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/promotions/$id": {
+      id: "/{-$locale}/promotions/$id";
+      path: "/promotions/$id";
+      fullPath: "/{-$locale}/promotions/$id";
+      preLoaderRoute: typeof Char123LocaleChar125PromotionsIdRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/sales/": {
+      id: "/{-$locale}/sales/";
+      path: "/sales";
+      fullPath: "/{-$locale}/sales/";
+      preLoaderRoute: typeof Char123LocaleChar125SalesIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/sales/$id": {
+      id: "/{-$locale}/sales/$id";
+      path: "/sales/$id";
+      fullPath: "/{-$locale}/sales/$id";
+      preLoaderRoute: typeof Char123LocaleChar125SalesIdRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/sandboxes/$id": {
+      id: "/{-$locale}/sandboxes/$id";
+      path: "/sandboxes/$id";
+      fullPath: "/{-$locale}/sandboxes/$id";
+      preLoaderRoute: typeof Char123LocaleChar125SandboxesIdRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/sellers/$id": {
+      id: "/{-$locale}/sellers/$id";
+      path: "/sellers/$id";
+      fullPath: "/{-$locale}/sellers/$id";
+      preLoaderRoute: typeof Char123LocaleChar125SellersIdRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/stats/creations": {
+      id: "/{-$locale}/stats/creations";
+      path: "/stats/creations";
+      fullPath: "/{-$locale}/stats/creations";
+      preLoaderRoute: typeof Char123LocaleChar125StatsCreationsRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/stats/releases": {
+      id: "/{-$locale}/stats/releases";
+      path: "/stats/releases";
+      fullPath: "/{-$locale}/stats/releases";
+      preLoaderRoute: typeof Char123LocaleChar125StatsReleasesRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/tags/$id": {
+      id: "/{-$locale}/tags/$id";
+      path: "/tags/$id";
+      fullPath: "/{-$locale}/tags/$id";
+      preLoaderRoute: typeof Char123LocaleChar125TagsIdRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/technologies/$id": {
+      id: "/{-$locale}/technologies/$id";
+      path: "/technologies/$id";
+      fullPath: "/{-$locale}/technologies/$id";
+      preLoaderRoute: typeof Char123LocaleChar125TechnologiesIdRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/builds/$id/files": {
+      id: "/{-$locale}/builds/$id/files";
+      path: "/files";
+      fullPath: "/{-$locale}/builds/$id/files";
+      preLoaderRoute: typeof Char123LocaleChar125BuildsIdFilesRouteImport;
       parentRoute: typeof Char123LocaleChar125BuildsIdRoute;
     };
     "/{-$locale}/builds/$id/install-options": {
@@ -1560,12 +1371,201 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof Char123LocaleChar125BuildsIdInstallOptionsRouteImport;
       parentRoute: typeof Char123LocaleChar125BuildsIdRoute;
     };
-    "/{-$locale}/builds/$id/files": {
-      id: "/{-$locale}/builds/$id/files";
-      path: "/files";
-      fullPath: "/{-$locale}/builds/$id/files";
-      preLoaderRoute: typeof Char123LocaleChar125BuildsIdFilesRouteImport;
+    "/{-$locale}/builds/$id/items": {
+      id: "/{-$locale}/builds/$id/items";
+      path: "/items";
+      fullPath: "/{-$locale}/builds/$id/items";
+      preLoaderRoute: typeof Char123LocaleChar125BuildsIdItemsRouteImport;
       parentRoute: typeof Char123LocaleChar125BuildsIdRoute;
+    };
+    "/{-$locale}/collections/$id/": {
+      id: "/{-$locale}/collections/$id/";
+      path: "/collections/$id";
+      fullPath: "/{-$locale}/collections/$id/";
+      preLoaderRoute: typeof Char123LocaleChar125CollectionsIdIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/collections/$id/$week": {
+      id: "/{-$locale}/collections/$id/$week";
+      path: "/collections/$id/$week";
+      fullPath: "/{-$locale}/collections/$id/$week";
+      preLoaderRoute: typeof Char123LocaleChar125CollectionsIdWeekRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/franchises/$id/": {
+      id: "/{-$locale}/franchises/$id/";
+      path: "/franchises/$id";
+      fullPath: "/{-$locale}/franchises/$id/";
+      preLoaderRoute: typeof Char123LocaleChar125FranchisesIdIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
+    };
+    "/{-$locale}/items/$id/": {
+      id: "/{-$locale}/items/$id/";
+      path: "/";
+      fullPath: "/{-$locale}/items/$id/";
+      preLoaderRoute: typeof Char123LocaleChar125ItemsIdIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125ItemsIdRoute;
+    };
+    "/{-$locale}/items/$id/assets": {
+      id: "/{-$locale}/items/$id/assets";
+      path: "/assets";
+      fullPath: "/{-$locale}/items/$id/assets";
+      preLoaderRoute: typeof Char123LocaleChar125ItemsIdAssetsRouteImport;
+      parentRoute: typeof Char123LocaleChar125ItemsIdRoute;
+    };
+    "/{-$locale}/items/$id/builds": {
+      id: "/{-$locale}/items/$id/builds";
+      path: "/builds";
+      fullPath: "/{-$locale}/items/$id/builds";
+      preLoaderRoute: typeof Char123LocaleChar125ItemsIdBuildsRouteImport;
+      parentRoute: typeof Char123LocaleChar125ItemsIdRoute;
+    };
+    "/{-$locale}/items/$id/changelog": {
+      id: "/{-$locale}/items/$id/changelog";
+      path: "/changelog";
+      fullPath: "/{-$locale}/items/$id/changelog";
+      preLoaderRoute: typeof Char123LocaleChar125ItemsIdChangelogRouteImport;
+      parentRoute: typeof Char123LocaleChar125ItemsIdRoute;
+    };
+    "/{-$locale}/items/$id/images": {
+      id: "/{-$locale}/items/$id/images";
+      path: "/images";
+      fullPath: "/{-$locale}/items/$id/images";
+      preLoaderRoute: typeof Char123LocaleChar125ItemsIdImagesRouteImport;
+      parentRoute: typeof Char123LocaleChar125ItemsIdRoute;
+    };
+    "/{-$locale}/offers/$id/": {
+      id: "/{-$locale}/offers/$id/";
+      path: "/";
+      fullPath: "/{-$locale}/offers/$id/";
+      preLoaderRoute: typeof Char123LocaleChar125OffersIdIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125OffersIdRoute;
+    };
+    "/{-$locale}/offers/$id/achievements": {
+      id: "/{-$locale}/offers/$id/achievements";
+      path: "/achievements";
+      fullPath: "/{-$locale}/offers/$id/achievements";
+      preLoaderRoute: typeof Char123LocaleChar125OffersIdAchievementsRouteImport;
+      parentRoute: typeof Char123LocaleChar125OffersIdRoute;
+    };
+    "/{-$locale}/offers/$id/builds": {
+      id: "/{-$locale}/offers/$id/builds";
+      path: "/builds";
+      fullPath: "/{-$locale}/offers/$id/builds";
+      preLoaderRoute: typeof Char123LocaleChar125OffersIdBuildsRouteImport;
+      parentRoute: typeof Char123LocaleChar125OffersIdRoute;
+    };
+    "/{-$locale}/offers/$id/changelog": {
+      id: "/{-$locale}/offers/$id/changelog";
+      path: "/changelog";
+      fullPath: "/{-$locale}/offers/$id/changelog";
+      preLoaderRoute: typeof Char123LocaleChar125OffersIdChangelogRouteImport;
+      parentRoute: typeof Char123LocaleChar125OffersIdRoute;
+    };
+    "/{-$locale}/offers/$id/items": {
+      id: "/{-$locale}/offers/$id/items";
+      path: "/items";
+      fullPath: "/{-$locale}/offers/$id/items";
+      preLoaderRoute: typeof Char123LocaleChar125OffersIdItemsRouteImport;
+      parentRoute: typeof Char123LocaleChar125OffersIdRoute;
+    };
+    "/{-$locale}/offers/$id/media": {
+      id: "/{-$locale}/offers/$id/media";
+      path: "/media";
+      fullPath: "/{-$locale}/offers/$id/media";
+      preLoaderRoute: typeof Char123LocaleChar125OffersIdMediaRouteImport;
+      parentRoute: typeof Char123LocaleChar125OffersIdRoute;
+    };
+    "/{-$locale}/offers/$id/metadata": {
+      id: "/{-$locale}/offers/$id/metadata";
+      path: "/metadata";
+      fullPath: "/{-$locale}/offers/$id/metadata";
+      preLoaderRoute: typeof Char123LocaleChar125OffersIdMetadataRouteImport;
+      parentRoute: typeof Char123LocaleChar125OffersIdRoute;
+    };
+    "/{-$locale}/offers/$id/price": {
+      id: "/{-$locale}/offers/$id/price";
+      path: "/price";
+      fullPath: "/{-$locale}/offers/$id/price";
+      preLoaderRoute: typeof Char123LocaleChar125OffersIdPriceRouteImport;
+      parentRoute: typeof Char123LocaleChar125OffersIdRoute;
+    };
+    "/{-$locale}/offers/$id/related": {
+      id: "/{-$locale}/offers/$id/related";
+      path: "/related";
+      fullPath: "/{-$locale}/offers/$id/related";
+      preLoaderRoute: typeof Char123LocaleChar125OffersIdRelatedRouteImport;
+      parentRoute: typeof Char123LocaleChar125OffersIdRoute;
+    };
+    "/{-$locale}/offers/$id/reviews": {
+      id: "/{-$locale}/offers/$id/reviews";
+      path: "/reviews";
+      fullPath: "/{-$locale}/offers/$id/reviews";
+      preLoaderRoute: typeof Char123LocaleChar125OffersIdReviewsRouteImport;
+      parentRoute: typeof Char123LocaleChar125OffersIdRoute;
+    };
+    "/{-$locale}/profile/$id/": {
+      id: "/{-$locale}/profile/$id/";
+      path: "/";
+      fullPath: "/{-$locale}/profile/$id/";
+      preLoaderRoute: typeof Char123LocaleChar125ProfileIdIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125ProfileIdRoute;
+    };
+    "/{-$locale}/sandboxes/$id/": {
+      id: "/{-$locale}/sandboxes/$id/";
+      path: "/";
+      fullPath: "/{-$locale}/sandboxes/$id/";
+      preLoaderRoute: typeof Char123LocaleChar125SandboxesIdIndexRouteImport;
+      parentRoute: typeof Char123LocaleChar125SandboxesIdRoute;
+    };
+    "/{-$locale}/sandboxes/$id/achievements": {
+      id: "/{-$locale}/sandboxes/$id/achievements";
+      path: "/achievements";
+      fullPath: "/{-$locale}/sandboxes/$id/achievements";
+      preLoaderRoute: typeof Char123LocaleChar125SandboxesIdAchievementsRouteImport;
+      parentRoute: typeof Char123LocaleChar125SandboxesIdRoute;
+    };
+    "/{-$locale}/sandboxes/$id/assets": {
+      id: "/{-$locale}/sandboxes/$id/assets";
+      path: "/assets";
+      fullPath: "/{-$locale}/sandboxes/$id/assets";
+      preLoaderRoute: typeof Char123LocaleChar125SandboxesIdAssetsRouteImport;
+      parentRoute: typeof Char123LocaleChar125SandboxesIdRoute;
+    };
+    "/{-$locale}/sandboxes/$id/builds": {
+      id: "/{-$locale}/sandboxes/$id/builds";
+      path: "/builds";
+      fullPath: "/{-$locale}/sandboxes/$id/builds";
+      preLoaderRoute: typeof Char123LocaleChar125SandboxesIdBuildsRouteImport;
+      parentRoute: typeof Char123LocaleChar125SandboxesIdRoute;
+    };
+    "/{-$locale}/sandboxes/$id/changelog": {
+      id: "/{-$locale}/sandboxes/$id/changelog";
+      path: "/changelog";
+      fullPath: "/{-$locale}/sandboxes/$id/changelog";
+      preLoaderRoute: typeof Char123LocaleChar125SandboxesIdChangelogRouteImport;
+      parentRoute: typeof Char123LocaleChar125SandboxesIdRoute;
+    };
+    "/{-$locale}/sandboxes/$id/items": {
+      id: "/{-$locale}/sandboxes/$id/items";
+      path: "/items";
+      fullPath: "/{-$locale}/sandboxes/$id/items";
+      preLoaderRoute: typeof Char123LocaleChar125SandboxesIdItemsRouteImport;
+      parentRoute: typeof Char123LocaleChar125SandboxesIdRoute;
+    };
+    "/{-$locale}/sandboxes/$id/offers": {
+      id: "/{-$locale}/sandboxes/$id/offers";
+      path: "/offers";
+      fullPath: "/{-$locale}/sandboxes/$id/offers";
+      preLoaderRoute: typeof Char123LocaleChar125SandboxesIdOffersRouteImport;
+      parentRoute: typeof Char123LocaleChar125SandboxesIdRoute;
+    };
+    "/{-$locale}/store/$namespace/$slug": {
+      id: "/{-$locale}/store/$namespace/$slug";
+      path: "/store/$namespace/$slug";
+      fullPath: "/{-$locale}/store/$namespace/$slug";
+      preLoaderRoute: typeof Char123LocaleChar125StoreNamespaceSlugRouteImport;
+      parentRoute: typeof Char123LocaleChar125Route;
     };
     "/{-$locale}/collections/$id/$week/": {
       id: "/{-$locale}/collections/$id/$week/";

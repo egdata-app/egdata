@@ -33,7 +33,13 @@ type PaginationLinkProps = {
 } & Pick<ButtonProps, "size"> &
   React.ComponentProps<"a">;
 
-const PaginationLink = ({ className, isActive, size = "icon", ...props }: PaginationLinkProps) => (
+const PaginationLink = ({
+  className,
+  isActive,
+  size = "icon",
+  prefetch: _prefetch,
+  ...props
+}: PaginationLinkProps) => (
   <Link
     aria-current={isActive ? "page" : undefined}
     className={cn(
@@ -43,7 +49,6 @@ const PaginationLink = ({ className, isActive, size = "icon", ...props }: Pagina
       }),
       className,
     )}
-    prefetch={props.prefetch ?? "none"}
     {...props}
   />
 );
@@ -103,7 +108,6 @@ const PaginationNext = ({ className, ...props }: React.ComponentProps<typeof Pag
     aria-label="Go to next page"
     size="default"
     className={cn("gap-1 pr-2.5", className)}
-    prefetch="render"
     {...props}
   >
     <span>Next</span>

@@ -32,7 +32,7 @@ import { getQueryClient } from "@/lib/client";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { useLocale } from "@/hooks/use-locale";
 import { Button } from "@/components/ui/button";
-import { offerOnlyQueryOptions } from "@/queries/offer-gql";
+import { offerOnlyQueryOptions } from "@/queries/offer";
 import { useTranslation } from "@/lib/paraglide-react";
 import i18n from "@/lib/i18n";
 import { parseKeyImage } from "@/utils/parse-key-image";

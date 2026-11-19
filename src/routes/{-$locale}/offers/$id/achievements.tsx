@@ -26,7 +26,7 @@ import { getRarity } from "@/lib/get-rarity";
 import { httpClient } from "@/lib/http-client";
 import { cn } from "@/lib/utils";
 import type { AchievementsSets } from "@/queries/offer-achievements";
-import { offerOnlyQueryOptions } from "@/queries/offer-gql";
+import { offerOnlyQueryOptions } from "@/queries/offer";
 import type { SingleOffer } from "@/types/single-offer";
 import { CardStackIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import {
@@ -179,8 +179,8 @@ function AchievementsPage() {
   }
 
   const noOfAchievemenentsPerRarity = useMemo(() => {
-    return achievements
-      .flatMap((set) => set.achievements)
+    return (achievements ?? [])
+      .flatMap((set) => set.achievements ?? [])
       .reduce(
         (acc, achievement) => {
           const rarity = getRarity(achievement.xp);
@@ -264,7 +264,11 @@ function AchievementsPage() {
           >
             <EpicTrophyIcon className={cn("size-8", raritiesTextColors.platinum)} />
             <span className="text-2xl font-bold">
-              {achievements.filter((set) => set.isBase).flatMap((set) => set.achievements).length}
+              {
+                (achievements ?? [])
+                  .filter((set) => set.isBase)
+                  .flatMap((set) => set.achievements ?? []).length
+              }
             </span>
           </div>
         </div>

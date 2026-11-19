@@ -46,7 +46,7 @@ function bareLocaleParams(params: ParamsValue | undefined): ParamsValue {
 }
 
 export const Link = forwardRef<HTMLAnchorElement, LocalizedLinkProps>(function Link(
-  { to, href, params, children, ...props },
+  { to, href, params, preload: _preload, children, ...props },
   ref,
 ) {
   const target = to ?? href ?? "";
@@ -68,6 +68,7 @@ export const Link = forwardRef<HTMLAnchorElement, LocalizedLinkProps>(function L
       ref={ref}
       to={routeTo as never}
       params={routeParams as never}
+      preload={false}
       {...(props as Record<string, unknown>)}
     >
       {children}

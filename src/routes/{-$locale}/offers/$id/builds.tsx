@@ -2,7 +2,7 @@ import { columns } from "@/components/tables/builds/columns";
 import { DataTable } from "@/components/tables/builds/table";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { httpClient } from "@/lib/http-client";
-import { offerOnlyQueryOptions } from "@/queries/offer-gql";
+import { offerOnlyQueryOptions } from "@/queries/offer";
 import type { SingleOffer } from "@/types/single-offer";
 import {
   dehydrate,

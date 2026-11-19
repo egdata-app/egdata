@@ -367,7 +367,6 @@ const FeaturedOffer = memo(function FeaturedOffer({ offer }: { offer: SingleOffe
                 params={{
                   id: offer.id,
                 }}
-                preload="intent"
               >
                 {t("components.featuredDiscounts.checkOffer")}
               </Link>

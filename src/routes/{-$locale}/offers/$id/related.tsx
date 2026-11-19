@@ -5,7 +5,7 @@ import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { httpClient } from "@/lib/http-client";
 import { offersDictionary } from "@/lib/offers-dictionary";
-import { offerOnlyQueryOptions } from "@/queries/offer-gql";
+import { offerOnlyQueryOptions } from "@/queries/offer";
 import type { SingleOffer } from "@/types/single-offer";
 import {
   dehydrate,

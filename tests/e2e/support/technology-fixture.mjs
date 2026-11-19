@@ -90,64 +90,93 @@ export function createTechnologyApiResponse(id) {
 export function createTechnologyOfferResponse(id = technologyOfferId) {
   return {
     data: {
-      offer: {
-        _id: id,
-        id,
-        namespace: "technology-test-namespace",
-        title: "Technology Link Test",
-        description: "A deterministic offer used to verify exact technology links.",
-        longDescription: null,
-        offerType: "BASE_GAME",
-        effectiveDate: "2026-01-01T00:00:00.000Z",
-        expiryDate: null,
-        creationDate: "2026-01-01T00:00:00.000Z",
-        lastModifiedDate: "2026-08-01T00:00:00.000Z",
-        isCodeRedemptionOnly: false,
-        prePurchase: false,
-        releaseDate: "2026-01-01T00:00:00.000Z",
-        pcReleaseDate: null,
-        viewableDate: "2026-01-01T00:00:00.000Z",
-        urlSlug: null,
-        productSlug: null,
-        url: null,
-        countriesBlacklist: null,
-        countriesWhitelist: null,
-        refundType: "REFUNDABLE",
-        developerDisplayName: "EGDATA Test Developer",
-        publisherDisplayName: "EGDATA Test Publisher",
-        categories: [],
-        seller: { id: "test-seller", name: "EGDATA Test Seller" },
-        tags: [],
-        keyImages: [],
-        customAttributes: [],
-        items: [
-          {
-            _id: "technology-test-item",
-            id: "technology-test-item",
-            namespace: "technology-test-namespace",
-            builds: [
-              {
-                _id: "technology-test-build",
-                labelName: "Live",
-                technologies: [{ technology: "NVIDIA_DLSS", section: "Engine" }],
-              },
-            ],
-          },
-        ],
-        franchises: [],
-        giveaways: [],
-        offerMappings: [],
-        price: null,
-      },
+      _id: id,
+      id,
+      namespace: "technology-test-namespace",
+      title: "Technology Link Test",
+      description: "A deterministic offer used to verify exact technology links.",
+      longDescription: null,
+      offerType: "BASE_GAME",
+      effectiveDate: "2026-01-01T00:00:00.000Z",
+      expiryDate: null,
+      creationDate: "2026-01-01T00:00:00.000Z",
+      lastModifiedDate: "2026-08-01T00:00:00.000Z",
+      isCodeRedemptionOnly: false,
+      prePurchase: false,
+      releaseDate: "2026-01-01T00:00:00.000Z",
+      pcReleaseDate: null,
+      viewableDate: "2026-01-01T00:00:00.000Z",
+      urlSlug: null,
+      productSlug: null,
+      url: null,
+      countriesBlacklist: null,
+      countriesWhitelist: null,
+      refundType: "REFUNDABLE",
+      developerDisplayName: "EGDATA Test Developer",
+      publisherDisplayName: "EGDATA Test Publisher",
+      categories: [],
+      seller: { id: "test-seller", name: "EGDATA Test Seller" },
+      tags: [],
+      keyImages: [],
+      customAttributes: {},
+      items: [
+        {
+          _id: "technology-test-item",
+          id: "technology-test-item",
+          namespace: "technology-test-namespace",
+        },
+      ],
+      giveaway: null,
+      offerMappings: [],
+      price: null,
     },
+    meta: {},
   };
 }
 
-export function isTechnologyOfferRequest(payload) {
-  const matchesOperation =
-    payload?.operationName === "OfferPage" ||
-    payload?.operationName === "OfferOnly" ||
-    (typeof payload?.query === "string" && /query\s+Offer(?:Only|Page)/u.test(payload.query));
+export function createTechnologyOfferTechnologiesResponse() {
+  return {
+    data: [{ technology: "NVIDIA_DLSS", section: "Engine" }],
+    meta: {},
+  };
+}
 
-  return payload?.variables?.id === technologyOfferId && matchesOperation;
+export function createTechnologyOfferApiResponse(url) {
+  const pathname = url.pathname.replace(/^\/v1/, "");
+  if (pathname === `/offers/${technologyOfferId}`) {
+    return createTechnologyOfferResponse(technologyOfferId);
+  }
+  if (pathname === `/offers/${technologyOfferId}/technologies`) {
+    return createTechnologyOfferTechnologiesResponse();
+  }
+  if (
+    pathname === `/offers/${technologyOfferId}/franchises` ||
+    pathname === `/offers/${technologyOfferId}/assets` ||
+    pathname === `/offers/${technologyOfferId}/genres` ||
+    pathname === `/offers/${technologyOfferId}/achievements` ||
+    pathname === `/offers/${technologyOfferId}/giveaways`
+  ) {
+    return { data: [], meta: {} };
+  }
+  if (pathname === `/offers/${technologyOfferId}/price-stats`) {
+    return { data: { current: null, lowest: null, lastDiscount: null }, meta: {} };
+  }
+  if (
+    pathname === `/offers/${technologyOfferId}/price` ||
+    pathname === `/offers/${technologyOfferId}/age-rating` ||
+    pathname === `/offers/${technologyOfferId}/hltb` ||
+    pathname === `/offers/${technologyOfferId}/polls` ||
+    pathname === `/offers/${technologyOfferId}/igdb` ||
+    pathname === `/offers/${technologyOfferId}/price/fairness` ||
+    pathname === `/offers/${technologyOfferId}/requirements` ||
+    pathname === `/offers/${technologyOfferId}/tops` ||
+    pathname.startsWith(`/offers/${technologyOfferId}/collections/`) ||
+    pathname === `/offers/${technologyOfferId}/media`
+  ) {
+    return { data: null, meta: {} };
+  }
+  if (pathname === `/offers/${technologyOfferId}/has-regular`) {
+    return { data: { isPrepurchase: false }, meta: {} };
+  }
+  return null;
 }
