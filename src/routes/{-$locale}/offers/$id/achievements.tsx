@@ -19,22 +19,16 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { useLocale } from "@/hooks/use-locale";
-import { getQueryClient } from "@/lib/client";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
-import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { getRarity } from "@/lib/get-rarity";
-import { httpClient } from "@/lib/http-client";
 import { cn } from "@/lib/utils";
-import type { AchievementsSets } from "@/queries/offer-achievements";
-import { offerOnlyQueryOptions } from "@/queries/offer";
-import type { SingleOffer } from "@/types/single-offer";
-import { CardStackIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import {
-  dehydrate,
-  type DehydratedState,
-  HydrationBoundary,
-  useQuery,
-} from "@tanstack/react-query";
+  offerAchievementsQueryOptions,
+  offerOnlyQueryOptions,
+  resolveQueryLocale,
+} from "@/queries/offer";
+import { CardStackIcon, EyeOpenIcon } from "@radix-ui/react-icons";
+import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { EyeClosedIcon, FileWarningIcon } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -49,63 +43,58 @@ function rarityPriority(rarity: keyof typeof rarities) {
   return idx === -1 ? Number.MAX_SAFE_INTEGER : idx;
 }
 
-type LoaderData = {
-  dehydratedState: DehydratedState;
-  id: string;
-  offer: SingleOffer | null;
-  locale: string | undefined;
-};
-
 export const Route = createFileRoute("/{-$locale}/offers/$id/achievements")({
-  component: () => {
-    const { dehydratedState } = Route.useLoaderData() as LoaderData;
-    return (
-      <HydrationBoundary state={dehydratedState}>
-        <AchievementsPage />
-      </HydrationBoundary>
-    );
-  },
+  component: AchievementsPage,
 
   loader: async ({ params, context }) => {
-    const { queryClient, locale } = context;
+    const { queryClient, locale, cookies } = context;
     const { id } = params;
+    const resolvedLocale = resolveQueryLocale(
+      import.meta.env.SSR ? locale : (locale ?? cookies?.user_locale),
+    );
+    const offerQuery = offerOnlyQueryOptions(id, resolvedLocale);
 
-    await queryClient.prefetchQuery({
-      queryKey: ["offer-achievements", { id }],
-      queryFn: () =>
-        httpClient.v1Get<AchievementsSets>(`/offers/${id}/achievements`).catch(() => []),
-    });
+    if (import.meta.env.SSR) {
+      const [offer] = await Promise.all([
+        queryClient.ensureQueryData(offerQuery).catch(() => null),
+        queryClient.prefetchQuery(offerAchievementsQueryOptions(id)),
+      ]);
 
-    const offer = await queryClient.ensureQueryData(offerOnlyQueryOptions(params.id, locale));
+      return {
+        id,
+        locale: resolvedLocale,
+        offer,
+        isOfferLoaded: true,
+      };
+    }
+
+    const cachedOffer = queryClient.getQueryData(offerQuery.queryKey);
+    void queryClient.prefetchQuery(offerAchievementsQueryOptions(id));
 
     return {
       id,
-      locale,
-      dehydratedState: dehydrate(queryClient),
-      offer,
+      locale: resolvedLocale,
+      offer: cachedOffer ?? null,
+      isOfferLoaded: cachedOffer !== undefined,
     };
   },
 
   head: (ctx) => {
-    const { params } = ctx;
-    const queryClient = getQueryClient();
-
     if (!ctx.loaderData) {
       return {
-        meta: [
-          {
-            title: i18n.t("offerDetail.common.offerNotFound"),
-            description: i18n.t("offerDetail.common.offerNotFound"),
-          },
-        ],
+        meta: [],
       };
     }
 
-    const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
-      ...offerOnlyQueryOptions(params.id, ctx.loaderData?.locale).queryKey,
-    ]);
+    const { offer, isOfferLoaded } = ctx.loaderData;
 
     if (!offer) {
+      if (!isOfferLoaded) {
+        return {
+          meta: [],
+        };
+      }
+
       return {
         meta: [
           {
@@ -124,14 +113,11 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/achievements")({
 
 function AchievementsPage() {
   const { t } = useTranslation();
-  const { id } = Route.useLoaderData() as LoaderData;
+  const { id } = Route.useParams();
   const { timezone } = useLocale();
   const [search, setSearch] = useState("");
   const [blur, setBlur] = useState(true);
-  const { data: achievements, isLoading } = useQuery({
-    queryKey: ["offer-achievements", { id }],
-    queryFn: () => httpClient.v1Get<AchievementsSets>(`/offers/${id}/achievements`),
-  });
+  const { data: achievements, isLoading } = useQuery(offerAchievementsQueryOptions(id));
 
   const [flipAll, setFlipAll] = useState(false);
   const [flippedStates, setFlippedStates] = useState<{
@@ -142,6 +128,19 @@ function AchievementsPage() {
   //    "default" means do not reorder, just keep hidden achievements at bottom.
   //    "rarity" sorts by ascending rarity (i.e., common -> rare -> epic -> etc.)
   const [sortBy, setSortBy] = useState<"default" | "rarity" | "unlockedPercentage">("default");
+
+  const noOfAchievemenentsPerRarity = useMemo(() => {
+    return (achievements ?? [])
+      .flatMap((set) => set.achievements ?? [])
+      .reduce(
+        (acc, achievement) => {
+          const rarity = getRarity(achievement.xp);
+          acc[rarity] = (acc[rarity] || 0) + 1;
+          return acc;
+        },
+        {} as { [key in keyof typeof rarities]: number },
+      );
+  }, [achievements]);
 
   const handleFlipAll = () => {
     setFlipAll(!flipAll);
@@ -177,19 +176,6 @@ function AchievementsPage() {
       </div>
     );
   }
-
-  const noOfAchievemenentsPerRarity = useMemo(() => {
-    return (achievements ?? [])
-      .flatMap((set) => set.achievements ?? [])
-      .reduce(
-        (acc, achievement) => {
-          const rarity = getRarity(achievement.xp);
-          acc[rarity] = (acc[rarity] || 0) + 1;
-          return acc;
-        },
-        {} as { [key in keyof typeof rarities]: number },
-      );
-  }, [achievements]);
 
   return (
     <div className="flex flex-col gap-4">

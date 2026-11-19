@@ -1,21 +1,17 @@
 import type * as React from "react";
-import { useMemo, useState, useEffect } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "@/lib/paraglide-react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@/components/app/localized-link";
 import { Card, CardContent } from "@/components/ui/card";
-import { keepPreviousData, useQueries } from "@tanstack/react-query";
+import { keepPreviousData, useQueries, useQuery } from "@tanstack/react-query";
 import { httpClient } from "@/lib/http-client";
-import { unwrapV1Poll } from "@/lib/v1-adapters";
-import type { Tag } from "@/types/single-offer";
 import type { SingleSandbox } from "@/types/single-sandbox";
-import type { AchievementSet } from "@/queries/offer-achievements";
 import { useCountry } from "@/hooks/use-country";
 import { calculatePrice } from "@/lib/calculate-price";
 import type { Price } from "@/types/price";
 import { cn } from "@/lib/utils";
 import type { Hltb } from "@/types/hltb";
-import type { SinglePoll } from "@/types/polls";
 import StarsRating from "@/components/app/stars-rating";
 import { EpicTrophyIcon } from "@/components/icons/epic-trophy";
 import { type rarities, raritiesTextColors } from "@/components/app/achievement-card";
@@ -27,6 +23,14 @@ import { PerformanceTable } from "@/components/app/performance-table";
 import { bestCollectionKey } from "@/lib/performance";
 import { getOfferIgdb } from "@/queries/igdb";
 import { getOfferPriceFairness } from "@/queries/offer-price-fairness";
+import {
+  offerAchievementsQueryOptions,
+  offerCollectionPositionsQueryOptions,
+  offerGenresQueryOptions,
+  offerPollsQueryOptions,
+  offerPriceStatsQueryOptions,
+  offerTopsQueryOptions,
+} from "@/queries/offer";
 import { RegionalPricingBadge } from "@/components/app/regional-pricing-badge";
 import { DateTime } from "luxon";
 import { formatTimeToHumanReadable } from "@/lib/time-to-human-readable";
@@ -39,85 +43,39 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/")({
     return <RouteComponent />;
   },
 
-  loader: async ({ params, context, cause }) => {
+  loader: ({ params, context, cause }) => {
     const { id } = params;
-    const { country, queryClient } = context;
+    const { queryClient } = context;
+    const country = context.country || "US";
 
-    const isPreload = cause === "preload";
+    if (!import.meta.env.SSR) {
+      // Warm top-of-page overview cards without blocking navigation or hover
+      void queryClient.prefetchQuery(offerGenresQueryOptions(id));
+      void queryClient.prefetchQuery(offerPriceStatsQueryOptions(id, country));
 
-    let defaultCollection = "top-sellers";
-
-    if (!isPreload) {
-      queryClient
-        .fetchQuery({
-          queryKey: ["offer", "genres", { id }],
-          queryFn: () => httpClient.v1Get<Tag[]>(`/offers/${id}/genres`).catch(() => []),
-        })
-        .catch(() => {});
-      queryClient
-        .fetchQuery({
-          queryKey: ["price-stats", { id, country }],
-          queryFn: () =>
-            httpClient
-              .v1Get<{
-                current: Price | null;
-                lowest: Price | null;
-                lastDiscount: Price | null;
-              }>(`/offers/${id}/price-stats`, {
-                params: { country },
-              })
-              .catch(() => ({
-                current: null,
-                lowest: null,
-                lastDiscount: null,
-              })),
-        })
-        .catch(() => {});
-      queryClient.fetchQuery(getOfferIgdb(id)).catch(() => {});
-      queryClient.fetchQuery(getOfferPriceFairness(id, country || "US")).catch(() => {});
+      if (cause !== "preload") {
+        void queryClient.prefetchQuery(getOfferIgdb(id));
+        void queryClient.prefetchQuery(getOfferPriceFairness(id, country));
+        void queryClient.prefetchQuery(offerTopsQueryOptions(id));
+      }
     }
-
-    // Fetch the tops data
-    const tops = await queryClient.ensureQueryData({
-      queryKey: ["offer", "tops", { id }],
-      queryFn: () =>
-        httpClient
-          .v1Get<{
-            [key: string]: number;
-          }>(`/offers/${id}/tops`)
-          .catch(() => null),
-    });
-
-    // Calculate the default collection
-    defaultCollection = bestCollectionKey(tops, "top-sellers");
-
-    await queryClient.prefetchQuery({
-      queryKey: ["collection", "positions", { id, collection: defaultCollection }],
-      queryFn: () =>
-        httpClient
-          .v1Get<OfferPosition>(`/offers/${id}/collections/${defaultCollection}`, {
-            params: {
-              country,
-            },
-          })
-          .catch(() => null),
-    });
 
     return {
       id,
       country,
-      defaultCollection,
     };
   },
 });
 
 function RouteComponent() {
   const { t } = useTranslation();
-  const { defaultCollection } = Route.useLoaderData();
   const { timezone } = useLocale();
   const { id } = Route.useParams();
   const { country } = useCountry();
-  const [collection, setCollection] = useState(defaultCollection);
+  const [selectedCollectionState, setSelectedCollectionState] = useState<{
+    offerId: string;
+    collection: string;
+  } | null>(null);
   const [
     genresQuery,
     priceQuery,
@@ -127,33 +85,13 @@ function RouteComponent() {
     giveawaysQuery,
     hltbQuery,
     reviewsQuery,
-    collectionsQuery,
     topsQuery,
     igdbQuery,
     requirementsQuery,
   ] = useQueries({
     queries: [
-      {
-        queryKey: ["offer", "genres", { id }],
-        queryFn: () => httpClient.v1Get<Tag[]>(`/offers/${id}/genres`),
-      },
-      {
-        queryKey: ["price-stats", { id, country }],
-        queryFn: () =>
-          httpClient
-            .v1Get<{
-              current: Price | null;
-              lowest: Price | null;
-              lastDiscount: Price | null;
-            }>(`/offers/${id}/price-stats`, {
-              params: { country },
-            })
-            .catch(() => ({
-              current: null,
-              lowest: null,
-              lastDiscount: null,
-            })),
-      },
+      offerGenresQueryOptions(id),
+      offerPriceStatsQueryOptions(id, country),
       getOfferPriceFairness(id, country),
       {
         queryKey: ["offer", "age-rating", { id, country }],
@@ -162,10 +100,7 @@ function RouteComponent() {
             params: { country, single: true },
           }),
       },
-      {
-        queryKey: ["offer", "achievements", { id }],
-        queryFn: () => httpClient.v1Get<AchievementSet[]>(`/offers/${id}/achievements`),
-      },
+      offerAchievementsQueryOptions(id),
       {
         queryKey: ["offer", "giveaways", { id }],
         queryFn: () =>
@@ -184,26 +119,9 @@ function RouteComponent() {
         queryFn: () => httpClient.v1Get<Hltb>(`/offers/${id}/hltb`),
         retry: false,
       },
+      offerPollsQueryOptions(id),
       {
-        queryKey: ["offer", "reviews", { id }],
-        queryFn: () =>
-          httpClient
-            .v1Get<SinglePoll | { poll: SinglePoll | null } | null>(`/offers/${id}/polls`)
-            .then(unwrapV1Poll),
-        retry: false,
-      },
-      {
-        queryKey: ["collection", "positions", { id, collection }],
-        queryFn: () => httpClient.v1Get<OfferPosition>(`/offers/${id}/collections/${collection}`),
-        retry: false,
-        enabled: !!collection,
-      },
-      {
-        queryKey: ["offer", "tops", { id }],
-        queryFn: () =>
-          httpClient.v1Get<{
-            [key: string]: number;
-          }>(`/offers/${id}/tops`),
+        ...offerTopsQueryOptions(id),
         placeholderData: keepPreviousData,
       },
       getOfferIgdb(id),
@@ -224,15 +142,22 @@ function RouteComponent() {
   const { data: giveaways } = giveawaysQuery;
   const { data: hltb } = hltbQuery;
   const { data: reviews } = reviewsQuery;
-  const { data: collections } = collectionsQuery;
   const { data: tops } = topsQuery;
   const { data: igdb } = igdbQuery;
   const { data: requirements } = requirementsQuery;
   const timeToBeat = igdb?.timeToBeat;
 
-  useEffect(() => {
-    setCollection(bestCollectionKey(tops, defaultCollection));
-  }, [tops, defaultCollection]);
+  const hasTops = Boolean(tops && Object.keys(tops).length > 0);
+  const defaultCollection = bestCollectionKey(tops, "top-sellers");
+  const activeCollection =
+    selectedCollectionState?.offerId === id
+      ? selectedCollectionState.collection
+      : defaultCollection;
+
+  const collectionsQuery = useQuery({
+    ...offerCollectionPositionsQueryOptions(id, activeCollection, country),
+    enabled: hasTops && Boolean(activeCollection),
+  });
 
   const noOfAchievemenentsPerRarity = useMemo(() => {
     return achievements
@@ -259,10 +184,11 @@ function RouteComponent() {
 
   return (
     <div className="flex h-full w-full flex-col items-start justify-start gap-1">
-      {tops && Object.keys(tops).length > 0 && (
+      {hasTops && (
         <PerformanceTable
-          data={collections as OfferPosition}
-          onChange={(value) => setCollection(value)}
+          key={`${id}-${defaultCollection}`}
+          data={collectionsQuery.data as OfferPosition}
+          onChange={(value) => setSelectedCollectionState({ offerId: id, collection: value })}
           tops={tops || {}}
           defaultCollection={defaultCollection}
           isLoading={collectionsQuery.isLoading}

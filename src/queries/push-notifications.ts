@@ -49,6 +49,7 @@ export const subscriptionsQuery = (apiKey: string) =>
 export const vapidPublicKeyQuery = queryOptions({
   queryKey: ["push-notifications", "vapid-public-key"],
   queryFn: () => httpClient.get<{ publicKey: string }>("/push/vapid-public-key"),
+  staleTime: 60 * 60 * 1000,
 });
 
 // Mutation to subscribe to push notifications

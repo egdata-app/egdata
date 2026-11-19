@@ -31,37 +31,70 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useCompare } from "@/hooks/use-compare";
-import { useCountry } from "@/hooks/use-country";
 import { useLocale } from "@/hooks/use-locale";
 import { usePushNotifications } from "@/hooks/use-push-notifications";
 import { ClientOnly } from "@/lib/cllient-only";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { Seller } from "@/lib/get-seller";
-import { httpClient } from "@/lib/http-client";
-import { offerOnlyQueryOptions, offerPageQueryOptions } from "@/queries/offer";
+import {
+  offerFranchisesQueryOptions,
+  offerOnlyQueryOptions,
+  offerTechnologiesQueryOptions,
+  resolveQueryLocale,
+} from "@/queries/offer";
 import { internalNamespaces } from "@/lib/internal-namespaces";
 import { offersDictionary } from "@/lib/offers-dictionary";
 import { compareDates, timeAgo } from "@/lib/time-ago";
 import { cn } from "@/lib/utils";
-import type { Asset } from "@/types/asset";
-import type { Price } from "@/types/price";
-import { useSuspenseQuery } from "@tanstack/react-query";
-import { createFileRoute, Outlet, useLocation, useNavigate } from "@tanstack/react-router";
+import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { createFileRoute, Outlet, useLocation } from "@tanstack/react-router";
 import { Link } from "@/components/app/localized-link";
 import { FabIcon } from "@/components/icons/fab";
 import { DateTime } from "luxon";
 import { Bell } from "lucide-react";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { OffersHomeSkeleton } from "@/components/skeletons/offers-home";
 import { TechnologyLink } from "@/components/technology/TechnologyLink";
 import { useTranslation } from "@/lib/paraglide-react";
 import i18n from "@/lib/i18n";
 
+const offerHeadLinks = [
+  {
+    rel: "stylesheet",
+    href: defaultPlayerTheme,
+  },
+  {
+    rel: "stylesheet",
+    href: defaultAudioPlayer,
+  },
+  {
+    rel: "stylesheet",
+    href: defaultVideoPlayer,
+  },
+  // Preload all the styles for the video player
+  {
+    rel: "preload",
+    href: defaultPlayerTheme,
+    as: "style",
+  },
+  {
+    rel: "preload",
+    href: defaultAudioPlayer,
+    as: "style",
+  },
+  {
+    rel: "preload",
+    href: defaultVideoPlayer,
+    as: "style",
+  },
+];
+
 export const Route = createFileRoute("/{-$locale}/offers/$id")({
   component: () => {
+    const { id } = Route.useParams();
     return (
-      <Suspense fallback={<OffersHomeSkeleton />}>
+      <Suspense key={id} fallback={<OffersHomeSkeleton />}>
         <OfferPage />
       </Suspense>
     );
@@ -71,65 +104,55 @@ export const Route = createFileRoute("/{-$locale}/offers/$id")({
     "Cache-Control": "public, s-maxage=60, stale-while-revalidate=600",
   }),
 
-  beforeLoad: async ({ params, context }) => {
-    const { queryClient, locale } = context;
-    const { id } = params;
-
-    const offer = await queryClient
-      .ensureQueryData(offerOnlyQueryOptions(params.id, locale))
-      .catch(() => null);
-
-    return {
-      id,
-      offer,
-    };
-  },
-
   loader: async ({ params, context }) => {
-    const { country, locale, queryClient, offer } = context;
+    const { country, locale, cookies, queryClient } = context;
     const { id } = params;
+    const resolvedLocale = resolveQueryLocale(
+      import.meta.env.SSR ? locale : (locale ?? cookies?.user_locale),
+    );
+    const offerQuery = offerOnlyQueryOptions(id, resolvedLocale);
 
-    await Promise.allSettled([
-      queryClient.prefetchQuery({
-        queryKey: ["price", { id: params.id, country }],
-        queryFn: () =>
-          httpClient
-            .v1Get<Price>(`/offers/${params.id}/price?country=${country || "US"}`)
-            .catch(() => null),
-      }),
-      queryClient.prefetchQuery(
-        offerPageQueryOptions({ id: params.id, country: country || "US", locale }),
-      ),
-      queryClient.prefetchQuery({
-        queryKey: ["offer-assets", { id }],
-        queryFn: () => httpClient.v1Get<Asset[]>(`/offers/${id}/assets`).catch(() => []),
-      }),
-    ]);
+    if (import.meta.env.SSR) {
+      const offer = await queryClient.ensureQueryData(offerQuery).catch(() => null);
+      return {
+        id,
+        country,
+        locale: resolvedLocale,
+        offer,
+        isOfferLoaded: true,
+      };
+    }
+
+    const cachedOffer = queryClient.getQueryData(offerQuery.queryKey);
+    void queryClient.prefetchQuery(offerQuery);
 
     return {
       id,
       country,
-      locale,
-      offer,
+      locale: resolvedLocale,
+      offer: cachedOffer ?? null,
+      isOfferLoaded: cachedOffer !== undefined,
     };
   },
 
   head: (ctx) => {
     const { loaderData } = ctx;
 
-    if (!loaderData)
+    if (!loaderData) {
       return {
-        meta: [
-          {
-            title: i18n.t("offerDetail.common.offerNotFound"),
-            description: i18n.t("offerDetail.common.offerNotFound"),
-          },
-        ],
+        links: offerHeadLinks,
       };
+    }
 
-    const { offer, country } = loaderData;
+    const { offer, country, isOfferLoaded } = loaderData;
 
     if (!offer) {
+      if (!isOfferLoaded) {
+        return {
+          links: offerHeadLinks,
+        };
+      }
+
       return {
         meta: [
           {
@@ -137,41 +160,13 @@ export const Route = createFileRoute("/{-$locale}/offers/$id")({
             description: i18n.t("offerDetail.common.offerNotFound"),
           },
         ],
+        links: offerHeadLinks,
       };
     }
 
     return {
       meta: generateOfferMeta(offer, undefined, country || "US"),
-      links: [
-        {
-          rel: "stylesheet",
-          href: defaultPlayerTheme,
-        },
-        {
-          rel: "stylesheet",
-          href: defaultAudioPlayer,
-        },
-        {
-          rel: "stylesheet",
-          href: defaultVideoPlayer,
-        },
-        // Preload all the styles for the video player
-        {
-          rel: "preload",
-          href: defaultPlayerTheme,
-          as: "style",
-        },
-        {
-          rel: "preload",
-          href: defaultAudioPlayer,
-          as: "style",
-        },
-        {
-          rel: "preload",
-          href: defaultVideoPlayer,
-          as: "style",
-        },
-      ],
+      links: offerHeadLinks,
     };
   },
 });
@@ -180,103 +175,46 @@ function OfferPage() {
   const { t } = useTranslation();
   const { id } = Route.useParams();
   const { locale, timezone } = useLocale();
-  const { country } = useCountry();
   const { addToCompare, removeFromCompare, compare } = useCompare();
-  const navigate = useNavigate();
   const location = useLocation();
-  // Auth and push notifications
-  const [cookies] = useCookies(["push-notifications-api-key"]);
-  const { canPerformTopicOperations, subscribeToTopic, unsubscribeFromTopic, isSubscribedToTopic } =
-    usePushNotifications(cookies["push-notifications-api-key"]);
 
-  // Topic names for this offer
-  const allTopic = `offer:${id}:*`;
-  const priceTopic = `offer:${id}:price`;
-  const achievementsTopic = `offer:${id}:achievements`;
-  const buildsTopic = `offer:${id}:builds`;
-  const itemsTopic = `offer:${id}:items`;
-  const requirementsTopic = `offer:${id}:requirements`;
-  const metadataTopic = `offer:${id}:metadata`;
-  const mediaTopic = `offer:${id}:media`;
-
-  // Check current subscription status
-  const all = isSubscribedToTopic(allTopic);
-  const price = isSubscribedToTopic(priceTopic);
-  const achievements = isSubscribedToTopic(achievementsTopic);
-  const builds = isSubscribedToTopic(buildsTopic);
-  const items = isSubscribedToTopic(itemsTopic);
-  const requirements = isSubscribedToTopic(requirementsTopic);
-  const metadata = isSubscribedToTopic(metadataTopic);
-  const media = isSubscribedToTopic(mediaTopic);
-
-  // Handle notification setting changes
-  const handleNotificationChange = async (setting: string, checked: boolean) => {
-    if (!canPerformTopicOperations) return;
-
-    const topicMap = {
-      all: allTopic,
-      price: priceTopic,
-      achievements: achievementsTopic,
-      builds: buildsTopic,
-      items: itemsTopic,
-      requirements: requirementsTopic,
-      metadata: metadataTopic,
-      media: mediaTopic,
-    };
-
-    const specificTopics = [
-      priceTopic,
-      achievementsTopic,
-      buildsTopic,
-      itemsTopic,
-      requirementsTopic,
-      metadataTopic,
-      mediaTopic,
-    ];
-
-    if (setting === "all") {
-      if (checked) {
-        // Subscribe to all changes and unsubscribe from specific ones
-        await subscribeToTopic(allTopic);
-        for (const topic of specificTopics) {
-          if (isSubscribedToTopic(topic)) {
-            await unsubscribeFromTopic(topic);
-          }
-        }
-      } else {
-        // Unsubscribe from all changes
-        await unsubscribeFromTopic(allTopic);
-      }
-    } else {
-      const topic = topicMap[setting as keyof typeof topicMap];
-      if (topic) {
-        if (checked) {
-          // Unsubscribe from all changes first, then subscribe to specific topic
-          if (isSubscribedToTopic(allTopic)) {
-            await unsubscribeFromTopic(allTopic);
-          }
-          await subscribeToTopic(topic);
-        } else {
-          await unsubscribeFromTopic(topic);
-        }
-      }
-    }
-  };
-
-  const { data, isLoading: offerLoading } = useSuspenseQuery(
-    offerPageQueryOptions({ id, country: country || "US", locale }),
-  );
-
-  const offer = data?.offer;
-  const technologies = data?.technologies ?? [];
-  const franchises = data?.franchises ?? [];
+  const { data: offer } = useSuspenseQuery(offerOnlyQueryOptions(id, locale));
+  const { data: technologies = [] } = useQuery({
+    ...offerTechnologiesQueryOptions(id),
+    enabled: Boolean(offer),
+  });
+  const { data: franchises = [] } = useQuery({
+    ...offerFranchisesQueryOptions(id),
+    enabled: Boolean(offer),
+  });
   const franchise = franchises[0];
 
   const subPath = location.pathname.split(`/${id}/`)[1];
+  const normalizedSubPath = subPath?.replace(/\/$/, "") ?? "";
 
-  if (offerLoading) {
-    return <OffersHomeSkeleton />;
-  }
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+
+    if (!offer) {
+      document.title = t("offerDetail.common.offerNotFound");
+      return;
+    }
+
+    const sectionTitleMap: Record<string, string> = {
+      price: t("offerDetail.price.title"),
+      items: t("offerDetail.items.title"),
+      builds: t("offerDetail.builds.title"),
+      achievements: "Achievements",
+      related: t("offerDetail.related.title"),
+      metadata: "Metadata",
+      changelog: "Changelog",
+      media: "Media",
+      reviews: "Reviews",
+    };
+
+    const section = normalizedSubPath ? sectionTitleMap[normalizedSubPath] : undefined;
+    document.title = `${offer.title}${section ? ` - ${section}` : ""} | egdata.app`;
+  }, [offer, normalizedSubPath, t]);
 
   if (!offer) {
     return <main>{t("offerDetail.common.offerNotFound")}</main>;
@@ -297,7 +235,7 @@ function OfferPage() {
   return (
     <main className="flex flex-col items-start justify-start w-full min-h-screen gap-4 relative px-4 md:px-8 max-w-[1600px] mx-auto">
       <ClientOnly>
-        <PrepurchasePopup id={offer.id} />
+        <PrepurchasePopup id={offer.id} offer={offer} />
       </ClientOnly>
       <header className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
         <div className="flex flex-col gap-1">
@@ -605,179 +543,7 @@ function OfferPage() {
               {compare.includes(offer.id) ? <RemoveIcon /> : <AddIcon />}
               <span>{t("offerDetail.actions.compare")}</span>
             </Button>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  className="inline-flex items-center gap-1 bg-card text-card-foreground hover:bg-accent border border-border/60"
-                  size="sm"
-                >
-                  <Bell className="h-4 w-4" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-80">
-                <div className="space-y-4">
-                  <h4 className="font-medium leading-none">
-                    {t("offerDetail.notifications.title")}
-                  </h4>
-                  {canPerformTopicOperations ? (
-                    <>
-                      <p className="text-sm text-muted-foreground">
-                        {t("offerDetail.notifications.description")}
-                      </p>
-                      <div className="space-y-3">
-                        <div className="flex items-center space-x-2">
-                          <Checkbox
-                            id="all"
-                            checked={all}
-                            onCheckedChange={(checked) =>
-                              handleNotificationChange("all", checked as boolean)
-                            }
-                            disabled={
-                              price ||
-                              achievements ||
-                              builds ||
-                              items ||
-                              requirements ||
-                              metadata ||
-                              media
-                            }
-                          />
-                          <label
-                            htmlFor="all"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {t("offerDetail.notifications.all")}
-                          </label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox
-                            id="price"
-                            checked={price}
-                            onCheckedChange={(checked) =>
-                              handleNotificationChange("price", checked as boolean)
-                            }
-                            disabled={all}
-                          />
-                          <label
-                            htmlFor="price"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {t("offerDetail.notifications.price")}
-                          </label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox
-                            id="achievements"
-                            checked={achievements}
-                            onCheckedChange={(checked) =>
-                              handleNotificationChange("achievements", checked as boolean)
-                            }
-                            disabled={all}
-                          />
-                          <label
-                            htmlFor="achievements"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {t("offerDetail.notifications.achievements")}
-                          </label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox
-                            id="builds"
-                            checked={builds}
-                            onCheckedChange={(checked) =>
-                              handleNotificationChange("builds", checked as boolean)
-                            }
-                            disabled={all}
-                          />
-                          <label
-                            htmlFor="builds"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {t("offerDetail.notifications.builds")}
-                          </label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox
-                            id="items"
-                            checked={items}
-                            onCheckedChange={(checked) =>
-                              handleNotificationChange("items", checked as boolean)
-                            }
-                            disabled={all}
-                          />
-                          <label
-                            htmlFor="items"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {t("offerDetail.notifications.items")}
-                          </label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox
-                            id="requirements"
-                            checked={requirements}
-                            onCheckedChange={(checked) =>
-                              handleNotificationChange("requirements", checked as boolean)
-                            }
-                            disabled={all}
-                          />
-                          <label
-                            htmlFor="requirements"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {t("offerDetail.notifications.requirements")}
-                          </label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox
-                            id="metadata"
-                            checked={metadata}
-                            onCheckedChange={(checked) =>
-                              handleNotificationChange("metadata", checked as boolean)
-                            }
-                            disabled={all}
-                          />
-                          <label
-                            htmlFor="metadata"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {t("offerDetail.notifications.metadata")}
-                          </label>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <Checkbox
-                            id="media"
-                            checked={media}
-                            onCheckedChange={(checked) =>
-                              handleNotificationChange("media", checked as boolean)
-                            }
-                            disabled={all}
-                          />
-                          <label
-                            htmlFor="media"
-                            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                          >
-                            {t("offerDetail.notifications.media")}
-                          </label>
-                        </div>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <p className="text-sm text-muted-foreground">
-                        {t("offerDetail.notifications.enablePushDescription")}
-                      </p>
-                      <Button asChild className="w-full">
-                        <Link to="/{-$locale}/notifications">
-                          {t("offerDetail.notifications.enablePushAction")}
-                        </Link>
-                      </Button>
-                    </>
-                  )}
-                </div>
-              </PopoverContent>
-            </Popover>
+            <OfferNotificationPopover offerId={offer.id} />
           </div>
           <OfferHero offer={offer} />
           {franchise &&
@@ -810,76 +576,94 @@ function OfferPage() {
               id: "",
               label: t("offerDetail.tabs.overview"),
               href: `/offers/${offer.id}`,
+              to: "/{-$locale}/offers/$id",
+              params: { id: offer.id },
+              preload: "intent",
+              resetScroll: false,
             },
             {
               id: "price",
               label: t("offerDetail.tabs.price"),
               href: `/offers/${offer.id}/price`,
+              to: "/{-$locale}/offers/$id/price",
+              params: { id: offer.id },
+              preload: "intent",
+              resetScroll: false,
             },
             {
               id: "items",
               label: t("offerDetail.tabs.items"),
               href: `/offers/${offer.id}/items`,
+              to: "/{-$locale}/offers/$id/items",
+              params: { id: offer.id },
+              preload: "intent",
+              resetScroll: false,
             },
             {
               id: "builds",
               label: t("offerDetail.tabs.builds"),
               href: `/offers/${offer.id}/builds`,
+              to: "/{-$locale}/offers/$id/builds",
+              params: { id: offer.id },
+              preload: "intent",
+              resetScroll: false,
             },
             {
               id: "achievements",
               label: t("offerDetail.tabs.achievements"),
               href: `/offers/${offer.id}/achievements`,
+              to: "/{-$locale}/offers/$id/achievements",
+              params: { id: offer.id },
+              preload: "intent",
+              resetScroll: false,
             },
             {
               id: "related",
               label: t("offerDetail.tabs.related"),
               href: `/offers/${offer.id}/related`,
+              to: "/{-$locale}/offers/$id/related",
+              params: { id: offer.id },
+              preload: "intent",
+              resetScroll: false,
             },
             {
               id: "metadata",
               label: t("offerDetail.tabs.metadata"),
               href: `/offers/${offer.id}/metadata`,
+              to: "/{-$locale}/offers/$id/metadata",
+              params: { id: offer.id },
+              preload: "intent",
+              resetScroll: false,
             },
             {
               id: "changelog",
               label: t("offerDetail.tabs.changelog"),
               href: `/offers/${offer.id}/changelog`,
+              to: "/{-$locale}/offers/$id/changelog",
+              params: { id: offer.id },
+              preload: "intent",
+              resetScroll: false,
             },
             {
               id: "media",
               label: t("offerDetail.tabs.media"),
               href: `/offers/${offer.id}/media`,
+              to: "/{-$locale}/offers/$id/media",
+              params: { id: offer.id },
+              preload: "intent",
+              resetScroll: false,
             },
             {
               id: "reviews",
               label: t("offerDetail.tabs.reviews"),
               href: `/offers/${offer.id}/reviews`,
+              to: "/{-$locale}/offers/$id/reviews",
+              params: { id: offer.id },
+              preload: "intent",
+              resetScroll: false,
             },
           ]}
-          activeSection={subPath ?? ""}
-          onSectionChange={(id) => {
-            const offerRoutes = {
-              "": "/{-$locale}/offers/$id",
-              price: "/{-$locale}/offers/$id/price",
-              items: "/{-$locale}/offers/$id/items",
-              builds: "/{-$locale}/offers/$id/builds",
-              achievements: "/{-$locale}/offers/$id/achievements",
-              related: "/{-$locale}/offers/$id/related",
-              metadata: "/{-$locale}/offers/$id/metadata",
-              changelog: "/{-$locale}/offers/$id/changelog",
-              media: "/{-$locale}/offers/$id/media",
-              reviews: "/{-$locale}/offers/$id/reviews",
-            } as const;
-            const to = offerRoutes[id as keyof typeof offerRoutes] ?? offerRoutes[""];
-
-            navigate({
-              to,
-              params: { id: offer.id },
-              replace: false,
-              resetScroll: false,
-            });
-          }}
+          activeSection={normalizedSubPath}
         />
 
         <div className="mx-auto w-full max-w-7xl px-4">
@@ -893,6 +677,250 @@ function OfferPage() {
 
       <SuggestedOffers id={offer.id} />
     </main>
+  );
+}
+
+function OfferNotificationPopover({ offerId }: { offerId: string }) {
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const [cookies] = useCookies(["push-notifications-api-key"]);
+  const { canPerformTopicOperations, subscribeToTopic, unsubscribeFromTopic, isSubscribedToTopic } =
+    usePushNotifications(cookies["push-notifications-api-key"], { enabled: open });
+
+  const allTopic = `offer:${offerId}:*`;
+  const priceTopic = `offer:${offerId}:price`;
+  const achievementsTopic = `offer:${offerId}:achievements`;
+  const buildsTopic = `offer:${offerId}:builds`;
+  const itemsTopic = `offer:${offerId}:items`;
+  const requirementsTopic = `offer:${offerId}:requirements`;
+  const metadataTopic = `offer:${offerId}:metadata`;
+  const mediaTopic = `offer:${offerId}:media`;
+
+  const all = isSubscribedToTopic(allTopic);
+  const price = isSubscribedToTopic(priceTopic);
+  const achievements = isSubscribedToTopic(achievementsTopic);
+  const builds = isSubscribedToTopic(buildsTopic);
+  const items = isSubscribedToTopic(itemsTopic);
+  const requirements = isSubscribedToTopic(requirementsTopic);
+  const metadata = isSubscribedToTopic(metadataTopic);
+  const media = isSubscribedToTopic(mediaTopic);
+
+  const handleNotificationChange = async (setting: string, checked: boolean) => {
+    if (!canPerformTopicOperations) return;
+
+    const topicMap = {
+      all: allTopic,
+      price: priceTopic,
+      achievements: achievementsTopic,
+      builds: buildsTopic,
+      items: itemsTopic,
+      requirements: requirementsTopic,
+      metadata: metadataTopic,
+      media: mediaTopic,
+    };
+
+    const specificTopics = [
+      priceTopic,
+      achievementsTopic,
+      buildsTopic,
+      itemsTopic,
+      requirementsTopic,
+      metadataTopic,
+      mediaTopic,
+    ];
+
+    if (setting === "all") {
+      if (checked) {
+        await subscribeToTopic(allTopic);
+        for (const topic of specificTopics) {
+          if (isSubscribedToTopic(topic)) {
+            await unsubscribeFromTopic(topic);
+          }
+        }
+      } else {
+        await unsubscribeFromTopic(allTopic);
+      }
+    } else {
+      const topic = topicMap[setting as keyof typeof topicMap];
+      if (topic) {
+        if (checked) {
+          if (isSubscribedToTopic(allTopic)) {
+            await unsubscribeFromTopic(allTopic);
+          }
+          await subscribeToTopic(topic);
+        } else {
+          await unsubscribeFromTopic(topic);
+        }
+      }
+    }
+  };
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          className="inline-flex items-center gap-1 bg-card text-card-foreground hover:bg-accent border border-border/60"
+          size="sm"
+        >
+          <Bell className="h-4 w-4" />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-80">
+        <div className="space-y-4">
+          <h4 className="font-medium leading-none">{t("offerDetail.notifications.title")}</h4>
+          {canPerformTopicOperations ? (
+            <>
+              <p className="text-sm text-muted-foreground">
+                {t("offerDetail.notifications.description")}
+              </p>
+              <div className="space-y-3">
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="all"
+                    checked={all}
+                    onCheckedChange={(checked) =>
+                      handleNotificationChange("all", checked as boolean)
+                    }
+                    disabled={
+                      price || achievements || builds || items || requirements || metadata || media
+                    }
+                  />
+                  <label
+                    htmlFor="all"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    {t("offerDetail.notifications.all")}
+                  </label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="price"
+                    checked={price}
+                    onCheckedChange={(checked) =>
+                      handleNotificationChange("price", checked as boolean)
+                    }
+                    disabled={all}
+                  />
+                  <label
+                    htmlFor="price"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    {t("offerDetail.notifications.price")}
+                  </label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="achievements"
+                    checked={achievements}
+                    onCheckedChange={(checked) =>
+                      handleNotificationChange("achievements", checked as boolean)
+                    }
+                    disabled={all}
+                  />
+                  <label
+                    htmlFor="achievements"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    {t("offerDetail.notifications.achievements")}
+                  </label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="builds"
+                    checked={builds}
+                    onCheckedChange={(checked) =>
+                      handleNotificationChange("builds", checked as boolean)
+                    }
+                    disabled={all}
+                  />
+                  <label
+                    htmlFor="builds"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    {t("offerDetail.notifications.builds")}
+                  </label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="items"
+                    checked={items}
+                    onCheckedChange={(checked) =>
+                      handleNotificationChange("items", checked as boolean)
+                    }
+                    disabled={all}
+                  />
+                  <label
+                    htmlFor="items"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    {t("offerDetail.notifications.items")}
+                  </label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="requirements"
+                    checked={requirements}
+                    onCheckedChange={(checked) =>
+                      handleNotificationChange("requirements", checked as boolean)
+                    }
+                    disabled={all}
+                  />
+                  <label
+                    htmlFor="requirements"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    {t("offerDetail.notifications.requirements")}
+                  </label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="metadata"
+                    checked={metadata}
+                    onCheckedChange={(checked) =>
+                      handleNotificationChange("metadata", checked as boolean)
+                    }
+                    disabled={all}
+                  />
+                  <label
+                    htmlFor="metadata"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    {t("offerDetail.notifications.metadata")}
+                  </label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="media"
+                    checked={media}
+                    onCheckedChange={(checked) =>
+                      handleNotificationChange("media", checked as boolean)
+                    }
+                    disabled={all}
+                  />
+                  <label
+                    htmlFor="media"
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    {t("offerDetail.notifications.media")}
+                  </label>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <p className="text-sm text-muted-foreground">
+                {t("offerDetail.notifications.enablePushDescription")}
+              </p>
+              <Button asChild className="w-full">
+                <Link to="/{-$locale}/notifications">
+                  {t("offerDetail.notifications.enablePushAction")}
+                </Link>
+              </Button>
+            </>
+          )}
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 }
 

@@ -14,7 +14,8 @@ import consola from "consola";
 
 const VAPID_PUBLIC_KEY = import.meta.env.VITE_VAPID_PUBLIC_KEY;
 
-export function usePushNotifications(userApiKey: string) {
+export function usePushNotifications(userApiKey: string, options?: { enabled?: boolean }) {
+  const isEnabled = options?.enabled ?? true;
   const [isSupported, setIsSupported] = useState(false);
   const [subscription, setSubscription] = useState<(PushSubscription & { id?: string }) | null>(
     null,
@@ -25,13 +26,16 @@ export function usePushNotifications(userApiKey: string) {
     queries: [
       {
         ...checkSubscriptionStatusQuery(userApiKey),
-        enabled: !!userApiKey && isSupported,
+        enabled: isEnabled && !!userApiKey && isSupported,
       },
       {
         ...subscriptionsQuery(userApiKey),
-        enabled: !!userApiKey && isSupported,
+        enabled: isEnabled && !!userApiKey && isSupported,
       },
-      vapidPublicKeyQuery,
+      {
+        ...vapidPublicKeyQuery,
+        enabled: isEnabled && isSupported,
+      },
     ],
   });
 

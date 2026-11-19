@@ -1,14 +1,6 @@
 import { ClientOnly, createFileRoute } from "@tanstack/react-router";
-import { httpClient } from "@/lib/http-client";
-import type { Media } from "@/types/media";
 import type { SingleOffer } from "@/types/single-offer";
-import {
-  dehydrate,
-  type DehydratedState,
-  HydrationBoundary,
-  useQuery,
-} from "@tanstack/react-query";
-import { getFetchedQuery } from "@/lib/get-fetched-query";
+import { useQuery } from "@tanstack/react-query";
 import { Suspense, useState, useEffect } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Image } from "@/components/app/image";
@@ -28,72 +20,66 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { getQueryClient } from "@/lib/client";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { useLocale } from "@/hooks/use-locale";
 import { Button } from "@/components/ui/button";
-import { offerOnlyQueryOptions } from "@/queries/offer";
+import { offerMediaQueryOptions, offerOnlyQueryOptions, resolveQueryLocale } from "@/queries/offer";
 import { useTranslation } from "@/lib/paraglide-react";
 import i18n from "@/lib/i18n";
 import { parseKeyImage } from "@/utils/parse-key-image";
 
-type LoaderData = {
-  dehydratedState: DehydratedState;
-  id: string;
-  offer: SingleOffer | null;
-  locale: string | undefined;
-};
-
 export const Route = createFileRoute("/{-$locale}/offers/$id/media")({
-  component: () => {
-    const { dehydratedState } = Route.useLoaderData() as LoaderData;
-
-    return (
-      <HydrationBoundary state={dehydratedState}>
-        <MediaPage />
-      </HydrationBoundary>
-    );
-  },
+  component: MediaPage,
 
   loader: async ({ context, params }) => {
-    const { queryClient, locale } = context;
+    const { queryClient, locale, cookies } = context;
     const { id } = params;
+    const resolvedLocale = resolveQueryLocale(
+      import.meta.env.SSR ? locale : (locale ?? cookies?.user_locale),
+    );
+    const offerQuery = offerOnlyQueryOptions(id, resolvedLocale);
 
-    await queryClient.prefetchQuery({
-      queryKey: ["media", { id: params.id }],
-      queryFn: () => httpClient.v1Get<Media>(`/offers/${params.id}/media`).catch(() => null),
-    });
+    if (import.meta.env.SSR) {
+      const [offer] = await Promise.all([
+        queryClient.ensureQueryData(offerQuery).catch(() => null),
+        queryClient.prefetchQuery(offerMediaQueryOptions(id)),
+      ]);
 
-    const offer = await queryClient.ensureQueryData(offerOnlyQueryOptions(id, locale));
+      return {
+        id,
+        offer,
+        locale: resolvedLocale,
+        isOfferLoaded: true,
+      };
+    }
+
+    const cachedOffer = queryClient.getQueryData(offerQuery.queryKey);
+    void queryClient.prefetchQuery(offerMediaQueryOptions(id));
 
     return {
-      dehydratedState: dehydrate(queryClient),
       id,
-      offer,
-      locale,
+      offer: cachedOffer ?? null,
+      locale: resolvedLocale,
+      isOfferLoaded: cachedOffer !== undefined,
     };
   },
 
   head: (ctx) => {
-    const { params } = ctx;
-    const queryClient = getQueryClient();
-
     if (!ctx.loaderData) {
       return {
-        meta: [
-          {
-            title: i18n.t("offerDetail.common.offerNotFound"),
-            description: i18n.t("offerDetail.common.offerNotFound"),
-          },
-        ],
+        meta: [],
       };
     }
 
-    const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
-      ...offerOnlyQueryOptions(params.id, ctx.loaderData?.locale).queryKey,
-    ]);
+    const { offer, isOfferLoaded } = ctx.loaderData;
 
     if (!offer) {
+      if (!isOfferLoaded) {
+        return {
+          meta: [],
+        };
+      }
+
       return {
         meta: [
           {
@@ -114,11 +100,7 @@ function MediaPage() {
   const { t } = useTranslation();
   const params = Route.useParams();
   const { locale } = useLocale();
-  const { data: media, isLoading } = useQuery({
-    queryKey: ["media", { id: params.id }],
-    queryFn: () => httpClient.v1Get<Media>(`/offers/${params.id}/media`),
-    retry: false,
-  });
+  const { data: media, isLoading } = useQuery(offerMediaQueryOptions(params.id));
   const { data: offer, isLoading: isOfferLoading } = useQuery(
     offerOnlyQueryOptions(params.id, locale),
   );

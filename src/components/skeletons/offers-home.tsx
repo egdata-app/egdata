@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export function OffersHomeSkeleton() {
   return (
-    <main className="flex flex-col items-start justify-start w-full min-h-screen gap-4 relative">
+    <main className="flex flex-col items-start justify-start w-full min-h-screen gap-4 relative px-4 md:px-8 max-w-[1600px] mx-auto">
       <header className="grid col-span-1 gap-4 md:grid-cols-2 w-full">
         <div className="flex flex-col gap-1">
           {/* Title and seller info */}

@@ -1,7 +1,8 @@
 import { RegionalPricing } from "@/components/app/regional-pricing";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
-import { offerOnlyQueryOptions } from "@/queries/offer";
-import { dehydrate } from "@tanstack/react-query";
+import { httpClient } from "@/lib/http-client";
+import { offerOnlyQueryOptions, resolveQueryLocale } from "@/queries/offer";
+import type { RegionalPrice } from "@/types/regional-pricing";
 import { createFileRoute } from "@tanstack/react-router";
 import { useTranslation } from "@/lib/paraglide-react";
 import i18n from "@/lib/i18n";
@@ -21,32 +22,55 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/price")({
 
   loader: async ({ params, context }) => {
     const { id } = params;
-    const { queryClient, locale } = context;
+    const { queryClient, locale, cookies } = context;
+    const resolvedLocale = resolveQueryLocale(
+      import.meta.env.SSR ? locale : (locale ?? cookies?.user_locale),
+    );
+    const offerQuery = offerOnlyQueryOptions(id, resolvedLocale);
+    const regionalPricingQuery = {
+      queryKey: ["regional-pricing", { id }],
+      queryFn: () => httpClient.v1Get<RegionalPrice>(`/offers/${id}/regional-price`),
+    };
 
-    const offer = await queryClient.ensureQueryData(offerOnlyQueryOptions(id, locale));
+    if (import.meta.env.SSR) {
+      const [offer] = await Promise.all([
+        queryClient.ensureQueryData(offerQuery).catch(() => null),
+        queryClient.prefetchQuery(regionalPricingQuery),
+      ]);
+
+      return {
+        id,
+        offer,
+        isOfferLoaded: true,
+      };
+    }
+
+    const cachedOffer = queryClient.getQueryData(offerQuery.queryKey);
+    void queryClient.prefetchQuery(regionalPricingQuery);
 
     return {
       id,
-      dehydratedState: dehydrate(queryClient),
-      offer,
+      offer: cachedOffer ?? null,
+      isOfferLoaded: cachedOffer !== undefined,
     };
   },
 
   head: (ctx) => {
     if (!ctx.loaderData) {
       return {
-        meta: [
-          {
-            title: i18n.t("offerDetail.common.offerNotFound"),
-            description: i18n.t("offerDetail.common.offerNotFound"),
-          },
-        ],
+        meta: [],
       };
     }
 
-    const { offer } = ctx.loaderData;
+    const { offer, isOfferLoaded } = ctx.loaderData;
 
     if (!offer) {
+      if (!isOfferLoaded) {
+        return {
+          meta: [],
+        };
+      }
+
       return {
         meta: [
           {

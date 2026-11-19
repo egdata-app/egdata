@@ -1,87 +1,81 @@
 import { OfferCard } from "@/components/app/offer-card";
 import { useCountry } from "@/hooks/use-country";
-import { getQueryClient } from "@/lib/client";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
-import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { httpClient } from "@/lib/http-client";
 import { offersDictionary } from "@/lib/offers-dictionary";
-import { offerOnlyQueryOptions } from "@/queries/offer";
+import { offerOnlyQueryOptions, resolveQueryLocale } from "@/queries/offer";
 import type { SingleOffer } from "@/types/single-offer";
-import {
-  dehydrate,
-  type DehydratedState,
-  HydrationBoundary,
-  useQuery,
-} from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useTranslation } from "@/lib/paraglide-react";
 import i18n from "@/lib/i18n";
 
-type LoaderData = {
-  dehydratedState: DehydratedState;
-  id: string;
-  offer: SingleOffer | null;
-  country: string;
-  locale: string | undefined;
-};
-
 export const Route = createFileRoute("/{-$locale}/offers/$id/related")({
-  component: () => {
-    const { dehydratedState } = Route.useLoaderData() as LoaderData;
-    return (
-      <HydrationBoundary state={dehydratedState}>
-        <RelatedOffersPage />
-      </HydrationBoundary>
-    );
-  },
+  component: RelatedOffersPage,
 
   loader: async ({ params, context }) => {
-    const { queryClient, country, locale } = context;
+    const { queryClient, country, locale, cookies } = context;
     const { id } = params;
-
-    const offer = await queryClient.ensureQueryData(offerOnlyQueryOptions(id, locale));
-
-    await queryClient.prefetchQuery({
-      queryKey: ["related-offers", { id, country }],
+    const resolvedCountry = country || "US";
+    const resolvedLocale = resolveQueryLocale(
+      import.meta.env.SSR ? locale : (locale ?? cookies?.user_locale),
+    );
+    const offerQuery = offerOnlyQueryOptions(id, resolvedLocale);
+    const relatedQuery = {
+      queryKey: ["related-offers", { id, country: resolvedCountry }],
       queryFn: () =>
         httpClient
           .v1Get<SingleOffer[]>(`/offers/${id}/related`, {
             params: {
-              country,
+              country: resolvedCountry,
             },
           })
           .catch(() => []),
-    });
+    };
+
+    if (import.meta.env.SSR) {
+      const [offer] = await Promise.all([
+        queryClient.ensureQueryData(offerQuery).catch(() => null),
+        queryClient.prefetchQuery(relatedQuery),
+      ]);
+
+      return {
+        id,
+        offer,
+        country: resolvedCountry,
+        locale: resolvedLocale,
+        isOfferLoaded: true,
+      };
+    }
+
+    const cachedOffer = queryClient.getQueryData(offerQuery.queryKey);
+    void queryClient.prefetchQuery(relatedQuery);
 
     return {
       id,
-      dehydratedState: dehydrate(queryClient),
-      offer,
-      country,
-      locale,
+      offer: cachedOffer ?? null,
+      country: resolvedCountry,
+      locale: resolvedLocale,
+      isOfferLoaded: cachedOffer !== undefined,
     };
   },
 
   head: (ctx) => {
-    const { params } = ctx;
-    const queryClient = getQueryClient();
-
     if (!ctx.loaderData) {
       return {
-        meta: [
-          {
-            title: i18n.t("offerDetail.common.offerNotFound"),
-            description: i18n.t("offerDetail.common.offerNotFound"),
-          },
-        ],
+        meta: [],
       };
     }
 
-    const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
-      ...offerOnlyQueryOptions(params.id, ctx.loaderData?.locale).queryKey,
-    ]);
+    const { offer, isOfferLoaded } = ctx.loaderData;
 
     if (!offer) {
+      if (!isOfferLoaded) {
+        return {
+          meta: [],
+        };
+      }
+
       return {
         meta: [
           {
@@ -100,18 +94,19 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/related")({
 
 function RelatedOffersPage() {
   const { t } = useTranslation();
-  const { id } = Route.useLoaderData() as LoaderData;
+  const { id } = Route.useParams();
   const { country } = useCountry();
+  const resolvedCountry = country || "US";
   const {
     data: offers,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["related-offers", { id, country }],
+    queryKey: ["related-offers", { id, country: resolvedCountry }],
     queryFn: () =>
       httpClient.v1Get<SingleOffer[]>(`/offers/${id}/related`, {
         params: {
-          country,
+          country: resolvedCountry,
         },
       }),
   });

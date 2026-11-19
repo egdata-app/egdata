@@ -10,6 +10,7 @@ export const InternalBanner: React.FC<{
   offer: SingleOffer;
 }> = ({ offer }) => {
   const { namespace, title } = offer;
+  const isInternal = internalNamespaces.includes(namespace);
 
   const manualOfferId = offer.customAttributes?.["com.epicgames.app.offerId"]?.value;
 
@@ -17,10 +18,6 @@ export const InternalBanner: React.FC<{
     "/home",
     "",
   );
-
-  if (!internalNamespaces.includes(namespace)) {
-    return null;
-  }
 
   const { data: results = [] } = useQuery({
     queryKey: ["autocomplete", title, manualOfferId, productSlug],
@@ -70,8 +67,12 @@ export const InternalBanner: React.FC<{
           return b.similarity - a.similarity;
         });
     },
-    enabled: !!title,
+    enabled: isInternal && !!title,
   });
+
+  if (!isInternal) {
+    return null;
+  }
 
   return (
     <Alert variant="destructive" className="mt-1">

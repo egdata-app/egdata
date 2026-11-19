@@ -1,5 +1,5 @@
 import { Link } from "@/components/app/localized-link";
-import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import buildImageUrl from "@/lib/build-image-url";
 import { httpClient } from "@/lib/http-client";
 import { getImage } from "@/lib/getImage";
@@ -8,19 +8,15 @@ import { cn } from "@/lib/utils";
 import type { SingleOffer } from "@/types/single-offer";
 
 export const BaseGame: React.FC<{ offer: SingleOffer }> = ({ offer }) => {
-  if (offer.offerType === "BASE_GAME" || internalNamespaces.includes(offer.namespace)) {
-    return null;
-  }
+  const shouldFetch =
+    offer.offerType !== "BASE_GAME" && !internalNamespaces.includes(offer.namespace);
+  const { data: game } = useQuery({
+    queryKey: ["base-game", { namespace: offer.namespace }],
+    queryFn: () => httpClient.v1Get<SingleOffer>(`/base-game/${offer.namespace}`).catch(() => null),
+    enabled: shouldFetch,
+  });
 
-  const [game, setGame] = useState<SingleOffer | null>(null);
-
-  useEffect(() => {
-    httpClient.v1Get<SingleOffer>(`/base-game/${offer.namespace}`).then((response) => {
-      setGame(response);
-    });
-  }, [offer.namespace]);
-
-  if (!game) {
+  if (!shouldFetch || !game) {
     return null;
   }
 

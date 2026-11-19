@@ -17,10 +17,8 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { getQueryClient } from "@/lib/client";
 import { ClientOnly } from "@/lib/cllient-only";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
-import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { httpClient } from "@/lib/http-client";
 import {
   fetchV1CursorPageAt,
@@ -28,21 +26,15 @@ import {
   type V1CursorPaginationMeta,
 } from "@/lib/v1-adapters";
 import { offerChangeFields } from "@/lib/offer-change-fields";
-import { offerOnlyQueryOptions } from "@/queries/offer";
+import { offerOnlyQueryOptions, resolveQueryLocale } from "@/queries/offer";
 import type { ChangelogStats } from "@/types/changelog";
-import type { SingleOffer } from "@/types/single-offer";
-import {
-  dehydrate,
-  type DehydratedState,
-  HydrationBoundary,
-  keepPreviousData,
-  useQuery,
-} from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@/components/app/localized-link";
 import { useDebounce } from "@uidotdev/usehooks";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
+import { useLocale } from "@/hooks/use-locale";
 import { useTranslation } from "@/lib/paraglide-react";
 import i18n from "@/lib/i18n";
 
@@ -99,60 +91,58 @@ const getChangelog = (id: string, page: number, query?: string, field?: string, 
   };
 };
 
-type LoaderData = {
-  dehydratedState: DehydratedState;
-  id: string;
-  offer: SingleOffer | null;
-  locale: string | undefined;
-};
-
 export const Route = createFileRoute("/{-$locale}/offers/$id/changelog")({
-  component: () => {
-    const { dehydratedState } = Route.useLoaderData() as LoaderData;
-
-    return (
-      <HydrationBoundary state={dehydratedState}>
-        <ChangelogPage />
-      </HydrationBoundary>
-    );
-  },
+  component: ChangelogPage,
 
   loader: async ({ params, context }) => {
-    const { queryClient, locale } = context;
+    const { queryClient, locale, cookies } = context;
     const { id } = params;
+    const resolvedLocale = resolveQueryLocale(
+      import.meta.env.SSR ? locale : (locale ?? cookies?.user_locale),
+    );
+    const offerQuery = offerOnlyQueryOptions(id, resolvedLocale);
 
-    const offer = await queryClient.ensureQueryData(offerOnlyQueryOptions(params.id, locale));
+    if (import.meta.env.SSR) {
+      const [offer] = await Promise.all([
+        queryClient.ensureQueryData(offerQuery).catch(() => null),
+        queryClient.prefetchQuery(getChangelog(id, 1)),
+      ]);
 
-    await queryClient.prefetchQuery(getChangelog(id, 1));
+      return {
+        id,
+        locale: resolvedLocale,
+        offer,
+        isOfferLoaded: true,
+      };
+    }
+
+    const cachedOffer = queryClient.getQueryData(offerQuery.queryKey);
+    void queryClient.prefetchQuery(getChangelog(id, 1));
 
     return {
       id,
-      locale,
-      offer,
-      dehydratedState: dehydrate(queryClient),
+      locale: resolvedLocale,
+      offer: cachedOffer ?? null,
+      isOfferLoaded: cachedOffer !== undefined,
     };
   },
 
   head: (ctx) => {
-    const { params } = ctx;
-    const queryClient = getQueryClient();
-
     if (!ctx.loaderData) {
       return {
-        meta: [
-          {
-            title: i18n.t("offerDetail.common.offerNotFound"),
-            description: i18n.t("offerDetail.common.offerNotFound"),
-          },
-        ],
+        meta: [],
       };
     }
 
-    const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
-      ...offerOnlyQueryOptions(params.id, ctx.loaderData?.locale).queryKey,
-    ]);
+    const { offer, isOfferLoaded } = ctx.loaderData;
 
     if (!offer) {
+      if (!isOfferLoaded) {
+        return {
+          meta: [],
+        };
+      }
+
       return {
         meta: [
           {
@@ -186,7 +176,8 @@ const changelogTypes = {
 
 function ChangelogPage() {
   const { t } = useTranslation();
-  const { id, locale } = Route.useLoaderData() as LoaderData;
+  const { id } = Route.useParams();
+  const { locale } = useLocale();
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState<string | undefined>(undefined);
   const debouncedQuery = useDebounce(query, 500);

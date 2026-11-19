@@ -10,6 +10,7 @@ import type { SingleOffer } from "@/types/single-offer";
 
 export const OfferInBundle: React.FC<{ offer: SingleOffer }> = ({ offer }) => {
   const { country } = useCountry();
+  const shouldFetch = offer.offerType !== "BUNDLE" && !internalNamespaces.includes(offer.namespace);
   const { data: bundles } = useQuery({
     queryKey: [
       "in-bundles",
@@ -24,14 +25,10 @@ export const OfferInBundle: React.FC<{ offer: SingleOffer }> = ({ offer }) => {
           country,
         },
       }),
+    enabled: shouldFetch,
   });
 
-  if (
-    offer.offerType === "BUNDLE" ||
-    internalNamespaces.includes(offer.namespace) ||
-    !bundles ||
-    bundles?.length === 0
-  ) {
+  if (!shouldFetch || !bundles || bundles?.length === 0) {
     return null;
   }
 

@@ -11,7 +11,7 @@ type LocalizedLinkProps = Omit<AnchorHTMLAttributes<HTMLAnchorElement>, "href"> 
   params?: ParamsValue;
   search?: unknown;
   hash?: string;
-  preload?: unknown;
+  preload?: false | "intent" | "render" | "viewport";
   activeProps?: unknown;
   inactiveProps?: unknown;
   resetScroll?: boolean;
@@ -46,7 +46,7 @@ function bareLocaleParams(params: ParamsValue | undefined): ParamsValue {
 }
 
 export const Link = forwardRef<HTMLAnchorElement, LocalizedLinkProps>(function Link(
-  { to, href, params, preload: _preload, children, ...props },
+  { to, href, params, preload, children, ...props },
   ref,
 ) {
   const target = to ?? href ?? "";
@@ -68,7 +68,7 @@ export const Link = forwardRef<HTMLAnchorElement, LocalizedLinkProps>(function L
       ref={ref}
       to={routeTo as never}
       params={routeParams as never}
-      preload={false}
+      preload={(preload ?? false) as never}
       {...(props as Record<string, unknown>)}
     >
       {children}

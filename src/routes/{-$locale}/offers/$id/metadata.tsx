@@ -7,67 +7,89 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { getQueryClient } from "@/lib/client";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
-import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { httpClient } from "@/lib/http-client";
 import { captureError } from "@/lib/pulse-telemetry";
 import i18n from "@/lib/i18n";
 import { useLocale } from "@/hooks/use-locale";
-import { offerOnlyQueryOptions } from "@/queries/offer";
+import { offerOnlyQueryOptions, resolveQueryLocale } from "@/queries/offer";
 import type { Asset } from "@/types/asset";
-import type { SingleOffer } from "@/types/single-offer";
 import type { SingleSandbox } from "@/types/single-sandbox";
-import {
-  dehydrate,
-  type DehydratedState,
-  HydrationBoundary,
-  useQueries,
-} from "@tanstack/react-query";
+import { useQueries, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useTranslation } from "@/lib/paraglide-react";
 
-type LoaderData = {
-  dehydratedState: DehydratedState;
-  id: string;
-  offer: SingleOffer | null;
-  locale: string | undefined;
-};
-
 export const Route = createFileRoute("/{-$locale}/offers/$id/metadata")({
-  component: () => {
-    const { dehydratedState } = Route.useLoaderData() as LoaderData;
-
-    return (
-      <HydrationBoundary state={dehydratedState}>
-        <MetadataPage />
-      </HydrationBoundary>
-    );
-  },
+  component: MetadataPage,
 
   loader: async ({ params, context }) => {
-    const { queryClient, locale } = context;
+    const { queryClient, locale, cookies } = context;
     const { id } = params;
+    const resolvedLocale = resolveQueryLocale(
+      import.meta.env.SSR ? locale : (locale ?? cookies?.user_locale),
+    );
+    const offerQuery = offerOnlyQueryOptions(id, resolvedLocale);
 
-    const offer = await queryClient.ensureQueryData(offerOnlyQueryOptions(id, locale));
+    if (import.meta.env.SSR) {
+      const offer = await queryClient.ensureQueryData(offerQuery).catch(() => null);
 
-    await Promise.allSettled([
-      queryClient.prefetchQuery({
+      if (offer) {
+        await Promise.allSettled([
+          queryClient.prefetchQuery({
+            queryKey: [
+              "sandbox",
+              {
+                id: offer.namespace,
+              },
+            ],
+            queryFn: () =>
+              httpClient.v1Get<SingleSandbox>(`/sandboxes/${offer.namespace}`).catch(() => null),
+          }),
+          queryClient.prefetchQuery({
+            queryKey: [
+              "assets",
+              {
+                id: offer.id,
+              },
+            ],
+            queryFn: () =>
+              httpClient
+                .v1Get<
+                  {
+                    assets: Asset;
+                  }[]
+                >(`/offers/${offer.id}/assets`)
+                .catch(() => []),
+          }),
+        ]);
+      }
+
+      return {
+        id,
+        offer,
+        locale: resolvedLocale,
+        isOfferLoaded: true,
+      };
+    }
+
+    const cachedOffer = queryClient.getQueryData(offerQuery.queryKey);
+    if (cachedOffer) {
+      void queryClient.prefetchQuery({
         queryKey: [
           "sandbox",
           {
-            id: offer?.namespace,
+            id: cachedOffer.namespace,
           },
         ],
         queryFn: () =>
-          httpClient.v1Get<SingleSandbox>(`/sandboxes/${offer?.namespace}`).catch(() => null),
-      }),
-      queryClient.prefetchQuery({
+          httpClient.v1Get<SingleSandbox>(`/sandboxes/${cachedOffer.namespace}`).catch(() => null),
+      });
+      void queryClient.prefetchQuery({
         queryKey: [
           "assets",
           {
-            id: offer?.id,
+            id: cachedOffer.id,
           },
         ],
         queryFn: () =>
@@ -76,39 +98,35 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/metadata")({
               {
                 assets: Asset;
               }[]
-            >(`/offers/${offer?.id}/assets`)
+            >(`/offers/${cachedOffer.id}/assets`)
             .catch(() => []),
-      }),
-    ]);
+      });
+    }
 
     return {
       id,
-      offer,
-      locale,
-      dehydratedState: dehydrate(queryClient),
+      offer: cachedOffer ?? null,
+      locale: resolvedLocale,
+      isOfferLoaded: cachedOffer !== undefined,
     };
   },
 
   head: (ctx) => {
-    const { params } = ctx;
-    const queryClient = getQueryClient();
-
     if (!ctx.loaderData) {
       return {
-        meta: [
-          {
-            title: i18n.t("offerDetail.common.offerNotFound"),
-            description: i18n.t("offerDetail.common.offerNotFound"),
-          },
-        ],
+        meta: [],
       };
     }
 
-    const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
-      ...offerOnlyQueryOptions(params.id, ctx.loaderData?.locale).queryKey,
-    ]);
+    const { offer, isOfferLoaded } = ctx.loaderData;
 
     if (!offer) {
+      if (!isOfferLoaded) {
+        return {
+          meta: [],
+        };
+      }
+
       return {
         meta: [
           {
@@ -126,15 +144,19 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/metadata")({
 });
 
 function MetadataPage() {
-  const { id, offer: serverOffer } = Route.useLoaderData() as LoaderData;
+  const { id } = Route.useParams();
+  const { offer: serverOffer } = Route.useLoaderData();
   const { locale } = useLocale();
   const { t } = useTranslation();
-  const [offerQuery, sandboxQuery, assetsQuery] = useQueries({
+  const offerQuery = useQuery(offerOnlyQueryOptions(id, locale));
+  const offer = offerQuery.data ?? serverOffer;
+
+  const [sandboxQuery, assetsQuery] = useQueries({
     queries: [
-      offerOnlyQueryOptions(id, locale),
       {
-        queryKey: ["sandbox", { id: serverOffer?.namespace }],
-        queryFn: () => httpClient.v1Get<SingleSandbox>(`/sandboxes/${serverOffer?.namespace}`),
+        queryKey: ["sandbox", { id: offer?.namespace }],
+        queryFn: () => httpClient.v1Get<SingleSandbox>(`/sandboxes/${offer?.namespace}`),
+        enabled: Boolean(offer?.namespace),
       },
       {
         queryKey: ["assets", { id }],
@@ -148,9 +170,12 @@ function MetadataPage() {
     ],
   });
 
-  const offer = offerQuery.data ?? serverOffer;
   const { data: assets } = assetsQuery;
   const { data: sandbox } = sandboxQuery;
+
+  if (offerQuery.isLoading || sandboxQuery.isLoading || assetsQuery.isLoading) {
+    return <div>{t("offerDetail.common.loading")}</div>;
+  }
 
   if (!offer || !assets || !sandbox) {
     return null;

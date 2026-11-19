@@ -13,10 +13,11 @@ import { getImage } from "@/lib/get-image";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { useLocale } from "@/hooks/use-locale";
 import { offerOnlyQueryOptions } from "@/queries/offer";
+import type { SingleOffer } from "@/types/single-offer";
 
 const normalizeDate = (dateString: string) => new Date(dateString).getTime();
 
-export function PrepurchasePopup({ id }: { id: string }) {
+export function PrepurchasePopup({ id, offer: initialOffer }: { id: string; offer?: SingleOffer }) {
   const navigate = useNavigate();
   const { locale } = useLocale();
   const [isOpen, setIsOpen] = useState(false);
@@ -24,17 +25,27 @@ export function PrepurchasePopup({ id }: { id: string }) {
     `prepurchase-popup-${id}`,
     null,
   );
-  const [offerQuery, prepurchaseOfferQuery] = useQueries({
+  const offerQuery = useQueries({
     queries: [
-      offerOnlyQueryOptions(id, locale),
+      {
+        ...offerOnlyQueryOptions(id, locale),
+        enabled: !initialOffer,
+      },
+    ],
+  })[0];
+
+  const offer = initialOffer ?? offerQuery.data;
+
+  const [prepurchaseOfferQuery] = useQueries({
+    queries: [
       {
         queryKey: ["offer", "prepurchase-offers", { id }],
         queryFn: () => httpClient.v1Get<IsPrepurchase>(`/offers/${id}/has-regular`),
+        enabled: Boolean(offer?.prePurchase) && !isDismissed,
       },
     ],
   });
 
-  const { data: offer } = offerQuery;
   const { data: prepurchaseOffer } = prepurchaseOfferQuery;
 
   useEffect(() => {

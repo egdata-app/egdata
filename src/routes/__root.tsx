@@ -51,10 +51,18 @@ async function fetchServerWebApiKey(
   }
 }
 
-const getClientSession = queryOptions({
+type SessionData = {
+  session: typeof auth.$Infer.Session.session;
+  user: typeof auth.$Infer.Session.user;
+} | null;
+
+const getClientSession = queryOptions<SessionData>({
   queryKey: ["session"],
-  queryFn: () => authClient.getSession(),
-  staleTime: 5_000,
+  queryFn: async () => {
+    const { data } = await authClient.getSession();
+    return data ?? null;
+  },
+  staleTime: 5 * 60_000,
 });
 
 type Context = {
@@ -62,13 +70,7 @@ type Context = {
   cookies?: Record<string, string>;
   epicToken?: EpicToken | null;
   country?: string;
-  session?:
-    | {
-        session: typeof auth.$Infer.Session.session;
-        user: typeof auth.$Infer.Session.user;
-      }
-    | null
-    | undefined;
+  session?: SessionData | undefined;
   locale?: string;
   timezone?: string;
   analyticsCookies?: Record<string, string> | null;
@@ -96,10 +98,7 @@ export const Route = createRootRouteWithContext<Context>()({
 
     let url: URL;
     let cookies: Record<string, string>;
-    let session: {
-      session: typeof auth.$Infer.Session.session;
-      user: typeof auth.$Infer.Session.user;
-    } | null;
+    let session: SessionData;
     let webApiKey: string | null = null;
 
     if (import.meta.env.SSR) {
@@ -130,6 +129,8 @@ export const Route = createRootRouteWithContext<Context>()({
         });
         session = null;
       }
+
+      queryClient.setQueryData(getClientSession.queryKey, session);
     } else {
       url = new URL(window.location.href);
 
@@ -138,9 +139,14 @@ export const Route = createRootRouteWithContext<Context>()({
       const parsedCookies = parseCookieString(cookieHeader);
       cookies = Object.fromEntries(Object.entries(parsedCookies).map(([k, v]) => [k, v || ""]));
 
-      // client session via React Query
-      const { data } = await queryClient.fetchQuery(getClientSession);
-      session = data;
+      // client session via React Query (non-blocking when already cached)
+      const cachedSession = queryClient.getQueryData(getClientSession.queryKey);
+      if (cachedSession !== undefined) {
+        session = cachedSession;
+        void queryClient.prefetchQuery(getClientSession);
+      } else {
+        session = await queryClient.ensureQueryData(getClientSession);
+      }
     }
 
     // derived values from cookies/url
@@ -154,10 +160,16 @@ export const Route = createRootRouteWithContext<Context>()({
     // warm user cache if we know the email
     if (session?.user?.email) {
       const id = session.user.email.split("@")[0];
-      await queryClient.prefetchQuery({
+      const userProfileQuery = {
         queryKey: ["user", { id }],
         queryFn: () => getUserInformation(id).catch(() => null),
-      });
+      };
+
+      if (import.meta.env.SSR) {
+        await queryClient.prefetchQuery(userProfileQuery);
+      } else {
+        void queryClient.prefetchQuery(userProfileQuery);
+      }
     }
 
     return {

@@ -1,15 +1,12 @@
 import { Link } from "@/components/app/localized-link";
 import type { Franchise } from "@/types/franchise";
 import { useQuery } from "@tanstack/react-query";
-import { httpClient } from "@/lib/http-client";
-import type { SingleOffer } from "@/types/single-offer";
+import { offerOnlyQueryOptions } from "@/queries/offer";
 import { getImage } from "@/lib/getImage";
-import { useCountry } from "@/hooks/use-country";
 import { useLocale } from "@/hooks/use-locale";
 import { cn } from "@/lib/utils";
 
 export const FranchiseBanner = ({ franchise }: { franchise: Franchise }) => {
-  const { country } = useCountry();
   const { locale } = useLocale();
 
   // Try to find an offer with an image to show as background
@@ -17,11 +14,7 @@ export const FranchiseBanner = ({ franchise }: { franchise: Franchise }) => {
   const offerToFetchId = franchise.offers[0];
 
   const { data: offer } = useQuery({
-    queryKey: ["offer", { id: offerToFetchId, country, locale }],
-    queryFn: () =>
-      httpClient.v1Get<SingleOffer>(`/offers/${offerToFetchId}`, {
-        params: { country, locale },
-      }),
+    ...offerOnlyQueryOptions(offerToFetchId ?? "", locale),
     enabled: !!offerToFetchId,
   });
 

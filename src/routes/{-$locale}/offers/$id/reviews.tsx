@@ -1,20 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@/components/app/localized-link";
 import "@mdxeditor/editor/style.css";
-import {
-  dehydrate,
-  type DehydratedState,
-  HydrationBoundary,
-  useQueries,
-} from "@tanstack/react-query";
+import { useQueries, useQuery } from "@tanstack/react-query";
 import { httpClient } from "@/lib/http-client";
-import { getV1PaginationTotal, type V1CursorPaginationMeta, unwrapV1Poll } from "@/lib/v1-adapters";
+import { getV1PaginationTotal, type V1CursorPaginationMeta } from "@/lib/v1-adapters";
 import type { SingleReview } from "@/types/reviews";
 import type { RatingsType } from "@egdata/core.schemas.ratings";
-import { getFetchedQuery } from "@/lib/get-fetched-query";
-import type { SingleOffer } from "@/types/single-offer";
 import { lazy, useState } from "react";
-import type { SinglePoll } from "@/types/polls";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import {
@@ -36,9 +28,8 @@ import StarsRating from "@/components/app/stars-rating";
 import { CircularRating } from "@/components/app/circular-rating";
 import Markdown from "react-markdown";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
-import { getQueryClient } from "@/lib/client";
 import { useLocale } from "@/hooks/use-locale";
-import { offerOnlyQueryOptions } from "@/queries/offer";
+import { offerOnlyQueryOptions, offerPollsQueryOptions, resolveQueryLocale } from "@/queries/offer";
 import { Viewer } from "@/components/app/viewer";
 import { DateTime } from "luxon";
 import { useTranslation } from "@/lib/paraglide-react";
@@ -91,52 +82,40 @@ async function fetchOfferReviews(id: string, verified: "true" | "false" | undefi
 }
 
 export const Route = createFileRoute("/{-$locale}/offers/$id/reviews")({
-  component: () => {
-    const { dehydratedState } = Route.useLoaderData() as {
-      dehydratedState: DehydratedState;
-      id: string;
-      userId: string | undefined;
-      offer: SingleOffer | null;
-      locale: string | undefined;
-    };
-
-    return (
-      <HydrationBoundary state={dehydratedState}>
-        <Reviews />
-      </HydrationBoundary>
-    );
-  },
+  component: Reviews,
 
   loader: async ({ params, context }) => {
     const { id } = params;
-    const { queryClient, epicToken, locale, session } = context;
+    const { queryClient, epicToken, locale, cookies, session } = context;
+    const resolvedLocale = resolveQueryLocale(
+      import.meta.env.SSR ? locale : (locale ?? cookies?.user_locale),
+    );
+    const userId = session?.user?.email.split("@")[0] ?? epicToken?.account_id;
+    const offerQuery = offerOnlyQueryOptions(id, resolvedLocale);
 
-    const user = epicToken;
-    const offer = await queryClient.ensureQueryData(offerOnlyQueryOptions(id, locale));
-
-    await Promise.allSettled([
+    const startPrefetches = () => [
       queryClient.prefetchQuery({
         queryKey: [
           "reviews",
           {
-            id: params.id,
+            id,
             page: 1,
             verified: getVerificationParam("all"),
           },
         ],
-        queryFn: () => fetchOfferReviews(params.id, getVerificationParam("all")).catch(() => null),
+        queryFn: () => fetchOfferReviews(id, getVerificationParam("all")).catch(() => null),
       }),
       queryClient.prefetchQuery({
         queryKey: [
           "reviews-summary",
           {
-            id: params.id,
+            id,
             verified: getVerificationParam("all"),
           },
         ],
         queryFn: () =>
           httpClient
-            .v1Get<ReviewSummary>(`/offers/${params.id}/reviews-summary`, {
+            .v1Get<ReviewSummary>(`/offers/${id}/reviews-summary`, {
               params: {
                 verified: getVerificationParam("all"),
               },
@@ -144,26 +123,54 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/reviews")({
             .catch(() => null),
       }),
       queryClient.prefetchQuery({
-        queryKey: ["ratings", { id: params.id }],
-        queryFn: () =>
-          httpClient.v1Get<RatingsType>(`/offers/${params.id}/ratings`).catch(() => null),
+        queryKey: ["ratings", { id }],
+        queryFn: () => httpClient.v1Get<RatingsType>(`/offers/${id}/ratings`).catch(() => null),
       }),
-    ]);
+    ];
+
+    if (import.meta.env.SSR) {
+      const [offer] = await Promise.all([
+        queryClient.ensureQueryData(offerQuery).catch(() => null),
+        Promise.allSettled(startPrefetches()),
+      ]);
+
+      return {
+        id,
+        userId,
+        offer,
+        locale: resolvedLocale,
+        isOfferLoaded: true,
+      };
+    }
+
+    const cachedOffer = queryClient.getQueryData(offerQuery.queryKey);
+    void startPrefetches();
 
     return {
       id,
-      dehydratedState: dehydrate(queryClient),
-      userId: session?.user?.email.split("@")[0] ?? user?.account_id,
-      offer,
-      locale,
+      userId,
+      offer: cachedOffer ?? null,
+      locale: resolvedLocale,
+      isOfferLoaded: cachedOffer !== undefined,
     };
   },
 
   head: (ctx) => {
-    const { params } = ctx;
-    const queryClient = getQueryClient();
-
     if (!ctx.loaderData) {
+      return {
+        meta: [],
+      };
+    }
+
+    const { offer, isOfferLoaded } = ctx.loaderData;
+
+    if (!offer) {
+      if (!isOfferLoaded) {
+        return {
+          meta: [],
+        };
+      }
+
       return {
         meta: [
           {
@@ -174,20 +181,6 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/reviews")({
       };
     }
 
-    const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData.dehydratedState, [
-      ...offerOnlyQueryOptions(params.id, ctx.loaderData.locale).queryKey,
-    ]);
-
-    if (!offer)
-      return {
-        meta: [
-          {
-            title: i18n.t("offerDetail.common.offerNotFound"),
-            description: i18n.t("offerDetail.common.offerNotFound"),
-          },
-        ],
-      };
-
     return {
       meta: generateOfferMeta(offer, "Reviews"),
     };
@@ -197,13 +190,10 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/reviews")({
 function Reviews() {
   const { t } = useTranslation();
   const { locale } = useLocale();
-  const { offer, id } = Route.useLoaderData() as {
-    dehydratedState: DehydratedState;
-    id: string;
-    userId: string | undefined;
-    offer: SingleOffer | null;
-    locale: string | undefined;
-  };
+  const { id } = Route.useParams();
+  const { offer: loaderOffer, userId } = Route.useLoaderData();
+  const { data: queryOffer } = useQuery(offerOnlyQueryOptions(id, locale));
+  const offer = queryOffer ?? loaderOffer;
   const [page] = useState(1);
   const [filter, setFilter] = useState<ReviewsFilter>("all");
   const [showReviewForm, setShowReviewForm] = useState(false);
@@ -219,7 +209,6 @@ function Reviews() {
           },
         ],
         queryFn: () => fetchOfferReviews(id, getVerificationParam(filter)),
-        refetchOnMount: "always",
       },
       {
         queryKey: [
@@ -236,18 +225,7 @@ function Reviews() {
             },
           }),
       },
-      {
-        queryKey: [
-          "polls",
-          {
-            offer: id,
-          },
-        ],
-        queryFn: () =>
-          httpClient
-            .v1Get<SinglePoll | { poll: SinglePoll | null } | null>(`/offers/${id}/polls`)
-            .then(unwrapV1Poll),
-      },
+      offerPollsQueryOptions(id),
       {
         queryKey: [
           "ratings",
@@ -263,6 +241,7 @@ function Reviews() {
           httpClient.get<{ canReview: boolean }>(`/offers/${id}/reviews/permissions`, {
             withCredentials: true,
           }),
+        enabled: Boolean(userId),
       },
     ],
   });
@@ -519,13 +498,7 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
   const { t } = useTranslation();
   const [showEditForm, setShowEditForm] = useState(false);
   const [showFull, setShowFull] = useState(full);
-  const { userId } = Route.useLoaderData() as {
-    dehydratedState: DehydratedState;
-    id: string;
-    userId: string | undefined;
-    offer: SingleOffer | null;
-    locale: string | undefined;
-  };
+  const { userId } = Route.useLoaderData();
   const userAvatar =
     review.user.avatarUrl?.variants[0] ??
     `https://shared-static-prod.epicgames.com/epic-profile-icon/D8033C/${review.user.displayName[0].toUpperCase()}/icon.png?size=512`;

@@ -2,68 +2,68 @@ import { columns } from "@/components/tables/items/columns";
 import { DataTable } from "@/components/tables/items/table";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { httpClient } from "@/lib/http-client";
-import { offerOnlyQueryOptions } from "@/queries/offer";
+import { offerOnlyQueryOptions, resolveQueryLocale } from "@/queries/offer";
 import type { SingleItem } from "@/types/single-item";
-import type { SingleOffer } from "@/types/single-offer";
-import {
-  dehydrate,
-  type DehydratedState,
-  HydrationBoundary,
-  useQuery,
-} from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import type { ColumnFiltersState } from "@tanstack/react-table";
 import { useTranslation } from "@/lib/paraglide-react";
 import i18n from "@/lib/i18n";
 
-type LoaderData = {
-  dehydratedState: DehydratedState;
-  id: string;
-  offer: SingleOffer | null;
-};
-
 export const Route = createFileRoute("/{-$locale}/offers/$id/items")({
-  component: () => {
-    const { dehydratedState } = Route.useLoaderData() as LoaderData;
-    return (
-      <HydrationBoundary state={dehydratedState}>
-        <ItemsPage />
-      </HydrationBoundary>
-    );
-  },
+  component: ItemsPage,
   loader: async ({ params, context }) => {
-    const { queryClient, locale } = context;
+    const { queryClient, locale, cookies } = context;
+    const { id } = params;
+    const resolvedLocale = resolveQueryLocale(
+      import.meta.env.SSR ? locale : (locale ?? cookies?.user_locale),
+    );
+    const offerQuery = offerOnlyQueryOptions(id, resolvedLocale);
+    const itemsQuery = {
+      queryKey: ["offer-items", { id }],
+      queryFn: () => httpClient.v1Get<SingleItem[]>(`/offers/${id}/items`).catch(() => []),
+    };
 
-    const offer = await queryClient.ensureQueryData(offerOnlyQueryOptions(params.id, locale));
+    if (import.meta.env.SSR) {
+      const [offer] = await Promise.all([
+        queryClient.ensureQueryData(offerQuery).catch(() => null),
+        queryClient.prefetchQuery(itemsQuery),
+      ]);
 
-    await queryClient.prefetchQuery({
-      queryKey: ["offer-items", { id: params.id }],
-      queryFn: () => httpClient.v1Get<SingleItem[]>(`/offers/${params.id}/items`).catch(() => []),
-    });
+      return {
+        id,
+        offer,
+        isOfferLoaded: true,
+      };
+    }
+
+    const cachedOffer = queryClient.getQueryData(offerQuery.queryKey);
+    void queryClient.prefetchQuery(itemsQuery);
 
     return {
-      id: params.id,
-      dehydratedState: dehydrate(queryClient),
-      offer,
+      id,
+      offer: cachedOffer ?? null,
+      isOfferLoaded: cachedOffer !== undefined,
     };
   },
 
   head: (ctx) => {
     if (!ctx.loaderData) {
       return {
-        meta: [
-          {
-            title: i18n.t("offerDetail.common.offerNotFound"),
-            description: i18n.t("offerDetail.common.offerNotFound"),
-          },
-        ],
+        meta: [],
       };
     }
 
-    const { offer } = ctx.loaderData;
+    const { offer, isOfferLoaded } = ctx.loaderData;
 
     if (!offer) {
+      if (!isOfferLoaded) {
+        return {
+          meta: [],
+        };
+      }
+
       return {
         meta: [
           {
@@ -82,7 +82,7 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/items")({
 
 function ItemsPage() {
   const { t } = useTranslation();
-  const { id } = Route.useLoaderData() as LoaderData;
+  const { id } = Route.useParams();
   const [page, setPage] = useState({ pageIndex: 0, pageSize: 20 });
   const [filters, setFilters] = useState<ColumnFiltersState>([]);
   const {

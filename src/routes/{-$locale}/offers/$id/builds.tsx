@@ -2,15 +2,8 @@ import { columns } from "@/components/tables/builds/columns";
 import { DataTable } from "@/components/tables/builds/table";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { httpClient } from "@/lib/http-client";
-import { offerOnlyQueryOptions } from "@/queries/offer";
-import type { SingleOffer } from "@/types/single-offer";
-import {
-  dehydrate,
-  type DehydratedState,
-  HydrationBoundary,
-  queryOptions,
-  useQuery,
-} from "@tanstack/react-query";
+import { offerOnlyQueryOptions, resolveQueryLocale } from "@/queries/offer";
+import { queryOptions, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import type { ColumnFiltersState } from "@tanstack/react-table";
@@ -24,50 +17,55 @@ const getOfferBuilds = (id: string) =>
     queryFn: () => httpClient.v1Get<Build[]>(`/offers/${id}/builds`).catch(() => []),
   });
 
-type LoaderData = {
-  dehydratedState: DehydratedState;
-  id: string;
-  offer: SingleOffer | null;
-};
-
 export const Route = createFileRoute("/{-$locale}/offers/$id/builds")({
-  component: () => {
-    const { dehydratedState } = Route.useLoaderData() as LoaderData;
-    return (
-      <HydrationBoundary state={dehydratedState}>
-        <BuildsPage />
-      </HydrationBoundary>
-    );
-  },
+  component: BuildsPage,
   loader: async ({ params, context }) => {
-    const { queryClient, locale } = context;
+    const { queryClient, locale, cookies } = context;
+    const { id } = params;
+    const resolvedLocale = resolveQueryLocale(
+      import.meta.env.SSR ? locale : (locale ?? cookies?.user_locale),
+    );
+    const offerQuery = offerOnlyQueryOptions(id, resolvedLocale);
 
-    const offer = await queryClient.ensureQueryData(offerOnlyQueryOptions(params.id, locale));
+    if (import.meta.env.SSR) {
+      const [offer] = await Promise.all([
+        queryClient.ensureQueryData(offerQuery).catch(() => null),
+        queryClient.prefetchQuery(getOfferBuilds(id)),
+      ]);
 
-    await queryClient.prefetchQuery(getOfferBuilds(params.id));
+      return {
+        id,
+        offer,
+        isOfferLoaded: true,
+      };
+    }
+
+    const cachedOffer = queryClient.getQueryData(offerQuery.queryKey);
+    void queryClient.prefetchQuery(getOfferBuilds(id));
 
     return {
-      id: params.id,
-      dehydratedState: dehydrate(queryClient),
-      offer,
+      id,
+      offer: cachedOffer ?? null,
+      isOfferLoaded: cachedOffer !== undefined,
     };
   },
 
   head: (ctx) => {
     if (!ctx.loaderData) {
       return {
-        meta: [
-          {
-            title: i18n.t("offerDetail.common.offerNotFound"),
-            description: i18n.t("offerDetail.common.offerNotFound"),
-          },
-        ],
+        meta: [],
       };
     }
 
-    const { offer } = ctx.loaderData;
+    const { offer, isOfferLoaded } = ctx.loaderData;
 
     if (!offer) {
+      if (!isOfferLoaded) {
+        return {
+          meta: [],
+        };
+      }
+
       return {
         meta: [
           {
@@ -86,17 +84,10 @@ export const Route = createFileRoute("/{-$locale}/offers/$id/builds")({
 
 function BuildsPage() {
   const { t } = useTranslation();
-  const { id } = Route.useLoaderData() as LoaderData;
+  const { id } = Route.useParams();
   const [page, setPage] = useState({ pageIndex: 0, pageSize: 20 });
   const [filters, setFilters] = useState<ColumnFiltersState>([]);
-  const {
-    data: builds,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["offer-builds", { id }],
-    queryFn: () => httpClient.v1Get<Build[]>(`/offers/${id}/builds`),
-  });
+  const { data: builds, isLoading, isError } = useQuery(getOfferBuilds(id));
 
   if (isLoading) {
     return <div>{t("offerDetail.common.loading")}</div>;

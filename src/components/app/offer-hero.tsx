@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useRef, useEffect } from "react";
 import { extractDominantVideoColors } from "@/lib/ambient-colors";
-import { httpClient } from "@/lib/http-client";
+import { offerMediaQueryOptions } from "@/queries/offer";
 import { getImage } from "@/lib/getImage";
 import { cn } from "@/lib/utils";
 import type { Media } from "@/types/media";
@@ -45,11 +45,7 @@ const getHoverVideoUrl = (media?: Media) => {
 };
 
 export function OfferHero({ offer }: { offer: SingleOffer }) {
-  const { data: media } = useQuery({
-    queryKey: ["media", { id: offer.id }],
-    queryFn: () => httpClient.v1Get<Media>(`/offers/${offer.id}/media`),
-    retry: false,
-  });
+  const { data: media } = useQuery(offerMediaQueryOptions(offer.id));
   const { isHovered, setIsHovered, setVideoRef, setAmbientColors } = useVideo();
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const sampleCanvasRef = useRef<HTMLCanvasElement | null>(null);

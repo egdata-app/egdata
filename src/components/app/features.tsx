@@ -1,5 +1,4 @@
 import type { JSX } from "react";
-import { useEffect, useState } from "react";
 import { FaCloud, FaHandshake, FaMedal, FaTrophy, FaPeopleGroup } from "react-icons/fa6";
 import { IoGameController, IoWifiOutline } from "react-icons/io5";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -19,15 +18,10 @@ interface OfferFeatures {
 type FeaturesSizes = "xs" | "sm" | "md" | "lg" | "xl";
 
 export function GameFeatures({ id, size: _size = "md" }: { id: string; size?: FeaturesSizes }) {
-  const [offerFeatures, setOfferFeatures] = useState<OfferFeatures | null>(null);
-
-  useEffect(() => {
-    httpClient
-      .v1Get<OfferFeatures>(`/offers/${id}/features`)
-      .then((response) => {
-        setOfferFeatures(response);
-      })
-      .catch((error) => {
+  const { data: offerFeatures } = useQuery({
+    queryKey: ["offer-features", { id }],
+    queryFn: () =>
+      httpClient.v1Get<OfferFeatures>(`/offers/${id}/features`).catch((error) => {
         console.error(error);
         captureError(error, {
           attributes: {
@@ -36,8 +30,9 @@ export function GameFeatures({ id, size: _size = "md" }: { id: string; size?: Fe
           source: "offer-features.fetch",
         });
         return null;
-      });
-  }, [id]);
+      }),
+    retry: false,
+  });
 
   if (!offerFeatures) return null;
 

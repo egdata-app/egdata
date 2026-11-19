@@ -1,23 +1,11 @@
-import { httpClient } from "@/lib/http-client";
 import { Button } from "../ui/button";
 import { buildGameLauncherURI } from "@/lib/build-game-launcher";
+import { offerAssetsQueryOptions } from "@/queries/offer";
 import { PlayIcon } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 
-type Asset = {
-  artifactId: string;
-  downloadSizeBytes: number;
-  installSizeBytes: number;
-  itemId: string;
-  namespace: string;
-  platform: string;
-};
-
 export function OpenLauncher({ id }: { id: string }) {
-  const { data: assets } = useQuery({
-    queryKey: ["offer-assets", { id }],
-    queryFn: () => httpClient.v1Get<Asset[]>(`/offers/${id}/assets`).catch(() => []),
-  });
+  const { data: assets } = useQuery(offerAssetsQueryOptions(id));
 
   if (!assets) return null;
 
