@@ -2,10 +2,9 @@ import i18n from "@/lib/i18n";
 import { Separator } from "@/components/ui/separator";
 import buildImageUrl from "@/lib/build-image-url";
 import { getImage } from "@/lib/get-image";
-import { httpClient } from "@/lib/http-client";
 import { useTranslation } from "@/lib/paraglide-react";
 import { cn } from "@/lib/utils";
-import type { SingleOffer } from "@/types/single-offer";
+import { activeSalesQueryOptions, type ActiveSale } from "@/queries/active-sales";
 import {
   dehydrate,
   type DehydratedState,
@@ -31,20 +30,7 @@ export const Route = createFileRoute("/{-$locale}/sales/")({
   loader: async ({ context }) => {
     const { queryClient } = context;
 
-    await queryClient.prefetchQuery({
-      queryKey: ["active-sales"],
-      queryFn: () =>
-        httpClient
-          .v1Get<
-            {
-              id: string;
-              name: string;
-              active: boolean;
-              offers: SingleOffer[];
-            }[]
-          >("/active-sales")
-          .catch(() => []),
-    });
+    await queryClient.prefetchQuery(activeSalesQueryOptions());
 
     return {
       dehydratedState: dehydrate(queryClient),
@@ -84,18 +70,7 @@ export const Route = createFileRoute("/{-$locale}/sales/")({
 
 function SalesPageIndex() {
   const { t } = useTranslation();
-  const { data, isLoading } = useQuery({
-    queryKey: ["active-sales"],
-    queryFn: () =>
-      httpClient.v1Get<
-        {
-          id: string;
-          name: string;
-          active: boolean;
-          offers: SingleOffer[];
-        }[]
-      >("/active-sales"),
-  });
+  const { data, isLoading } = useQuery(activeSalesQueryOptions());
 
   if (isLoading) {
     return <p>{t("sales.status.loading")}</p>;
@@ -129,15 +104,7 @@ function SalesPageIndex() {
   );
 }
 
-function SaleCard({
-  sale,
-}: {
-  sale: {
-    id: string;
-    name: string;
-    offers: SingleOffer[];
-  };
-}) {
+function SaleCard({ sale }: { sale: ActiveSale }) {
   return (
     <Link
       to="/{-$locale}/sales/$id"

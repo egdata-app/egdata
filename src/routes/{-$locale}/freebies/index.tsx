@@ -13,13 +13,15 @@ import {
 } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import { httpClient } from "@/lib/http-client";
-import type { GiveawayOffer } from "@/types/giveaways";
+import {
+  giveawaysQueryOptions,
+  mobileGiveawaysQueryOptions,
+  type GiveawayCardBase,
+} from "@/queries/giveaways";
 import { dehydrate, type DehydratedState, HydrationBoundary } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { mobileFreebiesQuery } from "@/queries/mobile-freebies";
 import { formSchema } from "@/stores/searchStore";
 import { getGiveawaysStats, GiveawaysStats } from "@/components/modules/giveaway-stats";
-import { mergeFreebies } from "@/utils/merge-freebies";
 import { useTranslation } from "@/lib/paraglide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useCountry } from "@/hooks/use-country";
@@ -60,19 +62,8 @@ export const Route = createFileRoute("/{-$locale}/freebies/")({
         queryKey: ["giveaways-stats", { country }],
         queryFn: () => getGiveawaysStats({ country: country ?? "US" }).catch(() => null),
       }),
-      queryClient.prefetchQuery({
-        queryKey: ["giveaways"],
-        queryFn: () =>
-          httpClient
-            .v1Get<GiveawayOffer[]>("/free-games", {
-              params: {
-                country,
-              },
-            })
-            .then(mergeFreebies)
-            .catch(() => []),
-      }),
-      queryClient.prefetchQuery(mobileFreebiesQuery),
+      queryClient.prefetchQuery(giveawaysQueryOptions(country ?? "US")),
+      queryClient.prefetchQuery(mobileGiveawaysQueryOptions()),
     ]);
 
     const ogId = await httpClient.get<{ id: string }>("/free-games/og").catch(() => ({ id: "" }));
@@ -149,21 +140,13 @@ function FreeGames() {
   const search = Route.useSearch();
   const navigate = Route.useNavigate();
   const [isRedeemDialogOpen, setIsRedeemDialogOpen] = useState(false);
-  const [redeemOptions, setRedeemOptions] = useState<GiveawayOffer[]>([]);
+  const [redeemOptions, setRedeemOptions] = useState<GiveawayCardBase[]>([]);
   const giveawaysQuery = useQuery({
-    queryKey: ["giveaways"],
-    queryFn: () =>
-      httpClient
-        .v1Get<GiveawayOffer[]>("/free-games", {
-          params: {
-            country,
-          },
-        })
-        .then(mergeFreebies),
+    ...giveawaysQueryOptions(country),
     refetchInterval: 60 * 1000,
     refetchIntervalInBackground: true,
   });
-  const mobileGiveawaysQuery = useQuery(mobileFreebiesQuery);
+  const mobileGiveawaysQuery = useQuery(mobileGiveawaysQueryOptions());
   const canSelectRedeemableOffers = giveawaysQuery.isSuccess && mobileGiveawaysQuery.isSuccess;
   const redeemableOffers = canSelectRedeemableOffers
     ? getRedeemableOffers({
@@ -172,7 +155,7 @@ function FreeGames() {
       })
     : [];
 
-  const openRedeemPopup = (offer: GiveawayOffer) => {
+  const openRedeemPopup = (offer: GiveawayCardBase) => {
     const popup = window.open(
       getBuyLink({
         offers: [offer],

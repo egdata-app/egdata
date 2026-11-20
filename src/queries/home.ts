@@ -1,5 +1,6 @@
 import { httpClient } from "@/lib/http-client";
 import { historicalLowsSearch } from "@/lib/historical-lows";
+import { pickKeyImages, slimPrice } from "@/lib/offer-projections";
 import { shouldRetryQueryWithLimit } from "@/lib/pow/query-retry";
 import {
   normalizeV1OfferElements,
@@ -9,12 +10,11 @@ import {
 } from "@/lib/v1-adapters";
 import type { AchievementSet } from "@/queries/offer-achievements";
 import { getCollection } from "@/queries/collection";
-import type { GiveawayOffer } from "@/types/giveaways";
 import type { SingleBuild } from "@/types/builds";
 import type { KeyImage, SingleOffer } from "@/types/single-offer";
 import type { SingleItem } from "@/types/single-item";
 import type { SingleOfferWithPrice } from "@/types/single-offer-price";
-import type { AppliedRule, Price } from "@/types/price";
+import type { Price } from "@/types/price";
 
 /**
  * Homepage queries intentionally return slim projections.
@@ -79,21 +79,6 @@ export type HomeTopSellerRow = {
   previousPosition: number;
 };
 
-export type HomeGiveawayOffer = {
-  id: string;
-  title: string;
-  keyImages: KeyImage[];
-  items: Array<{ releaseInfo: Array<{ platform: string[] }> }>;
-};
-
-export type HomeGiveaway = Omit<HomeGiveawayOffer, "items"> & {
-  namespace: string;
-  items: HomeGiveawayOffer["items"];
-  platforms: string[];
-  offers: HomeGiveawayOffer[];
-  giveaway: { startDate: string | null; endDate: string | null };
-};
-
 export type HomeHistoricalLowOffer = {
   id: string;
   title: string;
@@ -139,50 +124,6 @@ export type HomePulseChange = {
   };
 };
 
-/**
- * Picks the first matching image for every preference list, deduplicated.
- * This mirrors `getImage()` so the rendered image is unchanged while the
- * cache only keeps the variants the homepage can actually display.
- */
-function pickKeyImages(
-  keyImages: KeyImage[] | null | undefined,
-  preferenceLists: string[][],
-): KeyImage[] {
-  const picked: KeyImage[] = [];
-  const pickedTypes = new Set<string>();
-
-  for (const types of preferenceLists) {
-    for (const type of types) {
-      if (pickedTypes.has(type)) break;
-
-      const match = (keyImages ?? []).find((image) => image?.type === type);
-      if (match) {
-        picked.push({ type: match.type, url: match.url, md5: match.md5 });
-        pickedTypes.add(match.type);
-        break;
-      }
-    }
-  }
-
-  return picked;
-}
-
-/**
- * `getEffectivePrice` only reads `startDate`/`endDate` from applied rules, so
- * the remaining promotion metadata can be dropped before caching.
- */
-function slimPrice(price: Price | null | undefined): Price | null {
-  if (!price) return null;
-
-  const appliedRules: AppliedRule[] = Array.isArray(price.appliedRules)
-    ? price.appliedRules
-        .filter((rule) => Boolean(rule?.startDate && rule?.endDate))
-        .map((rule) => ({ startDate: rule.startDate, endDate: rule.endDate }) as AppliedRule)
-    : [];
-
-  return { ...price, appliedRules };
-}
-
 function toOfferRow(
   offer: SingleOffer,
   fields: Pick<HomeOfferRow, "releaseDate" | "creationDate" | "price">,
@@ -192,75 +133,6 @@ function toOfferRow(
     title: offer.title,
     keyImages: pickKeyImages(offer.keyImages, [ROW_IMAGES]),
     ...fields,
-  };
-}
-
-function projectGiveawayOffer(offer: GiveawayOffer): HomeGiveawayOffer & {
-  namespace: string;
-  giveaway: HomeGiveaway["giveaway"];
-} {
-  return {
-    id: offer.id,
-    title: offer.title,
-    keyImages: pickKeyImages(offer.keyImages, [ROW_IMAGES]),
-    items: (offer.items ?? []).map((item) => ({
-      releaseInfo: (item?.releaseInfo ?? []).map((info) => ({
-        platform: (info?.platform ?? []).filter((platform): platform is string =>
-          Boolean(platform),
-        ),
-      })),
-    })),
-    namespace: offer.namespace,
-    giveaway: {
-      startDate: offer.giveaway?.startDate ?? null,
-      endDate: offer.giveaway?.endDate ?? null,
-    },
-  };
-}
-
-function mergeHomeGiveaways(offers: GiveawayOffer[]): HomeGiveaway[] {
-  const grouped = new Map<string, ReturnType<typeof projectGiveawayOffer>[]>();
-
-  for (const offer of offers) {
-    const projected = projectGiveawayOffer(offer);
-    const key = `${projected.namespace}:${projected.title}`;
-    const group = grouped.get(key);
-
-    if (group) {
-      group.push(projected);
-    } else {
-      grouped.set(key, [projected]);
-    }
-  }
-
-  return Array.from(grouped.values(), (group) => {
-    const [first] = group;
-
-    return {
-      ...first,
-      platforms: group.flatMap((offer) =>
-        offer.items.flatMap((item) => item.releaseInfo.flatMap((info) => info.platform)),
-      ),
-      offers: group.map((offer) => ({
-        id: offer.id,
-        title: offer.title,
-        keyImages: offer.keyImages,
-        items: offer.items,
-      })),
-    };
-  });
-}
-
-export function homeGiveawaysQueryOptions(country: string) {
-  return {
-    queryKey: ["home", "giveaways", { country }] as const,
-    queryFn: async (): Promise<HomeGiveaway[]> => {
-      const offers = await httpClient.v1Get<GiveawayOffer[]>("/free-games", {
-        params: { country },
-      });
-
-      return mergeHomeGiveaways(Array.isArray(offers) ? offers : []);
-    },
   };
 }
 

@@ -1,12 +1,27 @@
-import type { GiveawayOffer } from "@/types/giveaways";
+type MergeableGiveawayItem = {
+  releaseInfo?: Array<{ platform?: string[] | null } | null> | null;
+};
 
-interface MergedFreebie extends GiveawayOffer {
+type MergeableGiveaway = {
+  namespace: string;
+  title: string;
+  items?: MergeableGiveawayItem[] | null;
+};
+
+export type MergedFreebie<T extends MergeableGiveaway> = T & {
+  offers: T[];
   platforms: string[];
-  offers: GiveawayOffer[];
-}
+};
 
-export function mergeFreebies(data: GiveawayOffer[]): MergedFreebie[] {
-  const groupedOffers = new Map<string, GiveawayOffer[]>();
+/**
+ * Groups repeated freebies (same namespace + title, different platform offers)
+ * into one card, keeping the per-offer rows for redeem links.
+ *
+ * Generic over the offer shape so projected giveaway rows can be merged without
+ * widening them back to the full API document.
+ */
+export function mergeFreebies<T extends MergeableGiveaway>(data: T[]): MergedFreebie<T>[] {
+  const groupedOffers = new Map<string, T[]>();
   for (const offer of data) {
     const key = `${offer.namespace}:${offer.title}`;
     if (groupedOffers.has(key)) {
@@ -16,18 +31,20 @@ export function mergeFreebies(data: GiveawayOffer[]): MergedFreebie[] {
     }
   }
 
-  const mergedFreebies: MergedFreebie[] = [];
+  const mergedFreebies: MergedFreebie<T>[] = [];
   for (const [, offers] of groupedOffers) {
-    const mergedFreebie: MergedFreebie = {
-      ...offers[0],
-      platforms: (offers ?? []).flatMap((offer) =>
+    const [first] = offers;
+    mergedFreebies.push({
+      ...first,
+      platforms: offers.flatMap((offer) =>
         (offer.items ?? []).flatMap((item) =>
-          (item.releaseInfo ?? []).flatMap((info) => info?.platform ?? []),
+          (item?.releaseInfo ?? []).flatMap((info) =>
+            (info?.platform ?? []).filter((platform): platform is string => Boolean(platform)),
+          ),
         ),
       ),
       offers,
-    };
-    mergedFreebies.push(mergedFreebie);
+    });
   }
 
   return mergedFreebies;

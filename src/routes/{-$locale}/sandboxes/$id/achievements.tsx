@@ -13,13 +13,17 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { useLocale } from "@/hooks/use-locale";
 import { getQueryClient } from "@/lib/client";
 import { generateSandboxMeta } from "@/lib/generate-sandbox-meta";
+import {
+  sandboxBaseGameQueryOptions,
+  sandboxQueryOptions,
+  type SandboxBaseGame,
+  type SandboxIdentity,
+} from "@/queries/sandbox";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { getRarity } from "@/lib/get-rarity";
 import { httpClient } from "@/lib/http-client";
 import { cn } from "@/lib/utils";
 import type { AchievementSet } from "@/queries/offer-achievements";
-import type { SingleOffer } from "@/types/single-offer";
-import type { SingleSandbox } from "@/types/single-sandbox";
 import { CardStackIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
@@ -44,7 +48,7 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id/achievements")({
 
   loader: async ({ context, params }) => {
     const { id } = params;
-    const { queryClient } = context;
+    const { country, queryClient } = context;
 
     await queryClient.prefetchQuery({
       queryKey: ["sandbox", "achievements", { id }],
@@ -53,6 +57,7 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id/achievements")({
 
     return {
       id,
+      country,
       dehydratedState: dehydrate(queryClient),
     };
   },
@@ -74,15 +79,16 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id/achievements")({
 
     const { id } = params;
 
-    const sandbox = getFetchedQuery<SingleSandbox>(queryClient, ctx.loaderData?.dehydratedState, [
-      "sandbox",
-      { id },
-    ]);
-    const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
-      "sandbox",
-      "base-game",
-      { id },
-    ]);
+    const sandbox = getFetchedQuery<SandboxIdentity>(
+      queryClient,
+      ctx.loaderData?.dehydratedState,
+      sandboxQueryOptions(id).queryKey,
+    );
+    const offer = getFetchedQuery<SandboxBaseGame>(
+      queryClient,
+      ctx.loaderData?.dehydratedState,
+      sandboxBaseGameQueryOptions(id, ctx.loaderData?.country).queryKey,
+    );
 
     if (!sandbox)
       return {

@@ -2,8 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, useQueries } from "@tanstack/react-query";
 import { httpClient } from "@/lib/http-client";
-import type { SingleOffer } from "@/types/single-offer";
-import { getSeller } from "@/queries/seller";
+import {
+  sellerCoverQueryOptions,
+  sellerLandingQueryOptions,
+  type SellerBannerOffer,
+} from "@/queries/seller";
 import { useCountry } from "@/hooks/use-country";
 import { getImage } from "@/lib/get-image";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -62,19 +65,8 @@ export const Route = createFileRoute("/{-$locale}/sellers/$id")({
     const { id } = params;
 
     await Promise.allSettled([
-      queryClient.prefetchQuery({
-        queryKey: ["seller", { id, country }],
-        queryFn: async () => getSeller(id, country ?? "US").catch(() => []),
-      }),
-      queryClient.prefetchQuery({
-        queryKey: ["seller:cover", { id, country }],
-        queryFn: async () =>
-          httpClient
-            .v1Get<SingleOffer[]>(`/sellers/${id}/cover`, {
-              params: { country },
-            })
-            .catch(() => []),
-      }),
+      queryClient.prefetchQuery(sellerLandingQueryOptions(id, country)),
+      queryClient.prefetchQuery(sellerCoverQueryOptions(id, country)),
       queryClient.prefetchQuery({
         queryKey: ["seller:stats", { id }],
         queryFn: async () =>
@@ -106,10 +98,11 @@ export const Route = createFileRoute("/{-$locale}/sellers/$id")({
       };
     }
 
-    const seller = getFetchedQuery<SingleOffer[]>(queryClient, loaderData?.dehydratedState, [
-      "seller",
-      { id: params.id, country: loaderData.country },
-    ]);
+    const seller = getFetchedQuery<SellerBannerOffer[]>(
+      queryClient,
+      loaderData?.dehydratedState,
+      sellerLandingQueryOptions(params.id, loaderData.country).queryKey,
+    );
 
     const stats = getFetchedQuery<SellerStats | null>(queryClient, loaderData?.dehydratedState, [
       "seller:stats",
@@ -151,17 +144,8 @@ function RouteComponent() {
 
   const [sellerData, coverData, statsData] = useQueries({
     queries: [
-      {
-        queryKey: ["seller", { id, country }],
-        queryFn: () => getSeller(id, country),
-      },
-      {
-        queryKey: ["seller:cover", { id, country }],
-        queryFn: () =>
-          httpClient.v1Get<SingleOffer[]>(`/sellers/${id}/cover`, {
-            params: { country },
-          }),
-      },
+      sellerLandingQueryOptions(id, country),
+      sellerCoverQueryOptions(id, country),
       {
         queryKey: ["seller:stats", { id }],
         queryFn: () => httpClient.v1Get<SellerStats>(`/sellers/${id}/stats`),

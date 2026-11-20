@@ -8,7 +8,7 @@ import { calculatePrice } from "@/lib/calculate-price";
 import { getEffectivePrice } from "@/lib/effective-price";
 import { getImage } from "@/lib/get-image";
 import { cn } from "@/lib/utils";
-import { type Collections, getCollection, type OfferWithTops } from "@/queries/collection";
+import { type CollectionRow, type Collections, getCollection } from "@/queries/collection";
 import {
   dehydrate,
   type DehydratedState,
@@ -183,7 +183,7 @@ function CollectionPage() {
   );
 }
 
-function OfferInTop({ offer }: { offer: OfferWithTops }) {
+function OfferInTop({ offer }: { offer: CollectionRow }) {
   const { locale } = useLocale();
   const price = getEffectivePrice(offer.price);
   const fmt = Intl.NumberFormat(locale, {

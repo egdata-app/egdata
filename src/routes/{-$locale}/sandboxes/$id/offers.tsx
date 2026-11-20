@@ -15,11 +15,15 @@ import {
 } from "@/lib/sandbox-catalog";
 import { sandboxCatalogQueryOptions } from "@/queries/sandbox-catalog";
 import { offerTypeValues } from "@/lib/offers-dictionary";
-import type { SingleOffer } from "@/types/single-offer";
-import type { SingleSandbox } from "@/types/single-sandbox";
 import { getQueryClient } from "@/lib/client";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { generateSandboxMeta } from "@/lib/generate-sandbox-meta";
+import {
+  sandboxBaseGameQueryOptions,
+  sandboxQueryOptions,
+  type SandboxBaseGame,
+  type SandboxIdentity,
+} from "@/queries/sandbox";
 import { StoreIcon, LayoutGrid, List, Search } from "lucide-react";
 import { useTranslation } from "@/lib/paraglide-react";
 import i18n from "@/lib/i18n";
@@ -32,7 +36,11 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id/offers")({
     await context.queryClient.prefetchQuery(
       sandboxCatalogQueryOptions(params.id, deps, context.country || "US"),
     );
-    return { id: params.id, dehydratedState: dehydrate(context.queryClient) };
+    return {
+      id: params.id,
+      country: context.country,
+      dehydratedState: dehydrate(context.queryClient),
+    };
   },
   component: () => (
     <HydrationBoundary state={Route.useLoaderData().dehydratedState}>
@@ -56,15 +64,16 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id/offers")({
 
     const { id } = params;
 
-    const sandbox = getFetchedQuery<SingleSandbox>(queryClient, ctx.loaderData?.dehydratedState, [
-      "sandbox",
-      { id },
-    ]);
-    const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
-      "sandbox",
-      "base-game",
-      { id },
-    ]);
+    const sandbox = getFetchedQuery<SandboxIdentity>(
+      queryClient,
+      ctx.loaderData?.dehydratedState,
+      sandboxQueryOptions(id).queryKey,
+    );
+    const offer = getFetchedQuery<SandboxBaseGame>(
+      queryClient,
+      ctx.loaderData?.dehydratedState,
+      sandboxBaseGameQueryOptions(id, ctx.loaderData?.country).queryKey,
+    );
 
     if (!sandbox)
       return {

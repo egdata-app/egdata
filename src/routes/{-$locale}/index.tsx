@@ -13,7 +13,6 @@ import { useLocale } from "@/hooks/use-locale";
 import { getStats } from "@/queries/stats";
 import {
   homeAchievementsQueryOptions,
-  homeGiveawaysQueryOptions,
   homeHistoricalLowsQueryOptions,
   homeLatestBuildsQueryOptions,
   homeLatestOffersQueryOptions,
@@ -25,6 +24,7 @@ import {
   type HomeBuild,
   type HomePulseChange,
 } from "@/queries/home";
+import { homeGiveawaysQueryOptions } from "@/queries/giveaways";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@/components/app/localized-link";

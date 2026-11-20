@@ -3,11 +3,13 @@ import { getFetchedQuery } from "@/lib/get-fetched-query";
 import i18n from "@/lib/i18n";
 import { getQueryClient } from "@/lib/client";
 import { generateSandboxMeta } from "@/lib/generate-sandbox-meta";
-import { sandboxBaseGameQueryOptions, sandboxQueryOptions } from "@/queries/sandbox";
+import {
+  sandboxBaseGameQueryOptions,
+  sandboxQueryOptions,
+  type SandboxBaseGame,
+  type SandboxIdentity,
+} from "@/queries/sandbox";
 import { sandboxHubQueryOptions } from "@/queries/sandbox-hub";
-import type { SingleItem } from "@/types/single-item";
-import type { SingleOffer } from "@/types/single-offer";
-import type { SingleSandbox } from "@/types/single-sandbox";
 import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -27,11 +29,12 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id")({
   },
 
   loader: async ({ context, params }) => {
-    const { queryClient } = context;
+    const { country, queryClient } = context;
     const { id } = params;
 
     return {
       id,
+      country,
       dehydratedState: dehydrate(queryClient),
     };
   },
@@ -43,7 +46,7 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id")({
 
     await Promise.allSettled([
       queryClient.prefetchQuery(sandboxQueryOptions(id)),
-      queryClient.prefetchQuery(sandboxBaseGameQueryOptions(id)),
+      queryClient.prefetchQuery(sandboxBaseGameQueryOptions(id, country)),
       queryClient.prefetchQuery(
         sandboxHubQueryOptions({
           id,
@@ -77,15 +80,16 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id")({
 
     const { id } = params;
 
-    const sandbox = getFetchedQuery<SingleSandbox>(queryClient, ctx.loaderData?.dehydratedState, [
-      "sandbox",
-      { id },
-    ]);
-
-    let offer = getFetchedQuery<SingleOffer | (SingleItem & { isItem: true })>(
+    const sandbox = getFetchedQuery<SandboxIdentity>(
       queryClient,
       ctx.loaderData?.dehydratedState,
-      ["sandbox", "base-game", { id }],
+      sandboxQueryOptions(id).queryKey,
+    );
+
+    let offer = getFetchedQuery<SandboxBaseGame>(
+      queryClient,
+      ctx.loaderData?.dehydratedState,
+      sandboxBaseGameQueryOptions(id, ctx.loaderData.country).queryKey,
     );
 
     if (id === "ue") {

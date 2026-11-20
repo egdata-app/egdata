@@ -8,8 +8,7 @@ import { getEffectivePrice } from "@/lib/effective-price";
 import { getImage } from "@/lib/get-image";
 import { useTranslation } from "@/lib/paraglide-react";
 import { sandboxCatalogGroups, type SandboxCatalogGroup } from "@/lib/sandbox-catalog";
-import { sandboxCatalogQueryOptions } from "@/queries/sandbox-catalog";
-import type { SingleOffer } from "@/types/single-offer";
+import { sandboxCatalogQueryOptions, type SandboxCatalogOffer } from "@/queries/sandbox-catalog";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowRight, Package, RotateCcw } from "lucide-react";
 
@@ -65,7 +64,7 @@ export function SandboxQueryState({
   );
 }
 
-export function SandboxOfferCard({ offer }: { offer: SingleOffer }) {
+export function SandboxOfferCard({ offer }: { offer: SandboxCatalogOffer }) {
   const { t } = useTranslation();
   const { locale } = useLocale();
   const image = getImage(offer.keyImages, [

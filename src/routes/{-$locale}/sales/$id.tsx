@@ -2,7 +2,8 @@ import { checkCountryCode } from "@/lib/check-country";
 import i18n from "@/lib/i18n";
 import { getImage } from "@/lib/get-image";
 import { httpClient } from "@/lib/http-client";
-import type { SingleOffer } from "@/types/single-offer";
+import { pickKeyImages } from "@/lib/offer-projections";
+import type { KeyImage, SingleOffer } from "@/types/single-offer";
 import { dehydrate, type DehydratedState, HydrationBoundary } from "@tanstack/react-query";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { zodSearchValidator } from "@tanstack/router-zod-adapter";
@@ -10,19 +11,18 @@ import { SearchContainer } from "@/components/search/SearchContainer";
 import { formSchema } from "@/stores/searchStore";
 import { useTranslation } from "@/lib/paraglide-react";
 
+type SaleCover = { keyImages: KeyImage[] };
+type SalePromotion = { title: string; count: number };
+
+const SALE_COVER_IMAGES = ["OfferImageWide", "DieselGameBoxWide", "DieselStoreFrontWide"];
+
 export const Route = createFileRoute("/{-$locale}/sales/$id")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData() as {
       dehydratedState: DehydratedState;
-      cover: Pick<SingleOffer, "_id" | "id" | "namespace" | "title" | "keyImages"> | null;
+      cover: SaleCover | null;
       id: string;
-      promotion: {
-        elements: SingleOffer[];
-        title: string;
-        start: number;
-        page: number;
-        count: number;
-      } | null;
+      promotion: SalePromotion | null;
     };
 
     return (
@@ -58,8 +58,11 @@ export const Route = createFileRoute("/{-$locale}/sales/$id")({
         queryKey: ["promotion-cover", { id }],
         queryFn: () =>
           httpClient
-            .v1Get<Pick<SingleOffer, "_id" | "id" | "namespace" | "title" | "keyImages">>(
-              `/promotions/${id}/cover`,
+            .v1Get<SingleOffer>(`/promotions/${id}/cover`)
+            .then(
+              (offer): SaleCover => ({
+                keyImages: pickKeyImages(offer.keyImages, [SALE_COVER_IMAGES, ["featuredMedia"]]),
+              }),
             )
             .catch(() => null),
       }),
@@ -80,6 +83,12 @@ export const Route = createFileRoute("/{-$locale}/sales/$id")({
                 limit: 1,
               },
             })
+            .then(
+              (promotion): SalePromotion => ({
+                title: promotion.title,
+                count: promotion.count,
+              }),
+            )
             .catch(() => null),
       }),
     ]);
@@ -177,15 +186,9 @@ function SalesPage() {
   const { t } = useTranslation();
   const { cover, id, promotion } = Route.useLoaderData() as {
     dehydratedState: DehydratedState;
-    cover: Pick<SingleOffer, "_id" | "id" | "namespace" | "title" | "keyImages"> | null;
+    cover: SaleCover | null;
     id: string;
-    promotion: {
-      elements: SingleOffer[];
-      title: string;
-      start: number;
-      page: number;
-      count: number;
-    } | null;
+    promotion: SalePromotion | null;
   };
   const navigate = Route.useNavigate();
   const search = Route.useSearch();

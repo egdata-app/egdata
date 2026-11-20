@@ -1,10 +1,16 @@
-import type { GiveawayOffer } from "@/types/giveaways";
 import type { SingleOffer } from "@/types/single-offer";
 
 type PurchaseOffer = Pick<SingleOffer, "id" | "namespace">;
 
-type GiveawayGroup = GiveawayOffer & {
-  offers?: GiveawayOffer[];
+type GiveawayWindow = {
+  giveaway: {
+    startDate: string | null;
+    endDate: string | null;
+  };
+};
+
+type GiveawayGroup<T extends PurchaseOffer & GiveawayWindow> = T & {
+  offers?: T[];
 };
 
 const getOfferKey = (offer: PurchaseOffer) => `${offer.namespace}:${offer.id}`;
@@ -29,21 +35,32 @@ export function getBuyLink({
   return url.toString();
 }
 
-export function getRedeemableOffers({
+/**
+ * Returns the offers that are currently claimable and not already covered by
+ * the mobile freebies list.
+ *
+ * Structural typing keeps this working with projected giveaway rows: only the
+ * purchase identity (`id`/`namespace`) and the claim window are read.
+ */
+export function getRedeemableOffers<T extends PurchaseOffer & GiveawayWindow>({
   giveaways,
   mobileOffers,
   now = new Date(),
 }: {
-  giveaways: GiveawayGroup[];
-  mobileOffers: GiveawayOffer[];
+  giveaways: Array<GiveawayGroup<T>>;
+  mobileOffers: PurchaseOffer[];
   now?: Date;
-}): GiveawayOffer[] {
+}): T[] {
   const mobileOfferKeys = new Set(mobileOffers.map(getOfferKey));
   const nowTime = now.getTime();
 
   return giveaways
     .flatMap((giveaway) => giveaway.offers ?? [giveaway])
     .filter((offer) => {
+      if (!offer.giveaway.startDate || !offer.giveaway.endDate) {
+        return false;
+      }
+
       const startTime = new Date(offer.giveaway.startDate).getTime();
       const endTime = new Date(offer.giveaway.endDate).getTime();
 

@@ -4,6 +4,12 @@ import { DynamicPagination } from "@/components/app/dynamic-pagination";
 import { formatSandboxCount, SandboxPageHeader } from "@/components/app/sandbox-layout";
 import { getQueryClient } from "@/lib/client";
 import { generateSandboxMeta } from "@/lib/generate-sandbox-meta";
+import {
+  sandboxBaseGameQueryOptions,
+  sandboxQueryOptions,
+  type SandboxBaseGame,
+  type SandboxIdentity,
+} from "@/queries/sandbox";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { httpClient } from "@/lib/http-client";
 import {
@@ -13,7 +19,6 @@ import {
 } from "@/lib/v1-adapters";
 import type { SingleItem } from "@/types/single-item";
 import type { SingleOffer } from "@/types/single-offer";
-import type { SingleSandbox } from "@/types/single-sandbox";
 import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
@@ -115,7 +120,7 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id/changelog")({
   },
 
   loader: async ({ params, context }) => {
-    const { queryClient } = context;
+    const { country, queryClient } = context;
 
     await queryClient.prefetchQuery({
       queryKey: ["changelog", { id: params.id, page: 1, limit: 20 }],
@@ -124,6 +129,7 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id/changelog")({
 
     return {
       params,
+      country,
       dehydratedState: dehydrate(queryClient),
     };
   },
@@ -145,15 +151,16 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id/changelog")({
 
     const { id } = params;
 
-    const sandbox = getFetchedQuery<SingleSandbox>(queryClient, ctx.loaderData?.dehydratedState, [
-      "sandbox",
-      { id },
-    ]);
-    const offer = getFetchedQuery<SingleOffer>(queryClient, ctx.loaderData?.dehydratedState, [
-      "sandbox",
-      "base-game",
-      { id },
-    ]);
+    const sandbox = getFetchedQuery<SandboxIdentity>(
+      queryClient,
+      ctx.loaderData?.dehydratedState,
+      sandboxQueryOptions(id).queryKey,
+    );
+    const offer = getFetchedQuery<SandboxBaseGame>(
+      queryClient,
+      ctx.loaderData?.dehydratedState,
+      sandboxBaseGameQueryOptions(id, ctx.loaderData?.country).queryKey,
+    );
 
     if (!sandbox)
       return {

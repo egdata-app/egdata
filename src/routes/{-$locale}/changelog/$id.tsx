@@ -1,7 +1,7 @@
 import * as React from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import type { DehydratedState } from "@tanstack/react-query";
-import { dehydrate, HydrationBoundary, queryOptions, useQuery } from "@tanstack/react-query";
+import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { httpClient } from "@/lib/http-client";
 import { ChangeTracker } from "@/components/app/changelog/item";
 import type { SingleOffer } from "@/types/single-offer";
@@ -49,16 +49,6 @@ interface Hit {
   metadata: Metadata;
 }
 
-const sandboxBaseGameQuery = (id: string | undefined) =>
-  queryOptions({
-    queryKey: ["sandbox", "base-game", { id }],
-    queryFn: () =>
-      httpClient
-        .v1Get<SingleOffer | (SingleItem & { isItem: true })>(`/sandboxes/${id}/base-game`)
-        .catch(() => null),
-    enabled: !!id,
-  });
-
 export const Route = createFileRoute("/{-$locale}/changelog/$id")({
   component: () => {
     const { dehydratedState } = Route.useLoaderData() as {
@@ -77,14 +67,10 @@ export const Route = createFileRoute("/{-$locale}/changelog/$id")({
     const { queryClient } = context;
     const { id } = params;
 
-    const data = await queryClient.ensureQueryData({
+    await queryClient.ensureQueryData({
       queryKey: ["changelog", id],
       queryFn: () => httpClient.v1Get<ChangeResponse>(`/changelist/${id}`).catch(() => null),
     });
-
-    if (data?.metadata.context?.namespace) {
-      await queryClient.prefetchQuery(sandboxBaseGameQuery(data.metadata.context.namespace));
-    }
 
     return {
       dehydratedState: dehydrate(queryClient),
@@ -109,10 +95,6 @@ function ChangeDetailPage() {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["changelog", id],
     queryFn: () => httpClient.v1Get<ChangeResponse>(`/changelist/${id}`),
-  });
-  useQuery({
-    ...sandboxBaseGameQuery(data?.metadata.context?.namespace),
-    enabled: !!data?.metadata.context?.namespace,
   });
 
   if (isLoading) {

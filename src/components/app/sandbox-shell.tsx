@@ -10,12 +10,14 @@ import { getImage } from "@/lib/get-image";
 import { internalNamespaces } from "@/lib/internal-namespaces";
 import { sandboxViewTransition } from "@/lib/sandbox-transition";
 import { cn } from "@/lib/utils";
-import { sandboxBaseGameQueryOptions, sandboxQueryOptions } from "@/queries/sandbox";
+import {
+  sandboxBaseGameQueryOptions,
+  sandboxQueryOptions,
+  type SandboxBaseGame,
+  type SandboxIdentity,
+} from "@/queries/sandbox";
 import { sandboxHubQueryOptions, type SandboxHubData } from "@/queries/sandbox-hub";
 import type { Price } from "@/types/price";
-import type { SingleItem } from "@/types/single-item";
-import type { SingleOffer } from "@/types/single-offer";
-import type { SingleSandbox } from "@/types/single-sandbox";
 import { useQuery } from "@tanstack/react-query";
 import { Outlet, useMatches } from "@tanstack/react-router";
 import { DateTime } from "luxon";
@@ -35,7 +37,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 
-type BaseGame = SingleOffer | (SingleItem & { isItem: true }) | null;
+type BaseGame = SandboxBaseGame;
 export interface SandboxShellProps {
   id: string;
   hub?: SandboxHubData | null;
@@ -46,7 +48,7 @@ export function SandboxShell({ id, hub }: SandboxShellProps) {
   const { locale } = useLocale();
   const { t } = useTranslation();
   const { data: sandbox } = useQuery(sandboxQueryOptions(id));
-  const { data: baseGame } = useQuery(sandboxBaseGameQueryOptions(id));
+  const { data: baseGame } = useQuery(sandboxBaseGameQueryOptions(id, country || "US"));
   const { data: hubData } = useQuery(
     sandboxHubQueryOptions({ id, country: country || "US", offerLimit: 8, updateLimit: 8 }),
   );
@@ -161,8 +163,8 @@ function SandboxHero({
 }: {
   id: string;
   hub: SandboxHubData | null;
-  sandbox: SingleSandbox | null;
-  baseGame: BaseGame;
+  sandbox: SandboxIdentity | null;
+  baseGame: BaseGame | null;
   compact: boolean;
 }) {
   const { t } = useTranslation();
@@ -182,7 +184,7 @@ function SandboxHero({
     t("components.sandboxShell.sandbox");
   const images = (hub?.keyImages?.filter(Boolean) ??
     baseGame?.keyImages ??
-    []) as SingleOffer["keyImages"];
+    []) as SandboxBaseGame["keyImages"];
   const image = getImage(images, [
     "DieselStoreFrontWide",
     "OfferImageWide",
@@ -191,7 +193,7 @@ function SandboxHero({
     "Screenshot",
     "DieselGameBox",
   ]);
-  const primaryOffer = hub?.primaryOffer ?? (baseGame && !("isItem" in baseGame) ? baseGame : null);
+  const primaryOffer = baseGame && !baseGame.isItem ? baseGame : null;
   const releaseStatus = getReleaseStatus(primaryOffer, t);
   const updated = hub?.updated ?? sandbox?.updated;
   const artwork =
@@ -333,7 +335,7 @@ function SandboxHero({
         )}
         {primaryOffer && (
           <div className="flex flex-col gap-3 border-t border-border pt-5">
-            <PriceBlock price={hub?.price ?? primaryOffer.price} />
+            <PriceBlock price={primaryOffer.price} />
             <Button asChild variant="outline">
               <Link to="/{-$locale}/offers/$id" params={{ id: primaryOffer.id }}>
                 {t("sandboxCatalog.primaryOffer")}
@@ -347,7 +349,7 @@ function SandboxHero({
   );
 }
 
-function StoreActions({ offer }: { offer: SingleOffer }) {
+function StoreActions({ offer }: { offer: SandboxBaseGame }) {
   const storeUrl = getStoreUrl(offer);
   const { t } = useTranslation();
 
@@ -366,7 +368,7 @@ function StoreActions({ offer }: { offer: SingleOffer }) {
   );
 }
 
-function getStoreUrl(offer: SingleOffer) {
+function getStoreUrl(offer: SandboxBaseGame) {
   if (offer.namespace === "ue") {
     const fabListingId = offer.customAttributes?.FabListingId?.value;
     return fabListingId ? `https://www.fab.com/listings/${fabListingId}` : null;
@@ -431,7 +433,7 @@ function PriceBlock({ price }: { price: Price | null }) {
   );
 }
 
-function getReleaseStatus(offer: SingleOffer | null, t: TFunction) {
+function getReleaseStatus(offer: SandboxBaseGame | null, t: TFunction) {
   if (!offer) {
     return null;
   }

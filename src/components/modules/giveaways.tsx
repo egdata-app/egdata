@@ -6,15 +6,13 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { useCountry } from "@/hooks/use-country";
 import { useEffect, useState } from "react";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
-import type { GiveawayOffer } from "@/types/giveaways";
+import { giveawaysQueryOptions, type GiveawayCard as GiveawayCardData } from "@/queries/giveaways";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 import { calculatePrice } from "@/lib/calculate-price";
 import { ArrowRightIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { httpClient } from "@/lib/http-client";
 import { Link } from "@/components/app/localized-link";
 import { useLocale } from "@/hooks/use-locale";
-import { mergeFreebies } from "@/utils/merge-freebies";
 import { DateTime } from "luxon";
 import { useTranslation } from "@/lib/paraglide-react";
 
@@ -22,15 +20,7 @@ export function GiveawaysCarousel({ hideTitle }: { hideTitle?: boolean }) {
   const { t } = useTranslation();
   const { country } = useCountry();
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["giveaways"],
-    queryFn: () =>
-      httpClient
-        .v1Get<GiveawayOffer[]>("/free-games", {
-          params: {
-            country,
-          },
-        })
-        .then(mergeFreebies),
+    ...giveawaysQueryOptions(country),
     refetchInterval: 60 * 1000,
     refetchIntervalInBackground: true,
   });
@@ -78,11 +68,11 @@ export function GiveawaysCarousel({ hideTitle }: { hideTitle?: boolean }) {
   );
 }
 
-function GiveawayCard({ offer }: { offer: GiveawayOffer }) {
+function GiveawayCard({ offer }: { offer: GiveawayCardData }) {
   const { t } = useTranslation();
   const { locale } = useLocale();
-  const startDate = new Date(offer.giveaway.startDate);
-  const endDate = new Date(offer.giveaway.endDate);
+  const startDate = new Date(offer.giveaway.startDate ?? 0);
+  const endDate = new Date(offer.giveaway.endDate ?? 0);
   const now = new Date();
 
   const isOnGoing = startDate < now && endDate > now;

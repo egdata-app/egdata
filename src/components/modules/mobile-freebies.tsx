@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "../ui/skeleton";
 import { ScrollArea, ScrollBar } from "../ui/scroll-area";
-import { mobileFreebiesQuery } from "@/queries/mobile-freebies";
+import { mobileGiveawaysQueryOptions, type MobileGiveawayOffer } from "@/queries/giveaways";
 import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -11,7 +11,6 @@ import { getImage } from "@/lib/getImage";
 import { Link } from "@/components/app/localized-link";
 import { useLocale } from "@/hooks/use-locale";
 import { calculatePrice } from "@/lib/calculate-price";
-import type { GiveawayOffer } from "@/types/giveaways";
 import { platformIcons } from "@/components/app/platform-icons";
 import { DateTime } from "luxon";
 import { useTranslation } from "@/lib/paraglide-react";
@@ -19,7 +18,7 @@ import { useTranslation } from "@/lib/paraglide-react";
 export function MobileFreebiesCarousel() {
   const { t } = useTranslation();
   const [isExpanded, setIsExpanded] = useState(false);
-  const { data, isLoading, isError } = useQuery(mobileFreebiesQuery);
+  const { data, isLoading, isError } = useQuery(mobileGiveawaysQueryOptions());
 
   if (isLoading) {
     return (
@@ -73,11 +72,11 @@ export function MobileFreebiesCarousel() {
   );
 }
 
-function MobileGiveawayCard({ offer }: { offer: GiveawayOffer }) {
+function MobileGiveawayCard({ offer }: { offer: MobileGiveawayOffer }) {
   const { t } = useTranslation();
   const { locale } = useLocale();
-  const startDate = new Date(offer.giveaway.startDate);
-  const endDate = new Date(offer.giveaway.endDate);
+  const startDate = new Date(offer.giveaway.startDate ?? 0);
+  const endDate = new Date(offer.giveaway.endDate ?? 0);
   const now = new Date();
 
   const isOnGoing = startDate < now && endDate > now;
