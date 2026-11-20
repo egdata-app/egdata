@@ -2,7 +2,7 @@ import type { TypeOf } from "zod";
 import { useTranslation } from "@/lib/paraglide-react";
 import type { formSchema } from "@/stores/searchStore";
 import type { FullTag } from "@/types/tags";
-import type { SearchV2Response } from "@/types/search-v2";
+import type { SearchFacetSection } from "@/lib/v1-adapters";
 import { Input } from "@/components/ui/input";
 import { QuickPill } from "@/components/app/quick-pill";
 import { Separator } from "@/components/ui/separator";
@@ -26,7 +26,6 @@ export interface SearchFiltersProps {
     value: TypeOf<typeof formSchema>[K],
   ) => void;
   loading: boolean;
-  results: SearchV2Response | null | undefined;
   tags: FullTag[];
   tagTypes: { name: string; label: string }[];
   priceRange: { min: number; max: number; currency: string };
@@ -35,6 +34,8 @@ export interface SearchFiltersProps {
   technologyCounts: Record<string, number>;
   developerCounts: Record<string, number>;
   publisherCounts: Record<string, number>;
+  onFacetSectionOpen: (section: SearchFacetSection) => void;
+  pendingFacetSections: SearchFacetSection[];
   controls: {
     showTitle: boolean;
     showTags: boolean;
@@ -53,6 +54,19 @@ export interface SearchFiltersProps {
   };
 }
 
+const ACCORDION_FACET_SECTIONS: Record<string, SearchFacetSection> = {
+  offerType: "offerType",
+  technologies: "technologies",
+  developer: "developer",
+  publisher: "publisher",
+};
+
+function facetSectionForAccordionValue(value: string): SearchFacetSection | null {
+  if (!value) return null;
+  // Tag accordion values are tag group names, so anything unknown loads tags.
+  return ACCORDION_FACET_SECTIONS[value] ?? "tags";
+}
+
 export function SearchFilters({
   query,
   setField,
@@ -65,6 +79,8 @@ export function SearchFilters({
   developerCounts,
   publisherCounts,
   controls,
+  onFacetSectionOpen,
+  pendingFacetSections,
 }: SearchFiltersProps) {
   const { t } = useTranslation();
   const {
@@ -213,7 +229,17 @@ export function SearchFilters({
         />
       )}
 
-      <Accordion type="single" collapsible className="w-full">
+      <Accordion
+        type="single"
+        collapsible
+        className="w-full"
+        onValueChange={(value) => {
+          const section = facetSectionForAccordionValue(value);
+          if (section) {
+            onFacetSectionOpen(section);
+          }
+        }}
+      >
         {showOfferType && (
           <AccordionItem value="offerType">
             <AccordionTrigger>{t("search.accordion.offerType")}</AccordionTrigger>
@@ -233,6 +259,10 @@ export function SearchFilters({
                     label={value}
                   />
                 ))}
+              {Object.keys(offerTypeCounts).length === 0 &&
+                pendingFacetSections.includes("offerType") && (
+                  <span className="text-muted-foreground px-4">{t("common.loading")}</span>
+                )}
             </AccordionContent>
           </AccordionItem>
         )}
@@ -273,7 +303,9 @@ export function SearchFilters({
                         ))}
                       {tagTypeTags?.filter((tag) => tagCounts[tag.id] > 0).length === 0 && (
                         <span className="text-muted-foreground px-4">
-                          {t("search.accordion.noTags")}
+                          {pendingFacetSections.includes("tags")
+                            ? t("common.loading")
+                            : t("search.accordion.noTags")}
                         </span>
                       )}
                     </div>
@@ -320,7 +352,9 @@ export function SearchFilters({
                     ))}
                   {Object.values(technologyCounts).every((count) => count <= 0) && (
                     <span className="px-4 text-muted-foreground">
-                      {t("search.accordion.noTechnologies")}
+                      {pendingFacetSections.includes("technologies")
+                        ? t("common.loading")
+                        : t("search.accordion.noTechnologies")}
                     </span>
                   )}
                 </div>
@@ -333,17 +367,23 @@ export function SearchFilters({
           <AccordionItem value="developer">
             <AccordionTrigger>{t("search.accordion.developer")}</AccordionTrigger>
             <AccordionContent>
-              {(Object.keys(developerCounts).length > 0 || query.developerDisplayName) && (
-                <ExtendedSearch
-                  name="developers"
-                  items={Object.entries(developerCounts).map(([key, value]) => ({
-                    id: key,
-                    name: key,
-                    count: value as number,
-                  }))}
-                  value={query.developerDisplayName}
-                  setValue={(val) => handleFieldChange("developerDisplayName", val)}
-                />
+              {Object.keys(developerCounts).length === 0 &&
+              !query.developerDisplayName &&
+              pendingFacetSections.includes("developer") ? (
+                <span className="text-muted-foreground px-4">{t("common.loading")}</span>
+              ) : (
+                (Object.keys(developerCounts).length > 0 || query.developerDisplayName) && (
+                  <ExtendedSearch
+                    name="developers"
+                    items={Object.entries(developerCounts).map(([key, value]) => ({
+                      id: key,
+                      name: key,
+                      count: value as number,
+                    }))}
+                    value={query.developerDisplayName}
+                    setValue={(val) => handleFieldChange("developerDisplayName", val)}
+                  />
+                )
               )}
             </AccordionContent>
           </AccordionItem>
@@ -353,17 +393,23 @@ export function SearchFilters({
           <AccordionItem value="publisher">
             <AccordionTrigger>{t("search.accordion.publisher")}</AccordionTrigger>
             <AccordionContent>
-              {(Object.keys(publisherCounts).length > 0 || query.publisherDisplayName) && (
-                <ExtendedSearch
-                  name="publishers"
-                  items={Object.entries(publisherCounts).map(([key, value]) => ({
-                    id: key,
-                    name: key,
-                    count: value as number,
-                  }))}
-                  value={query.publisherDisplayName}
-                  setValue={(val) => handleFieldChange("publisherDisplayName", val)}
-                />
+              {Object.keys(publisherCounts).length === 0 &&
+              !query.publisherDisplayName &&
+              pendingFacetSections.includes("publisher") ? (
+                <span className="text-muted-foreground px-4">{t("common.loading")}</span>
+              ) : (
+                (Object.keys(publisherCounts).length > 0 || query.publisherDisplayName) && (
+                  <ExtendedSearch
+                    name="publishers"
+                    items={Object.entries(publisherCounts).map(([key, value]) => ({
+                      id: key,
+                      name: key,
+                      count: value as number,
+                    }))}
+                    value={query.publisherDisplayName}
+                    setValue={(val) => handleFieldChange("publisherDisplayName", val)}
+                  />
+                )
               )}
             </AccordionContent>
           </AccordionItem>

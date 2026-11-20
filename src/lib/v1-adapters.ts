@@ -27,7 +27,35 @@ export type V1SearchFacetsMeta = {
   };
 };
 
+/**
+ * Meta returned by `GET /v1/search/facets`, which answers with the aggregation
+ * body as `data` instead of an envelope wrapping search results.
+ */
+export type V1SearchFacetSectionsMeta = {
+  sections?: string[];
+  result?: {
+    tookMs?: number;
+    timedOut?: boolean;
+  };
+};
+
 export type V1SearchMeta = V1CursorPaginationMeta & V1SearchFacetsMeta;
+
+export type SearchFacetSection =
+  | "offerType"
+  | "tags"
+  | "technologies"
+  | "developer"
+  | "publisher"
+  | "seller"
+  | "price";
+
+const EMPTY_PRICE_STATS: PriceStats = { count: 0, min: 0, max: 0, avg: 0, sum: 0 };
+const EMPTY_TECHNOLOGY_AGGREGATION: Aggregations["technologies"] = {
+  doc_count_error_upper_bound: 0,
+  sum_other_doc_count: 0,
+  buckets: [],
+};
 
 const CURSOR_STORAGE_PREFIX = "egdata:v1-cursors:";
 const memoryCursorCache = new Map<string, Array<string | undefined>>();
@@ -243,6 +271,7 @@ export type V1SearchQueryInput = {
   sortBy?: string;
   sortDir?: "asc" | "desc";
   facets?: "full" | "minimal" | "none";
+  fields?: "full" | "card";
   limit?: number;
   country?: string;
   locale?: string;
@@ -254,12 +283,18 @@ export type V1SearchQueryInput = {
  */
 export function toV1SearchParams(
   query: V1SearchQueryInput,
-  overrides?: { country?: string; cursor?: string; facets?: "full" | "minimal" | "none" },
+  overrides?: {
+    country?: string;
+    cursor?: string;
+    facets?: "full" | "minimal" | "none";
+    fields?: "full" | "card";
+  },
 ): Record<string, string | number | boolean | undefined> {
   const csv = (values?: string[]) => (values && values.length > 0 ? values.join(",") : undefined);
   const country = overrides?.country ?? query.country;
   const cursor = overrides?.cursor ?? query.cursor;
   const facets = overrides?.facets ?? query.facets;
+  const fields = overrides?.fields ?? query.fields;
 
   return {
     title: query.title?.trim() || undefined,
@@ -283,6 +318,7 @@ export function toV1SearchParams(
     sortBy: query.sortBy || undefined,
     sortDir: query.sortDir || undefined,
     facets,
+    fields,
     country,
     locale: query.locale || undefined,
     limit: query.limit,
@@ -295,6 +331,57 @@ export type NormalizedV1SearchResponse = SearchV2Response & {
   nextCursor: string | null;
   totalPages: number | null;
 };
+
+/**
+ * Converts search filter state into flat query params accepted by `GET /v1/search/facets`.
+ * The facets endpoint rejects pagination params, so they are dropped.
+ */
+export function toV1SearchFacetParams(
+  query: V1SearchQueryInput,
+  overrides: { country?: string; sections: SearchFacetSection[] },
+): Record<string, string | number | boolean | undefined> {
+  const params = toV1SearchParams(query, { country: overrides.country });
+  delete params.limit;
+  delete params.cursor;
+  delete params.fields;
+  params.facets = overrides.sections.join(",");
+  return params;
+}
+
+export type NormalizedV1SearchFacets = {
+  aggregations: Aggregations;
+  sections: SearchFacetSection[];
+  result: { tookMs: number; timedOut: boolean };
+};
+
+export function normalizeV1SearchFacetsResponse(
+  envelope: V1Envelope<Record<string, unknown>, V1SearchFacetSectionsMeta> | null | undefined,
+  sections: SearchFacetSection[],
+): NormalizedV1SearchFacets {
+  const raw =
+    envelope?.data && typeof envelope.data === "object" && !Array.isArray(envelope.data)
+      ? envelope.data
+      : {};
+  const priceStats = (raw.priceStats ?? raw.price_stats) as PriceStats | undefined;
+  const aggregations: Aggregations = {
+    ...(raw as Record<string, Aggregations[string]>),
+    price_stats:
+      priceStats && typeof priceStats.min === "number" && typeof priceStats.max === "number"
+        ? priceStats
+        : EMPTY_PRICE_STATS,
+    technologies:
+      (raw.technologies as Aggregations["technologies"] | undefined) ??
+      EMPTY_TECHNOLOGY_AGGREGATION,
+  };
+  return {
+    aggregations,
+    sections,
+    result: {
+      tookMs: envelope?.meta?.result?.tookMs ?? 0,
+      timedOut: Boolean(envelope?.meta?.result?.timedOut),
+    },
+  };
+}
 
 export function normalizeV1SearchResponse(
   envelope: V1Envelope<SingleOfferWithPrice[], V1SearchMeta> | null | undefined,

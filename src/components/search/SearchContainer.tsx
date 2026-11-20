@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "@/lib/paraglide-react";
 import { useDebounce } from "@uidotdev/usehooks";
 import { useQuery } from "@tanstack/react-query";
@@ -9,14 +9,16 @@ import {
   normalizeV1SearchResponse,
   toV1SearchParams,
   type NormalizedV1SearchResponse,
+  type SearchFacetSection,
   type V1SearchMeta,
 } from "@/lib/v1-adapters";
+import { useSearchFacets } from "@/queries/search-facets";
 import { DEFAULT_LIMIT, getSearchStore, searchStoreManager } from "@/stores/searchStore";
 import type { formSchema, SearchState } from "@/stores/searchStore";
 import { useCountry } from "@/hooks/use-country";
 import type { TypeOf } from "zod";
 import type { FullTag } from "@/types/tags";
-import type { AggregationBuckets } from "@/types/search-v2";
+import type { AggregationBuckets, Aggregations } from "@/types/search-v2";
 import type { SingleOfferWithPrice } from "@/types/single-offer-price";
 import { keepPreviousData } from "@tanstack/react-query";
 import { SearchFilters } from "./SearchFilters";
@@ -135,6 +137,26 @@ export function SearchContainer({
   const debouncedQuery = useDebounce(mergedQuery, 300);
   const { country } = useCountry();
 
+  // Facets are requested per accordion section instead of with every result page.
+  const showPrice = controls.showPrice ?? true;
+  const [facetSections, setFacetSections] = useState<SearchFacetSection[]>([]);
+  const requestFacetSection = useCallback((section: SearchFacetSection) => {
+    setFacetSections((prev) => (prev.includes(section) ? prev : [...prev, section]));
+  }, []);
+
+  useEffect(() => {
+    if (showPrice) {
+      requestFacetSection("price");
+    }
+  }, [showPrice, requestFacetSection]);
+
+  const { aggregations: facetAggregations, pendingSections: pendingFacetSections } =
+    useSearchFacets({
+      query: debouncedQuery,
+      country,
+      sections: facetSections,
+    });
+
   // Fetch search results
   const {
     data: results,
@@ -153,7 +175,12 @@ export function SearchContainer({
       >(
         (cursor) =>
           httpClient.v1GetEnvelope<SingleOfferWithPrice[], V1SearchMeta>("/search", {
-            params: toV1SearchParams(debouncedQuery, { country, cursor }),
+            params: toV1SearchParams(debouncedQuery, {
+              country,
+              cursor,
+              facets: "none",
+              fields: "card",
+            }),
             signal,
           }),
         targetPage,
@@ -197,8 +224,14 @@ export function SearchContainer({
     ).values(),
   );
 
+  // Search responses no longer carry aggregations; facet sections hydrate this.
+  const mergedAggregations = {
+    ...results?.aggregations,
+    ...facetAggregations,
+  } as Aggregations;
+
   // Helper type guard for priceAgg
-  function isPriceStats(obj: unknown): obj is { min: number; max: number } {
+  function isPriceStats(obj: unknown): obj is { min: number; max: number; count?: number } {
     if (typeof obj !== "object" || obj === null) return false;
     return (
       Object.prototype.hasOwnProperty.call(obj, "min") &&
@@ -208,21 +241,18 @@ export function SearchContainer({
     );
   }
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: isPriceStats would re-render this component
-  const priceRange = useMemo(() => {
-    const priceAgg = results?.aggregations?.price_stats;
-    if (isPriceStats(priceAgg)) {
-      return {
-        ...priceAgg,
-        currency: results?.offers?.[0]?.price?.price?.currencyCode ?? "USD",
-      };
-    }
-    return {
-      min: 0,
-      max: 1000,
-      currency: "USD",
-    };
-  }, [results]);
+  const priceAgg = mergedAggregations.price_stats;
+  const priceRange =
+    isPriceStats(priceAgg) && (priceAgg.count ?? 0) > 0
+      ? {
+          ...priceAgg,
+          currency: results?.offers?.[0]?.price?.price?.currencyCode ?? "USD",
+        }
+      : {
+          min: 0,
+          max: 1000,
+          currency: "USD",
+        };
 
   const parseAggregationBuckets = (
     aggregation?: AggregationBuckets,
@@ -241,24 +271,24 @@ export function SearchContainer({
 
   // Offer type counts
   const offerTypeCounts: Record<string, number> = parseAggregationBuckets(
-    results?.aggregations?.offerType as AggregationBuckets,
+    mergedAggregations.offerType as AggregationBuckets,
   );
   // Tag counts
   const tagCounts: Record<string, number> = parseAggregationBuckets(
-    results?.aggregations?.tags as AggregationBuckets,
+    mergedAggregations.tags as AggregationBuckets,
     (key) => tags?.find((t) => t.name === key)?.id ?? key,
   );
   // Technology counts
   const technologyCounts: Record<string, number> = parseAggregationBuckets(
-    results?.aggregations?.technologies,
+    mergedAggregations.technologies,
   );
   // Developer counts
   const developerCounts: Record<string, number> = parseAggregationBuckets(
-    results?.aggregations?.developer as AggregationBuckets,
+    mergedAggregations.developer as AggregationBuckets,
   );
   // Publisher counts
   const publisherCounts: Record<string, number> = parseAggregationBuckets(
-    results?.aggregations?.publisher as AggregationBuckets,
+    mergedAggregations.publisher as AggregationBuckets,
   );
 
   // Controls (merge defaults with overrides)
@@ -292,7 +322,6 @@ export function SearchContainer({
       query={query as TypeOf<typeof formSchema>}
       setField={setField}
       loading={isLoading}
-      results={results}
       tags={tags ?? []}
       tagTypes={tagTypes}
       priceRange={priceRange}
@@ -302,6 +331,8 @@ export function SearchContainer({
       developerCounts={developerCounts}
       publisherCounts={publisherCounts}
       controls={mergedControls}
+      onFacetSectionOpen={requestFacetSection}
+      pendingFacetSections={pendingFacetSections}
     />
   );
 

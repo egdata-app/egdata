@@ -7,10 +7,13 @@ import {
   getV1PaginationTotal,
   getV1TotalPages,
   normalizeV1OfferElements,
+  normalizeV1SearchFacetsResponse,
   normalizeV1SearchResponse,
+  toV1SearchFacetParams,
   toV1SearchParams,
   unwrapV1Poll,
 } from "../../src/lib/v1-adapters.ts";
+import type { AggregationBuckets } from "../../src/types/search-v2.ts";
 import type { SinglePoll } from "../../src/types/polls.ts";
 import type { SingleOffer } from "../../src/types/single-offer.ts";
 import type { SingleOfferWithPrice } from "../../src/types/single-offer-price.ts";
@@ -166,6 +169,7 @@ test("toV1SearchParams and normalizeV1SearchResponse translate search state and 
     sortBy: "price",
     sortDir: "asc",
     facets: "full",
+    fields: undefined,
     country: "ES",
     locale: undefined,
     limit: 28,
@@ -194,6 +198,71 @@ test("toV1SearchParams and normalizeV1SearchResponse translate search state and 
   assert.equal(normalized.nextCursor, "c2");
   assert.equal(normalized.aggregations.price_stats.max, 6999);
   assert.equal(normalized.meta.ms, 12);
+});
+
+test("toV1SearchParams forwards the opt-in card projection", () => {
+  const params = toV1SearchParams({ title: "x" }, { fields: "card" });
+
+  assert.equal(params.fields, "card");
+  assert.equal(params.title, "x");
+});
+
+test("toV1SearchFacetParams drops pagination and requests only the given sections", () => {
+  const params = toV1SearchFacetParams(
+    {
+      title: "  alan wake  ",
+      tags: ["123"],
+      price: { min: 100, max: 5000 },
+      onSale: true,
+      sortBy: "price",
+      sortDir: "asc",
+      limit: 28,
+      cursor: "cur-1",
+      facets: "none",
+    },
+    { country: "ES", sections: ["price", "tags"] },
+  );
+
+  assert.equal(params.facets, "price,tags");
+  assert.equal(params.title, "alan wake");
+  assert.equal(params.priceMin, 100);
+  assert.equal(params.priceMax, 5000);
+  assert.equal(params.country, "ES");
+  assert.equal("limit" in params, false);
+  assert.equal("cursor" in params, false);
+  assert.equal("fields" in params, false);
+});
+
+test("normalizeV1SearchFacetsResponse maps priceStats and aggregation buckets", () => {
+  const normalized = normalizeV1SearchFacetsResponse(
+    {
+      data: {
+        priceStats: { count: 5, min: 0, max: 6999, avg: 999, sum: 4995 },
+        tags: {
+          doc_count_error_upper_bound: 0,
+          sum_other_doc_count: 0,
+          buckets: [{ key: "Action", doc_count: 3 }],
+        },
+      },
+      meta: { sections: ["price", "tags"], result: { tookMs: 8, timedOut: false } },
+    },
+    ["price", "tags"],
+  );
+
+  assert.equal(normalized.aggregations.price_stats.max, 6999);
+  assert.equal((normalized.aggregations.tags as AggregationBuckets).buckets[0]?.key, "Action");
+  assert.deepEqual(normalized.sections, ["price", "tags"]);
+  assert.equal(normalized.result.tookMs, 8);
+  assert.equal(normalized.aggregations.technologies.buckets.length, 0);
+});
+
+test("normalizeV1SearchFacetsResponse falls back to empty aggregations", () => {
+  const normalized = normalizeV1SearchFacetsResponse(undefined, ["developer"]);
+
+  assert.equal(normalized.aggregations.price_stats.count, 0);
+  assert.deepEqual(normalized.aggregations.technologies.buckets, []);
+  assert.equal(normalized.result.tookMs, 0);
+  assert.equal(normalized.result.timedOut, false);
 });
 
 test("getV1PaginationTotal and getV1TotalPages handle null totals gracefully", () => {
