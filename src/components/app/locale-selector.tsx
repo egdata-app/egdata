@@ -15,6 +15,7 @@ import { useLocale } from "@/hooks/use-locale";
 import { SUPPORTED_LOCALES, getLocaleName } from "@/lib/supported-locales";
 import { stripLocalePrefix } from "@/lib/paraglide-strategy";
 import { isLocale, setLocale as setParaglideLocale } from "@/paraglide/runtime.js";
+import { prefetchLocaleCatalog } from "@/lib/i18n";
 
 function LocaleSelectorImpl() {
   const [open, setOpen] = React.useState(false);
@@ -37,7 +38,9 @@ function LocaleSelectorImpl() {
       const nextPathname = stripLocalePrefix(window.location.pathname);
       const nextUrl = `${nextPathname}${window.location.search}${window.location.hash}`;
 
-      if (nextUrl !== `${window.location.pathname}${window.location.search}${window.location.hash}`) {
+      if (
+        nextUrl !== `${window.location.pathname}${window.location.search}${window.location.hash}`
+      ) {
         window.location.assign(nextUrl);
       }
     },
@@ -69,6 +72,12 @@ function LocaleSelectorImpl() {
                     key={l.code}
                     value={l.name}
                     onSelect={onSelect}
+                    onMouseEnter={() => {
+                      void prefetchLocaleCatalog(l.code);
+                    }}
+                    onFocus={() => {
+                      void prefetchLocaleCatalog(l.code);
+                    }}
                     className="flex items-center justify-between"
                   >
                     {l.name}

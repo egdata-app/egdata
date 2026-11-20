@@ -17,7 +17,7 @@ import { Fragment, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { keepPreviousData } from "@tanstack/react-query";
 import { useTranslation } from "@/lib/paraglide-react";
-import { httpClient } from "@/lib/http-client";
+import { getReleasesByMonth, type MonthlyRelease } from "./data";
 import { linearRegressionForecast } from "@/lib/linear-regression";
 import {
   Area,
@@ -29,15 +29,6 @@ import {
   XAxis,
 } from "recharts";
 import { Separator } from "@/components/ui/separator";
-
-export const getReleasesByMonth = async () =>
-  httpClient.v1Get<MonthlyRelease[]>("/stats/releases/monthly");
-
-export interface MonthlyRelease {
-  releases: number;
-  year: number;
-  month: number;
-}
 
 interface MonthlyChartPoint {
   /** ISO date of the first day of the month (kept only for tooltip) */

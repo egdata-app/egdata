@@ -117,6 +117,7 @@ export default defineConfig({
     },
   },
   output: {
+    manifest: true,
     assetPrefix: assetPrefix || "/",
     sourceMap: {
       css: true,

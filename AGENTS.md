@@ -53,8 +53,9 @@ pnpm test:e2e:headed    # Run E2E tests in headed mode
 - `components/` - React components, with `ui/` containing shadcn/ui primitives
 - `providers/` - React Context providers (global search, country, locale, preferences)
 - `queries/` - TanStack Query option factories for API data fetching
-- `lib/` - Utilities including `http-client.ts` (Axios wrapper), `auth.ts` (Better Auth setup), `i18n.ts` (i18next instance), `supported-locales.ts` (32 Epic locales)
-- `types/` - TypeScript type definitions for domain objects, including `i18n.d.ts` (i18next type augmentation)
+- `lib/` - Utilities including `http-client.ts` (Axios wrapper), `auth.ts` (Better Auth setup), `i18n.ts` (`t()` shim over the per-locale catalogs), `supported-locales.ts` (32 Epic locales)
+- `i18n/` - Catalog runtime (`catalog.ts`), generated per-locale catalogs, and the server-side request context
+- `types/` - TypeScript type definitions for domain objects
 - `hooks/` - Custom React hooks for context access and utilities
 - `locales/` - Translation JSON files per locale (`en-US/translation.json`, `es-ES/translation.json`)
 - `routeTree.gen.ts` - Auto-generated route tree (do not edit manually)
@@ -87,20 +88,24 @@ The HTTP client (`src/lib/http-client.ts`) is an Axios wrapper with retry logic.
 
 ### Internationalization (i18n)
 
-The app uses `react-i18next` + `i18next` for internationalization with 32 Epic Games Store locales. Only `en-US` (source) and `es-ES` have full translations; all other locales fall back to `en-US`.
+The app ships all 32 Epic Games Store locales. Locale *resolution* (URL prefix, cookie, `Accept-Language`, redirects) comes from Paraglide JS; message *delivery* uses one JSON catalog per locale, lazy-loaded as its own chunk, so a visitor never downloads the other 31 languages. `en-US` is the source of truth and is merged into every other locale at build time (locales may omit keys and inherit the English text).
 
 **Core files:**
-- `src/lib/i18n.ts` - i18next instance with `initImmediate: false` (synchronous init for SSR) and `nonExplicitSupportedLngs: true` (resolves `de-DE` → `de`)
-- `src/lib/supported-locales.ts` - 32 Epic canonical locales, `isRTL()`, `getLocaleName()`, `isSupportedLocale()`, `DEFAULT_LOCALE = "en-US"`
-- `src/locales/en-US/translation.json` - Source-of-truth translations (928 keys)
-- `src/locales/es-ES/translation.json` - Spanish pilot translations (same 928 keys)
-- `src/types/i18n.d.ts` - Type augmentation for type-safe `t()` keys based on en-US resources
+- `src/locales/<locale>/translation.json` - Source of truth (en-US has the canonical key set); the directory names are the list of supported locales
+- `scripts/build-i18n-catalogs.mjs` - Merges en-US under each locale and writes `src/i18n/catalogs/<locale>.json` plus the generated locale map (gitignored); runs as `pnpm i18n:build` before dev/build/typecheck
+- `src/i18n/catalog-loader.ts` - Loads and memoizes one catalog chunk per locale
+- `src/i18n/catalog-chunks.server.ts` - Reads `dist/client/manifest.json` so SSR can `<link rel="modulepreload">` the active locale's chunk (`i18n/<locale>.<hash>.js`); requires `output.manifest: true` in `rsbuild.config.ts`
+- `src/lib/i18n.ts` - `t()` / `useTranslation()` / `i18n.language` used by components and `head()`
+- `src/i18n/server-context.ts` - Per-request catalog bound through `AsyncLocalStorage` (server only)
+- `src/client.tsx` - Loads the `<html lang>` catalog before `hydrateRoot`, so the first client render matches SSR
+- `scripts/compile-paraglide.mjs` - Generates the Paraglide locale-resolution runtime only (strategies, middleware, cookie, `AsyncLocalStorage`); messages are not compiled by Paraglide, so this takes ~2s instead of ~40s
+- `src/lib/supported-locales.ts` - Locale display names, `isRTL()`, `getLocaleName()`, `DEFAULT_LOCALE = "en-US"`
 - `src/providers/locale.tsx` - Bridges `LocaleProvider` state to `i18n.changeLanguage()`
-- `rsbuild.config.ts` - `i18next` and `react-i18next` in `ssr.output.autoExternal.exclude` (critical: must be bundled, not externalized)
+- `src/paraglide/` - Generated locale-resolution runtime (gitignored)
 
 **Usage in components:**
 ```typescript
-import { useTranslation } from "react-i18next";
+import { useTranslation } from "@/lib/i18n";
 
 function MyComponent() {
   const { t } = useTranslation();
@@ -121,7 +126,7 @@ head() {
 
 **Translation key conventions:** Use dot-separated namespace paths (e.g., `offerDetail.table.seller`, `search.filters`, `freebies.headings.current`). Interpolation uses `{{variableName}}` format (e.g., `t("offerDetail.hero.offeredBy", { seller: offer.seller.name })`). Pluralization uses `_one` / `_other` suffixes.
 
-**Adding new strings:** Add the key to both `src/locales/en-US/translation.json` and `src/locales/es-ES/translation.json`, then use `t("namespace.key")` in the component. The type augmentation in `src/types/i18n.d.ts` will automatically provide type safety.
+**Adding new strings:** Add the key to `src/locales/en-US/translation.json` (plus any locale that should not inherit the English text), then use `t("namespace.key")` in the component and run `pnpm i18n:build` to regenerate the catalogs (dev/build/typecheck already do this). Avoid module-scope `t()` calls: the client loads its catalog before hydration, but anything evaluated earlier falls back to the key name.
 
 **Updating one translation:** Prefer `node scripts/add-translation.mjs <locale> <dot.key> "<localized string>"` for single-key additions or updates. It refuses keys that do not exist in `en-US`, rejects duplicate-key JSON files, preserves placeholders and inline tags, and writes valid formatted JSON. Use `pnpm locales:validate` for full locale structure checks when the locale is expected to be complete.
 

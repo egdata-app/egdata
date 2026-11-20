@@ -1,7 +1,7 @@
 import { createRootRouteWithContext } from "@tanstack/react-router";
 import { Link } from "@/components/app/localized-link";
 import { Outlet, HeadContent, Scripts } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useMemo, type ReactNode } from "react";
 import Navbar from "@/components/app/navbar";
 import { queryOptions, type QueryClient } from "@tanstack/react-query";
 import { CountryProvider } from "@/providers/country";
@@ -16,7 +16,7 @@ import { PreferencesProvider } from "@/providers/preferences";
 import { CompareProvider } from "@/providers/compare";
 import { LocaleProvider } from "@/providers/locale";
 import "@/lib/paraglide-strategy";
-import i18n from "@/lib/i18n";
+import i18n, { getCatalogChunkUrl } from "@/lib/i18n";
 import { getLocale } from "@/paraglide/runtime.js";
 import { localeFromPathname } from "@/lib/paraglide-strategy";
 import { isRTL } from "@/lib/supported-locales";
@@ -333,6 +333,21 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
   const { t } = useTranslation();
   const dir = isRTL(locale ?? "en-US") ? "rtl" : "ltr";
 
+  // Start the catalog download with the document instead of after the entry
+  // chunk runs; the client entry then hydrates without waiting a round trip.
+  const catalogChunkUrl = useMemo(() => {
+    const url = getCatalogChunkUrl(locale ?? getLocale());
+
+    if (url) return url;
+    if (typeof document === "undefined") return undefined;
+
+    // Hydration: mirror the tag rendered by the server so React sees the same head.
+    return (
+      document.querySelector<HTMLLinkElement>("link[data-i18n-catalog]")?.getAttribute("href") ??
+      undefined
+    );
+  }, [locale]);
+
   // Hydrate webApiKey synchronously on initial client render
   if (webApiKey && !httpClient.getWebApiKey()) {
     httpClient.setWebApiKey(webApiKey);
@@ -354,6 +369,14 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang={locale ?? "en"} dir={dir}>
       <head>
+        {catalogChunkUrl ? (
+          <link
+            rel="modulepreload"
+            href={catalogChunkUrl}
+            crossOrigin="anonymous"
+            data-i18n-catalog=""
+          />
+        ) : null}
         <HeadContent />
       </head>
       <body className="antialiased">
