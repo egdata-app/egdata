@@ -14,7 +14,10 @@ steps:
       - -ceu
       - |
         IMAGE="${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_IMAGE_NAME}"
-        TAG="${SHORT_SHA:-manual}"
+        # SHORT_SHA is a Cloud Build substitution, not a shell env var.
+        # Manual submits leave it empty, so fall back to the build ID.
+        TAG="$SHORT_SHA"
+        if [ -z "$${TAG}" ]; then TAG="$BUILD_ID"; fi
         docker buildx create --name cloudbuilder --driver docker-container --use
         docker buildx inspect --bootstrap
         docker buildx build \
