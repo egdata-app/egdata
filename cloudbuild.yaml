@@ -1,0 +1,49 @@
+substitutions:
+  _REGION: europe-west1
+  _REPOSITORY: dokploy
+  _IMAGE_NAME: egdata
+  # Baked into the SSR bundle at build time (same value production uses).
+  _ASSET_PREFIX: https://static.egdata.app
+  _DOKPLOY_WEBHOOK_SECRET: ""
+
+steps:
+  - id: build-and-push
+    name: gcr.io/cloud-builders/docker
+    entrypoint: bash
+    args:
+      - -ceu
+      - |
+        IMAGE="${_REGION}-docker.pkg.dev/${PROJECT_ID}/${_REPOSITORY}/${_IMAGE_NAME}"
+        TAG="${SHORT_SHA:-manual}"
+        docker buildx create --name cloudbuilder --driver docker-container --use
+        docker buildx inspect --bootstrap
+        docker buildx build \
+          --file Dockerfile \
+          --build-arg "ASSET_PREFIX=${_ASSET_PREFIX}" \
+          --cache-from "type=registry,ref=$${IMAGE}:buildcache" \
+          --cache-to "type=registry,ref=$${IMAGE}:buildcache,mode=max" \
+          --tag "$${IMAGE}:latest" \
+          --tag "$${IMAGE}:$${TAG}" \
+          --push \
+          .
+
+  - id: trigger-dokploy
+    name: gcr.io/google.com/cloudsdktool/cloud-sdk:slim
+    entrypoint: bash
+    args:
+      - -ceu
+      - |
+        if [[ -z "${_DOKPLOY_WEBHOOK_SECRET}" ]]; then
+          echo "Skipping Dokploy webhook (_DOKPLOY_WEBHOOK_SECRET is empty)."
+          exit 0
+        fi
+        WEBHOOK_URL="$(gcloud secrets versions access latest --secret="${_DOKPLOY_WEBHOOK_SECRET}" | tr -d '\r\n')"
+        curl -fsSL -X POST "$${WEBHOOK_URL}"
+        echo "Triggered Dokploy deploy webhook."
+
+options:
+  # Node/rsbuild build; no native toolchain, so 8 vCPU is enough.
+  # Switch to E2_STANDARD_8 if the build runs out of memory.
+  machineType: E2_HIGHCPU_8
+  logging: CLOUD_LOGGING_ONLY
+timeout: 1800s

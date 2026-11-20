@@ -1,0 +1,18 @@
+# Only used by `gcloud builds submit`. GitHub-triggered builds use .dockerignore.
+.git/
+.github/
+node_modules/
+dist/
+tests/
+playwright-report/
+test-results/
+docs/
+dev-dist/
+.cache/
+.nitro/
+.output/
+.tanstack/
+certs/
+*.log
+.env
+.env.*
