@@ -12,7 +12,11 @@ export function historicalLowsQueryOptions(country: string) {
       const envelope = await httpClient.v1GetEnvelope<SingleOfferWithPrice[], V1SearchMeta>(
         "/search",
         {
-          params: toV1SearchParams(historicalLowsSearch, { country, facets: "none" }),
+          params: toV1SearchParams(historicalLowsSearch, {
+            country,
+            facets: "none",
+            fields: "card",
+          }),
         },
       );
       return normalizeV1SearchResponse(envelope, 1, historicalLowsSearch.limit);

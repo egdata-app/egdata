@@ -10,18 +10,21 @@ import {
 } from "@/components/ui/table";
 import { useCountry } from "@/hooks/use-country";
 import { useLocale } from "@/hooks/use-locale";
-import { httpClient } from "@/lib/http-client";
-import { shouldRetryQueryWithLimit } from "@/lib/pow/query-retry";
-import { getUpcoming } from "@/queries/upcoming";
-import { getLatestOffers } from "@/queries/latest-offers";
-import { getLatestReleased } from "@/queries/latest-released";
-import { getOffersWithAchievements } from "@/queries/offers-with-achievements";
 import { getStats } from "@/queries/stats";
-import { getTopSellers } from "@/queries/top-sellers";
-import { historicalLowsQueryOptions } from "@/queries/historical-lows";
-import type { GiveawayOffer } from "@/types/giveaways";
-import type { KeyImage } from "@/types/single-offer";
-import type { SingleItem } from "@/types/single-item";
+import {
+  homeAchievementsQueryOptions,
+  homeGiveawaysQueryOptions,
+  homeHistoricalLowsQueryOptions,
+  homeLatestBuildsQueryOptions,
+  homeLatestOffersQueryOptions,
+  homeLatestReleasedQueryOptions,
+  homePulseBaseQueryOptions,
+  homePulseQueryOptions,
+  homeTopSellersQueryOptions,
+  homeUpcomingQueryOptions,
+  type HomeBuild,
+  type HomePulseChange,
+} from "@/queries/home";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@/components/app/localized-link";
@@ -59,14 +62,12 @@ import { getOfferOverview } from "@/queries/offer-overview";
 import { formatTimeToHumanReadable } from "@/lib/time-to-human-readable";
 import { Countdown } from "@/components/ui/countdown";
 import { useSearch } from "@/hooks/use-search";
-import { getBuilds } from "@/queries/get-builds";
 import { calculateSize } from "@/lib/calculate-size";
 import { BuildTitle } from "@/components/app/build-title";
 import { ClientBanner } from "@/components/modules/client-banner";
 import { getRarity } from "@/lib/get-rarity";
 import { EpicTrophyIcon } from "@/components/icons/epic-trophy";
 import { raritiesTextColors } from "@/components/app/achievement-card";
-import { mergeFreebies } from "@/utils/merge-freebies";
 import { RenderTextPlatformIcon } from "@/components/app/platform-icons";
 import { TruncatedText } from "@/lib/truncate-text";
 import { timeAgo } from "@/lib/time-ago";
@@ -88,36 +89,11 @@ function formatCurrentPrice(price: Price | null | undefined, locale: string | un
 
 type LiveChangeAction = "insert" | "update" | "delete" | string;
 
-type LiveChangeDelta = {
-  changeType: LiveChangeAction;
-  field: string;
-  newValue: unknown;
-  oldValue: unknown;
-};
+type LiveChangeDelta = HomePulseChange["metadata"]["changes"][number];
 
-type LiveChangeContext = {
-  _id?: string;
-  id?: string;
-  namespace?: string;
-  title?: string;
-  keyImages?: KeyImage[];
-  offerType?: string;
-  appName?: string;
-  buildVersion?: string;
-  name?: string;
-};
+type LiveChangeContext = NonNullable<HomePulseChange["metadata"]["context"]>;
 
-type LiveChangeEvent = {
-  _id: string;
-  timestamp: string;
-  metadata: {
-    changes: LiveChangeDelta[];
-    contextId: string;
-    contextType: string;
-    context?: LiveChangeContext | null;
-  };
-  __v?: number;
-};
+type LiveChangeEvent = HomePulseChange;
 
 type PulseEvent = {
   id: string;
@@ -131,26 +107,6 @@ type PulseEvent = {
   imageUrl?: string;
 };
 
-const liveChangelistBaseQueryOptions = () => ({
-  queryKey: ["changelist", "home-pulse"] as const,
-  queryFn: () =>
-    httpClient.v1Get<LiveChangeEvent[]>("/changelist", {
-      params: {
-        limit: 12,
-      },
-    }),
-  staleTime: 10_000,
-});
-
-const liveChangelistQueryOptions = () => ({
-  ...liveChangelistBaseQueryOptions(),
-  placeholderData: [] as LiveChangeEvent[],
-  refetchInterval: 25_000,
-  refetchIntervalInBackground: false,
-  refetchOnWindowFocus: true,
-  retry: shouldRetryQueryWithLimit(1),
-});
-
 export const Route = createFileRoute("/{-$locale}/")({
   component: RouteComponent,
 
@@ -160,45 +116,24 @@ export const Route = createFileRoute("/{-$locale}/")({
 
   loader: async ({ context }) => {
     const { queryClient, country } = context;
+    const pricingCountry = country ?? "US";
 
     await Promise.allSettled([
-      queryClient.prefetchQuery({
-        queryKey: ["giveaways"],
-        queryFn: () =>
-          httpClient
-            .v1Get<GiveawayOffer[]>("/free-games", {
-              params: {
-                country,
-              },
-            })
-            .then(mergeFreebies)
-            .catch(() => []),
-      }),
-      queryClient.prefetchQuery({
-        queryKey: ["upcoming", { country }],
-        queryFn: () => getUpcoming({ country: country ?? "US" }).catch(() => null),
-        staleTime: 6000,
-      }),
-      queryClient.prefetchQuery({
-        queryKey: ["latest-games"],
-        queryFn: () => getLatestOffers(country ?? "US").catch(() => []),
-      }),
-      queryClient.prefetchQuery({
-        queryKey: ["latest-released", { country }],
-        queryFn: () =>
-          getLatestReleased({ country: country ?? "US" }).catch(() => ({ elements: [] })),
-      }),
+      queryClient.prefetchQuery(homeGiveawaysQueryOptions(pricingCountry)),
+      queryClient.prefetchQuery(homeUpcomingQueryOptions(pricingCountry)),
+      queryClient.prefetchQuery(homeLatestOffersQueryOptions(pricingCountry)),
+      queryClient.prefetchQuery(homeLatestReleasedQueryOptions(pricingCountry)),
       queryClient.prefetchQuery({
         queryKey: ["stats", { country }],
-        queryFn: () => getStats({ country: country ?? "US" }).catch(() => null),
+        queryFn: () => getStats({ country: pricingCountry }).catch(() => null),
       }),
       queryClient.prefetchQuery({
         queryKey: ["giveaways-stats", { country }],
-        queryFn: () => getGiveawaysStats({ country: country ?? "US" }).catch(() => null),
+        queryFn: () => getGiveawaysStats({ country: pricingCountry }).catch(() => null),
       }),
-      queryClient.prefetchQuery(historicalLowsQueryOptions(country ?? "US")),
-      queryClient.prefetchQuery(liveChangelistBaseQueryOptions()),
-      queryClient.prefetchQuery(getBuilds({ sortDir: "desc", sortBy: "createdAt" })),
+      queryClient.prefetchQuery(homeHistoricalLowsQueryOptions(pricingCountry)),
+      queryClient.prefetchQuery(homePulseBaseQueryOptions()),
+      queryClient.prefetchQuery(homeLatestBuildsQueryOptions()),
     ]);
   },
 });
@@ -413,19 +348,7 @@ function OfferHoverCard({ id }: { id: string }) {
   );
 }
 
-function BuildHoverCard({
-  id,
-  builds,
-}: {
-  id: string;
-  builds: Array<{
-    _id: string;
-    item: SingleItem;
-    downloadSizeBytes: number;
-    createdAt: string;
-    buildVersion?: string;
-  }>;
-}) {
+function BuildHoverCard({ id, builds }: { id: string; builds: HomeBuild[] }) {
   const { t } = useTranslation();
   const build = builds.find((b) => b._id === id);
 
@@ -536,40 +459,27 @@ function RouteComponent() {
   ] = useQueries({
     queries: [
       {
-        queryKey: ["giveaways"],
-        queryFn: () =>
-          httpClient
-            .v1Get<GiveawayOffer[]>("/free-games", {
-              params: {
-                country,
-              },
-            })
-            .then(mergeFreebies),
+        ...homeGiveawaysQueryOptions(country),
         placeholderData: [],
       },
       {
-        queryKey: ["upcoming", { country }],
-        queryFn: () => getUpcoming({ country }),
-        placeholderData: { elements: [] },
-      },
-      {
-        queryKey: ["latest-games"],
-        queryFn: () => getLatestOffers(country),
+        ...homeUpcomingQueryOptions(country),
         placeholderData: [],
       },
       {
-        queryKey: ["latest-released", { country }],
-        queryFn: () => getLatestReleased({ country }),
-        placeholderData: { elements: [] },
-      },
-      {
-        queryKey: ["offers-with-achievements", { country }],
-        queryFn: () => getOffersWithAchievements(country),
+        ...homeLatestOffersQueryOptions(country),
         placeholderData: [],
       },
       {
-        queryKey: ["top-sellers", { country }],
-        queryFn: () => getTopSellers(country),
+        ...homeLatestReleasedQueryOptions(country),
+        placeholderData: [],
+      },
+      {
+        ...homeAchievementsQueryOptions(country),
+        placeholderData: [],
+      },
+      {
+        ...homeTopSellersQueryOptions(country),
         placeholderData: [],
       },
       {
@@ -583,20 +493,15 @@ function RouteComponent() {
         },
       },
       {
-        ...getBuilds({
-          sortDir: "desc",
-          sortBy: "createdAt",
-        }),
+        ...homeLatestBuildsQueryOptions(),
         placeholderData: [],
       },
     ],
   });
-  const historicalLowsQuery = useQuery(historicalLowsQueryOptions(country));
-  const liveChangelistQuery = useQuery(liveChangelistQueryOptions());
+  const historicalLowsQuery = useQuery(homeHistoricalLowsQueryOptions(country));
+  const liveChangelistQuery = useQuery(homePulseQueryOptions());
   const { data: giveawayOffers = [] } = freebiesQuery;
-  const { data: upcomingOffers = { elements: [] } } = upcomingQuery;
   const { data: latestOffers = [] } = latestGamesQuery;
-  const { data: latestReleasedOffers = { elements: [] } } = latestReleasedQuery;
   const { data: achievementOffers = [] } = achievementsQuery;
   const { data: topSellerOffers = [] } = topSellersQuery;
   const stats = statsQuery.data ?? {
@@ -606,10 +511,8 @@ function RouteComponent() {
     giveaways: 0,
   };
   const { data: latestBuilds = [] } = latestBuildsQuery;
-  const upcomingOfferRows = Array.isArray(upcomingOffers?.elements) ? upcomingOffers.elements : [];
-  const latestReleasedOfferRows = Array.isArray(latestReleasedOffers?.elements)
-    ? latestReleasedOffers.elements
-    : [];
+  const { data: upcomingOfferRows = [] } = upcomingQuery;
+  const { data: latestReleasedOfferRows = [] } = latestReleasedQuery;
 
   function formatDate(iso: string) {
     return DateTime.fromISO(iso)
@@ -943,7 +846,7 @@ function RouteComponent() {
       </div>
 
       <HistoricalLowsStrip
-        offers={historicalLowsQuery.data?.offers ?? []}
+        offers={historicalLowsQuery.data ?? []}
         isLoading={historicalLowsQuery.isLoading}
         isError={historicalLowsQuery.isError}
       />

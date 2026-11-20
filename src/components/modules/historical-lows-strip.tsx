@@ -13,12 +13,12 @@ import { getImage } from "@/lib/get-image";
 import { offersDictionary } from "@/lib/offers-dictionary";
 import { useLocale } from "@/hooks/use-locale";
 import { useTranslation } from "@/lib/paraglide-react";
-import type { SearchV2Response } from "@/types/search-v2";
+import type { HomeHistoricalLowOffer } from "@/queries/home";
 import { DateTime } from "luxon";
 import { getCurrentHistoricalLowOffers, getEffectivePrice } from "@/lib/effective-price";
 
 type HistoricalLowsStripProps = {
-  offers: SearchV2Response["offers"];
+  offers: HomeHistoricalLowOffer[];
   isLoading: boolean;
   isError: boolean;
 };
@@ -87,7 +87,7 @@ export function HistoricalLowsStrip({ offers, isLoading, isError }: HistoricalLo
   );
 }
 
-function HistoricalLowOffer({ offer }: { offer: SearchV2Response["offers"][number] }) {
+function HistoricalLowOffer({ offer }: { offer: HomeHistoricalLowOffer }) {
   const { t } = useTranslation();
   const { locale } = useLocale();
   const price = (getEffectivePrice(offer.price) ?? offer.price).price;

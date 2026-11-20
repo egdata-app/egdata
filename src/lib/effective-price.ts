@@ -1,5 +1,4 @@
 import type { AppliedRule, Price } from "@/types/price";
-import type { SingleOfferWithPrice } from "@/types/single-offer-price";
 
 export interface EffectivePriceHistoryEntry {
   price: Price;
@@ -90,8 +89,8 @@ export function hasEffectiveDiscount(
     : false;
 }
 
-export function getCurrentHistoricalLowOffers(
-  offers: SingleOfferWithPrice[],
+export function getCurrentHistoricalLowOffers<T extends { price: Price | null | undefined }>(
+  offers: T[],
   at: Date | string | number = new Date(),
 ) {
   return offers.filter((offer) => hasEffectiveDiscount(offer.price, at));
