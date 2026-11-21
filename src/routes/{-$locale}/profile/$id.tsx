@@ -25,12 +25,12 @@ import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { getQueryClient } from "@/lib/client";
 import {
   Dialog,
-  DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Button as AriaButton } from "react-aria-components";
 import {
   CalendarIcon,
   CrownIcon,
@@ -44,10 +44,10 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { ExclamationTriangleIcon, ReloadIcon } from "@radix-ui/react-icons";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
 import { getAccountIcon } from "@/components/app/platform-icons";
 import { Separator } from "@/components/ui/separator";
 import { EGSIcon } from "@/components/icons/egs";
@@ -268,269 +268,265 @@ function RouteComponent() {
   const percentToNextLevel = (xpInCurrentLevel / 250) * 100;
 
   return (
-    <TooltipProvider>
-      <main className="flex min-h-screen w-full flex-col pb-12">
-        <section className="relative isolate -mx-4 overflow-hidden px-4 pb-10 pt-8 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-          <ProfileHeroBackground imageUrl={heroGame?.imageUrl} title={displayName} />
-          <div className="mx-auto flex w-full max-w-7xl flex-col gap-8">
-            <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-              <div className="flex flex-col gap-5 sm:flex-row sm:items-end">
-                {isOwner ? (
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <button type="button" className="group relative size-32 shrink-0">
-                        <img
-                          src={avatarUrl}
-                          alt={displayName}
-                          className="size-32 rounded-full border border-white/20 object-cover shadow-2xl"
-                        />
-                        <DonnorBadge profile={profile} displayName={displayName} />
-                        <span className="absolute inset-0 flex items-center justify-center rounded-full bg-black/55 opacity-0 transition-opacity group-hover:opacity-100">
-                          <UploadIcon className="size-6 text-foreground" />
-                        </span>
-                      </button>
-                    </DialogTrigger>
-                    <DialogContent>
-                      <DialogHeader>
-                        <DialogTitle>{t("profile.avatar.changeAvatar")}</DialogTitle>
-                        <DialogDescription>
-                          {t("profile.avatar.dialogDescription")}
-                        </DialogDescription>
-                      </DialogHeader>
-                      <form
-                        className="space-y-6"
-                        onSubmit={async (event) => {
-                          event.preventDefault();
-                          const formData = new FormData(event.currentTarget);
-                          await handleAvatarUpload(formData);
-                        }}
-                      >
-                        <div className="flex items-center space-x-4">
-                          <Avatar className="h-24 w-24">
-                            <AvatarImage
-                              src={selectedImagePreviewUrl ?? avatarUrl}
-                              alt={t("profile.avatar.previewAlt")}
-                            />
-                            <AvatarFallback>{t("profile.avatar.fallback")}</AvatarFallback>
-                          </Avatar>
-                          <div className="space-y-2">
-                            <Label htmlFor="avatar-upload">
-                              {t("profile.avatar.changeAvatar")}
-                            </Label>
-                            <Input
-                              id="avatar-upload"
-                              name="avatar"
-                              type="file"
-                              accept="image/*"
-                              onChange={(e) => {
-                                if (e.target.files?.[0]) setSelectedImage(e.target.files?.[0]);
-                              }}
-                              className="w-full max-w-xs"
-                              aria-describedby="avatar-upload-description"
-                              disabled={isUploading}
-                            />
-                            <p
-                              id="avatar-upload-description"
-                              className="text-sm text-muted-foreground"
-                            >
-                              {t("profile.avatar.description")}
-                            </p>
-                          </div>
-                        </div>
-                        {isUploading && (
-                          <div className="w-full space-y-2">
-                            <div className="h-2 w-full overflow-hidden rounded-full bg-gray-200">
-                              <div
-                                className="h-full bg-primary transition-all duration-300 ease-in-out"
-                                style={{ width: `${uploadProgress}%` }}
-                              />
-                            </div>
-                            <p className="text-center text-sm text-muted-foreground">
-                              {t("profile.avatar.uploadingWithProgress", {
-                                progress: uploadProgress,
-                              })}
-                            </p>
-                          </div>
-                        )}
-                        <Button
-                          type="submit"
-                          disabled={!selectedImage || avatarErrors.length > 0 || isUploading}
-                          className="w-full"
-                        >
-                          {isUploading ? (
-                            <>
-                              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                              {t("profile.avatar.uploading")}
-                            </>
-                          ) : (
-                            t("profile.avatar.updateAvatar")
-                          )}
-                        </Button>
-                        {avatarErrors.length > 0 && (
-                          <Alert variant="destructive">
-                            <ExclamationTriangleIcon className="h-4 w-4" />
-                            <AlertTitle>{t("profile.avatar.errorTitle")}</AlertTitle>
-                            <AlertDescription className="flex flex-col gap-1">
-                              {avatarErrors.map((error, index) => (
-                                // biome-ignore lint/suspicious/noArrayIndexKey: unique key
-                                <span key={index}>{error}</span>
-                              ))}
-                            </AlertDescription>
-                          </Alert>
-                        )}
-                      </form>
-                    </DialogContent>
-                  </Dialog>
-                ) : (
-                  <div className="relative size-32 shrink-0">
+    <main className="flex min-h-screen w-full flex-col pb-12">
+      <section className="relative isolate -mx-4 overflow-hidden px-4 pb-10 pt-8 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+        <ProfileHeroBackground imageUrl={heroGame?.imageUrl} title={displayName} />
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-8">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="flex flex-col gap-5 sm:flex-row sm:items-end">
+              {isOwner ? (
+                <DialogTrigger>
+                  <AriaButton className="group relative size-32 shrink-0">
                     <img
                       src={avatarUrl}
                       alt={displayName}
                       className="size-32 rounded-full border border-white/20 object-cover shadow-2xl"
                     />
                     <DonnorBadge profile={profile} displayName={displayName} />
-                  </div>
-                )}
-
-                <div className="min-w-0 space-y-4">
-                  <PlayerName displayName={displayName} donorProfile={profile} />
-                  <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm text-foreground">
-                    {linkedAccounts.length > 0 && (
-                      <div className="inline-flex items-center gap-4">
-                        {linkedAccounts
-                          .filter((account) => getAccountIcon(account))
-                          .map((account) => (
-                            <Tooltip key={account.identityProviderId}>
-                              <TooltipTrigger className="inline-flex items-center">
-                                {getAccountIcon(account)}
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p className="text-sm font-medium">{account.displayName}</p>
-                              </TooltipContent>
-                            </Tooltip>
-                          ))}
-                      </div>
-                    )}
-                    {linkedAccounts.length > 0 && profile.creationDate && (
-                      <Separator orientation="vertical" className="h-5 bg-white/25" />
-                    )}
-                    {profile.creationDate && (
-                      <span className="inline-flex items-center gap-2 text-foreground">
-                        <CalendarIcon className="size-4" />
-                        {t("profile.hero.joined")}{" "}
-                        {new Date(profile.creationDate).toLocaleDateString("en-US", {
-                          year: "numeric",
-                          month: "long",
-                        })}
-                      </span>
-                    )}
-                    <Separator orientation="vertical" className="hidden h-5 bg-white/25 sm:block" />
-                    <a
-                      href={`https://store.epicgames.com/u/${accountId}?utm_source=egdata.app`}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      className="inline-flex items-center gap-2 text-foreground hover:text-primary"
+                    <span className="absolute inset-0 flex items-center justify-center rounded-full bg-black/55 opacity-0 transition-opacity group-hover:opacity-100">
+                      <UploadIcon className="size-6 text-foreground" />
+                    </span>
+                  </AriaButton>
+                  <Dialog>
+                    <DialogHeader>
+                      <DialogTitle>{t("profile.avatar.changeAvatar")}</DialogTitle>
+                      <DialogDescription>{t("profile.avatar.dialogDescription")}</DialogDescription>
+                    </DialogHeader>
+                    <form
+                      className="space-y-6"
+                      onSubmit={async (event) => {
+                        event.preventDefault();
+                        const formData = new FormData(event.currentTarget);
+                        await handleAvatarUpload(formData);
+                      }}
                     >
-                      <EGSIcon className="size-4" />
-                      <span>{t("profile.hero.epicGamesStore")}</span>
-                      <ExternalLinkIcon className="size-3" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-2 lg:justify-end">
-                {profile.discord === false && isOwner && (
-                  <Button asChild variant="outline" className="bg-[#5865f2] hover:bg-[#4752c4]">
-                    <a href={`${httpClient.axiosInstance.defaults.baseURL}/auth/discord/link`}>
-                      <DiscordIcon className="size-4" fill="white" />
-                      <span>{t("profile.hero.linkDiscord")}</span>
-                    </a>
-                  </Button>
-                )}
-                <RefreshProfile id={accountId} />
-              </div>
-            </div>
-
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-              <HeroStat
-                label={t("profile.hero.level")}
-                value={highlights.level}
-                detail={`${highlights.totalXP.toLocaleString()} XP`}
-                icon={<LevelIcon className="size-5" />}
-              />
-              <HeroStat
-                label={t("profile.hero.achievements")}
-                value={highlights.totalAchievements}
-                detail={t("profile.hero.unlocked")}
-                icon={<EpicTrophyIcon className="size-5" />}
-              />
-              <HeroStat
-                label={t("profile.hero.platinum")}
-                value={highlights.totalPlatinums}
-                detail={t("profile.hero.perfectGames")}
-                icon={
-                  <EpicPlatinumIcon
-                    className={cn("size-5", highlights.totalPlatinums > 0 && "text-[#8a7cff]")}
+                      <div className="flex items-center space-x-4">
+                        <Avatar className="h-24 w-24">
+                          <AvatarImage
+                            src={selectedImagePreviewUrl ?? avatarUrl}
+                            alt={t("profile.avatar.previewAlt")}
+                          />
+                          <AvatarFallback>{t("profile.avatar.fallback")}</AvatarFallback>
+                        </Avatar>
+                        <div className="space-y-2">
+                          <Label htmlFor="avatar-upload">{t("profile.avatar.changeAvatar")}</Label>
+                          <Input
+                            id="avatar-upload"
+                            name="avatar"
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => {
+                              if (e.target.files?.[0]) setSelectedImage(e.target.files?.[0]);
+                            }}
+                            className="w-full max-w-xs"
+                            aria-describedby="avatar-upload-description"
+                            disabled={isUploading}
+                          />
+                          <p
+                            id="avatar-upload-description"
+                            className="text-sm text-muted-foreground"
+                          >
+                            {t("profile.avatar.description")}
+                          </p>
+                        </div>
+                      </div>
+                      {isUploading && (
+                        <div className="w-full space-y-2">
+                          <div className="h-2 w-full overflow-hidden rounded-full bg-gray-200">
+                            <div
+                              className="h-full bg-primary transition-all duration-300 ease-in-out"
+                              style={{ width: `${uploadProgress}%` }}
+                            />
+                          </div>
+                          <p className="text-center text-sm text-muted-foreground">
+                            {t("profile.avatar.uploadingWithProgress", {
+                              progress: uploadProgress,
+                            })}
+                          </p>
+                        </div>
+                      )}
+                      <Button
+                        type="submit"
+                        isDisabled={!selectedImage || avatarErrors.length > 0 || isUploading}
+                        className="w-full"
+                      >
+                        {isUploading ? (
+                          <>
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            {t("profile.avatar.uploading")}
+                          </>
+                        ) : (
+                          t("profile.avatar.updateAvatar")
+                        )}
+                      </Button>
+                      {avatarErrors.length > 0 && (
+                        <Alert variant="destructive">
+                          <ExclamationTriangleIcon className="h-4 w-4" />
+                          <AlertTitle>{t("profile.avatar.errorTitle")}</AlertTitle>
+                          <AlertDescription className="flex flex-col gap-1">
+                            {avatarErrors.map((error, index) => (
+                              // biome-ignore lint/suspicious/noArrayIndexKey: unique key
+                              <span key={index}>{error}</span>
+                            ))}
+                          </AlertDescription>
+                        </Alert>
+                      )}
+                    </form>
+                  </Dialog>
+                </DialogTrigger>
+              ) : (
+                <div className="relative size-32 shrink-0">
+                  <img
+                    src={avatarUrl}
+                    alt={displayName}
+                    className="size-32 rounded-full border border-white/20 object-cover shadow-2xl"
                   />
-                }
-              />
-              <HeroStat
-                label={t("profile.hero.library")}
-                value={highlights.totalGames}
-                detail={t("profile.hero.achievementGames")}
-                icon={<Gamepad2Icon className="size-5" />}
-              />
-              <HeroStat
-                label={t("profile.hero.reviews")}
-                value={highlights.reviewsCount}
-                detail={t("profile.hero.contributed")}
-                icon={<MessageSquareQuoteIcon className="size-5" />}
-              />
-            </div>
+                  <DonnorBadge profile={profile} displayName={displayName} />
+                </div>
+              )}
 
-            <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-end">
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-sm text-foreground">
-                  <span className="inline-flex items-center gap-2">
-                    <SparklesIcon className="size-4" />
-                    {t("profile.hero.xpToNextLevel", {
-                      xp: xpToNextLevel,
-                      level: highlights.level + 1,
-                    })}
-                  </span>
-                  <span>{Math.round(percentToNextLevel)}%</span>
-                </div>
-                <div className="h-2 overflow-hidden rounded-full bg-white/15">
-                  <div
-                    className="h-full rounded-full bg-white"
-                    style={{ width: `${percentToNextLevel}%` }}
-                  />
-                </div>
-              </div>
-              {heroGame &&
-                (heroGame.sandboxId ? (
-                  <Link
-                    to="/{-$locale}/profile/$id/achievements/$sandbox"
-                    params={{ id: accountId, sandbox: heroGame.sandboxId }}
-                    className="group flex items-center justify-between gap-4 rounded-md border border-white/15 bg-black/35 p-4 text-left transition-colors hover:bg-black/50"
+              <div className="min-w-0 space-y-4">
+                <PlayerName displayName={displayName} donorProfile={profile} />
+                <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm text-foreground">
+                  {linkedAccounts.length > 0 && (
+                    <div className="inline-flex items-center gap-4">
+                      {linkedAccounts
+                        .filter((account) => getAccountIcon(account))
+                        .map((account) => (
+                          <TooltipTrigger key={account.identityProviderId}>
+                            <span tabIndex={0} className="inline-flex items-center">
+                              {getAccountIcon(account)}
+                            </span>
+                            <Tooltip>
+                              <p className="text-sm font-medium">{account.displayName}</p>
+                            </Tooltip>
+                          </TooltipTrigger>
+                        ))}
+                    </div>
+                  )}
+                  {linkedAccounts.length > 0 && profile.creationDate && (
+                    <Separator orientation="vertical" className="h-5 bg-white/25" />
+                  )}
+                  {profile.creationDate && (
+                    <span className="inline-flex items-center gap-2 text-foreground">
+                      <CalendarIcon className="size-4" />
+                      {t("profile.hero.joined")}{" "}
+                      {new Date(profile.creationDate).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                      })}
+                    </span>
+                  )}
+                  <Separator orientation="vertical" className="hidden h-5 bg-white/25 sm:block" />
+                  <a
+                    href={`https://store.epicgames.com/u/${accountId}?utm_source=egdata.app`}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="inline-flex items-center gap-2 text-foreground hover:text-primary"
                   >
-                    <HeroGameSummary game={heroGame} />
-                  </Link>
-                ) : (
-                  <div className="flex items-center justify-between gap-4 rounded-md border border-white/15 bg-black/35 p-4 text-left">
-                    <HeroGameSummary game={heroGame} />
-                  </div>
-                ))}
+                    <EGSIcon className="size-4" />
+                    <span>{t("profile.hero.epicGamesStore")}</span>
+                    <ExternalLinkIcon className="size-3" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2 lg:justify-end">
+              {profile.discord === false && isOwner && (
+                <a
+                  href={`${httpClient.axiosInstance.defaults.baseURL}/auth/discord/link`}
+                  className={cn(
+                    buttonVariants({ variant: "outline" }),
+                    "bg-[#5865f2] hover:bg-[#4752c4]",
+                  )}
+                >
+                  <DiscordIcon className="size-4" fill="white" />
+                  <span>{t("profile.hero.linkDiscord")}</span>
+                </a>
+              )}
+              <RefreshProfile id={accountId} />
             </div>
           </div>
-        </section>
 
-        <section className="mx-auto w-full max-w-7xl px-0 pt-6">
-          <Outlet />
-        </section>
-      </main>
-    </TooltipProvider>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+            <HeroStat
+              label={t("profile.hero.level")}
+              value={highlights.level}
+              detail={`${highlights.totalXP.toLocaleString()} XP`}
+              icon={<LevelIcon className="size-5" />}
+            />
+            <HeroStat
+              label={t("profile.hero.achievements")}
+              value={highlights.totalAchievements}
+              detail={t("profile.hero.unlocked")}
+              icon={<EpicTrophyIcon className="size-5" />}
+            />
+            <HeroStat
+              label={t("profile.hero.platinum")}
+              value={highlights.totalPlatinums}
+              detail={t("profile.hero.perfectGames")}
+              icon={
+                <EpicPlatinumIcon
+                  className={cn("size-5", highlights.totalPlatinums > 0 && "text-[#8a7cff]")}
+                />
+              }
+            />
+            <HeroStat
+              label={t("profile.hero.library")}
+              value={highlights.totalGames}
+              detail={t("profile.hero.achievementGames")}
+              icon={<Gamepad2Icon className="size-5" />}
+            />
+            <HeroStat
+              label={t("profile.hero.reviews")}
+              value={highlights.reviewsCount}
+              detail={t("profile.hero.contributed")}
+              icon={<MessageSquareQuoteIcon className="size-5" />}
+            />
+          </div>
+
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px] lg:items-end">
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-sm text-foreground">
+                <span className="inline-flex items-center gap-2">
+                  <SparklesIcon className="size-4" />
+                  {t("profile.hero.xpToNextLevel", {
+                    xp: xpToNextLevel,
+                    level: highlights.level + 1,
+                  })}
+                </span>
+                <span>{Math.round(percentToNextLevel)}%</span>
+              </div>
+              <div className="h-2 overflow-hidden rounded-full bg-white/15">
+                <div
+                  className="h-full rounded-full bg-white"
+                  style={{ width: `${percentToNextLevel}%` }}
+                />
+              </div>
+            </div>
+            {heroGame &&
+              (heroGame.sandboxId ? (
+                <Link
+                  to="/{-$locale}/profile/$id/achievements/$sandbox"
+                  params={{ id: accountId, sandbox: heroGame.sandboxId }}
+                  className="group flex items-center justify-between gap-4 rounded-md border border-white/15 bg-black/35 p-4 text-left transition-colors hover:bg-black/50"
+                >
+                  <HeroGameSummary game={heroGame} />
+                </Link>
+              ) : (
+                <div className="flex items-center justify-between gap-4 rounded-md border border-white/15 bg-black/35 p-4 text-left">
+                  <HeroGameSummary game={heroGame} />
+                </div>
+              ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-7xl px-0 pt-6">
+        <Outlet />
+      </section>
+    </main>
   );
 }
 
@@ -740,19 +736,17 @@ function DonnorBadge({
   if (donations === 0) return null;
 
   return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <span
-          className="absolute right-0 top-0 inline-flex rounded-full bg-gradient-to-r from-blue-500 via-purple-600 to-pink-600 p-1.5 shadow-lg"
-          tabIndex={0}
-        >
-          <CrownIcon className="h-5 w-5 text-foreground" />
-        </span>
-      </TooltipTrigger>
-      <TooltipContent
+    <TooltipTrigger>
+      <span
+        className="absolute right-0 top-0 inline-flex rounded-full bg-gradient-to-r from-blue-500 via-purple-600 to-pink-600 p-1.5 shadow-lg"
+        tabIndex={0}
+      >
+        <CrownIcon className="h-5 w-5 text-foreground" />
+      </span>
+      <Tooltip
         className="flex flex-col gap-2 rounded-md p-4 text-sm font-normal"
-        side="right"
-        sideOffset={10}
+        placement="right"
+        offset={10}
       >
         <p>{t("profile.donor.donated", { count: donations, name: displayName })}</p>
         <p className="inline-flex items-center gap-1">
@@ -762,8 +756,8 @@ function DonnorBadge({
           </Link>
           {t("profile.donor.toDonateKey")}
         </p>
-      </TooltipContent>
-    </Tooltip>
+      </Tooltip>
+    </TooltipTrigger>
   );
 }
 
@@ -783,24 +777,22 @@ function RefreshProfile({ id }: { id: string }) {
   };
 
   return (
-    <Tooltip delayDuration={0} open={refreshStatus?.canRefresh ? false : undefined}>
-      <TooltipTrigger asChild>
-        <Button
-          onClick={handleRefresh}
-          disabled={isRefreshing || !refreshStatus?.canRefresh}
-          className="border border-primary/40 bg-primary text-primary-foreground shadow-md shadow-primary/20 hover:bg-primary/90 hover:shadow-primary/30 disabled:border-white/15 disabled:bg-muted/90 disabled:text-muted-foreground disabled:shadow-none disabled:opacity-100"
-        >
-          <ReloadIcon className={cn("size-4", isRefreshing && "animate-spin")} />
-          <span className="text-sm font-medium">{t("profile.hero.refreshProfile")}</span>
-        </Button>
-      </TooltipTrigger>
-      <TooltipContent sideOffset={5}>
+    <TooltipTrigger delay={0} isDisabled={Boolean(refreshStatus?.canRefresh)}>
+      <Button
+        onPress={handleRefresh}
+        isDisabled={isRefreshing || !refreshStatus?.canRefresh}
+        className="border border-primary/40 bg-primary text-primary-foreground shadow-md shadow-primary/20 hover:bg-primary/90 hover:shadow-primary/30 disabled:border-white/15 disabled:bg-muted/90 disabled:text-muted-foreground disabled:shadow-none disabled:opacity-100"
+      >
+        <ReloadIcon className={cn("size-4", isRefreshing && "animate-spin")} />
+        <span className="text-sm font-medium">{t("profile.hero.refreshProfile")}</span>
+      </Button>
+      <Tooltip offset={5}>
         <p>
           {t("profile.hero.refreshAvailableIn")}{" "}
           <Countdown date={refreshStatus?.refreshAvailableAt ?? new Date()} refetch={refetch} />
         </p>
-      </TooltipContent>
-    </Tooltip>
+      </Tooltip>
+    </TooltipTrigger>
   );
 }
 

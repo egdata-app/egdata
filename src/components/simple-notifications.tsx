@@ -183,7 +183,7 @@ export function SimpleNotifications() {
           {!isSubscribed ? (
             <Button
               onClick={handleSubscribe}
-              disabled={loading}
+              isDisabled={loading}
               className="flex items-center gap-2"
             >
               {loading ? (
@@ -196,7 +196,7 @@ export function SimpleNotifications() {
           ) : (
             <Button
               onClick={handleUnsubscribe}
-              disabled={loading}
+              isDisabled={loading}
               variant="destructive"
               className="flex items-center gap-2"
             >
@@ -228,9 +228,9 @@ export function SimpleNotifications() {
                     <div key={topic.id} className="flex items-start space-x-3">
                       <Checkbox
                         id={topic.id}
-                        checked={isTopicSubscribed}
-                        onCheckedChange={() => handleTopicToggle(topic.id, isTopicSubscribed)}
-                        disabled={loading}
+                        isSelected={isTopicSubscribed}
+                        onChange={() => handleTopicToggle(topic.id, isTopicSubscribed)}
+                        isDisabled={loading}
                       />
                       <div className="grid gap-1.5 leading-none">
                         <label

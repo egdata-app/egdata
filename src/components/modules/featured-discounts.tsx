@@ -6,13 +6,13 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Image } from "@/components/app/image";
 import { getImage } from "@/lib/getImage";
 import type { Media } from "@/types/media";
 import { useCallback, useEffect, useMemo, useRef, useState, memo } from "react";
 import Autoplay from "embla-carousel-autoplay";
-import { TooltipProvider, TooltipTrigger, TooltipContent, Tooltip } from "@/components/ui/tooltip";
+import { TooltipTrigger, Tooltip } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { Badge } from "../ui/badge";
 import buildImageUrl from "@/lib/build-image-url";
@@ -200,8 +200,9 @@ const ProgressIndicator = memo(function ProgressIndicator({
   // Memoize the indicators array to prevent recreation on each render
   const indicators = useMemo(() => {
     return Array.from({ length: total }).map((_, i) => (
-      <Tooltip key={`tooltip-${offers[i]?.id}`} delayDuration={0}>
-        <TooltipTrigger
+      <TooltipTrigger key={`tooltip-${offers[i]?.id}`} delay={0}>
+        <button
+          type="button"
           className={cn(
             "block w-5 h-[5px] rounded-full cursor-pointer relative",
             "bg-muted/50",
@@ -217,8 +218,8 @@ const ProgressIndicator = memo(function ProgressIndicator({
               width: `${progress[i]}%`,
             }}
           />
-        </TooltipTrigger>
-        <TooltipContent className="p-0 bg-card" sideOffset={10}>
+        </button>
+        <Tooltip className="p-0 bg-card" offset={10}>
           {current !== i + 1 && (
             <img
               src={buildImageUrl(
@@ -234,15 +235,13 @@ const ProgressIndicator = memo(function ProgressIndicator({
               className="w-auto h-28 object-cover rounded-md"
             />
           )}
-        </TooltipContent>
-      </Tooltip>
+        </Tooltip>
+      </TooltipTrigger>
     ));
   }, [total, current, offers, progress, api]);
 
   return (
-    <div className="flex space-x-2 mt-4 mx-auto w-full justify-center min-h-1">
-      <TooltipProvider>{indicators}</TooltipProvider>
-    </div>
+    <div className="flex space-x-2 mt-4 mx-auto w-full justify-center min-h-1">{indicators}</div>
   );
 });
 
@@ -361,16 +360,15 @@ const FeaturedOffer = memo(function FeaturedOffer({ offer }: { offer: SingleOffe
           </div>
           <div className="mt-6">
             <Price offer={offer} />
-            <Button asChild size="lg" className="w-full mt-4">
-              <Link
-                to="/{-$locale}/offers/$id"
-                params={{
-                  id: offer.id,
-                }}
-              >
-                {t("components.featuredDiscounts.checkOffer")}
-              </Link>
-            </Button>
+            <Link
+              to="/{-$locale}/offers/$id"
+              params={{
+                id: offer.id,
+              }}
+              className={buttonVariants({ size: "lg", className: "w-full mt-4" })}
+            >
+              {t("components.featuredDiscounts.checkOffer")}
+            </Link>
           </div>
         </div>
       </div>

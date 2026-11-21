@@ -66,19 +66,19 @@ function NotificationsPage() {
         <p className="text-muted-foreground text-lg">{t("notifications.description")}</p>
       </div>
 
-      <Tabs defaultValue="setup" className="space-y-6">
+      <Tabs defaultSelectedKey="setup" className="space-y-6">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="setup" className="flex items-center gap-2">
+          <TabsTrigger id="setup" className="flex items-center gap-2">
             <Settings className="h-4 w-4" />
             {t("notifications.tabs.notifications")}
           </TabsTrigger>
-          <TabsTrigger value="manage" className="flex items-center gap-2">
+          <TabsTrigger id="manage" className="flex items-center gap-2">
             <Users className="h-4 w-4" />
             {t("notifications.tabs.mySubscriptions")}
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="setup" className="space-y-6">
+        <TabsContent id="setup" className="space-y-6">
           <SimpleNotifications />
 
           <Card>
@@ -118,7 +118,7 @@ function NotificationsPage() {
           </Card>
         </TabsContent>
 
-        <TabsContent value="manage" className="space-y-6">
+        <TabsContent id="manage" className="space-y-6">
           {error && (
             <Card className="border-destructive">
               <CardContent className="pt-6">

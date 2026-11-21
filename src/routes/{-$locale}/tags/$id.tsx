@@ -491,13 +491,16 @@ function RouteComponent() {
             onChange={handleInputChange}
             value={inputValue}
           />
-          <Select value={sortBy} onValueChange={(value) => setSortBy(value as SortBy)}>
+          <Select
+            selectedKey={sortBy}
+            onSelectionChange={(value) => setSortBy(String(value) as SortBy)}
+          >
             <SelectTrigger className="w-full sm:w-[180px]">
-              <SelectValue className="text-sm">{sortByDisplay[sortBy]}</SelectValue>
+              <SelectValue className="text-sm">{() => sortByDisplay[sortBy]}</SelectValue>
             </SelectTrigger>
             <SelectContent>
               {sortByKeys.map((key) => (
-                <SelectItem key={key} value={key}>
+                <SelectItem key={key} id={key}>
                   {sortByDisplay[key]}
                 </SelectItem>
               ))}
@@ -544,7 +547,7 @@ function RouteComponent() {
         )}
       </div>
       <div className="flex justify-center mt-8">
-        <Button disabled={!hasNextPage} onClick={() => fetchNextPage()}>
+        <Button isDisabled={!hasNextPage} onPress={() => fetchNextPage()}>
           {isFetchingNextPage && (
             <svg
               className="animate-spin -ml-1 mr-3 h-5 w-5"

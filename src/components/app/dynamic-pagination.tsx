@@ -3,9 +3,9 @@ import {
   PaginationContent,
   PaginationItem,
   PaginationEllipsis,
-  PaginationPreviousButton,
-  PaginationButton,
-  PaginationNextButton,
+  PaginationPrevious,
+  PaginationLink,
+  PaginationNext,
 } from "@/components/ui/pagination";
 
 interface PaginationProps {
@@ -31,10 +31,7 @@ export const DynamicPagination: React.FC<PaginationProps> = ({
   // Previous button
   items.push(
     <PaginationItem key="prev">
-      <PaginationPreviousButton
-        onClick={() => setPage(currentPage - 1)}
-        disabled={currentPage <= 1}
-      />
+      <PaginationPrevious onPress={() => setPage(currentPage - 1)} isDisabled={currentPage <= 1} />
     </PaginationItem>,
   );
 
@@ -42,9 +39,9 @@ export const DynamicPagination: React.FC<PaginationProps> = ({
   if (cursorMode) {
     items.push(
       <PaginationItem key={1}>
-        <PaginationButton onClick={() => setPage(1)} isActive={currentPage === 1}>
+        <PaginationLink onPress={() => setPage(1)} isActive={currentPage === 1}>
           1
-        </PaginationButton>
+        </PaginationLink>
       </PaginationItem>,
     );
 
@@ -60,18 +57,18 @@ export const DynamicPagination: React.FC<PaginationProps> = ({
       if (currentPage > 2) {
         items.push(
           <PaginationItem key={currentPage - 1}>
-            <PaginationButton onClick={() => setPage(currentPage - 1)}>
+            <PaginationLink onPress={() => setPage(currentPage - 1)}>
               {currentPage - 1}
-            </PaginationButton>
+            </PaginationLink>
           </PaginationItem>,
         );
       }
 
       items.push(
         <PaginationItem key={currentPage}>
-          <PaginationButton onClick={() => setPage(currentPage)} isActive>
+          <PaginationLink onPress={() => setPage(currentPage)} isActive>
             {currentPage}
-          </PaginationButton>
+          </PaginationLink>
         </PaginationItem>,
       );
     }
@@ -93,9 +90,9 @@ export const DynamicPagination: React.FC<PaginationProps> = ({
     if (effectiveTotalPages >= 1) {
       items.push(
         <PaginationItem key={1}>
-          <PaginationButton onClick={() => setPage(1)} isActive={currentPage === 1}>
+          <PaginationLink onPress={() => setPage(1)} isActive={currentPage === 1}>
             1
-          </PaginationButton>
+          </PaginationLink>
         </PaginationItem>,
       );
     }
@@ -103,9 +100,9 @@ export const DynamicPagination: React.FC<PaginationProps> = ({
     if (effectiveTotalPages >= 2) {
       items.push(
         <PaginationItem key={2}>
-          <PaginationButton onClick={() => setPage(2)} isActive={currentPage === 2}>
+          <PaginationLink onPress={() => setPage(2)} isActive={currentPage === 2}>
             2
-          </PaginationButton>
+          </PaginationLink>
         </PaginationItem>,
       );
     }
@@ -123,9 +120,9 @@ export const DynamicPagination: React.FC<PaginationProps> = ({
     if (currentPage > 2 && currentPage < effectiveTotalPages - 1) {
       items.push(
         <PaginationItem key={currentPage}>
-          <PaginationButton onClick={() => setPage(currentPage)} isActive>
+          <PaginationLink onPress={() => setPage(currentPage)} isActive>
             {currentPage}
-          </PaginationButton>
+          </PaginationLink>
         </PaginationItem>,
       );
     }
@@ -143,12 +140,12 @@ export const DynamicPagination: React.FC<PaginationProps> = ({
     if (effectiveTotalPages - 1 > 2) {
       items.push(
         <PaginationItem key={effectiveTotalPages - 1}>
-          <PaginationButton
-            onClick={() => setPage(effectiveTotalPages - 1)}
+          <PaginationLink
+            onPress={() => setPage(effectiveTotalPages - 1)}
             isActive={currentPage === effectiveTotalPages - 1}
           >
             {effectiveTotalPages - 1}
-          </PaginationButton>
+          </PaginationLink>
         </PaginationItem>,
       );
     }
@@ -156,12 +153,12 @@ export const DynamicPagination: React.FC<PaginationProps> = ({
     if (effectiveTotalPages >= 3) {
       items.push(
         <PaginationItem key={effectiveTotalPages}>
-          <PaginationButton
-            onClick={() => setPage(effectiveTotalPages)}
+          <PaginationLink
+            onPress={() => setPage(effectiveTotalPages)}
             isActive={currentPage === effectiveTotalPages}
           >
             {effectiveTotalPages}
-          </PaginationButton>
+          </PaginationLink>
         </PaginationItem>,
       );
     }
@@ -170,7 +167,7 @@ export const DynamicPagination: React.FC<PaginationProps> = ({
   // Next button
   items.push(
     <PaginationItem key="next">
-      <PaginationNextButton onClick={() => setPage(currentPage + 1)} disabled={!canGoNext} />
+      <PaginationNext onPress={() => setPage(currentPage + 1)} isDisabled={!canGoNext} />
     </PaginationItem>,
   );
 

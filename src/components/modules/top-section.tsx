@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { httpClient } from "@/lib/http-client";
 import type { SingleOffer } from "@/types/single-offer";
-import { Button } from "../ui/button";
+import { buttonVariants } from "../ui/button";
 import { Image } from "@/components/app/image";
 import { getImage } from "@/lib/getImage";
 import { cn } from "@/lib/utils";
@@ -180,11 +180,13 @@ export function TopSection({
                   </div>
                 ) : null}
               </div>
-              <Button asChild size="lg" className="w-full md:w-auto">
-                <Link to="/{-$locale}/offers/$id" params={{ id: offer.id }}>
-                  {t("components.topSection.checkOffer")}
-                </Link>
-              </Button>
+              <Link
+                to="/{-$locale}/offers/$id"
+                params={{ id: offer.id }}
+                className={buttonVariants({ size: "lg", className: "w-full md:w-auto" })}
+              >
+                {t("components.topSection.checkOffer")}
+              </Link>
             </div>
           </div>
         </div>

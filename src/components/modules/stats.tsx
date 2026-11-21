@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { httpClient as client } from "@/lib/http-client";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import { Tooltip, TooltipTrigger } from "../ui/tooltip";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "@/lib/paraglide-react";
 
@@ -68,19 +68,16 @@ export function StatsModule() {
 function Count({ value, label, tooltip }: { value: number; label: string; tooltip?: string }) {
   return (
     <div>
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger
-            className={cn(
-              "text-xs text-muted-foreground",
-              tooltip ? "underline decoration-dotted underline-offset-4" : "cursor-default",
-            )}
-          >
+      {tooltip ? (
+        <TooltipTrigger>
+          <span className="text-xs text-muted-foreground underline decoration-dotted underline-offset-4">
             {label}
-          </TooltipTrigger>
-          {tooltip && <TooltipContent>{tooltip}</TooltipContent>}
-        </Tooltip>
-      </TooltipProvider>
+          </span>
+          <Tooltip>{tooltip}</Tooltip>
+        </TooltipTrigger>
+      ) : (
+        <span className="text-xs text-muted-foreground cursor-default">{label}</span>
+      )}
       <p className="text-lg font-semibold">{value.toLocaleString()}</p>
     </div>
   );

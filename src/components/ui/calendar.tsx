@@ -1,177 +1,263 @@
+"use client";
+
 import * as React from "react";
-import type { ComponentProps } from "react";
-import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
-import { DayPicker, getDefaultClassNames } from "react-day-picker";
-import type { DayButton } from "react-day-picker";
+import { cva } from "class-variance-authority";
+import { cn } from "cn";
+import {
+  Calendar as AriaCalendar,
+  CalendarGridHeader as AriaCalendarGridHeader,
+  RangeCalendar as AriaRangeCalendar,
+  CalendarCell,
+  CalendarGrid,
+  CalendarGridBody,
+  CalendarHeaderCell,
+  CalendarHeading,
+  CalendarMonthPicker,
+  CalendarYearPicker,
+  type CalendarCellRenderProps,
+  type CalendarProps,
+  type DateValue,
+  type RangeCalendarProps,
+} from "react-aria-components";
 
-import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { ArrowLeftIcon, ArrowRightIcon } from "@hugeicons/core-free-icons";
 
-function Calendar({
-  className,
-  classNames,
-  showOutsideDays = true,
+const cellVariants = cva(
+  "group/day relative mt-2 aspect-square h-full w-full cursor-default rounded-(--cell-radius) p-0 text-center select-none [&:is(:last-child>[data-selected=true])>div]:rounded-e-(--cell-radius)",
+  {
+    variants: {
+      showWeekNumber: {
+        false: "[&:is(:first-child>[data-selected=true])>div]:rounded-s-(--cell-radius)",
+        true: "[&:is(:nth-child(2)>[data-selected=true])>div]:rounded-s-(--cell-radius)",
+      },
+      isToday: {
+        true: "rounded-(--cell-radius) bg-muted text-foreground data-[selected=true]:rounded-none",
+      },
+      isSelectionStart: {
+        true: "relative isolate z-0 rounded-s-(--cell-radius) bg-muted after:absolute after:inset-y-0 after:end-0 after:w-4 after:bg-muted",
+      },
+      isSelectionEnd: {
+        true: "relative isolate z-0 rounded-e-(--cell-radius) bg-muted after:absolute after:inset-y-0 after:start-0 after:w-4 after:bg-muted",
+      },
+      isUnavailable: {
+        true: "text-muted-foreground opacity-50 [&>div]:line-through",
+      },
+      isDisabled: {
+        true: "text-muted-foreground opacity-50",
+      },
+      isOutsideMonth: {
+        true: "text-muted-foreground aria-selected:text-muted-foreground",
+      },
+    },
+  },
+);
+
+function Calendar<T extends DateValue, M extends "single" | "multiple" = "single">(
+  props: Omit<CalendarProps<T, M>, "visibleDuration"> & {
+    buttonVariant?: React.ComponentProps<typeof Button>["variant"];
+    captionLayout?: "label" | "dropdown";
+    numberOfMonths?: number;
+    showWeekNumber?: boolean;
+    headerFormat?: Intl.DateTimeFormatOptions;
+    renderCell?: (
+      renderProps: CalendarCellRenderProps & {
+        defaultChildren: React.ReactNode;
+      },
+    ) => React.ReactNode;
+  },
+) {
+  return (
+    <AriaCalendar
+      {...props}
+      data-slot="calendar"
+      visibleDuration={{ months: props.numberOfMonths || 1 }}
+      className={cn(
+        "group/calendar w-fit bg-background p-3 [--cell-radius:var(--radius-md)] [--cell-size:--spacing(6)] in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent",
+        props.className,
+      )}
+    >
+      <CalendarInner {...props} />
+    </AriaCalendar>
+  );
+}
+
+function RangeCalendar<T extends DateValue>(
+  props: RangeCalendarProps<T> & {
+    buttonVariant?: React.ComponentProps<typeof Button>["variant"];
+    captionLayout?: "label" | "dropdown";
+    headerFormat?: Intl.DateTimeFormatOptions;
+    numberOfMonths?: number;
+    showWeekNumber?: boolean;
+    renderCell?: (
+      renderProps: CalendarCellRenderProps & {
+        defaultChildren: React.ReactNode;
+      },
+    ) => React.ReactNode;
+  },
+) {
+  return (
+    <AriaRangeCalendar
+      {...props}
+      data-slot="calendar"
+      visibleDuration={{ months: props.numberOfMonths || 1 }}
+      className={cn(
+        "group/calendar w-fit bg-background p-3 [--cell-radius:var(--radius-md)] [--cell-size:--spacing(6)] in-data-[slot=card-content]:bg-transparent in-data-[slot=popover-content]:bg-transparent",
+        props.className,
+      )}
+    >
+      <CalendarInner {...props} isRange />
+    </AriaRangeCalendar>
+  );
+}
+
+function CalendarInner({
   captionLayout = "label",
   buttonVariant = "ghost",
-  formatters,
-  components,
-  ...props
-}: ComponentProps<typeof DayPicker> & {
-  buttonVariant?: ComponentProps<typeof Button>["variant"];
+  numberOfMonths = 1,
+  showWeekNumber = false,
+  headerFormat,
+  renderCell,
+  isRange,
+}: {
+  buttonVariant?: React.ComponentProps<typeof Button>["variant"];
+  captionLayout?: "label" | "dropdown";
+  numberOfMonths?: number;
+  showWeekNumber?: boolean;
+  headerFormat?: Intl.DateTimeFormatOptions;
+  renderCell?: (
+    renderProps: CalendarCellRenderProps & { defaultChildren: React.ReactNode },
+  ) => React.ReactNode;
+  isRange?: boolean;
 }) {
-  const defaultClassNames = getDefaultClassNames();
-
   return (
-    <DayPicker
-      showOutsideDays={showOutsideDays}
-      className={cn(
-        "bg-background group/calendar p-3 [--cell-size:--spacing(8)] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent",
-        String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
-        String.raw`rtl:**:[.rdp-button\_previous>svg]:rotate-180`,
-        className,
-      )}
-      captionLayout={captionLayout}
-      formatters={{
-        formatMonthDropdown: (date) => date.toLocaleString("en-GB", { month: "short" }),
-        ...formatters,
-      }}
-      classNames={{
-        root: cn("w-fit", defaultClassNames.root),
-        months: cn("flex gap-4 flex-col md:flex-row relative", defaultClassNames.months),
-        month: cn("flex flex-col w-full gap-4", defaultClassNames.month),
-        nav: cn(
-          "flex items-center gap-1 w-full absolute top-0 inset-x-0 justify-between",
-          defaultClassNames.nav,
-        ),
-        button_previous: cn(
-          buttonVariants({ variant: buttonVariant }),
-          "size-(--cell-size) aria-disabled:opacity-50 p-0 select-none",
-          defaultClassNames.button_previous,
-        ),
-        button_next: cn(
-          buttonVariants({ variant: buttonVariant }),
-          "size-(--cell-size) aria-disabled:opacity-50 p-0 select-none",
-          defaultClassNames.button_next,
-        ),
-        month_caption: cn(
-          "flex items-center justify-center h-(--cell-size) w-full px-(--cell-size)",
-          defaultClassNames.month_caption,
-        ),
-        dropdowns: cn(
-          "w-full flex items-center text-sm font-medium justify-center h-(--cell-size) gap-1.5",
-          defaultClassNames.dropdowns,
-        ),
-        dropdown_root: cn(
-          "relative has-focus:border-ring border border-input shadow-xs has-focus:ring-ring/50 has-focus:ring-[3px] rounded-md",
-          defaultClassNames.dropdown_root,
-        ),
-        dropdown: cn("absolute inset-0 opacity-0", defaultClassNames.dropdown),
-        caption_label: cn(
-          "select-none font-medium",
-          captionLayout === "label"
-            ? "text-sm"
-            : "rounded-md pl-2 pr-1 flex items-center gap-1 text-sm h-8 [&>svg]:text-muted-foreground [&>svg]:size-3.5",
-          defaultClassNames.caption_label,
-        ),
-        table: "w-full border-collapse",
-        weekdays: cn("flex", defaultClassNames.weekdays),
-        weekday: cn(
-          "text-muted-foreground rounded-md flex-1 font-normal text-[0.8rem] select-none",
-          defaultClassNames.weekday,
-        ),
-        week: cn("flex w-full mt-2", defaultClassNames.week),
-        week_number_header: cn("select-none w-(--cell-size)", defaultClassNames.week_number_header),
-        week_number: cn(
-          "text-[0.8rem] select-none text-muted-foreground",
-          defaultClassNames.week_number,
-        ),
-        day: cn(
-          "relative w-full h-full p-0 text-center [&:first-child[data-selected=true]_button]:rounded-l-md [&:last-child[data-selected=true]_button]:rounded-r-md group/day aspect-square select-none",
-          defaultClassNames.day,
-        ),
-        range_start: cn("rounded-l-md bg-accent", defaultClassNames.range_start),
-        range_middle: cn("rounded-none", defaultClassNames.range_middle),
-        range_end: cn("rounded-r-md bg-accent", defaultClassNames.range_end),
-        today: cn(
-          "bg-accent text-accent-foreground rounded-md data-[selected=true]:rounded-none",
-          defaultClassNames.today,
-        ),
-        outside: cn(
-          "text-muted-foreground aria-selected:text-muted-foreground",
-          defaultClassNames.outside,
-        ),
-        disabled: cn("text-muted-foreground opacity-50", defaultClassNames.disabled),
-        hidden: cn("invisible", defaultClassNames.hidden),
-        ...classNames,
-      }}
-      components={{
-        Root: ({ className, rootRef, ...props }) => {
-          return <div data-slot="calendar" ref={rootRef} className={cn(className)} {...props} />;
-        },
-        Chevron: ({ className, orientation, ...props }) => {
-          if (orientation === "left") {
-            return <ChevronLeftIcon className={cn("size-4", className)} {...props} />;
-          }
-
-          if (orientation === "right") {
-            return <ChevronRightIcon className={cn("size-4", className)} {...props} />;
-          }
-
-          return <ChevronDownIcon className={cn("size-4", className)} {...props} />;
-        },
-        DayButton: CalendarDayButton,
-        WeekNumber: ({ children, ...props }) => {
-          return (
-            <td {...props}>
-              <div className="flex size-(--cell-size) items-center justify-center text-center">
-                {children}
-              </div>
-            </td>
-          );
-        },
-        ...components,
-      }}
-      {...props}
-    />
+    <div className="relative flex flex-col gap-4 md:flex-row">
+      <header className="absolute inset-x-0 top-0 flex w-full items-center justify-between gap-1">
+        <Button
+          variant={buttonVariant}
+          slot="previous"
+          className="size-(--cell-size) p-0 select-none aria-disabled:opacity-50"
+        >
+          <HugeiconsIcon icon={ArrowLeftIcon} strokeWidth={2} className="size-4" />
+        </Button>
+        <Button
+          variant={buttonVariant}
+          slot="next"
+          className="size-(--cell-size) p-0 select-none aria-disabled:opacity-50"
+        >
+          <HugeiconsIcon icon={ArrowRightIcon} strokeWidth={2} className="size-4" />
+        </Button>
+      </header>
+      {Array.from({ length: numberOfMonths }, (_, i) => (
+        <div key={i} className="flex w-full flex-col gap-4">
+          <div className="flex h-(--cell-size) w-full items-center justify-center gap-1 px-(--cell-size)">
+            {captionLayout === "dropdown" ? (
+              <>
+                <MonthDropdown format={headerFormat} />
+                <YearDropdown format={headerFormat} />
+              </>
+            ) : (
+              <CalendarHeading
+                offset={{ months: i }}
+                format={headerFormat}
+                className="text-sm font-medium select-none"
+              />
+            )}
+          </div>
+          <CalendarGrid className="w-full border-collapse" offset={{ months: i }}>
+            <AriaCalendarGridHeader>
+              {(day) => (
+                <CalendarHeaderCell className="rounded-(--cell-radius) text-[0.8rem] font-normal text-muted-foreground select-none">
+                  {day}
+                </CalendarHeaderCell>
+              )}
+            </AriaCalendarGridHeader>
+            <CalendarGridBody>
+              {(date) => (
+                <CalendarCell
+                  date={date}
+                  className={(renderProps) => cellVariants({ ...renderProps, showWeekNumber })}
+                >
+                  {(renderProps) => (
+                    <div
+                      data-selected-single={renderProps.isSelected && !isRange}
+                      data-range-start={renderProps.isSelectionStart && isRange}
+                      data-range-end={renderProps.isSelectionEnd && isRange}
+                      data-range-middle={
+                        renderProps.isSelected &&
+                        !renderProps.isSelectionStart &&
+                        !renderProps.isSelectionEnd &&
+                        isRange
+                      }
+                      className={cn(
+                        buttonVariants({ variant: "ghost", size: "icon" }),
+                        "relative isolate z-10 flex aspect-square h-full w-full min-w-(--cell-size) flex-col gap-1 border-0 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-[3px] group-data-[focused=true]/day:ring-ring/50 data-[range-end=true]:rounded-(--cell-radius) data-[range-end=true]:rounded-e-(--cell-radius) data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground data-[range-middle=true]:rounded-none data-[range-middle=true]:bg-muted data-[range-middle=true]:text-foreground data-[range-start=true]:rounded-(--cell-radius) data-[range-start=true]:rounded-s-(--cell-radius) data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground dark:hover:text-foreground [&>span]:text-xs [&>span]:opacity-70",
+                      )}
+                    >
+                      {renderCell ? renderCell(renderProps) : renderProps.defaultChildren}
+                    </div>
+                  )}
+                </CalendarCell>
+              )}
+            </CalendarGridBody>
+          </CalendarGrid>
+        </div>
+      ))}
+    </div>
   );
 }
 
-function CalendarDayButton({
-  className,
-  day,
-  modifiers,
-  ...props
-}: React.ComponentProps<typeof DayButton>) {
-  const defaultClassNames = getDefaultClassNames();
-
-  const ref = React.useRef<HTMLButtonElement>(null);
-  React.useEffect(() => {
-    if (modifiers.focused) ref.current?.focus();
-  }, [modifiers.focused]);
-
+function MonthDropdown({ format }: { format?: Intl.DateTimeFormatOptions }) {
   return (
-    <Button
-      ref={ref}
-      variant="ghost"
-      size="icon"
-      data-day={day.date.toLocaleDateString()}
-      data-selected-single={
-        modifiers.selected &&
-        !modifiers.range_start &&
-        !modifiers.range_end &&
-        !modifiers.range_middle
-      }
-      data-range-start={modifiers.range_start}
-      data-range-end={modifiers.range_end}
-      data-range-middle={modifiers.range_middle}
-      className={cn(
-        "data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground data-[range-middle=true]:bg-accent data-[range-middle=true]:text-accent-foreground data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-ring/50 dark:hover:text-accent-foreground flex aspect-square size-auto w-full min-w-(--cell-size) flex-col gap-1 leading-none font-normal group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:ring-[3px] data-[range-end=true]:rounded-md data-[range-end=true]:rounded-r-md data-[range-middle=true]:rounded-none data-[range-start=true]:rounded-md data-[range-start=true]:rounded-l-md [&>span]:text-xs [&>span]:opacity-70",
-        defaultClassNames.day,
-        className,
+    <CalendarMonthPicker format={format?.month}>
+      {(props) => (
+        <Select {...props} className="relative">
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent className="min-w-0">
+            <SelectGroup>
+              {props.items.map((item) => (
+                <SelectItem key={item.id} id={item.id}>
+                  {item.formatted}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
       )}
-      {...props}
-    />
+    </CalendarMonthPicker>
   );
 }
 
-export { Calendar, CalendarDayButton };
+function YearDropdown({ format }: { format?: Intl.DateTimeFormatOptions }) {
+  return (
+    <CalendarYearPicker format={format}>
+      {(props) => (
+        <Select {...props} className="relative">
+          <SelectTrigger>
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent className="min-w-0">
+            {props.items.map((item) => (
+              <SelectItem key={item.id} id={item.id}>
+                {item.formatted}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      )}
+    </CalendarYearPicker>
+  );
+}
+
+export { Calendar, RangeCalendar };

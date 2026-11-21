@@ -18,7 +18,7 @@ import { CollectionOffers } from "@/components/modules/collection-offers";
 import { SellerOffers } from "@/components/modules/seller-offers";
 import { SuggestedOffers } from "@/components/modules/suggested-offers";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import {
   Table,
   TableBody,
@@ -27,8 +27,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
+import { Popover, PopoverTrigger } from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useCompare } from "@/hooks/use-compare";
 import { useLocale } from "@/hooks/use-locale";
@@ -291,14 +291,12 @@ function OfferPage() {
                       }}
                     >
                       {internalNamespaces.includes(offer.namespace) ? (
-                        <TooltipProvider>
+                        <TooltipTrigger>
+                          <span tabIndex={0}>{offer.namespace}</span>
                           <Tooltip>
-                            <TooltipTrigger>{offer.namespace}</TooltipTrigger>
-                            <TooltipContent>
-                              <p>{t("offerDetail.tooltip.internalNamespace")}</p>
-                            </TooltipContent>
+                            <p>{t("offerDetail.tooltip.internalNamespace")}</p>
                           </Tooltip>
-                        </TooltipProvider>
+                        </TooltipTrigger>
                       ) : (
                         offer.namespace
                       )}
@@ -424,38 +422,37 @@ function OfferPage() {
                 {technologies && technologies.length > 0 && (
                   <TableRow>
                     <TableCell className="font-medium">
-                      <TooltipProvider>
+                      <TooltipTrigger>
+                        <span
+                          tabIndex={0}
+                          className="underline decoration-dotted decoration-border/60 underline-offset-4 cursor-help"
+                        >
+                          {t("offerDetail.table.technologies")}
+                        </span>
                         <Tooltip>
-                          <TooltipTrigger>
-                            <span className="underline decoration-dotted decoration-border/60 underline-offset-4 cursor-help">
-                              {t("offerDetail.table.technologies")}
-                            </span>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p className="text-sm max-w-md">
-                              {t("offerDetail.tooltip.techSource")}{" "}
-                              <a
-                                href="https://steamdb.info/tech/"
-                                className="text-blue-700 font-semibold"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                {t("offerDetail.tooltip.techSourceSteamDb")}
-                              </a>{" "}
-                              {t("offerDetail.tooltip.techDescription")}
-                              <br />
-                              <a
-                                href="https://github.com/SteamDatabase/FileDetectionRuleSets"
-                                className="text-blue-700 font-semibold"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                              >
-                                {t("offerDetail.tooltip.source")}
-                              </a>
-                            </p>
-                          </TooltipContent>
+                          <p className="text-sm max-w-md">
+                            {t("offerDetail.tooltip.techSource")}{" "}
+                            <a
+                              href="https://steamdb.info/tech/"
+                              className="text-blue-700 font-semibold"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {t("offerDetail.tooltip.techSourceSteamDb")}
+                            </a>{" "}
+                            {t("offerDetail.tooltip.techDescription")}
+                            <br />
+                            <a
+                              href="https://github.com/SteamDatabase/FileDetectionRuleSets"
+                              className="text-blue-700 font-semibold"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {t("offerDetail.tooltip.source")}
+                            </a>
+                          </p>
                         </Tooltip>
-                      </TooltipProvider>
+                      </TooltipTrigger>
                     </TableCell>
                     <TableCell className="text-left border-l-border/10 border-l flex flex-wrap flex-row gap-1">
                       {technologies
@@ -756,16 +753,14 @@ function OfferNotificationPopover({ offerId }: { offerId: string }) {
   };
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          className="inline-flex items-center gap-1 bg-card text-card-foreground hover:bg-accent border border-border/60"
-          size="sm"
-        >
-          <Bell className="h-4 w-4" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-80">
+    <PopoverTrigger isOpen={open} onOpenChange={setOpen}>
+      <Button
+        className="inline-flex items-center gap-1 bg-card text-card-foreground hover:bg-accent border border-border/60"
+        size="sm"
+      >
+        <Bell className="h-4 w-4" />
+      </Button>
+      <Popover className="w-80">
         <div className="space-y-4">
           <h4 className="font-medium leading-none">{t("offerDetail.notifications.title")}</h4>
           {canPerformTopicOperations ? (
@@ -777,11 +772,9 @@ function OfferNotificationPopover({ offerId }: { offerId: string }) {
                 <div className="flex items-center space-x-2">
                   <Checkbox
                     id="all"
-                    checked={all}
-                    onCheckedChange={(checked) =>
-                      handleNotificationChange("all", checked as boolean)
-                    }
-                    disabled={
+                    isSelected={all}
+                    onChange={(checked) => handleNotificationChange("all", checked)}
+                    isDisabled={
                       price || achievements || builds || items || requirements || metadata || media
                     }
                   />
@@ -795,11 +788,9 @@ function OfferNotificationPopover({ offerId }: { offerId: string }) {
                 <div className="flex items-center space-x-2">
                   <Checkbox
                     id="price"
-                    checked={price}
-                    onCheckedChange={(checked) =>
-                      handleNotificationChange("price", checked as boolean)
-                    }
-                    disabled={all}
+                    isSelected={price}
+                    onChange={(checked) => handleNotificationChange("price", checked)}
+                    isDisabled={all}
                   />
                   <label
                     htmlFor="price"
@@ -811,11 +802,9 @@ function OfferNotificationPopover({ offerId }: { offerId: string }) {
                 <div className="flex items-center space-x-2">
                   <Checkbox
                     id="achievements"
-                    checked={achievements}
-                    onCheckedChange={(checked) =>
-                      handleNotificationChange("achievements", checked as boolean)
-                    }
-                    disabled={all}
+                    isSelected={achievements}
+                    onChange={(checked) => handleNotificationChange("achievements", checked)}
+                    isDisabled={all}
                   />
                   <label
                     htmlFor="achievements"
@@ -827,11 +816,9 @@ function OfferNotificationPopover({ offerId }: { offerId: string }) {
                 <div className="flex items-center space-x-2">
                   <Checkbox
                     id="builds"
-                    checked={builds}
-                    onCheckedChange={(checked) =>
-                      handleNotificationChange("builds", checked as boolean)
-                    }
-                    disabled={all}
+                    isSelected={builds}
+                    onChange={(checked) => handleNotificationChange("builds", checked)}
+                    isDisabled={all}
                   />
                   <label
                     htmlFor="builds"
@@ -843,11 +830,9 @@ function OfferNotificationPopover({ offerId }: { offerId: string }) {
                 <div className="flex items-center space-x-2">
                   <Checkbox
                     id="items"
-                    checked={items}
-                    onCheckedChange={(checked) =>
-                      handleNotificationChange("items", checked as boolean)
-                    }
-                    disabled={all}
+                    isSelected={items}
+                    onChange={(checked) => handleNotificationChange("items", checked)}
+                    isDisabled={all}
                   />
                   <label
                     htmlFor="items"
@@ -859,11 +844,9 @@ function OfferNotificationPopover({ offerId }: { offerId: string }) {
                 <div className="flex items-center space-x-2">
                   <Checkbox
                     id="requirements"
-                    checked={requirements}
-                    onCheckedChange={(checked) =>
-                      handleNotificationChange("requirements", checked as boolean)
-                    }
-                    disabled={all}
+                    isSelected={requirements}
+                    onChange={(checked) => handleNotificationChange("requirements", checked)}
+                    isDisabled={all}
                   />
                   <label
                     htmlFor="requirements"
@@ -875,11 +858,9 @@ function OfferNotificationPopover({ offerId }: { offerId: string }) {
                 <div className="flex items-center space-x-2">
                   <Checkbox
                     id="metadata"
-                    checked={metadata}
-                    onCheckedChange={(checked) =>
-                      handleNotificationChange("metadata", checked as boolean)
-                    }
-                    disabled={all}
+                    isSelected={metadata}
+                    onChange={(checked) => handleNotificationChange("metadata", checked)}
+                    isDisabled={all}
                   />
                   <label
                     htmlFor="metadata"
@@ -891,11 +872,9 @@ function OfferNotificationPopover({ offerId }: { offerId: string }) {
                 <div className="flex items-center space-x-2">
                   <Checkbox
                     id="media"
-                    checked={media}
-                    onCheckedChange={(checked) =>
-                      handleNotificationChange("media", checked as boolean)
-                    }
-                    disabled={all}
+                    isSelected={media}
+                    onChange={(checked) => handleNotificationChange("media", checked)}
+                    isDisabled={all}
                   />
                   <label
                     htmlFor="media"
@@ -911,16 +890,14 @@ function OfferNotificationPopover({ offerId }: { offerId: string }) {
               <p className="text-sm text-muted-foreground">
                 {t("offerDetail.notifications.enablePushDescription")}
               </p>
-              <Button asChild className="w-full">
-                <Link to="/{-$locale}/notifications">
-                  {t("offerDetail.notifications.enablePushAction")}
-                </Link>
-              </Button>
+              <Link to="/{-$locale}/notifications" className={cn(buttonVariants(), "w-full")}>
+                {t("offerDetail.notifications.enablePushAction")}
+              </Link>
             </>
           )}
         </div>
-      </PopoverContent>
-    </Popover>
+      </Popover>
+    </PopoverTrigger>
   );
 }
 
@@ -947,42 +924,40 @@ const ReleaseDate: React.FC<{
 
   return (
     <>
-      <TooltipProvider>
-        <Tooltip open={!pcReleaseDate ? false : undefined}>
-          <TooltipTrigger className="flex items-center gap-1 cursor-default">
-            <span
-              className={cn(
-                pcReleaseDate &&
-                  releaseDate !== pcReleaseDate &&
-                  "underline decoration-dotted underline-offset-4",
-              )}
-            >
-              {DateTime.fromISO(releaseDate)
-                .setZone(timezone || "UTC")
-                .setLocale("en-GB")
-                .toLocaleString({
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                  hour: "numeric",
-                  minute: "numeric",
-                  timeZoneName: "short",
-                })}
-            </span>
-          </TooltipTrigger>
-          <TooltipContent>
-            {!pcReleaseDate || releaseDate === pcReleaseDate ? (
-              t("offerDetail.releaseDate.releasedSameDay")
-            ) : (
-              <span>
-                <span>{t("offerDetail.releaseDate.releasedOnPc")} </span>
-                <span>{compareDates(new Date(pcReleaseDate), new Date(releaseDate))}</span>
-                <span>{t("offerDetail.releaseDate.theEgs")}</span>
-              </span>
+      <TooltipTrigger isDisabled={!pcReleaseDate}>
+        <span tabIndex={0} className="flex items-center gap-1 cursor-default">
+          <span
+            className={cn(
+              pcReleaseDate &&
+                releaseDate !== pcReleaseDate &&
+                "underline decoration-dotted underline-offset-4",
             )}
-          </TooltipContent>
+          >
+            {DateTime.fromISO(releaseDate)
+              .setZone(timezone || "UTC")
+              .setLocale("en-GB")
+              .toLocaleString({
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+                timeZoneName: "short",
+              })}
+          </span>
+        </span>
+        <Tooltip>
+          {!pcReleaseDate || releaseDate === pcReleaseDate ? (
+            t("offerDetail.releaseDate.releasedSameDay")
+          ) : (
+            <span>
+              <span>{t("offerDetail.releaseDate.releasedOnPc")} </span>
+              <span>{compareDates(new Date(pcReleaseDate), new Date(releaseDate))}</span>
+              <span>{t("offerDetail.releaseDate.theEgs")}</span>
+            </span>
+          )}
         </Tooltip>
-      </TooltipProvider>
+      </TooltipTrigger>
       <TimeAgo targetDate={releaseDate} />
     </>
   );

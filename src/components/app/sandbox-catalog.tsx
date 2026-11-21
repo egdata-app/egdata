@@ -1,6 +1,6 @@
 import { Link } from "@/components/app/localized-link";
 import { sandboxViewTransition } from "@/lib/sandbox-transition";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { useCountry } from "@/hooks/use-country";
 import { useLocale } from "@/hooks/use-locale";
 import { calculatePrice } from "@/lib/calculate-price";
@@ -206,17 +206,16 @@ export function SandboxCatalogPreviews({ id, total }: { id: string; total?: numb
             {t("sandboxCatalog.description")}
           </p>
         </div>
-        <Button asChild variant="outline">
-          <Link
-            to="/{-$locale}/sandboxes/$id/offers"
-            params={{ id }}
-            search={{ group: "all" }}
-            viewTransition={sandboxViewTransition}
-          >
-            {t("sandboxCatalog.allOffers")}
-            <ArrowRight className="size-4" />
-          </Link>
-        </Button>
+        <Link
+          to="/{-$locale}/sandboxes/$id/offers"
+          params={{ id }}
+          search={{ group: "all" }}
+          viewTransition={sandboxViewTransition}
+          className={buttonVariants({ variant: "outline" })}
+        >
+          {t("sandboxCatalog.allOffers")}
+          <ArrowRight className="size-4" />
+        </Link>
       </div>
       {isEmpty ? (
         <SandboxQueryState empty />

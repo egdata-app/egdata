@@ -12,7 +12,7 @@ import {
   ForecastTooltipShell,
   TooltipRow,
 } from "@/components/charts/forecast";
-import { httpClient } from "@/lib/http-client";
+import { getReleasesByYear, type YearlyRelease } from "./data";
 import { linearRegressionForecast } from "@/lib/linear-regression";
 import { keepPreviousData } from "@tanstack/react-query";
 import { useQuery } from "@tanstack/react-query";
@@ -34,14 +34,6 @@ interface YearlyChartPoint {
   rangeLow?: number;
   rangeHigh?: number;
 }
-
-interface YearlyRelease {
-  releases: number;
-  year: number;
-}
-
-export const getReleasesByYear = async () =>
-  httpClient.v1Get<YearlyRelease[]>("/stats/releases/yearly");
 
 export function ReleasesByYear() {
   const { t } = useTranslation();

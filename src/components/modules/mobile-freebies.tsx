@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "../ui/skeleton";
-import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { ScrollArea } from "../ui/scroll-area";
 import { mobileGiveawaysQueryOptions, type MobileGiveawayOffer } from "@/queries/giveaways";
 import { Button } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
@@ -65,7 +65,6 @@ export function MobileFreebiesCarousel() {
               <MobileGiveawayCard key={game._id} offer={game} />
             ))}
           </div>
-          <ScrollBar orientation="horizontal" />
         </ScrollArea>
       )}
     </section>

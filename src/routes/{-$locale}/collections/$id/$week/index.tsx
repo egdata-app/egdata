@@ -1,7 +1,7 @@
 import { Image } from "@/components/app/image";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
 import { useCountry } from "@/hooks/use-country";
 import { useLocale } from "@/hooks/use-locale";
 import { calculatePrice } from "@/lib/calculate-price";
@@ -62,8 +62,9 @@ function CollectionPage() {
         week,
       }),
     initialPageParam: undefined as string | undefined,
-    getNextPageParam: (lastPage: Collections) =>
-      lastPage.hasMore && lastPage.nextCursor ? lastPage.nextCursor : undefined,
+    // The API returns null for weeks without a stored collection.
+    getNextPageParam: (lastPage: Collections | null) =>
+      lastPage?.hasMore && lastPage.nextCursor ? lastPage.nextCursor : undefined,
   });
 
   if (isLoading) {
@@ -79,107 +80,111 @@ function CollectionPage() {
   }
 
   return (
-    <TooltipProvider>
-      <main className="flex flex-col items-start justify-start h-full gap-1 px-4 w-full">
-        <div className="flex flex-row items-center justify-between gap-4">
-          <h1 className="text-4xl font-semibold">{data?.pages[0]?.title}</h1>
-          <span className="text-4xl text-muted-foreground">-</span>
-          {data?.pages[0]?.start && data?.pages[0]?.end && (
-            <div className="text-4xl text-muted-foreground">
-              {new Date(data.pages[0].start).toLocaleDateString("en-UK", {
-                year: undefined,
-                month: "long",
-                day: "numeric",
-              })}{" "}
-              -{" "}
-              {new Date(data.pages[0].end).toLocaleDateString("en-UK", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </div>
-          )}
-        </div>
-
-        <div className="w-full h-12 flex flex-row items-center px-5 font-thin text-muted-foreground">
-          <span className="w-10">{t("collections.table.position")}</span>
-          <span className="w-24" />
-          <span className="flex-grow pl-4" />
-          <span className="w-32 text-right" />
-          <span className="w-16 text-center">
-            <Tooltip>
-              <TooltipTrigger className="underline decoration-dotted decoration-border/60 underline-offset-4 cursor-help">
-                {t("collections.table.variance")}
-              </TooltipTrigger>
-              <TooltipContent className="max-w-xs">
-                <p>{t("collections.tooltips.variance")}</p>
-              </TooltipContent>
-            </Tooltip>
-          </span>
-          <span className="w-16 text-center">
-            <Tooltip>
-              <TooltipTrigger className="underline decoration-dotted decoration-border/60 underline-offset-4 cursor-help">
-                {t("collections.table.weeks")}
-              </TooltipTrigger>
-              <TooltipContent className="max-w-xs">
-                <p>
-                  {t("collections.tooltips.weeks", {
-                    title: data?.pages[0]?.title?.toLowerCase(),
-                  })}
-                </p>
-              </TooltipContent>
-            </Tooltip>
-          </span>
-        </div>
-
-        {/* Offers List */}
-        <div className="flex flex-col gap-2 w-full">
-          {(data?.pages ?? [])
-            .flatMap((page) => (Array.isArray(page?.elements) ? page.elements : []))
-            .map((offer) => (
-              <OfferInTop key={offer.id} offer={offer} />
-            ))}
-        </div>
-
-        {hasNextPage && (
-          <div className="flex justify-center items-center mt-4 w-full">
-            <Button
-              onClick={() => fetchNextPage()}
-              variant="outline"
-              disabled={isFetchingNextPage || isLoading}
-            >
-              {isFetchingNextPage ? (
-                <>
-                  <svg
-                    className="animate-spin -ml-1 mr-3 h-5 w-5 text-foreground"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                  >
-                    <circle
-                      className="opacity-25"
-                      cx="12"
-                      cy="12"
-                      r="10"
-                      stroke="currentColor"
-                      strokeWidth="4"
-                    />
-                    <path
-                      className="opacity-75"
-                      fill="currentColor"
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    />
-                  </svg>
-                  {t("collections.status.loading")}
-                </>
-              ) : (
-                t("collections.buttons.loadMore")
-              )}
-            </Button>
+    <main className="flex flex-col items-start justify-start h-full gap-1 px-4 w-full">
+      <div className="flex flex-row items-center justify-between gap-4">
+        <h1 className="text-4xl font-semibold">{data?.pages[0]?.title}</h1>
+        <span className="text-4xl text-muted-foreground">-</span>
+        {data?.pages[0]?.start && data?.pages[0]?.end && (
+          <div className="text-4xl text-muted-foreground">
+            {new Date(data.pages[0].start).toLocaleDateString("en-UK", {
+              year: undefined,
+              month: "long",
+              day: "numeric",
+            })}{" "}
+            -{" "}
+            {new Date(data.pages[0].end).toLocaleDateString("en-UK", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
           </div>
         )}
-      </main>
-    </TooltipProvider>
+      </div>
+
+      <div className="w-full h-12 flex flex-row items-center px-5 font-thin text-muted-foreground">
+        <span className="w-10">{t("collections.table.position")}</span>
+        <span className="w-24" />
+        <span className="flex-grow pl-4" />
+        <span className="w-32 text-right" />
+        <span className="w-16 text-center">
+          <TooltipTrigger>
+            <span
+              tabIndex={0}
+              className="underline decoration-dotted decoration-border/60 underline-offset-4 cursor-help"
+            >
+              {t("collections.table.variance")}
+            </span>
+            <Tooltip className="max-w-xs">
+              <p>{t("collections.tooltips.variance")}</p>
+            </Tooltip>
+          </TooltipTrigger>
+        </span>
+        <span className="w-16 text-center">
+          <TooltipTrigger>
+            <span
+              tabIndex={0}
+              className="underline decoration-dotted decoration-border/60 underline-offset-4 cursor-help"
+            >
+              {t("collections.table.weeks")}
+            </span>
+            <Tooltip className="max-w-xs">
+              <p>
+                {t("collections.tooltips.weeks", {
+                  title: data?.pages[0]?.title?.toLowerCase(),
+                })}
+              </p>
+            </Tooltip>
+          </TooltipTrigger>
+        </span>
+      </div>
+
+      {/* Offers List */}
+      <div className="flex flex-col gap-2 w-full">
+        {(data?.pages ?? [])
+          .flatMap((page) => (Array.isArray(page?.elements) ? page.elements : []))
+          .map((offer) => (
+            <OfferInTop key={offer.id} offer={offer} />
+          ))}
+      </div>
+
+      {hasNextPage && (
+        <div className="flex justify-center items-center mt-4 w-full">
+          <Button
+            onPress={() => fetchNextPage()}
+            variant="outline"
+            isDisabled={isFetchingNextPage || isLoading}
+          >
+            {isFetchingNextPage ? (
+              <>
+                <svg
+                  className="animate-spin -ml-1 mr-3 h-5 w-5 text-foreground"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  />
+                </svg>
+                {t("collections.status.loading")}
+              </>
+            ) : (
+              t("collections.buttons.loadMore")
+            )}
+          </Button>
+        </div>
+      )}
+    </main>
   );
 }
 
@@ -260,9 +265,11 @@ function OfferInTop({ offer }: { offer: CollectionRow }) {
         </div>
 
         <div className="w-16 text-center">
-          <Tooltip>
-            <TooltipTrigger className="text-md">{weeksInTop100}</TooltipTrigger>
-            <TooltipContent className="max-w-xs bg-transparent" side="right">
+          <TooltipTrigger>
+            <span tabIndex={0} className="text-md">
+              {weeksInTop100}
+            </span>
+            <Tooltip className="max-w-xs bg-transparent" placement="right">
               <div className="flex flex-col gap-1 p-3 bg-muted/50 rounded-md shadow-md w-36">
                 <div className="flex justify-between text-xs font-medium text-muted-foreground">
                   <span>Top 1:</span>
@@ -295,8 +302,8 @@ function OfferInTop({ offer }: { offer: CollectionRow }) {
                   </span>
                 </div>
               </div>
-            </TooltipContent>
-          </Tooltip>
+            </Tooltip>
+          </TooltipTrigger>
         </div>
       </Card>
     </Link>

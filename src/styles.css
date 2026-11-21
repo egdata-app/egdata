@@ -1,6 +1,8 @@
 @import "tailwindcss" source("../src");
 @import "@vidstack/react/player/styles/base.css";
 @import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/inter";
 
 @property --ambient-primary {
   syntax: "<color>";
@@ -28,6 +30,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* EGData is a dark-only application: the dark palette lives in `:root`.
+   shadcn's generated light/dark pair was merged in during the React Aria
+   migration and turned the site light by default — keep the original
+   EGData palette here instead. */
 :root {
   --background: hsl(240 11% 7%);
   --foreground: hsl(0 0% 96%);
@@ -80,6 +86,14 @@
   --font-cjk-japanese:
     "Noto Sans JP", "Yu Gothic UI", "Yu Gothic", "Hiragino Sans", "Meiryo", sans-serif;
   --font-cjk-korean: "Noto Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+  --sidebar: hsl(240 8% 9%);
+  --sidebar-foreground: hsl(0 0% 96%);
+  --sidebar-primary: hsl(199 100% 50%);
+  --sidebar-primary-foreground: hsl(240 11% 7%);
+  --sidebar-accent: hsl(240 4% 20%);
+  --sidebar-accent-foreground: hsl(0 0% 96%);
+  --sidebar-border: hsl(240 5% 19%);
+  --sidebar-ring: hsl(199 100% 50%);
 }
 
 @theme inline {
@@ -127,8 +141,12 @@
   --color-gold-start: var(--gold-start);
   --color-gold-end: var(--gold-end);
   --color-platinum-start: var(--platinum-start);
-  --font-sans: "Nunito", sans-serif;
+  --font-sans: "Inter Variable", sans-serif;
   --font-display: "Sora", sans-serif;
+  --font-heading: var(--font-sans);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
 @layer base {
@@ -195,6 +213,9 @@
   html:lang(ko) h6 {
     letter-spacing: 0;
   }
+  html {
+    @apply font-sans;
+  }
 }
 
 @utility container {
@@ -208,8 +229,12 @@
   }
 }
 
+/* NOTE: `body` must not be positioned. React Aria portals its overlays
+   (tooltips, popovers, menus, hover cards) into `document.body` and positions
+   them with `position: absolute` against the viewport. A positioned body makes
+   it the containing block instead, so `bottom`-anchored overlays land at the
+   bottom of the document. Keep body static; layer content with the app wrapper. */
 body {
-  position: relative;
   min-height: 100vh;
 }
 

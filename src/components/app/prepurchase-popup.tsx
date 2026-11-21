@@ -3,7 +3,7 @@
 import { httpClient } from "@/lib/http-client";
 import { useQueries } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle } from "lucide-react";
 import { Image } from "./image";
@@ -72,56 +72,54 @@ export function PrepurchasePopup({ id, offer: initialOffer }: { id: string; offe
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={handleDismiss}>
-      <DialogContent className="sm:max-w-[500px]">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 text-warning">
-            <AlertTriangle className="h-5 w-5" />
-            Pre-purchase Offer
-          </DialogTitle>
-        </DialogHeader>
-        <div className="mt-4 text-center">
-          <div className="mb-4">
-            <Image
-              src={
-                getImage(offer?.keyImages ?? [], [
-                  "DieselStoreFrontWide",
-                  "OfferImageWide",
-                  "DieselGameBoxWide",
-                  "TakeoverWide",
-                ])?.url ?? "https://cdn.egdata.app/placeholder-1080.webp"
-              }
-              alt={offer?.title ?? ""}
-              width={600}
-              height={350}
-              className="rounded-lg mx-auto"
-            />
-          </div>
-          <h3 className="text-lg font-bold mb-2">{offer?.title}</h3>
-          <p className="text-sm text-muted-foreground mb-4">
-            This is a pre-purchase offer for a game that has been released.
-            <br />
-            You can check the regular offer information following this link.
-          </p>
-
-          <Button
-            variant="outline"
-            onClick={() => {
-              saveDismissed(new Date().toISOString());
-              setIsOpen(false);
-              navigate({
-                to: "/{-$locale}/offers/$id",
-                params: { id: prepurchaseOffer?.offer.id ?? "" },
-              });
-            }}
-          >
-            View Regular Offer
-          </Button>
-          <p className="text-xs text-muted-foreground mt-4">
-            This popup will not appear again for this game.
-          </p>
+    <Dialog isOpen={isOpen} onOpenChange={handleDismiss} className="sm:max-w-[500px]">
+      <DialogHeader>
+        <DialogTitle className="flex items-center gap-2 text-warning">
+          <AlertTriangle className="h-5 w-5" />
+          Pre-purchase Offer
+        </DialogTitle>
+      </DialogHeader>
+      <div className="mt-4 text-center">
+        <div className="mb-4">
+          <Image
+            src={
+              getImage(offer?.keyImages ?? [], [
+                "DieselStoreFrontWide",
+                "OfferImageWide",
+                "DieselGameBoxWide",
+                "TakeoverWide",
+              ])?.url ?? "https://cdn.egdata.app/placeholder-1080.webp"
+            }
+            alt={offer?.title ?? ""}
+            width={600}
+            height={350}
+            className="rounded-lg mx-auto"
+          />
         </div>
-      </DialogContent>
+        <h3 className="text-lg font-bold mb-2">{offer?.title}</h3>
+        <p className="text-sm text-muted-foreground mb-4">
+          This is a pre-purchase offer for a game that has been released.
+          <br />
+          You can check the regular offer information following this link.
+        </p>
+
+        <Button
+          variant="outline"
+          onPress={() => {
+            saveDismissed(new Date().toISOString());
+            setIsOpen(false);
+            navigate({
+              to: "/{-$locale}/offers/$id",
+              params: { id: prepurchaseOffer?.offer.id ?? "" },
+            });
+          }}
+        >
+          View Regular Offer
+        </Button>
+        <p className="text-xs text-muted-foreground mt-4">
+          This popup will not appear again for this game.
+        </p>
+      </div>
     </Dialog>
   );
 }

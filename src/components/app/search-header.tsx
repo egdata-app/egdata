@@ -83,14 +83,17 @@ export function SearchHeader({
               {({ handleChange, state }: any) => (
                 <Select
                   value={state.value}
-                  onValueChange={(value) => handleChange(value as (typeof sortByKeys)[number])}
+                  onChange={(value) => {
+                    if (value !== null) handleChange(String(value) as (typeof sortByKeys)[number]);
+                  }}
+                  placeholder={t("search.sort.sortBy")}
                 >
                   <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder={t("search.sort.sortBy")} />
+                    <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
                     {sortByKeys.map((key) => (
-                      <SelectItem key={key} value={key}>
+                      <SelectItem key={key} id={key}>
                         {t(`search.sort.${key}`)}
                       </SelectItem>
                     ))}
@@ -101,7 +104,7 @@ export function SearchHeader({
             <form.Field name="sortDir">
               {({ handleChange, state }: any) => (
                 <Button
-                  onClick={() => {
+                  onPress={() => {
                     if (state.value === "asc") {
                       handleChange("desc");
                     } else {

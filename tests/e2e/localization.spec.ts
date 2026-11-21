@@ -33,7 +33,8 @@ test.describe("localized routes", () => {
     await page.goto("/about");
     await expectMainReady(page);
 
-    await page.locator('button[role="combobox"]').filter({ hasText: "English" }).click();
+    // The locale switcher is a React Aria popover trigger (button), not a combobox.
+    await page.getByRole("button", { name: "English" }).click();
 
     await page.getByText("Español", { exact: true }).click();
 

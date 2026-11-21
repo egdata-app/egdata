@@ -21,7 +21,7 @@ import { getImage } from "@/lib/getImage";
 import { getPlatformsArray, textPlatformIcons } from "@/components/app/platform-icons";
 import { Link } from "@/components/app/localized-link";
 import { internalNamespaces } from "@/lib/internal-namespaces";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
 import { SectionsNav } from "@/components/app/offer-sections";
 import { generateItemMeta } from "@/lib/generate-item-meta";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
@@ -140,14 +140,12 @@ function ItemPage() {
                   >
                     <Link to="/{-$locale}/sandboxes/$id/items" params={{ id: item.namespace }}>
                       {internalNamespaces.includes(item.namespace) ? (
-                        <TooltipProvider>
+                        <TooltipTrigger>
+                          <span tabIndex={0}>{item.namespace}</span>
                           <Tooltip>
-                            <TooltipTrigger>{item.namespace}</TooltipTrigger>
-                            <TooltipContent>
-                              <p>{t("items.tooltip.internalNamespace")}</p>
-                            </TooltipContent>
+                            <p>{t("items.tooltip.internalNamespace")}</p>
                           </Tooltip>
-                        </TooltipProvider>
+                        </TooltipTrigger>
                       ) : (
                         item.namespace
                       )}

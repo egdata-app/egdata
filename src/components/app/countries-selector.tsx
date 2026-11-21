@@ -10,7 +10,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Popover, PopoverTrigger } from "@/components/ui/popover";
 import { useCountry } from "@/hooks/use-country";
 import { countriesQueryOptions } from "@/queries/countries";
 
@@ -42,30 +42,26 @@ function CountriesSelectorImpl() {
   );
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="min-w-0 w-[130px] justify-between sm:w-[150px] md:w-[170px]"
-        >
-          <span className="min-w-0 truncate">{regionNameFmt.of(country)}</span>
-          <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[250px] p-0">
+    <PopoverTrigger isOpen={open} onOpenChange={setOpen}>
+      <Button
+        variant="outline"
+        className="min-w-0 w-[130px] justify-between sm:w-[150px] md:w-[170px]"
+      >
+        <span className="min-w-0 truncate">{regionNameFmt.of(country)}</span>
+        <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+      </Button>
+      <Popover className="w-[250px] p-0">
         {open && (
           <Command>
             <CommandInput placeholder="Search countries..." className="h-9" />
-            <CommandList>
-              <CommandEmpty>No countries found</CommandEmpty>
+            <CommandList renderEmptyState={() => <CommandEmpty>No countries found</CommandEmpty>}>
               <CommandGroup>
                 {countries.map((c) => (
                   <CommandItem
                     key={c.code}
-                    value={c.name}
-                    onSelect={onSelect}
+                    id={c.code}
+                    textValue={c.name}
+                    onAction={() => onSelect(c.name)}
                     className="flex items-center justify-between"
                   >
                     {c.name}
@@ -100,8 +96,8 @@ function CountriesSelectorImpl() {
             </CommandList>
           </Command>
         )}
-      </PopoverContent>
-    </Popover>
+      </Popover>
+    </PopoverTrigger>
   );
 }
 

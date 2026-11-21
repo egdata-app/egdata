@@ -6,7 +6,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@/components/app/localized-link";
 import { ArrowDown, ArrowUp, Download, Search } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
-import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import { Popover, PopoverTrigger } from "@/components/ui/popover";
 import { useTranslation } from "@/lib/paraglide-react";
 
 const freebiesSellersQuery = queryOptions({
@@ -125,17 +126,16 @@ function RouteComponent() {
               className="w-full pl-8 pr-2 py-1.5 bg-muted border border-border rounded-md text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50"
             />
           </div>
-          <Popover>
-            <PopoverTrigger asChild>
-              <button
-                type="button"
-                aria-label={t("freebies.aria.downloadList")}
-                className="border border-border rounded-md p-2"
-              >
-                <Download className="size-4" />
-              </button>
-            </PopoverTrigger>
-            <PopoverContent align="end" sideOffset={12} className="w-48 p-0">
+          <PopoverTrigger>
+            <Button
+              variant="outline"
+              size="icon"
+              aria-label={t("freebies.aria.downloadList")}
+              className="border border-border rounded-md p-2"
+            >
+              <Download className="size-4" />
+            </Button>
+            <Popover placement="bottom end" offset={12} className="w-48 p-0">
               <div className="flex flex-col">
                 <button
                   type="button"
@@ -169,8 +169,8 @@ function RouteComponent() {
                   {t("freebies.buttons.downloadTxt")}
                 </button>
               </div>
-            </PopoverContent>
-          </Popover>
+            </Popover>
+          </PopoverTrigger>
         </div>
       </div>
       <div className="overflow-x-auto">

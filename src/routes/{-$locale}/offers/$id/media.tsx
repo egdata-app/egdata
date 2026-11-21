@@ -139,13 +139,8 @@ function MediaPage() {
 
   return (
     <div className="flex w-full flex-col items-start gap-2">
-      <Accordion
-        type="single"
-        collapsible
-        className="w-full"
-        defaultValue={media ? "images" : "covers"}
-      >
-        <AccordionItem value="images">
+      <Accordion className="w-full" defaultExpandedKeys={[media ? "images" : "covers"]}>
+        <AccordionItem id="images">
           <AccordionTrigger className="text-xl">{t("offerDetail.media.images")}</AccordionTrigger>
           <AccordionContent>
             {!media?.images.length && (
@@ -175,7 +170,7 @@ function MediaPage() {
             )}
           </AccordionContent>
         </AccordionItem>
-        <AccordionItem value="videos">
+        <AccordionItem id="videos">
           <AccordionTrigger className="text-xl">{t("offerDetail.media.videos")}</AccordionTrigger>
           <AccordionContent>
             {!media?.videos.length && (
@@ -199,7 +194,7 @@ function MediaPage() {
             )}
           </AccordionContent>
         </AccordionItem>
-        <AccordionItem value="covers">
+        <AccordionItem id="covers">
           <AccordionTrigger className="text-xl">{t("offerDetail.media.covers")}</AccordionTrigger>
           <AccordionContent>
             {!offer?.keyImages?.length && (

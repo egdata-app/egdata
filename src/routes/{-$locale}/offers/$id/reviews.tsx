@@ -17,10 +17,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
 import { ChevronDown, ThumbsDown, ThumbsUp, ThumbsUpIcon } from "lucide-react";
 import * as Portal from "@radix-ui/react-portal";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -364,50 +364,50 @@ function Reviews() {
               </CardContent>
             </Card>
             <Card className="w-fit flex flex-col items-start justify-center p-4 h-full gap-2 text-left">
-              <Select value={filter} onValueChange={(value) => setFilter(value as ReviewsFilter)}>
+              <Select
+                selectedKey={filter}
+                onSelectionChange={(value) => setFilter(String(value) as ReviewsFilter)}
+                placeholder={t("offerDetail.reviews.allReviews")}
+              >
                 <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder={t("offerDetail.reviews.allReviews")} />
+                  <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">{t("offerDetail.reviews.allReviews")}</SelectItem>
-                  <SelectItem value="verified">{t("offerDetail.reviews.onlyVerified")}</SelectItem>
-                  <SelectItem value="not-verified">
-                    {t("offerDetail.reviews.notVerified")}
-                  </SelectItem>
+                  <SelectItem id="all">{t("offerDetail.reviews.allReviews")}</SelectItem>
+                  <SelectItem id="verified">{t("offerDetail.reviews.onlyVerified")}</SelectItem>
+                  <SelectItem id="not-verified">{t("offerDetail.reviews.notVerified")}</SelectItem>
                 </SelectContent>
               </Select>
               <Button
                 variant="outline"
                 className="text-sm w-full"
-                onClick={() => setShowReviewForm((prev) => !prev)}
-                disabled={!isReleased || !userCanReview.status}
+                onPress={() => setShowReviewForm((prev) => !prev)}
+                isDisabled={!isReleased || !userCanReview.status}
               >
                 {userCanReview.status ? t("offerDetail.reviews.leaveReview") : userCanReview.label}
               </Button>
             </Card>
           </div>
         </div>
-        <TooltipProvider>
-          <div className="inline-flex items-center gap-2">
+        <div className="inline-flex items-center gap-2">
+          <TooltipTrigger>
+            <span tabIndex={0} className="inline-flex items-center gap-1">
+              <InfoCircledIcon className="size-4" fill="currentColor" />
+            </span>
             <Tooltip>
-              <TooltipTrigger className="inline-flex items-center gap-1">
-                <InfoCircledIcon className="size-4" fill="currentColor" />
-              </TooltipTrigger>
-              <p className="text-muted-foreground inline-flex items-center gap-1">
-                <strong>{t("offerDetail.reviews.ownershipVerification")}</strong>{" "}
-                {t("offerDetail.reviews.ownershipVerificationDescription")}
+              <p className="text-xs max-w-sm">
+                {t("offerDetail.reviews.ownershipVerificationTooltip")}{" "}
+                <Link to="/{-$locale}/dashboard" className="text-blue-600">
+                  {t("offerDetail.reviews.yourDashboard")}
+                </Link>
               </p>
-              <TooltipContent>
-                <p className="text-xs max-w-sm">
-                  {t("offerDetail.reviews.ownershipVerificationTooltip")}{" "}
-                  <Link to="/{-$locale}/dashboard" className="text-blue-600">
-                    {t("offerDetail.reviews.yourDashboard")}
-                  </Link>
-                </p>
-              </TooltipContent>
             </Tooltip>
-          </div>
-        </TooltipProvider>
+          </TooltipTrigger>
+          <p className="text-muted-foreground inline-flex items-center gap-1">
+            <strong>{t("offerDetail.reviews.ownershipVerification")}</strong>{" "}
+            {t("offerDetail.reviews.ownershipVerificationDescription")}
+          </p>
+        </div>
       </div>
       {reviewItems.length ? (
         <div className="grid w-full max-w-7xl grid-cols-1 gap-6 mx-auto md:grid-cols-2">
@@ -426,8 +426,8 @@ function Reviews() {
           <Button
             variant="outline"
             className="mt-4"
-            onClick={() => setShowReviewForm((prev) => !prev)}
-            disabled={!isReleased || !userCanReview.status}
+            onPress={() => setShowReviewForm((prev) => !prev)}
+            isDisabled={!isReleased || !userCanReview.status}
           >
             {t("offerDetail.reviews.leaveReview")}
           </Button>
@@ -572,46 +572,44 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
       </div>
       <div className="inline-flex justify-between items-center w-full">
         <div className="mt-4 inline-flex justify-between items-center w-full">
-          <TooltipProvider>
-            <div className="flex items-center">
-              <span className="text-muted-foreground">
-                {t("offerDetail.reviews.reviewedOn")}{" "}
-                {DateTime.fromISO(review.createdAt).setLocale("en-GB").toLocaleString({
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
-              </span>
-              {review.editions?.length && review.editions.length > 0 ? (
-                <Tooltip disableHoverableContent={!review.editions}>
-                  <TooltipTrigger className="inline-flex items-center gap-1 ml-2">
-                    <InfoCircledIcon className="size-4" fill="currentColor" />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <span className="text-xs flex flex-col gap-1">
+          <div className="flex items-center">
+            <span className="text-muted-foreground">
+              {t("offerDetail.reviews.reviewedOn")}{" "}
+              {DateTime.fromISO(review.createdAt).setLocale("en-GB").toLocaleString({
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })}
+            </span>
+            {review.editions?.length && review.editions.length > 0 ? (
+              <TooltipTrigger>
+                <span tabIndex={0} className="inline-flex items-center gap-1 ml-2">
+                  <InfoCircledIcon className="size-4" fill="currentColor" />
+                </span>
+                <Tooltip>
+                  <span className="text-xs flex flex-col gap-1">
+                    <span>
+                      {t("offerDetail.reviews.lastUpdatedOn")}{" "}
+                      {DateTime.fromISO(review.updatedAt).setLocale("en-GB").toLocaleString({
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                        hour: "numeric",
+                        minute: "numeric",
+                      })}
+                    </span>
+                    {review.editions && (
                       <span>
-                        {t("offerDetail.reviews.lastUpdatedOn")}{" "}
-                        {DateTime.fromISO(review.updatedAt).setLocale("en-GB").toLocaleString({
-                          year: "numeric",
-                          month: "short",
-                          day: "numeric",
-                          hour: "numeric",
-                          minute: "numeric",
+                        {t("offerDetail.reviews.editedTimes", {
+                          count: review.editions?.length ?? 0,
                         })}
                       </span>
-                      {review.editions && (
-                        <span>
-                          {t("offerDetail.reviews.editedTimes", {
-                            count: review.editions?.length ?? 0,
-                          })}
-                        </span>
-                      )}
-                    </span>
-                  </TooltipContent>
+                    )}
+                  </span>
                 </Tooltip>
-              ) : null}
-            </div>
-          </TooltipProvider>
+              </TooltipTrigger>
+            ) : null}
+          </div>
           {userId === review.userId && (
             <Button
               variant="outline"
@@ -708,7 +706,6 @@ function FullReview({
                     <Viewer content={review.content} />
                   )}
                 </p>
-                <ScrollBar />
               </ScrollArea>
             </div>
           </div>

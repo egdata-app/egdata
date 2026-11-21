@@ -276,7 +276,7 @@ function DownloadImage({ src }: { src: string }) {
       variant="outline"
       className="border border-gray-300/25 text-xs gap-2 opacity-75 hover:opacity-100 transition duration-150 ease-in-out"
       onClick={download}
-      disabled={isDownloading}
+      isDisabled={isDownloading}
     >
       <DownloadIcon className="size-3" />
       {isDownloading
