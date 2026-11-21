@@ -4,5 +4,5 @@
   "categories": {
     "correctness": "warn"
   },
-  "ignorePatterns": ["node_modules", "**/node_modules", "app/routeTree.gen.ts"]
+  "ignorePatterns": ["node_modules", "**/node_modules", "src/routeTree.gen.ts"]
 }
