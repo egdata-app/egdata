@@ -2,7 +2,6 @@
 @import "@vidstack/react/player/styles/base.css";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "@fontsource-variable/inter";
 
 @property --ambient-primary {
   syntax: "<color>";
@@ -141,7 +140,7 @@
   --color-gold-start: var(--gold-start);
   --color-gold-end: var(--gold-end);
   --color-platinum-start: var(--platinum-start);
-  --font-sans: "Inter Variable", sans-serif;
+  --font-sans: "Nunito", sans-serif;
   --font-display: "Sora", sans-serif;
   --font-heading: var(--font-sans);
   --radius-2xl: calc(var(--radius) * 1.8);
