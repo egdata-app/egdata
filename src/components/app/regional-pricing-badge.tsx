@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Info, ChevronDown, ChevronUp, InfoIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { HoverCard, HoverCardTrigger, HoverCardContent } from "@/components/ui/hover-card";
+import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Collapsible, CollapsibleTrigger, CollapsibleContent } from "@/components/ui/collapsible";
 import { getCountryOrRegionName, getCountryName } from "@/lib/country-names";
 import type { RegionalPricingScore, Tier } from "@/types/regional-pricing-score";
@@ -109,19 +109,17 @@ export const RegionalPricingBadge = React.memo(function RegionalPricingBadge({
   })();
 
   return (
-    <HoverCard openDelay={100} closeDelay={100}>
-      <HoverCardTrigger asChild>
-        <div
-          className={cn(
-            "inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-semibold rounded-md cursor-pointer",
-            config.className,
-          )}
-        >
-          {config.icon}
-          <span>{config.label}</span>
-        </div>
-      </HoverCardTrigger>
-      <HoverCardContent className="w-72 space-y-3 text-sm" align="end" side="top">
+    <HoverCardTrigger delay={100} closeDelay={100}>
+      <div
+        className={cn(
+          "inline-flex items-center gap-1.5 px-2.5 py-0.5 text-xs font-semibold rounded-md cursor-pointer",
+          config.className,
+        )}
+      >
+        {config.icon}
+        <span>{config.label}</span>
+      </div>
+      <HoverCard className="w-72 space-y-3 text-sm" placement="top end">
         {/* Beta header */}
         <div className="flex items-center gap-2">
           <span className="inline-flex items-center px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-amber-500 text-foreground rounded">
@@ -185,7 +183,7 @@ export const RegionalPricingBadge = React.memo(function RegionalPricingBadge({
         {/* PPP diagnostic — shown when we promoted relativeTier (kind=market), since that's
             when the user is seeing the market signal and may want the fairness context too. */}
         {kind === "market" && (
-          <Collapsible open={open} onOpenChange={setOpen}>
+          <Collapsible isExpanded={open} onExpandedChange={setOpen}>
             <CollapsibleTrigger className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors w-full">
               <span className="inline-flex items-baseline gap-1">
                 <InfoIcon className="size-3" /> About {countryName}&apos;s cost of living
@@ -215,7 +213,7 @@ export const RegionalPricingBadge = React.memo(function RegionalPricingBadge({
             base USD price.
           </p>
         )}
-      </HoverCardContent>
-    </HoverCard>
+      </HoverCard>
+    </HoverCardTrigger>
   );
 });

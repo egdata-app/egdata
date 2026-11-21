@@ -6,7 +6,7 @@ import { useCompare } from "@/hooks/use-compare";
 import { httpClient } from "@/lib/http-client";
 import { cn } from "@/lib/utils";
 import type { SingleOffer } from "@/types/single-offer";
-import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { ScrollArea } from "../ui/scroll-area";
 import { Skeleton } from "../ui/skeleton";
 import { Image } from "./image";
 import { getImage } from "@/lib/getImage";
@@ -18,7 +18,7 @@ import { Link } from "@/components/app/localized-link";
 import type { SingleSandbox } from "@/types/single-sandbox";
 import { useCountry } from "@/hooks/use-country";
 import { Button } from "../ui/button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import { Tooltip, TooltipTrigger } from "../ui/tooltip";
 import { platformIcons } from "./platform-icons";
 import { GameFeatures } from "./features";
 import { calculatePrice } from "@/lib/calculate-price";
@@ -80,25 +80,23 @@ export function ComparisonPortal() {
 
   return (
     <>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button
-            aria-label={compareLabel}
-            className="relative shrink-0 overflow-visible rounded-full"
-            data-testid="compare-tray-trigger"
-            onClick={() => setOpen((prev) => !prev)}
-            size="icon"
-            type="button"
-            variant="outline"
-          >
-            <span className="absolute -right-1.5 -top-1.5 inline-flex min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-[0.7rem] font-semibold leading-5 text-primary-foreground">
-              {compareIds.length}
-            </span>
-            <CompareIcon className="size-5 text-foreground" />
-          </Button>
-        </TooltipTrigger>
-        <TooltipContent>{t("components.comparison.compareSelected")}</TooltipContent>
-      </Tooltip>
+      <TooltipTrigger>
+        <Button
+          aria-label={compareLabel}
+          className="relative shrink-0 overflow-visible rounded-full"
+          data-testid="compare-tray-trigger"
+          onPress={() => setOpen((prev) => !prev)}
+          size="icon"
+          type="button"
+          variant="outline"
+        >
+          <span className="absolute -right-1.5 -top-1.5 inline-flex min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-[0.7rem] font-semibold leading-5 text-primary-foreground">
+            {compareIds.length}
+          </span>
+          <CompareIcon className="size-5 text-foreground" />
+        </Button>
+        <Tooltip>{t("components.comparison.compareSelected")}</Tooltip>
+      </TooltipTrigger>
       {open && (
         <Portal.Root>
           <div className="fixed inset-0 z-[80]">
@@ -151,7 +149,6 @@ function CompareTable() {
           </div>
         ))}
       </div>
-      <ScrollBar orientation="horizontal" />
     </ScrollArea>
   );
 }
@@ -287,7 +284,7 @@ function SingleGame({
         <Button
           variant="outline"
           className="bg-card text-foreground hover:bg-destructive hover:text-foreground transition-all duration-300 ease-in-out"
-          onClick={() => removeFromCompare(data.id)}
+          onPress={() => removeFromCompare(data.id)}
         >
           {t("components.comparison.remove")}
         </Button>

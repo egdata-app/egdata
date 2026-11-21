@@ -233,8 +233,8 @@ export function BuildFilesTree({ id, baseline, path, page, onNavigate }: BuildFi
                 type="button"
                 variant="outline"
                 size="icon"
-                disabled={page <= 1}
-                onClick={() => onNavigate(path, page - 1)}
+                isDisabled={page <= 1}
+                onPress={() => onNavigate(path, page - 1)}
               >
                 <ChevronLeftIcon />
                 <span className="sr-only">{t("builds.comparison.previousPage")}</span>
@@ -243,8 +243,8 @@ export function BuildFilesTree({ id, baseline, path, page, onNavigate }: BuildFi
                 type="button"
                 variant="outline"
                 size="icon"
-                disabled={!canGoNext}
-                onClick={() => onNavigate(path, page + 1)}
+                isDisabled={!canGoNext}
+                onPress={() => onNavigate(path, page + 1)}
               >
                 <ChevronRightIcon />
                 <span className="sr-only">{t("builds.comparison.nextPage")}</span>

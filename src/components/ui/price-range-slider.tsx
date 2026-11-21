@@ -115,7 +115,7 @@ export function PriceRangeSlider({
             Min
           </Label>
           <div className="relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+            <span className="absolute start-3 top-1/2 -translate-y-1/2 text-muted-foreground">
               {formatter.format(0).replace(/\d/g, "").trim()}
             </span>
             <Input
@@ -124,7 +124,7 @@ export function PriceRangeSlider({
               value={minInput}
               onChange={handleMinInputChange}
               onBlur={handleInputBlur}
-              className="pl-10 text-right"
+              className="ps-10 text-end"
               min={min}
               max={max}
               inputMode="text"
@@ -139,7 +139,7 @@ export function PriceRangeSlider({
             Max
           </Label>
           <div className="relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
+            <span className="absolute start-3 top-1/2 -translate-y-1/2 text-muted-foreground">
               {formatter.format(0).replace(/\d/g, "").trim()}
             </span>
             <Input
@@ -148,7 +148,7 @@ export function PriceRangeSlider({
               value={maxInput}
               onChange={handleMaxInputChange}
               onBlur={handleInputBlur}
-              className="pl-10 text-right"
+              className="ps-10 text-end"
               min={min}
               max={max}
               inputMode="text"

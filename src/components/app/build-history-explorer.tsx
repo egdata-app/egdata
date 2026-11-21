@@ -7,7 +7,8 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Popover, PopoverTrigger } from "@/components/ui/popover";
+import { Button as AriaButton } from "react-aria-components";
 import { useLocale } from "@/hooks/use-locale";
 import {
   clusterTimelinePoints,
@@ -126,50 +127,47 @@ function EndpointPicker({
     kind === "current" ? t("builds.comparison.current") : t("builds.comparison.compareAgainst");
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
+    <PopoverTrigger isOpen={open} onOpenChange={setOpen}>
+      <Button
+        variant="outline"
+        className={cn(
+          "h-auto min-h-20 w-full justify-start gap-3 px-3 py-2 text-left",
+          kind === "current"
+            ? "border-cyan-500/45 bg-cyan-500/5 hover:bg-cyan-500/10"
+            : "border-blue-500/45 bg-blue-500/5 hover:bg-blue-500/10",
+        )}
+        data-testid={kind === "current" ? "current-build-select" : "previous-build-select"}
+      >
+        <span
+          aria-hidden
           className={cn(
-            "h-auto min-h-20 w-full justify-start gap-3 px-3 py-2 text-left",
-            kind === "current"
-              ? "border-cyan-500/45 bg-cyan-500/5 hover:bg-cyan-500/10"
-              : "border-blue-500/45 bg-blue-500/5 hover:bg-blue-500/10",
+            "size-2.5 shrink-0 rounded-full ring-4",
+            kind === "current" ? "bg-cyan-400 ring-cyan-400/10" : "bg-blue-400 ring-blue-400/10",
           )}
-          data-testid={kind === "current" ? "current-build-select" : "previous-build-select"}
-        >
-          <span
-            aria-hidden
-            className={cn(
-              "size-2.5 shrink-0 rounded-full ring-4",
-              kind === "current" ? "bg-cyan-400 ring-cyan-400/10" : "bg-blue-400 ring-blue-400/10",
-            )}
-          />
-          <span className="min-w-0 flex-1">
-            <span className="block text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-              {label}
-            </span>
-            <span className="mt-1 block truncate font-mono text-sm">
-              {selected?.buildVersion ?? t("builds.comparison.noPrevious")}
-            </span>
-            <span className="mt-1 block truncate text-xs font-normal text-muted-foreground">
-              {selected
-                ? (formatObservedDate(selected.firstSeenAt, timezone, locale) ??
-                  t("builds.timeline.dateUnavailable"))
-                : t("builds.timeline.selectBuild")}
-            </span>
+        />
+        <span className="min-w-0 flex-1">
+          <span className="block text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
+            {label}
           </span>
-          {selected && <HealthBadge status={selected.manifest.status} />}
-          <ChevronDownIcon className="size-4 shrink-0 text-muted-foreground" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent align="start" className="w-[min(34rem,calc(100vw-2rem))] p-0">
+          <span className="mt-1 block truncate font-mono text-sm">
+            {selected?.buildVersion ?? t("builds.comparison.noPrevious")}
+          </span>
+          <span className="mt-1 block truncate text-xs font-normal text-muted-foreground">
+            {selected
+              ? (formatObservedDate(selected.firstSeenAt, timezone, locale) ??
+                t("builds.timeline.dateUnavailable"))
+              : t("builds.timeline.selectBuild")}
+          </span>
+        </span>
+        {selected && <HealthBadge status={selected.manifest.status} />}
+        <ChevronDownIcon className="size-4 shrink-0 text-muted-foreground" />
+      </Button>
+      <Popover placement="bottom start" className="w-[min(34rem,calc(100vw-2rem))] p-0">
         <Command>
           <CommandInput placeholder={t("builds.timeline.searchBuilds")} />
-          <CommandList>
-            <CommandEmpty>{t("builds.timeline.noBuilds")}</CommandEmpty>
+          <CommandList
+            renderEmptyState={() => <CommandEmpty>{t("builds.timeline.noBuilds")}</CommandEmpty>}
+          >
             {options.map((build) => {
               const disabled = kind === "baseline" && (build.id === currentId || !build.comparable);
               const observed =
@@ -178,9 +176,10 @@ function EndpointPicker({
               return (
                 <CommandItem
                   key={build.id}
-                  value={`${build.buildVersion} ${observed} ${build.manifest.status}`}
-                  disabled={disabled}
-                  onSelect={() => {
+                  id={build.id}
+                  textValue={`${build.buildVersion} ${observed} ${build.manifest.status}`}
+                  isDisabled={disabled}
+                  onAction={() => {
                     if (disabled) return;
                     onSelect(build.id);
                     setOpen(false);
@@ -210,8 +209,8 @@ function EndpointPicker({
             })}
           </CommandList>
         </Command>
-      </PopoverContent>
-    </Popover>
+      </Popover>
+    </PopoverTrigger>
   );
 }
 
@@ -239,9 +238,9 @@ function BuildActions({
   const canCompare = build.comparable && build.id !== currentId;
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>{children}</PopoverTrigger>
-      <PopoverContent className="w-[min(24rem,calc(100vw-2rem))]" align="center">
+    <PopoverTrigger isOpen={open} onOpenChange={setOpen}>
+      {children}
+      <Popover className="w-[min(24rem,calc(100vw-2rem))]" placement="bottom">
         <div className="min-w-0">
           <p className="truncate font-mono text-sm font-medium">{build.buildVersion}</p>
           <p className="mt-1 text-xs text-muted-foreground">{observed}</p>
@@ -253,8 +252,8 @@ function BuildActions({
           <Button
             variant="outline"
             size="sm"
-            disabled={!canCompare || build.id === baselineId}
-            onClick={() => {
+            isDisabled={!canCompare || build.id === baselineId}
+            onPress={() => {
               onSelectBaseline(build.id);
               setOpen(false);
             }}
@@ -265,8 +264,8 @@ function BuildActions({
           <Button
             variant="outline"
             size="sm"
-            disabled={build.id === currentId}
-            onClick={() => {
+            isDisabled={build.id === currentId}
+            onPress={() => {
               onSelectCurrent(build.id);
               setOpen(false);
             }}
@@ -278,8 +277,8 @@ function BuildActions({
         {!canCompare && build.id !== currentId && (
           <p className="mt-3 text-xs text-destructive">{t("builds.timeline.notComparable")}</p>
         )}
-      </PopoverContent>
-    </Popover>
+      </Popover>
+    </PopoverTrigger>
   );
 }
 
@@ -301,9 +300,9 @@ function ClusterActions({
   const { t } = useTranslation();
   const { locale, timezone } = useLocale();
   return (
-    <Popover>
-      <PopoverTrigger asChild>{children}</PopoverTrigger>
-      <PopoverContent className="w-[min(34rem,calc(100vw-2rem))] p-2" align="center">
+    <PopoverTrigger>
+      {children}
+      <Popover className="w-[min(34rem,calc(100vw-2rem))] p-2" placement="bottom">
         <p className="px-2 pb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
           {t("builds.timeline.clusteredBuilds", { count: points.length })}
         </p>
@@ -325,8 +324,10 @@ function ClusterActions({
                   size="icon"
                   className="size-8"
                   aria-label={t("builds.timeline.useAsBaseline")}
-                  disabled={!build.comparable || build.id === currentId || build.id === baselineId}
-                  onClick={() => onSelectBaseline(build.id)}
+                  isDisabled={
+                    !build.comparable || build.id === currentId || build.id === baselineId
+                  }
+                  onPress={() => onSelectBaseline(build.id)}
                 >
                   <GitCompareArrowsIcon />
                 </Button>
@@ -335,8 +336,8 @@ function ClusterActions({
                   size="icon"
                   className="size-8"
                   aria-label={t("builds.timeline.viewAsCurrent")}
-                  disabled={build.id === currentId}
-                  onClick={() => onSelectCurrent(build.id)}
+                  isDisabled={build.id === currentId}
+                  onPress={() => onSelectCurrent(build.id)}
                 >
                   <EyeIcon />
                 </Button>
@@ -344,8 +345,8 @@ function ClusterActions({
             );
           })}
         </div>
-      </PopoverContent>
-    </Popover>
+      </Popover>
+    </PopoverTrigger>
   );
 }
 
@@ -531,8 +532,7 @@ function DesktopTimeline({
                     onSelectCurrent={onSelectCurrent}
                     onSelectBaseline={onSelectBaseline}
                   >
-                    <button
-                      type="button"
+                    <AriaButton
                       className={cn(
                         "absolute top-[160px] z-20 size-[17px] -translate-x-1/2 rounded-full border-2 border-background shadow-[0_0_0_2px] transition-transform hover:scale-125 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                         isCurrent ? "bg-cyan-400 text-cyan-400" : "bg-blue-400 text-blue-400",
@@ -554,8 +554,7 @@ function DesktopTimeline({
                     onSelectCurrent={onSelectCurrent}
                     onSelectBaseline={onSelectBaseline}
                   >
-                    <button
-                      type="button"
+                    <AriaButton
                       className="absolute top-[162px] z-10 size-3 -translate-x-1/2 rounded-full border-2 border-background bg-muted-foreground shadow-[0_0_0_1px_hsl(var(--border))] transition-transform hover:scale-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                       style={{ left: `${place(remaining[0].position)}%` }}
                       aria-label={`${remaining[0].build.buildVersion}, ${formatObservedDate(remaining[0].build.firstSeenAt, timezone, locale, true) ?? t("builds.timeline.dateUnavailable")}`}
@@ -570,15 +569,14 @@ function DesktopTimeline({
                     onSelectCurrent={onSelectCurrent}
                     onSelectBaseline={onSelectBaseline}
                   >
-                    <button
-                      type="button"
+                    <AriaButton
                       className="absolute top-[154px] z-10 flex size-7 -translate-x-1/2 items-center justify-center rounded-full border border-border bg-background text-[10px] font-semibold shadow-md transition-colors hover:border-primary hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                       style={{ left: `${place(cluster.position)}%` }}
                       aria-label={t("builds.timeline.clusteredBuilds", { count: remaining.length })}
                       data-testid="build-timeline-cluster"
                     >
                       {remaining.length}
-                    </button>
+                    </AriaButton>
                   </ClusterActions>
                 ))}
             </div>
@@ -678,8 +676,7 @@ function MobileTrail({
                     onSelectCurrent={onSelectCurrent}
                     onSelectBaseline={onSelectBaseline}
                   >
-                    <button
-                      type="button"
+                    <AriaButton
                       className={cn(
                         "flex w-full items-center gap-2 px-3 py-2.5 text-left transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring",
                         isCurrent && "bg-cyan-500/5",
@@ -712,7 +709,7 @@ function MobileTrail({
                         </Badge>
                       )}
                       <MoreHorizontalIcon className="size-4 shrink-0 text-muted-foreground" />
-                    </button>
+                    </AriaButton>
                   </BuildActions>
                 );
               })}
@@ -766,9 +763,9 @@ export function BuildHistoryExplorer({
           variant="outline"
           size="icon"
           className="mx-auto size-9 rotate-90 md:rotate-0"
-          disabled={!baselineId || !currentBuild?.comparable}
+          isDisabled={!baselineId || !currentBuild?.comparable}
           aria-label={t("builds.comparison.swap")}
-          onClick={onSwap}
+          onPress={onSwap}
         >
           <ArrowLeftRightIcon />
         </Button>

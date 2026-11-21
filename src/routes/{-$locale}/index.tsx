@@ -34,14 +34,9 @@ import { DateTime } from "luxon";
 import { getGiveawaysStats, GiveawaysStats } from "@/components/modules/giveaway-stats";
 import { cn } from "@/lib/utils";
 import { calculatePrice } from "@/lib/calculate-price";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
+import { Dialog, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Button as AriaButton } from "react-aria-components";
 import {
   Box,
   Package,
@@ -591,19 +586,18 @@ function RouteComponent() {
               }
 
               return (
-                <HoverCard key={id as string} openDelay={300} closeDelay={200}>
-                  <HoverCardTrigger asChild>{TableRowContent}</HoverCardTrigger>
-                  <HoverCardContent
-                    side="left"
-                    align="start"
-                    sideOffset={5}
+                <HoverCardTrigger key={id as string} delay={300} closeDelay={200}>
+                  {TableRowContent}
+                  <HoverCard
+                    placement="left top"
+                    offset={5}
                     className="w-80 bg-transparent p-0 border-0"
                   >
                     {customRenderHoverCard
                       ? customRenderHoverCard(id as string)
                       : renderHoverCard(hoverCardType, id as string)}
-                  </HoverCardContent>
-                </HoverCard>
+                  </HoverCard>
+                </HoverCardTrigger>
               );
             })}
           </TableBody>
@@ -654,12 +648,8 @@ function RouteComponent() {
           )}
         </CardTitle>
       </CardHeader>
-      <CardContent className="p-0">
-        <ScrollArea
-          className={cn("h-[650px] p-4", className?.includes("h-[400px]") && "h-[400px]")}
-        >
-          {children}
-        </ScrollArea>
+      <CardContent className="flex min-h-0 flex-1 flex-col p-0">
+        <ScrollArea className="min-h-0 flex-1 p-4">{children}</ScrollArea>
       </CardContent>
     </Card>
   );
@@ -701,10 +691,8 @@ function RouteComponent() {
       <div className="grid gap-6 grid-cols-1 lg:grid-cols-2">
         {/* Giveaways Stats Section */}
         <Section title={t("home.sections.giveawayStats")} href="/freebies" className="h-[400px]">
-          <div className="flex flex-col items-center justify-center h-full">
-            <div className="w-full flex items-center justify-center h-[300px]">
-              <GiveawaysStats showTitle={false} wrap />
-            </div>
+          <div className="flex h-full w-full items-center justify-center">
+            <GiveawaysStats showTitle={false} wrap />
           </div>
         </Section>
         <Section title={t("home.sections.giveawayOffers")} href="/freebies" className="h-[400px]">
@@ -739,25 +727,20 @@ function RouteComponent() {
                 />
               </Link>,
               g.offers.length > 1 ? (
-                <Dialog key={`feebies-dialog-${g.id}`}>
-                  <DialogTrigger asChild>
-                    <button
-                      type="button"
-                      className="flex flex-col items-start justify-center text-left hover:text-primary transition-colors"
-                    >
-                      <TruncatedText text={g.title} maxLength={35} />
-                      <p className="inline-flex gap-1">
-                        {g.platforms.map((p) =>
-                          RenderTextPlatformIcon({
-                            platform: p,
-                            className: "size-5 rounded-full p-1 bg-muted",
-                            key: `${p}-${g.id}`,
-                          }),
-                        )}
-                      </p>
-                    </button>
-                  </DialogTrigger>
-                  <DialogContent className="max-w-md z-[60]">
+                <DialogTrigger key={`feebies-dialog-${g.id}`}>
+                  <AriaButton className="flex flex-col items-start justify-center text-left hover:text-primary transition-colors">
+                    <TruncatedText text={g.title} maxLength={35} />
+                    <p className="inline-flex gap-1">
+                      {g.platforms.map((p) =>
+                        RenderTextPlatformIcon({
+                          platform: p,
+                          className: "size-5 rounded-full p-1 bg-muted",
+                          key: `${p}-${g.id}`,
+                        }),
+                      )}
+                    </p>
+                  </AriaButton>
+                  <Dialog className="max-w-md z-[60]">
                     <DialogHeader>
                       <DialogTitle>{t("home.multipleOffers", { title: g.title })}</DialogTitle>
                     </DialogHeader>
@@ -768,55 +751,50 @@ function RouteComponent() {
                           (item.releaseInfo ?? []).flatMap((info) => info?.platform ?? []),
                         );
                         return (
-                          <HoverCard key={offer.id}>
-                            <HoverCardTrigger asChild>
-                              <Link
-                                to="/{-$locale}/offers/$id"
-                                params={{ id: offer.id }}
-                                className="flex items-center gap-3 p-3 border rounded-lg bg-card transition-colors hover:border-primary/60"
-                              >
-                                <img
-                                  src={buildImageUrl(
-                                    getImage(offer.keyImages, [
-                                      "DieselGameBoxTall",
-                                      "OfferImageTall",
-                                    ])?.url ?? "/placeholder.webp",
-                                    96,
-                                    "low",
+                          <HoverCardTrigger key={offer.id}>
+                            <Link
+                              to="/{-$locale}/offers/$id"
+                              params={{ id: offer.id }}
+                              className="flex items-center gap-3 p-3 border rounded-lg bg-card transition-colors hover:border-primary/60"
+                            >
+                              <img
+                                src={buildImageUrl(
+                                  getImage(offer.keyImages, ["DieselGameBoxTall", "OfferImageTall"])
+                                    ?.url ?? "/placeholder.webp",
+                                  96,
+                                  "low",
+                                )}
+                                alt={offer.title}
+                                loading="lazy"
+                                decoding="async"
+                                className="w-12 h-16 object-cover rounded"
+                              />
+                              <div className="flex-1">
+                                <h4 className="font-medium">{offer.title}</h4>
+                                <div className="flex gap-1 mt-1">
+                                  {offerPlatforms.map((platform, idx) =>
+                                    RenderTextPlatformIcon({
+                                      platform,
+                                      className: "size-6 rounded-full p-1 bg-muted",
+                                      key: `${platform}-${offer.id}-${idx}`,
+                                    }),
                                   )}
-                                  alt={offer.title}
-                                  loading="lazy"
-                                  decoding="async"
-                                  className="w-12 h-16 object-cover rounded"
-                                />
-                                <div className="flex-1">
-                                  <h4 className="font-medium">{offer.title}</h4>
-                                  <div className="flex gap-1 mt-1">
-                                    {offerPlatforms.map((platform, idx) =>
-                                      RenderTextPlatformIcon({
-                                        platform,
-                                        className: "size-6 rounded-full p-1 bg-muted",
-                                        key: `${platform}-${offer.id}-${idx}`,
-                                      }),
-                                    )}
-                                  </div>
                                 </div>
-                              </Link>
-                            </HoverCardTrigger>
-                            <HoverCardContent
+                              </div>
+                            </Link>
+                            <HoverCard
                               className="w-80 bg-transparent p-0 border-0"
-                              align="center"
-                              side="right"
-                              sideOffset={30}
+                              placement="right"
+                              offset={30}
                             >
                               <OfferHoverCard id={offer.id} />
-                            </HoverCardContent>
-                          </HoverCard>
+                            </HoverCard>
+                          </HoverCardTrigger>
                         );
                       })}
                     </div>
-                  </DialogContent>
-                </Dialog>
+                  </Dialog>
+                </DialogTrigger>
               ) : (
                 <Link
                   key={`feebies-title-${g.id}`}

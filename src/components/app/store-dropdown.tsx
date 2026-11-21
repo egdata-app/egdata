@@ -1,10 +1,6 @@
 import { ChevronDown } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-  DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
 import type { SingleOffer } from "@/types/single-offer";
 import { EpicGamesIcon } from "../icons/epic";
 import { EGSIcon } from "../icons/egs";
@@ -27,14 +23,14 @@ export function StoreDropdown({ offer }: { offer: SingleOffer }) {
   const { t } = useTranslation();
   return (
     <div className="w-[200px]">
-      <DropdownMenu>
-        <DropdownMenuTrigger className="flex w-full items-center justify-between rounded-lg bg-card px-4 py-2 text-sm font-medium text-foreground hover:bg-muted">
+      <DropdownMenuTrigger>
+        <Button className="flex w-full items-center justify-between rounded-lg bg-card px-4 py-2 text-sm font-medium text-foreground hover:bg-muted">
           <span className="flex items-center gap-2">
             {t("components.storeDropdown.viewStorePage")}
           </span>
           <ChevronDown className="h-4 w-4" />
-        </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-[200px] bg-card text-foreground">
+        </Button>
+        <DropdownMenu className="w-[200px] bg-card text-foreground">
           {offer.namespace !== "ue" && (
             <>
               <OpenEgs offer={offer} />
@@ -42,8 +38,8 @@ export function StoreDropdown({ offer }: { offer: SingleOffer }) {
             </>
           )}
           {offer.namespace === "ue" && <OpenFabWeb offer={offer} />}
-        </DropdownMenuContent>
-      </DropdownMenu>
+        </DropdownMenu>
+      </DropdownMenuTrigger>
     </div>
   );
 }
@@ -66,7 +62,7 @@ function OpenEgl({ offer }: { offer: SingleOffer }) {
   return (
     <DropdownMenuItem
       className="flex items-center gap-3 px-4 py-2 hover:bg-muted cursor-pointer"
-      onClick={() => {
+      onAction={() => {
         trackEvent(offer);
         open(
           `com.epicgames.launcher://store/${namespace}/${
@@ -102,21 +98,16 @@ function OpenEgs({ offer }: { offer: SingleOffer }) {
 
   return (
     <DropdownMenuItem
-      asChild
+      href={storeUrl}
+      rel="noopener noreferrer"
+      target="_blank"
+      onAction={() => trackEvent(offer)}
       className="flex items-center gap-3 px-4 py-2 hover:bg-muted cursor-pointer"
     >
-      <a
-        href={storeUrl}
-        rel="noopener noreferrer"
-        referrerPolicy="no-referrer"
-        target="_blank"
-        onClick={() => trackEvent(offer)}
-      >
-        <div className="flex items-center justify-center gap-2">
-          <EGSIcon className="size-6 w-[20px]" />
-          <span className="font-semibold">{t("components.storeDropdown.webBrowser")}</span>
-        </div>
-      </a>
+      <div className="flex items-center justify-center gap-2">
+        <EGSIcon className="size-6 w-[20px]" />
+        <span className="font-semibold">{t("components.storeDropdown.webBrowser")}</span>
+      </div>
     </DropdownMenuItem>
   );
 }
@@ -129,13 +120,16 @@ function OpenFabWeb({ offer }: { offer: SingleOffer }) {
   }
 
   return (
-    <DropdownMenuItem className="flex items-center gap-3 px-4 py-2 hover:bg-muted cursor-pointer">
-      <a href={`https://www.fab.com/listings/${id}`} target="_blank" rel="noopener noreferrer">
-        <div className="flex items-center justify-center gap-2">
-          <FabIcon className="size-6 w-[20px]" />
-          <span className="font-semibold">{t("components.storeDropdown.webBrowser")}</span>
-        </div>
-      </a>
+    <DropdownMenuItem
+      href={`https://www.fab.com/listings/${id}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center gap-3 px-4 py-2 hover:bg-muted cursor-pointer"
+    >
+      <div className="flex items-center justify-center gap-2">
+        <FabIcon className="size-6 w-[20px]" />
+        <span className="font-semibold">{t("components.storeDropdown.webBrowser")}</span>
+      </div>
     </DropdownMenuItem>
   );
 }

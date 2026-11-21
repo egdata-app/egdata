@@ -171,19 +171,19 @@ function ProfileInformation() {
 
   return (
     <Tabs
-      value={search.tab}
-      onValueChange={(tab) => updateSearch({ tab: tab as ProfileTab })}
+      selectedKey={search.tab}
+      onSelectionChange={(tab) => updateSearch({ tab: String(tab) as ProfileTab })}
       className="w-full"
     >
       <div className="mb-6 flex flex-col gap-4 border-b border-border pb-4 lg:flex-row lg:items-center lg:justify-between">
         <TabsList className="w-fit rounded-md bg-card p-1">
-          <TabsTrigger value="showcase" className="rounded">
+          <TabsTrigger id="showcase" className="rounded">
             {t("profile.tabs.showcase")}
           </TabsTrigger>
-          <TabsTrigger value="library" className="rounded">
+          <TabsTrigger id="library" className="rounded">
             {t("profile.tabs.library")}
           </TabsTrigger>
-          <TabsTrigger value="activity" className="rounded">
+          <TabsTrigger id="activity" className="rounded">
             {t("profile.tabs.activity")}
           </TabsTrigger>
         </TabsList>
@@ -205,7 +205,7 @@ function ProfileInformation() {
         </div>
       </div>
 
-      <TabsContent value="showcase" className="mt-0">
+      <TabsContent id="showcase" className="mt-0">
         <ShowcaseView
           featuredAchievements={featuredAchievements}
           featuredGames={featuredGames}
@@ -213,7 +213,7 @@ function ProfileInformation() {
           profileId={id}
         />
       </TabsContent>
-      <TabsContent value="library" className="mt-0">
+      <TabsContent id="library" className="mt-0">
         <LibraryView
           gamesPage={libraryPage}
           isLoading={libraryLoading && !libraryPage}
@@ -228,7 +228,7 @@ function ProfileInformation() {
           onPageChange={(page) => updateSearch({ tab: "library", page })}
         />
       </TabsContent>
-      <TabsContent value="activity" className="mt-0">
+      <TabsContent id="activity" className="mt-0">
         <ActivityView
           activityPage={activityPage}
           isLoading={activityLoading && !activityPage}
@@ -555,16 +555,20 @@ function LibraryView({
         </div>
         <div className="flex items-center gap-2">
           <FilterIcon className="size-4 text-muted-foreground" />
-          <Select value={search.sort} onValueChange={(value) => onSortChange(value as SearchSort)}>
+          <Select
+            selectedKey={search.sort}
+            onSelectionChange={(value) => onSortChange(String(value) as SearchSort)}
+            placeholder={t("profile.library.sortByPlaceholder")}
+          >
             <SelectTrigger
               className="w-[180px] rounded-md"
               aria-label={t("profile.library.sortAriaLabel")}
             >
-              <SelectValue placeholder={t("profile.library.sortByPlaceholder")} />
+              <SelectValue />
             </SelectTrigger>
             <SelectContent>
               {searchSorts.map((sort) => (
-                <SelectItem key={sort} value={sort}>
+                <SelectItem key={sort} id={sort}>
                   {sortLabels[sort]}
                 </SelectItem>
               ))}

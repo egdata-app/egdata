@@ -366,8 +366,10 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
     );
     return () => clearInterval(refreshInterval);
   }, [webApiKey]);
+  // EGData is dark-only. The palette lives in `:root` (see styles.css); the
+  // `dark` class keeps the React Aria/shadcn components' `dark:` variants on.
   return (
-    <html lang={locale ?? "en"} dir={dir}>
+    <html lang={locale ?? "en"} dir={dir} className="dark">
       <head>
         {catalogChunkUrl ? (
           <link

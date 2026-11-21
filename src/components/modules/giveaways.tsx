@@ -2,12 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "../ui/skeleton";
 import { Image } from "@/components/app/image";
 import { getImage } from "@/lib/getImage";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
 import { useCountry } from "@/hooks/use-country";
 import { useEffect, useState } from "react";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { giveawaysQueryOptions, type GiveawayCard as GiveawayCardData } from "@/queries/giveaways";
-import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { ScrollArea } from "../ui/scroll-area";
 import { calculatePrice } from "@/lib/calculate-price";
 import { ArrowRightIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -62,7 +62,6 @@ export function GiveawaysCarousel({ hideTitle }: { hideTitle?: boolean }) {
               <GiveawayCard key={offer.id} offer={offer} />
             ))}
         </div>
-        <ScrollBar orientation="horizontal" />
       </ScrollArea>
     </section>
   );
@@ -144,43 +143,41 @@ function GiveawayCard({ offer }: { offer: GiveawayCardData }) {
             )}
           </div>
           <span className="text-xs font-semibold flex items-center gap-1 text-muted-foreground">
-            <TooltipProvider>
-              {t("components.giveaways.repeated")}{" "}
-              {offer.giveaway?.historical?.length > 1 ? (
-                <Tooltip>
-                  <TooltipTrigger className="flex items-center gap-1">
-                    {t("components.giveaways.yes")}
-                    <InfoCircledIcon className="w-4 h-4" />
-                  </TooltipTrigger>
-                  <TooltipContent className="flex flex-col gap-1">
-                    <i className="text-xs font-normal">
-                      {t("components.giveaways.repeatedTooltip", {
-                        count: offer.giveaway?.historical?.length,
-                      })}
-                    </i>
-                    <div className="flex flex-col gap-1">
-                      {offer.giveaway?.historical?.map((historical) => (
-                        <span key={historical.id}>
-                          {new Date(historical.startDate).toLocaleDateString("en-UK", {
-                            year: "numeric",
-                            month: "short",
-                            day: "numeric",
-                          })}{" "}
-                          -{" "}
-                          {new Date(historical.endDate).toLocaleDateString("en-UK", {
-                            year: "numeric",
-                            month: "short",
-                            day: "numeric",
-                          })}
-                        </span>
-                      ))}
-                    </div>
-                  </TooltipContent>
+            {t("components.giveaways.repeated")}{" "}
+            {offer.giveaway?.historical?.length > 1 ? (
+              <TooltipTrigger>
+                <span className="flex items-center gap-1">
+                  {t("components.giveaways.yes")}
+                  <InfoCircledIcon className="w-4 h-4" />
+                </span>
+                <Tooltip className="flex flex-col gap-1">
+                  <i className="text-xs font-normal">
+                    {t("components.giveaways.repeatedTooltip", {
+                      count: offer.giveaway?.historical?.length,
+                    })}
+                  </i>
+                  <div className="flex flex-col gap-1">
+                    {offer.giveaway?.historical?.map((historical) => (
+                      <span key={historical.id}>
+                        {new Date(historical.startDate).toLocaleDateString("en-UK", {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}{" "}
+                        -{" "}
+                        {new Date(historical.endDate).toLocaleDateString("en-UK", {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </span>
+                    ))}
+                  </div>
                 </Tooltip>
-              ) : (
-                t("components.giveaways.no")
-              )}
-            </TooltipProvider>
+              </TooltipTrigger>
+            ) : (
+              t("components.giveaways.no")
+            )}
           </span>
         </div>
       </div>

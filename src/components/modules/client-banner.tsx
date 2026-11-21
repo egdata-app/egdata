@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/components/app/localized-link";
 import { Download } from "lucide-react";
 import { useTranslation } from "@/lib/paraglide-react";
@@ -36,16 +36,17 @@ export function ClientBanner() {
             </p>
 
             {/* CTA Button */}
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-foreground font-semibold px-8 py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 group"
-              asChild
+            <Link
+              to="/{-$locale}/downloads"
+              className={buttonVariants({
+                size: "lg",
+                className:
+                  "bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-foreground font-semibold px-8 py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 group",
+              })}
             >
-              <Link to="/{-$locale}/downloads">
-                <Download strokeWidth={3} className="w-5 h-5 mr-2" />
-                {t("components.clientBanner.cta")}
-              </Link>
-            </Button>
+              <Download strokeWidth={3} className="w-5 h-5 mr-2" />
+              {t("components.clientBanner.cta")}
+            </Link>
           </div>
 
           {/* Right Visual Element */}

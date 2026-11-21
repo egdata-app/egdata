@@ -1,51 +1,90 @@
 import * as React from "react";
-import { Accordion as AccordionPrimitive } from "radix-ui";
-import { ChevronDownIcon } from "@radix-ui/react-icons";
+import { cn } from "cn";
+import {
+  DisclosurePanel as AccordionContentPrimitive,
+  Heading as AccordionHeaderPrimitive,
+  Disclosure as AccordionItemPrimitive,
+  DisclosureGroup as AccordionPrimitive,
+  Button as AccordionTriggerPrimitive,
+  type ButtonProps,
+  type DisclosureGroupProps,
+  type DisclosurePanelProps,
+  type DisclosureProps,
+} from "react-aria-components";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { ArrowDown01Icon, ArrowUp01Icon } from "@hugeicons/core-free-icons";
 
-import { cn } from "@/lib/utils";
+function Accordion({ className, ...props }: DisclosureGroupProps) {
+  return (
+    <AccordionPrimitive
+      data-slot="accordion"
+      className={cn("flex w-full flex-col overflow-hidden rounded-md border", className)}
+      {...props}
+    />
+  );
+}
 
-const Accordion = AccordionPrimitive.Root;
+function AccordionItem({ className, ...props }: DisclosureProps) {
+  return (
+    <AccordionItemPrimitive
+      data-slot="accordion-item"
+      className={cn("not-last:border-b data-open:bg-muted/50", className)}
+      {...props}
+    />
+  );
+}
 
-const AccordionItem = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Item>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
->(({ className, ...props }, ref) => (
-  <AccordionPrimitive.Item ref={ref} className={cn("border-b", className)} {...props} />
-));
-AccordionItem.displayName = "AccordionItem";
+function AccordionTrigger({
+  className,
+  children,
+  ...props
+}: Omit<ButtonProps, "children"> & { children: React.ReactNode }) {
+  return (
+    <AccordionHeaderPrimitive className="flex">
+      <AccordionTriggerPrimitive
+        slot="trigger"
+        data-slot="accordion-trigger"
+        className={cn(
+          "group/accordion-trigger relative flex flex-1 items-start justify-between gap-6 border border-transparent p-2 text-start text-xs/relaxed font-medium transition-all outline-none hover:underline disabled:pointer-events-none disabled:opacity-50 **:data-[slot=accordion-trigger-icon]:ms-auto **:data-[slot=accordion-trigger-icon]:size-4 **:data-[slot=accordion-trigger-icon]:text-muted-foreground",
+          className,
+        )}
+        {...props}
+      >
+        {children}
+        <HugeiconsIcon
+          icon={ArrowDown01Icon}
+          strokeWidth={2}
+          data-slot="accordion-trigger-icon"
+          className="pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden"
+        />
+        <HugeiconsIcon
+          icon={ArrowUp01Icon}
+          strokeWidth={2}
+          data-slot="accordion-trigger-icon"
+          className="pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline"
+        />
+      </AccordionTriggerPrimitive>
+    </AccordionHeaderPrimitive>
+  );
+}
 
-const AccordionTrigger = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
->(({ className, children, ...props }, ref) => (
-  <AccordionPrimitive.Header className="flex">
-    <AccordionPrimitive.Trigger
-      ref={ref}
-      className={cn(
-        "flex flex-1 items-center justify-between py-4 text-sm font-medium transition-all hover:underline [&[data-state=open]>svg]:rotate-180",
-        className,
-      )}
+function AccordionContent({ className, children, ...props }: DisclosurePanelProps) {
+  return (
+    <AccordionContentPrimitive
+      data-slot="accordion-content"
+      className="h-(--disclosure-panel-height) overflow-clip px-2 text-xs/relaxed transition-[height] data-open:animate-accordion-down data-closed:animate-accordion-up"
       {...props}
     >
-      {children}
-      <ChevronDownIcon className="h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200" />
-    </AccordionPrimitive.Trigger>
-  </AccordionPrimitive.Header>
-));
-AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
-
-const AccordionContent = React.forwardRef<
-  React.ElementRef<typeof AccordionPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
->(({ className, children, ...props }, ref) => (
-  <AccordionPrimitive.Content
-    ref={ref}
-    className="overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down"
-    {...props}
-  >
-    <div className={cn("pb-4 pt-0", className)}>{children}</div>
-  </AccordionPrimitive.Content>
-));
-AccordionContent.displayName = AccordionPrimitive.Content.displayName;
+      <div
+        className={cn(
+          "pt-0 pb-4 [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4",
+          className,
+        )}
+      >
+        {children}
+      </div>
+    </AccordionContentPrimitive>
+  );
+}
 
 export { Accordion, AccordionItem, AccordionTrigger, AccordionContent };

@@ -24,12 +24,14 @@ test.describe("Search flow", () => {
 
     await Promise.all([
       waitForSearchResponse(page),
-      page.getByRole("checkbox", { name: "On Sale" }).click(),
+      // React Aria renders the checkbox as a visually hidden input plus a
+      // visible <label>; click the label users actually interact with.
+      page.getByText("On Sale", { exact: true }).first().click(),
     ]);
     await expect(page).toHaveURL(/onSale=true/);
     await expectSearchResultsReady(page);
 
-    await page.getByRole("combobox", { name: "Sort offers" }).click();
+    await page.getByRole("button", { name: "Sort offers" }).click();
     await Promise.all([
       waitForSearchResponse(page),
       page.getByRole("option", { name: "Price" }).click(),
@@ -65,7 +67,7 @@ test.describe("Search flow", () => {
 
     // Sorting: scroll down again, then change the sort field
     await scrollToBottom();
-    await page.getByRole("combobox", { name: "Sort offers" }).click();
+    await page.getByRole("button", { name: "Sort offers" }).click();
     await Promise.all([
       waitForSearchResponse(page),
       page.getByRole("option", { name: "Price" }).click(),

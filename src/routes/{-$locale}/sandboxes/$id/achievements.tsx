@@ -9,7 +9,7 @@ import { EpicTrophyIcon } from "@/components/icons/epic-trophy";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
 import { useLocale } from "@/hooks/use-locale";
 import { getQueryClient } from "@/lib/client";
 import { generateSandboxMeta } from "@/lib/generate-sandbox-meta";
@@ -213,8 +213,8 @@ function SandboxAchievementsPage() {
         <Button
           variant="outline"
           size="sm"
-          onClick={handleFlipAll}
-          disabled={achievements.length === 0}
+          onPress={handleFlipAll}
+          isDisabled={achievements.length === 0}
         >
           <CardStackIcon className="size-4" />
           <span>{t("sandboxes.flipAllButton")}</span>
@@ -222,8 +222,8 @@ function SandboxAchievementsPage() {
         <Button
           variant="outline"
           size="icon"
-          onClick={() => setBlur(!blur)}
-          disabled={achievements.length === 0}
+          onPress={() => setBlur(!blur)}
+          isDisabled={achievements.length === 0}
           aria-label={
             blur
               ? t("sandboxes.revealHiddenAchievementAria")
@@ -284,56 +284,56 @@ function SandboxAchievementsPage() {
           .sort((a, b) => (a.isBase ? -1 : b.isBase ? 1 : 0))
           .map((achievementSet) => (
             <div key={achievementSet.achievementSetId}>
-              <TooltipProvider>
-                <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                <TooltipTrigger>
+                  <h4
+                    tabIndex={0}
+                    className="text-xl font-thin underline decoration-dotted decoration-border/60 underline-offset-4"
+                  >
+                    {achievementSet.isBase
+                      ? t("sandboxes.achievementsBaseGameLabel")
+                      : t("sandboxes.achievementsDlcLabel")}{" "}
+                    {t("sandboxes.achievementsLabel")}
+                  </h4>
                   <Tooltip>
-                    <TooltipTrigger>
-                      <h4 className="text-xl font-thin underline decoration-dotted decoration-border/60 underline-offset-4">
-                        {achievementSet.isBase
-                          ? t("sandboxes.achievementsBaseGameLabel")
-                          : t("sandboxes.achievementsDlcLabel")}{" "}
-                        {t("sandboxes.achievementsLabel")}
-                      </h4>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>
-                        {achievementSet.isBase && t("sandboxes.achievementsBaseGameTooltip")}
-                        {!achievementSet.isBase && t("sandboxes.achievementsDlcTooltip")}
-                      </p>
-                    </TooltipContent>
+                    <p>
+                      {achievementSet.isBase && t("sandboxes.achievementsBaseGameTooltip")}
+                      {!achievementSet.isBase && t("sandboxes.achievementsDlcTooltip")}
+                    </p>
                   </Tooltip>
-                  <div className="justify-between items-center">
-                    {achievementSet.lastUpdated && (
+                </TooltipTrigger>
+                <div className="justify-between items-center">
+                  {achievementSet.lastUpdated && (
+                    <TooltipTrigger>
+                      <span
+                        tabIndex={0}
+                        className="text-sm underline decoration-dotted decoration-border/60 underline-offset-4"
+                      >
+                        {t("sandboxes.lastUpdatedLabel")}{" "}
+                        {new Date(achievementSet.lastUpdated).toLocaleString("en-GB", {
+                          timeZone: timezone,
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}
+                      </span>
                       <Tooltip>
-                        <TooltipTrigger>
-                          <span className="text-sm underline decoration-dotted decoration-border/60 underline-offset-4">
-                            {t("sandboxes.lastUpdatedLabel")}{" "}
-                            {new Date(achievementSet.lastUpdated).toLocaleString("en-GB", {
-                              timeZone: timezone,
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                            })}
-                          </span>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>
-                            {t("sandboxes.achievementsLastUpdatedTooltip")}{" "}
-                            {new Date(achievementSet.lastUpdated).toLocaleString("en-GB", {
-                              timeZone: timezone,
-                              timeStyle: "short",
-                              dateStyle: "short",
-                            })}
-                            .
-                            <br />
-                            {t("sandboxes.achievementsLastUpdatedTooltipExtra")}
-                          </p>
-                        </TooltipContent>
+                        <p>
+                          {t("sandboxes.achievementsLastUpdatedTooltip")}{" "}
+                          {new Date(achievementSet.lastUpdated).toLocaleString("en-GB", {
+                            timeZone: timezone,
+                            timeStyle: "short",
+                            dateStyle: "short",
+                          })}
+                          .
+                          <br />
+                          {t("sandboxes.achievementsLastUpdatedTooltipExtra")}
+                        </p>
                       </Tooltip>
-                    )}
-                  </div>
+                    </TooltipTrigger>
+                  )}
                 </div>
-              </TooltipProvider>
+              </div>
 
               <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 mt-4">
                 {achievementSet.achievements

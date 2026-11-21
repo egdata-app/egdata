@@ -17,7 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
 import { useLocale } from "@/hooks/use-locale";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { getRarity } from "@/lib/get-rarity";
@@ -183,18 +183,21 @@ function AchievementsPage() {
         <h1 className="text-2xl font-bold">{t("offerDetail.achievements.title")}</h1>
         <div className="flex flex-col gap-2 w-full md:w-auto md:flex-row md:items-center">
           <Select
-            value={sortBy}
-            onValueChange={(value) => setSortBy(value as "default" | "rarity")}
+            selectedKey={sortBy}
+            onSelectionChange={(value) =>
+              setSortBy(String(value) as "default" | "rarity" | "unlockedPercentage")
+            }
+            placeholder={t("offerDetail.achievements.sortBy")}
           >
             <SelectTrigger className="w-full md:w-[180px]">
-              <SelectValue placeholder={t("offerDetail.achievements.sortBy")} />
+              <SelectValue />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>{t("offerDetail.achievements.sortBy")}</SelectLabel>
-                <SelectItem value="default">{t("offerDetail.achievements.defaultSort")}</SelectItem>
-                <SelectItem value="rarity">{t("offerDetail.achievements.sortByRarity")}</SelectItem>
-                <SelectItem value="unlockedPercentage">
+                <SelectItem id="default">{t("offerDetail.achievements.defaultSort")}</SelectItem>
+                <SelectItem id="rarity">{t("offerDetail.achievements.sortByRarity")}</SelectItem>
+                <SelectItem id="unlockedPercentage">
                   {t("offerDetail.achievements.sortByCompleted")}
                 </SelectItem>
               </SelectGroup>
@@ -208,16 +211,16 @@ function AchievementsPage() {
           />
           <Button
             className="hover:bg-transparent border border-border/60 bg-muted inline-flex px-4 py-2 rounded-md text-center transition-all duration-300 ease-in-out text-foreground"
-            onClick={handleFlipAll}
-            disabled={achievements.length === 0}
+            onPress={handleFlipAll}
+            isDisabled={achievements.length === 0}
           >
             <CardStackIcon className="w-6 h-6 mr-2" />
             {t("offerDetail.achievements.flipAll")}
           </Button>
           <Button
             className="hover:bg-transparent border border-border/60 bg-muted inline-flex px-4 py-2 rounded-md text-center transition-all duration-300 ease-in-out text-foreground"
-            onClick={() => setBlur(!blur)}
-            disabled={achievements.length === 0}
+            onPress={() => setBlur(!blur)}
+            isDisabled={achievements.length === 0}
           >
             {blur ? <EyeOpenIcon className="w-6 h-6" /> : <EyeClosedIcon className="w-6 h-6" />}
           </Button>
@@ -262,62 +265,62 @@ function AchievementsPage() {
 
       {achievements.map((achievementSet) => (
         <div key={achievementSet.achievementSetId} className="w-full">
-          <TooltipProvider>
-            <div className="w-full justify-between items-center flex flex-row">
+          <div className="w-full justify-between items-center flex flex-row">
+            <TooltipTrigger>
+              <h4
+                tabIndex={0}
+                className="text-xl font-thin underline decoration-dotted decoration-border/60 underline-offset-4"
+              >
+                {achievementSet.isBase
+                  ? t("offerDetail.achievements.baseGame")
+                  : t("offerDetail.achievements.dlc")}{" "}
+                {t("offerDetail.achievements.achievementsLabel")}
+              </h4>
               <Tooltip>
-                <TooltipTrigger>
-                  <h4 className="text-xl font-thin underline decoration-dotted decoration-border/60 underline-offset-4">
-                    {achievementSet.isBase
-                      ? t("offerDetail.achievements.baseGame")
-                      : t("offerDetail.achievements.dlc")}{" "}
-                    {t("offerDetail.achievements.achievementsLabel")}
-                  </h4>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>
-                    {achievementSet.isBase && t("offerDetail.achievements.baseGameDescription")}
-                    {!achievementSet.isBase && t("offerDetail.achievements.dlcDescription")}
-                  </p>
-                </TooltipContent>
+                <p>
+                  {achievementSet.isBase && t("offerDetail.achievements.baseGameDescription")}
+                  {!achievementSet.isBase && t("offerDetail.achievements.dlcDescription")}
+                </p>
               </Tooltip>
-              <div className="justify-between items-center">
-                {achievementSet.lastUpdated && (
+            </TooltipTrigger>
+            <div className="justify-between items-center">
+              {achievementSet.lastUpdated && (
+                <TooltipTrigger>
+                  <span
+                    tabIndex={0}
+                    className="text-sm underline decoration-dotted decoration-border/60 underline-offset-4"
+                  >
+                    {t("offerDetail.achievements.lastUpdated")}{" "}
+                    {DateTime.fromISO(achievementSet.lastUpdated, {
+                      zone: timezone,
+                    })
+                      .setLocale("en-GB")
+                      .toLocaleString({
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                  </span>
                   <Tooltip>
-                    <TooltipTrigger>
-                      <span className="text-sm underline decoration-dotted decoration-border/60 underline-offset-4">
-                        {t("offerDetail.achievements.lastUpdated")}{" "}
-                        {DateTime.fromISO(achievementSet.lastUpdated, {
+                    <p>
+                      {t("offerDetail.achievements.lastUpdatedTooltip", {
+                        date: DateTime.fromISO(achievementSet.lastUpdated, {
                           zone: timezone,
                         })
                           .setLocale("en-GB")
                           .toLocaleString({
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          })}
-                      </span>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      <p>
-                        {t("offerDetail.achievements.lastUpdatedTooltip", {
-                          date: DateTime.fromISO(achievementSet.lastUpdated, {
-                            zone: timezone,
-                          })
-                            .setLocale("en-GB")
-                            .toLocaleString({
-                              timeStyle: "short",
-                              dateStyle: "short",
-                            }),
-                        })}
-                        <br />
-                        {t("offerDetail.achievements.lastUpdatedTooltipDescription")}
-                      </p>
-                    </TooltipContent>
+                            timeStyle: "short",
+                            dateStyle: "short",
+                          }),
+                      })}
+                      <br />
+                      {t("offerDetail.achievements.lastUpdatedTooltipDescription")}
+                    </p>
                   </Tooltip>
-                )}
-              </div>
+                </TooltipTrigger>
+              )}
             </div>
-          </TooltipProvider>
+          </div>
 
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mt-4">
             {achievementSet.achievements

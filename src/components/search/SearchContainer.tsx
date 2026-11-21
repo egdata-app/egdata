@@ -377,25 +377,23 @@ export function SearchContainer({
             showSort={true}
             showViewToggle={true}
             mobileFilterButton={
-              <Sheet open={filtersOpen} onOpenChange={setFiltersOpen}>
-                <SheetTrigger asChild>
-                  <Button variant="outline" size="sm" className="gap-2 md:hidden">
-                    <SlidersHorizontal className="size-4" />
-                    <span>{t("search.filters")}</span>
-                    {activeFilterCount > 0 && (
-                      <span className="rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-semibold text-primary-foreground">
-                        {activeFilterCount}
-                      </span>
-                    )}
-                  </Button>
-                </SheetTrigger>
+              <SheetTrigger isOpen={filtersOpen} onOpenChange={setFiltersOpen}>
+                <Button variant="outline" size="sm" className="gap-2 md:hidden">
+                  <SlidersHorizontal className="size-4" />
+                  <span>{t("search.filters")}</span>
+                  {activeFilterCount > 0 && (
+                    <span className="rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-semibold text-primary-foreground">
+                      {activeFilterCount}
+                    </span>
+                  )}
+                </Button>
                 <SheetContent side="left" className="w-[min(92vw,24rem)] overflow-y-auto p-4">
                   <SheetHeader className="mb-4 border-b border-border/50 pb-4 text-left">
                     <SheetTitle>{t("search.filters")}</SheetTitle>
                   </SheetHeader>
                   {filtersPanel}
                 </SheetContent>
-              </Sheet>
+              </SheetTrigger>
             }
           />
           <SearchResults

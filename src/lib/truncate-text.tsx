@@ -1,4 +1,4 @@
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
 
 /**
  * Truncates text to a specified maximum length and appends an ellipsis if truncated.
@@ -36,15 +36,11 @@ export function TruncatedText({
   }
 
   return (
-    <TooltipProvider>
+    <TooltipTrigger>
+      <span className={className}>{truncated}</span>
       <Tooltip>
-        <TooltipTrigger asChild>
-          <span className={className}>{truncated}</span>
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>{text}</p>
-        </TooltipContent>
+        <p>{text}</p>
       </Tooltip>
-    </TooltipProvider>
+    </TooltipTrigger>
   );
 }

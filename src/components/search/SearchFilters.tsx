@@ -230,18 +230,18 @@ export function SearchFilters({
       )}
 
       <Accordion
-        type="single"
-        collapsible
         className="w-full"
-        onValueChange={(value) => {
-          const section = facetSectionForAccordionValue(value);
-          if (section) {
-            onFacetSectionOpen(section);
+        onExpandedChange={(keys) => {
+          for (const key of keys) {
+            const section = facetSectionForAccordionValue(String(key));
+            if (section) {
+              onFacetSectionOpen(section);
+            }
           }
         }}
       >
         {showOfferType && (
-          <AccordionItem value="offerType">
+          <AccordionItem id="offerType">
             <AccordionTrigger>{t("search.accordion.offerType")}</AccordionTrigger>
             <AccordionContent className="flex flex-col gap-2 w-full mt-2">
               {offerTypeValues
@@ -271,7 +271,7 @@ export function SearchFilters({
           tagTypes.map((tagType) => {
             const tagTypeTags = tags?.filter((tag) => tag.groupName === tagType.name);
             return (
-              <AccordionItem key={tagType.name} value={tagType.name ?? "alltags"}>
+              <AccordionItem key={tagType.name} id={tagType.name ?? "alltags"}>
                 <AccordionTrigger>{tagType.label}</AccordionTrigger>
                 <AccordionContent className="flex flex-col gap-2 mt-2">
                   <ScrollArea>
@@ -316,7 +316,7 @@ export function SearchFilters({
           })}
 
         {showTechnologies && (
-          <AccordionItem value="technologies">
+          <AccordionItem id="technologies">
             <AccordionTrigger>{t("search.accordion.technologies")}</AccordionTrigger>
             <AccordionContent className="mt-2 flex flex-col gap-2">
               <ScrollArea>
@@ -364,7 +364,7 @@ export function SearchFilters({
         )}
 
         {showDeveloper && (
-          <AccordionItem value="developer">
+          <AccordionItem id="developer">
             <AccordionTrigger>{t("search.accordion.developer")}</AccordionTrigger>
             <AccordionContent>
               {Object.keys(developerCounts).length === 0 &&
@@ -390,7 +390,7 @@ export function SearchFilters({
         )}
 
         {showPublisher && (
-          <AccordionItem value="publisher">
+          <AccordionItem id="publisher">
             <AccordionTrigger>{t("search.accordion.publisher")}</AccordionTrigger>
             <AccordionContent>
               {Object.keys(publisherCounts).length === 0 &&
@@ -422,10 +422,8 @@ export function SearchFilters({
         <div className="flex items-center space-x-2">
           <Checkbox
             id="pastGiveaways"
-            checked={Boolean(query.pastGiveaways)}
-            onCheckedChange={(value) =>
-              handleFieldChange("pastGiveaways", value ? true : undefined)
-            }
+            isSelected={Boolean(query.pastGiveaways)}
+            onChange={(value) => handleFieldChange("pastGiveaways", value ? true : undefined)}
           />
           <label
             htmlFor="pastGiveaways"
@@ -440,8 +438,8 @@ export function SearchFilters({
         <div className="flex items-center space-x-2">
           <Checkbox
             id="onSale"
-            checked={!!query.onSale}
-            onCheckedChange={(value) => handleFieldChange("onSale", value ? true : undefined)}
+            isSelected={!!query.onSale}
+            onChange={(value) => handleFieldChange("onSale", value ? true : undefined)}
           />
           <label
             htmlFor="onSale"
@@ -456,8 +454,8 @@ export function SearchFilters({
         <div className="flex items-center space-x-2">
           <Checkbox
             id="isCodeRedemptionOnly"
-            checked={!!query.isCodeRedemptionOnly}
-            onCheckedChange={(value) =>
+            isSelected={!!query.isCodeRedemptionOnly}
+            onChange={(value) =>
               handleFieldChange("isCodeRedemptionOnly", value ? true : undefined)
             }
           />
@@ -474,10 +472,8 @@ export function SearchFilters({
         <div className="flex items-center space-x-2">
           <Checkbox
             id="excludeBlockchain"
-            checked={!!query.excludeBlockchain}
-            onCheckedChange={(value) =>
-              handleFieldChange("excludeBlockchain", value ? true : undefined)
-            }
+            isSelected={!!query.excludeBlockchain}
+            onChange={(value) => handleFieldChange("excludeBlockchain", value ? true : undefined)}
           />
           <label
             htmlFor="excludeBlockchain"
@@ -492,10 +488,8 @@ export function SearchFilters({
         <div className="flex items-center space-x-2">
           <Checkbox
             id="isLowestPrice"
-            checked={!!query.isLowestPrice}
-            onCheckedChange={(value) =>
-              handleFieldChange("isLowestPrice", value ? true : undefined)
-            }
+            isSelected={!!query.isLowestPrice}
+            onChange={(value) => handleFieldChange("isLowestPrice", value ? true : undefined)}
           />
           <label
             htmlFor="isLowestPrice"
@@ -510,10 +504,8 @@ export function SearchFilters({
         <div className="flex items-center space-x-2">
           <Checkbox
             id="isLowestPriceEver"
-            checked={!!query.isLowestPriceEver}
-            onCheckedChange={(value) =>
-              handleFieldChange("isLowestPriceEver", value ? true : undefined)
-            }
+            isSelected={!!query.isLowestPriceEver}
+            onChange={(value) => handleFieldChange("isLowestPriceEver", value ? true : undefined)}
           />
           <label
             htmlFor="isLowestPriceEver"

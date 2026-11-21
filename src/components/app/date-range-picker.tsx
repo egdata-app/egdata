@@ -1,10 +1,10 @@
 import * as React from "react";
-import { Calendar } from "@/components/ui/calendar";
+import { CalendarDate } from "@internationalized/date";
+import { RangeCalendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Popover, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
-import type { DateRange } from "react-day-picker";
 import { DateTime } from "luxon";
 import { useLocale } from "@/hooks/use-locale";
 import { useTranslation } from "@/lib/paraglide-react";
@@ -57,31 +57,34 @@ export function DateRangePicker({
     return days > 0 && days <= 30;
   };
 
-  const handleCalendarSelect = (newRange: DateRange | undefined) => {
-    if (!newRange || !newRange.from) {
+  const toCalendarDate = (date: Date) => {
+    const dt = DateTime.fromJSDate(date).setZone(timezone || "UTC");
+    return new CalendarDate(dt.year, dt.month, dt.day);
+  };
+
+  const fromCalendarDate = (date: CalendarDate) => {
+    return DateTime.fromObject(
+      { year: date.year, month: date.month, day: date.day },
+      { zone: timezone || "UTC" },
+    ).toJSDate();
+  };
+
+  const handleCalendarSelect = (newRange: { start: CalendarDate; end: CalendarDate } | null) => {
+    if (!newRange) {
       setDateRange({ from: today.toJSDate(), to: undefined });
       return;
     }
 
-    const { from, to } = newRange;
+    const from = fromCalendarDate(newRange.start);
+    const to = fromCalendarDate(newRange.end);
+    const days = getDaysDifference(from, to);
 
-    // If only 'from' is selected, set 'to' as undefined
-    if (from && !to) {
-      setDateRange({ from, to: undefined });
-      return;
-    }
-
-    // If both dates are selected, validate the range
-    if (from && to) {
-      const days = getDaysDifference(from, to);
-
-      if (days > 30) {
-        // Limit to 30 days from the 'from' date
-        const limitedTo = DateTime.fromJSDate(from).startOf("day").plus({ days: 29 }).toJSDate();
-        setDateRange({ from, to: limitedTo });
-      } else if (days > 0) {
-        setDateRange({ from, to });
-      }
+    if (days > 30) {
+      // Limit to 30 days from the 'from' date
+      const limitedTo = DateTime.fromJSDate(from).startOf("day").plus({ days: 29 }).toJSDate();
+      setDateRange({ from, to: limitedTo });
+    } else if (days > 0) {
+      setDateRange({ from, to });
     }
   };
 
@@ -116,20 +119,18 @@ export function DateRangePicker({
   const dayCount = getDaysDifference(dateRange.from, dateRange.to);
 
   return (
-    <Popover open={isOpen} onOpenChange={setIsOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          className={cn(
-            "w-[300px] justify-start text-left font-normal",
-            !dateRange.from && "text-muted-foreground",
-          )}
-        >
-          <CalendarIcon className="mr-2 h-4 w-4" />
-          {formatDateRange()}
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-auto p-0" align="end">
+    <PopoverTrigger isOpen={isOpen} onOpenChange={setIsOpen}>
+      <Button
+        variant="outline"
+        className={cn(
+          "w-[300px] justify-start text-left font-normal",
+          !dateRange.from && "text-muted-foreground",
+        )}
+      >
+        <CalendarIcon className="mr-2 h-4 w-4" />
+        {formatDateRange()}
+      </Button>
+      <Popover className="w-auto p-0" placement="bottom end">
         <div className="flex w-full max-w-3xl mx-auto rounded-lg border bg-card p-4">
           <div className="grid gap-4 w-full">
             <div className="flex justify-between">
@@ -162,17 +163,19 @@ export function DateRangePicker({
             </div>
 
             <div className="flex gap-4 justify-between">
-              <Calendar
-                mode="range"
-                defaultMonth={dateRange.from}
-                selected={dateRange}
-                onSelect={handleCalendarSelect}
+              <RangeCalendar
+                value={
+                  dateRange.from && dateRange.to
+                    ? {
+                        start: toCalendarDate(dateRange.from),
+                        end: toCalendarDate(dateRange.to),
+                      }
+                    : null
+                }
+                onChange={handleCalendarSelect}
                 numberOfMonths={2}
                 className="rounded-md border flex-grow"
-                disabled={(date) => {
-                  // Disable future dates
-                  return date > today.toJSDate();
-                }}
+                maxValue={new CalendarDate(today.year, today.month, today.day)}
               />
               <div className="grid gap-2 min-w-[150px]">
                 {quickSelections.map((selection) => (
@@ -180,7 +183,7 @@ export function DateRangePicker({
                     key={selection.label}
                     variant="outline"
                     className="justify-start"
-                    onClick={() => handleQuickSelection(selection.days)}
+                    onPress={() => handleQuickSelection(selection.days)}
                   >
                     {selection.label}
                   </Button>
@@ -193,7 +196,7 @@ export function DateRangePicker({
                   </div>
                 )}
 
-                <Button className="mt-auto" onClick={handleApply} disabled={!canApply}>
+                <Button className="mt-auto" onPress={handleApply} isDisabled={!canApply}>
                   {t("components.dateRangePicker.apply")}
                 </Button>
 
@@ -213,7 +216,7 @@ export function DateRangePicker({
             </div>
           </div>
         </div>
-      </PopoverContent>
-    </Popover>
+      </Popover>
+    </PopoverTrigger>
   );
 }

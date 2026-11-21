@@ -117,7 +117,7 @@ export function PerformancePositionsChart({
             <ChartTooltipContent
               className="w-[160px]"
               nameKey="dateLabel"
-              labelFormatter={(label: string) => label}
+              labelFormatter={(label) => label}
               formatter={(value, _name, item) => {
                 const change = (item.payload as { change?: number }).change;
                 const posLabel = t("components.performanceTable.chart.positionValue", {

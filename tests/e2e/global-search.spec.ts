@@ -38,40 +38,40 @@ test.describe("Global search", () => {
     await page.setViewportSize({ width: 698, height: 720 });
 
     await page.getByPlaceholder("Search games, items, sellers...").fill(searchQuery);
-    await expect(page.locator('[cmdk-item][data-value="offer:offer-rdr2-standard"]')).toBeVisible();
+    await expect(page.locator('[data-slot="command-item"][data-key="offer:offer-rdr2-standard"]')).toBeVisible();
 
-    const semanticGroup = page.locator("[cmdk-group]").filter({ hasText: "Matches by meaning" });
-    const semanticItems = semanticGroup.locator('[cmdk-item][data-value^="offer:"]');
+    const semanticGroup = page.locator('[data-slot="command-group"]').filter({ hasText: "Matches by meaning" });
+    const semanticItems = semanticGroup.locator('[data-slot="command-item"][data-key^="offer:"]');
     await expect(semanticGroup).toBeVisible();
     await expect(semanticItems).toHaveCount(2);
     await expect(semanticItems.nth(0)).toContainText("Semantic Survival Match");
     await expect(semanticItems.nth(1)).toContainText("Semantic Co-op Match");
-    await expect(page.locator('[cmdk-item][data-value="offer:offer-rdr2-standard"]')).toHaveCount(
+    await expect(page.locator('[data-slot="command-item"][data-key="offer:offer-rdr2-standard"]')).toHaveCount(
       1,
     );
     await expect(page.getByText("0.91", { exact: true })).toHaveCount(0);
 
-    const standardOffer = page.locator('[cmdk-item][data-value="offer:offer-rdr2-standard"]');
-    const duplicateOffer = page.locator('[cmdk-item][data-value="offer:offer-rdr2-duplicate"]');
+    const standardOffer = page.locator('[data-slot="command-item"][data-key="offer:offer-rdr2-standard"]');
+    const duplicateOffer = page.locator('[data-slot="command-item"][data-key="offer:offer-rdr2-duplicate"]');
     await standardOffer.hover();
     expect(await standardOffer.evaluate((element) => element.matches(":hover"))).toBe(true);
     expect(await duplicateOffer.evaluate((element) => element.matches(":hover"))).toBe(false);
 
     const commandListHasNoHorizontalOverflow = await page
-      .locator("[cmdk-list]")
+      .locator('[data-slot="command-list"]')
       .evaluate((node) => node.scrollWidth <= node.clientWidth + 1);
     expect(commandListHasNoHorizontalOverflow).toBe(true);
 
     await expectFullyInside(
       dialog,
       page
-        .locator(`[cmdk-item][data-value="action:search-offers:${searchQuery}"]`)
+        .locator(`[data-slot="command-item"][data-key="action:search-offers"]`)
         .getByText("Search", { exact: true }),
     );
     await expectFullyInside(
       dialog,
       page
-        .locator('[cmdk-item][data-value="offer:offer-rdr2-duplicate"]')
+        .locator('[data-slot="command-item"][data-key="offer:offer-rdr2-duplicate"]')
         .getByText("Pre-purchase", { exact: true }),
     );
 
@@ -96,7 +96,7 @@ test.describe("Global search", () => {
     await page.getByPlaceholder("Search games, items, sellers...").fill(searchQuery);
     await responsePromise;
 
-    await expect(page.locator('[cmdk-item][data-value="offer:offer-rdr2-standard"]')).toBeVisible();
+    await expect(page.locator('[data-slot="command-item"][data-key="offer:offer-rdr2-standard"]')).toBeVisible();
     await expect(page.getByText("Matches by meaning", { exact: true })).toHaveCount(0);
   });
 
@@ -112,7 +112,7 @@ test.describe("Global search", () => {
     await page.getByPlaceholder("Search games, items, sellers...").fill(searchQuery);
     await responsePromise;
 
-    const directOffer = page.locator('[cmdk-item][data-value="offer:offer-rdr2-standard"]');
+    const directOffer = page.locator('[data-slot="command-item"][data-key="offer:offer-rdr2-standard"]');
     await expect(directOffer).toBeVisible();
     await expect(
       page.getByText("Could not load matches by meaning.", { exact: true }),
@@ -305,7 +305,7 @@ async function mockSemanticSearch(page: Page, mode: SemanticSearchMode) {
 }
 
 async function getSearchViewportMetrics(dialog: ReturnType<Page["locator"]>) {
-  const viewport = dialog.locator("[cmdk-list] [data-radix-scroll-area-viewport]");
+  const viewport = dialog.locator('[data-slot="scroll-area"]');
   await expect(viewport).toHaveCount(1);
 
   return viewport.evaluate((element) => {

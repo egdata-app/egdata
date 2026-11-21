@@ -10,7 +10,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Popover, PopoverTrigger } from "@/components/ui/popover";
 import { useLocale } from "@/hooks/use-locale";
 import { SUPPORTED_LOCALES, getLocaleName } from "@/lib/supported-locales";
 import { stripLocalePrefix } from "@/lib/paraglide-strategy";
@@ -48,34 +48,29 @@ function LocaleSelectorImpl() {
   );
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="min-w-0 w-[130px] justify-between sm:w-[150px] md:w-[170px]"
-        >
-          <span className="min-w-0 truncate">{getLocaleName(current)}</span>
-          <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[250px] p-0">
+    <PopoverTrigger isOpen={open} onOpenChange={setOpen}>
+      <Button
+        variant="outline"
+        className="min-w-0 w-[130px] justify-between sm:w-[150px] md:w-[170px]"
+      >
+        <span className="min-w-0 truncate">{getLocaleName(current)}</span>
+        <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+      </Button>
+      <Popover className="w-[250px] p-0">
         {open && (
           <Command>
             <CommandInput placeholder={t("nav.searchLanguages")} className="h-9" />
-            <CommandList>
-              <CommandEmpty>{t("nav.noLanguagesFound")}</CommandEmpty>
+            <CommandList
+              renderEmptyState={() => <CommandEmpty>{t("nav.noLanguagesFound")}</CommandEmpty>}
+            >
               <CommandGroup>
                 {SUPPORTED_LOCALES.map((l) => (
                   <CommandItem
                     key={l.code}
-                    value={l.name}
-                    onSelect={onSelect}
-                    onMouseEnter={() => {
-                      void prefetchLocaleCatalog(l.code);
-                    }}
-                    onFocus={() => {
+                    id={l.code}
+                    textValue={l.name}
+                    onAction={() => onSelect(l.name)}
+                    onHoverStart={() => {
                       void prefetchLocaleCatalog(l.code);
                     }}
                     className="flex items-center justify-between"
@@ -88,8 +83,8 @@ function LocaleSelectorImpl() {
             </CommandList>
           </Command>
         )}
-      </PopoverContent>
-    </Popover>
+      </Popover>
+    </PopoverTrigger>
   );
 }
 

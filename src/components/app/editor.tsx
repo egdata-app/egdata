@@ -20,7 +20,7 @@ import {
 import { ScrollArea } from "../ui/scroll-area";
 import { Separator } from "../ui/separator";
 import React from "react";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import { Tooltip, TooltipTrigger } from "../ui/tooltip";
 import { cn } from "@/lib/utils";
 
 const extensions = [StarterKit, UnderlineExtension];
@@ -59,86 +59,80 @@ export const Editor = ({
   });
 
   return (
-    <TooltipProvider>
-      <ScrollArea className="h-72">
-        <EditorContent editor={editor} />
-        {editor && (
-          <BubbleMenu
-            editor={editor}
-            tippyOptions={{ duration: 100 }}
-            className="inline-flex items-center rounded-md border bg-background p-1 shadow-sm bg-opacity-20 backdrop-blur-sm gap-1"
-          >
-            {tools.map((tool, index) => (
-              <React.Fragment key={tool.action}>
-                {index === 4 && <Separator orientation="vertical" className="mx-0.5 h-4" />}
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Toggle
-                      size="sm"
-                      pressed={editor.isActive(tool.action)}
-                      onPressedChange={() => {
-                        const chain = editor.chain().focus() as unknown as Record<
-                          string,
-                          () => { run: () => boolean }
-                        >;
-                        const method = `toggle${
-                          tool.action.charAt(0).toUpperCase() + tool.action.slice(1)
-                        }`;
-                        chain[method]().run();
-                      }}
-                      aria-label={tool.tooltip}
-                      className="h-8 w-8 p-0 aria-[pressed=true]:bg-accent aria-[pressed=true]:text-accent-foreground"
-                    >
-                      {React.createElement(tool.Icon, { className: "h-4 w-4" })}
-                    </Toggle>
-                  </TooltipTrigger>
-                  <TooltipContent side="bottom" className="text-xs">
-                    {tool.tooltip}
-                  </TooltipContent>
+    <ScrollArea className="h-72">
+      <EditorContent editor={editor} />
+      {editor && (
+        <BubbleMenu
+          editor={editor}
+          tippyOptions={{ duration: 100 }}
+          className="inline-flex items-center rounded-md border bg-background p-1 shadow-sm bg-opacity-20 backdrop-blur-sm gap-1"
+        >
+          {tools.map((tool, index) => (
+            <React.Fragment key={tool.action}>
+              {index === 4 && <Separator orientation="vertical" className="mx-0.5 h-4" />}
+              <TooltipTrigger>
+                <Toggle
+                  size="sm"
+                  isSelected={editor.isActive(tool.action)}
+                  onChange={() => {
+                    const chain = editor.chain().focus() as unknown as Record<
+                      string,
+                      () => { run: () => boolean }
+                    >;
+                    const method = `toggle${
+                      tool.action.charAt(0).toUpperCase() + tool.action.slice(1)
+                    }`;
+                    chain[method]().run();
+                  }}
+                  aria-label={tool.tooltip}
+                  className="h-8 w-8 p-0 aria-[pressed=true]:bg-accent aria-[pressed=true]:text-accent-foreground"
+                >
+                  {React.createElement(tool.Icon, { className: "h-4 w-4" })}
+                </Toggle>
+                <Tooltip placement="bottom" className="text-xs">
+                  {tool.tooltip}
                 </Tooltip>
-              </React.Fragment>
-            ))}
-          </BubbleMenu>
-        )}
-        {editor && (
-          <FloatingMenu
-            editor={editor}
-            tippyOptions={{ duration: 100 }}
-            className="inline-flex items-center rounded-md border bg-background p-1 shadow-sm gap-1 opacity-40 hover:opacity-100 transition-opacity ease-in-out duration-300 bg-opacity-20 backdrop-blur-sm"
-          >
-            {tools.map((tool, index) => (
-              <React.Fragment key={tool.action}>
-                {index === 4 && <Separator orientation="vertical" className="mx-0.5 h-4" />}
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Toggle
-                      size="sm"
-                      pressed={editor.isActive(tool.action)}
-                      onPressedChange={() => {
-                        const chain = editor.chain().focus() as unknown as Record<
-                          string,
-                          () => { run: () => boolean }
-                        >;
-                        const method = `toggle${
-                          tool.action.charAt(0).toUpperCase() + tool.action.slice(1)
-                        }`;
-                        chain[method]().run();
-                      }}
-                      aria-label={tool.tooltip}
-                      className="h-6 w-6 p-0 aria-[pressed=true]:bg-accent aria-[pressed=true]:text-accent-foreground"
-                    >
-                      {React.createElement(tool.Icon, { className: "h-3 w-3" })}
-                    </Toggle>
-                  </TooltipTrigger>
-                  <TooltipContent side="bottom" className="text-xs">
-                    {tool.tooltip}
-                  </TooltipContent>
+              </TooltipTrigger>
+            </React.Fragment>
+          ))}
+        </BubbleMenu>
+      )}
+      {editor && (
+        <FloatingMenu
+          editor={editor}
+          tippyOptions={{ duration: 100 }}
+          className="inline-flex items-center rounded-md border bg-background p-1 shadow-sm gap-1 opacity-40 hover:opacity-100 transition-opacity ease-in-out duration-300 bg-opacity-20 backdrop-blur-sm"
+        >
+          {tools.map((tool, index) => (
+            <React.Fragment key={tool.action}>
+              {index === 4 && <Separator orientation="vertical" className="mx-0.5 h-4" />}
+              <TooltipTrigger>
+                <Toggle
+                  size="sm"
+                  isSelected={editor.isActive(tool.action)}
+                  onChange={() => {
+                    const chain = editor.chain().focus() as unknown as Record<
+                      string,
+                      () => { run: () => boolean }
+                    >;
+                    const method = `toggle${
+                      tool.action.charAt(0).toUpperCase() + tool.action.slice(1)
+                    }`;
+                    chain[method]().run();
+                  }}
+                  aria-label={tool.tooltip}
+                  className="h-6 w-6 p-0 aria-[pressed=true]:bg-accent aria-[pressed=true]:text-accent-foreground"
+                >
+                  {React.createElement(tool.Icon, { className: "h-3 w-3" })}
+                </Toggle>
+                <Tooltip placement="bottom" className="text-xs">
+                  {tool.tooltip}
                 </Tooltip>
-              </React.Fragment>
-            ))}
-          </FloatingMenu>
-        )}
-      </ScrollArea>
-    </TooltipProvider>
+              </TooltipTrigger>
+            </React.Fragment>
+          ))}
+        </FloatingMenu>
+      )}
+    </ScrollArea>
   );
 };

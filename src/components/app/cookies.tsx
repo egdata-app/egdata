@@ -92,14 +92,14 @@ export function CookieBanner() {
         </p>
         <div className="space-y-4">
           <div className="flex justify-between items-center">
-            <Button variant="outline" onClick={() => setShowCustomize(!showCustomize)}>
+            <Button variant="outline" onPress={() => setShowCustomize(!showCustomize)}>
               {showCustomize ? "Hide Options" : "Customize"}
             </Button>
             <div className="space-x-2">
-              <Button variant="outline" onClick={handleRequiredOnly}>
+              <Button variant="outline" onPress={handleRequiredOnly}>
                 Required Only
               </Button>
-              <Button variant="default" onClick={handleAcceptAll}>
+              <Button variant="default" onPress={handleAcceptAll}>
                 Accept All
               </Button>
             </div>
@@ -115,8 +115,8 @@ export function CookieBanner() {
                 </Label>
                 <Switch
                   id="google-analytics"
-                  checked={googleAnalytics}
-                  onCheckedChange={(value) => setGoogleAnalytics(value as boolean)}
+                  isSelected={googleAnalytics}
+                  onChange={setGoogleAnalytics}
                 />
               </div>
               <div className="flex items-center justify-between mt-4">
@@ -128,8 +128,8 @@ export function CookieBanner() {
                 </Label>
                 <Switch
                   id="ahrefs-analytics"
-                  checked={ahrefsAnalytics}
-                  onCheckedChange={(value) => setAhrefsConsent(value as boolean)}
+                  isSelected={ahrefsAnalytics}
+                  onChange={setAhrefsConsent}
                 />
               </div>
               <div className="flex items-center justify-between">
@@ -141,9 +141,9 @@ export function CookieBanner() {
                 </Label>
                 <Switch
                   id="self-hosted-analytics"
-                  checked={selfHostedAnalytics}
-                  onCheckedChange={setSelfHostedAnalytics}
-                  disabled
+                  isSelected={selfHostedAnalytics}
+                  onChange={setSelfHostedAnalytics}
+                  isDisabled
                 />
               </div>
               <Separator orientation="horizontal" />
@@ -157,8 +157,8 @@ export function CookieBanner() {
                   </Label>
                   <Switch
                     id={key}
-                    checked={value === "granted"}
-                    onCheckedChange={(checked) =>
+                    isSelected={value === "granted"}
+                    onChange={(checked) =>
                       handleConsentChange(key as keyof ConsentSettings, checked)
                     }
                   />
@@ -170,7 +170,7 @@ export function CookieBanner() {
       </CardContent>
       {showCustomize && (
         <CardFooter>
-          <Button onClick={handleSavePreferences} className="w-full">
+          <Button onPress={handleSavePreferences} className="w-full">
             Save Preferences
           </Button>
         </CardFooter>

@@ -1,7 +1,7 @@
 import type { JSX } from "react";
 import type * as React from "react";
 import { cn } from "@/lib/utils";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { localizeHref } from "@/lib/paraglide-strategy";
 import { Link } from "@/components/app/localized-link";
 
@@ -96,7 +96,6 @@ export function SectionsNav({
           })}
         </ul>
       </nav>
-      <ScrollBar orientation="horizontal" />
     </ControlledScrollArea>
   );
 }

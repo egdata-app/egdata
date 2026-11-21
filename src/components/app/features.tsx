@@ -1,7 +1,7 @@
 import type { JSX } from "react";
 import { FaCloud, FaHandshake, FaMedal, FaTrophy, FaPeopleGroup } from "react-icons/fa6";
 import { IoGameController, IoWifiOutline } from "react-icons/io5";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
 import { EpicGamesIcon } from "../icons/epic";
 import { EaIcon } from "../icons/ea";
 import { UbisoftIcon } from "../icons/ubisoft";
@@ -48,34 +48,28 @@ export function GameFeatures({ id, size: _size = "md" }: { id: string; size?: Fe
     <div className="w-full justify-center items-center flex absolute bottom-3 right-0 left-0 px-2">
       <div className="h-auto flex flex-wrap gap-3 w-fit max-w-full bg-muted/40 py-2 px-6 rounded-xl justify-center items-center text-foreground backdrop-blur-sm">
         {launcher && (
-          <TooltipProvider>
-            <Tooltip delayDuration={50}>
-              <TooltipTrigger>{launcher.icon}</TooltipTrigger>
-              <TooltipContent>
-                <div className="text-center">{launcher.name}</div>
-              </TooltipContent>
+          <TooltipTrigger delay={50}>
+            <span tabIndex={0}>{launcher.icon}</span>
+            <Tooltip>
+              <div className="text-center">{launcher.name}</div>
             </Tooltip>
-          </TooltipProvider>
+          </TooltipTrigger>
         )}
         {storeFeatures.map((feature) => (
-          <TooltipProvider key={feature.key}>
-            <Tooltip delayDuration={50}>
-              <TooltipTrigger>{feature.icon}</TooltipTrigger>
-              <TooltipContent>
-                <div className="text-center">{feature.text}</div>
-              </TooltipContent>
+          <TooltipTrigger key={feature.key} delay={50}>
+            <span tabIndex={0}>{feature.icon}</span>
+            <Tooltip>
+              <div className="text-center">{feature.text}</div>
             </Tooltip>
-          </TooltipProvider>
+          </TooltipTrigger>
         ))}
         {features.map((feature) => (
-          <TooltipProvider key={feature.key}>
-            <Tooltip delayDuration={50}>
-              <TooltipTrigger>{feature.icon}</TooltipTrigger>
-              <TooltipContent>
-                <div className="text-center">{feature.text}</div>
-              </TooltipContent>
+          <TooltipTrigger key={feature.key} delay={50}>
+            <span tabIndex={0}>{feature.icon}</span>
+            <Tooltip>
+              <div className="text-center">{feature.text}</div>
             </Tooltip>
-          </TooltipProvider>
+          </TooltipTrigger>
         ))}
       </div>
     </div>
@@ -261,40 +255,34 @@ export function GameFeaturesV2({ id }: { id: string }) {
   return (
     <div className="flex flex-row gap-2 w-full justify-start items-center">
       {launcher && (
-        <TooltipProvider>
-          <Tooltip delayDuration={50}>
-            <TooltipTrigger className="bg-muted/30 rounded-full p-2 text-center">
-              {launcher.icon}
-            </TooltipTrigger>
-            <TooltipContent>
-              <div className="text-center">{launcher.name}</div>
-            </TooltipContent>
+        <TooltipTrigger delay={50}>
+          <span tabIndex={0} className="bg-muted/30 rounded-full p-2 text-center">
+            {launcher.icon}
+          </span>
+          <Tooltip>
+            <div className="text-center">{launcher.name}</div>
           </Tooltip>
-        </TooltipProvider>
+        </TooltipTrigger>
       )}
       {storeFeatures.map((feature) => (
-        <TooltipProvider key={feature.key}>
-          <Tooltip delayDuration={50}>
-            <TooltipTrigger className="bg-muted/30 rounded-full p-2 text-center">
-              {feature.icon}
-            </TooltipTrigger>
-            <TooltipContent>
-              <div className="text-center">{feature.text}</div>
-            </TooltipContent>
+        <TooltipTrigger key={feature.key} delay={50}>
+          <span tabIndex={0} className="bg-muted/30 rounded-full p-2 text-center">
+            {feature.icon}
+          </span>
+          <Tooltip>
+            <div className="text-center">{feature.text}</div>
           </Tooltip>
-        </TooltipProvider>
+        </TooltipTrigger>
       ))}
       {features.map((feature) => (
-        <TooltipProvider key={feature.key}>
-          <Tooltip delayDuration={50}>
-            <TooltipTrigger className="bg-muted/30 rounded-full p-2 text-center">
-              {feature.icon}
-            </TooltipTrigger>
-            <TooltipContent>
-              <div className="text-center">{feature.text}</div>
-            </TooltipContent>
+        <TooltipTrigger key={feature.key} delay={50}>
+          <span tabIndex={0} className="bg-muted/30 rounded-full p-2 text-center">
+            {feature.icon}
+          </span>
+          <Tooltip>
+            <div className="text-center">{feature.text}</div>
           </Tooltip>
-        </TooltipProvider>
+        </TooltipTrigger>
       ))}
     </div>
   );

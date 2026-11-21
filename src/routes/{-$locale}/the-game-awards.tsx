@@ -270,7 +270,7 @@ function GameAwardsSection({
   if (section.offers.length === 0) return null;
 
   return (
-    <Collapsible open={isExpanded} onOpenChange={onToggle}>
+    <Collapsible isExpanded={isExpanded} onExpandedChange={onToggle}>
       <CollapsibleTrigger className="w-full">
         <div className="flex items-center justify-between gap-4 p-4 rounded-lg bg-card/50 hover:bg-card/80 transition-colors cursor-pointer">
           <div className="flex items-center gap-4">

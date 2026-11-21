@@ -84,18 +84,17 @@ export function SearchHeader(props: SearchHeaderProps) {
         {showSort && (
           <>
             <Select
-              value={query.sortBy ?? undefined}
-              onValueChange={(value) => setField("sortBy", value as typeof query.sortBy)}
+              aria-label={t("search.sort.sortAriaLabel")}
+              placeholder={t("search.sort.sortBy")}
+              value={query.sortBy ?? null}
+              onChange={(value) => setField("sortBy", (value ?? undefined) as typeof query.sortBy)}
             >
-              <SelectTrigger
-                className="w-full min-w-0 sm:w-[180px]"
-                aria-label={t("search.sort.sortAriaLabel")}
-              >
-                <SelectValue placeholder={t("search.sort.sortBy")} />
+              <SelectTrigger className="w-full min-w-0 sm:w-[180px]">
+                <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 {Object.entries(sortByDisplay).map(([key, value]) => (
-                  <SelectItem key={key} value={key}>
+                  <SelectItem key={key} id={key}>
                     {value}
                   </SelectItem>
                 ))}

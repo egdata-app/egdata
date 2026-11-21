@@ -202,9 +202,9 @@ export function SearchFilters({
         </form.Field>
       )}
 
-      <Accordion type="single" collapsible className="w-full">
+      <Accordion className="w-full">
         {showOfferType && (
-          <AccordionItem value="offerType">
+          <AccordionItem id="offerType">
             <AccordionTrigger>{t("search.accordion.offerType")}</AccordionTrigger>
             <AccordionContent className="flex flex-col gap-2 w-full mt-2">
               <form.Field name="offerType">
@@ -233,7 +233,7 @@ export function SearchFilters({
             const tagTypeTags = tags?.filter((tag) => tag.groupName === tagType.name);
 
             return (
-              <AccordionItem key={tagType.name} value={tagType.name ?? "alltags"}>
+              <AccordionItem key={tagType.name} id={tagType.name ?? "alltags"}>
                 <AccordionTrigger>{t(tagType.labelKey as never)}</AccordionTrigger>
                 <AccordionContent className="flex flex-col gap-2 mt-2">
                   <ScrollArea>
@@ -272,7 +272,7 @@ export function SearchFilters({
           })}
 
         {showDeveloper && (
-          <AccordionItem value="developer">
+          <AccordionItem id="developer">
             <AccordionTrigger>{t("search.accordion.developer")}</AccordionTrigger>
             <AccordionContent>
               <form.Field name="developerDisplayName">
@@ -298,7 +298,7 @@ export function SearchFilters({
         )}
 
         {showPublisher && (
-          <AccordionItem value="publisher">
+          <AccordionItem id="publisher">
             <AccordionTrigger>{t("search.accordion.publisher")}</AccordionTrigger>
             <AccordionContent>
               <form.Field name="publisherDisplayName">
@@ -324,7 +324,7 @@ export function SearchFilters({
         )}
 
         {showSeller && (
-          <AccordionItem value="seller">
+          <AccordionItem id="seller">
             <AccordionTrigger>{t("search.accordion.seller")}</AccordionTrigger>
             <AccordionContent>
               <form.Field name="seller">
@@ -370,8 +370,8 @@ export function SearchFilters({
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="pastGiveaways"
-                checked={state.value}
-                onCheckedChange={(value) => handleChange(Boolean(value))}
+                isSelected={Boolean(state.value)}
+                onChange={(value) => handleChange(Boolean(value))}
               />
               <label
                 htmlFor="pastGiveaways"
@@ -390,8 +390,8 @@ export function SearchFilters({
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="onSale"
-                checked={state.value}
-                onCheckedChange={(value) => handleChange(Boolean(value))}
+                isSelected={Boolean(state.value)}
+                onChange={(value) => handleChange(Boolean(value))}
               />
               <label
                 htmlFor="onSale"
@@ -410,8 +410,8 @@ export function SearchFilters({
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="isCodeRedemptionOnly"
-                checked={state.value}
-                onCheckedChange={(value) => handleChange(Boolean(value))}
+                isSelected={Boolean(state.value)}
+                onChange={(value) => handleChange(Boolean(value))}
               />
               <label
                 htmlFor="isCodeRedemptionOnly"
@@ -430,8 +430,8 @@ export function SearchFilters({
             <div className="flex items-center space-x-2">
               <Checkbox
                 id="excludeBlockchain"
-                checked={state.value}
-                onCheckedChange={(value) => handleChange(value as boolean)}
+                isSelected={Boolean(state.value)}
+                onChange={(value) => handleChange(Boolean(value))}
               />
               <label
                 htmlFor="excludeBlockchain"

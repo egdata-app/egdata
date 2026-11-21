@@ -1,7 +1,7 @@
 import { OpenLauncher } from "@/components/app/open-launcher";
 import { Link } from "@/components/app/localized-link";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants, LinkButton } from "@/components/ui/button";
 import { useCountry } from "@/hooks/use-country";
 import { useLocale } from "@/hooks/use-locale";
 import { calculatePrice } from "@/lib/calculate-price";
@@ -336,11 +336,13 @@ function SandboxHero({
         {primaryOffer && (
           <div className="flex flex-col gap-3 border-t border-border pt-5">
             <PriceBlock price={primaryOffer.price} />
-            <Button asChild variant="outline">
-              <Link to="/{-$locale}/offers/$id" params={{ id: primaryOffer.id }}>
-                {t("sandboxCatalog.primaryOffer")}
-              </Link>
-            </Button>
+            <Link
+              to="/{-$locale}/offers/$id"
+              params={{ id: primaryOffer.id }}
+              className={buttonVariants({ variant: "outline" })}
+            >
+              {t("sandboxCatalog.primaryOffer")}
+            </Link>
             <StoreActions offer={primaryOffer} />
           </div>
         )}
@@ -356,12 +358,15 @@ function StoreActions({ offer }: { offer: SandboxBaseGame }) {
   return (
     <>
       {storeUrl && (
-        <Button asChild className="h-10 gap-2">
-          <a href={storeUrl} target="_blank" rel="noopener noreferrer">
-            <ShoppingBag className="size-4" />
-            <span>{t("components.sandboxShell.storePage")}</span>
-          </a>
-        </Button>
+        <LinkButton
+          href={storeUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="h-10 gap-2"
+        >
+          <ShoppingBag className="size-4" />
+          <span>{t("components.sandboxShell.storePage")}</span>
+        </LinkButton>
       )}
       <OpenLauncher id={offer.id} />
     </>
