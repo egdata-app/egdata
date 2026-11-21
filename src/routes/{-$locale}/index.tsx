@@ -120,11 +120,11 @@ export const Route = createFileRoute("/{-$locale}/")({
       queryClient.prefetchQuery(homeLatestReleasedQueryOptions(pricingCountry)),
       queryClient.prefetchQuery({
         queryKey: ["stats", { country }],
-        queryFn: () => getStats({ country: pricingCountry }).catch(() => null),
+        queryFn: () => getStats({ country: pricingCountry }),
       }),
       queryClient.prefetchQuery({
         queryKey: ["giveaways-stats", { country }],
-        queryFn: () => getGiveawaysStats({ country: pricingCountry }).catch(() => null),
+        queryFn: () => getGiveawaysStats({ country: pricingCountry }),
       }),
       queryClient.prefetchQuery(homeHistoricalLowsQueryOptions(pricingCountry)),
       queryClient.prefetchQuery(homePulseBaseQueryOptions()),

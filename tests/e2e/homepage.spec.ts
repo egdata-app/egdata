@@ -101,6 +101,71 @@ test.describe("Homepage smoke", () => {
   });
 
   test("anchors tooltips and hover cards to their triggers", async ({ page }) => {
+    // Provide deterministic fallback data when CI has no v1 API key so the
+    // tooltip and hover-card triggers render even without live API access.
+    await page.route("**/v1/free-games/stats*", async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          data: {
+            totalValue: { originalPrice: 12345, discountPrice: 0, currencyCode: "USD" },
+            totalGiveaways: 100,
+            totalOffers: 90,
+            repeated: 10,
+            sellers: 25,
+          },
+          meta: {},
+        }),
+      });
+    });
+    await page.route("**/v1/offers/latest-released*", async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          data: [
+            {
+              id: "e2e-hover-offer",
+              title: "E2E Hover Offer",
+              keyImages: [],
+              releaseDate: "2026-01-01T00:00:00.000Z",
+              price: null,
+            },
+          ],
+          meta: {},
+        }),
+      });
+    });
+    await page.route("**/v1/offers/*/overview*", async (route) => {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          data: {
+            offer: {
+              id: "e2e-hover-offer",
+              title: "E2E Hover Offer",
+              keyImages: [],
+              seller: { id: "e2e-seller", name: "E2E Seller" },
+              developerDisplayName: "E2E Developer",
+              publisherDisplayName: "E2E Publisher",
+              releaseDate: "2026-01-01T00:00:00.000Z",
+            },
+            price: null,
+            media: null,
+            igdb: null,
+            features: { launcher: "Epic", features: [], epicFeatures: [] },
+            ageRating: null,
+            polls: null,
+            genres: [],
+            technologies: [],
+          },
+          meta: {},
+        }),
+      });
+    });
+
     // Skip the consent dialog so it cannot swallow pointer events.
     await page.context().addCookies([
       {
