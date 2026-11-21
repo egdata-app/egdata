@@ -556,14 +556,12 @@ function LibraryView({
         <div className="flex items-center gap-2">
           <FilterIcon className="size-4 text-muted-foreground" />
           <Select
+            aria-label={t("profile.library.sortAriaLabel")}
             selectedKey={search.sort}
             onSelectionChange={(value) => onSortChange(String(value) as SearchSort)}
             placeholder={t("profile.library.sortByPlaceholder")}
           >
-            <SelectTrigger
-              className="w-[180px] rounded-md"
-              aria-label={t("profile.library.sortAriaLabel")}
-            >
+            <SelectTrigger className="w-[180px] rounded-md">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>

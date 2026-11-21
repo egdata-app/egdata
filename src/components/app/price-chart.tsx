@@ -299,13 +299,14 @@ export function PriceChart({ selectedRegion, id, regionStats }: PriceChartProps)
           </TooltipTrigger>
         </div>
         <Select
+          aria-label="Select a value"
           value={timeRange}
           onChange={(val) => {
             if (val !== null) setTimeRange(String(val));
           }}
           placeholder="Last 3 months"
         >
-          <SelectTrigger className="w-[160px] rounded-lg sm:ml-auto" aria-label="Select a value">
+          <SelectTrigger className="w-[160px] rounded-lg sm:ml-auto">
             <SelectValue />
           </SelectTrigger>
           <SelectContent className="rounded-xl">
