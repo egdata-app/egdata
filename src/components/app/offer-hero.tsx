@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, type MouseEvent } from "react";
 import { extractDominantVideoColors } from "@/lib/ambient-colors";
 import { offerMediaQueryOptions } from "@/queries/offer";
 import { getImage } from "@/lib/getImage";
@@ -13,6 +13,21 @@ import { useVideo } from "@/hooks/use-video";
 const HOVER_DELAY_MS = 150;
 const AMBIENT_SAMPLE_INTERVAL_MS = 900;
 const MAX_HOVER_VIDEO_WIDTH = 720;
+const TRIPLE_CLICK_WINDOW_MS = 650;
+
+export const getOfferHeroImageUrl = (offer: SingleOffer) => {
+  const isFabItem = offer.customAttributes.FabListingId;
+
+  return (
+    getImage(offer.keyImages, [
+      "DieselStoreFrontWide",
+      "OfferImageWide",
+      "DieselGameBoxWide",
+      "TakeoverWide",
+      isFabItem ? "Screenshot" : undefined,
+    ])?.url ?? "https://cdn.egdata.app/placeholder-1080.webp"
+  );
+};
 
 const canUseHoverPreview = () => {
   if (typeof window === "undefined") return false;
@@ -44,12 +59,19 @@ const getHoverVideoUrl = (media?: Media) => {
   return (atOrBelowTarget.at(-1) ?? sorted[0])?.url;
 };
 
-export function OfferHero({ offer }: { offer: SingleOffer }) {
+export function OfferHero({
+  offer,
+  onEasterEggTrigger,
+}: {
+  offer: SingleOffer;
+  onEasterEggTrigger?: () => void;
+}) {
   const { data: media } = useQuery(offerMediaQueryOptions(offer.id));
   const { isHovered, setIsHovered, setVideoRef, setAmbientColors } = useVideo();
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const sampleCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const clickTimestampsRef = useRef<number[]>([]);
 
   const videoUrl = getHoverVideoUrl(media);
 
@@ -174,13 +196,35 @@ export function OfferHero({ offer }: { offer: SingleOffer }) {
     setIsHovered(false);
   };
 
-  const isFabItem = offer.customAttributes.FabListingId;
+  const handleHeroClick = (event: MouseEvent<HTMLDivElement>) => {
+    if (!onEasterEggTrigger) return;
+    if (
+      event.target instanceof HTMLElement &&
+      event.target.closest("button, a, [role='button'], [tabindex='0']")
+    ) {
+      return;
+    }
+
+    const now = Date.now();
+    const recent = clickTimestampsRef.current.filter((t) => now - t <= TRIPLE_CLICK_WINDOW_MS);
+    recent.push(now);
+
+    if (recent.length >= 3) {
+      clickTimestampsRef.current = [];
+      onEasterEggTrigger();
+    } else {
+      clickTimestampsRef.current = recent;
+    }
+  };
+
+  const heroImageUrl = getOfferHeroImageUrl(offer);
 
   return (
     <div
       className="group relative h-auto w-full overflow-hidden rounded-xl border border-white/10 bg-card shadow-2xl shadow-black/40"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={handleHeroClick}
     >
       {videoUrl && (
         <video
@@ -200,15 +244,7 @@ export function OfferHero({ offer }: { offer: SingleOffer }) {
         />
       )}
       <Image
-        src={
-          getImage(offer.keyImages, [
-            "DieselStoreFrontWide",
-            "OfferImageWide",
-            "DieselGameBoxWide",
-            "TakeoverWide",
-            isFabItem ? "Screenshot" : undefined,
-          ])?.url ?? "https://cdn.egdata.app/placeholder-1080.webp"
-        }
+        src={heroImageUrl}
         alt={offer.title}
         quality="high"
         width={720}

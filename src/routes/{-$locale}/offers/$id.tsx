@@ -5,7 +5,11 @@ import { BaseGame } from "@/components/app/base-game";
 import { OfferInBundle } from "@/components/app/bundle-game";
 import { FranchiseBanner } from "@/components/app/franchise-banner";
 import { InternalBanner } from "@/components/app/internal-banner";
-import { OfferHero } from "@/components/app/offer-hero";
+import {
+  OfferAsciiBackground,
+  useOfferAsciiEasterEgg,
+} from "@/components/app/offer-ascii-background";
+import { getOfferHeroImageUrl, OfferHero } from "@/components/app/offer-hero";
 import { SectionsNav } from "@/components/app/offer-sections";
 import { OpenLauncher } from "@/components/app/open-launcher";
 import { platformIcons } from "@/components/app/platform-icons";
@@ -179,6 +183,7 @@ function OfferPage() {
   const { locale, timezone } = useLocale();
   const { addToCompare, removeFromCompare, compare } = useCompare();
   const location = useLocation();
+  const asciiEasterEgg = useOfferAsciiEasterEgg();
 
   const { data: offer } = useSuspenseQuery(offerOnlyQueryOptions(id, locale));
   const { data: technologies = [] } = useQuery({
@@ -239,10 +244,21 @@ function OfferPage() {
     "DieselStoreFrontWide",
     "OfferImageTall",
   ])?.url;
+  const heroImageUrl = getOfferHeroImageUrl(offer);
 
   return (
     <main className="flex flex-col items-start justify-start w-full min-h-screen gap-6 relative px-4 md:px-8 pb-12 max-w-[1600px] mx-auto">
-      {backdropUrl && (
+      {asciiEasterEgg.enabled && (
+        <ClientOnly>
+          <OfferAsciiBackground
+            imageUrl={heroImageUrl}
+            palette={asciiEasterEgg.palette}
+            onCyclePalette={asciiEasterEgg.cyclePalette}
+            onClose={asciiEasterEgg.disable}
+          />
+        </ClientOnly>
+      )}
+      {backdropUrl && !asciiEasterEgg.enabled && (
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 -top-6 z-0 h-80 select-none overflow-hidden rounded-2xl opacity-35"
@@ -592,7 +608,7 @@ function OfferPage() {
             </Button>
             <OfferNotificationPopover offerId={offer.id} />
           </div>
-          <OfferHero offer={offer} />
+          <OfferHero offer={offer} onEasterEggTrigger={() => asciiEasterEgg.toggle(true)} />
           {franchise &&
             franchise.offers.length > 1 &&
             (!franchise.namespaces || franchise.namespaces.length > 1) && (
