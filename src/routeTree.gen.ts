@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as Char123LocaleChar125RouteImport } from './routes/{-$locale}'
+import { Route as ApiDiscordRouteImport } from './routes/api/discord'
 import { Route as ApiHelloRouteImport } from './routes/api/hello'
 import { Route as ApiLogoutRouteImport } from './routes/api/logout'
 import { Route as ApiTokenRouteImport } from './routes/api/token'
@@ -98,6 +99,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const Char123LocaleChar125Route = Char123LocaleChar125RouteImport.update({
   id: '/{-$locale}',
   path: '/{-$locale}',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiDiscordRoute = ApiDiscordRouteImport.update({
+  id: '/api/discord',
+  path: '/api/discord',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiHelloRoute = ApiHelloRouteImport.update({
@@ -560,6 +566,7 @@ const Char123LocaleChar125ProfileIdAchievementsSandboxRoute =
 export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/{-$locale}': typeof Char123LocaleChar125RouteWithChildren
+  '/api/discord': typeof ApiDiscordRoute
   '/api/hello': typeof ApiHelloRoute
   '/api/logout': typeof ApiLogoutRoute
   '/api/token': typeof ApiTokenRoute
@@ -641,6 +648,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/api/discord': typeof ApiDiscordRoute
   '/api/hello': typeof ApiHelloRoute
   '/api/logout': typeof ApiLogoutRoute
   '/api/token': typeof ApiTokenRoute
@@ -719,6 +727,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/{-$locale}': typeof Char123LocaleChar125RouteWithChildren
+  '/api/discord': typeof ApiDiscordRoute
   '/api/hello': typeof ApiHelloRoute
   '/api/logout': typeof ApiLogoutRoute
   '/api/token': typeof ApiTokenRoute
@@ -803,6 +812,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/sitemap.xml'
     | '/{-$locale}'
+    | '/api/discord'
     | '/api/hello'
     | '/api/logout'
     | '/api/token'
@@ -884,6 +894,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/sitemap.xml'
+    | '/api/discord'
     | '/api/hello'
     | '/api/logout'
     | '/api/token'
@@ -961,6 +972,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/sitemap.xml'
     | '/{-$locale}'
+    | '/api/discord'
     | '/api/hello'
     | '/api/logout'
     | '/api/token'
@@ -1044,6 +1056,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   Char123LocaleChar125Route: typeof Char123LocaleChar125RouteWithChildren
+  ApiDiscordRoute: typeof ApiDiscordRoute
   ApiHelloRoute: typeof ApiHelloRoute
   ApiLogoutRoute: typeof ApiLogoutRoute
   ApiTokenRoute: typeof ApiTokenRoute
@@ -1072,6 +1085,13 @@ declare module '@tanstack/react-router' {
       path: '/{-$locale}'
       fullPath: '/{-$locale}'
       preLoaderRoute: typeof Char123LocaleChar125RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/discord': {
+      id: '/api/discord'
+      path: '/api/discord'
+      fullPath: '/api/discord'
+      preLoaderRoute: typeof ApiDiscordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/hello': {
@@ -1886,6 +1906,7 @@ const Char123LocaleChar125RouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   Char123LocaleChar125Route: Char123LocaleChar125RouteWithChildren,
+  ApiDiscordRoute: ApiDiscordRoute,
   ApiHelloRoute: ApiHelloRoute,
   ApiLogoutRoute: ApiLogoutRoute,
   ApiTokenRoute: ApiTokenRoute,
