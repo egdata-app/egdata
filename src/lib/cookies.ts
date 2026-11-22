@@ -4,7 +4,7 @@ import { readFile } from "node:fs/promises";
 import { SignJWT, importPKCS8 } from "jose";
 
 export const getCookie = createServerFn({ method: "GET" })
-  .inputValidator((name: string) => name)
+  .validator((name: string) => name)
   .handler(async (ctx) => {
     const { getCookie: _getCookie } = await import("@/lib/start-server");
     const cookie = _getCookie(ctx.data);
@@ -17,7 +17,7 @@ export const getCookie = createServerFn({ method: "GET" })
   });
 
 export const saveAuthCookie = createServerFn({ method: "GET" })
-  .inputValidator((stringifiedValue: string) => stringifiedValue)
+  .validator((stringifiedValue: string) => stringifiedValue)
   .handler(async (ctx) => {
     const { getRequest, setCookie: _setCookie } = await import("@/lib/start-server");
 

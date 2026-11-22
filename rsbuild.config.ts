@@ -137,8 +137,8 @@ export default defineConfig({
         .rule(CHAIN_ID.RULE.CSS)
         .oneOf(CHAIN_ID.ONE_OF.CSS_URL)
         .use(CHAIN_ID.USE.CSS_URL)
-        .tap((options: { filename?: unknown; modules?: unknown }) => ({
-          ...options,
+        .tap((options) => ({
+          ...(typeof options === "object" && options !== null ? options : {}),
           filename: (
             pathData: { chunk?: { name?: string }; contentHash?: string },
             assetInfo?: { sourceFilename?: string },

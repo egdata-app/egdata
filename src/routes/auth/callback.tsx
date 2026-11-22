@@ -6,7 +6,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { useTranslation } from "@/lib/paraglide-react";
 
 export const validateState = createServerFn({ method: "GET" })
-  .inputValidator((state: string) => state)
+  .validator((state: string) => state)
   .handler(async (ctx) => {
     const response = await fetch("https://api.egdata.app/auth/v2/validate-state", {
       method: "POST",
@@ -32,7 +32,7 @@ export const validateState = createServerFn({ method: "GET" })
   });
 
 export const getTokens = createServerFn({ method: "GET" })
-  .inputValidator((code: string) => code)
+  .validator((code: string) => code)
   .handler(async (ctx) => {
     const { getRequest } = await import("@/lib/start-server");
     const req = getRequest();
