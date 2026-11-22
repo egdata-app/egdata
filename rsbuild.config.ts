@@ -125,6 +125,13 @@ export default defineConfig({
     },
   },
   tools: {
+    cssLoader: {
+      url: {
+        // Leave root-relative public/ URLs (e.g. /fonts/...) untouched so css-loader
+        // doesn't try to resolve them as module imports during bundling.
+        filter: (url) => !url.startsWith("/"),
+      },
+    },
     bundlerChain(chain, { CHAIN_ID }) {
       chain.module
         .rule(CHAIN_ID.RULE.CSS)
