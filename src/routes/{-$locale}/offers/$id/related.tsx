@@ -1,4 +1,5 @@
-import { OfferCard } from "@/components/app/offer-card";
+import { GameCardSkeleton, OfferCard } from "@/components/app/offer-card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { useCountry } from "@/hooks/use-country";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { httpClient } from "@/lib/http-client";
@@ -112,14 +113,35 @@ function RelatedOffersPage() {
   });
 
   if (isLoading) {
-    return <div>{t("offerDetail.common.loading")}</div>;
+    return (
+      <section id="offer-related-offers" className="flex h-full w-full flex-col">
+        <div className="flex items-baseline justify-between gap-3 border-b border-border/60 pb-3 mb-5">
+          <h2 className="font-display text-xl sm:text-2xl font-bold tracking-tight">
+            {t("offerDetail.related.title")}
+          </h2>
+          <Skeleton className="h-5 w-10 rounded-full" />
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+          {Array.from({ length: 5 }).map((_, index) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: Static skeleton grid
+            <GameCardSkeleton key={index} />
+          ))}
+        </div>
+      </section>
+    );
   }
 
   if (isError) {
     return (
-      <section id="offer-related-offers" className="w-full h-full">
-        <h2 className="text-2xl font-bold">{t("offerDetail.related.title")}</h2>
-        <div>{t("offerDetail.common.somethingWentWrong")}</div>
+      <section id="offer-related-offers" className="flex h-full w-full flex-col">
+        <div className="flex items-baseline justify-between gap-3 border-b border-border/60 pb-3 mb-5">
+          <h2 className="font-display text-xl sm:text-2xl font-bold tracking-tight">
+            {t("offerDetail.related.title")}
+          </h2>
+        </div>
+        <div className="flex items-center justify-center rounded-xl border border-white/10 bg-card/80 px-6 py-12 text-center text-sm text-muted-foreground">
+          {t("offerDetail.common.somethingWentWrong")}
+        </div>
       </section>
     );
   }
@@ -137,29 +159,44 @@ function RelatedOffersPage() {
   }
 
   const offerTypeOrder = ["BASE_GAME", "DLC", "EDITION", "ADD_ON", "OTHERS"];
+  const groupedEntries = Object.entries(offersGroupedByOfferType).sort(([aType], [bType]) => {
+    const aIndex = offerTypeOrder.indexOf(aType);
+    const bIndex = offerTypeOrder.indexOf(bType);
+
+    return (
+      (aIndex === -1 ? Number.POSITIVE_INFINITY : aIndex) -
+      (bIndex === -1 ? Number.POSITIVE_INFINITY : bIndex)
+    );
+  });
 
   return (
-    <section id="offer-related-offers" className="flex h-full w-full flex-col gap-4">
-      <h2 className="text-xl md:text-2xl font-bold">{t("offerDetail.related.title")}</h2>
-      <div className="flex flex-col gap-4">
-        {Object.entries(offersGroupedByOfferType)
-          .sort(([aType], [bType]) => {
-            const aIndex = offerTypeOrder.indexOf(aType);
-            const bIndex = offerTypeOrder.indexOf(bType);
-
-            return (
-              (aIndex === -1 ? Number.POSITIVE_INFINITY : aIndex) -
-              (bIndex === -1 ? Number.POSITIVE_INFINITY : bIndex)
-            );
-          })
-          .map(([offerType, offers]) => (
+    <section id="offer-related-offers" className="flex h-full w-full flex-col">
+      <div className="flex items-baseline justify-between gap-3 border-b border-border/60 pb-3 mb-5">
+        <h2 className="font-display text-xl sm:text-2xl font-bold tracking-tight">
+          {t("offerDetail.related.title")}
+        </h2>
+        <span className="shrink-0 rounded-full border border-white/10 bg-card/80 px-2.5 py-0.5 text-xs font-medium tabular-nums text-muted-foreground">
+          {offers?.length ?? 0}
+        </span>
+      </div>
+      {groupedEntries.length === 0 ? (
+        <div className="flex items-center justify-center rounded-xl border border-white/10 bg-card/80 px-6 py-12 text-center text-sm text-muted-foreground">
+          {t("offerDetail.common.notAvailable")}
+        </div>
+      ) : (
+        <div className="flex flex-col gap-8">
+          {groupedEntries.map(([offerType, groupedOffers]) => (
             <div key={offerType} className="flex flex-col gap-4">
-              <h3 className="text-lg md:text-xl font-semibold inline-flex items-center gap-2">
-                {offersDictionary[offerType as keyof typeof offersDictionary] ?? offerType}{" "}
-                <span className="text-xs text-muted-foreground">({offers.length})</span>
-              </h3>
+              <div className="flex items-baseline justify-between gap-3 border-b border-border/40 pb-2">
+                <h3 className="font-display text-lg sm:text-xl font-semibold tracking-tight text-foreground">
+                  {offersDictionary[offerType as keyof typeof offersDictionary] ?? offerType}
+                </h3>
+                <span className="shrink-0 rounded-full border border-white/10 bg-card/80 px-2 py-0.5 text-xs font-medium tabular-nums text-muted-foreground">
+                  {groupedOffers.length}
+                </span>
+              </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                {offers?.map((offer) => (
+                {groupedOffers.map((offer) => (
                   <div key={offer.id} className="w-full">
                     <OfferCard offer={offer} size="md" />
                   </div>
@@ -167,7 +204,8 @@ function RelatedOffersPage() {
               </div>
             </div>
           ))}
-      </div>
+        </div>
+      )}
     </section>
   );
 }

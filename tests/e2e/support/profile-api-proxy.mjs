@@ -87,11 +87,24 @@ async function proxyRequest(request, response, body) {
     headers.set(name, Array.isArray(value) ? value.join(", ") : value);
   }
 
-  const upstream = await fetch(new URL(request.url ?? "/", upstreamUrl), {
-    method: request.method,
-    headers,
-    body,
-  });
+  let upstream;
+  try {
+    upstream = await fetch(new URL(request.url ?? "/", upstreamUrl), {
+      method: request.method,
+      headers,
+      body,
+    });
+  } catch (error) {
+    sendJson(
+      response,
+      {
+        error: "Upstream unavailable",
+        detail: error instanceof Error ? error.message : String(error),
+      },
+      502,
+    );
+    return;
+  }
   const responseHeaders = new Headers(upstream.headers);
   responseHeaders.delete("content-encoding");
   responseHeaders.delete("content-length");

@@ -5,7 +5,7 @@ import type { OfferPosition } from "@/types/collections";
 import { cn } from "@/lib/utils";
 import { useMemo, useState, useEffect } from "react";
 import * as React from "react";
-import { ScrollArea, ScrollBar } from "../ui/scroll-area";
+import { ScrollArea } from "../ui/scroll-area";
 import { DateRangePicker } from "./date-range-picker";
 import { PerformancePositionsChart } from "../charts/performance/positions";
 import { PerformanceEmptyState } from "./performance-empty-state";
@@ -19,7 +19,7 @@ import {
   toPositionValue,
 } from "@/lib/performance";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useTranslation } from "@/lib/paraglide-react";
 
@@ -85,37 +85,33 @@ function PerformanceCard({ position, change, date, hasPrevious }: PerformanceCar
     .toLocaleString({ day: "numeric", month: "short" });
 
   const changeBadge = hasPrevious ? (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <span
-          tabIndex={0}
-          role="status"
-          aria-label={changeLabel}
-          className={cn(
-            "inline-flex w-fit items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium tabular-nums",
-            changeTone,
-          )}
-        >
-          {changeIcon}
-          {direction === "none" ? "—" : Math.abs(change)}
-        </span>
-      </TooltipTrigger>
-      <TooltipContent>{changeLabel}</TooltipContent>
-    </Tooltip>
+    <TooltipTrigger>
+      <span
+        tabIndex={0}
+        role="status"
+        aria-label={changeLabel}
+        className={cn(
+          "inline-flex w-fit items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium tabular-nums",
+          changeTone,
+        )}
+      >
+        {changeIcon}
+        {direction === "none" ? "—" : Math.abs(change)}
+      </span>
+      <Tooltip>{changeLabel}</Tooltip>
+    </TooltipTrigger>
   ) : (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <span
-          tabIndex={0}
-          role="status"
-          aria-label={t("components.performanceTable.noPriorData")}
-          className="inline-flex w-fit items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground"
-        >
-          <Minus className="size-3.5" />
-        </span>
-      </TooltipTrigger>
-      <TooltipContent>{t("components.performanceTable.noPriorData")}</TooltipContent>
-    </Tooltip>
+    <TooltipTrigger>
+      <span
+        tabIndex={0}
+        role="status"
+        aria-label={t("components.performanceTable.noPriorData")}
+        className="inline-flex w-fit items-center gap-1 rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground"
+      >
+        <Minus className="size-3.5" />
+      </span>
+      <Tooltip>{t("components.performanceTable.noPriorData")}</Tooltip>
+    </TooltipTrigger>
   );
 
   return (
@@ -336,41 +332,39 @@ export function PerformanceTable({
               }}
             />
             <ToggleGroup
-              type="single"
-              value={view}
-              onValueChange={(value) => {
-                if (value) setView(value as "cards" | "chart");
+              selectionMode="single"
+              selectedKeys={[view]}
+              onSelectionChange={(keys) => {
+                const next = [...keys][0];
+                if (next) setView(String(next) as "cards" | "chart");
               }}
               variant="outline"
               size="sm"
               className="rounded-md border bg-muted/40 p-0.5"
             >
-              <ToggleGroupItem
-                value="cards"
-                aria-label={t("components.performanceTable.cardsView")}
-              >
+              <ToggleGroupItem id="cards" aria-label={t("components.performanceTable.cardsView")}>
                 <CardStackIcon className="size-4" />
               </ToggleGroupItem>
-              <ToggleGroupItem
-                value="chart"
-                aria-label={t("components.performanceTable.chartView")}
-              >
+              <ToggleGroupItem id="chart" aria-label={t("components.performanceTable.chartView")}>
                 <ChartBar className="size-4" />
               </ToggleGroupItem>
             </ToggleGroup>
           </div>
         </div>
 
-        <Tabs defaultValue={defaultCollection} className="w-full" onValueChange={onChange}>
+        <Tabs
+          defaultSelectedKey={defaultCollection}
+          className="w-full"
+          onSelectionChange={(key) => onChange(String(key))}
+        >
           <ScrollArea className="w-full">
             <TabsList className="bg-muted text-muted-foreground">
               {Object.entries(tops).map(([key]) => (
-                <TabsTrigger key={key} value={key}>
+                <TabsTrigger key={key} id={key}>
                   {collectionLabels[key] ?? key}
                 </TabsTrigger>
               ))}
             </TabsList>
-            <ScrollBar orientation="horizontal" />
           </ScrollArea>
 
           <div className="mt-4 space-y-4">
@@ -399,7 +393,6 @@ export function PerformanceTable({
                     );
                   })}
                 </div>
-                <ScrollBar orientation="horizontal" />
               </ScrollArea>
             ) : timeframe.to ? (
               <PerformancePositionsChart

@@ -9,6 +9,7 @@ import { OfferListItem } from "@/components/app/game-card";
 import { DynamicPagination } from "@/components/app/dynamic-pagination";
 import { DEFAULT_LIMIT } from "@/stores/searchStore";
 import type { SingleOffer } from "@/types/single-offer";
+import { SearchX } from "lucide-react";
 
 export interface SearchResultsProps {
   query: TypeOf<typeof formSchema>;
@@ -30,13 +31,13 @@ export function SearchResults(props: SearchResultsProps) {
     return (
       <div
         className={cn(
-          "w-full flex flex-col gap-4",
+          "w-full",
           view === "grid"
-            ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
+            ? "grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4"
             : "flex flex-col gap-4",
         )}
       >
-        {Array.from({ length: 34 }).map((_, i) => (
+        {Array.from({ length: 16 }).map((_, i) => (
           <GameCardSkeleton
             key={`skeleton-${
               // biome-ignore lint/suspicious/noArrayIndexKey: skeleton
@@ -50,18 +51,23 @@ export function SearchResults(props: SearchResultsProps) {
 
   if (!results || offers.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center h-full">
-        <span className="text-muted-foreground">{t("search.results.noResults")}</span>
+      <div className="flex w-full flex-col items-center justify-center gap-3 rounded-xl border border-white/10 bg-card/60 px-6 py-16 text-center">
+        <span className="flex size-11 items-center justify-center rounded-full border border-white/10 bg-background/70 text-muted-foreground">
+          <SearchX className="size-5" aria-hidden="true" />
+        </span>
+        <span className="text-sm font-medium text-muted-foreground">
+          {t("search.results.noResults")}
+        </span>
       </div>
     );
   }
 
   return (
-    <section className={cn("flex flex-col gap-4 w-full overflow-hidden")}>
+    <section className="flex w-full flex-col gap-6">
       <div
         className={cn(
           view === "grid"
-            ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
+            ? "grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4"
             : "flex flex-col gap-4",
         )}
       >

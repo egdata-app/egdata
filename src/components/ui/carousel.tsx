@@ -1,11 +1,12 @@
 "use client";
 
 import * as React from "react";
+import { cn } from "cn";
 import useEmblaCarousel, { type UseEmblaCarouselType } from "embla-carousel-react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -118,7 +119,6 @@ function Carousel({
       <div
         onKeyDownCapture={handleKeyDown}
         className={cn("relative", className)}
-        // biome-ignore lint/a11y/useSemanticElements: <explanation>
         role="region"
         aria-roledescription="carousel"
         data-slot="carousel"
@@ -136,7 +136,7 @@ function CarouselContent({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div ref={carouselRef} className="overflow-hidden" data-slot="carousel-content">
       <div
-        className={cn("flex", orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col", className)}
+        className={cn("flex", orientation === "horizontal" ? "-ms-4" : "-mt-4 flex-col", className)}
         {...props}
       />
     </div>
@@ -153,7 +153,7 @@ function CarouselItem({ className, ...props }: React.ComponentProps<"div">) {
       data-slot="carousel-item"
       className={cn(
         "min-w-0 shrink-0 grow-0 basis-full",
-        orientation === "horizontal" ? "pl-4" : "pt-4",
+        orientation === "horizontal" ? "ps-4" : "pt-4",
         className,
       )}
       {...props}
@@ -164,7 +164,7 @@ function CarouselItem({ className, ...props }: React.ComponentProps<"div">) {
 function CarouselPrevious({
   className,
   variant = "outline",
-  size = "icon",
+  size = "icon-sm",
   ...props
 }: React.ComponentProps<typeof Button>) {
   const { orientation, scrollPrev, canScrollPrev } = useCarousel();
@@ -175,17 +175,17 @@ function CarouselPrevious({
       variant={variant}
       size={size}
       className={cn(
-        "absolute size-8 rounded-full",
+        "absolute touch-manipulation rounded-full",
         orientation === "horizontal"
-          ? "top-1/2 -left-12 -translate-y-1/2"
-          : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
+          ? "inset-y-0 -start-12 my-auto"
+          : "-top-12 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 rotate-90",
         className,
       )}
-      disabled={!canScrollPrev}
-      onClick={scrollPrev}
+      isDisabled={!canScrollPrev}
+      onPress={scrollPrev}
       {...props}
     >
-      <ArrowLeft />
+      <HugeiconsIcon icon={ArrowLeft01Icon} strokeWidth={2} />
       <span className="sr-only">Previous slide</span>
     </Button>
   );
@@ -194,7 +194,7 @@ function CarouselPrevious({
 function CarouselNext({
   className,
   variant = "outline",
-  size = "icon",
+  size = "icon-sm",
   ...props
 }: React.ComponentProps<typeof Button>) {
   const { orientation, scrollNext, canScrollNext } = useCarousel();
@@ -205,17 +205,17 @@ function CarouselNext({
       variant={variant}
       size={size}
       className={cn(
-        "absolute size-8 rounded-full",
+        "absolute touch-manipulation rounded-full",
         orientation === "horizontal"
-          ? "top-1/2 -right-12 -translate-y-1/2"
-          : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
+          ? "inset-y-0 -end-12 my-auto"
+          : "-bottom-12 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 rotate-90",
         className,
       )}
-      disabled={!canScrollNext}
-      onClick={scrollNext}
+      isDisabled={!canScrollNext}
+      onPress={scrollNext}
       {...props}
     >
-      <ArrowRight />
+      <HugeiconsIcon icon={ArrowRight01Icon} strokeWidth={2} />
       <span className="sr-only">Next slide</span>
     </Button>
   );
@@ -228,4 +228,5 @@ export {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
+  useCarousel,
 };

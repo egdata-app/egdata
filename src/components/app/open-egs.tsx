@@ -1,7 +1,7 @@
 import type { SingleOffer } from "@/types/single-offer";
-import { Button } from "../ui/button";
+import { Button, LinkButton } from "../ui/button";
 import { EGSIcon } from "../icons/egs";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Popover, PopoverTrigger } from "../ui/popover";
 import { useState, useEffect } from "react";
 
 const CREATOR_CODE = "EGDATA";
@@ -50,27 +50,20 @@ export function OpenEgs({ offer }: { offer: SingleOffer }) {
   const finalUrl = useCreatorCode ? `${baseUrl}&creatorCode=${CREATOR_CODE}` : baseUrl;
 
   return (
-    <Popover open={showPopover} onOpenChange={setShowPopover}>
-      <PopoverTrigger asChild>
-        <Button
-          asChild
-          className="bg-muted text-foreground dark:hover:text-foreground hover:bg-muted focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 dark:bg-muted dark:hover:bg-muted/80 dark:focus:ring-gray-700"
-        >
-          <a
-            href={finalUrl}
-            rel="noopener noreferrer"
-            referrerPolicy="no-referrer"
-            target="_blank"
-            onClick={handleClick}
-          >
-            <div className="flex items-center justify-center gap-2">
-              <EGSIcon className="h-6 w-6" />
-              <span className="font-semibold">Store</span>
-            </div>
-          </a>
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-80 p-4">
+    <PopoverTrigger isOpen={showPopover} onOpenChange={setShowPopover}>
+      <LinkButton
+        href={finalUrl}
+        rel="noopener noreferrer"
+        target="_blank"
+        onPress={handleClick}
+        className="bg-muted text-foreground dark:hover:text-foreground hover:bg-muted focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 dark:bg-muted dark:hover:bg-muted/80 dark:focus:ring-gray-700"
+      >
+        <div className="flex items-center justify-center gap-2">
+          <EGSIcon className="h-6 w-6" />
+          <span className="font-semibold">Store</span>
+        </div>
+      </LinkButton>
+      <Popover className="w-80 p-4">
         <div className="space-y-4">
           <h4 className="font-medium leading-none">Support EGData</h4>
           <p className="text-sm text-muted-foreground">
@@ -80,7 +73,7 @@ export function OpenEgs({ offer }: { offer: SingleOffer }) {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => {
+              onPress={() => {
                 setUseCreatorCode(false);
                 setShowPopover(false);
                 window.open(finalUrl, "_blank");
@@ -90,7 +83,7 @@ export function OpenEgs({ offer }: { offer: SingleOffer }) {
             </Button>
             <Button
               size="sm"
-              onClick={() => {
+              onPress={() => {
                 setUseCreatorCode(true);
                 setShowPopover(false);
                 window.open(finalUrl, "_blank");
@@ -100,7 +93,7 @@ export function OpenEgs({ offer }: { offer: SingleOffer }) {
             </Button>
           </div>
         </div>
-      </PopoverContent>
-    </Popover>
+      </Popover>
+    </PopoverTrigger>
   );
 }

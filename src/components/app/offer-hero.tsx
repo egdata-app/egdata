@@ -178,14 +178,14 @@ export function OfferHero({ offer }: { offer: SingleOffer }) {
 
   return (
     <div
-      className="relative w-full h-auto"
+      className="group relative h-auto w-full overflow-hidden rounded-xl border border-white/10 bg-card shadow-2xl shadow-black/40"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       {videoUrl && (
         <video
           className={cn(
-            "rounded-md transition-opacity duration-700 absolute inset-0 ease-in-out w-full h-full object-cover",
+            "absolute inset-0 h-full w-full rounded-xl object-cover transition-opacity duration-700 ease-in-out",
             isHovered ? "opacity-100" : "opacity-0",
           )}
           loop
@@ -214,12 +214,13 @@ export function OfferHero({ offer }: { offer: SingleOffer }) {
         width={720}
         height={400}
         className={cn(
-          "rounded-md transition-opacity duration-700 ease-in-out",
+          "rounded-xl transition-opacity duration-700 ease-in-out",
           videoUrl && isHovered ? "opacity-0" : "opacity-100",
         )}
         eager
         key={offer.id}
       />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-background/70 via-background/20 to-transparent" />
       <GameFeatures id={offer.id} />
     </div>
   );

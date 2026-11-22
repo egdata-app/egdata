@@ -55,7 +55,7 @@ export function ChangelogFieldsChart({ chartData }: { chartData: ChangelogStats[
             />
             <XAxis dataKey="changes" type="number" hide />
             <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="line" />} />
-            <Bar dataKey="changes" layout="vertical" fill="var(--color-changes)" radius={4}>
+            <Bar dataKey="changes" fill="var(--color-changes)" radius={4}>
               <LabelList
                 dataKey="month"
                 position="insideLeft"

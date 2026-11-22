@@ -4,6 +4,8 @@ import { resolve } from "node:path";
 import type { ServerMiddleware } from "srvx";
 import "@/lib/paraglide-strategy";
 import { paraglideMiddleware } from "@/paraglide/server.js";
+import { runWithLocaleCatalog } from "@/i18n/server-context";
+import "@/i18n/catalog-chunks.server";
 import { SECURITY_HEADERS } from "@/lib/security-headers";
 import {
   getServiceWorkerCacheControl,
@@ -55,7 +57,9 @@ const clientDist = resolve(process.cwd(), "dist/client");
 
 const entry = createServerEntry({
   async fetch(request) {
-    return paraglideMiddleware(request, () => startHandler(request));
+    return paraglideMiddleware(request, ({ locale }) =>
+      runWithLocaleCatalog(locale, () => startHandler(request)),
+    );
   },
 });
 

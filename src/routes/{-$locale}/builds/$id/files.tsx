@@ -430,18 +430,19 @@ function ComparisonView({
           </Button>
         </form>
         <ToggleGroup
-          type="multiple"
-          value={statuses}
-          onValueChange={(values) =>
-            values.length && updateSearch({ status: values.join(","), page: 1 })
-          }
+          selectionMode="multiple"
+          selectedKeys={new Set(statuses)}
+          onSelectionChange={(keys) => {
+            const values = Array.from(keys, String);
+            if (values.length) updateSearch({ status: values.join(","), page: 1 });
+          }}
           variant="outline"
           className="flex-wrap justify-start"
         >
           {(["added", "modified", "removed", "unchanged"] as const).map((status) => (
             <ToggleGroupItem
               key={status}
-              value={status}
+              id={status}
               aria-label={t(`builds.comparison.status.${status}`)}
             >
               {t(`builds.comparison.status.${status}`)}
@@ -518,8 +519,8 @@ function ComparisonView({
           <Button
             variant="outline"
             size="icon"
-            disabled={search.page <= 1}
-            onClick={() => updateSearch({ page: search.page - 1 })}
+            isDisabled={search.page <= 1}
+            onPress={() => updateSearch({ page: search.page - 1 })}
           >
             <ChevronLeftIcon />
             <span className="sr-only">{t("builds.comparison.previousPage")}</span>
@@ -527,8 +528,8 @@ function ComparisonView({
           <Button
             variant="outline"
             size="icon"
-            disabled={!canGoNext}
-            onClick={() => updateSearch({ page: search.page + 1 })}
+            isDisabled={!canGoNext}
+            onPress={() => updateSearch({ page: search.page + 1 })}
           >
             <ChevronRightIcon />
             <span className="sr-only">{t("builds.comparison.nextPage")}</span>

@@ -99,12 +99,12 @@ test.describe("build comparison", () => {
     await page.keyboard.press("Escape");
 
     await page.getByTestId("previous-build-select").click();
-    await page.getByRole("option", { name: /BuildVersion-1\.0\.210725\.2/ }).click();
+    await page.getByRole("menuitem", { name: /BuildVersion-1\.0\.210725\.2/ }).click();
     await expect(page).toHaveURL(new RegExp(`[?&]compare=${oldestBuildId}(?:&|$)`));
     await expect(page.getByTestId("previous-build-select")).toContainText("May 1, 2026");
 
     await page.getByTestId("current-build-select").click();
-    await page.getByRole("option", { name: /BuildVersion-1\.0\.290725/ }).click();
+    await page.getByRole("menuitem", { name: /BuildVersion-1\.0\.290725/ }).click();
     await expect(page).toHaveURL(new RegExp(`/builds/${previousBuildId}/files(?:\\?|$)`));
     await expect(page).toHaveURL(new RegExp(`[?&]compare=${oldestBuildId}(?:&|$)`));
 
@@ -164,7 +164,7 @@ test.describe("build comparison", () => {
     await expect(details).toContainText("Modified");
 
     await page.getByTestId("previous-build-select").click();
-    await page.getByRole("option", { name: /BuildVersion-1\.0\.210725\.2/ }).click();
+    await page.getByRole("menuitem", { name: /BuildVersion-1\.0\.210725\.2/ }).click();
     await expect(page).toHaveURL(/(?:\?|&)view=all(?:%7E|~)?(?:&|$)/);
     await expect(page).toHaveURL(new RegExp(`[?&]compare=${oldestBuildId}(?:&|$)`));
     await expect(page).toHaveURL(/(?:\?|&)path=Binaries(?:%7E|~)?(?:&|$)/);

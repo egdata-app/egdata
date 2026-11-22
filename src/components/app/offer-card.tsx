@@ -37,54 +37,65 @@ export function GameCard({ offer }: { offer: SingleOffer }) {
     <Link
       to="/{-$locale}/offers/$id"
       params={{ id: offer.id }}
+      className="group block w-full max-w-sm select-none focus-visible:outline-none"
       aria-label={`Open offer ${offer.title}`}
     >
-      <div className="w-full max-w-sm overflow-hidden rounded-md bg-card aspect-[3/4] relative group">
+      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg border border-white/10 bg-card/80 shadow-sm transition-[box-shadow,border-color,background-color] duration-200 ease-out group-hover:border-primary/60 group-hover:shadow-lg group-hover:shadow-black/35 group-focus-visible:border-primary">
         <Image
           src={gradientImage}
           quality="medium"
           alt={offer.title}
           width={400}
           height={500}
-          className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+          className="h-full w-full object-cover transition-transform duration-300 ease-out will-change-transform group-hover:scale-[1.035]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/30 to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/45 via-40% to-transparent" />
         {offer.offerType && (
-          <span className="absolute top-2 left-2 bg-background/60 backdrop-blur-sm text-foreground/90 text-[0.65rem] font-semibold px-2 py-1 rounded uppercase tracking-wide">
+          <span className="absolute top-2.5 left-2.5 rounded-md bg-background/75 px-2 py-0.5 text-[0.7rem] font-medium text-foreground/90 ring-1 ring-white/10 backdrop-blur-md">
             {offersDictionary[offer.offerType as keyof typeof offersDictionary]}
           </span>
         )}
-        <div className="absolute inset-x-0 bottom-0 p-3 z-10">
-          <h3 className="text-lg font-display font-semibold text-foreground leading-tight line-clamp-2">
+        <div className="absolute inset-x-0 bottom-0 z-10 p-3.5">
+          <h3 className="font-display text-base font-semibold leading-snug tracking-tight text-foreground line-clamp-2 transition-colors duration-200 group-hover:text-primary md:text-lg">
             {offer.title}
           </h3>
           <div className="mt-1.5 flex items-center justify-between gap-2">
-            <span className="text-xs text-muted-foreground truncate">{offer.seller.name}</span>
-            <div className="inline-flex items-center gap-2 justify-end">
+            <span className="truncate text-xs text-muted-foreground/90">{offer.seller.name}</span>
+            <div className="inline-flex shrink-0 items-center justify-end gap-1.5 tabular-nums">
               {isReleased && price && (
                 <>
+                  {price.price.discount > 0 && price.price.originalPrice > 0 && (
+                    <span className="rounded-full bg-primary px-1.5 py-0.5 text-[0.65rem] font-semibold leading-none text-primary-foreground tabular-nums">
+                      {`-${Math.round(
+                        ((price.price.originalPrice - price.price.discountPrice) /
+                          price.price.originalPrice) *
+                          100,
+                      )}%`}
+                    </span>
+                  )}
                   {price.price.discount > 0 && (
-                    <span className="text-xs text-muted-foreground line-through">
+                    <span className="text-xs text-muted-foreground line-through tabular-nums">
                       {fmt.format(price.price.originalPrice / 100)}
                     </span>
                   )}
-                  <span
-                    className={cn(
-                      "text-sm font-semibold",
-                      isFree || price.price.discount > 0 ? "text-primary" : "text-foreground",
-                    )}
-                  >
-                    {isFree ? "Free" : fmt.format(price.price.discountPrice / 100)}
-                  </span>
+                  {isFree ? (
+                    <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs font-semibold text-emerald-300 ring-1 ring-emerald-400/20 tabular-nums">
+                      Free
+                    </span>
+                  ) : (
+                    <span className="text-sm font-semibold text-foreground tabular-nums">
+                      {fmt.format(price.price.discountPrice / 100)}
+                    </span>
+                  )}
                 </>
               )}
               {!isReleased && isPreOrder && price?.price.discountPrice !== undefined && (
-                <span className="text-sm font-semibold text-foreground">
+                <span className="text-sm font-semibold text-foreground tabular-nums">
                   {fmt.format(price.price.discountPrice / 100)}
                 </span>
               )}
               {!isReleased && !isPreOrder && !price && (
-                <span className="text-sm font-semibold text-muted-foreground">Coming Soon</span>
+                <span className="text-xs font-medium text-muted-foreground">Coming Soon</span>
               )}
             </div>
           </div>
@@ -96,8 +107,8 @@ export function GameCard({ offer }: { offer: SingleOffer }) {
 
 export function GameCardSkeleton() {
   return (
-    <div className="w-full max-w-sm overflow-hidden rounded-md bg-card aspect-[3/4] relative">
-      <Skeleton className="w-full h-full absolute inset-0" />
+    <div className="relative aspect-[3/4] w-full max-w-sm overflow-hidden rounded-lg border border-white/10 bg-card/80">
+      <Skeleton className="absolute inset-0 h-full w-full" />
     </div>
   );
 }
@@ -155,11 +166,11 @@ export function OfferCard({
       params={{
         id: offer.id,
       }}
-      className="select-none group mx-auto w-fit md:w-full"
+      className="group mx-auto block w-fit select-none focus-visible:outline-none md:w-full"
       viewTransition
       aria-label={`Open offer ${offer.title}`}
     >
-      <div className="relative w-64 md:w-full overflow-hidden rounded-md bg-card aspect-[3/4]">
+      <div className="relative aspect-[3/4] w-64 overflow-hidden rounded-lg border border-white/10 bg-card/80 shadow-sm transition-[box-shadow,border-color,background-color] duration-200 ease-out group-hover:border-primary/60 group-hover:shadow-lg group-hover:shadow-black/35 group-focus-visible:border-primary md:w-full">
         <Image
           src={gradientImage}
           alt={offer.title}
@@ -167,19 +178,19 @@ export function OfferCard({
           height={800}
           quality="high"
           loading="lazy"
-          className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+          className="h-full w-full object-cover transition-transform duration-300 ease-out will-change-transform group-hover:scale-[1.035]"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/30 to-transparent" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/50 via-40% to-transparent" />
         {offer.offerType && (
-          <span className="absolute top-2 left-2 bg-background/60 backdrop-blur-sm text-foreground/90 text-[0.65rem] font-semibold px-2 py-1 rounded uppercase tracking-wide">
+          <span className="absolute top-2.5 left-2.5 rounded-md bg-background/75 px-2 py-0.5 text-[0.7rem] font-medium text-foreground/90 ring-1 ring-white/10 backdrop-blur-md">
             {offersDictionary[offer.offerType as keyof typeof offersDictionary]}
           </span>
         )}
         <OfferBadges offer={offer} owned={owned} />
-        <div className="absolute inset-x-0 bottom-0 p-3 z-10">
+        <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col p-3.5">
           <h3
             className={cn(
-              "font-display font-semibold text-foreground leading-tight line-clamp-2 drop-shadow-md",
+              "font-display font-semibold leading-snug tracking-tight text-foreground line-clamp-2 drop-shadow-sm transition-colors duration-200 group-hover:text-primary",
               textSizes[size] ?? textSizes.xl,
             )}
           >
@@ -195,14 +206,17 @@ export function OfferCard({
                 ))}
             </span>
           </h3>
-          <div className="mt-1 max-h-0 overflow-hidden group-hover:max-h-24 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out">
-            <p className="text-xs text-muted-foreground mb-2">
+          {offer.seller?.name && (
+            <p className="mt-1 truncate text-xs text-muted-foreground/90">{offer.seller.name}</p>
+          )}
+          <div className="max-h-0 overflow-hidden opacity-0 transition-[max-height,opacity,margin-top] duration-200 ease-out group-hover:mt-1 group-hover:max-h-12 group-hover:opacity-100">
+            <p className="truncate text-[0.7rem] text-muted-foreground/80">
               {offerGenres.length > 0
-                ? offerGenres.join(", ")
+                ? offerGenres.join(" · ")
                 : offersDictionary[offer.offerType as keyof typeof offersDictionary]}
             </p>
           </div>
-          <div className="mt-1.5">
+          <div className="mt-2">
             <OfferPrice offer={offer} size={size} />
           </div>
         </div>
@@ -233,9 +247,9 @@ function OfferBadges({ offer, owned }: { offer: SingleOffer; owned: boolean | un
   return badges.length > 0 ? (
     <Badge
       variant={"default"}
-      className="absolute top-2 right-2 bg-primary text-primary-foreground"
+      className="absolute top-2.5 right-2.5 bg-primary font-semibold text-primary-foreground shadow-sm"
     >
-      {badges.join(" - ")}
+      {badges.join(" · ")}
     </Badge>
   ) : null;
 }
@@ -261,17 +275,17 @@ function OfferPrice({
   if (!price) return null;
 
   const discountTextSizes = {
-    xs: "text-[0.6rem]",
-    sm: "text-[0.6rem]",
-    md: "text-[0.8rem]",
-    lg: "text-[1rem]",
-    xl: "text-[1.125rem]",
+    xs: "text-[0.65rem]",
+    sm: "text-xs",
+    md: "text-xs",
+    lg: "text-sm",
+    xl: "text-sm",
   };
 
   const textSizes = {
     xs: "text-xs",
     sm: "text-sm",
-    md: "text-md",
+    md: "text-base",
     lg: "text-lg",
     xl: "text-xl",
   };
@@ -283,13 +297,19 @@ function OfferPrice({
 
   const renderPrice = () => (
     <>
-      <span className={isFree || isDiscounted ? "text-primary" : "text-foreground"}>
-        {isFree ? "Free" : formatPrice(price.price.discountPrice)}
-      </span>
+      {isFree ? (
+        <span className="inline-flex items-center rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-xs font-semibold text-emerald-300 ring-1 ring-emerald-400/20 tabular-nums">
+          Free
+        </span>
+      ) : (
+        <span className="font-semibold text-foreground tabular-nums">
+          {formatPrice(price.price.discountPrice)}
+        </span>
+      )}
       {isDiscounted && (
         <span
           className={cn(
-            "line-through text-muted-foreground",
+            "line-through text-muted-foreground tabular-nums",
             discountTextSizes[size] ?? discountTextSizes.xl,
           )}
         >
@@ -300,17 +320,17 @@ function OfferPrice({
   );
 
   const renderDiscountBadge = () => (
-    <div className="text-xs inline-flex items-center rounded-full bg-primary text-primary-foreground px-2 py-1 font-semibold shadow-sm">
+    <span className="inline-flex shrink-0 items-center rounded-full bg-primary px-2 py-0.5 text-xs font-semibold text-primary-foreground shadow-sm tabular-nums">
       {`-${Math.round(
         ((price.price.originalPrice - price.price.discountPrice) / price.price.originalPrice) * 100,
       )}%`}
-    </div>
+    </span>
   );
 
   return (
     <div
       className={cn(
-        "text-lg font-bold inline-flex items-end gap-2 z-10 h-full justify-between",
+        "z-10 flex w-full items-center justify-between gap-2 font-semibold tabular-nums",
         textSizes[size] ?? textSizes.xl,
       )}
     >
@@ -322,7 +342,7 @@ function OfferPrice({
         ) : price.price.discountPrice !== 0 ? (
           renderPrice()
         ) : (
-          <span className="text-muted-foreground">Coming Soon</span>
+          <span className="text-xs font-medium text-muted-foreground">Coming Soon</span>
         )}
       </div>
       {price.price.discount > 0 && renderDiscountBadge()}

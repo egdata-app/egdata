@@ -160,8 +160,10 @@ function ProfileInformation() {
 
   if (!profile || isError) {
     return (
-      <div className="rounded-md border border-border bg-card p-6 text-center">
-        <h2 className="text-xl font-semibold">{t("profile.errors.unavailableTitle")}</h2>
+      <div className="rounded-xl border border-white/10 bg-card/80 p-6 text-center">
+        <h2 className="font-display text-xl font-semibold">
+          {t("profile.errors.unavailableTitle")}
+        </h2>
         <p className="mt-2 text-sm text-muted-foreground">
           {t("profile.errors.unavailableDescription")}
         </p>
@@ -171,29 +173,38 @@ function ProfileInformation() {
 
   return (
     <Tabs
-      value={search.tab}
-      onValueChange={(tab) => updateSearch({ tab: tab as ProfileTab })}
+      selectedKey={search.tab}
+      onSelectionChange={(tab) => updateSearch({ tab: String(tab) as ProfileTab })}
       className="w-full"
     >
-      <div className="mb-6 flex flex-col gap-4 border-b border-border pb-4 lg:flex-row lg:items-center lg:justify-between">
-        <TabsList className="w-fit rounded-md bg-card p-1">
-          <TabsTrigger value="showcase" className="rounded">
+      <div className="mb-8 flex flex-col gap-4 border-b border-border/60 pb-4 lg:flex-row lg:items-center lg:justify-between">
+        <TabsList className="w-fit rounded-xl border border-white/10 bg-card/80 p-1 group-data-horizontal/tabs:h-auto">
+          <TabsTrigger
+            id="showcase"
+            className="cursor-pointer rounded-lg px-4 py-1.5 text-sm font-medium transition-colors duration-150"
+          >
             {t("profile.tabs.showcase")}
           </TabsTrigger>
-          <TabsTrigger value="library" className="rounded">
+          <TabsTrigger
+            id="library"
+            className="cursor-pointer rounded-lg px-4 py-1.5 text-sm font-medium transition-colors duration-150"
+          >
             {t("profile.tabs.library")}
           </TabsTrigger>
-          <TabsTrigger value="activity" className="rounded">
+          <TabsTrigger
+            id="activity"
+            className="cursor-pointer rounded-lg px-4 py-1.5 text-sm font-medium transition-colors duration-150"
+          >
             {t("profile.tabs.activity")}
           </TabsTrigger>
         </TabsList>
-        <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
+        <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground tabular-nums">
           <span className="inline-flex items-center gap-2">
-            <Gamepad2Icon className="size-4" />
+            <Gamepad2Icon className="size-4 text-muted-foreground/80" />
             {t("profile.stats.games", { count: profile.stats?.totalGames ?? 0 })}
           </span>
           <span className="inline-flex items-center gap-2">
-            <EpicTrophyIcon className="size-4" />
+            <EpicTrophyIcon className="size-4 text-muted-foreground/80" />
             {t("profile.stats.achievements", {
               count: profile.stats?.totalAchievements ?? 0,
             })}
@@ -205,7 +216,7 @@ function ProfileInformation() {
         </div>
       </div>
 
-      <TabsContent value="showcase" className="mt-0">
+      <TabsContent id="showcase" className="mt-0">
         <ShowcaseView
           featuredAchievements={featuredAchievements}
           featuredGames={featuredGames}
@@ -213,7 +224,7 @@ function ProfileInformation() {
           profileId={id}
         />
       </TabsContent>
-      <TabsContent value="library" className="mt-0">
+      <TabsContent id="library" className="mt-0">
         <LibraryView
           gamesPage={libraryPage}
           isLoading={libraryLoading && !libraryPage}
@@ -228,7 +239,7 @@ function ProfileInformation() {
           onPageChange={(page) => updateSearch({ tab: "library", page })}
         />
       </TabsContent>
-      <TabsContent value="activity" className="mt-0">
+      <TabsContent id="activity" className="mt-0">
         <ActivityView
           activityPage={activityPage}
           isLoading={activityLoading && !activityPage}
@@ -261,7 +272,7 @@ function ShowcaseView({
   const recentHighlight = recentActivity[0];
 
   return (
-    <div className="space-y-10">
+    <div className="space-y-12">
       <section className="grid gap-4 lg:grid-cols-3" aria-label={t("profile.showcase.ariaLabel")}>
         {rarestAchievement && (
           <AchievementSpotlight achievement={rarestAchievement} profileId={profileId} />
@@ -271,13 +282,13 @@ function ShowcaseView({
       </section>
 
       {featuredGames.length > 0 && (
-        <section className="space-y-4">
+        <section className="space-y-5">
           <SectionHeading
             icon={<StarIcon className="size-5" />}
             title={t("profile.showcase.featuredGamesTitle")}
             detail={t("profile.showcase.featuredGamesDetail", { count: featuredGames.length })}
           />
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {featuredGames.map((game) => (
               <ProfileGameCard
                 key={game.sandboxId ?? game.title}
@@ -291,13 +302,13 @@ function ShowcaseView({
       )}
 
       {featuredAchievements.length > 0 && (
-        <section className="space-y-4">
+        <section className="space-y-5">
           <SectionHeading
             icon={<MedalIcon className="size-5" />}
             title={t("profile.showcase.rareAchievementsTitle")}
             detail={t("profile.showcase.rareAchievementsDetail")}
           />
-          <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+          <div className="grid gap-3.5 md:grid-cols-2 xl:grid-cols-4">
             {featuredAchievements.map((achievement) => (
               <AchievementTile
                 key={`${achievement.sandboxId}-${achievement.name}`}
@@ -310,7 +321,7 @@ function ShowcaseView({
       )}
 
       {recentActivity.length > 0 && (
-        <section className="space-y-4">
+        <section className="space-y-5">
           <SectionHeading
             icon={<ClockIcon className="size-5" />}
             title={t("profile.showcase.recentUnlocksTitle")}
@@ -374,25 +385,27 @@ function AchievementSpotlight({
     <ProfileSandboxLink
       profileId={profileId}
       sandboxId={achievement.sandboxId}
-      className="group flex min-h-56 flex-col justify-between overflow-hidden rounded-md border border-border bg-card p-5 transition-colors hover:bg-card/80"
+      className="group flex min-h-56 flex-col justify-between overflow-hidden rounded-xl border border-white/10 bg-card/80 p-5 transition-[box-shadow,border-color,background-color] duration-200 ease-out hover:border-primary/60 hover:shadow-lg hover:shadow-black/35"
     >
       <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="inline-flex items-center gap-2 text-xs uppercase text-muted-foreground">
-            <FlameIcon className="size-4" />
+        <div className="min-w-0">
+          <p className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+            <FlameIcon className="size-3.5 text-primary" />
             {t("profile.showcase.rarestUnlock")}
           </p>
-          <h2 className="mt-3 text-2xl font-semibold leading-tight">
+          <h2 className="mt-2.5 line-clamp-2 font-display text-xl font-semibold leading-snug text-foreground transition-colors duration-200 group-hover:text-primary">
             {achievement.displayName ?? achievement.name}
           </h2>
         </div>
-        <AchievementIcon achievement={achievement} className="size-20" />
+        <AchievementIcon achievement={achievement} className="size-18 border border-white/10" />
       </div>
-      <div>
-        <p className="line-clamp-2 text-sm text-muted-foreground">{achievement.description}</p>
-        <div className="mt-4 flex items-center justify-between gap-3 text-sm">
+      <div className="mt-4 space-y-3">
+        {achievement.description && (
+          <p className="line-clamp-2 text-sm text-muted-foreground">{achievement.description}</p>
+        )}
+        <div className="flex items-center justify-between gap-3 border-t border-border/50 pt-3 text-xs">
           <span className="truncate text-muted-foreground">{achievement.gameTitle}</span>
-          <span className="shrink-0 font-medium text-foreground">
+          <span className="shrink-0 font-medium tabular-nums text-foreground">
             {formatRarity(achievement.rarityPercent)}
           </span>
         </div>
@@ -407,28 +420,32 @@ function GameSpotlight({ game, profileId }: { game: ProfileGame; profileId: stri
     <ProfileSandboxLink
       profileId={profileId}
       sandboxId={game.sandboxId}
-      className="group relative min-h-56 overflow-hidden rounded-md border border-border bg-card p-5 transition-colors hover:bg-card/80"
+      className="group relative min-h-56 overflow-hidden rounded-xl border border-white/10 bg-card/80 p-5 transition-[box-shadow,border-color,background-color] duration-200 ease-out hover:border-primary/60 hover:shadow-lg hover:shadow-black/35"
     >
       {game.imageUrl && (
         <img
           src={game.imageUrl}
           alt=""
-          className="absolute inset-0 h-full w-full object-cover opacity-35 transition-transform duration-500 group-hover:scale-105"
+          className="absolute inset-0 h-full w-full object-cover opacity-40 transition-transform duration-300 ease-out will-change-transform group-hover:scale-[1.035]"
           loading="lazy"
         />
       )}
-      <div className="absolute inset-0 bg-gradient-to-t from-card via-card/85 to-card/35" />
-      <div className="relative flex h-full min-h-48 flex-col justify-between">
-        <p className="inline-flex items-center gap-2 text-xs uppercase text-muted-foreground">
-          <Gamepad2Icon className="size-4" />
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/30" />
+      <div className="relative flex h-full min-h-46 flex-col justify-between">
+        <p className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+          <Gamepad2Icon className="size-3.5 text-primary" />
           {t("profile.showcase.definingGame")}
         </p>
         <div>
-          <h2 className="text-2xl font-semibold leading-tight">{game.title}</h2>
-          <div className="mt-4 flex items-end justify-between gap-4">
+          <h2 className="line-clamp-2 font-display text-xl font-semibold leading-snug text-foreground transition-colors duration-200 group-hover:text-primary">
+            {game.title}
+          </h2>
+          <div className="mt-3.5 flex items-end justify-between gap-4">
             <div>
-              <p className="text-4xl font-light">{Math.round(game.completionPercent ?? 0)}%</p>
-              <p className="text-sm text-muted-foreground">
+              <p className="font-display text-3xl font-semibold tabular-nums text-foreground">
+                {Math.round(game.completionPercent ?? 0)}%
+              </p>
+              <p className="text-xs text-muted-foreground tabular-nums">
                 {t("profile.showcase.achievementsCount", {
                   unlocked: game.unlocked ?? 0,
                   total: game.total ?? 0,
@@ -436,8 +453,8 @@ function GameSpotlight({ game, profileId }: { game: ProfileGame; profileId: stri
               </p>
             </div>
             {game.hasPlatinum && (
-              <span className="inline-flex items-center gap-2 rounded-md bg-platinum-start/25 px-3 py-2 text-sm text-foreground">
-                <EpicPlatinumIcon className="size-4" />
+              <span className="inline-flex items-center gap-1.5 rounded-lg border border-platinum-start/40 bg-background/80 px-2.5 py-1.5 text-xs font-medium text-foreground">
+                <EpicPlatinumIcon className="size-3.5 text-[#8a7cff]" />
                 {t("profile.showcase.platinum")}
               </span>
             )}
@@ -454,38 +471,38 @@ function ActivitySpotlight({ item, profileId }: { item: ProfileActivityItem; pro
     <ProfileSandboxLink
       profileId={profileId}
       sandboxId={item.sandboxId}
-      className="group flex min-h-56 flex-col justify-between rounded-md border border-border bg-card p-5 transition-colors hover:bg-card/80"
+      className="group flex min-h-56 flex-col justify-between overflow-hidden rounded-xl border border-white/10 bg-card/80 p-5 transition-[box-shadow,border-color,background-color] duration-200 ease-out hover:border-primary/60 hover:shadow-lg hover:shadow-black/35"
     >
       <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="inline-flex items-center gap-2 text-xs uppercase text-muted-foreground">
-            <ActivityIcon className="size-4" />
+        <div className="min-w-0">
+          <p className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground">
+            <ActivityIcon className="size-3.5 text-primary" />
             {t("profile.showcase.latestActivity")}
           </p>
-          <h2 className="mt-3 text-2xl font-semibold leading-tight">
+          <h2 className="mt-2.5 line-clamp-2 font-display text-xl font-semibold leading-snug text-foreground transition-colors duration-200 group-hover:text-primary">
             {item.achievementName ?? activityTypeLabel(item.type)}
           </h2>
         </div>
         {item.achievementIconUrl ? (
-          <div className="size-20 shrink-0 overflow-hidden rounded-md bg-primary/10">
+          <div className="size-18 shrink-0 overflow-hidden rounded-lg border border-white/10 bg-background/60">
             <Image
               src={item.achievementIconUrl}
               alt={item.achievementName ?? item.gameTitle ?? t("profile.activity.achievementAlt")}
-              width={80}
-              height={80}
+              width={72}
+              height={72}
               quality="original"
-              className="rounded-md"
+              className="rounded-lg transition-transform duration-300 ease-out will-change-transform group-hover:scale-[1.035]"
             />
           </div>
         ) : (
-          <div className="flex size-20 items-center justify-center rounded-md bg-primary/10">
-            <TrophyIcon className="size-8" />
+          <div className="flex size-18 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-background/60">
+            <TrophyIcon className="size-7 text-muted-foreground" />
           </div>
         )}
       </div>
-      <div className="space-y-1 text-sm text-muted-foreground">
-        <p>{item.gameTitle}</p>
-        <p>{formatDate(item.occurredAt)}</p>
+      <div className="mt-4 flex items-center justify-between gap-3 border-t border-border/50 pt-3 text-xs text-muted-foreground">
+        <p className="truncate">{item.gameTitle}</p>
+        <p className="shrink-0 tabular-nums">{formatDate(item.occurredAt)}</p>
       </div>
     </ProfileSandboxLink>
   );
@@ -531,7 +548,7 @@ function LibraryView({
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-4 rounded-md border border-border bg-card/50 p-4 lg:flex-row lg:items-center lg:justify-between">
+      <div className="flex flex-col gap-3 rounded-xl border border-white/10 bg-card/80 p-3.5 lg:flex-row lg:items-center lg:justify-between">
         <div
           className="flex flex-wrap gap-2"
           role="group"
@@ -543,28 +560,30 @@ function LibraryView({
               key={filter}
               onClick={() => onFilterChange(filter)}
               className={cn(
-                "rounded-md border px-3 py-2 text-sm transition-colors",
+                "cursor-pointer rounded-lg border px-3.5 py-1.5 text-sm font-medium transition-colors duration-150",
                 search.filter === filter
-                  ? "border-white bg-white text-black"
-                  : "border-border bg-background text-muted-foreground hover:text-foreground",
+                  ? "border-primary/60 bg-primary text-primary-foreground"
+                  : "border-white/10 bg-background/60 text-muted-foreground hover:border-white/25 hover:text-foreground",
               )}
             >
               {filterLabels[filter]}
             </button>
           ))}
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
           <FilterIcon className="size-4 text-muted-foreground" />
-          <Select value={search.sort} onValueChange={(value) => onSortChange(value as SearchSort)}>
-            <SelectTrigger
-              className="w-[180px] rounded-md"
-              aria-label={t("profile.library.sortAriaLabel")}
-            >
-              <SelectValue placeholder={t("profile.library.sortByPlaceholder")} />
+          <Select
+            aria-label={t("profile.library.sortAriaLabel")}
+            selectedKey={search.sort}
+            onSelectionChange={(value) => onSortChange(String(value) as SearchSort)}
+            placeholder={t("profile.library.sortByPlaceholder")}
+          >
+            <SelectTrigger className="w-[180px] cursor-pointer rounded-lg border-white/10 bg-background/60 transition-colors duration-150">
+              <SelectValue />
             </SelectTrigger>
             <SelectContent>
               {searchSorts.map((sort) => (
-                <SelectItem key={sort} value={sort}>
+                <SelectItem key={sort} id={sort}>
                   {sortLabels[sort]}
                 </SelectItem>
               ))}
@@ -577,7 +596,7 @@ function LibraryView({
         <ProfileContentSkeleton />
       ) : games.length > 0 ? (
         <>
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {games.map((game) => (
               <ProfileGameCard
                 key={game.sandboxId ?? game.title}
@@ -620,58 +639,68 @@ function ProfileGameCard({
     <ProfileSandboxLink
       profileId={profileId}
       sandboxId={game.sandboxId}
-      className="group overflow-hidden rounded-md border border-border bg-card transition-colors hover:bg-card/80"
+      className="group flex flex-col overflow-hidden rounded-xl border border-white/10 bg-card/80 transition-[box-shadow,border-color,background-color] duration-200 ease-out hover:border-primary/60 hover:shadow-lg hover:shadow-black/35"
     >
-      <div className="relative">
+      <div className="relative aspect-video w-full overflow-hidden bg-background/60">
         <Image
           src={game.imageUrl ?? "/placeholder.webp"}
           alt={game.title ?? game.sandboxId ?? t("profile.library.gameAlt")}
           width={640}
           height={360}
-          className="transition-transform duration-500 group-hover:scale-105"
+          className="transition-transform duration-300 ease-out will-change-transform group-hover:scale-[1.035]"
           sizes="(min-width: 1280px) 400px, (min-width: 768px) 50vw, 100vw"
         />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-card via-transparent to-transparent" />
         {game.hasPlatinum && (
-          <span className="absolute left-3 top-3 inline-flex items-center gap-2 rounded-md bg-platinum-start px-2.5 py-1.5 text-xs font-medium text-foreground">
-            <EpicPlatinumIcon className="size-3.5" />
+          <span className="absolute left-3 top-3 inline-flex items-center gap-1.5 rounded-lg border border-platinum-start/40 bg-background/85 px-2.5 py-1 text-xs font-medium text-foreground backdrop-blur-sm">
+            <EpicPlatinumIcon className="size-3.5 text-[#8a7cff]" />
             {t("profile.showcase.platinum")}
           </span>
         )}
+        <span className="absolute bottom-2.5 right-3 rounded-lg border border-white/10 bg-background/85 px-2.5 py-1 font-display text-sm font-semibold tabular-nums text-foreground backdrop-blur-sm">
+          {completion}%
+        </span>
       </div>
-      <div className="space-y-4 p-4">
-        <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0">
-            <h3 className="truncate text-lg font-semibold">{game.title}</h3>
-            <p className="text-sm text-muted-foreground">
-              {game.earnedXP ?? 0} / {game.totalXP ?? 0} XP
-            </p>
-          </div>
-          <div className="shrink-0 text-right">
-            <p className="text-2xl font-light">{completion}%</p>
-            <p className="text-xs text-muted-foreground">{t("profile.library.complete")}</p>
-          </div>
+      <div className="flex flex-1 flex-col justify-between gap-3.5 p-4">
+        <div className="min-w-0 space-y-1">
+          <h3 className="truncate font-display text-lg font-semibold text-foreground transition-colors duration-200 group-hover:text-primary">
+            {game.title}
+          </h3>
+          <p className="text-xs text-muted-foreground tabular-nums">
+            {(game.earnedXP ?? 0).toLocaleString()} / {(game.totalXP ?? 0).toLocaleString()} XP
+          </p>
         </div>
         <div className="space-y-2">
-          <div className="h-2 overflow-hidden rounded-full bg-primary/10">
-            <div className="h-full rounded-full bg-white" style={{ width: `${completion}%` }} />
+          <div className="h-1.5 overflow-hidden rounded-full bg-white/10">
+            <div
+              className={cn(
+                "h-full rounded-full transition-[width] duration-300 ease-out",
+                game.hasPlatinum ? "bg-[#8a7cff]" : "bg-primary",
+              )}
+              style={{ width: `${completion}%` }}
+            />
           </div>
-          <div className="flex items-center justify-between text-sm text-muted-foreground">
+          <div className="flex items-center justify-between text-xs text-muted-foreground tabular-nums">
             <span>
               {t("profile.showcase.achievementsCount", {
                 unlocked: game.unlocked ?? 0,
                 total: game.total ?? 0,
               })}
             </span>
-            {featured && <span>{t("profile.library.featured")}</span>}
+            {featured && (
+              <span className="font-medium text-foreground/80">
+                {t("profile.library.featured")}
+              </span>
+            )}
           </div>
         </div>
         {rarestAchievements.length > 0 && (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 border-t border-border/50 pt-3">
             {rarestAchievements.map((achievement) => (
               <AchievementIcon
                 key={`${achievement.sandboxId}-${achievement.name}`}
                 achievement={achievement}
-                className="size-10"
+                className="size-9 border border-white/10"
               />
             ))}
             <span className="text-xs text-muted-foreground">
@@ -695,14 +724,16 @@ function AchievementTile({
     <ProfileSandboxLink
       profileId={profileId}
       sandboxId={achievement.sandboxId}
-      className="flex gap-3 rounded-md border border-border bg-card p-3 transition-colors hover:bg-card/80"
+      className="group flex items-center gap-3.5 rounded-xl border border-white/10 bg-card/80 p-3.5 transition-[box-shadow,border-color,background-color] duration-200 ease-out hover:border-primary/60 hover:shadow-lg hover:shadow-black/35"
     >
-      <AchievementIcon achievement={achievement} className="size-14" />
-      <div className="min-w-0">
-        <h3 className="truncate font-medium">{achievement.displayName ?? achievement.name}</h3>
-        <p className="truncate text-sm text-muted-foreground">{achievement.gameTitle}</p>
-        <p className="mt-1 text-xs text-muted-foreground">
-          {formatRarity(achievement.rarityPercent)} - {achievement.xp ?? 0} XP
+      <AchievementIcon achievement={achievement} className="size-14 border border-white/10" />
+      <div className="min-w-0 flex-1">
+        <h3 className="truncate font-display text-sm font-semibold text-foreground transition-colors duration-200 group-hover:text-primary">
+          {achievement.displayName ?? achievement.name}
+        </h3>
+        <p className="truncate text-xs text-muted-foreground">{achievement.gameTitle}</p>
+        <p className="mt-1 text-xs text-muted-foreground tabular-nums">
+          {formatRarity(achievement.rarityPercent)} · {(achievement.xp ?? 0).toLocaleString()} XP
         </p>
       </div>
     </ProfileSandboxLink>
@@ -778,24 +809,24 @@ function AchievementActivity({
     <ProfileSandboxLink
       profileId={profileId}
       sandboxId={achievement.sandboxId}
-      className="flex items-center gap-4 rounded-md border border-border bg-card p-4 transition-colors hover:bg-card/80"
+      className="group flex cursor-pointer items-center gap-4 rounded-xl border border-white/10 bg-card/80 p-4 transition-[box-shadow,border-color,background-color] duration-200 ease-out hover:border-primary/60 hover:shadow-lg hover:shadow-black/35"
     >
-      <AchievementIcon achievement={achievement} className="size-16" />
+      <AchievementIcon achievement={achievement} className="size-16 border border-white/10" />
       <div className="min-w-0 flex-1">
         <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-          <h3 className="truncate text-lg font-semibold">
+          <h3 className="truncate font-display text-base font-semibold text-foreground transition-colors duration-200 group-hover:text-primary sm:text-lg">
             {achievement.displayName ?? achievement.name}
           </h3>
-          <span className="text-sm text-muted-foreground">
+          <span className="shrink-0 text-xs text-muted-foreground tabular-nums sm:text-sm">
             {formatDate(achievement.unlockedAt)}
           </span>
         </div>
         <p className="truncate text-sm text-muted-foreground">{achievement.gameTitle}</p>
-        <p className="mt-1 text-xs text-muted-foreground">
-          {formatRarity(achievement.rarityPercent)} - {achievement.xp ?? 0} XP
+        <p className="mt-1 text-xs text-muted-foreground tabular-nums">
+          {formatRarity(achievement.rarityPercent)} · {(achievement.xp ?? 0).toLocaleString()} XP
         </p>
       </div>
-      <ArrowRightIcon className="hidden size-5 text-muted-foreground sm:block" />
+      <ArrowRightIcon className="hidden size-4 shrink-0 text-muted-foreground transition-colors duration-200 group-hover:text-primary sm:block" />
     </ProfileSandboxLink>
   );
 }
@@ -803,37 +834,39 @@ function AchievementActivity({
 function ActivityList({ items, profileId }: { items: ProfileActivityItem[]; profileId: string }) {
   const { t } = useTranslation();
   return (
-    <div className="grid gap-3 lg:grid-cols-2">
+    <div className="grid gap-3.5 lg:grid-cols-2">
       {items.map((item) => (
         <ProfileSandboxLink
           key={`${item.sandboxId}-${item.occurredAt}-${item.achievementName}`}
           profileId={profileId}
           sandboxId={item.sandboxId}
-          className="flex items-center gap-4 rounded-md border border-border bg-card p-4 transition-colors hover:bg-card/80"
+          className="group flex cursor-pointer items-center gap-4 rounded-xl border border-white/10 bg-card/80 p-4 transition-[box-shadow,border-color,background-color] duration-200 ease-out hover:border-primary/60 hover:shadow-lg hover:shadow-black/35"
         >
           {item.achievementIconUrl ? (
-            <div className="size-[72px] shrink-0 overflow-hidden rounded-md bg-primary/10">
+            <div className="size-16 shrink-0 overflow-hidden rounded-lg border border-white/10 bg-background/60">
               <Image
                 src={item.achievementIconUrl}
                 alt={item.achievementName ?? item.gameTitle ?? t("profile.activity.achievementAlt")}
-                width={72}
-                height={72}
+                width={64}
+                height={64}
                 quality="original"
-                className="rounded-md"
+                className="rounded-lg transition-transform duration-300 ease-out will-change-transform group-hover:scale-[1.035]"
               />
             </div>
           ) : (
-            <div className="flex size-[72px] shrink-0 items-center justify-center rounded-md bg-primary/10">
-              <TrophyIcon className="size-7" />
+            <div className="flex size-16 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-background/60">
+              <TrophyIcon className="size-6 text-muted-foreground" />
             </div>
           )}
-          <div className="min-w-0">
-            <p className="text-xs uppercase text-muted-foreground">
-              {activityTypeLabel(item.type)}
-            </p>
-            <h3 className="truncate font-medium">{item.achievementName ?? item.gameTitle}</h3>
-            <p className="truncate text-sm text-muted-foreground">{item.gameTitle}</p>
-            <p className="text-xs text-muted-foreground">{formatDate(item.occurredAt)}</p>
+          <div className="min-w-0 flex-1">
+            <p className="text-xs font-medium text-primary/90">{activityTypeLabel(item.type)}</p>
+            <h3 className="truncate font-display text-base font-semibold text-foreground transition-colors duration-200 group-hover:text-primary">
+              {item.achievementName ?? item.gameTitle}
+            </h3>
+            <div className="mt-0.5 flex items-center justify-between gap-2 text-xs text-muted-foreground">
+              <p className="truncate">{item.gameTitle}</p>
+              <p className="shrink-0 tabular-nums">{formatDate(item.occurredAt)}</p>
+            </div>
           </div>
         </ProfileSandboxLink>
       ))}
@@ -850,14 +883,14 @@ function AchievementIcon({
 }) {
   const { t } = useTranslation();
   return (
-    <div className={cn("shrink-0 overflow-hidden rounded-md bg-primary/10", className)}>
+    <div className={cn("shrink-0 overflow-hidden rounded-lg bg-background/60", className)}>
       <Image
         src={achievement.iconUrl ?? "/placeholder.webp"}
         alt={achievement.displayName ?? achievement.name ?? t("profile.activity.achievementAlt")}
         width={128}
         height={128}
         quality="original"
-        className="rounded-md"
+        className="rounded-lg transition-transform duration-300 ease-out will-change-transform group-hover:scale-[1.035]"
       />
     </div>
   );
@@ -873,21 +906,21 @@ function SectionHeading({
   detail?: string;
 }) {
   return (
-    <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
-      <h2 className="inline-flex items-center gap-2 text-2xl font-semibold">
-        {icon}
+    <div className="flex flex-col gap-1 border-b border-border/60 pb-2.5 sm:flex-row sm:items-baseline sm:justify-between">
+      <h2 className="inline-flex items-center gap-2.5 font-display text-xl font-semibold tracking-tight text-foreground sm:text-2xl">
+        <span className="text-primary">{icon}</span>
         {title}
       </h2>
-      {detail && <p className="text-sm text-muted-foreground">{detail}</p>}
+      {detail && <p className="text-sm text-muted-foreground tabular-nums">{detail}</p>}
     </div>
   );
 }
 
 function EmptyState({ title, description }: { title: string; description: string }) {
   return (
-    <div className="rounded-md border border-dashed border-border bg-card/50 p-8 text-center">
+    <div className="rounded-xl border border-dashed border-white/15 bg-card/60 p-10 text-center">
       <TrophyIcon className="mx-auto size-8 text-muted-foreground" />
-      <h2 className="mt-3 text-xl font-semibold">{title}</h2>
+      <h2 className="mt-3 font-display text-xl font-semibold">{title}</h2>
       <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">{description}</p>
     </div>
   );
@@ -896,11 +929,11 @@ function EmptyState({ title, description }: { title: string; description: string
 function ProfileContentSkeleton() {
   return (
     <div className="space-y-6">
-      <div className="h-10 w-80 max-w-full animate-pulse rounded-md bg-primary/10" />
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <div className="h-10 w-80 max-w-full animate-pulse rounded-xl bg-card/80" />
+      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {Array.from({ length: 6 }).map((_, index) => (
           // biome-ignore lint/suspicious/noArrayIndexKey: skeleton
-          <div key={index} className="h-72 animate-pulse rounded-md bg-primary/10" />
+          <div key={index} className="h-72 animate-pulse rounded-xl bg-card/80" />
         ))}
       </div>
     </div>

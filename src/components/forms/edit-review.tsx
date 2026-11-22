@@ -19,14 +19,7 @@ import consola from "consola";
 import { Viewer } from "../app/viewer";
 import type { SingleReview } from "@/types/reviews";
 import { Loader, Trash2 } from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogTitle,
-  DialogTrigger,
-} from "../ui/dialog";
+import { Dialog, DialogDescription, DialogFooter, DialogTitle, DialogTrigger } from "../ui/dialog";
 import { AlertDialogHeader } from "../ui/alert-dialog";
 import { useTranslation } from "@/lib/paraglide-react";
 
@@ -263,13 +256,12 @@ export function EditReviewForm({ setIsOpen, offer, previousReview }: ReviewFormP
                     <div className="space-y-2">
                       <Label htmlFor="rating">Rating</Label>
                       <Slider
-                        name={name}
                         id="rating"
-                        min={0}
-                        max={10}
+                        minValue={0}
+                        maxValue={10}
                         step={1}
                         value={[state.value]}
-                        onValueChange={(v) => setValue(v[0])}
+                        onChange={(v) => setValue(v[0])}
                       />
                       <div className="text-center text-2xl font-bold">
                         <MotionNumber value={state.value} />
@@ -291,7 +283,7 @@ export function EditReviewForm({ setIsOpen, offer, previousReview }: ReviewFormP
                       <RadioGroup
                         name={name}
                         value={state.value}
-                        onValueChange={(v: "yes" | "no") => handleChange(v)}
+                        onChange={(v) => handleChange(v as "yes" | "no")}
                       >
                         <div className="flex items-center space-x-2">
                           <RadioGroupItem value="yes">Yes</RadioGroupItem>
@@ -393,8 +385,8 @@ export function EditReviewForm({ setIsOpen, offer, previousReview }: ReviewFormP
               <Button
                 type="button"
                 variant="outline"
-                onClick={handlePrevStep}
-                disabled={step === 1}
+                onPress={handlePrevStep}
+                isDisabled={step === 1}
               >
                 Previous
               </Button>
@@ -409,8 +401,8 @@ export function EditReviewForm({ setIsOpen, offer, previousReview }: ReviewFormP
               {([isSubmitting, canSubmit, values]) => (
                 <Button
                   type={step === 3 ? "submit" : "button"}
-                  disabled={checkSubmitDisabled(values, canSubmit as boolean)}
-                  onClick={step === 3 ? undefined : handleNextStep}
+                  isDisabled={checkSubmitDisabled(values, canSubmit as boolean)}
+                  onPress={step === 3 ? undefined : handleNextStep}
                   key={`submit-review-${step}`}
                 >
                   {isSubmitting ? <Loader className="animate-spin" /> : null}
@@ -454,13 +446,11 @@ function DeleteReviewButton({ reviewId, onDelete }: DeleteReviewButtonProps) {
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="destructive" size="icon" aria-label="Delete review">
-          <Trash2 className="h-4 w-4" />
-        </Button>
-      </DialogTrigger>
-      <DialogContent>
+    <DialogTrigger isOpen={open} onOpenChange={setOpen}>
+      <Button variant="destructive" size="icon" aria-label="Delete review">
+        <Trash2 className="h-4 w-4" />
+      </Button>
+      <Dialog>
         <AlertDialogHeader>
           <DialogTitle>Are you sure you want to delete this review?</DialogTitle>
           <DialogDescription>
@@ -468,15 +458,15 @@ function DeleteReviewButton({ reviewId, onDelete }: DeleteReviewButtonProps) {
           </DialogDescription>
         </AlertDialogHeader>
         <DialogFooter>
-          <Button variant="secondary" onClick={() => setOpen(false)}>
+          <Button variant="secondary" onPress={() => setOpen(false)}>
             Cancel
           </Button>
-          <Button variant="destructive" onClick={handleDelete} disabled={isDeleting}>
+          <Button variant="destructive" onPress={handleDelete} isDisabled={isDeleting}>
             {isDeleting ? <Loader className="animate-spin" /> : null}
             {isDeleting ? "Deleting..." : "Delete"}
           </Button>
         </DialogFooter>
-      </DialogContent>
-    </Dialog>
+      </Dialog>
+    </DialogTrigger>
   );
 }

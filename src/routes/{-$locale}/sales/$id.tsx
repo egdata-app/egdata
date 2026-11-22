@@ -1,5 +1,6 @@
 import { checkCountryCode } from "@/lib/check-country";
 import i18n from "@/lib/i18n";
+import buildImageUrl from "@/lib/build-image-url";
 import { getImage } from "@/lib/get-image";
 import { httpClient } from "@/lib/http-client";
 import { pickKeyImages } from "@/lib/offer-projections";
@@ -194,33 +195,46 @@ function SalesPage() {
   const search = Route.useSearch();
 
   if (!promotion) {
-    return <div>{t("sales.status.loading")}</div>;
+    return (
+      <main className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6">
+        <div className="rounded-xl bg-card/80 p-6 text-sm text-muted-foreground ring-1 ring-white/10">
+          {t("sales.status.loading")}
+        </div>
+      </main>
+    );
   }
 
+  const coverUrl =
+    getImage(cover?.keyImages ?? [], [
+      "OfferImageWide",
+      "featuredMedia",
+      "DieselGameBoxWide",
+      "DieselStoreFrontWide",
+    ])?.url ?? "/placeholder.webp";
+
   return (
-    <main className="mx-auto">
-      <div
-        className="relative flex h-72 items-center overflow-hidden rounded-2xl bg-cover bg-center md:h-96"
-        style={{
-          backgroundImage: `url(${
-            getImage(cover?.keyImages ?? [], [
-              "OfferImageWide",
-              "featuredMedia",
-              "DieselGameBoxWide",
-              "DieselStoreFrontWide",
-            ])?.url ?? "/placeholder.webp"
-          })`,
-        }}
-      >
-        <div className="flex h-full w-full flex-col items-start justify-center bg-gradient-to-r from-black/80 to-black/30 p-5 text-foreground md:p-8">
-          <h1 className="text-3xl font-bold leading-tight md:text-5xl">{promotion.title}</h1>
-          <p className="mt-4 text-lg">
+    <main className="mx-auto flex w-full max-w-7xl flex-col gap-10 px-4 py-6 sm:px-6">
+      <div className="group relative flex h-72 items-end overflow-hidden rounded-2xl border border-white/10 bg-card/80 shadow-lg shadow-black/30 md:h-96">
+        <img
+          src={buildImageUrl(coverUrl, 1280, "high")}
+          alt={promotion.title}
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+          loading="eager"
+          decoding="async"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/70 via-45% to-background/20" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-background/85 via-background/40 to-transparent" />
+        <div className="relative z-10 flex w-full flex-col items-start justify-end gap-3 p-6 text-foreground md:p-10">
+          <h1 className="font-display text-3xl font-bold leading-tight tracking-tight md:text-5xl">
+            {promotion.title}
+          </h1>
+          <p className="inline-flex items-center rounded-full bg-card/80 px-3.5 py-1 text-sm font-medium text-muted-foreground ring-1 ring-white/10 backdrop-blur-sm tabular-nums">
             {t("sales.labels.offersCount", { count: promotion.count })}
           </p>
         </div>
       </div>
 
-      <section className="mt-16">
+      <section className="border-t border-border/60 pt-8">
         <SearchContainer
           contextId={`promotion-${id}`}
           fixedParams={{

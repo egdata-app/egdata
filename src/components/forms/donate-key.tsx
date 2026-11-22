@@ -87,7 +87,7 @@ export function DonateKeyForm() {
         </InputOTP>
       </div>
       <div className="flex justify-center space-x-2">
-        <Button type="submit" disabled={key.length !== 20 || sending}>
+        <Button type="submit" isDisabled={key.length !== 20 || sending}>
           {sending ?? <Loader className="animate-spin" />}
           Donate
         </Button>

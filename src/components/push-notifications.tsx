@@ -89,7 +89,7 @@ export function PushNotifications({ userApiKey }: PushNotificationsProps) {
           {isSubscribed ? (
             <Button
               onClick={unsubscribe}
-              disabled={loading}
+              isDisabled={loading}
               variant="destructive"
               className="flex items-center gap-2"
             >
@@ -98,7 +98,7 @@ export function PushNotifications({ userApiKey }: PushNotificationsProps) {
               Unsubscribe
             </Button>
           ) : (
-            <Button onClick={subscribe} disabled={loading} className="flex items-center gap-2">
+            <Button onClick={subscribe} isDisabled={loading} className="flex items-center gap-2">
               {loading && <Loader2 className="h-4 w-4 animate-spin" />}
               <Bell className="h-4 w-4" />
               Subscribe
@@ -121,7 +121,7 @@ export function PushNotifications({ userApiKey }: PushNotificationsProps) {
                   placeholder="Enter topic name (e.g., game-updates)"
                   onKeyDown={(e) => e.key === "Enter" && handleSubscribeToTopic()}
                 />
-                <Button onClick={handleSubscribeToTopic} disabled={!topicInput.trim()} size="sm">
+                <Button onClick={handleSubscribeToTopic} isDisabled={!topicInput.trim()} size="sm">
                   Subscribe
                 </Button>
               </div>

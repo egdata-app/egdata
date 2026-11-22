@@ -17,13 +17,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
 import { ChevronDown, ThumbsDown, ThumbsUp, ThumbsUpIcon } from "lucide-react";
 import * as Portal from "@radix-ui/react-portal";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { InfoCircledIcon } from "@radix-ui/react-icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
 import StarsRating from "@/components/app/stars-rating";
 import { CircularRating } from "@/components/app/circular-rating";
 import Markdown from "react-markdown";
@@ -268,23 +269,23 @@ function Reviews() {
     : false;
 
   return (
-    <main className="flex h-full w-full flex-col items-start justify-start gap-1">
-      <div className="grid gap-4 w-full">
-        <div className="flex items-center flex-col gap-4">
+    <main className="flex h-full w-full flex-col items-start justify-start gap-6 mt-6">
+      <div className="grid gap-5 w-full">
+        <div className="flex items-center flex-col gap-6 w-full">
           {poll?.averageRating && (
             <section className="flex flex-col items-start justify-center text-left w-full">
-              <div className="flex flex-col items-start justify-center text-center mb-4">
-                <h3 className="text-2xl font-semibold mb-1 text-left">
+              <div className="w-full border-b border-border/60 pb-3 mb-5 text-left">
+                <h3 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-foreground">
                   {t("offerDetail.reviews.epicRating")}
                 </h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="mt-1 text-sm text-muted-foreground">
                   {t("offerDetail.reviews.epicRatingDescription")}
                 </p>
               </div>
-              <Card className="w-full bg-card text-foreground p-4">
-                <div className="flex flex-row items-center justify-evenly gap-4">
+              <Card className="w-full rounded-xl border border-white/10 bg-card/80 text-foreground p-5 sm:p-6 shadow-sm">
+                <div className="flex flex-col md:flex-row items-center justify-evenly gap-6">
                   <div className="flex flex-col items-center justify-center text-center">
-                    <h2 className="text-6xl font-bold mb-1">
+                    <h2 className="font-display text-5xl sm:text-6xl font-bold mb-1 tabular-nums">
                       {poll?.averageRating.toLocaleString(locale, {
                         maximumFractionDigits: 1,
                       }) ?? "-"}
@@ -293,31 +294,32 @@ function Reviews() {
                   </div>
                   <div
                     className={cn(
-                      "grid grid-rows-3 grid-flow-col gap-4",
-                      poll.pollResult.length === 2 ? "grid-rows-2" : undefined,
-                      poll.pollResult.length === 1 ? "grid-rows-1" : undefined,
+                      "grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-flow-col w-full md:w-auto",
+                      poll.pollResult.length >= 3 && "lg:grid-rows-3",
+                      poll.pollResult.length === 2 ? "lg:grid-rows-2" : undefined,
+                      poll.pollResult.length === 1 ? "lg:grid-rows-1" : undefined,
                     )}
                   >
-                    {poll.pollResult
+                    {[...poll.pollResult]
                       .sort((a, b) => b.total - a.total)
                       .slice(0, 6)
                       .map((result) => (
                         <Link
                           key={result.id}
-                          className="bg-muted text-foreground flex flex-row gap-4 items-center justify-start p-4 w-[300px] shadow-sm rounded-lg transform transition-transform hover:translate-y-[-2px]"
+                          className="flex flex-row gap-4 items-center justify-start p-4 w-full sm:w-[280px] lg:w-[300px] rounded-xl border border-white/10 bg-muted/40 text-foreground shadow-sm transition-[border-color,background-color,box-shadow] duration-150 hover:border-primary/60 hover:bg-muted/70 hover:shadow-lg hover:shadow-black/35"
                           to="/{-$locale}/search"
                           search={{ tags: result.tagId }}
                         >
                           <img
                             src={result.localizations.resultEmoji}
                             alt={result.localizations.text}
-                            className="size-10"
+                            className="size-10 shrink-0"
                           />
-                          <div className="flex flex-col items-start justify-center">
+                          <div className="flex flex-col items-start justify-center min-w-0">
                             <p className="text-xs text-muted-foreground">
                               {result.localizations.resultText}
                             </p>
-                            <p className="text-base font-bold">
+                            <p className="text-base font-bold truncate max-w-full">
                               {result.localizations.resultTitle}
                             </p>
                           </div>
@@ -328,106 +330,137 @@ function Reviews() {
               </Card>
             </section>
           )}
-          <hr className="border-t border-border/30 my-2 w-full" />
-          <div className="flex flex-col items-start justify-center text-center w-full">
-            <h3 className="text-2xl font-semibold mb-1 text-left">
-              {t("offerDetail.reviews.egdataRating")}
-            </h3>
-          </div>
-          <div className="flex items-center justify-between flex-row w-full h-32 gap-4">
-            <Card className="w-full bg-card text-foreground h-32">
-              <CardContent className="p-6">
-                <div className="flex flex-col sm:flex-row items-center justify-evenly gap-4">
-                  <div className="flex flex-col items-center justify-center text-center">
-                    <h2 className="text-lg font-semibold mb-1">
-                      {t("offerDetail.reviews.overallScore")}
-                    </h2>
-                    <p className="text-4xl font-bold text-center">
-                      {t("offerDetail.reviews.scoreOutOf10", {
-                        score: summary?.overallScore ?? "-",
-                      })}
-                    </p>
+          <div className="w-full">
+            <div className="w-full border-b border-border/60 pb-3 mb-5 text-left">
+              <h3 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-foreground">
+                {t("offerDetail.reviews.egdataRating")}
+              </h3>
+            </div>
+            <div className="flex flex-col md:flex-row items-stretch justify-between w-full min-h-32 gap-4">
+              <Card className="w-full rounded-xl border border-white/10 bg-card/80 text-foreground flex items-center">
+                <CardContent className="w-full p-5 sm:p-6">
+                  <div className="flex flex-col sm:flex-row items-center justify-evenly gap-6">
+                    <div className="flex flex-col items-center justify-center text-center">
+                      <h2 className="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-1">
+                        {t("offerDetail.reviews.overallScore")}
+                      </h2>
+                      <p className="font-display text-3xl sm:text-4xl font-bold text-center tabular-nums">
+                        {t("offerDetail.reviews.scoreOutOf10", {
+                          score: summary?.overallScore ?? "-",
+                        })}
+                      </p>
+                    </div>
+                    <div className="flex flex-col items-center justify-between gap-3 w-full sm:w-auto">
+                      <span className="text-sm text-muted-foreground tabular-nums">
+                        {t("offerDetail.reviews.basedOnReviews", {
+                          count: summary?.totalReviews ?? 0,
+                        })}
+                      </span>
+                      <RecommendationBar
+                        recommendedPercentage={summary?.recommendedPercentage ?? 0}
+                        notRecommendedPercentage={summary?.notRecommendedPercentage ?? 0}
+                        totalReviews={summary?.totalReviews ?? 0}
+                      />
+                    </div>
                   </div>
-                  <div className="flex flex-col items-center justify-between gap-4">
-                    <span className="text-sm">
-                      {t("offerDetail.reviews.basedOnReviews", {
-                        count: summary?.totalReviews ?? 0,
-                      })}
-                    </span>
-                    <RecommendationBar
-                      recommendedPercentage={summary?.recommendedPercentage ?? 0}
-                      notRecommendedPercentage={summary?.notRecommendedPercentage ?? 0}
-                      totalReviews={summary?.totalReviews ?? 0}
-                    />
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-            <Card className="w-fit flex flex-col items-start justify-center p-4 h-full gap-2 text-left">
-              <Select value={filter} onValueChange={(value) => setFilter(value as ReviewsFilter)}>
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder={t("offerDetail.reviews.allReviews")} />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">{t("offerDetail.reviews.allReviews")}</SelectItem>
-                  <SelectItem value="verified">{t("offerDetail.reviews.onlyVerified")}</SelectItem>
-                  <SelectItem value="not-verified">
-                    {t("offerDetail.reviews.notVerified")}
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-              <Button
-                variant="outline"
-                className="text-sm w-full"
-                onClick={() => setShowReviewForm((prev) => !prev)}
-                disabled={!isReleased || !userCanReview.status}
-              >
-                {userCanReview.status ? t("offerDetail.reviews.leaveReview") : userCanReview.label}
-              </Button>
-            </Card>
+                </CardContent>
+              </Card>
+              <Card className="w-full md:w-fit shrink-0 rounded-xl border border-white/10 bg-card/80 flex flex-col items-stretch justify-center p-4 gap-2.5 text-left">
+                <Select
+                  selectedKey={filter}
+                  onSelectionChange={(value) => setFilter(String(value) as ReviewsFilter)}
+                  placeholder={t("offerDetail.reviews.allReviews")}
+                >
+                  <SelectTrigger className="w-full md:w-[190px] border-white/10 bg-background/40 transition-colors duration-150 hover:border-primary/60">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem id="all">{t("offerDetail.reviews.allReviews")}</SelectItem>
+                    <SelectItem id="verified">{t("offerDetail.reviews.onlyVerified")}</SelectItem>
+                    <SelectItem id="not-verified">
+                      {t("offerDetail.reviews.notVerified")}
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+                <Button
+                  variant="outline"
+                  className="text-sm w-full border-white/10 transition-colors duration-150 hover:border-primary/60"
+                  onPress={() => setShowReviewForm((prev) => !prev)}
+                  isDisabled={!isReleased || !userCanReview.status}
+                >
+                  {userCanReview.status
+                    ? t("offerDetail.reviews.leaveReview")
+                    : userCanReview.label}
+                </Button>
+              </Card>
+            </div>
           </div>
         </div>
-        <TooltipProvider>
-          <div className="inline-flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 text-sm">
+          <TooltipTrigger>
+            <span
+              tabIndex={0}
+              className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors duration-150"
+            >
+              <InfoCircledIcon className="size-4" fill="currentColor" />
+            </span>
             <Tooltip>
-              <TooltipTrigger className="inline-flex items-center gap-1">
-                <InfoCircledIcon className="size-4" fill="currentColor" />
-              </TooltipTrigger>
-              <p className="text-muted-foreground inline-flex items-center gap-1">
-                <strong>{t("offerDetail.reviews.ownershipVerification")}</strong>{" "}
-                {t("offerDetail.reviews.ownershipVerificationDescription")}
+              <p className="text-xs max-w-sm">
+                {t("offerDetail.reviews.ownershipVerificationTooltip")}{" "}
+                <Link
+                  to="/{-$locale}/dashboard"
+                  className="text-blue-600 underline-offset-4 hover:underline"
+                >
+                  {t("offerDetail.reviews.yourDashboard")}
+                </Link>
               </p>
-              <TooltipContent>
-                <p className="text-xs max-w-sm">
-                  {t("offerDetail.reviews.ownershipVerificationTooltip")}{" "}
-                  <Link to="/{-$locale}/dashboard" className="text-blue-600">
-                    {t("offerDetail.reviews.yourDashboard")}
-                  </Link>
-                </p>
-              </TooltipContent>
             </Tooltip>
-          </div>
-        </TooltipProvider>
+          </TooltipTrigger>
+          <p className="text-muted-foreground inline-flex flex-wrap items-center gap-1">
+            <strong className="text-foreground font-semibold">
+              {t("offerDetail.reviews.ownershipVerification")}
+            </strong>{" "}
+            {t("offerDetail.reviews.ownershipVerificationDescription")}
+          </p>
+        </div>
       </div>
-      {reviewItems.length ? (
+      {reviewsQuery.isLoading ? (
+        <div className="grid w-full max-w-7xl grid-cols-1 gap-6 mx-auto md:grid-cols-2">
+          {Array.from({ length: 2 }).map((_, index) => (
+            <div
+              // biome-ignore lint/suspicious/noArrayIndexKey: Loading skeleton cards
+              key={index}
+              className="rounded-xl border border-white/10 bg-card/80 p-5 flex flex-col gap-4"
+            >
+              <div className="flex items-center gap-3">
+                <Skeleton className="size-10 rounded-full" />
+                <Skeleton className="h-4 w-32 rounded-md" />
+                <Skeleton className="ml-auto h-8 w-28 rounded-lg" />
+              </div>
+              <Skeleton className="h-32 w-full rounded-lg" />
+              <Skeleton className="h-4 w-36 rounded-md" />
+            </div>
+          ))}
+        </div>
+      ) : reviewItems.length ? (
         <div className="grid w-full max-w-7xl grid-cols-1 gap-6 mx-auto md:grid-cols-2">
           {reviewItems.map((review) => (
             <Review key={review.id} review={review} />
           ))}
         </div>
       ) : (
-        <div className="min-h-[400px] w-full max-w-4xl mx-auto text-center">
-          <h6 className="text-lg font-semibold">
+        <div className="w-full max-w-4xl mx-auto rounded-xl border border-white/10 bg-card/80 px-6 py-16 text-center flex flex-col items-center justify-center gap-2">
+          <h6 className="font-display text-lg font-semibold text-foreground">
             {isReleased ? t("offerDetail.reviews.noReviews") : t("offerDetail.reviews.notReleased")}
           </h6>
-          <p className="text-muted-foreground">
+          <p className="text-sm text-muted-foreground max-w-md">
             {isReleased ? t("offerDetail.reviews.beFirst") : t("offerDetail.reviews.checkBack")}
           </p>
           <Button
             variant="outline"
-            className="mt-4"
-            onClick={() => setShowReviewForm((prev) => !prev)}
-            disabled={!isReleased || !userCanReview.status}
+            className="mt-4 border-white/10 transition-colors duration-150 hover:border-primary/60"
+            onPress={() => setShowReviewForm((prev) => !prev)}
+            isDisabled={!isReleased || !userCanReview.status}
           >
             {t("offerDetail.reviews.leaveReview")}
           </Button>
@@ -436,24 +469,23 @@ function Reviews() {
       <Portal.Root>
         {showReviewForm && <ReviewForm setIsOpen={setShowReviewForm} offer={offer} />}
       </Portal.Root>
-      <hr className="border-t border-border/30 my-2" />
       {ratings && (
-        <div className="flex items-center flex-col gap-4 w-full">
+        <div className="flex items-center flex-col gap-4 w-full pt-2">
           <section className="flex flex-col items-start justify-center text-left w-full">
-            <div className="flex flex-col items-start justify-center text-center mb-4">
-              <h3 className="text-2xl font-semibold mb-1 text-left">
+            <div className="w-full border-b border-border/60 pb-3 mb-5 text-left">
+              <h3 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-foreground">
                 {t("offerDetail.reviews.criticReviews")}
               </h3>
-              <p className="text-sm text-muted-foreground">
+              <p className="mt-1 text-sm text-muted-foreground tabular-nums">
                 {t("offerDetail.reviews.basedOnCriticReviews", {
                   count: ratings?.reviews.length ?? 0,
                 })}
               </p>
             </div>
-            <Card className="w-full bg-card text-foreground p-4">
-              <div className="flex flex-row items-center justify-evenly gap-4">
+            <Card className="w-full rounded-xl border border-white/10 bg-card/80 text-foreground p-5 sm:p-6 shadow-sm">
+              <div className="flex flex-col sm:flex-row items-center justify-evenly gap-6">
                 <div className="flex flex-row items-center justify-center gap-4">
-                  <span className="text-xl text-center">
+                  <span className="text-base sm:text-lg font-medium text-center">
                     {t("offerDetail.reviews.opencriticRating")}
                   </span>
                   <img
@@ -463,27 +495,31 @@ function Reviews() {
                   />
                 </div>
                 <div className="flex flex-row items-center justify-center gap-4">
-                  <span className="text-xl text-center">
+                  <span className="text-base sm:text-lg font-medium text-center">
                     {t("offerDetail.reviews.topCriticAverage")}
                   </span>
-                  <CircularRating
-                    rating={ratings?.criticAverage ?? 0}
-                    maxRating={100}
-                    size="sm"
-                    strokeWidth={10}
-                  />
+                  <div className="tabular-nums">
+                    <CircularRating
+                      rating={ratings?.criticAverage ?? 0}
+                      maxRating={100}
+                      size="sm"
+                      strokeWidth={10}
+                    />
+                  </div>
                 </div>
                 <div className="flex flex-row items-center justify-center gap-4">
-                  <span className="text-xl text-center">
+                  <span className="text-base sm:text-lg font-medium text-center">
                     {t("offerDetail.reviews.criticsRecommend")}
                   </span>
-                  <CircularRating
-                    rating={ratings?.recommendPercentage ?? 0}
-                    maxRating={100}
-                    size="sm"
-                    strokeWidth={10}
-                    suffix="%"
-                  />
+                  <div className="tabular-nums">
+                    <CircularRating
+                      rating={ratings?.recommendPercentage ?? 0}
+                      maxRating={100}
+                      size="sm"
+                      strokeWidth={10}
+                      suffix="%"
+                    />
+                  </div>
                 </div>
               </div>
             </Card>
@@ -504,14 +540,14 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
     `https://shared-static-prod.epicgames.com/epic-profile-icon/D8033C/${review.user.displayName[0].toUpperCase()}/icon.png?size=512`;
 
   return (
-    <div className="p-4 bg-card text-foreground rounded-lg max-w-2xl min-w-1/2 mx-auto w-full h-full flex flex-col">
-      <div className="flex items-center mb-4">
+    <article className="p-5 rounded-xl border border-white/10 bg-card/80 text-foreground max-w-2xl mx-auto w-full h-full flex flex-col transition-[border-color,background-color,box-shadow] duration-200 ease-out hover:border-primary/60 hover:bg-card hover:shadow-lg hover:shadow-black/35">
+      <div className="flex flex-wrap items-center gap-3 mb-4">
         <Avatar>
           <AvatarImage src={userAvatar as string} alt={review.user.displayName} />
           <AvatarFallback>{review.user.displayName.slice(0, 2).toUpperCase()}</AvatarFallback>
         </Avatar>
         <Link
-          className="ml-4 inline-flex items-center space-x-2"
+          className="inline-flex items-center space-x-2 transition-colors duration-150 hover:text-primary"
           to="/{-$locale}/profile/$id"
           params={{ id: review.user.accountId }}
           search={{}}
@@ -521,11 +557,11 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
             <Badge variant="secondary">{t("offerDetail.reviews.verifiedOwner")}</Badge>
           )}
         </Link>
-        <div className="ml-auto flex items-end space-x-2 bg-muted px-2 py-1 rounded-lg">
-          <div className=" text-foreground px-2 py-1 rounded-lg font-bold">
+        <div className="ml-auto flex items-center space-x-2 border border-white/10 bg-muted/50 px-2.5 py-1 rounded-lg">
+          <div className="text-foreground px-1.5 py-0.5 rounded-md font-bold tabular-nums">
             {review.rating} / 10
           </div>
-          <div className="flex items-center space-x-1 font-bold">
+          <div className="flex items-center space-x-1 font-bold text-sm">
             <span>
               {review.recommended
                 ? t("offerDetail.reviews.recommended")
@@ -533,7 +569,7 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
             </span>
             <ThumbsUpIcon
               className={cn(
-                "p-[4px] size-8",
+                "p-[4px] size-7",
                 review.recommended ? "fill-blue-600" : "fill-red-600 transform rotate-180",
               )}
               stroke="none"
@@ -541,10 +577,12 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
           </div>
         </div>
       </div>
-      <div className="bg-muted p-4 rounded-lg h-full">
-        <h3 className="font-bold mb-2 text-lg md:text-xl">{review.title}</h3>
+      <div className="bg-muted/40 border border-white/5 p-4 rounded-lg h-full flex-1">
+        <h3 className="font-display font-bold mb-2 text-lg md:text-xl tracking-tight">
+          {review.title}
+        </h3>
         <div className="relative">
-          <p className="mb-4 prose prose-sm md:prose-base prose-invert max-w-none min-w-1/2">
+          <div className="mb-4 prose prose-sm md:prose-base prose-invert max-w-none min-w-1/2">
             {typeof review.content === "string" ? (
               <Markdown>
                 {review.content.length <= 750
@@ -553,13 +591,13 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
               </Markdown>
             ) : null}
             {typeof review.content === "object" ? <Viewer content={review.content} /> : null}
-          </p>
+          </div>
           {review.content.length > 750 && (
             <div className="absolute bottom-0 left-0 w-full">
-              <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-b via-background/50 from-transparent to-background pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-b from-transparent via-card/60 to-card pointer-events-none" />
               <Button
                 variant="link"
-                className="text-sm absolute z-10 -bottom-4 right-0 left-0 w-fit mx-auto inline-flex items-center gap-1 font-bold"
+                className="text-sm absolute z-10 -bottom-4 right-0 left-0 w-fit mx-auto inline-flex items-center gap-1 font-bold transition-colors duration-150"
                 onClick={() => setShowFull(true)}
               >
                 <ChevronDown className="size-4" />
@@ -571,51 +609,49 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
         </div>
       </div>
       <div className="inline-flex justify-between items-center w-full">
-        <div className="mt-4 inline-flex justify-between items-center w-full">
-          <TooltipProvider>
-            <div className="flex items-center">
-              <span className="text-muted-foreground">
-                {t("offerDetail.reviews.reviewedOn")}{" "}
-                {DateTime.fromISO(review.createdAt).setLocale("en-GB").toLocaleString({
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })}
-              </span>
-              {review.editions?.length && review.editions.length > 0 ? (
-                <Tooltip disableHoverableContent={!review.editions}>
-                  <TooltipTrigger className="inline-flex items-center gap-1 ml-2">
-                    <InfoCircledIcon className="size-4" fill="currentColor" />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <span className="text-xs flex flex-col gap-1">
+        <div className="mt-4 inline-flex justify-between items-center w-full gap-2">
+          <div className="flex items-center">
+            <span className="text-sm text-muted-foreground tabular-nums">
+              {t("offerDetail.reviews.reviewedOn")}{" "}
+              {DateTime.fromISO(review.createdAt).setLocale("en-GB").toLocaleString({
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })}
+            </span>
+            {review.editions?.length && review.editions.length > 0 ? (
+              <TooltipTrigger>
+                <span tabIndex={0} className="inline-flex items-center gap-1 ml-2">
+                  <InfoCircledIcon className="size-4" fill="currentColor" />
+                </span>
+                <Tooltip>
+                  <span className="text-xs flex flex-col gap-1 tabular-nums">
+                    <span>
+                      {t("offerDetail.reviews.lastUpdatedOn")}{" "}
+                      {DateTime.fromISO(review.updatedAt).setLocale("en-GB").toLocaleString({
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric",
+                        hour: "numeric",
+                        minute: "numeric",
+                      })}
+                    </span>
+                    {review.editions && (
                       <span>
-                        {t("offerDetail.reviews.lastUpdatedOn")}{" "}
-                        {DateTime.fromISO(review.updatedAt).setLocale("en-GB").toLocaleString({
-                          year: "numeric",
-                          month: "short",
-                          day: "numeric",
-                          hour: "numeric",
-                          minute: "numeric",
+                        {t("offerDetail.reviews.editedTimes", {
+                          count: review.editions?.length ?? 0,
                         })}
                       </span>
-                      {review.editions && (
-                        <span>
-                          {t("offerDetail.reviews.editedTimes", {
-                            count: review.editions?.length ?? 0,
-                          })}
-                        </span>
-                      )}
-                    </span>
-                  </TooltipContent>
+                    )}
+                  </span>
                 </Tooltip>
-              ) : null}
-            </div>
-          </TooltipProvider>
+              </TooltipTrigger>
+            ) : null}
+          </div>
           {userId === review.userId && (
             <Button
               variant="outline"
-              className="text-sm"
+              className="text-sm border-white/10 transition-colors duration-150 hover:border-primary/60"
               onClick={() => setShowEditForm((prev) => !prev)}
             >
               {t("offerDetail.reviews.edit")}
@@ -637,7 +673,7 @@ function Review({ review, full }: { review: SingleReview; full?: boolean }) {
           {showFull && <FullReview review={review} setIsOpen={setShowFull} />}
         </Portal.Root>
       </div>
-    </div>
+    </article>
   );
 }
 
@@ -654,7 +690,7 @@ function FullReview({
     `https://shared-static-prod.epicgames.com/epic-profile-icon/D8033C/${review.user.displayName[0].toUpperCase()}/icon.png?size=512`;
 
   return (
-    <div className="fixed inset-0 h-full w-full flex items-center justify-center bg-black bg-opacity-50 z-20">
+    <div className="fixed inset-0 h-full w-full flex items-center justify-center bg-black/70 backdrop-blur-xs p-4 z-20">
       <span
         className="fixed inset-0 cursor-pointer"
         onClick={() => setIsOpen(false)}
@@ -664,24 +700,24 @@ function FullReview({
           }
         }}
       />
-      <div className="p-2 bg-card text-foreground rounded-lg max-w-2xl mx-auto w-full z-30">
-        <div className="w-full  p-4 rounded-lg">
-          <div className="flex items-center mb-4">
+      <div className="p-2 rounded-xl border border-white/10 bg-card text-foreground max-w-2xl mx-auto w-full z-30 shadow-2xl shadow-black/50">
+        <div className="w-full p-4 rounded-lg">
+          <div className="flex flex-wrap items-center gap-3 mb-4">
             <Avatar>
               <AvatarImage src={userAvatar as string} alt={review.user.displayName} />
               <AvatarFallback>{review.user.displayName.slice(0, 2).toUpperCase()}</AvatarFallback>
             </Avatar>
-            <div className="ml-4 inline-flex items-center space-x-2">
+            <div className="inline-flex items-center space-x-2">
               <div className="font-bold">{review.user.displayName}</div>
               {review.verified && (
                 <Badge variant="secondary">{t("offerDetail.reviews.verifiedOwner")}</Badge>
               )}
             </div>
-            <div className="ml-auto flex items-end space-x-2 bg-muted px-2 py-1 rounded-lg">
-              <div className=" text-foreground px-2 py-1 rounded-lg font-bold">
+            <div className="ml-auto flex items-center space-x-2 border border-white/10 bg-muted/50 px-2.5 py-1 rounded-lg">
+              <div className="text-foreground px-1.5 py-0.5 rounded-md font-bold tabular-nums">
                 {review.rating} / 10
               </div>
-              <div className="flex items-center space-x-1 font-bold">
+              <div className="flex items-center space-x-1 font-bold text-sm">
                 <span>
                   {review.recommended
                     ? t("offerDetail.reviews.recommended")
@@ -689,7 +725,7 @@ function FullReview({
                 </span>
                 <ThumbsUpIcon
                   className={cn(
-                    "p-[4px] size-8",
+                    "p-[4px] size-7",
                     review.recommended ? "fill-blue-600" : "fill-red-600 transform rotate-180",
                   )}
                   stroke="none"
@@ -697,23 +733,22 @@ function FullReview({
               </div>
             </div>
           </div>
-          <div className="bg-muted p-4 rounded-lg">
-            <h3 className="font-bold mb-2">{review.title}</h3>
+          <div className="bg-muted/40 border border-white/5 p-4 rounded-lg">
+            <h3 className="font-display font-bold mb-2 text-lg tracking-tight">{review.title}</h3>
             <div className="relative">
               <ScrollArea className="h-[50vh]">
-                <p className="mb-4 prose prose-sm prose-invert max-w-none mr-2">
+                <div className="mb-4 prose prose-sm prose-invert max-w-none mr-2">
                   {typeof review.content === "string" ? (
                     <Markdown>{review.content}</Markdown>
                   ) : (
                     <Viewer content={review.content} />
                   )}
-                </p>
-                <ScrollBar />
+                </div>
               </ScrollArea>
             </div>
           </div>
           <div className="mt-4 inline-flex justify-between items-center w-full">
-            <span className="text-muted-foreground">
+            <span className="text-sm text-muted-foreground tabular-nums">
               {t("offerDetail.reviews.reviewedOn")}{" "}
               {DateTime.fromISO(review.createdAt).setLocale("en-GB").toLocaleString({
                 year: "numeric",
@@ -721,7 +756,11 @@ function FullReview({
                 day: "numeric",
               })}
             </span>
-            <Button variant="outline" className="text-sm" onClick={() => setIsOpen(false)}>
+            <Button
+              variant="outline"
+              className="text-sm border-white/10 transition-colors duration-150 hover:border-primary/60"
+              onClick={() => setIsOpen(false)}
+            >
               {t("offerDetail.reviews.close")}
             </Button>
           </div>
@@ -744,7 +783,7 @@ function RecommendationBar({
   const [hovered, setHovered] = useState<"recommended" | "notRecommended" | null>(null);
 
   return (
-    <div className="flex flex-col gap-2 relative">
+    <div className="flex flex-col gap-2 relative w-full max-w-[300px] sm:w-[300px]">
       <div className="absolute inset-0 bg-transparent w-full h-full flex flex-row items-center justify-between gap-2">
         <span
           className="relative z-10 cursor-pointer h-full"
@@ -760,7 +799,7 @@ function RecommendationBar({
         />
       </div>
       <div className="flex flex-row items-center justify-between gap-2 px-2">
-        <div className="flex items-center gap-1 font-bold">
+        <div className="flex items-center gap-1 font-bold tabular-nums">
           <ThumbsUp className="w-5 h-5 fill-blue-600" stroke="none" />
           {(hovered === "notRecommended" || hovered === null) && (
             <span className="text-sm font-bold">{(recommendedPercentage ?? 0) * 100}%</span>
@@ -773,7 +812,7 @@ function RecommendationBar({
             </span>
           )}
         </div>
-        <div className="flex items-center gap-1 font-bold">
+        <div className="flex items-center gap-1 font-bold tabular-nums">
           {hovered === "notRecommended" && (
             <span className="text-sm">
               {t("offerDetail.reviews.reviewCount", {
@@ -787,12 +826,12 @@ function RecommendationBar({
           <ThumbsDown className="w-5 h-5 fill-red-600" stroke="none" />
         </div>
       </div>
-      <div className="flex h-[4px] w-[300px] overflow-hidden rounded-full gap-1 relative">
+      <div className="flex h-[5px] w-full overflow-hidden rounded-full gap-1 relative bg-muted/40">
         {/* biome-ignore lint/a11y/useFocusableInteractive: <explanation> */}
         <div
           className={cn(
             "bg-blue-600 rounded-full transition-all duration-300 ease-in-out cursor-pointer",
-            hovered === "notRecommended" ? "bg-opacity-50" : "bg-opacity-100",
+            hovered === "notRecommended" ? "opacity-50" : "opacity-100",
           )}
           style={{ width: `${(recommendedPercentage ?? 0) * 100}%` }}
           role="progressbar"
@@ -806,7 +845,7 @@ function RecommendationBar({
         <div
           className={cn(
             "bg-red-600 rounded-full transition-all duration-300 ease-in-out cursor-pointer",
-            hovered === "recommended" ? "bg-opacity-50" : "bg-opacity-100",
+            hovered === "recommended" ? "opacity-50" : "opacity-100",
           )}
           style={{ width: `${(notRecommendedPercentage ?? 0) * 100}%` }}
           role="progressbar"

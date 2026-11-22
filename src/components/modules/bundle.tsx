@@ -10,7 +10,7 @@ import { useState } from "react";
 import type { Price } from "@/types/price";
 import { Card, CardContent } from "../ui/card";
 import { Badge } from "../ui/badge";
-import { Button } from "../ui/button";
+import { buttonVariants } from "../ui/button";
 import { calculatePrice } from "@/lib/calculate-price";
 import { cn } from "@/lib/utils";
 import { EqualIcon } from "lucide-react";
@@ -209,29 +209,30 @@ export function Bundle({ id, offer }: { id: string; offer: SingleOffer }) {
                 </Badge>
               </div>
               <div className="pt-4">
-                <Button className="w-full bg-black text-foreground hover:bg-card border" asChild>
-                  <Link
-                    to={getBuyLink({
-                      offers: bundleIsBetter ? [offer] : (collection?.offers ?? []),
-                    })}
-                    className="inline-flex items-center gap-2 w-full"
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    onClick={() => {
-                      trackEvent(
-                        bundleIsBetter ? [offer] : (collection?.offers ?? []),
-                        bundleIsBetter ? "bundle" : "single",
-                      );
-                    }}
-                  >
-                    <EGSIcon className="w-5 h-5" />
-                    <span>
-                      {bundleIsBetter
-                        ? t("components.bundle.buyBundle")
-                        : t("components.bundle.buyIndividually")}
-                    </span>
-                  </Link>
-                </Button>
+                <Link
+                  to={getBuyLink({
+                    offers: bundleIsBetter ? [offer] : (collection?.offers ?? []),
+                  })}
+                  className={buttonVariants({
+                    className:
+                      "inline-flex items-center gap-2 w-full bg-black text-foreground hover:bg-card border",
+                  })}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  onClick={() => {
+                    trackEvent(
+                      bundleIsBetter ? [offer] : (collection?.offers ?? []),
+                      bundleIsBetter ? "bundle" : "single",
+                    );
+                  }}
+                >
+                  <EGSIcon className="w-5 h-5" />
+                  <span>
+                    {bundleIsBetter
+                      ? t("components.bundle.buyBundle")
+                      : t("components.bundle.buyIndividually")}
+                  </span>
+                </Link>
               </div>
             </div>
           </CardContent>

@@ -8,13 +8,12 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import React, { useEffect } from "react";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { NavigationMenu } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import {
   DropdownMenu,
-  DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -397,14 +396,12 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 flex h-16 w-full shrink-0 items-center px-4 md:px-6 gap-2 border-b border-border/50 bg-background/70 backdrop-blur-xl">
-      <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-        <SheetTrigger asChild>
-          <Button variant="outline" size="icon" className="lg:hidden">
-            <MenuIcon className="h-5 w-5" />
-            <span className="sr-only">{t("nav.toggleMenu")}</span>
-          </Button>
-        </SheetTrigger>
+    <header className="sticky top-0 z-50 flex h-16 w-full shrink-0 items-center px-4 md:px-6 gap-2 border-b border-border/50 bg-background/85 backdrop-blur-md">
+      <SheetTrigger isOpen={sheetOpen} onOpenChange={setSheetOpen}>
+        <Button variant="outline" size="icon" className="lg:hidden">
+          <MenuIcon className="h-5 w-5" />
+          <span className="sr-only">{t("nav.toggleMenu")}</span>
+        </Button>
         <SheetContent side="left" className="flex w-[300px] flex-col gap-0 p-0 sm:w-[360px]">
           <SheetHeader className="flex-row items-center space-y-0 border-b border-border/50 p-4 pr-12 text-left">
             <Link to="/{-$locale}" className="flex items-center gap-2">
@@ -430,8 +427,8 @@ export default function Navbar() {
             </button>
           </div>
           <nav className="flex-1 overflow-y-auto p-4 pt-2" aria-label={t("nav.toggleMenu")}>
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="explore" className="border-b-0">
+            <Accordion className="w-full">
+              <AccordionItem id="explore" className="border-b-0">
                 <AccordionTrigger className={cn(mobileRowClass, "w-full hover:no-underline")}>
                   <span className="flex items-center gap-3">
                     <CompassIcon
@@ -510,7 +507,7 @@ export default function Navbar() {
             <DiscordBotPopover />
           </div>
         </SheetContent>
-      </Sheet>
+      </SheetTrigger>
       <Link to="/{-$locale}" className="hidden lg:flex justify-center items-center">
         <img
           src="https://cdn.egdata.app/logo_simple_white_clean.png"
@@ -568,49 +565,47 @@ export default function Navbar() {
       <div className="ml-auto flex min-w-0 items-center gap-2 md:gap-3">
         <button
           type="button"
-          className="hidden min-w-0 cursor-text items-center gap-2 rounded-md border border-border/60 bg-card/40 px-3 text-sm text-muted-foreground transition-colors hover:border-primary/50 hover:text-foreground lg:inline-flex lg:h-9 lg:max-w-[190px] xl:max-w-none"
+          className="hidden min-w-0 cursor-text items-center gap-2 rounded-full border border-border/70 bg-card/70 px-3.5 text-sm text-muted-foreground transition-colors hover:border-primary/50 hover:text-foreground lg:inline-flex lg:h-9 lg:max-w-[200px] xl:max-w-none"
           onClick={handleSearchClick}
         >
           <SearchIcon className="h-4 w-4 shrink-0" />
           <span className="min-w-0 truncate">{t("common.searchPlaceholder")}</span>
-          <kbd className="ml-1 hidden h-5 shrink-0 items-center gap-0.5 rounded border border-border/60 bg-background/60 px-1.5 font-mono text-[0.7rem] text-muted-foreground xl:inline-flex">
+          <kbd className="ml-1 hidden h-5 shrink-0 items-center gap-0.5 rounded-full border border-border/70 bg-background/70 px-2 text-[0.7rem] text-muted-foreground xl:inline-flex">
             ⌘K
           </kbd>
         </button>
         <CountriesSelector />
         <LocaleSelector />
         {user && (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="icon" className="overflow-hidden rounded-full">
-                <Avatar>
-                  <AvatarImage
-                    src={
-                      user.avatar?.medium
-                        ? user.avatar?.medium
-                        : `https://shared-static-prod.epicgames.com/epic-profile-icon/D8033C/${user.displayName[0].toUpperCase()}/icon.png?size=512`
-                    }
-                  />
-                  <AvatarFallback>{user.displayName.slice(0, 2).toUpperCase()}</AvatarFallback>
-                </Avatar>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+          <DropdownMenuTrigger>
+            <Button variant="outline" size="icon" className="overflow-hidden rounded-full">
+              <Avatar>
+                <AvatarImage
+                  src={
+                    user.avatar?.medium
+                      ? user.avatar?.medium
+                      : `https://shared-static-prod.epicgames.com/epic-profile-icon/D8033C/${user.displayName[0].toUpperCase()}/icon.png?size=512`
+                  }
+                />
+                <AvatarFallback>{user.displayName.slice(0, 2).toUpperCase()}</AvatarFallback>
+              </Avatar>
+            </Button>
+            <DropdownMenu placement="bottom end">
               <DropdownMenuLabel>
                 <span className="text-muted-foreground">
                   {t("nav.helloUser", { name: user.displayName })}
                 </span>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem asChild className="cursor-pointer">
-                <a href="/dashboard">{t("nav.dashboard")}</a>
+              <DropdownMenuItem href="/dashboard" className="cursor-pointer">
+                {t("nav.dashboard")}
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem asChild className="cursor-pointer">
-                <a href="/auth/logout">{t("nav.logout")}</a>
+              <DropdownMenuItem href="/auth/logout" className="cursor-pointer">
+                {t("nav.logout")}
               </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+            </DropdownMenu>
+          </DropdownMenuTrigger>
         )}
         {!user && (
           <Avatar

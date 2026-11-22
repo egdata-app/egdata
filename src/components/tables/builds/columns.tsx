@@ -1,5 +1,5 @@
 import { textPlatformIcons } from "@/components/app/platform-icons";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
 import { calculateSize } from "@/lib/calculate-size";
 import { formatBuildVersion } from "@/lib/format-build-version";
 import type { Build } from "@/types/builds";
@@ -89,16 +89,14 @@ export const columns: ColumnDef<Build>[] = [
       const displayVersion = formatBuildVersion(version);
 
       return (
-        <Tooltip>
-          <TooltipTrigger>
-            <span className="font-mono underline decoration-dotted underline-offset-4">
-              {displayVersion.length > 20 ? `${displayVersion.slice(0, 20)}...` : displayVersion}
-            </span>
-          </TooltipTrigger>
-          <TooltipContent>
+        <TooltipTrigger>
+          <span className="font-mono underline decoration-dotted underline-offset-4">
+            {displayVersion.length > 20 ? `${displayVersion.slice(0, 20)}...` : displayVersion}
+          </span>
+          <Tooltip>
             <p className="text-xs font-mono">{version}</p>
-          </TooltipContent>
-        </Tooltip>
+          </Tooltip>
+        </TooltipTrigger>
       );
     },
   },
@@ -112,10 +110,10 @@ export const columns: ColumnDef<Build>[] = [
 
       if (name.length > 20) {
         return (
-          <Tooltip>
-            <TooltipTrigger>{name.slice(0, 20)}...</TooltipTrigger>
-            <TooltipContent className="max-w-xs">{name}</TooltipContent>
-          </Tooltip>
+          <TooltipTrigger>
+            <span>{name.slice(0, 20)}...</span>
+            <Tooltip className="max-w-xs">{name}</Tooltip>
+          </TooltipTrigger>
         );
       }
 
@@ -130,12 +128,12 @@ export const columns: ColumnDef<Build>[] = [
     cell: (info) => {
       const name = info.getValue() as string;
       return (
-        <Tooltip>
-          <TooltipTrigger className="font-mono">
+        <TooltipTrigger>
+          <span className="font-mono">
             {name.slice(0, 6)}...{name.slice(-6)}
-          </TooltipTrigger>
-          <TooltipContent className="max-w-xs">{name}</TooltipContent>
-        </Tooltip>
+          </span>
+          <Tooltip className="max-w-xs">{name}</Tooltip>
+        </TooltipTrigger>
       );
     },
   },

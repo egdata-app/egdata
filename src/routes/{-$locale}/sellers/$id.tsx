@@ -165,8 +165,8 @@ function RouteComponent() {
 
   if (!sellerName) {
     return (
-      <div className="min-h-[85vh] flex items-center justify-center">
-        <h1 className="text-4xl font-display font-bold">{t("sellers.notFound")}</h1>
+      <div className="min-h-[85vh] flex items-center justify-center px-4">
+        <h1 className="text-4xl font-display font-bold tracking-tight">{t("sellers.notFound")}</h1>
       </div>
     );
   }
@@ -198,25 +198,25 @@ function RouteComponent() {
   return (
     <div className="min-h-[85vh]">
       {/* Cinematic Banner */}
-      <section className="relative w-full h-[42vh] max-h-[440px] min-h-[280px] overflow-hidden rounded-lg">
+      <section className="group relative w-full h-[42vh] max-h-[440px] min-h-[280px] overflow-hidden rounded-xl border border-border/60 bg-card/80 shadow-sm transition-[box-shadow,border-color,background-color] duration-200 ease-out hover:border-primary/50">
         {bannerImage ? (
           <img
             src={buildImageUrl(bannerImage, 1280, "high")}
             srcSet={buildSrcSet(bannerImage, 1280)}
             sizes="100vw"
             alt={featuredCover?.title ?? t("sellers.bannerAlt", { name: sellerName })}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
             loading="eager"
             decoding="async"
           />
         ) : (
-          <div className="w-full h-full bg-card" />
+          <div className="w-full h-full bg-card/80" />
         )}
         <div
-          className="absolute inset-0"
+          className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(to top, hsl(240 11% 7%) 0%, hsl(240 11% 7% / 0.6) 40%, hsl(240 11% 7% / 0.35) 100%)",
+              "linear-gradient(to top, hsl(224 18% 9%) 0%, hsl(224 18% 9% / 0.65) 45%, hsl(224 18% 9% / 0.3) 100%)",
           }}
         />
         <div className="absolute inset-x-0 bottom-0 p-6 md:p-10">
@@ -225,11 +225,11 @@ function RouteComponent() {
               <img
                 src={logoUrl}
                 alt={t("sellers.logoAlt", { name: sellerName })}
-                className="w-16 h-16 md:w-20 md:h-20 rounded-lg object-contain bg-background/60 backdrop-blur-sm p-2 border border-border/40 shrink-0"
+                className="w-16 h-16 md:w-20 md:h-20 rounded-xl object-contain bg-card/80 backdrop-blur-sm p-2 border border-border/60 shrink-0 shadow-sm transition-[box-shadow,border-color,background-color] duration-200 ease-out group-hover:border-primary/50"
                 loading="eager"
               />
             )}
-            <div className="space-y-2">
+            <div className="space-y-2.5">
               <h1 className="text-3xl md:text-5xl font-display font-bold tracking-tight text-foreground drop-shadow-lg">
                 {sellerName}
               </h1>
@@ -238,7 +238,7 @@ function RouteComponent() {
                   {statsItems.map((s) => (
                     <span
                       key={s.label}
-                      className="inline-flex items-center gap-1.5 rounded-full bg-background/60 backdrop-blur-sm border border-border/40 px-3 py-1 text-xs"
+                      className="inline-flex items-center gap-1.5 rounded-full bg-card/80 backdrop-blur-sm border border-border/60 px-3 py-1 text-xs transition-colors duration-150 hover:border-primary/50"
                     >
                       <span className="font-semibold tabular-nums text-foreground">
                         {s.value.toLocaleString()}
@@ -254,7 +254,7 @@ function RouteComponent() {
       </section>
 
       {/* Offers */}
-      <section className="mt-10">
+      <section className="mt-10 border-t border-border/60 pt-8">
         <SearchContainer
           contextId={`seller-${id}`}
           fixedParams={{ seller: id }}
@@ -281,12 +281,12 @@ function RouteComponent() {
 function SellerPageSkeleton() {
   return (
     <div className="min-h-[85vh]">
-      <Skeleton className="w-full h-[440px] rounded-lg" />
-      <section className="mt-10">
+      <Skeleton className="w-full h-[440px] rounded-xl" />
+      <section className="mt-10 border-t border-border/60 pt-8">
         <Skeleton className="w-48 h-7 mb-4" />
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
           {Array.from({ length: 5 }).map((_, i) => (
-            <Skeleton key={i} className="aspect-[3/4] rounded-md" />
+            <Skeleton key={i} className="aspect-[3/4] rounded-xl" />
           ))}
         </div>
       </section>

@@ -3,8 +3,9 @@ import { Link } from "@/components/app/localized-link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { getReleasesByMonth, ReleasesByMonth } from "@/components/charts/releases/monthly";
-import { getReleasesByYear, ReleasesByYear } from "@/components/charts/releases/yearly";
+import { getReleasesByMonth, getReleasesByYear } from "@/components/charts/releases/data";
+import { ReleasesByMonth } from "@/components/charts/releases/monthly";
+import { ReleasesByYear } from "@/components/charts/releases/yearly";
 import { useTranslation } from "@/lib/paraglide-react";
 import i18n from "@/lib/i18n";
 

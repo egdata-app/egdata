@@ -18,6 +18,7 @@ import { DynamicPagination } from "@/components/app/dynamic-pagination";
 import { ChangeTracker } from "@/components/app/changelog/item";
 import { useTranslation } from "@/lib/paraglide-react";
 import i18n from "@/lib/i18n";
+import { Search } from "lucide-react";
 
 export interface Root {
   hits: (OfferHit | ItemHit | AssetHit | Hit)[];
@@ -232,20 +233,44 @@ function ChangelogPage() {
   };
 
   return (
-    <div className="flex flex-col gap-6 w-full max-w-6xl mx-auto px-4 py-8 sm:px-6">
-      <div className="flex items-center gap-4">
+    <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-6 sm:px-6">
+      <header className="flex flex-wrap items-baseline justify-between gap-4 border-b border-border/60 pb-4">
+        <h1 className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+          {t("nav.changelog")}
+        </h1>
+        {typeof data?.estimatedTotalHits === "number" && data.estimatedTotalHits > 0 && (
+          <span className="text-sm font-medium text-muted-foreground tabular-nums">
+            {data.estimatedTotalHits.toLocaleString()}
+          </span>
+        )}
+      </header>
+      <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-card/80 p-2 shadow-sm transition-[box-shadow,border-color,background-color] duration-200 ease-out focus-within:border-primary/60">
+        <Search className="ml-2 size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
         <Input
           type="search"
           placeholder={t("changelog.index.searchPlaceholder")}
-          className="flex-1 bg-background"
+          className="h-9 flex-1 border-0 bg-transparent px-1 text-sm shadow-none focus-visible:ring-0"
           value={query}
           onChange={(e) => handleQueryChange(e.target.value)}
         />
-        <Button>{t("changelog.index.searchButton")}</Button>
+        <Button
+          size="lg"
+          className="shrink-0 transition-[box-shadow,background-color,border-color] duration-200 ease-out"
+        >
+          {t("changelog.index.searchButton")}
+        </Button>
       </div>
-      <div className="grid gap-4">
-        {isLoading && <div>{t("changelog.index.loading")}</div>}
-        {isError && <div>{t("changelog.index.error")}</div>}
+      <div className="grid gap-4 [&>[data-slot=card]]:border [&>[data-slot=card]]:border-white/10 [&>[data-slot=card]]:bg-card/80 [&>[data-slot=card]]:transition-[box-shadow,border-color,background-color] [&>[data-slot=card]]:duration-200 [&>[data-slot=card]]:ease-out [&>[data-slot=card]:hover]:bg-card [&>[data-slot=card]:hover]:border-primary/60 [&>[data-slot=card]:hover]:shadow-lg [&>[data-slot=card]:hover]:shadow-black/35">
+        {isLoading && (
+          <div className="rounded-xl bg-card/80 p-6 text-sm text-muted-foreground ring-1 ring-white/10">
+            {t("changelog.index.loading")}
+          </div>
+        )}
+        {isError && (
+          <div className="rounded-xl bg-card/80 p-6 text-sm text-destructive ring-1 ring-white/10">
+            {t("changelog.index.error")}
+          </div>
+        )}
         {data?.hits
           // Filter out hits without metadata
           .filter((hit) => hit.metadata)

@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
 import { ClientOnly } from "@/lib/cllient-only";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { httpClient } from "@/lib/http-client";
@@ -202,129 +202,162 @@ function ChangelogPage() {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col gap-4 mt-6">
-        <h2 className="text-2xl font-bold">{t("offerDetail.changelog.title")}</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <section className="flex flex-col gap-4 mt-6">
+        <div className="border-b border-border/60 pb-3 mb-5">
+          <h2 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-foreground">
+            {t("offerDetail.changelog.title")}
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {Array.from({ length: 8 }).map((_, index) => (
-            // biome-ignore lint/suspicious/noArrayIndexKey: This is a fallback component
-            <Skeleton key={index} className="w-full h-72" />
+            <div
+              // biome-ignore lint/suspicious/noArrayIndexKey: This is a fallback component
+              key={index}
+              className="rounded-xl border border-white/10 bg-card/80 p-5 flex flex-col gap-4"
+            >
+              <div className="flex items-center justify-between gap-3">
+                <Skeleton className="h-5 w-20 rounded-md" />
+                <Skeleton className="h-4 w-24 rounded-md" />
+              </div>
+              <Skeleton className="h-4 w-3/4 rounded-md" />
+              <Skeleton className="h-40 w-full rounded-lg" />
+            </div>
           ))}
         </div>
-      </div>
+      </section>
     );
   }
 
   if (!data) {
     return (
-      <div className="flex justify-center items-center h-96">
-        <p className="text-2xl font-bold text-muted-foreground">
-          {t("offerDetail.changelog.noChangelog")}
-        </p>
-      </div>
+      <section className="flex flex-col gap-4 mt-6">
+        <div className="border-b border-border/60 pb-3 mb-5">
+          <h2 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-foreground">
+            {t("offerDetail.changelog.title")}
+          </h2>
+        </div>
+        <div className="rounded-xl border border-white/10 bg-card/80 px-6 py-16 text-center">
+          <p className="font-display text-lg sm:text-xl font-semibold text-muted-foreground">
+            {t("offerDetail.changelog.noChangelog")}
+          </p>
+        </div>
+      </section>
     );
   }
   const changelogItems = Array.isArray(data.elements) ? data.elements : [];
 
   return (
-    <TooltipProvider>
-      <section className="flex flex-col gap-4 mt-6">
-        <div className="inline-flex justify-between items-center gap-4">
-          <div className="inline-flex items-end gap-2">
-            <Tooltip>
-              <TooltipTrigger className="inline-flex gap-2 items-center">
-                <h2
-                  className="text-2xl font-bold underline decoration-dotted underline-offset-4 decoration-border/60"
-                  id="changelog-title"
+    <section className="flex flex-col gap-4 mt-6">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between border-b border-border/60 pb-3 mb-5">
+        <div className="inline-flex flex-wrap items-center gap-2.5">
+          <TooltipTrigger>
+            <span tabIndex={0} className="inline-flex gap-2 items-center">
+              <h2
+                className="font-display text-xl sm:text-2xl font-bold tracking-tight text-foreground underline decoration-dotted underline-offset-4 decoration-border/60"
+                id="changelog-title"
+              >
+                {t("offerDetail.changelog.title")}
+              </h2>
+            </span>
+            <Tooltip
+              placement="top start"
+              className="bg-background border border-white/10 flex-col items-start gap-1 p-3 shadow-lg"
+            >
+              <p className="text-sm text-muted-foreground">{t("offerDetail.changelog.tooltip")}</p>
+              <p className="text-sm text-muted-foreground">
+                {t("offerDetail.changelog.sandboxChangelogPrefix")}{" "}
+                <Link
+                  to="/{-$locale}/sandboxes/$id/changelog"
+                  params={{ id: offer?.namespace ?? "epic" }}
+                  className="underline decoration-dotted underline-offset-4 decoration-border/60 hover:text-foreground transition-colors duration-150"
                 >
-                  {t("offerDetail.changelog.title")}
-                </h2>
-                {isFetching && <Loader2 className="size-6 animate-spin" />}
-              </TooltipTrigger>
-              <TooltipContent align="start" className="bg-background">
-                <p className="text-sm text-muted-foreground">
-                  {t("offerDetail.changelog.tooltip")}
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  {t("offerDetail.changelog.sandboxChangelogPrefix")}{" "}
-                  <Link
-                    to="/{-$locale}/sandboxes/$id/changelog"
-                    params={{ id: offer?.namespace ?? "epic" }}
-                    className="underline decoration-dotted underline-offset-4 decoration-border/60"
-                  >
-                    {t("offerDetail.changelog.sandboxChangelog")}
-                  </Link>
-                  .
-                </p>
-              </TooltipContent>
+                  {t("offerDetail.changelog.sandboxChangelog")}
+                </Link>
+                .
+              </p>
             </Tooltip>
+          </TooltipTrigger>
+          {data.totalCount !== null && (
+            <span className="inline-flex items-center rounded-full border border-white/10 bg-card/80 px-2.5 py-0.5 text-xs font-medium text-muted-foreground tabular-nums">
+              {data.totalCount.toLocaleString(locale)}
+            </span>
+          )}
+          {isFetching && <Loader2 className="size-4 animate-spin text-muted-foreground" />}
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap gap-2 items-center">
+            <Select
+              selectedKey={type ?? "all"}
+              onSelectionChange={(value) => {
+                const str = String(value);
+                setType(str === "all" ? undefined : str);
+                setPage(1);
+              }}
+              placeholder={t("offerDetail.changelog.allTypes")}
+            >
+              <SelectTrigger className="w-[140px] border-white/10 bg-card/80 transition-colors duration-150 hover:border-primary/60">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem id="all">{t("offerDetail.changelog.allTypes")}</SelectItem>
+                <Separator className="my-2" />
+                <SelectItem id="insert" textValue={t("offerDetail.changelog.typeInsert")}>
+                  <ChangeTypeBubble type="insert" />
+                </SelectItem>
+                <SelectItem id="update" textValue={t("offerDetail.changelog.typeUpdate")}>
+                  <ChangeTypeBubble type="update" />
+                </SelectItem>
+                <SelectItem id="delete" textValue={t("offerDetail.changelog.typeDelete")}>
+                  <ChangeTypeBubble type="delete" />
+                </SelectItem>
+              </SelectContent>
+            </Select>
+            <Select
+              selectedKey={field ?? "all"}
+              onSelectionChange={(value) => {
+                const str = String(value);
+                setField(str === "all" ? undefined : str);
+                setPage(1);
+              }}
+              placeholder={t("offerDetail.changelog.selectField")}
+            >
+              <SelectTrigger className="w-[160px] border-white/10 bg-card/80 transition-colors duration-150 hover:border-primary/60">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem id="all">{t("offerDetail.changelog.allFields")}</SelectItem>
+                <Separator className="my-2" />
+                {offerChangeFields.map((field) => (
+                  <SelectItem key={field} id={field}>
+                    {field}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Input
+              placeholder={t("offerDetail.changelog.search")}
+              className="w-full sm:w-48 border-white/10 bg-card/80 transition-colors duration-150 hover:border-primary/60"
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                setPage(1);
+              }}
+            />
           </div>
           <div className="flex items-center gap-2">
-            <div className="flex flex-row gap-2 items-center">
-              <Select
-                value={type}
-                onValueChange={(value) => {
-                  setType(value === "all" ? undefined : value);
-                  setPage(1);
-                }}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder={t("offerDetail.changelog.allTypes")} />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">{t("offerDetail.changelog.allTypes")}</SelectItem>
-                  <Separator className="my-2" />
-                  <SelectItem value="insert">
-                    <ChangeTypeBubble type="insert" />
-                  </SelectItem>
-                  <SelectItem value="update">
-                    <ChangeTypeBubble type="update" />
-                  </SelectItem>
-                  <SelectItem value="delete">
-                    <ChangeTypeBubble type="delete" />
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-              <Select
-                value={field}
-                onValueChange={(value) => {
-                  setField(value === "all" ? undefined : value);
-                  setPage(1);
-                }}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder={t("offerDetail.changelog.selectField")} />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">{t("offerDetail.changelog.allFields")}</SelectItem>
-                  <Separator className="my-2" />
-                  {offerChangeFields.map((field) => (
-                    <SelectItem key={field} value={field}>
-                      {field}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-              <Input
-                placeholder={t("offerDetail.changelog.search")}
-                value={query}
-                onChange={(e) => {
-                  setQuery(e.target.value);
-                  setPage(1);
-                }}
-              />
-            </div>
             <Button
               variant="outline"
               size="sm"
-              onClick={() => {
+              className="border-white/10 bg-card/80 transition-colors duration-150 hover:border-primary/60"
+              onPress={() => {
                 setPage(page - 1);
               }}
-              disabled={page === 1}
+              isDisabled={page === 1}
             >
               {t("offerDetail.changelog.previous")}
             </Button>
             <div className="flex items-center gap-2">
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-muted-foreground tabular-nums whitespace-nowrap">
                 {data.totalPages !== null
                   ? t("offerDetail.changelog.pageOf", { page, totalPages: data.totalPages })
                   : `Page ${page}`}
@@ -333,35 +366,40 @@ function ChangelogPage() {
             <Button
               variant="outline"
               size="sm"
-              onClick={() => {
+              className="border-white/10 bg-card/80 transition-colors duration-150 hover:border-primary/60"
+              onPress={() => {
                 setPage(page + 1);
               }}
-              disabled={!data.hasNextPage}
+              isDisabled={!data.hasNextPage}
             >
               {t("offerDetail.changelog.next")}
             </Button>
           </div>
         </div>
-        <div className="flex flex-col w-full gap-4">
-          {changelogItems
-            .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
-            .map((changelist) => (
-              <ChangeTracker
-                _id={changelist._id}
-                key={changelist._id}
-                timestamp={changelist.timestamp}
-                // @ts-expect-error
-                document={changelist.document}
-                // @ts-expect-error
-                metadata={changelist.metadata}
-              />
-            ))}
-          {changelogItems.length === 0 && (
-            <p className="text-sm text-muted-foreground">
+      </div>
+      <div className="flex flex-col w-full gap-4 [&>[data-slot=card]]:rounded-xl [&>[data-slot=card]]:border [&>[data-slot=card]]:border-white/10 [&>[data-slot=card]]:bg-card/80 [&>[data-slot=card]]:transition-[box-shadow,border-color,background-color] [&>[data-slot=card]]:duration-200 [&>[data-slot=card]]:ease-out [&>[data-slot=card]:hover]:bg-card [&>[data-slot=card]:hover]:border-primary/60 [&>[data-slot=card]:hover]:shadow-lg [&>[data-slot=card]:hover]:shadow-black/35">
+        {changelogItems
+          .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+          .map((changelist) => (
+            <ChangeTracker
+              _id={changelist._id}
+              key={changelist._id}
+              timestamp={changelist.timestamp}
+              // @ts-expect-error
+              document={changelist.document}
+              // @ts-expect-error
+              metadata={changelist.metadata}
+            />
+          ))}
+        {changelogItems.length === 0 && (
+          <div className="rounded-xl border border-white/10 bg-card/80 px-6 py-12 text-center">
+            <p className="text-sm font-medium text-muted-foreground">
               {t("offerDetail.common.noChangesFound")}
             </p>
-          )}
-        </div>
+          </div>
+        )}
+      </div>
+      <div className="[&_button]:transition-colors [&_button]:duration-150">
         <DynamicPagination
           cursorMode
           currentPage={page}
@@ -375,7 +413,9 @@ function ChangelogPage() {
             });
           }}
         />
-        <ClientOnly>
+      </div>
+      <ClientOnly>
+        <div className="flex flex-col gap-4 mt-2 [&_[data-slot=card]]:rounded-xl [&_[data-slot=card]]:border [&_[data-slot=card]]:border-white/10 [&_[data-slot=card]]:bg-card/80">
           <ChangelogDailyChart chartData={stats?.dailyChanges as ChangelogStats["dailyChanges"]} />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <ChangelogWeekdaysChart chartData={stats?.weekdayChanges || {}} />
@@ -384,9 +424,9 @@ function ChangelogPage() {
               chartData={stats?.changeTypes || ({} as ChangelogStats["changeTypes"])}
             />
           </div>
-        </ClientOnly>
-      </section>
-    </TooltipProvider>
+        </div>
+      </ClientOnly>
+    </section>
   );
 }
 

@@ -361,8 +361,8 @@ function SandboxOffersPage() {
             <div className="flex items-center gap-3">
               <Button
                 variant="outline"
-                disabled={search.page <= 1 || query.isPlaceholderData}
-                onClick={() => update({ page: search.page - 1 })}
+                isDisabled={search.page <= 1 || query.isPlaceholderData}
+                onPress={() => update({ page: search.page - 1 })}
               >
                 {t("sandboxCatalog.previous")}
               </Button>
@@ -373,8 +373,8 @@ function SandboxOffersPage() {
               </span>
               <Button
                 variant="outline"
-                disabled={!canGoNext || query.isPlaceholderData}
-                onClick={() => update({ page: search.page + 1 })}
+                isDisabled={!canGoNext || query.isPlaceholderData}
+                onPress={() => update({ page: search.page + 1 })}
               >
                 {t("sandboxCatalog.next")}
               </Button>

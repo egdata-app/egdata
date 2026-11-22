@@ -26,7 +26,7 @@ import { Separator } from "../ui/separator";
 import { useLocale } from "@/hooks/use-locale";
 import type { SingleRegionalPrice } from "@/types/regional-pricing";
 import { DateTime } from "luxon";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import { getEffectivePrice, getEffectivePriceHistory } from "@/lib/effective-price";
 import { useTranslation } from "@/lib/paraglide-react";
@@ -273,45 +273,50 @@ export function PriceChart({ selectedRegion, id, regionStats }: PriceChartProps)
           </CardDescription>
         </div>
         <div className="items-center flex space-x-2">
-          <Tooltip open={isUSDRegion ? undefined : false}>
-            <TooltipTrigger asChild>
-              <div
-                className={cn("inline-flex items-center gap-2", isUSDRegion && "cursor-help")}
-                tabIndex={isUSDRegion ? 0 : undefined}
+          <TooltipTrigger isOpen={isUSDRegion ? undefined : false}>
+            <div
+              className={cn("inline-flex items-center gap-2", isUSDRegion && "cursor-help")}
+              tabIndex={isUSDRegion ? 0 : undefined}
+            >
+              <Checkbox
+                id="compare"
+                isSelected={compareUSD}
+                onChange={(value) => setCompareUSD(Boolean(value))}
+                isDisabled={isUSDRegion}
+                className={isUSDRegion ? "disabled:cursor-help" : undefined}
+              />
+              <label
+                htmlFor="compare"
+                className={cn(
+                  "cursor-pointer text-sm font-medium leading-none peer-disabled:opacity-70",
+                  isUSDRegion && "cursor-help text-muted-foreground",
+                )}
               >
-                <Checkbox
-                  id="compare"
-                  checked={compareUSD}
-                  onCheckedChange={(value) => setCompareUSD(Boolean(value))}
-                  disabled={isUSDRegion}
-                  className={isUSDRegion ? "disabled:cursor-help" : undefined}
-                />
-                <label
-                  htmlFor="compare"
-                  className={cn(
-                    "cursor-pointer text-sm font-medium leading-none peer-disabled:opacity-70",
-                    isUSDRegion && "cursor-help text-muted-foreground",
-                  )}
-                >
-                  Compare with USD
-                </label>
-              </div>
-            </TooltipTrigger>
-            <TooltipContent side="bottom">USD is already the selected region.</TooltipContent>
-          </Tooltip>
+                Compare with USD
+              </label>
+            </div>
+            <Tooltip placement="bottom">USD is already the selected region.</Tooltip>
+          </TooltipTrigger>
         </div>
-        <Select value={timeRange} onValueChange={setTimeRange}>
-          <SelectTrigger className="w-[160px] rounded-lg sm:ml-auto" aria-label="Select a value">
-            <SelectValue placeholder="Last 3 months" />
+        <Select
+          aria-label="Select a value"
+          value={timeRange}
+          onChange={(val) => {
+            if (val !== null) setTimeRange(String(val));
+          }}
+          placeholder="Last 3 months"
+        >
+          <SelectTrigger className="w-[160px] rounded-lg sm:ml-auto">
+            <SelectValue />
           </SelectTrigger>
           <SelectContent className="rounded-xl">
-            <SelectItem value="all" className="rounded-lg">
+            <SelectItem id="all" className="rounded-lg">
               All
             </SelectItem>
-            <SelectItem value="3y" className="rounded-lg">
+            <SelectItem id="3y" className="rounded-lg">
               Last 3 years
             </SelectItem>
-            <SelectItem value="1y" className="rounded-lg">
+            <SelectItem id="1y" className="rounded-lg">
               Last 1 year
             </SelectItem>
           </SelectContent>

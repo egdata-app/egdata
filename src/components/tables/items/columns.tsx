@@ -1,5 +1,5 @@
 import { getPlatformsArray, textPlatformIcons } from "@/components/app/platform-icons";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
 import type { SingleItem } from "@/types/single-item";
 import { Link } from "@/components/app/localized-link";
 import type { ColumnDef } from "@tanstack/react-table";
@@ -151,10 +151,10 @@ export const columns: ColumnDef<SingleItem>[] = [
         return title;
       }
       return (
-        <Tooltip>
-          <TooltipTrigger>{title.slice(0, 40)}...</TooltipTrigger>
-          <TooltipContent className="max-w-xs">{title}</TooltipContent>
-        </Tooltip>
+        <TooltipTrigger>
+          <span>{title.slice(0, 40)}...</span>
+          <Tooltip className="max-w-xs">{title}</Tooltip>
+        </TooltipTrigger>
       );
     },
   },

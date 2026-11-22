@@ -1,4 +1,5 @@
 import { textPlatformIcons } from "@/components/app/platform-icons";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
   TableBody,
@@ -174,7 +175,23 @@ function MetadataPage() {
   const { data: sandbox } = sandboxQuery;
 
   if (offerQuery.isLoading || sandboxQuery.isLoading || assetsQuery.isLoading) {
-    return <div>{t("offerDetail.common.loading")}</div>;
+    return (
+      <section id="offer-metadata" className="flex flex-col w-full">
+        <div className="flex items-baseline justify-between gap-3 border-b border-border/60 pb-3 mb-5">
+          <h2 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-foreground">
+            {t("offerDetail.metadata.title")}
+          </h2>
+        </div>
+        <div className="rounded-xl border border-white/10 bg-card/60 p-4 space-y-2.5">
+          {["m1", "m2", "m3", "m4", "m5", "m6", "m7"].map((key) => (
+            <div key={key} className="grid grid-cols-3 gap-4">
+              <Skeleton className="h-8 rounded-md" />
+              <Skeleton className="col-span-2 h-8 rounded-md" />
+            </div>
+          ))}
+        </div>
+      </section>
+    );
   }
 
   if (!offer || !assets || !sandbox) {
@@ -182,71 +199,104 @@ function MetadataPage() {
   }
 
   return (
-    <main className="flex flex-col gap-2 w-full">
-      <h2 className="text-2xl font-bold">{t("offerDetail.metadata.title")}</h2>
-      <Table className="min-w-[620px]">
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[180px] md:w-[300px]">{t("offerDetail.table.type")}</TableHead>
-            <TableHead>{t("offerDetail.table.value")}</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {Object.entries(offer.customAttributes)
-            .sort(([a], [b]) => a.localeCompare(b))
-            .map(([key, item]) => (
-              <TableRow key={key}>
-                <TableCell>{key}</TableCell>
-                <TableCell>{item.value}</TableCell>
-              </TableRow>
-            ))}
-          <TableRow>
-            <TableCell>{t("offerDetail.table.countriesBlacklist")}</TableCell>
-            <TableCell>
-              <Countries countries={offer.countriesBlacklist} />
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>{t("offerDetail.table.countriesWhitelist")}</TableCell>
-            <TableCell>
-              <Countries countries={offer.countriesWhitelist} />
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>{t("offerDetail.table.categories")}</TableCell>
-            <TableCell>{offer.categories.join(", ")}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>{t("offerDetail.table.refundType")}</TableCell>
-            <TableCell>{offer.refundType}</TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell>{t("offerDetail.table.tags")}</TableCell>
-            <TableCell>
-              {offer.tags
-                .filter((tag) => tag !== null)
-                .map((tag) => tag.name)
-                .join(", ")}
-            </TableCell>
-          </TableRow>
-
-          <TableRow>
-            <TableCell>{t("offerDetail.table.ageRatings")}</TableCell>
-            <TableCell>
-              <AgeRatings ageRatings={sandbox?.ageGatings ?? {}} />
-            </TableCell>
-          </TableRow>
-          {assets && assets?.length > 0 ? (
+    <section id="offer-metadata" className="flex flex-col w-full">
+      <div className="flex items-baseline justify-between gap-3 border-b border-border/60 pb-3 mb-5">
+        <h2 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-foreground">
+          {t("offerDetail.metadata.title")}
+        </h2>
+        <span className="rounded-full border border-white/10 bg-card/80 px-2.5 py-0.5 text-xs font-medium tabular-nums text-muted-foreground">
+          {Object.keys(offer.customAttributes).length}
+        </span>
+      </div>
+      <div className="overflow-hidden rounded-xl border border-white/10 bg-card/80">
+        <Table className="min-w-[620px]">
+          <TableHeader>
+            <TableRow className="bg-muted/30 hover:bg-muted/30">
+              <TableHead className="w-[180px] md:w-[300px] px-4 font-display text-xs uppercase tracking-wider text-muted-foreground">
+                {t("offerDetail.table.type")}
+              </TableHead>
+              <TableHead className="px-4 font-display text-xs uppercase tracking-wider text-muted-foreground">
+                {t("offerDetail.table.value")}
+              </TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {Object.entries(offer.customAttributes)
+              .sort(([a], [b]) => a.localeCompare(b))
+              .map(([key, item]) => (
+                <TableRow key={key}>
+                  <TableCell className="px-4 py-3 font-mono text-xs text-muted-foreground">
+                    {key}
+                  </TableCell>
+                  <TableCell className="px-4 py-3 text-sm text-foreground break-all whitespace-normal">
+                    {item.value}
+                  </TableCell>
+                </TableRow>
+              ))}
             <TableRow>
-              <TableCell>{t("offerDetail.table.assets")}</TableCell>
-              <TableCell>
-                <Assets assets={assets} />
+              <TableCell className="px-4 py-3 font-medium text-muted-foreground">
+                {t("offerDetail.table.countriesBlacklist")}
+              </TableCell>
+              <TableCell className="px-4 py-3 text-sm whitespace-normal">
+                <Countries countries={offer.countriesBlacklist} />
               </TableCell>
             </TableRow>
-          ) : null}
-        </TableBody>
-      </Table>
-    </main>
+            <TableRow>
+              <TableCell className="px-4 py-3 font-medium text-muted-foreground">
+                {t("offerDetail.table.countriesWhitelist")}
+              </TableCell>
+              <TableCell className="px-4 py-3 text-sm whitespace-normal">
+                <Countries countries={offer.countriesWhitelist} />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="px-4 py-3 font-medium text-muted-foreground">
+                {t("offerDetail.table.categories")}
+              </TableCell>
+              <TableCell className="px-4 py-3 text-sm whitespace-normal">
+                {offer.categories.join(", ")}
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="px-4 py-3 font-medium text-muted-foreground">
+                {t("offerDetail.table.refundType")}
+              </TableCell>
+              <TableCell className="px-4 py-3 text-sm">{offer.refundType}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="px-4 py-3 font-medium text-muted-foreground">
+                {t("offerDetail.table.tags")}
+              </TableCell>
+              <TableCell className="px-4 py-3 text-sm whitespace-normal">
+                {offer.tags
+                  .filter((tag) => tag !== null)
+                  .map((tag) => tag.name)
+                  .join(", ")}
+              </TableCell>
+            </TableRow>
+
+            <TableRow>
+              <TableCell className="px-4 py-3 font-medium text-muted-foreground">
+                {t("offerDetail.table.ageRatings")}
+              </TableCell>
+              <TableCell className="px-4 py-3">
+                <AgeRatings ageRatings={sandbox?.ageGatings ?? {}} />
+              </TableCell>
+            </TableRow>
+            {assets && assets?.length > 0 ? (
+              <TableRow>
+                <TableCell className="px-4 py-3 font-medium text-muted-foreground">
+                  {t("offerDetail.table.assets")}
+                </TableCell>
+                <TableCell className="px-4 py-3">
+                  <Assets assets={assets} />
+                </TableCell>
+              </TableRow>
+            ) : null}
+          </TableBody>
+        </Table>
+      </div>
+    </section>
   );
 }
 
@@ -261,11 +311,18 @@ function Countries({ countries }: { countries: string[] | null }) {
   return (
     <span
       onClick={() => setActive(!active)}
-      onKeyDown={() => setActive(!active)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          setActive(!active);
+        }
+      }}
+      role="button"
+      tabIndex={0}
       className="cursor-pointer inline-flex items-center justify-start gap-2 flex-wrap"
     >
       {active
-        ? countries
+        ? [...countries]
             .sort()
             .map((country) => (
               <img
@@ -292,7 +349,7 @@ function countriesList(countries: string[] | null) {
 
   const regionNameFmt = new Intl.DisplayNames(["en"], { type: "region" });
 
-  return countries
+  return [...countries]
     .sort()
     .map((country) => {
       return regionNameFmt.of(country);
@@ -304,23 +361,27 @@ function AgeRatings({ ageRatings }: { ageRatings: SingleSandbox["ageGatings"] })
   return (
     <div className="flex flex-col gap-2 items-start justify-start">
       {Object.entries(ageRatings).map(([key, rating]) => (
-        <div className="flex flex-row gap-2" key={key}>
+        <div className="flex flex-row gap-3 items-center" key={key}>
           {rating.ratingImage && rating.ratingImage !== "" ? (
             <img
               key={key}
               src={rating.ratingImage}
               alt={key}
               title={`${rating.title} - ${rating.gameRating}`}
-              className="size-20 mx-auto"
+              className="size-16 shrink-0"
             />
           ) : (
-            <div className="size-20 mx-auto inline-flex items-center justify-center bg-muted rounded-lg">
-              <span className="text-6xl font-bold">{rating.ageControl}</span>
+            <div className="size-16 shrink-0 inline-flex items-center justify-center rounded-xl border border-white/10 bg-muted/60">
+              <span className="font-display text-3xl font-bold tabular-nums">
+                {rating.ageControl}
+              </span>
             </div>
           )}
-          <div className="flex flex-col gap-1 py-2">
-            <span className="text-xs text-left font-bold">{rating.ratingSystem}</span>
-            <span className="text-xs text-left">{rating.element}</span>
+          <div className="flex flex-col gap-1 py-1">
+            <span className="text-xs text-left font-bold text-foreground">
+              {rating.ratingSystem}
+            </span>
+            <span className="text-xs text-left text-muted-foreground">{rating.element}</span>
           </div>
         </div>
       ))}
@@ -337,13 +398,18 @@ function Assets({ assets }: { assets: { assets: Asset }[] }) {
           .filter((a) => typeof a.assets !== "undefined")
           .filter(({ assets: asset }) => asset.platform)
           .map(({ assets: asset }) => (
-            <div className="flex flex-row gap-2 items-center" key={asset._id}>
+            <div
+              className="flex flex-wrap flex-row gap-2.5 items-center rounded-lg border border-white/10 bg-background/40 px-3 py-1.5"
+              key={asset._id}
+            >
               {textPlatformIcons[asset.platform]}
-              <span className="text-xs text-left">{asset.artifactId}</span>
-              <span className="text-xs text-left">
+              <span className="font-mono text-xs text-left text-foreground">
+                {asset.artifactId}
+              </span>
+              <span className="text-xs text-left text-muted-foreground tabular-nums">
                 {t("offerDetail.metadata.download")} {bytesToSize(asset.downloadSizeBytes)}
               </span>
-              <span className="text-xs text-left">
+              <span className="text-xs text-left text-muted-foreground tabular-nums">
                 {t("offerDetail.metadata.install")} {bytesToSize(asset.installedSizeBytes)}
               </span>
             </div>

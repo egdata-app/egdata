@@ -1,5 +1,3 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Table,
   TableBody,
@@ -34,21 +32,19 @@ import { DateTime } from "luxon";
 import { getGiveawaysStats, GiveawaysStats } from "@/components/modules/giveaway-stats";
 import { cn } from "@/lib/utils";
 import { calculatePrice } from "@/lib/calculate-price";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { HoverCard, HoverCardTrigger } from "@/components/ui/hover-card";
+import { Dialog, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Button as AriaButton } from "react-aria-components";
 import {
   Box,
+  Clock,
+  Gamepad2,
   Package,
   Radio,
   RefreshCw,
   Search,
   Sparkles,
+  Star,
   Tag,
   TrendingUp,
   Trophy,
@@ -125,11 +121,11 @@ export const Route = createFileRoute("/{-$locale}/")({
       queryClient.prefetchQuery(homeLatestReleasedQueryOptions(pricingCountry)),
       queryClient.prefetchQuery({
         queryKey: ["stats", { country }],
-        queryFn: () => getStats({ country: pricingCountry }).catch(() => null),
+        queryFn: () => getStats({ country: pricingCountry }),
       }),
       queryClient.prefetchQuery({
         queryKey: ["giveaways-stats", { country }],
-        queryFn: () => getGiveawaysStats({ country: pricingCountry }).catch(() => null),
+        queryFn: () => getGiveawaysStats({ country: pricingCountry }),
       }),
       queryClient.prefetchQuery(homeHistoricalLowsQueryOptions(pricingCountry)),
       queryClient.prefetchQuery(homePulseBaseQueryOptions()),
@@ -168,179 +164,215 @@ function OfferHoverCard({ id }: { id: string }) {
     return data.ageRating.ratingSystem;
   };
 
+  const discountPct =
+    price && price.price.originalPrice > price.price.discountPrice && price.price.originalPrice > 0
+      ? Math.round(
+          ((price.price.originalPrice - price.price.discountPrice) / price.price.originalPrice) *
+            100,
+        )
+      : 0;
+
+  const hasExtras = Boolean(
+    data.polls?.averageRating ||
+    data.igdb?.total_rating ||
+    data.igdb?.timeToBeat ||
+    data.features.features.length > 0,
+  );
+
   return (
-    <div className="bg-card border border-border/60 text-card-foreground p-4 space-y-3 w-full h-fit rounded-md">
-      <div>
+    <div className="w-full h-fit overflow-hidden rounded-xl border border-white/10 bg-popover text-popover-foreground shadow-2xl shadow-black/50">
+      <div className="relative aspect-[16/9] w-full overflow-hidden bg-muted/40">
         <Image
           src={
             getImage(data.offer.keyImages, ["DieselGameBoxWide", "OfferImageWide"])?.url ??
             "/placeholder.webp"
           }
           alt={data.offer.title}
-          width={300}
-          height={168}
-          className="rounded-md object-cover"
+          width={320}
+          height={180}
+          className="size-full object-cover"
         />
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-popover via-popover/40 to-transparent"
+          aria-hidden="true"
+        />
+        {discountPct > 0 && (
+          <span className="absolute bottom-2 end-2 rounded-md bg-primary px-1.5 py-0.5 text-xs font-semibold tabular-nums text-primary-foreground shadow-sm">
+            -{discountPct}%
+          </span>
+        )}
       </div>
 
-      <div className="flex items-center justify-between gap-2">
-        <h3 className="text-xl font-display font-bold text-foreground">{data.offer.title}</h3>
-        {price && (
-          <div className="text-right">
-            {price.price.discountPrice === 0 ? (
-              <span className="text-primary font-bold">{t("common.free")}</span>
-            ) : (
-              <div className="flex flex-col items-end">
-                <span className="text-foreground font-bold">
-                  {formatPrice(price.price.discountPrice, price.price.currencyCode)}
+      <div className="space-y-3 p-4 pt-2">
+        <div className="flex items-start justify-between gap-3">
+          <h3 className="text-base font-display font-bold leading-snug text-foreground line-clamp-2">
+            {data.offer.title}
+          </h3>
+          {price && (
+            <div className="shrink-0 text-right tabular-nums">
+              {price.price.discountPrice === 0 ? (
+                <span className="inline-flex items-center rounded-full bg-emerald-500/15 px-2 py-0.5 text-xs font-semibold text-emerald-300">
+                  {t("common.free")}
                 </span>
-                {price.price.originalPrice > price.price.discountPrice && (
-                  <div className="flex items-center gap-1">
+              ) : (
+                <div className="flex flex-col items-end leading-tight">
+                  <span className="text-sm font-bold text-foreground">
+                    {formatPrice(price.price.discountPrice, price.price.currencyCode)}
+                  </span>
+                  {price.price.originalPrice > price.price.discountPrice && (
                     <span className="text-xs text-muted-foreground line-through">
                       {formatPrice(price.price.originalPrice, price.price.currencyCode)}
                     </span>
-                    <Badge
-                      variant="default"
-                      className="text-xs px-1 py-0 bg-primary text-primary-foreground"
-                    >
-                      -
-                      {Math.round(
-                        ((price.price.originalPrice - price.price.discountPrice) /
-                          price.price.originalPrice) *
-                          100,
-                      )}
-                      %
-                    </Badge>
-                  </div>
-                )}
-              </div>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        <dl className="space-y-1 text-xs">
+          <div className="flex items-baseline justify-between gap-3">
+            <dt className="shrink-0 text-muted-foreground/75">{t("home.offerHover.seller")}</dt>
+            <dd className="truncate text-right">
+              <Link
+                to="/{-$locale}/sellers/$id"
+                params={{ id: data.offer.seller.id }}
+                className="font-medium text-foreground/90 transition-colors hover:text-primary"
+              >
+                {data.offer.seller.name}
+              </Link>
+            </dd>
+          </div>
+          {data.offer.developerDisplayName && (
+            <div className="flex items-baseline justify-between gap-3">
+              <dt className="shrink-0 text-muted-foreground/75">
+                {t("home.offerHover.developer")}
+              </dt>
+              <dd className="truncate text-right">
+                <Link
+                  to="/{-$locale}/search"
+                  search={{ developerDisplayName: data.offer.developerDisplayName }}
+                  className="font-medium text-foreground/90 transition-colors hover:text-primary"
+                >
+                  {data.offer.developerDisplayName}
+                </Link>
+              </dd>
+            </div>
+          )}
+          {data.offer.publisherDisplayName && (
+            <div className="flex items-baseline justify-between gap-3">
+              <dt className="shrink-0 text-muted-foreground/75">
+                {t("home.offerHover.publisher")}
+              </dt>
+              <dd className="truncate text-right">
+                <Link
+                  to="/{-$locale}/search"
+                  search={{ publisherDisplayName: data.offer.publisherDisplayName }}
+                  className="font-medium text-foreground/90 transition-colors hover:text-primary"
+                >
+                  {data.offer.publisherDisplayName}
+                </Link>
+              </dd>
+            </div>
+          )}
+          {data.offer.releaseDate && (
+            <div className="flex items-baseline justify-between gap-3">
+              <dt className="shrink-0 text-muted-foreground/75">
+                {t("home.offerHover.releaseDate")}
+              </dt>
+              <dd className="tabular-nums text-foreground/85">
+                {formatDate(data.offer.releaseDate)}
+              </dd>
+            </div>
+          )}
+          {getAgeRatingDisplay() && (
+            <div className="flex items-baseline justify-between gap-3">
+              <dt className="shrink-0 text-muted-foreground/75">
+                {t("home.offerHover.ageRating")}
+              </dt>
+              <dd className="text-foreground/85">{getAgeRatingDisplay()}</dd>
+            </div>
+          )}
+        </dl>
+
+        {data.genres.length > 0 && (
+          <div className="flex flex-wrap gap-1.5">
+            {data.genres.slice(0, 4).map((genre) => (
+              <Badge
+                key={genre.id}
+                variant="secondary"
+                className="rounded-md bg-muted/70 px-2 py-0.5 text-[11px] font-medium text-foreground/85"
+              >
+                {genre.name}
+              </Badge>
+            ))}
+            {data.genres.length > 4 && (
+              <Badge
+                variant="outline"
+                className="rounded-md border-border/60 px-2 py-0.5 text-[11px] text-muted-foreground"
+              >
+                {t("home.offerHover.moreGenres", { count: data.genres.length - 4 })}
+              </Badge>
             )}
           </div>
         )}
-      </div>
 
-      <div className="text-sm space-y-1 text-muted-foreground">
-        <p>
-          <span className="text-muted-foreground/70">{t("home.offerHover.seller")}</span>{" "}
-          <Link
-            to="/{-$locale}/sellers/$id"
-            params={{
-              id: data.offer.seller.id,
-            }}
-            className="text-primary hover:underline"
-          >
-            {data.offer.seller.name}
-          </Link>
-        </p>
-        {data.offer.developerDisplayName && (
-          <p>
-            <span className="text-muted-foreground/70">{t("home.offerHover.developer")}</span>{" "}
-            <Link
-              to="/{-$locale}/search"
-              search={{
-                developerDisplayName: data.offer.developerDisplayName,
-              }}
-              className="text-primary hover:underline"
-            >
-              {data.offer.developerDisplayName}
-            </Link>
-          </p>
-        )}
-        {data.offer.publisherDisplayName && (
-          <p>
-            <span className="text-muted-foreground/70">{t("home.offerHover.publisher")}</span>{" "}
-            <Link
-              to="/{-$locale}/search"
-              search={{
-                publisherDisplayName: data.offer.publisherDisplayName,
-              }}
-              className="text-primary hover:underline"
-            >
-              {data.offer.publisherDisplayName}
-            </Link>
-          </p>
-        )}
-        {data.offer.releaseDate && (
-          <p>
-            <span className="text-muted-foreground/70">{t("home.offerHover.releaseDate")}</span>{" "}
-            {formatDate(data.offer.releaseDate)}
-          </p>
-        )}
-        {getAgeRatingDisplay() && (
-          <p>
-            <span className="text-muted-foreground/70">{t("home.offerHover.ageRating")}</span>{" "}
-            {getAgeRatingDisplay()}
-          </p>
-        )}
-      </div>
-
-      {data.genres.length > 0 && (
-        <div className="flex flex-wrap gap-1.5 pt-1">
-          {data.genres.slice(0, 4).map((genre) => (
-            <Badge
-              key={genre.id}
-              variant="outline"
-              className="border-primary/40 bg-primary/10 text-primary"
-            >
-              <Sparkles className="w-3 h-3 mr-1.5 text-primary" />
-              {genre.name}
-            </Badge>
-          ))}
-          {data.genres.length > 4 && (
-            <Badge variant="outline" className="border-border/50 bg-muted/20 text-muted-foreground">
-              {t("home.offerHover.moreGenres", { count: data.genres.length - 4 })}
-            </Badge>
-          )}
-        </div>
-      )}
-
-      <div className="bg-muted/30 p-3 rounded-md space-y-2 text-sm">
-        {data.polls?.averageRating && (
-          <div className="flex items-center gap-2">
-            <span>🤯</span>
-            <span className="text-muted-foreground">{t("home.offerHover.communityRating")}</span>
-            <span className="font-bold text-primary">
-              {(data.polls.averageRating * 2 * 10).toFixed(1)}%
-            </span>
-          </div>
-        )}
-        {data.igdb && (
-          <>
-            {data.igdb.total_rating && (
-              <div className="flex items-center gap-2">
-                <div className="w-5 h-5 bg-primary rounded-sm flex items-center justify-center text-sm font-bold text-primary-foreground">
-                  {Math.round(data.igdb.total_rating)}
-                </div>
-                <span className="text-muted-foreground">{t("home.offerHover.igdbScore")}</span>
+        {hasExtras && (
+          <div className="space-y-1.5 border-t border-border/50 pt-2.5 text-xs">
+            {data.polls?.averageRating && (
+              <div className="flex items-center justify-between gap-2">
+                <span className="inline-flex items-center gap-1.5 text-muted-foreground">
+                  <Star className="size-3.5 text-amber-400" />
+                  {t("home.offerHover.communityRating")}
+                </span>
+                <span className="font-semibold tabular-nums text-foreground">
+                  {(data.polls.averageRating * 2 * 10).toFixed(1)}%
+                </span>
+              </div>
+            )}
+            {data.igdb?.total_rating && (
+              <div className="flex items-center justify-between gap-2">
+                <span className="inline-flex items-center gap-1.5 text-muted-foreground">
+                  <span className="inline-flex size-4 items-center justify-center rounded bg-primary/15 text-[10px] font-bold tabular-nums text-primary">
+                    {Math.round(data.igdb.total_rating)}
+                  </span>
+                  {t("home.offerHover.igdbScore")}
+                </span>
                 {data.igdb.total_rating_count && (
-                  <span className="text-muted-foreground/70 text-xs">
+                  <span className="tabular-nums text-muted-foreground/80">
                     {t("home.offerHover.reviews", { count: data.igdb.total_rating_count })}
                   </span>
                 )}
               </div>
             )}
-            {data.igdb.timeToBeat && (
-              <div className="flex items-center gap-2">
-                <span>⏱️</span>
-                <span className="text-muted-foreground">{t("home.offerHover.timeToBeat")}</span>
-                <span className="text-foreground/80">
+            {data.igdb?.timeToBeat && (
+              <div className="flex items-center justify-between gap-2">
+                <span className="inline-flex items-center gap-1.5 text-muted-foreground">
+                  <Clock className="size-3.5 text-muted-foreground/80" />
+                  {t("home.offerHover.timeToBeat")}
+                </span>
+                <span className="tabular-nums text-foreground/90">
                   {data.igdb.timeToBeat.normally
                     ? formatTimeToHumanReadable(data.igdb.timeToBeat.normally)
                     : t("common.notAvailable")}
                 </span>
               </div>
             )}
-          </>
-        )}
-        {data.features.features.length > 0 && (
-          <div className="flex items-center gap-2">
-            <span>🎮</span>
-            <span className="text-muted-foreground">{t("home.offerHover.features")}</span>
-            <span className="text-foreground/80">
-              {data.features.features.slice(0, 2).join(", ")}
-              {data.features.features.length > 2 &&
-                t("home.offerHover.moreFeatures", { count: data.features.features.length - 2 })}
-            </span>
+            {data.features.features.length > 0 && (
+              <div className="flex items-start justify-between gap-2">
+                <span className="inline-flex shrink-0 items-center gap-1.5 text-muted-foreground">
+                  <Gamepad2 className="size-3.5 text-muted-foreground/80" />
+                  {t("home.offerHover.features")}
+                </span>
+                <span className="truncate text-right text-foreground/85">
+                  {data.features.features.slice(0, 2).join(", ")}
+                  {data.features.features.length > 2 &&
+                    t("home.offerHover.moreFeatures", {
+                      count: data.features.features.length - 2,
+                    })}
+                </span>
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -368,58 +400,64 @@ function BuildHoverCard({ id, builds }: { id: string; builds: HomeBuild[] }) {
   const displayUrl = gameImage?.url ?? "/placeholder.webp";
 
   return (
-    <div className="bg-gradient-to-br from-card to-background border border-border/60 text-card-foreground border rounded-md shadow-xl overflow-hidden w-80">
+    <div className="w-80 overflow-hidden rounded-xl border border-white/10 bg-popover text-popover-foreground shadow-2xl shadow-black/50">
       {displayUrl && (
-        <div className="w-full h-44 flex-shrink-0 relative">
+        <div className="relative aspect-[16/9] w-full overflow-hidden bg-muted/40">
           <img
             src={buildImageUrl(displayUrl, 320)}
             srcSet={buildSrcSet(displayUrl, 320)}
             sizes="320px"
             alt={build.item?.title ?? t("home.buildHover.unknownBuild")}
-            className="w-full h-full object-cover"
+            className="size-full object-cover"
             loading="lazy"
             decoding="async"
+          />
+          <div
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-popover via-popover/40 to-transparent"
+            aria-hidden="true"
           />
         </div>
       )}
 
-      <div className="p-4 space-y-3">
+      <div className="space-y-3 p-4 pt-2">
         <div>
-          <h3 className="text-lg font-display font-bold text-foreground leading-tight line-clamp-2">
+          <h3 className="text-base font-display font-bold leading-snug text-foreground line-clamp-2">
             {build.item?.title ?? t("home.buildHover.unknownBuild")}
           </h3>
           {build.item?.developer && (
-            <p className="text-sm text-muted-foreground mt-1">
+            <p className="mt-0.5 text-xs text-muted-foreground">
               {build.item?.developer ?? t("home.buildHover.unknownDeveloper")}
             </p>
           )}
         </div>
 
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-xs text-muted-foreground">{t("home.buildHover.size")}</span>
-            <span className="text-sm font-medium text-foreground">
+        <dl className="space-y-1.5 text-xs">
+          <div className="flex items-baseline justify-between gap-3">
+            <dt className="text-muted-foreground/75">{t("home.buildHover.size")}</dt>
+            <dd className="font-medium tabular-nums text-foreground">
               {calculateSize(build.downloadSizeBytes)}
-            </span>
+            </dd>
           </div>
 
           {build.buildVersion && (
-            <div className="flex items-center justify-between">
-              <span className="text-xs text-muted-foreground">{t("home.buildHover.version")}</span>
-              <span className="text-sm font-medium text-foreground">{build.buildVersion}</span>
+            <div className="flex items-baseline justify-between gap-3">
+              <dt className="text-muted-foreground/75">{t("home.buildHover.version")}</dt>
+              <dd className="truncate font-medium tabular-nums text-foreground">
+                {build.buildVersion}
+              </dd>
             </div>
           )}
 
-          <div className="flex items-center justify-between">
-            <span className="text-xs text-muted-foreground">{t("home.buildHover.created")}</span>
-            <span className="text-xs text-foreground/80">
+          <div className="flex items-baseline justify-between gap-3">
+            <dt className="text-muted-foreground/75">{t("home.buildHover.created")}</dt>
+            <dd className="tabular-nums text-foreground/85">
               {DateTime.fromISO(build.createdAt).toLocaleString(DateTime.DATE_SHORT)}
-            </span>
+            </dd>
           </div>
-        </div>
+        </dl>
 
-        <div className="pt-2 border-t border-border/50">
-          <p className="text-xs text-muted-foreground/70 font-mono truncate">
+        <div className="border-t border-border/50 pt-2">
+          <p className="truncate font-mono text-[11px] text-muted-foreground/70">
             {t("home.buildHover.id", { id: build._id })}
           </p>
         </div>
@@ -531,15 +569,17 @@ function RouteComponent() {
     hoverCardType?: HoverCardType;
     renderHoverCard?: (id: string) => JSX.Element | null;
   }) => {
-    const TableContent = (
+    const visibleRows = rows.slice(0, 6);
+
+    return (
       <div className="overflow-x-auto">
         <Table>
           <TableHeader>
-            <TableRow>
+            <TableRow className="border-b border-border/50 hover:bg-transparent">
               {headers.map((h, index) => (
                 <TableHead
                   key={typeof h === "string" ? h : `header-${index}`}
-                  className="text-muted-foreground font-normal"
+                  className="h-8 px-2 text-xs font-medium text-muted-foreground"
                 >
                   {h}
                 </TableHead>
@@ -547,39 +587,20 @@ function RouteComponent() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {rows.map((c) => {
+            {visibleRows.map((c) => {
               const [id, ...cells] = c;
-              const isElement = (cell: string | number | JSX.Element) =>
-                typeof cell === "object" && "props" in cell;
-              const isImage = (cell: string | number | JSX.Element) =>
-                isElement(cell) &&
-                typeof cell === "object" &&
-                "type" in cell &&
-                cell.type === Image;
 
               const TableRowContent = (
-                <TableRow className="border-border/40 hover:bg-primary/5">
+                <TableRow className="border-b border-border/30 last:border-b-0 transition-colors hover:bg-card/80">
                   {cells.map((cell, j) => {
                     const headerKey =
                       typeof headers[j + 1] === "string" ? headers[j + 1] : `header-${j}`;
                     return (
                       <TableCell
                         key={`${id}-${headerKey}`}
-                        className={cn(
-                          "whitespace-nowrap text-sm",
-                          isImage(cell) && "w-16 sm:w-32",
-                          isElement(cell) && !isImage(cell) && "p-0",
-                        )}
+                        className="py-2 px-2 text-sm tabular-nums whitespace-nowrap first:rounded-s-md last:rounded-e-md"
                       >
-                        {isImage(cell) ? (
-                          <div className="flex items-center justify-start">
-                            <div className="w-16 h-8 sm:w-24 sm:h-12 rounded overflow-hidden bg-muted/40 flex items-center justify-center">
-                              {cell}
-                            </div>
-                          </div>
-                        ) : (
-                          cell
-                        )}
+                        {cell}
                       </TableCell>
                     );
                   })}
@@ -591,27 +612,24 @@ function RouteComponent() {
               }
 
               return (
-                <HoverCard key={id as string} openDelay={300} closeDelay={200}>
-                  <HoverCardTrigger asChild>{TableRowContent}</HoverCardTrigger>
-                  <HoverCardContent
-                    side="left"
-                    align="start"
-                    sideOffset={5}
+                <HoverCardTrigger key={id as string} delay={300} closeDelay={200}>
+                  {TableRowContent}
+                  <HoverCard
+                    placement="left top"
+                    offset={5}
                     className="w-80 bg-transparent p-0 border-0"
                   >
                     {customRenderHoverCard
                       ? customRenderHoverCard(id as string)
                       : renderHoverCard(hoverCardType, id as string)}
-                  </HoverCardContent>
-                </HoverCard>
+                  </HoverCard>
+                </HoverCardTrigger>
               );
             })}
           </TableBody>
         </Table>
       </div>
     );
-
-    return TableContent;
   };
 
   const Section = ({
@@ -631,41 +649,29 @@ function RouteComponent() {
     params?: Record<string, unknown>;
     className?: string;
   }) => (
-    <Card
-      className={cn(
-        "flex flex-col rounded-md border border-border/60 h-[650px] bg-card/40 backdrop-blur-sm",
-        spanFull ? "md:col-span-2" : "",
-        className,
-      )}
-    >
-      <CardHeader className="border-b border-border/50 p-3">
-        <CardTitle className="text-sm font-display font-semibold text-muted-foreground tracking-tight">
+    <section className={cn("flex flex-col", spanFull ? "lg:col-span-2" : "", className)}>
+      <div className="mb-3 flex items-baseline justify-between border-b border-border/60 pb-2.5">
+        <h2 className="font-display text-lg font-semibold tracking-tight text-foreground">
           {href ? (
             <Link
               to={href}
               search={search}
               params={params}
-              className="underline decoration-dotted underline-offset-4 hover:text-primary transition-colors"
+              className="transition-colors hover:text-primary"
             >
               {title}
             </Link>
           ) : (
             title
           )}
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="p-0">
-        <ScrollArea
-          className={cn("h-[650px] p-4", className?.includes("h-[400px]") && "h-[400px]")}
-        >
-          {children}
-        </ScrollArea>
-      </CardContent>
-    </Card>
+        </h2>
+      </div>
+      {children}
+    </section>
   );
 
   return (
-    <main className="mx-auto w-full max-w-7xl flex-1 space-y-8 py-6 px-4 sm:px-6 lg:px-8">
+    <main className="mx-auto w-full max-w-7xl flex-1 space-y-12 py-6 px-4 sm:px-6 lg:px-8">
       <SearchPulseHero
         onSearch={() => setFocus(true)}
         changes={liveChangelistQuery.data ?? []}
@@ -674,90 +680,91 @@ function RouteComponent() {
         isError={liveChangelistQuery.isError}
       />
 
-      {/* Stats Bar */}
-      <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 py-3 border-y border-border/40 rounded-md bg-card/30 px-4">
+      {/* Stats Strip */}
+      <div className="grid grid-cols-2 gap-6 py-2 md:grid-cols-4">
         <StatItem
           label={t("home.statsBar.offersTracked")}
           value={(stats.offers ?? 0).toLocaleString("en-UK")}
         />
-        <StatDivider />
         <StatItem
           label={t("home.statsBar.priceChanges72h")}
           value={(stats.trackedPriceChanges ?? 0).toLocaleString("en-UK")}
         />
-        <StatDivider />
         <StatItem
           label={t("home.statsBar.activeDiscounts")}
           value={(stats.activeDiscounts ?? 0).toLocaleString("en-UK")}
         />
-        <StatDivider />
         <StatItem
           label={t("home.statsBar.giveawaysToDate")}
           value={(stats.giveaways ?? 0).toLocaleString("en-UK")}
         />
       </div>
 
-      {/* First row - shorter sections */}
-      <div className="grid gap-6 grid-cols-1 lg:grid-cols-2">
-        {/* Giveaways Stats Section */}
-        <Section title={t("home.sections.giveawayStats")} href="/freebies" className="h-[400px]">
-          <div className="flex flex-col items-center justify-center h-full">
-            <div className="w-full flex items-center justify-center h-[300px]">
-              <GiveawaysStats showTitle={false} wrap />
-            </div>
-          </div>
-        </Section>
-        <Section title={t("home.sections.giveawayOffers")} href="/freebies" className="h-[400px]">
-          <SimpleTable
-            headers={[
-              t("home.tableHeaders.hash"),
-              t("home.tableHeaders.title"),
-              t("home.tableHeaders.starts"),
-              t("home.tableHeaders.ends"),
-            ]}
-            rows={giveawayOffers.slice(0, 5).map((g) => [
-              g.offers.map((o) => o.id).join(":"),
-              <Link
-                key={`feebies-image-${g.id}`}
-                to="/{-$locale}/offers/$id"
-                params={{
-                  id: g.id,
-                }}
-                className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
-              >
-                <img
-                  src={buildImageUrl(
-                    getImage(g.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url ??
-                      "/placeholder.webp",
-                    80,
-                    "low",
+      {/* Free Games Showcase */}
+      <Section title={t("home.sections.giveawayOffers")} href="/freebies">
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+          {giveawayOffers.slice(0, 5).map((g) => {
+            const coverUrl =
+              getImage(g.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url ??
+              "/placeholder.webp";
+            const startLabel = g.giveaway.startDate
+              ? formatDate(g.giveaway.startDate)
+              : t("common.notAvailable");
+            const endLabel = g.giveaway.endDate
+              ? formatDate(g.giveaway.endDate)
+              : t("common.notAvailable");
+
+            const PosterBody = (
+              <>
+                <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg border border-white/10 bg-muted/40 transition-[box-shadow,border-color] duration-200 ease-out group-hover:border-primary/60 group-hover:shadow-lg group-hover:shadow-black/35 group-focus-visible:border-primary">
+                  <img
+                    src={buildImageUrl(coverUrl, 360, "medium")}
+                    srcSet={buildSrcSet(coverUrl, 360, "medium")}
+                    sizes="(min-width: 1024px) 220px, (min-width: 640px) 30vw, 46vw"
+                    alt={g.title}
+                    loading="lazy"
+                    decoding="async"
+                    className="size-full object-cover transition-transform duration-300 ease-out will-change-transform group-hover:scale-[1.035]"
+                  />
+                </div>
+                <div className="mt-2.5 space-y-1">
+                  {g.platforms.length > 0 && (
+                    <div className="flex flex-wrap items-center gap-1">
+                      {g.platforms.map((p) =>
+                        RenderTextPlatformIcon({
+                          platform: p,
+                          className: "size-4 text-muted-foreground",
+                          key: `${p}-${g.id}`,
+                        }),
+                      )}
+                    </div>
                   )}
-                  alt={g.title}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
-                />
-              </Link>,
-              g.offers.length > 1 ? (
-                <Dialog key={`feebies-dialog-${g.id}`}>
-                  <DialogTrigger asChild>
-                    <button
-                      type="button"
-                      className="flex flex-col items-start justify-center text-left hover:text-primary transition-colors"
+                  <h3 className="line-clamp-2 text-sm font-medium leading-snug text-foreground transition-colors group-hover:text-primary">
+                    {g.title}
+                  </h3>
+                  <p className="text-xs tabular-nums text-muted-foreground">
+                    {startLabel} – {endLabel}
+                  </p>
+                </div>
+              </>
+            );
+
+            if (g.offers.length > 1) {
+              return (
+                <DialogTrigger key={`giveaway-poster-${g.id}`}>
+                  <HoverCardTrigger delay={300} closeDelay={200}>
+                    <AriaButton className="group flex w-full cursor-pointer flex-col text-start focus:outline-none">
+                      {PosterBody}
+                    </AriaButton>
+                    <HoverCard
+                      placement="bottom"
+                      offset={8}
+                      className="w-80 bg-transparent p-0 border-0"
                     >
-                      <TruncatedText text={g.title} maxLength={35} />
-                      <p className="inline-flex gap-1">
-                        {g.platforms.map((p) =>
-                          RenderTextPlatformIcon({
-                            platform: p,
-                            className: "size-5 rounded-full p-1 bg-muted",
-                            key: `${p}-${g.id}`,
-                          }),
-                        )}
-                      </p>
-                    </button>
-                  </DialogTrigger>
-                  <DialogContent className="max-w-md z-[60]">
+                      <OfferHoverCard id={g.offers[0]?.id ?? g.id} />
+                    </HoverCard>
+                  </HoverCardTrigger>
+                  <Dialog className="max-w-md z-[60]">
                     <DialogHeader>
                       <DialogTitle>{t("home.multipleOffers", { title: g.title })}</DialogTitle>
                     </DialogHeader>
@@ -768,82 +775,79 @@ function RouteComponent() {
                           (item.releaseInfo ?? []).flatMap((info) => info?.platform ?? []),
                         );
                         return (
-                          <HoverCard key={offer.id}>
-                            <HoverCardTrigger asChild>
-                              <Link
-                                to="/{-$locale}/offers/$id"
-                                params={{ id: offer.id }}
-                                className="flex items-center gap-3 p-3 border rounded-lg bg-card transition-colors hover:border-primary/60"
-                              >
-                                <img
-                                  src={buildImageUrl(
-                                    getImage(offer.keyImages, [
-                                      "DieselGameBoxTall",
-                                      "OfferImageTall",
-                                    ])?.url ?? "/placeholder.webp",
-                                    96,
-                                    "low",
+                          <HoverCardTrigger key={offer.id}>
+                            <Link
+                              to="/{-$locale}/offers/$id"
+                              params={{ id: offer.id }}
+                              className="flex items-center gap-3 rounded-lg border border-border/60 bg-card p-3 transition-colors hover:border-primary/60"
+                            >
+                              <img
+                                src={buildImageUrl(
+                                  getImage(offer.keyImages, ["DieselGameBoxTall", "OfferImageTall"])
+                                    ?.url ?? "/placeholder.webp",
+                                  96,
+                                  "low",
+                                )}
+                                alt={offer.title}
+                                loading="lazy"
+                                decoding="async"
+                                className="h-16 w-12 rounded object-cover ring-1 ring-white/10"
+                              />
+                              <div className="flex-1">
+                                <h4 className="font-medium text-foreground">{offer.title}</h4>
+                                <div className="mt-1 flex gap-1">
+                                  {offerPlatforms.map((platform, idx) =>
+                                    RenderTextPlatformIcon({
+                                      platform,
+                                      className: "size-5 rounded-full bg-muted p-1",
+                                      key: `${platform}-${offer.id}-${idx}`,
+                                    }),
                                   )}
-                                  alt={offer.title}
-                                  loading="lazy"
-                                  decoding="async"
-                                  className="w-12 h-16 object-cover rounded"
-                                />
-                                <div className="flex-1">
-                                  <h4 className="font-medium">{offer.title}</h4>
-                                  <div className="flex gap-1 mt-1">
-                                    {offerPlatforms.map((platform, idx) =>
-                                      RenderTextPlatformIcon({
-                                        platform,
-                                        className: "size-6 rounded-full p-1 bg-muted",
-                                        key: `${platform}-${offer.id}-${idx}`,
-                                      }),
-                                    )}
-                                  </div>
                                 </div>
-                              </Link>
-                            </HoverCardTrigger>
-                            <HoverCardContent
+                              </div>
+                            </Link>
+                            <HoverCard
                               className="w-80 bg-transparent p-0 border-0"
-                              align="center"
-                              side="right"
-                              sideOffset={30}
+                              placement="right"
+                              offset={30}
                             >
                               <OfferHoverCard id={offer.id} />
-                            </HoverCardContent>
-                          </HoverCard>
+                            </HoverCard>
+                          </HoverCardTrigger>
                         );
                       })}
                     </div>
-                  </DialogContent>
-                </Dialog>
-              ) : (
+                  </Dialog>
+                </DialogTrigger>
+              );
+            }
+
+            return (
+              <HoverCardTrigger key={`giveaway-poster-${g.id}`} delay={300} closeDelay={200}>
                 <Link
-                  key={`feebies-title-${g.id}`}
                   to="/{-$locale}/offers/$id"
-                  params={{
-                    id: g.id,
-                  }}
-                  className="flex flex-col items-start justify-center"
+                  params={{ id: g.id }}
+                  className="group flex flex-col text-start focus:outline-none"
                 >
-                  <TruncatedText text={g.title} maxLength={35} />
-                  <p className="inline-flex gap-1">
-                    {g.platforms.map((p) =>
-                      RenderTextPlatformIcon({
-                        platform: p,
-                        className: "size-5 rounded-full p-1 bg-muted",
-                        key: `${p}-${g.id}`,
-                      }),
-                    )}
-                  </p>
+                  {PosterBody}
                 </Link>
-              ),
-              g.giveaway.startDate ? formatDate(g.giveaway.startDate) : t("common.notAvailable"),
-              g.giveaway.endDate ? formatDate(g.giveaway.endDate) : t("common.notAvailable"),
-            ])}
-          />
-        </Section>
-      </div>
+                <HoverCard
+                  placement="bottom"
+                  offset={8}
+                  className="w-80 bg-transparent p-0 border-0"
+                >
+                  <OfferHoverCard id={g.id} />
+                </HoverCard>
+              </HoverCardTrigger>
+            );
+          })}
+        </div>
+      </Section>
+
+      {/* Giveaways Stats Band */}
+      <Section title={t("home.sections.giveawayStats")} href="/freebies">
+        <GiveawaysStats showTitle={false} />
+      </Section>
 
       <HistoricalLowsStrip
         offers={historicalLowsQuery.data ?? []}
@@ -851,7 +855,7 @@ function RouteComponent() {
         isError={historicalLowsQuery.isError}
       />
 
-      <div className="grid auto-rows-[1fr] gap-6 grid-cols-1 lg:grid-cols-2">
+      <div className="grid grid-cols-1 items-start gap-x-8 gap-y-10 lg:grid-cols-2">
         <Section
           title={t("home.sections.upcomingOffers")}
           href="/search"
@@ -865,37 +869,24 @@ function RouteComponent() {
               t("home.tableHeaders.title"),
               t("home.tableHeaders.releaseDate"),
             ]}
-            rows={upcomingOfferRows.slice(0, 10).map((o) => [
+            rows={upcomingOfferRows.slice(0, 6).map((o) => [
               o.id,
-              <Link
+              <OfferThumb
                 key={o.id}
                 to="/{-$locale}/offers/$id"
-                params={{
-                  id: o.id,
-                }}
-                className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
-              >
-                <img
-                  src={buildImageUrl(
-                    getImage(o.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url ??
-                      "/placeholder.webp",
-                    80,
-                    "low",
-                  )}
-                  alt={o.title}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
-                />
-              </Link>,
+                params={{ id: o.id }}
+                url={getImage(o.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url}
+                alt={o.title}
+              />,
               <Link
                 key={`upcoming-title-${o.id}`}
                 to="/{-$locale}/offers/$id"
                 params={{
                   id: o.id,
                 }}
+                className="font-medium text-foreground transition-colors hover:text-primary"
               >
-                <TruncatedText text={o.title ?? t("common.notAvailable")} maxLength={40} />
+                <TruncatedText text={o.title ?? t("common.notAvailable")} maxLength={38} />
               </Link>,
               o.releaseDate
                 ? (() => {
@@ -924,37 +915,24 @@ function RouteComponent() {
               t("home.tableHeaders.createdAt"),
               t("home.tableHeaders.price"),
             ]}
-            rows={latestOffers.slice(0, 10).map((o) => [
+            rows={latestOffers.slice(0, 6).map((o) => [
               o.id,
-              <Link
+              <OfferThumb
                 key={o.id}
                 to="/{-$locale}/offers/$id"
-                params={{
-                  id: o.id,
-                }}
-                className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
-              >
-                <img
-                  src={buildImageUrl(
-                    getImage(o.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url ??
-                      "/placeholder.webp",
-                    80,
-                    "low",
-                  )}
-                  alt={o.title}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
-                />
-              </Link>,
+                params={{ id: o.id }}
+                url={getImage(o.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url}
+                alt={o.title}
+              />,
               <Link
                 key={`latest-title-${o.id}`}
                 to="/{-$locale}/offers/$id"
                 params={{
                   id: o.id,
                 }}
+                className="font-medium text-foreground transition-colors hover:text-primary"
               >
-                <TruncatedText text={o.title ?? t("common.notAvailable")} maxLength={40} />
+                <TruncatedText text={o.title ?? t("common.notAvailable")} maxLength={34} />
               </Link>,
               o.creationDate ? formatDate(o.creationDate) : t("common.notAvailable"),
               formatCurrentPrice(o.price, locale),
@@ -976,29 +954,15 @@ function RouteComponent() {
               t("home.tableHeaders.title"),
               t("home.tableHeaders.price"),
             ]}
-            rows={latestReleasedOfferRows.slice(0, 10).map((u) => [
+            rows={latestReleasedOfferRows.slice(0, 6).map((u) => [
               u.id,
-              <Link
+              <OfferThumb
                 key={u.id}
                 to="/{-$locale}/offers/$id"
-                params={{
-                  id: u.id,
-                }}
-                className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
-              >
-                <img
-                  src={buildImageUrl(
-                    getImage(u.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url ??
-                      "/placeholder.webp",
-                    80,
-                    "low",
-                  )}
-                  alt={u.title}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
-                />
-              </Link>,
+                params={{ id: u.id }}
+                url={getImage(u.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url}
+                alt={u.title}
+              />,
               u.releaseDate
                 ? (() => {
                     const release = DateTime.fromISO(u.releaseDate);
@@ -1015,8 +979,9 @@ function RouteComponent() {
                 params={{
                   id: u.id,
                 }}
+                className="font-medium text-foreground transition-colors hover:text-primary"
               >
-                <TruncatedText text={u.title ?? t("common.notAvailable")} maxLength={40} />
+                <TruncatedText text={u.title ?? t("common.notAvailable")} maxLength={34} />
               </Link>,
               formatCurrentPrice(u.price, locale),
             ])}
@@ -1043,7 +1008,7 @@ function RouteComponent() {
                 <EpicTrophyIcon className={cn("size-4", raritiesTextColors.gold)} />
               </span>,
             ]}
-            rows={achievementOffers.slice(0, 10).map((a) => {
+            rows={achievementOffers.slice(0, 6).map((a) => {
               const noOfAchievementsPerRarity = a.achievements.achievements.reduce(
                 (acc, achievement) => {
                   const rarity = getRarity(achievement.xp);
@@ -1055,43 +1020,30 @@ function RouteComponent() {
 
               return [
                 a.id,
-                <Link
+                <OfferThumb
                   key={a.id}
                   to="/{-$locale}/offers/$id"
-                  params={{
-                    id: a.id,
-                  }}
-                  className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
-                >
-                  <img
-                    src={buildImageUrl(
-                      getImage(a.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url ??
-                        "/placeholder.webp",
-                      80,
-                      "low",
-                    )}
-                    alt={a.title}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
-                  />
-                </Link>,
+                  params={{ id: a.id }}
+                  url={getImage(a.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url}
+                  alt={a.title}
+                />,
                 <Link
                   key={`achievement-title-${a.id}`}
                   to="/{-$locale}/offers/$id"
                   params={{
                     id: a.id,
                   }}
+                  className="font-medium text-foreground transition-colors hover:text-primary"
                 >
-                  <TruncatedText text={a.title ?? t("common.notAvailable")} maxLength={40} />
+                  <TruncatedText text={a.title ?? t("common.notAvailable")} maxLength={34} />
                 </Link>,
-                <p key={`achievement-bronze-${a.id}`} className="text-center">
+                <p key={`achievement-bronze-${a.id}`} className="text-center tabular-nums">
                   {noOfAchievementsPerRarity.bronze || 0}
                 </p>,
-                <p key={`achievement-silver-${a.id}`} className="text-center">
+                <p key={`achievement-silver-${a.id}`} className="text-center tabular-nums">
                   {noOfAchievementsPerRarity.silver || 0}
                 </p>,
-                <p key={`achievement-gold-${a.id}`} className="text-center">
+                <p key={`achievement-gold-${a.id}`} className="text-center tabular-nums">
                   {noOfAchievementsPerRarity.gold || 0}
                 </p>,
               ];
@@ -1117,40 +1069,32 @@ function RouteComponent() {
                 <TrendingUp className="size-4" />
               </span>,
             ]}
-            rows={topSellerOffers.slice(0, 10).map((t, i) => [
+            rows={topSellerOffers.slice(0, 6).map((t, i) => [
               t.id,
-              i + 1,
-              <Link
+              <span
+                key={`topseller-pos-${t.id}`}
+                className="font-medium tabular-nums text-muted-foreground"
+              >
+                {i + 1}
+              </span>,
+              <OfferThumb
                 key={t.id}
                 to="/{-$locale}/offers/$id"
-                params={{
-                  id: t.id,
-                }}
-                className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
-              >
-                <img
-                  src={buildImageUrl(
-                    getImage(t.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url ??
-                      "/placeholder.webp",
-                    80,
-                    "low",
-                  )}
-                  alt={t.title}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
-                />
-              </Link>,
+                params={{ id: t.id }}
+                url={getImage(t.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url}
+                alt={t.title}
+              />,
               <Link
                 key={`topseller-title-${t.id}`}
                 to="/{-$locale}/offers/$id"
                 params={{
                   id: t.id,
                 }}
+                className="font-medium text-foreground transition-colors hover:text-primary"
               >
-                <TruncatedText text={t.title} maxLength={40} />
+                <TruncatedText text={t.title} maxLength={36} />
               </Link>,
-              <p key={`topseller-price-${t.id}`} className="text-center">
+              <p key={`topseller-price-${t.id}`} className="text-center tabular-nums">
                 {t.previousPosition - t.position === 0 ? "-" : t.previousPosition - t.position}
               </p>,
             ])}
@@ -1164,39 +1108,29 @@ function RouteComponent() {
               t("home.tableHeaders.size"),
               t("home.tableHeaders.creationDate"),
             ]}
-            rows={latestBuilds.slice(0, 10).map((b) => [
-              b._id,
-              <Link
-                key={b._id}
-                to="/{-$locale}/builds/$id"
-                params={{
-                  id: b._id,
-                }}
-                className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
-              >
-                <img
-                  src={buildImageUrl(
-                    getImage(b.item?.keyImages ?? [], ["DieselGameBoxTall", "OfferImageTall"])
-                      ?.url ?? "/placeholder.webp",
-                    80,
-                    "low",
-                  )}
+            rows={latestBuilds
+              .slice(0, 6)
+              .map((b) => [
+                b._id,
+                <OfferThumb
+                  key={b._id}
+                  to="/{-$locale}/builds/$id"
+                  params={{ id: b._id }}
+                  url={
+                    getImage(b.item?.keyImages ?? [], ["DieselGameBoxTall", "OfferImageTall"])?.url
+                  }
                   alt={b.item?.title ?? t("home.buildHover.unknownBuild")}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-[32px] h-[42px] sm:w-[40px] sm:h-[52px]"
-                />
-              </Link>,
-              <BuildTitle
-                key={b._id}
-                id={b._id}
-                title={b.item?.title ?? t("home.buildHover.unknownBuild")}
-                buildVersion={b.buildVersion}
-                maxTitleLength={20}
-              />,
-              calculateSize(b.downloadSizeBytes),
-              formatDate(b.createdAt),
-            ])}
+                />,
+                <BuildTitle
+                  key={b._id}
+                  id={b._id}
+                  title={b.item?.title ?? t("home.buildHover.unknownBuild")}
+                  buildVersion={b.buildVersion}
+                  maxTitleLength={20}
+                />,
+                calculateSize(b.downloadSizeBytes),
+                formatDate(b.createdAt),
+              ])}
             hoverCardType="build"
             renderHoverCard={(id) => <BuildHoverCard id={id} builds={latestBuilds} />}
           />
@@ -1207,19 +1141,43 @@ function RouteComponent() {
   );
 }
 
-function StatItem({ label, value }: { label: string; value: string }) {
+function OfferThumb({
+  url,
+  alt,
+  to,
+  params,
+}: {
+  url: string | undefined;
+  alt: string;
+  to: "/{-$locale}/offers/$id" | "/{-$locale}/builds/$id";
+  params: { id: string };
+}) {
   return (
-    <div className="flex flex-col items-center text-center">
-      <span className="text-xl font-display font-semibold tabular-nums text-foreground">
-        {value}
-      </span>
-      <span className="mt-0.5 text-xs uppercase tracking-wide text-muted-foreground">{label}</span>
-    </div>
+    <Link
+      to={to}
+      params={params}
+      className="block h-12 w-9 shrink-0 overflow-hidden rounded bg-muted/40 shadow-sm ring-1 ring-white/10"
+    >
+      <img
+        src={buildImageUrl(url ?? "/placeholder.webp", 80, "low")}
+        alt={alt}
+        loading="lazy"
+        decoding="async"
+        className="size-full object-cover"
+      />
+    </Link>
   );
 }
 
-function StatDivider() {
-  return <span className="h-8 w-px bg-border/50 hidden sm:block" aria-hidden="true" />;
+function StatItem({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex flex-col items-start text-start">
+      <span className="font-display text-2xl font-bold tracking-tight tabular-nums text-foreground sm:text-3xl">
+        {value}
+      </span>
+      <span className="mt-1 text-sm text-muted-foreground">{label}</span>
+    </div>
+  );
 }
 
 function SearchPulseHero({
@@ -1272,35 +1230,22 @@ function SearchPulseHero({
   );
 
   return (
-    <section className="relative isolate overflow-hidden rounded-md border border-border/60 bg-card/40 p-5 text-start backdrop-blur-sm md:p-6">
-      <div
-        className="pointer-events-none absolute inset-y-5 end-5 z-0 hidden w-[35%] lg:block"
-        data-testid="hero-pulse-panel"
-      >
-        <AmbientPulsePanel
-          events={events}
-          isLoading={isLoading}
-          isFetching={isFetching}
-          isError={isError}
-          density="desktop"
-        />
-      </div>
-      <div
-        className="relative z-10 flex min-h-[260px] max-w-2xl flex-col justify-center lg:me-[40%] lg:min-h-[252px]"
-        data-testid="hero-content"
-      >
-        <h1 className="text-3xl md:text-4xl font-display font-bold tracking-tight text-foreground">
+    <section className="grid grid-cols-1 items-center gap-8 border-b border-border/50 pb-8 pt-2 lg:grid-cols-[minmax(0,1fr)_360px]">
+      <div className="min-w-0 flex flex-col justify-center" data-testid="hero-content">
+        <h1 className="font-display text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-[2.75rem]">
           egdata.app
         </h1>
-        <p className="mt-3 max-w-xl text-muted-foreground">{t("home.hero.subtitle")}</p>
+        <p className="mt-3 max-w-xl text-base leading-relaxed text-muted-foreground">
+          {t("home.hero.subtitle")}
+        </p>
 
         <button
           type="button"
           onClick={onSearch}
-          className="mt-5 w-full max-w-xl inline-flex items-center gap-2 rounded-md border border-border/60 bg-background/70 px-4 py-2.5 text-start text-sm text-muted-foreground hover:border-primary/60 hover:text-primary transition-colors"
+          className="mt-6 inline-flex w-full max-w-xl cursor-pointer items-center gap-3 rounded-full border border-border bg-card/80 px-5 py-3 text-start text-sm text-muted-foreground shadow-sm transition-colors hover:border-primary/60 hover:text-foreground"
         >
-          <Search className="size-4" />
-          {t("home.hero.searchPlaceholder")}
+          <Search className="size-4 shrink-0" />
+          <span className="truncate">{t("home.hero.searchPlaceholder")}</span>
         </button>
 
         <div className="mt-4 flex max-w-xl flex-wrap gap-2" data-testid="hero-quick-links">
@@ -1310,12 +1255,21 @@ function SearchPulseHero({
               to={chip.to}
               search={chip.search}
               params={chip.params}
-              className="inline-flex items-center whitespace-nowrap rounded-full border border-border/60 bg-background/50 px-2.5 py-1 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/60 hover:text-primary"
+              className="inline-flex items-center whitespace-nowrap rounded-full border border-border/60 bg-card/40 px-3 py-1 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/60 hover:text-foreground"
             >
               {chip.label}
             </Link>
           ))}
         </div>
+      </div>
+
+      <div className="min-w-0" data-testid="hero-pulse-panel">
+        <AmbientPulsePanel
+          events={events}
+          isLoading={isLoading}
+          isFetching={isFetching}
+          isError={isError}
+        />
       </div>
     </section>
   );
@@ -1325,26 +1279,17 @@ function AmbientPulsePanel({
   events,
   isLoading,
   isFetching,
-  density,
 }: {
   events: PulseEvent[];
   isLoading: boolean;
   isFetching: boolean;
   isError: boolean;
-  density: "desktop" | "mobile";
 }) {
   const { t } = useTranslation();
   return (
-    <div
-      className={cn(
-        "relative overflow-hidden",
-        density === "desktop"
-          ? "h-full p-3 text-muted-foreground/80"
-          : "rounded-md border border-border/40 bg-background/25 p-3",
-      )}
-    >
+    <div className="space-y-3">
       <div className="flex items-center justify-between gap-3">
-        <span className="text-xs font-medium tracking-tight text-muted-foreground">
+        <span className="text-sm font-medium text-muted-foreground">
           {t("home.pulse.recentActivity")}
         </span>
         {isFetching && !isLoading && (
@@ -1352,21 +1297,19 @@ function AmbientPulsePanel({
         )}
       </div>
 
-      <div className="mt-3 flex flex-col gap-2">
+      <div className="flex flex-col gap-2.5">
         {isLoading || events.length === 0
-          ? Array.from({ length: density === "desktop" ? 4 : 2 }).map((_, index) => (
+          ? Array.from({ length: 5 }).map((_, index) => (
               <div
                 // biome-ignore lint/suspicious/noArrayIndexKey: skeleton rows are positional placeholders
                 key={index}
                 className="flex items-center gap-2.5"
               >
-                <div className="size-7 rounded bg-muted/40 animate-pulse" />
-                <div className="h-3 flex-1 rounded bg-muted/30 animate-pulse" />
+                <div className="size-7 shrink-0 rounded bg-muted/40 animate-pulse" />
+                <div className="h-3.5 flex-1 rounded bg-muted/30 animate-pulse" />
               </div>
             ))
-          : events
-              .slice(0, density === "desktop" ? 5 : 3)
-              .map((event) => <PulseChangeRow key={event.id} event={event} />)}
+          : events.slice(0, 5).map((event) => <PulseChangeRow key={event.id} event={event} />)}
       </div>
     </div>
   );
@@ -1374,32 +1317,33 @@ function AmbientPulsePanel({
 
 function PulseChangeRow({ event }: { event: PulseEvent }) {
   const { t } = useTranslation();
-  const tone = getPulseTone(event.contextType, event.action);
   const Icon = getPulseIcon(event.contextType, event.action);
 
   return (
     <div className="flex min-w-0 items-center gap-2.5">
-      <div className="relative flex size-7 shrink-0 items-center justify-center">
+      <div className="flex size-7 shrink-0 items-center justify-center overflow-hidden rounded bg-muted/50 ring-1 ring-white/10">
         {event.imageUrl ? (
           <img
             src={buildImageUrl(event.imageUrl, 80, "low")}
             alt=""
             loading="lazy"
             decoding="async"
-            className="size-6 rounded object-cover"
+            className="size-full object-cover"
           />
         ) : (
-          <Icon className={cn("size-3.5", tone.text)} />
+          <Icon className="size-3.5 text-muted-foreground" />
         )}
       </div>
 
-      <span className="min-w-0 flex-1 truncate text-sm text-foreground/85">{event.title}</span>
-      <span className="shrink-0 text-xs tabular-nums text-muted-foreground/70">
+      <span className="min-w-0 flex-1 truncate text-sm font-medium text-foreground/90">
+        {event.title}
+      </span>
+      <span className="shrink-0 text-xs text-muted-foreground">
         {t(`home.pulse.badge.${event.badge}`, { defaultValue: event.badge.toLowerCase() })}
       </span>
       <span
         suppressHydrationWarning
-        className="ms-auto shrink-0 text-xs tabular-nums text-muted-foreground/60"
+        className="shrink-0 text-xs tabular-nums text-muted-foreground/75"
       >
         {timeAgo(new Date(event.timestamp))}
       </span>
@@ -1565,70 +1509,5 @@ function getPulseIcon(contextType: string, action: LiveChangeAction) {
       return Box;
     default:
       return Radio;
-  }
-}
-
-function getPulseTone(contextType: string, action: LiveChangeAction) {
-  if (action === "insert") {
-    return {
-      bg: "bg-emerald-400/10",
-      border: "border-emerald-300/35",
-      text: "text-emerald-200",
-      dot: "bg-emerald-300",
-    };
-  }
-
-  if (action === "delete") {
-    return {
-      bg: "bg-rose-400/10",
-      border: "border-rose-300/35",
-      text: "text-rose-200",
-      dot: "bg-rose-300",
-    };
-  }
-
-  switch (contextType) {
-    case "build":
-      return {
-        bg: "bg-cyan-400/10",
-        border: "border-cyan-300/35",
-        text: "text-cyan-200",
-        dot: "bg-cyan-300",
-      };
-    case "offer":
-      return {
-        bg: "bg-sky-400/10",
-        border: "border-sky-300/35",
-        text: "text-sky-200",
-        dot: "bg-sky-300",
-      };
-    case "achievements":
-      return {
-        bg: "bg-amber-400/10",
-        border: "border-amber-300/35",
-        text: "text-amber-200",
-        dot: "bg-amber-300",
-      };
-    case "item":
-      return {
-        bg: "bg-lime-400/10",
-        border: "border-lime-300/35",
-        text: "text-lime-200",
-        dot: "bg-lime-300",
-      };
-    case "asset":
-      return {
-        bg: "bg-fuchsia-400/10",
-        border: "border-fuchsia-300/35",
-        text: "text-fuchsia-200",
-        dot: "bg-fuchsia-300",
-      };
-    default:
-      return {
-        bg: "bg-primary/10",
-        border: "border-primary/35",
-        text: "text-primary",
-        dot: "bg-primary",
-      };
   }
 }

@@ -1,7 +1,7 @@
 import { OpenLauncher } from "@/components/app/open-launcher";
 import { Link } from "@/components/app/localized-link";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants, LinkButton } from "@/components/ui/button";
 import { useCountry } from "@/hooks/use-country";
 import { useLocale } from "@/hooks/use-locale";
 import { calculatePrice } from "@/lib/calculate-price";
@@ -82,7 +82,7 @@ export function SandboxShell({ id, hub }: SandboxShellProps) {
       <nav
         style={{ viewTransitionName: "sandbox-tabs" }}
         aria-label={t("sandboxCatalog.navigation")}
-        className="sticky top-0 z-20 -mx-4 overflow-x-auto [color-scheme:dark] [scrollbar-width:thin] border-b border-border bg-background/95 px-4 backdrop-blur md:-mx-8 md:px-8"
+        className="sticky top-0 z-20 -mx-4 overflow-x-auto [color-scheme:dark] [scrollbar-width:thin] border-b border-border/60 bg-background/95 px-4 backdrop-blur md:-mx-8 md:px-8"
       >
         <ul className="flex w-max min-w-full gap-1">
           {sections.map((section) => (
@@ -93,16 +93,23 @@ export function SandboxShell({ id, hub }: SandboxShellProps) {
                 viewTransition={sandboxViewTransition}
                 aria-current={subPath === section.id ? "page" : undefined}
                 className={cn(
-                  "inline-flex min-h-12 items-center gap-2 whitespace-nowrap border-b-2 px-3 py-3 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary",
+                  "group inline-flex min-h-12 items-center gap-2 whitespace-nowrap border-b-2 px-3.5 py-3 text-sm font-medium transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary",
                   subPath === section.id
                     ? "border-primary text-primary"
-                    : "border-transparent text-muted-foreground hover:text-foreground",
+                    : "border-transparent text-muted-foreground hover:border-border hover:text-foreground",
                 )}
               >
-                <section.icon aria-hidden="true" className="size-4" />
+                <section.icon aria-hidden="true" className="size-4 shrink-0" />
                 {t(`components.sandboxShell.${section.label}`)}
                 {typeof section.count === "number" && (
-                  <span className="rounded bg-muted/70 px-1.5 py-0.5 text-[11px] tabular-nums text-muted-foreground">
+                  <span
+                    className={cn(
+                      "rounded-md px-1.5 py-0.5 text-[11px] font-medium tabular-nums transition-colors duration-150",
+                      subPath === section.id
+                        ? "bg-primary/15 text-primary"
+                        : "bg-muted/70 text-muted-foreground group-hover:bg-muted group-hover:text-foreground/80",
+                    )}
+                  >
                     {section.count.toLocaleString(locale)}
                   </span>
                 )}
@@ -124,12 +131,14 @@ function NamespaceCopy({ id }: { id: string }) {
   return (
     <div className="min-w-0">
       <div className="flex items-center gap-2">
-        <span className="text-xs text-muted-foreground">Namespace</span>
-        <code className="min-w-0 break-all text-xs">{id}</code>
+        <span className="text-xs font-medium text-muted-foreground">Namespace</span>
+        <code className="min-w-0 break-all font-mono text-xs tabular-nums text-foreground/90">
+          {id}
+        </code>
         <Button
           size="icon"
           variant="ghost"
-          className="size-8 shrink-0"
+          className="size-8 shrink-0 text-muted-foreground transition-colors duration-150 hover:bg-muted/80 hover:text-primary"
           aria-label={t("sandboxCatalog.copy")}
           onClick={async () => {
             try {
@@ -140,7 +149,11 @@ function NamespaceCopy({ id }: { id: string }) {
             }
           }}
         >
-          {status === "copied" ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
+          {status === "copied" ? (
+            <Check className="size-3.5 text-primary" />
+          ) : (
+            <Copy className="size-3.5" />
+          )}
         </Button>
       </div>
       <span role="status" className="text-xs text-muted-foreground">
@@ -201,7 +214,7 @@ function SandboxHero({
       <img
         src={image.url}
         alt=""
-        className="h-full w-full object-cover object-top"
+        className="h-full w-full object-cover object-top transition-transform duration-300 ease-out group-hover:scale-[1.03]"
         onError={(event) => {
           event.currentTarget.src = "/placeholder.webp";
         }}
@@ -213,10 +226,10 @@ function SandboxHero({
     );
   if (compact)
     return (
-      <header className="flex min-w-0 items-center gap-4">
+      <header className="flex min-w-0 items-center gap-4 border-b border-border/60 pb-5">
         <div
           style={{ viewTransitionName: "sandbox-artwork" }}
-          className="aspect-video w-24 shrink-0 overflow-hidden rounded-md sm:w-32"
+          className="group aspect-video w-24 shrink-0 overflow-hidden rounded-xl border border-border/60 bg-card/80 shadow-sm transition-[box-shadow,border-color,background-color] duration-200 ease-out hover:border-primary/50 sm:w-32"
         >
           {artwork}
         </div>
@@ -225,13 +238,13 @@ function SandboxHero({
             to="/{-$locale}/sandboxes/$id"
             params={{ id }}
             viewTransition={sandboxViewTransition}
-            className="text-xs text-muted-foreground hover:text-primary"
+            className="text-xs font-medium text-muted-foreground transition-colors duration-150 hover:text-primary"
           >
             {t("components.sandboxShell.sandbox")}
           </Link>
           <h1
             style={{ viewTransitionName: "sandbox-title" }}
-            className="break-words text-2xl font-semibold tracking-tight"
+            className="font-display break-words text-2xl font-semibold tracking-tight text-foreground"
           >
             {title}
           </h1>
@@ -242,23 +255,33 @@ function SandboxHero({
   return (
     <header className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">
       <div className="min-w-0 space-y-5">
-        <div>
+        <div className="border-b border-border/60 pb-4">
           <div className="mb-2 flex flex-wrap gap-2">
-            <Badge variant="secondary">{t("components.sandboxShell.sandbox")}</Badge>
+            <Badge
+              variant="secondary"
+              className="border border-border/50 transition-colors duration-150 hover:border-primary/50"
+            >
+              {t("components.sandboxShell.sandbox")}
+            </Badge>
             {isInternal && (
-              <Badge variant="outline">{t("components.sandboxShell.internalNamespace")}</Badge>
+              <Badge
+                variant="outline"
+                className="border-border/60 transition-colors duration-150 hover:border-primary/50"
+              >
+                {t("components.sandboxShell.internalNamespace")}
+              </Badge>
             )}
           </div>
           <h1
             style={{ viewTransitionName: "sandbox-title" }}
-            className="break-words text-3xl font-bold tracking-tight md:text-4xl"
+            className="font-display break-words text-3xl font-bold tracking-tight text-foreground md:text-4xl"
           >
             {title}
           </h1>
         </div>
         <div
           style={{ viewTransitionName: "sandbox-artwork" }}
-          className="relative aspect-video w-full max-h-[420px] overflow-hidden rounded-md border border-border/50"
+          className="group relative aspect-video w-full max-h-[420px] overflow-hidden rounded-xl border border-border/60 bg-card/80 shadow-sm transition-[box-shadow,border-color,background-color] duration-200 ease-out hover:border-primary/50"
         >
           {artwork}
         </div>
@@ -279,7 +302,7 @@ function SandboxHero({
                 aria-expanded={expanded}
                 aria-controls="sandbox-description"
                 onClick={() => setExpanded(!expanded)}
-                className="mt-2 text-sm text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                className="mt-2 text-sm font-medium text-primary transition-colors duration-150 hover:text-primary/80 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               >
                 {t(expanded ? "sandboxCatalog.readLess" : "sandboxCatalog.readMore")}
               </button>
@@ -289,11 +312,25 @@ function SandboxHero({
       </div>
       <aside
         aria-label={t("sandboxCatalog.details")}
-        className="flex min-w-0 flex-col gap-5 self-start rounded-md border border-border/60 bg-card p-5 lg:mt-0"
+        className="flex min-w-0 flex-col gap-5 self-start rounded-xl border border-border/60 bg-card/80 p-5 shadow-sm transition-[box-shadow,border-color,background-color] duration-200 ease-out hover:border-border lg:mt-0"
       >
         <div className="flex flex-wrap gap-2">
-          {releaseStatus && <Badge variant="secondary">{releaseStatus}</Badge>}
-          {sandbox?.status && <Badge variant="outline">{sandbox.status}</Badge>}
+          {releaseStatus && (
+            <Badge
+              variant="secondary"
+              className="border border-border/50 transition-colors duration-150 hover:border-primary/50"
+            >
+              {releaseStatus}
+            </Badge>
+          )}
+          {sandbox?.status && (
+            <Badge
+              variant="outline"
+              className="border-border/60 transition-colors duration-150 hover:border-primary/50"
+            >
+              {sandbox.status}
+            </Badge>
+          )}
         </div>
         <NamespaceCopy key={id} id={id} />
         <dl className="divide-y divide-border/60 text-sm">
@@ -306,7 +343,9 @@ function SandboxHero({
             .map((entry) => (
               <div key={entry.label} className="flex justify-between gap-4 py-3">
                 <dt className="text-muted-foreground">{entry.label}</dt>
-                <dd className="min-w-0 break-words text-right">{entry.value}</dd>
+                <dd className="min-w-0 break-words text-right font-medium text-foreground/95">
+                  {entry.value}
+                </dd>
               </div>
             ))}
         </dl>
@@ -314,7 +353,7 @@ function SandboxHero({
           <Link
             to="/{-$locale}/sellers/$id"
             params={{ id: hub.seller.id }}
-            className="text-sm text-primary hover:underline"
+            className="inline-flex items-center self-start text-sm font-medium text-primary underline-offset-4 transition-colors duration-150 hover:text-primary/80 hover:underline"
           >
             {hub.seller.name}
           </Link>
@@ -322,25 +361,34 @@ function SandboxHero({
         {!!hub?.genres?.length && (
           <div className="flex flex-wrap gap-2">
             {hub.genres.filter(Boolean).map((genre) => (
-              <Badge key={genre?.id ?? genre?.name} variant="outline">
+              <Badge
+                key={genre?.id ?? genre?.name}
+                variant="outline"
+                className="border-border/60 transition-colors duration-150 hover:border-primary/50 hover:text-foreground"
+              >
                 {genre?.name}
               </Badge>
             ))}
           </div>
         )}
         {updated && (
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs tabular-nums text-muted-foreground">
             {t("components.sandboxShell.updated", { date: formatDate(updated, locale || "en-US") })}
           </p>
         )}
         {primaryOffer && (
-          <div className="flex flex-col gap-3 border-t border-border pt-5">
+          <div className="flex flex-col gap-3 border-t border-border/60 pt-5">
             <PriceBlock price={primaryOffer.price} />
-            <Button asChild variant="outline">
-              <Link to="/{-$locale}/offers/$id" params={{ id: primaryOffer.id }}>
-                {t("sandboxCatalog.primaryOffer")}
-              </Link>
-            </Button>
+            <Link
+              to="/{-$locale}/offers/$id"
+              params={{ id: primaryOffer.id }}
+              className={cn(
+                buttonVariants({ variant: "outline" }),
+                "border-border/60 transition-[box-shadow,border-color,background-color,color] duration-200 ease-out hover:border-primary/50 hover:bg-accent",
+              )}
+            >
+              {t("sandboxCatalog.primaryOffer")}
+            </Link>
             <StoreActions offer={primaryOffer} />
           </div>
         )}
@@ -356,12 +404,15 @@ function StoreActions({ offer }: { offer: SandboxBaseGame }) {
   return (
     <>
       {storeUrl && (
-        <Button asChild className="h-10 gap-2">
-          <a href={storeUrl} target="_blank" rel="noopener noreferrer">
-            <ShoppingBag className="size-4" />
-            <span>{t("components.sandboxShell.storePage")}</span>
-          </a>
-        </Button>
+        <LinkButton
+          href={storeUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="h-10 gap-2"
+        >
+          <ShoppingBag className="size-4" />
+          <span>{t("components.sandboxShell.storePage")}</span>
+        </LinkButton>
       )}
       <OpenLauncher id={offer.id} />
     </>
@@ -417,16 +468,16 @@ function PriceBlock({ price }: { price: Price | null }) {
     : 0;
 
   return (
-    <div className="flex min-h-10 flex-wrap items-center gap-2 rounded-md border border-border/45 bg-background/60 px-4 py-2 backdrop-blur md:gap-3 md:py-0">
-      <span className={cn("text-lg font-semibold", discounted && "text-primary")}>
+    <div className="flex min-h-10 flex-wrap items-center gap-2 rounded-xl border border-border/60 bg-background/60 px-4 py-2.5 backdrop-blur tabular-nums transition-colors duration-150 hover:border-primary/50 md:gap-3 md:py-0">
+      <span className={cn("text-lg font-semibold tabular-nums", discounted && "text-primary")}>
         {discountPrice === 0 ? t("common.free") : formatter.format(discountPrice)}
       </span>
       {discounted && (
         <>
-          <span className="text-sm text-muted-foreground line-through">
+          <span className="text-sm tabular-nums text-muted-foreground line-through">
             {formatter.format(originalPrice)}
           </span>
-          <Badge className="bg-badge text-black">-{discountPercent}%</Badge>
+          <Badge className="bg-badge text-black tabular-nums">-{discountPercent}%</Badge>
         </>
       )}
     </div>

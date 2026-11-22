@@ -1,6 +1,7 @@
 import {
   useCallback,
   useEffect,
+  useId,
   useMemo,
   useRef,
   useState,
@@ -20,6 +21,7 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Image } from "@/components/app/image";
 import { getImage } from "@/lib/getImage";
@@ -101,7 +103,7 @@ const RESULTS_MAX_HEIGHT = 640;
 const RESULTS_MAX_VIEWPORT_RATIO = 0.74;
 const GROUP_CLASS_NAME = "min-w-0 max-w-full [&_[cmdk-group-items]]:min-w-0";
 const RESULT_ROW_CLASS_NAME =
-  "w-full max-w-full min-w-0 items-center gap-3 overflow-hidden rounded-md px-3 py-2 transition-colors hover:bg-accent hover:text-accent-foreground";
+  "group w-full max-w-full min-w-0 cursor-pointer items-center gap-3 overflow-hidden rounded-lg px-3 py-2 transition-colors duration-150 hover:bg-card hover:text-foreground data-[focused]:bg-card data-[focused]:text-foreground";
 const RESULT_ROW_STYLE: CSSProperties = {
   display: "grid",
   gridTemplateColumns: "auto minmax(0, 1fr) auto",
@@ -206,9 +208,12 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
 
     const connectHeightObserver = () => {
       const commandList = commandListRef.current;
-      const viewport = commandList?.querySelector<HTMLElement>("[data-radix-scroll-area-viewport]");
-      const content = viewport?.firstElementChild as HTMLElement | null;
-      if (!commandList || !viewport || !content) {
+      // `CommandList` is the scroll content now that ScrollArea renders a plain
+      // scroll container (React Aria migration). Radix's viewport element no
+      // longer exists, which used to leave this observer without a target and
+      // collapsed the palette to zero height.
+      const content = commandList?.querySelector<HTMLElement>('[data-slot="command-list"]');
+      if (!commandList || !content) {
         animationFrame = window.requestAnimationFrame(connectHeightObserver);
         return;
       }
@@ -229,7 +234,7 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
       const resizeObserver = new ResizeObserver(scheduleHeightUpdate);
       const mutationObserver = new MutationObserver(scheduleHeightUpdate);
       resizeObserver.observe(content);
-      mutationObserver.observe(commandList, { childList: true, subtree: true });
+      mutationObserver.observe(content, { childList: true, subtree: true, characterData: true });
       window.addEventListener("resize", scheduleHeightUpdate);
       updateHeight();
 
@@ -487,37 +492,44 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
   return (
     <Portal>
       <div
-        className="fixed inset-0 z-[60] bg-background/80"
+        className="fixed inset-0 z-[60] bg-background/75 backdrop-blur-sm"
         onMouseDown={(event) => {
           if (event.target === event.currentTarget) {
             closeSearch(false);
           }
         }}
       >
-        <div className="fixed left-1/2 top-4 z-[61] w-[calc(100%-1rem)] max-w-2xl -translate-x-1/2 sm:top-[10vh]">
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="global-search-title"
+          className="fixed left-1/2 top-4 z-[61] w-[calc(100%-1rem)] max-w-2xl -translate-x-1/2 sm:top-[10vh]"
+        >
           <Command
-            shouldFilter={false}
-            disablePointerSelection
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="global-search-title"
-            className="overflow-hidden rounded-lg border border-border/70 bg-card shadow-2xl"
+            filter={() => true}
+            inputValue={queryValue}
+            onInputChange={updateQuery}
+            className="overflow-hidden rounded-2xl border border-white/10 bg-popover text-popover-foreground shadow-2xl shadow-black/60"
           >
             <h2 id="global-search-title" className="sr-only">
               Search EGDATA
             </h2>
-            <div className="relative">
+            <div
+              className="relative"
+              ref={(el) => {
+                inputRef.current = el?.querySelector("input") ?? null;
+              }}
+            >
               <CommandInput
-                ref={inputRef}
                 value={queryValue}
-                onValueChange={updateQuery}
+                onChange={(event) => updateQuery(event.target.value)}
                 maxLength={MAX_QUERY_LENGTH}
                 placeholder="Search games, items, sellers..."
                 className="h-14 pr-11 text-base"
               />
               <button
                 type="button"
-                className="absolute right-3 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="absolute right-3 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full text-muted-foreground transition-colors duration-150 hover:bg-muted/80 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 aria-label={queryValue ? "Clear search" : "Close search"}
                 onClick={() => {
                   if (queryValue) {
@@ -533,178 +545,205 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
               </button>
             </div>
 
-            <CommandList
+            <ScrollArea
               ref={commandListRef}
-              className="max-h-none overflow-x-hidden !overflow-y-visible pr-3 [&_[cmdk-list-sizer]]:min-w-0 [&_[cmdk-list-sizer]]:max-w-full [&_[cmdk-list-sizer]]:w-full"
-              scrollAreaClassName="max-h-[min(74vh,640px)] motion-safe:transition-[height] motion-safe:duration-200 motion-safe:ease-out"
-              scrollAreaStyle={{ height: resultsHeight }}
+              className="max-h-[min(74vh,640px)] motion-safe:transition-[height] motion-safe:duration-200 motion-safe:ease-out"
+              style={{ height: resultsHeight }}
             >
-              {!query && (
-                <CommandGroup className={GROUP_CLASS_NAME} heading="Quick links">
-                  <SearchActionItem
-                    value="action:browse-catalog"
-                    icon={SearchIcon}
-                    title="Browse catalog"
-                    description="Open the advanced offer search"
-                    label="Search"
-                    onSelect={() => openFullSearch()}
-                  />
-                  <SearchActionItem
-                    value="action:discounts"
-                    icon={Tag}
-                    title="Discounts"
-                    description="Show offers that are currently on sale"
-                    label="Search"
-                    onSelect={openDiscounts}
-                  />
-                  <SearchActionItem
-                    value="action:free-games"
-                    icon={Gift}
-                    title="Free games"
-                    description="Open current and past giveaways"
-                    label="Page"
-                    onSelect={openFreebies}
-                  />
-                  <SearchActionItem
-                    value="action:sales"
-                    icon={CalendarDays}
-                    title="Sales"
-                    description="Open sale events"
-                    label="Page"
-                    onSelect={openSales}
-                  />
-                </CommandGroup>
-              )}
-
-              {query && !queryReady && (
-                <div className="px-4 py-10 text-center text-sm text-muted-foreground">
-                  Type at least {MIN_QUERY_LENGTH} characters.
-                </div>
-              )}
-
-              {queryReady && (
-                <>
-                  <CommandGroup className={GROUP_CLASS_NAME} heading={`Results for "${query}"`}>
+              <CommandList className="max-h-none overflow-x-hidden !overflow-y-visible pr-3">
+                {!query && (
+                  <CommandGroup className={GROUP_CLASS_NAME} heading="Quick links">
                     <SearchActionItem
-                      value={`action:search-offers:${query}`}
+                      value="action:browse-catalog"
                       icon={SearchIcon}
-                      title={`Search all offers for "${query}"`}
-                      description="Open the full catalog with filters"
+                      title="Browse catalog"
+                      description="Open the advanced offer search"
                       label="Search"
-                      onSelect={() => openFullSearch(query)}
+                      onSelect={() => openFullSearch()}
+                    />
+                    <SearchActionItem
+                      value="action:discounts"
+                      icon={Tag}
+                      title="Discounts"
+                      description="Show offers that are currently on sale"
+                      label="Search"
+                      onSelect={openDiscounts}
+                    />
+                    <SearchActionItem
+                      value="action:free-games"
+                      icon={Gift}
+                      title="Free games"
+                      description="Open current and past giveaways"
+                      label="Page"
+                      onSelect={openFreebies}
+                    />
+                    <SearchActionItem
+                      value="action:sales"
+                      icon={CalendarDays}
+                      title="Sales"
+                      description="Open sale events"
+                      label="Page"
+                      onSelect={openSales}
                     />
                   </CommandGroup>
+                )}
 
-                  <CommandSeparator />
+                {query && !queryReady && (
+                  <ResultNotice>Type at least {MIN_QUERY_LENGTH} characters.</ResultNotice>
+                )}
 
-                  {isSearching && <ResultSkeletonList />}
+                {queryReady && (
+                  <>
+                    <CommandGroup className={GROUP_CLASS_NAME} heading={`Results for "${query}"`}>
+                      <SearchActionItem
+                        value="action:search-offers"
+                        icon={SearchIcon}
+                        title={`Search all offers for "${query}"`}
+                        description="Open the full catalog with filters"
+                        label="Search"
+                        onSelect={() => openFullSearch(query)}
+                      />
+                    </CommandGroup>
 
-                  {!isSearching && (
-                    <>
-                      <ResultGroup
-                        icon={Tag}
-                        title="Offers"
-                        count={offersData?.estimatedTotalHits}
-                        error={offersError}
-                        emptyLabel="No matching offers"
-                      >
-                        {offers.map((offer) => (
-                          <OfferResultItem
-                            key={offer.id}
-                            offer={offer}
-                            locale={resolvedLocale}
-                            onSelect={() => openOffer(offer.id)}
-                          />
-                        ))}
-                      </ResultGroup>
+                    <CommandSeparator />
 
-                      {semanticPending && (
+                    {isSearching && <ResultSkeletonList />}
+
+                    {!isSearching && (
+                      <>
                         <ResultGroup
-                          icon={Sparkles}
-                          title={t("globalSearch.semantic.heading")}
-                          error={false}
-                          emptyLabel=""
+                          icon={Tag}
+                          title="Offers"
+                          count={offersData?.estimatedTotalHits}
+                          error={offersError}
+                          emptyLabel="No matching offers"
                         >
-                          <ResultNotice>{t("globalSearch.semantic.loading")}</ResultNotice>
+                          {offers.map((offer) => (
+                            <OfferResultItem
+                              key={offer.id}
+                              offer={offer}
+                              locale={resolvedLocale}
+                              onSelect={() => openOffer(offer.id)}
+                            />
+                          ))}
                         </ResultGroup>
-                      )}
 
-                      {semanticQueryIsCurrent && semanticError && (
-                        <ResultGroup
-                          icon={Sparkles}
-                          title={t("globalSearch.semantic.heading")}
-                          error={true}
-                          errorLabel={t("globalSearch.semantic.error")}
-                          emptyLabel=""
-                        >
-                          {null}
-                        </ResultGroup>
-                      )}
-
-                      {semanticQueryIsCurrent &&
-                        !semanticFetching &&
-                        !semanticError &&
-                        semanticOffers.length > 0 && (
+                        {semanticPending && (
                           <ResultGroup
                             icon={Sparkles}
                             title={t("globalSearch.semantic.heading")}
-                            count={semanticOffers.length}
                             error={false}
                             emptyLabel=""
                           >
-                            {semanticOffers.map((offer) => (
-                              <OfferResultItem
-                                key={offer.id}
-                                offer={offer}
-                                locale={resolvedLocale}
-                                onSelect={() => openOffer(offer.id)}
-                              />
-                            ))}
+                            <ResultNotice>{t("globalSearch.semantic.loading")}</ResultNotice>
                           </ResultGroup>
                         )}
 
-                      <ResultGroup
-                        icon={Gamepad2}
-                        title="Items"
-                        count={itemsData?.estimatedTotalHits}
-                        error={itemsError}
-                        emptyLabel="No matching items"
-                      >
-                        {items.map((item) => (
-                          <ItemResultItem
-                            key={item._id}
-                            item={item}
-                            onSelect={() => openItem(item.id)}
-                          />
-                        ))}
-                      </ResultGroup>
+                        {semanticQueryIsCurrent && semanticError && (
+                          <ResultGroup
+                            icon={Sparkles}
+                            title={t("globalSearch.semantic.heading")}
+                            error={true}
+                            errorLabel={t("globalSearch.semantic.error")}
+                            emptyLabel=""
+                          >
+                            {null}
+                          </ResultGroup>
+                        )}
 
-                      <ResultGroup
-                        icon={Store}
-                        title="Sellers"
-                        count={sellersData?.estimatedTotalHits}
-                        error={sellersError}
-                        emptyLabel="No matching sellers"
-                      >
-                        {sellers.map((seller) => (
-                          <SellerResultItem
-                            key={seller._id}
-                            seller={seller}
-                            onSelect={() => openSeller(seller._id)}
-                          />
-                        ))}
-                      </ResultGroup>
-                    </>
-                  )}
+                        {semanticQueryIsCurrent &&
+                          !semanticFetching &&
+                          !semanticError &&
+                          semanticOffers.length > 0 && (
+                            <ResultGroup
+                              icon={Sparkles}
+                              title={t("globalSearch.semantic.heading")}
+                              count={semanticOffers.length}
+                              error={false}
+                              emptyLabel=""
+                            >
+                              {semanticOffers.map((offer) => (
+                                <OfferResultItem
+                                  key={offer.id}
+                                  offer={offer}
+                                  locale={resolvedLocale}
+                                  onSelect={() => openOffer(offer.id)}
+                                />
+                              ))}
+                            </ResultGroup>
+                          )}
 
-                  {hasNoMatches && (
-                    <div className="px-4 pb-6 pt-2 text-center text-sm text-muted-foreground">
-                      No matches. Try the full catalog search.
-                    </div>
-                  )}
-                </>
-              )}
-            </CommandList>
+                        <ResultGroup
+                          icon={Gamepad2}
+                          title="Items"
+                          count={itemsData?.estimatedTotalHits}
+                          error={itemsError}
+                          emptyLabel="No matching items"
+                        >
+                          {items.map((item, index) => {
+                            const itemKey = item._id || item.id || `${index}`;
+                            return (
+                              <ItemResultItem
+                                key={`${itemKey}-${index}`}
+                                itemId={itemKey}
+                                item={item}
+                                onSelect={() => openItem(item.id || item._id)}
+                              />
+                            );
+                          })}
+                        </ResultGroup>
+
+                        <ResultGroup
+                          icon={Store}
+                          title="Sellers"
+                          count={sellersData?.estimatedTotalHits}
+                          error={sellersError}
+                          emptyLabel="No matching sellers"
+                        >
+                          {sellers.map((seller, index) => {
+                            const sellerId = seller._id || seller.id || seller.name || `${index}`;
+                            return (
+                              <SellerResultItem
+                                key={`${sellerId}-${index}`}
+                                sellerId={sellerId}
+                                seller={seller}
+                                onSelect={() => openSeller(seller._id || seller.id || "")}
+                              />
+                            );
+                          })}
+                        </ResultGroup>
+                      </>
+                    )}
+
+                    {hasNoMatches && (
+                      <ResultNotice>No matches. Try the full catalog search.</ResultNotice>
+                    )}
+                  </>
+                )}
+              </CommandList>
+            </ScrollArea>
+            <div className="hidden items-center justify-between border-t border-border/50 bg-card/50 px-4 py-2 text-[11px] text-muted-foreground/75 sm:flex">
+              <div className="flex items-center gap-3">
+                <span className="inline-flex items-center gap-1">
+                  <kbd className="rounded border border-border/70 bg-background/80 px-1.5 py-0.5 text-[10px]">
+                    ↑↓
+                  </kbd>
+                  <span>Navigate</span>
+                </span>
+                <span className="inline-flex items-center gap-1">
+                  <kbd className="rounded border border-border/70 bg-background/80 px-1.5 py-0.5 text-[10px]">
+                    ↵
+                  </kbd>
+                  <span>Open</span>
+                </span>
+              </div>
+              <span className="inline-flex items-center gap-1">
+                <kbd className="rounded border border-border/70 bg-background/80 px-1.5 py-0.5 text-[10px]">
+                  Esc
+                </kbd>
+                <span>Close</span>
+              </span>
+            </div>
           </Command>
         </div>
       </div>
@@ -729,20 +768,25 @@ function SearchActionItem({
 }) {
   return (
     <CommandItem
-      value={value}
-      keywords={[label, title, description]}
-      onSelect={onSelect}
-      className={cn("min-h-14", RESULT_ROW_CLASS_NAME)}
+      id={value}
+      textValue={`${label} ${title} ${description}`}
+      onAction={onSelect}
+      className={cn("min-h-[52px]", RESULT_ROW_CLASS_NAME)}
       style={RESULT_ROW_STYLE}
     >
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground">
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-card/80 text-muted-foreground transition-colors duration-150 group-hover:border-primary/40 group-hover:text-primary">
         <Icon className="h-4 w-4" />
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block truncate font-medium">{title}</span>
+        <span className="block truncate font-medium transition-colors duration-150 group-hover:text-primary">
+          {title}
+        </span>
         <span className="block truncate text-xs text-muted-foreground">{description}</span>
       </span>
-      <Badge variant="outline" className="ml-2 shrink-0">
+      <Badge
+        variant="outline"
+        className="ml-2 shrink-0 rounded-full border-border/70 bg-background/50 px-2.5 text-[11px] font-medium text-muted-foreground"
+      >
         {label}
       </Badge>
     </CommandItem>
@@ -777,20 +821,14 @@ function ResultGroup({
   return (
     <CommandGroup
       className={GROUP_CLASS_NAME}
-      heading={
-        <span className="flex items-center gap-2">
-          <Icon className="h-3.5 w-3.5" />
-          <span>{title}</span>
-          {count !== undefined && (
-            <span className="text-muted-foreground/70">{formatCount(count)}</span>
-          )}
-        </span>
-      }
+      heading={count !== undefined ? `${title} (${formatCount(count)})` : title}
     >
       {error && (
-        <ResultNotice>{errorLabel ?? `Could not load ${title.toLowerCase()}.`}</ResultNotice>
+        <ResultNotice key="error">
+          {errorLabel ?? `Could not load ${title.toLowerCase()}.`}
+        </ResultNotice>
       )}
-      {!error && childCount === 0 && <ResultNotice>{emptyLabel}</ResultNotice>}
+      {!error && childCount === 0 && <ResultNotice key="empty">{emptyLabel}</ResultNotice>}
       {!error && children}
     </CommandGroup>
   );
@@ -809,10 +847,10 @@ function OfferResultItem({
 
   return (
     <CommandItem
-      value={`offer:${offer.id}`}
-      keywords={[offer.title, offer.seller?.name ?? ""]}
-      onSelect={onSelect}
-      className={cn("min-h-16", RESULT_ROW_CLASS_NAME)}
+      id={`offer:${offer.id}`}
+      textValue={`${offer.title} ${offer.seller?.name ?? ""}`}
+      onAction={onSelect}
+      className={cn("min-h-[60px]", RESULT_ROW_CLASS_NAME)}
       style={RESULT_ROW_STYLE}
     >
       <ResultImage
@@ -827,43 +865,56 @@ function OfferResultItem({
         alt={offer.title}
       />
       <span className="min-w-0 flex-1">
-        <span className="block truncate font-medium">{offer.title}</span>
+        <span className="block truncate font-medium transition-colors duration-150 group-hover:text-primary">
+          {offer.title}
+        </span>
         <span className="block truncate text-xs text-muted-foreground">
           {offer.seller?.name ?? "Epic Games Store offer"}
         </span>
       </span>
       <span className="ml-2 flex min-w-0 items-center justify-end gap-2 overflow-hidden">
         {offer.prePurchase && (
-          <Badge variant="secondary" className="hidden max-w-full truncate sm:inline-flex">
+          <Badge
+            variant="secondary"
+            className="hidden max-w-full truncate rounded-full bg-primary/15 px-2.5 text-[11px] font-medium text-primary sm:inline-flex"
+          >
             Pre-purchase
           </Badge>
         )}
-        {price && (
-          <span
-            className={cn(
-              "text-sm font-semibold",
-              price === "Free" ? "text-primary" : "text-foreground",
-            )}
-          >
-            {price}
-          </span>
-        )}
+        {price &&
+          (price === "Free" ? (
+            <span className="inline-flex shrink-0 items-center rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-xs font-semibold text-emerald-300 tabular-nums">
+              {price}
+            </span>
+          ) : (
+            <span className="shrink-0 text-sm font-semibold tabular-nums text-foreground">
+              {price}
+            </span>
+          ))}
       </span>
     </CommandItem>
   );
 }
 
-function ItemResultItem({ item, onSelect }: { item: SingleItem; onSelect: () => void }) {
+function ItemResultItem({
+  itemId,
+  item,
+  onSelect,
+}: {
+  itemId: string;
+  item: SingleItem;
+  onSelect: () => void;
+}) {
   const platforms = getPlatformsArray(item.releaseInfo).filter(
     (platform) => textPlatformIcons[platform],
   );
 
   return (
     <CommandItem
-      value={`item:${item._id || item.id}`}
-      keywords={[item.title, item.namespace]}
-      onSelect={onSelect}
-      className={cn("min-h-16", RESULT_ROW_CLASS_NAME)}
+      id={`item:${itemId}`}
+      textValue={`${item.title} ${item.namespace}`}
+      onAction={onSelect}
+      className={cn("min-h-[60px]", RESULT_ROW_CLASS_NAME)}
       style={RESULT_ROW_STYLE}
     >
       <ResultImage
@@ -871,7 +922,9 @@ function ItemResultItem({ item, onSelect }: { item: SingleItem; onSelect: () => 
         alt={item.title}
       />
       <span className="min-w-0 flex-1">
-        <span className="block truncate font-medium">{item.title}</span>
+        <span className="block truncate font-medium transition-colors duration-150 group-hover:text-primary">
+          {item.title}
+        </span>
         <span className="block truncate text-xs text-muted-foreground">
           {item.itemType || "Item"} - {item.namespace}
         </span>
@@ -889,16 +942,24 @@ function ItemResultItem({ item, onSelect }: { item: SingleItem; onSelect: () => 
   );
 }
 
-function SellerResultItem({ seller, onSelect }: { seller: SingleSeller; onSelect: () => void }) {
+function SellerResultItem({
+  sellerId,
+  seller,
+  onSelect,
+}: {
+  sellerId: string;
+  seller: SingleSeller;
+  onSelect: () => void;
+}) {
   return (
     <CommandItem
-      value={`seller:${seller._id}`}
-      keywords={[seller.name]}
-      onSelect={onSelect}
-      className={cn("min-h-16", RESULT_ROW_CLASS_NAME)}
+      id={`seller:${sellerId}`}
+      textValue={seller.name}
+      onAction={onSelect}
+      className={cn("min-h-[60px]", RESULT_ROW_CLASS_NAME)}
       style={RESULT_ROW_STYLE}
     >
-      <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-md bg-muted">
+      <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-white/10 bg-muted">
         {seller.logo?.url ? (
           <img
             src={seller.logo.url}
@@ -913,12 +974,17 @@ function SellerResultItem({ seller, onSelect }: { seller: SingleSeller; onSelect
         )}
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block truncate font-medium">{seller.name}</span>
+        <span className="block truncate font-medium transition-colors duration-150 group-hover:text-primary">
+          {seller.name}
+        </span>
         <span className="block truncate text-xs text-muted-foreground">
           {seller.igdb_id ? `IGDB ${seller.igdb_id}` : "Seller"}
         </span>
       </span>
-      <Badge variant="outline" className="ml-2 shrink-0">
+      <Badge
+        variant="outline"
+        className="ml-2 shrink-0 rounded-full border-border/70 bg-background/50 px-2.5 text-[11px] font-medium text-muted-foreground"
+      >
         Seller
       </Badge>
     </CommandItem>
@@ -927,7 +993,7 @@ function SellerResultItem({ seller, onSelect }: { seller: SingleSeller; onSelect
 
 function ResultImage({ src, alt }: { src?: string; alt: string }) {
   return (
-    <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-md bg-muted">
+    <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-white/10 bg-muted">
       <Image
         src={src ?? "/placeholder.webp"}
         alt={alt}
@@ -935,30 +1001,52 @@ function ResultImage({ src, alt }: { src?: string; alt: string }) {
         width={88}
         quality="high"
         sizes="44px"
-        className="h-full w-full object-cover"
+        className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.05]"
       />
     </span>
   );
 }
 
+// These notices and skeletons live inside the React Aria Menu collection, so
+// they must be collection nodes. A plain <div> here is rendered into the
+// collection document, which cannot create text nodes (crash on typing).
 function ResultNotice({ children }: { children: ReactNode }) {
-  return <div className="px-3 py-3 text-sm text-muted-foreground">{children}</div>;
+  const id = useId();
+
+  return (
+    <CommandItem
+      id={`notice:${id}`}
+      isDisabled
+      textValue={typeof children === "string" ? children : undefined}
+      className="min-h-0 cursor-default px-3 py-3 text-sm text-muted-foreground"
+    >
+      <span>{children}</span>
+    </CommandItem>
+  );
 }
 
 function ResultSkeletonList() {
   return (
-    <div className="space-y-2 p-3">
+    <CommandGroup>
       {Array.from({ length: 5 }).map((_, index) => (
-        <div key={index} className="flex min-h-16 items-center gap-3 rounded-md px-3 py-2">
-          <Skeleton className="h-11 w-11 rounded-md" />
-          <div className="min-w-0 flex-1 space-y-2">
-            <Skeleton className="h-4 w-2/3" />
-            <Skeleton className="h-3 w-1/3" />
-          </div>
-          <Skeleton className="h-6 w-16 rounded-md" />
-        </div>
+        <CommandItem
+          key={index}
+          id={`search-skeleton-${index}`}
+          isDisabled
+          textValue="Loading"
+          className="min-h-16 px-3 py-2"
+        >
+          <span className="flex w-full items-center gap-3">
+            <Skeleton className="h-11 w-11 rounded-md" />
+            <span className="min-w-0 flex-1 space-y-2">
+              <Skeleton className="h-4 w-2/3" />
+              <Skeleton className="h-3 w-1/3" />
+            </span>
+            <Skeleton className="h-6 w-16 rounded-md" />
+          </span>
+        </CommandItem>
       ))}
-    </div>
+    </CommandGroup>
   );
 }
 

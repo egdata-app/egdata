@@ -18,6 +18,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { ExtendedSearch } from "@/components/app/extended-search";
 import { Checkbox } from "@/components/ui/checkbox";
 import { offersDictionary, offerTypeValues } from "@/lib/offers-dictionary";
+import { Search } from "lucide-react";
 
 export interface SearchFiltersProps {
   query: TypeOf<typeof formSchema>;
@@ -118,103 +119,130 @@ export function SearchFilters({
     return Array.isArray(val) && val.every((v) => typeof v === "string");
   }
 
+  const hasSelectedFilters = Boolean(
+    (showTags && isStringArray(query.tags) && query.tags.length > 0) ||
+    (showTechnologies && isStringArray(query.technologies) && query.technologies.length > 0) ||
+    (showDeveloper && query.developerDisplayName) ||
+    (showPublisher && query.publisherDisplayName) ||
+    (showOfferType && query.offerType) ||
+    (showOnSale && query.onSale) ||
+    (showCodeRedemption && query.isCodeRedemptionOnly) ||
+    (showBlockchain && query.excludeBlockchain) ||
+    (showSeller && query.seller) ||
+    (showPastGiveaways && query.pastGiveaways),
+  );
+
   return (
-    <aside className="flex w-full flex-col gap-4 md:w-80">
+    <aside className="flex w-full flex-col gap-4 rounded-xl border border-white/10 bg-card/60 p-4">
       {showTitle && (
-        <Input
-          type="search"
-          placeholder={t("search.filtersPlaceholder")}
-          name="title"
-          value={query.title || ""}
-          onChange={(e) =>
-            handleFieldChange("title", e.target.value === "" ? undefined : e.target.value)
-          }
-        />
+        <div className="relative">
+          <Search
+            className="pointer-events-none absolute start-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground/75"
+            aria-hidden="true"
+          />
+          <Input
+            type="search"
+            placeholder={t("search.filtersPlaceholder")}
+            name="title"
+            value={query.title || ""}
+            className="h-10 rounded-lg border-border/70 bg-background/70 ps-9 text-sm transition-colors duration-150 focus-visible:border-primary/60"
+            onChange={(e) =>
+              handleFieldChange("title", e.target.value === "" ? undefined : e.target.value)
+            }
+          />
+        </div>
       )}
 
       {/* Selected Filters Pills */}
-      <div id="selected_filters" className="flex flex-row flex-wrap gap-2">
-        {showTags &&
-          (isStringArray(query.tags) ? query.tags : []).map((tag) => {
-            const tagData = tags?.find((t) => t.id === tag);
-            return (
-              <QuickPill
-                key={tag}
-                label={tagData?.name ?? tag}
-                onRemove={() => {
-                  handleArrayFieldChange(
-                    "tags",
-                    (isStringArray(query.tags) ? query.tags : []).filter((t) => t !== tag),
-                  );
-                }}
-              />
-            );
-          })}
-        {showTechnologies &&
-          (isStringArray(query.technologies) ? query.technologies : []).map((technology) => (
-            <QuickPill
-              key={technology}
-              label={technology}
-              onRemove={() => {
-                handleArrayFieldChange(
-                  "technologies",
-                  (isStringArray(query.technologies) ? query.technologies : []).filter(
-                    (value) => value !== technology,
-                  ),
+      {hasSelectedFilters && (
+        <>
+          <div id="selected_filters" className="flex flex-row flex-wrap gap-1.5">
+            {showTags &&
+              (isStringArray(query.tags) ? query.tags : []).map((tag) => {
+                const tagData = tags?.find((t) => t.id === tag);
+                return (
+                  <QuickPill
+                    key={tag}
+                    label={tagData?.name ?? tag}
+                    onRemove={() => {
+                      handleArrayFieldChange(
+                        "tags",
+                        (isStringArray(query.tags) ? query.tags : []).filter((t) => t !== tag),
+                      );
+                    }}
+                  />
                 );
-              }}
-            />
-          ))}
-        {showDeveloper && query.developerDisplayName && (
-          <QuickPill
-            label={query.developerDisplayName}
-            onRemove={() => handleFieldChange("developerDisplayName", undefined)}
-          />
-        )}
-        {showPublisher && query.publisherDisplayName && (
-          <QuickPill
-            label={query.publisherDisplayName}
-            onRemove={() => handleFieldChange("publisherDisplayName", undefined)}
-          />
-        )}
-        {showOfferType && query.offerType && (
-          <QuickPill
-            label={
-              offersDictionary[query.offerType as keyof typeof offersDictionary] ?? query.offerType
-            }
-            onRemove={() => handleFieldChange("offerType", undefined)}
-          />
-        )}
-        {showOnSale && query.onSale && (
-          <QuickPill
-            label={t("search.pills.onSale")}
-            onRemove={() => handleFieldChange("onSale", undefined)}
-          />
-        )}
-        {showCodeRedemption && query.isCodeRedemptionOnly && (
-          <QuickPill
-            label={t("search.pills.codeRedemptionOnly")}
-            onRemove={() => handleFieldChange("isCodeRedemptionOnly", undefined)}
-          />
-        )}
-        {showBlockchain && query.excludeBlockchain && (
-          <QuickPill
-            label={t("search.pills.excludeBlockchain")}
-            onRemove={() => handleFieldChange("excludeBlockchain", undefined)}
-          />
-        )}
-        {showSeller && query.seller && (
-          <QuickPill label={query.seller} onRemove={() => handleFieldChange("seller", undefined)} />
-        )}
-        {showPastGiveaways && query.pastGiveaways && (
-          <QuickPill
-            label={t("search.pills.pastGiveaways")}
-            onRemove={() => handleFieldChange("pastGiveaways", undefined)}
-          />
-        )}
-      </div>
-
-      <Separator />
+              })}
+            {showTechnologies &&
+              (isStringArray(query.technologies) ? query.technologies : []).map((technology) => (
+                <QuickPill
+                  key={technology}
+                  label={technology}
+                  onRemove={() => {
+                    handleArrayFieldChange(
+                      "technologies",
+                      (isStringArray(query.technologies) ? query.technologies : []).filter(
+                        (value) => value !== technology,
+                      ),
+                    );
+                  }}
+                />
+              ))}
+            {showDeveloper && query.developerDisplayName && (
+              <QuickPill
+                label={query.developerDisplayName}
+                onRemove={() => handleFieldChange("developerDisplayName", undefined)}
+              />
+            )}
+            {showPublisher && query.publisherDisplayName && (
+              <QuickPill
+                label={query.publisherDisplayName}
+                onRemove={() => handleFieldChange("publisherDisplayName", undefined)}
+              />
+            )}
+            {showOfferType && query.offerType && (
+              <QuickPill
+                label={
+                  offersDictionary[query.offerType as keyof typeof offersDictionary] ??
+                  query.offerType
+                }
+                onRemove={() => handleFieldChange("offerType", undefined)}
+              />
+            )}
+            {showOnSale && query.onSale && (
+              <QuickPill
+                label={t("search.pills.onSale")}
+                onRemove={() => handleFieldChange("onSale", undefined)}
+              />
+            )}
+            {showCodeRedemption && query.isCodeRedemptionOnly && (
+              <QuickPill
+                label={t("search.pills.codeRedemptionOnly")}
+                onRemove={() => handleFieldChange("isCodeRedemptionOnly", undefined)}
+              />
+            )}
+            {showBlockchain && query.excludeBlockchain && (
+              <QuickPill
+                label={t("search.pills.excludeBlockchain")}
+                onRemove={() => handleFieldChange("excludeBlockchain", undefined)}
+              />
+            )}
+            {showSeller && query.seller && (
+              <QuickPill
+                label={query.seller}
+                onRemove={() => handleFieldChange("seller", undefined)}
+              />
+            )}
+            {showPastGiveaways && query.pastGiveaways && (
+              <QuickPill
+                label={t("search.pills.pastGiveaways")}
+                onRemove={() => handleFieldChange("pastGiveaways", undefined)}
+              />
+            )}
+          </div>
+          <Separator className="bg-border/50" />
+        </>
+      )}
 
       {showPrice && (
         <PriceRangeSlider
@@ -230,18 +258,18 @@ export function SearchFilters({
       )}
 
       <Accordion
-        type="single"
-        collapsible
         className="w-full"
-        onValueChange={(value) => {
-          const section = facetSectionForAccordionValue(value);
-          if (section) {
-            onFacetSectionOpen(section);
+        onExpandedChange={(keys) => {
+          for (const key of keys) {
+            const section = facetSectionForAccordionValue(String(key));
+            if (section) {
+              onFacetSectionOpen(section);
+            }
           }
         }}
       >
         {showOfferType && (
-          <AccordionItem value="offerType">
+          <AccordionItem id="offerType">
             <AccordionTrigger>{t("search.accordion.offerType")}</AccordionTrigger>
             <AccordionContent className="flex flex-col gap-2 w-full mt-2">
               {offerTypeValues
@@ -271,7 +299,7 @@ export function SearchFilters({
           tagTypes.map((tagType) => {
             const tagTypeTags = tags?.filter((tag) => tag.groupName === tagType.name);
             return (
-              <AccordionItem key={tagType.name} value={tagType.name ?? "alltags"}>
+              <AccordionItem key={tagType.name} id={tagType.name ?? "alltags"}>
                 <AccordionTrigger>{tagType.label}</AccordionTrigger>
                 <AccordionContent className="flex flex-col gap-2 mt-2">
                   <ScrollArea>
@@ -316,7 +344,7 @@ export function SearchFilters({
           })}
 
         {showTechnologies && (
-          <AccordionItem value="technologies">
+          <AccordionItem id="technologies">
             <AccordionTrigger>{t("search.accordion.technologies")}</AccordionTrigger>
             <AccordionContent className="mt-2 flex flex-col gap-2">
               <ScrollArea>
@@ -364,7 +392,7 @@ export function SearchFilters({
         )}
 
         {showDeveloper && (
-          <AccordionItem value="developer">
+          <AccordionItem id="developer">
             <AccordionTrigger>{t("search.accordion.developer")}</AccordionTrigger>
             <AccordionContent>
               {Object.keys(developerCounts).length === 0 &&
@@ -390,7 +418,7 @@ export function SearchFilters({
         )}
 
         {showPublisher && (
-          <AccordionItem value="publisher">
+          <AccordionItem id="publisher">
             <AccordionTrigger>{t("search.accordion.publisher")}</AccordionTrigger>
             <AccordionContent>
               {Object.keys(publisherCounts).length === 0 &&
@@ -418,111 +446,105 @@ export function SearchFilters({
         {/* Seller search can be implemented similarly if needed */}
       </Accordion>
 
-      {showPastGiveaways && (
-        <div className="flex items-center space-x-2">
-          <Checkbox
-            id="pastGiveaways"
-            checked={Boolean(query.pastGiveaways)}
-            onCheckedChange={(value) =>
-              handleFieldChange("pastGiveaways", value ? true : undefined)
-            }
-          />
-          <label
-            htmlFor="pastGiveaways"
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
-            {t("search.checkboxes.pastGiveaways")}
-          </label>
-        </div>
-      )}
+      <div className="flex flex-col gap-1 border-t border-border/50 pt-3">
+        {showPastGiveaways && (
+          <div className="flex items-center gap-2.5 rounded-lg px-2 py-1.5 transition-colors duration-150 hover:bg-muted/40">
+            <Checkbox
+              id="pastGiveaways"
+              isSelected={Boolean(query.pastGiveaways)}
+              onChange={(value) => handleFieldChange("pastGiveaways", value ? true : undefined)}
+            />
+            <label
+              htmlFor="pastGiveaways"
+              className="flex-1 cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              {t("search.checkboxes.pastGiveaways")}
+            </label>
+          </div>
+        )}
 
-      {showOnSale && (
-        <div className="flex items-center space-x-2">
-          <Checkbox
-            id="onSale"
-            checked={!!query.onSale}
-            onCheckedChange={(value) => handleFieldChange("onSale", value ? true : undefined)}
-          />
-          <label
-            htmlFor="onSale"
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
-            {t("search.checkboxes.onSale")}
-          </label>
-        </div>
-      )}
+        {showOnSale && (
+          <div className="flex items-center gap-2.5 rounded-lg px-2 py-1.5 transition-colors duration-150 hover:bg-muted/40">
+            <Checkbox
+              id="onSale"
+              isSelected={!!query.onSale}
+              onChange={(value) => handleFieldChange("onSale", value ? true : undefined)}
+            />
+            <label
+              htmlFor="onSale"
+              className="flex-1 cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              {t("search.checkboxes.onSale")}
+            </label>
+          </div>
+        )}
 
-      {showCodeRedemption && (
-        <div className="flex items-center space-x-2">
-          <Checkbox
-            id="isCodeRedemptionOnly"
-            checked={!!query.isCodeRedemptionOnly}
-            onCheckedChange={(value) =>
-              handleFieldChange("isCodeRedemptionOnly", value ? true : undefined)
-            }
-          />
-          <label
-            htmlFor="isCodeRedemptionOnly"
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
-            {t("search.checkboxes.codeRedemptionOnly")}
-          </label>
-        </div>
-      )}
+        {showCodeRedemption && (
+          <div className="flex items-center gap-2.5 rounded-lg px-2 py-1.5 transition-colors duration-150 hover:bg-muted/40">
+            <Checkbox
+              id="isCodeRedemptionOnly"
+              isSelected={!!query.isCodeRedemptionOnly}
+              onChange={(value) =>
+                handleFieldChange("isCodeRedemptionOnly", value ? true : undefined)
+              }
+            />
+            <label
+              htmlFor="isCodeRedemptionOnly"
+              className="flex-1 cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              {t("search.checkboxes.codeRedemptionOnly")}
+            </label>
+          </div>
+        )}
 
-      {showBlockchain && (
-        <div className="flex items-center space-x-2">
-          <Checkbox
-            id="excludeBlockchain"
-            checked={!!query.excludeBlockchain}
-            onCheckedChange={(value) =>
-              handleFieldChange("excludeBlockchain", value ? true : undefined)
-            }
-          />
-          <label
-            htmlFor="excludeBlockchain"
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
-            {t("search.checkboxes.excludeBlockchain")}
-          </label>
-        </div>
-      )}
+        {showBlockchain && (
+          <div className="flex items-center gap-2.5 rounded-lg px-2 py-1.5 transition-colors duration-150 hover:bg-muted/40">
+            <Checkbox
+              id="excludeBlockchain"
+              isSelected={!!query.excludeBlockchain}
+              onChange={(value) => handleFieldChange("excludeBlockchain", value ? true : undefined)}
+            />
+            <label
+              htmlFor="excludeBlockchain"
+              className="flex-1 cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              {t("search.checkboxes.excludeBlockchain")}
+            </label>
+          </div>
+        )}
 
-      {showLowestPrice && (
-        <div className="flex items-center space-x-2">
-          <Checkbox
-            id="isLowestPrice"
-            checked={!!query.isLowestPrice}
-            onCheckedChange={(value) =>
-              handleFieldChange("isLowestPrice", value ? true : undefined)
-            }
-          />
-          <label
-            htmlFor="isLowestPrice"
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
-            {t("search.checkboxes.onlyHistoricalLows")}
-          </label>
-        </div>
-      )}
+        {showLowestPrice && (
+          <div className="flex items-center gap-2.5 rounded-lg px-2 py-1.5 transition-colors duration-150 hover:bg-muted/40">
+            <Checkbox
+              id="isLowestPrice"
+              isSelected={!!query.isLowestPrice}
+              onChange={(value) => handleFieldChange("isLowestPrice", value ? true : undefined)}
+            />
+            <label
+              htmlFor="isLowestPrice"
+              className="flex-1 cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              {t("search.checkboxes.onlyHistoricalLows")}
+            </label>
+          </div>
+        )}
 
-      {showLowestPriceEver && (
-        <div className="flex items-center space-x-2">
-          <Checkbox
-            id="isLowestPriceEver"
-            checked={!!query.isLowestPriceEver}
-            onCheckedChange={(value) =>
-              handleFieldChange("isLowestPriceEver", value ? true : undefined)
-            }
-          />
-          <label
-            htmlFor="isLowestPriceEver"
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          >
-            {t("search.checkboxes.onlyLowestPriceEver")}
-          </label>
-        </div>
-      )}
+        {showLowestPriceEver && (
+          <div className="flex items-center gap-2.5 rounded-lg px-2 py-1.5 transition-colors duration-150 hover:bg-muted/40">
+            <Checkbox
+              id="isLowestPriceEver"
+              isSelected={!!query.isLowestPriceEver}
+              onChange={(value) => handleFieldChange("isLowestPriceEver", value ? true : undefined)}
+            />
+            <label
+              htmlFor="isLowestPriceEver"
+              className="flex-1 cursor-pointer text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              {t("search.checkboxes.onlyLowestPriceEver")}
+            </label>
+          </div>
+        )}
+      </div>
     </aside>
   );
 }

@@ -124,7 +124,7 @@ test.describe("Profile page", () => {
     await expect(page).toHaveURL(/filter=in-progress/);
 
     const sortResponse = waitForApiResponse(page, "/games");
-    await page.getByRole("combobox", { name: "Sort library" }).click();
+    await page.getByRole("button", { name: "Sort library" }).click();
     await page.getByRole("option", { name: "XP" }).click();
     await sortResponse;
     await expect(page).toHaveURL(/sort=xp/);

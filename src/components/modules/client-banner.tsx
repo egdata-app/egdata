@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/components/app/localized-link";
 import { Download } from "lucide-react";
 import { useTranslation } from "@/lib/paraglide-react";
@@ -6,65 +6,56 @@ import { useTranslation } from "@/lib/paraglide-react";
 export function ClientBanner() {
   const { t } = useTranslation();
   return (
-    <div className="relative w-full max-w-7xl mx-auto overflow-hidden rounded-2xl shadow-2xl">
-      {/* Animated Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#102744] via-[#1f3553] to-[#406179] animate-gradient-rotate" />
+    <section className="relative mx-auto w-full max-w-7xl overflow-hidden rounded-xl border border-border/60 bg-card/80 px-6 py-8 md:px-10 md:py-10">
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -end-20 -top-24 size-80 rounded-full bg-primary/10 blur-3xl"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -bottom-24 -start-16 size-64 rounded-full bg-slate-400/5 blur-3xl"
+      />
 
-      {/* Overlay for better text readability */}
-      <div className="absolute inset-0 bg-black/25" />
+      <div className="relative z-10 flex flex-col items-center justify-between gap-8 lg:flex-row">
+        <div className="flex-1 text-center lg:text-start">
+          <h2 className="font-display text-2xl font-bold tracking-tight text-foreground md:text-3xl">
+            {t("components.clientBanner.heading", {
+              appName: "egdata",
+            })}
+          </h2>
 
-      {/* Main Content */}
-      <div className="relative z-10 px-6 py-6 md:px-8 md:py-8">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
-          {/* Left Content */}
-          <div className="flex-1 text-center lg:text-left">
-            {/* Main Heading */}
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-foreground mb-3 leading-tight">
-              {t("components.clientBanner.heading", {
-                appName: "egdata",
+          <p className="mt-2.5 text-base font-medium text-foreground/90 md:text-lg">
+            {t("components.clientBanner.subheading")}
+          </p>
+
+          <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground lg:mx-0">
+            {t("components.clientBanner.description")}
+          </p>
+
+          <div className="mt-6">
+            <Link
+              to="/{-$locale}/downloads"
+              className={buttonVariants({
+                size: "lg",
+                className: "rounded-full px-6 font-semibold shadow-sm",
               })}
-            </h1>
-
-            {/* Subheading */}
-            <p className="text-lg md:text-xl text-white/90 mb-4 font-medium">
-              {t("components.clientBanner.subheading")}
-            </p>
-
-            {/* Description */}
-            <p className="text-base text-white/80 mb-6 max-w-lg mx-auto lg:mx-0">
-              {t("components.clientBanner.description")}
-            </p>
-
-            {/* CTA Button */}
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-foreground font-semibold px-8 py-4 text-lg rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 group"
-              asChild
             >
-              <Link to="/{-$locale}/downloads">
-                <Download strokeWidth={3} className="w-5 h-5 mr-2" />
-                {t("components.clientBanner.cta")}
-              </Link>
-            </Button>
+              <Download className="me-2 size-4" />
+              {t("components.clientBanner.cta")}
+            </Link>
           </div>
+        </div>
 
-          {/* Right Visual Element */}
-          <div className="flex-shrink-0">
-            <div className="relative">
-              {/* Main Circle */}
-              <div className="w-40 h-40 md:w-48 md:h-48 rounded-full bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm border border-white/20 flex items-center justify-center">
-                <div className="w-28 h-28 md:w-36 md:h-36 rounded-full bg-gradient-to-br from-[#102744] to-[#406179] flex items-center justify-center shadow-2xl">
-                  <img
-                    src="https://cdn.egdata.app/logo_simple_white_clean.png"
-                    alt="egdata logo"
-                    className="size-24"
-                  />
-                </div>
-              </div>
-            </div>
+        <div className="shrink-0">
+          <div className="flex size-32 items-center justify-center rounded-2xl border border-border/60 bg-background/60 p-6 shadow-sm md:size-40">
+            <img
+              src="https://cdn.egdata.app/logo_simple_white_clean.png"
+              alt="egdata logo"
+              className="size-20 object-contain md:size-24"
+            />
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

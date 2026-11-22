@@ -216,9 +216,9 @@ function FranchisePage() {
       {hasNextPage && (
         <div className="flex justify-center items-center mt-4 w-full">
           <Button
-            onClick={() => fetchNextPage()}
+            onPress={() => fetchNextPage()}
             variant="outline"
-            disabled={isFetchingNextPage || isLoading}
+            isDisabled={isFetchingNextPage || isLoading}
           >
             {isFetchingNextPage ? (
               <>

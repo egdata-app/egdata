@@ -113,7 +113,7 @@ export function ApiKeyManager({ onApiKeyChange }: ApiKeyManagerProps) {
                 apiKey ? "blur-xs" : "blur-none",
               )}
             />
-            <Button onClick={copyApiKey} size="sm" variant="outline" disabled={!apiKey}>
+            <Button onClick={copyApiKey} size="sm" variant="outline" isDisabled={!apiKey}>
               <Copy className="h-4 w-4" />
             </Button>
           </div>

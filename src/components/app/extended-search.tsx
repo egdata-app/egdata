@@ -10,7 +10,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Popover, PopoverTrigger } from "@/components/ui/popover";
 import debounce from "lodash.debounce";
 
 interface Item {
@@ -52,31 +52,26 @@ export function ExtendedSearch({ items, value, setValue, name }: ExtendedSearchP
   }, [items]);
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          // biome-ignore lint/a11y/useSemanticElements: <explanation>
-          role="combobox"
-          aria-expanded={open}
-          className="w-[250px] justify-between"
-        >
-          {value ? items.find((item) => item.name === value)?.name : `Search ${name}`}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[300px] p-0">
+    <PopoverTrigger isOpen={open} onOpenChange={setOpen}>
+      <Button variant="outline" className="w-[250px] justify-between">
+        {value ? items.find((item) => item.name === value)?.name : `Search ${name}`}
+        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+      </Button>
+      <Popover className="w-[300px] p-0">
         <Command>
-          <CommandInput placeholder="Search items..." onValueChange={debouncedHandleSearch} />
-          <CommandList>
-            <CommandEmpty>No items found.</CommandEmpty>
+          <CommandInput
+            placeholder="Search items..."
+            onChange={(e) => debouncedHandleSearch(e.target.value)}
+          />
+          <CommandList renderEmptyState={() => <CommandEmpty>No items found.</CommandEmpty>}>
             <CommandGroup>
               {filteredItems.map((item) => (
                 <CommandItem
                   key={item.id}
-                  value={item.name}
-                  onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
+                  id={item.id}
+                  textValue={item.name}
+                  onAction={() => {
+                    setValue(item.name === value ? "" : item.name);
                     setOpen(false);
                   }}
                 >
@@ -93,7 +88,7 @@ export function ExtendedSearch({ items, value, setValue, name }: ExtendedSearchP
             </CommandGroup>
           </CommandList>
         </Command>
-      </PopoverContent>
-    </Popover>
+      </Popover>
+    </PopoverTrigger>
   );
 }

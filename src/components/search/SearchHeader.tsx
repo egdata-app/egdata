@@ -24,6 +24,7 @@ export interface SearchHeaderProps {
   ) => void;
   loading: boolean;
   title: string;
+  totalCount?: number;
   showSort: boolean;
   showViewToggle: boolean;
   mobileFilterButton?: React.ReactNode;
@@ -32,7 +33,16 @@ export interface SearchHeaderProps {
 export function SearchHeader(props: SearchHeaderProps) {
   const { t } = useTranslation();
   const { view, setView } = usePreferences();
-  const { query, setField, loading, title, showSort, showViewToggle, mobileFilterButton } = props;
+  const {
+    query,
+    setField,
+    loading,
+    title,
+    totalCount,
+    showSort,
+    showViewToggle,
+    mobileFilterButton,
+  } = props;
 
   const sortByDisplay: Record<string, string> = {
     releaseDate: t("search.sort.releaseDate"),
@@ -50,14 +60,23 @@ export function SearchHeader(props: SearchHeaderProps) {
 
   return (
     <header
-      className={cn("flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between")}
+      className={cn(
+        "flex w-full flex-col gap-3 border-b border-border/60 pb-4 sm:flex-row sm:items-center sm:justify-between",
+      )}
     >
-      <div className="flex min-w-0 flex-row items-center justify-between gap-2 sm:justify-start">
-        <div className="flex min-w-0 flex-row items-center justify-start gap-2">
-          <h1 className="truncate text-2xl font-bold">{title}</h1>
+      <div className="flex min-w-0 flex-row items-center justify-between gap-2.5 sm:justify-start">
+        <div className="flex min-w-0 flex-row items-baseline justify-start gap-2.5">
+          <h1 className="truncate font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+            {title}
+          </h1>
+          {typeof totalCount === "number" && (
+            <span className="shrink-0 rounded-full border border-white/10 bg-card/80 px-2.5 py-0.5 text-xs font-medium tabular-nums text-muted-foreground">
+              {totalCount.toLocaleString()}
+            </span>
+          )}
           {loading && (
             <svg
-              className="-ml-1 mr-3 h-5 w-5 shrink-0 animate-spin text-foreground"
+              className="h-4 w-4 shrink-0 animate-spin text-primary"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -84,18 +103,17 @@ export function SearchHeader(props: SearchHeaderProps) {
         {showSort && (
           <>
             <Select
-              value={query.sortBy ?? undefined}
-              onValueChange={(value) => setField("sortBy", value as typeof query.sortBy)}
+              aria-label={t("search.sort.sortAriaLabel")}
+              placeholder={t("search.sort.sortBy")}
+              value={query.sortBy ?? null}
+              onChange={(value) => setField("sortBy", (value ?? undefined) as typeof query.sortBy)}
             >
-              <SelectTrigger
-                className="w-full min-w-0 sm:w-[180px]"
-                aria-label={t("search.sort.sortAriaLabel")}
-              >
-                <SelectValue placeholder={t("search.sort.sortBy")} />
+              <SelectTrigger className="w-full min-w-0 rounded-lg border-border/70 bg-card/80 transition-colors duration-150 hover:border-primary/50 hover:bg-card sm:w-[190px]">
+                <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 {Object.entries(sortByDisplay).map(([key, value]) => (
-                  <SelectItem key={key} value={key}>
+                  <SelectItem key={key} id={key}>
                     {value}
                   </SelectItem>
                 ))}
@@ -104,12 +122,12 @@ export function SearchHeader(props: SearchHeaderProps) {
             <Button
               onClick={() => setField("sortDir", query.sortDir === "asc" ? "desc" : "asc")}
               variant="outline"
-              className="w-9"
+              className="h-9 w-9 shrink-0 rounded-lg border-border/70 bg-card/80 transition-colors duration-150 hover:border-primary/50 hover:bg-card"
               aria-label={t("search.sort.sortDirectionAriaLabel")}
             >
               <ArrowDown
                 className={cn(
-                  "transition-transform duration-300 ease-in-out",
+                  "h-4 w-4 transition-transform duration-200 ease-out",
                   query.sortDir === "asc" ? "rotate-180" : "rotate-0",
                 )}
               />
@@ -119,16 +137,16 @@ export function SearchHeader(props: SearchHeaderProps) {
         {showViewToggle && (
           <Button
             variant="outline"
-            className="h-9 w-9 p-0 hidden md:flex"
+            className="hidden h-9 w-9 shrink-0 rounded-lg border-border/70 bg-card/80 p-0 transition-colors duration-150 hover:border-primary/50 hover:bg-card md:flex"
             onClick={() => setView(view === "grid" ? "list" : "grid")}
             aria-label={
               view === "grid" ? t("search.sort.showListView") : t("search.sort.showGridView")
             }
           >
             {view === "grid" ? (
-              <ListBulletIcon className="h-5 w-5" aria-hidden="true" />
+              <ListBulletIcon className="h-4 w-4" aria-hidden="true" />
             ) : (
-              <GridIcon className="h-5 w-5" aria-hidden="true" />
+              <GridIcon className="h-4 w-4" aria-hidden="true" />
             )}
           </Button>
         )}
