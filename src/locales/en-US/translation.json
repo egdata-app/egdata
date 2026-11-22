@@ -2125,5 +2125,20 @@
       "retry": "Try again",
       "dismiss": "Dismiss"
     }
+  },
+  "errorBoundary": {
+    "title": "Something went wrong",
+    "description": "An unexpected error occurred while loading this page. You can try again, go back, or share the details below if the issue persists.",
+    "retry": "Try again",
+    "home": "Home",
+    "goBack": "Go back",
+    "copyDetails": "Copy details",
+    "copied": "Copied",
+    "discord": "Ask on Discord",
+    "reportGithub": "Report on GitHub",
+    "technicalDetails": "Technical details",
+    "resolvingSourceMaps": "Resolving source maps...",
+    "sourceMapped": "Source-mapped",
+    "noStack": "No stack trace available."
   }
 }
