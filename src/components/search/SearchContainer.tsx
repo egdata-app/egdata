@@ -365,31 +365,43 @@ export function SearchContainer({
   }, [contextId]);
 
   return (
-    <div className="flex min-h-screen w-full flex-col gap-4 px-4 md:px-0">
-      <main className="flex flex-col items-stretch gap-4 md:flex-row md:flex-nowrap md:items-start md:justify-between">
-        <div className="hidden md:block">{filtersPanel}</div>
-        <div className="flex w-full min-w-0 flex-col items-start justify-start gap-4 relative">
+    <div className="flex min-h-screen w-full flex-col gap-6 px-4 pb-8 md:px-0">
+      <main className="flex flex-col items-stretch gap-6 md:flex-row md:flex-nowrap md:items-start lg:gap-8">
+        <div className="hidden md:sticky md:top-20 md:block md:w-72 md:shrink-0 lg:w-80">
+          {filtersPanel}
+        </div>
+        <div className="relative flex w-full min-w-0 flex-1 flex-col items-start justify-start gap-5">
           <SearchHeader
             query={query as TypeOf<typeof formSchema>}
             setField={setField}
             loading={isFetching}
             title={title ?? t("search.defaultTitle")}
+            totalCount={results?.total}
             showSort={true}
             showViewToggle={true}
             mobileFilterButton={
               <SheetTrigger isOpen={filtersOpen} onOpenChange={setFiltersOpen}>
-                <Button variant="outline" size="sm" className="gap-2 md:hidden">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="gap-2 rounded-full border-border/70 bg-card/80 transition-colors duration-150 hover:border-primary/50 hover:bg-card md:hidden"
+                >
                   <SlidersHorizontal className="size-4" />
                   <span>{t("search.filters")}</span>
                   {activeFilterCount > 0 && (
-                    <span className="rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-semibold text-primary-foreground">
+                    <span className="rounded-full bg-primary px-1.5 py-0.5 text-[10px] font-semibold tabular-nums text-primary-foreground">
                       {activeFilterCount}
                     </span>
                   )}
                 </Button>
-                <SheetContent side="left" className="w-[min(92vw,24rem)] overflow-y-auto p-4">
-                  <SheetHeader className="mb-4 border-b border-border/50 pb-4 text-left">
-                    <SheetTitle>{t("search.filters")}</SheetTitle>
+                <SheetContent
+                  side="left"
+                  className="w-[min(92vw,24rem)] overflow-y-auto border-e border-border/60 bg-background p-4"
+                >
+                  <SheetHeader className="mb-4 border-b border-border/60 pb-3 text-left">
+                    <SheetTitle className="font-display text-lg font-semibold">
+                      {t("search.filters")}
+                    </SheetTitle>
                   </SheetHeader>
                   {filtersPanel}
                 </SheetContent>

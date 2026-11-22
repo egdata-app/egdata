@@ -142,6 +142,10 @@ function AchievementsPage() {
       );
   }, [achievements]);
 
+  const totalAchievementsCount = useMemo(() => {
+    return (achievements ?? []).reduce((sum, set) => sum + (set.achievements?.length ?? 0), 0);
+  }, [achievements]);
+
   const handleFlipAll = () => {
     setFlipAll(!flipAll);
   };
@@ -155,32 +159,56 @@ function AchievementsPage() {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col gap-4">
-        <div className="flex justify-between items-center">
-          <h1 className="text-2xl font-bold">{t("offerDetail.achievements.title")}</h1>
+      <section id="offer-achievements" className="flex w-full flex-col">
+        <div className="flex items-baseline justify-between gap-3 border-b border-border/60 pb-3 mb-5">
+          <h2 className="font-display text-xl sm:text-2xl font-bold tracking-tight">
+            {t("offerDetail.achievements.title")}
+          </h2>
+          <Skeleton className="h-5 w-10 rounded-full" />
         </div>
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mt-4">
+        <Skeleton className="h-24 w-full rounded-xl border border-white/10 bg-card/80 mb-5" />
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {Array.from({ length: 10 }).map((_, index) => (
             // biome-ignore lint/suspicious/noArrayIndexKey: This is a fallback component
             <SkeletonCard key={index} />
           ))}
         </div>
-      </div>
+      </section>
     );
   }
 
   if (!achievements) {
     return (
-      <div className="flex justify-center items-center h-96">
-        <p className="text-muted-foreground">{t("offerDetail.achievements.noAchievements")}</p>
-      </div>
+      <section id="offer-achievements" className="flex w-full flex-col">
+        <div className="flex items-baseline justify-between gap-3 border-b border-border/60 pb-3 mb-5">
+          <h2 className="font-display text-xl sm:text-2xl font-bold tracking-tight">
+            {t("offerDetail.achievements.title")}
+          </h2>
+          <span className="shrink-0 rounded-full border border-white/10 bg-card/80 px-2.5 py-0.5 text-xs font-medium tabular-nums text-muted-foreground">
+            0
+          </span>
+        </div>
+        <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-white/10 bg-card/80 px-6 py-16 text-center">
+          <EpicTrophyIcon className="size-10 text-muted-foreground/60" />
+          <p className="text-sm font-medium text-muted-foreground">
+            {t("offerDetail.achievements.noAchievements")}
+          </p>
+        </div>
+      </section>
     );
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-col w-full justify-between items-start gap-4 md:flex-row md:items-center">
-        <h1 className="text-2xl font-bold">{t("offerDetail.achievements.title")}</h1>
+    <section id="offer-achievements" className="flex w-full flex-col gap-5">
+      <div className="flex w-full flex-col justify-between gap-4 border-b border-border/60 pb-3 md:flex-row md:items-center">
+        <div className="flex items-baseline justify-between gap-3">
+          <h2 className="font-display text-xl sm:text-2xl font-bold tracking-tight">
+            {t("offerDetail.achievements.title")}
+          </h2>
+          <span className="shrink-0 rounded-full border border-white/10 bg-card/80 px-2.5 py-0.5 text-xs font-medium tabular-nums text-muted-foreground">
+            {totalAchievementsCount}
+          </span>
+        </div>
         <div className="flex flex-col gap-2 w-full md:w-auto md:flex-row md:items-center">
           <Select
             selectedKey={sortBy}
@@ -189,7 +217,7 @@ function AchievementsPage() {
             }
             placeholder={t("offerDetail.achievements.sortBy")}
           >
-            <SelectTrigger className="w-full md:w-[180px]">
+            <SelectTrigger className="h-9 w-full rounded-lg border border-white/10 bg-card/80 transition-[border-color,background-color] duration-150 hover:border-primary/60 hover:bg-card md:w-[180px]">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -204,36 +232,36 @@ function AchievementsPage() {
             </SelectContent>
           </Select>
           <Input
-            className="w-full"
+            className="h-9 w-full rounded-lg border border-white/10 bg-card/80 transition-[border-color,background-color] duration-150 hover:border-primary/60 focus-visible:border-primary md:w-56"
             placeholder={t("offerDetail.achievements.search")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
           <Button
-            className="hover:bg-transparent border border-border/60 bg-muted inline-flex px-4 py-2 rounded-md text-center transition-all duration-300 ease-in-out text-foreground"
+            className="inline-flex h-9 items-center justify-center gap-2 rounded-lg border border-white/10 bg-card/80 px-4 text-center text-foreground transition-[box-shadow,border-color,background-color] duration-200 ease-out hover:border-primary/60 hover:bg-card"
             onPress={handleFlipAll}
             isDisabled={achievements.length === 0}
           >
-            <CardStackIcon className="w-6 h-6 mr-2" />
+            <CardStackIcon className="w-5 h-5" />
             {t("offerDetail.achievements.flipAll")}
           </Button>
           <Button
-            className="hover:bg-transparent border border-border/60 bg-muted inline-flex px-4 py-2 rounded-md text-center transition-all duration-300 ease-in-out text-foreground"
+            className="inline-flex h-9 items-center justify-center rounded-lg border border-white/10 bg-card/80 px-3 text-center text-foreground transition-[box-shadow,border-color,background-color] duration-200 ease-out hover:border-primary/60 hover:bg-card"
             onPress={() => setBlur(!blur)}
             isDisabled={achievements.length === 0}
           >
-            {blur ? <EyeOpenIcon className="w-6 h-6" /> : <EyeClosedIcon className="w-6 h-6" />}
+            {blur ? <EyeOpenIcon className="w-5 h-5" /> : <EyeClosedIcon className="w-5 h-5" />}
           </Button>
         </div>
       </div>
 
-      <Card className="w-full bg-card text-foreground p-4">
-        <div className="flex flex-row items-center justify-center gap-10">
+      <Card className="w-full rounded-xl border border-white/10 bg-card/80 text-foreground p-4 sm:p-5">
+        <div className="flex flex-wrap flex-row items-center justify-center gap-4 sm:gap-10">
           {Object.entries(noOfAchievemenentsPerRarity).map(([rarity, count]) => (
             <div
               key={rarity}
               className={cn(
-                "flex flex-col items-center justify-center gap-2 rounded-md p-4 text-center",
+                "flex flex-col items-center justify-center gap-2 rounded-lg p-3 sm:p-4 text-center",
               )}
             >
               <EpicTrophyIcon
@@ -242,17 +270,17 @@ function AchievementsPage() {
                   raritiesTextColors[rarity as keyof typeof raritiesTextColors],
                 )}
               />
-              <span className="text-xl font-bold">{count}</span>
+              <span className="text-xl font-bold tabular-nums">{count}</span>
             </div>
           ))}
-          <span className="text-2xl font-bold">{"="}</span>
+          <span className="text-2xl font-bold text-muted-foreground">{"="}</span>
           <div
             className={cn(
-              "flex flex-col items-center justify-center gap-2 rounded-md p-4 text-center",
+              "flex flex-col items-center justify-center gap-2 rounded-lg p-3 sm:p-4 text-center",
             )}
           >
             <EpicTrophyIcon className={cn("size-8", raritiesTextColors.platinum)} />
-            <span className="text-2xl font-bold">
+            <span className="text-2xl font-bold tabular-nums">
               {
                 (achievements ?? [])
                   .filter((set) => set.isBase)
@@ -265,30 +293,35 @@ function AchievementsPage() {
 
       {achievements.map((achievementSet) => (
         <div key={achievementSet.achievementSetId} className="w-full">
-          <div className="w-full justify-between items-center flex flex-row">
-            <TooltipTrigger>
-              <h4
-                tabIndex={0}
-                className="text-xl font-thin underline decoration-dotted decoration-border/60 underline-offset-4"
-              >
-                {achievementSet.isBase
-                  ? t("offerDetail.achievements.baseGame")
-                  : t("offerDetail.achievements.dlc")}{" "}
-                {t("offerDetail.achievements.achievementsLabel")}
-              </h4>
-              <Tooltip>
-                <p>
-                  {achievementSet.isBase && t("offerDetail.achievements.baseGameDescription")}
-                  {!achievementSet.isBase && t("offerDetail.achievements.dlcDescription")}
-                </p>
-              </Tooltip>
-            </TooltipTrigger>
-            <div className="justify-between items-center">
+          <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-border/60 pb-2.5 mb-4 mt-2">
+            <div className="flex items-baseline gap-2.5">
+              <TooltipTrigger>
+                <h3
+                  tabIndex={0}
+                  className="font-display text-lg sm:text-xl font-semibold tracking-tight text-foreground underline decoration-dotted decoration-border/60 underline-offset-4 cursor-help"
+                >
+                  {achievementSet.isBase
+                    ? t("offerDetail.achievements.baseGame")
+                    : t("offerDetail.achievements.dlc")}{" "}
+                  {t("offerDetail.achievements.achievementsLabel")}
+                </h3>
+                <Tooltip>
+                  <p>
+                    {achievementSet.isBase && t("offerDetail.achievements.baseGameDescription")}
+                    {!achievementSet.isBase && t("offerDetail.achievements.dlcDescription")}
+                  </p>
+                </Tooltip>
+              </TooltipTrigger>
+              <span className="shrink-0 rounded-full border border-white/10 bg-card/80 px-2 py-0.5 text-xs font-medium tabular-nums text-muted-foreground">
+                {achievementSet.achievements.length}
+              </span>
+            </div>
+            <div className="flex items-center">
               {achievementSet.lastUpdated && (
                 <TooltipTrigger>
                   <span
                     tabIndex={0}
-                    className="text-sm underline decoration-dotted decoration-border/60 underline-offset-4"
+                    className="text-xs sm:text-sm text-muted-foreground tabular-nums underline decoration-dotted decoration-border/60 underline-offset-4 cursor-help"
                   >
                     {t("offerDetail.achievements.lastUpdated")}{" "}
                     {DateTime.fromISO(achievementSet.lastUpdated, {
@@ -322,59 +355,63 @@ function AchievementsPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 mt-4">
-            {achievementSet.achievements
-              // Filter by search
-              .filter((achievement) => {
-                if (search && search.length > 0) {
-                  return (
-                    achievement.unlockedDisplayName.toLowerCase().includes(search.toLowerCase()) ||
-                    achievement.lockedDisplayName.toLowerCase().includes(search.toLowerCase())
-                  );
-                }
-                return true;
-              })
-              // Sort by either default or by rarity
-              .sort((a, b) => {
-                if (sortBy === "default") {
-                  // 3. Always put hidden achievements at the bottom
-                  if (a.hidden && !b.hidden) return 1;
-                  if (!a.hidden && b.hidden) return -1;
-                }
+          {achievementSet.achievements.length > 0 && (
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+              {achievementSet.achievements
+                // Filter by search
+                .filter((achievement) => {
+                  if (search && search.length > 0) {
+                    return (
+                      achievement.unlockedDisplayName
+                        .toLowerCase()
+                        .includes(search.toLowerCase()) ||
+                      achievement.lockedDisplayName.toLowerCase().includes(search.toLowerCase())
+                    );
+                  }
+                  return true;
+                })
+                // Sort by either default or by rarity
+                .sort((a, b) => {
+                  if (sortBy === "default") {
+                    // 3. Always put hidden achievements at the bottom
+                    if (a.hidden && !b.hidden) return 1;
+                    if (!a.hidden && b.hidden) return -1;
+                  }
 
-                // If we're sorting by rarity, compare rarity priorities
-                if (sortBy === "rarity") {
-                  const rarityA = rarityPriority(getRarity(a.xp));
-                  const rarityB = rarityPriority(getRarity(b.xp));
-                  return rarityA - rarityB;
-                }
+                  // If we're sorting by rarity, compare rarity priorities
+                  if (sortBy === "rarity") {
+                    const rarityA = rarityPriority(getRarity(a.xp));
+                    const rarityB = rarityPriority(getRarity(b.xp));
+                    return rarityA - rarityB;
+                  }
 
-                // If we're sorting by unlocked percentage, compare unlocked percentages
-                if (sortBy === "unlockedPercentage") {
-                  const unlockedPercentageA = (a.completedPercent || 0) / 100;
-                  const unlockedPercentageB = (b.completedPercent || 0) / 100;
-                  return unlockedPercentageA - unlockedPercentageB;
-                }
+                  // If we're sorting by unlocked percentage, compare unlocked percentages
+                  if (sortBy === "unlockedPercentage") {
+                    const unlockedPercentageA = (a.completedPercent || 0) / 100;
+                    const unlockedPercentageB = (b.completedPercent || 0) / 100;
+                    return unlockedPercentageA - unlockedPercentageB;
+                  }
 
-                // Default sort → do nothing special beyond hidden logic
-                return 0;
-              })
-              .map((achievement, index) => (
-                <FlippableCard
-                  key={achievement.name}
-                  achievement={achievement}
-                  flipAll={flipAll}
-                  index={index}
-                  flipped={flippedStates[achievement.name] || false}
-                  onCardFlip={handleCardFlip}
-                  blur={blur}
-                />
-              ))}
-          </div>
+                  // Default sort → do nothing special beyond hidden logic
+                  return 0;
+                })
+                .map((achievement, index) => (
+                  <FlippableCard
+                    key={achievement.name}
+                    achievement={achievement}
+                    flipAll={flipAll}
+                    index={index}
+                    flipped={flippedStates[achievement.name] || false}
+                    onCardFlip={handleCardFlip}
+                    blur={blur}
+                  />
+                ))}
+            </div>
+          )}
           {achievementSet.achievements.length === 0 && (
-            <div className="w-full flex flex-col items-center justify-center h-96 mt-10 gap-2">
-              <FileWarningIcon className="size-10 opacity-75" />
-              <p className="text-center font-thin">
+            <div className="mt-4 flex w-full flex-col items-center justify-center gap-3 rounded-xl border border-white/10 bg-card/80 px-6 py-14 text-center">
+              <FileWarningIcon className="size-9 text-muted-foreground/75" />
+              <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
                 {t("offerDetail.achievements.noAchievementsSet")}
                 <br />
                 {t("offerDetail.achievements.noAchievementsSetDescription")}
@@ -385,26 +422,29 @@ function AchievementsPage() {
       ))}
 
       {achievements.length === 0 && (
-        <div className="flex justify-center items-center h-96">
-          <p className="text-muted-foreground">{t("offerDetail.achievements.noAchievements")}</p>
+        <div className="flex flex-col items-center justify-center gap-3 rounded-xl border border-white/10 bg-card/80 px-6 py-16 text-center">
+          <EpicTrophyIcon className="size-10 text-muted-foreground/60" />
+          <p className="text-sm font-medium text-muted-foreground">
+            {t("offerDetail.achievements.noAchievements")}
+          </p>
         </div>
       )}
-    </div>
+    </section>
   );
 }
 
 function SkeletonCard() {
   return (
-    <Card className="justify-between flex flex-col h-full">
+    <Card className="justify-between flex flex-col h-72 rounded-xl border border-white/10 bg-card/80">
       <CardHeader className="flex flex-col w-full items-center gap-2">
-        <Skeleton className="h-16 w-16" />
+        <Skeleton className="h-16 w-16 rounded-lg" />
         <Skeleton className="h-4 w-32" />
       </CardHeader>
       <CardContent className="h-full">
-        <Skeleton className="h-16" />
+        <Skeleton className="h-16 w-full rounded-lg" />
       </CardContent>
       <CardFooter>
-        <Skeleton className="h-4 w-16" />
+        <Skeleton className="h-5 w-20 rounded-full" />
       </CardFooter>
     </Card>
   );

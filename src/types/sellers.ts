@@ -1,5 +1,6 @@
 export interface SingleSeller {
-  _id: string;
+  _id?: string;
+  id?: string;
   name: string;
   createdAt: string;
   updatedAt: string;

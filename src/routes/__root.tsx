@@ -211,12 +211,11 @@ export const Route = createRootRouteWithContext<Context>()({
       },
       { rel: "manifest", href: "/site.webmanifest" },
       { rel: "mask-icon", href: "/safari-pinned-tab.svg", color: "#5bbad5" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
-        rel: "preload",
-        href: "https://cdn.egdata.app/Nunito/Nunito-VariableFont_wght.ttf",
-        as: "font",
-        type: "font/ttf",
-        crossOrigin: "anonymous",
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap",
       },
       {
         rel: "preload",

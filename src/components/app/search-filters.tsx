@@ -81,14 +81,19 @@ export function SearchFilters({
   });
 
   return (
-    <aside className={cn("flex flex-col gap-4 w-80", className)}>
+    <aside
+      className={cn(
+        "flex w-80 flex-col gap-4 rounded-xl border border-border/60 bg-card/80 p-4 shadow-sm",
+        className,
+      )}
+    >
       {showTitle && (
         <form.Field name="title">
           {({ name, handleChange, handleBlur, state }: any) => (
             <Input
               type="search"
               placeholder={t("search.filtersPlaceholder")}
-              className=""
+              className="h-9 rounded-lg border-border/60 bg-background/60 px-3 text-sm transition-colors duration-150 hover:border-primary/50 focus-visible:border-primary/70"
               name={name}
               onChange={(e) => handleChange(e.target.value)}
               onBlur={handleBlur}
@@ -100,7 +105,10 @@ export function SearchFilters({
 
       <form.Subscribe>
         {({ values }: any) => (
-          <div id="selected_filters" className="flex flex-row flex-wrap gap-2">
+          <div
+            id="selected_filters"
+            className="flex flex-row flex-wrap gap-1.5 [&_button]:border-border/60 [&_button]:bg-background/60 [&_button]:transition-colors [&_button]:duration-150 [&_button:hover]:border-primary/50 [&_button:hover]:bg-accent/60"
+          >
             {showTags &&
               values.tags?.map((tag: string) => {
                 const tagData = tags?.find((t) => t.id === tag);
@@ -177,36 +185,43 @@ export function SearchFilters({
         )}
       </form.Subscribe>
 
-      <Separator />
+      <Separator className="bg-border/60" />
 
       {showPrice && (
-        <form.Field name="price">
-          {({ handleChange }: any) => (
-            <PriceRangeSlider
-              min={priceRange.min}
-              max={Math.min(priceRange.max, 1000)}
-              step={1}
-              defaultValue={[
-                form.state.values.price?.min || priceRange.min,
-                form.state.values.price?.max || priceRange.max,
-              ]}
-              onValueChange={(value) => {
-                handleChange({
-                  min: value[0],
-                  max: value[1],
-                });
-              }}
-              currency={priceRange.currency === "" ? "USD" : priceRange.currency}
-            />
-          )}
-        </form.Field>
+        <div className="px-0.5 tabular-nums">
+          <form.Field name="price">
+            {({ handleChange }: any) => (
+              <PriceRangeSlider
+                min={priceRange.min}
+                max={Math.min(priceRange.max, 1000)}
+                step={1}
+                defaultValue={[
+                  form.state.values.price?.min || priceRange.min,
+                  form.state.values.price?.max || priceRange.max,
+                ]}
+                onValueChange={(value) => {
+                  handleChange({
+                    min: value[0],
+                    max: value[1],
+                  });
+                }}
+                currency={priceRange.currency === "" ? "USD" : priceRange.currency}
+              />
+            )}
+          </form.Field>
+        </div>
       )}
 
-      <Accordion className="w-full">
+      <Accordion className="w-full overflow-hidden rounded-lg border border-border/60 bg-background/40">
         {showOfferType && (
-          <AccordionItem id="offerType">
-            <AccordionTrigger>{t("search.accordion.offerType")}</AccordionTrigger>
-            <AccordionContent className="flex flex-col gap-2 w-full mt-2">
+          <AccordionItem
+            id="offerType"
+            className="border-border/60 transition-colors duration-150 data-open:bg-card/60"
+          >
+            <AccordionTrigger className="font-display px-3 py-2.5 text-sm font-semibold tracking-tight text-foreground transition-colors duration-150 hover:bg-accent/60 hover:text-primary hover:no-underline">
+              {t("search.accordion.offerType")}
+            </AccordionTrigger>
+            <AccordionContent className="mt-1 flex w-full flex-col gap-1.5 px-1 pb-2 [&_button]:w-full [&_button]:border-border/60 [&_button]:duration-150 [&_button:hover]:border-primary/50 [&_button:hover]:bg-accent/60">
               <form.Field name="offerType">
                 {({ handleChange, state }: any) =>
                   offerTypeValues
@@ -233,11 +248,17 @@ export function SearchFilters({
             const tagTypeTags = tags?.filter((tag) => tag.groupName === tagType.name);
 
             return (
-              <AccordionItem key={tagType.name} id={tagType.name ?? "alltags"}>
-                <AccordionTrigger>{t(tagType.labelKey as never)}</AccordionTrigger>
-                <AccordionContent className="flex flex-col gap-2 mt-2">
+              <AccordionItem
+                key={tagType.name ?? "alltags"}
+                id={tagType.name ?? "alltags"}
+                className="border-border/60 transition-colors duration-150 data-open:bg-card/60"
+              >
+                <AccordionTrigger className="font-display px-3 py-2.5 text-sm font-semibold tracking-tight text-foreground transition-colors duration-150 hover:bg-accent/60 hover:text-primary hover:no-underline">
+                  {t(tagType.labelKey as never)}
+                </AccordionTrigger>
+                <AccordionContent className="mt-1 flex flex-col gap-1.5 px-1 pb-2 [&_button]:w-full [&_button]:border-border/60 [&_button]:duration-150 [&_button:hover]:border-primary/50 [&_button:hover]:bg-accent/60">
                   <ScrollArea>
-                    <div className="max-h-[400px] flex flex-col gap-1">
+                    <div className="flex max-h-[400px] flex-col gap-1.5 pr-1">
                       <form.Field name="tags">
                         {({ handleChange, state }: any) =>
                           tagTypeTags
@@ -260,7 +281,7 @@ export function SearchFilters({
                         }
                       </form.Field>
                       {tagTypeTags?.filter((tag) => tagCounts[tag.id] > 0).length === 0 && (
-                        <span className="text-muted-foreground px-4">
+                        <span className="px-3 py-2 text-xs text-muted-foreground">
                           {t("search.accordion.noTags")}
                         </span>
                       )}
@@ -272,9 +293,14 @@ export function SearchFilters({
           })}
 
         {showDeveloper && (
-          <AccordionItem id="developer">
-            <AccordionTrigger>{t("search.accordion.developer")}</AccordionTrigger>
-            <AccordionContent>
+          <AccordionItem
+            id="developer"
+            className="border-border/60 transition-colors duration-150 data-open:bg-card/60"
+          >
+            <AccordionTrigger className="font-display px-3 py-2.5 text-sm font-semibold tracking-tight text-foreground transition-colors duration-150 hover:bg-accent/60 hover:text-primary hover:no-underline">
+              {t("search.accordion.developer")}
+            </AccordionTrigger>
+            <AccordionContent className="px-1 pt-1 pb-2 tabular-nums">
               <form.Field name="developerDisplayName">
                 {({ handleChange, state }: any) => (
                   <ExtendedSearch
@@ -298,9 +324,14 @@ export function SearchFilters({
         )}
 
         {showPublisher && (
-          <AccordionItem id="publisher">
-            <AccordionTrigger>{t("search.accordion.publisher")}</AccordionTrigger>
-            <AccordionContent>
+          <AccordionItem
+            id="publisher"
+            className="border-border/60 transition-colors duration-150 data-open:bg-card/60"
+          >
+            <AccordionTrigger className="font-display px-3 py-2.5 text-sm font-semibold tracking-tight text-foreground transition-colors duration-150 hover:bg-accent/60 hover:text-primary hover:no-underline">
+              {t("search.accordion.publisher")}
+            </AccordionTrigger>
+            <AccordionContent className="px-1 pt-1 pb-2 tabular-nums">
               <form.Field name="publisherDisplayName">
                 {({ handleChange, state }: any) => (
                   <ExtendedSearch
@@ -324,9 +355,14 @@ export function SearchFilters({
         )}
 
         {showSeller && (
-          <AccordionItem id="seller">
-            <AccordionTrigger>{t("search.accordion.seller")}</AccordionTrigger>
-            <AccordionContent>
+          <AccordionItem
+            id="seller"
+            className="border-border/60 transition-colors duration-150 data-open:bg-card/60"
+          >
+            <AccordionTrigger className="font-display px-3 py-2.5 text-sm font-semibold tracking-tight text-foreground transition-colors duration-150 hover:bg-accent/60 hover:text-primary hover:no-underline">
+              {t("search.accordion.seller")}
+            </AccordionTrigger>
+            <AccordionContent className="px-1 pt-1 pb-2">
               <form.Field name="seller">
                 {({ handleChange, state }: any) => (
                   <QuerySearch
@@ -364,84 +400,88 @@ export function SearchFilters({
         )}
       </Accordion>
 
-      {showPastGiveaways && (
-        <form.Field name="pastGiveaways">
-          {({ handleChange, state }: any) => (
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="pastGiveaways"
-                isSelected={Boolean(state.value)}
-                onChange={(value) => handleChange(Boolean(value))}
-              />
-              <label
-                htmlFor="pastGiveaways"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                {t("search.checkboxes.pastGiveaways")}
-              </label>
-            </div>
+      {(showPastGiveaways || showOnSale || showCodeRedemption || showBlockchain) && (
+        <div className="flex flex-col gap-2">
+          {showPastGiveaways && (
+            <form.Field name="pastGiveaways">
+              {({ handleChange, state }: any) => (
+                <div className="flex items-center gap-2.5 rounded-lg border border-border/60 bg-background/40 px-3 py-2 transition-colors duration-150 hover:border-primary/50 hover:bg-accent/60">
+                  <Checkbox
+                    id="pastGiveaways"
+                    isSelected={Boolean(state.value)}
+                    onChange={(value) => handleChange(Boolean(value))}
+                  />
+                  <label
+                    htmlFor="pastGiveaways"
+                    className="flex-1 cursor-pointer text-sm font-medium leading-none text-foreground/90 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    {t("search.checkboxes.pastGiveaways")}
+                  </label>
+                </div>
+              )}
+            </form.Field>
           )}
-        </form.Field>
-      )}
 
-      {showOnSale && (
-        <form.Field name="onSale">
-          {({ handleChange, state }: any) => (
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="onSale"
-                isSelected={Boolean(state.value)}
-                onChange={(value) => handleChange(Boolean(value))}
-              />
-              <label
-                htmlFor="onSale"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                {t("search.checkboxes.onSale")}
-              </label>
-            </div>
+          {showOnSale && (
+            <form.Field name="onSale">
+              {({ handleChange, state }: any) => (
+                <div className="flex items-center gap-2.5 rounded-lg border border-border/60 bg-background/40 px-3 py-2 transition-colors duration-150 hover:border-primary/50 hover:bg-accent/60">
+                  <Checkbox
+                    id="onSale"
+                    isSelected={Boolean(state.value)}
+                    onChange={(value) => handleChange(Boolean(value))}
+                  />
+                  <label
+                    htmlFor="onSale"
+                    className="flex-1 cursor-pointer text-sm font-medium leading-none text-foreground/90 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    {t("search.checkboxes.onSale")}
+                  </label>
+                </div>
+              )}
+            </form.Field>
           )}
-        </form.Field>
-      )}
 
-      {showCodeRedemption && (
-        <form.Field name="isCodeRedemptionOnly">
-          {({ handleChange, state }: any) => (
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="isCodeRedemptionOnly"
-                isSelected={Boolean(state.value)}
-                onChange={(value) => handleChange(Boolean(value))}
-              />
-              <label
-                htmlFor="isCodeRedemptionOnly"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                {t("search.checkboxes.codeRedemptionOnly")}
-              </label>
-            </div>
+          {showCodeRedemption && (
+            <form.Field name="isCodeRedemptionOnly">
+              {({ handleChange, state }: any) => (
+                <div className="flex items-center gap-2.5 rounded-lg border border-border/60 bg-background/40 px-3 py-2 transition-colors duration-150 hover:border-primary/50 hover:bg-accent/60">
+                  <Checkbox
+                    id="isCodeRedemptionOnly"
+                    isSelected={Boolean(state.value)}
+                    onChange={(value) => handleChange(Boolean(value))}
+                  />
+                  <label
+                    htmlFor="isCodeRedemptionOnly"
+                    className="flex-1 cursor-pointer text-sm font-medium leading-none text-foreground/90 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    {t("search.checkboxes.codeRedemptionOnly")}
+                  </label>
+                </div>
+              )}
+            </form.Field>
           )}
-        </form.Field>
-      )}
 
-      {showBlockchain && (
-        <form.Field name="excludeBlockchain">
-          {({ handleChange, state }: any) => (
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="excludeBlockchain"
-                isSelected={Boolean(state.value)}
-                onChange={(value) => handleChange(Boolean(value))}
-              />
-              <label
-                htmlFor="excludeBlockchain"
-                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-              >
-                {t("search.checkboxes.excludeBlockchain")}
-              </label>
-            </div>
+          {showBlockchain && (
+            <form.Field name="excludeBlockchain">
+              {({ handleChange, state }: any) => (
+                <div className="flex items-center gap-2.5 rounded-lg border border-border/60 bg-background/40 px-3 py-2 transition-colors duration-150 hover:border-primary/50 hover:bg-accent/60">
+                  <Checkbox
+                    id="excludeBlockchain"
+                    isSelected={Boolean(state.value)}
+                    onChange={(value) => handleChange(Boolean(value))}
+                  />
+                  <label
+                    htmlFor="excludeBlockchain"
+                    className="flex-1 cursor-pointer text-sm font-medium leading-none text-foreground/90 peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    {t("search.checkboxes.excludeBlockchain")}
+                  </label>
+                </div>
+              )}
+            </form.Field>
           )}
-        </form.Field>
+        </div>
       )}
     </aside>
   );

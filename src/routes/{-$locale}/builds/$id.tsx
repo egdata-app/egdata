@@ -17,7 +17,7 @@ import type { SingleBuild } from "@/types/builds";
 import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { createFileRoute, Outlet, redirect, useLocation } from "@tanstack/react-router";
-import { BoxIcon, FilesIcon, OptionIcon, PackageOpenIcon } from "lucide-react";
+import { BoxIcon, ChevronDown, FilesIcon, OptionIcon, PackageOpenIcon } from "lucide-react";
 import { DateTime } from "luxon";
 
 export const Route = createFileRoute("/{-$locale}/builds/$id")({
@@ -116,7 +116,7 @@ function BuildPage() {
   ];
 
   return (
-    <main className="flex h-full w-full flex-col gap-4 p-4">
+    <main className="mx-auto flex h-full w-full max-w-[1500px] flex-col gap-6 p-4 md:px-8">
       <SandboxPageHeader
         icon={PackageOpenIcon}
         eyebrow={t("builds.build")}
@@ -138,24 +138,48 @@ function BuildPage() {
           },
         ]}
       >
-        <Badge variant="outline">{build.platform}</Badge>
-        <Badge variant="outline">{build.labelName}</Badge>
-        <Badge variant={healthVariant}>{t(`builds.health.${build.manifest.status}`)}</Badge>
+        <Badge
+          variant="outline"
+          className="border-border/60 tabular-nums transition-colors duration-150 hover:border-primary/50"
+        >
+          {build.platform}
+        </Badge>
+        <Badge
+          variant="outline"
+          className="border-border/60 tabular-nums transition-colors duration-150 hover:border-primary/50"
+        >
+          {build.labelName}
+        </Badge>
+        <Badge variant={healthVariant} className="transition-colors duration-150">
+          {t(`builds.health.${build.manifest.status}`)}
+        </Badge>
       </SandboxPageHeader>
 
-      <details open className="rounded-md border border-border/60 bg-card/50 p-4">
-        <summary className="cursor-pointer text-sm font-semibold">
-          {t("builds.header.technicalDetails")}
+      <details
+        open
+        className="group rounded-xl border border-border/60 bg-card/80 p-5 shadow-sm transition-[box-shadow,border-color,background-color] duration-200 ease-out hover:border-border"
+      >
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-2 font-display text-sm font-semibold tracking-tight text-foreground transition-colors duration-150 hover:text-primary group-open:border-b group-open:border-border/60 group-open:pb-3">
+          <span>{t("builds.header.technicalDetails")}</span>
+          <ChevronDown
+            aria-hidden="true"
+            className="size-4 text-muted-foreground transition-transform duration-200 group-open:rotate-180"
+          />
         </summary>
         <dl className="mt-4 grid gap-3 text-sm md:grid-cols-2">
           {technicalDetails.map(([label, value]) => (
-            <div key={label} className="min-w-0">
-              <dt className="text-xs text-muted-foreground">{label}</dt>
-              <dd className="mt-1 break-all font-mono">{value}</dd>
+            <div
+              key={label}
+              className="min-w-0 rounded-lg border border-border/40 bg-background/40 px-3.5 py-2.5 transition-colors duration-150 hover:border-primary/40"
+            >
+              <dt className="text-xs font-medium text-muted-foreground">{label}</dt>
+              <dd className="mt-1 break-all font-mono tabular-nums text-foreground/95">{value}</dd>
             </div>
           ))}
-          <div className="md:col-span-2">
-            <dt className="text-xs text-muted-foreground">{t("builds.table.technologies")}</dt>
+          <div className="md:col-span-2 pt-1">
+            <dt className="text-xs font-medium text-muted-foreground">
+              {t("builds.table.technologies")}
+            </dt>
             <dd className="mt-2 flex flex-wrap gap-2">
               {build.technologies.length ? (
                 build.technologies
@@ -164,9 +188,12 @@ function BuildPage() {
                     <TechnologyLink
                       key={`${technology.section}.${technology.technology}`}
                       id={technology.technology}
-                      className="rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                      className="group/tech rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     >
-                      <Badge variant="secondary">
+                      <Badge
+                        variant="secondary"
+                        className="border border-border/50 transition-[box-shadow,border-color,background-color,color] duration-200 ease-out group-hover/tech:border-primary/50 group-hover/tech:bg-primary/10 group-hover/tech:text-primary"
+                      >
                         {technology.section} / {technology.technology}
                       </Badge>
                     </TechnologyLink>
@@ -179,14 +206,14 @@ function BuildPage() {
         </dl>
       </details>
 
-      <div className="flex w-full flex-col items-start gap-4 md:flex-row md:gap-1">
+      <div className="flex w-full flex-col items-start gap-4 md:flex-row md:gap-6">
         <SectionsNav
           links={[
             {
               id: "files",
               label: (
                 <span className="inline-flex items-center gap-2">
-                  <FilesIcon className="size-3" />
+                  <FilesIcon className="size-3.5" />
                   {t("builds.tabs.files")}
                 </span>
               ),
@@ -196,7 +223,7 @@ function BuildPage() {
               id: "items",
               label: (
                 <span className="inline-flex items-center gap-2">
-                  <BoxIcon className="size-3" />
+                  <BoxIcon className="size-3.5" />
                   {t("builds.tabs.items")}
                 </span>
               ),
@@ -206,7 +233,7 @@ function BuildPage() {
               id: "install-options",
               label: (
                 <span className="inline-flex items-center gap-2">
-                  <OptionIcon className="size-3" />
+                  <OptionIcon className="size-3.5" />
                   {t("builds.tabs.installOptions")}
                 </span>
               ),

@@ -52,15 +52,17 @@ export function GiveawaysStats({ showTitle = true, wrap = false }: GiveawayStats
   return (
     <div className="flex flex-col items-start justify-start gap-4 w-full">
       {showTitle && (
-        <h2 className="text-xl font-semibold">{t("components.giveawayStats.title")}</h2>
+        <h2 className="font-display text-lg font-semibold tracking-tight text-foreground">
+          {t("components.giveawayStats.title")}
+        </h2>
       )}
-      <div className="flex flex-row flex-wrap items-center justify-center gap-10 bg-card rounded-lg p-4 w-full">
-        <div
-          className={cn(
-            "flex flex-col items-center justify-center gap-2",
-            wrap ? "w-full" : "w-fit",
-          )}
-        >
+      <div
+        className={cn(
+          "grid w-full grid-cols-2 gap-x-6 gap-y-5 py-2 sm:grid-cols-3 lg:grid-cols-5",
+          wrap && "sm:grid-cols-3 lg:grid-cols-5",
+        )}
+      >
+        <div className="flex flex-col items-start justify-center gap-1">
           <BigText
             value={calculatePrice(
               data.totalValue.originalPrice,
@@ -69,10 +71,10 @@ export function GiveawaysStats({ showTitle = true, wrap = false }: GiveawayStats
               style: "currency",
               currency: data.totalValue.currencyCode,
             })}
-            className="text-4xl font-medium"
+            className="text-2xl sm:text-3xl font-bold tracking-tight text-emerald-400"
           />
           <TooltipTrigger>
-            <span className="text-lg font-medium text-muted-foreground decoration-dotted decoration-gray-400/50 underline underline-offset-4">
+            <span className="cursor-help text-sm text-muted-foreground underline decoration-dotted decoration-muted-foreground/40 underline-offset-4">
               {t("components.giveawayStats.totalValue")}
             </span>
             <Tooltip>
@@ -94,13 +96,13 @@ export function GiveawaysStats({ showTitle = true, wrap = false }: GiveawayStats
           </TooltipTrigger>
         </div>
 
-        <div className="flex flex-col items-center justify-center gap-2">
+        <div className="flex flex-col items-start justify-center gap-1">
           <BigText
             value={data.totalGiveaways.toLocaleString(locale)}
-            className="text-4xl font-medium"
+            className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground"
           />
           <TooltipTrigger>
-            <span className="text-lg font-medium text-muted-foreground decoration-dotted decoration-gray-400/50 underline underline-offset-4">
+            <span className="cursor-help text-sm text-muted-foreground underline decoration-dotted decoration-muted-foreground/40 underline-offset-4">
               {t("components.giveawayStats.giveaways")}
             </span>
             <Tooltip>
@@ -111,13 +113,13 @@ export function GiveawaysStats({ showTitle = true, wrap = false }: GiveawayStats
           </TooltipTrigger>
         </div>
 
-        <div className="flex flex-col items-center justify-center gap-2">
+        <div className="flex flex-col items-start justify-center gap-1">
           <BigText
             value={data.totalOffers.toLocaleString(locale)}
-            className="text-4xl font-medium"
+            className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground"
           />
           <TooltipTrigger>
-            <span className="text-lg font-medium text-muted-foreground decoration-dotted decoration-gray-400/50 underline underline-offset-4">
+            <span className="cursor-help text-sm text-muted-foreground underline decoration-dotted decoration-muted-foreground/40 underline-offset-4">
               {t("components.giveawayStats.offers")}
             </span>
             <Tooltip>
@@ -128,10 +130,13 @@ export function GiveawaysStats({ showTitle = true, wrap = false }: GiveawayStats
           </TooltipTrigger>
         </div>
 
-        <div className="flex flex-col items-center justify-center gap-2">
-          <BigText value={data.repeated.toLocaleString(locale)} className="text-4xl font-medium" />
+        <div className="flex flex-col items-start justify-center gap-1">
+          <BigText
+            value={data.repeated.toLocaleString(locale)}
+            className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground"
+          />
           <TooltipTrigger>
-            <span className="text-lg font-medium text-muted-foreground decoration-dotted decoration-gray-400/50 underline underline-offset-4">
+            <span className="cursor-help text-sm text-muted-foreground underline decoration-dotted decoration-muted-foreground/40 underline-offset-4">
               {t("components.giveawayStats.repeated")}
             </span>
             <Tooltip>
@@ -143,12 +148,15 @@ export function GiveawaysStats({ showTitle = true, wrap = false }: GiveawayStats
         </div>
 
         <Link
-          className="flex flex-col items-center justify-center gap-2"
+          className="group flex flex-col items-start justify-center gap-1"
           to="/{-$locale}/freebies/sellers"
         >
-          <BigText value={data.sellers.toLocaleString(locale)} className="text-4xl font-medium" />
+          <BigText
+            value={data.sellers.toLocaleString(locale)}
+            className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground transition-colors group-hover:text-primary"
+          />
           <TooltipTrigger>
-            <span className="text-lg font-medium text-muted-foreground decoration-dotted decoration-gray-400/50 underline underline-offset-4">
+            <span className="text-sm text-muted-foreground underline decoration-dotted decoration-muted-foreground/40 underline-offset-4 transition-colors group-hover:text-foreground">
               {t("components.giveawayStats.sellers")}
             </span>
             <Tooltip>
@@ -164,5 +172,5 @@ export function GiveawaysStats({ showTitle = true, wrap = false }: GiveawayStats
 }
 
 function BigText({ value, className }: { value: string | number; className?: string }) {
-  return <span className={cn("font-mono", className)}>{value}</span>;
+  return <span className={cn("font-display tabular-nums", className)}>{value}</span>;
 }

@@ -206,7 +206,7 @@ function CommandItem<T extends object>({
           <HugeiconsIcon
             icon={Tick02Icon}
             strokeWidth={2}
-            className="ms-auto opacity-0 group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:opacity-100"
+            className="ms-auto hidden group-has-data-[slot=command-shortcut]/command-item:hidden group-data-[checked=true]/command-item:inline-block"
           />
         </>
       ))}

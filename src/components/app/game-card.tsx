@@ -5,7 +5,6 @@ import { Card } from "../ui/card";
 import { Image } from "./image";
 import { getImage } from "@/lib/getImage";
 import { Badge } from "../ui/badge";
-import { cn } from "@/lib/utils";
 import { offersDictionary } from "@/lib/offers-dictionary";
 import { calculatePrice } from "@/lib/calculate-price";
 import { textPlatformIcons } from "./platform-icons";
@@ -26,24 +25,24 @@ export function GameCard({
       <Link
         to="/{-$locale}/offers/$id"
         params={{ id: game.id }}
-        className="w-full relative select-none group"
+        className="group relative block w-full select-none focus-visible:outline-none"
         aria-label={`Open offer ${game.title}`}
       >
-        <div className="relative w-full overflow-hidden rounded-md bg-card aspect-[3/4]">
+        <div className="relative aspect-[3/4] w-full overflow-hidden rounded-lg border border-white/10 bg-card/80 shadow-sm transition-[box-shadow,border-color,background-color] duration-200 ease-out group-hover:border-primary/60 group-hover:shadow-lg group-hover:shadow-black/35 group-focus-visible:border-primary">
           <Image
             src={getImage(game.keyImages, ["Thumbnail", "OfferImageTall"])?.url}
             alt={game.title}
             width={400}
             height={500}
-            className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+            className="h-full w-full object-cover transition-transform duration-300 ease-out will-change-transform group-hover:scale-[1.035]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/30 to-transparent" />
-          <div className="absolute inset-x-0 bottom-0 p-3 z-10">
-            <h3 className="text-lg font-display font-semibold text-foreground leading-tight line-clamp-2">
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background via-background/45 via-40% to-transparent" />
+          <div className="absolute inset-x-0 bottom-0 z-10 p-3.5">
+            <h3 className="font-display text-base font-semibold leading-snug tracking-tight text-foreground line-clamp-2 transition-colors duration-200 group-hover:text-primary md:text-lg">
               {game.title}
             </h3>
             {game.seller && (
-              <p className="text-xs text-muted-foreground mt-1 truncate">
+              <p className="mt-1 truncate text-xs text-muted-foreground/90">
                 {typeof game.seller === "string" ? game.seller : game.seller.name}
               </p>
             )}
@@ -86,27 +85,30 @@ export function OfferListItem({
     currency: price?.price.currencyCode || "USD",
   });
 
+  const isFree = price?.price.discountPrice === 0;
+  const isDiscounted = price ? price.price.originalPrice !== price.price.discountPrice : false;
+
   return (
     <Link
       to="/{-$locale}/offers/$id"
       params={{ id: game.id }}
-      className="w-full"
+      className="group block w-full focus-visible:outline-none"
       aria-label={`Open offer ${game.title}`}
     >
-      <Card className="relative flex h-fit w-full flex-col rounded-md border-border/60 bg-card p-2 text-card-foreground md:flex-row">
+      <Card className="relative flex h-fit w-full flex-col gap-3 rounded-lg border border-white/10 bg-card/80 p-3 text-card-foreground shadow-sm transition-[box-shadow,border-color,background-color] duration-200 ease-out group-hover:bg-card group-hover:border-primary/60 group-hover:shadow-lg group-hover:shadow-black/35 group-focus-visible:border-primary md:flex-row md:gap-5 md:p-3.5">
         {/* Image Section */}
-        <div className="relative inline-flex aspect-video w-full shrink-0 items-center justify-center md:w-72">
+        <div className="relative inline-flex aspect-video w-full shrink-0 items-center justify-center overflow-hidden rounded-lg border border-white/10 bg-muted/40 md:w-72">
           <Image
             src={epicImage ?? "/300x150-egdata-placeholder.png"}
             alt={game.title}
-            className="h-full w-full rounded-md object-cover"
+            className="h-full w-full object-cover transition-transform duration-300 ease-out will-change-transform group-hover:scale-[1.035]"
             width={350}
             height={200}
           />
           {game.prePurchase && (
             <Badge
               variant="default"
-              className="absolute top-2 left-2 text-sm bg-primary text-primary-foreground"
+              className="absolute top-2.5 left-2.5 bg-primary px-2.5 py-0.5 text-xs font-semibold text-primary-foreground shadow-sm"
             >
               Pre-purchase
             </Badge>
@@ -114,107 +116,107 @@ export function OfferListItem({
         </div>
 
         {/* Content Section */}
-        <div className="flex min-w-0 flex-grow flex-col justify-between p-2 md:ml-4">
+        <div className="flex min-w-0 flex-grow flex-col justify-between py-0.5">
           {/* Title and Tags */}
-          <div className="flex min-w-0 items-start justify-between">
+          <div className="flex min-w-0 items-start justify-between gap-3">
             <div className="flex min-w-0 flex-col">
-              <div className="flex min-w-0 flex-wrap items-center gap-x-2 gap-y-1">
-                <h2 className="min-w-0 max-w-full truncate text-lg font-bold md:text-xl">
+              <div className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                <h2 className="font-display min-w-0 max-w-full truncate text-lg font-semibold tracking-tight text-foreground transition-colors duration-200 group-hover:text-primary md:text-xl">
                   {game.title}
                 </h2>
-                <span className="hidden text-sm text-muted-foreground md:inline">-</span>
-                <span className="text-sm text-muted-foreground">
+                <span className="text-xs font-medium text-muted-foreground">
                   {offersDictionary[game.offerType as keyof typeof offersDictionary] ||
                     game.offerType}
                 </span>
               </div>
-              <div className="mt-1 flex flex-wrap gap-2">
+              <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
                 {game.tags
                   .filter((tag) => tag?.name)
                   .slice(0, 4)
                   ?.map((tag) => (
-                    <Badge key={tag?.id} variant="secondary">
+                    <Badge
+                      key={tag?.id}
+                      variant="secondary"
+                      className="bg-secondary/70 font-normal text-secondary-foreground/90"
+                    >
                       {tag?.name ?? "N/A"}
                     </Badge>
                   ))}
               </div>
             </div>
+
+            {/* Platform Tags */}
+            <div className="flex shrink-0 items-center gap-1.5 pt-1 text-muted-foreground">
+              {game.tags
+                .filter((tag) => textPlatformIcons[tag?.name])
+                .map((tag) => (
+                  <span key={tag?.id} className="inline-flex items-center gap-1">
+                    {textPlatformIcons[tag?.name]}
+                  </span>
+                ))}
+            </div>
           </div>
 
-          {/* Seller Info */}
-          <div className="inline-flex gap-2 items-center justify-start my-2">
-            <span className="text-sm text-muted-foreground">{game.seller.name}</span>
-          </div>
+          <div className="mt-3 flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+            <div className="flex flex-col gap-1 text-xs md:text-sm text-muted-foreground">
+              {/* Seller Info */}
+              <span className="font-medium text-foreground/85">{game.seller.name}</span>
 
-          {/* Release Date */}
-          <div className="inline-flex gap-2 items-center justify-start">
-            <span className="text-sm text-muted-foreground">
-              Release date:{" "}
-              {new Date(game.releaseDate).toLocaleString("en-UK", {
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-              })}
-            </span>
-          </div>
-
-          {/* Giveaway Info */}
-          {game.giveaway && (
-            <div className="inline-flex gap-2 items-center justify-start mt-2">
-              <span className="text-sm text-muted-foreground">
-                Giveaway period:{" "}
-                {new Date(game.giveaway.startDate).toLocaleString("en-UK", {
-                  month: "long",
-                  day: "numeric",
-                  year: "numeric",
-                })}{" "}
-                -{" "}
-                {new Date(game.giveaway.endDate).toLocaleString("en-UK", {
+              {/* Release Date */}
+              <span className="tabular-nums">
+                Release date:{" "}
+                {new Date(game.releaseDate).toLocaleString("en-UK", {
                   month: "long",
                   day: "numeric",
                   year: "numeric",
                 })}
               </span>
-            </div>
-          )}
 
-          {/* Price and Sale Info */}
-          {price && (
-            <div className="mt-4 flex flex-wrap items-end justify-start gap-3 md:justify-end md:gap-4">
-              {price.appliedRules.length > 0 && <SaleModule price={price} />}
-              {price.price.originalPrice !== price.price.discountPrice && (
-                <span className="line-through text-muted-foreground">
-                  {priceFmtd.format(
-                    calculatePrice(price.price.originalPrice, price.price.currencyCode),
-                  )}
+              {/* Giveaway Info */}
+              {game.giveaway && (
+                <span className="tabular-nums">
+                  Giveaway period:{" "}
+                  {new Date(game.giveaway.startDate).toLocaleString("en-UK", {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                  })}{" "}
+                  -{" "}
+                  {new Date(game.giveaway.endDate).toLocaleString("en-UK", {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
                 </span>
               )}
-              <span
-                className={cn(
-                  "text-lg font-bold",
-                  price.price.originalPrice !== price.price.discountPrice
-                    ? "text-primary"
-                    : "text-foreground",
-                )}
-              >
-                {priceFmtd.format(
-                  calculatePrice(price.price.discountPrice, price.price.currencyCode),
-                )}
-              </span>
             </div>
-          )}
-        </div>
 
-        {/* Platform Tags */}
-        <span className="absolute right-0 top-0 p-3">
-          {game.tags
-            .filter((tag) => textPlatformIcons[tag?.name])
-            .map((tag) => (
-              <span key={tag?.id} className="inline-flex items-center gap-1">
-                {textPlatformIcons[tag?.name]}
-              </span>
-            ))}
-        </span>
+            {/* Price and Sale Info */}
+            {price && (
+              <div className="flex flex-wrap items-center justify-start gap-2.5 tabular-nums md:justify-end">
+                {price.appliedRules.length > 0 && <SaleModule price={price} />}
+                {isDiscounted && (
+                  <span className="text-sm text-muted-foreground line-through tabular-nums">
+                    {priceFmtd.format(
+                      calculatePrice(price.price.originalPrice, price.price.currencyCode),
+                    )}
+                  </span>
+                )}
+                {isFree ? (
+                  <span className="inline-flex items-center rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-sm font-semibold text-emerald-300 ring-1 ring-emerald-400/20 tabular-nums">
+                    Free
+                  </span>
+                ) : (
+                  <span className="text-lg font-semibold text-foreground tabular-nums">
+                    {priceFmtd.format(
+                      calculatePrice(price.price.discountPrice, price.price.currencyCode),
+                    )}
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
       </Card>
     </Link>
   );
@@ -231,13 +233,14 @@ function SaleModule({ price }: { price: Price }) {
   if (!sale) return null;
 
   return (
-    <div className="flex items-center justify-between gap-2">
-      <div className="flex items-center">
-        <span className="text-sm text-muted-foreground">
-          ends in {relativeFutureDate(new Date(sale.endDate))} days
-        </span>
-      </div>
-      <Badge variant="default" className="bg-primary text-primary-foreground text-sm">
+    <div className="flex items-center gap-2">
+      <span className="text-xs text-muted-foreground tabular-nums">
+        ends in {relativeFutureDate(new Date(sale.endDate))} days
+      </span>
+      <Badge
+        variant="default"
+        className="bg-primary px-2 py-0.5 text-xs font-semibold text-primary-foreground tabular-nums"
+      >
         -{100 - sale.discountSetting.discountPercentage}%
       </Badge>
     </div>

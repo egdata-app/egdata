@@ -83,16 +83,22 @@ function GenresPage() {
     return null;
   }
 
+  const validGenres = genres.filter((genre) => genre.genre?.id);
+
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen py-2">
-      <h1 className="text-2xl font-bold">{t("genres.heading")}</h1>
-      <hr className="w-1/2 bg-muted my-4" />
-      <div className="flex flex-wrap justify-center">
-        {genres
-          .filter((genre) => genre.genre?.id)
-          .map((genre) => (
-            <GenreCard key={genre.genre?.id} genre={genre} />
-          ))}
+    <main className="mx-auto flex min-h-screen w-full max-w-7xl flex-col gap-8 px-4 py-6 sm:px-6">
+      <header className="flex items-baseline justify-between gap-4 border-b border-border/60 pb-4">
+        <h1 className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+          {t("genres.heading")}
+        </h1>
+        <span className="text-sm font-medium text-muted-foreground tabular-nums">
+          {validGenres.length}
+        </span>
+      </header>
+      <div className="grid w-full grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {validGenres.map((genre) => (
+          <GenreCard key={genre.genre?.id} genre={genre} />
+        ))}
       </div>
     </main>
   );
@@ -103,26 +109,34 @@ function GenreCard({ genre }: { genre: GenreResponse }) {
     <Link
       to={"/{-$locale}/search"}
       search={{ tags: [genre.genre.id], sortBy: "releaseDate" }}
-      className="genre-card relative w-72 h-[300px] mx-auto text-foreground overflow-hidden rounded-lg shadow-lg m-4 bg-muted/40 hover:bg-muted/60 transition group"
+      className="genre-card group relative flex h-[300px] w-full flex-col justify-end overflow-hidden rounded-xl border border-white/10 bg-card/80 text-foreground shadow-sm transition-[box-shadow,border-color,background-color] duration-200 ease-out hover:bg-card hover:border-primary/60 hover:shadow-lg hover:shadow-black/35 focus-visible:outline-none focus-visible:border-ring"
     >
-      <div className="title absolute bottom-2 w-full text-center font-light text-xl z-10 truncate max-w-full mx-2">
-        {genre.genre.name}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        {genre.offers.slice(0, 3).map((offer, index) => (
+          <img
+            key={offer.id}
+            src={offer.image.url}
+            alt={offer.title}
+            loading="lazy"
+            decoding="async"
+            className={cn(
+              "absolute rounded-lg object-cover antialiased ring-1 ring-white/10",
+              index === 0 &&
+                "left-1/2 top-3 z-[9] h-60 w-44 -translate-x-1/2 shadow-2xl ring-white/15 transition-transform duration-300 ease-out group-hover:scale-[1.03]",
+              index === 1 &&
+                "left-4 top-5 z-0 h-56 w-40 -rotate-3 opacity-45 shadow-md transition-[opacity,transform] duration-300 ease-out group-hover:-translate-x-1 group-hover:-rotate-6 group-hover:opacity-65",
+              index === 2 &&
+                "right-4 top-5 z-0 h-56 w-40 rotate-3 opacity-45 shadow-md transition-[opacity,transform] duration-300 ease-out group-hover:translate-x-1 group-hover:rotate-6 group-hover:opacity-65",
+            )}
+          />
+        ))}
       </div>
-      <span className="absolute top-0 left-0 w-full h-full backdrop-blur-[1px] bg-black/10 z-[5] group-hover:opacity-0 transition duration-300 ease-in-out" />
-      {genre.offers.map((offer, index) => (
-        <img
-          key={offer.id}
-          src={offer.image.url}
-          alt={offer.title}
-          className={cn(
-            "absolute w-40 h-56 object-cover rounded shadow-2xl antialiased",
-            index === 1 && "left-2 z-0 opacity-35 backdrop-filter backdrop-blur-lg top-4",
-            index === 0 &&
-              "left-1/2 transform -translate-x-1/2 z-[9] w-44 h-60 top-2 group-hover:scale-[1.03] transition duration-200 ease-in-out",
-            index === 2 && "right-2 z-0 opacity-35 backdrop-filter backdrop-blur-lg top-4",
-          )}
-        />
-      ))}
+      <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-background via-background/75 via-35% to-transparent" />
+      <div className="relative z-20 px-4 pb-3.5 pt-8">
+        <h2 className="truncate text-center font-display text-lg font-semibold tracking-tight text-foreground transition-colors duration-200 group-hover:text-primary">
+          {genre.genre.name}
+        </h2>
+      </div>
     </Link>
   );
 }

@@ -48,24 +48,25 @@ export function SectionsNav({
         <ul
           className={cn(
             isHorizontal
-              ? "inline-flex h-9 min-w-max items-center justify-center space-x-1 rounded-md bg-muted/50 p-1 text-muted-foreground"
-              : "inline-flex h-9 min-w-max items-center justify-center space-x-1 rounded-md bg-muted/50 p-1 text-muted-foreground md:flex md:h-auto md:min-w-0 md:flex-col md:items-stretch md:justify-start md:space-x-0 md:space-y-1",
+              ? "inline-flex min-w-max items-center justify-center gap-1 rounded-lg border border-border/60 bg-card/80 p-1 text-muted-foreground shadow-sm"
+              : "inline-flex min-w-max items-center justify-center gap-1 rounded-lg border border-border/60 bg-card/80 p-1 text-muted-foreground shadow-sm md:flex md:h-auto md:min-w-0 md:flex-col md:items-stretch md:justify-start",
           )}
         >
           {links.map((link) => {
+            const isActive = activeSection === link.id;
             const linkClassName = cn(
-              activeSection === link.id
-                ? "bg-primary text-primary-foreground w-full"
-                : "hover:bg-primary/10 hover:text-primary text-muted-foreground w-full",
-              "inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
-              !isHorizontal && "md:h-full md:justify-start",
+              isActive
+                ? "bg-primary text-primary-foreground shadow-sm"
+                : "text-muted-foreground hover:bg-accent/60 hover:text-foreground",
+              "inline-flex w-full items-center justify-center whitespace-nowrap rounded-md px-3 py-1.5 text-sm font-medium tabular-nums transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+              !isHorizontal && "md:justify-start",
             );
 
             return (
               <li
                 key={link.id}
                 className={cn(
-                  isHorizontal ? "inline-flex h-9" : "inline-flex h-9 md:flex md:w-full",
+                  isHorizontal ? "inline-flex" : "inline-flex md:flex md:w-full",
                   "items-center justify-center rounded-md p-0 text-muted-foreground",
                 )}
               >
@@ -75,6 +76,7 @@ export function SectionsNav({
                     params={link.params}
                     preload={link.preload}
                     resetScroll={link.resetScroll ?? false}
+                    aria-current={isActive ? "page" : undefined}
                     className={linkClassName}
                   >
                     {link.label}
@@ -82,6 +84,7 @@ export function SectionsNav({
                 ) : (
                   <a
                     href={localizeHref(link.href)}
+                    aria-current={isActive ? "page" : undefined}
                     className={linkClassName}
                     onClick={(e) => {
                       e.preventDefault();

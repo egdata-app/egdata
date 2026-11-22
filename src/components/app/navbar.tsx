@@ -396,7 +396,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 flex h-16 w-full shrink-0 items-center px-4 md:px-6 gap-2 border-b border-border/50 bg-background/70 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 flex h-16 w-full shrink-0 items-center px-4 md:px-6 gap-2 border-b border-border/50 bg-background/85 backdrop-blur-md">
       <SheetTrigger isOpen={sheetOpen} onOpenChange={setSheetOpen}>
         <Button variant="outline" size="icon" className="lg:hidden">
           <MenuIcon className="h-5 w-5" />
@@ -565,12 +565,12 @@ export default function Navbar() {
       <div className="ml-auto flex min-w-0 items-center gap-2 md:gap-3">
         <button
           type="button"
-          className="hidden min-w-0 cursor-text items-center gap-2 rounded-md border border-border/60 bg-card/40 px-3 text-sm text-muted-foreground transition-colors hover:border-primary/50 hover:text-foreground lg:inline-flex lg:h-9 lg:max-w-[190px] xl:max-w-none"
+          className="hidden min-w-0 cursor-text items-center gap-2 rounded-full border border-border/70 bg-card/70 px-3.5 text-sm text-muted-foreground transition-colors hover:border-primary/50 hover:text-foreground lg:inline-flex lg:h-9 lg:max-w-[200px] xl:max-w-none"
           onClick={handleSearchClick}
         >
           <SearchIcon className="h-4 w-4 shrink-0" />
           <span className="min-w-0 truncate">{t("common.searchPlaceholder")}</span>
-          <kbd className="ml-1 hidden h-5 shrink-0 items-center gap-0.5 rounded border border-border/60 bg-background/60 px-1.5 font-mono text-[0.7rem] text-muted-foreground xl:inline-flex">
+          <kbd className="ml-1 hidden h-5 shrink-0 items-center gap-0.5 rounded-full border border-border/70 bg-background/70 px-2 text-[0.7rem] text-muted-foreground xl:inline-flex">
             ⌘K
           </kbd>
         </button>

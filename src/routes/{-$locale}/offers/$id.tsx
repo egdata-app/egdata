@@ -35,6 +35,8 @@ import { useLocale } from "@/hooks/use-locale";
 import { usePushNotifications } from "@/hooks/use-push-notifications";
 import { ClientOnly } from "@/lib/cllient-only";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
+import buildImageUrl from "@/lib/build-image-url";
+import { getImage } from "@/lib/get-image";
 import { Seller } from "@/lib/get-seller";
 import {
   offerFranchisesQueryOptions,
@@ -231,64 +233,99 @@ function OfferPage() {
   const platformTags = offer.tags
     .filter((tag) => tag !== null)
     .filter((tag) => platformIcons[tag.id]);
+  const backdropUrl = getImage(offer.keyImages, [
+    "DieselGameBoxWide",
+    "OfferImageWide",
+    "DieselStoreFrontWide",
+    "OfferImageTall",
+  ])?.url;
 
   return (
-    <main className="flex flex-col items-start justify-start w-full min-h-screen gap-4 relative px-4 md:px-8 max-w-[1600px] mx-auto">
+    <main className="flex flex-col items-start justify-start w-full min-h-screen gap-6 relative px-4 md:px-8 pb-12 max-w-[1600px] mx-auto">
+      {backdropUrl && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 -top-6 z-0 h-80 select-none overflow-hidden rounded-2xl opacity-35"
+        >
+          <img
+            src={buildImageUrl(backdropUrl, 640, "low")}
+            alt=""
+            className="size-full scale-110 object-cover blur-2xl"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/75 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background" />
+        </div>
+      )}
       <ClientOnly>
         <PrepurchasePopup id={offer.id} offer={offer} />
       </ClientOnly>
-      <header className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
-        <div className="flex flex-col gap-1">
-          <div className="inline-flex min-w-0 flex-wrap items-center gap-3 md:gap-4">
-            {isFabItem && <FabIcon className="size-10" />}
-            <h1 className="min-w-0 text-2xl font-bold leading-tight md:text-4xl">{offer.title}</h1>
+      <header className="relative z-10 grid w-full grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-2 border-b border-border/60 pb-4">
+            <div className="inline-flex min-w-0 flex-wrap items-center gap-3 md:gap-4">
+              {isFabItem && <FabIcon className="size-10 shrink-0" />}
+              <h1 className="min-w-0 font-display text-2xl font-bold leading-tight tracking-tight text-foreground md:text-4xl">
+                {offer.title}
+              </h1>
+            </div>
+            <h4
+              className="inline-flex flex-wrap items-center gap-2 font-display text-base font-medium text-muted-foreground md:text-lg"
+              aria-label={t("offerDetail.hero.offeredBy", { seller: offer.seller.name })}
+            >
+              <Seller
+                developerDisplayName={offer.developerDisplayName as string}
+                publisherDisplayName={offer.publisherDisplayName as string}
+                seller={offer.seller.name}
+                customAttributes={offer.customAttributes}
+              />
+              {offer.prePurchase && (
+                <Badge
+                  variant="outline"
+                  className="border-border/60 transition-colors duration-150 hover:border-primary/50"
+                >
+                  {t("offerDetail.badges.prePurchase")}
+                </Badge>
+              )}
+              {isUnavailableForPurchase && (
+                <Badge variant="destructive" className="transition-colors duration-150">
+                  {t("offerDetail.badges.unavailableForPurchase")}
+                </Badge>
+              )}
+              {offer.tags.find((tag) => tag.id === "1310") && (
+                <Badge
+                  variant="outline"
+                  className="border-border/60 transition-colors duration-150 hover:border-primary/50"
+                >
+                  {t("offerDetail.badges.earlyAccess")}
+                </Badge>
+              )}
+            </h4>
           </div>
-          <h4
-            className="inline-flex flex-wrap items-center gap-2 text-base font-semibold opacity-50 md:text-lg"
-            aria-label={t("offerDetail.hero.offeredBy", { seller: offer.seller.name })}
-          >
-            <Seller
-              developerDisplayName={offer.developerDisplayName as string}
-              publisherDisplayName={offer.publisherDisplayName as string}
-              seller={offer.seller.name}
-              customAttributes={offer.customAttributes}
-            />
-            {offer.prePurchase && (
-              <Badge variant="outline">{t("offerDetail.badges.prePurchase")}</Badge>
-            )}
-            {isUnavailableForPurchase && (
-              <Badge variant="destructive">{t("offerDetail.badges.unavailableForPurchase")}</Badge>
-            )}
-            {offer.tags.find((tag) => tag.id === "1310") && (
-              <Badge variant="outline">{t("offerDetail.badges.earlyAccess")}</Badge>
-            )}
-          </h4>
 
-          <div className="mt-2 overflow-hidden rounded-xl border border-border/10">
+          <div className="overflow-hidden rounded-xl border border-border/60 bg-card/80 shadow-sm transition-[box-shadow,border-color,background-color] duration-200 ease-out hover:border-border">
             <Table className="min-w-[640px]">
               <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[180px] md:w-[300px]">
+                <TableRow className="border-border/50 hover:bg-muted/30 transition-colors duration-150">
+                  <TableHead className="w-[180px] md:w-[300px] text-muted-foreground">
                     {t("offerDetail.table.offerId")}
                   </TableHead>
-                  <TableHead className="text-left font-mono border-l-border/10 border-l">
+                  <TableHead className="text-left font-mono tabular-nums text-foreground/95 border-l border-border/50">
                     {offer.id}
                   </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                <TableRow>
-                  <TableCell className="font-medium">{t("offerDetail.table.namespace")}</TableCell>
-                  <TableCell
-                    className={
-                      "text-left font-mono border-l-border/10 border-l underline decoration-dotted decoration-border underline-offset-4"
-                    }
-                  >
+                <TableRow className="border-border/50 transition-colors duration-150 hover:bg-muted/30">
+                  <TableCell className="font-medium text-muted-foreground">
+                    {t("offerDetail.table.namespace")}
+                  </TableCell>
+                  <TableCell className="text-left font-mono tabular-nums border-l border-border/50">
                     <Link
                       to={"/{-$locale}/sandboxes/$id"}
                       params={{
                         id: offer.namespace,
                       }}
+                      className="rounded-sm underline decoration-dotted decoration-border underline-offset-4 transition-colors duration-150 hover:text-primary hover:decoration-primary/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     >
                       {internalNamespaces.includes(offer.namespace) ? (
                         <TooltipTrigger>
@@ -303,28 +340,34 @@ function OfferPage() {
                     </Link>
                   </TableCell>
                 </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium">{t("offerDetail.table.offerType")}</TableCell>
-                  <TableCell className="text-left border-l-border/10 border-l">
+                <TableRow className="border-border/50 transition-colors duration-150 hover:bg-muted/30">
+                  <TableCell className="font-medium text-muted-foreground">
+                    {t("offerDetail.table.offerType")}
+                  </TableCell>
+                  <TableCell className="text-left border-l border-border/50">
                     {offersDictionary[offer.offerType as keyof typeof offersDictionary] ||
                       offer.offerType}
                   </TableCell>
                 </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium">{t("offerDetail.table.seller")}</TableCell>
-                  <TableCell className="text-left border-l-border/10 border-l">
+                <TableRow className="border-border/50 transition-colors duration-150 hover:bg-muted/30">
+                  <TableCell className="font-medium text-muted-foreground">
+                    {t("offerDetail.table.seller")}
+                  </TableCell>
+                  <TableCell className="text-left border-l border-border/50">
                     <Link
                       to="/{-$locale}/sellers/$id"
                       params={{ id: offer.seller.id }}
-                      className="underline underline-offset-4"
+                      className="rounded-sm font-medium underline decoration-border underline-offset-4 transition-colors duration-150 hover:text-primary hover:decoration-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                     >
                       {offer.seller.name}
                     </Link>
                   </TableCell>
                 </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium">{t("offerDetail.table.developer")}</TableCell>
-                  <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
+                <TableRow className="border-border/50 transition-colors duration-150 hover:bg-muted/30">
+                  <TableCell className="font-medium text-muted-foreground">
+                    {t("offerDetail.table.developer")}
+                  </TableCell>
+                  <TableCell className="text-left inline-flex items-center gap-1 border-l border-border/50">
                     <Seller
                       developerDisplayName={offer.developerDisplayName as string}
                       publisherDisplayName={offer.publisherDisplayName as string}
@@ -333,13 +376,16 @@ function OfferPage() {
                     />
                   </TableCell>
                 </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium">
+                <TableRow className="border-border/50 transition-colors duration-150 hover:bg-muted/30">
+                  <TableCell className="font-medium text-muted-foreground">
                     {t("offerDetail.table.supportedPlatforms")}
                   </TableCell>
-                  <TableCell className="text-left border-l-border/10 border-l inline-flex items-center justify-start gap-1">
+                  <TableCell className="text-left border-l border-border/50 inline-flex items-center justify-start gap-1.5">
                     {platformTags.map((tag) => (
-                      <span key={tag.id} className="text-sm">
+                      <span
+                        key={tag.id}
+                        className="text-sm text-foreground/90 transition-colors duration-150 hover:text-primary"
+                      >
                         {platformIcons[tag.id]}
                       </span>
                     ))}
@@ -347,11 +393,11 @@ function OfferPage() {
                     {!platformTags.length && <div>{t("offerDetail.common.na")}</div>}
                   </TableCell>
                 </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium">
+                <TableRow className="border-border/50 transition-colors duration-150 hover:bg-muted/30">
+                  <TableCell className="font-medium text-muted-foreground">
                     {t("offerDetail.table.releaseDate")}
                   </TableCell>
-                  <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
+                  <TableCell className="text-left inline-flex items-center gap-1.5 tabular-nums border-l border-border/50">
                     <ReleaseDate
                       releaseDate={offer.releaseDate}
                       pcReleaseDate={offer.pcReleaseDate}
@@ -360,11 +406,11 @@ function OfferPage() {
                   </TableCell>
                 </TableRow>
                 {expiryDateValue && expiryDate && (
-                  <TableRow>
-                    <TableCell className="font-medium">
+                  <TableRow className="border-border/50 transition-colors duration-150 hover:bg-muted/30">
+                    <TableCell className="font-medium text-muted-foreground">
                       {t("offerDetail.table.expirationDate")}
                     </TableCell>
-                    <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
+                    <TableCell className="text-left inline-flex items-center gap-1.5 tabular-nums border-l border-border/50">
                       {expiryDate.setZone(timezone).setLocale("en-GB").toLocaleString({
                         year: "numeric",
                         month: "long",
@@ -377,9 +423,11 @@ function OfferPage() {
                     </TableCell>
                   </TableRow>
                 )}
-                <TableRow>
-                  <TableCell className="font-medium">{t("offerDetail.table.lastUpdate")}</TableCell>
-                  <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
+                <TableRow className="border-border/50 transition-colors duration-150 hover:bg-muted/30">
+                  <TableCell className="font-medium text-muted-foreground">
+                    {t("offerDetail.table.lastUpdate")}
+                  </TableCell>
+                  <TableCell className="text-left inline-flex items-center gap-1.5 tabular-nums border-l border-border/50">
                     {offer.lastModifiedDate
                       ? DateTime.fromISO(offer.lastModifiedDate, {
                           zone: timezone,
@@ -397,11 +445,11 @@ function OfferPage() {
                     <TimeAgo targetDate={offer.lastModifiedDate} />
                   </TableCell>
                 </TableRow>
-                <TableRow>
-                  <TableCell className="font-medium">
+                <TableRow className="border-border/50 transition-colors duration-150 hover:bg-muted/30">
+                  <TableCell className="font-medium text-muted-foreground">
                     {t("offerDetail.table.creationDate")}
                   </TableCell>
-                  <TableCell className="text-left inline-flex items-center gap-1 border-l-border/10 border-l">
+                  <TableCell className="text-left inline-flex items-center gap-1.5 tabular-nums border-l border-border/50">
                     {offer.creationDate
                       ? DateTime.fromISO(offer.creationDate, {
                           zone: timezone,
@@ -420,12 +468,12 @@ function OfferPage() {
                   </TableCell>
                 </TableRow>
                 {technologies && technologies.length > 0 && (
-                  <TableRow>
-                    <TableCell className="font-medium">
+                  <TableRow className="border-border/50 transition-colors duration-150 hover:bg-muted/30">
+                    <TableCell className="font-medium text-muted-foreground">
                       <TooltipTrigger>
                         <span
                           tabIndex={0}
-                          className="underline decoration-dotted decoration-border/60 underline-offset-4 cursor-help"
+                          className="underline decoration-dotted decoration-border/60 underline-offset-4 cursor-help transition-colors duration-150 hover:text-foreground"
                         >
                           {t("offerDetail.table.technologies")}
                         </span>
@@ -434,7 +482,7 @@ function OfferPage() {
                             {t("offerDetail.tooltip.techSource")}{" "}
                             <a
                               href="https://steamdb.info/tech/"
-                              className="text-blue-700 font-semibold"
+                              className="text-primary font-semibold transition-colors duration-150 hover:underline"
                               target="_blank"
                               rel="noopener noreferrer"
                             >
@@ -444,7 +492,7 @@ function OfferPage() {
                             <br />
                             <a
                               href="https://github.com/SteamDatabase/FileDetectionRuleSets"
-                              className="text-blue-700 font-semibold"
+                              className="text-primary font-semibold transition-colors duration-150 hover:underline"
                               target="_blank"
                               rel="noopener noreferrer"
                             >
@@ -454,7 +502,7 @@ function OfferPage() {
                         </Tooltip>
                       </TooltipTrigger>
                     </TableCell>
-                    <TableCell className="text-left border-l-border/10 border-l flex flex-wrap flex-row gap-1">
+                    <TableCell className="text-left border-l border-border/50 flex flex-wrap flex-row gap-1">
                       {technologies
                         .filter(
                           (technology) =>
@@ -505,11 +553,13 @@ function OfferPage() {
                           >
                             <TechnologyLink
                               id={technology.technology}
-                              className="underline-offset-4 hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                              className="rounded-sm underline-offset-4 transition-colors duration-150 hover:text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                             >
                               {technology.technology}
                             </TechnologyLink>
-                            <sup className="ml-[2px] text-[0.68rem]">{technology.section}</sup>
+                            <sup className="ml-[2px] text-[0.68rem] text-muted-foreground">
+                              {technology.section}
+                            </sup>
                             {index < array.length - 1 && ","}
                           </span>
                         ))}
@@ -535,7 +585,7 @@ function OfferPage() {
                   addToCompare(offer.id);
                 }
               }}
-              className="inline-flex items-center gap-1 bg-card text-card-foreground hover:bg-accent border border-border/60"
+              className="inline-flex items-center gap-1.5 bg-card/80 text-card-foreground border border-border/60 transition-[box-shadow,border-color,background-color,color] duration-200 ease-out hover:bg-accent hover:border-primary/50 hover:text-foreground"
             >
               {compare.includes(offer.id) ? <RemoveIcon /> : <AddIcon />}
               <span>{t("offerDetail.actions.compare")}</span>
@@ -548,7 +598,9 @@ function OfferPage() {
             (!franchise.namespaces || franchise.namespaces.length > 1) && (
               <FranchiseBanner franchise={franchise} />
             )}
-          <p className="px-1">{offer.description}</p>
+          {offer.description && (
+            <p className="px-1 text-sm leading-7 text-muted-foreground">{offer.description}</p>
+          )}
         </div>
       </header>
 
@@ -560,13 +612,16 @@ function OfferPage() {
 
       {offer.offerType === "BUNDLE" || offer.offerType === "Bundle" ? (
         <section className="w-full min-h-[50vh] flex flex-col gap-4">
-          <hr className="my-4" />
+          <hr className="my-4 w-full border-border/60" />
           <Bundle id={offer.id} offer={offer} />
-          <hr className="my-4" />
+          <hr className="my-4 w-full border-border/60" />
         </section>
       ) : null}
 
-      <section id="offer-information" className="w-full min-h-[50vh] flex flex-col gap-4">
+      <section
+        id="offer-information"
+        className="w-full min-h-[50vh] flex flex-col gap-5 border-t border-border/60 pt-6"
+      >
         <SectionsNav
           links={[
             {
@@ -668,7 +723,7 @@ function OfferPage() {
         </div>
       </section>
 
-      <hr className="my-4 border-border/40" />
+      <hr className="my-4 w-full border-border/60" />
 
       <SellerOffers id={offer.seller.id} name={offer.seller.name} currentOffer={offer} />
 
@@ -755,14 +810,16 @@ function OfferNotificationPopover({ offerId }: { offerId: string }) {
   return (
     <PopoverTrigger isOpen={open} onOpenChange={setOpen}>
       <Button
-        className="inline-flex items-center gap-1 bg-card text-card-foreground hover:bg-accent border border-border/60"
+        className="inline-flex items-center gap-1 bg-card/80 text-card-foreground border border-border/60 transition-[box-shadow,border-color,background-color,color] duration-200 ease-out hover:bg-accent hover:border-primary/50 hover:text-foreground"
         size="sm"
       >
         <Bell className="h-4 w-4" />
       </Button>
       <Popover className="w-80">
         <div className="space-y-4">
-          <h4 className="font-medium leading-none">{t("offerDetail.notifications.title")}</h4>
+          <h4 className="font-display font-semibold leading-none tracking-tight">
+            {t("offerDetail.notifications.title")}
+          </h4>
           {canPerformTopicOperations ? (
             <>
               <p className="text-sm text-muted-foreground">
@@ -906,7 +963,7 @@ const TimeAgo: React.FC<{
 }> = ({ targetDate }) => {
   const { t } = useTranslation();
   return (
-    <span className="opacity-50">
+    <span className="text-muted-foreground tabular-nums">
       ({targetDate ? timeAgo(new Date(targetDate)) : t("offerDetail.common.notAvailable")})
     </span>
   );

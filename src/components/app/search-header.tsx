@@ -50,15 +50,23 @@ export function SearchHeader({
   const { t } = useTranslation();
 
   return (
-    <header className={cn("inline-flex items-center justify-between w-full gap-2", className)}>
-      <div className="flex flex-row items-center justify-start gap-2">
-        <h1 className="text-2xl font-bold">{title}</h1>
+    <header
+      className={cn(
+        "flex w-full flex-wrap items-center justify-between gap-4 border-b border-border/60 pb-4",
+        className,
+      )}
+    >
+      <div className="flex flex-row items-center justify-start gap-2.5">
+        <h1 className="font-display text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+          {title}
+        </h1>
         {isFetching && (
           <svg
-            className="animate-spin -ml-1 mr-3 h-5 w-5 text-foreground"
+            className="h-4 w-4 animate-spin text-muted-foreground"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
+            aria-hidden="true"
           >
             <circle
               className="opacity-25"
@@ -76,7 +84,7 @@ export function SearchHeader({
           </svg>
         )}
       </div>
-      <div className="flex flex-row items-center justify-start gap-2">
+      <div className="flex flex-wrap items-center justify-start gap-2">
         {showSort && (
           <>
             <form.Field name="sortBy">
@@ -88,7 +96,7 @@ export function SearchHeader({
                   }}
                   placeholder={t("search.sort.sortBy")}
                 >
-                  <SelectTrigger className="w-[180px]">
+                  <SelectTrigger className="h-9 w-[180px] rounded-lg border-border/60 bg-card/80 text-sm transition-colors hover:bg-card">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -112,13 +120,15 @@ export function SearchHeader({
                     }
                   }}
                   variant="outline"
-                  className="w-9"
+                  aria-label={state.value === "asc" ? "Sort ascending" : "Sort descending"}
+                  className="h-9 w-9 rounded-lg border-border/60 bg-card/80 transition-colors hover:bg-card"
                 >
                   <ArrowDown
                     className={cn(
                       "transition-transform duration-300 ease-in-out",
                       state.value === "asc" ? "rotate-180" : "rotate-0",
                     )}
+                    aria-hidden="true"
                   />
                 </Button>
               )}
@@ -128,7 +138,8 @@ export function SearchHeader({
         {showViewToggle && (
           <Button
             variant="outline"
-            className="h-9 w-9 p-0 hidden md:flex"
+            aria-label={view === "grid" ? "Switch to list view" : "Switch to grid view"}
+            className="hidden h-9 w-9 rounded-lg border-border/60 bg-card/80 p-0 transition-colors hover:bg-card md:flex"
             onClick={() => setView(view === "grid" ? "list" : "grid")}
           >
             {view === "grid" ? (

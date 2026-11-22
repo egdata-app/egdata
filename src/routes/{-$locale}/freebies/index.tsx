@@ -163,106 +163,116 @@ function FreeGames() {
   };
 
   return (
-    <div className="flex flex-col items-start justify-start h-full gap-4 p-4">
-      <GiveawaysStats />
-      <div className="flex w-full flex-col items-start justify-between gap-3 sm:flex-row sm:items-center sm:gap-4">
-        <h2 className="text-xl font-display font-semibold">{t("freebies.headings.current")}</h2>
-        <Button
-          className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex items-center gap-2 w-fit"
-          isDisabled={redeemableOffers.length === 0}
-          onPress={() => {
-            if (!canSelectRedeemableOffers) {
-              return;
-            }
-
-            const currentRedeemableOffers = getRedeemableOffers({
-              giveaways: giveawaysQuery.data,
-              mobileOffers: mobileGiveawaysQuery.data,
-            });
-
-            if (currentRedeemableOffers.length === 0) {
-              return;
-            }
-
-            if (currentRedeemableOffers.length === 1) {
-              openRedeemPopup(currentRedeemableOffers[0]);
-              return;
-            }
-
-            setRedeemOptions(currentRedeemableOffers);
-            setIsRedeemDialogOpen(true);
-          }}
-        >
-          <EGSIcon className="w-5 h-5" />
-          <span>{t("freebies.buttons.redeem")}</span>
-        </Button>
-        <Dialog
-          isOpen={isRedeemDialogOpen}
-          onOpenChange={setIsRedeemDialogOpen}
-          className="sm:max-w-xl"
-        >
-          <DialogHeader>
-            <DialogTitle>{t("freebies.redeemDialog.title")}</DialogTitle>
-            <DialogDescription>{t("freebies.redeemDialog.description")}</DialogDescription>
-          </DialogHeader>
-          <div className="max-h-[min(65vh,32rem)] space-y-2 overflow-y-auto pr-1">
-            {redeemOptions.map((offer) => {
-              const platforms = [
-                ...new Set(
-                  (offer.items ?? []).flatMap((item) =>
-                    (item.releaseInfo ?? []).flatMap((info) => info?.platform ?? []),
-                  ),
-                ),
-              ];
-
-              return (
-                <button
-                  key={`${offer.namespace}:${offer.id}`}
-                  type="button"
-                  data-testid="redeem-offer-option"
-                  className="bg-card hover:border-primary/60 focus-visible:ring-ring flex w-full items-center gap-3 rounded-lg border p-3 text-left transition-colors focus-visible:ring-2 focus-visible:outline-none"
-                  onClick={() => {
-                    setIsRedeemDialogOpen(false);
-                    openRedeemPopup(offer);
-                  }}
-                >
-                  <img
-                    src={buildImageUrl(
-                      getImage(offer.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url ??
-                        "/placeholder.webp",
-                      96,
-                      "low",
-                    )}
-                    alt=""
-                    loading="lazy"
-                    decoding="async"
-                    className="h-16 w-12 shrink-0 rounded object-cover"
-                  />
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate font-medium">{offer.title}</span>
-                    <span className="mt-1 flex flex-wrap gap-1">
-                      {platforms.map((platform) =>
-                        RenderTextPlatformIcon({
-                          platform,
-                          className: "size-6 rounded-full bg-muted p-1",
-                          key: `${platform}-${offer.namespace}-${offer.id}`,
-                        }),
-                      )}
-                    </span>
-                  </span>
-                  <span className="text-primary shrink-0 text-sm font-medium">
-                    {t("freebies.buttons.redeem")}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </Dialog>
+    <div className="mx-auto flex h-full w-full max-w-7xl flex-col items-start justify-start gap-8 px-4 py-6 sm:px-6">
+      <div className="w-full border-b border-border/60 pb-6">
+        <GiveawaysStats />
       </div>
-      <GiveawaysCarousel hideTitle={true} />
-      <Separator orientation="horizontal" className="my-4" />
+      <section className="flex w-full flex-col gap-5">
+        <header className="flex w-full flex-col items-start justify-between gap-3 border-b border-border/60 pb-4 sm:flex-row sm:items-center sm:gap-4">
+          <h2 className="font-display text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+            {t("freebies.headings.current")}
+          </h2>
+          <Button
+            className="bg-primary text-primary-foreground hover:bg-primary/90 inline-flex w-fit items-center gap-2 shadow-sm transition-[box-shadow,background-color,border-color] duration-200 ease-out hover:shadow-md hover:shadow-primary/20"
+            isDisabled={redeemableOffers.length === 0}
+            onPress={() => {
+              if (!canSelectRedeemableOffers) {
+                return;
+              }
+
+              const currentRedeemableOffers = getRedeemableOffers({
+                giveaways: giveawaysQuery.data,
+                mobileOffers: mobileGiveawaysQuery.data,
+              });
+
+              if (currentRedeemableOffers.length === 0) {
+                return;
+              }
+
+              if (currentRedeemableOffers.length === 1) {
+                openRedeemPopup(currentRedeemableOffers[0]);
+                return;
+              }
+
+              setRedeemOptions(currentRedeemableOffers);
+              setIsRedeemDialogOpen(true);
+            }}
+          >
+            <EGSIcon className="w-5 h-5" />
+            <span>{t("freebies.buttons.redeem")}</span>
+          </Button>
+          <Dialog
+            isOpen={isRedeemDialogOpen}
+            onOpenChange={setIsRedeemDialogOpen}
+            className="sm:max-w-xl"
+          >
+            <DialogHeader>
+              <DialogTitle>{t("freebies.redeemDialog.title")}</DialogTitle>
+              <DialogDescription>{t("freebies.redeemDialog.description")}</DialogDescription>
+            </DialogHeader>
+            <div className="max-h-[min(65vh,32rem)] space-y-2.5 overflow-y-auto pr-1">
+              {redeemOptions.map((offer) => {
+                const platforms = [
+                  ...new Set(
+                    (offer.items ?? []).flatMap((item) =>
+                      (item.releaseInfo ?? []).flatMap((info) => info?.platform ?? []),
+                    ),
+                  ),
+                ];
+
+                return (
+                  <button
+                    key={`${offer.namespace}:${offer.id}`}
+                    type="button"
+                    data-testid="redeem-offer-option"
+                    className="group flex w-full items-center gap-3.5 rounded-xl border border-white/10 bg-card/80 p-3 text-left shadow-sm transition-[box-shadow,border-color,background-color] duration-200 ease-out hover:bg-card hover:border-primary/60 hover:shadow-lg hover:shadow-black/35 focus-visible:border-ring focus-visible:outline-none"
+                    onClick={() => {
+                      setIsRedeemDialogOpen(false);
+                      openRedeemPopup(offer);
+                    }}
+                  >
+                    <span className="h-16 w-12 shrink-0 overflow-hidden rounded-md ring-1 ring-white/10">
+                      <img
+                        src={buildImageUrl(
+                          getImage(offer.keyImages, ["DieselGameBoxTall", "OfferImageTall"])?.url ??
+                            "/placeholder.webp",
+                          96,
+                          "low",
+                        )}
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
+                      />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block truncate font-display font-medium text-foreground transition-colors duration-200 group-hover:text-primary">
+                        {offer.title}
+                      </span>
+                      <span className="mt-1 flex flex-wrap gap-1">
+                        {platforms.map((platform) =>
+                          RenderTextPlatformIcon({
+                            platform,
+                            className: "size-6 rounded-full bg-muted p-1",
+                            key: `${platform}-${offer.namespace}-${offer.id}`,
+                          }),
+                        )}
+                      </span>
+                    </span>
+                    <span className="text-primary shrink-0 text-sm font-medium transition-transform duration-200 group-hover:translate-x-0.5">
+                      {t("freebies.buttons.redeem")}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </Dialog>
+        </header>
+        <GiveawaysCarousel hideTitle={true} />
+      </section>
+      <Separator orientation="horizontal" className="bg-border/60" />
       <MobileFreebiesCarousel />
-      <Separator orientation="horizontal" className="my-4" />
+      <Separator orientation="horizontal" className="bg-border/60" />
       <SearchContainer
         contextId="freebies"
         initialSearch={search}

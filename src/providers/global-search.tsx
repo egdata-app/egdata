@@ -103,7 +103,7 @@ const RESULTS_MAX_HEIGHT = 640;
 const RESULTS_MAX_VIEWPORT_RATIO = 0.74;
 const GROUP_CLASS_NAME = "min-w-0 max-w-full [&_[cmdk-group-items]]:min-w-0";
 const RESULT_ROW_CLASS_NAME =
-  "w-full max-w-full min-w-0 items-center gap-3 overflow-hidden rounded-md px-3 py-2 transition-colors hover:bg-accent hover:text-accent-foreground";
+  "group w-full max-w-full min-w-0 cursor-pointer items-center gap-3 overflow-hidden rounded-lg px-3 py-2 transition-colors duration-150 hover:bg-card hover:text-foreground data-[focused]:bg-card data-[focused]:text-foreground";
 const RESULT_ROW_STYLE: CSSProperties = {
   display: "grid",
   gridTemplateColumns: "auto minmax(0, 1fr) auto",
@@ -492,7 +492,7 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
   return (
     <Portal>
       <div
-        className="fixed inset-0 z-[60] bg-background/80"
+        className="fixed inset-0 z-[60] bg-background/75 backdrop-blur-sm"
         onMouseDown={(event) => {
           if (event.target === event.currentTarget) {
             closeSearch(false);
@@ -509,7 +509,7 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
             filter={() => true}
             inputValue={queryValue}
             onInputChange={updateQuery}
-            className="overflow-hidden rounded-lg border border-border/70 bg-card shadow-2xl"
+            className="overflow-hidden rounded-2xl border border-white/10 bg-popover text-popover-foreground shadow-2xl shadow-black/60"
           >
             <h2 id="global-search-title" className="sr-only">
               Search EGDATA
@@ -529,7 +529,7 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
               />
               <button
                 type="button"
-                className="absolute right-3 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="absolute right-3 top-1/2 inline-flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full text-muted-foreground transition-colors duration-150 hover:bg-muted/80 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 aria-label={queryValue ? "Clear search" : "Close search"}
                 onClick={() => {
                   if (queryValue) {
@@ -680,13 +680,17 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
                           error={itemsError}
                           emptyLabel="No matching items"
                         >
-                          {items.map((item) => (
-                            <ItemResultItem
-                              key={item._id}
-                              item={item}
-                              onSelect={() => openItem(item.id)}
-                            />
-                          ))}
+                          {items.map((item, index) => {
+                            const itemKey = item._id || item.id || `${index}`;
+                            return (
+                              <ItemResultItem
+                                key={`${itemKey}-${index}`}
+                                itemId={itemKey}
+                                item={item}
+                                onSelect={() => openItem(item.id || item._id)}
+                              />
+                            );
+                          })}
                         </ResultGroup>
 
                         <ResultGroup
@@ -696,13 +700,17 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
                           error={sellersError}
                           emptyLabel="No matching sellers"
                         >
-                          {sellers.map((seller) => (
-                            <SellerResultItem
-                              key={seller._id}
-                              seller={seller}
-                              onSelect={() => openSeller(seller._id)}
-                            />
-                          ))}
+                          {sellers.map((seller, index) => {
+                            const sellerId = seller._id || seller.id || seller.name || `${index}`;
+                            return (
+                              <SellerResultItem
+                                key={`${sellerId}-${index}`}
+                                sellerId={sellerId}
+                                seller={seller}
+                                onSelect={() => openSeller(seller._id || seller.id || "")}
+                              />
+                            );
+                          })}
                         </ResultGroup>
                       </>
                     )}
@@ -714,6 +722,28 @@ function SearchPortal({ initialQuery, closeSearch, storeQuery, inputRef }: Searc
                 )}
               </CommandList>
             </ScrollArea>
+            <div className="hidden items-center justify-between border-t border-border/50 bg-card/50 px-4 py-2 text-[11px] text-muted-foreground/75 sm:flex">
+              <div className="flex items-center gap-3">
+                <span className="inline-flex items-center gap-1">
+                  <kbd className="rounded border border-border/70 bg-background/80 px-1.5 py-0.5 text-[10px]">
+                    ↑↓
+                  </kbd>
+                  <span>Navigate</span>
+                </span>
+                <span className="inline-flex items-center gap-1">
+                  <kbd className="rounded border border-border/70 bg-background/80 px-1.5 py-0.5 text-[10px]">
+                    ↵
+                  </kbd>
+                  <span>Open</span>
+                </span>
+              </div>
+              <span className="inline-flex items-center gap-1">
+                <kbd className="rounded border border-border/70 bg-background/80 px-1.5 py-0.5 text-[10px]">
+                  Esc
+                </kbd>
+                <span>Close</span>
+              </span>
+            </div>
           </Command>
         </div>
       </div>
@@ -741,17 +771,22 @@ function SearchActionItem({
       id={value}
       textValue={`${label} ${title} ${description}`}
       onAction={onSelect}
-      className={cn("min-h-14", RESULT_ROW_CLASS_NAME)}
+      className={cn("min-h-[52px]", RESULT_ROW_CLASS_NAME)}
       style={RESULT_ROW_STYLE}
     >
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-muted text-muted-foreground">
+      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-card/80 text-muted-foreground transition-colors duration-150 group-hover:border-primary/40 group-hover:text-primary">
         <Icon className="h-4 w-4" />
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block truncate font-medium">{title}</span>
+        <span className="block truncate font-medium transition-colors duration-150 group-hover:text-primary">
+          {title}
+        </span>
         <span className="block truncate text-xs text-muted-foreground">{description}</span>
       </span>
-      <Badge variant="outline" className="ml-2 shrink-0">
+      <Badge
+        variant="outline"
+        className="ml-2 shrink-0 rounded-full border-border/70 bg-background/50 px-2.5 text-[11px] font-medium text-muted-foreground"
+      >
         {label}
       </Badge>
     </CommandItem>
@@ -815,7 +850,7 @@ function OfferResultItem({
       id={`offer:${offer.id}`}
       textValue={`${offer.title} ${offer.seller?.name ?? ""}`}
       onAction={onSelect}
-      className={cn("min-h-16", RESULT_ROW_CLASS_NAME)}
+      className={cn("min-h-[60px]", RESULT_ROW_CLASS_NAME)}
       style={RESULT_ROW_STYLE}
     >
       <ResultImage
@@ -830,43 +865,56 @@ function OfferResultItem({
         alt={offer.title}
       />
       <span className="min-w-0 flex-1">
-        <span className="block truncate font-medium">{offer.title}</span>
+        <span className="block truncate font-medium transition-colors duration-150 group-hover:text-primary">
+          {offer.title}
+        </span>
         <span className="block truncate text-xs text-muted-foreground">
           {offer.seller?.name ?? "Epic Games Store offer"}
         </span>
       </span>
       <span className="ml-2 flex min-w-0 items-center justify-end gap-2 overflow-hidden">
         {offer.prePurchase && (
-          <Badge variant="secondary" className="hidden max-w-full truncate sm:inline-flex">
+          <Badge
+            variant="secondary"
+            className="hidden max-w-full truncate rounded-full bg-primary/15 px-2.5 text-[11px] font-medium text-primary sm:inline-flex"
+          >
             Pre-purchase
           </Badge>
         )}
-        {price && (
-          <span
-            className={cn(
-              "text-sm font-semibold",
-              price === "Free" ? "text-primary" : "text-foreground",
-            )}
-          >
-            {price}
-          </span>
-        )}
+        {price &&
+          (price === "Free" ? (
+            <span className="inline-flex shrink-0 items-center rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-xs font-semibold text-emerald-300 tabular-nums">
+              {price}
+            </span>
+          ) : (
+            <span className="shrink-0 text-sm font-semibold tabular-nums text-foreground">
+              {price}
+            </span>
+          ))}
       </span>
     </CommandItem>
   );
 }
 
-function ItemResultItem({ item, onSelect }: { item: SingleItem; onSelect: () => void }) {
+function ItemResultItem({
+  itemId,
+  item,
+  onSelect,
+}: {
+  itemId: string;
+  item: SingleItem;
+  onSelect: () => void;
+}) {
   const platforms = getPlatformsArray(item.releaseInfo).filter(
     (platform) => textPlatformIcons[platform],
   );
 
   return (
     <CommandItem
-      id={`item:${item._id || item.id}`}
+      id={`item:${itemId}`}
       textValue={`${item.title} ${item.namespace}`}
       onAction={onSelect}
-      className={cn("min-h-16", RESULT_ROW_CLASS_NAME)}
+      className={cn("min-h-[60px]", RESULT_ROW_CLASS_NAME)}
       style={RESULT_ROW_STYLE}
     >
       <ResultImage
@@ -874,7 +922,9 @@ function ItemResultItem({ item, onSelect }: { item: SingleItem; onSelect: () => 
         alt={item.title}
       />
       <span className="min-w-0 flex-1">
-        <span className="block truncate font-medium">{item.title}</span>
+        <span className="block truncate font-medium transition-colors duration-150 group-hover:text-primary">
+          {item.title}
+        </span>
         <span className="block truncate text-xs text-muted-foreground">
           {item.itemType || "Item"} - {item.namespace}
         </span>
@@ -892,16 +942,24 @@ function ItemResultItem({ item, onSelect }: { item: SingleItem; onSelect: () => 
   );
 }
 
-function SellerResultItem({ seller, onSelect }: { seller: SingleSeller; onSelect: () => void }) {
+function SellerResultItem({
+  sellerId,
+  seller,
+  onSelect,
+}: {
+  sellerId: string;
+  seller: SingleSeller;
+  onSelect: () => void;
+}) {
   return (
     <CommandItem
-      id={`seller:${seller._id}`}
+      id={`seller:${sellerId}`}
       textValue={seller.name}
       onAction={onSelect}
-      className={cn("min-h-16", RESULT_ROW_CLASS_NAME)}
+      className={cn("min-h-[60px]", RESULT_ROW_CLASS_NAME)}
       style={RESULT_ROW_STYLE}
     >
-      <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-md bg-muted">
+      <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-white/10 bg-muted">
         {seller.logo?.url ? (
           <img
             src={seller.logo.url}
@@ -916,12 +974,17 @@ function SellerResultItem({ seller, onSelect }: { seller: SingleSeller; onSelect
         )}
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block truncate font-medium">{seller.name}</span>
+        <span className="block truncate font-medium transition-colors duration-150 group-hover:text-primary">
+          {seller.name}
+        </span>
         <span className="block truncate text-xs text-muted-foreground">
           {seller.igdb_id ? `IGDB ${seller.igdb_id}` : "Seller"}
         </span>
       </span>
-      <Badge variant="outline" className="ml-2 shrink-0">
+      <Badge
+        variant="outline"
+        className="ml-2 shrink-0 rounded-full border-border/70 bg-background/50 px-2.5 text-[11px] font-medium text-muted-foreground"
+      >
         Seller
       </Badge>
     </CommandItem>
@@ -930,7 +993,7 @@ function SellerResultItem({ seller, onSelect }: { seller: SingleSeller; onSelect
 
 function ResultImage({ src, alt }: { src?: string; alt: string }) {
   return (
-    <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-md bg-muted">
+    <span className="flex h-11 w-11 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-white/10 bg-muted">
       <Image
         src={src ?? "/placeholder.webp"}
         alt={alt}
@@ -938,7 +1001,7 @@ function ResultImage({ src, alt }: { src?: string; alt: string }) {
         width={88}
         quality="high"
         sizes="44px"
-        className="h-full w-full object-cover"
+        className="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.05]"
       />
     </span>
   );

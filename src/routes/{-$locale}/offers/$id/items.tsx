@@ -1,5 +1,6 @@
 import { columns } from "@/components/tables/items/columns";
 import { DataTable } from "@/components/tables/items/table";
+import { Skeleton } from "@/components/ui/skeleton";
 import { generateOfferMeta } from "@/lib/generate-offer-meta";
 import { httpClient } from "@/lib/http-client";
 import { offerOnlyQueryOptions, resolveQueryLocale } from "@/queries/offer";
@@ -95,21 +96,53 @@ function ItemsPage() {
   });
 
   if (isLoading) {
-    return <div>{t("offerDetail.common.loading")}</div>;
+    return (
+      <section id="offer-items" className="h-full w-full">
+        <div className="flex items-baseline justify-between gap-3 border-b border-border/60 pb-3 mb-5">
+          <h2 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-foreground">
+            {t("offerDetail.items.title")}
+          </h2>
+        </div>
+        <div className="rounded-xl border border-white/10 bg-card/60 p-4 space-y-3">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <Skeleton className="h-9 w-56 rounded-lg" />
+            <Skeleton className="h-9 w-28 rounded-lg" />
+          </div>
+          <div className="space-y-2 pt-2">
+            {["i1", "i2", "i3", "i4", "i5", "i6"].map((key) => (
+              <Skeleton key={key} className="h-11 w-full rounded-lg" />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
   }
 
   if (isError) {
     return (
       <section id="offer-items" className="w-full h-full">
-        <h2 className="text-2xl font-bold">{t("offerDetail.items.title")}</h2>
-        <div>{t("offerDetail.common.somethingWentWrong")}</div>
+        <div className="flex items-baseline justify-between gap-3 border-b border-border/60 pb-3 mb-5">
+          <h2 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-foreground">
+            {t("offerDetail.items.title")}
+          </h2>
+        </div>
+        <div className="rounded-xl border border-white/10 bg-card/60 p-6 text-sm text-muted-foreground">
+          {t("offerDetail.common.somethingWentWrong")}
+        </div>
       </section>
     );
   }
 
   return (
     <section id="offer-items" className="h-full w-full">
-      <h2 className="text-xl md:text-2xl font-bold mb-4">{t("offerDetail.items.title")}</h2>
+      <div className="flex items-baseline justify-between gap-3 border-b border-border/60 pb-3 mb-5">
+        <h2 className="font-display text-xl sm:text-2xl font-bold tracking-tight text-foreground">
+          {t("offerDetail.items.title")}
+        </h2>
+        <span className="rounded-full border border-white/10 bg-card/80 px-2.5 py-0.5 text-xs font-medium tabular-nums text-muted-foreground">
+          {items?.length ?? 0}
+        </span>
+      </div>
       <DataTable<SingleItem, unknown>
         columns={columns}
         data={items ?? []}
