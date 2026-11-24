@@ -7,8 +7,9 @@ import {
 import { formatSandboxCount, SandboxPageHeader } from "@/components/app/sandbox-layout";
 import { EpicTrophyIcon } from "@/components/icons/epic-trophy";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip, TooltipTrigger } from "@/components/ui/tooltip";
 import { useLocale } from "@/hooks/use-locale";
 import { getQueryClient } from "@/lib/client";
@@ -28,7 +29,7 @@ import { CardStackIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { EyeClosedIcon, FileWarningIcon } from "lucide-react";
+import { EyeClosedIcon, FileWarningIcon, RefreshCw } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useTranslation } from "@/lib/paraglide-react";
 import i18n from "@/lib/i18n";
@@ -127,6 +128,7 @@ function SandboxAchievementsPage() {
       [achievementName]: !prev[achievementName],
     }));
   };
+
   const {
     data: achievements,
     isPending,
@@ -170,25 +172,31 @@ function SandboxAchievementsPage() {
 
   if (isPending || !achievements) {
     return (
-      <div className="flex flex-col gap-6 w-full">
+      <div className="flex w-full flex-col gap-6">
         <SandboxPageHeader
           icon={EpicTrophyIcon}
           eyebrow={t("sandboxes.achievementsEyebrow")}
           title={t("sandboxes.achievementsTitle")}
           description={t("sandboxes.achievementsDescription")}
           stats={[
-            { label: t("sandboxes.achievementsSetsLabel"), value: t("sandboxCatalog.loading") },
-            { label: t("sandboxes.achievementsLabel"), value: t("sandboxCatalog.loading") },
-            { label: t("sandboxes.achievementsXpLabel"), value: t("sandboxCatalog.loading") },
+            { label: t("sandboxes.achievementsLabel"), value: "—" },
+            { label: t("sandboxes.achievementsSetsLabel"), value: "—" },
+            { label: t("sandboxes.achievementsXpLabel"), value: "—" },
           ]}
         />
-        <div className="h-64 animate-pulse rounded-md bg-muted" />
+        <Skeleton className="h-24 w-full rounded-xl border border-white/10 bg-card/80" />
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+          {Array.from({ length: 10 }).map((_, index) => (
+            // biome-ignore lint/suspicious/noArrayIndexKey: skeleton fallback cards
+            <AchievementSkeletonCard key={index} />
+          ))}
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col gap-6 w-full">
+    <div className="flex w-full flex-col gap-6">
       <SandboxPageHeader
         icon={EpicTrophyIcon}
         eyebrow={t("sandboxes.achievementsEyebrow")}
@@ -204,7 +212,7 @@ function SandboxAchievementsPage() {
         ]}
       >
         <Input
-          className="h-8 w-full min-w-44 sm:w-64"
+          className="h-9 w-full min-w-44 rounded-lg border border-white/10 bg-card/80 transition-colors duration-150 hover:border-primary/60 focus-visible:border-primary sm:w-56"
           aria-label={t("sandboxes.searchAchievementsPlaceholder")}
           placeholder={t("sandboxes.searchAchievementsPlaceholder")}
           value={search}
@@ -213,6 +221,7 @@ function SandboxAchievementsPage() {
         <Button
           variant="outline"
           size="sm"
+          className="h-9 rounded-lg border-white/10 bg-card/80 transition-colors duration-150 hover:border-primary/60 hover:bg-card"
           onPress={handleFlipAll}
           isDisabled={achievements.length === 0}
         >
@@ -222,6 +231,7 @@ function SandboxAchievementsPage() {
         <Button
           variant="outline"
           size="icon"
+          className="size-9 rounded-lg border-white/10 bg-card/80 transition-colors duration-150 hover:border-primary/60 hover:bg-card"
           onPress={() => setBlur(!blur)}
           isDisabled={achievements.length === 0}
           aria-label={
@@ -233,12 +243,16 @@ function SandboxAchievementsPage() {
           {blur ? <EyeOpenIcon className="size-4" /> : <EyeClosedIcon className="size-4" />}
         </Button>
       </SandboxPageHeader>
+
       {isFetching && (
-        <p role="status" className="text-sm text-muted-foreground">
+        <p role="status" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+          <RefreshCw className="size-3 animate-spin" />
           {t("sandboxCatalog.refreshing")}
         </p>
       )}
+
       {!totalAchievements && <SandboxQueryState empty />}
+
       {search &&
         !achievements.some((set) =>
           set.achievements.some(
@@ -249,16 +263,15 @@ function SandboxAchievementsPage() {
               (achievement.lockedDisplayName || "").toLowerCase().includes(search.toLowerCase()),
           ),
         ) && <SandboxQueryState reset={() => setSearch("")} />}
-      <div className="flex flex-col gap-4 w-full">
+
+      <div className="flex w-full flex-col gap-8">
         {totalAchievements > 0 && (
-          <Card className="w-full bg-card text-foreground p-4">
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-5">
+          <Card className="w-full rounded-xl border border-white/10 bg-card/80 p-4 text-foreground sm:p-5">
+            <div className="flex flex-wrap flex-row items-center justify-center gap-4 sm:gap-10">
               {Object.entries(noOfAchievemenentsPerRarity).map(([rarity, count]) => (
                 <div
                   key={rarity}
-                  className={cn(
-                    "flex flex-col items-center justify-center gap-2 rounded-md p-4 text-center",
-                  )}
+                  className="flex flex-col items-center justify-center gap-2 rounded-lg p-3 text-center sm:p-4"
                 >
                   <EpicTrophyIcon
                     className={cn(
@@ -266,48 +279,53 @@ function SandboxAchievementsPage() {
                       raritiesTextColors[rarity as keyof typeof raritiesTextColors],
                     )}
                   />
-                  <span className="text-xl font-bold">{count}</span>
+                  <span className="font-display text-xl font-bold tabular-nums">{count}</span>
                 </div>
               ))}
-              <div
-                className={cn(
-                  "flex flex-col items-center justify-center gap-2 rounded-md p-4 text-center",
-                )}
-              >
+              <span className="text-2xl font-bold text-muted-foreground">{"="}</span>
+              <div className="flex flex-col items-center justify-center gap-2 rounded-lg p-3 text-center sm:p-4">
                 <EpicTrophyIcon className={cn("size-8", raritiesTextColors.platinum)} />
-                <span className="text-2xl font-bold">{baseAchievements}</span>
+                <span className="font-display text-2xl font-bold tabular-nums">
+                  {baseAchievements}
+                </span>
               </div>
             </div>
           </Card>
         )}
+
         {[...achievements]
           .sort((a, b) => (a.isBase ? -1 : b.isBase ? 1 : 0))
           .map((achievementSet) => (
-            <div key={achievementSet.achievementSetId}>
-              <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                <TooltipTrigger>
-                  <h4
-                    tabIndex={0}
-                    className="text-xl font-thin underline decoration-dotted decoration-border/60 underline-offset-4"
-                  >
-                    {achievementSet.isBase
-                      ? t("sandboxes.achievementsBaseGameLabel")
-                      : t("sandboxes.achievementsDlcLabel")}{" "}
-                    {t("sandboxes.achievementsLabel")}
-                  </h4>
-                  <Tooltip>
-                    <p>
-                      {achievementSet.isBase && t("sandboxes.achievementsBaseGameTooltip")}
-                      {!achievementSet.isBase && t("sandboxes.achievementsDlcTooltip")}
-                    </p>
-                  </Tooltip>
-                </TooltipTrigger>
-                <div className="justify-between items-center">
+            <section key={achievementSet.achievementSetId} className="w-full">
+              <div className="mb-4 flex flex-wrap items-baseline justify-between gap-3 border-b border-border/60 pb-2.5">
+                <div className="flex items-baseline gap-2.5">
+                  <TooltipTrigger>
+                    <h3
+                      tabIndex={0}
+                      className="cursor-help font-display text-lg font-semibold tracking-tight text-foreground underline decoration-dotted decoration-border/60 underline-offset-4 sm:text-xl"
+                    >
+                      {achievementSet.isBase
+                        ? t("sandboxes.achievementsBaseGameLabel")
+                        : t("sandboxes.achievementsDlcLabel")}{" "}
+                      {t("sandboxes.achievementsLabel")}
+                    </h3>
+                    <Tooltip>
+                      <p>
+                        {achievementSet.isBase && t("sandboxes.achievementsBaseGameTooltip")}
+                        {!achievementSet.isBase && t("sandboxes.achievementsDlcTooltip")}
+                      </p>
+                    </Tooltip>
+                  </TooltipTrigger>
+                  <span className="shrink-0 rounded-full border border-white/10 bg-card/80 px-2 py-0.5 text-xs font-medium tabular-nums text-muted-foreground">
+                    {achievementSet.achievements.length}
+                  </span>
+                </div>
+                <div className="flex items-center">
                   {achievementSet.lastUpdated && (
                     <TooltipTrigger>
                       <span
                         tabIndex={0}
-                        className="text-sm underline decoration-dotted decoration-border/60 underline-offset-4"
+                        className="cursor-help text-xs tabular-nums text-muted-foreground underline decoration-dotted decoration-border/60 underline-offset-4 sm:text-sm"
                       >
                         {t("sandboxes.lastUpdatedLabel")}{" "}
                         {new Date(achievementSet.lastUpdated).toLocaleString("en-GB", {
@@ -335,48 +353,64 @@ function SandboxAchievementsPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 mt-4">
-                {achievementSet.achievements
-                  .filter((achievement) => {
-                    if (search && search.length > 0) {
-                      return (
-                        achievement.unlockedDisplayName
-                          .toLowerCase()
-                          .includes(search.toLowerCase()) ||
-                        achievement.lockedDisplayName.toLowerCase().includes(search.toLowerCase())
-                      );
-                    }
+              {achievementSet.achievements.length > 0 ? (
+                <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                  {achievementSet.achievements
+                    .filter((achievement) => {
+                      if (search && search.length > 0) {
+                        return (
+                          achievement.unlockedDisplayName
+                            .toLowerCase()
+                            .includes(search.toLowerCase()) ||
+                          achievement.lockedDisplayName.toLowerCase().includes(search.toLowerCase())
+                        );
+                      }
 
-                    return true;
-                  })
-                  // Place hidden achievements at the bottom
-                  .sort((a, b) => (a.hidden ? 1 : b.hidden ? -1 : 0))
-                  .map((achievement, index) => (
-                    <FlippableCard
-                      key={achievement.name}
-                      achievement={achievement}
-                      flipAll={flipAll}
-                      index={index}
-                      flipped={flippedStates[achievement.name] || false}
-                      onCardFlip={handleCardFlip}
-                      blur={blur}
-                    />
-                  ))}
-              </div>
-              {achievementSet.achievements.length === 0 && (
-                <div className="w-full flex flex-col items-center justify-center h-52 mt-10 gap-2">
-                  <FileWarningIcon className="size-10 opacity-75" />
-                  <p className="text-center font-thin">
+                      return true;
+                    })
+                    .sort((a, b) => (a.hidden ? 1 : b.hidden ? -1 : 0))
+                    .map((achievement, index) => (
+                      <FlippableCard
+                        key={achievement.name}
+                        achievement={achievement}
+                        flipAll={flipAll}
+                        index={index}
+                        flipped={flippedStates[achievement.name] || false}
+                        onCardFlip={handleCardFlip}
+                        blur={blur}
+                      />
+                    ))}
+                </div>
+              ) : (
+                <div className="mt-4 flex w-full flex-col items-center justify-center gap-3 rounded-xl border border-white/10 bg-card/60 px-6 py-14 text-center">
+                  <FileWarningIcon className="size-9 text-muted-foreground/75" />
+                  <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
                     {t("sandboxes.noAchievementsForSet")}
                     <br />
                     {t("sandboxes.noAchievementsForSetExtra")}
                   </p>
                 </div>
               )}
-              <hr className="w-full my-4 border-border/40" />
-            </div>
+            </section>
           ))}
       </div>
     </div>
+  );
+}
+
+function AchievementSkeletonCard() {
+  return (
+    <Card className="flex h-72 flex-col justify-between rounded-xl border border-white/10 bg-card/80">
+      <CardHeader className="flex w-full flex-col items-center gap-2">
+        <Skeleton className="size-16 rounded-lg" />
+        <Skeleton className="h-4 w-32" />
+      </CardHeader>
+      <CardContent className="h-full">
+        <Skeleton className="h-16 w-full rounded-lg" />
+      </CardContent>
+      <CardFooter>
+        <Skeleton className="h-5 w-20 rounded-full" />
+      </CardFooter>
+    </Card>
   );
 }

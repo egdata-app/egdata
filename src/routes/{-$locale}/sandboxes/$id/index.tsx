@@ -7,6 +7,7 @@ import { EpicTrophyIcon } from "@/components/icons/epic-trophy";
 import { useCountry } from "@/hooks/use-country";
 import { calculateSize } from "@/lib/calculate-size";
 import i18n from "@/lib/i18n";
+import { timeAgo } from "@/lib/time-ago";
 import { cn } from "@/lib/utils";
 import { sandboxHubQueryOptions, type SandboxHubData } from "@/queries/sandbox-hub";
 import type { DehydratedState } from "@tanstack/react-query";
@@ -17,10 +18,17 @@ import { DateTime } from "luxon";
 import {
   Archive,
   ArrowRight,
+  Box,
   FileClock,
   LibrarySquareIcon,
+  Package,
   PackageIcon,
+  Radio,
+  Sparkles,
   StoreIcon,
+  Tag,
+  Trophy,
+  Zap,
 } from "lucide-react";
 import { useTranslation } from "@/lib/paraglide-react";
 
@@ -94,8 +102,8 @@ function SandboxHubPage() {
   }
 
   return (
-    <div className="flex flex-col gap-10">
-      {hub && <EntityMap hub={hub} />}
+    <div className="flex flex-col gap-12">
+      {hub && <EntityStatsStrip hub={hub} />}
       {isError && <SandboxQueryState error retry={() => void refetch()} />}
       <SandboxCatalogPreviews id={id} total={hub?.stats?.offers} />
       {hub && <RecentActivity hub={hub} />}
@@ -103,7 +111,7 @@ function SandboxHubPage() {
   );
 }
 
-function EntityMap({ hub }: { hub: SandboxHubData }) {
+function EntityStatsStrip({ hub }: { hub: SandboxHubData }) {
   const { t } = useTranslation();
   const entities = [
     {
@@ -111,70 +119,76 @@ function EntityMap({ hub }: { hub: SandboxHubData }) {
       value: hub.stats?.offers,
       description: t("sandboxes.entityOffersDescription"),
       icon: StoreIcon,
-      to: "/{-$locale}/sandboxes/$id/offers",
+      to: "/{-$locale}/sandboxes/$id/offers" as const,
     },
     {
       label: t("sandboxes.entityItemsLabel"),
       value: hub.stats?.items,
       description: t("sandboxes.entityItemsDescription"),
       icon: LibrarySquareIcon,
-      to: "/{-$locale}/sandboxes/$id/items",
+      to: "/{-$locale}/sandboxes/$id/items" as const,
     },
     {
       label: t("sandboxes.entityAssetsLabel"),
       value: hub.stats?.assets,
       description: t("sandboxes.entityAssetsDescription"),
       icon: Archive,
-      to: "/{-$locale}/sandboxes/$id/assets",
+      to: "/{-$locale}/sandboxes/$id/assets" as const,
     },
     {
       label: t("sandboxes.entityBuildsLabel"),
       value: hub.stats?.builds,
       description: t("sandboxes.entityBuildsDescription"),
       icon: PackageIcon,
-      to: "/{-$locale}/sandboxes/$id/builds",
+      to: "/{-$locale}/sandboxes/$id/builds" as const,
     },
     {
       label: t("sandboxes.entityAchievementsLabel"),
       value: hub.stats?.achievements,
       description: t("sandboxes.entityAchievementsDescription"),
       icon: EpicTrophyIcon,
-      to: "/{-$locale}/sandboxes/$id/achievements",
+      to: "/{-$locale}/sandboxes/$id/achievements" as const,
     },
     {
       label: t("sandboxes.entityChangelogLabel"),
       value: null,
       description: t("sandboxes.entityChangelogDescription"),
       icon: FileClock,
-      to: "/{-$locale}/sandboxes/$id/changelog",
+      to: "/{-$locale}/sandboxes/$id/changelog" as const,
     },
   ];
 
   return (
-    <section className="grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-6">
+    <section className="grid grid-cols-2 gap-x-6 gap-y-5 border-b border-border/50 pb-8 sm:grid-cols-3 lg:grid-cols-6">
       {entities.map((entity) => (
         <Link
           key={entity.label}
           to={entity.to}
           viewTransition={sandboxViewTransition}
           params={{ id: hub.id ?? "" }}
-          className="group rounded-md border border-border/60 bg-card/75 p-3 transition-colors hover:border-primary/40 hover:bg-muted/35"
+          className="group -mx-2 flex min-w-0 flex-col items-start rounded-lg px-2 py-1.5 text-start transition-colors duration-150 hover:bg-card/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         >
-          <div className="flex items-center justify-between gap-4">
-            <div className="flex min-w-0 items-center gap-3">
-              <entity.icon className="size-4 text-primary" />
-              <div className="min-w-0">
-                <div className="font-medium">{entity.label}</div>
-                <div className="mt-0.5 text-xs text-muted-foreground">{entity.description}</div>
-              </div>
-            </div>
-            <ArrowRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-primary" />
+          <div className="flex w-full items-baseline justify-between gap-2">
+            <span className="font-display text-2xl font-bold tracking-tight tabular-nums text-foreground transition-colors duration-150 group-hover:text-primary sm:text-3xl">
+              {typeof entity.value === "number"
+                ? formatSandboxCount(entity.value)
+                : t("sandboxes.viewButton")}
+            </span>
+            <ArrowRight
+              aria-hidden="true"
+              className="size-3.5 shrink-0 text-muted-foreground/50 transition-all duration-150 group-hover:translate-x-0.5 group-hover:text-primary"
+            />
           </div>
-          <div className="mt-2 text-lg font-semibold">
-            {typeof entity.value === "number"
-              ? formatSandboxCount(entity.value)
-              : t("sandboxes.viewButton")}
-          </div>
+          <span className="mt-1.5 inline-flex items-center gap-1.5 text-sm font-medium text-foreground/90">
+            <entity.icon
+              aria-hidden="true"
+              className="size-3.5 shrink-0 text-muted-foreground transition-colors duration-150 group-hover:text-primary"
+            />
+            <span className="truncate">{entity.label}</span>
+          </span>
+          <span className="mt-0.5 truncate text-xs text-muted-foreground">
+            {entity.description}
+          </span>
         </Link>
       ))}
     </section>
@@ -183,8 +197,8 @@ function EntityMap({ hub }: { hub: SandboxHubData }) {
 
 function RecentActivity({ hub }: { hub: SandboxHubData }) {
   const { t } = useTranslation();
-  const recentBuilds = (hub.recentBuilds ?? []).filter((build) => build?._id).slice(0, 3);
-  const recentChanges = (hub.recentChanges ?? []).filter((change) => change?._id).slice(0, 3);
+  const recentBuilds = (hub.recentBuilds ?? []).filter((build) => build?._id).slice(0, 6);
+  const recentChanges = (hub.recentChanges ?? []).filter((change) => change?._id).slice(0, 6);
   const hasBuilds = recentBuilds.length > 0;
   const hasChanges = recentChanges.length > 0;
 
@@ -193,14 +207,25 @@ function RecentActivity({ hub }: { hub: SandboxHubData }) {
   }
 
   return (
-    <section className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+    <section className="grid grid-cols-1 items-start gap-x-8 gap-y-10 lg:grid-cols-2">
       {hasBuilds && (
         <SandboxDataSurface
           title={t("sandboxes.recentBuildsTitle")}
           description={t("sandboxes.recentBuildsDescription")}
           badge={`${recentBuilds.length} ${t("sandboxes.latestBadge")}`}
+          action={
+            <Link
+              to="/{-$locale}/sandboxes/$id/builds"
+              params={{ id: hub.id ?? "" }}
+              viewTransition={sandboxViewTransition}
+              className="group/link inline-flex items-center gap-1 text-xs font-medium text-muted-foreground transition-colors hover:text-primary"
+            >
+              <span>{t("sandboxCatalog.viewAll")}</span>
+              <ArrowRight className="size-3.5 transition-transform group-hover/link:translate-x-0.5" />
+            </Link>
+          }
         >
-          <div className="flex flex-col gap-2">
+          <div className="divide-y divide-border/35">
             {recentBuilds.map((build) => {
               if (!build?._id) {
                 return null;
@@ -211,19 +236,26 @@ function RecentActivity({ hub }: { hub: SandboxHubData }) {
                   key={build._id}
                   to="/{-$locale}/builds/$id"
                   params={{ id: build._id }}
-                  className="group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 rounded-md border border-border/60 bg-card/75 p-4 transition-colors hover:border-primary/40 hover:bg-muted/35"
+                  className="group -mx-2 flex min-w-0 items-center gap-3 rounded-md px-2 py-2.5 transition-colors duration-150 hover:bg-card/80"
                 >
-                  <div className="min-w-0">
-                    <div className="truncate font-medium">
+                  <div className="flex size-8 shrink-0 items-center justify-center rounded-md bg-muted/50 text-muted-foreground ring-1 ring-white/10 transition-colors group-hover:text-primary">
+                    <Package className="size-4" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="truncate text-sm font-medium text-foreground transition-colors group-hover:text-primary">
                       {build?.labelName || build?.appName || t("sandboxes.unknownBuildLabel")}
                     </div>
-                    <div className="mt-1 truncate text-sm text-muted-foreground">
+                    <div className="truncate font-mono text-xs text-muted-foreground">
                       {build?.buildVersion || build?.appName}
                     </div>
                   </div>
-                  <div className="shrink-0 text-right text-sm text-muted-foreground">
-                    <div>{calculateSize(Number(build?.downloadSizeBytes ?? 0))}</div>
-                    <div>{formatDate(build?.updatedAt)}</div>
+                  <div className="shrink-0 text-right tabular-nums">
+                    <div className="text-xs font-medium text-foreground/90">
+                      {calculateSize(Number(build?.downloadSizeBytes ?? 0))}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {formatDate(build?.updatedAt)}
+                    </div>
                   </div>
                 </Link>
               );
@@ -237,37 +269,56 @@ function RecentActivity({ hub }: { hub: SandboxHubData }) {
           title={t("sandboxes.recentChangesTitle")}
           description={t("sandboxes.recentChangesDescription")}
           badge={`${recentChanges.length} ${t("sandboxes.latestBadge")}`}
+          action={
+            <Link
+              to="/{-$locale}/sandboxes/$id/changelog"
+              params={{ id: hub.id ?? "" }}
+              viewTransition={sandboxViewTransition}
+              className="group/link inline-flex items-center gap-1 text-xs font-medium text-muted-foreground transition-colors hover:text-primary"
+            >
+              <span>{t("sandboxCatalog.viewAll")}</span>
+              <ArrowRight className="size-3.5 transition-transform group-hover/link:translate-x-0.5" />
+            </Link>
+          }
         >
-          <div className="flex flex-col gap-2">
+          <div className="divide-y divide-border/35">
             {recentChanges.map((change) => {
               if (!change?._id) {
                 return null;
               }
 
               const firstChange = change?.metadata?.changes?.[0];
+              const Icon = getChangeIcon(change?.metadata?.contextType, firstChange?.changeType);
 
               return (
                 <Link
                   key={change._id}
                   to="/{-$locale}/sandboxes/$id/changelog"
                   params={{ id: hub.id ?? "" }}
-                  className="group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 rounded-md border border-border/60 bg-card/75 p-4 transition-colors hover:border-primary/40 hover:bg-muted/35"
+                  viewTransition={sandboxViewTransition}
+                  className="group -mx-2 flex min-w-0 items-center gap-3 rounded-md px-2 py-2.5 transition-colors duration-150 hover:bg-card/80"
                 >
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-2">
+                  <div className="flex size-8 shrink-0 items-center justify-center rounded-md bg-muted/50 text-muted-foreground ring-1 ring-white/10 transition-colors group-hover:text-primary">
+                    <Icon className="size-3.5" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex min-w-0 items-center gap-2">
                       <ChangeTypeBadge value={firstChange?.changeType} />
-                      <div className="truncate font-medium">
+                      <span className="truncate text-sm font-medium text-foreground transition-colors group-hover:text-primary">
                         {formatContextType(change?.metadata?.contextType)}
-                        {firstChange?.field ? ` - ${firstChange.field}` : ""}
-                      </div>
+                        {firstChange?.field ? ` · ${firstChange.field}` : ""}
+                      </span>
                     </div>
-                    <div className="mt-1 truncate font-mono text-xs text-muted-foreground">
+                    <div className="mt-0.5 truncate font-mono text-xs text-muted-foreground/80">
                       {change?.metadata?.contextId}
                     </div>
                   </div>
-                  <div className="shrink-0 text-sm text-muted-foreground">
-                    {formatDate(change?.timestamp)}
-                  </div>
+                  <span
+                    suppressHydrationWarning
+                    className="shrink-0 text-xs tabular-nums text-muted-foreground"
+                  >
+                    {change?.timestamp ? timeAgo(new Date(change.timestamp)) : formatDate(null)}
+                  </span>
                 </Link>
               );
             })}
@@ -278,12 +329,30 @@ function RecentActivity({ hub }: { hub: SandboxHubData }) {
   );
 }
 
+function getChangeIcon(contextType: string | null | undefined, action: string | null | undefined) {
+  if (action === "insert") return Sparkles;
+  if (action === "delete") return Zap;
+
+  switch (contextType) {
+    case "build":
+      return Package;
+    case "offer":
+      return Tag;
+    case "achievements":
+      return Trophy;
+    case "item":
+      return Box;
+    default:
+      return Radio;
+  }
+}
+
 function ChangeTypeBadge({ value }: { value: string | null | undefined }) {
   const { t } = useTranslation();
   return (
     <span
       className={cn(
-        "rounded-sm px-1.5 py-0.5 text-[11px] font-semibold uppercase leading-none",
+        "shrink-0 rounded-md px-1.5 py-0.5 text-[10px] font-semibold uppercase leading-none tracking-wide",
         value === "insert" && "bg-emerald-500/15 text-emerald-300",
         value === "delete" && "bg-destructive/15 text-destructive",
         value !== "insert" && value !== "delete" && "bg-primary/15 text-primary",
@@ -296,11 +365,25 @@ function ChangeTypeBadge({ value }: { value: string | null | undefined }) {
 
 function SandboxHubSkeleton() {
   return (
-    <div className="flex flex-col gap-8">
-      <div className="h-44 animate-pulse rounded-md border border-border/60 bg-card/75" />
-      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 xl:grid-cols-6">
+    <div className="flex flex-col gap-10">
+      <div className="grid grid-cols-2 gap-x-6 gap-y-5 border-b border-border/50 pb-8 sm:grid-cols-3 lg:grid-cols-6">
         {Array.from({ length: 6 }).map((_, index) => (
-          <div key={index} className="h-28 animate-pulse rounded-md bg-muted" />
+          // biome-ignore lint/suspicious/noArrayIndexKey: skeleton placeholders
+          <div key={index} className="space-y-2 py-1.5">
+            <div className="h-8 w-16 animate-pulse rounded bg-muted/40" />
+            <div className="h-4 w-20 animate-pulse rounded bg-muted/30" />
+            <div className="h-3 w-24 animate-pulse rounded bg-muted/20" />
+          </div>
+        ))}
+      </div>
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {Array.from({ length: 4 }).map((_, index) => (
+          // biome-ignore lint/suspicious/noArrayIndexKey: skeleton placeholders
+          <div key={index} className="space-y-2.5">
+            <div className="aspect-[16/9] animate-pulse rounded-lg bg-muted/40" />
+            <div className="h-4 w-3/4 animate-pulse rounded bg-muted/30" />
+            <div className="h-3.5 w-1/3 animate-pulse rounded bg-muted/25" />
+          </div>
         ))}
       </div>
     </div>

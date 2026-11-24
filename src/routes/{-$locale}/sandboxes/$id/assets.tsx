@@ -10,6 +10,7 @@ import type { Asset } from "@/types/asset";
 import { getQueryClient } from "@/lib/client";
 import { getFetchedQuery } from "@/lib/get-fetched-query";
 import { generateSandboxMeta } from "@/lib/generate-sandbox-meta";
+import { cn } from "@/lib/utils";
 import {
   sandboxBaseGameQueryOptions,
   sandboxQueryOptions,
@@ -18,7 +19,7 @@ import {
 } from "@/queries/sandbox";
 import { useEffect, useState } from "react";
 import type { ColumnFiltersState } from "@tanstack/react-table";
-import { Archive } from "lucide-react";
+import { Archive, RefreshCw } from "lucide-react";
 import { useTranslation } from "@/lib/paraglide-react";
 import i18n from "@/lib/i18n";
 
@@ -96,6 +97,9 @@ export const Route = createFileRoute("/{-$locale}/sandboxes/$id/assets")({
   },
 });
 
+const editorialTableSurface =
+  "[&_.rounded-md.border]:rounded-xl [&_.rounded-md.border]:border-white/10 [&_.rounded-md.border]:bg-card/40 [&_thead_tr]:border-border/50 [&_tbody_tr]:border-border/30 [&_tbody_tr:hover]:bg-card/80";
+
 function SandboxAssetsPage() {
   const { t } = useTranslation();
   const { id } = Route.useParams();
@@ -132,7 +136,7 @@ function SandboxAssetsPage() {
   }, [assetsData, isPlaceholderData, page.pageIndex]);
 
   return (
-    <div className="flex min-w-0 flex-col gap-5 w-full">
+    <div className="flex w-full min-w-0 flex-col gap-6">
       <SandboxPageHeader
         icon={Archive}
         eyebrow={t("sandboxes.assetsEyebrow")}
@@ -141,18 +145,30 @@ function SandboxAssetsPage() {
         stats={[
           { label: t("sandboxes.totalAssetsLabel"), value: formatSandboxCount(assetsData?.count) },
         ]}
-      />
-      {isFetching && !isPending && (
-        <p role="status" className="text-sm text-muted-foreground">
-          {t("sandboxCatalog.refreshing")}
-        </p>
-      )}
+      >
+        {isFetching && !isPending && (
+          <span
+            role="status"
+            className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-card/80 px-3 py-1 text-xs text-muted-foreground"
+          >
+            <RefreshCw className="size-3 animate-spin" />
+            {t("sandboxCatalog.refreshing")}
+          </span>
+        )}
+      </SandboxPageHeader>
       {isPending ? (
         <SandboxQueryState loading />
       ) : isError ? (
         <SandboxQueryState error retry={() => void refetch()} />
       ) : (
-        <div aria-busy={isFetching} className={isPlaceholderData ? "opacity-60" : ""}>
+        <div
+          aria-busy={isFetching}
+          className={cn(
+            "transition-opacity duration-150",
+            editorialTableSurface,
+            isPlaceholderData && "opacity-60",
+          )}
+        >
           <DataTable
             columns={columns}
             data={assetsData?.elements ?? []}

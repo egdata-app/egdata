@@ -544,7 +544,7 @@ body::before {
 ::view-transition-group(sandbox-artwork) {
   z-index: 2;
   overflow: hidden;
-  border-radius: 6px;
+  border-radius: 0.75rem;
 }
 
 ::view-transition-old(sandbox-artwork),

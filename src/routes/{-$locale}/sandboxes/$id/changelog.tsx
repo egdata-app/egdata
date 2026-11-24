@@ -2,6 +2,7 @@ import { SandboxQueryState } from "@/components/app/sandbox-catalog";
 import { ChangeTracker } from "@/components/app/changelog/item";
 import { DynamicPagination } from "@/components/app/dynamic-pagination";
 import { formatSandboxCount, SandboxPageHeader } from "@/components/app/sandbox-layout";
+import { Skeleton } from "@/components/ui/skeleton";
 import { getQueryClient } from "@/lib/client";
 import { generateSandboxMeta } from "@/lib/generate-sandbox-meta";
 import {
@@ -22,7 +23,7 @@ import type { SingleOffer } from "@/types/single-offer";
 import type { DehydratedState } from "@tanstack/react-query";
 import { dehydrate, HydrationBoundary, keepPreviousData, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { FileClock } from "lucide-react";
+import { FileClock, RefreshCw } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "@/lib/paraglide-react";
 import i18n from "@/lib/i18n";
@@ -196,17 +197,27 @@ function RouteComponent() {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col gap-6 w-full">
+      <div className="flex w-full flex-col gap-6">
         <SandboxPageHeader
           icon={FileClock}
           eyebrow={t("sandboxes.changelogEyebrow")}
           title={t("sandboxes.changelogTitle")}
           description={t("sandboxes.changelogDescription")}
-          stats={[{ label: t("sandboxes.totalChangesLabel"), value: t("sandboxCatalog.loading") }]}
+          stats={[{ label: t("sandboxes.totalChangesLabel"), value: "—" }]}
         />
-        <div className="grid grid-cols-1 gap-4 w-full">
-          {Array.from({ length: 5 }).map((_, index) => (
-            <div key={index} className="h-28 animate-pulse rounded-md bg-muted" />
+        <div className="grid w-full grid-cols-1 gap-4">
+          {Array.from({ length: 4 }).map((_, index) => (
+            <div
+              // biome-ignore lint/suspicious/noArrayIndexKey: skeleton placeholders
+              key={index}
+              className="flex flex-col gap-4 rounded-xl border border-white/10 bg-card/60 p-5"
+            >
+              <div className="flex items-center justify-between gap-3">
+                <Skeleton className="h-5 w-36 rounded-md" />
+                <Skeleton className="h-4 w-28 rounded-md" />
+              </div>
+              <Skeleton className="h-20 w-full rounded-lg" />
+            </div>
           ))}
         </div>
       </div>
@@ -216,7 +227,7 @@ function RouteComponent() {
   if (isError) return <SandboxQueryState error retry={() => void refetch()} />;
 
   return (
-    <div className="flex flex-col gap-6 w-full">
+    <div className="flex w-full flex-col gap-6">
       <SandboxPageHeader
         icon={FileClock}
         eyebrow={t("sandboxes.changelogEyebrow")}
@@ -228,15 +239,20 @@ function RouteComponent() {
             value: formatSandboxCount(data?.estimatedTotalHits),
           },
         ]}
-      />
-      {isFetching && (
-        <p role="status" className="text-sm text-muted-foreground">
-          {t("sandboxCatalog.refreshing")}
-        </p>
-      )}
-      <div className="grid grid-cols-1 gap-4 w-full">
+      >
+        {isFetching && (
+          <span
+            role="status"
+            className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-card/80 px-3 py-1 text-xs text-muted-foreground"
+          >
+            <RefreshCw className="size-3 animate-spin" />
+            {t("sandboxCatalog.refreshing")}
+          </span>
+        )}
+      </SandboxPageHeader>
+
+      <div className="flex w-full flex-col gap-4 [&>[data-slot=card]]:rounded-xl [&>[data-slot=card]]:border [&>[data-slot=card]]:border-white/10 [&>[data-slot=card]]:bg-card/80 [&>[data-slot=card]]:transition-[box-shadow,border-color,background-color] [&>[data-slot=card]]:duration-200 [&>[data-slot=card]]:ease-out [&>[data-slot=card]:hover]:border-primary/60 [&>[data-slot=card]:hover]:bg-card [&>[data-slot=card]:hover]:shadow-lg [&>[data-slot=card]:hover]:shadow-black/35">
         {data?.hits
-          // Filter out hits without metadata
           .filter((hit) => hit.metadata)
           .map((hit) => (
             <ChangeTracker
@@ -250,15 +266,19 @@ function RouteComponent() {
             />
           ))}
       </div>
+
       {data?.hits?.length === 0 && <SandboxQueryState empty />}
+
       {(data?.hits?.length ?? 0) > 0 && (
-        <DynamicPagination
-          cursorMode
-          totalPages={data?.totalPages ?? null}
-          hasMore={data?.hasMore}
-          currentPage={page}
-          setPage={setPage}
-        />
+        <div className="[&_button]:transition-colors [&_button]:duration-150">
+          <DynamicPagination
+            cursorMode
+            totalPages={data?.totalPages ?? null}
+            hasMore={data?.hasMore}
+            currentPage={page}
+            setPage={setPage}
+          />
+        </div>
       )}
     </div>
   );
